@@ -17,16 +17,16 @@
  * under the License.
  */
 
-webSiteRoleDatas = [] as LinkedList;
+webSiteRoleDatas = [] as LinkedList
 if (webSite) {
-    webSiteRoles = webSite.getRelated("WebSiteRole", null, ['sequenceNum', 'partyId'], false);
+    webSiteRoles = webSite.getRelated("WebSiteRole", null, ['sequenceNum', 'partyId'], false)
     webSiteRoles.each { webSiteRole ->
-        Map webSiteRoleData = [:];
-        webSiteRoleData.webSiteRole = webSiteRole;
-        webSiteRoleData.person = webSiteRole.getRelatedOne("Person", false);
-        webSiteRoleData.partyGroup = webSiteRole.getRelatedOne("PartyGroup", false);
-        webSiteRoleData.roleType = webSiteRole.getRelatedOne("RoleType", true);
-        webSiteRoleDatas.add(webSiteRoleData);
+        Map webSiteRoleData = [:]
+        webSiteRoleData.webSiteRole = webSiteRole
+        webSiteRoleData.person = webSiteRole.getRelatedOne("Person", false)
+        webSiteRoleData.partyGroup = webSiteRole.getRelatedOne("PartyGroup", false)
+        webSiteRoleData.roleType = webSiteRole.getRelatedOne("RoleType", true)
+        webSiteRoleDatas.add(webSiteRoleData)
     }
 }
-context.webSiteRoleDatas = webSiteRoleDatas;
+context.webSiteRoleDatas = webSiteRoleDatas

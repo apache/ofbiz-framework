@@ -17,13 +17,13 @@
  * under the License.
  */
 
-jobSandboxs = from("JobSandbox").where("authUserLoginId", userLoginId).queryList();
+jobSandboxs = from("JobSandbox").where("authUserLoginId", userLoginId).queryList()
 job = null
-jobId = null;
+jobId = null
 if(jobSandboxs) {
-    job = jobSandboxs.get(0);
+    job = jobSandboxs.get(0)
 } else {
-    jobId = delegator.getNextSeqId("JobSandbox");
+    jobId = delegator.getNextSeqId("JobSandbox")
 }
-context.jobId = jobId;
-context.job = job;
+context.jobId = jobId
+context.job = job

@@ -17,32 +17,32 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMisc
 
-facilityId = parameters.get("facilityId");
-fixedAssetId = parameters.get("fixedAssetId");
-partyId = parameters.get("partyId");
-workEffortTypeId = parameters.get("workEffortTypeId");
-calendarType = parameters.calendarType;
-start = nowTimestamp.clone();
-eventsParam = "";
+facilityId = parameters.get("facilityId")
+fixedAssetId = parameters.get("fixedAssetId")
+partyId = parameters.get("partyId")
+workEffortTypeId = parameters.get("workEffortTypeId")
+calendarType = parameters.calendarType
+start = nowTimestamp.clone()
+eventsParam = ""
 if (facilityId != null) {
-    eventsParam = "facilityId=" + facilityId;
+    eventsParam = "facilityId=" + facilityId
 }
 if (fixedAssetId != null) {
-    eventsParam = "fixedAssetId=" + fixedAssetId;
+    eventsParam = "fixedAssetId=" + fixedAssetId
 }
 if (partyId != null) {
-    eventsParam = "partyId=" + partyId;
+    eventsParam = "partyId=" + partyId
 }
 if (workEffortTypeId != null) {
-    eventsParam = "workEffortTypeId=" + workEffortTypeId;
+    eventsParam = "workEffortTypeId=" + workEffortTypeId
 }
 
-Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 7, "periodType", Calendar.DATE);
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "calendarType", calendarType, "locale", locale, "timeZone", timeZone));
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 7, "periodType", Calendar.DATE)
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "calendarType", calendarType, "locale", locale, "timeZone", timeZone))
 
-Map result = runService('getWorkEffortEventsByPeriod',serviceCtx);
-context.put("days", result.get("periods"));
-context.put("start", start);
-context.put("eventsParam", eventsParam);
+Map result = runService('getWorkEffortEventsByPeriod',serviceCtx)
+context.put("days", result.get("periods"))
+context.put("start", start)
+context.put("eventsParam", eventsParam)

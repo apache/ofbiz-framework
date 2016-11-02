@@ -17,54 +17,54 @@
  * under the License.
  */
 
-findOrganizationPartyId = parameters.findOrganizationPartyId;
+findOrganizationPartyId = parameters.findOrganizationPartyId
 if (findOrganizationPartyId) {
-    context.findOrganizationPartyId = findOrganizationPartyId;
+    context.findOrganizationPartyId = findOrganizationPartyId
 }
 
-currentCustomTimePeriodId = parameters.currentCustomTimePeriodId;
+currentCustomTimePeriodId = parameters.currentCustomTimePeriodId
 if (currentCustomTimePeriodId) {
-    context.currentCustomTimePeriodId = currentCustomTimePeriodId;
+    context.currentCustomTimePeriodId = currentCustomTimePeriodId
 }
 
-currentCustomTimePeriod = currentCustomTimePeriodId ? from("CustomTimePeriod").where("customTimePeriodId", currentCustomTimePeriodId).queryOne() : null;
+currentCustomTimePeriod = currentCustomTimePeriodId ? from("CustomTimePeriod").where("customTimePeriodId", currentCustomTimePeriodId).queryOne() : null
 if (currentCustomTimePeriod) {
-    context.currentCustomTimePeriod = currentCustomTimePeriod;
+    context.currentCustomTimePeriod = currentCustomTimePeriod
 }
 
-currentPeriodType = currentCustomTimePeriod ? currentCustomTimePeriod.getRelatedOne("PeriodType", true) : null;
+currentPeriodType = currentCustomTimePeriod ? currentCustomTimePeriod.getRelatedOne("PeriodType", true) : null
 if (currentPeriodType) {
-    context.currentPeriodType = currentPeriodType;
+    context.currentPeriodType = currentPeriodType
 }
 
-findMap = [ : ];
-if (findOrganizationPartyId) findMap.organizationPartyId = findOrganizationPartyId;
-if (currentCustomTimePeriodId) findMap.parentPeriodId = currentCustomTimePeriodId;
+findMap = [ : ]
+if (findOrganizationPartyId) findMap.organizationPartyId = findOrganizationPartyId
+if (currentCustomTimePeriodId) findMap.parentPeriodId = currentCustomTimePeriodId
 
-customTimePeriods = from("CustomTimePeriod").where(findMap).orderBy(["periodTypeId", "periodNum", "fromDate"]).queryList();
-context.customTimePeriods = customTimePeriods;
+customTimePeriods = from("CustomTimePeriod").where(findMap).orderBy(["periodTypeId", "periodNum", "fromDate"]).queryList()
+context.customTimePeriods = customTimePeriods
 
-allCustomTimePeriods = from("CustomTimePeriod").orderBy(["organizationPartyId", "parentPeriodId", "periodTypeId", "periodNum", "fromDate"]).queryList();
-context.allCustomTimePeriods = allCustomTimePeriods;
+allCustomTimePeriods = from("CustomTimePeriod").orderBy(["organizationPartyId", "parentPeriodId", "periodTypeId", "periodNum", "fromDate"]).queryList()
+context.allCustomTimePeriods = allCustomTimePeriods
 
-periodTypes = from("PeriodType").orderBy("description").cache(true).queryList();
-context.periodTypes = periodTypes;
+periodTypes = from("PeriodType").orderBy("description").cache(true).queryList()
+context.periodTypes = periodTypes
 
-newPeriodTypeId = "FISCAL_YEAR";
+newPeriodTypeId = "FISCAL_YEAR"
 if ("FISCAL_YEAR".equals(currentCustomTimePeriod?.periodTypeId)) {
-    newPeriodTypeId = "FISCAL_QUARTER";
+    newPeriodTypeId = "FISCAL_QUARTER"
 }
 if ("FISCAL_QUARTER".equals(currentCustomTimePeriod?.periodTypeId)) {
-    newPeriodTypeId = "FISCAL_MONTH";
+    newPeriodTypeId = "FISCAL_MONTH"
 }
 if ("FISCAL_MONTH".equals(currentCustomTimePeriod?.periodTypeId)) {
-    newPeriodTypeId = "FISCAL_WEEK";
+    newPeriodTypeId = "FISCAL_WEEK"
 }
 if ("FISCAL_BIWEEK".equals(currentCustomTimePeriod?.periodTypeId)) {
-    newPeriodTypeId = "FISCAL_WEEK";
+    newPeriodTypeId = "FISCAL_WEEK"
 }
 if ("FISCAL_WEEK".equals(currentCustomTimePeriod?.periodTypeId)) {
-    newPeriodTypeId = "";
+    newPeriodTypeId = ""
 }
 
-context.newPeriodTypeId = newPeriodTypeId;
+context.newPeriodTypeId = newPeriodTypeId

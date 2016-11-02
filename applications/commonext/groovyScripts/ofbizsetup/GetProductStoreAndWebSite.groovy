@@ -16,25 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- import org.apache.ofbiz.entity.util.EntityUtil;
+ import org.apache.ofbiz.entity.util.EntityUtil
  
- productStoreId = null;
+ productStoreId = null
  
-productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false));
+productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false))
 if(productStore){
     productStoreId = productStore.productStoreId
 }
-context.productStoreId = productStoreId;
-context.productStore = productStore;
+context.productStoreId = productStoreId
+context.productStore = productStore
 
 if("website".equals(tabButtonItemTop)){
     if(productStoreId != null){
-        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId], null, false));
-        context.showScreen = "origin";
+        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId], null, false))
+        context.showScreen = "origin"
     }else{
-        request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!");
-        context.showScreen = "message";
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!")
+        context.showScreen = "message"
+        return
     }
-    context.webSite = webSite;
+    context.webSite = webSite
 }

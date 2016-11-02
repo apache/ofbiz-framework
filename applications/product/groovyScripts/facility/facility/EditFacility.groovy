@@ -17,34 +17,34 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*
 
-facilityId = parameters.facilityId;
+facilityId = parameters.facilityId
 if (!facilityId && request.getAttribute("facilityId")) {
-  facilityId = request.getAttribute("facilityId");
+  facilityId = request.getAttribute("facilityId")
 }
-facility = from("Facility").where("facilityId", facilityId).queryOne();
+facility = from("Facility").where("facilityId", facilityId).queryOne()
 if (!facility) {
-  facility = delegator.makeValue("Facility");
-  facilityType = delegator.makeValue("FacilityType");
+  facility = delegator.makeValue("Facility")
+  facilityType = delegator.makeValue("FacilityType")
 } else {
-  facilityType = facility.getRelatedOne("FacilityType", false);
+  facilityType = facility.getRelatedOne("FacilityType", false)
 }
-context.facility = facility;
-context.facilityType = facilityType;
-context.facilityId = facilityId;
+context.facility = facility
+context.facilityType = facilityType
+context.facilityId = facilityId
 
 //Facility types
-facilityTypes = from("FacilityType").queryList();
+facilityTypes = from("FacilityType").queryList()
 if (facilityTypes) {
-  context.facilityTypes = facilityTypes;
+  context.facilityTypes = facilityTypes
 }
 
 // all possible inventory item types
-context.inventoryItemTypes = from("InventoryItemType").orderBy("description").cache(true).queryList();
+context.inventoryItemTypes = from("InventoryItemType").orderBy("description").cache(true).queryList()
 
 // weight unit of measures
-context.weightUomList = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").cache(true).queryList();
+context.weightUomList = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").cache(true).queryList()
 
 // area unit of measures
-context.areaUomList = from("Uom").where("uomTypeId", "AREA_MEASURE").cache(true).queryList();
+context.areaUomList = from("Uom").where("uomTypeId", "AREA_MEASURE").cache(true).queryList()

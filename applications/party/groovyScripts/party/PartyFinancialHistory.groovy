@@ -17,26 +17,26 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.accounting.invoice.InvoiceWorker;
-import org.apache.ofbiz.accounting.payment.PaymentWorker;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityTypeUtil;
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityTypeUtil
 
-Boolean actualCurrency = new Boolean(context.actualCurrency);
+Boolean actualCurrency = new Boolean(context.actualCurrency)
 if (actualCurrency == null) {
-    actualCurrency = true;
+    actualCurrency = true
 }
-actualCurrencyUomId = context.actualCurrencyUomId;
+actualCurrencyUomId = context.actualCurrencyUomId
 if (!actualCurrencyUomId) {
-    actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId;
+    actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
 }
 //get total/unapplied/applied invoices separated by sales/purch amount:
-totalInvSaApplied = BigDecimal.ZERO;
-totalInvSaNotApplied = BigDecimal.ZERO;
-totalInvPuApplied = BigDecimal.ZERO;
-totalInvPuNotApplied = BigDecimal.ZERO;
+totalInvSaApplied = BigDecimal.ZERO
+totalInvSaNotApplied = BigDecimal.ZERO
+totalInvPuApplied = BigDecimal.ZERO
+totalInvPuNotApplied = BigDecimal.ZERO
 
 invExprs =
     EntityCondition.makeCondition([
@@ -53,33 +53,33 @@ invExprs =
                 EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
                 ],EntityOperator.AND)
             ],EntityOperator.OR)
-        ],EntityOperator.AND);
+        ],EntityOperator.AND)
 
-invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator();
+invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
 while (invoice = invIterator.next()) {
-    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", invoice.getString("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE");
-    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.getString("invoiceTypeId"), "parentTypeId", "SALES_INVOICE");
+    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", invoice.getString("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE")
+    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.getString("invoiceTypeId"), "parentTypeId", "SALES_INVOICE")
     if (isPurchaseInvoice) {
-        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else if (isSalesInvoice) {
-        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        Debug.logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE", "");
+        Debug.logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE", "")
     }
 }
 
-invIterator.close();
+invIterator.close()
 
 //get total/unapplied/applied payment in/out total amount:
-totalPayInApplied = BigDecimal.ZERO;
-totalPayInNotApplied = BigDecimal.ZERO;
-totalPayOutApplied = BigDecimal.ZERO;
-totalPayOutNotApplied = BigDecimal.ZERO;
+totalPayInApplied = BigDecimal.ZERO
+totalPayInNotApplied = BigDecimal.ZERO
+totalPayOutApplied = BigDecimal.ZERO
+totalPayOutNotApplied = BigDecimal.ZERO
 
 payExprs =
     EntityCondition.makeCondition([
@@ -95,38 +95,38 @@ payExprs =
                 EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
                 ], EntityOperator.AND)
             ], EntityOperator.OR)
-        ], EntityOperator.AND);
+        ], EntityOperator.AND)
 
-payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator();
+payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
 while (payment = payIterator.next()) {
     if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
-        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else if ("RECEIPT".equals(payment.parentTypeId)) {
-        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
-        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "");
+        Debug.logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT", "")
     }
 }
-payIterator.close();
+payIterator.close()
 
-context.finanSummary = [:];
-context.finanSummary.totalSalesInvoice = totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied);
-context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied);
-context.finanSummary.totalPaymentsIn = totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied);
-context.finanSummary.totalPaymentsOut = totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied);
-context.finanSummary.totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied);
-context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied);
+context.finanSummary = [:]
+context.finanSummary.totalSalesInvoice = totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied)
+context.finanSummary.totalPurchaseInvoice = totalPurchaseInvoice = totalInvPuApplied.add(totalInvPuNotApplied)
+context.finanSummary.totalPaymentsIn = totalPaymentsIn = totalPayInApplied.add(totalPayInNotApplied)
+context.finanSummary.totalPaymentsOut = totalPaymentsOut = totalPayOutApplied.add(totalPayOutNotApplied)
+context.finanSummary.totalInvoiceNotApplied = totalInvSaNotApplied.subtract(totalInvPuNotApplied)
+context.finanSummary.totalPaymentNotApplied = totalPayInNotApplied.subtract(totalPayOutNotApplied)
 
-transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).subtract(totalPaymentsOut);
+transferAmount = totalSalesInvoice.subtract(totalPurchaseInvoice).subtract(totalPaymentsIn).subtract(totalPaymentsOut)
 
 if (transferAmount.signum() == -1) { // negative?
-    context.finanSummary.totalToBeReceived = transferAmount.negate();
+    context.finanSummary.totalToBeReceived = transferAmount.negate()
 } else {
-    context.finanSummary.totalToBePaid = transferAmount;
+    context.finanSummary.totalToBePaid = transferAmount
 }
 

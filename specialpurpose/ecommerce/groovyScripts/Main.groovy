@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.catalog.*
 
-catalogId = CatalogWorker.getCurrentCatalogId(request);
-promoCat = CatalogWorker.getCatalogPromotionsCategoryId(request, catalogId);
-request.setAttribute("productCategoryId", promoCat);
+catalogId = CatalogWorker.getCurrentCatalogId(request)
+promoCat = CatalogWorker.getCatalogPromotionsCategoryId(request, catalogId)
+request.setAttribute("productCategoryId", promoCat)
 
-/* NOTE DEJ20070220 woah, this is doing weird stuff like always showing the last viewed category when going to the main page;
+/* NOTE DEJ20070220 woah, this is doing weird stuff like always showing the last viewed category when going to the main page
  * It appears this was done for to make it go back to the desired category after logging in, but this is NOT the place to do that,
  * and IMO this is an unacceptable side-effect.
  *
@@ -33,10 +33,10 @@ request.setAttribute("productCategoryId", promoCat);
  *
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
-productCategoryId = session.getAttribute("productCategoryId");
+productCategoryId = session.getAttribute("productCategoryId")
 if (!productCategoryId) {
-    request.setAttribute("productCategoryId", promoCat);
+    request.setAttribute("productCategoryId", promoCat)
 } else {
-    request.setAttribute("productCategoryId", productCategoryId);
+    request.setAttribute("productCategoryId", productCategoryId)
 }
 */

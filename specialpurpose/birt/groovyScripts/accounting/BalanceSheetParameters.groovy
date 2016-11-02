@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import java.sql.Timestamp;
-import org.apache.ofbiz.base.util.Debug;
+import java.sql.Timestamp
+import org.apache.ofbiz.base.util.Debug
 
-def module = "BalanceSheetParameters.groovy";
+def module = "BalanceSheetParameters.groovy"
 
 try {
-    def birtParameters = [:];
+    def birtParameters = [:]
     if (parameters.fromDate) {
-        birtParameters.fromDate = Timestamp.valueOf(parameters.fromDate);
+        birtParameters.fromDate = Timestamp.valueOf(parameters.fromDate)
     }
     if (parameters.thruDate) {
-        birtParameters.thruDate = Timestamp.valueOf(parameters.thruDate);
+        birtParameters.thruDate = Timestamp.valueOf(parameters.thruDate)
     }
-    birtParameters.glFiscalTypeId = parameters.glFiscalTypeId;
-    birtParameters.organizationPartyId = parameters.organizationPartyId;
-    birtParameters.userLoginId = userLogin.userLoginId;
-    birtParameters.locale = locale;
-    request.setAttribute("birtParameters", birtParameters);
+    birtParameters.glFiscalTypeId = parameters.glFiscalTypeId
+    birtParameters.organizationPartyId = parameters.organizationPartyId
+    birtParameters.userLoginId = userLogin.userLoginId
+    birtParameters.locale = locale
+    request.setAttribute("birtParameters", birtParameters)
 } catch (e) {
-    Debug.logError(e, module);
+    Debug.logError(e, module)
 }
 return "success";

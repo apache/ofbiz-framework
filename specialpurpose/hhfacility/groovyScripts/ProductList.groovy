@@ -17,7 +17,7 @@
  * under the License.
  */
 
-productList = request.getAttribute("productList");
+productList = request.getAttribute("productList")
 if (productList) {
-    context.productList = productList;
+    context.productList = productList
 }

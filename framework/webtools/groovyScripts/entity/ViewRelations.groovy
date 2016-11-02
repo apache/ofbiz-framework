@@ -16,44 +16,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.entity.model.ModelReader;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelRelation;
-import org.apache.ofbiz.entity.model.ModelKeyMap;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.entity.model.ModelReader
+import org.apache.ofbiz.entity.model.ModelEntity
+import org.apache.ofbiz.entity.model.ModelRelation
+import org.apache.ofbiz.entity.model.ModelKeyMap
 
-entityName = parameters.entityName;
-context.entityName = entityName;
+entityName = parameters.entityName
+context.entityName = entityName
 
-reader = delegator.getModelReader();
-modelEntity = reader.getModelEntity(entityName);
+reader = delegator.getModelReader()
+modelEntity = reader.getModelEntity(entityName)
 
-context.plainTableName = modelEntity.getPlainTableName();
+context.plainTableName = modelEntity.getPlainTableName()
 
-hasViewPermission = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session);
-context.hasViewPermission = hasViewPermission;
+hasViewPermission = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session)
+context.hasViewPermission = hasViewPermission
 
-relations = [];
+relations = []
 for (rit = modelEntity.getRelationsIterator(); rit.hasNext();) {
-    mapRelation = [:];
+    mapRelation = [:]
 
-    modelRelation = rit.next();
-    relFields = [];
+    modelRelation = rit.next()
+    relFields = []
     for (kit = modelRelation.getKeyMaps().iterator(); kit.hasNext();) {
-        mapFields = [:];
-        keyMap = kit.next();
-        mapFields.fieldName = keyMap.getFieldName();
-        mapFields.relFieldName = keyMap.getRelFieldName();
+        mapFields = [:]
+        keyMap = kit.next()
+        mapFields.fieldName = keyMap.getFieldName()
+        mapFields.relFieldName = keyMap.getRelFieldName()
 
-        relFields.add(mapFields);
+        relFields.add(mapFields)
     }
-    mapRelation.relFields = relFields;
-    mapRelation.title = modelRelation.getTitle();
-    mapRelation.relEntityName = modelRelation.getRelEntityName();
-    mapRelation.type = modelRelation.getType();
-    mapRelation.fkName = modelRelation.getFkName();
+    mapRelation.relFields = relFields
+    mapRelation.title = modelRelation.getTitle()
+    mapRelation.relEntityName = modelRelation.getRelEntityName()
+    mapRelation.type = modelRelation.getType()
+    mapRelation.fkName = modelRelation.getFkName()
 
-    relations.add(mapRelation);
+    relations.add(mapRelation)
 }
-context.relations = relations;
+context.relations = relations

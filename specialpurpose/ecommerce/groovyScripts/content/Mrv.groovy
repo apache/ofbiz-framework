@@ -17,54 +17,54 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashMap
+import java.util.Iterator
+import java.util.LinkedList
+import java.util.List
+import java.util.Map
+import java.util.Set
+import java.util.TreeSet
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.base.util.collections.LifoSet;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.base.util.collections.LifoSet
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
-entityName = "ContentDataResourceView";
-lookupCaches = session.getAttribute("lookupCaches");
+entityName = "ContentDataResourceView"
+lookupCaches = session.getAttribute("lookupCaches")
 
 if (!lookupCaches) {
-    lookupCaches = [:];
-    session.setAttribute("lookupCaches", lookupCaches);
+    lookupCaches = [:]
+    session.setAttribute("lookupCaches", lookupCaches)
 }
-lifoSet = lookupCaches[entityName];
+lifoSet = lookupCaches[entityName]
 
 if (!lifoSet) {
-    lifoSet = new LifoSet(10);
-    lookupCaches.ContentAssocDataResourceViewFrom = lifoSet;
+    lifoSet = new LifoSet(10)
+    lookupCaches.ContentAssocDataResourceViewFrom = lifoSet
 }
 
-sz = lifoSet.size();
-contentIdKey = null;
-mrvList = [];
+sz = lifoSet.size()
+contentIdKey = null
+mrvList = []
 
 lifoSet.each { pk0 ->
-    pk = pk0.getPrimaryKey();
-    gv = from(pk.getEntityName()).where(pk).cache(true).queryOne();
+    pk = pk0.getPrimaryKey()
+    gv = from(pk.getEntityName()).where(pk).cache(true).queryOne()
     if (gv) {
-        arr = [gv.contentId, gv.contentName] as String[];
-        mrvList.add(arr);
+        arr = [gv.contentId, gv.contentName] as String[]
+        mrvList.add(arr)
     } else {
         // should handle errors in some other way; this does not provide any tracing; impossible to locat
         // where the error actually occurred
-        //Debug.logError("findOne on " + pk + " returned null");
+        //Debug.logError("findOne on " + pk + " returned null")
     }
 }
-context.put("mrvList", mrvList);
+context.put("mrvList", mrvList)

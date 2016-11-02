@@ -17,9 +17,9 @@
  * under the License.
  */
 
-    session.setAttribute("shippingAddressCtx", shippingAddressCtx);
-    session.setAttribute("shippingServiceSelectedCtx", shippingServiceSelectedCtx);
-    session.setAttribute("shippingDetailsCtx", shippingDetailsCtx);
-    session.setAttribute("checkoutStatusCtx", checkoutStatusCtx);
-    session.setAttribute("externalTransactionCtx", externalTransactionCtx);
-    session.setAttribute("orderItemList", orderItemList);
+    session.setAttribute("shippingAddressCtx", shippingAddressCtx)
+    session.setAttribute("shippingServiceSelectedCtx", shippingServiceSelectedCtx)
+    session.setAttribute("shippingDetailsCtx", shippingDetailsCtx)
+    session.setAttribute("checkoutStatusCtx", checkoutStatusCtx)
+    session.setAttribute("externalTransactionCtx", externalTransactionCtx)
+    session.setAttribute("orderItemList", orderItemList)

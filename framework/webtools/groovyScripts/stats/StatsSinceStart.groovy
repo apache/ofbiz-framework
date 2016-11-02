@@ -17,85 +17,85 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.webapp.stats.*;
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.webapp.stats.*
 
-clearBins = parameters.clear;
+clearBins = parameters.clear
 if ("true".equals(clearBins)) {
-    ServerHitBin.requestSinceStarted.clear();
-    ServerHitBin.eventSinceStarted.clear();
-    ServerHitBin.viewSinceStarted.clear();
+    ServerHitBin.requestSinceStarted.clear()
+    ServerHitBin.eventSinceStarted.clear()
+    ServerHitBin.viewSinceStarted.clear()
 }
 
 // Requests
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()));
-requestList = [];
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()))
+requestList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:];
-    statsId = iterator.next();
-    bin = ServerHitBin.requestSinceStarted.get(statsId);
+    requestIdMap = [:]
+    statsId = iterator.next()
+    bin = ServerHitBin.requestSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId();
-        requestIdMap.requestType = bin.getType();
-        requestIdMap.startTime = bin.getStartTimeString();
-        requestIdMap.endTime = bin.getEndTimeString();
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes());
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits());
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds());
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds());
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds());
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute());
-        requestList.add(requestIdMap);
+        requestIdMap.requestId = bin.getId()
+        requestIdMap.requestType = bin.getType()
+        requestIdMap.startTime = bin.getStartTimeString()
+        requestIdMap.endTime = bin.getEndTimeString()
+        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
+        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
+        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
+        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
+        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
+        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+        requestList.add(requestIdMap)
     }
 }
-context.requestList = requestList;
+context.requestList = requestList
 
 // Events
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()));
-eventList = [];
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()))
+eventList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:];
-    statsId = iterator.next();
-    bin = ServerHitBin.eventSinceStarted.get(statsId);
+    requestIdMap = [:]
+    statsId = iterator.next()
+    bin = ServerHitBin.eventSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId();
-        requestIdMap.requestType = bin.getType();
-        requestIdMap.startTime = bin.getStartTimeString();
-        requestIdMap.endTime = bin.getEndTimeString();
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes());
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits());
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds());
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds());
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds());
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute());
-        eventList.add(requestIdMap);
+        requestIdMap.requestId = bin.getId()
+        requestIdMap.requestType = bin.getType()
+        requestIdMap.startTime = bin.getStartTimeString()
+        requestIdMap.endTime = bin.getEndTimeString()
+        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
+        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
+        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
+        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
+        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
+        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+        eventList.add(requestIdMap)
     }
 }
-context.eventList = eventList;
+context.eventList = eventList
 
 
 // Views
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()));
-viewList = [];
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()))
+viewList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:];
-    statsId = iterator.next();
-    bin = ServerHitBin.viewSinceStarted.get(statsId);
+    requestIdMap = [:]
+    statsId = iterator.next()
+    bin = ServerHitBin.viewSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId();
-        requestIdMap.requestType = bin.getType();
-        requestIdMap.startTime = bin.getStartTimeString();
-        requestIdMap.endTime = bin.getEndTimeString();
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes());
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits());
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds());
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds());
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds());
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute());
-        viewList.add(requestIdMap);
+        requestIdMap.requestId = bin.getId()
+        requestIdMap.requestType = bin.getType()
+        requestIdMap.startTime = bin.getStartTimeString()
+        requestIdMap.endTime = bin.getEndTimeString()
+        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
+        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
+        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
+        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
+        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
+        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+        viewList.add(requestIdMap)
     }
 }
-context.viewList = viewList;
+context.viewList = viewList

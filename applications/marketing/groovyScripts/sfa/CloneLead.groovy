@@ -20,75 +20,75 @@
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.party.contact.ContactHelper
 
-partyId = parameters.partyId;
+partyId = parameters.partyId
 if (partyId) {
-    party =  from("Party").where("partyId", partyId).queryOne();
-    person = party.getRelatedOne("Person", false);
-    contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix];
+    party =  from("Party").where("partyId", partyId).queryOne()
+    person = party.getRelatedOne("Person", false)
+    contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix]
     partyRelationship = from("PartyRelationship")
                             .where("partyIdTo", partyId, "roleTypeIdTo", "EMPLOYEE", "roleTypeIdFrom", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT")
                             .orderBy("-fromDate")
                             .filterByDate()
-                            .queryFirst();
+                            .queryFirst()
     if (partyRelationship) {
-        contactDetailMap.title = partyRelationship.positionTitle;
-        partyGroup = from("PartyGroup").where("partyId", partyRelationship.partyIdFrom).queryOne();
+        contactDetailMap.title = partyRelationship.positionTitle
+        partyGroup = from("PartyGroup").where("partyId", partyRelationship.partyIdFrom).queryOne()
         if (partyGroup) {
             if (partyGroup.groupName) {
-                contactDetailMap.groupName = partyGroup.groupName;
+                contactDetailMap.groupName = partyGroup.groupName
             }
             if (partyGroup.officeSiteName) {
-                contactDetailMap.officeSiteName = partyGroup.officeSiteName;
+                contactDetailMap.officeSiteName = partyGroup.officeSiteName
             }
             if (partyGroup.numEmployees) {
-                contactDetailMap.numEmployees = partyGroup.numEmployees;
+                contactDetailMap.numEmployees = partyGroup.numEmployees
             }
         }
     }
-    generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
+    generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "GENERAL_LOCATION", "POSTAL_ADDRESS", false))
     if (generalContactMech) {
-        contactDetailMap.addrContactMechId = generalContactMech.contactMechId;
-        postalAddress = generalContactMech.getRelatedOne("PostalAddress", false);
+        contactDetailMap.addrContactMechId = generalContactMech.contactMechId
+        postalAddress = generalContactMech.getRelatedOne("PostalAddress", false)
         if (postalAddress) {
-            contactDetailMap.address1 = postalAddress.address1;
-            contactDetailMap.city = postalAddress.city;
-            contactDetailMap.stateProvinceGeoId = postalAddress.stateProvinceGeoId;
-            contactDetailMap.countryGeoId = postalAddress.countryGeoId;
-            contactDetailMap.postalCode = postalAddress.postalCode;
-            address2 = postalAddress.address2;
+            contactDetailMap.address1 = postalAddress.address1
+            contactDetailMap.city = postalAddress.city
+            contactDetailMap.stateProvinceGeoId = postalAddress.stateProvinceGeoId
+            contactDetailMap.countryGeoId = postalAddress.countryGeoId
+            contactDetailMap.postalCode = postalAddress.postalCode
+            address2 = postalAddress.address2
             if (address2) {
-                contactDetailMap.address2 = address2;
+                contactDetailMap.address2 = address2
             }
         }
     }
-    emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
+    emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false))
     if (emailContactMech) {
-        contactDetailMap.emailAddress = emailContactMech.infoString;
-        contactDetailMap.emailContactMechId = emailContactMech.contactMechId;
+        contactDetailMap.emailAddress = emailContactMech.infoString
+        contactDetailMap.emailContactMechId = emailContactMech.contactMechId
     }
-    phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
+    phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_PHONE", "TELECOM_NUMBER", false))
     if (phoneContactMech) {
-        contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId;
-        telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber", false);
+        contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId
+        telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber", false)
         if (telecomNumber) {
-            countryCode = telecomNumber.countryCode;
+            countryCode = telecomNumber.countryCode
             if (countryCode) {
-                contactDetailMap.countryCode = countryCode;
+                contactDetailMap.countryCode = countryCode
             }
-            areaCode = telecomNumber.areaCode;
+            areaCode = telecomNumber.areaCode
             if (areaCode) {
-                contactDetailMap.areaCode = areaCode;
+                contactDetailMap.areaCode = areaCode
             }
-            contactNumber = telecomNumber.contactNumber;
+            contactNumber = telecomNumber.contactNumber
             if (contactNumber) {
-                contactDetailMap.contactNumber = contactNumber;
+                contactDetailMap.contactNumber = contactNumber
             }
         }
     }
-    partyDataSource = EntityUtil.getFirst(party.getRelated("PartyDataSource", null, null, false));
+    partyDataSource = EntityUtil.getFirst(party.getRelated("PartyDataSource", null, null, false))
     if (partyDataSource) {
-        dataSource = partyDataSource.getRelatedOne("DataSource", false);
-        contactDetailMap.leadSource = dataSource.description;
+        dataSource = partyDataSource.getRelatedOne("DataSource", false)
+        contactDetailMap.leadSource = dataSource.description
     }
 }
-context.contactDetailMap = contactDetailMap;
+context.contactDetailMap = contactDetailMap

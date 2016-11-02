@@ -21,7 +21,7 @@
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
-exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder();
+exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder()
 
 if (invoiceTypeId) {
     expr = exprBldr.AND() {
@@ -33,29 +33,29 @@ if (invoiceTypeId) {
     } else if ("SALES_INVOICE".equals(invoiceTypeId)) {
         invoiceStatusesCondition = exprBldr.IN(statusId: ["INVOICE_SENT", "INVOICE_APPROVED", "INVOICE_READY"])
     }
-    expr = exprBldr.AND([expr, invoiceStatusesCondition]);
+    expr = exprBldr.AND([expr, invoiceStatusesCondition])
 
-    PastDueInvoices = from("Invoice").where(expr).orderBy("dueDate DESC").queryList();
+    PastDueInvoices = from("Invoice").where(expr).orderBy("dueDate DESC").queryList()
     if (PastDueInvoices) {
-        invoiceIds = PastDueInvoices.invoiceId;
-        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId]);
+        invoiceIds = PastDueInvoices.invoiceId
+        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId])
         if (totalAmount) {
-            context.PastDueInvoicestotalAmount = totalAmount.invoiceRunningTotal;
+            context.PastDueInvoicestotalAmount = totalAmount.invoiceRunningTotal
         }
-        context.PastDueInvoices = PastDueInvoices;
+        context.PastDueInvoices = PastDueInvoices
     }
 
     invoicesCond = exprBldr.AND(invoiceStatusesCondition) {
         EQUALS(invoiceTypeId: invoiceTypeId)
         GREATER_THAN_EQUAL_TO(dueDate: UtilDateTime.nowTimestamp())
     }
-    InvoicesDueSoon = from("Invoice").where(invoicesCond).orderBy("dueDate ASC").maxRows(10).queryList();
+    InvoicesDueSoon = from("Invoice").where(invoicesCond).orderBy("dueDate ASC").maxRows(10).queryList()
     if (InvoicesDueSoon) {
-        invoiceIds = InvoicesDueSoon.invoiceId;
-        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId]);
+        invoiceIds = InvoicesDueSoon.invoiceId
+        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId])
         if (totalAmount) {
-            context.InvoicesDueSoonTotalAmount = totalAmount.invoiceRunningTotal;
+            context.InvoicesDueSoonTotalAmount = totalAmount.invoiceRunningTotal
         }
-        context.InvoicesDueSoon = InvoicesDueSoon;
+        context.InvoicesDueSoon = InvoicesDueSoon
     }
 }

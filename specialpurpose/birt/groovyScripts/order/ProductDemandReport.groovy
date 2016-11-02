@@ -16,26 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import java.sql.*;
-import com.ibm.icu.util.Calendar;
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilDateTime
+import java.sql.*
+import com.ibm.icu.util.Calendar
 
-productStoreId = parameters.productStoreId;
-Calendar cal = UtilDateTime.toCalendar(UtilDateTime.nowTimestamp());
-int Week = cal.get(Calendar.WEEK_OF_YEAR);
-int Year = cal.get(Calendar.YEAR);
+productStoreId = parameters.productStoreId
+Calendar cal = UtilDateTime.toCalendar(UtilDateTime.nowTimestamp())
+int Week = cal.get(Calendar.WEEK_OF_YEAR)
+int Year = cal.get(Calendar.YEAR)
 
-birtParameters = [:];
+birtParameters = [:]
 try 
 {
-    birtParameters.productStoreId = productStoreId;
-    birtParameters.Week = Week;
-    birtParameters.Year = Year;
+    birtParameters.productStoreId = productStoreId
+    birtParameters.Week = Week
+    birtParameters.Year = Year
 } catch (e) {
-    Debug.logError(e, "");
+    Debug.logError(e, "")
 }
 
-request.setAttribute("birtParameters", birtParameters);
+request.setAttribute("birtParameters", birtParameters)
 
-return "success";
+return "success"

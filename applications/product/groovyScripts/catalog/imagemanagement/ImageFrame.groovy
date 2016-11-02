@@ -17,22 +17,22 @@
  * under the License.
  */
 
-import javax.servlet.http.HttpSession;
-import org.apache.ofbiz.base.util.UtilValidate;
+import javax.servlet.http.HttpSession
+import org.apache.ofbiz.base.util.UtilValidate
 
-frameContentId = null;
-frameDataResourceId = null;
+frameContentId = null
+frameDataResourceId = null
 
 if (UtilValidate.isNotEmpty(session.getAttribute("frameContentId")) && UtilValidate.isNotEmpty(session.getAttribute("frameDataResourceId"))) {
-    frameContentId = session.getAttribute("frameContentId");
-    frameDataResourceId = session.getAttribute("frameDataResourceId");
+    frameContentId = session.getAttribute("frameContentId")
+    frameDataResourceId = session.getAttribute("frameDataResourceId")
 } else {
-    frameContentId = parameters.get("frameContentId");
-    frameDataResourceId = parameters.get("frameDataResourceId");
+    frameContentId = parameters.get("frameContentId")
+    frameDataResourceId = parameters.get("frameDataResourceId")
 }
 
-context.frameContentId = frameContentId;
-context.frameDataResourceId = frameDataResourceId;
+context.frameContentId = frameContentId
+context.frameDataResourceId = frameDataResourceId
 
-session.removeAttribute("frameContentId");
-session.removeAttribute("frameDataResourceId");
+session.removeAttribute("frameContentId")
+session.removeAttribute("frameDataResourceId")

@@ -16,16 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
+shoppingCart = ShoppingCartEvents.getCartObject(request)
 
-userLogin = context.userLogin;
+userLogin = context.userLogin
 if (userLogin) {
-    context.enableShippingAddress = true;
+    context.enableShippingAddress = true
 }
 
-shippingContactMechId = shoppingCart.getShippingContactMechId();
+shippingContactMechId = shoppingCart.getShippingContactMechId()
 if (shippingContactMechId) {
-    context.enableShipmentMethod = true;
+    context.enableShipmentMethod = true
 }

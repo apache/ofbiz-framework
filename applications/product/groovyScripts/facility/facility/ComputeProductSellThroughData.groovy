@@ -17,22 +17,22 @@
  * under the License.
  */
 
-import java.math.MathContext;
-import java.sql.Timestamp;
+import java.math.MathContext
+import java.sql.Timestamp
 
 
 if (parameters.fromDateSellThrough) {
-    Timestamp fromDate = null; 
-    Timestamp thruDate = null; 
+    Timestamp fromDate = null
+    Timestamp thruDate = null
     try {
-        fromDate = Timestamp.valueOf(parameters.fromDateSellThrough);
-        thruDate = Timestamp.valueOf(parameters.thruDateSellThrough);
+        fromDate = Timestamp.valueOf(parameters.fromDateSellThrough)
+        thruDate = Timestamp.valueOf(parameters.thruDateSellThrough)
     } catch(Exception e) {}
-    inventoryCountResult = runService('countProductInventoryOnHand', [productId : productId, facilityId : facilityId, inventoryCountDate : fromDate, userLogin : userLogin]);
+    inventoryCountResult = runService('countProductInventoryOnHand', [productId : productId, facilityId : facilityId, inventoryCountDate : fromDate, userLogin : userLogin])
     if (inventoryCountResult.quantityOnHandTotal && inventoryCountResult.quantityOnHandTotal > 0) {
-        inventoryShippedForSalesResult = runService('countProductInventoryShippedForSales', [productId : productId, facilityId : facilityId, fromDate : fromDate, thruDate : thruDate, userLogin : userLogin]);
-        context.sellThroughInitialInventory = inventoryCountResult.quantityOnHandTotal;
-        context.sellThroughInventorySold = inventoryShippedForSalesResult.quantityOnHandTotal;
-        context.sellThroughPercentage = new BigDecimal(inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100, new java.math.MathContext(2));
+        inventoryShippedForSalesResult = runService('countProductInventoryShippedForSales', [productId : productId, facilityId : facilityId, fromDate : fromDate, thruDate : thruDate, userLogin : userLogin])
+        context.sellThroughInitialInventory = inventoryCountResult.quantityOnHandTotal
+        context.sellThroughInventorySold = inventoryShippedForSalesResult.quantityOnHandTotal
+        context.sellThroughPercentage = new BigDecimal(inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100, new java.math.MathContext(2))
     }
 }

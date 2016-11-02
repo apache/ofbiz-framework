@@ -17,4 +17,4 @@
  * under the License.
  */
 
-context.contentId = parameters.cid ?: parameters.contentId;
+context.contentId = parameters.cid ?: parameters.contentId

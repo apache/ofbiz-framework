@@ -17,42 +17,42 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 
-promoShowLimit = 3;
+promoShowLimit = 3
 
 //Get Promo Text Data
-productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request);
+productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request)
 //Make sure that at least one promo has non-empty promoText
-showPromoText = false;
-promoToShow = 0;
-productPromosAllShowable = new ArrayList(productPromosAll.size());
+showPromoText = false
+promoToShow = 0
+productPromosAllShowable = new ArrayList(productPromosAll.size())
 productPromosAll.each { productPromo ->
-    promoText = productPromo.promoText;
+    promoText = productPromo.promoText
 
     if (promoText && !"N".equals(productPromo.showToCustomer)) {
-        showPromoText = true;
-        promoToShow++;
-        productPromosAllShowable.add(productPromo);
+        showPromoText = true
+        promoToShow++
+        productPromosAllShowable.add(productPromo)
     }
 }
 
 // now slim it down to promoShowLimit
-productPromosRandomTemp = new ArrayList(productPromosAllShowable);
-productPromos = null;
+productPromosRandomTemp = new ArrayList(productPromosAllShowable)
+productPromos = null
 if (productPromosRandomTemp.size() > promoShowLimit) {
-    productPromos = new ArrayList(promoShowLimit);
+    productPromos = new ArrayList(promoShowLimit)
     for (i = 0; i < promoShowLimit; i++) {
-        randomIndex = Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1)) as int;
-        productPromos.add(productPromosRandomTemp.remove(randomIndex));
+        randomIndex = Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1)) as int
+        productPromos.add(productPromosRandomTemp.remove(randomIndex))
     }
 } else {
-    productPromos = productPromosRandomTemp;
+    productPromos = productPromosRandomTemp
 }
 
-context.promoShowLimit = promoShowLimit;
-context.productPromosAllShowable = productPromosAllShowable;
-context.productPromos = productPromos;
-context.showPromoText = showPromoText;
-context.promoToShow = promoToShow;
+context.promoShowLimit = promoShowLimit
+context.productPromosAllShowable = productPromosAllShowable
+context.productPromos = productPromos
+context.showPromoText = showPromoText
+context.promoToShow = promoToShow

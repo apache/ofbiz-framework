@@ -20,21 +20,21 @@
 import org.apache.ofbiz.content.survey.*
 import org.apache.ofbiz.base.util.*
 
-surveyResponseId = parameters.surveyResponseId;
-partyId = null;
+surveyResponseId = parameters.surveyResponseId
+partyId = null
 
 if (!surveyId && surveyResponseId) {
-   surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
-   surveyId = surveyResponse.surveyId;
-   context.surveyPartyId = surveyResponse.partyId;
-   context.surveyId = surveyId;
+   surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne()
+   surveyId = surveyResponse.surveyId
+   context.surveyPartyId = surveyResponse.partyId
+   context.surveyId = surveyId
 }
-surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null);
-surveyWrapper.setEdit(true);
+surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null)
+surveyWrapper.setEdit(true)
 
-templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/GenericSurvey.ftl");
+templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/GenericSurvey.ftl")
 if (templateUrl) {
-    writer = new StringWriter();
-    surveyWrapper.render(templateUrl, writer);
-    context.surveyString = writer.toString();
+    writer = new StringWriter()
+    surveyWrapper.render(templateUrl, writer)
+    context.surveyString = writer.toString()
 }

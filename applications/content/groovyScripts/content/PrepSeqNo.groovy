@@ -19,15 +19,15 @@
 
 import org.apache.ofbiz.base.util.Debug
 
-seqNo = context.caSequenceNum;
+seqNo = context.caSequenceNum
 if (!seqNo) {
-    seqNo = context.sequenceNum;
+    seqNo = context.sequenceNum
 }
-Debug.logInfo("caSequenceNum:" + seqNo, "");
+Debug.logInfo("caSequenceNum:" + seqNo, "")
 
 if (seqNo) {
-    seqNumBefore = seqNo - 1;
-    context.seqNumBefore = seqNumBefore;
-    seqNumAfter = seqNo + 1;
-    context.seqNumAfter = seqNumAfter;
+    seqNumBefore = seqNo - 1
+    context.seqNumBefore = seqNumBefore
+    seqNumAfter = seqNo + 1
+    context.seqNumAfter = seqNumAfter
 }

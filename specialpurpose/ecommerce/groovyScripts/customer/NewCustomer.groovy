@@ -17,42 +17,42 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-productStore = ProductStoreWorker.getProductStore(request);
-context.productStoreId = productStore.productStoreId;
-context.productStore = productStore;
+productStore = ProductStoreWorker.getProductStore(request)
+context.productStoreId = productStore.productStoreId
+context.productStore = productStore
 
-context.createAllowPassword = "Y".equals(productStore.allowPassword);
-context.getUsername = !"Y".equals(productStore.usePrimaryEmailUsername);
+context.createAllowPassword = "Y".equals(productStore.allowPassword)
+context.getUsername = !"Y".equals(productStore.usePrimaryEmailUsername)
 
-previousParams = parameters._PREVIOUS_PARAMS_;
+previousParams = parameters._PREVIOUS_PARAMS_
 if (previousParams) {
-    previousParams = "?" + previousParams;
+    previousParams = "?" + previousParams
 } else {
-    previousParams = "";
+    previousParams = ""
 }
-context.previousParams = previousParams;
+context.previousParams = previousParams
 
 //the parameters from janrain
-userInfoMap = request.getAttribute("userInfoMap");
+userInfoMap = request.getAttribute("userInfoMap")
 if (!userInfoMap) {
-    userInfoMap = request.getSession().getAttribute("userInfoMap");
+    userInfoMap = request.getSession().getAttribute("userInfoMap")
 }
 if (userInfoMap) {
     if (userInfoMap.givenName && userInfoMap.familyName) {
-        requestParameters.USER_FIRST_NAME = userInfoMap.givenName;
-        requestParameters.USER_LAST_NAME = userInfoMap.familyName;
+        requestParameters.USER_FIRST_NAME = userInfoMap.givenName
+        requestParameters.USER_LAST_NAME = userInfoMap.familyName
     } else if (userInfoMap.formatted) {
-        requestParameters.USER_FIRST_NAME = userInfoMap.formatted;
+        requestParameters.USER_FIRST_NAME = userInfoMap.formatted
     }
-    requestParameters.CUSTOMER_EMAIL = userInfoMap.email;
-    requestParameters.preferredUsername = userInfoMap.preferredUsername;
-    requestParameters.USERNAME = userInfoMap.preferredUsername;
-    request.getSession().setAttribute("userInfoMap", userInfoMap);
+    requestParameters.CUSTOMER_EMAIL = userInfoMap.email
+    requestParameters.preferredUsername = userInfoMap.preferredUsername
+    requestParameters.USERNAME = userInfoMap.preferredUsername
+    request.getSession().setAttribute("userInfoMap", userInfoMap)
 }
 
 donePage = "main;" + parameters.visit.sessionId
-context.donePage = donePage;
+context.donePage = donePage

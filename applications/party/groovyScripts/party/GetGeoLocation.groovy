@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.common.geo.GeoWorker;
+import org.apache.ofbiz.common.geo.GeoWorker
 
 if (partyId) {
-    context.partyId = partyId;
-    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
+    context.partyId = partyId
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null)
     if (latestGeoPoint) {
-        context.geoPointId = latestGeoPoint.geoPointId;
-        context.latitude = latestGeoPoint.latitude;
-        context.longitude = latestGeoPoint.longitude;
+        context.geoPointId = latestGeoPoint.geoPointId
+        context.latitude = latestGeoPoint.latitude
+        context.longitude = latestGeoPoint.longitude
     } else {
-        context.latitude = 0;
-        context.longitude = 0;
+        context.latitude = 0
+        context.longitude = 0
     }
 }

@@ -17,40 +17,40 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.StringUtil;
-chartData = context.chartData;
-chartType = context.chartType;
-labelFieldName = context.labelFieldName;
-dataFieldName = context.dataFieldName;
+import org.apache.ofbiz.base.util.StringUtil
+chartData = context.chartData
+chartType = context.chartType
+labelFieldName = context.labelFieldName
+dataFieldName = context.dataFieldName
 if("Pie" == chartType){
-    iter = chartData.iterator();
-    first = true;
-    dataText = "";
+    iter = chartData.iterator()
+    first = true
+    dataText = ""
     while(iter.hasNext()){
-        entry = iter.next();
+        entry = iter.next()
         if(!first){
-            dataText = dataText + ",";
+            dataText = dataText + ","
         }
-        first = false;
-        dataText = dataText + entry.get(labelFieldName) + "," + entry.get(dataFieldName);
+        first = false
+        dataText = dataText + entry.get(labelFieldName) + "," + entry.get(dataFieldName)
     }
-    context.dataText = dataText;
+    context.dataText = dataText
 }
 else if("Bars" == chartType){
-    iter = chartData.iterator();
-    i = 1;
-    dataText = "";
-    labels = "";
+    iter = chartData.iterator()
+    i = 1
+    dataText = ""
+    labels = ""
     while(iter.hasNext()){
-        entry = iter.next();
+        entry = iter.next()
         if(i!=1){
-            dataText = dataText + ",";
-            labels = labels + ",";
+            dataText = dataText + ","
+            labels = labels + ","
         }
-        dataText = dataText + i + "," + entry.get(dataFieldName);
-        labels = labels + entry.get(labelFieldName);
-        i++;
+        dataText = dataText + i + "," + entry.get(dataFieldName)
+        labels = labels + entry.get(labelFieldName)
+        i++
     }
-    context.dataText = dataText;
-    context.labelsText = labels;
+    context.dataText = dataText
+    context.labelsText = labels
 }

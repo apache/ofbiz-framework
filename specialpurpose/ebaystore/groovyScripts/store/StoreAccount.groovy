@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
-results =  [];
-ebayAccountList = from("PartyRoleAndPartyDetail").where("roleTypeId", "EBAY_ACCOUNT").queryList();
-productStoreRoles = from("ProductStoreRole").where("roleTypeId", "EBAY_ACCOUNT").queryList();
+results =  []
+ebayAccountList = from("PartyRoleAndPartyDetail").where("roleTypeId", "EBAY_ACCOUNT").queryList()
+productStoreRoles = from("ProductStoreRole").where("roleTypeId", "EBAY_ACCOUNT").queryList()
 
 if (productStoreRoles != null && ebayAccountList != null) {
     ebayAccountList.each{ebayAccount->
-        partyId = ebayAccount.partyId;
+        partyId = ebayAccount.partyId
         productStoreRoles.each{productStoreRole ->
             if(partyId.equals(productStoreRole.partyId)){
-                storeMap = [:];
-                storeMap.partyId = ebayAccount.partyId;
-                storeMap.firstName = ebayAccount.firstName;
-                storeMap.lastName = ebayAccount.lastName;
-                storeMap.productStoreId = productStoreRole.productStoreId;
-                results.add(storeMap);
+                storeMap = [:]
+                storeMap.partyId = ebayAccount.partyId
+                storeMap.firstName = ebayAccount.firstName
+                storeMap.lastName = ebayAccount.lastName
+                storeMap.productStoreId = productStoreRole.productStoreId
+                results.add(storeMap)
             }
         }
     }
-    context.put("stores",results);
+    context.put("stores",results)
 }

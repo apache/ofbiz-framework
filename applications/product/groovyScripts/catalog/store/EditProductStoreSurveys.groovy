@@ -21,21 +21,21 @@ import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.entity.util.*
 
-context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session);
+context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
-productStoreId = request.getParameter("productStoreId");
+productStoreId = request.getParameter("productStoreId")
 if (productStoreId) {
-    productStore = from("ProductStore").where("productStoreId", productStoreId).queryOne();
-    context.productStoreId = productStoreId;
-    context.productStore = productStore;
+    productStore = from("ProductStore").where("productStoreId", productStoreId).queryOne()
+    context.productStoreId = productStoreId
+    context.productStore = productStore
 }
 
-context.productStoreSurveys = from("ProductStoreSurveyAppl").where("productStoreId", productStoreId).filterByDate().queryList();
+context.productStoreSurveys = from("ProductStoreSurveyAppl").where("productStoreId", productStoreId).filterByDate().queryList()
 
-context.surveys = from("Survey").orderBy("description").queryList();
+context.surveys = from("Survey").orderBy("description").queryList()
 
-context.surveyApplTypes = from("SurveyApplType").orderBy("description").queryList();
+context.surveyApplTypes = from("SurveyApplType").orderBy("description").queryList()
 
-context.productCategories = from("ProductCategory").orderBy("description").queryList();
+context.productCategories = from("ProductCategory").orderBy("description").queryList()
 
-context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString()

@@ -17,11 +17,11 @@
  * under the License.
  */
 
-partyId = partyId ?: parameters.partyId;
+partyId = partyId ?: parameters.partyId
 
-savedCart = from("ShoppingList").where("partyId", partyId, "shoppingListTypeId", "SLT_SPEC_PURP" , "listName", "auto-save").queryFirst();
+savedCart = from("ShoppingList").where("partyId", partyId, "shoppingListTypeId", "SLT_SPEC_PURP" , "listName", "auto-save").queryFirst()
 
 if (savedCart) {
-      context.savedCartListId = savedCart.shoppingListId;
-      context.savedCartItems = savedCart.getRelated("ShoppingListItem", null, null, false);
+      context.savedCartListId = savedCart.shoppingListId
+      context.savedCartItems = savedCart.getRelated("ShoppingListItem", null, null, false)
 }

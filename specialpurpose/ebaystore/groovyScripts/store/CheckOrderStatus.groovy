@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil
 
-context.importStatus = "NOT_IMPORT";
-orderHeaders = from("OrderHeader").where("externalId", externalId).queryList();
+context.importStatus = "NOT_IMPORT"
+orderHeaders = from("OrderHeader").where("externalId", externalId).queryList()
 if (orderHeaders.size() > 0) {
-    orderHeader = EntityUtil.getFirst(orderHeaders);
-    context.orderId = orderHeader.get("orderId");
+    orderHeader = EntityUtil.getFirst(orderHeaders)
+    context.orderId = orderHeader.get("orderId")
     if ("ORDER_APPROVED".equals(orderHeader.get("statusId").toString())) {
-        context.importStatus = "IMPORTED";
+        context.importStatus = "IMPORTED"
     }
 }

@@ -17,53 +17,53 @@
 * under the License.
 */
 
-import org.apache.ofbiz.base.util.FileUtil;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.FileUtil
+import org.apache.ofbiz.base.util.UtilProperties
 
-String ofbizLogDir = UtilProperties.getPropertyValue("debug", "log4j.appender.css.dir", "runtime/logs/");
+String ofbizLogDir = UtilProperties.getPropertyValue("debug", "log4j.appender.css.dir", "runtime/logs/")
 if (!ofbizLogDir.startsWith("/")) {
-    ofbizLogDir = System.getProperty("ofbiz.home") + "/" + ofbizLogDir;
+    ofbizLogDir = System.getProperty("ofbiz.home") + "/" + ofbizLogDir
 }
 if (!ofbizLogDir.endsWith("/")) {
-    ofbizLogDir = ofbizLogDir.concat("/");
+    ofbizLogDir = ofbizLogDir.concat("/")
 }
 
-File runTimeLogDir = FileUtil.getFile(ofbizLogDir);
-File[] listLogFiles = runTimeLogDir.listFiles();
-String ofbizLogRegExp = UtilProperties.getPropertyValue("debug", "log4j.appender.css.fileNameRegExp", "[(ofbiz)|(error)].*");
-List listLogFileNames = [];
+File runTimeLogDir = FileUtil.getFile(ofbizLogDir)
+File[] listLogFiles = runTimeLogDir.listFiles()
+String ofbizLogRegExp = UtilProperties.getPropertyValue("debug", "log4j.appender.css.fileNameRegExp", "[(ofbiz)|(error)].*")
+List listLogFileNames = []
 for (int i = 0; i < listLogFiles.length; i++) {
     if (listLogFiles[i].isFile()) {
-        logFileName = listLogFiles[i].getName();
+        logFileName = listLogFiles[i].getName()
         if (logFileName.matches(ofbizLogRegExp)) {
-            listLogFileNames.add(logFileName);
+            listLogFileNames.add(logFileName)
         }
     }
 }
-context.listLogFileNames = listLogFileNames;
+context.listLogFileNames = listLogFileNames
 
 if (parameters.logFileName) {
-    List logLines = [];
+    List logLines = []
     try {
-        File logFile = FileUtil.getFile(ofbizLogDir.concat(parameters.logFileName));
+        File logFile = FileUtil.getFile(ofbizLogDir.concat(parameters.logFileName))
         logFile.eachLine { line ->
             if (parameters.searchString) {
                 if (!line.contains(parameters.searchString)) {
-                    return;
+                    return
                 }
             }
-            type = '';
+            type = ''
             if (line.contains(" |I| ")) {
-                type = 'INFO';
+                type = 'INFO'
             } else if (line.contains(" |W| ")) {
-                type = 'WARN';
+                type = 'WARN'
             } else if (line.contains(" |E| ")) {
-                type = 'ERROR';
+                type = 'ERROR'
             } else if (line.contains(" |D| ")) {
-                type = 'DEBUG';
+                type = 'DEBUG'
             }
-            logLines.add([type: type, line:line]);
+            logLines.add([type: type, line:line])
         }
     } catch (Exception exc) {}
-    context.logLines = logLines;
+    context.logLines = logLines
 }

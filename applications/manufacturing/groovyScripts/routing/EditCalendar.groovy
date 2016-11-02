@@ -17,29 +17,29 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilHttp
 
-requestParams = UtilHttp.getParameterMap(request);
-calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId");
+requestParams = UtilHttp.getParameterMap(request)
+calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId")
 if (calendarId != null) {
-    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
-    context.techDataCalendar = techDataCalendar;
+    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne()
+    context.techDataCalendar = techDataCalendar
 }
 
-tryEntity = true;
-errorMessage = request.getAttribute("_ERROR_MESSAGE_");
+tryEntity = true
+errorMessage = request.getAttribute("_ERROR_MESSAGE_")
 if (errorMessage) {
-    tryEntity = false;
+    tryEntity = false
 }
 
-calendarData = context.techDataCalendar;
+calendarData = context.techDataCalendar
 if (!tryEntity) {
-    calendarData = requestParams ?: [:];
+    calendarData = requestParams ?: [:]
 }
 if (!calendarData) {
-    calendarData = [:];
+    calendarData = [:]
 }
-context.calendarData = calendarData;
+context.calendarData = calendarData
 
-allCalendarWeek = from("TechDataCalendarWeek").queryList();
-context.calendarWeeks = allCalendarWeek;
+allCalendarWeek = from("TechDataCalendarWeek").queryList()
+context.calendarWeeks = allCalendarWeek

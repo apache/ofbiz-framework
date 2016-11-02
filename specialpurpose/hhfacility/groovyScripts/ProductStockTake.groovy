@@ -17,79 +17,79 @@
  * under the License.
  */
 
-productId = request.getParameter("productId");
+productId = request.getParameter("productId")
 if (!productId) {
-    productId = session.getAttribute("productId");
+    productId = session.getAttribute("productId")
 }
 
 if (productId) {
-    product = from("Product").where("productId", productId).cache(true).queryOne();
-    context.product = product;
+    product = from("Product").where("productId", productId).cache(true).queryOne()
+    context.product = product
 
-    facilityId = request.getParameter("facilityId");
-    resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId]);
-    quantitySummary = [:];
-    quantitySummary.facilityId = facilityId;
+    facilityId = request.getParameter("facilityId")
+    resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId])
+    quantitySummary = [:]
+    quantitySummary.facilityId = facilityId
     quantitySummary.atp_qoh = ((Double)resultOutput.availableToPromiseTotal).intValue() + " / " +
-            ((Double)resultOutput.quantityOnHandTotal).intValue();
-    context.quantitySummary = quantitySummary;
+            ((Double)resultOutput.quantityOnHandTotal).intValue()
+    context.quantitySummary = quantitySummary
 
     // For now this just generates a visual list of locations set against the product for this facility.
     // todo: Will need to be able to edit and change these values at some point in the future.
-    productFacilityLocList = from("ProductFacilityLocation").where("productId", productId, "facilityId", facilityId).queryList();
-    facStr = null;
+    productFacilityLocList = from("ProductFacilityLocation").where("productId", productId, "facilityId", facilityId).queryList()
+    facStr = null
     productFacilityLocList.each { facilityLoc ->
         if (!facStr) {
-            facStr = facilityLoc.locationSeqId;
+            facStr = facilityLoc.locationSeqId
         } else {
-            facStr = facStr + ", " + facilityLoc.locationSeqId;
+            facStr = facStr + ", " + facilityLoc.locationSeqId
         }
     }
-    context.productFacilityLocations = facStr;
+    context.productFacilityLocations = facStr
 
 
     // Now we build a list of locations for inventory items against the facility.
     // todo: change this to a select from inv_items where productId and facilityId matches distinct (locationSeqId).
-    invItemList = from("InventoryItem").where("productId", productId, "facilityId", facilityId).queryList();
+    invItemList = from("InventoryItem").where("productId", productId, "facilityId", facilityId).queryList()
 
-    locations = [:];
+    locations = [:]
 
-    boolean negativeQOH = false;
+    boolean negativeQOH = false
     invItemList.each { invItem ->
-        int qoh = ((Double)invItem.quantityOnHandTotal).intValue();
+        int qoh = ((Double)invItem.quantityOnHandTotal).intValue()
         if (qoh < 0) {
-            negativeQOH = true;
+            negativeQOH = true
         }
-        locationFound = (String)invItem.locationSeqId;
+        locationFound = (String)invItem.locationSeqId
         if (!locationFound) {
-            locationFound = "nullField";
+            locationFound = "nullField"
         }
         if (!locations.get(locationFound)) {
-            locations.put(locationFound, locationFound);
+            locations.put(locationFound, locationFound)
         }
     }
 
     // Go through and build the list of atp/qoh against each location
-    productFacilityLocations = new ArrayList();
-    locationsIter = locations.keySet().iterator();
+    productFacilityLocations = new ArrayList()
+    locationsIter = locations.keySet().iterator()
     while (locationsIter.hasNext()) {
-        location = locationsIter.next();
-        resultOutput = runService('getInventoryAvailableByLocation', [productId : productId, facilityId : facilityId, locationSeqId : location]);
-        quantitySummary = [:];
-        quantitySummary.productId = productId;
-        quantitySummary.facilityId = facilityId;
+        location = locationsIter.next()
+        resultOutput = runService('getInventoryAvailableByLocation', [productId : productId, facilityId : facilityId, locationSeqId : location])
+        quantitySummary = [:]
+        quantitySummary.productId = productId
+        quantitySummary.facilityId = facilityId
         if ("nullField".equals( location ) == true) {
-            quantitySummary.locationSeqId = "";
+            quantitySummary.locationSeqId = ""
         } else {
-            quantitySummary.locationSeqId = location;
+            quantitySummary.locationSeqId = location
         }
         quantitySummary.atp_qoh = ((Double)resultOutput.availableToPromiseTotal).intValue() + " / " +
-                ((Double)resultOutput.quantityOnHandTotal).intValue();
-        productFacilityLocations.add(quantitySummary);
+                ((Double)resultOutput.quantityOnHandTotal).intValue()
+        productFacilityLocations.add(quantitySummary)
     }
 
-    context.productQtyByLocations = productFacilityLocations;
+    context.productQtyByLocations = productFacilityLocations
     if (negativeQOH) {
-        context.negativeQOH = "true";
+        context.negativeQOH = "true"
     }
 }

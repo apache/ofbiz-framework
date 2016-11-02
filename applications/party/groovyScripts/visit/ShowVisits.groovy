@@ -17,85 +17,85 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-module = "showvisits.groovy";
+module = "showvisits.groovy"
 
-partyId = parameters.partyId;
-context.partyId = partyId;
+partyId = parameters.partyId
+context.partyId = partyId
 
-showAll = parameters.showAll ?:"false";
-context.showAll = showAll;
+showAll = parameters.showAll ?:"false"
+context.showAll = showAll
 
-sort = parameters.sort;
-context.sort = sort;
+sort = parameters.sort
+context.sort = sort
 
-visitListIt = null;
-sortList = ["-fromDate"];
-if (sort) sortList.add(0, sort);
+visitListIt = null
+sortList = ["-fromDate"]
+if (sort) sortList.add(0, sort)
 
-boolean beganTransaction = false;
+boolean beganTransaction = false
 try {
-    beganTransaction = TransactionUtil.begin();
+    beganTransaction = TransactionUtil.begin()
 
-    viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
-    viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
-    context.viewIndex = viewIndex;
-    context.viewSize = viewSize;
+    viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1)
+    viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
+    context.viewIndex = viewIndex
+    context.viewSize = viewSize
 
     // get the indexes for the partial list
-    lowIndex = (((viewIndex - 1) * viewSize) + 1);
-    highIndex = viewIndex * viewSize;
+    lowIndex = (((viewIndex - 1) * viewSize) + 1)
+    highIndex = viewIndex * viewSize
 
     if (partyId) {
-        visitListIt = from("Visit").where("partyId", partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator();
+        visitListIt = from("Visit").where("partyId", partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     } else if (showAll.equalsIgnoreCase("true")) {
-        visitListIt = from("Visit").orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator();
+        visitListIt = from("Visit").orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     } else {
         // show active visits
-        visitListIt = from("Visit").where("thruDate", null).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator();
+        visitListIt = from("Visit").where("thruDate", null).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     }
 
     // get the partial list for this page
-    visitList = visitListIt.getPartialList(lowIndex, viewSize);
+    visitList = visitListIt.getPartialList(lowIndex, viewSize)
     if (!visitList) {
-        visitList = new ArrayList();
+        visitList = new ArrayList()
     }
 
-    visitListSize = visitListIt.getResultsSizeAfterPartialList();
+    visitListSize = visitListIt.getResultsSizeAfterPartialList()
     if (highIndex > visitListSize) {
-        highIndex = visitListSize;
+        highIndex = visitListSize
     }
-    context.visitSize = visitListSize;
+    context.visitSize = visitListSize
 
-    visitListIt.close();
+    visitListIt.close()
 } catch (Exception e) {
-    String errMsg = "Failure in operation, rolling back transaction";
-    Debug.logError(e, errMsg, module);
+    String errMsg = "Failure in operation, rolling back transaction"
+    Debug.logError(e, errMsg, module)
     try {
         // only rollback the transaction if we started one...
-        TransactionUtil.rollback(beganTransaction, errMsg, e);
+        TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (Exception e2) {
-        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
     }
     // after rolling back, rethrow the exception
-    throw e;
+    throw e
 } finally {
     // only commit the transaction if we started one... this will throw an exception if it fails
-    TransactionUtil.commit(beganTransaction);
+    TransactionUtil.commit(beganTransaction)
 }
 
-context.visitList = visitList;
-listSize = 0;
+context.visitList = visitList
+listSize = 0
 if (visitList) {
-    listSize = lowIndex + visitList.size();
+    listSize = lowIndex + visitList.size()
 }
 
 if (listSize < highIndex) {
-    highIndex = listSize;
+    highIndex = listSize
 }
-context.lowIndex = lowIndex;
-context.highIndex = highIndex;
-context.listSize = listSize;
+context.lowIndex = lowIndex
+context.highIndex = highIndex
+context.listSize = listSize

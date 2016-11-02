@@ -19,35 +19,35 @@
 
 import org.apache.ofbiz.base.util.*
 
-state = request.getParameter("CategoryProductsState");
-isOpen = true;
+state = request.getParameter("CategoryProductsState")
+isOpen = true
 if (state) {
-    session.setAttribute("CategoryProductsState", state);
-    isOpen = "open".equals(state);
+    session.setAttribute("CategoryProductsState", state)
+    isOpen = "open".equals(state)
 } else {
-    state = (String) session.getAttribute("CategoryProductsState");
+    state = (String) session.getAttribute("CategoryProductsState")
     if (state) {
-        isOpen = "open".equals(state);
+        isOpen = "open".equals(state)
     }
 }
-context.isOpen = isOpen;
+context.isOpen = isOpen
 
 // Get a list of all products in the current category
 if (isOpen) {
-    paramInMap = [:];
-    paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter("productCategoryId"));
-    paramInMap.defaultViewSize = 30;
-    paramInMap.limitView = true;
-    paramInMap.useCacheForMembers = false;
-    paramInMap.checkViewAllow = false;
+    paramInMap = [:]
+    paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter("productCategoryId"))
+    paramInMap.defaultViewSize = 30
+    paramInMap.limitView = true
+    paramInMap.useCacheForMembers = false
+    paramInMap.checkViewAllow = false
 
     // Returns: viewIndex, viewSize, lowIndex, highIndex, listSize, productCategory, productCategoryMembers
-    outMap = runService('getProductCategoryAndLimitedMembers', paramInMap);
-    context.viewIndex = outMap.viewIndex;
-    context.viewSize = outMap.viewSize;
-    context.lowIndex = outMap.lowIndex;
-    context.highIndex = outMap.highIndex;
-    context.listSize = outMap.listSize;
-    context.productCategory = outMap.productCategory;
-    context.productCategoryMembers = outMap.productCategoryMembers;
+    outMap = runService('getProductCategoryAndLimitedMembers', paramInMap)
+    context.viewIndex = outMap.viewIndex
+    context.viewSize = outMap.viewSize
+    context.lowIndex = outMap.lowIndex
+    context.highIndex = outMap.highIndex
+    context.listSize = outMap.listSize
+    context.productCategory = outMap.productCategory
+    context.productCategoryMembers = outMap.productCategoryMembers
 }

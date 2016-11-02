@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.content.data.DataResourceWorker;
-import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
-import java.io.StringWriter;
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.template.SimpleHash;
-import freemarker.template.WrappingTemplateModel;
+import java.io.StringWriter
+import freemarker.ext.beans.BeansWrapper
+import freemarker.template.SimpleHash
+import freemarker.template.WrappingTemplateModel
 
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
-contentIdTo = parameters.contentIdTo;
+contentIdTo = parameters.contentIdTo
 
 if (!contentIdTo || !contentIdTo.equals("TEMPLATE_MASTER")) {
-    context.dynamicPrimaryHTMLField = "textData";
+    context.dynamicPrimaryHTMLField = "textData"
 }

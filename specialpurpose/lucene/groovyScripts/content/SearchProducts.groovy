@@ -23,7 +23,7 @@ import org.apache.ofbiz.content.search.SearchWorker
 
 import org.apache.lucene.document.Document
 import org.apache.lucene.index.DirectoryReader
-import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.ParseException
 import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.search.BooleanClause
 import org.apache.lucene.search.BooleanQuery
@@ -34,40 +34,40 @@ import org.apache.lucene.search.TopScoreDocCollector
 import org.apache.lucene.store.FSDirectory
 
 if (parameters.luceneQuery) {
-    Query combQuery = new BooleanQuery();
-    IndexSearcher searcher;
-    WhitespaceAnalyzer analyzer;
+    Query combQuery = new BooleanQuery()
+    IndexSearcher searcher
+    WhitespaceAnalyzer analyzer
     try {
-        DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("products")).toPath()));
-        searcher = new IndexSearcher(reader);
-        analyzer = new WhitespaceAnalyzer();
+        DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("products")).toPath()))
+        searcher = new IndexSearcher(reader)
+        analyzer = new WhitespaceAnalyzer()
     } catch (FileNotFoundException e) {
-        context.errorMessageList.add(e.getMessage());
-        return;
+        context.errorMessageList.add(e.getMessage())
+        return
     }
 
-    QueryParser parser = new QueryParser("fullText", analyzer);
-    parser.setLocale(locale);
-    Query query;
+    QueryParser parser = new QueryParser("fullText", analyzer)
+    parser.setLocale(locale)
+    Query query
     try {
-        query = parser.parse(parameters.luceneQuery);
+        query = parser.parse(parameters.luceneQuery)
     } catch(ParseException pe) {
-        context.errorMessageList.add(pe.getMessage());
-        return;
+        context.errorMessageList.add(pe.getMessage())
+        return
     }
-    combQuery.add(query, BooleanClause.Occur.MUST);
+    combQuery.add(query, BooleanClause.Occur.MUST)
 
-    TopScoreDocCollector collector = TopScoreDocCollector.create(100); // defaulting to 100 results
-    searcher.search(combQuery, collector);
-    ScoreDoc[] hits = collector.topDocs().scoreDocs;
+    TopScoreDocCollector collector = TopScoreDocCollector.create(100) // defaulting to 100 results
+    searcher.search(combQuery, collector)
+    ScoreDoc[] hits = collector.topDocs().scoreDocs
     productList = []
     hits.each { hit ->
         Document doc = searcher.doc(hit.doc)
         productId = doc.productId
-        product = from("Product").where("productId", productId).cache(true).queryOne();
+        product = from("Product").where("productId", productId).cache(true).queryOne()
         if (product) {
             productList.add(product)
         }
     }
-    context.queryResults = productList;
+    context.queryResults = productList
 }

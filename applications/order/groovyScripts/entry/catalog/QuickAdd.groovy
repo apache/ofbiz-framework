@@ -22,29 +22,29 @@
  * should not contain order component's specific code.
  */
 
-import java.lang.*;
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.product.catalog.*;
+import java.lang.*
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.product.catalog.*
 
-currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-categoryId = parameters.category_id ?: CatalogWorker.getCatalogQuickaddCategoryPrimary(request);
+currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
+categoryId = parameters.category_id ?: CatalogWorker.getCatalogQuickaddCategoryPrimary(request)
 
-quickAddCategories = CatalogWorker.getCatalogQuickaddCategories(request);
-context.quickAddCats = quickAddCategories;
-context.categoryId = categoryId;
+quickAddCategories = CatalogWorker.getCatalogQuickaddCategories(request)
+context.quickAddCats = quickAddCategories
+context.categoryId = categoryId
 
 if (categoryId) {
     fields = [productCategoryId : categoryId, defaultViewSize : 10,
-            limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true];
-    result = runService('getProductCategoryAndLimitedMembers', fields);
+            limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true]
+    result = runService('getProductCategoryAndLimitedMembers', fields)
     if (result) {
         result.each { key, value ->
-            context[key] = value;
+            context[key] = value
         }
     }
-    productCategory = from("ProductCategory").where("productCategoryId", categoryId).queryOne();
-    context.productCategory = productCategory;
+    productCategory = from("ProductCategory").where("productCategoryId", categoryId).queryOne()
+    context.productCategory = productCategory
 }

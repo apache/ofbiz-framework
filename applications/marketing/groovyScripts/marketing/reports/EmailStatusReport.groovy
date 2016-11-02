@@ -17,31 +17,31 @@
  * under the License.
  */
  
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-conditionList = [];
+conditionList = []
 if (fromDate) {
-    conditionList.add(EntityCondition.makeCondition("entryDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    conditionList.add(EntityCondition.makeCondition("entryDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 }
 if (thruDate) {
-    conditionList.add(EntityCondition.makeCondition("entryDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+    conditionList.add(EntityCondition.makeCondition("entryDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 }
 if (partyIdTo) {
-    conditionList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyIdTo));
+    conditionList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyIdTo))
 } else {
-    conditionList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.NOT_EQUAL, null));
+    conditionList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.NOT_EQUAL, null))
 }
 if (partyIdFrom) {
-    conditionList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
+    conditionList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom))
 }
 if (statusId) {
-    conditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+    conditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId))
 }
 if (roleStatusId) {
-    conditionList.add(EntityCondition.makeCondition("roleStatusId", EntityOperator.EQUALS, roleStatusId));
+    conditionList.add(EntityCondition.makeCondition("roleStatusId", EntityOperator.EQUALS, roleStatusId))
 }
-conditionList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "ADDRESSEE"));
+conditionList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "ADDRESSEE"))
 
-commStatausList = from("CommunicationEventAndRole").where(conditionList).queryList();
-context.commStatausList = commStatausList;
+commStatausList = from("CommunicationEventAndRole").where(conditionList).queryList()
+context.commStatausList = commStatausList

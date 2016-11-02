@@ -20,111 +20,111 @@
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 // make the image file formats
-context.tenantId = delegator.getDelegatorTenantId();
-imageFilenameFormat = "configitems/${configItemId}";
-imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context);
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context);
-imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
-imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
-context.imageFilenameFormat = imageFilenameFormat;
-context.imageServerPath = imageServerPath;
-context.imageUrlPrefix = imageUrlPrefix;
+context.tenantId = delegator.getDelegatorTenantId()
+imageFilenameFormat = "configitems/${configItemId}"
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context)
+imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
+imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
+context.imageFilenameFormat = imageFilenameFormat
+context.imageServerPath = imageServerPath
+context.imageUrlPrefix = imageUrlPrefix
 
-filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
-context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString([size : 'small', configItemId : configItemId]);
+filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
+context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString([size : 'small', configItemId : configItemId])
 
 // Start ProdConfItemContent stuff
-productContent = null;
+productContent = null
 if (configItem) {
-    productContent = configItem.getRelated("ProdConfItemContent", null, ['confItemContentTypeId'], false);
+    productContent = configItem.getRelated("ProdConfItemContent", null, ['confItemContentTypeId'], false)
 }
-context.productContent = productContent;
+context.productContent = productContent
 
-productContentDatas = [];
+productContentDatas = []
 productContent.each { productContent ->
-    content = productContent.getRelatedOne("Content", false);
-    productContentDatas.add([productContent : productContent, content : content]);
+    content = productContent.getRelatedOne("Content", false)
+    productContentDatas.add([productContent : productContent, content : content])
 }
 
-context.productContentList = productContentDatas;
+context.productContentList = productContentDatas
 // End ProductContent stuff
 
-tryEntity = true;
+tryEntity = true
 if (request.getAttribute("_ERROR_MESSAGE_")) {
-    tryEntity = false;
+    tryEntity = false
 }
 if (!configItem) {
-    tryEntity = false;
+    tryEntity = false
 }
 if ("true".equalsIgnoreCase(request.getParameter("tryEntity"))) {
-    tryEntity = true;
+    tryEntity = true
 }
-context.tryEntity = tryEntity;
+context.tryEntity = tryEntity
 
 // UPLOADING STUFF
 
-forLock = new Object();
-contentType = null;
-fileType = request.getParameter("upload_file_type");
+forLock = new Object()
+contentType = null
+fileType = request.getParameter("upload_file_type")
 if (fileType) {
-    context.fileType = fileType;
+    context.fileType = fileType
 
-    fileNameToUse = "productConfigItem." + configItemId;
-    fileLocation = filenameExpander.expandString([size : fileType, configItemId : configItemId]);
-    filePathPrefix = "";
-    filenameToUse = fileLocation;
+    fileNameToUse = "productConfigItem." + configItemId
+    fileLocation = filenameExpander.expandString([size : fileType, configItemId : configItemId])
+    filePathPrefix = ""
+    filenameToUse = fileLocation
     if (fileLocation.lastIndexOf("/") != -1) {
-        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1) // adding 1 to include the trailing slash
+        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1)
     }
 
-    int i1;
+    int i1
     if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
-        contentType = contentType.substring(i1 + 9);
-        contentType = "--" + contentType;
+        contentType = contentType.substring(i1 + 9)
+        contentType = "--" + contentType
     }
 
-    defaultFileName = filenameToUse + "_temp";
-    uploadObject = new HttpRequestFileUpload();
-    uploadObject.setOverrideFilename(defaultFileName);
-    uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
-    uploadObject.doUpload(request);
+    defaultFileName = filenameToUse + "_temp"
+    uploadObject = new HttpRequestFileUpload()
+    uploadObject.setOverrideFilename(defaultFileName)
+    uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
+    uploadObject.doUpload(request)
 
-    clientFileName = uploadObject.getFilename();
+    clientFileName = uploadObject.getFilename()
     if (clientFileName) {
-        context.clientFileName = clientFileName;
+        context.clientFileName = clientFileName
         if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
-            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
+            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."))
         } else {
-            filenameToUse += ".jpg";
+            filenameToUse += ".jpg"
         }
 
-        context.clientFileName = clientFileName;
-        context.filenameToUse = filenameToUse;
+        context.clientFileName = clientFileName
+        context.filenameToUse = filenameToUse
 
-        characterEncoding = request.getCharacterEncoding();
-        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
+        characterEncoding = request.getCharacterEncoding()
+        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
-            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
-            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
+            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName)
+            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
             try {
-                file1.delete();
+                file1.delete()
             } catch (Exception e) {
-                System.out.println("error deleting existing file (not neccessarily a problem)");
+                System.out.println("error deleting existing file (not neccessarily a problem)")
             }
-            file.renameTo(file1);
+            file.renameTo(file1)
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
 
         if (imageUrl) {
-            context.imageUrl = imageUrl;
-            configItem.set("imageUrl", imageUrl);
-            configItem.store();
+            context.imageUrl = imageUrl
+            configItem.set("imageUrl", imageUrl)
+            configItem.store()
         }
     }
 }

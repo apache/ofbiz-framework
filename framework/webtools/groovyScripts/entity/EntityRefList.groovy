@@ -16,40 +16,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.entity.model.ModelReader;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.entity.model.ModelReader
+import org.apache.ofbiz.entity.model.ModelEntity
 
-controlPath = parameters._CONTROL_PATH_;
-context.controlPath = controlPath;
+controlPath = parameters._CONTROL_PATH_
+context.controlPath = controlPath
 
 if (security.hasPermission("ENTITY_MAINT", session)) {
-    forstatic = "true".equals(parameters.forstatic);
-    context.forstatic = forstatic;
+    forstatic = "true".equals(parameters.forstatic)
+    context.forstatic = forstatic
 
-    reader = delegator.getModelReader();
-    ec = reader.getEntityNames();
-    entities = new TreeSet(ec);
-    search = parameters.search;
+    reader = delegator.getModelReader()
+    ec = reader.getEntityNames()
+    entities = new TreeSet(ec)
+    search = parameters.search
 
-    packageNames = new TreeSet();
+    packageNames = new TreeSet()
     ec.each { eName ->
-        ent = reader.getModelEntity(eName);
-        packageNames.add(ent.getPackageName());
+        ent = reader.getModelEntity(eName)
+        packageNames.add(ent.getPackageName())
     }
-    context.packageNames = packageNames;
+    context.packageNames = packageNames
 
-    entitiesList = [];
+    entitiesList = []
     entities.each { entityName ->
-        entityMap = [:];
+        entityMap = [:]
         if (!search || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1 ) {
-            url = search ? "?search=$search" : "";
-            entityMap.url = url;
+            url = search ? "?search=$search" : ""
+            entityMap.url = url
         }
-        entityMap.entityName = entityName;
+        entityMap.entityName = entityName
 
-        entitiesList.add(entityMap);
+        entitiesList.add(entityMap)
     }
-    context.entitiesList = entitiesList;
+    context.entitiesList = entitiesList
 }

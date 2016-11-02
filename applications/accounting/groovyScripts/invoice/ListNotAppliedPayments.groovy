@@ -23,13 +23,13 @@ import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.base.util.UtilNumber
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
-invoiceId = parameters.invoiceId;
-invoice = from("Invoice").where(invoiceId : invoiceId).queryOne();
+invoiceId = parameters.invoiceId
+invoice = from("Invoice").where(invoiceId : invoiceId).queryOne()
 
-decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals")
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding")
 
-exprBldr = new EntityConditionBuilder();
+exprBldr = new EntityConditionBuilder()
 preCurrencyCond = exprBldr.AND() {
     EQUALS(partyIdTo: invoice.partyIdFrom)
     EQUALS(partyIdFrom: invoice.partyId)
@@ -44,40 +44,40 @@ topCondActual = exprBldr.AND(preCurrencyCond) {
     EQUALS(actualCurrencyUomId: invoice.currencyUomId)
 }
 
-payments = from("Payment").where(topCond).orderBy("effectiveDate").queryList();
-context.payments = getPayments(payments, false);
-payments = from("Payment").where(topCondActual).orderBy("effectiveDate").queryList();
-context.paymentsActualCurrency = getPayments(payments, true);
+payments = from("Payment").where(topCond).orderBy("effectiveDate").queryList()
+context.payments = getPayments(payments, false)
+payments = from("Payment").where(topCondActual).orderBy("effectiveDate").queryList()
+context.paymentsActualCurrency = getPayments(payments, true)
 
 List getPayments(List payments, boolean actual) {
     if (payments)    {
-        paymentList = [];  // to pass back to the screeen list of unapplied payments
-        invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice);
-        invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice);
-        invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice);
+        paymentList = [] // to pass back to the screeen list of unapplied payments
+        invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice)
+        invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice)
+        invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice)
         payments.each { payment ->
-            paymentMap = [:];
-            paymentApplied = PaymentWorker.getPaymentApplied(payment, true);
+            paymentMap = [:]
+            paymentApplied = PaymentWorker.getPaymentApplied(payment, true)
             if (actual) {
-                paymentMap.amount = payment.actualCurrencyAmount;
-                paymentMap.currencyUomId = payment.actualCurrencyUomId;
-                paymentToApply = payment.getBigDecimal("actualCurrencyAmount")?.setScale(decimals,rounding)?.subtract(paymentApplied);
+                paymentMap.amount = payment.actualCurrencyAmount
+                paymentMap.currencyUomId = payment.actualCurrencyUomId
+                paymentToApply = payment.getBigDecimal("actualCurrencyAmount")?.setScale(decimals,rounding)?.subtract(paymentApplied)
             } else {
-                paymentMap.amount = payment.amount;
-                paymentMap.currencyUomId = payment.currencyUomId;
-                paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding)?.subtract(paymentApplied);
+                paymentMap.amount = payment.amount
+                paymentMap.currencyUomId = payment.currencyUomId
+                paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding)?.subtract(paymentApplied)
             }
             if (paymentToApply?.signum() == 1) {
-                paymentMap.paymentId = payment.paymentId;
-                paymentMap.effectiveDate = payment.effectiveDate;
+                paymentMap.paymentId = payment.paymentId
+                paymentMap.effectiveDate = payment.effectiveDate
                 if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
-                    paymentMap.amountToApply = paymentToApply;
+                    paymentMap.amountToApply = paymentToApply
                 } else {
-                    paymentMap.amountToApply = invoiceToApply;
+                    paymentMap.amountToApply = invoiceToApply
                 }
-                paymentList.add(paymentMap);
+                paymentList.add(paymentMap)
             }
         }
-        return paymentList;
+        return paymentList
     }
 }

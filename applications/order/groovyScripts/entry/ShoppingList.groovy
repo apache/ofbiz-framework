@@ -17,18 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
 
-shoppingCart = session.getAttribute("shoppingCart");
-partyId = shoppingCart.getPartyId();
+shoppingCart = session.getAttribute("shoppingCart")
+partyId = shoppingCart.getPartyId()
 
 // Get the party's collection of Shopping Lists
-shoppingLists = from("ShoppingList").where("partyId", partyId).cache(true).queryList();
+shoppingLists = from("ShoppingList").where("partyId", partyId).cache(true).queryList()
 if (shoppingLists) {
-    context.shoppingLists = shoppingLists;
+    context.shoppingLists = shoppingLists
 }

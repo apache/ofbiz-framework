@@ -17,24 +17,24 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.webapp.control.LoginWorker
 
-productStore = ProductStoreWorker.getProductStore(request);
+productStore = ProductStoreWorker.getProductStore(request)
 
-prodCatalog = CatalogWorker.getProdCatalog(request);
+prodCatalog = CatalogWorker.getProdCatalog(request)
 if (prodCatalog) {
-    catalogStyleSheet = prodCatalog.styleSheet;
+    catalogStyleSheet = prodCatalog.styleSheet
     if (catalogStyleSheet) {
-        globalContext.catalogStyleSheet = catalogStyleSheet;
+        globalContext.catalogStyleSheet = catalogStyleSheet
     }
-    catalogHeaderLogo = prodCatalog.headerLogo;
+    catalogHeaderLogo = prodCatalog.headerLogo
     if (catalogHeaderLogo) {
-        globalContext.catalogHeaderLogo = catalogHeaderLogo;
+        globalContext.catalogHeaderLogo = catalogHeaderLogo
     }
 }
 
-globalContext.productStore = productStore;
-globalContext.checkLoginUrl = LoginWorker.makeLoginUrl(request, "checkLogin");
-globalContext.catalogQuickaddUse = CatalogWorker.getCatalogQuickaddUse(request);
+globalContext.productStore = productStore
+globalContext.checkLoginUrl = LoginWorker.makeLoginUrl(request, "checkLogin")
+globalContext.catalogQuickaddUse = CatalogWorker.getCatalogQuickaddUse(request)

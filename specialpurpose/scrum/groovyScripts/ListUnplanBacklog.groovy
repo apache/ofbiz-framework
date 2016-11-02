@@ -17,32 +17,32 @@
 * under the License.
 */
 
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
 
-taskStatusId = null;
-paraBacklogStatusId = backlogStatusId;
+taskStatusId = null
+paraBacklogStatusId = backlogStatusId
 
-orStsExprs = [];
+orStsExprs = []
     if (backlogStatusId != "Any") {
-        taskStatusId = "STS_CREATED";
-        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"));
+        taskStatusId = "STS_CREATED"
+        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"))
     } else {
-        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"));
-        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_COMPLETED"));
+        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"))
+        orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_COMPLETED"))
     }
-orCurentExprs = [];
+orCurentExprs = []
     if (taskStatusId) {
-        orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, taskStatusId));
-        orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, null));
+        orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, taskStatusId))
+        orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, null))
     }
-andExprs =  [];
-    andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId));
-    andExprs.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
-    andExprs.add(EntityCondition.makeCondition(orStsExprs, EntityOperator.OR));
-    andExprs.add(EntityCondition.makeCondition(orCurentExprs, EntityOperator.OR));
-unplannedBacklogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-unplannedBacklogList = from("UnPlannedBacklogsAndTasks").where(unplannedBacklogCond).orderBy("-custRequestId","workEffortTypeId","custSequenceNum").queryList();
+andExprs =  []
+    andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId))
+    andExprs.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"))
+    andExprs.add(EntityCondition.makeCondition(orStsExprs, EntityOperator.OR))
+    andExprs.add(EntityCondition.makeCondition(orCurentExprs, EntityOperator.OR))
+unplannedBacklogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
+unplannedBacklogList = from("UnPlannedBacklogsAndTasks").where(unplannedBacklogCond).orderBy("-custRequestId","workEffortTypeId","custSequenceNum").queryList()
 
-context.listIt = unplannedBacklogList;
-context.paraBacklogStatusId = paraBacklogStatusId;
+context.listIt = unplannedBacklogList
+context.paraBacklogStatusId = paraBacklogStatusId

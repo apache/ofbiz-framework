@@ -22,38 +22,38 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.feature.*;
-import org.apache.ofbiz.product.product.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.feature.*
+import org.apache.ofbiz.product.product.*
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-searchCategoryId = parameters.SEARCH_CATEGORY_ID;
+searchCategoryId = parameters.SEARCH_CATEGORY_ID
 if (!searchCategoryId) {
-    currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-    searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
+    currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
+    searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
 }
-searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne();
+searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne()
 
-productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator);
-productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List;
+productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator)
+productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List
 if(productFeatureTypeIdsOrdered) {
-    context.productFeatureTypes = from("ProductFeatureType").where(EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList();
+    context.productFeatureTypes = from("ProductFeatureType").where(EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList()
 }
 
-searchOperator = parameters.SEARCH_OPERATOR;
+searchOperator = parameters.SEARCH_OPERATOR
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR";
+  searchOperator = "OR"
 }
 
-searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
-searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
+searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)
+searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request)
 
-context.searchCategoryId = searchCategoryId;
-context.searchCategory = searchCategory;
-context.productFeaturesByTypeMap = productFeaturesByTypeMap;
-context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
-context.searchOperator = searchOperator;
-context.searchConstraintStrings = searchConstraintStrings;
-context.searchSortOrderString = searchSortOrderString;
+context.searchCategoryId = searchCategoryId
+context.searchCategory = searchCategory
+context.productFeaturesByTypeMap = productFeaturesByTypeMap
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered
+context.searchOperator = searchOperator
+context.searchConstraintStrings = searchConstraintStrings
+context.searchSortOrderString = searchSortOrderString

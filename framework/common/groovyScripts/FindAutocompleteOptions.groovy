@@ -17,78 +17,78 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.util.EntityFindOptions;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityFieldValue;
-import org.apache.ofbiz.entity.condition.EntityFunction;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.StringUtil
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityConditionList
+import org.apache.ofbiz.entity.condition.EntityExpr
+import org.apache.ofbiz.entity.condition.EntityFieldValue
+import org.apache.ofbiz.entity.condition.EntityFunction
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-def mainAndConds = [];
-def orExprs = [];
-def entityName = context.entityName;
-def searchFields = context.searchFields;
-def displayFields = context.displayFields ?: searchFields;
-def searchDistinct = Boolean.valueOf(context.searchDistinct ?: false);
+def mainAndConds = []
+def orExprs = []
+def entityName = context.entityName
+def searchFields = context.searchFields
+def displayFields = context.displayFields ?: searchFields
+def searchDistinct = Boolean.valueOf(context.searchDistinct ?: false)
 
-def searchValueFieldName = parameters.term;
-def fieldValue = null;
+def searchValueFieldName = parameters.term
+def fieldValue = null
 if (searchValueFieldName) {
-    fieldValue = searchValueFieldName; 
+    fieldValue = searchValueFieldName
 } else if (parameters.searchValueFieldName) { // This is to find the description of a lookup value on initialization.
-    fieldValue = parameters.get(parameters.searchValueFieldName);
-    context.description = "true";
+    fieldValue = parameters.get(parameters.searchValueFieldName)
+    context.description = "true"
 }
 
-def searchType = context.searchType;
-def displayFieldsSet = null;
+def searchType = context.searchType
+def displayFieldsSet = null
 
-def conditionDates = context.conditionDates;
-def fromDateName = null;
-def thruDateName = null;
-def filterByDateValue = null;
+def conditionDates = context.conditionDates
+def fromDateName = null
+def thruDateName = null
+def filterByDateValue = null
 
 //If conditionDates is present on context, resolve values use add condition date to the condition search
 if (conditionDates) {
-    filterByDateValue = conditionDates.filterByDateValue ?: UtilDateTime.nowTimestamp();
-    fromDateName = conditionDates.fromDateName ?: null;
-    thruDateName = conditionDates.thruDateName ?: null;
+    filterByDateValue = conditionDates.filterByDateValue ?: UtilDateTime.nowTimestamp()
+    fromDateName = conditionDates.fromDateName ?: null
+    thruDateName = conditionDates.thruDateName ?: null
     //if the field filterByDate is present, init default value for fromDate and thruDate
     if (!fromDateName && !thruDateName) {
-        fromDateName = "fromDate";
-        thruDateName = "thruDate";
+        fromDateName = "fromDate"
+        thruDateName = "thruDate"
     }
 }
 
 if (searchFields && fieldValue) {
-    def searchFieldsList = StringUtil.toList(searchFields);
-    displayFieldsSet = StringUtil.toSet(displayFields);
+    def searchFieldsList = StringUtil.toList(searchFields)
+    displayFieldsSet = StringUtil.toSet(displayFields)
     if (context.description && fieldValue instanceof java.lang.String) {
-        returnField = parameters.searchValueFieldName;
+        returnField = parameters.searchValueFieldName
     } else {
-        returnField = searchFieldsList[0]; //default to first element of searchFields
-        displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
+        returnField = searchFieldsList[0] //default to first element of searchFields
+        displayFieldsSet.add(returnField) //add it to select fields, in case it is missing
     }
-    context.returnField = returnField;
-    context.displayFieldsSet = displayFieldsSet;
+    context.returnField = returnField
+    context.displayFieldsSet = displayFieldsSet
     if ("STARTS_WITH".equals(searchType)) {
-        searchValue = fieldValue.toUpperCase() + "%";
+        searchValue = fieldValue.toUpperCase() + "%"
     } else if ("EQUALS".equals(searchType)) {
-        searchValue = fieldValue;
+        searchValue = fieldValue
     } else {//default is CONTAINS
-        searchValue = "%" + fieldValue.toUpperCase() + "%";
+        searchValue = "%" + fieldValue.toUpperCase() + "%"
     }
     searchFieldsList.each { fieldName ->
         if ("EQUALS".equals(searchType)) {
-            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue));
-            return;//in case of EQUALS, we search only a match for the returned field
+            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue))
+            return //in case of EQUALS, we search only a match for the returned field
         } else {
-            orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
+            orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue))
         }        
     }
 }
@@ -97,61 +97,61 @@ if (searchFields && fieldValue) {
  * but that is not supported by the Jquery Autocompleter, but this is still useful to pass parameters from the
  * lookup screen definition:
  */
-def conditionFields = context.conditionFields;
+def conditionFields = context.conditionFields
 if (conditionFields) {
     // these fields are for additonal conditions, this is a Map of name/value pairs
     for (conditionFieldEntry in conditionFields.entrySet()) {
         if (conditionFieldEntry.getValue() instanceof java.util.List) {
-            def orCondFields = [];
+            def orCondFields = []
             for (entry in conditionFieldEntry.getValue()) {
-                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry));
+                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry))
             }
-            mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR));
+            mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR))
         } else {
-            mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));
+            mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()))
         }
     }
 }
 
 if (orExprs && entityName && displayFieldsSet) {
-    mainAndConds.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
+    mainAndConds.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR))
 
     //if there is an extra condition, add it to main condition list
     if (context.andCondition && context.andCondition instanceof EntityCondition) {
-        mainAndConds.add(context.andCondition);
+        mainAndConds.add(context.andCondition)
     }
     if (conditionDates) {
-        def condsDateList = [];
+        def condsDateList = []
         if (thruDateName) {
-            def condsByThruDate = [];
-            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.GREATER_THAN, filterByDateValue));
-            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.EQUALS, null));
-            condsDateList.add(EntityCondition.makeCondition(condsByThruDate, EntityOperator.OR));
+            def condsByThruDate = []
+            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.GREATER_THAN, filterByDateValue))
+            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.EQUALS, null))
+            condsDateList.add(EntityCondition.makeCondition(condsByThruDate, EntityOperator.OR))
         }
 
         if (fromDateName) {
-            def condsByFromDate = [];
-            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue));
-            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.EQUALS, null));
-            condsDateList.add(EntityCondition.makeCondition(condsByFromDate, EntityOperator.OR));
+            def condsByFromDate = []
+            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue))
+            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.EQUALS, null))
+            condsDateList.add(EntityCondition.makeCondition(condsByFromDate, EntityOperator.OR))
         }
 
-        mainAndConds.add(EntityCondition.makeCondition(condsDateList, EntityOperator.AND));
+        mainAndConds.add(EntityCondition.makeCondition(condsDateList, EntityOperator.AND))
     }
 
-    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);
+    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND)
 
-    String viewSizeStr = context.autocompleterViewSize;
+    String viewSizeStr = context.autocompleterViewSize
     if (viewSizeStr == null) {
-        viewSizeStr = EntityUtilProperties.getPropertyValue("widget", "widget.autocompleter.defaultViewSize", delegator);
+        viewSizeStr = EntityUtilProperties.getPropertyValue("widget", "widget.autocompleter.defaultViewSize", delegator)
     }
-    Integer autocompleterViewSize = Integer.valueOf(viewSizeStr ?: 10);
-    EntityFindOptions findOptions = new EntityFindOptions();
-    findOptions.setMaxRows(autocompleterViewSize);
-    findOptions.setDistinct(searchDistinct);
+    Integer autocompleterViewSize = Integer.valueOf(viewSizeStr ?: 10)
+    EntityFindOptions findOptions = new EntityFindOptions()
+    findOptions.setMaxRows(autocompleterViewSize)
+    findOptions.setDistinct(searchDistinct)
 
-    autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false);
+    autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false)
     if (autocompleteOptions) {
-        context.autocompleteOptions = autocompleteOptions;
+        context.autocompleteOptions = autocompleteOptions
     }
 }

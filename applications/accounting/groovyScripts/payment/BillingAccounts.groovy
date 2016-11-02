@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.accounting.payment.BillingAccountWorker;
+import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 
-partyId = parameters.partyId;
-currencyUomId = null;
-billingAccounts = [];
+partyId = parameters.partyId
+currencyUomId = null
+billingAccounts = []
 if (partyId) {
     billingAccountAndRoles = from("BillingAccountAndRole").where('partyId', partyId).queryList()
-    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId;
-    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
+    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
+    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
 }
-context.billingAccounts = billingAccounts;
+context.billingAccounts = billingAccounts

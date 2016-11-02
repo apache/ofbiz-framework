@@ -17,45 +17,45 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.config.ResourceHandler;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.component.ComponentConfig
+import org.apache.ofbiz.base.config.GenericConfigException
+import org.apache.ofbiz.base.config.ResourceHandler
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilXml
+import org.apache.ofbiz.base.util.UtilMisc
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Document
+import org.w3c.dom.Element
 
-List testList = [];
+List testList = []
 for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
-    String componentName = testSuiteInfo.componentConfig.getComponentName();
-    ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
+    String componentName = testSuiteInfo.componentConfig.getComponentName()
+    ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler()
 
     try {
-        Document testSuiteDocument = testSuiteResource.getDocument();
-        Element documentElement = testSuiteDocument.getDocumentElement();
+        Document testSuiteDocument = testSuiteResource.getDocument()
+        Element documentElement = testSuiteDocument.getDocumentElement()
         suiteName =  documentElement.getAttribute("suite-name")
-        firstLine = true;
+        firstLine = true
         for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
-            testMap = [:];
-            String caseName = testCaseElement.getAttribute("case-name");
+            testMap = [:]
+            String caseName = testCaseElement.getAttribute("case-name")
             if (firstLine == true) {
-                testMap = UtilMisc.toMap("suiteName", suiteName, "suiteNameSave", suiteName, "caseName", caseName);
-                firstLine = false;
+                testMap = UtilMisc.toMap("suiteName", suiteName, "suiteNameSave", suiteName, "caseName", caseName)
+                firstLine = false
             } else {
-                testMap = UtilMisc.toMap("suiteNameSave", suiteName, "caseName", caseName);
+                testMap = UtilMisc.toMap("suiteNameSave", suiteName, "caseName", caseName)
             }
-            testList.add(testMap);
+            testList.add(testMap)
         }
     } catch (GenericConfigException e) {
-        String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
-        Debug.logError(e, errMsg, module);
-        throw new IllegalArgumentException(errMsg);
+        String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]"
+        Debug.logError(e, errMsg, module)
+        throw new IllegalArgumentException(errMsg)
     }
 
 
 
 }
 
-context.suits = testList;
+context.suits = testList

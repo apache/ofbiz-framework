@@ -17,51 +17,51 @@
 * under the License.
 */
 
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.EntityUtil
 
 productId = parameters.productId
-personAndCompanyList = [];
+personAndCompanyList = []
 
 if (productId) {
-    productRoleList = from("ProductRole").where("productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP").queryList();
+    productRoleList = from("ProductRole").where("productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP").queryList()
     if (productRoleList) {
         personAndComCond = EntityCondition.makeCondition([
             EntityCondition.makeCondition ("roleTypeId", EntityOperator.EQUALS, "PRODUCT_OWNER"),
             EntityCondition.makeCondition ("partyIdFrom", EntityOperator.EQUALS, productRoleList[0].partyId),
             EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"),
             EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
-            ], EntityJoinOperator.AND);
-        personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComCond).orderBy("groupName").queryList();
+            ], EntityJoinOperator.AND)
+        personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComCond).orderBy("groupName").queryList()
     }
 }
 if (personAndCompanyList) {
-    context.companyCurrentList = personAndCompanyList;
-    context.companyCurrent = personAndCompanyList[0].partyId;
+    context.companyCurrentList = personAndCompanyList
+    context.companyCurrent = personAndCompanyList[0].partyId
     } else {
-    context.companyCurrent = null;
+    context.companyCurrent = null
 }
 
 // Get owner with security group
-scrumRolesPersonAndCompanyList = [];
+scrumRolesPersonAndCompanyList = []
 personAndComConds = EntityCondition.makeCondition([
     EntityCondition.makeCondition ("roleTypeId", EntityOperator.EQUALS, "PRODUCT_OWNER"),
     EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"),
     EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
-    ], EntityJoinOperator.AND);
-personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComConds).orderBy("groupName").queryList();
+    ], EntityJoinOperator.AND)
+personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComConds).orderBy("groupName").queryList()
 if (personAndCompanyList) {
     personAndCompanyList.each { personAndCompanyMap ->
-        partyId = personAndCompanyMap.partyId;
+        partyId = personAndCompanyMap.partyId
         securityGroupCond = EntityCondition.makeCondition([
             EntityCondition.makeCondition ("partyId", EntityOperator.EQUALS, partyId),
             EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")
-            ], EntityJoinOperator.AND);
-        securityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(securityGroupCond).queryList();
+            ], EntityJoinOperator.AND)
+        securityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(securityGroupCond).queryList()
         if (securityGroupList) {
-            scrumRolesPersonAndCompanyList.add(personAndCompanyMap);
+            scrumRolesPersonAndCompanyList.add(personAndCompanyMap)
             }
         }
     }
-context.scrumRolesPersonAndCompanyList = scrumRolesPersonAndCompanyList;
+context.scrumRolesPersonAndCompanyList = scrumRolesPersonAndCompanyList

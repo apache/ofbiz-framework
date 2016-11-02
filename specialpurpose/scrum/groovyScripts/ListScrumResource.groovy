@@ -17,37 +17,37 @@
  * under the License.
  */
 
-import java.util.*;
-import java.lang.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.EntityFunction;
+import java.util.*
+import java.lang.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.EntityFunction
 
-def module = "ListScrumResource.groovy";
+def module = "ListScrumResource.groovy"
 
-performFindInMap = [:];
-performFindInMap.entityName = "ScrumMemberUserLoginAndSecurityGroup";
-inputFields = [:];
-outputList = [];
+performFindInMap = [:]
+performFindInMap.entityName = "ScrumMemberUserLoginAndSecurityGroup"
+inputFields = [:]
+outputList = []
 
-inputFields.putAll(parameters);
-performFindInMap.noConditionFind = "Y";
-performFindInMap.inputFields = inputFields;
-performFindInMap.orderBy = parameters.sortField;
+inputFields.putAll(parameters)
+performFindInMap.noConditionFind = "Y"
+performFindInMap.inputFields = inputFields
+performFindInMap.orderBy = parameters.sortField
 if (parameters.sortField) {
-	performFindInMap.orderBy = "lastName";
+	performFindInMap.orderBy = "lastName"
 }
-performFindResults = runService('performFind', performFindInMap);
-resultList = performFindResults.listIt.getCompleteList();
-performFindResults.listIt.close();
+performFindResults = runService('performFind', performFindInMap)
+resultList = performFindResults.listIt.getCompleteList()
+performFindResults.listIt.close()
 
 resultList.each() { result ->
     if (!"N".equals(result.enabled)) {
-        outputList.add(result);
+        outputList.add(result)
     }
 }
 if (outputList) {
-    context.listIt = outputList;
+    context.listIt = outputList
 }

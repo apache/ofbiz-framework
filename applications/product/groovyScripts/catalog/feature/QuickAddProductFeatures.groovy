@@ -17,6 +17,6 @@
  * under the License.
  */
 
-context.productFeatureTypes = from("ProductFeatureType").orderBy("description").cache(true).queryList();
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").cache(true).queryList()
 
-context.featureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", parameters.productFeatureCategoryId).queryOne();
+context.featureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", parameters.productFeatureCategoryId).queryOne()

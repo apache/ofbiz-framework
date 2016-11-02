@@ -16,18 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-controlPath = parameters._CONTROL_PATH_;
-list = "$controlPath/view/entityref_list";
-main = "$controlPath/view/entityref_main";
-search = parameters.search;
-forstatic = parameters.forstatic;
+controlPath = parameters._CONTROL_PATH_
+list = "$controlPath/view/entityref_list"
+main = "$controlPath/view/entityref_main"
+search = parameters.search
+forstatic = parameters.forstatic
 
 if (search) {
-    list = "$list?search=$search";
-    main = "$main?search=$search";
+    list = "$list?search=$search"
+    main = "$main?search=$search"
 } else if (forstatic) {
-    list = "$list?forstatic=$forstatic";
-    main = "$main?forstatic=$forstatic";
+    list = "$list?forstatic=$forstatic"
+    main = "$main?forstatic=$forstatic"
 }
-context.encodeUrlList = response.encodeURL(list);
-context.encodeUrlMain = response.encodeURL(main);
+context.encodeUrlList = response.encodeURL(list)
+context.encodeUrlMain = response.encodeURL(main)

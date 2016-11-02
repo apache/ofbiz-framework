@@ -20,22 +20,22 @@
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.base.util.*
 
-uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
 
-product = from("Product").where("productId", parameters.productId).queryOne();
+product = from("Product").where("productId", parameters.productId).queryOne()
 
-fromDate = UtilDateTime.nowTimestamp();
+fromDate = UtilDateTime.nowTimestamp()
 if (UtilValidate.isNotEmpty(parameters.fromDate)) {
-    fromDate = ObjectType.simpleTypeConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false);
+    fromDate = ObjectType.simpleTypeConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false)
 }
 
-productAssoc = from("ProductAssoc").where("productId", parameters.productId, "productIdTo", parameters.productIdTo, "productAssocTypeId", parameters.productAssocTypeId, "fromDate", fromDate).queryOne();
-context.productAssoc = productAssoc;
+productAssoc = from("ProductAssoc").where("productId", parameters.productId, "productIdTo", parameters.productIdTo, "productAssocTypeId", parameters.productAssocTypeId, "fromDate", fromDate).queryOne()
+context.productAssoc = productAssoc
 
 if (product) {
-    assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false);
-    assocToProducts = product.getRelated("AssocProductAssoc", null, null, false);
-    assocFromMap = ["assocProducts" : assocFromProducts, "sectionTitle" : uiLabelMap.ProductAssociationsFromProduct];
-    assocToMap = ["assocProducts" : assocToProducts, "sectionTitle" : uiLabelMap.ProductAssociationsToProduct];
-    context.assocSections = [assocFromMap, assocToMap];
+    assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false)
+    assocToProducts = product.getRelated("AssocProductAssoc", null, null, false)
+    assocFromMap = ["assocProducts" : assocFromProducts, "sectionTitle" : uiLabelMap.ProductAssociationsFromProduct]
+    assocToMap = ["assocProducts" : assocToProducts, "sectionTitle" : uiLabelMap.ProductAssociationsToProduct]
+    context.assocSections = [assocFromMap, assocToMap]
 }

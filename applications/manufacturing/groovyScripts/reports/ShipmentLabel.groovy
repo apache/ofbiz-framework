@@ -17,73 +17,73 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.order.OrderReadHelper
 
-shipmentId = parameters.shipmentId;
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+shipmentId = parameters.shipmentId
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 
-context.shipmentIdPar = shipment.shipmentId;
+context.shipmentIdPar = shipment.shipmentId
 
 if (shipment) {
-    shipmentPackages = from("ShipmentPackage").where("shipmentId", shipmentId).queryList();
-    records = [];
-    orderReaders = [:];
+    shipmentPackages = from("ShipmentPackage").where("shipmentId", shipmentId).queryList()
+    records = []
+    orderReaders = [:]
     shipmentPackages.each { shipmentPackage ->
-        shipmentPackageComponents = from("ShipmentPackageContent").where("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.shipmentPackageSeqId).queryList();;
+        shipmentPackageComponents = from("ShipmentPackageContent").where("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.shipmentPackageSeqId).queryList()
         shipmentPackageComponents.each { shipmentPackageComponent ->
-            shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem", false);
-            orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false);
-            orderShipment = EntityUtil.getFirst(orderShipments);
+            shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem", false)
+            orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false)
+            orderShipment = EntityUtil.getFirst(orderShipments)
 
-            String orderId = null;
-            String orderItemSeqId = null;
+            String orderId = null
+            String orderItemSeqId = null
             if (orderShipment) {
-                orderId = orderShipment.orderId;
-                orderItemSeqId = orderShipment.orderItemSeqId;
+                orderId = orderShipment.orderId
+                orderItemSeqId = orderShipment.orderItemSeqId
             }
 
-            record = [:];
+            record = [:]
             if (shipmentPackageComponent.subProductId) {
-                record.productId = shipmentPackageComponent.subProductId;
-                record.quantity = shipmentPackageComponent.subQuantity;
+                record.productId = shipmentPackageComponent.subProductId
+                record.quantity = shipmentPackageComponent.subQuantity
             } else {
-                record.productId = shipmentItem.productId;
-                record.quantity = shipmentPackageComponent.quantity;
+                record.productId = shipmentItem.productId
+                record.quantity = shipmentPackageComponent.quantity
             }
-            record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
-            record.orderId = orderId;
-            record.orderItemSeqId = orderItemSeqId;
-            product = from("Product").where("productId", record.productId).queryOne();
-            record.productName = product.internalName;
-            record.shipDate = shipment.estimatedShipDate;
+            record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId
+            record.orderId = orderId
+            record.orderItemSeqId = orderItemSeqId
+            product = from("Product").where("productId", record.productId).queryOne()
+            record.productName = product.internalName
+            record.shipDate = shipment.estimatedShipDate
             // ---
-            orderReadHelper = null;
+            orderReadHelper = null
             if (orderReaders.containsKey(orderId)) {
-                orderReadHelper = (OrderReadHelper)orderReaders.get(orderId);
+                orderReadHelper = (OrderReadHelper)orderReaders.get(orderId)
             } else {
-                orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
-                orderReadHelper = new OrderReadHelper(orderHeader);
-                orderReaders.put(orderId, orderReadHelper);
+                orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+                orderReadHelper = new OrderReadHelper(orderHeader)
+                orderReaders.put(orderId, orderReadHelper)
             }
-            displayParty = orderReadHelper.getPlacingParty();
-            shippingAddress = orderReadHelper.getShippingAddress();
-            record.shippingAddressName = shippingAddress.toName;
-            record.shippingAddressAddress = shippingAddress.address1;
-            record.shippingAddressCity = shippingAddress.city;
-            record.shippingAddressPostalCode = shippingAddress.postalCode;
-            record.shippingAddressCountry = shippingAddress.countryGeoId;
-            records.add(record);
+            displayParty = orderReadHelper.getPlacingParty()
+            shippingAddress = orderReadHelper.getShippingAddress()
+            record.shippingAddressName = shippingAddress.toName
+            record.shippingAddressAddress = shippingAddress.address1
+            record.shippingAddressCity = shippingAddress.city
+            record.shippingAddressPostalCode = shippingAddress.postalCode
+            record.shippingAddressCountry = shippingAddress.countryGeoId
+            records.add(record)
         }
     }
-    context.records = records;
+    context.records = records
 
     // check permission
-    hasPermission = false;
+    hasPermission = false
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
-        hasPermission = true;
+        hasPermission = true
     }
-    context.hasPermission = hasPermission;
+    context.hasPermission = hasPermission
 }
 
-return "success";
+return "success"

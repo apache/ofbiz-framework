@@ -17,103 +17,103 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityTypeUtil;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.entity.util.EntityUtil
 
-orderId = parameters.orderId;
-if (!orderId) return;
+orderId = parameters.orderId
+if (!orderId) return
 
-shipGroupSeqId = parameters.shipGroupSeqId;
+shipGroupSeqId = parameters.shipGroupSeqId
 
 // if a particular ship group is requested, we will limit ourselves to it
-findMap = [orderId: orderId];
-if (shipGroupSeqId) findMap.shipGroupSeqId = shipGroupSeqId;
+findMap = [orderId: orderId]
+if (shipGroupSeqId) findMap.shipGroupSeqId = shipGroupSeqId
 
-shipGroups = from("OrderItemShipGroup").where(findMap).orderBy("shipGroupSeqId").queryList();
-context.shipGroups = shipGroups;
+shipGroups = from("OrderItemShipGroup").where(findMap).orderBy("shipGroupSeqId").queryList()
+context.shipGroups = shipGroups
 
 // method to expand the marketing packages
 LinkedList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
-    sublines = [];
-    associations = product.getRelated("MainProductAssoc", [productAssocTypeId : assocType], null, false);
-    associations = EntityUtil.filterByDate(associations);
+    sublines = []
+    associations = product.getRelated("MainProductAssoc", [productAssocTypeId : assocType], null, false)
+    associations = EntityUtil.filterByDate(associations)
     associations.each { association ->
-        line = [:];
-        line.product = association.getRelatedOne("AssocProduct", false);
+        line = [:]
+        line.product = association.getRelatedOne("AssocProduct", false)
 
         // determine the quantities
-        quantityComposed = association.quantity ?: 0;
-        line.quantityInGroup = quantityInGroup * quantityComposed;
-        line.quantityShipped = quantityShipped * quantityComposed;
-        line.quantityOpen = quantityOpen * quantityComposed;
+        quantityComposed = association.quantity ?: 0
+        line.quantityInGroup = quantityInGroup * quantityComposed
+        line.quantityShipped = quantityShipped * quantityComposed
+        line.quantityOpen = quantityOpen * quantityComposed
 
-        sublines.add(line);
+        sublines.add(line)
     }
-    return sublines;
+    return sublines
 }
 
-groupData = [:];
+groupData = [:]
 shipGroups.each { shipGroup ->
-    data = [:];
+    data = [:]
 
-    address = shipGroup.getRelatedOne("PostalAddress", false);
-    data.address = address;
+    address = shipGroup.getRelatedOne("PostalAddress", false)
+    data.address = address
 
-    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber", false);
-    data.phoneNumber = phoneNumber;
+    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber", false)
+    data.phoneNumber = phoneNumber
 
-    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod", false);
+    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod", false)
     if (carrierShipmentMethod) {
-        data.carrierShipmentMethod = carrierShipmentMethod;
-        data.shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true);
+        data.carrierShipmentMethod = carrierShipmentMethod
+        data.shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true)
     }
 
     // the lines in a page, each line being a row of data to display
-    lines = [];
+    lines = []
 
     // process the order item to ship group associations, each being a line item for the group
-    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", null, ["orderItemSeqId"], false);
+    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", null, ["orderItemSeqId"], false)
     orderItemAssocs.each { orderItemAssoc ->
-        orderItem = orderItemAssoc.getRelatedOne("OrderItem", false);
-        product = orderItem.getRelatedOne("Product", false);
-        line = [:];
+        orderItem = orderItemAssoc.getRelatedOne("OrderItem", false)
+        product = orderItem.getRelatedOne("Product", false)
+        line = [:]
 
         // the quantity in group
-        quantityInGroup = orderItemAssoc.quantity;
+        quantityInGroup = orderItemAssoc.quantity
         if (orderItemAssoc.cancelQuantity) {
-            quantityInGroup -= orderItemAssoc.cancelQuantity;
+            quantityInGroup -= orderItemAssoc.cancelQuantity
         }
 
         // the quantity shipped
-        quantityShipped = 0.0;
-        issuances = from("ItemIssuance").where("orderId", orderItem.orderId, "orderItemSeqId", orderItem.orderItemSeqId, "shipGroupSeqId", orderItemAssoc.shipGroupSeqId).queryList();
+        quantityShipped = 0.0
+        issuances = from("ItemIssuance").where("orderId", orderItem.orderId, "orderItemSeqId", orderItem.orderItemSeqId, "shipGroupSeqId", orderItemAssoc.shipGroupSeqId).queryList()
         issuances.each { issuance ->
-            quantityShipped += issuance.quantity;
+            quantityShipped += issuance.quantity
         }
 
         // the quantity open (ordered - shipped)
-        quantityOpen = orderItem.quantity;
+        quantityOpen = orderItem.quantity
         if (orderItem.cancelQuantity) {
-            quantityOpen -= orderItem.cancelQuantity;
+            quantityOpen -= orderItem.cancelQuantity
         }
-        quantityOpen -= quantityShipped;
+        quantityOpen -= quantityShipped
 
-        line.orderItem = orderItem;
-        line.product = product;
-        line.quantityInGroup = quantityInGroup;
-        line.quantityShipped = quantityShipped;
-        line.quantityOpen = quantityOpen;
+        line.orderItem = orderItem
+        line.product = product
+        line.quantityInGroup = quantityInGroup
+        line.quantityShipped = quantityShipped
+        line.quantityOpen = quantityOpen
 
         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")) {
-            assocType = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG_AUTO") ? "MANUF_COMPONENT" : "PRODUCT_COMPONENT";
-            sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType);
-            line.expandedList = sublines;
+            assocType = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG_AUTO") ? "MANUF_COMPONENT" : "PRODUCT_COMPONENT"
+            sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType)
+            line.expandedList = sublines
         }
 
-        lines.add(line);
+        lines.add(line)
     }
-    data.lines = lines;
-    groupData[shipGroup.shipGroupSeqId] = data;
+    data.lines = lines
+    groupData[shipGroup.shipGroupSeqId] = data
 }
-context.groupData = groupData;
+context.groupData = groupData

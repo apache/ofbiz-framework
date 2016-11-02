@@ -17,37 +17,37 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.sql.Timestamp;
+import java.util.ArrayList
+import java.util.HashMap
+import java.util.Iterator
+import java.util.Map
+import java.sql.Timestamp
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.service.ServiceDispatcher;
-import org.apache.ofbiz.service.RunningService;
-import org.apache.ofbiz.service.engine.GenericEngine;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.service.ServiceDispatcher
+import org.apache.ofbiz.service.RunningService
+import org.apache.ofbiz.service.engine.GenericEngine
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
-uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
+uiLabelMap.addBottomResourceBundle("CommonUiLabels")
 
-log = ServiceDispatcher.getServiceLogMap();
-serviceList = [];
+log = ServiceDispatcher.getServiceLogMap()
+serviceList = []
 log.each { rs, value ->
-    service = [:];
-    service.serviceName = rs.getModelService().name;
-    service.localName = rs.getLocalName();
-    service.startTime = rs.getStartStamp();
-    service.endTime = rs.getEndStamp();
-    service.modeStr = rs.getMode() == GenericEngine.SYNC_MODE ? uiLabelMap.WebtoolsSync : uiLabelMap.WebtoolsAsync;
+    service = [:]
+    service.serviceName = rs.getModelService().name
+    service.localName = rs.getLocalName()
+    service.startTime = rs.getStartStamp()
+    service.endTime = rs.getEndStamp()
+    service.modeStr = rs.getMode() == GenericEngine.SYNC_MODE ? uiLabelMap.WebtoolsSync : uiLabelMap.WebtoolsAsync
 
-    serviceList.add(service);
+    serviceList.add(service)
 }
-sortField = parameters.sortField;
+sortField = parameters.sortField
 if (sortField) { 
-    context.services = UtilMisc.sortMaps(serviceList, UtilMisc.toList(sortField));
+    context.services = UtilMisc.sortMaps(serviceList, UtilMisc.toList(sortField))
 } else {
-    context.services = serviceList;
+    context.services = serviceList
 }

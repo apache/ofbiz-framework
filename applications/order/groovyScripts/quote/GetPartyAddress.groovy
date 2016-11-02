@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.party.contact.ContactHelper
 
 if (party) {
-    address = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
+    address = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false))
     if (address) {
-        toPostalAddress = address.getRelatedOne("PostalAddress", false);
-        context.toPostalAddress = toPostalAddress;
+        toPostalAddress = address.getRelatedOne("PostalAddress", false)
+        context.toPostalAddress = toPostalAddress
     }
 }
 

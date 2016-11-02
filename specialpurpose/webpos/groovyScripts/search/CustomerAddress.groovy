@@ -16,32 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webpos.WebPosEvents;
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.webpos.WebPosEvents
 
-webPosSession = WebPosEvents.getWebPosSession(request, null);
+webPosSession = WebPosEvents.getWebPosSession(request, null)
 if (webPosSession) {
-    shoppingCart = webPosSession.getCart();
-    shipToCustomerPartyId = shoppingCart.getShipToCustomerPartyId();
+    shoppingCart = webPosSession.getCart()
+    shipToCustomerPartyId = shoppingCart.getShipToCustomerPartyId()
     if (UtilValidate.isNotEmpty(shipToCustomerPartyId)) {
-        context.personShipTo = from("Person").where("partyId", shipToCustomerPartyId).queryOne();
+        context.personShipTo = from("Person").where("partyId", shipToCustomerPartyId).queryOne()
     }
-    shippingContactMechId = shoppingCart.getContactMech("SHIPPING_LOCATION");
+    shippingContactMechId = shoppingCart.getContactMech("SHIPPING_LOCATION")
     if (UtilValidate.isNotEmpty(shippingContactMechId)) {
-        contactMech = from("ContactMech").where("contactMechId", shippingContactMechId).queryOne();
+        contactMech = from("ContactMech").where("contactMechId", shippingContactMechId).queryOne()
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
-            context.shippingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
+            context.shippingPostalAddress = contactMech.getRelatedOne("PostalAddress", false)
         }
     }
-    billToCustomerPartyId = shoppingCart.getBillToCustomerPartyId();
+    billToCustomerPartyId = shoppingCart.getBillToCustomerPartyId()
     if (UtilValidate.isNotEmpty(billToCustomerPartyId)) {
-        context.personBillTo = from("Person").where("partyId", billToCustomerPartyId).queryOne();
+        context.personBillTo = from("Person").where("partyId", billToCustomerPartyId).queryOne()
     }
-    billingContactMechId = shoppingCart.getContactMech("BILLING_LOCATION");
+    billingContactMechId = shoppingCart.getContactMech("BILLING_LOCATION")
     if (UtilValidate.isNotEmpty(billingContactMechId)) {
-        contactMech = from("ContactMech").where("contactMechId", billingContactMechId).queryOne();
+        contactMech = from("ContactMech").where("contactMechId", billingContactMechId).queryOne()
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
-            context.billingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
+            context.billingPostalAddress = contactMech.getRelatedOne("PostalAddress", false)
         }
     }
 }

@@ -20,22 +20,22 @@
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.party.contact.*
 
-context.nowStr = UtilDateTime.nowTimestamp();
+context.nowStr = UtilDateTime.nowTimestamp()
 
-facilityId = parameters.facilityId;
-facility = from("Facility").where("facilityId", facilityId).queryOne();
-facilityType = null;
+facilityId = parameters.facilityId
+facility = from("Facility").where("facilityId", facilityId).queryOne()
+facilityType = null
 if (!facility) {
-  context.facility = delegator.makeValue("Facility", null);
-  context.facilityType = delegator.makeValue("FacilityType", null);
+  context.facility = delegator.makeValue("Facility", null)
+  context.facilityType = delegator.makeValue("FacilityType", null)
 } else {
-  facilityType = facility.getRelatedOne("FacilityType", false);
+  facilityType = facility.getRelatedOne("FacilityType", false)
 }
-context.facility = facility;
-context.facilityType = facilityType;
-context.facilityId = facilityId;
+context.facility = facility
+context.facilityType = facilityType
+context.facilityId = facilityId
 
-showOld = "true".equals(request.getParameter("SHOW_OLD"));
-context.showOld = new Boolean(showOld);
+showOld = "true".equals(request.getParameter("SHOW_OLD"))
+context.showOld = new Boolean(showOld)
 
-context.contactMeches = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facilityId, showOld, null);
+context.contactMeches = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facilityId, showOld, null)

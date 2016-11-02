@@ -17,66 +17,66 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 
-productPromoId = request.getParameter("productPromoId");
-if (!productPromoId) productPromoId = parameters.productPromoId;
-productPromo = from("ProductPromo").where("productPromoId", productPromoId).queryOne();
+productPromoId = request.getParameter("productPromoId")
+if (!productPromoId) productPromoId = parameters.productPromoId
+productPromo = from("ProductPromo").where("productPromoId", productPromoId).queryOne()
 
-promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale);
+promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale)
 
-productPromoCategoryList = from("ProductPromoCategory").where("productPromoId", productPromoId).cache(true).queryList();
-productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_INCLUDE"]);
-productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_EXCLUDE"]);
-productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_ALWAYS"]);
+productPromoCategoryList = from("ProductPromoCategory").where("productPromoId", productPromoId).cache(true).queryList()
+productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_INCLUDE"])
+productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_EXCLUDE"])
+productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : "PPPA_ALWAYS"])
 
-productIdsCond = [] as Set;
-productIdsAction = [] as Set;
-ProductPromoWorker.makeProductPromoCondActionIdSets(productPromoId, productIdsCond, productIdsAction, delegator, null);
+productIdsCond = [] as Set
+productIdsAction = [] as Set
+ProductPromoWorker.makeProductPromoCondActionIdSets(productPromoId, productIdsCond, productIdsAction, delegator, null)
 
-productIds = new TreeSet(productIdsCond);
-productIds.addAll(productIdsAction);
+productIds = new TreeSet(productIdsCond)
+productIds.addAll(productIdsAction)
 
-context.productPromoId = productPromoId;
-context.productPromo = productPromo;
-context.promoAutoDescription = promoAutoDescription;
+context.productPromoId = productPromoId
+context.productPromo = productPromo
+context.promoAutoDescription = promoAutoDescription
 
-context.productPromoCategoryIncludeList = productPromoCategoryIncludeList;
-context.productPromoCategoryExcludeList = productPromoCategoryExcludeList;
-context.productPromoCategoryAlwaysList = productPromoCategoryAlwaysList;
+context.productPromoCategoryIncludeList = productPromoCategoryIncludeList
+context.productPromoCategoryExcludeList = productPromoCategoryExcludeList
+context.productPromoCategoryAlwaysList = productPromoCategoryAlwaysList
 
-context.productIdsCond = productIdsCond;
-context.productIdsAction = productIdsAction;
-context.productIds = productIds as List;
+context.productIdsCond = productIdsCond
+context.productIdsAction = productIdsAction
+context.productIds = productIds as List
 
-viewIndex = 0;
-viewSize = 10;
-highIndex = 0;
-lowIndex = 0;
-listSize = productIds.size();
+viewIndex = 0
+viewSize = 10
+highIndex = 0
+lowIndex = 0
+listSize = productIds.size()
 
 try {
-    viewIndex = Integer.valueOf(request.getParameter("VIEW_INDEX"));
+    viewIndex = Integer.valueOf(request.getParameter("VIEW_INDEX"))
 } catch (Exception e) {
-    viewIndex = 0;
+    viewIndex = 0
 }
 
 try {
-    viewSize = Integer.valueOf(request.getParameter("VIEW_SIZE"));
+    viewSize = Integer.valueOf(request.getParameter("VIEW_SIZE"))
 } catch (Exception e) {
-    viewSize = 10;
+    viewSize = 10
 }
 
-lowIndex = viewIndex * viewSize;
-highIndex = (viewIndex + 1) * viewSize;
+lowIndex = viewIndex * viewSize
+highIndex = (viewIndex + 1) * viewSize
 if (listSize < highIndex) {
-    highIndex = listSize;
+    highIndex = listSize
 }
 
-context.viewIndex = viewIndex;
-context.viewSize = viewSize;
-context.listSize = listSize;
-context.lowIndex = lowIndex;
-context.highIndex = highIndex;
+context.viewIndex = viewIndex
+context.viewSize = viewSize
+context.listSize = listSize
+context.lowIndex = lowIndex
+context.highIndex = highIndex

@@ -23,52 +23,52 @@ import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.transaction.*
 
-module = "EditFeatureCategoryFeatures.groovy";
+module = "EditFeatureCategoryFeatures.groovy"
 
-context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session);
+context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
-context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
-productId = request.getParameter("productId");
-context.productId = productId;
+productId = request.getParameter("productId")
+context.productId = productId
 
-productFeatureCategoryId = parameters.get("productFeatureCategoryId");
-context.productFeatureCategoryId = productFeatureCategoryId;
+productFeatureCategoryId = parameters.get("productFeatureCategoryId")
+context.productFeatureCategoryId = productFeatureCategoryId
 
-context.curProductFeatureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).queryOne();
+context.curProductFeatureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).queryOne()
 
-context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList();
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList()
 
-context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList();
+context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList()
 
 //we only need these if we will be showing the apply feature to category forms
 if (productId) {
-    context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").queryList();
+    context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").queryList()
 }
 
-productFeaturesSize = from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryId).queryCount();
+productFeaturesSize = from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryId).queryCount()
 
-highIndex = 0;
-lowIndex = 0;
-listSize = (int) productFeaturesSize;
+highIndex = 0
+lowIndex = 0
+listSize = (int) productFeaturesSize
 
-viewIndex = (viewIndex) ?: 0;
+viewIndex = (viewIndex) ?: 0
 
-lowIndex = viewIndex * viewSize;
-highIndex = (viewIndex + 1) * viewSize;
+lowIndex = viewIndex * viewSize
+highIndex = (viewIndex + 1) * viewSize
 if (listSize < highIndex) {
-    highIndex = listSize;
+    highIndex = listSize
 }
 
-context.viewIndex = viewIndex;
-context.viewSize = viewSize;
-context.listSize = listSize;
-context.lowIndex = lowIndex;
-context.highIndex = highIndex;
+context.viewIndex = viewIndex
+context.viewSize = viewSize
+context.listSize = listSize
+context.lowIndex = lowIndex
+context.highIndex = highIndex
 
-boolean beganTransaction = false;
+boolean beganTransaction = false
 try {
-    beganTransaction = TransactionUtil.begin();
+    beganTransaction = TransactionUtil.begin()
 
     productFeaturesEli = from("ProductFeature")
                             .where("productFeatureCategoryId", productFeatureCategoryId)
@@ -76,38 +76,38 @@ try {
                             .distinct()
                             .cursorScrollInsensitive()
                             .maxRows(highIndex)
-                            .queryIterator();
-    productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
-    productFeaturesEli.close();
+                            .queryIterator()
+    productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex)
+    productFeaturesEli.close()
 } catch (GenericEntityException e) {
-    String errMsg = "Failure in operation, rolling back transaction";
-    Debug.logError(e, errMsg, module);
+    String errMsg = "Failure in operation, rolling back transaction"
+    Debug.logError(e, errMsg, module)
     try {
         // only rollback the transaction if we started one...
-        TransactionUtil.rollback(beganTransaction, errMsg, e);
+        TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (GenericEntityException e2) {
-        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
     }
     // after rolling back, rethrow the exception
-    throw e;
+    throw e
 } finally {
     // only commit the transaction if we started one... this will throw an exception if it fails
-    TransactionUtil.commit(beganTransaction);
+    TransactionUtil.commit(beganTransaction)
 }
 
-context.productFeatures = productFeatures;
+context.productFeatures = productFeatures
 
-productFeatureApplMap = [:];
-productFeatureAppls = null;
-productFeatureIter = productFeatures.iterator();
-productFeatureApplIter = null;
+productFeatureApplMap = [:]
+productFeatureAppls = null
+productFeatureIter = productFeatures.iterator()
+productFeatureApplIter = null
 while (productFeatureIter) {
-    productFeature = productFeatureIter.next();
-    productFeatureAppls = from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeature.productFeatureId).queryList();
-    productFeatureApplIter = productFeatureAppls.iterator();
+    productFeature = productFeatureIter.next()
+    productFeatureAppls = from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeature.productFeatureId).queryList()
+    productFeatureApplIter = productFeatureAppls.iterator()
     while (productFeatureApplIter) {
-        productFeatureAppl = productFeatureApplIter.next();
-        productFeatureApplMap.put(productFeatureAppl.productFeatureId, productFeatureAppl.productFeatureApplTypeId);
+        productFeatureAppl = productFeatureApplIter.next()
+        productFeatureApplMap.put(productFeatureAppl.productFeatureId, productFeatureAppl.productFeatureApplTypeId)
     }
 }
-context.productFeatureApplMap = productFeatureApplMap;
+context.productFeatureApplMap = productFeatureApplMap

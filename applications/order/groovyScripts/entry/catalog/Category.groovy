@@ -22,79 +22,79 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.category.CategoryContentWrapper;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.category.CategoryWorker
+import org.apache.ofbiz.product.category.CategoryContentWrapper
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-detailScreen = "categorydetail";
-catalogName = CatalogWorker.getCatalogName(request);
+detailScreen = "categorydetail"
+catalogName = CatalogWorker.getCatalogName(request)
 
-productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id;
-context.productCategoryId = productCategoryId;
+productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id
+context.productCategoryId = productCategoryId
 
-context.productStore = ProductStoreWorker.getProductStore(request);
+context.productStore = ProductStoreWorker.getProductStore(request)
 
-pageTitle = null;
-metaDescription = null;
-metaKeywords = null;
+pageTitle = null
+metaDescription = null
+metaKeywords = null
 
-category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne();
+category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne()
 if (category) {
     if (category.detailScreen) {
-        detailScreen = category.detailScreen;
+        detailScreen = category.detailScreen
     }
-    categoryPageTitle = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "PAGE_TITLE").cache(true).queryList();
+    categoryPageTitle = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "PAGE_TITLE").cache(true).queryList()
     if (categoryPageTitle) {
-        pageTitle = from("ElectronicText").where("dataResourceId", categoryPageTitle.get(0).dataResourceId).cache(true).queryOne();
+        pageTitle = from("ElectronicText").where("dataResourceId", categoryPageTitle.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaDescription = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_DESCRIPTION").cache(true).queryList();
+    categoryMetaDescription = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_DESCRIPTION").cache(true).queryList()
     if (categoryMetaDescription) {
-        metaDescription = from("ElectronicText").where("dataResourceId", categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne();
+        metaDescription = from("ElectronicText").where("dataResourceId", categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaKeywords = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_KEYWORD").cache(true).queryList();
+    categoryMetaKeywords = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_KEYWORD").cache(true).queryList()
     if (categoryMetaKeywords) {
-        metaKeywords = from("ElectronicText").where("dataResourceId", categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne();
+        metaKeywords = from("ElectronicText").where("dataResourceId", categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryContentWrapper = new CategoryContentWrapper(category, request);
+    categoryContentWrapper = new CategoryContentWrapper(category, request)
     
-    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
+    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html")
 
     if (pageTitle) {
-        context.title = pageTitle.textData;
+        context.title = pageTitle.textData
     } else {
-        context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
+        context.title = categoryContentWrapper.get("CATEGORY_NAME", "html")
     }
 
     if (metaDescription) {
-        context.metaDescription = metaDescription.textData;
+        context.metaDescription = metaDescription.textData
     } else {
         if (categoryDescription) {
-            context.metaDescription = categoryDescription;
+            context.metaDescription = categoryDescription
         }
     }
 
     if (metaKeywords) {
-        context.metaKeywords = metaKeywords.textData;
+        context.metaKeywords = metaKeywords.textData
     } else {
         if (categoryDescription) {
-            context.metaKeywords = categoryDescription + ", " + catalogName;
+            context.metaKeywords = categoryDescription + ", " + catalogName
         } else {
-            context.metaKeywords = catalogName;
+            context.metaKeywords = catalogName
         }
     }
-    context.productCategory = category;
+    context.productCategory = category
 }
 
 // check the catalogs template path and update
-templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request);
+templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request)
 if (templatePathPrefix) {
-    detailScreen = templatePathPrefix + detailScreen;
+    detailScreen = templatePathPrefix + detailScreen
 }
-context.detailScreen = detailScreen;
+context.detailScreen = detailScreen
 
-request.setAttribute("productCategoryId", productCategoryId);
-request.setAttribute("defaultViewSize", 10);
-request.setAttribute("limitView", true);
+request.setAttribute("productCategoryId", productCategoryId)
+request.setAttribute("defaultViewSize", 10)
+request.setAttribute("limitView", true)

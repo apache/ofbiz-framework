@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityUtil
 
-custRequestId = parameters.custRequestId;
+custRequestId = parameters.custRequestId
 if (custRequestId) {
-    requestQuote = from("QuoteItem").where("custRequestId", custRequestId).queryFirst();
+    requestQuote = from("QuoteItem").where("custRequestId", custRequestId).queryFirst()
     if (requestQuote) {
-        context.quoteId = requestQuote.quoteId;
+        context.quoteId = requestQuote.quoteId
     }
 }

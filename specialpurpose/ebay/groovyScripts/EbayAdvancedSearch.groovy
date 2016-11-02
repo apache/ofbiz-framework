@@ -17,54 +17,54 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.category.CategoryWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-categoryIds = [];
-prodCatalogList = [];
-categoryList = [];
+categoryIds = []
+prodCatalogList = []
+categoryList = []
 
 if (parameters.productStoreId) {
-    productStoreId = parameters.productStoreId;
+    productStoreId = parameters.productStoreId
 } else {
-    productStoreId = ProductStoreWorker.getProductStoreId(request);
+    productStoreId = ProductStoreWorker.getProductStoreId(request)
 }
-ebayConfigList = from("EbayConfig").queryList();
+ebayConfigList = from("EbayConfig").queryList()
 if (productStoreId) {
-    productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
+    productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId)
     if (productStoreCatalogs) {
         productStoreCatalogs.each { productStoreCatalog ->
-            prodCatalog = from("ProdCatalog").where("prodCatalogId", productStoreCatalog.prodCatalogId).cache(true).queryOne();
-            prodCatalogList.add(prodCatalog);
+            prodCatalog = from("ProdCatalog").where("prodCatalogId", productStoreCatalog.prodCatalogId).cache(true).queryOne()
+            prodCatalogList.add(prodCatalog)
         }
     }
 }
-currentCatalogId = null;
+currentCatalogId = null
 if (parameters.SEARCH_CATALOG_ID) {
-    currentCatalogId = parameters.SEARCH_CATALOG_ID;
+    currentCatalogId = parameters.SEARCH_CATALOG_ID
 } else if (prodCatalogList) {
-    catalog = EntityUtil.getFirst(prodCatalogList);
-    currentCatalogId = catalog.prodCatalogId;
+    catalog = EntityUtil.getFirst(prodCatalogList)
+    currentCatalogId = catalog.prodCatalogId
 }
-topCategory = CatalogWorker.getCatalogTopEbayCategoryId(request, currentCatalogId);
+topCategory = CatalogWorker.getCatalogTopEbayCategoryId(request, currentCatalogId)
 if (!topCategory) {
-    topCategory = CatalogWorker.getCatalogTopCategoryId(request, currentCatalogId);
+    topCategory = CatalogWorker.getCatalogTopCategoryId(request, currentCatalogId)
 }
 if (topCategory) {
-    CategoryWorker.getRelatedCategories(request, "topLevelList", topCategory, true);
+    CategoryWorker.getRelatedCategories(request, "topLevelList", topCategory, true)
     if (request.getAttribute("topLevelList")) {
-        categoryList = request.getAttribute("topLevelList");
+        categoryList = request.getAttribute("topLevelList")
     } else {
-        categoryIds.add(topCategory);
+        categoryIds.add(topCategory)
     }
 }
 if (categoryList) {
-    categoryIds = EntityUtil.getFieldListFromEntityList(categoryList, "productCategoryId", true);
+    categoryIds = EntityUtil.getFieldListFromEntityList(categoryList, "productCategoryId", true)
 }
-context.ebayConfigList = ebayConfigList;
-context.categoryIds = categoryIds;
-context.productStoreId = productStoreId;
-context.prodCatalogList = prodCatalogList;
-context.searchCatalogId = currentCatalogId;
+context.ebayConfigList = ebayConfigList
+context.categoryIds = categoryIds
+context.productStoreId = productStoreId
+context.prodCatalogList = prodCatalogList
+context.searchCatalogId = currentCatalogId

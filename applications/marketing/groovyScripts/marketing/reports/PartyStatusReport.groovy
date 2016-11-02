@@ -17,24 +17,24 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-conditionList = [];
+conditionList = []
 if (fromDate) {
-    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 }
 if (statusDate) {
-    conditionList.add(EntityCondition.makeCondition("statusDate", EntityOperator.GREATER_THAN_EQUAL_TO, statusDate));
+    conditionList.add(EntityCondition.makeCondition("statusDate", EntityOperator.GREATER_THAN_EQUAL_TO, statusDate))
 }
 if (thruDate) {
-    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 }
 if (contactListId) {
-    conditionList.add(EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactListId));
+    conditionList.add(EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactListId))
 }
 if (statusId) {
-    conditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+    conditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId))
 }
-partyStatusLists = from("ContactListPartyStatus").where(conditionList).queryList();
-context.partyStatusLists = partyStatusLists;
+partyStatusLists = from("ContactListPartyStatus").where(conditionList).queryList()
+context.partyStatusLists = partyStatusLists

@@ -21,42 +21,42 @@ import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.product.catalog.*
 import org.apache.ofbiz.product.feature.*
 import org.apache.ofbiz.product.product.*
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-searchCategoryId = parameters.SEARCH_CATEGORY_ID;
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+import org.apache.ofbiz.product.store.ProductStoreWorker
+searchCategoryId = parameters.SEARCH_CATEGORY_ID
+productStoreId = ProductStoreWorker.getProductStoreId(request)
 if ((!searchCategoryId || searchCategoryId.length() == 0) && !productStoreId) {
-    currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-    searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
+    currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
+    searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
 }
-searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne();
+searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne()
 
 if (searchCategoryId) {
-    productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator, 2000);
+    productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator, 2000)
 } else {
-    productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000);
+    productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000)
 }
-productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
+productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()))
 
-searchOperator = parameters.SEARCH_OPERATOR;
+searchOperator = parameters.SEARCH_OPERATOR
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR";
+  searchOperator = "OR"
 }
 
-searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
-searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
+searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)
+searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request)
 
 // get suppliers in system
-supplerPartyRoleAndPartyDetails = from("PartyRoleAndPartyDetail").where(roleTypeId : "SUPPLIER").orderBy("groupName", "firstName").queryList();
+supplerPartyRoleAndPartyDetails = from("PartyRoleAndPartyDetail").where(roleTypeId : "SUPPLIER").orderBy("groupName", "firstName").queryList()
 
 // get the GoodIdentification types
-goodIdentificationTypes = from("GoodIdentificationType").orderBy("description").queryList();
+goodIdentificationTypes = from("GoodIdentificationType").orderBy("description").queryList()
 
-context.searchCategoryId = searchCategoryId;
-context.searchCategory = searchCategory;
-context.productFeaturesByTypeMap = productFeaturesByTypeMap;
-context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
-context.searchOperator = searchOperator;
-context.searchConstraintStrings = searchConstraintStrings;
-context.searchSortOrderString = searchSortOrderString;
-context.supplerPartyRoleAndPartyDetails = supplerPartyRoleAndPartyDetails;
-context.goodIdentificationTypes = goodIdentificationTypes;
+context.searchCategoryId = searchCategoryId
+context.searchCategory = searchCategory
+context.productFeaturesByTypeMap = productFeaturesByTypeMap
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered
+context.searchOperator = searchOperator
+context.searchConstraintStrings = searchConstraintStrings
+context.searchSortOrderString = searchSortOrderString
+context.supplerPartyRoleAndPartyDetails = supplerPartyRoleAndPartyDetails
+context.goodIdentificationTypes = goodIdentificationTypes

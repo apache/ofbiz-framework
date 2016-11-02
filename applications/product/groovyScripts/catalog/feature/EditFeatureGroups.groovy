@@ -19,4 +19,4 @@
 
 context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
-context.productFeatureGroups = from("ProductFeatureGroup").queryList();
+context.productFeatureGroups = from("ProductFeatureGroup").queryList()

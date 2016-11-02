@@ -17,45 +17,45 @@
  * under the License.
  */
 
-communicationEvent = from("CommunicationEvent").where("communicationEventId", parameters.communicationEventId).cache(true).queryOne();
+communicationEvent = from("CommunicationEvent").where("communicationEventId", parameters.communicationEventId).cache(true).queryOne()
 
-if (!communicationEvent.note) return;
-nameString = "Sent from: ";
-nameStringIndexValue = communicationEvent.note.indexOf(nameString);
-if (nameStringIndexValue == -1) return;
-int startEmail = nameStringIndexValue + nameString.length();
-int endEmail = communicationEvent.note.indexOf(";", startEmail);
-context.emailAddress = communicationEvent.note.substring(startEmail, endEmail);
+if (!communicationEvent.note) return
+nameString = "Sent from: "
+nameStringIndexValue = communicationEvent.note.indexOf(nameString)
+if (nameStringIndexValue == -1) return
+int startEmail = nameStringIndexValue + nameString.length()
+int endEmail = communicationEvent.note.indexOf(";", startEmail)
+context.emailAddress = communicationEvent.note.substring(startEmail, endEmail)
 
-nameString = "Sent Name from: ";
-nameStringIndexValue = communicationEvent.note.indexOf(nameString);
-if (nameStringIndexValue == -1) return;
-int startName = nameStringIndexValue + nameString.length();
-int endName = communicationEvent.note.indexOf(";", startName);
-name = communicationEvent.note.substring(startName, endName);
+nameString = "Sent Name from: "
+nameStringIndexValue = communicationEvent.note.indexOf(nameString)
+if (nameStringIndexValue == -1) return
+int startName = nameStringIndexValue + nameString.length()
+int endName = communicationEvent.note.indexOf(";", startName)
+name = communicationEvent.note.substring(startName, endName)
 if (name) {
-    counter = 0;
-    lastBlank = 0;
-    List names = [];
+    counter = 0
+    lastBlank = 0
+    List names = []
     while ((nextBlank = name.indexOf(" ", lastBlank)) != -1) {
-        names.add(name.substring(lastBlank, nextBlank));
-        lastBlank = nextBlank + 1;
+        names.add(name.substring(lastBlank, nextBlank))
+        lastBlank = nextBlank + 1
     }
     if (lastBlank > 0) {
-        names.add(name.substring(lastBlank));
+        names.add(name.substring(lastBlank))
     }
     if (names && names.size() > 0) { //lastname
-        context.lastName = names[names.size()-1];
+        context.lastName = names[names.size()-1]
         if (names.size() > 1) { // firstname
-            context.firstName = names[0];
+            context.firstName = names[0]
         }
         if (names.size() > 2) { // middle name(s)
-            context.middleName = "";
+            context.middleName = ""
             for (counter = 1; counter < names.size()-1; counter++) {
                 context.middleName = context.middleName.concat(names[counter]).concat(" ")
             }
         }
     }  else {
-        context.lastName = name;
+        context.lastName = name
     }
 }

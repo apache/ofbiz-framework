@@ -17,59 +17,59 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashMap
+import java.util.Iterator
+import java.util.LinkedList
+import java.util.List
+import java.util.Map
+import java.util.Set
+import java.util.TreeSet
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.securityext.login.*;
-import org.apache.ofbiz.common.*;
-import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.securityext.login.*
+import org.apache.ofbiz.common.*
+import org.apache.ofbiz.content.content.ContentWorker
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
-paramMap = UtilHttp.getParameterMap(request);
+paramMap = UtilHttp.getParameterMap(request)
 
 
-contentIdTo = paramMap.contentIdTo;
-nodeTrailCsv = paramMap.nodeTrailCsv;
-//Debug.logInfo("in viewprep, nodeTrailCsv:" + nodeTrailCsv,"");
-context.nodeTrailCsv = nodeTrailCsv;
-contentId = paramMap.contentIdTo;
-context.subContentId = contentId;
-context.contentIdTo = contentId;
+contentIdTo = paramMap.contentIdTo
+nodeTrailCsv = paramMap.nodeTrailCsv
+//Debug.logInfo("in viewprep, nodeTrailCsv:" + nodeTrailCsv,"")
+context.nodeTrailCsv = nodeTrailCsv
+contentId = paramMap.contentIdTo
+context.subContentId = contentId
+context.contentIdTo = contentId
 
-trail = StringUtil.split(nodeTrailCsv, ",");
-siteAncestorList = [];
-idList = [];
+trail = StringUtil.split(nodeTrailCsv, ",")
+siteAncestorList = []
+idList = []
 if (trail) {
-    pubPt = trail[0];
-    ContentWorker.getContentAncestry(delegator, pubPt, "SUBSITE", "To", idList);
-    idList.add(pubPt);
+    pubPt = trail[0]
+    ContentWorker.getContentAncestry(delegator, pubPt, "SUBSITE", "To", idList)
+    idList.add(pubPt)
 }
 
 // start at 1 to skip webSiteId
 idList.each { id ->
-    webSitePublishPoint = from("WebSitePublishPoint").where("contentId", id).cache(true).queryOne();
-    siteAncestorList.add(webSitePublishPoint);
+    webSitePublishPoint = from("WebSitePublishPoint").where("contentId", id).cache(true).queryOne()
+    siteAncestorList.add(webSitePublishPoint)
 }
-context.siteAncestorList = siteAncestorList;
-//Debug.logInfo("in viewprep, siteAncestorList:" + siteAncestorList,"");
+context.siteAncestorList = siteAncestorList
+//Debug.logInfo("in viewprep, siteAncestorList:" + siteAncestorList,"")
 
-singleWrapper = context.singleWrapper;
-// singleWrapper.putInContext("pageName", page.getPageName());
-singleWrapper.putInContext("contentIdTo", contentIdTo);
-singleWrapper.putInContext("summaryDataResourceTypeId", null);
-singleWrapper.putInContext("mapKey", null);
-singleWrapper.putInContext("nodeTrailCsv", nodeTrailCsv);
+singleWrapper = context.singleWrapper
+// singleWrapper.putInContext("pageName", page.getPageName())
+singleWrapper.putInContext("contentIdTo", contentIdTo)
+singleWrapper.putInContext("summaryDataResourceTypeId", null)
+singleWrapper.putInContext("mapKey", null)
+singleWrapper.putInContext("nodeTrailCsv", nodeTrailCsv)

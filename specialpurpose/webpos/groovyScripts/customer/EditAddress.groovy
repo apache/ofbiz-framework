@@ -17,34 +17,34 @@
  * under the License.
  */
 
-person = from("Person").where("partyId", parameters.partyId).queryOne();
+person = from("Person").where("partyId", parameters.partyId).queryOne()
 if (person) {
-    request.setAttribute("lastName", person.lastName);
-    request.setAttribute("firstName", person.firstName);
-    request.setAttribute("partyId", parameters.partyId);
+    request.setAttribute("lastName", person.lastName)
+    request.setAttribute("firstName", person.firstName)
+    request.setAttribute("partyId", parameters.partyId)
 }
 
-contactMech = from("ContactMech").where("contactMechId", parameters.contactMechId).queryOne();
+contactMech = from("ContactMech").where("contactMechId", parameters.contactMechId).queryOne()
 if (contactMech) {
-    postalAddress = contactMech.getRelatedOne("PostalAddress", false);
+    postalAddress = contactMech.getRelatedOne("PostalAddress", false)
     if (postalAddress) {
-        request.setAttribute("contactMechId", postalAddress.contactMechId);
-        request.setAttribute("toName", postalAddress.toName);
-        request.setAttribute("attnName", postalAddress.attnName);
-        request.setAttribute("address1", postalAddress.address1);
-        request.setAttribute("address2", postalAddress.address2);
-        request.setAttribute("city", postalAddress.city);
-        request.setAttribute("postalCode", postalAddress.postalCode);
-        request.setAttribute("stateProvinceGeoId", postalAddress.stateProvinceGeoId);
-        request.setAttribute("countryGeoId", postalAddress.countryGeoId);
-        stateProvinceGeo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
+        request.setAttribute("contactMechId", postalAddress.contactMechId)
+        request.setAttribute("toName", postalAddress.toName)
+        request.setAttribute("attnName", postalAddress.attnName)
+        request.setAttribute("address1", postalAddress.address1)
+        request.setAttribute("address2", postalAddress.address2)
+        request.setAttribute("city", postalAddress.city)
+        request.setAttribute("postalCode", postalAddress.postalCode)
+        request.setAttribute("stateProvinceGeoId", postalAddress.stateProvinceGeoId)
+        request.setAttribute("countryGeoId", postalAddress.countryGeoId)
+        stateProvinceGeo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne()
         if (stateProvinceGeo) {
-            request.setAttribute("stateProvinceGeo", stateProvinceGeo.get("geoName", locale));
+            request.setAttribute("stateProvinceGeo", stateProvinceGeo.get("geoName", locale))
         }
-        countryProvinceGeo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
+        countryProvinceGeo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne()
         if (countryProvinceGeo) {
-            request.setAttribute("countryProvinceGeo", countryProvinceGeo.get("geoName", locale));
+            request.setAttribute("countryProvinceGeo", countryProvinceGeo.get("geoName", locale))
         }
     }
 }
-request.setAttribute("contactMechPurposeTypeId", parameters.contactMechPurposeTypeId);
+request.setAttribute("contactMechPurposeTypeId", parameters.contactMechPurposeTypeId)

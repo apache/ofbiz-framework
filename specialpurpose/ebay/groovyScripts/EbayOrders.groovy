@@ -18,5 +18,5 @@
  */
 
 if (parameters.orderList) {
-    session.setAttribute("orderList", parameters.orderList);
+    session.setAttribute("orderList", parameters.orderList)
 }

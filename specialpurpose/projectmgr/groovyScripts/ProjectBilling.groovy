@@ -23,13 +23,13 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-projectId = parameters.projectId;
+projectId = parameters.projectId
 entryExprs =
     EntityCondition.makeCondition([
         EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, projectId),
         EntityCondition.makeCondition("invoiceId", EntityOperator.NOT_EQUAL, null),
-        ], EntityOperator.AND);
-orderBy = ["-fromDate"];
+        ], EntityOperator.AND)
+orderBy = ["-fromDate"]
 // check if latest invoice generated is still in process so allow re-generation to correct errors
 entryIterator = from("ProjectPhaseTaskAndTimeEntryTimeSheet")
                     .where(EntityCondition.makeCondition([
@@ -37,16 +37,16 @@ entryIterator = from("ProjectPhaseTaskAndTimeEntryTimeSheet")
                                 EntityCondition.makeCondition("invoiceId", EntityOperator.NOT_EQUAL, null),
                             ], EntityOperator.AND))
                     .orderBy("-fromDate")
-                    .queryIterator();
+                    .queryIterator()
 while (entryItem = entryIterator.next()) {
-    invoice = entryItem.getRelatedOne("Invoice", false);
+    invoice = entryItem.getRelatedOne("Invoice", false)
     if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
-        context.partyIdFrom = invoice.partyIdFrom;
-        context.partyId = invoice.partyId;
-        context.invoiceId = invoice.invoiceId;
-        break;
+        context.partyIdFrom = invoice.partyIdFrom
+        context.partyId = invoice.partyId
+        context.invoiceId = invoice.invoiceId
+        break
         }
     }
-entryIterator.close();
+entryIterator.close()
 //start of this month
-context.thruDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
+context.thruDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp())

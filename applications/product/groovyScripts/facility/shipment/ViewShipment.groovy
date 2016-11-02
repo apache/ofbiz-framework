@@ -19,42 +19,42 @@
 
 import org.apache.ofbiz.entity.condition.*
 
-shipmentId = parameters.shipmentId;
+shipmentId = parameters.shipmentId
 if (!shipmentId) {
-    shipmentId = request.getAttribute("shipmentId");
+    shipmentId = request.getAttribute("shipmentId")
 }
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 
-context.shipmentId = shipmentId;
-context.shipment = shipment;
+context.shipmentId = shipmentId
+context.shipment = shipment
 
 if (shipment) {
-    context.shipmentType = shipment.getRelatedOne("ShipmentType", false);
-    context.statusItem = shipment.getRelatedOne("StatusItem", false);
-    context.primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
-    context.toPerson = shipment.getRelatedOne("ToPerson", false);
-    context.toPartyGroup = shipment.getRelatedOne("ToPartyGroup", false);
-    context.fromPerson = shipment.getRelatedOne("FromPerson", false);
-    context.fromPartyGroup = shipment.getRelatedOne("FromPartyGroup", false);
-    context.originFacility = shipment.getRelatedOne("OriginFacility", false);
-    context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false);
-    context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false);
-    context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false);
+    context.shipmentType = shipment.getRelatedOne("ShipmentType", false)
+    context.statusItem = shipment.getRelatedOne("StatusItem", false)
+    context.primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false)
+    context.toPerson = shipment.getRelatedOne("ToPerson", false)
+    context.toPartyGroup = shipment.getRelatedOne("ToPartyGroup", false)
+    context.fromPerson = shipment.getRelatedOne("FromPerson", false)
+    context.fromPartyGroup = shipment.getRelatedOne("FromPartyGroup", false)
+    context.originFacility = shipment.getRelatedOne("OriginFacility", false)
+    context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false)
+    context.originPostalAddress = shipment.getRelatedOne("OriginPostalAddress", false)
+    context.destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress", false)
 }
 
 // check permission
-hasPermission = false;
+hasPermission = false
 if (security.hasEntityPermission("FACILITY", "_VIEW", userLogin)) {
-    hasPermission = true;
+    hasPermission = true
 } else {
     if (shipment) {
         if (shipment.primaryOrderId) {
             // allow if userLogin is associated with the primaryOrderId with the SUPPLIER_AGENT roleTypeId
-            orderRole = from("OrderRole").where("orderId", shipment.primaryOrderId, "partyId", userLogin.partyId, "roleTypeId", "SUPPLIER_AGENT").queryOne();
+            orderRole = from("OrderRole").where("orderId", shipment.primaryOrderId, "partyId", userLogin.partyId, "roleTypeId", "SUPPLIER_AGENT").queryOne()
             if (orderRole) {
-                hasPermission = true;
+                hasPermission = true
             }
         }
     }
 }
-context.hasPermission = hasPermission;
+context.hasPermission = hasPermission

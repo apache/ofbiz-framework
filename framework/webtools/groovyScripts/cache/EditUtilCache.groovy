@@ -16,42 +16,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.cache.CacheLine;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.base.util.cache.UtilCache
+import org.apache.ofbiz.base.util.cache.CacheLine
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.security.Security
 
-cacheName = parameters.UTIL_CACHE_NAME;
-context.cacheName = cacheName;
+cacheName = parameters.UTIL_CACHE_NAME
+context.cacheName = cacheName
 
 if (cacheName) {
-    utilCache = UtilCache.findCache(cacheName);
+    utilCache = UtilCache.findCache(cacheName)
     if (utilCache) {
-        cache = [:];
+        cache = [:]
 
-        cache.cacheName = utilCache.getName();
-        cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size());
-        cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount());
-        cache.missCountTot = UtilFormatOut.formatQuantity(utilCache.getMissCountTotal());
-        cache.missCountNotFound = UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound());
-        cache.missCountExpired = UtilFormatOut.formatQuantity(utilCache.getMissCountExpired());
-        cache.missCountSoftRef = UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef());
-        cache.removeHitCount = UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount());
-        cache.removeMissCount = UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount());
-        cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory());
-        cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime());
-        cache.useSoftReference = utilCache.getUseSoftReference().toString();
+        cache.cacheName = utilCache.getName()
+        cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size())
+        cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount())
+        cache.missCountTot = UtilFormatOut.formatQuantity(utilCache.getMissCountTotal())
+        cache.missCountNotFound = UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound())
+        cache.missCountExpired = UtilFormatOut.formatQuantity(utilCache.getMissCountExpired())
+        cache.missCountSoftRef = UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef())
+        cache.removeHitCount = UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount())
+        cache.removeMissCount = UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount())
+        cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory())
+        cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime())
+        cache.useSoftReference = utilCache.getUseSoftReference().toString()
 
-        exp = utilCache.getExpireTime();
-        hrs = Math.floor(exp / (60 * 60 * 1000));
-        exp = exp % (60 * 60 * 1000);
-        mins = Math.floor(exp / (60 * 1000));
-        exp = exp % (60 * 1000);
-        secs = exp / 1000;
-        cache.hrs = hrs;
-        cache.mins = mins;
-        cache.secs = UtilFormatOut.formatPrice(secs);
+        exp = utilCache.getExpireTime()
+        hrs = Math.floor(exp / (60 * 60 * 1000))
+        exp = exp % (60 * 60 * 1000)
+        mins = Math.floor(exp / (60 * 1000))
+        exp = exp % (60 * 1000)
+        secs = exp / 1000
+        cache.hrs = hrs
+        cache.mins = mins
+        cache.secs = UtilFormatOut.formatPrice(secs)
 
-        context.cache = cache;
+        context.cache = cache
     }
 }

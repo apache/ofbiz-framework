@@ -17,30 +17,30 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
+shoppingCart = ShoppingCartEvents.getCartObject(request)
 
 if (userLogin) {
-    context.enableShippingAddress = true;
+    context.enableShippingAddress = true
 }
 
-shippingContactMechId = shoppingCart.getShippingContactMechId();
+shippingContactMechId = shoppingCart.getShippingContactMechId()
 if (shippingContactMechId) {
-    context.enableShipmentMethod = true;
+    context.enableShipmentMethod = true
 }
 
-shipmentMethodTypeId  = shoppingCart.getShipmentMethodTypeId();
+shipmentMethodTypeId  = shoppingCart.getShipmentMethodTypeId()
 if (shipmentMethodTypeId) {
-    context.enablePaymentOptions = true;
+    context.enablePaymentOptions = true
 }
 
-paymentMethodIds  = shoppingCart.getPaymentMethodIds();
-paymentMethodTypeId = parameters.paymentMethodTypeId;
+paymentMethodIds  = shoppingCart.getPaymentMethodIds()
+paymentMethodTypeId = parameters.paymentMethodTypeId
 if (paymentMethodIds || paymentMethodTypeId) {
-    context.enablePaymentInformation = true;
+    context.enablePaymentInformation = true
 }
 
 if (paymentMethodIds) {
-    context.enableReviewOrder = true;
+    context.enableReviewOrder = true
 }

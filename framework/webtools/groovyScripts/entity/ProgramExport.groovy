@@ -16,20 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.base.util.*
-import org.w3c.dom.Document;
+import org.w3c.dom.Document
 
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.MultipleCompilationErrorsException;
-import org.codehaus.groovy.control.ErrorCollector;
+import org.codehaus.groovy.control.customizers.ImportCustomizer
+import org.codehaus.groovy.control.CompilerConfiguration
+import org.codehaus.groovy.control.MultipleCompilationErrorsException
+import org.codehaus.groovy.control.ErrorCollector
 
-String groovyProgram = null;
-recordValues = [];
-errMsgList = [];
+String groovyProgram = null
+recordValues = []
+errMsgList = []
 
 if (UtilValidate.isEmpty(parameters.groovyProgram)) {
     
@@ -37,61 +37,61 @@ if (UtilValidate.isEmpty(parameters.groovyProgram)) {
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntaxt is available
 
-import org.apache.ofbiz.entity.util.EntityFindOptions;
+import org.apache.ofbiz.entity.util.EntityFindOptions
 
 // example:
 
 // find the first three record in the product entity (if any)
-EntityFindOptions findOptions = new EntityFindOptions();
-findOptions.setMaxRows(3);
+EntityFindOptions findOptions = new EntityFindOptions()
+findOptions.setMaxRows(3)
 
-List products = delegator.findList("Product", null, null, null, findOptions, false);
+List products = delegator.findList("Product", null, null, null, findOptions, false)
 if (products != null) {  
-    recordValues.addAll(products);
+    recordValues.addAll(products)
 }
 
 
 '''
-    parameters.groovyProgram = groovyProgram;
+    parameters.groovyProgram = groovyProgram
 } else {
-    groovyProgram = parameters.groovyProgram;
+    groovyProgram = parameters.groovyProgram
 }
 
 // Add imports for script.
 def importCustomizer = new ImportCustomizer()
-importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue");
-importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity");
+importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue")
+importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity")
 def configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 
-Binding binding = new Binding();
-binding.setVariable("delegator", delegator);
-binding.setVariable("recordValues", recordValues);
+Binding binding = new Binding()
+binding.setVariable("delegator", delegator)
+binding.setVariable("recordValues", recordValues)
 
-ClassLoader loader = Thread.currentThread().getContextClassLoader();
-def shell = new GroovyShell(loader, binding, configuration);
+ClassLoader loader = Thread.currentThread().getContextClassLoader()
+def shell = new GroovyShell(loader, binding, configuration)
 
 if (UtilValidate.isNotEmpty(groovyProgram)) {
     try {
-        shell.parse(groovyProgram);
+        shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
-        recordValues = shell.getVariable("recordValues");
-        xmlDoc = GenericValue.makeXmlDocument(recordValues);
-        context.put("xmlDoc", xmlDoc);
+        recordValues = shell.getVariable("recordValues")
+        xmlDoc = GenericValue.makeXmlDocument(recordValues)
+        context.put("xmlDoc", xmlDoc)
     } catch(MultipleCompilationErrorsException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e);
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", e)
+        return
     } catch(groovy.lang.MissingPropertyException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e);
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", e)
+        return
     } catch(IllegalArgumentException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e);
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", e)
+        return
     } catch(NullPointerException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e);
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", e)
+        return
     } catch(Exception e) {
-        request.setAttribute("_ERROR_MESSAGE_", e);
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", e)
+        return
     } 
 }

@@ -21,13 +21,13 @@
 // screen is called from one of the WorkEffort calendar screens.
 // The URL coming from WorkEffort does not contain the maintHistSeqId parameter,
 // so this script will look it up using the workEffortId parameter.
-maintHistSeqId = parameters.maintHistSeqId;
-workEffortId = parameters.workEffortId;
+maintHistSeqId = parameters.maintHistSeqId
+workEffortId = parameters.workEffortId
 
 if (!maintHistSeqId && workEffortId) {
-    fixedAssetMaint = from("FixedAssetMaint").where("scheduleWorkEffortId", workEffortId).queryFirst();
+    fixedAssetMaint = from("FixedAssetMaint").where("scheduleWorkEffortId", workEffortId).queryFirst()
     if (fixedAssetMaint) {
-        parameters.fixedAssetId = fixedAssetMaint.fixedAssetId;
-        parameters.maintHistSeqId = fixedAssetMaint.maintHistSeqId;
+        parameters.fixedAssetId = fixedAssetMaint.fixedAssetId
+        parameters.maintHistSeqId = fixedAssetMaint.maintHistSeqId
     }
 }

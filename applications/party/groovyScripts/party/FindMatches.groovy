@@ -17,34 +17,34 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.party.PartyWorker;
+import org.apache.ofbiz.party.party.PartyWorker
 
-match = parameters.match;
+match = parameters.match
 if (match) {
-    context.match = match;
+    context.match = match
 
-    lastName = parameters.lastName ?: null;
-    firstName = parameters.firstName ?: null;
-    address1 = parameters.address1 ?: null;
-    address2 = parameters.address2 ?: null;
-    city = parameters.city ?: null;
-    state = parameters.stateProvinceGeoId ?: null;
-    if ("ANY".equals(state)) state = null;
-    postalCode = parameters.postalCode ?: null;
+    lastName = parameters.lastName ?: null
+    firstName = parameters.firstName ?: null
+    address1 = parameters.address1 ?: null
+    address2 = parameters.address2 ?: null
+    city = parameters.city ?: null
+    state = parameters.stateProvinceGeoId ?: null
+    if ("ANY".equals(state)) state = null
+    postalCode = parameters.postalCode ?: null
 
     if (state) {
-        context.currentStateGeo = from("Geo").where("geoId", state).queryOne();
+        context.currentStateGeo = from("Geo").where("geoId", state).queryOne()
     }
 
     if (!firstName || !lastName || !address1 || !city || !postalCode) {
-        request.setAttribute("_ERROR_MESSAGE_", "Required fields not set!");
-        return;
+        request.setAttribute("_ERROR_MESSAGE_", "Required fields not set!")
+        return
     }
 
     context.matches = PartyWorker.findMatchingPersonPostalAddresses(delegator, address1, address2, city,
-            state, postalCode, null, null, firstName, null, lastName);
+            state, postalCode, null, null, firstName, null, lastName)
 
-    context.addressString = PartyWorker.makeMatchingString(delegator, address1);
-    context.lastName = lastName;
-    context.firstName = firstName;
+    context.addressString = PartyWorker.makeMatchingString(delegator, address1)
+    context.lastName = lastName
+    context.firstName = firstName
 }

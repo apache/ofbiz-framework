@@ -16,31 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.order.order.OrderReadHelper
 
-orderId = context.orderId;
-orderPaymentPreferenceId = context.orderPaymentPreferenceId;
+orderId = context.orderId
+orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
-if ((!orderId) || (!orderPaymentPreferenceId)) return;
+if ((!orderId) || (!orderPaymentPreferenceId)) return
 
 if (orderId) {
-   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
-   context.orderHeader = orderHeader;
+   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+   context.orderHeader = orderHeader
 }
 
 if (orderHeader) {
-   orh = new OrderReadHelper(orderHeader);
-   context.orh = orh;
-   context.overrideAmount = orh.getOrderGrandTotal();
+   orh = new OrderReadHelper(orderHeader)
+   context.orh = orh
+   context.overrideAmount = orh.getOrderGrandTotal()
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
-   context.orderPaymentPreference = orderPaymentPreference;
+   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne()
+   context.orderPaymentPreference = orderPaymentPreference
 }
 
 if (orderPaymentPreference) {
-   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true);
-   context.paymentMethodType = paymentMethodType;
-   context.overrideAmount = orderPaymentPreference.getBigDecimal("maxAmount");
+   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true)
+   context.paymentMethodType = paymentMethodType
+   context.overrideAmount = orderPaymentPreference.getBigDecimal("maxAmount")
 }

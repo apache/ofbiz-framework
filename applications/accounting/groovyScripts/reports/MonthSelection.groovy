@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.service.calendar.ExpressionUiHelper;
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.service.calendar.ExpressionUiHelper
 
 if (parameters.selectedMonth) {
-  selectedMonth = Integer.valueOf(parameters.selectedMonth);
-  selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0);
-  context.fromDate = UtilDateTime.getMonthStart(selectedMonthDate, timeZone, locale);
-  context.thruDate = UtilDateTime.getMonthEnd(selectedMonthDate, timeZone, locale);
+  selectedMonth = Integer.valueOf(parameters.selectedMonth)
+  selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0)
+  context.fromDate = UtilDateTime.getMonthStart(selectedMonthDate, timeZone, locale)
+  context.thruDate = UtilDateTime.getMonthEnd(selectedMonthDate, timeZone, locale)
 }
-context.monthList = ExpressionUiHelper.getMonthValueList(locale);
+context.monthList = ExpressionUiHelper.getMonthValueList(locale)

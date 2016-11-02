@@ -24,43 +24,43 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.ExecutionServiceException
 
 abstract class GroovyBaseScript extends Script {
-    public static final String module = GroovyBaseScript.class.getName();
+    public static final String module = GroovyBaseScript.class.getName()
 
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
         if (!inputMap.userLogin) {
-            inputMap.userLogin = this.binding.getVariable('parameters').userLogin;
+            inputMap.userLogin = this.binding.getVariable('parameters').userLogin
         }
         if (!inputMap.timeZone) {
-            inputMap.timeZone = this.binding.getVariable('parameters').timeZone;
+            inputMap.timeZone = this.binding.getVariable('parameters').timeZone
         }
         if (!inputMap.locale) {
-            inputMap.locale = this.binding.getVariable('parameters').locale;
+            inputMap.locale = this.binding.getVariable('parameters').locale
         }
-        Map result = binding.getVariable('dispatcher').runSync(serviceName, inputMap);
+        Map result = binding.getVariable('dispatcher').runSync(serviceName, inputMap)
         if (ServiceUtil.isError(result)) {
             throw new ExecutionServiceException(ServiceUtil.getErrorMessage(result))
         }
-        return result;
+        return result
     }
 
     Map run(Map args) throws ExecutionServiceException {
-        return runService((String)args.get('service'), (Map)args.get('with', new HashMap()));
+        return runService((String)args.get('service'), (Map)args.get('with', new HashMap()))
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {
-        return result = binding.getVariable('delegator').makeValue(entityName);
+        return result = binding.getVariable('delegator').makeValue(entityName)
     }
 
     EntityQuery from(def entity) {
-        return EntityQuery.use(binding.getVariable('delegator')).from(entity);
+        return EntityQuery.use(binding.getVariable('delegator')).from(entity)
     }
 
     EntityQuery select(String... fields) {
-        return EntityQuery.use(binding.getVariable('delegator')).select(fields);
+        return EntityQuery.use(binding.getVariable('delegator')).select(fields)
     }
 
     EntityQuery select(Set<String> fields) {
-        return EntityQuery.use(binding.getVariable('delegator')).select(fields);
+        return EntityQuery.use(binding.getVariable('delegator')).select(fields)
     }
 
     def success(String message) {
@@ -70,22 +70,22 @@ abstract class GroovyBaseScript extends Script {
             if (message) {
                 this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
             }
-            return 'success';
+            return 'success'
         } else {
             // the script is invoked as a "service"
             if (message) {
-                return ServiceUtil.returnSuccess(message);
+                return ServiceUtil.returnSuccess(message)
             } else {
-                return ServiceUtil.returnSuccess();
+                return ServiceUtil.returnSuccess()
             }
         }
     }
     Map failure(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (message) {
-            return ServiceUtil.returnFailure(message);
+            return ServiceUtil.returnFailure(message)
         } else {
-            return ServiceUtil.returnFailure();
+            return ServiceUtil.returnFailure()
         }
     }
     def error(String message) {
@@ -95,22 +95,22 @@ abstract class GroovyBaseScript extends Script {
             if (message) {
                 this.binding.getVariable('request').setAttribute("_ERROR_MESSAGE_", message)
             }
-            return 'error';
+            return 'error'
         } else {
             if (message) {
-                return ServiceUtil.returnError(message);
+                return ServiceUtil.returnError(message)
             } else {
-                return ServiceUtil.returnError();
+                return ServiceUtil.returnError()
             }
         }
     }
     def logInfo(String message) {
-        Debug.logInfo(message, module);
+        Debug.logInfo(message, module)
     }
     def logWarning(String message) {
-        Debug.logWarning(message, module);
+        Debug.logWarning(message, module)
     }
     def logError(String message) {
-        Debug.logError(message, module);
+        Debug.logError(message, module)
     }
 }

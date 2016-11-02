@@ -18,20 +18,20 @@
  */
 
 if (billingAccountId) {
-    orderPaymentPreferencesList = [];
-    orderList = from("OrderHeader").where('billingAccountId', billingAccountId).queryList();
+    orderPaymentPreferencesList = []
+    orderList = from("OrderHeader").where('billingAccountId', billingAccountId).queryList()
     if (orderList) {
         orderList.each { orderHeader ->
-            orderId = orderHeader.orderId;
-            orderBillingAcc = from("OrderHeaderAndPaymentPref").where("orderId", orderId).queryFirst();
-            orderBillingAccMap = [:];
+            orderId = orderHeader.orderId
+            orderBillingAcc = from("OrderHeaderAndPaymentPref").where("orderId", orderId).queryFirst()
+            orderBillingAccMap = [:]
             if (orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {
-                orderBillingAccMap.putAll(orderBillingAcc);
-                orderId = orderBillingAcc.orderId;
-                orderBillingAccMap.orderId = orderId;
+                orderBillingAccMap.putAll(orderBillingAcc)
+                orderId = orderBillingAcc.orderId
+                orderBillingAccMap.orderId = orderId
             }
-            orderPaymentPreferencesList.add(orderBillingAccMap);
+            orderPaymentPreferencesList.add(orderBillingAccMap)
         }
-        context.orderPaymentPreferencesList = orderPaymentPreferencesList;
+        context.orderPaymentPreferencesList = orderPaymentPreferencesList
     }
 }

@@ -16,38 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.cache.CacheLine;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.base.util.cache.UtilCache
+import org.apache.ofbiz.base.util.cache.CacheLine
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.security.Security
 
-context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session);
+context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session)
 
-cacheName = parameters.UTIL_CACHE_NAME;
-context.cacheName = cacheName;
-context.now = (new Date()).toString();
+cacheName = parameters.UTIL_CACHE_NAME
+context.cacheName = cacheName
+context.now = (new Date()).toString()
 
-totalSize = 0;
+totalSize = 0
 
-cacheElementsList = [];
+cacheElementsList = []
 if (cacheName) {
-    utilCache = UtilCache.findCache(cacheName);
+    utilCache = UtilCache.findCache(cacheName)
     if (utilCache) {
         cacheElementsList = utilCache.getLineInfos()
         cacheElementsList.each {
             if (it.expireTimeMillis != null) {
-                it.expireTimeMillis = (it.expireTimeMillis / 1000) .toString();
+                it.expireTimeMillis = (it.expireTimeMillis / 1000) .toString()
             }
-            totalSize += it.lineSize;
-            it.lineSize = UtilFormatOut.formatQuantity(it.lineSize);
+            totalSize += it.lineSize
+            it.lineSize = UtilFormatOut.formatQuantity(it.lineSize)
         }
     }
 }
-context.totalSize = UtilFormatOut.formatQuantity(totalSize);
-sortField = parameters.sortField;
+context.totalSize = UtilFormatOut.formatQuantity(totalSize)
+sortField = parameters.sortField
 if (sortField) { 
-    context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField));
+    context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField))
 } else {
-    context.cacheElementsList = cacheElementsList;
+    context.cacheElementsList = cacheElementsList
 }

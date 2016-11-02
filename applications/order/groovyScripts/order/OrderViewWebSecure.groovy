@@ -17,39 +17,39 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.*;
-import org.apache.ofbiz.order.order.*;
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.collections.*
+import org.apache.ofbiz.order.order.*
 
-orderHeader = context.orderHeader;
+orderHeader = context.orderHeader
 
 // if orderHeader is null in OrderView.groovy then it is not null but void here!
 if (orderHeader) {
     // set hasPermission, must always exist if the orderHeader != null
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
-    hasPermission = false;
-    canViewInternalDetails = false;
+    hasPermission = false
+    canViewInternalDetails = false
     if (("SALES_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_VIEW", session))
         || ("PURCHASE_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))) {
-        hasPermission = true;
-        canViewInternalDetails = true;
+        hasPermission = true
+        canViewInternalDetails = true
     } else if (security.hasEntityPermission("ORDERMGR_ROLE", "_VIEW", session)) {
-        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null, false);
+        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null, false)
         if (currentUserOrderRoles) {
-            hasPermission = true;
-            canViewInternalDetails = true;
+            hasPermission = true
+            canViewInternalDetails = true
         }
     } else {
         // regardless of permission, allow if this is the supplier
-        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null, false);
+        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null, false)
         if (currentUserSupplierOrderRoles) {
-            hasPermission = true;
+            hasPermission = true
         }
     }
-    context.hasPermission = hasPermission;
-    context.canViewInternalDetails = canViewInternalDetails;
+    context.hasPermission = hasPermission
+    context.canViewInternalDetails = canViewInternalDetails
 
-    orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request);
-    context.orderContentWrapper = orderContentWrapper;
+    orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request)
+    context.orderContentWrapper = orderContentWrapper
 }

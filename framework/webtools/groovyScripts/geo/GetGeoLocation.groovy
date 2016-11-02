@@ -17,6 +17,6 @@
  * under the License.
  */
 
-context.geoPointId = geoPoint.geoPointId;
-context.latitude = geoPoint.latitude;
-context.longitude = geoPoint.longitude;
+context.geoPointId = geoPoint.geoPointId
+context.latitude = geoPoint.latitude
+context.longitude = geoPoint.longitude

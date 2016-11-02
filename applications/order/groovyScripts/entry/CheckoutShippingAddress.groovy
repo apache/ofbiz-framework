@@ -17,36 +17,36 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.store.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityExpr
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-cart = session.getAttribute("shoppingCart");
-party = userLogin.getRelatedOne("Party", false);
-partyId = party.partyId;
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+cart = session.getAttribute("shoppingCart")
+party = userLogin.getRelatedOne("Party", false)
+partyId = party.partyId
+productStoreId = ProductStoreWorker.getProductStoreId(request)
 
-productStoreId = cart.getProductStoreId();
+productStoreId = cart.getProductStoreId()
 if (productStoreId) {
-    productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-    payToPartyId = productStore.payToPartyId;
+    productStore = ProductStoreWorker.getProductStore(productStoreId, delegator)
+    payToPartyId = productStore.payToPartyId
 }
 
-shippingContactMechId = request.getParameter("shipping_contact_mech_id");
+shippingContactMechId = request.getParameter("shipping_contact_mech_id")
 for (shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
-    supplierPartyId = cart.getSupplierPartyId(shipGroupIndex);
-    context[shipGroupIndex + "_supplierPartyId"] = supplierPartyId;
+    supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)
+    context[shipGroupIndex + "_supplierPartyId"] = supplierPartyId
 }
-agreements = from("Agreement").where("partyIdTo", payToPartyId, "partyIdFrom", partyId).filterByDate().cache(true).queryList();
-context.agreements = agreements;
+agreements = from("Agreement").where("partyIdTo", payToPartyId, "partyIdFrom", partyId).filterByDate().cache(true).queryList()
+context.agreements = agreements
 
-context.shoppingCart = cart;
-context.userLogin = userLogin;
-context.productStoreId = productStoreId;
-context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+context.shoppingCart = cart
+context.userLogin = userLogin
+context.productStoreId = productStoreId
+context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)

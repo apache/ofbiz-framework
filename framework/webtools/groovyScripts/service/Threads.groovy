@@ -17,37 +17,37 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.sql.Timestamp;
+import java.util.ArrayList
+import java.util.HashMap
+import java.util.Iterator
+import java.util.List
+import java.util.Map
+import java.sql.Timestamp
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.service.RunningService;
-import org.apache.ofbiz.service.engine.GenericEngine;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.service.RunningService
+import org.apache.ofbiz.service.engine.GenericEngine
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
-uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
+uiLabelMap.addBottomResourceBundle("CommonUiLabels")
 
-threads = [];
-poolState = dispatcher.getJobManager().getPoolState();
-context.poolState = poolState;
-context.threads = poolState.taskList;
+threads = []
+poolState = dispatcher.getJobManager().getPoolState()
+context.poolState = poolState
+context.threads = poolState.taskList
 
 // Some stuff for general threads on the server
-currentThread = Thread.currentThread();
-currentThreadGroup = currentThread.getThreadGroup();
-topThreadGroup = currentThreadGroup;
+currentThread = Thread.currentThread()
+currentThreadGroup = currentThread.getThreadGroup()
+topThreadGroup = currentThreadGroup
 while (topThreadGroup.getParent()) {
-    topThreadGroup = topThreadGroup.getParent();
+    topThreadGroup = topThreadGroup.getParent()
 }
 
-Thread[] allThreadArray = new Thread[1000];
-topThreadGroup.enumerate(allThreadArray);
-allThreadList = Arrays.asList(allThreadArray);
+Thread[] allThreadArray = new Thread[1000]
+topThreadGroup.enumerate(allThreadArray)
+allThreadList = Arrays.asList(allThreadArray)
 
-context.allThreadList = allThreadList;
+context.allThreadList = allThreadList

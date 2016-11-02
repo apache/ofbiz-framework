@@ -22,33 +22,33 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.apache.ofbiz.product.config.ProductConfigWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.product.config.ProductConfigWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.base.util.*
 
-currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
-product = context.product;
+currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency()
+product = context.product
 
 if (product) {
-    configWrapper = ProductConfigWorker.getProductConfigWrapper(product.productId, currencyUomId, request);
-    ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
+    configWrapper = ProductConfigWorker.getProductConfigWrapper(product.productId, currencyUomId, request)
+    ProductConfigWorker.fillProductConfigWrapper(configWrapper, request)
 
     if (!configWrapper.isCompleted()) {
-        configId = request.getParameter("configId");
+        configId = request.getParameter("configId")
         if (configId) {
-            configWrapper.loadConfig(delegator, configId);
+            configWrapper.loadConfig(delegator, configId)
         } else {
-            configWrapper.setDefaultConfig();
+            configWrapper.setDefaultConfig()
         }
     }
-    ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
+    ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator)
     if (!ProductStoreWorker.isStoreInventoryAvailable(request, configWrapper, 1.0)) {
-        context.productNotAvailable = "Y";
+        context.productNotAvailable = "Y"
     }
-    context.configwrapper = configWrapper;
-    context.configId = configWrapper.getConfigId();
-    context.totalPrice = configWrapper.getTotalPrice();
-    context.renderSingleChoiceWithRadioButtons = "Y";
-    context.showOffsetPrice = "Y";
+    context.configwrapper = configWrapper
+    context.configId = configWrapper.getConfigId()
+    context.totalPrice = configWrapper.getTotalPrice()
+    context.renderSingleChoiceWithRadioButtons = "Y"
+    context.showOffsetPrice = "Y"
 }

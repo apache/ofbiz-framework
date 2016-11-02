@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 commonReturnHistoryCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "ReturnItem"),
                            EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, entityField),
                            EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, returnId + "%"),
                            EntityCondition.makeCondition("newValueText", EntityOperator.NOT_EQUAL, null),
-                           EntityCondition.makeCondition("oldValueText", EntityOperator.NOT_EQUAL, null)];
+                           EntityCondition.makeCondition("oldValueText", EntityOperator.NOT_EQUAL, null)]
 
-returnHistoryList = from("EntityAuditLog").where(commonReturnHistoryCond).queryList();
+returnHistoryList = from("EntityAuditLog").where(commonReturnHistoryCond).queryList()
 
-orderReturnItemHistories = [];
+orderReturnItemHistories = []
 returnHistoryList.each { returnHistory ->
     if ("returnTypeId".equals(entityField) || "returnReasonId".equals(entityField)) {
         if (returnHistory.newValueText.toString() != returnHistory.oldValueText.toString()) {
-            orderReturnItemHistories.add(returnHistory);
+            orderReturnItemHistories.add(returnHistory)
         }
     } else if ((Float.valueOf(returnHistory.oldValueText)).compareTo(Float.valueOf(returnHistory.newValueText)) != 0) {
-            orderReturnItemHistories.add(returnHistory);
+            orderReturnItemHistories.add(returnHistory)
     }
 }
-context.orderReturnItemHistories = orderReturnItemHistories;
+context.orderReturnItemHistories = orderReturnItemHistories

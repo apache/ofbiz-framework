@@ -17,22 +17,22 @@
  * under the License.
  */
 
-import org.apache.ofbiz.webpos.WebPosEvents;
-import org.apache.ofbiz.webpos.session.WebPosSession;
-import org.apache.ofbiz.webpos.transaction.WebPosTransaction;
+import org.apache.ofbiz.webpos.WebPosEvents
+import org.apache.ofbiz.webpos.session.WebPosSession
+import org.apache.ofbiz.webpos.transaction.WebPosTransaction
 
-webPosSession = WebPosEvents.getWebPosSession(request, null);
+webPosSession = WebPosEvents.getWebPosSession(request, null)
 if (webPosSession) {
-    context.shoppingCartSize = webPosSession.getCart().size();
-    context.isManagerLoggedIn = webPosSession.isManagerLoggedIn();
-    webPosTransaction = webPosSession.getCurrentTransaction();
+    context.shoppingCartSize = webPosSession.getCart().size()
+    context.isManagerLoggedIn = webPosSession.isManagerLoggedIn()
+    webPosTransaction = webPosSession.getCurrentTransaction()
 
     if (webPosTransaction) {
-        context.isOpen = webPosTransaction.isOpen();
+        context.isOpen = webPosTransaction.isOpen()
     }
-    context.cart = webPosSession.getCart();
-    context.totalDue = webPosSession.getCurrentTransaction().getTotalDue();
-    context.totalPayments = webPosSession.getCurrentTransaction().getPaymentTotal();
+    context.cart = webPosSession.getCart()
+    context.totalDue = webPosSession.getCurrentTransaction().getTotalDue()
+    context.totalPayments = webPosSession.getCurrentTransaction().getPaymentTotal()
 } else {
-    context.shoppingCartSize = 0;
+    context.shoppingCartSize = 0
 }

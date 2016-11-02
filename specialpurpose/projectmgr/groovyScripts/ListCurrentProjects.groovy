@@ -25,20 +25,20 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 cond = EntityCondition.makeCondition([
         EntityCondition.makeCondition ("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
         EntityCondition.makeCondition ("currentStatusId", EntityOperator.NOT_EQUAL, "PRJ_CLOSED")
-        ], EntityJoinOperator.AND);
-allProjects = select("workEffortId").from("WorkEffort").where(cond).orderBy("workEffortName").queryList();
+        ], EntityJoinOperator.AND)
+allProjects = select("workEffortId").from("WorkEffort").where(cond).orderBy("workEffortName").queryList()
 
-projects = [];
+projects = []
 allProjects.each { project ->
-    result = runService('getProject', ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
+    result = runService('getProject', ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId])
     if (result.projectInfo) {
-        resultAssign = from("WorkEffortPartyAssignment").where("partyId", parameters.userLogin.partyId, "workEffortId", project.workEffortId).queryList();
+        resultAssign = from("WorkEffortPartyAssignment").where("partyId", parameters.userLogin.partyId, "workEffortId", project.workEffortId).queryList()
         if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)
         || ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
-            projects.add(result.projectInfo);
+            projects.add(result.projectInfo)
         }
     }
 }
 if (projects) {
-    context.projects = projects;
+    context.projects = projects
 }

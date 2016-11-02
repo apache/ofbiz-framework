@@ -17,20 +17,20 @@
  * under the License.
  */
 
-import org.apache.ofbiz.accounting.payment.PaymentWorker;
-import org.apache.ofbiz.accounting.payment.BillingAccountWorker;
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 
-partyId = parameters.partyId ?: userLogin.partyId;
-showOld = "true".equals(parameters.SHOW_OLD);
+partyId = parameters.partyId ?: userLogin.partyId
+showOld = "true".equals(parameters.SHOW_OLD)
 
-currencyUomId = null;
-billingAccounts = [];
+currencyUomId = null
+billingAccounts = []
 if (partyId) {
-    billingAccountAndRoles = from("BillingAccountAndRole").where("partyId", partyId).queryList();
-    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId;
-    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
+    billingAccountAndRoles = from("BillingAccountAndRole").where("partyId", partyId).queryList()
+    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
+    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
 }
-context.billingAccounts = billingAccounts;
-context.showOld = showOld;
-context.partyId = partyId;
-context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
+context.billingAccounts = billingAccounts
+context.showOld = showOld
+context.partyId = partyId
+context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld)

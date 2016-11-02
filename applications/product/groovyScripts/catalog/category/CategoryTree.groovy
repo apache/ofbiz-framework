@@ -21,7 +21,7 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
 // The separateRootType function will return the list of category of given catalog.
@@ -29,55 +29,55 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 List separateRootType(roots) {
     if(roots) {
-        prodRootTypeTree = [];
+        prodRootTypeTree = []
         roots.each { root ->
-            prodCateMap = [:];
-            productCategory = root.getRelatedOne("ProductCategory", false);
-            prodCateMap.productCategoryId = productCategory.getString("productCategoryId");
-            prodCateMap.categoryName = productCategory.getString("categoryName");
-            prodCateMap.isCatalog = false;
-            prodCateMap.isCategoryType = true;
-            prodRootTypeTree.add(prodCateMap);
+            prodCateMap = [:]
+            productCategory = root.getRelatedOne("ProductCategory", false)
+            prodCateMap.productCategoryId = productCategory.getString("productCategoryId")
+            prodCateMap.categoryName = productCategory.getString("categoryName")
+            prodCateMap.isCatalog = false
+            prodCateMap.isCategoryType = true
+            prodRootTypeTree.add(prodCateMap)
         }
-        return prodRootTypeTree;
+        return prodRootTypeTree
     }
 }
 
-completedTree =  [];
+completedTree =  []
 // Get the Catalogs
-prodCatalogs = from("ProdCatalog").queryList();
+prodCatalogs = from("ProdCatalog").queryList()
 if (prodCatalogs) {
     prodCatalogs.each { prodCatalog ->
-        prodCatalogMap = [:];
-        prodCatalogMap.productCategoryId = prodCatalog.getString("prodCatalogId");
-        prodCatalogMap.categoryName = prodCatalog.getString("catalogName");
-        prodCatalogMap.isCatalog = true;
-        prodCatalogMap.isCategoryType = false;
-        prodCatalogCategories = from("ProdCatalogCategory").where("prodCatalogId", prodCatalog.prodCatalogId).filterByDate().queryList();
+        prodCatalogMap = [:]
+        prodCatalogMap.productCategoryId = prodCatalog.getString("prodCatalogId")
+        prodCatalogMap.categoryName = prodCatalog.getString("catalogName")
+        prodCatalogMap.isCatalog = true
+        prodCatalogMap.isCategoryType = false
+        prodCatalogCategories = from("ProdCatalogCategory").where("prodCatalogId", prodCatalog.prodCatalogId).filterByDate().queryList()
         if (prodCatalogCategories) {
-            prodCatalogMap.child = separateRootType(prodCatalogCategories);
+            prodCatalogMap.child = separateRootType(prodCatalogCategories)
         }
-        completedTree.add(prodCatalogMap);
+        completedTree.add(prodCatalogMap)
     }
 }
 // The complete tree list for the category tree
-context.completedTree = completedTree;
+context.completedTree = completedTree
 
-stillInCatalogManager = true;
-productCategoryId = null;
-prodCatalogId = null;
-showProductCategoryId = null;
+stillInCatalogManager = true
+productCategoryId = null
+prodCatalogId = null
+showProductCategoryId = null
 
 // Reset tree condition check. Are we still in the Catalog Manager ?. If not , then reset the tree.
 if ((parameters.productCategoryId != null) || (parameters.showProductCategoryId != null)) {
-    stillInCatalogManager = false;
-    productCategoryId = parameters.productCategoryId;
-    showProductCategoryId = parameters.showProductCategoryId;
+    stillInCatalogManager = false
+    productCategoryId = parameters.productCategoryId
+    showProductCategoryId = parameters.showProductCategoryId
 } else if (parameters.prodCatalogId != null) {
-    stillInCatalogManager = false;
-    prodCatalogId = parameters.prodCatalogId;
+    stillInCatalogManager = false
+    prodCatalogId = parameters.prodCatalogId
 }
-context.stillInCatalogManager = stillInCatalogManager;
-context.productCategoryId = productCategoryId;
-context.prodCatalogId = prodCatalogId;
-context.showProductCategoryId = showProductCategoryId;
+context.stillInCatalogManager = stillInCatalogManager
+context.productCategoryId = productCategoryId
+context.prodCatalogId = prodCatalogId
+context.showProductCategoryId = showProductCategoryId

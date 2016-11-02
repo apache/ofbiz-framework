@@ -17,85 +17,85 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.order.order.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.order.order.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
 
-orderId = parameters.orderId;
-context.orderId = orderId;
+orderId = parameters.orderId
+context.orderId = orderId
 
-returnHeaderTypeId = parameters.returnHeaderTypeId;
-context.returnHeaderTypeId = returnHeaderTypeId;
+returnHeaderTypeId = parameters.returnHeaderTypeId
+context.returnHeaderTypeId = returnHeaderTypeId
 
-partyId = parameters.party_id;
+partyId = parameters.party_id
 
 if (partyId) {
     if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
-        context.toPartyId = partyId;
+        context.toPartyId = partyId
     }
-    party = from("Party").where("partyId", partyId).queryOne();
-    context.party = party;
+    party = from("Party").where("partyId", partyId).queryOne()
+    context.party = party
 }
 
-returnHeaders = from("ReturnHeader").where("statusId", "RETURN_REQUESTED").queryList();
-context.returnHeaders = returnHeaders;
+returnHeaders = from("ReturnHeader").where("statusId", "RETURN_REQUESTED").queryList()
+context.returnHeaders = returnHeaders
 
 // put in the return to party information from the order header
 if (orderId) {
-    order = from("OrderHeader").where("orderId", orderId).queryOne();
-    productStore = order.getRelatedOne("ProductStore", false);
+    order = from("OrderHeader").where("orderId", orderId).queryOne()
+    productStore = order.getRelatedOne("ProductStore", false)
     if (productStore) {
         if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
-            context.partyId = productStore.payToPartyId;
+            context.partyId = productStore.payToPartyId
         } else {
-            context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId);
-            context.toPartyId = productStore.payToPartyId;
-            context.partyId = partyId;
+            context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId)
+            context.toPartyId = productStore.payToPartyId
+            context.partyId = partyId
         }
     }
 
-    orh = new OrderReadHelper(order);
-    context.orh = orh;
-    context.orderHeaderAdjustments = orh.getAvailableOrderHeaderAdjustments();
+    orh = new OrderReadHelper(order)
+    context.orh = orh
+    context.orderHeaderAdjustments = orh.getAvailableOrderHeaderAdjustments()
 }
 
 // payment method info
 if (partyId) {
-    creditCardList = from("PaymentMethodAndCreditCard").where("partyId", partyId).filterByDate().queryList();
+    creditCardList = from("PaymentMethodAndCreditCard").where("partyId", partyId).filterByDate().queryList()
     if (creditCardList) {
-        context.creditCardList = creditCardList;
+        context.creditCardList = creditCardList
     }
-    eftAccountList = from("PaymentMethodAndEftAccount").where("partyId", partyId).filterByDate().queryList();
+    eftAccountList = from("PaymentMethodAndEftAccount").where("partyId", partyId).filterByDate().queryList()
     if (eftAccountList) {
-        context.eftAccountList = eftAccountList;
+        context.eftAccountList = eftAccountList
     }
 }
 
 
-returnTypes = from("ReturnType").orderBy("sequenceId").queryList();
-context.returnTypes = returnTypes;
+returnTypes = from("ReturnType").orderBy("sequenceId").queryList()
+context.returnTypes = returnTypes
 
-returnReasons = from("ReturnReason").orderBy("sequenceId").queryList();
-context.returnReasons = returnReasons;
+returnReasons = from("ReturnReason").orderBy("sequenceId").queryList()
+context.returnReasons = returnReasons
 
-itemStts = from("StatusItem").where("statusTypeId", "INV_SERIALIZED_STTS").orderBy("sequenceId").queryList();
-context.itemStts = itemStts;
+itemStts = from("StatusItem").where("statusTypeId", "INV_SERIALIZED_STTS").orderBy("sequenceId").queryList()
+context.itemStts = itemStts
 
-typeMap = [:];
-returnItemTypeMap = from("ReturnItemTypeMap").where("returnHeaderTypeId", returnHeaderTypeId).queryList();
+typeMap = [:]
+returnItemTypeMap = from("ReturnItemTypeMap").where("returnHeaderTypeId", returnHeaderTypeId).queryList()
 returnItemTypeMap.each { value ->
-    typeMap[value.returnItemMapKey] = value.returnItemTypeId;
+    typeMap[value.returnItemMapKey] = value.returnItemTypeId
 }
-context.returnItemTypeMap = typeMap;
+context.returnItemTypeMap = typeMap
 
 if (orderId) {
-    returnRes = runService('getReturnableItems', [orderId : orderId]);
-    context.returnableItems = returnRes.returnableItems;
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
-    context.orderHeader = orderHeader;
+    returnRes = runService('getReturnableItems', [orderId : orderId])
+    context.returnableItems = returnRes.returnableItems
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    context.orderHeader = orderHeader
 }
 
-context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)

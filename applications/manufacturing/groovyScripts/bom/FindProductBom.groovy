@@ -17,26 +17,26 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.condition.*
 
-condList = [];
+condList = []
 if (parameters.productId) {
-    cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
-    condList.add(cond);
+    cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId)
+    condList.add(cond)
 }
 if (parameters.productIdTo) {
-    cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo);
-    condList.add(cond);
+    cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo)
+    condList.add(cond)
 }
 if (parameters.productAssocTypeId) {
-    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId);
-    condList.add(cond);
+    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId)
+    condList.add(cond)
 } else {
     cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"),
                                           EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
-                                          ], EntityOperator.OR);
-    condList.add(cond);
+                                          ], EntityOperator.OR)
+    condList.add(cond)
 }
 bomListIterator = select("productId", "internalName", "productAssocTypeId")
                     .from("ProductAndAssoc")
@@ -44,6 +44,6 @@ bomListIterator = select("productId", "internalName", "productAssocTypeId")
                     .orderBy("productId", "productAssocTypeId")
                     .cursorScrollInsensitive()
                     .cache(true)
-                    .queryIterator();
+                    .queryIterator()
 
-context.ListProductBom = bomListIterator;
+context.ListProductBom = bomListIterator

@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*
 
-context.productFeatureAndAppls = from("ProductFeatureAndAppl").where("productId", productId).orderBy("sequenceNum", "productFeatureApplTypeId", "productFeatureTypeId", "description").queryList();
+context.productFeatureAndAppls = from("ProductFeatureAndAppl").where("productId", productId).orderBy("sequenceNum", "productFeatureApplTypeId", "productFeatureTypeId", "description").queryList()
 
-context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList();
+context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList()
 
-context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").cache(true).queryList();
+context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").cache(true).queryList()
 
-context.productFeatureGroups = from("ProductFeatureGroup").orderBy("description").queryList();
+context.productFeatureGroups = from("ProductFeatureGroup").orderBy("description").queryList()
 
-context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList();
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList()

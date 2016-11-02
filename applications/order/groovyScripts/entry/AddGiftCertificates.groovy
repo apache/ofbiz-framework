@@ -16,40 +16,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-cart = session.getAttribute("shoppingCart");
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+cart = session.getAttribute("shoppingCart")
+productStoreId = ProductStoreWorker.getProductStoreId(request)
 if (productStoreId == null) {
-    productStoreId = cart.getProductStoreId();
+    productStoreId = cart.getProductStoreId()
 }
 
 // Get Gift cards availbale in data
 
-giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList();
-giftCardProductList = [];
+giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList()
+giftCardProductList = []
 if (UtilValidate.isNotEmpty(giftCardCategories)) {
     giftCardCategories.each { giftCardCategory -> 
-        giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList();
+        giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList()
         if (UtilValidate.isNotEmpty(giftCardCategoryMembers)) {
             giftCardCategoryMembers.each { giftCardCategoryMember -> 
-                giftCardProducts = from("ProductAndPriceView").where("productId", giftCardCategoryMember.productId).queryList();
+                giftCardProducts = from("ProductAndPriceView").where("productId", giftCardCategoryMember.productId).queryList()
                 if (UtilValidate.isNotEmpty(giftCardProducts)) {
                     giftCardProducts.each { giftCardProduct ->
-                        giftCardProductList.add(giftCardProduct);
+                        giftCardProductList.add(giftCardProduct)
                     }
                 }
             }
         }
     }
 }
-context.giftCardProductList = giftCardProductList;
+context.giftCardProductList = giftCardProductList
 
 // Get Survey Id for Gift Certificates
 
-productStoreFinActSetting = from("ProductStoreFinActSetting").where("productStoreId", productStoreId, "finAccountTypeId", "GIFTCERT_ACCOUNT").queryOne();
-context.surveyId = productStoreFinActSetting.purchaseSurveyId;
+productStoreFinActSetting = from("ProductStoreFinActSetting").where("productStoreId", productStoreId, "finAccountTypeId", "GIFTCERT_ACCOUNT").queryOne()
+context.surveyId = productStoreFinActSetting.purchaseSurveyId
 

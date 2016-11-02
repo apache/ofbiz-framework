@@ -23,47 +23,47 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
 if ("Y".equals(parameters.noConditionFind)) {
-    List exprListForParameters = [];
+    List exprListForParameters = []
     
-    finAccountRoles = from("FinAccountRole").where("finAccountId", finAccountId, "roleTypeId", "DIVISION").filterByDate().queryList();
-    finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, "partyId", true);
-    finAccountPartyIds.add(organizationPartyId);
+    finAccountRoles = from("FinAccountRole").where("finAccountId", finAccountId, "roleTypeId", "DIVISION").filterByDate().queryList()
+    finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, "partyId", true)
+    finAccountPartyIds.add(organizationPartyId)
     partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.IN, finAccountPartyIds),
-                                               EntityCondition.makeCondition("partyIdFrom", EntityOperator.IN, finAccountPartyIds)], EntityOperator.OR);
+                                               EntityCondition.makeCondition("partyIdFrom", EntityOperator.IN, finAccountPartyIds)], EntityOperator.OR)
     statusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                                                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
+                                                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR)
 
     if (paymentMethodTypeId) {
-    exprListForParameters.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+    exprListForParameters.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId))
     }
     if (fromDate) {
-        exprListForParameters.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+        exprListForParameters.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
     }
     if (thruDate) {
-        exprListForParameters.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+        exprListForParameters.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
     }
     if (partyIdFrom) {
-        exprListForParameters.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
+        exprListForParameters.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom))
     }
-    exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
-    paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND);
-    combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND);
-    payments = from("PaymentAndTypePartyNameView").where(combinedPaymentCond).queryList();
-    paymentListWithCreditCard = [];
-    paymentListWithoutCreditCard = [];
+    exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null))
+    paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND)
+    combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND)
+    payments = from("PaymentAndTypePartyNameView").where(combinedPaymentCond).queryList()
+    paymentListWithCreditCard = []
+    paymentListWithoutCreditCard = []
     payments.each { payment ->
         if (cardType && payment.paymentMethodId) {
-            creditCard = from("CreditCard").where('paymentMethodId', payment.paymentMethodId).queryOne();
+            creditCard = from("CreditCard").where('paymentMethodId', payment.paymentMethodId).queryOne()
             if (creditCard.cardType == cardType) {
-                paymentListWithCreditCard.add(payment);
+                paymentListWithCreditCard.add(payment)
             }
         } else if (UtilValidate.isEmpty(cardType)) {
-            paymentListWithoutCreditCard.add(payment);
+            paymentListWithoutCreditCard.add(payment)
         }
     }
     if (paymentListWithCreditCard) {
-        context.paymentList = paymentListWithCreditCard;
+        context.paymentList = paymentListWithCreditCard
     } else {
-        context.paymentList = paymentListWithoutCreditCard;
+        context.paymentList = paymentListWithoutCreditCard
     }
 }

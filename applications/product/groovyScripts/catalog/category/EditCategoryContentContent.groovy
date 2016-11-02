@@ -17,48 +17,48 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-import java.sql.Timestamp;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import java.sql.Timestamp
 
-uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
 
-contentId = parameters.contentId;
+contentId = parameters.contentId
 if (!contentId) {
-    contentId = null;
+    contentId = null
 }
 
-prodCatContentTypeId = parameters.prodCatContentTypeId;
-context.contentFormName = "EditCategoryContentSimpleText";
-context.contentFormTitle = "${uiLabelMap.ProductUpdateSimpleTextContentCategory}";
+prodCatContentTypeId = parameters.prodCatContentTypeId
+context.contentFormName = "EditCategoryContentSimpleText"
+context.contentFormTitle = "${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
 
 if (("PAGE_TITLE".equals(prodCatContentTypeId))||("META_KEYWORD".equals(prodCatContentTypeId))||("META_DESCRIPTION".equals(prodCatContentTypeId))) {
-    context.contentFormName = "EditCategoryContentSEO";
-    context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}";
+    context.contentFormName = "EditCategoryContentSEO"
+    context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}"
 }
 if ("RELATED_URL".equals(prodCatContentTypeId)) {
-    contentList = from("ContentDataResourceView").where("contentId", contentId).queryList();
+    contentList = from("ContentDataResourceView").where("contentId", contentId).queryList()
     if (contentList) {
-        context.contentId = contentList.get(0).contentId;
-        context.dataResourceId = contentList.get(0).dataResourceId;
-        context.title = contentList.get(0).drDataResourceName;
-        context.description = contentList.get(0).description;
-        context.url = contentList.get(0).drObjectInfo;
-        context.localeString = contentList.get(0).localeString;
+        context.contentId = contentList.get(0).contentId
+        context.dataResourceId = contentList.get(0).dataResourceId
+        context.title = contentList.get(0).drDataResourceName
+        context.description = contentList.get(0).description
+        context.url = contentList.get(0).drObjectInfo
+        context.localeString = contentList.get(0).localeString
     }
-    context.contentFormName = "EditCategoryContentRelatedUrl";
-    context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}";
+    context.contentFormName = "EditCategoryContentRelatedUrl"
+    context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
 }else if ("VIDEO".equals(prodCatContentTypeId) || "CATEGORY_IMAGE".equals(prodCatContentTypeId)) {
     if (UtilValidate.isNotEmpty(content)) {
-        context.fileDataResourceId = content.dataResourceId;
+        context.fileDataResourceId = content.dataResourceId
     }
     if("CATEGORY_IMAGE".equals(prodCatContentTypeId)){
-        context.dataResourceTypeId = "IMAGE_OBJECT";
+        context.dataResourceTypeId = "IMAGE_OBJECT"
     }else{
-        context.dataResourceTypeId = "VIDEO_OBJECT";
+        context.dataResourceTypeId = "VIDEO_OBJECT"
     }
-    context.contentFormName = "EditCategoryContentDownload";
-    context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}";
+    context.contentFormName = "EditCategoryContentDownload"
+    context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}"
     
 }

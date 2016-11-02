@@ -19,13 +19,13 @@
 
 import org.apache.ofbiz.entity.condition.*
 
-String priceRuleId = request.getParameter("productPriceRuleId");
+String priceRuleId = request.getParameter("productPriceRuleId")
 if (priceRuleId) {
-    context.productPriceRule = from("ProductPriceRule").where("productPriceRuleId", priceRuleId).queryOne();
+    context.productPriceRule = from("ProductPriceRule").where("productPriceRuleId", priceRuleId).queryOne()
 }
 
-context.inputParamEnums = from("Enumeration").where("enumTypeId", 'PROD_PRICE_IN_PARAM').orderBy("sequenceId").cache(true).queryList();
+context.inputParamEnums = from("Enumeration").where("enumTypeId", 'PROD_PRICE_IN_PARAM').orderBy("sequenceId").cache(true).queryList()
 
-context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList();
+context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList()
 
-context.productPriceActionTypes = from("ProductPriceActionType").orderBy("description").cache(true).queryList();
+context.productPriceActionTypes = from("ProductPriceActionType").orderBy("description").cache(true).queryList()

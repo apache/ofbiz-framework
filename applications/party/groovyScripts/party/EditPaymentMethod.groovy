@@ -17,45 +17,45 @@
  * under the License.
  */
 
-import org.apache.ofbiz.accounting.payment.PaymentWorker;
-import org.apache.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.party.contact.ContactMechWorker
 
-partyId = parameters.partyId ?: parameters.party_id;
-context.partyId = partyId;
+partyId = parameters.partyId ?: parameters.party_id
+context.partyId = partyId
 
 // payment info
-paymentResults = PaymentWorker.getPaymentMethodAndRelated(request, partyId);
+paymentResults = PaymentWorker.getPaymentMethodAndRelated(request, partyId)
 //returns the following: "paymentMethod", "creditCard", "giftCard", "eftAccount", "paymentMethodId", "curContactMechId", "donePage", "tryEntity"
-context.putAll(paymentResults);
+context.putAll(paymentResults)
 
-curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.curContactMechId);
+curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.curContactMechId)
 //returns the following: "curPartyContactMech", "curContactMech", "curPostalAddress", "curPartyContactMechPurposes"
-context.putAll(curPostalAddressResults);
+context.putAll(curPostalAddressResults)
 
-context.postalAddressInfos = ContactMechWorker.getPartyPostalAddresses(request, partyId, paymentResults.curContactMechId);
+context.postalAddressInfos = ContactMechWorker.getPartyPostalAddresses(request, partyId, paymentResults.curContactMechId)
 
 //prepare "Data" maps for filling form input boxes
-tryEntity = paymentResults.tryEntity;
+tryEntity = paymentResults.tryEntity
 
-creditCardData = paymentResults.creditCard;
-if (!tryEntity) creditCardData = parameters;
-context.creditCardData = creditCardData ?:[:];
+creditCardData = paymentResults.creditCard
+if (!tryEntity) creditCardData = parameters
+context.creditCardData = creditCardData ?:[:]
 
-giftCardData = paymentResults.giftCard;
-if (!tryEntity) giftCardData = parameters;
-context.giftCardData = giftCardData ?: [:];
+giftCardData = paymentResults.giftCard
+if (!tryEntity) giftCardData = parameters
+context.giftCardData = giftCardData ?: [:]
 
-eftAccountData = paymentResults.eftAccount;
-if (!tryEntity) eftAccountData = parameters;
-context.eftAccountData = eftAccountData ?: [:];
+eftAccountData = paymentResults.eftAccount
+if (!tryEntity) eftAccountData = parameters
+context.eftAccountData = eftAccountData ?: [:]
 
-checkAccountData = paymentResults.checkAccount;
-if (!tryEntity) checkAccountData = parameters;
-context.checkAccountData = checkAccountData ?: [:];
+checkAccountData = paymentResults.checkAccount
+if (!tryEntity) checkAccountData = parameters
+context.checkAccountData = checkAccountData ?: [:]
 
-context.donePage = parameters.DONE_PAGE ?:"viewprofile";
+context.donePage = parameters.DONE_PAGE ?:"viewprofile"
 
-paymentMethodData = paymentResults.paymentMethod;
-if (!tryEntity.booleanValue()) paymentMethodData = parameters;
-if (!paymentMethodData) paymentMethodData = new HashMap();
-if (paymentMethodData) context.paymentMethodData = paymentMethodData;
+paymentMethodData = paymentResults.paymentMethod
+if (!tryEntity.booleanValue()) paymentMethodData = parameters
+if (!paymentMethodData) paymentMethodData = new HashMap()
+if (paymentMethodData) context.paymentMethodData = paymentMethodData

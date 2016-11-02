@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 
-productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+productionRunId = parameters.productionRunId ?: parameters.workEffortId
 if (productionRunId) {
-    ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
+    ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher)
     if (productionRun.exist()) {
-        productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        context.productionRunRoutingTasks = productionRunRoutingTasks;
-        context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
+        productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks()
+        context.productionRunRoutingTasks = productionRunRoutingTasks
+        context.quantity = productionRun.getQuantity() // this is useful to compute the total estimates runtime in the form
     }
 }

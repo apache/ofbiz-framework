@@ -22,18 +22,18 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.catalog.*
 
-currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
-otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(request, currentCatalogId, "PCCT_OTHER_SEARCH");
+currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
+searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
+otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(request, currentCatalogId, "PCCT_OTHER_SEARCH")
 
-searchOperator = request.getParameter("SEARCH_OPERATOR");
+searchOperator = request.getParameter("SEARCH_OPERATOR")
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR";
+  searchOperator = "OR"
 }
 
-context.currentCatalogId = currentCatalogId;
-context.searchCategoryId = searchCategoryId;
-context.otherSearchProdCatalogCategories = otherSearchProdCatalogCategories;
-context.searchOperator = searchOperator;
+context.currentCatalogId = currentCatalogId
+context.searchCategoryId = searchCategoryId
+context.otherSearchProdCatalogCategories = otherSearchProdCatalogCategories
+context.searchOperator = searchOperator

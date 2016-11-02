@@ -17,53 +17,53 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.party.contact.*
 
-facilityId = parameters.facilityId;
-context.facilityId = facilityId;
+facilityId = parameters.facilityId
+context.facilityId = facilityId
 
-facility = from("Facility").where("facilityId", facilityId).queryOne();
-context.facility = facility;
+facility = from("Facility").where("facilityId", facilityId).queryOne()
+context.facility = facility
 
-mechMap = [:];
-ContactMechWorker.getFacilityContactMechAndRelated(request, facilityId, mechMap);
-context.mechMap = mechMap;
+mechMap = [:]
+ContactMechWorker.getFacilityContactMechAndRelated(request, facilityId, mechMap)
+context.mechMap = mechMap
 
-contactMechId = mechMap.contactMechId;
+contactMechId = mechMap.contactMechId
 if (contactMechId) {
-    context.contactMechId = contactMechId;
+    context.contactMechId = contactMechId
 }
 
-preContactMechTypeId = request.getParameter("preContactMechTypeId");
+preContactMechTypeId = request.getParameter("preContactMechTypeId")
 if (preContactMechTypeId) {
-    context.preContactMechTypeId = preContactMechTypeId;
+    context.preContactMechTypeId = preContactMechTypeId
 }
 
-paymentMethodId = request.getParameter("paymentMethodId");
+paymentMethodId = request.getParameter("paymentMethodId")
 if (!paymentMethodId) {
-    paymentMethodId = request.getAttribute("paymentMethodId");
+    paymentMethodId = request.getAttribute("paymentMethodId")
 }
 if (paymentMethodId) {
-    context.paymentMethodId = paymentMethodId;
+    context.paymentMethodId = paymentMethodId
 }
 
-donePage = request.getParameter("DONE_PAGE");
+donePage = request.getParameter("DONE_PAGE")
 if (!donePage) {
-    donePage = request.getAttribute("DONE_PAGE");
+    donePage = request.getAttribute("DONE_PAGE")
 }
 if (!donePage || donePage.length() <= 0) {
-    donePage = "ViewContactMechs";
+    donePage = "ViewContactMechs"
 }
-context.donePage = donePage;
+context.donePage = donePage
 
-cmNewPurposeTypeId = request.getParameter("contactMechPurposeTypeId");
+cmNewPurposeTypeId = request.getParameter("contactMechPurposeTypeId")
 if (!cmNewPurposeTypeId) {
-    cmNewPurposeTypeId = mechMap.contactMechPurposeTypeId;
+    cmNewPurposeTypeId = mechMap.contactMechPurposeTypeId
 }
 if (cmNewPurposeTypeId) {
-    context.contactMechPurposeTypeId = cmNewPurposeTypeId;
-    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne();
+    context.contactMechPurposeTypeId = cmNewPurposeTypeId
+    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne()
     if (contactMechPurposeType) {
-        context.contactMechPurposeType = contactMechPurposeType;
+        context.contactMechPurposeType = contactMechPurposeType
     }
 }

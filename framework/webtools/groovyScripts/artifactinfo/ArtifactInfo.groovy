@@ -17,50 +17,50 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.webtools.artifactinfo.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.webtools.artifactinfo.*
+import org.apache.ofbiz.base.util.*
 
-name = parameters.name;
-location = parameters.location;
-type = parameters.type;
-uniqueId = parameters.uniqueId;
+name = parameters.name
+location = parameters.location
+type = parameters.type
+uniqueId = parameters.uniqueId
 delegatorName = delegator.getDelegatorName()
 if (delegatorName.contains("default#")) {
-    delegatorName = "default";
+    delegatorName = "default"
 }
-aif = ArtifactInfoFactory.getArtifactInfoFactory(delegatorName);
-context.aif = aif;
-artifactInfo = null;
+aif = ArtifactInfoFactory.getArtifactInfoFactory(delegatorName)
+context.aif = aif
+artifactInfo = null
 if ("search".equals(parameters.findType)) {
-    artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type);
+    artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type)
     if (artifactInfoSet.size() == 1) {
-        artifactInfo = artifactInfoSet.iterator().next();
-        context.artifactInfo = artifactInfo;
+        artifactInfo = artifactInfoSet.iterator().next()
+        context.artifactInfo = artifactInfo
     } else {
-        context.artifactInfoSet = new TreeSet(artifactInfoSet);
+        context.artifactInfoSet = new TreeSet(artifactInfoSet)
     }
 } else {
     if (name) {
-        artifactInfo = aif.getArtifactInfoByNameAndType(name, location, type);
-        context.artifactInfo = artifactInfo;
+        artifactInfo = aif.getArtifactInfoByNameAndType(name, location, type)
+        context.artifactInfo = artifactInfo
     } else if (uniqueId) {
-        artifactInfo = aif.getArtifactInfoByUniqueIdAndType(uniqueId, type);
-        context.artifactInfo = artifactInfo;
+        artifactInfo = aif.getArtifactInfoByUniqueIdAndType(uniqueId, type)
+        context.artifactInfo = artifactInfo
     }
 }
 
 if (artifactInfo) {
-    artifactInfoMap = [type : artifactInfo.getType(), uniqueId : artifactInfo.getUniqueId(), displayName : artifactInfo.getDisplayName()];
+    artifactInfoMap = [type : artifactInfo.getType(), uniqueId : artifactInfo.getUniqueId(), displayName : artifactInfo.getDisplayName()]
     // add to the recently viewed list
-    recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
+    recentArtifactInfoList = session.getAttribute("recentArtifactInfoList")
     if (!recentArtifactInfoList) {
-        recentArtifactInfoList = [];
-        session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
+        recentArtifactInfoList = []
+        session.setAttribute("recentArtifactInfoList", recentArtifactInfoList)
     }
     if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfoMap)) {
         // hmmm, I guess do nothing if it's already there
     } else {
-        recentArtifactInfoList.add(0, artifactInfoMap);
+        recentArtifactInfoList.add(0, artifactInfoMap)
     }
 }

@@ -22,28 +22,28 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
 
-productImageList = [];
-productContentAndInfoImageManamentList = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED").orderBy("sequenceNum").queryList();
+productImageList = []
+productContentAndInfoImageManamentList = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED").orderBy("sequenceNum").queryList()
 if(productContentAndInfoImageManamentList) {
     productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
-        contentAssocThumb = from("ContentAssoc").where("contentId", productContentAndInfoImageManament.contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryFirst();
+        contentAssocThumb = from("ContentAssoc").where("contentId", productContentAndInfoImageManament.contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryFirst()
         if(contentAssocThumb) {
-            imageContentThumb = from("Content").where("contentId", contentAssocThumb.contentIdTo).queryOne();
+            imageContentThumb = from("Content").where("contentId", contentAssocThumb.contentIdTo).queryOne()
             if(imageContentThumb) {
-                productImageThumb = from("ContentDataResourceView").where("contentId", imageContentThumb.contentId, "drDataResourceId", imageContentThumb.dataResourceId).queryOne();
-                productImageMap = [:];
-                productImageMap.contentId = productContentAndInfoImageManament.contentId;
-                productImageMap.dataResourceId = productContentAndInfoImageManament.dataResourceId;
-                productImageMap.productImageThumb = productImageThumb.drObjectInfo;
-                productImageMap.productImage = productContentAndInfoImageManament.drObjectInfo;
-                productImageList.add(productImageMap);
+                productImageThumb = from("ContentDataResourceView").where("contentId", imageContentThumb.contentId, "drDataResourceId", imageContentThumb.dataResourceId).queryOne()
+                productImageMap = [:]
+                productImageMap.contentId = productContentAndInfoImageManament.contentId
+                productImageMap.dataResourceId = productContentAndInfoImageManament.dataResourceId
+                productImageMap.productImageThumb = productImageThumb.drObjectInfo
+                productImageMap.productImage = productContentAndInfoImageManament.drObjectInfo
+                productImageList.add(productImageMap)
             }
         }
     }
-    context.productImageList = productImageList;
+    context.productImageList = productImageList
 }

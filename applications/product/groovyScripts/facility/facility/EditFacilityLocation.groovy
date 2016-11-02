@@ -17,39 +17,39 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*
 
-facilityId = request.getParameter("facilityId");
-locationSeqId = request.getParameter("locationSeqId");
-facility = null;
-facilityLocation = null;
+facilityId = request.getParameter("facilityId")
+locationSeqId = request.getParameter("locationSeqId")
+facility = null
+facilityLocation = null
 
 if (!facilityId && request.getAttribute("facilityId")) {
-    facilityId = request.getAttribute("facilityId");
+    facilityId = request.getAttribute("facilityId")
 }
 
 if (!locationSeqId && request.getAttribute("locationSeqId")) {
-    locationSeqId = request.getAttribute("locationSeqId");
+    locationSeqId = request.getAttribute("locationSeqId")
 }
 
 if (facilityId && locationSeqId) {
-    facilityLocation = from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId).queryOne();
+    facilityLocation = from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId).queryOne()
 }
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne();
+    facility = from("Facility").where("facilityId", facilityId).queryOne()
 }
 
-locationTypeEnums = from("Enumeration").where("enumTypeId", "FACLOC_TYPE").queryList();
+locationTypeEnums = from("Enumeration").where("enumTypeId", "FACLOC_TYPE").queryList()
 
 // ProductFacilityLocation stuff
-productFacilityLocations = null;
+productFacilityLocations = null
 if (facilityLocation) {
-    productFacilityLocations = facilityLocation.getRelated("ProductFacilityLocation", null, ['productId'], false);
+    productFacilityLocations = facilityLocation.getRelated("ProductFacilityLocation", null, ['productId'], false)
 }
 
-context.facilityId = facilityId;
-context.locationSeqId = locationSeqId;
-context.facility = facility;
-context.facilityLocation = facilityLocation;
-context.locationTypeEnums = locationTypeEnums;
-context.productFacilityLocations = productFacilityLocations;
+context.facilityId = facilityId
+context.locationSeqId = locationSeqId
+context.facility = facility
+context.facilityLocation = facilityLocation
+context.locationTypeEnums = locationTypeEnums
+context.productFacilityLocations = productFacilityLocations

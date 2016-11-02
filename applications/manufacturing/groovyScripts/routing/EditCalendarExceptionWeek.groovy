@@ -18,37 +18,37 @@
  */
 
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
-    context.hasPermission = Boolean.TRUE;
+    context.hasPermission = Boolean.TRUE
 } else {
-    context.hasPermission = Boolean.FALSE;
+    context.hasPermission = Boolean.FALSE
 }
-techDataCalendar = [:];
-calendarExceptionWeeks = [];
+techDataCalendar = [:]
+calendarExceptionWeeks = []
 
-calendarId = parameters.calendarId ?: request.getAttribute("calendarId");;
+calendarId = parameters.calendarId ?: request.getAttribute("calendarId")
 if (calendarId) {
-    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
-    context.techDataCalendar = techDataCalendar;
+    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne()
+    context.techDataCalendar = techDataCalendar
 }
 if (techDataCalendar) {
-    calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek", null, null, false);
+    calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek", null, null, false)
 }
-calendarExceptionWeeksDatas = [];
+calendarExceptionWeeksDatas = []
 calendarExceptionWeeks.each { calendarExceptionWeek ->
-    calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek", false);
-    calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek]);
-    context.calendarExceptionWeeksDatas = calendarExceptionWeeksDatas;
+    calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek", false)
+    calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek])
+    context.calendarExceptionWeeksDatas = calendarExceptionWeeksDatas
 }
 
-exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exceptionDateStart");
-exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "java.sql.Date", null, null);
+exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exceptionDateStart")
+exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "java.sql.Date", null, null)
 
 if (exceptionDateStart) {
-    calendarExceptionWeek = from("TechDataCalendarExcWeek").where("calendarId", calendarId , "exceptionDateStart", exceptionDateStart).queryOne();
+    calendarExceptionWeek = from("TechDataCalendarExcWeek").where("calendarId", calendarId , "exceptionDateStart", exceptionDateStart).queryOne()
     if (calendarExceptionWeek) {
-        context.calendarExceptionWeek = calendarExceptionWeek;
+        context.calendarExceptionWeek = calendarExceptionWeek
     }
 }

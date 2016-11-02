@@ -17,21 +17,21 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import org.apache.ofbiz.base.util.UtilHttp;
+import java.util.HashMap
+import org.apache.ofbiz.base.util.UtilHttp
 
-tryEntity = true;
-errorMessage = parameters._ERROR_MESSAGE_;
+tryEntity = true
+errorMessage = parameters._ERROR_MESSAGE_
 if (errorMessage) {
-    tryEntity = false;
+    tryEntity = false
 }
 
-donePage = parameters.DONE_PAGE ?: "viewprofile";
+donePage = parameters.DONE_PAGE ?: "viewprofile"
 
-userLoginData = userLogin;
-if (!tryEntity) userLoginData = UtilHttp.getParameterMap(request);
-if (!userLoginData) userLoginData = [:];
+userLoginData = userLogin
+if (!tryEntity) userLoginData = UtilHttp.getParameterMap(request)
+if (!userLoginData) userLoginData = [:]
 
-context.donePage = donePage;
-context.userLoginData = userLoginData;
+context.donePage = donePage
+context.userLoginData = userLoginData
 

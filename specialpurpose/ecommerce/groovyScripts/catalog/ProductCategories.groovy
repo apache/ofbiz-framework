@@ -21,74 +21,74 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.category.*;
-import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.category.*
+import org.apache.ofbiz.entity.*
 
 List fillTree(rootCat ,CatLvl, parentCategoryId) {
     if(rootCat) {
         rootCat.sort{ it.productCategoryId }
-        def listTree = [];
+        def listTree = []
         for(root in rootCat) {
-            preCatChilds = from("ProductCategoryRollup").where("parentProductCategoryId", root.productCategoryId).queryList();
-            catChilds = EntityUtil.getRelated("CurrentProductCategory",null,preCatChilds,false);
-            def childList = [];
+            preCatChilds = from("ProductCategoryRollup").where("parentProductCategoryId", root.productCategoryId).queryList()
+            catChilds = EntityUtil.getRelated("CurrentProductCategory",null,preCatChilds,false)
+            def childList = []
             
             // CatLvl uses for identify the Category level for display different css class
             if(catChilds) {
                 if(CatLvl==2)
-                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId.replaceAll("/", "")+'/'+root.productCategoryId);
+                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId.replaceAll("/", "")+'/'+root.productCategoryId)
                     // replaceAll and '/' uses for fix bug in the breadcrum for href of category
                 else if(CatLvl==1)
-                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId.replaceAll("/", "")+root.productCategoryId);
+                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId.replaceAll("/", "")+root.productCategoryId)
                 else
-                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId+'/'+root.productCategoryId);
+                    childList = fillTree(catChilds,CatLvl+1, parentCategoryId+'/'+root.productCategoryId)
             }
             
-            productsInCat  = from("ProductCategoryAndMember").where("productCategoryId", root.productCategoryId).queryList();
+            productsInCat  = from("ProductCategoryAndMember").where("productCategoryId", root.productCategoryId).queryList()
             
             // Display the category if this category containing products or contain the category that's containing products
             if(productsInCat || childList) {
-                def rootMap = [:];
-                category = from("ProductCategory").where("productCategoryId", root.productCategoryId).queryOne();
-                categoryContentWrapper = new CategoryContentWrapper(category, request);
-                context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
-                categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
+                def rootMap = [:]
+                category = from("ProductCategory").where("productCategoryId", root.productCategoryId).queryOne()
+                categoryContentWrapper = new CategoryContentWrapper(category, request)
+                context.title = categoryContentWrapper.get("CATEGORY_NAME", "html")
+                categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html")
                 
                 if(categoryContentWrapper.get("CATEGORY_NAME", "html").toString())
-                    rootMap["categoryName"] = categoryContentWrapper.get("CATEGORY_NAME", "html");
+                    rootMap["categoryName"] = categoryContentWrapper.get("CATEGORY_NAME", "html")
                 else
-                    rootMap["categoryName"] = root.categoryName;
+                    rootMap["categoryName"] = root.categoryName
                 
                 if(categoryContentWrapper.get("DESCRIPTION", "html").toString())
-                    rootMap["categoryDescription"] = categoryContentWrapper.get("DESCRIPTION", "html");
+                    rootMap["categoryDescription"] = categoryContentWrapper.get("DESCRIPTION", "html")
                 else
-                    rootMap["categoryDescription"] = root.description;
+                    rootMap["categoryDescription"] = root.description
                 
-                rootMap["productCategoryId"] = root.productCategoryId;
-                rootMap["parentCategoryId"] = parentCategoryId;
-                rootMap["child"] = childList;
+                rootMap["productCategoryId"] = root.productCategoryId
+                rootMap["parentCategoryId"] = parentCategoryId
+                rootMap["child"] = childList
 
-                listTree.add(rootMap);
+                listTree.add(rootMap)
             }
         }
-        return listTree;
+        return listTree
     }
 }
 
-CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true);
-curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: "";
-request.setAttribute("curCategoryId", curCategoryId);
-CategoryWorker.setTrail(request, curCategoryId);
+CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true)
+curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: ""
+request.setAttribute("curCategoryId", curCategoryId)
+CategoryWorker.setTrail(request, curCategoryId)
 
-categoryList = request.getAttribute("topLevelList");
+categoryList = request.getAttribute("topLevelList")
 if (categoryList) {
-    catContentWrappers = [:];
-    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);
-    context.catContentWrappers = catContentWrappers;
-    completedTree = fillTree(categoryList, 1, "");
-    context.completedTree = completedTree;
+    catContentWrappers = [:]
+    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request)
+    context.catContentWrappers = catContentWrappers
+    completedTree = fillTree(categoryList, 1, "")
+    context.completedTree = completedTree
 }

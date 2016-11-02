@@ -17,30 +17,30 @@
  * under the License.
  */
 
-starSchemaName = parameters.starSchemaName;
+starSchemaName = parameters.starSchemaName
 
-starSchemaFields = [];
+starSchemaFields = []
 if (starSchemaName) {
-    reader = delegator.getModelReader();
-    starSchema = reader.getModelEntity(starSchemaName);
+    reader = delegator.getModelReader()
+    starSchema = reader.getModelEntity(starSchemaName)
     if (starSchema) {
-        fieldsIt = starSchema.getAliasesIterator();
+        fieldsIt = starSchema.getAliasesIterator()
         while (fieldsIt.hasNext()) {
-            field = fieldsIt.next();
-            fieldMap = [:];
-            fieldMap.name = field.getName();
-            description = field.getDescription();
+            field = fieldsIt.next()
+            fieldMap = [:]
+            fieldMap.name = field.getName()
+            description = field.getDescription()
             if (!description) {
-                aliasedEntity = starSchema.getAliasedEntity(field.getEntityAlias(), reader);
+                aliasedEntity = starSchema.getAliasedEntity(field.getEntityAlias(), reader)
                 if (aliasedEntity) {
-                    aliasedField = starSchema.getAliasedField(aliasedEntity, field.getField(), reader);
-                    description = aliasedField.getDescription();
+                    aliasedField = starSchema.getAliasedField(aliasedEntity, field.getField(), reader)
+                    description = aliasedField.getDescription()
                 }
             }
-            fieldMap.description = description;
-            starSchemaFields.add(fieldMap);
+            fieldMap.description = description
+            starSchemaFields.add(fieldMap)
         }
     }
 }
-context.starSchemaName = starSchemaName;
-context.starSchemaFields = starSchemaFields;
+context.starSchemaName = starSchemaName
+context.starSchemaFields = starSchemaFields

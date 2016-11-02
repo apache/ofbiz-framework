@@ -17,26 +17,26 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.order.shoppingcart.*
 
-cart = session.getAttribute("shoppingCart");
+cart = session.getAttribute("shoppingCart")
 
-trailClassMap = [:];
+trailClassMap = [:]
 
 if (cart.getShippingContactMechId()) {
-    context.shipAddr = "Y";
-    trailClassMap.shipAddr = "submenutextright";
+    context.shipAddr = "Y"
+    trailClassMap.shipAddr = "submenutextright"
 }
 
 if (cart.getShipmentMethodTypeId()) {
-    context.shipOptions = "Y";
-    trailClassMap.shipAddr = "submenutext";
-    trailClassMap.shipOptions = "submenutextright";
+    context.shipOptions = "Y"
+    trailClassMap.shipAddr = "submenutext"
+    trailClassMap.shipOptions = "submenutextright"
 }
 
 if (parameters.paymentMethodType || cart.getPaymentMethodIds() || cart.getPaymentMethodTypeIds()) {
-    context.billing = "Y";
-    trailClassMap.shipOptions = "submenutext";
-    trailClassMap.paymentType = "submenutextright";
+    context.billing = "Y"
+    trailClassMap.shipOptions = "submenutext"
+    trailClassMap.paymentType = "submenutextright"
 }
-context.trailClass = trailClassMap;
+context.trailClass = trailClassMap

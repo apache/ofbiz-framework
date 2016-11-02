@@ -21,41 +21,41 @@ import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.*
 
-messageList = [];
+messageList = []
 
-messageList.add("Loading Categories...");
-UtilTimer ctimer = new UtilTimer();
-messageList.add(ctimer.timerString("Before category find"));
-categories = from("ProductCategory").queryIterator();
-messageList.add(ctimer.timerString("Before load all categories into cache"));
+messageList.add("Loading Categories...")
+UtilTimer ctimer = new UtilTimer()
+messageList.add(ctimer.timerString("Before category find"))
+categories = from("ProductCategory").queryIterator()
+messageList.add(ctimer.timerString("Before load all categories into cache"))
 
-category = null;
-long numCategories = 0;
+category = null
+long numCategories = 0
 while ((category = (GenericValue) categories.next())) {
-    delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category);
-    numCategories++;
+    delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category)
+    numCategories++
 }
-categories.close();
+categories.close()
 
-messageList.add(ctimer.timerString("Finished Categories"));
-messageList.add("Loaded " + numCategories + " Categories");
+messageList.add(ctimer.timerString("Finished Categories"))
+messageList.add("Loaded " + numCategories + " Categories")
 
-messageList.add("&nbsp;");
+messageList.add("&nbsp;")
 
-messageList.add("Loading Products...");
-UtilTimer ptimer = new UtilTimer();
-messageList.add(ptimer.timerString("Before product find"));
-products = from("Product").queryIterator();
-messageList.add(ptimer.timerString("Before load all products into cache"));
-product = null;
-long numProducts = 0;
+messageList.add("Loading Products...")
+UtilTimer ptimer = new UtilTimer()
+messageList.add(ptimer.timerString("Before product find"))
+products = from("Product").queryIterator()
+messageList.add(ptimer.timerString("Before load all products into cache"))
+product = null
+long numProducts = 0
 while ((product = (GenericValue) products.next())) {
-    delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product);
-    numProducts++;
+    delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product)
+    numProducts++
 }
-products.close();
+products.close()
 
-messageList.add(ptimer.timerString("Finished Products"));
-messageList.add("Loaded " + numProducts + " products");
+messageList.add(ptimer.timerString("Finished Products"))
+messageList.add("Loaded " + numProducts + " products")
 
-context.messageList = messageList;
+context.messageList = messageList

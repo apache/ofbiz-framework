@@ -17,6 +17,6 @@
  * under the License.
  */
 
-Map requests = runService('getCustRequestsByRole', ["userLogin": userLogin]);
+Map requests = runService('getCustRequestsByRole', ["userLogin": userLogin])
 
-context.put("custRequestAndRoles", requests.get("custRequestAndRoles"));
+context.put("custRequestAndRoles", requests.get("custRequestAndRoles"))

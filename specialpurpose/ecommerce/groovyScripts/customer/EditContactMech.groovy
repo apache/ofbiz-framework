@@ -17,87 +17,87 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import org.apache.ofbiz.party.contact.ContactMechWorker;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
+import java.util.HashMap
+import org.apache.ofbiz.party.contact.ContactMechWorker
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilMisc
 
 /* puts the following in the context: "contactMech", "contactMechId",
         "partyContactMech", "partyContactMechPurposes", "contactMechTypeId",
         "contactMechType", "purposeTypes", "postalAddress", "telecomNumber",
         "requestName", "donePage", "tryEntity", "contactMechTypes"
  */
-target = [:];
-ContactMechWorker.getContactMechAndRelated(request, userLogin.partyId, target);
-context.putAll(target);
+target = [:]
+ContactMechWorker.getContactMechAndRelated(request, userLogin.partyId, target)
+context.putAll(target)
 
 
 if (!security.hasEntityPermission("PARTYMGR", "_VIEW", session) && !context.partyContactMech && context.contactMech) {
-    context.canNotView = true;
+    context.canNotView = true
 } else {
-    context.canNotView = false;
+    context.canNotView = false
 }
 
-preContactMechTypeId = parameters.preContactMechTypeId;
-if (preContactMechTypeId) context.preContactMechTypeId = preContactMechTypeId;
+preContactMechTypeId = parameters.preContactMechTypeId
+if (preContactMechTypeId) context.preContactMechTypeId = preContactMechTypeId
 
-paymentMethodId = parameters.paymentMethodId;
-if (paymentMethodId) context.paymentMethodId = paymentMethodId;
+paymentMethodId = parameters.paymentMethodId
+if (paymentMethodId) context.paymentMethodId = paymentMethodId
 
-cmNewPurposeTypeId = parameters.contactMechPurposeTypeId;
+cmNewPurposeTypeId = parameters.contactMechPurposeTypeId
 if (cmNewPurposeTypeId) {
-    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne();
+    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne()
     if (contactMechPurposeType) {
-        context.contactMechPurposeType = contactMechPurposeType;
+        context.contactMechPurposeType = contactMechPurposeType
     } else {
-        cmNewPurposeTypeId = null;
+        cmNewPurposeTypeId = null
     }
-    context.cmNewPurposeTypeId = cmNewPurposeTypeId;
+    context.cmNewPurposeTypeId = cmNewPurposeTypeId
 }
 
-tryEntity = context.tryEntity;
+tryEntity = context.tryEntity
 
-contactMechData = context.contactMech;
-if (!tryEntity) contactMechData = parameters;
-if (!contactMechData) contactMechData = [:];
-if (contactMechData) context.contactMechData = contactMechData;
+contactMechData = context.contactMech
+if (!tryEntity) contactMechData = parameters
+if (!contactMechData) contactMechData = [:]
+if (contactMechData) context.contactMechData = contactMechData
 
-partyContactMechData = context.partyContactMech;
-if (!tryEntity) partyContactMechData = parameters;
-if (!partyContactMechData) partyContactMechData = [:];
-if (partyContactMechData) context.partyContactMechData = partyContactMechData;
+partyContactMechData = context.partyContactMech
+if (!tryEntity) partyContactMechData = parameters
+if (!partyContactMechData) partyContactMechData = [:]
+if (partyContactMechData) context.partyContactMechData = partyContactMechData
 
-postalAddressData = context.postalAddress;
-if (!tryEntity) postalAddressData = parameters;
-if (!postalAddressData) postalAddressData = [:];
-if (postalAddressData) context.postalAddressData = postalAddressData;
+postalAddressData = context.postalAddress
+if (!tryEntity) postalAddressData = parameters
+if (!postalAddressData) postalAddressData = [:]
+if (postalAddressData) context.postalAddressData = postalAddressData
 
-telecomNumberData = context.telecomNumber;
-if (!tryEntity) telecomNumberData = parameters;
-if (!telecomNumberData) telecomNumberData = [:];
-if (telecomNumberData) context.telecomNumberData = telecomNumberData;
+telecomNumberData = context.telecomNumber
+if (!tryEntity) telecomNumberData = parameters
+if (!telecomNumberData) telecomNumberData = [:]
+if (telecomNumberData) context.telecomNumberData = telecomNumberData
 
 // load the geo names for selected countries and states/regions
 if (parameters.countryGeoId) {
-    geoValue = from("Geo").where("geoId", parameters.countryGeoId).cache(true).queryOne();
+    geoValue = from("Geo").where("geoId", parameters.countryGeoId).cache(true).queryOne()
     if (geoValue) {
-        context.selectedCountryName = geoValue.geoName;
+        context.selectedCountryName = geoValue.geoName
     }
 } else if (postalAddressData?.countryGeoId) {
-    geoValue = from("Geo").where("geoId", postalAddressData.countryGeoId).cache(true).queryOne();
+    geoValue = from("Geo").where("geoId", postalAddressData.countryGeoId).cache(true).queryOne()
     if (geoValue) {
-        context.selectedCountryName = geoValue.geoName;
+        context.selectedCountryName = geoValue.geoName
     }
 }
 
 if (parameters.stateProvinceGeoId) {
-    geoValue = from("Geo").where("geoId", parameters.stateProvinceGeoId).cache(true).queryOne();
+    geoValue = from("Geo").where("geoId", parameters.stateProvinceGeoId).cache(true).queryOne()
     if (geoValue) {
-        context.selectedStateName = geoValue.geoId;
+        context.selectedStateName = geoValue.geoId
     }
 } else if (postalAddressData?.stateProvinceGeoId) {
-    geoValue = from("Geo").where("geoId", postalAddressData.stateProvinceGeoId).cache(true).queryOne();
+    geoValue = from("Geo").where("geoId", postalAddressData.stateProvinceGeoId).cache(true).queryOne()
     if (geoValue) {
-        context.selectedStateName = geoValue.geoId;
+        context.selectedStateName = geoValue.geoId
     }
 }

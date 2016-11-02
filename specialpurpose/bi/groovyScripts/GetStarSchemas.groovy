@@ -17,24 +17,24 @@
  * under the License.
  */
 
-reader = delegator.getModelReader();
-ec = reader.getEntityNames();
-entities = new TreeSet(ec);
-entitiesIt = entities.iterator();
+reader = delegator.getModelReader()
+ec = reader.getEntityNames()
+entities = new TreeSet(ec)
+entitiesIt = entities.iterator()
 
-List starSchemas = [];
+List starSchemas = []
 
 while (entitiesIt.hasNext()) {
-    entity = reader.getModelEntity(entitiesIt.next());
-    packageName = entity.getPackageName();
+    entity = reader.getModelEntity(entitiesIt.next())
+    packageName = entity.getPackageName()
     if (!packageName.contains("starschema")) {
-        continue;
+        continue
     }
 
-    entityMap = [:];
-    entityMap.name = entity.getEntityName();
-    entityMap.title = entity.getTitle();
+    entityMap = [:]
+    entityMap.name = entity.getEntityName()
+    entityMap.title = entity.getTitle()
 
-    starSchemas.add(entityMap);
+    starSchemas.add(entityMap)
 }
-context.starSchemas = starSchemas;
+context.starSchemas = starSchemas

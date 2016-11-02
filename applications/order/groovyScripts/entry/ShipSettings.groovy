@@ -17,101 +17,101 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.util.EntityUtil
 
-cart = session.getAttribute("shoppingCart");
+cart = session.getAttribute("shoppingCart")
 
 if (cart) {
-createNewShipGroup = request.getParameter("createNewShipGroup");
+createNewShipGroup = request.getParameter("createNewShipGroup")
 if ("Y".equals(createNewShipGroup)) {
-    cart.addShipInfo();
+    cart.addShipInfo()
 }
 
-orderPartyId = cart.getPartyId();
-shipToPartyId = parameters.shipToPartyId;
-context.cart = cart;
+orderPartyId = cart.getPartyId()
+shipToPartyId = parameters.shipToPartyId
+context.cart = cart
 if(shipToPartyId) {
-    context.shipToPartyId = shipToPartyId;
+    context.shipToPartyId = shipToPartyId
 } else {
-    context.shipToPartyId = cart.getShipToCustomerPartyId();
+    context.shipToPartyId = cart.getShipToCustomerPartyId()
 }
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_");
+request.removeAttribute("_EVENT_MESSAGE_")
 
 if ("SALES_ORDER".equals(cart.getOrderType())) {
     if (!"_NA_".equals(orderPartyId)) {
-        orderParty = from("Party").where("partyId", orderPartyId).queryOne();
+        orderParty = from("Party").where("partyId", orderPartyId).queryOne()
         if (orderParty) {
-            shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-            orderPerson = orderParty.getRelatedOne("Person", false);
-            context.orderParty = orderParty;
-            context.orderPerson = orderPerson;
-            context.shippingContactMechList = shippingContactMechList;
+            shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+            orderPerson = orderParty.getRelatedOne("Person", false)
+            context.orderParty = orderParty
+            context.orderPerson = orderPerson
+            context.shippingContactMechList = shippingContactMechList
         }
     }
     // Ship to another party
     if (!context.shipToPartyId.equals(orderPartyId)) {
-        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne();
+        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne()
         if (shipToParty) {
-            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-            context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList;
+            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+            context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList
         }
     }
     // suppliers for the drop-ship select box
-    suppliers = from("PartyRole").where("roleTypeId", "SUPPLIER").queryList();
-    context.suppliers = suppliers;
+    suppliers = from("PartyRole").where("roleTypeId", "SUPPLIER").queryList()
+    context.suppliers = suppliers
 
     // facilities used to reserve the items per ship group
-    productStoreFacilities = from("ProductStoreFacility").where("productStoreId", cart.getProductStoreId()).queryList();
-    context.productStoreFacilities = productStoreFacilities;
+    productStoreFacilities = from("ProductStoreFacility").where("productStoreId", cart.getProductStoreId()).queryList()
+    context.productStoreFacilities = productStoreFacilities
 } else {
     // Purchase order
     if (!"_NA_".equals(orderPartyId)) {
-        orderParty = from("Party").where("partyId", orderPartyId).queryOne();
+        orderParty = from("Party").where("partyId", orderPartyId).queryOne()
         if (orderParty) {
-           orderPerson = orderParty.getRelatedOne("Person", false);
-           context.orderParty = orderParty;
-           context.orderPerson = orderPerson;
+           orderPerson = orderParty.getRelatedOne("Person", false)
+           context.orderParty = orderParty
+           context.orderPerson = orderPerson
          }
     }
 
-    companyId = cart.getBillToCustomerPartyId();
+    companyId = cart.getBillToCustomerPartyId()
     if (companyId) {
-        facilityMaps = [];
-        facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList();
+        facilityMaps = []
+        facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList()
 
         // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there.
         if (UtilValidate.isEmpty(facilities)) {
-            partyRelationship = from("PartyRelationship").where("roleTypeIdFrom": "PARENT_ORGANIZATION", "partyIdTo": companyId).queryFirst();
+            partyRelationship = from("PartyRelationship").where("roleTypeIdFrom": "PARENT_ORGANIZATION", "partyIdTo": companyId).queryFirst()
             if (UtilValidate.isNotEmpty(partyRelationship)) {
-                companyId = partyRelationship.partyIdFrom;
-                facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList();
+                companyId = partyRelationship.partyIdFrom
+                facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList()
             }
         }
         facilities.each { facility ->
-            facilityMap = [:];
-            facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.facilityId, false, null);
-            facilityMap.facilityContactMechList = facilityContactMechValueMaps;
-            facilityMap.facility = facility;
-            facilityMaps.add(facilityMap);
+            facilityMap = [:]
+            facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.facilityId, false, null)
+            facilityMap.facilityContactMechList = facilityContactMechValueMaps
+            facilityMap.facility = facility
+            facilityMaps.add(facilityMap)
         }
-        context.facilityMaps = facilityMaps;
+        context.facilityMaps = facilityMaps
     }
     // Ship to another party
     if (!context.shipToPartyId.equals(orderPartyId)) {
-        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne();
+        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne()
         if (shipToParty)
         {
-            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-            context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList;
+            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+            context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList
         }
     }
 }

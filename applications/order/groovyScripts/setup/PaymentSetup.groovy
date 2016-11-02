@@ -17,29 +17,29 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-paymentSetup = from("WebSitePaymentSettingView").orderBy("webSiteId", "paymentMethodTypeId").queryList();
-context.paymentSetups = paymentSetup;
+paymentSetup = from("WebSitePaymentSettingView").orderBy("webSiteId", "paymentMethodTypeId").queryList()
+context.paymentSetups = paymentSetup
 
-webSiteId = parameters.webSiteId;
-paymentMethodTypeId = parameters.paymentMethodTypeId;
+webSiteId = parameters.webSiteId
+paymentMethodTypeId = parameters.paymentMethodTypeId
 
-webSitePayment = null;
+webSitePayment = null
 if (webSiteId && paymentMethodTypeId) {
-    webSitePayment = from("WebSitePaymentSettingView").where("webSiteId", webSiteId, "paymentMethodTypeId", paymentMethodTypeId).queryOne();
+    webSitePayment = from("WebSitePaymentSettingView").where("webSiteId", webSiteId, "paymentMethodTypeId", paymentMethodTypeId).queryOne()
 }
-context.webSitePayment = webSitePayment;
+context.webSitePayment = webSitePayment
 
-webSites = from("WebSite").orderBy("siteName").queryList();
-context.webSites = webSites;
+webSites = from("WebSite").orderBy("siteName").queryList()
+context.webSites = webSites
 
-paymentMethodTypes = from("PaymentMethodType").orderBy("description").queryList();
-context.paymentMethodTypes = paymentMethodTypes;
+paymentMethodTypes = from("PaymentMethodType").orderBy("description").queryList()
+context.paymentMethodTypes = paymentMethodTypes
 
-payInfo = UtilHttp.getParameterMap(request);
+payInfo = UtilHttp.getParameterMap(request)
 if (webSitePayment) {
-    payInfo = webSitePayment;
+    payInfo = webSitePayment
 }
-context.payInfo = payInfo;
+context.payInfo = payInfo

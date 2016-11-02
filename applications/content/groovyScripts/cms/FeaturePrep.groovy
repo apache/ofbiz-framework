@@ -19,26 +19,26 @@
 
 import org.apache.ofbiz.base.util.UtilHttp
 
-paramMap = UtilHttp.getParameterMap(request);
+paramMap = UtilHttp.getParameterMap(request)
 
-contentId = context.contentId;
-dataResourceId = context.dataResourceId;
+contentId = context.contentId
+dataResourceId = context.dataResourceId
 
-productFeatureList = from("ProductFeature").cache(true).queryList();
-featureList = [] as ArrayList;
+productFeatureList = from("ProductFeature").cache(true).queryList()
+featureList = [] as ArrayList
 if (dataResourceId) {
     productFeatureList.each { productFeature ->
-        productFeatureId = productFeature.productFeatureId;
-        description = productFeature.description;
-        productFeatureDataResource = from("ProductFeatureDataResource").where("productFeatureId", productFeatureId, "dataResourceId", dataResourceId).cache(true).queryOne();
+        productFeatureId = productFeature.productFeatureId
+        description = productFeature.description
+        productFeatureDataResource = from("ProductFeatureDataResource").where("productFeatureId", productFeatureId, "dataResourceId", dataResourceId).cache(true).queryOne()
         if (productFeatureDataResource) {
-            feature = [];
-            feature.productFeatureId = productFeatureId;
-            feature.dataResourceId = dataResourceId;
-            feature.action = "Y";
-            feature.description = description;
-            featureList.add(feature);
+            feature = []
+            feature.productFeatureId = productFeatureId
+            feature.dataResourceId = dataResourceId
+            feature.action = "Y"
+            feature.description = description
+            featureList.add(feature)
         }
     }
-    context.featureList = featureList;
+    context.featureList = featureList
 }

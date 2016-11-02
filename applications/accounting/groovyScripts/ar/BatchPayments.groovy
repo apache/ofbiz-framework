@@ -25,59 +25,59 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
 if ("Y".equals(parameters.noConditionFind)) {
-    List paymentCond = [];
-    payments = [];
-    finAccountId = parameters.finAccountId;
-    context.finAccountId = parameters.finAccountId;
+    List paymentCond = []
+    payments = []
+    finAccountId = parameters.finAccountId
+    context.finAccountId = parameters.finAccountId
     paymentStatusCond = EntityCondition.makeCondition([EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR);
-    paymentCond.add(paymentStatusCond);
+                                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")], EntityOperator.OR)
+    paymentCond.add(paymentStatusCond)
     if (paymentMethodTypeId) {
-        paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+        paymentCond.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId))
     }
     if (fromDate) {
-        paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+        paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
     }
     if (thruDate) {
-        paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+        paymentCond.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
     }
     if (partyIdFrom) {
-        paymentCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
+        paymentCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom))
     }
     if (finAccountId) {
-        finAccountTransList = from("FinAccountTrans").where("finAccountId", finAccountId).queryList();
+        finAccountTransList = from("FinAccountTrans").where("finAccountId", finAccountId).queryList()
         if (finAccountTransList) {
-            finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true);
-            paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds));
-            payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList();
+            finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true)
+            paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds))
+            payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList()
         }
     } else {
-        paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
-        payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList();
+        paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null))
+        payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList()
     }
-    paymentListWithCreditCard = [];
-    paymentListWithoutCreditCard = [];
+    paymentListWithCreditCard = []
+    paymentListWithoutCreditCard = []
     if (payments) {
         payments.each { payment ->
-            isReceipt = UtilAccounting.isReceipt(payment);
+            isReceipt = UtilAccounting.isReceipt(payment)
             if (isReceipt) {
-                paymentGroupMembers = from("PaymentGroupMember").where("paymentId", payment.paymentId).filterByDate().queryList();
+                paymentGroupMembers = from("PaymentGroupMember").where("paymentId", payment.paymentId).filterByDate().queryList()
                 if (!paymentGroupMembers) {
                     if (cardType && payment.paymentMethodId) {
-                        creditCard = from("CreditCard").where("paymentMethodId", payment.paymentMethodId).queryOne();
+                        creditCard = from("CreditCard").where("paymentMethodId", payment.paymentMethodId).queryOne()
                         if (creditCard.cardType == cardType) {
-                            paymentListWithCreditCard.add(payment);
+                            paymentListWithCreditCard.add(payment)
                         }
                     } else if (UtilValidate.isEmpty(cardType)) {
-                        paymentListWithoutCreditCard.add(payment);
+                        paymentListWithoutCreditCard.add(payment)
                     }
                 }
             }
         }
         if (paymentListWithCreditCard) {
-            context.paymentList = paymentListWithCreditCard;
+            context.paymentList = paymentListWithCreditCard
         } else {
-            context.paymentList = paymentListWithoutCreditCard;
+            context.paymentList = paymentListWithoutCreditCard
         }
     }
 }

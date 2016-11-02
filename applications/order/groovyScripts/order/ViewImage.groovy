@@ -17,21 +17,21 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.order.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.order.*
 
-orderId = request.getParameter("orderId");
-orderItemSeqId = request.getParameter("orderItemSeqId");
-orderContentTypeId = request.getParameter("orderContentTypeId");
+orderId = request.getParameter("orderId")
+orderItemSeqId = request.getParameter("orderItemSeqId")
+orderContentTypeId = request.getParameter("orderContentTypeId")
 
-order = null;
+order = null
 if (orderId && !orderItemSeqId) {
-    order = from("OrderHeader").where("orderId", orderId).queryOne();
+    order = from("OrderHeader").where("orderId", orderId).queryOne()
 }
 if (orderId && orderItemSeqId) {
-    order = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
+    order = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
 }
 
-wrapper = OrderContentWrapper.makeOrderContentWrapper(order, request);
-context.wrapper = wrapper;
-context.orderContentTypeId = orderContentTypeId;
+wrapper = OrderContentWrapper.makeOrderContentWrapper(order, request)
+context.wrapper = wrapper
+context.orderContentTypeId = orderContentTypeId

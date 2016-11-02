@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
-Map paramMap = UtilHttp.getParameterMap(request);
+Map paramMap = UtilHttp.getParameterMap(request)
 def rejected = false
-int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+int rowCount = UtilHttp.getMultiFormRowCount(paramMap)
 if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {
-        String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+        String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i
         if(paramMap.get("checkStatusId" +thisSuffix)){
             def temp = paramMap.get("checkStatusId" +thisSuffix)
             def splitTemp = temp.split("/")
