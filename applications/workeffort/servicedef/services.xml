@@ -573,6 +573,7 @@ under the License.
     </service>
     <service name="deleteWorkEffortContent" engine="entity-auto" invoke="delete" default-entity-name="WorkEffortContent" auth="true">
         <description>Delete a Work Effort Content</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
