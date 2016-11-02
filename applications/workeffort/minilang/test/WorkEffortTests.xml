@@ -200,4 +200,204 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testQuickAssignPartyToWorkEffortWithRole" short-description="Test the service quickAssignPartyToWorkEffortWithRole" login-required="false">
+        <set field="serviceCtx.quickAssignPartyId" value="TestParty-1"/>
+        <set field="serviceCtx.roleTypeId" value="BILL_FROM_VENDOR"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="quickAssignPartyToWorkEffortWithRole" in-map-name="serviceCtx"/>
+        <set field="lookupKeyValue.workEffortId" value="TestWorkeffort-3"/>
+        <set field="lookupKeyValue.partyId" value="TestParty-1"/>
+        <set field="lookupKeyValue.roleTypeId" value="BILL_FROM_VENDOR"/>
+        <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupKeyValue" list="workEffortPartyAssignmentList"/>
+        <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignmentList"/>
+        <assert>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateWorkEffortNote" short-description="Test the service createWorkEffortNote" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.noteInfo" value="This is test note."/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createWorkEffortNote" in-map-name="serviceCtx">
+            <result-to-field result-name="noteId"/>
+        </call-service>
+        <entity-one entity-name="WorkEffortNote" value-field="workEffortNote">
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+        </entity-one>
+        <entity-one entity-name="NoteData" value-field="noteData"/>
+        <assert>
+            <not><if-empty field="workEffortNote"/></not>
+            <not><if-empty field="noteData"/></not>
+            <if-compare operator="equals" field="noteData.noteInfo" value="This is test note."/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateWorkEffortNote" short-description="Test the service updateWorkEffortNote" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.noteId" value="TestNote-1"/>
+        <set field="serviceCtx.internalNote" value="Y"/>
+        <set field="serviceCtx.noteInfo" value="This is updated test note."/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateWorkEffortNote" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortNote" value-field="workEffortNote">
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+            <field-map field-name="noteId" value="TestNote-1"/>
+        </entity-one>
+        <entity-one entity-name="NoteData" value-field="noteData">
+            <field-map field-name="noteId" value="TestNote-1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortNote"/></not>
+            <not><if-empty field="noteData"/></not>
+            <if-compare operator="equals" field="noteData.noteInfo" value="This is updated test note."/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetWorkEffort" short-description="Test the service getWorkEffort" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="workEffort"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="workEffort"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateWorkEffortAssoc" short-description="Test the service createWorkEffortAssoc" login-required="false">
+        <set field="serviceCtx.workEffortIdFrom" value="TestWorkeffort-2"/>
+        <set field="serviceCtx.workEffortIdTo" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
+        <set field="serviceCtx.fromDate" value="2009-09-09 02:02:02" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createWorkEffortAssoc" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc">
+            <field-map field-name="workEffortIdFrom" value="TestWorkeffort-2"/>
+            <field-map field-name="workEffortIdTo" value="TestWorkeffort-3"/>
+            <field-map field-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
+            <field-map field-name="fromDate" value="2009-09-09 02:02:02"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortAssoc"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyWorkEffortAssocs" short-description="Test the service copyWorkEffortAssocs" login-required="false">
+        <set field="serviceCtx.sourceWorkEffortId" value="TestWorkeffort-2"/>
+        <set field="serviceCtx.targetWorkEffortId" value="TestWorkeffort-4"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="copyWorkEffortAssocs" in-map-name="serviceCtx"/>
+        <set field="lookupKeyValue.workEffortIdFrom" value="TestWorkeffort-4"/>
+        <find-by-and entity-name="WorkEffortAssoc" map="lookupKeyValue" list="workEffortAssocList"/>
+        <assert>
+            <not><if-empty field="workEffortAssocList"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateWorkEffortKeyword" short-description="Test the service createWorkEffortKeyword" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-2"/>
+        <set field="serviceCtx.keyword" value="test keyword for workeffort"/>
+        <set field="serviceCtx.relevancyWeight" value="1" type="Long"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createWorkEffortKeyword" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortKeyword" value-field="workEffortKeyword">
+            <field-map field-name="workEffortId" value="TestWorkeffort-2"/>
+            <field-map field-name="keyword" value="test keyword for workeffort"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortKeyword"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteWorkEffortKeyword" short-description="Test the service deleteWorkEffortKeyword" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.keyword" value="test keyword"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteWorkEffortKeyword" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortKeyword" value-field="workEffortKeyword">
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+            <field-map field-name="keyword" value="test keyword"/>
+        </entity-one>
+        <assert>
+            <if-empty field="workEffortKeyword"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteWorkEffortKeywords" short-description="Test the service deleteWorkEffortKeywords" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-2"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteWorkEffortKeywords" in-map-name="serviceCtx"/>
+        <set field="lookupKeyValue.workEffortId" value="TestWorkeffort-2"/>
+        <find-by-and entity-name="WorkEffortKeyword" map="lookupKeyValue" list="workEffortKeywordList"/>
+        <assert>
+            <if-empty field="workEffortKeywordList"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <!--Following testcases are for Timesheet services.-->
+    <simple-method method-name="testCreateTimesheet" short-description="Test the service createTimesheet" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty"/>
+        <set field="serviceCtx.comments" value="Test timesheet"/>
+        <set field="serviceCtx.statusId" value="TIMESHEET_IN_PROCESS"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createTimesheet" in-map-name="serviceCtx">
+            <result-to-field result-name="timesheetId"/>
+        </call-service>
+        <entity-one entity-name="Timesheet" value-field="timesheet"/>
+        <assert>
+            <not><if-empty field="timesheet"/></not>
+            <if-compare operator="equals" field="timesheet.partyId" value="TestParty"/>
+            <if-compare operator="equals" field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
+            <if-compare operator="equals" field="timesheet.comments" value="Test timesheet"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateTimesheetToInProcess" short-description="Test the service updateTimesheetToInProcess" login-required="false">
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateTimesheetToInProcess" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Timesheet" value-field="timesheet">
+            <field-map field-name="timesheetId" value="TestTimesheet-1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="timesheet"/></not>
+            <if-compare operator="equals" field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
