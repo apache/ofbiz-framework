@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="TestCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TestCompany" groupName="Your Company Name Here"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TestCompany" roleTypeId="_NA_"/>
+    <PartyStatus partyId="TestCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="TestGroup-1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TestGroup-1" groupName="Test Group"/>
+    <Affiliate partyId="TestGroup-1" affiliateName="Test Affiliate"/>
+
+    <Party partyId="TestCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestCustomer" firstName="Test" lastName="Customer"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestCustomer" roleTypeId="ACCOUNTANT"/>
+    <PartyStatus partyId="TestCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="TestParty" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestParty" firstName="Test" lastName="Party"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTACT"/>
+    <PartyStatus partyId="TestParty" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="TestParty" partyId="TestParty"/>
+
+    <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestParty" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>
+
+    <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
+    <PartyContactMech partyId="TestCustomer" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="TestCustomer" contactMechId="TestContactMech" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00"/>
+    <ContactMech contactMechId="TestContactMech2" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email2@example.com"/>
+    <PartyContactMech partyId="TestCustomer" contactMechId="TestContactMech2" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="TestCustomer" contactMechId="TestContactMech2" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00"/>
+    <ContactMech contactMechId="TestContactMech1" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="TestContactMech1" areaCode="801" contactNumber="555-5555"/>
+    <PartyContactMech partyId="TestCustomer" contactMechId="TestContactMech1" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="TestContactMech3" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email3@example.com"/>
+
+    <ContactMech contactMechId="TestPostalAdd1" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="TestPostalAdd1" toName="Test Address" attnName="ZJAA" address1="2003 Open Blvd" city="Orem" postalCode="84058" countryGeoId="USA" stateProvinceGeoId="UT" geoPointId="9000"/>
+    <ContactMech contactMechId="TestPostalAdd2" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="TestPostalAdd2" toName="Test Address" attnName="ZJAA" address1="2003 Open Blvd" city="Orem" postalCode="84058" countryGeoId="USA" stateProvinceGeoId="UT" geoPointId="9000"/>
+    <PartyContactMech partyId="TestCustomer" contactMechId="TestPostalAdd2" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="TestPostalAdd3" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="TestPostalAdd3" toName="Test Address" attnName="ZJAA" address1="2003 Open Blvd" city="Orem" postalCode="84058" countryGeoId="USA" stateProvinceGeoId="UT" geoPointId="9000"/>
+    <PartyContactMech partyId="TestCustomer" contactMechId="TestPostalAdd3" fromDate="2001-05-13 00:00:00.000"/>
+
+    <CommunicationEvent communicationEventId="TestEvent-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
+    <CommunicationEvent communicationEventId="TestEvent-2" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="TestCompany" entryDate="2010-10-27 15:04:17.895" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@example.com"/>
+    <PartyRole partyId="TestCompany" roleTypeId="ADDRESSEE"/>
+    <CommunicationEventRole communicationEventId="TestEvent-2" partyId="TestCompany" roleTypeId="ADDRESSEE" statusId="COM_ROLE_CREATED"/>
+
+    <CommunicationEvent communicationEventId="TestEvent-5" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
+    <CommunicationEventRole communicationEventId="TestEvent-5" partyId="TestCompany" roleTypeId="ADDRESSEE" statusId="COM_ROLE_CREATED"/>
+    <WorkEffort workEffortId="TestWorkeffort" currentStatusId="PTS_CREATED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
+    <CommunicationEventWorkEff communicationEventId="TestEvent-5" workEffortId="TestWorkeffort"/>
+    <CommunicationEvent communicationEventId="TestEvent-6" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
+    <CommunicationEvent communicationEventId="TestEvent-7" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
+    <CommunicationEventRole communicationEventId="TestEvent-7" partyId="TestCompany" roleTypeId="ADDRESSEE" statusId="COM_ROLE_CREATED"/>
+
+    <PartyInvitation partyInvitationId="TEST_INVITE" emailAddress="test@example.com"/>
+    <PartyInvitation partyInvitationId="TEST_INVITE-1" emailAddress="test1@example.com"/>
+    <PartyInvitation partyInvitationId="TEST_INVITE-2" emailAddress="test2@example.com"/>
+    <PartyInvitationGroupAssoc partyIdTo="TestCompany" partyInvitationId="TEST_INVITE-2"/>
+    <PartyInvitationRoleAssoc partyInvitationId="TEST_INVITE-2" roleTypeId="COMMEVENT_ROLE"/>
+
+    <AddressMatchMap mapKey="TESTKEY-1" mapValue="Test Value 1"/>
+    <AddressMatchMap mapKey="TESTKEY-2" mapValue="Test Value 2"/>
+    <AddressMatchMap mapKey="TESTKEY-3" mapValue="Test Value 3"/>
+</entity-engine-xml>
