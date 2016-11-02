@@ -47,4 +47,25 @@ under the License.
     <PaymentGlAccountTypeMap paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE" organizationPartyId="DEMO_COMPANY1"/>
     <!-- For Testing service removePaymentMethodTypeGlAssignment-->
     <PaymentMethodTypeGlAccount paymentMethodTypeId="CASH" glAccountId="999999" organizationPartyId="DEMO_COMPANY1"/>
+
+    <!-- For Testing service cancelAgreement -->
+    <PartyRole partyId="DEMO_COMPANY" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="DISTRIBUTOR"/>
+    <Agreement agreementId="1000" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" roleTypeIdFrom="SUPPLIER" roleTypeIdTo="DISTRIBUTOR" fromDate="2016-09-29 00:00:00"/>
+    <!-- For Testing service copyAgreement -->
+    <Product productId="TestProduct2" productName="Test Product 2" internalName="Test Product 2" description="Test Product For Testing getCommissionForProduct services"/>
+    <Agreement agreementId="1010" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" roleTypeIdFrom="SUPPLIER" roleTypeIdTo="DISTRIBUTOR" fromDate="2016-09-29 00:00:00"/>
+    <AgreementItem agreementId="1010" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
+    <AgreementProductAppl agreementId="1010" agreementItemSeqId="0001" productId="TestProduct2"/>
+    <AgreementTerm agreementTermId="1010" termTypeId="FIN_COMM_VARIABLE" agreementId="1010" agreementItemSeqId="0001" productId="TestProduct2" invoiceItemTypeId="COMM_INV_ITEM" fromDate="2016-09-29 00:00:00" thruDate="2017-09-29 00:00:00" termValue="10" termDays="30" minQuantity="1" maxQuantity="100" description="Agreement Term for Test Product 2 Commission"/>
+    <!-- For Testing service updateBudgetStatus -->
+    <Budget budgetId="9999" budgetTypeId="CAPITAL_BUDGET" comments="This is the capital budget"/>
+    <BudgetStatus budgetId="9999" statusId="BG_CREATED" statusDate="2016-09-29 00:00:00"/>
+    <!-- For Testing service updateProductAverageCostOnReceiveInventory -->
+    <Product productId="TestProduct3" productName="Test Product 3" internalName="Test Product 3" description="Test Product For Testing updateProductAverageCostOnReceiveInventory services"/>
+    <Facility facilityId="DemoFacility1" facilityTypeId="WAREHOUSE" facilityName="Demo Facility" />
+    <Party partyId="DEMO_COMPANY2" partyTypeId="PARTY_GROUP"/>
+    <PartyRole partyId="DEMO_COMPANY2" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <InventoryItem facilityId="DemoFacility1" inventoryItemId="9999" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="TestProduct3" ownerPartyId="DEMO_COMPANY2" currencyUomId="USD" unitCost="9"/>
+    <PartyAcctgPreference partyId="DEMO_COMPANY2" cogsMethodId="COGS_LIFO"/>
 </entity-engine-xml>

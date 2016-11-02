@@ -40,4 +40,13 @@
     <test-case case-name="auto-accounting-admin-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgAdminTests.xml"/>
     </test-case>
+    <test-case case-name="auto-accounting-agreement-tests">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgAgreementTests.xml"/>
+    </test-case>
+    <test-case case-name="auto-accounting-budget-tests">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgBudgetTests.xml"/>
+    </test-case>
+    <test-case case-name="auto-accounting-cost-tests">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgCostTests.xml"/>
+    </test-case>
 </test-suite>
