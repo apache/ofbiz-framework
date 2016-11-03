@@ -68,4 +68,13 @@ under the License.
     <PartyRole partyId="DEMO_COMPANY2" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <InventoryItem facilityId="DemoFacility1" inventoryItemId="9999" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="TestProduct3" ownerPartyId="DEMO_COMPANY2" currencyUomId="USD" unitCost="9"/>
     <PartyAcctgPreference partyId="DEMO_COMPANY2" cogsMethodId="COGS_LIFO"/>
+    <!-- For Testing service updateFinAccount -->
+    <FinAccount finAccountId="1001" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+    <!-- For Testing service deleteFinAccount -->
+    <FinAccount finAccountId="1002" finAccountTypeId="CREDIT_CARD_ACCOUNT" finAccountName="Credit Cart Account" finAccountCode="1002" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+    <!-- For Testing service createFinAccountStatus -->
+    <FinAccount finAccountId="1003" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+    <!-- For Testing service updateFinAccountRole -->
+    <FinAccount finAccountId="1004" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+    <FinAccountRole finAccountId="1004" partyId="DEMO_COMPANY" roleTypeId="SUPPLIER" fromDate="2016-11-03 00:00:00"/>
 </entity-engine-xml>
