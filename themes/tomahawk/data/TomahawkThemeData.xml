@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <VisualTheme visualThemeId="TOMAHAWK" visualThemeSetId="BACKOFFICE" description="Tomahawk: the evolution of the Dropping Crumbs theme"/>
+    <VisualTheme visualThemeId="TOMAHAWK" visualThemeSetId="BACKOFFICE" description="Tomahawk: the evolution of the BlueLight theme"/>
     
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAME" resourceValue="TOMAHAWK" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
