@@ -22292,41 +22292,17 @@
         <value xml:lang="zh">重量</value>
         <value xml:lang="zh-TW">重量</value>
     </property>
-    <property key="VisualTheme.description.BIZZNESS_TIME">
-        <value xml:lang="cs">Bizzness : vertikální menu</value>
-        <value xml:lang="en">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
-        <value xml:lang="es">Bizzness, es hora de bizzness.  No lo podría haber dicho mejor. Este tema lo consigue</value>
-        <value xml:lang="fr">Bizzness : menu principal vertical</value>
-        <value xml:lang="ja">さあ仕事をしよう。自分自身うまく言えない。このテーマはやめた</value>
-        <value xml:lang="pt-BR">É Bizzness, é hora Bizzness. Eu não poderia ter dito melhor sozinho. Este tema fica para baixo</value>
-        <value xml:lang="ru">Это бизнес, это бизнес время. Я не могу сказать что-то лучше о себе. Эта тема получена ниже</value>
-        <value xml:lang="vi">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
-        <value xml:lang="zh">商务时代。我不能自己说它是最好的。本风格搞定</value>
-        <value xml:lang="zh-TW">商務時代.我不能自己說它是最好的.本風格搞定</value>
-    </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="cs">BlueLight Theme: navigační řádek, menu a zakulacené rohy</value>
-        <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
+        <value xml:lang="en">BlueLight Theme: breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="es">BlueLight: Migas de pan, menús desplegables y las esquinas redondeadas</value>
         <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
         <value xml:lang="ja">ブルーライト: パンくずリスト、ドロップダウンメニュー、そして丸いコーナー</value>
-        <value xml:lang="pt-BR">Bluelight Tema: Breadcrumbs, menus drop-down e cantos arredondados</value>
+        <value xml:lang="pt-BR">Bluelight Tema: breadcrumbs, menus drop-down e cantos arredondados</value>
         <value xml:lang="ru">Светло-голубая тема: Бреадкрамбсы, раскрывающиеся меню с закругленным углами</value>
-        <value xml:lang="vi">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
+        <value xml:lang="vi">BlueLight Theme: breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="zh">浅蓝风格：自动的多级导航，下拉式菜单，以及圆角</value>
         <value xml:lang="zh-TW">淺藍風格:自動的多級導航,下拉式選單,以及圓角</value>
-    </property>
-    <property key="VisualTheme.description.DROPPINGCRUMBS">
-        <value xml:lang="cs">BlueLight: Pokročilejší varianta Blue-Light, menu integrované s navigací</value>
-        <value xml:lang="en">BlueLight: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
-        <value xml:lang="es">BlueLight: Evolución de BlueLight, incluye un menú desplegable incrustado en la barra de migas de pan</value>
-        <value xml:lang="fr">BlueLight: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
-        <value xml:lang="ja">パンくず: ブルーライトの改良。パンくずリストバーに組み込まれたドロップダウンメニューを含む</value>
-        <value xml:lang="pt-BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
-        <value xml:lang="ru">Падающие крамбы: Эволюция светло-голубых, включает раскрывающиеся меню встроенных в полосу бреадкрамбов</value>
-        <value xml:lang="vi">BlueLight: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
-        <value xml:lang="zh">下拉多级：浅蓝风格的演化版，包括一个嵌入多级导航条的下拉式菜单</value>
-        <value xml:lang="zh-TW">下拉多級:淺藍風格的演化版,包括一個嵌入多級導航條的下拉式選單</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="cs">Flat Grey - Plovoucí rozložení, podpora obousměrného textu</value>
