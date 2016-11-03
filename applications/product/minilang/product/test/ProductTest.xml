@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testCreateProduct" short-description="Test create Product" login-required="false">
+        <set field="serviceCtx.internalName" value="Test_product"/>
+        <set field="serviceCtx.productTypeId" value="Test_type"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createProduct" in-map-name="serviceCtx">
+            <result-to-field result-name="productId"/>
+        </call-service>
+        <entity-one entity-name="Product" value-field="product"/>
+        <assert>
+            <not>
+                <if-empty field="product"/>
+            </not>
+            <if-compare field="product.internalName" operator="equals" value="Test_product"/>
+            <if-compare field="product.productTypeId" operator="equals" value="Test_type"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateProduct" short-description="Test update Product" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_A"/>
+        <set field="serviceCtx.productName" value="Test_name_B"/>
+        <set field="serviceCtx.description" value="Updated description"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateProduct" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" value="Test_product_A"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="product"/>
+            </not>
+            <if-compare field="product.productName" operator="equals" value="Test_name_B"/>
+            <if-compare field="product.description" operator="equals" value="Updated description"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDuplicateProduct" short-description="Test duplicate Product" login-required="false">
+        <set field="serviceCtx.productId" value="Duplicate_Id"/>
+        <set field="serviceCtx.oldProductId" value="Test_product_B"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="duplicateProduct" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" value="Duplicate_Id"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="product"/>
+            </not>
+            <if-compare field="product.productTypeId" operator="equals" value="Test_type"/>
+            <if-compare field="product.productName" operator="equals" value="Test_name_C"/>
+            <if-compare field="product.description" operator="equals" value="This is product description"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testQuickAddVariant" short-description="Test Add Variant" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_B"/>
+        <set field="serviceCtx.productFeatureIds" value="Test_feature"/>
+        <set field="serviceCtx.productVariantId" value="Test_variant"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="quickAddVariant" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" value="Test_variant"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="product"/>
+            </not>
+            <if-compare field="product.productTypeId" operator="equals" value="Test_type"/>
+            <if-compare field="product.productName" operator="equals" value="Test_name_C"/>
+            <if-compare field="product.description" operator="equals" value="This is product description"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeleteProductKeywords" short-description="Test delete Product Keywords" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_C"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <entity-and entity-name="ProductKeyword" list="keywords">
+            <field-map field-name="productId" value="Test_product_C"/>
+        </entity-and>
+        <assert>
+            <not>
+                <if-empty field="keywords"/>
+            </not>
+        </assert>
+        <call-service service-name="deleteProductKeywords" in-map-name="serviceCtx"/>
+        <entity-and entity-name="ProductKeyword" list="keywords">
+            <field-map field-name="productId" value="Test_product_C"/>
+        </entity-and>
+        <assert>
+            <if-empty field="keywords"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDiscontinueProductSales" short-description="Test discontinue Product Sales" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_C"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="discontinueProductSales" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" value="Test_product_C"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="product.salesDiscontinuationDate"/>
+            </not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateProductReview" short-description="Test create Product Review" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_C"/>
+        <set field="serviceCtx.productStoreId" value="Test_store"/>
+        <set field="serviceCtx.productRating" type="BigDecimal" value="5"/>
+        <set field="serviceCtx.productReview" value="Test review"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createProductReview" in-map-name="serviceCtx">
+            <result-to-field result-name="productReviewId"/>
+        </call-service>
+        <entity-one entity-name="ProductReview" value-field="review"/>
+        <assert>
+            <not>
+                <if-empty field="review"/>
+            </not>
+            <if-compare field="review.productId" operator="equals" value="Test_product_C"/>
+            <if-compare field="review.productStoreId" operator="equals" value="Test_store"/>
+            <if-compare field="review.productRating" operator="equals" value="5.000000"/>
+            <if-compare field="review.productReview" operator="equals" value="Test review"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateProductReview" short-description="Test update Product Review" login-required="false">
+        <set field="serviceCtx.productReviewId" value="Test_review"/>
+        <set field="serviceCtx.productRating" type="BigDecimal" value="3"/>
+        <set field="serviceCtx.productReview" value="Updated review"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateProductReview" in-map-name="serviceCtx"/>
+        <entity-one entity-name="ProductReview" value-field="review">
+            <field-map field-name="productReviewId" value="Test_review"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="review"/>
+            </not>
+            <if-compare field="review.productId" operator="equals" value="Test_product_C"/>
+            <if-compare field="review.productRating" operator="equals" value="3.000000"/>
+            <if-compare field="review.productReview" operator="equals" value="Updated review"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testFindProductById" short-description="Test find Product By Id" login-required="false">
+        <set field="serviceCtx.idToFind" value="Test_product_C"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="findProductById" in-map-name="serviceCtx">
+            <result-to-field result-name="product"/>
+        </call-service>
+        <assert>
+            <not>
+                <if-empty field="product"/>
+            </not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateProductPrice" short-description="Test create Product Price" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_A"/>
+        <set field="serviceCtx.productPriceTypeId" value="AVERAGE_COST"/>
+        <set field="serviceCtx.productPricePurposeId" value="COMPONENT_PRICE"/>
+        <set field="serviceCtx.productStoreGroupId" value="Test_group"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.price" type="BigDecimal" value="50"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createProductPrice" in-map-name="serviceCtx"/>
+        <entity-one entity-name="ProductPrice" value-field="prodPrice">
+            <field-map field-name="productId" value="Test_product_A"/>
+            <field-map field-name="productPriceTypeId" value="AVERAGE_COST"/>
+            <field-map field-name="productPricePurposeId" value="COMPONENT_PRICE"/>
+            <field-map field-name="productStoreGroupId" value="Test_group"/>
+            <field-map field-name="currencyUomId" value="USD"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="prodPrice"/>
+            </not>
+            <if-compare field="prodPrice.price" operator="equals" value="50"/>
+            <if-compare field="prodPrice.productPriceTypeId" operator="equals" value="AVERAGE_COST"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateProductPrice" short-description="Test update Product Price" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_C"/>
+        <set field="serviceCtx.productPriceTypeId" value="AVERAGE_COST"/>
+        <set field="serviceCtx.productPricePurposeId" value="COMPONENT_PRICE"/>
+        <set field="serviceCtx.productStoreGroupId" value="Test_group"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.price" type="BigDecimal" value="50"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateProductPrice" in-map-name="serviceCtx">
+            <result-to-field result-name="fromDate"/>
+        </call-service>
+        <entity-one entity-name="ProductPrice" value-field="price">
+            <field-map field-name="productId" value="Test_product_C"/>
+            <field-map field-name="productPriceTypeId" value="AVERAGE_COST"/>
+            <field-map field-name="productPricePurposeId" value="COMPONENT_PRICE"/>
+            <field-map field-name="productStoreGroupId" value="Test_group"/>
+            <field-map field-name="currencyUomId" value="USD"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not>
+                <if-empty field="price"/>
+            </not>
+            <if-compare field="price.price" operator="equals" value="50"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeleteProductPrice" short-description="Test delete Product Price" login-required="false">
+        <set field="serviceCtx.productId" value="Test_product_C"/>
+        <set field="serviceCtx.productPriceTypeId" value="AVERAGE_COST"/>
+        <set field="serviceCtx.productPricePurposeId" value="COMPONENT_PRICE"/>
+        <set field="serviceCtx.productStoreGroupId" value="Test_group"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteProductPrice" in-map-name="serviceCtx">
+            <result-to-field result-name="fromDate"/>
+        </call-service>
+        <entity-one entity-name="ProductPrice" value-field="price">
+            <field-map field-name="productId" value="Test_product_C"/>
+            <field-map field-name="productPriceTypeId" value="AVERAGE_COST"/>
+            <field-map field-name="productPricePurposeId" value="COMPONENT_PRICE"/>
+            <field-map field-name="productStoreGroupId" value="Test_group"/>
+            <field-map field-name="currencyUomId" value="USD"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <if-empty field="price"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateProductCategory" short-description="Test create Product Category" login-required="false">
+        <set field="serviceCtx.productCategoryId" value="TEST_CATEGORY"/>
+        <set field="serviceCtx.productCategoryTypeId" value="USAGE_CATEGORY"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createProductCategory" in-map-name="serviceCtx">
+            <result-to-field result-name="productCategoryId"/>
+        </call-service>
+        <entity-one entity-name="ProductCategory" value-field="productCategory"/>
+        <assert>
+            <not>
+                <if-empty field="productCategory"/>
+            </not>
+            <if-compare field="productCategory.productCategoryTypeId" operator="equals" value="USAGE_CATEGORY"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

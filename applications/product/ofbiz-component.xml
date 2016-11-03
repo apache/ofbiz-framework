@@ -75,6 +75,7 @@ under the License.
     <test-suite loader="main" location="testdef/CostTests.xml"/>
     <test-suite loader="main" location="testdef/GroupOrderTest.xml"/>
     <test-suite loader="main" location="testdef/ProductTagTest.xml"/>
+    <test-suite loader="main" location="testdef/ProductTest.xml"/>
 
     <webapp name="catalog"
         title="Catalog"
