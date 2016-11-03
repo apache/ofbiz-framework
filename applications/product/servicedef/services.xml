@@ -1707,4 +1707,19 @@ under the License.
         <description>Delete a GoodIdentificationType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createProdCatalogCategoryType" default-entity-name="ProdCatalogCategoryType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create ProdCatalogCategoryType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateProdCatalogCategoryType" default-entity-name="ProdCatalogCategoryType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update ProdCatalogCategoryType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProdCatalogCategoryType" default-entity-name="ProdCatalogCategoryType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete ProdCatalogCategoryType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
