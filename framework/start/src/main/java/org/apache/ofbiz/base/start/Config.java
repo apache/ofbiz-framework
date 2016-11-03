@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +48,7 @@ public final class Config {
     public final int portOffset;
     public final int adminPort;
     public final String containerConfig;
-    public final Map<String, String> loader;
+    public final List<Map<String, String>> loaders;
     public final String logDir;
     public final boolean shutdownAfterLoad;
     public final boolean useShutdownHook;
@@ -70,7 +72,7 @@ public final class Config {
         portOffset = getPortOffsetValue(ofbizCommands);
         adminPort = getAdminPort(props, portOffset);
         containerConfig = getAbsolutePath(props, "ofbiz.container.config", "framework/base/config/ofbiz-containers.xml", ofbizHome);
-        loader = getLoader(props);
+        loaders = getLoaders(props);
         logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
         shutdownAfterLoad = isShutdownAfterLoad(props);
         useShutdownHook = isUseShutdownHook(props);
@@ -232,11 +234,25 @@ public final class Config {
         return calculatedAdminPort;
     }
 
-    private Map<String, String> getLoader(Properties props) {
-        Map<String, String> loader = new HashMap<String, String>();
-        loader.put("class", props.getProperty("ofbiz.start.loader"));
-        loader.put("profiles", props.getProperty("ofbiz.start.loader.loaders"));
-        return loader;
+    private List<Map<String, String>> getLoaders(Properties props) {
+        ArrayList<Map<String, String>> loadersTmp = new ArrayList<Map<String, String>>();
+        int currentPosition = 1;
+        Map<String, String> loader = null;
+        while (true) {
+            loader = new HashMap<String, String>();
+            String loaderClass = props.getProperty("ofbiz.start.loader" + currentPosition);
+
+            if (loaderClass == null || loaderClass.length() == 0) {
+                break;
+            } else {
+                loader.put("class", loaderClass);
+                loader.put("profiles", props.getProperty("ofbiz.start.loader" + currentPosition + ".loaders"));
+                loadersTmp.add(Collections.unmodifiableMap(loader));
+                currentPosition++;
+            }
+        }
+        loadersTmp.trimToSize();
+        return Collections.unmodifiableList(loadersTmp);
     }
 
     private String getOfbizHome(Properties props) {

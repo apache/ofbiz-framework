@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
@@ -56,7 +57,12 @@ public class ContainerLoader implements StartupLoader {
     public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         // loaders defined in startup (e.g. main, test, load-data, etc ...)
-        List<String> loaders = StringUtil.split((String) config.loader.get("profiles"), ",");
+        List<String> loaders = null;
+        for (Map<String,String> loaderMap: config.loaders) {
+            if (module.equals(loaderMap.get("class"))) {
+                loaders = StringUtil.split((String)loaderMap.get("profiles"), ",");
+            }
+        }
 
         // load containers defined in ofbiz-containers.xml
         Debug.logInfo("[Startup] Loading containers...", module);

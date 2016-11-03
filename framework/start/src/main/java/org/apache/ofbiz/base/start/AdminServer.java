@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
@@ -43,11 +44,11 @@ final class AdminServer extends Thread {
     }
 
     private ServerSocket serverSocket = null;
-    private StartupLoader loader = null;
+    private List<StartupLoader> loaders = null;
     private AtomicReference<ServerState> serverState = null;
     private Config config = null;
 
-    AdminServer(StartupLoader loader, AtomicReference<ServerState> serverState, Config config) throws StartupException {
+    AdminServer(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Config config) throws StartupException {
         super("OFBiz-AdminServer");
         try {
             this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
@@ -55,7 +56,7 @@ final class AdminServer extends Thread {
             throw new StartupException("Couldn't create server socket(" + config.adminAddress + ":" + config.adminPort + ")", e);
         }
         setDaemon(false);
-        this.loader = loader;
+        this.loaders = loaders;
         this.serverState = serverState;
         this.config = config;
     }
@@ -70,7 +71,7 @@ final class AdminServer extends Thread {
                         + clientSocket.getInetAddress() + " : "
                         + clientSocket.getPort());
 
-                processClientRequest(clientSocket, loader, serverState);
+                processClientRequest(clientSocket, loaders, serverState);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -78,7 +79,7 @@ final class AdminServer extends Thread {
         }
     }
 
-    private void processClientRequest(Socket client, StartupLoader loader, AtomicReference<ServerState> serverState) throws IOException {
+    private void processClientRequest(Socket client, List<StartupLoader> loaders, AtomicReference<ServerState> serverState) throws IOException {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 PrintWriter writer = new PrintWriter(client.getOutputStream(), true)) {
@@ -94,7 +95,7 @@ final class AdminServer extends Thread {
             // if the client request is shutdown, execute shutdown sequence
             if(clientCommand.equals(OfbizSocketCommand.SHUTDOWN)) {
                 writer.flush();
-                StartupControlPanel.stop(loader, serverState, this);
+                StartupControlPanel.stop(loaders, serverState, this);
             }
         }
     }
