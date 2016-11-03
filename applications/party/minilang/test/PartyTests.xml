@@ -895,4 +895,297 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testDeletePartyContactMechPurpose" short-description="Test the service deletePartyContactMechPurpose" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.contactMechId" value="TestContactMech"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <set field="serviceCtx.fromDate" value="2000-01-01 00:00:00" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyContactMechPurpose" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyContactMechPurpose" value-field="partyContactMechPurpose">
+            <field-map field-name="partyId" value="TestCustomer"/>
+            <field-map field-name="contactMechId" value="TestContactMech"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <field-map field-name="fromDate" value="2000-01-01 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyContactMechPurpose"/></not>
+            <not><if-empty field="partyContactMechPurpose.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyContactMechPurposeIfExists" short-description="Test the service deletePartyContactMechPurposeIfExists" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.contactMechId" value="TestContactMech2"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyContactMechPurpose" value-field="partyContactMechPurpose">
+            <field-map field-name="partyId" value="TestCustomer"/>
+            <field-map field-name="contactMechId" value="TestContactMech2"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <field-map field-name="fromDate" value="2000-01-01 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyContactMechPurpose"/></not>
+            <not><if-empty field="partyContactMechPurpose.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyRelationship" short-description="Test the service to delete PartyRelationship" login-required="false">
+        <set field="serviceCtx.partyIdFrom" value="TestCompany"/>
+        <set field="serviceCtx.partyIdTo" value="TestCustomer"/>
+        <set field="serviceCtx.roleTypeIdFrom" value="_NA_"/>
+        <set field="serviceCtx.roleTypeIdTo" value="CONTACT"/>
+        <set field="serviceCtx.fromDate" value="2000-01-01 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyRelationship" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyRelationship" value-field="partyRelationship">
+            <field-map field-name="partyIdFrom" value="TestCompany"/>
+            <field-map field-name="partyIdTo" value="TestCustomer"/>
+            <field-map field-name="roleTypeIdFrom" value="_NA_"/>
+            <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+            <field-map field-name="fromDate" value="2000-01-01 00:00:00"/>
+        </entity-one>
+        <assert>
+            <if-empty field="partyRelationship"/>
+        </assert>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyRole" short-description="A test to delete a role from party" login-required="false">
+        <set field="partyId" value="TestCustomer"/>
+        <set field="roleTypeId" value="ACCOUNTANT"/>
+        <set field="serviceCtx.partyId" from-field="partyId"/>
+        <set field="serviceCtx.roleTypeId" from-field="roleTypeId"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyRole" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyRole" value-field="partyRole">
+            <field-map field-name="partyId" value="TestCustomer"/>
+            <field-map field-name="roleTypeId" value="ACCOUNTANT"/>
+        </entity-one>
+        <assert>
+            <if-empty field="partyRole"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testFindPartiesById" short-description="Test the service findPartiesById" login-required="false">
+        <set field="serviceCtx.idToFind" value="TestCustomer"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="findPartiesById" in-map-name="serviceCtx">
+            <result-to-field result-name="party"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="party"/></not>
+            <if-compare field="party.partyId" operator="equals" value="TestCustomer"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testFindPartyFromEmailAddress" short-description="Test the service findPartyFromEmailAddress" login-required="false">
+        <set field="serviceCtx.address" value="newtest_email@example.com"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="findPartyFromEmailAddress" in-map-name="serviceCtx">
+            <result-to-field result-name="contactMechId"/>
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Party" value-field="party"/>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
+        <assert>
+            <not><if-empty field="party"/></not>
+            <not><if-empty field="contactMech"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testFindPartyFromTelephone" short-description="Test the service findPartyFromTelephone" login-required="false">
+        <set field="serviceCtx.telno" value="801555-5555"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="findPartyFromTelephone" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Party" value-field="party"/>
+        <assert>
+            <not><if-empty field="party"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testFindPartyFromTelephoneComplete" short-description="Test the service findPartyFromTelephoneComplete" login-required="false">
+        <set field="serviceCtx.telno" value="801555-5555"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="findPartyFromTelephoneComplete" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Party" value-field="party"/>
+        <assert>
+            <not><if-empty field="party"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testRemoveCommunicationEventRole" short-description="Test the service removeCommunicationEventRole" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-5"/>
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
+        <set field="serviceCtx.statusId" value="COM_ROLE_CREATED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removeCommunicationEventRole" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
+            <field-map field-name="communicationEventId" value="TestEvent-5"/>
+            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+            <field-map field-name="partyId" value="TestCompany"/>
+        </entity-one>
+        <assert>
+            <if-empty field="communicationEventRole"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testSetCommEventComplete" short-description="Test the service setCommEventComplete" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-6"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setCommEventComplete" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
+            <field-map field-name="communicationEventId" value="TestEvent-6"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEvent"/></not>
+            <if-compare operator="equals" field="communicationEvent.statusId" value="COM_COMPLETE"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testSetCommunicationEventRoleStatus" short-description="Test the service setCommunicationEventRoleStatus" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-2"/>
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
+        <set field="serviceCtx.statusId" value="COM_ROLE_COMPLETED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setCommunicationEventRoleStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
+            <field-map field-name="communicationEventId" value="TestEvent-2"/>
+            <field-map field-name="partyId" value="TestCompany"/>
+            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+            <field-map field-name="statusId" value="COM_ROLE_COMPLETED"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEventRole"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testSetCommEventRoleToRead" short-description="Test the service setCommEventRoleToRead" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-7"/>
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setCommEventRoleToRead" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
+            <field-map field-name="communicationEventId" value="TestEvent-7"/>
+            <field-map field-name="partyId" value="TestCompany"/>
+            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+            <field-map field-name="statusId" value="COM_ROLE_READ"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEventRole"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testSetCommunicationEventStatus" short-description="Test the service setCommunicationEventStatus" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-6"/>
+        <set field="serviceCtx.statusId" value="COM_COMPLETE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setCommunicationEventStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
+            <field-map field-name="communicationEventId" value="TestEvent-6"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEvent"/></not>
+            <if-compare field="communicationEvent.statusId" operator="equals" value="COM_COMPLETE"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateCommunicationEvent" short-description="Test the service updateCommunicationEvent" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-7"/>
+        <set field="serviceCtx.statusId" value="COM_COMPLETE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
+            <field-map field-name="communicationEventId" value="TestEvent-7"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEvent"/></not>
+            <if-compare operator="equals" field="communicationEvent.statusId" value="COM_COMPLETE"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateCommunicationEventRole" short-description="Test the service updateCommunicationEventRole" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-2"/>
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.roleTypeId" value="ADDRESSEE"/>
+        <set field="serviceCtx.statusId" value="COM_ROLE_READ"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateCommunicationEventRole" in-map-name="serviceCtx"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole">
+            <field-map field-name="communicationEventId" value="TestEvent-2"/>
+            <field-map field-name="roleTypeId" value="ADDRESSEE"/>
+            <field-map field-name="partyId" value="TestCompany"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="communicationEventRole"/></not>
+            <if-compare operator="equals" field="communicationEventRole.statusId" value="COM_ROLE_READ"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
