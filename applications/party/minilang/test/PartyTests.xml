@@ -596,7 +596,7 @@ under the License.
         <set field="partyIdentificationTypeId" value="CARD_ID"/>
         <set field="partyIdentification.partyIdentificationTypeId" from-field="partyIdentificationTypeId"/>
         <set field="partyIdentification.${partyIdentificationTypeId}" value="123456789"/>
-        <set field="serviceCtx.identifications" from-field="partyIdentification" type="Map"/>
+        <set field="serviceCtx.identifications" from-field="partyIdentification"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -722,27 +722,6 @@ under the License.
         </entity-one>
         <assert>
             <not><if-empty field="partyRelationshipType"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
-
-    <simple-method method-name="testCreatePartyTelecomNumber" short-description="Test the service createPartyTelecomNumber" login-required="false">
-        <set field="serviceCtx.partyId" value="TestCustomer"/>
-        <set field="serviceCtx.contactMechId" value="TestTelecomNumber1"/>
-        <set field="serviceCtx.areaCode" value="801"/>
-        <set field="serviceCtx.contactNumber" value="1111111"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createPartyTelecomNumber" in-map-name="serviceCtx">
-            <result-to-field result-name="contactMechId"/>
-        </call-service>
-        <entity-one entity-name="TelecomNumber" value-field="telecomNumber"/>
-        <assert>
-            <not><if-empty field="telecomNumber"/></not>
-            <if-compare field="telecomNumber.areaCode" operator="equals" value="801"/>
-            <if-compare field="telecomNumber.contactNumber" operator="equals" value="1111111"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -1405,6 +1384,400 @@ under the License.
             <if-compare field="telecomNumber.areaCode" operator="equals" value="801"/>
             <if-compare field="telecomNumber.contactNumber" operator="equals" value="1111111"/>
             <if-compare-field operator="not-equals" field="contactMechId" to-field="oldContactMechId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testLookupParty" short-description="Test the service to lookupParty" login-required="false">
+        <set field="serviceCtx.firstName" value="Test"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="lookupParty" in-map-name="serviceCtx">
+            <result-to-field result-name="lookupResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="lookupResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyEmail" short-description="Test the service getPartyEmail" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyEmail" in-map-name="serviceCtx">
+            <result-to-field result-name="emailAddress"/>
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="emailAddress"/></not>
+            <not><if-empty field="contactMechId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateAffiliate" short-description="Test the service createAffiliate" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCompany"/>
+        <set field="serviceCtx.affiliateName" value="Test Affiliate"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createAffiliate" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Affiliate" value-field="affiliate"/>
+        <assert>
+            <not><if-empty field="affiliate"/></not>
+            <if-compare field="affiliate.affiliateName" operator="equals" value="Test Affiliate"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateAffiliate" short-description="Test the service updateAffiliate" login-required="false">
+        <set field="serviceCtx.partyId" value="TestGroup-1"/>
+        <set field="serviceCtx.affiliateName" value="Test Affiliate"/>
+        <set field="serviceCtx.siteType" value="Main Site"/>
+        <set field="serviceCtx.siteVisitors" value="2000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateAffiliate" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Affiliate" value-field="affiliate">
+            <field-map field-name="partyId" value="TestGroup-1"/>
+            <field-map field-name="affiliateName" value="Test Affiliate"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="affiliate"/></not>
+            <if-compare field="affiliate.siteType" operator="equals" value="Main Site"/>
+            <if-compare field="affiliate.siteVisitors" operator="equals" value="2000"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyMainRole" short-description="Test the service getPartyMainRole" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyMainRole" in-map-name="serviceCtx">
+            <result-to-field result-name="roleTypeId"/>
+        </call-service>
+        <entity-one entity-name="PartyRole" value-field="partyRole">
+            <field-map field-name="partyId" value="TestCustomer"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyRole"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyTelephone" short-description="Test the service getPartyTelephone" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyTelephone" in-map-name="serviceCtx">
+            <result-to-field result-name="contactNumber"/>
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="contactNumber"/></not>
+            <not><if-empty field="contactMechId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testQuickCreateCustomer" short-description="Test the service quickCreateCustomer" login-required="false">
+        <set field="serviceCtx.firstName" value="Test"/>
+        <set field="serviceCtx.lastName" value="Customer"/>
+        <set field="serviceCtx.emailAddress" value="test.customer@example.com"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="quickCreateCustomer" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Person" value-field="person"/>
+        <entity-one entity-name="PartyRole" value-field="partyRole">
+            <field-map field-name="roleTypeId" value="CUSTOMER"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="person"/></not>
+            <not><if-empty field="partyRole"/></not>
+            <if-compare field="person.firstName" operator="equals" value="Test"/>
+            <if-compare field="person.lastName" operator="equals" value="Customer"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateAddressMatchMap" short-description="Test the service createAddressMatchMap" login-required="false">
+        <set field="serviceCtx.mapKey" value="TEST_KEY"/>
+        <set field="serviceCtx.mapValue" value="TEST VALUE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createAddressMatchMap" in-map-name="serviceCtx"/>
+        <entity-one entity-name="AddressMatchMap" value-field="addressMatchMap">
+            <field-map field-name="mapKey" value="TEST_KEY"/>
+            <field-map field-name="mapValue" value="TEST VALUE"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="addressMatchMap"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testRemoveAddressMatchMap" short-description="Test the service removeAddressMatchMap" login-required="false">
+        <set field="serviceCtx.mapKey" value="TESTKEY-1"/>
+        <set field="serviceCtx.mapValue" value="Test Value 1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removeAddressMatchMap" in-map-name="serviceCtx"/>
+        <entity-one entity-name="AddressMatchMap" value-field="addressMatchMap">
+            <field-map field-name="mapKey" value="TESTKEY-1"/>
+            <field-map field-name="mapValue" value="Test Value 1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="addressMatchMap"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreatePartyInvitation" short-description="Test the service createPartyInvitation" login-required="false">
+        <set field="serviceCtx.partyIdFrom" value="TestCompany"/>
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.emailAddress" value="test_email@example.com"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyInvitation" in-map-name="serviceCtx">
+            <result-to-field result-name="partyInvitationId"/>
+        </call-service>
+        <entity-one entity-name="PartyInvitation" value-field="partyInvitation"/>
+        <assert>
+            <not><if-empty field="partyInvitation"/></not>
+            <if-compare operator="equals" field="partyInvitation.emailAddress" value="test_email@example.com"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdatePartyInvitation" short-description="Test the service updatePartyInvitation" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE"/>
+        <set field="serviceCtx.emailAddress" value="test_email@example.com"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updatePartyInvitation" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitation" value-field="partyInvitation">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyInvitation"/></not>
+            <if-compare operator="equals" field="partyInvitation.emailAddress" value="test_email@example.com"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyInvitation" short-description="Test the service deletePartyInvitation" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyInvitation" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitation" value-field="partyInvitation">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE-1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="partyInvitation"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyPostalAddress" short-description="Test the service getPartyPostalAddress" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyPostalAddress" in-map-name="serviceCtx">
+            <result-to-field result-name="address1"/>
+            <result-to-field result-name="countryGeoId"/>
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="address1"/></not>
+            <not><if-empty field="countryGeoId"/></not>
+            <not><if-empty field="contactMechId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreatePartyContactMechPurpose" short-description="Test the service createPartyContactMechPurpose" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.contactMechId" value="TestContactMech"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <set field="serviceCtx.fromDate" value="2009-09-09 01:01:01" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyContactMechPurpose" value-field="partyContactMechPurpose">
+            <field-map field-name="partyId" value="TestCustomer"/>
+            <field-map field-name="contactMechId" value="TestContactMech"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <field-map field-name="fromDate" value="2009-09-09 01:01:01"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyContactMechPurpose"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateEmailAddressVerification" short-description="Test the service createEmailAddressVerification" login-required="false">
+        <set field="serviceCtx.emailAddress" value="test_email@example.com"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createEmailAddressVerification" in-map-name="serviceCtx">
+            <result-to-field result-name="verifyHash"/>
+        </call-service>
+        <entity-one entity-name="EmailAddressVerification" value-field="emailAddressVerification">
+            <field-map field-name="emailAddress" value="test_email@example.com"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="emailAddressVerification"/></not>
+            <if-compare-field operator="equals" field="emailAddressVerification.verifyHash" to-field="verifyHash"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreatePartyInvitationRoleAssoc" short-description="Test the service createPartyInvitationRoleAssoc" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE"/>
+        <set field="serviceCtx.roleTypeId" value="COMMEVENT_ROLE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyInvitationRoleAssoc" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitationRoleAssoc" value-field="partyInvitationRoleAssoc">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE"/>
+            <field-map field-name="roleTypeId" value="COMMEVENT_ROLE"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyInvitationRoleAssoc"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyInvitationRoleAssoc" short-description="Test the service deletePartyInvitationRoleAssoc" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE-2"/>
+        <set field="serviceCtx.roleTypeId" value="COMMEVENT_ROLE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyInvitationRoleAssoc" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitationRoleAssoc" value-field="partyInvitationRoleAssoc">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE-2"/>
+            <field-map field-name="roleTypeId" value="COMMEVENT_ROLE"/>
+        </entity-one>
+        <assert>
+            <if-empty field="partyInvitationRoleAssoc"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdatePostalAddressAndPurposes" short-description="Test the service updatePostalAddressAndPurposes" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.contactMechId" value="TestPostalAdd3"/>
+        <set field="serviceCtx.toName" value="Test Address"/>
+        <set field="serviceCtx.address1" value="2004 Factory Blvd"/>
+        <set field="serviceCtx.city" value="City of Industry"/>
+        <set field="serviceCtx.countryGeoId" value="USA"/>
+        <set field="serviceCtx.stateProvinceGeoId" value="CA"/>
+        <set field="serviceCtx.postalCode" value="90000"/>
+        <set field="serviceCtx.fromDate" value="2001-05-13 00:00:00.000" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updatePostalAddressAndPurposes" in-map-name="serviceCtx">
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <entity-one entity-name="PostalAddress" value-field="postalAddress"/>
+        <assert>
+            <not><if-empty field="postalAddress"/></not>
+            <if-compare field="postalAddress.address1" operator="equals" value="2004 Factory Blvd"/>
+            <if-compare field="postalAddress.city" operator="equals" value="City of Industry"/>
+            <if-compare field="postalAddress.postalCode" operator="equals" value="90000"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreatePartyInvitationGroupAssoc" short-description="Test the service createPartyInvitationGroupAssoc" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE"/>
+        <set field="serviceCtx.partyIdTo" value="TestCompany"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyInvitationGroupAssoc" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitationGroupAssoc" value-field="partyInvitationGroupAssoc">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE"/>
+            <field-map field-name="partyIdTo" value="TestCompany"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyInvitationGroupAssoc"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyInvitationGroupAssoc" short-description="Test the service deletePartyInvitationGroupAssoc" login-required="false">
+        <set field="serviceCtx.partyInvitationId" value="TEST_INVITE-2"/>
+        <set field="serviceCtx.partyIdTo" value="TestCompany"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyInvitationGroupAssoc" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyInvitationGroupAssoc" value-field="partyInvitationGroupAssoc">
+            <field-map field-name="partyInvitationId" value="TEST_INVITE-2"/>
+            <field-map field-name="partyIdTo" value="TestCompany"/>
+        </entity-one>
+        <assert>
+            <if-empty field="partyInvitationGroupAssoc"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testClearAddressMatchMap" short-description="Test the service clearAddressMatchMap" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="clearAddressMatchMap" in-map-name="serviceCtx"/>
+        <entity-condition entity-name="AddressMatchMap" list="addrs"/>
+        <assert>
+            <if-empty field="addrs"/>
         </assert>
         <check-errors/>
     </simple-method>
