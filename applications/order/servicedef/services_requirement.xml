@@ -288,5 +288,20 @@ under the License.
         <description>Delete a RequirementCustRequest record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    <!-- WorkReqFulfType services -->
+    <service name="createWorkReqFulfType" default-entity-name="WorkReqFulfType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a WorkReqFulfType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateWorkReqFulfType" default-entity-name="WorkReqFulfType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WorkReqFulfType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteWorkReqFulfType" default-entity-name="WorkReqFulfType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a WorkReqFulfType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
 

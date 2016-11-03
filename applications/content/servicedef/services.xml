@@ -909,4 +909,19 @@
         <attribute name="contentId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contentCreated" mode="OUT" type="String" optional="true"></attribute>
     </service>
+
+    <service name="createWebPreferenceType" engine="entity-auto" default-entity-name="WebPreferenceType" auth="true" invoke="create">
+        <description>Create WebPreferenceType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebPreferenceType" engine="entity-auto" default-entity-name="WebPreferenceType" auth="true" invoke="update">
+        <description>Update WebPreferenceType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWebPreferenceType" engine="entity-auto" default-entity-name="WebPreferenceType" auth="true" invoke="delete">
+        <description>Delete ContentApproval record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

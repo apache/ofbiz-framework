@@ -53,4 +53,32 @@ under the License.
         <description>Delete a SaleType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="createProductPricePurpose" default-entity-name="ProductPricePurpose" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPricePurpose</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductPricePurpose" default-entity-name="ProductPricePurpose" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPricePurpose</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPricePurpose" default-entity-name="ProductPricePurpose" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPricePurpose</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createProductPriceType" default-entity-name="ProductPriceType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductPriceType" default-entity-name="ProductPriceType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceType" default-entity-name="ProductPriceType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

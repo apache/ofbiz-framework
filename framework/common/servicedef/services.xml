@@ -871,4 +871,42 @@ under the License.
         <description>Delete a PeriodType</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createUserPrefGroupType" engine="entity-auto" invoke="create" default-entity-name="UserPrefGroupType" auth="true">
+        <description>Create a UserPrefGroupType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUserPrefGroupType" engine="entity-auto" invoke="update" default-entity-name="UserPrefGroupType" auth="true">
+        <description>Update a UserPrefGroupType</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteUserPrefGroupType" engine="entity-auto" invoke="delete" default-entity-name="UserPrefGroupType" auth="true">
+        <description>Delete a UserPrefGroupType</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="createUomType" engine="entity-auto" invoke="create" default-entity-name="UomType" auth="true">
+        <description>Create UomType Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUomType" engine="entity-auto" invoke="update" default-entity-name="UomType" auth="true">
+        <description>Update UomType Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteUomType" engine="entity-auto" invoke="delete" default-entity-name="UomType" auth="true">
+        <description>Delete UomType Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="createUomGroup" engine="entity-auto" invoke="create" default-entity-name="UomGroup" auth="true">
+        <description>Create UomGroup record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteUomGroup" engine="entity-auto" invoke="delete" default-entity-name="UomGroup" auth="true">
+        <description>Delete UomGroup record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
