@@ -38,4 +38,19 @@ under the License.
         <description>Delete an existing ConfigOptionProductOption Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <service name="createProdConfItemContentType" default-entity-name="ProdConfItemContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProdConfItemContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProdConfItemContentType" default-entity-name="ProdConfItemContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProdConfItemContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProdConfItemContentType" default-entity-name="ProdConfItemContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProdConfItemContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

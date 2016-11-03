@@ -358,4 +358,17 @@ under the License.
         location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="productStoreGenericPermission">
         <implements service="permissionInterface"/>
     </service>
+    <service name="createProductStoreGroupRole" default-entity-name="ProductStoreGroupRole" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreGroupRole</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreGroupRole" default-entity-name="ProductStoreGroupRole" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreGroupRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProductStoreGroupRollup" default-entity-name="ProductStoreGroupRollup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreGroupRollup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
