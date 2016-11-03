@@ -22317,14 +22317,14 @@
         <value xml:lang="zh-TW">淺藍風格:自動的多級導航,下拉式選單,以及圓角</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
-        <value xml:lang="cs">Dropping Crumbs: Pokročilejší varianta Blue-Light, menu integrované s navigací</value>
-        <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
-        <value xml:lang="es">Dropping Crumbs: Evolución de BlueLight, incluye un menú desplegable incrustado en la barra de migas de pan</value>
-        <value xml:lang="fr">Dropping Crumbs: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
+        <value xml:lang="cs">BlueLight: Pokročilejší varianta Blue-Light, menu integrované s navigací</value>
+        <value xml:lang="en">BlueLight: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
+        <value xml:lang="es">BlueLight: Evolución de BlueLight, incluye un menú desplegable incrustado en la barra de migas de pan</value>
+        <value xml:lang="fr">BlueLight: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
         <value xml:lang="ja">パンくず: ブルーライトの改良。パンくずリストバーに組み込まれたドロップダウンメニューを含む</value>
         <value xml:lang="pt-BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
         <value xml:lang="ru">Падающие крамбы: Эволюция светло-голубых, включает раскрывающиеся меню встроенных в полосу бреадкрамбов</value>
-        <value xml:lang="vi">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
+        <value xml:lang="vi">BlueLight: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
         <value xml:lang="zh">下拉多级：浅蓝风格的演化版，包括一个嵌入多级导航条的下拉式菜单</value>
         <value xml:lang="zh-TW">下拉多級:淺藍風格的演化版,包括一個嵌入多級導航條的下拉式選單</value>
     </property>
@@ -22353,14 +22353,14 @@
         <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
-        <value xml:lang="cs">Tomahawk: evoluční verze Dropping Crumbs</value>
-        <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
-        <value xml:lang="es">Tomahawk: la evolución del tema Dropping Crumbs</value>
-        <value xml:lang="fr">Tomahawk: évolution de Dropping Crumbs dans les tons noir et orange</value>
+        <value xml:lang="cs">Tomahawk: evoluční verze BlueLight</value>
+        <value xml:lang="en">Tomahawk: the evolution of the BlueLight theme</value>
+        <value xml:lang="es">Tomahawk: la evolución del tema BlueLight</value>
+        <value xml:lang="fr">Tomahawk: évolution de BlueLight dans les tons noir et orange</value>
         <value xml:lang="ja">トマホーク: パンくずの改良</value>
         <value xml:lang="pt-BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
         <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
-        <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the Dropping Crumbs theme</value>
+        <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the BlueLight theme</value>
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
         <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
     </property>
