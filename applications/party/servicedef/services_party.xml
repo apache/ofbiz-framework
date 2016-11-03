@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Party Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- PartyClassificationType services -->
+    <service name="createPartyClassificationType" default-entity-name="PartyClassificationType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyClassificationType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyClassificationType" default-entity-name="PartyClassificationType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyClassificationType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyClassificationType" default-entity-name="PartyClassificationType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyClassificationType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyContentType services -->
+    <service name="createPartyContentType" default-entity-name="PartyContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyContentType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyContentType" default-entity-name="PartyContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyContentType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyContentType" default-entity-name="PartyContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyContentType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyGeoPoint services -->
+    <service name="createPartyGeoPoint" default-entity-name="PartyGeoPoint" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyGeoPoint Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyGeoPoint" default-entity-name="PartyGeoPoint" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyGeoPoint Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="expirePartyGeoPoint" default-entity-name="PartyGeoPoint" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a PartyGeoPoint Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyIcsAvsOverride services -->
+    <service name="createPartyIcsAvsOverride" default-entity-name="PartyIcsAvsOverride" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyIcsAvsOverride Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyIcsAvsOverride" default-entity-name="PartyIcsAvsOverride" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyIcsAvsOverride Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyIcsAvsOverride" default-entity-name="PartyIcsAvsOverride" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyIcsAvsOverride Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyIdentificationType services -->
+    <service name="createPartyIdentificationType" default-entity-name="PartyIdentificationType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyIdentificationType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyIdentificationType" default-entity-name="PartyIdentificationType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyIdentificationType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyIdentificationType" default-entity-name="PartyIdentificationType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyIdentificationType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyType services -->
+    <service name="createPartyType" default-entity-name="PartyType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyType" default-entity-name="PartyType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyType" default-entity-name="PartyType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PartyTypeAttr services -->
+    <service name="createPartyTypeAttr" default-entity-name="PartyTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PartyTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyTypeAttr" default-entity-name="PartyTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PartyTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyTypeAttr" default-entity-name="PartyTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PartyTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- PriorityType services -->
+    <service name="createPriorityType" default-entity-name="PriorityType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PriorityType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePriorityType" default-entity-name="PriorityType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PriorityType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePriorityType" default-entity-name="PriorityType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PriorityType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+</services>

@@ -857,4 +857,18 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="createPeriodType" engine="entity-auto" invoke="create" default-entity-name="PeriodType" auth="true">
+        <description>Create a PeriodType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePeriodType" engine="entity-auto" invoke="update" default-entity-name="PeriodType" auth="true">
+        <description>Update a PeriodType</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePeriodType" engine="entity-auto" invoke="delete" default-entity-name="PeriodType" auth="true">
+        <description>Delete a PeriodType</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
