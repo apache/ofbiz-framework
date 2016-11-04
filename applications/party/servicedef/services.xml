@@ -606,12 +606,10 @@ under the License.
     </service>
 
     <!-- ContactMechLink services -->
-    <service name="createContactMechLink" default-entity-name="ContactMechLink" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createContactMechLink" auth="true">
+    <service name="createContactMechLink" default-entity-name="ContactMechLink" engine="entity-auto" invoke="create" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteContactMechLink" default-entity-name="ContactMechLink" engine="simple"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="deleteContactMechLink" auth="true">
+    <service name="deleteContactMechLink" default-entity-name="ContactMechLink" engine="entity-auto" invoke="delete" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

@@ -935,4 +935,20 @@ under the License.
         <description>Delete a SettlementTerm</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- ProductAverageCostType services -->
+    <service name="createProductAverageCostType" default-entity-name="ProductAverageCostType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductAverageCostType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductAverageCostType" default-entity-name="ProductAverageCostType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductAverageCostType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductAverageCostType" default-entity-name="ProductAverageCostType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductAverageCostType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

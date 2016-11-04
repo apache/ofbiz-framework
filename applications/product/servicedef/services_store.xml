@@ -371,4 +371,19 @@ under the License.
         <description>Delete a ProductStoreGroupRollup</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createProductStoreGroupType" default-entity-name="ProductStoreGroupType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreGroupType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreGroupType" default-entity-name="ProductStoreGroupType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductStoreGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreGroupType" default-entity-name="ProductStoreGroupType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

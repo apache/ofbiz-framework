@@ -225,22 +225,6 @@ under the License.
         </call-service>
     </simple-method>
 
-   <simple-method method-name="createContactMechLink" short-description="Create a link between two ContactMechs, such as PostalAddress and TelecomNumber or email">
-       <!--TODO: need security check of some sort? -->
-       <check-errors/>
-       <make-value value-field="newEntity" entity-name="ContactMechLink"/>
-       <set-pk-fields map="parameters" value-field="newEntity"/>
-       <create-value value-field="newEntity"/>
-   </simple-method>
-   <simple-method method-name="deleteContactMechLink" short-description="Delete a link between two ContactMechs">
-       <!--TODO: need security check of some sort? -->
-       <check-errors/>
-       <make-value value-field="lookupPKMap" entity-name="ContactMechLink"/>
-       <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-       <find-by-primary-key entity-name="ContactMechLink" map="lookupPKMap" value-field="contactMechLinkInstance"/>
-       <remove-value value-field="contactMechLinkInstance"/>
-   </simple-method>
-
     <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
         <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>
