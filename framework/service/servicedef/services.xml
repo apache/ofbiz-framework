@@ -192,4 +192,19 @@ under the License.
         <description>Delete a StatusItem Record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createStatusType" default-entity-name="StatusType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a StatusType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateStatusType" default-entity-name="StatusType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a StatusType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteStatusType" default-entity-name="StatusType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a StatusType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

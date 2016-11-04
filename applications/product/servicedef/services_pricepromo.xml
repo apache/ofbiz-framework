@@ -335,4 +335,36 @@ under the License.
         <attribute name="inputParamEnumId" mode="IN" type="String"/>
         <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->
     </service>
+
+    <!-- ProductPriceActionType services -->
+    <service name="createProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceActionType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceActionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceActionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductPriceAutoNotice services -->
+    <service name="createProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceAutoNotice</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceAutoNotice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceAutoNotice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

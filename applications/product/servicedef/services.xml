@@ -1737,4 +1737,130 @@ under the License.
         <description>Delete a ProductAssocType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- ProductCategoryContentType services -->
+    <service name="createProductCategoryContentType" default-entity-name="ProductCategoryContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductCategoryContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductCategoryContentType" default-entity-name="ProductCategoryContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductCategoryContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductCategoryContentType" default-entity-name="ProductCategoryContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductCategoryContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductCategoryType services -->
+    <service name="createProductCategoryType" default-entity-name="ProductCategoryType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductCategoryType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductCategoryType" default-entity-name="ProductCategoryType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlFiscalType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductCategoryType" default-entity-name="ProductCategoryType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductCategoryType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductCategoryTypeAttr services -->
+    <service name="createProductCategoryTypeAttr" default-entity-name="ProductCategoryTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductCategoryTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateProductCategoryTypeAttr" default-entity-name="ProductCategoryTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductCategoryTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductCategoryTypeAttr" default-entity-name="ProductCategoryTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductCategoryTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductContentType services -->
+    <service name="createProductContentType" default-entity-name="ProductContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductContentType" default-entity-name="ProductContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductContentType" default-entity-name="ProductContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductMaintType services -->
+    <service name="createProductMaintType" default-entity-name="ProductMaintType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductMaintType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductMaintType" default-entity-name="ProductMaintType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductMaintType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductMaintType" default-entity-name="ProductMaintType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductMaintType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductMeterType services -->
+    <service name="createProductMeterType" default-entity-name="ProductMeterType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductMeterType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductMeterType" default-entity-name="ProductMeterType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductMeterType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductMeterType" default-entity-name="ProductMeterType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductMeterType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductType" default-entity-name="ProductType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductType" default-entity-name="ProductType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductType" default-entity-name="ProductType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductTypeAttr" default-entity-name="ProductTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductTypeAttr</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductTypeAttr" default-entity-name="ProductTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductTypeAttr" default-entity-name="ProductTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
