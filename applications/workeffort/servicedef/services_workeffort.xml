@@ -195,4 +195,20 @@ under the License.
         <description>Delete a WorkEffortTypeAttr record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <!-- ApplicationSandbox Services -->
+    <service name="createApplicationSandbox" engine="entity-auto" invoke="create" default-entity-name="ApplicationSandbox" auth="true">
+        <description>Create ApplicationSandbox record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateApplicationSandbox" engine="entity-auto" invoke="update" default-entity-name="ApplicationSandbox" auth="true">
+        <description>Update ApplicationSandbox record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteApplicationSandbox" engine="entity-auto" invoke="delete" default-entity-name="ApplicationSandbox" auth="true">
+        <description>Delete ApplicationSandbox record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

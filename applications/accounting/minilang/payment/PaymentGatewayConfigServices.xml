@@ -20,30 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="updatePaymentGatewayConfig" short-description="Update Payment Gateway Config">
-        <entity-one entity-name="PaymentGatewayConfig" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
 
-    <simple-method method-name="updatePaymentGatewayConfigSagePay" short-description="Update Payment Gateway Config SagePay">
-        <entity-one entity-name="PaymentGatewaySagePay" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="updatePaymentGatewayConfigAuthorizeNet" short-description="Update Payment Gateway Config Authorize Dot Net">
-        <entity-one entity-name="PaymentGatewayAuthorizeNet" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="updatePaymentGatewayConfigClearCommerce" short-description="Update Payment Gateway Config Clear Commerce">
-        <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
     <simple-method method-name="updatePaymentGatewayConfigCyberSource" short-description="Update Payment Gateway Config CyberSource">
         <entity-one entity-name="PaymentGatewayCyberSource" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

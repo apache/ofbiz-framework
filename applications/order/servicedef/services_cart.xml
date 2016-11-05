@@ -172,4 +172,19 @@ under the License.
         <description>Split the default shipgroup to individual shipgroups that are unique to a vendor</description>
         <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
     </service>
+
+    <service name="createCartAbandonedLine" default-entity-name="CartAbandonedLine" engine="entity-auto" invoke="create" auth="true">
+        <description>Create CartAbandonedLine record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCartAbandonedLine" default-entity-name="CartAbandonedLine" engine="entity-auto" invoke="update" auth="true">
+        <description>Update CartAbandonedLine record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCartAbandonedLine" default-entity-name="CartAbandonedLine" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete CartAbandonedLine record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
