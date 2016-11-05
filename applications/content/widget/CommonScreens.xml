@@ -200,6 +200,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
+                                        <container style="button-bar"><link target="EditDataResource" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/></container>
                                         <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
@@ -412,6 +413,12 @@ under the License.
                                 <include-menu name="layout" location="component://content/widget/layout/LayoutMenus.xml"/>
                             </widgets>
                         </section>
+                        <container>
+                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                                <parameter param-name="mode" value="add"/>
+                                <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
+                            </link>
+                        </container>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
