@@ -249,7 +249,7 @@ under the License.
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteRole" list="quoteRoles">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
 
             </actions>
@@ -308,7 +308,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                     <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
 
@@ -377,7 +377,7 @@ under the License.
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteAttribute" list="quoteAttributes">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -432,7 +432,7 @@ under the License.
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteCoefficient" list="quoteCoefficients">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -490,13 +490,13 @@ under the License.
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                     <order-by field-name="custRequestId"/>
                     <order-by field-name="custRequestItemSeqId"/>
                     <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
                 <entity-and entity-name="QuoteCoefficient" list="quoteCoefficients">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
@@ -533,7 +533,7 @@ under the License.
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteAdjustment" list="quoteAdjustments">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -594,13 +594,13 @@ under the License.
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                     <order-by field-name="custRequestId"/>
                     <order-by field-name="custRequestItemSeqId"/>
                     <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
                 <entity-and entity-name="QuoteCoefficient" list="quoteCoefficients">
-                    <field-map from-field="quote.quoteId" field-name="quoteId"/>
+                    <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
@@ -745,7 +745,7 @@ under the License.
                 <not><if-empty field="quoteItems"/></not>
             </condition>
             <actions>
-                <entity-and list="quoteItemList" entity-name="QuoteItem">
+                <entity-and entity-name="QuoteItem" list="quoteItemList">
                     <field-map field-name="quoteId" from-field="parameters.quoteId"/>
                 </entity-and>
                 <entity-one value-field="quote" entity-name="Quote">

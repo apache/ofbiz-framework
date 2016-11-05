@@ -110,7 +110,7 @@ under the License.
                     }"/>
                 
                 <!-- set role status from the parent commevent to completed -->
-                <entity-and list="roles" entity-name="CommunicationEventRole">
+                <entity-and entity-name="CommunicationEventRole" list="roles">
                     <field-map field-name="communicationEventId" from-field="parentCommEvent.communicationEventId"/>
                     <field-map field-name="partyId" from-field="newEntity.partyIdFrom"/>
                 </entity-and>
@@ -186,7 +186,7 @@ under the License.
                 </condition-list>
             </entity-condition>
             <if-not-empty field="roles">
-                <iterate entry="role" list="roles">
+                <iterate list="roles" entry="role">
                     <set-service-fields service-name="createCommunicationEventRole" map="role" to-map="newRole"/>
                     <set field="newRole.communicationEventId" from-field="newEntity.communicationEventId"/>
                     <call-service service-name="createCommunicationEventRole" in-map-name="newRole"/>
@@ -236,7 +236,7 @@ under the License.
             <entity-and entity-name="CommEventContentAssoc" list="commEventContentAssoc">
                 <field-map field-name="communicationEventId" from-field="parameters.origCommEventId"/>
             </entity-and>
-            <iterate entry="createcommEventContentAssoc" list="commEventContentAssoc">
+            <iterate list="commEventContentAssoc" entry="createcommEventContentAssoc">
                 <if-not-empty field="createcommEventContentAssoc">               
                     <!-- Create communication event and content association -->
                     <set field="contentAssoc.contentId" from-field="createcommEventContentAssoc.contentId"/>
@@ -250,7 +250,7 @@ under the License.
     <simple-method method-name="updateCommunicationEvent"
         short-description="Update a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
-        <if-compare-field to-field="parameters.statusId" operator="not-equals" field="event.statusId">
+        <if-compare-field field="event.statusId" operator="not-equals" to-field="parameters.statusId">>
             <set field="newStatusId" from-field="parameters.statusId"/>
             <set field="parameters.statusId" from-field="event.statusId"/>
         </if-compare-field>
@@ -349,23 +349,23 @@ under the License.
         <!-- remove related links to content -->
         <get-related value-field="event" relation-name="CommEventContentAssoc" list="contentAssocs"/>
         <if-not-empty field="contentAssocs">
-            <iterate entry="contentAssoc" list="contentAssocs">
+            <iterate list="contentAssocs" entry="contentAssoc">
                 <remove-value value-field="contentAssoc"/>
                 <!-- delete content and dataresource too if requested -->
                 <if-compare field="parameters.delContentDataResource" value="Y" operator="equals">
                     <get-related value-field="contentAssoc" relation-name="FromContent" list="contents"/>
                     <if-not-empty field="contents">
-                        <iterate entry="content" list="contents">
+                        <iterate list="contents" entry="content">
                             <remove-related value-field="content" relation-name="ContentRole"/>
                             <remove-related value-field="content" relation-name="ContentKeyword"/>
                             <get-related value-field="content" relation-name="FromContentAssoc" list="relatedFromContentassocs"/>
-                            <iterate entry="relatedFromContentassoc" list="relatedFromContentassocs">
+                            <iterate list="relatedFromContentassocs" entry="relatedFromContentassoc">
                                 <set field="removeContentAndRelatedInmap.contentId" from-field="relatedFromContentassoc.contentIdTo"/>
                                 <call-service service-name="removeContentAndRelated" in-map-name="removeContentAndRelatedInmap"/>
                             </iterate>
                             <remove-related value-field="content" relation-name="FromContentAssoc"/>
                             <get-related value-field="content" relation-name="ToContentAssoc" list="relatedToContentassocs"/>
-                            <iterate entry="relatedToContentassoc" list="relatedToContentassocs">
+                            <iterate list="relatedToContentassocs" entry="relatedToContentassoc">
                                 <set field="removeContentAndRelatedInmap.contentId" from-field="relatedFromContentassoc.contentIdFrom"/>
                                 <call-service service-name="removeContentAndRelated" in-map-name="removeContentAndRelatedInmap"/>
                             </iterate>
@@ -395,7 +395,7 @@ under the License.
         <!-- remove related workeffort when this is the only communicationevent connected to it -->
         <get-related value-field="event" relation-name="CommunicationEventWorkEff" list="workEffortComs"/>
         <if-not-empty field="workEffortComs">
-            <iterate entry="workEffortCom" list="workEffortComs">
+            <iterate list="workEffortComs" entry="workEffortCom">
                 <remove-value value-field="workEffortCom"/>
                 <get-related-one value-field="workEffortCom" relation-name="WorkEffort" to-value-field="workEffort"/>
                 <get-related value-field="workEffort" relation-name="CommunicationEventWorkEff" list="otherComs"/>
@@ -462,7 +462,7 @@ under the License.
         <if-not-empty field="eventRole">
             <remove-value value-field="eventRole"/>
             <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
-                <entity-and list="roles" entity-name="CommunicationEventRole">
+                <entity-and entity-name="CommunicationEventRole" list="roles">
                     <field-map field-name="communicationEventId" from-field="eventRole.communicationEventId"/>
                 </entity-and>
                 <if-empty field="roles">
@@ -490,7 +490,7 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry="communicationEvent" list="communicationEvents">
+        <iterate list="communicationEvents" entry="communicationEvent">
             <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
         </iterate>
@@ -506,13 +506,13 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry="communicationEvent" list="communicationEvents">
+        <iterate list="communicationEvents" entry="communicationEvent">
             <entity-and entity-name="ContactListParty" list="contactListParties">
                 <field-map field-name="contactListId" from-field="communicationEvent.contactListId"/>
             </entity-and>
             <set field="communicationEventRole.communicationEventId" from-field="communicationEvent.communicationEventId"/>
             <set field="communicationEventRole.roleTypeId" value="ADDRESSEE"/>
-            <iterate entry="contactListParty" list="contactListParties">
+            <iterate list="contactListParties" entry="contactListParty">
                 <set field="communicationEventRole.partyId" from-field="contactListParty.partyId"/>
                 <call-service service-name="createCommunicationEventRole" in-map-name="communicationEventRole"/>
             </iterate>
@@ -545,7 +545,7 @@ under the License.
                                 which means the commevent was dealt with and no further action is required by any of the other participants/addressees -->
                             <get-related relation-name="CommunicationEventRole" list="roles" value-field="communicationEvent"/>
                             <iterate entry="role" list="roles">
-                                <if-compare-field operator="not-equals" field="role.statusId" to-field="COM_ROLE_COMPLETED">
+                                <if-compare-field field="role.statusId" operator="not-equals" to-field="COM_ROLE_COMPLETED">
                                     <set field="role.statusId" value="COM_ROLE_COMPLETED"/>
                                     <store-value value-field="role"/>
                                 </if-compare-field>                    

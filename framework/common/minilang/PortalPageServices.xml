@@ -290,7 +290,7 @@ under the License.
         <set field="columnSeqId" from-field="parameters.destinationColumn" default-value="${originPp.columnSeqId}"/>
 
         <!-- destination Portlet -->
-        <if-compare operator="contains" field="parameters.mode" value="DRAGDROPBEFORE">
+        <if-compare field="parameters.mode" operator="contains" value="DRAGDROPBEFORE">
             <entity-one value-field="destiPp" entity-name="PortalPagePortlet">
                 <field-map field-name="portalPageId" from-field="parameters.d_portalPageId"/>
                 <field-map field-name="portalPortletId" from-field="parameters.d_portalPortletId"/>
@@ -310,7 +310,7 @@ under the License.
             <set field="newSequenceNo" from-field="destiPp.sequenceNum"/>
         </if-compare>
 
-        <if-compare operator="equals" field="parameters.mode" value="DRAGDROPAFTER">
+        <if-compare field="parameters.mode" operator="equals" value="DRAGDROPAFTER">
             <entity-one value-field="destiPp" entity-name="PortalPagePortlet">
                 <field-map field-name="portalPageId" from-field="parameters.d_portalPageId"/>
                 <field-map field-name="portalPortletId" from-field="parameters.d_portalPortletId"/>
@@ -330,13 +330,13 @@ under the License.
             <set field="newSequenceNo" from-field="destiPp.sequenceNum"/>
         </if-compare>
 
-        <if-compare operator="contains" field="parameters.mode" value="NEW">
+        <if-compare field="parameters.mode" operator="contains" value="NEW">
             <set field="newSequenceNo" value="0"/>
         </if-compare>
 
         <!-- Modify the sequence id from the following portlets -->
         <if-not-empty field="modifyPpList">
-            <iterate entry="modifyPp" list="modifyPpList">
+            <iterate list="modifyPpList" entry="modifyPp">
                 <if-empty field="modifyPp.sequenceNum">
                     <set field="modifyPp.sequenceNum" value="newSequenceNo"/>
                     <else>

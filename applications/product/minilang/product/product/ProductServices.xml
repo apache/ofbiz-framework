@@ -81,7 +81,7 @@ under the License.
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
 
-            <iterate entry="productCategoryRole" list="productCategoryRoles">
+            <iterate list="productCategoryRoles" entry="productCategoryRole">
                 <!-- add this new product to the category -->
                 <make-value value-field="newLimitMember" entity-name="ProductCategoryMember"/>
                 <set from-field="newEntity.productId" field="newLimitMember.productId"/>
@@ -147,7 +147,7 @@ under the License.
             <!-- get all productAssocs, then get the actual product to update -->
             <find-by-and entity-name="ProductAssoc" map="variantProductAssocMap" list="variantProductAssocs"/>
             <filter-list-by-date list="variantProductAssocs"/>
-            <iterate entry="variantProductAssoc" list="variantProductAssocs">
+            <iterate list="variantProductAssocs" entry="variantProductAssoc">
                 <clear-field field="variantProduct"/>
                 <entity-one entity-name="Product" value-field="variantProduct" auto-field-map="false">
                     <field-map field-name="productId" from-field="variantProductAssoc.productIdTo"/>
@@ -207,7 +207,7 @@ under the License.
         <!-- if requested, duplicate related data as well -->
         <if-not-empty field="parameters.duplicatePrices">
             <find-by-and entity-name="ProductPrice" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -215,7 +215,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateIDs">
             <find-by-and entity-name="GoodIdentification" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -223,7 +223,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateContent">
             <find-by-and entity-name="ProductContent" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -231,7 +231,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateCategoryMembers">
             <find-by-and entity-name="ProductCategoryMember" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <!-- Clone Content -->
@@ -270,7 +270,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateAssocs">
             <find-by-and entity-name="ProductAssoc" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -280,7 +280,7 @@ under the License.
             <entity-and entity-name="ProductAssoc" list="foundValues">
                 <field-map field-name="productIdTo" from-field="parameters.oldProductId"/>
             </entity-and>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productIdTo"/>
                 <create-value value-field="newTempValue"/>
@@ -288,7 +288,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateAttributes">
             <find-by-and entity-name="ProductAttribute" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -296,7 +296,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateFeatureAppls">
             <find-by-and entity-name="ProductFeatureAppl" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-field="newTempValue"/>
@@ -304,7 +304,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateInventoryItems">
             <find-by-and entity-name="InventoryItem" map="productFindContext" list="foundValues"/>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <!--
                     NOTE: new inventory items should always be created calling the
                           createInventoryItem service because in this way we are sure
@@ -397,7 +397,7 @@ under the License.
         <store-value value-field="product"/>
         <!-- expire product from all categories -->
         <get-related value-field="product" relation-name="ProductCategoryMember" list="productCategoryMembers"/>
-        <iterate entry="productCategoryMember" list="productCategoryMembers">
+        <iterate list="productCategoryMembers" entry="productCategoryMember">
             <if-empty field="productCategoryMember.thruDate">
                 <set from-field="nowTimestamp" field="productCategoryMember.thruDate"/>
                 <store-value value-field="productCategoryMember"/>
@@ -405,7 +405,7 @@ under the License.
         </iterate>
         <!-- expire product from all associations going to it -->
         <get-related value-field="product" relation-name="AssocProductAssoc" list="assocProductAssocs"/>
-        <iterate entry="assocProductAssoc" list="assocProductAssocs">
+        <iterate list="assocProductAssocs" entry="assocProductAssoc">
             <if-empty field="assocProductAssoc.thruDate">
                 <set from-field="nowTimestamp" field="assocProductAssoc.thruDate"/>
                 <store-value value-field="assocProductAssoc"/>
@@ -534,18 +534,18 @@ under the License.
         <set value="PRODUCT_VARIANT" field="variantsFindContext.productAssocTypeId"/>
         <find-by-and entity-name="ProductAssoc" map="variantsFindContext" list="variants"/>
         <filter-list-by-date list="variants"/>
-        <iterate entry="newProduct" list="variants">
+        <iterate list="variants" entry="newProduct">
             <set from-field="newProduct.productIdTo" field="productVariantContext.productId"/>
             <!-- if requested, duplicate related data -->
             <if-not-empty field="parameters.duplicatePrices">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductPrice" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductPrice" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -554,12 +554,12 @@ under the License.
             <if-not-empty field="parameters.duplicateIDs">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="GoodIdentification" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="GoodIdentification" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -568,12 +568,12 @@ under the License.
             <if-not-empty field="parameters.duplicateContent">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductContent" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductContent" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -582,12 +582,12 @@ under the License.
             <if-not-empty field="parameters.duplicateCategoryMembers">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductCategoryMember" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductCategoryMember" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -596,12 +596,12 @@ under the License.
             <if-not-empty field="parameters.duplicateAttributes">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductAttribute" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductAttribute" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -610,12 +610,12 @@ under the License.
             <if-not-empty field="parameters.duplicateFacilities">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductFacility" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductFacility" map="productFindContext" list="foundValues"/>
-                <iterate entry="foundValue" list="foundValues">
+                <iterate list="foundValues" entry="foundValue">
                     <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                     <set from-field="newProduct.productIdTo" field="newTempValue.productId"/>
                     <create-value value-field="newTempValue"/>
@@ -624,7 +624,7 @@ under the License.
             <if-not-empty field="parameters.duplicateLocations">
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductFacilityLocation" map="productVariantContext" list="foundVariantValues"/>
-                    <iterate entry="foundVariantValue" list="foundVariantValues">
+                    <iterate list="foundVariantValues" entry="foundVariantValue">
                         <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
@@ -799,7 +799,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -818,13 +818,13 @@ under the License.
         <make-value entity-name="ProductGroupOrder" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="groupOrderId"/>
         <field-to-result field="newEntity.groupOrderId" result-name="groupOrderId"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="updateProductGroupOrder" short-description="Update ProductGroupOrder">
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
-        <set-nonpk-fields value-field="productGroupOrder" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="productGroupOrder"/>
         <store-value value-field="productGroupOrder"/>
         
         <if-compare field="productGroupOrder.statusId" operator="equals" value="GO_CREATED">
@@ -842,7 +842,7 @@ under the License.
         <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
             <field-map field-name="groupOrderId" from-field="parameters.groupOrderId"/>
         </entity-and>
-        <iterate entry="orderItemGroupOrder" list="orderItemGroupOrders">
+        <iterate list="orderItemGroupOrders" entry="orderItemGroupOrder">
             <remove-value value-field="orderItemGroupOrder"/>
         </iterate>
         
@@ -857,7 +857,7 @@ under the License.
         <entity-and entity-name="JobSandbox" list="jobSandboxList">
             <field-map field-name="runtimeDataId" from-field="jobSandbox.runtimeDataId"/>
         </entity-and>
-        <iterate entry="jobSandboxRelatedRuntimeData" list="jobSandboxList">
+        <iterate list="jobSandboxList" entry="jobSandboxRelatedRuntimeData">
             <remove-value value-field="jobSandboxRelatedRuntimeData"/>
         </iterate>
         
@@ -904,7 +904,7 @@ under the License.
         <entity-and entity-name="OrderItem" list="orderItems">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
         </entity-and>
-        <iterate entry="orderItem" list="orderItems">
+        <iterate list="orderItems" entry="orderItem">
             <set field="productId" from-field="orderItem.productId"/>
             <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" from-field="orderItem.productId"/>
@@ -950,7 +950,7 @@ under the License.
             </entity-and>
         </else>
         </if-not-empty>
-        <iterate entry="orderItem" list="orderItems">
+        <iterate list="orderItems" entry="orderItem">
             <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
                 <field-map field-name="orderId" from-field="orderItem.orderId"/>
                 <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
@@ -1002,7 +1002,7 @@ under the License.
             <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
                 <field-map field-name="groupOrderId" from-field="productGroupOrder.groupOrderId"/>
             </entity-and>
-            <iterate entry="orderItemGroupOrder" list="orderItemGroupOrders">
+            <iterate list="orderItemGroupOrders" entry="orderItemGroupOrder">
                 <set field="changeOrderItemStatusMap.orderId" from-field="orderItemGroupOrder.orderId"/>
                 <set field="changeOrderItemStatusMap.orderItemSeqId" from-field="orderItemGroupOrder.orderItemSeqId"/>
                 <set field="changeOrderItemStatusMap.statusId" from-field="newItemStatusId"/>

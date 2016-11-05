@@ -78,7 +78,7 @@ under the License.
                 <set field="headerItem" value="ListBudgets"/>
                 <set field="budgetId" from-field="budget.budgetId" default-value="${parameters.budgetId}"/>
                 <entity-one entity-name="Budget" value-field="budget"/>
-                <entity-and list="budgetStatus" entity-name="BudgetStatus">
+                <entity-and entity-name="BudgetStatus" list="budgetStatus">
                     <field-map field-name="budgetId" from-field="budgetId"/>
                     <order-by field-name="-statusDate"/>
                 </entity-and>
@@ -163,19 +163,19 @@ under the License.
                 <set field="budgetId" from-field="parameters.budgetId"/>
                 <entity-one entity-name="Budget" value-field="budget"/>
                 <entity-and entity-name="BudgetRole" list="budgetRoles">
-                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="parameters.budgetId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
                 <entity-and entity-name="BudgetStatus" list="budgetStatuses">
-                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="parameters.budgetId"/>
                     <order-by field-name="statusId"/>
                 </entity-and>
                 <entity-and entity-name="BudgetItem" list="budgetItems">
-                    <field-map from-field="parameters.budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="parameters.budgetId"/>
                     <order-by field-name="budgetItemSeqId"/>
                 </entity-and>
                 <entity-and entity-name="BudgetReview" list="budgetReviews">
-                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="budgetId"/>
                     <order-by field-name="budgetReviewId"/>
                 </entity-and>
             </actions>
@@ -253,7 +253,7 @@ under the License.
                 <set field="budgetId" from-field="parameters.budgetId"/>
                 <entity-one entity-name="Budget" value-field="budget"/>
                 <entity-and entity-name="BudgetRole" list="budgetRoles">
-                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="budgetId"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
             </actions>
@@ -277,7 +277,7 @@ under the License.
                 <set field="budgetId" from-field="parameters.budgetId"/>
                 <entity-one entity-name="Budget" value-field="budget"/>
                 <entity-and entity-name="BudgetReview" list="budgetReviews">
-                    <field-map from-field="budgetId" field-name="budgetId"/>
+                    <field-map field-name="budgetId" from-field="budgetId"/>
                     <order-by field-name="budgetReviewId"/>
                 </entity-and>
             </actions>

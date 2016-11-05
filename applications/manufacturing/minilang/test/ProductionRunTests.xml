@@ -63,7 +63,7 @@ under the License.
             <if-compare-field field="productionRunHeader.estimatedStartDate" operator="less" to-field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </assert>
 
-        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunProducts">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
@@ -75,7 +75,7 @@ under the License.
             <if-compare-field field="productionRunProduct.estimatedQuantity" operator="equals" to-field="quantity"/>
         </assert>
 
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -94,7 +94,7 @@ under the License.
         </assert>
 
         <!-- Verify that the cost calcs were copied from the routing task to the production run task -->
-        <entity-and list="costCalcs" entity-name="WorkEffortCostCalc">
+        <entity-and entity-name="WorkEffortCostCalc" list="costCalcs">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId" />
         </entity-and>
         <first-from-list entry="costCalc" list="costCalcs"/>
@@ -106,7 +106,7 @@ under the License.
         </assert>
 
         <!-- Verify that the BOM was properly copied to the production run task -->
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
         </entity-and>
@@ -116,7 +116,7 @@ under the License.
             <if-compare field="productionRunMaterialA.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
             <if-compare field="productionRunMaterialA.estimatedQuantity" operator="equals" value="${quantity * 2}" type="BigDecimal"/>
         </assert>
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_B_COST"/>
         </entity-and>
@@ -160,7 +160,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -202,7 +202,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -244,7 +244,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -317,7 +317,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -327,7 +327,7 @@ under the License.
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CANCELLED"/>
         </assert>
 
-        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunProducts">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
@@ -338,7 +338,7 @@ under the License.
             <if-compare field="productionRunProduct.statusId" operator="equals" value="WEGS_CANCELLED"/>
         </assert>
 
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
         </entity-and>
@@ -348,7 +348,7 @@ under the License.
             <if-compare field="productionRunMaterialA.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
             <if-compare field="productionRunMaterialA.statusId" operator="equals" value="WEGS_CANCELLED"/>
         </assert>
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_B_COST"/>
         </entity-and>
@@ -402,16 +402,16 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
         </entity-and>
         <first-from-list entry="productionRunMaterialA" list="productionRunMaterials"/>
-        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_B_COST"/>
         </entity-and>
@@ -433,7 +433,7 @@ under the License.
         <refresh-value value-field="productionRunHeader"/>
         <refresh-value value-field="productionRunTask"/>
 
-        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+        <entity-and entity-name="WorkEffortAndInventoryAssign" list="consumedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
         </entity-and>
@@ -441,7 +441,7 @@ under the License.
         <iterate list="consumedMaterials" entry="consumedMaterial">
             <set field="materialAConsumedTotal" value="${materialAConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
         </iterate>
-        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+        <entity-and entity-name="WorkEffortAndInventoryAssign" list="consumedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_B_COST"/>
         </entity-and>
@@ -449,7 +449,7 @@ under the License.
         <iterate list="consumedMaterials" entry="consumedMaterial">
             <set field="materialBConsumedTotal" value="${materialBConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
         </iterate>
-        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+        <entity-and entity-name="WorkEffortAndInventoryProduced" list="producedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <set field="materialProducedTotal" value="0.0" type="BigDecimal"/>
@@ -487,7 +487,7 @@ under the License.
 
         <refresh-value value-field="productionRunHeader"/>
         <refresh-value value-field="productionRunTask"/>
-        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+        <entity-and entity-name="WorkEffortAndInventoryAssign" list="consumedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
         </entity-and>
@@ -497,7 +497,7 @@ under the License.
             <set field="materialAConsumedTotal" value="${materialAConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
             <set field="totalMaterialCost" value="${totalMaterialCost + consumedMaterial.unitCost * consumedMaterial.quantity}" type="BigDecimal"/>
         </iterate>
-        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+        <entity-and entity-name="WorkEffortAndInventoryAssign" list="consumedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_B_COST"/>
         </entity-and>
@@ -506,7 +506,7 @@ under the License.
             <set field="materialBConsumedTotal" value="${materialBConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
             <set field="totalMaterialCost" value="${totalMaterialCost + consumedMaterial.unitCost * consumedMaterial.quantity}" type="BigDecimal"/>
         </iterate>
-        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+        <entity-and entity-name="WorkEffortAndInventoryProduced" list="producedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <set field="materialProducedTotal" value="0.0" type="BigDecimal"/>
@@ -540,7 +540,7 @@ under the License.
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
         </assert>
 
-        <entity-and list="costComponents" entity-name="CostComponent">
+        <entity-and entity-name="CostComponent" list="costComponents">
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <iterate list="costComponents" entry="costComponent">
@@ -553,7 +553,7 @@ under the License.
             </if-compare>
         </iterate>
 
-        <entity-and list="costComponents" entity-name="CostComponent">
+        <entity-and entity-name="CostComponent" list="costComponents">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
         </entity-and>
         <iterate list="costComponents" entry="costComponent">
@@ -590,7 +590,7 @@ under the License.
         </assert>
 
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
@@ -620,7 +620,7 @@ under the License.
         </assert>
 
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="MANUFACTURING"/>
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
@@ -651,7 +651,7 @@ under the License.
         </assert>
 
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
         </entity-and>
@@ -702,7 +702,7 @@ under the License.
         </assert>
 
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="MANUFACTURING"/>
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
         </entity-and>
@@ -781,7 +781,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -836,7 +836,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -869,7 +869,7 @@ under the License.
             <field-map field-name="userLoginId" value="TestManufAdmin"/>
         </entity-one>
 
-        <entity-and list="orderItems" entity-name="OrderItem">
+        <entity-and entity-name="OrderItem" list="orderItems">
             <field-map field-name="orderId" from-field="orderId"/>
             <field-map field-name="productId" from-field="productId"/>
         </entity-and>
@@ -878,7 +878,7 @@ under the License.
             <not><if-empty field="orderItem"/></not>
         </assert>
         <check-errors/>
-        <entity-and list="orderItemShipGrpInvRess" entity-name="OrderItemShipGrpInvRes">
+        <entity-and entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvRess">
             <field-map field-name="orderId" from-field="orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
@@ -901,7 +901,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-one>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -914,7 +914,7 @@ under the License.
             <if-compare field="productionRunHeader.quantityToProduce" operator="equals" value="1.0" type="BigDecimal"/>
         </assert>
 
-        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunProducts">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
         </entity-and>
         <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
@@ -926,7 +926,7 @@ under the License.
             <if-compare field="productionRunProduct.estimatedQuantity" operator="equals" value="1.0" type="BigDecimal"/>
         </assert>
 
-        <entity-and list="workOrderItemFulfillments" entity-name="WorkOrderItemFulfillment">
+        <entity-and entity-name="WorkOrderItemFulfillment" list="workOrderItemFulfillments">
             <field-map field-name="workEffortId" from-field="productionRunId"/>
             <field-map field-name="orderId" from-field="orderId"/>
         </entity-and>
@@ -948,12 +948,12 @@ under the License.
         <set field="serviceCtx.statusId" value="PRUN_CLOSED"/>
         <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
 
-        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+        <entity-and entity-name="WorkEffortAndInventoryProduced" list="producedMaterials">
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <first-from-list entry="producedMaterial" list="producedMaterials"/>
 
-        <entity-and list="orderItemShipGrpInvRess" entity-name="OrderItemShipGrpInvRes">
+        <entity-and entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvRess">
             <field-map field-name="orderId" from-field="orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
@@ -997,7 +997,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list entry="productionRunHeader" list="workEfforts"/>
-        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="productionRunTasks">
             <field-map field-name="workEffortParentId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
@@ -1012,7 +1012,7 @@ under the License.
             <if-compare-field field="productionRunTask.estimatedStartDate" operator="equals" to-field="startDate" type="Timestamp"/>
         </assert>
 
-        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+        <entity-and entity-name="WorkEffortGoodStandard" list="productionRunProducts">
             <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
         </entity-and>
         <first-from-list entry="productionRunProduct" list="productionRunProducts"/>

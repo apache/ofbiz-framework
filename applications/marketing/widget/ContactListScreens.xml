@@ -467,7 +467,7 @@ under the License.
             <actions>
                 <service service-name="optOutOfListFromCommEvent" result-map="optOutResult"/>                
                 <entity-one value-field="contactList" entity-name="ContactList">
-                    <field-map from-field="optOutResult.contactListId" field-name="contactListId"/>                    
+                    <field-map field-name="contactListId" from-field="optOutResult.contactListId"/>                    
                 </entity-one>
                 <set field="contactListId" from-field="contactList.contactListId"/>
                 <set field="screenName" from-field="contactList.optOutScreen" default-value="component://marketing/widget/ContactListScreens.xml#DefaultOptOutScreen"/>
@@ -483,7 +483,7 @@ under the License.
                 <set field="titleProperty" value="MarketingWebSiteContactList"/>
                 <set field="contactListTabButtonItem" value="WebSiteContactList"/>
                 <entity-one value-field="contactList" entity-name="ContactList"/>
-                <entity-and list="webSiteContactLists" entity-name="WebSiteContactList">
+                <entity-and entity-name="WebSiteContactList" list="webSiteContactLists">
                     <field-map field-name="contactListId" from-field="contactList.contactListId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
@@ -492,10 +492,10 @@ under the License.
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.MarketingWebSiteContactListCreate}">
-                            <include-form location="component://marketing/widget/ContactListForms.xml" name="CreateWebSiteContactList"/>
+                            <include-form name="CreateWebSiteContactList" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.MarketingWebSiteContactListView} of contactListId[${parameters.contactListId}]">
-                            <include-form location="component://marketing/widget/ContactListForms.xml" name="ViewWebSiteContactList"/>
+                            <include-form name="ViewWebSiteContactList" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

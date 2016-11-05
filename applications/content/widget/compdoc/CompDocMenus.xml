@@ -37,8 +37,8 @@ under the License.
         <menu-item name="viewtree" title="${uiLabelMap.ContentCompDocViewTree}">
             <condition>
                 <or>
-                    <if-compare value="COMPDOC_TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
-                    <if-compare value="TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="TEMPLATE"></if-compare>
                 </or>
             </condition>
             <link target="ViewCompDocTemplateTree">
@@ -49,8 +49,8 @@ under the License.
         <menu-item name="viewtree2" title="${uiLabelMap.ContentCompDocViewTree}">
             <condition>
                 <or>
-                    <if-compare value="COMPDOC_INSTANCE" field="contentTypeId" operator="equals"></if-compare>
-                    <if-compare value="DOCUMENT" field="contentTypeId" operator="equals"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="COMPDOC_INSTANCE"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="DOCUMENT"></if-compare>
                 </or>
             </condition>
             <link target="ViewCompDocInstanceTree">
@@ -83,8 +83,8 @@ under the License.
         <menu-item name="viewtree" title="${uiLabelMap.PageTitleViewCompDocTree}">
             <condition>
                 <or>
-                    <if-compare value="COMPDOC_TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
-                    <if-compare value="TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="TEMPLATE"></if-compare>
                 </or>
             </condition>
             <link target="ViewCompDocTemplateTree">
@@ -95,8 +95,8 @@ under the License.
         <menu-item name="viewtree2" title="${uiLabelMap.PageTitleViewCompDocTree}">
             <condition>
                 <or>
-                    <if-compare value="COMPDOC_INSTANCE" field="contentTypeId" operator="equals"></if-compare>
-                    <if-compare value="DOCUMENT" field="contentTypeId" operator="equals"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="COMPDOC_INSTANCE"></if-compare>
+                    <if-compare field="contentTypeId" operator="equals" value="DOCUMENT"></if-compare>
                 </or>
             </condition>
             <link target="ViewCompDocInstanceTree">

@@ -181,7 +181,7 @@ under the License.
             <condition>
                <and>
                     <if-compare-field operator="less-equals" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
-                    <if-compare operator="not-equals" field="sprint.currentStatusId" value="SPRINT_CLOSED"/>
+                    <if-compare field="sprint.currentStatusId" operator="not-equals" value="SPRINT_CLOSED"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
                 </and>
             </condition>
@@ -193,7 +193,7 @@ under the License.
             <condition>
                 <and>
                     <if-compare-field operator="greater-equals" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
-                    <if-compare operator="not-equals" field="sprint.currentStatusId" value="SPRINT_CLOSED"/>
+                    <if-compare field="sprint.currentStatusId" operator="not-equals" value="SPRINT_CLOSED"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
                 </and>
             </condition>
@@ -205,7 +205,7 @@ under the License.
         <menu-item name="CopyMemberLastSprint" title="${uiLabelMap.ScrumCopymenber}">
             <condition>
                 <and>
-                    <if-compare operator="equals" field="sprint.currentStatusId" value="SPRINT_ACTIVE"/>
+                    <if-compare field="sprint.currentStatusId" operator="equals" value="SPRINT_ACTIVE"/>
                     <if-compare-field operator="less" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
                     <if-compare field="primeSprintId" operator="not-equals" value="${sprint.workEffortId}"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>

@@ -169,7 +169,7 @@ under the License.
     <!-- Product Content SEO -->
     <simple-method method-name="updateContentSEOForProduct" short-description="Update Product SEO">
         <if-not-empty field="parameters.title">
-            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+            <entity-and entity-name="ProductContentAndInfo" list="productContents">
                 <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="productContentTypeId" value="PAGE_TITLE"/>
             </entity-and>
@@ -191,7 +191,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
         <if-not-empty field="parameters.metaKeyword">
-            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+            <entity-and entity-name="ProductContentAndInfo" list="productContents">
                 <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="productContentTypeId" value="META_KEYWORD"/>
             </entity-and>
@@ -213,7 +213,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
         <if-not-empty field="parameters.metaDescription">
-            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+            <entity-and entity-name="ProductContentAndInfo" list="productContents">
                 <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="productContentTypeId" value="META_DESCRIPTION"/>
             </entity-and>

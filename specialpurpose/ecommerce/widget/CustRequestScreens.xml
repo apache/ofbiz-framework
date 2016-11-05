@@ -83,7 +83,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare-field operator="equals" field="custRequest.fromPartyId" to-field="userLogin.partyId"></if-compare-field>
+                                <if-compare-field field="custRequest.fromPartyId" operator="equals" to-field="userLogin.partyId"></if-compare-field>
                             </condition>
                             <widgets>
                                 <container style="lefthalf">

@@ -29,7 +29,7 @@
         <call-service service-name="createPartyRelationship" in-map-name="internalCtx"></call-service>
     </simple-method>
     <simple-method method-name="removeEmlpPosition" short-description="">
-        <entity-and list="emplPositionFulfillment" entity-name="EmplPositionFulfillment">
+        <entity-and entity-name="EmplPositionFulfillment" list="emplPositionFulfillment">
             <field-map field-name="emplPositionId" from-field="parameters.emplPositionId"/>
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
@@ -43,7 +43,7 @@
         <call-service service-name="deleteEmplPosition" in-map-name="delEmlpCtx"></call-service>
     </simple-method>
     <simple-method method-name="removeInternalOrg" short-description="">
-        <entity-and list="partyRelationship" entity-name="PartyRelationship">
+        <entity-and entity-name="PartyRelationship" list="partyRelationship">
             <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
             <field-map field-name="partyIdFrom" from-field="parameters.parentpartyId"/>
         </entity-and>
@@ -72,7 +72,7 @@
             <field field="dateValue" type="java.sql.Timestamp"/>
         </call-class-method>
         <set field="parameters.estimatedCompletionDate" from-field="dateEnd"/>
-        <entity-and list="workEffortList" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="workEffortList">
             <field-map field-name="workEffortTypeId" value="PUBLIC_HOLIDAY"/>
             <field-map field-name="estimatedStartDate" from-field="parameters.estimatedStartDate"/>
         </entity-and>

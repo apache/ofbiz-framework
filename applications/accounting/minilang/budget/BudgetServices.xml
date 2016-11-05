@@ -40,7 +40,7 @@ under the License.
 
     <!-- update Budget Status -->
     <simple-method method-name="updateBudgetStatus" short-description="Update Budget Status">
-        <entity-and list="budgetStatuses" entity-name="BudgetStatus">
+        <entity-and entity-name="BudgetStatus" list="budgetStatuses">
             <field-map field-name="budgetId" from-field="parameters.budgetId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>

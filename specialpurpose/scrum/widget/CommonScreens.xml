@@ -516,7 +516,7 @@ under the License.
                     <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
                 </entity-one>
                 <set field="parameters.projectId" from-field="sprint.workEffortParentId"/>
-                <entity-and list="sprintList" entity-name="WorkEffort">
+                <entity-and entity-name="WorkEffort" list="sprintList">
                     <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
                     <order-by field-name="createdDate"/>
                 </entity-and>

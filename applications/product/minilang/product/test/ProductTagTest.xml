@@ -124,7 +124,7 @@ under the License.
             <field-map field-name="keywordTypeId" value="KWT_TAG"/>
             <field-map field-name="statusId" value="KW_PENDING"/>
         </entity-and>
-        <iterate entry="checkAllProductKeywordApprove" list="checkAllProductKeywordApproveList">
+        <iterate list="checkAllProductKeywordApproveList" entry="checkAllProductKeywordApprove">
             <set field="updateProductKeywordMap.userLogin" from-field="systemUserLogin"/>
             <set field="updateProductKeywordMap.productId" from-field="checkAllProductKeywordApprove.productId"/>
             <set field="updateProductKeywordMap.keyword" from-field="checkAllProductKeywordApprove.keyword"/>

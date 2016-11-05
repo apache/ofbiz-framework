@@ -271,13 +271,13 @@ under the License.
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         <clear-field field="createDetailMap"/>
-        <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+        <entity-and entity-name="OrderItemShipGrpInvRes" list="oisgirs">
             <field-map field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItemShipGrpInvRes.orderItemSeqId"/>
             <field-map field-name="inventoryItemId" from-field="orderItemShipGrpInvRes.inventoryItemId"/>
         </entity-and>
         <!-- Need to Cancel and re-reserve oisgir to fix OFBIZ-5364 issue, while there are multiple ship groups for an order item associated with same inventory and you are issuing items from one ship group to another, then quantityNotAvailable will be incorrect if we do not cancel and reserve all oisgir of order item  -->
-        <iterate entry="oisgir" list="oisgirs">
+        <iterate list="oisgirs" entry="oisgir">
             <set field="cancelOrderItemShipGrpInvResMap.orderId" from-field="oisgir.orderId"/>
             <set field="cancelOrderItemShipGrpInvResMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
             <set field="cancelOrderItemShipGrpInvResMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
@@ -286,7 +286,7 @@ under the License.
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
         </iterate>
         <!-- Re-reserve cancelled oisgirs again so that shipped quantity will be subtract from oisgir.quantity and oisgir.quantityNotAvailable will be calculated accordingly -->
-        <iterate entry="oisgir" list="oisgirs">
+        <iterate list="oisgirs" entry="oisgir">
             <get-related-one value-field="oisgir" relation-name="InventoryItem" to-value-field="tmpInventoryItem"/>
             <set field="reserveProductInventoryByFacilityMap.quantity" from-field="oisgir.quantity"/>
             <set field="reserveProductInventoryByFacilityMap.facilityId" from-field="tmpInventoryItem.facilityId"/>
@@ -307,7 +307,7 @@ under the License.
             should not contribute to the adjustment calculation here
         -->
         <if-not-empty field="parameters.inventoryItemId">
-            <entity-and list="itemIssuances" entity-name="ItemIssuance">
+            <entity-and entity-name="ItemIssuance" list="itemIssuances">
                 <field-map field-name="orderId" from-field="parameters.orderId"/>
                 <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                 <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
@@ -419,7 +419,7 @@ under the License.
     <simple-method method-name="findCreateItemIssuance" short-description="Find Create ItemIssuance - meant to be called in-line">
         <!-- If a non-sales order find ItemIssuance for orderItemSeqId-shimentItemSeqId-shipGroupSeqId pair, update it and return -->
         <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
-            <entity-and list="itemIssuances" entity-name="ItemIssuance">
+            <entity-and entity-name="ItemIssuance" list="itemIssuances">
                 <field-map field-name="orderId" from-field="orderItem.orderId"/>
                 <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
                 <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
@@ -708,21 +708,21 @@ under the License.
     </simple-method>
     <simple-method method-name="getTotalIssuedQuantityForOrderItem" short-description="Computes the total quantity assigned to shipment for a purchase order item">
         <set field="totalIssuedQuantity" type="BigDecimal" value="0"/>
-        <entity-and list="orderShipments" entity-name="OrderShipment">
+        <entity-and entity-name="OrderShipment" list="orderShipments">
             <field-map field-name="orderId" from-field="orderItem.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
         <if-not-empty field="orderShipments">
-                <iterate entry="orderShipment" list="orderShipments">
+                <iterate list="orderShipments" entry="orderShipment">
                     <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + orderShipment.quantity$bigDecimal}" type="BigDecimal"/>
                 </iterate>
             <else>
                 <!-- This is here for backward compatibility only: ItemIssuances are no more created for purchase orders -->
-                <entity-and list="allItemIssuances" entity-name="ItemIssuance">
+                <entity-and entity-name="ItemIssuance" list="allItemIssuances">
                     <field-map field-name="orderId" from-field="orderItem.orderId"/>
                     <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
                 </entity-and>
-                <iterate entry="itemIssuance" list="allItemIssuances">
+                <iterate list="allItemIssuances" entry="itemIssuance">
                     <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + itemIssuance.quantity$bigDecimal}" type="BigDecimal"/>
                 </iterate>
             </else>

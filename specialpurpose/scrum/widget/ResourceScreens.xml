@@ -309,10 +309,10 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet name="findPartyRevision" title="Find Revision">
-                            <include-form location="component://scrum/widget/ResourceForms.xml" name="FindPartyRevision"/>
+                            <include-form name="FindPartyRevision" location="component://scrum/widget/ResourceForms.xml"/>
                         </screenlet>
                         <screenlet name="listPartyRevision" title="Revisions list">
-                            <include-form location="component://scrum/widget/ResourceForms.xml" name="ListPartyRevisions"/>
+                            <include-form name="ListPartyRevisions" location="component://scrum/widget/ResourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -334,7 +334,7 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyEditPersonalInformation}">
-                            <include-form location="component://scrum/widget/ResourceForms.xml" name="QuickAddParty"/>
+                            <include-form name="QuickAddParty" location="component://scrum/widget/ResourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -355,7 +355,7 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ScrumPartyRelationship}">
-                            <include-form location="component://scrum/widget/ResourceForms.xml" name="QuickAddPartyRelationship"/>
+                            <include-form name="QuickAddPartyRelationship" location="component://scrum/widget/ResourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -389,7 +389,7 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditPartyRates}">
-                            <include-form location="component://scrum/widget/ResourceForms.xml" name="QuickAddPartyRate"/>
+                            <include-form name="QuickAddPartyRate" location="component://scrum/widget/ResourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

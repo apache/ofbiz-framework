@@ -116,7 +116,7 @@ under the License.
 
             <set field="parameters.quantityNotIssued" from-field="orderItem.quantity"/>
 
-            <iterate entry="inventoryItem" list="inventoryItemList">
+            <iterate list="inventoryItemList" entry="inventoryItem">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueImmediateForInventoryItemInline"/>
             </iterate>
@@ -221,7 +221,7 @@ under the License.
                         <and>
                             <or>
                                 <if-empty field="inventoryItem.statusId"/>
-                                <if-compare operator="equals" field="inventoryItem.statusId" value="INV_AVAILABLE"/>
+                                <if-compare field="inventoryItem.statusId" operator="equals" value="INV_AVAILABLE"/>
                             </or>
                             <not><if-empty field="inventoryItem.availableToPromiseTotal"/></not>
                             <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="BigDecimal"/>

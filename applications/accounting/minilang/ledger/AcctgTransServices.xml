@@ -163,7 +163,7 @@ under the License.
         </entity-condition>
         <calculate field="debitTotal" type="BigDecimal"><number value="0"/></calculate>
         <calculate field="creditTotal" type="BigDecimal"><number value="0"/></calculate>
-        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                <calculate field="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
@@ -281,7 +281,7 @@ under the License.
 
         <!-- get current period(s) and check if closed -->
         <!-- also check if the glAccountId, amount, currencyUomId fields are all set -->
-        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <!-- we want to do this for each organizationPartyId, so only do this if we haven't already found the list for the current org -->
             <if-empty field="customTimePeriodListByOrganizationPartyIdMap[acctgTransEntry.organizationPartyId]">
                 <clear-field field="findCustomTimePeriodCallMap"/>
@@ -302,7 +302,7 @@ under the License.
                     </add-error>
                 </if-empty>
                 <!-- now do the actual isClose check -->
-                <iterate entry="customTimePeriod" list="customTimePeriodList">
+                <iterate list="customTimePeriodList" entry="customTimePeriod">
                     <if-compare field="customTimePeriod.isClosed" operator="equals" value="Y">
                         <add-error>
                             <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosed"/>
@@ -393,7 +393,7 @@ under the License.
         <set field="creditTotal" type="BigDecimal" value="0"/>
         <set field="debitCreditDifference" type="BigDecimal" value="0"/>
 
-        <iterate entry="acctgTransEntry" list="acctgTransAndEntries">
+        <iterate list="acctgTransAndEntries" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                <set field="debitTotal" value="${debitTotal + acctgTransEntry.amount}" type="BigDecimal"/>
             <else>
@@ -435,7 +435,7 @@ under the License.
             <use-iterator/>
         </entity-condition>
 
-        <iterate entry="glAccOrgAndAcctgTransAndEntry" list="glAccOrgAndAcctgTransAndEntries">
+        <iterate list="glAccOrgAndAcctgTransAndEntries" entry="glAccOrgAndAcctgTransAndEntry">
             <if-compare field="glAccOrgAndAcctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
                 <set field="openingBalanceDebit" value="${openingBalanceDebit + glAccOrgAndAcctgTransAndEntry.totalAmount}" type="BigDecimal" default-value="0"/>
             <else>

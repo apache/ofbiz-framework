@@ -70,7 +70,7 @@
                                             </entity-one>
                                         </actions>
                                         <widgets>
-                                           <include-form location="component://ebaystore/widget/EbayStoreForms.xml" name="EbayAccountSelection"/>
+                                           <include-form name="EbayAccountSelection" location="component://ebaystore/widget/EbayStoreForms.xml"/>
                                               <label text="${uiLabelMap.EbayAccount} : ${person.firstName} ${person.lastName}" style="h1"></label>
                                             <include-menu name="EbayStoreFunctionTabBar"  location="component://ebaystore/widget/EbayStoreMenus.xml"/>
                                         </widgets>

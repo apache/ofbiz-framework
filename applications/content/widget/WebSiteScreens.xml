@@ -426,7 +426,7 @@ under the License.
                 <set field="labelTitleProperty" value="ContentWebSiteContactList"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                <entity-and list="webSiteContactLists" entity-name="WebSiteContactList">
+                <entity-and entity-name="WebSiteContactList" list="webSiteContactLists">
                     <field-map field-name="webSiteId" from-field="webSiteId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
@@ -435,10 +435,10 @@ under the License.
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentWebSiteContactListCreate}">
-                            <include-form location="component://content/widget/website/WebSiteForms.xml" name="CreateWebSiteContactList"/>
+                            <include-form name="CreateWebSiteContactList" location="component://content/widget/website/WebSiteForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ContentWebSiteContactListView} of webSiteId[${webSiteId}]">
-                            <include-form location="component://content/widget/website/WebSiteForms.xml" name="ViewWebSiteContactList"/>
+                            <include-form name="ViewWebSiteContactList" location="component://content/widget/website/WebSiteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

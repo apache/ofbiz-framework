@@ -33,7 +33,7 @@ under the License.
             <field-map field-name="idCode" from-field="parameters.idCode"/>
         </entity-and>
 
-        <iterate entry="productFeature" list="productFeatures">
+        <iterate list="productFeatures" entry="productFeature">
             <set-service-fields service-name="applyFeatureToProduct" map="parameters" to-map="applyFeatureContext"/>
             <set field="applyFeatureContext.productFeatureId" from-field="productFeature.productFeatureId"/>
 

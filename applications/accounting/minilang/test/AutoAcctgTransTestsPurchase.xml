@@ -53,7 +53,7 @@ under the License.
 
         <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx"/>
 
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="shipmentId"/>
         </entity-and>
         <assert><not><if-empty field="acctgTransList"/></not></assert>
@@ -86,7 +86,7 @@ under the License.
             </if-compare>
         </iterate>
         <!-- check if invoice created -->
-        <entity-and list="orderItemBillings" entity-name="OrderItemBilling">
+        <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
             <field-map field-name="orderId"/>
         </entity-and>
         <assert>
@@ -110,7 +110,7 @@ under the License.
         -->
 
         <set field="orderId" value="DEMO10091"/>
-        <entity-and list="orderItemBillings" entity-name="OrderItemBilling">
+        <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
             <field-map field-name="orderId"/>
         </entity-and>
         <first-from-list entry="orderItemBilling" list="orderItemBillings"/>

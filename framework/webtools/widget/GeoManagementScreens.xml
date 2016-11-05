@@ -60,7 +60,7 @@
                 <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonSummary}">
-                            <include-form location="component://webtools/widget/GeoManagementForms.xml" name="GeoPoint"/>
+                            <include-form name="GeoPoint" location="component://webtools/widget/GeoManagementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.CommonMap}">
                             <platform-specific>

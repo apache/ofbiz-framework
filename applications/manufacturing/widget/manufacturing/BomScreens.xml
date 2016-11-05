@@ -109,8 +109,8 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
                 <entity-and entity-name="ProductFeatureAndAppl" list="selectedFeatures">
-                    <field-map from-field="productId" field-name="productId"/>
-                    <field-map from-field="productFeatureApplTypeId" field-name="productFeatureApplTypeId"/>
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="productFeatureApplTypeId" from-field="productFeatureApplTypeId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <script location="component://manufacturing/groovyScripts/bom/BomSimulation.groovy"/>

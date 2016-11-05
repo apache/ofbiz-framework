@@ -29,7 +29,7 @@ under the License.
         <if-compare field="parameters.oneInventoryFacility" operator="equals" value="Y">
             <if-empty field="parameters.inventoryFacilityId">
                 <add-error>
-                    <fail-property property="InventoryFacilityIdRequired" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="InventoryFacilityIdRequired"/>
                 </add-error>
             </if-empty>
             <check-errors/>
@@ -38,12 +38,12 @@ under the License.
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="parameters.vatTaxAuthGeoId">
                 <add-error>
-                    <fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="ProductVatTaxAuthGeoNotSet"/>
                 </add-error>
             </if-empty>
             <if-empty field="parameters.vatTaxAuthPartyId">
                 <add-error>
-                    <fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="ProductVatTaxAuthPartyNotSet"/>
                 </add-error>
             </if-empty>
             <check-errors/>
@@ -78,7 +78,7 @@ under the License.
          <if-compare field="parameters.oneInventoryFacility" operator="equals" value="Y">
             <if-empty field="parameters.inventoryFacilityId">
                 <add-error>
-                    <fail-property property="InventoryFacilityIdRequired" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="InventoryFacilityIdRequired"/>
                 </add-error>
             </if-empty>
             <check-errors/>
@@ -92,12 +92,12 @@ under the License.
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="store.vatTaxAuthGeoId">
                 <add-error>
-                    <fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="ProductVatTaxAuthGeoNotSet"/>
                 </add-error>
             </if-empty>
             <if-empty field="store.vatTaxAuthPartyId">
                 <add-error>
-                    <fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/>
+                    <fail-property resource="ProductUiLabels" property="ProductVatTaxAuthPartyNotSet"/>
                 </add-error>
             </if-empty>
             <check-errors/>
@@ -152,7 +152,7 @@ under the License.
 
         <set from-field="parameters.facilityId" field="facilityId"/>
         <if-empty field="facilityId">
-            <if-compare value="Y" field="productStore.oneInventoryFacility" operator="equals">
+            <if-compare field="productStore.oneInventoryFacility" operator="equals" value="Y">
                 <if-empty field="productStore.inventoryFacilityId">
                     <add-error>
                         <fail-property resource="ProductUiLabels" property="ProductProductStoreNoSpecifiedInventoryFacility"/>
@@ -167,7 +167,7 @@ under the License.
                     <result-to-field result-name="quantityNotReserved"/>
                 </call-service>
 
-                <if-compare value="0" field="quantityNotReserved" operator="equals" type="BigDecimal">
+                <if-compare field="quantityNotReserved" operator="equals" value="0" type="BigDecimal">
                     <log level="info" message="Inventory IS reserved in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
                 <else>
                     <log level="info" message="There is insufficient inventory available in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}"/>
@@ -175,7 +175,7 @@ under the License.
                 </if-compare>
             <else>
                 <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
-                    <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
+                    <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <iterate list="productStoreFacilities" entry="productStoreFacility">
@@ -215,8 +215,8 @@ under the License.
             </if-compare>
         <else>
             <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
-                <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
-                <field-map from-field="facilityId" field-name="facilityId"/>
+                <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-and>
             <iterate list="productStoreFacilities" entry="productStoreFacility">
@@ -237,7 +237,7 @@ under the License.
             <call-service service-name="reserveProductInventoryByFacility" in-map-name="callServiceMap">
                 <result-to-field result-name="quantityNotReserved"/>
             </call-service>
-            <if-compare value="0" field="quantityNotReserved" operator="equals" type="BigDecimal">
+            <if-compare field="quantityNotReserved" operator="equals" value="0" type="BigDecimal">
                 <log level="info" message="Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
             <else>
                 <log level="info" message="There is insufficient inventory available in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}"/>
@@ -308,7 +308,7 @@ under the License.
         <!-- TODO: what to do with ASSET_USAGE? Only done elsewhere? Would need date/time range info to check availability -->
 
         <!-- if prodCatalog is set to not check inventory break here -->
-        <if-compare value="N" field="productStore.checkInventory" operator="equals">
+        <if-compare field="productStore.checkInventory" operator="equals" value="N">
             <!-- note: if not set, defaults to yes, check inventory -->
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is set to NOT check inventory, returning true for inventory available check"/>
             <set value="Y" field="available"/>
@@ -348,13 +348,13 @@ under the License.
             </if-compare-field>
         <else>
             <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
-                <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
+                <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-and>
 
             <set value="N" field="available"/>
             <iterate list="productStoreFacilities" entry="productStoreFacility">
-                <if-compare value="N" field="available" operator="equals">
+                <if-compare field="available" operator="equals" value="N">
                     <!-- TODO: must entire quantity be available in one location? -->
                     <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
                     <set from-field="parameters.productId" field="callServiceMap.productId"/>
@@ -521,7 +521,7 @@ under the License.
                 <call-service service-name="updateProductStoreGroup" in-map-name="productStoreGroupMap"/>
             </if-not-empty>
             <else>
-                <entity-and list="productStoreGroupRollups" entity-name="ProductStoreGroupRollup" filter-by-date="true">
+                <entity-and entity-name="ProductStoreGroupRollup" list="productStoreGroupRollups" filter-by-date="true">
                     <field-map field-name="productStoreGroupId" from-field="productStoreGroup.productStoreGroupId"/>
                     <field-map field-name="parentGroupId" from-field="parameters.primaryParentGroupId"/>
                 </entity-and>

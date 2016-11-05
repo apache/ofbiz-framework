@@ -161,7 +161,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateContactListPartyNoUserLogin" short-description="Update Add Party To ContactList No User Login" login-required="false">
         <entity-one value-field="contactList" entity-name="ContactList"/>
-        <entity-and list="contactListPartyStatusList" entity-name="ContactListPartyStatus">
+        <entity-and entity-name="ContactListPartyStatus" list="contactListPartyStatusList">
             <field-map field-name="contactListId" from-field="parameters.contactListId"/>
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="optInVerifyCode" from-field="parameters.optInVerifyCode"/>
@@ -197,7 +197,7 @@ under the License.
         <if-empty field="parameters.partyId">
             <set field="parameters.partyId" value="_NA_"/>
         </if-empty>
-        <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+        <entity-and entity-name="PartyContactWithPurpose" list="partyContactWithPurposes">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="infoString" from-field="parameters.email"/>
             <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -215,7 +215,7 @@ under the License.
             <set field="updateContactListPartyMap.baseLocation" from-field="parameters.baseLocation"/>
             <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
             <else>
-                <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+                <entity-and entity-name="PartyContactWithPurpose" list="partyContactWithPurposes">
                     <field-map field-name="infoString" from-field="parameters.email"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
@@ -238,7 +238,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="unsubscribeContactListPartyContachMech" short-description="Find email by contactMechId then call unsubscribeContactListParty service">
-        <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+        <entity-and entity-name="PartyContactWithPurpose" list="partyContactWithPurposes">
             <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -252,7 +252,7 @@ under the License.
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>
         <find-by-and entity-name="ContactListParty" map="lookupMap" list="ContactListParties"/>
-        <iterate entry="contactlistparty" list="ContactListParties">
+        <iterate list="ContactListParties" entry="contactlistparty">
         <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
         <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>
         <store-value value-field="contactlistparty"/>
@@ -395,7 +395,7 @@ under the License.
         </if>
     </simple-method>
     <simple-method method-name="createWebSiteContactList" short-description="Add WebSite ContactList">
-        <entity-and list="webSiteContactList" entity-name="WebSiteContactList">
+        <entity-and entity-name="WebSiteContactList" list="webSiteContactList">
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
             <field-map field-name="contactListId" from-field="parameters.contactListId"/>
             <field-map field-name="fromDate" from-field="parameters.fromDate"/>
@@ -403,7 +403,7 @@ under the License.
         <if-empty field="webSiteContactList">
             <make-value value-field="webSiteContactList" entity-name="WebSiteContactList"/>
             <set-pk-fields value-field="webSiteContactList" map="parameters"/>
-            <set-nonpk-fields value-field="webSiteContactList" map="parameters"/>
+            <set-nonpk-fields map="parameters" value-field="webSiteContactList"/>
             <create-value value-field="webSiteContactList"/>
             <return/>
         </if-empty>
@@ -411,18 +411,18 @@ under the License.
         <field-to-result field="message" result-name="errorMessage"></field-to-result>
     </simple-method>
     <simple-method method-name="updateWebSiteContactList" short-description="Update WebSite ContactList">
-        <entity-and list="webSiteContactList" entity-name="WebSiteContactList">
+        <entity-and entity-name="WebSiteContactList" list="webSiteContactList">
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
             <field-map field-name="contactListId" from-field="parameters.contactListId"/>
             <field-map field-name="fromDate" from-field="parameters.fromDate"/>
         </entity-and>
         <first-from-list entry="entryWebSiteContactList" list="webSiteContactList"/>
         <set-pk-fields value-field="entryWebSiteContactList" map="parameters"/>
-        <set-nonpk-fields value-field="entryWebSiteContactList" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="entryWebSiteContactList"/>
         <store-value value-field="entryWebSiteContactList"/>
     </simple-method>
     <simple-method method-name="deleteWebSiteContactList" short-description="Delete WebSite ContactList">
-        <entity-and list="webSiteContactList" entity-name="WebSiteContactList">
+        <entity-and entity-name="WebSiteContactList" list="webSiteContactList">
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
             <field-map field-name="contactListId" from-field="parameters.contactListId"/>
             <field-map field-name="fromDate" from-field="parameters.fromDate"/>
@@ -444,13 +444,13 @@ under the License.
             </condition>
             <then>
                 <now-timestamp field="nowTimestamp"/>
-                <entity-and list="contactListPartyList" entity-name="ContactListParty">
+                <entity-and entity-name="ContactListParty" list="contactListPartyList">
                     <field-map field-name="contactListId" from-field="commEvent.contactListId"/>
                     <field-map field-name="preferredContactMechId" from-field="commEvent.contactMechIdTo"/>
                     <field-map field-name="partyId" from-field="commEvent.partyIdTo"/>                    
                 </entity-and>
                 <filter-list-by-date list="contactListPartyList"/>
-                <iterate entry="contactListParty" list="contactListPartyList">
+                <iterate list="contactListPartyList" entry="contactListParty">
                     <set field="contactListParty.thruDate" from-field="nowTimestamp"/>
                     <store-value value-field="contactListParty"/>
                 </iterate>                                
@@ -478,12 +478,12 @@ under the License.
     <simple-method method-name="updateCommStatusFromCommEvent" short-description="Update ContactList Comm Status from CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="commEvent"/> 
         <if-not-empty field="commEvent">
-            <entity-and list="clcs" entity-name="ContactListCommStatus">
+            <entity-and entity-name="ContactListCommStatus" list="clcs">
                 <field-map field-name="communicationEventId" from-field="commEvent.parentCommEventId"/>
                 <field-map field-name="partyId" from-field="commEvent.partyIdTo"/>
                 <field-map field-name="contactMechId" from-field="commEvent.contactMechIdTo"/>
             </entity-and>
-            <iterate entry="commStatus" list="clcs">
+            <iterate list="clcs" entry="commStatus">
                 <set-service-fields service-name="updateContactListCommStatus" to-map="updateStatusCtx" map="commStatus"/>
                 <set field="updateStatusCtx.statusId" from-field="parameters.statusId"/>
                 <call-service service-name="updateContactListCommStatus" in-map-name="updateStatusCtx"/>

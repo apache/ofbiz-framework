@@ -40,7 +40,7 @@ under the License.
                 </entity-and>
                 <first-from-list entry="resource" list="resourceList"/>
                 <if-not-empty field="resource">
-                    <set-nonpk-fields value-field="newEntity" map="resource"/>
+                    <set-nonpk-fields map="resource" value-field="newEntity"/>
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>

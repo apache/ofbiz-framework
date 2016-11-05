@@ -349,7 +349,7 @@
         <set field="defaultDaysToShip" from-field="parameters.defaultDaysToShip" type="Long"/>
         <clear-field field="parameters.defaultDaysToShip"/>
         
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.defaultDaysToShip" from-field="defaultDaysToShip" type="Long"/>
 
         <if-empty field="parameters.facilityId">
@@ -397,17 +397,17 @@
         </if-empty>
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="parameters.vatTaxAuthGeoId">
-                <add-error><fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/></add-error>
+                <add-error><fail-property resource="ProductUiLabels" property="ProductVatTaxAuthGeoNotSet"/></add-error>
             </if-empty>
             <if-empty field="parameters.vatTaxAuthPartyId">
-                <add-error><fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/></add-error>
+                <add-error><fail-property resource="ProductUiLabels" property="ProductVatTaxAuthPartyNotSet"/></add-error>
             </if-empty>
         </if-compare>
         <check-errors/>
 
         <!-- Create ProductStore -->
         <make-value value-field="newEntity" entity-name="ProductStore"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.storeCreditValidDays" value="90" type="Long"/>
         <set field="newEntity.daysToCancelNonPay"  value="30" type="Long"/>
 

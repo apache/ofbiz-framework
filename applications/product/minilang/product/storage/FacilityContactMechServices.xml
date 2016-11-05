@@ -89,7 +89,7 @@ under the License.
             </else>
         </if-empty>
 
-        <set-nonpk-fields value-field="newFacilityContactMech" map="parameters" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="newFacilityContactMech"/> set-if-null="false"/>
 
         <now-timestamp field="newFacilityContactMech.fromDate"/>
         <now-timestamp field="facilityContactMech.thruDate"/>
@@ -99,7 +99,7 @@ under the License.
 
         <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-field="facilityContactMech" relation-name="FacilityContactMechPurpose" list="facilityContactMechPurposes"/>
-            <iterate entry="facilityContactMechPurposeOld" list="facilityContactMechPurposes">
+            <iterate list="facilityContactMechPurposes" entry="facilityContactMechPurposeOld">
                 <clone-value value-field="facilityContactMechPurposeOld" new-value-field="facilityContactMechPurpose"/>
 
                 <now-timestamp field="facilityContactMechPurposeOld.thruDate"/>

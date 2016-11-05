@@ -33,7 +33,7 @@ under the License.
         <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
         <call-service service-name="calculateProductCosts" in-map-name="serviceCtx"/>
 
-        <entity-and list="costComponents" entity-name="CostComponent">
+        <entity-and entity-name="CostComponent" list="costComponents">
             <field-map field-name="productId" from-field="productId"/>
         </entity-and>
         <filter-list-by-date list="costComponents"/>

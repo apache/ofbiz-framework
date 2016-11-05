@@ -61,7 +61,7 @@ under the License.
                             <include-form name="FindProductPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddPriceRule}">
-                            <include-form location="component://product/widget/catalog/PriceForms.xml" name="AddPriceRules"/>
+                            <include-form name="AddPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

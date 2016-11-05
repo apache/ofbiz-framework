@@ -345,8 +345,8 @@ under the License.
                             <include-form name="EditCertificate" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.CertSaveToKeyStore}">
-                            <include-form location="component://common/widget/SecurityForms.xml" name="ViewCertificate"/>
-                            <include-form location="component://common/widget/SecurityForms.xml" name="CertToKeystore"/>
+                            <include-form name="ViewCertificate" location="component://common/widget/SecurityForms.xml"/>
+                            <include-form name="CertToKeystore" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         </container>
                     </decorator-section>

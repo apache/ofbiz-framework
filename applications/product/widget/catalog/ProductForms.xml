@@ -1950,7 +1950,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="productWorkEfforts">
-                <field-map from-field="productId" field-name="productId"/>
+                <field-map field-name="productId" from-field="productId"/>
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit"/>

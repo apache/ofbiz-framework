@@ -250,21 +250,21 @@
         </entity-condition>
         <filter-list-by-date list="unfilteredList" to-list="blogItems"/>
         <set field="blogList[]"/>
-        <iterate entry="blogItem" list="blogItems">
+        <iterate list="blogItems" entry="blogItem">
             <set-service-fields service-name="genericContentPermission" map="blogItem" to-map="mapIn"/>
             <set field="mapIn.ownerContentId" from-field="parameters.contentId"/>
             <set field="mapIn.mainAction" value="VIEW"/>
             <call-service service-name="genericContentPermission" in-map-name="mapIn">
                 <result-to-field result-name="hasPermission" field="hasPermission"/>
             </call-service>
-            <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean">
                 <set field="blogList[]" from-field="blogItem"/>
                 <else>
                     <set field="mapIn.mainAction" value="UPDATE"/>
                     <call-service service-name="genericContentPermission" in-map-name="mapIn">
                         <result-to-field result-name="hasPermission" field="hasPermission"/>
                     </call-service>
-                    <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
+                    <if-compare field="hasPermission" operator="equals" value="true" type="Boolean">
                         <set field="blogList[]" from-field="blogItem"/>
                     </if-compare>
                 </else>
@@ -282,7 +282,7 @@
         <entity-one entity-name="Content" value-field="content"/>
         <get-related value-field="content" relation-name="FromContentAssoc" list="rawAssocs"/>
         <filter-list-by-date list="rawAssocs" to-list="assocs"/>
-        <iterate entry="assoc" list="assocs">
+        <iterate list="assocs" entry="assoc">
             <if-compare field="assoc.mapKey" value="ARTICLE" operator="equals">
                 <get-related-one value-field="assoc" relation-name="ToContent" to-value-field="mainContent"/>
                 <get-related-one value-field="mainContent" relation-name="DataResource" to-value-field="dataResource"/>

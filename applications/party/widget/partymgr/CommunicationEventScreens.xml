@@ -120,7 +120,7 @@ under the License.
                                         <parameter param-name="partyId"/>
                                     </link>
                                 </container>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListPendingCommEvents"/>
+                                <include-form name="ListPendingCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -152,7 +152,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
                     <order-by field-name="-entryDate"/>
                 </entity-condition>
-                <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
+                <entity-and entity-name="PartyRelationship" list="contacts" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
@@ -168,7 +168,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleListCommunications} ${partyId}"/></container>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 <section>
                                     <condition>
                                         <not><if-empty field="contacts"/></not>
@@ -189,7 +189,7 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <container style="h2"><label text="${contact.partyIdTo}"/></container>
-                                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                    <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -214,7 +214,7 @@ under the License.
                                             <condition-expr field-name="partyId" operator="equals" from-field="partyIdFrom"/>
                                             <order-by field-name="-entryDate"/>
                                         </entity-condition>
-                                        <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
+                                        <entity-and entity-name="PartyRelationship" list="contacts" filter-by-date="true">
                                             <field-map field-name="partyIdFrom" from-field="partyIdFrom"/>
                                             <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                                             <field-map field-name="roleTypeIdTo" value="CONTACT"/>
@@ -236,7 +236,7 @@ under the License.
                                                 <iterate-section entry="account" list="accounts">
                                                     <section>
                                                         <widgets>
-                                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                            <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                                         </widgets>
                                                     </section>
                                                 </iterate-section>
@@ -258,7 +258,7 @@ under the License.
                                                                 </condition>
                                                                 <widgets>
                                                                     <container style="h2"><label text="${contact.partyIdTo}"/></container>
-                                                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                                                                    <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                                                 </widgets>
                                                             </section>
                                                         </widgets>
@@ -294,7 +294,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleListUnknownPartyComms}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListUnknownPartyEmails"/>
+                                    <include-form name="ListUnknownPartyEmails" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -323,10 +323,10 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="FindCommunicationByOrder"/>
+                                        <include-form name="FindCommunicationByOrder" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommunicationByOrder"/>
+                                        <include-form name="ListCommunicationByOrder" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -358,10 +358,10 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="FindCommEvents"/>
+                                        <include-form name="FindCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListLookupCommEvents"/>
+                                        <include-form name="ListLookupCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -430,7 +430,7 @@ under the License.
                     </screenlet>
                     <section>
                         <actions>
-                            <entity-and list="commEvents" entity-name="CommunicationEvent">
+                            <entity-and entity-name="CommunicationEvent" list="commEvents">
                                 <field-map field-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                             </entity-and>
                         </actions>
@@ -530,7 +530,7 @@ under the License.
                 <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet  title="${uiLabelMap.PartyEditCustomerRequest}">
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditRequestFromCommEvent"/>
+                            <include-form name="EditRequestFromCommEvent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -558,10 +558,10 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommRoles"/>
+                            <include-form name="ListCommRoles" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddEventRole"/>
+                            <include-form name="AddEventRole" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -588,8 +588,8 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                             <screenlet title="${uiLabelMap.PartyCommEventPurposes}">
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddEventPurpose"/>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommPurposes"/>
+                                <include-form name="AddEventPurpose" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                <include-form name="ListCommPurposes" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                             </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -618,7 +618,7 @@ under the License.
                                     <parameter param-name="partyId"/>
                                 </link>
                             </container>
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommWorkEfforts"/>
+                            <include-form name="ListCommWorkEfforts" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -641,7 +641,7 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommWorkEfforts}">
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddCommEventWorkEffort"/>
+                            <include-form name="AddCommEventWorkEffort" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -661,7 +661,7 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommWorkEfforts}">
-                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddCommEventWorkEffort"/>
+                            <include-form name="AddCommEventWorkEffort" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -690,10 +690,10 @@ under the License.
                             <widgets>
                                 <container>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommContent"/>
+                                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyAttachContent}">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="UploadContent1"/>
+                                        <include-form name="UploadContent1" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </container>
                             </widgets>
@@ -728,7 +728,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyNewCommContent}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddCommContent"/>
+                                    <include-form name="AddCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -773,7 +773,7 @@ under the License.
                                     </widgets>
                                 </section>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleEditCommContent}"/></container>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditCommContent"/>
+                                <include-form name="EditCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 <section>
                                     <condition>
                                         <if-regexp expr="text.*" field="commEventContentDataResource.drMimeTypeId"/>
@@ -785,7 +785,7 @@ under the License.
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleEditCommContent}">
-                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditCommTextContent"/>
+                                            <include-form name="EditCommTextContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -797,7 +797,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PartyViewImage}">
-                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="UploadCommContent"/>
+                                            <include-form name="UploadCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                             <label text="${uiLabelMap.PartyViewImage}" style="h1"/>
                                             <content dataresource-id="${commEventContentDataResource.drDataResourceId}"/>
                                         </screenlet>
@@ -1096,12 +1096,12 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${uiLabelMap.CommonFrom} ${parameters.partyIdFrom}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditEmail"/>
+                                    <include-form name="EditEmail" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.CommonFrom}: ${communicationEvent.partyIdFrom}, CommunicationEventId: ${communicationEvent.communicationEventId}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditEmail"/>
+                                    <include-form name="EditEmail" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
@@ -1134,13 +1134,13 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditInternalNote"/>
+                                    <include-form name="EditInternalNote" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <container style="lefthalf">
                                     <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId} ${uiLabelMap.CommonFrom} ${communicationEvent.partyIdFrom}">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditInternalNote"/>
+                                        <include-form name="EditInternalNote" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">

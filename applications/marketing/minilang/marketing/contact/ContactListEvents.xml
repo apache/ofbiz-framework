@@ -40,7 +40,7 @@ under the License.
                 <set field="partyId" value="${groovy:parameterMap[&quot;partyId&quot; + suffix]}"/>
                 
                 <!-- get exist contact list party -->
-                <entity-and list="existContactListParties" entity-name="ContactListParty" filter-by-date="true">
+                <entity-and entity-name="ContactListParty" list="existContactListParties" filter-by-date="true">
                     <field-map field-name="partyId" from-field="partyId"/>
                     <field-map field-name="contactListId" from-field="parameters.contactListId"/>
                 </entity-and>

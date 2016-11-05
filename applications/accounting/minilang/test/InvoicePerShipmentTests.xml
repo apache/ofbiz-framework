@@ -139,7 +139,7 @@ under the License.
         </call-service>
         <log level="info" message="===== >>> Service: completePack, shipmentId = ${shipmentId}"/>
         <!-- Step 4 -->
-        <entity-and list="invoices" entity-name="OrderItemBillingAndInvoiceAndItem">
+        <entity-and entity-name="OrderItemBillingAndInvoiceAndItem" list="invoices">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
         </entity-and>
         <assert>
@@ -265,7 +265,7 @@ under the License.
         </call-service>
         <log level="info" message="===== >>> Service: completePack, shipmentId = ${shipmentId}"/>
         <!-- Step 4 -->
-        <entity-and list="invoices" entity-name="OrderItemBillingAndInvoiceAndItem">
+        <entity-and entity-name="OrderItemBillingAndInvoiceAndItem" list="invoices">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
         </entity-and>
         <assert>
@@ -390,7 +390,7 @@ under the License.
         </call-service>
         <log level="info" message="===== >>> Service: completePack, shipmentId = ${shipmentId}"/>
         <!-- Step 3 -->
-        <entity-and list="invoices" entity-name="OrderItemBillingAndInvoiceAndItem">
+        <entity-and entity-name="OrderItemBillingAndInvoiceAndItem" list="invoices">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
         </entity-and>
         <assert>
@@ -515,7 +515,7 @@ under the License.
         </call-service>
         <log level="info" message="===== >>> Service: completePack, shipmentId = ${shipmentId}"/>
         <!-- Step 3 -->
-        <entity-and list="invoices" entity-name="OrderItemBillingAndInvoiceAndItem">
+        <entity-and entity-name="OrderItemBillingAndInvoiceAndItem" list="invoices">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
         </entity-and>
         <assert>

@@ -96,7 +96,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="parameters.statusId"></if-empty></not>
-                    <if-compare-field operator="not-equals" field="lookedUpValue.statusId" to-field="parameters.statusId"></if-compare-field>
+                    <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId"></if-compare-field>
                 </and>
             </condition>
             <then>
@@ -169,7 +169,7 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
 
         <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="FinAccountTrans" field="newEntity.finAccountTransId"/>
 
         <now-timestamp field="nowTimestamp"/>
@@ -213,7 +213,7 @@ under the License.
         <check-errors/>
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="newEntity.fromDate"/>
@@ -227,7 +227,7 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
 
         <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="FinAccountAuth" field="newEntity.finAccountAuthId"/>
 
@@ -295,7 +295,7 @@ under the License.
             <condition-expr field-name="finAccountId" from-field="finAccountId"/>
         </entity-condition>
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
-        <iterate entry="finAccountTrans" list="finAccountTransList">
+        <iterate list="finAccountTransList" entry="finAccountTrans">
             <if>
                 <condition>
                     <if-compare field="finAccountTrans.statusId" operator="equals" value="FINACT_TRNS_APPROVED"/>
@@ -326,7 +326,7 @@ under the License.
         <entity-condition entity-name="FinAccountAuth" list="finAccountAuthList" filter-by-date="true">
             <condition-expr field-name="finAccountId" from-field="finAccountId"/>
         </entity-condition>
-        <iterate entry="finAccountAuth" list="finAccountAuthList">
+        <iterate list="finAccountAuthList" entry="finAccountAuth">
             <calculate field="availableBalanceSum" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add" field="availableBalanceSum">
                     <calcop operator="negative" field="finAccountAuth.amount"/>

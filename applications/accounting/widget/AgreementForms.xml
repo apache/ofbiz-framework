@@ -677,7 +677,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortApplic" use-cache="true" list="agreementWorkEffortApplics">
-                <field-map from-field="agreementId" field-name="agreementId"/>
+                <field-map field-name="agreementId" from-field="agreementId"/>
             </entity-and>
         </actions>
         <field name="agreementItemSeqId"><display/></field>

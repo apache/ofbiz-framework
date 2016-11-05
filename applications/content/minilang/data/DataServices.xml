@@ -326,8 +326,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -359,8 +359,8 @@ under the License.
         <set from-field="dataResource" field="fileCtx.dataResource"/>
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save OFBIZ_FILE data -->
@@ -395,8 +395,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -430,8 +430,8 @@ under the License.
         <set from-field="dataResource" field="fileCtx.dataResource"/>
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save OTHER_OBJECT data -->
@@ -463,8 +463,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -490,8 +490,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save IMAGE_OBJECT data -->
@@ -523,8 +523,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -550,8 +550,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save VIDEO_OBJECT data -->
@@ -583,8 +583,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -610,8 +610,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save AUDIO_OBJECT data -->
@@ -643,8 +643,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -670,8 +670,8 @@ under the License.
             </else>
         </if-compare>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 
     <!-- save CONTEXT_FILE data -->
@@ -706,8 +706,8 @@ under the License.
                     </then>
                     <else>
                         <!-- if not upload is found on an update; its okay, don't do anything just return -->
-                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+                        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
                         <return/>
                     </else>
                 </if>
@@ -744,7 +744,7 @@ under the License.
         <set from-field="dataResource" field="fileCtx.dataResource"/>
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
 
-        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
-        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+        <field-to-result field="dataResource.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="dataResource.mimeTypeId" result-name="mimeTypeId"/>
     </simple-method>
 </simple-methods>

@@ -78,8 +78,8 @@
         <set from-field="parameters.facilityId" field="facilityId"/>
         <if-not-empty field="facilityId">
             <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
-                <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
-                <field-map from-field="facilityId" field-name="facilityId"/>
+                <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-and>
             <iterate list="productStoreFacilities" entry="productStoreFacility">
@@ -95,8 +95,8 @@
             </if-empty>
             <!-- verifly that product was store in facility -->
             <entity-and entity-name="ProductFacility" list="productFacilityList">
-                <field-map from-field="facilityId" field-name="facilityId"/>
-                <field-map from-field="parameters.productId" field-name="productId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>
+                <field-map field-name="productId" from-field="parameters.productId"/>
             </entity-and>
             <if-empty field="productFacilityList">
                 <add-error>
@@ -286,7 +286,7 @@
             <order-by field-name="${orderByString}"/>
         </entity-condition>
         <set field="qtyless" type="BigDecimal" default-value="0"  from-field="qtyToRemove"/>
-        <iterate entry="inventoryItem" list="inventoryItems">
+        <iterate list="inventoryItems" entry="inventoryItem">
             <if>
                 <condition>
                     <and>
@@ -296,7 +296,7 @@
                 <then>
                     <get-related value-field="inventoryItem" relation-name="InventoryItemDetail" list="inventoryItemDetails"/>
                     <if-not-empty field="inventoryItemDetails">
-                        <iterate entry="inventoryItemDetail" list="inventoryItemDetails">
+                        <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
                             <if>
                                 <condition>
                                     <and>

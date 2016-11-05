@@ -133,12 +133,12 @@ under the License.
             <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
         </entity-and>
         <if-empty field="checkDefaultImage">
-            <entity-and list="contentAssocs" entity-name="ContentAssoc">
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
                 <field-map field-name="contentId" from-field="parameters.contentId"/>
                 <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
             </entity-and>
             <if-not-empty field="contentAssocs">
-                <iterate entry="contentAssoc" list="contentAssocs">
+                <iterate list="contentAssocs" entry="contentAssoc">
                     <remove-value value-field="contentAssoc"/>
                     
                     <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
@@ -165,7 +165,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="removeProductContentForImageManagement" short-description="Remove Content From Product">
-        <entity-and list="contentRoles" entity-name="ContentRole" >
+        <entity-and entity-name="ContentRole" list="contentRoles" >
            <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
         <if-not-empty field="contentRoles">
@@ -178,14 +178,14 @@ under the License.
                 <condition-expr field-name="roleTypeId" value="IMAGEAPPROVER"/>
             </condition-list>
         </entity-condition>
-        <iterate entry="contentApproval" list="contentApprovals">
+        <iterate list="contentApprovals" entry="contentApproval">
             <remove-value value-field="contentApproval"/>
         </iterate>
         
         <entity-and entity-name="ContentKeyword" list="contentKeywords">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
-        <iterate entry="contentKeyword" list="contentKeywords">
+        <iterate list="contentKeywords" entry="contentKeyword">
             <remove-value value-field="contentKeyword"/>
         </iterate>
         
@@ -197,7 +197,7 @@ under the License.
         <call-service service-name="removeContent" in-map-name="removeContentMap"/>
         
         <set field="dataResourceId" from-field="content.dataResourceId"/>
-        <entity-and list="dataResourceRoles" entity-name="DataResourceRole" >
+        <entity-and entity-name="DataResourceRole" list="dataResourceRoles" >
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>
         </entity-and>
         <if-not-empty field="dataResourceRoles">
@@ -258,7 +258,7 @@ under the License.
                 <field-map field-name="contentId" from-field="parameters.contentId"/>
                 <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
             </entity-and>
-            <iterate entry="contentApproval" list="contentApprovals">
+            <iterate list="contentApprovals" entry="contentApproval">
                 <set field="contentApproval.approvalStatusId" from-field="parameters.checkStatusId"/>
                 <store-value value-field="contentApproval"/>
             </iterate>
@@ -281,7 +281,7 @@ under the License.
                     <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
                 </condition-list>
             </entity-condition>
-            <iterate entry="checkReject" list="checkRejects">
+            <iterate list="checkRejects" entry="checkReject">
                 <set field="checkReject.statusId" value="IM_REJECTED"/>
                 <store-value value-field="checkReject"/>
             </iterate>
@@ -337,7 +337,7 @@ under the License.
                                     <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
                                 </condition-list>
                             </entity-condition>
-                            <iterate entry="checkApprove" list="checkApproveList">
+                            <iterate list="checkApproveList" entry="checkApprove">
                                 <set field="checkApprove.approvalStatusId" value="IM_APPROVED"/>
                                 <store-value value-field="checkApprove"/>
                             </iterate>
@@ -363,7 +363,7 @@ under the License.
                             <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
                         </condition-list>
                     </entity-condition>
-                    <iterate entry="checkApprove" list="checkApproveList">
+                    <iterate list="checkApproveList" entry="checkApprove">
                         <set field="checkApprove.approvalStatusId" value="IM_APPROVED"/>
                         <store-value value-field="checkApprove"/>
                     </iterate>
@@ -470,14 +470,14 @@ under the License.
                 <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
             </condition-list>
         </entity-condition>
-        <iterate entry="productContentAndInfo" list="productContentAndInfos">
+        <iterate list="productContentAndInfos" entry="productContentAndInfo">
             <entity-and list="contentAssocs" entity-name="ContentAssoc">
                 <field-map field-name="contentId" from-field="productContentAndInfo.contentId"/>
                 <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
                 <field-map field-name="mapKey" from-field="parameters.mapKey"/>
             </entity-and>
             <if-not-empty field="contentAssocs">
-                <iterate entry="contentAssoc" list="contentAssocs">
+                <iterate list="contentAssocs" entry="contentAssoc">
                     <remove-value value-field="contentAssoc"/>
                     
                     <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>

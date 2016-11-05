@@ -390,28 +390,28 @@ under the License.
     <!-- migrate service -->
     <simple-method method-name="migrateRateFactor" short-description="migrate the several entities which were change in the rate refactor activity">
         <entity-condition entity-name="OldEmplPositionTypeRate" list="posRates"/>
-        <iterate entry="posRate" list="posRates">
+        <iterate list="posRates" entry="posRate">
             <make-value value-field="emplPositionTypeRate" entity-name="EmplPositionTypeRate"/>
             <set-pk-fields value-field="posRate" map="emplPositionTypeRate"/>
-            <set-nonpk-fields value-field="posRate" map="emplPositionTypeRate"/>
+            <set-nonpk-fields map="emplPositionTypeRate" value-field="posRate"/>
             <create-value value-field="emplPositionTypeRate"/>
             <make-value value-field="rateAmount" entity-name="RateAmount"/>
             <set-pk-fields value-field="posRate" map="rateAmount"/>
-            <set-nonpk-fields value-field="posRate" map="rateAmount"/>
+            <set-nonpk-fields map="rateAmount" value-field="posRate"/>
             <set field="rateAmount.workeffortId" value="_NA_"/>
             <set field="rateAmount.partyId" value="_NA_"/>
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="rateAmount.rateCurrencyUomId"/>
             <create-value value-field="rateAmount"/>
         </iterate>
         <entity-condition entity-name="OldPartyRate" list="partyRates"/>
-        <iterate entry="oldPartyRate" list="oldPartyRates">
+        <iterate list="oldPartyRates" entry="oldPartyRate">
             <make-value value-field="partyRate" entity-name="PartyRate"/>
             <set-pk-fields value-field="oldPartyRate" map="partyRate"/>
-            <set-nonpk-fields value-field="oldPartyRate" map="partyRate"/>
+            <set-nonpk-fields map="partyRate" value-field="oldPartyRate"/>
             <create-value value-field="partyRate"/>
             <make-value value-field="rateAmount" entity-name="RateAmount"/>
             <set-pk-fields value-field="oldPartyRate" map="rateAmount"/>
-            <set-nonpk-fields value-field="oldPartyRate" map="rateAmount"/>
+            <set-nonpk-fields map="rateAmount" value-field="oldPartyRate"/>
             <set field="rateAmount.workeffortId" value="_NA_"/>
             <set field="rateAmount.emplPositionTypeId" value="_NA_"/>
             <set field="rateAmount.periodTypeId" value="RATE_HOUR"/>

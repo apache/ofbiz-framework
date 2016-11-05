@@ -69,7 +69,7 @@ under the License.
                             <call-object-method obj-field="categories" method-name="contains" ret-field="addInCategories" >
                                 <field field="relCategory" type="java.lang.Object"/>
                             </call-object-method>
-                            <if-compare value="false" field="addInCategories" operator="equals" type="Boolean">
+                            <if-compare field="addInCategories" operator="equals" value="false" type="Boolean">
                                 <field-to-list list="categories" field="relCategory"/>
                             </if-compare>
                            </iterate>
@@ -95,7 +95,7 @@ under the License.
         <!-- iterate entry-name="category" list-name="categories">
            <log level="info" message="Category ${category.productCategoryId}"/>
         </iterate -->
-        <field-to-result result-name="categories" field="categories"/>
+        <field-to-result field="categories" result-name="categories"/>
     </simple-method>
 
     <simple-method method-name="checkImageUrlForAllCategories" short-description="Check for image url exists or not for All categories" login-required="false">
@@ -135,7 +135,7 @@ under the License.
             </call-service>
 
             <if-not-empty field="filesImageMap.categoryImageUrlMap.categoryImageUrl">
-                <if-compare value="Y" field="filesImageMap.categoryImageUrlMap.isExists" operator="equals">
+                <if-compare field="filesImageMap.categoryImageUrlMap.isExists" operator="equals" value="Y">
                     <field-to-list field="" list=""/>
                     <field-to-list list="fileExists" field="filesImageMap.categoryImageUrlMap.categoryImageUrl"/>
                 <else>
@@ -144,7 +144,7 @@ under the License.
                 </if-compare>
             </if-not-empty>
             <if-not-empty field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl">
-                <if-compare value="Y" field="filesImageMap.linkOneImageUrlMap.isExists" operator="equals">
+                <if-compare field="filesImageMap.linkOneImageUrlMap.isExists" operator="equals" value="Y">
                     <field-to-list list="fileExists" field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl"/>
                 <else>
                      <field-to-list list="fileNotExists" field="filesImageMap.linkOneImageUrlMap.linkOneImageUrl"/>
@@ -152,7 +152,7 @@ under the License.
                 </if-compare>
             </if-not-empty>
             <if-not-empty field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl">
-                <if-compare value="Y" field="filesImageMap.linkTwoImageUrlMap.isExists" operator="equals">
+                <if-compare field="filesImageMap.linkTwoImageUrlMap.isExists" operator="equals" value="Y">
                     <field-to-list list="fileExists" field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl"/>
                 <else>
                     <field-to-list list="fileNotExists" field="filesImageMap.linkTwoImageUrlMap.linkTwoImageUrl"/>
@@ -169,7 +169,7 @@ under the License.
                 </call-service>
                 <if-not-empty field="filesImageMap">
                     <if-not-empty field="filesImageMap.smallImageUrlMap.smallImageUrl">
-                        <if-compare value="Y" field="filesImageMap.smallImageUrlMap.isExists" operator="equals">
+                        <if-compare field="filesImageMap.smallImageUrlMap.isExists" operator="equals" value="Y">
                             <field-to-list list="fileExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                         <else>
                             <field-to-list list="fileNotExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
@@ -177,7 +177,7 @@ under the License.
                         </if-compare>
                     </if-not-empty>
                     <if-not-empty field="filesImageMap.mediumImageUrlMap.mediumImageUrl">
-                        <if-compare value="Y" field="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
+                        <if-compare field="filesImageMap.mediumImageUrlMap.isExists" operator="equals" value="Y">
                             <field-to-list list="fileExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                         <else>
                             <field-to-list list="fileNotExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
@@ -185,7 +185,7 @@ under the License.
                         </if-compare>
                     </if-not-empty>
                     <if-not-empty field="filesImageMap.largeImageUrlMap.largeImageUrl">
-                        <if-compare value="Y" field="filesImageMap.largeImageUrlMap.isExists" operator="equals">
+                        <if-compare field="filesImageMap.largeImageUrlMap.isExists" operator="equals" value="Y">
                             <field-to-list list="fileExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                         <else>
                             <field-to-list list="fileNotExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
@@ -193,7 +193,7 @@ under the License.
                         </if-compare>
                     </if-not-empty>
                     <if-not-empty field="filesImageMap.detailImageUrlMap.detailImageUrl">
-                        <if-compare value="Y" field="filesImageMap.detailImageUrl.isExists" operator="equals">
+                        <if-compare field="filesImageMap.detailImageUrl.isExists" operator="equals" value="Y">
                             <field-to-list list="fileExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                         <else>
                             <field-to-list list="fileNotExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
@@ -204,14 +204,14 @@ under the License.
                 <!--  Case For virtual Product -->
                 <!--  get related assoc product -->
                 <get-related-one relation-name="Product" value-field="productCategoryMember" to-value-field="product"/>
-                <if-compare operator="equals" field="product.isVirtual" value="Y">
+                <if-compare field="product.isVirtual" operator="equals" value="Y">
                     <!-- log level="info" message = "Virtual product =====${productCategoryMember.productId}"/ -->
                     <set field="virtualProductContext.productId" from-field="product.productId"/>
                     <set field="virtualProductContext.productAssocTypeId" value="PRODUCT_VARIANT"/>
                     <find-by-and entity-name="ProductAssoc" map="virtualProductContext" list="variantProducts"/>
                     <filter-list-by-date list="variantProducts"/>
                     <if-not-empty field="variantProducts">
-                        <iterate entry="variantProduct" list="variantProducts">
+                        <iterate list="variantProducts" entry="variantProduct">
                             <!-- log level="info" message = "Variant product =====${variantProduct.productIdTo}"/ -->
                             <set field="variantProductContext.productId" from-field="variantProduct.productIdTo"/>
                             <call-service service-name="checkImageUrlForProduct" in-map-name="variantProductContext">
@@ -219,7 +219,7 @@ under the License.
                             </call-service>
                             <if-not-empty field="filesImageMap">
                                 <if-not-empty field="filesImageMap.smallImageUrlMap.smallImageUrl">
-                                    <if-compare value="Y" field="filesImageMap.smallImageUrlMap.isExists" operator="equals">
+                                    <if-compare field="filesImageMap.smallImageUrlMap.isExists" operator="equals" value="Y">
                                         <field-to-list list="fileExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
                                     <else>
                                             <field-to-list list="fileNotExists" field="filesImageMap.smallImageUrlMap.smallImageUrl"/>
@@ -228,7 +228,7 @@ under the License.
                                 </if-not-empty>
 
                                 <if-not-empty field="filesImageMap.mediumImageUrlMap.mediumImageUrl">
-                                    <if-compare value="Y" field="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
+                                    <if-compare field="filesImageMap.mediumImageUrlMap.isExists" operator="equals" value="Y">
                                         <field-to-list list="fileExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
                                     <else>
                                         <field-to-list list="fileNotExists" field="filesImageMap.mediumImageUrlMap.mediumImageUrl"/>
@@ -237,7 +237,7 @@ under the License.
                                 </if-not-empty>
 
                                 <if-not-empty field="filesImageMap.largeImageUrlMap.largeImageUrl">
-                                    <if-compare value="Y" field="filesImageMap.largeImageUrlMap.isExists" operator="equals">
+                                    <if-compare field="filesImageMap.largeImageUrlMap.isExists" operator="equals" value="Y">
                                         <field-to-list list="fileExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
                                     <else>
                                         <field-to-list list="fileNotExists" field="filesImageMap.largeImageUrlMap.largeImageUrl"/>
@@ -246,7 +246,7 @@ under the License.
                                 </if-not-empty>
 
                                 <if-not-empty field="filesImageMap.detailImageUrlMap.detailImageUrl">
-                                    <if-compare value="Y" field="filesImageMap.detailImageUrl.isExists" operator="equals">
+                                    <if-compare field="filesImageMap.detailImageUrl.isExists" operator="equals" value="Y">
                                         <field-to-list list="fileExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
                                     <else>
                                         <field-to-list list="fileNotExists" field="filesImageMap.detailImageUrl.detailImageUrl"/>
@@ -279,7 +279,7 @@ under the License.
                 <set field="categoryImageUrlMap.categoryImageUrl" from-field="category.categoryImageUrl"/>
                 <set field="categoryImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="category.categoryImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -293,7 +293,7 @@ under the License.
                 <set field="linkOneImageUrlMap.linkOneImageUrl" from-field="category.linkOneImageUrl"/>
                 <set field="linkOneImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="category.linkOneImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -307,7 +307,7 @@ under the License.
                 <set field="linkTwoImageUrlMap.largeImageUrl" from-field="category.linkTwoImageUrl"/>
                 <set field="linkTwoImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="category.linkTwoImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -331,7 +331,7 @@ under the License.
                 <set field="smallImageUrlMap.smallImageUrl" from-field="product.smallImageUrl"/>
                 <set field="smallImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <log level="info" message="Update SmallImage for product Id ${parameters.productId}"/>
                     <clear-field field="product.smallImageUrl"></clear-field>
                 </if-compare>
@@ -346,7 +346,7 @@ under the License.
                 <set field="mediumImageUrlMap.mediumImageUrl" from-field="product.mediumImageUrl"/>
                 <set field="mediumImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="product.mediumImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -360,7 +360,7 @@ under the License.
                 <set field="largeImageUrlMap.largeImageUrl" from-field="product.largeImageUrl"/>
                 <set field="largeImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="product.largeImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -374,7 +374,7 @@ under the License.
                 <set field="detailImageUrlMap.detailImageUrl" from-field="product.detailImageUrl"/>
                 <set field="detailImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap"/>
-                <if-compare value="N" field="isExists" operator="equals">
+                <if-compare field="isExists" operator="equals" value="N">
                     <clear-field field="product.detailImageUrl"></clear-field>
                 </if-compare>
             </if-not-empty>
@@ -401,9 +401,9 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare value="true" field="httpFlag" operator="equals" type="Boolean"/>
-                    <if-compare value="true" field="httpsFlag" operator="equals" type="Boolean"/>
-                    <if-compare value="true" field="ftpFlag" operator="equals" type="Boolean"/>
+                    <if-compare field="httpFlag" operator="equals" value="true" type="Boolean"/>
+                    <if-compare field="httpsFlag" operator="equals" value="true" type="Boolean"/>
+                    <if-compare field="ftpFlag" operator="equals" value="true" type="Boolean"/>
                 </or>
             </condition>
             <then>
@@ -424,7 +424,7 @@ under the License.
             <set field="isExists" value="N"/>
         </else>
         </if-not-empty>
-        <field-to-result result-name="isExists" field="isExists"/>
+        <field-to-result field="isExists" result-name="isExists"/>
     </simple-method>
 
     <simple-method method-name="catalogPermissionCheck" short-description="Catalog permission logic">
@@ -444,22 +444,22 @@ under the License.
         <set field="categoriesUpdated" value="0" type="Integer"/>
         <set field="productsNotUpdated" value="0" type="Integer"/>
         <set field="productsUpdated" value="0" type="Integer"/>
-        <entity-and list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="false">
+        <entity-and entity-name="ProdCatalogCategory" list="prodCatalogCategoryList" filter-by-date="false">
             <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
         </entity-and>
 
         <!-- Get all categories -->
         <set field="parameters.productCategories" value="${groovy: []}" type="List"/>
-        <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
+        <iterate list="prodCatalogCategoryList" entry="prodCatalogCategory">
             <set field="rootProductCategoryId" from-field="prodCatalogCategory.productCategoryId"/>
-            <entity-and list="productCategoryRollupList" entity-name="ProductCategoryRollup" filter-by-date="true">
+            <entity-and entity-name="ProductCategoryRollup" list="productCategoryRollupList" filter-by-date="true">
                 <field-map field-name="parentProductCategoryId" from-field="rootProductCategoryId"/>
             </entity-and>
             <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
             <call-simple-method method-name="createMissingCategoryAltUrlInline"/>
         </iterate>
 
-        <iterate entry="productCategoryList" list="parameters.productCategories">
+        <iterate list="parameters.productCategories" entry="productCategoryList">
             <!-- Create Product Category Alternative URLs -->
             <if-empty field="category">
                 <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
@@ -523,7 +523,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
-                <iterate entry="productCategoryMember" list="productCategoryMemberList">
+                <iterate list="productCategoryMemberList" entry="productCategoryMember">
                     <set field="product.productId" from-field="productCategoryMember.productId"/>
                     <entity-condition list="ProductContentAndInfoList" entity-name="ProductContentAndInfo" filter-by-date="true" use-cache="true">
                         <condition-list combine="and">
@@ -577,10 +577,10 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createMissingCategoryAltUrlInline" short-description="create missing category alternative inline">
-        <entity-and list="productCategoryRollups" entity-name="ProductCategoryRollup" filter-by-date="true">
+        <entity-and entity-name="ProductCategoryRollup" list="productCategoryRollups" filter-by-date="true">
             <field-map field-name="parentProductCategoryId" from-field="parameters.parentProductCategoryId"/>
         </entity-and>
-        <iterate entry="productCategoryRollup" list="productCategoryRollups">
+        <iterate list="productCategoryRollups" entry="productCategoryRollup">
             <!-- append product category to list -->
             <entity-one value-field="productCategory" entity-name="ProductCategory">
                 <field-map field-name="productCategoryId" from-field="productCategoryRollup.productCategoryId"/>

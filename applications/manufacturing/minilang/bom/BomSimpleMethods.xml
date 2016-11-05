@@ -51,7 +51,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-and entity-name="ProductAssoc" map="lookupMap" list="assocs"/>
         <filter-list-by-date list="assocs"/>
-        <iterate entry="assoc" list="assocs">
+        <iterate list="assocs" entry="assoc">
             <set-service-fields service-name="createBOMAssoc" map="assoc" to-map="context"/>
             <set field="context.productId" from-field="parameters.copyToProductId"/>
             <call-service service-name="createBOMAssoc" in-map-name="context" break-on-error="false"/>
@@ -59,7 +59,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="eventEditBOM" short-description="Add, update, delete components in BOM">
-        <if-compare value="UPDATE" field="parameters.UPDATE_MODE" operator="equals">
+        <if-compare field="parameters.UPDATE_MODE" operator="equals" value="UPDATE">
             <set-service-fields service-name="updateProductAssoc" map="parameters" to-map="context"/>
             <call-map-processor xml-resource="component://manufacturing/minilang/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc"
@@ -68,7 +68,7 @@ under the License.
             <call-service service-name="updateProductAssoc" in-map-name="context"/>
             <check-errors/>
         </if-compare>
-        <if-compare value="CREATE" field="parameters.UPDATE_MODE" operator="equals">
+        <if-compare field="parameters.UPDATE_MODE" operator="equals" value="CREATE">
             <set-service-fields service-name="createBOMAssoc" map="parameters" to-map="context"/>
             <call-map-processor xml-resource="component://manufacturing/minilang/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc"
@@ -84,7 +84,7 @@ under the License.
             </if-not-empty>
             <!--<check-errors/>-->
         </if-compare>
-        <if-compare value="DELETE" field="parameters.UPDATE_MODE" operator="equals">
+        <if-compare field="parameters.UPDATE_MODE" operator="equals" value="DELETE">
             <set-service-fields service-name="deleteProductAssoc" map="parameters" to-map="context"/>
             <call-map-processor xml-resource="component://manufacturing/minilang/bom/BomMapProcs.xml"
                                 processor-name="prepareDeleteProductAssoc"
@@ -93,7 +93,7 @@ under the License.
             <call-service service-name="deleteProductAssoc" in-map-name="context"/>
             <check-errors/>
         </if-compare>
-        <if-compare value="COPY" field="parameters.UPDATE_MODE" operator="equals">
+        <if-compare field="parameters.UPDATE_MODE" operator="equals" value="COPY">
             <set-service-fields service-name="copyBOMAssocs" map="parameters" to-map="context"/>
             <call-service service-name="copyBOMAssocs" in-map-name="context"/>
             <check-errors/>

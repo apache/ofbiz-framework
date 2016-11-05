@@ -39,7 +39,7 @@ under the License.
         <create-value value-field="productContent"/>
         
         <!-- set thumbnail to product -->
-        <!--<entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
+        <!--<entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>

@@ -235,7 +235,7 @@ under the License.
         <find-by-primary-key value-field="emailAddressVerification" entity-name="EmailAddressVerification" map="lookupHash"/>
         <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
         <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
-        <entity-and list="webSites" entity-name="WebSite">
+        <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry="webSite" list="webSites"/>

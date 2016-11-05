@@ -78,7 +78,7 @@ under the License.
         <create-value value-field="rootInstanceContent"/>
 
         <log message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}" level="info"/>
-        <field-to-result result-name="contentId" field="rootInstanceContent.contentId"/>
+        <field-to-result field="rootInstanceContent.contentId" result-name="contentId"/>
         <set from-field="parameters.instanceOfContentId" field="parentTemplateContentId"/>
         <set from-field="rootInstanceContent.contentId" field="parentInstanceContentId"/>
         <log message="genCompDocInstance 4> parentTemplateContentId: ${parentTemplateContentId}" level="info"/>
@@ -665,7 +665,7 @@ under the License.
         <if-compare field="contentApproval.partyId" value="${partyId}" operator="equals">
             <set field="approvalPermExists" value="true"/>
             <log level="info" message="approvalPermExists: ${approvalPermExists}"/>
-            <field-to-result result-name="approvalPermExists" field="approvalPermExists"/>
+            <field-to-result field="approvalPermExists" result-name="approvalPermExists"/>
             <return/>
         </if-compare>
         <if-not-empty field="contentApproval.roleTypeId">

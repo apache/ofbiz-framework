@@ -204,7 +204,7 @@ under the License.
         </call-service>
         <field-to-result field="invoiceId" result-name="invoiceId"/>
         <field-to-request field="invoiceId" request-name="invoiceId"/>
-        <iterate entry="invoiceItem" list="invoiceItems">
+        <iterate list="invoiceItems" entry="invoiceItem">
             <set-service-fields service-name="createInvoiceItem" map="invoiceItem" to-map="createInvoiceItem"/>
             <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
             <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
@@ -650,7 +650,7 @@ under the License.
             <set field="removePaymentApplicationCtx.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
             <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationCtx"/>
         </iterate>
-        <field-to-result result-name="invoiceTypeId" field="invoice.invoiceTypeId"/>
+        <field-to-result field="invoice.invoiceTypeId" result-name="invoiceTypeId"/>
     </simple-method>
 
     <simple-method method-name="getInvoiceRunningTotal" short-description="calculate running total for Invoices">
@@ -698,7 +698,7 @@ under the License.
         <entity-and entity-name="InvoiceItemAssoc" list="invoiceItemAssocs">
             <field-map field-name="invoiceIdTo" from-field="parameters.invoiceId"/>
         </entity-and>
-        <iterate entry="invoiceItemAssoc" list="invoiceItemAssocs">
+        <iterate list="invoiceItemAssocs" entry="invoiceItemAssoc">
             <set-service-fields service-name="deleteInvoiceItemAssoc" map="invoiceItemAssoc" to-map="deleteInvoiceItemAssocMap"/>
             <call-service service-name="deleteInvoiceItemAssoc" in-map-name="deleteInvoiceItemAssocMap"/>
             <log level="info" message="Removed invoiceItemAssoc: ${invoiceItemAssoc}"/>
@@ -710,7 +710,7 @@ under the License.
         <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
             <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
         </entity-and>
-        <iterate entry="orderItemBilling" list="orderItemBillings">
+        <iterate list="orderItemBillings" entry="orderItemBilling">
             <set field="orderItemBilling.quantity" value="0" type="BigDecimal"/>
             <store-value value-field="orderItemBilling"/>
         </iterate>
@@ -718,7 +718,7 @@ under the License.
         <entity-and entity-name="OrderAdjustmentBilling" list="orderAdjustmentBillings">
             <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
         </entity-and>
-        <iterate entry="orderAdjustmentBilling" list="orderAdjustmentBillings">
+        <iterate list="orderAdjustmentBillings" entry="orderAdjustmentBilling">
             <set field="orderAdjustmentBilling.amount" value="0" type="BigDecimal"/>
             <store-value value-field="orderAdjustmentBilling"/>
         </iterate>
@@ -907,7 +907,7 @@ under the License.
             <property-to-field resource="accounting" property="create.invoice.per.shipment" field="invoicePerShipment"/>
         </if-empty>
         <if-compare operator="equals" value="N" field="invoicePerShipment">
-            <entity-and list="orderItemBilling" entity-name="OrderItemBilling">
+            <entity-and entity-name="OrderItemBilling" list="orderItemBilling">
                 <field-map field-name="orderId" from-field="parameters.orderId"/>
             </entity-and>
             <if-empty field="orderItemBilling">
@@ -920,7 +920,7 @@ under the License.
                     <field-map field-name="orderId" from-field="parameters.orderId"/>
                     <order-by field-name="orderItemSeqId"/>
                 </entity-and>
-                <iterate entry="orderItem" list="orderItems">
+                <iterate list="orderItems" entry="orderItem">
                     <entity-and list="checkOrderItem" entity-name="OrderItemBilling">
                         <field-map field-name="orderId" from-field="parameters.orderId"/>
                         <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
@@ -1005,7 +1005,7 @@ under the License.
         <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
             <result-to-field result-name="partyAccountingPreference"/>
         </call-service>
-        <if-compare-field to-field="partyAccountingPreference.baseCurrencyUomId" operator="equals" field="invoice.currencyUomId">
+        <if-compare-field field="invoice.currencyUomId" operator="equals" to-field="partyAccountingPreference.baseCurrencyUomId">>
             <set field="isForeign" value="false" type="Boolean"/>
             <else>
                 <set field="isForeign" value="true" type="Boolean"/>

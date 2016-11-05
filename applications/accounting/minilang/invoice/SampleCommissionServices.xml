@@ -31,7 +31,7 @@ under the License.
             <field-map field-name="partyRelationshipTypeId" value="SALES_AFFILIATE"/><!-- this constraint could be optional if not being set in company data -->
         </entity-and>
 
-        <iterate entry="affiliatePartyRelationship" list="affiliatePartyRelationshipList">
+        <iterate list="affiliatePartyRelationshipList" entry="affiliatePartyRelationship">
             <!-- calculate a commission for each commission partner, identified by affiliatePartyRelationship.partyIdTo -->
             <if>
                 <condition><if-compare field="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>

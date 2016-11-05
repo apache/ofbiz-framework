@@ -126,8 +126,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
-                    <field-map from-field="lookedUpValue.statusId" field-name="statusId"/>
-                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map field-name="statusId" from-field="lookedUpValue.statusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <string-to-list string="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." list="error_list"/>
@@ -340,7 +340,7 @@ under the License.
 
        <!-- The return shipment is created if the return contains one or more physical products -->
         <set field="isPhysicalProductAvailable" value="false" type="Boolean"/>
-        <iterate entry="returnItem" list="returnItems">
+        <iterate list="returnItems" entry="returnItem">
             <get-related-one value-field="returnItem" relation-name="Product" to-value-field="product"/>
             <if-not-empty field="product">
                 <call-class-method class-name="org.apache.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
@@ -360,7 +360,7 @@ under the License.
         <check-errors/>
         <log level="info" message="Created new shipment ${shipmentId}"/>
 
-        <iterate entry="returnItem" list="returnItems">
+        <iterate list="returnItems" entry="returnItem">
 
             <!-- Shipment items are created only for physical products -->
             <set field="isPhysicalProduct" value="false" type="Boolean"/>
@@ -405,7 +405,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list="returnItems">
             <condition-expr field-name="returnId" operator="equals" from-field="parameters.primaryReturnId"/>
         </entity-condition>
-        <iterate entry="returnItem" list="returnItems">
+        <iterate list="returnItems" entry="returnItem">
             <clear-field field="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -750,7 +750,7 @@ under the License.
             <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
         </entity-and>
 
-        <iterate entry="supplierAgentOrderRole" list="supplierAgentOrderRoles">
+        <iterate list="supplierAgentOrderRoles" entry="supplierAgentOrderRole">
             <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap[supplierAgentOrderRole.partyId]"/>
         </iterate>
 
@@ -761,7 +761,7 @@ under the License.
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </entity-and>
 
-            <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
+            <iterate list="sendToPartyPartyAndContactMechs" entry="sendToPartyPartyAndContactMech">
                 <string-append field="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>
@@ -852,7 +852,7 @@ under the License.
         </entity-and>
         <if-not-empty field="shipmentPackageContents">
             <add-error>
-                <fail-property property="ProductErrorShipmentItemCannotBeDeleted" resource="ProductErrorUiLabels"/>
+                <fail-property resource="ProductErrorUiLabels" property="ProductErrorShipmentItemCannotBeDeleted"/>
             </add-error>
             <check-errors/>
         <else>
@@ -894,7 +894,7 @@ under the License.
         </entity-and>
 
         <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
-        <iterate entry="itemOrderShipment" list="itemOrderShipmentList">
+        <iterate list="itemOrderShipmentList" entry="itemOrderShipment">
             <if-compare field="orderShipmentQuantityLeft" operator="greater" value="0" type="BigDecimal">
                 <if-compare-field field="itemOrderShipment.quantity" to-field="orderShipmentQuantityLeft" operator="greater" type="BigDecimal">
                     <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
@@ -996,7 +996,7 @@ under the License.
         </entity-and>
         <if-not-empty field="shipmentPackageContents">
             <add-error>
-                <fail-property property="ProductErrorShipmentPackageCannotBeDeleted" resource="ProductErrorUiLabels"/>
+                <fail-property resource="ProductErrorUiLabels" property="ProductErrorShipmentPackageCannotBeDeleted"/>
             </add-error>
             <check-errors/>
         <else>
@@ -1010,7 +1010,7 @@ under the License.
             <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
 
-        <iterate entry="shipmentRouteSegment" list="shipmentRouteSegments">
+        <iterate list="shipmentRouteSegments" entry="shipmentRouteSegment">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-field="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" from-field="shipmentId"/>
                 <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
@@ -1171,7 +1171,7 @@ under the License.
         <entity-and entity-name="ShipmentPackage" list="shipmentPackages">
             <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
-        <iterate entry="shipmentPackage" list="shipmentPackages">
+        <iterate list="shipmentPackages" entry="shipmentPackage">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-field="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" from-field="shipmentId"/>
                 <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegmentId"/>
@@ -1371,7 +1371,7 @@ under the License.
             <field-map field-name="orderId" from-field="parameters.orderId"/>
             <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
         </entity-and>
-        <iterate entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs">
+        <iterate list="orderItemShipGroupAssocs" entry="orderItemShipGroupAssoc">
             <get-related-one relation-name="OrderItem" value-field="orderItemShipGroupAssoc" to-value-field="orderItem"/>
 
             <!-- Set the item status to completed -->
@@ -1388,7 +1388,7 @@ under the License.
                 <field-map field-name="orderItemAssocTypeId" value="DROP_SHIPMENT"/>
             </entity-and>
             <if-not-empty field="orderItemAssocs">
-                <iterate entry="orderItemAssoc" list="orderItemAssocs">
+                <iterate list="orderItemAssocs" entry="orderItemAssoc">
                     <set field="itemStatusContext.orderId" from-field="orderItemAssoc.orderId"/>
                     <set field="itemStatusContext.orderItemSeqId" from-field="orderItemAssoc.orderItemSeqId"/>
                     <call-service service-name="changeOrderItemStatus" in-map-name="itemStatusContext"/>
@@ -1619,7 +1619,7 @@ under the License.
             </call-service>
             <entity-one entity-name="Shipment" value-field="shipment"/>
             <get-related value-field="orderHeader" relation-name="OrderItem" list="orderItems"/>
-            <iterate entry="orderItem" list="orderItems">
+            <iterate list="orderItems" entry="orderItem">
                 <entity-one entity-name="Product" value-field="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
                 </entity-one>
@@ -1654,7 +1654,7 @@ under the License.
         <set-pk-fields value-field="orderItemShipGrpInvResLookupPk" map="parameters"/>
         <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>
         <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>
-        <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">
+        <if-compare-field field="inventoryItem.serialNumber" operator="not-equals" to-field="parameters.serialNumber">
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
             <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
@@ -2009,7 +2009,7 @@ under the License.
         <entity-and entity-name="OrderShipment" list="orderShipmentList">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-and>
-        <iterate entry="orderShipment" list="orderShipmentList">
+        <iterate list="orderShipmentList" entry="orderShipment">
             <clear-field field="deleteOrderShipmentMap"/>
             <set-service-fields service-name="deleteOrderShipment" map="orderShipment" to-map="deleteOrderShipmentMap"/>
             <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
