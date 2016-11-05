@@ -66,6 +66,9 @@ under the License.
                                             </widgets>
                                         </section>
                                         <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
+                                        <container style="button-bar">
+                                            <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext create"/>
+                                        </container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -130,16 +133,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <not><if-empty field="agreement"/></not>
-                            </condition>
-                            <widgets>
-                                <container style="button-bar">
-                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext create"/>
-                                </container>
-                            </widgets>
-                        </section>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreement}">
                             <include-form name="EditAgreement" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>

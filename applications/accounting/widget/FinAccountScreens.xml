@@ -58,6 +58,9 @@ under the License.
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </widgets>
                         </section>
+                        <container style="button-bar">
+                            <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext create"/>
+                        </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -128,9 +131,6 @@ under the License.
                                 <not><if-empty field="finAccountId"/></not>
                             </condition>
                             <widgets>
-                                <container style="button-bar">
-                                    <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext create"/>
-                                </container>
                                 <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"></label>
                                 <screenlet id="EditFinAccountPanel" collapsible="true">
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>

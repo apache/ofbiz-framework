@@ -38,6 +38,7 @@
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
+                        <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create"/></container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -123,9 +124,6 @@
                             <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create">
-                                        <parameter param-name="fixedAssetId"/>
-                                    </link>
                                     <link target="printFixedAssetMaint.pdf" target-window="_blank" text="${uiLabelMap.CommonPrint}" style="buttontext">
                                         <parameter param-name="fixedAssetId"/>
                                         <parameter param-name="maintHistSeqId"/>
