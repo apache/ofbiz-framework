@@ -24,7 +24,7 @@ under the License.
     <!-- create a new Budget header record -->
     <simple-method method-name="createBudget" short-description="Create an Budget">
           <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="Budget"/>
+        <make-value entity-name="Budget" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID if not supplied -->

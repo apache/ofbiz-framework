@@ -45,9 +45,9 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+                <option key="${uiLabelMap.EcommerceTextOnly}" description="TEMPLATE_TEXT_ONLY"/>
+                <option key="${uiLabelMap.EcommerceImageCenteredAbove}" description="TEMPLATE_IMAGE_CENTERED"/>
+                <option key="${uiLabelMap.EcommerceImageLeft}" description="TEMPLATE_IMAGE_LEFT"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
@@ -74,9 +74,9 @@ under the License.
         <field name="textData" title="${uiLabelMap.ProductText}" id-name="textData"><textarea rows="20" cols="60"/></field>
         <field name="privilegeEnumId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <option key="SUBSCRIBE_BRONZE" description="${uiLabelMap.EcommerceBronze}"/>
-                <option key="SUBSCRIBE_SILVER" description="${uiLabelMap.EcommerceSilver}"/>
-                <option key="SUBSCRIBE_GOLD" description="${uiLabelMap.EcommerceGold}"/>
+                <option key="${uiLabelMap.EcommerceBronze}" description="SUBSCRIBE_BRONZE"/>
+                <option key="${uiLabelMap.EcommerceSilver}" description="SUBSCRIBE_SILVER"/>
+                <option key="${uiLabelMap.EcommerceGold}" description="SUBSCRIBE_GOLD"/>
             </drop-down>
         </field>
         <field name="section" >
@@ -227,9 +227,9 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+                <option key="${uiLabelMap.EcommerceTextOnly}" description="TEMPLATE_TEXT_ONLY"/>
+                <option key="${uiLabelMap.EcommerceImageCenteredAbove}" description="TEMPLATE_IMAGE_CENTERED"/>
+                <option key="${uiLabelMap.EcommerceImageLeft}" description="TEMPLATE_IMAGE_LEFT"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
@@ -339,11 +339,11 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED_FILE" description="${uiLabelMap.EcommerceImageCenteredAboveFile}"/>
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
-                <option key="TEMPLATE_COMPOSITE" description="${uiLabelMap.EcommerceNestedContent}"/>
+                <option key="${uiLabelMap.EcommerceTextOnly}" description="TEMPLATE_TEXT_ONLY"/>
+                <option key="${uiLabelMap.EcommerceImageCenteredAbove}" description="TEMPLATE_IMAGE_CENTERED"/>
+                <option key="${uiLabelMap.EcommerceImageCenteredAboveFile}" description="TEMPLATE_IMAGE_CENTERED_FILE"/>
+                <option key="${uiLabelMap.EcommerceImageLeft}" description="TEMPLATE_IMAGE_LEFT"/>
+                <option key="${uiLabelMap.EcommerceNestedContent}" description="TEMPLATE_COMPOSITE"/>
             </drop-down>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
@@ -459,9 +459,9 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+                <option key="${uiLabelMap.EcommerceTextOnly}" description="TEMPLATE_TEXT_ONLY"/>
+                <option key="${uiLabelMap.EcommerceImageCenteredAbove}" description="TEMPLATE_IMAGE_CENTERED"/>
+                <option key="${uiLabelMap.EcommerceImageLeft}" description="TEMPLATE_IMAGE_LEFT"/>
             </drop-down>
         </field>
         <field name="contentId" position="1">

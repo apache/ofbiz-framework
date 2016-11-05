@@ -827,7 +827,7 @@ under the License.
     </request-map>
     <request-map uri="deleteFacilityContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteFacilityContent" type="service"/>
+        <event type="service" invoke="deleteFacilityContent"/>
         <response name="success" type="request-redirect" value="EditFacilityContent">
             <redirect-parameter name="facilityId"/>
         </response>

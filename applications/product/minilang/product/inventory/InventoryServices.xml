@@ -158,14 +158,14 @@ under the License.
                       <field-map field-name="lotId" from-field="parameters.lotId" />
                   </entity-and>
                   <if-empty field="lotList">
-                      <make-value value-field="lot" entity-name="Lot"/>
+                      <make-value entity-name="Lot" value-field="lot"/>
                       <set field="lot.lotId" from-field="parameters.lotId"/>
                       <create-value value-field="lot"/>
                   </if-empty>
               </if-not-empty>
           </if-compare>
           
-        <make-value value-field="inventoryItem" entity-name="InventoryItem"/>
+        <make-value entity-name="InventoryItem" value-field="inventoryItem"/>
         <!-- TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed -->
         <set-nonpk-fields map="parameters" value-field="inventoryItem"/>
 
@@ -308,7 +308,7 @@ under the License.
                   <field-map field-name="lotId" from-field="parameters.lotId" />
             </entity-and>
             <if-empty field="lotList">
-                <make-value value-field="lot" entity-name="Lot"/>
+                <make-value entity-name="Lot" value-field="lot"/>
                 <set field="lot.lotId" from-field="parameters.lotId"/>
                 <create-value value-field="lot"/>
             </if-empty>
@@ -339,7 +339,7 @@ under the License.
             <store-value value-field="oldInventoryItemStatus"/>
         </if-not-empty>
 
-        <make-value value-field="inventoryItemStatus" entity-name="InventoryItemStatus"/>
+        <make-value entity-name="InventoryItemStatus" value-field="inventoryItemStatus"/>
         <set-nonpk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set-pk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set field="inventoryItemStatus.statusDatetime" from-field="nowTimestamp"/>
@@ -355,7 +355,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemDetail" short-description="Create an InventoryItemDetail">
-        <make-value value-field="newEntity" entity-name="InventoryItemDetail"/>
+        <make-value entity-name="InventoryItemDetail" value-field="newEntity"/>
 
         <set from-field="parameters.inventoryItemId" field="newEntity.inventoryItemId"/>
         <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-field="newEntity" increment-by="1" numeric-padding="4"/> -->
@@ -548,7 +548,7 @@ under the License.
     <simple-method method-name="createInventoryItemVariance" short-description="Create an InventoryItemVariance">
 
         <!-- add changes to availableToPromise and quantityOnHand -->
-        <make-value value-field="inventoryItemLookup" entity-name="InventoryItem"/>
+        <make-value entity-name="InventoryItem" value-field="inventoryItemLookup"/>
         <set-pk-fields map="parameters" value-field="inventoryItemLookup"/>
         <find-by-primary-key map="inventoryItemLookup" value-field="inventoryItem"/>
 
@@ -566,7 +566,7 @@ under the License.
         <set from-field="parameters.comments" field="createDetailMap.description"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
-        <make-value value-field="newEntity" entity-name="InventoryItemVariance"/>
+        <make-value entity-name="InventoryItemVariance" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -899,7 +899,7 @@ under the License.
     <!-- Inventory Transfer Services -->
     <simple-method method-name="createInventoryTransfer" short-description="Create an Inventory Transfer">
 
-        <make-value value-field="newEntity" entity-name="InventoryTransfer"/>
+        <make-value entity-name="InventoryTransfer" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="InventoryTransfer" field="newEntity.inventoryTransferId"/>
         <field-to-result field="newEntity.inventoryTransferId" result-name="inventoryTransferId"/>

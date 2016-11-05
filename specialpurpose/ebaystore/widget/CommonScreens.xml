@@ -130,7 +130,7 @@
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbaySellingManagerTabBar"/>
+                                <include-menu name="EbaySellingManagerTabBar" location="component://ebaystore/widget/EbayStoreMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -149,7 +149,7 @@
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayAccountTabBar"/>
+                                <include-menu name="EbayAccountTabBar" location="component://ebaystore/widget/EbayStoreMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>

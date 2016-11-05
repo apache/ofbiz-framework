@@ -137,7 +137,7 @@ under the License.
             </call-service>
 
             <now field="nowTimestamp"/>
-            <make-value value-field="partyGeoPoint" entity-name="PartyGeoPoint"/>
+            <make-value entity-name="PartyGeoPoint" value-field="partyGeoPoint"/>
             <set field="partyGeoPoint.partyId" from-field="parameters.partyId"/>
             <set field="partyGeoPoint.geoPointId" from-field="geoPointId"/>
             <set field="partyGeoPoint.fromDate" from-field="nowTimestamp"/>

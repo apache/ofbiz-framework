@@ -78,7 +78,7 @@ under the License.
             <set field="parameters.needsInventoryReceive" value="N"/>
         </if-empty>
 
-        <make-value value-field="newEntity" entity-name="ReturnHeader"/>
+        <make-value entity-name="ReturnHeader" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
@@ -314,7 +314,7 @@ under the License.
 
         <!-- if an orderItemSeqId is provided, then find the corresponding orderItem  -->
         <if-not-empty field="parameters.orderItemSeqId">
-            <make-value value-field="itemLookup" entity-name="OrderItem"/>
+            <make-value entity-name="OrderItem" value-field="itemLookup"/>
             <set-pk-fields map="parameters" value-field="itemLookup"/>
             <if-not-empty field="parameters.orderItemSeqId">
                 <find-by-primary-key entity-name="OrderItem" value-field="orderItem" map="itemLookup"/>
@@ -377,7 +377,7 @@ under the License.
             </else>
         </if-compare>
 
-        <make-value value-field="newEntity" entity-name="ReturnItem"/>
+        <make-value entity-name="ReturnItem" value-field="newEntity"/>
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
         <make-next-seq-id seq-field-name="returnItemSeqId" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -491,7 +491,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="ReturnAdjustment"/>
+        <make-value entity-name="ReturnAdjustment" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="ReturnAdjustment" field="newEntity.returnAdjustmentId"/>
         <field-to-result field="newEntity.returnAdjustmentId" result-name="returnAdjustmentId"/>

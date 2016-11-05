@@ -32,10 +32,10 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="extInfo" event="onClick" action="javascript:$('#ListParty' + this.value +'_body').toggle(true);collapseFindPartyOptions('ListParty' + this.value +'_body');" title="${uiLabelMap.PartyContactInformation}">
             <radio>
-                <option key="N" description="${uiLabelMap.CommonNone}"/>
-                <option key="P" description="${uiLabelMap.PartyPostal}"/>
-                <option key="T" description="${uiLabelMap.PartyTelecom}"/>
-                <option key="O" description="${uiLabelMap.CommonOther}"/>
+                <option key="${uiLabelMap.CommonNone}" description="N"/>
+                <option key="${uiLabelMap.PartyPostal}" description="P"/>
+                <option key="${uiLabelMap.PartyTelecom}" description="T"/>
+                <option key="${uiLabelMap.CommonOther}" description="O"/>
             </radio>
         </field>
         <field name="hideFields"><hidden value="Y"/></field>
@@ -197,17 +197,17 @@ under the License.
         <field name="lastName" title="${uiLabelMap.PartyLastName}" required-field="true"><text size="40" maxlength="60"/></field>
         <field name="gender">
             <drop-down allow-empty="true">
-                <option key="M" description="${uiLabelMap.CommonMale}"/>
-                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+                <option key="${uiLabelMap.CommonMale}" description="M"/>
+                <option key="${uiLabelMap.CommonFemale}" description="F"/>
             </drop-down>
         </field>
         <field name="maritalStatus">
             <drop-down allow-empty="true">
-                <option key="S" description="${uiLabelMap.PartyMaritalStatusSingle}"/>
-                <option key="M" description="${uiLabelMap.PartyMaritalStatusMarried}"/>
-                <option key="P" description="${uiLabelMap.PartyMaritalStatusSeparated}"/>
-                <option key="D" description="${uiLabelMap.PartyMaritalStatusDivorced}"/>
-                <option key="W" description="${uiLabelMap.PartyMaritalStatusWidowed}"/>
+                <option key="${uiLabelMap.PartyMaritalStatusSingle}" description="S"/>
+                <option key="${uiLabelMap.PartyMaritalStatusMarried}" description="M"/>
+                <option key="${uiLabelMap.PartyMaritalStatusSeparated}" description="P"/>
+                <option key="${uiLabelMap.PartyMaritalStatusDivorced}" description="D"/>
+                <option key="${uiLabelMap.PartyMaritalStatusWidowed}" description="W"/>
             </drop-down>
         </field>
         <field name="employmentStatusEnumId">
@@ -227,7 +227,7 @@ under the License.
             </drop-down>
         </field>
         <field name="existingCustomer">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="preferredCurrencyUomId">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
@@ -352,7 +352,7 @@ under the License.
         <field name="currentPassword"><password/></field>
         <field name="currentPasswordVerify"><password/></field>
         <field name="requirePasswordChange">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="backHome" also-hidden="false"/></field>
@@ -479,10 +479,10 @@ under the License.
         </field>
         <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="isExempt">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="isNexus">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
@@ -510,10 +510,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="isExempt">
-            <drop-down allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="isNexus">
-            <drop-down allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
     </form>
 
@@ -620,35 +620,35 @@ under the License.
             </drop-down>
         </field>
         <field name="USER_ADDRESS_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowAddressSolicitation}?">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="HomePhoneTitle" title="${uiLabelMap.PartyHomePhone}" title-area-style="group-label" widget-style="tooltip"><display description="${uiLabelMap.PartyPhoneNumberRequired}" also-hidden="false"/></field>
         <field name="USER_HOME_COUNTRY" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_HOME_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_HOME_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="USER_HOME_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
-        <field name="USER_HOME_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="USER_HOME_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down></field>
         <field name="WorkPhoneTitle" title="${uiLabelMap.PartyContactWorkPhoneNumber}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="USER_WORK_COUNTRY" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_WORK_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_WORK_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="USER_WORK_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
-        <field name="USER_WORK_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="USER_WORK_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down></field>
         <field name="FaxPhoneTitle" title="${uiLabelMap.PartyContactFaxPhoneNumber}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="USER_FAX_COUNTRY" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_FAX_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_FAX_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="USER_FAX_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
-        <field name="USER_FAX_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="USER_FAX_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down></field>
         <field name="MobilePhoneTitle" title="${uiLabelMap.PartyContactMobilePhoneNumber}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="USER_MOBILE_COUNTRY" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_MOBILE_AREA" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="USER_MOBILE_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
-        <field name="USER_MOBILE_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="USER_MOBILE_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down></field>
         <field name="EmailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
         <field use-when="require_email==null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
-        <field name="USER_EMAIL_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="USER_EMAIL_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down></field>
         <!-- <field name="USER_ORDER_EMAIL" title="Order Emails (comma separated)" ><text size="60" maxlength="250"/></field> -->
         <field use-when="displayPassword=='Y'" name="USERNAME" title="${uiLabelMap.CommonUsername}" required-field="true"><text size="30" maxlength="250"/></field>
         <field use-when="displayPassword=='Y'" name="PASSWORD" title="${uiLabelMap.CommonPassword}" required-field="true"><password size="15" maxlength="250"/></field>
@@ -812,8 +812,8 @@ under the License.
         </field>
         <field name="isPublic" title="${uiLabelMap.PartyIsPublic}" map-name="dataResource">
             <drop-down no-current-selected-key="N">
-                <option key="N" description="${uiLabelMap.CommonNo}"/>
-                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="${uiLabelMap.CommonYes}" description="Y"/>
             </drop-down>
         </field>
         <field name="createButton" use-when="content==null"><submit button-type="button"/></field>

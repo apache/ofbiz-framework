@@ -24,18 +24,18 @@ under the License.
     <form name="BaseSummaryOptions" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="month" title="${uiLabelMap.CommonMonth}" required-field="true">
             <drop-down allow-empty="false">
-                <option key="01" description="${uiLabelMap.CommonJanuary}"/>
-                <option key="02" description="${uiLabelMap.CommonFebruary}"/>
-                <option key="03" description="${uiLabelMap.CommonMarch}"/>
-                <option key="04" description="${uiLabelMap.CommonApril}"/>
-                <option key="05" description="${uiLabelMap.CommonMay}"/>
-                <option key="06" description="${uiLabelMap.CommonJune}"/>
-                <option key="07" description="${uiLabelMap.CommonJuly}"/>
-                <option key="08" description="${uiLabelMap.CommonAugust}"/>
-                <option key="09" description="${uiLabelMap.CommonSeptember}"/>
-                <option key="10" description="${uiLabelMap.CommonOctober}"/>
-                <option key="11" description="${uiLabelMap.CommonNovember}"/>
-                <option key="12" description="${uiLabelMap.CommonDecember}"/>
+                <option key="${uiLabelMap.CommonJanuary}" description="01"/>
+                <option key="${uiLabelMap.CommonFebruary}" description="02"/>
+                <option key="${uiLabelMap.CommonMarch}" description="03"/>
+                <option key="${uiLabelMap.CommonApril}" description="04"/>
+                <option key="${uiLabelMap.CommonMay}" description="05"/>
+                <option key="${uiLabelMap.CommonJune}" description="06"/>
+                <option key="${uiLabelMap.CommonJuly}" description="07"/>
+                <option key="${uiLabelMap.CommonAugust}" description="08"/>
+                <option key="${uiLabelMap.CommonSeptember}" description="09"/>
+                <option key="${uiLabelMap.CommonOctober}" description="10"/>
+                <option key="${uiLabelMap.CommonNovember}" description="11"/>
+                <option key="${uiLabelMap.CommonDecember}" description="12"/>
             </drop-down>
         </field>
         <field name="year" title="${uiLabelMap.CommonYear}" required-field="true"><text size="4"/></field>
@@ -503,9 +503,9 @@ under the License.
         </field>
         <field name="isPosted">
             <drop-down>
-                <option description="${uiLabelMap.CommonYes}" key="Y"/>
-                <option description="${uiLabelMap.CommonNo}" key="N"/>
-                <option description="${uiLabelMap.CommonAll}" key="ALL"/>
+                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="${uiLabelMap.CommonAll}" description="ALL"/>
             </drop-down>
         </field>
         <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>

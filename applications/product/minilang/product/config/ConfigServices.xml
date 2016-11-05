@@ -23,7 +23,7 @@ under the License.
     <!-- ProductConfig methods -->
     <!-- Methods for Config Options -->
     <simple-method method-name="createProductConfigOption" short-description="Create a Config Option">
-        <check-permission action="_CREATE" permission="CATALOG">
+        <check-permission permission="CATALOG" action ="_CREATE">
             <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>

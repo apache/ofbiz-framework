@@ -112,7 +112,7 @@ under the License.
         </if>
         <check-errors/>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="Quote"/>
+        <make-value entity-name="Quote" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusId">
             <set value="QUO_CREATED" field="newEntity.statusId"/>
@@ -298,12 +298,12 @@ under the License.
                 <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
             </check-permission>
             <check-errors/>
-            <make-value value-field="partyRole" entity-name="PartyRole"/>
+            <make-value entity-name="PartyRole" value-field="partyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
             <create-value value-field="partyRole"/>
         </if-empty>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="QuoteRole"/>
+        <make-value entity-name="QuoteRole" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <property-to-field resource="OrderUiLabels" property="OrderOrderQuoteRoleAddedSuccessfully" field="successMessage"/>
@@ -342,7 +342,7 @@ under the License.
 
         <check-errors/>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="QuoteItem"/>
+        <make-value entity-name="QuoteItem" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <set from-field="parameters.quoteId" field="newEntity.quoteId"/>
@@ -487,7 +487,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="QuoteAttribute"/>
+        <make-value entity-name="QuoteAttribute" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -526,7 +526,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="QuoteCoefficient"/>
+        <make-value entity-name="QuoteCoefficient" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -574,8 +574,8 @@ under the License.
         </if-empty>
         <check-errors/>
         <!-- create new entity and create all the fields -->
-        <make-value value-field="newQuote" entity-name="Quote"/>
-        <make-value value-field="newQuoteItem" entity-name="QuoteItem"/>
+        <make-value entity-name="Quote" value-field="newQuote"/>
+        <make-value entity-name="QuoteItem" value-field="newQuoteItem"/>
         <set-nonpk-fields map="parameters" value-field="newQuote"/>
         <set-nonpk-fields map="parameters" value-field="newQuoteItem"/>
         <if-empty field="newQuote.statusId">
@@ -601,7 +601,7 @@ under the License.
         <create-value value-field="newQuote"/>
         <create-value value-field="newQuoteItem"/>
         <!-- copy the roles from the request to the quote-->
-        <make-value value-field="lookupRequestRole" entity-name="CustRequestParty"/>
+        <make-value entity-name="CustRequestParty" value-field="lookupRequestRole"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
         <find-by-and entity-name="CustRequestParty" map="lookupRequestRole" list="roles"/>
         <iterate list="roles" entry="role">
@@ -731,7 +731,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="QuoteAdjustment"/>
+        <make-value entity-name="QuoteAdjustment" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="QuoteAdjustment" field="quoteAdjustmentId"/>
@@ -983,7 +983,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createQuoteTerm" short-description="Create a QuoteTerm">
-        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <make-value entity-name="QuoteTerm" value-field="newEntity"/>
         <if-empty field="parameters.quoteItemSeqId">
             <set field="parameters.quoteItemSeqId" value="_NA_"/>
         </if-empty>
@@ -992,13 +992,13 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateQuoteTerm" short-description="Update a QuoteTerm">
-        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <make-value entity-name="QuoteTerm" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <store-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteQuoteTerm" short-description="Delete a QuoteTerm">
-        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <make-value entity-name="QuoteTerm" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <remove-value value-field="newEntity"/>
     </simple-method>
@@ -1015,7 +1015,7 @@ under the License.
            </add-error>
        </if-empty>
        <check-errors/>
-       <make-value value-field="newQuoteNote" entity-name="QuoteNote"/>
+       <make-value entity-name="QuoteNote" value-field="newQuoteNote"/>
        <set field="newQuoteNote.quoteId" from-field="parameters.quoteId"/>
        <set field="newQuoteNote.noteId" from-field="noteId"/>
        <create-value value-field="newQuoteNote"/>

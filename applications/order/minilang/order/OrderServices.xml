@@ -507,7 +507,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="OrderHeader"/>
+        <make-value entity-name="OrderHeader" value-field="newEntity"/>
         
         <if-not-empty field="parameters.orderId">
             <set field="newEntity.orderId" from-field="parameters.orderId"/>
@@ -606,7 +606,7 @@ under the License.
             <if-empty field="orderItemSeqId">
                 <!-- this is a new (promo) item -->
                 <!-- a new order item is created -->
-                <make-value value-field="newOrderItem" entity-name="OrderItem"/>
+                <make-value entity-name="OrderItem" value-field="newOrderItem"/>
                 <set field="newOrderItem.orderId" from-field="parameters.orderId"/>
                 <call-object-method obj-field="item" method-name="getItemType" ret-field="newOrderItem.orderItemTypeId"/>
                 <call-object-method obj-field="item" method-name="getSelectedAmount" ret-field="newOrderItem.selectedAmount"/>
@@ -679,7 +679,7 @@ under the License.
            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderContactMech"/>
         </check-permission>
         <check-errors/>
-        <make-value value-field="orderContactMechMap" entity-name="OrderContactMech"/>
+        <make-value entity-name="OrderContactMech" value-field="orderContactMechMap"/>
         <set-pk-fields map="parameters" value-field="orderContactMechMap"/>
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
@@ -722,7 +722,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderItemShipGroup"/>
         </check-permission>
         <check-errors/>
-        <make-value value-field="lookupPKMap" entity-name="OrderItemShipGroup"/>
+        <make-value entity-name="OrderItemShipGroup" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="OrderItemShipGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <!-- splitting shipmentMethod request parameter value that contains "@" symbol
@@ -835,7 +835,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
-        <make-value value-field="newEntity" entity-name="OrderItemChange"/>
+        <make-value entity-name="OrderItemChange" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.changeDatetime">
             <now-timestamp field="nowTimestamp"/>
@@ -1185,7 +1185,7 @@ under the License.
                                                                 <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
                                                             </condition>
                                                             <then>
-                                                                <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                                                                <make-value entity-name="SupplierProduct" value-field="newSupplierProduct"/>
                                                                 <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
                                                                 <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
                                                                 <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice"/>
@@ -1217,7 +1217,7 @@ under the License.
                                         <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
                                     </condition>
                                     <then>
-                                        <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                                        <make-value entity-name="SupplierProduct" value-field="newSupplierProduct"/>
                                         <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
                                         <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
                                         <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice" type="BigDecimal"/>

@@ -111,8 +111,8 @@ under the License.
         <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
         <field name="gender">
             <drop-down allow-empty="true">
-                <option key="M" description="${uiLabelMap.CommonMale}"/>
-                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+                <option key="${uiLabelMap.CommonMale}" description="M"/>
+                <option key="${uiLabelMap.CommonFemale}" description="F"/>
             </drop-down>
         </field>
         <field name="currentPassword"><password/></field>

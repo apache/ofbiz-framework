@@ -75,7 +75,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
+                                <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -89,7 +89,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
+                                        <include-menu name="ProfileSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                         <container style="clear"/>
                                         <container style="page-title">
                                             <section>

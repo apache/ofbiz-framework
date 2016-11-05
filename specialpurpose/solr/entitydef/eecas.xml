@@ -37,15 +37,15 @@ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
     <eca entity="ProductPrice" operation="create-store-remove" event="return">
-        <condition operator="equals" field-name="productPriceTypeId" value="LIST_PRICE"/>
+        <condition field-name="productPriceTypeId" operator="equals" value="LIST_PRICE"/>
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
     <eca entity="ProductPrice" operation="create-store-remove" event="return">
-        <condition operator="equals" field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+        <condition field-name="productPriceTypeId" operator="equals" value="DEFAULT_PRICE"/>
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
     <eca entity="ProductPrice" operation="create-store-remove" event="return">
-        <condition operator="equals" field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+        <condition field-name="productPriceTypeId" operator="equals" value="DEFAULT_PRICE"/>
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
      -->

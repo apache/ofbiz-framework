@@ -101,7 +101,7 @@
             <store-value value-field="emplPositionTypeRate"/>
         </if-not-empty>
 
-        <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
+        <make-value entity-name="EmplPositionTypeRate" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

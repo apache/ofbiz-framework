@@ -53,7 +53,7 @@ under the License.
     <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
         <entity-condition entity-name="FixedAssetMaintMeter" list="maintMeterList"/>
         <iterate list="maintMeterList" entry="maintMeter">
-            <make-value value-field="newEntity" entity-name="FixedAssetMeter"/>
+            <make-value entity-name="FixedAssetMeter" value-field="newEntity"/>
             <set-pk-fields map="maintMeter" value-field="newEntity"/>
             <set-nonpk-fields map="maintMeter" value-field="newEntity"/>
             <set field="newEntity.readingDate" from-field="maintMeter.createdStamp"/>
@@ -72,7 +72,7 @@ under the License.
     <simple-method method-name="migrateAgreementWorkEffortAppl" short-description="Copy AgreementWorkEffortAppl To AgreementWorkEffortApplic">
         <entity-condition entity-name="OldAgreementWorkEffortAppl" list="agreementWorkEffortApplList"/>
         <iterate list="agreementWorkEffortApplList" entry="agreementWorkEffortAppl">
-            <make-value value-field="newEntity" entity-name="AgreementWorkEffortApplic"/>
+            <make-value entity-name="AgreementWorkEffortApplic" value-field="newEntity"/>
             <set-pk-fields map="agreementWorkEffortAppl" value-field="newEntity"/>
             <create-value value-field="newEntity"/>
             <check-errors/>
