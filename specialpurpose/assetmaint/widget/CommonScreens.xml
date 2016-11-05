@@ -72,6 +72,7 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
+                                        <container style="button-bar"><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/></container>
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
