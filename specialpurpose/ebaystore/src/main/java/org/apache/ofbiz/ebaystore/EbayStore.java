@@ -868,7 +868,7 @@ public class EbayStore {
                 inMap.put("userLogin", context.get("userLogin"));
                 dispatcher.runSync("updateProductStore", inMap);
             }
-        } catch (Exception e) {
+        } catch (GenericServiceException e) {
             Debug.logError("error message"+e, module);
         }
     }
@@ -1649,7 +1649,11 @@ public class EbayStore {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
                 result.put(ModelService.ERROR_MESSAGE_LIST, ProductsExportToEbay.getproductExportFailureMessageList());
             }
-        }catch (Exception e) {
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(gse.getMessage());
+        } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
@@ -2470,7 +2474,7 @@ public class EbayStore {
             if(UtilValidate.isNotEmpty(product)) {
                 checkResult = true;
             }
-        } catch(Exception e) {
+        } catch(GenericEntityException e) {
             return false;
         }
         return checkResult;

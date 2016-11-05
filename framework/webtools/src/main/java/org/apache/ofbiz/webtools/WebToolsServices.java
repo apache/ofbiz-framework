@@ -86,6 +86,7 @@ import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.apache.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
@@ -193,6 +194,8 @@ public class WebToolsServices {
                     Long numberRead = (Long)outputMap.get("rowProcessed");
                     messages.add(UtilProperties.getMessage(resource, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
                 }
+            } catch (GenericServiceException gsex) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", gsex.getMessage()), locale));
             } catch (Exception ex) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.getMessage()), locale));
             }

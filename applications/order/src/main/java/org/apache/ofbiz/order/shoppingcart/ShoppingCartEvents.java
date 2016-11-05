@@ -1469,7 +1469,7 @@ public class ShoppingCartEvents {
             orderAdjustments = cart.getAdjustments();
             try {
                 orderAdjustmentList = EntityQuery.use(delegator).from("OrderAdjustment").where("orderId", orderId).queryList();
-            } catch (Exception e) {
+            } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
             for (long itr = 1; itr <= groupIndex; itr++) {

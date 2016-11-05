@@ -147,7 +147,7 @@ public class ProductEvents {
         } catch (GenericEntityException e) {
             try {
                 TransactionUtil.rollback(beganTx, e.getMessage(), e);
-            } catch (Exception e1) {
+            } catch (GenericTransactionException e1) {
                 Debug.logError(e1, module);
             }
             return "error";
@@ -156,7 +156,7 @@ public class ProductEvents {
             request.setAttribute("_ERROR_MESSAGE_", t.getMessage());
             try {
                 TransactionUtil.rollback(beganTx, t.getMessage(), t);
-            } catch (Exception e2) {
+            } catch (GenericTransactionException e2) {
                 Debug.logError(e2, module);
             }
             return "error";
@@ -172,7 +172,7 @@ public class ProductEvents {
             // commit the transaction
             try {
                 TransactionUtil.commit(beganTx);
-            } catch (Exception e) {
+            } catch (GenericTransactionException e) {
                 Debug.logError(e, module);
             }
         }

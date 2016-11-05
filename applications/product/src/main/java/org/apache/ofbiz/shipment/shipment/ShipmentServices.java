@@ -177,8 +177,7 @@ public class ShipmentServices {
                             estimate.set(breakType + "UomId", context.get(prefix + "uom"));
                         }
                         storeAll.add(0, weightBreak);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         Debug.logError(e, module);
                     }
                 }
@@ -1175,6 +1174,9 @@ public class ShipmentServices {
         Map<String, Object> sendResp = null;
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
+        } catch (GenericServiceException gse) {
+            Debug.logError(gse, "Problem sending mail", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", localePar));
         } catch (Exception e) {
             Debug.logError(e, "Problem sending mail", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", localePar));
@@ -1228,6 +1230,10 @@ public class ShipmentServices {
                         "ProductStoreShipmentMethodNotFound", 
                         UtilMisc.toMap("shipmentId", shipmentId), locale));
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "FacilityShipmentGatewayConfigFromShipmentError", 
+                    UtilMisc.toMap("errorString", gee.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "FacilityShipmentGatewayConfigFromShipmentError", 

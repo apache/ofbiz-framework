@@ -211,6 +211,8 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
+        } catch (GenericEntityException gee) {
+        	return ServiceUtil.returnError(gee.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreProblemConnectingToEbaySite", locale) + e);
         }
@@ -371,7 +373,7 @@ public class EbayStoreAutoPreferences {
 
                             try {
                                 dispatcher.runAsync("sendMailFromScreen", sendMap);
-                            } catch (Exception e) {
+                            } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
@@ -494,6 +496,10 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(gse.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -565,6 +571,10 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(gse.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -636,6 +646,10 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(gse.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -704,7 +718,7 @@ public class EbayStoreAutoPreferences {
 
                             try {
                                 dispatcher.runAsync("sendMailFromScreen", sendMap);
-                            } catch (Exception e) {
+                            } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
@@ -872,6 +886,8 @@ public class EbayStoreAutoPreferences {
                 }
             }
             result = ServiceUtil.returnSuccess();
+        } catch (GenericEntityException e) {
+            result = ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
             result = ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
@@ -958,7 +974,7 @@ public class EbayStoreAutoPreferences {
 
                                 try {
                                     dispatcher.runAsync("sendMailFromScreen", sendMap);
-                                } catch (Exception e) {
+                                } catch (GenericServiceException e) {
                                     Debug.logError(e, module);
                                     return ServiceUtil.returnError(e.getMessage());
                                 }
@@ -1136,6 +1152,10 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(gse.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }

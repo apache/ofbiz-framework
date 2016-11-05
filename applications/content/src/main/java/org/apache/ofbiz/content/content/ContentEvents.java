@@ -31,6 +31,8 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.apache.ofbiz.entity.transaction.GenericTransactionException;
+
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.content.content.ContentKeywordIndex;
@@ -108,7 +110,7 @@ public class ContentEvents {
         } catch (GenericEntityException e) {
             try {
                 TransactionUtil.rollback(beganTx, e.getMessage(), e);
-            } catch (Exception e1) {
+            } catch (GenericTransactionException e1) {
                 Debug.logError(e1, module);
             }
             return "error";
@@ -117,7 +119,7 @@ public class ContentEvents {
             request.setAttribute("_ERROR_MESSAGE_", t.getMessage());
             try {
                 TransactionUtil.rollback(beganTx, t.getMessage(), t);
-            } catch (Exception e2) {
+            } catch (GenericTransactionException e2) {
                 Debug.logError(e2, module);
             }
             return "error";
@@ -133,7 +135,7 @@ public class ContentEvents {
             // commit the transaction
             try {
                 TransactionUtil.commit(beganTx);
-            } catch (Exception e) {
+            } catch (GenericTransactionException e) {
                 Debug.logError(e, module);
             }
         }

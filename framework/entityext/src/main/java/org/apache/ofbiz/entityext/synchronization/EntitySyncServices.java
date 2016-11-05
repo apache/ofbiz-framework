@@ -571,6 +571,8 @@ public class EntitySyncServices {
                         }
 
                         // TODO create a response document to send back to the initial sync machine
+                    } catch (GenericServiceException gse) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLoadXMLDocument", UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", gse.getMessage()), locale));
                     } catch (Exception e) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLoadXMLDocument", UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", e.getMessage()), locale));
                     }

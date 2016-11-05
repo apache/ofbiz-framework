@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.webapp.WebAppUtil;
@@ -73,6 +74,8 @@ public class ContentUrlFilter implements Filter {
                             urlContentId = content.getString("contentId");
                         }
                     }
+                } catch (GenericEntityException gee) {
+                    Debug.logWarning(gee.getMessage(), module);
                 } catch (Exception e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
