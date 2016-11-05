@@ -46,7 +46,7 @@ under the License.
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>
-            <first-from-list entry="statusItem" list="contentStatus"/>
+            <first-from-list list="contentStatus" entry="statusItem"/>
             <set field="newEntity.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
@@ -64,7 +64,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createDataResourceAndAssocToContent" short-description="Create a Data Resource and return the data resource type">
-       <entity-one value-field="content" entity-name="Content"/>
+       <entity-one entity-name="Content" value-field="content"/>
        <if-empty field="content">
            <add-error>
                <fail-property resource="ContentErrorUiLabels" property="layoutEvents.content_empty"/>
@@ -72,7 +72,7 @@ under the License.
            <check-errors/>
        </if-empty>
    
-       <set-service-fields service-name="createDataResource" to-map="dataResourceCtx" map="parameters"/>
+       <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResourceCtx"/>/>
        <call-service service-name="createDataResource" in-map-name="dataResourceCtx">
            <result-to-field result-name="dataResource"/>
        </call-service>
@@ -344,7 +344,7 @@ under the License.
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
         <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
-        <first-from-list entry="extension" list="extensions"/>
+        <first-from-list list="extensions" entry="extension"/>
 
         <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
         <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
@@ -414,7 +414,7 @@ under the License.
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
         <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
-        <first-from-list entry="extension" list="extensions"/>
+        <first-from-list list="extensions" entry="extension"/>
 
         <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
         <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
@@ -728,7 +728,7 @@ under the License.
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
         <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
-        <first-from-list entry="extension" list="extensions"/>
+        <first-from-list list="extensions" entry="extension"/>
 
         <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
         <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>

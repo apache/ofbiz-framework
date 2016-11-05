@@ -150,7 +150,7 @@ under the License.
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
         <if-empty field="parameters.invoiceId">
-            <set-service-fields service-name="getNextInvoiceId" to-map="getNextInvoiceIdMap" map="parameters"/>
+            <set-service-fields service-name="getNextInvoiceId" map="parameters" to-map="getNextInvoiceIdMap"/>/>
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
                 <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>
@@ -755,7 +755,7 @@ under the License.
                 <fail-property resource="AccountingUiLabels" property="AccountingTaxCannotCalculate"/>
             </add-error>
         </if-empty>
-        <first-from-list entry="contactMech" list="contacts"/>
+        <first-from-list list="contacts" entry="contactMech"/>
         <entity-one entity-name="PostalAddress" value-field="postalAddress">
             <field-map field-name="contactMechId" from-field="contactMech.contactMechId"/>
         </entity-one>
@@ -770,7 +770,7 @@ under the License.
             <entity-and entity-name="Product" list="product">
                 <field-map field-name="productId" from-field="invoiceItem.productId"/>
             </entity-and>
-            <first-from-list entry="itemProduct" list="product"/>
+            <first-from-list list="product" entry="itemProduct"/>
             <if-not-empty field="invoiceItem.productId">
                 <entity-and entity-name="InvoiceItem" list="findinvoiceItems">
                     <field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
@@ -899,7 +899,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInvoiceFromOrder" short-description="Create an invoice from existing order when invoicePerShipment is N">
-        <entity-one value-field="orderHeader" entity-name="OrderHeader">
+        <entity-one entity-name="OrderHeader" value-field="orderHeader">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
         </entity-one>
         <set field="invoicePerShipment" from-field="orderHeader.invoicePerShipment"/>
@@ -987,7 +987,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="isInvoiceInForeignCurrency" short-description="check if a invoice is in a foreign currency related to the accounting company.">
-        <entity-one value-field="invoice" entity-name="InvoiceAndType">
+        <entity-one entity-name="InvoiceAndType" value-field="invoice">
             <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
         </entity-one>
         <if-empty field="invoice">

@@ -47,7 +47,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
+            <hyperlink description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}"><display-entity entity-name="FixedAssetType"/></field>
@@ -79,7 +79,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
+            <hyperlink description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}"><display-entity entity-name="FixedAssetType"/></field>
@@ -106,7 +106,7 @@ under the License.
             </service>
         </actions>
         <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccountId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${billingAccountId}" target="javascript:set_value('${billingAccountId}')"/>
+            <hyperlink description="${billingAccountId}" target="javascript:set_value('${billingAccountId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><display/></field>
@@ -145,7 +145,7 @@ under the License.
             </service>
         </actions>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${glAccountId}" target="javascript:set_value('${glAccountId}')"/>
+            <hyperlink description="${glAccountId}" target="javascript:set_value('${glAccountId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="accountName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="GlAccountType"/></field>
@@ -173,7 +173,7 @@ under the License.
             </service>
         </actions>
         <field name="paymentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${paymentId}" target="javascript:set_value('${paymentId}')"/>
+            <hyperlink description="${paymentId}" target="javascript:set_value('${paymentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyIdFrom"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
         <field name="partyIdTo"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
@@ -217,7 +217,7 @@ under the License.
             </service>
         </actions>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${invoiceId}" target="javascript:set_value('${invoiceId}')"/>
+            <hyperlink description="${invoiceId}" target="javascript:set_value('${invoiceId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
@@ -247,7 +247,7 @@ under the License.
             </service>
         </actions>
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${agreementId}" target="javascript:set_value('${agreementId}')"/>
+            <hyperlink description="${agreementId}" target="javascript:set_value('${agreementId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="productId"><display/></field>
         <field name="partyIdFrom"><display/></field>
@@ -281,7 +281,7 @@ under the License.
         </actions>
         <field name="agreementId"><display/></field>
         <field name="agreementItemSeqId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')"/>
+            <hyperlink description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="agreementItemTypeId"><display/></field>
         <field name="currencyUomId"><display/></field>
@@ -307,7 +307,7 @@ under the License.
             </service>
         </actions>
         <field name="paymentGroupId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${paymentGroupId}" target="javascript:set_value('${paymentGroupId}')"/>
+            <hyperlink description="${paymentGroupId}" target="javascript:set_value('${paymentGroupId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="paymentId"><display/></field>
         <field name="sequenceNum"><display/></field>        
@@ -334,7 +334,7 @@ under the License.
             </service>
         </actions>
         <field name="glReconciliationId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${glReconciliationId}" target="javascript:set_value('${glReconciliationId}')"/>
+            <hyperlink description="${glReconciliationId}" target="javascript:set_value('${glReconciliationId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="glReconciliationName"><display/></field>
         <field name="organizationPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}[${partyId}]"/></field>
@@ -377,7 +377,7 @@ under the License.
             </service>
         </actions>
         <field name="customTimePeriodId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${customTimePeriodId}" target="javascript:set_value('${customTimePeriodId}')"/>
+            <hyperlink description="${customTimePeriodId}" target="javascript:set_value('${customTimePeriodId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="parentPeriodId"><display/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType"/></field>

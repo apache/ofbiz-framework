@@ -68,14 +68,14 @@
             </service>
         </actions>
         <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+            <hyperlink description="${productId}" target="EditProduct" also-hidden="false">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -102,13 +102,13 @@
             </service>
         </actions>
         <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_values('${productId}', '${internalName}')"/>
+            <hyperlink description="${productId}" target="javascript:set_values('${productId}', '${internalName}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -143,7 +143,7 @@
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteProductMaint" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductMaint" also-hidden="false">
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="productId"/>
                 <parameter param-name="productMaintSeqId"/>

@@ -144,7 +144,7 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${workEffortId}" target="javascript:set_value('${workEffortId}')"/>
+            <hyperlink description="${workEffortId}" target="javascript:set_value('${workEffortId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="workEffortName"><display/></field>
         <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
@@ -175,7 +175,7 @@ under the License.
             </service>
         </actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${timesheetId}" target="javascript:set_value('${timesheetId}')"/>
+            <hyperlink description="${timesheetId}" target="javascript:set_value('${timesheetId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>

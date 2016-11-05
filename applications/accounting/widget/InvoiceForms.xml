@@ -85,12 +85,12 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="description" sort-field="true"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
-            <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]">
+            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
                 <parameter param-name="partyId" from-field="partyIdFrom"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" parameter-name="partyId">
-            <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultTo.fullName} [${partyId}]">
+            <hyperlink description="${partyNameResultTo.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -119,12 +119,12 @@ under the License.
         <field position="1" name="description"><display/></field>
         <field position="2" name="invoiceMessage"><display/></field>
         <field position="1" name="partyIdFrom">
-            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]">
+            <hyperlink description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="invoice.partyIdFrom"/>
             </hyperlink>
         </field>
         <field position="2" name="partyIdTo" entry-name="partyId">
-            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${invoice.partyId}]">
+            <hyperlink description="${partyNameResultTo.fullName} [${invoice.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="invoice.partyId"/>
             </hyperlink>
         </field>
@@ -149,7 +149,7 @@ under the License.
         <field name="invoiceItemSeqId"><display/></field>
         <field name="invoiceItemTypeId"><display-entity entity-name="InvoiceItemType"/></field>
         <field name="orderId" widget-style="linktext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -159,12 +159,12 @@ under the License.
         <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="productId" widget-style="linktext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="overrideGlAccountId" widget-area-style="align-text">
-            <hyperlink target="GlAccountNavigate" description="${overrideGlAccountId}">
+            <hyperlink description="${overrideGlAccountId}" target="GlAccountNavigate">
                 <parameter param-name="glAccountId" from-field="overrideGlAccountId"/>
             </hyperlink>
         </field>
@@ -198,7 +198,7 @@ under the License.
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="linktext">
-            <hyperlink target="paymentOverview" description="${paymentId}">
+            <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
@@ -210,7 +210,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
-        <field name="paymentId"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/></field>
+        <field name="paymentId"><hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
         <field name="acctgTransId"><hyperlink description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/></field>
@@ -527,7 +527,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="buttontext">
-            <hyperlink target="paymentOverview" description="[${paymentId}]">
+            <hyperlink description="[${paymentId}]" target="paymentOverview">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
@@ -613,7 +613,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="unlinkInvoiceFromTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="unlinkInvoiceFromTimeEntry" also-hidden="false">
                 <parameter param-name="timeEntryId"/>
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="viewIndex"/>
@@ -632,7 +632,7 @@ under the License.
         <field name="invoiceItemSeqId"><display/></field>
         <field name="timeEntryId"><display/></field>
         <field name="timesheetId" entry-name="timesheet.timesheetId">
-            <hyperlink target="/workeffort/control/EditTimesheet" target-type="inter-app" description="${timesheetId}">
+            <hyperlink description="${timesheetId}" target="/workeffort/control/EditTimesheet" target-type="inter-app">
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>

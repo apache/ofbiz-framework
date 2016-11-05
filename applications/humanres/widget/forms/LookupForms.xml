@@ -46,7 +46,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Budget" default-field-type="display"/>
         <field name="budgetId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${budgetId}" target="javascript:set_value('${budgetId}')"/>
+            <hyperlink description="${budgetId}" target="javascript:set_value('${budgetId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="LookupBudgetItem" type="single" target="LookupBudgetItem"
@@ -74,7 +74,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="BudgetItem" default-field-type="display"/>
         <field name="budgetItemSeqId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${budgetItemSeqId}" target="javascript:set_value('${budgetItemSeqId}')"/>
+            <hyperlink description="${budgetItemSeqId}" target="javascript:set_value('${budgetItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="LookupEmplPosition" type="single" target="LookupEmplPosition"
@@ -108,7 +108,7 @@ under the License.
             </service>
         </actions>
         <field name="emplPositionId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${emplPositionId}" target="javascript:set_value('${emplPositionId}')"/>
+            <hyperlink description="${emplPositionId}" target="javascript:set_value('${emplPositionId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="statusId"><display/></field>
         <field name="partyId"><display/></field>
@@ -134,7 +134,7 @@ under the License.
             </service>
         </actions>
         <field name="terminationReasonId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${terminationReasonId}" target="javascript:set_value('${terminationReasonId}')"/>
+            <hyperlink description="${terminationReasonId}" target="javascript:set_value('${terminationReasonId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -157,7 +157,7 @@ under the License.
             </service>
         </actions>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${salaryStepSeqId}" target="javascript:set_value('${salaryStepSeqId}')"/>
+            <hyperlink description="${salaryStepSeqId}" target="javascript:set_value('${salaryStepSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
@@ -181,7 +181,7 @@ under the License.
             </service>
         </actions>
         <field name="payGradeId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${payGradeId}" target="javascript:set_value('${payGradeId}')"/>
+            <hyperlink description="${payGradeId}" target="javascript:set_value('${payGradeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -203,7 +203,7 @@ under the License.
             </service>
         </actions>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResLookupPayrollPreferenceSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${payrollPreferenceSeqId}" target="javascript:set_value('${payrollPreferenceSeqId}')"/>
+            <hyperlink description="${payrollPreferenceSeqId}" target="javascript:set_value('${payrollPreferenceSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -225,7 +225,7 @@ under the License.
             </service>
         </actions>
         <field name="unemploymentClaimId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${unemploymentClaimId}" target="javascript:set_value('${unemploymentClaimId}')"/>
+            <hyperlink description="${unemploymentClaimId}" target="javascript:set_value('${unemploymentClaimId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -247,7 +247,7 @@ under the License.
             </service>
         </actions>
         <field name="agreementItemSeqId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')"/>
+            <hyperlink description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -269,7 +269,7 @@ under the License.
             </service>
         </actions>
         <field name="perfReviewId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${perfReviewId}" target="javascript:set_value('${perfReviewId}')"/>
+            <hyperlink description="${perfReviewId}" target="javascript:set_value('${perfReviewId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -291,7 +291,7 @@ under the License.
             </service>
         </actions>
         <field name="resumeId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${resumeId}" target="javascript:set_value('${resumeId}')"/>
+            <hyperlink description="${resumeId}" target="javascript:set_value('${resumeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -313,7 +313,7 @@ under the License.
             </service>
         </actions>
         <field name="applicationId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${applicationId}" target="javascript:set_value('${applicationId}')"/>
+            <hyperlink description="${applicationId}" target="javascript:set_value('${applicationId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -349,7 +349,7 @@ under the License.
             </service>
         </actions>
         <field name="jobRequisitionId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${jobRequisitionId}" target="javascript:set_value('${jobRequisitionId}')"/>
+            <hyperlink description="${jobRequisitionId}" target="javascript:set_value('${jobRequisitionId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="jobPostingTypeEnumId"><display/></field>
         <field name="qualification"><display/></field>
@@ -373,7 +373,7 @@ under the License.
             </service>
         </actions>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}" widget-style="buttontext">
-             <hyperlink also-hidden="false" target-type="plain" description="${trainingClassTypeId}" target="javascript:set_value('${trainingClassTypeId}')"/>
+             <hyperlink description="${trainingClassTypeId}" target="javascript:set_value('${trainingClassTypeId}')" also-hidden="false" target-type="plain"/>
         </field>        
         <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>

@@ -562,7 +562,7 @@ under the License.
                         </if-not-empty>
                     </if-not-empty>
                     <calculate field="payment" type="Integer">
-                        <calcop field="payment" operator="add"/>
+                        <calcop operator="add" field="payment"/>
                         <number value="1"/>
                     </calculate>
                 </then>

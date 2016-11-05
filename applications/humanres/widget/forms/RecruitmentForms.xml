@@ -71,7 +71,7 @@ under the License.
             </service>
         </actions>
         <field name="jobRequisitionId" widget-style="buttontext" use-when="hasAdminPermission">
-            <hyperlink target="EditJobRequisition" description="${jobRequisitionId}">
+            <hyperlink description="${jobRequisitionId}" target="EditJobRequisition">
                 <parameter param-name="jobRequisitionId"/>
             </hyperlink>
         </field>
@@ -86,12 +86,12 @@ under the License.
         <field name="experienceYears"><display/></field>
         <field name="experienceMonths"><display/></field>
         <field name="applyLink" title="${uiLabelMap.CommonApply}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonApply}" target="EditInternalJobPosting"> 
+            <hyperlink description="${uiLabelMap.CommonApply}" target="EditInternalJobPosting" also-hidden="false"> 
                 <parameter param-name="jobRequisitionId"/> 
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobRequisition"> 
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteJobRequisition" also-hidden="false"> 
                 <parameter param-name="jobRequisitionId"/> 
             </hyperlink>
         </field>
@@ -174,7 +174,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="display"/>
         <field name="applicationId" widget-style="buttontext">
-            <hyperlink target="EditInternalJobPosting" description="${applicationId}">
+            <hyperlink description="${applicationId}" target="EditInternalJobPosting">
                 <parameter param-name="applicationId"/>
             </hyperlink>
         </field>        
@@ -197,12 +197,12 @@ under the License.
 
         <field name="statusId" title="${uiLabelMap.HumanResIJPStatus}"><display/></field>
         <field name="jobRequisitionId" widget-style="buttontext">
-            <hyperlink target="EditJobRequisition" description="${jobRequisitionId}">
+            <hyperlink description="${jobRequisitionId}" target="EditJobRequisition">
                 <parameter param-name="jobRequisitionId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteInternalJobPosting"> 
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInternalJobPosting" also-hidden="false"> 
                 <parameter param-name="applicationId"/> 
             </hyperlink>
         </field>
@@ -266,7 +266,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="JobInterview" default-field-type="display"/>
         <field name="jobInterviewId" widget-style="buttontext">
-            <hyperlink target="EditJobInterview" description="${jobInterviewId}">
+            <hyperlink description="${jobInterviewId}" target="EditJobInterview">
                 <parameter param-name="jobInterviewId"/>
             </hyperlink>
         </field>
@@ -285,7 +285,7 @@ under the License.
             </display-entity>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobInterview"> 
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteJobInterview" also-hidden="false"> 
                 <parameter param-name="jobInterviewId"/> 
             </hyperlink>
         </field>
@@ -371,7 +371,7 @@ under the License.
             </display-entity>
         </field>
         <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
-            <hyperlink target="EditApprovalStatus" description="${uiLabelMap.CommonUpdate}" > 
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditApprovalStatus" > 
                 <parameter param-name="applicationId"/> 
             </hyperlink>
         </field>
@@ -407,7 +407,7 @@ under the License.
         <field name="emplPositionIdReportingTo"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="internalOrganisation">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
+                <entity-options entity-name="PartyRole" key-field-name="partyId" description="${partyId}">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-options>
             </drop-down>
@@ -435,12 +435,12 @@ under the License.
             </display-entity>
         </field>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView">
+            <hyperlink description="${emplPositionId}" target="emplPositionView" also-hidden="false">
                 <parameter param-name="emplPositionId"/>
             </hyperlink>
         </field>
         <field name="emplPositionIdReportingTo" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${emplPositionIdReportingTo}" target="emplPositionView">
+            <hyperlink description="${emplPositionIdReportingTo}" target="emplPositionView" also-hidden="false">
                 <parameter param-name="emplPositionId" from-field="emplPositionIdReportingTo"/>
             </hyperlink>
         </field>

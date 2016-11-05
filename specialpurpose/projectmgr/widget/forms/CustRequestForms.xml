@@ -101,13 +101,13 @@ under the License.
         <field name="custRequestName"><display/></field>
         <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink also-hidden="false" description="${projectName}" target="projectView">
+            <hyperlink description="${projectName}" target="projectView" also-hidden="false">
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="phaseName"><display description="${result.phaseName}"/></field>
         <field name="taskName">
-            <hyperlink target="taskView" description="${workEffort.workEffortName}">
+            <hyperlink description="${workEffort.workEffortName}" target="taskView">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -134,12 +134,12 @@ under the License.
             </service>
         </row-actions>
         <field name="custRequestId">
-            <hyperlink target="ViewRequest" description="${custRequestName} [${custRequestId}]">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
          </field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult" sort-field="true">
-            <hyperlink target="projectView" description="${sResult.projectName} [${sResult.projectId}]">
+            <hyperlink description="${sResult.projectName} [${sResult.projectId}]" target="projectView">
                 <parameter param-name="projectId" from-field="sResult.projectId"/>
             </hyperlink>
         </field>
@@ -147,7 +147,7 @@ under the License.
             <display description="${sResult.phaseName} [${sResult.phaseId}]"/>
         </field>
         <field name="workEffortId">
-            <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="taskView">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -166,7 +166,7 @@ under the License.
     </form>
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="workEffortId">
-            <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="taskView">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>

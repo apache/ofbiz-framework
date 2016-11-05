@@ -27,7 +27,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="FindFinAccount"/>
-                <entity-one value-field="finAccount" entity-name="FinAccount"/>
+                <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

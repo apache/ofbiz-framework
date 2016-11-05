@@ -975,7 +975,7 @@ under the License.
                 <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
-                <entity-condition list="projects" entity-name="WorkEffortPartyAssignByGroup" filter-by-date="true">
+                <entity-condition entity-name="WorkEffortPartyAssignByGroup" list="projects" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                         <condition-list combine="or">

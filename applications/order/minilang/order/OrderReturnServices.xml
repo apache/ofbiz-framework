@@ -183,7 +183,7 @@ under the License.
               <check-errors/>
                <!-- tally up the return total amount -->
                <calculate field="returnTotalAmount">
-                   <calcop field="returnTotalAmount" operator="add">
+                   <calcop operator="add" field="returnTotalAmount">
                        <calcop operator="multiply">
                            <calcop operator="get" field="returnItem.returnPrice"/>
                            <calcop operator="get" field="returnItem.returnQuantity"/>
@@ -235,7 +235,7 @@ under the License.
             </entity-and>
             <iterate list="returnAdjustments" entry="returnAdjustment">
                 <calculate field="returnTotalAmount">
-                    <calcop field="returnTotalAmount" operator="add">
+                    <calcop operator="add" field="returnTotalAmount">
                         <calcop operator="get" field="returnAdjustment.amount"/>
                     </calcop>
                 </calculate>
@@ -521,7 +521,7 @@ under the License.
         <iterate-map key="returnItemSeqId" value="value" map="totalsMap">
             <set field="filterMap.returnItemSeqId" from="returnItemSeqId"/>
             <filter-list-by-and list="returnItems" map="filterMap" to-list="items"/>
-            <first-from-list entry="item" list="items"/>
+            <first-from-list list="items" entry="item"/>
             <set field="item.receivedQuantity" from="value" type="BigDecimal"/>
             <set-service-fields service-name="updateReturnItem" map="item" to-map="serviceInMap"/>
             <if-compare-field field="value" to-field="item.returnQuantity" operator="greater-equals" type="BigDecimal">
@@ -606,7 +606,7 @@ under the License.
                 <condition-expr field-name="roleTypeId" operator="equals" from-field="roleTypeId"/>
             </condition-list>
         </entity-condition>
-        <first-from-list entry="orderRole" list="orderRoles"/>
+        <first-from-list list="orderRoles" entry="orderRole"/>
         <!-- create the return header -->
         <set from-field="orderHeader.originFacilityId" field="createHeaderCtx.destinationFacilityId"/>
         <set value="Y" field="updateHeaderCtx.needsInventoryReceive"/>
@@ -1093,7 +1093,7 @@ under the License.
         <make-value value-field="returnContactMechMap" entity-name="ReturnContactMech"/>
 
         <set-pk-fields map="parameters" value-field="returnContactMechMap"/>
-        <entity-one value-field="returnHeader" entity-name="ReturnHeader"/>
+        <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
         <set from-field="parameters.returnId" field="createReturnContactMechMap.returnId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="createReturnContactMechMap.contactMechPurposeTypeId"/>
         <set from-field="parameters.contactMechId" field="createReturnContactMechMap.contactMechId"/>
@@ -1126,7 +1126,7 @@ under the License.
                     <condition-expr field-name="roleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="orderRole" list="orderRoles"/>
+            <first-from-list list="orderRoles" entry="orderRole"/>
 
             <get-related-one relation-name="ProductStore" value-field="orderHeader" to-value-field="productStore"/>
 

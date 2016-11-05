@@ -214,7 +214,7 @@ under the License.
         <field name="surveyId"><hidden value="${surveyId}"/></field>
         <field name="parentCategoryId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SurveyQuestionCategory" description="${description} [${surveyQuestionCategoryId}]" key-field-name="surveyQuestionCategoryId">
+                <entity-options entity-name="SurveyQuestionCategory" key-field-name="surveyQuestionCategoryId" description="${description} [${surveyQuestionCategoryId}]">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -270,7 +270,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
         <field name="surveyResponseId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${surveyResponseId}" target="EditSurveyResponse">
+            <hyperlink description="${surveyResponseId}" target="EditSurveyResponse" also-hidden="false">
                 <parameter param-name="surveyResponseId"/>
             </hyperlink>
         </field>
@@ -299,7 +299,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Survey" default-field-type="display"/>
         <field name="surveyId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${surveyId}" target="javascript:set_value('${surveyId}')"/>
+            <hyperlink description="${surveyId}" target="javascript:set_value('${surveyId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 
@@ -322,7 +322,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
         <field name="surveyResponseId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${surveyResponseId}" target="javascript:set_value('${surveyResponseId}')"/>
+            <hyperlink description="${surveyResponseId}" target="javascript:set_value('${surveyResponseId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 </forms>

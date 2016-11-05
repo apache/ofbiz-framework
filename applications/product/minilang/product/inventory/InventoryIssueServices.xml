@@ -43,7 +43,7 @@ under the License.
                     <iterate list="orderItemList" entry="orderItem">
                         <if-not-empty field="orderItem.productId">
                             <clear-field field="callSvcMap"/>
-                            <set-service-fields to-map="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map="orderItem"/>
+                            <set-service-fields service-name="issueImmediatelyFulfilledOrderItem" map="orderItem" to-map="callSvcMap"/>
                             <set field="callSvcMap.orderHeader" from-field="orderHeader"/>
                             <set field="callSvcMap.orderItem" from-field="orderItem"/>
                             <set field="callSvcMap.productStore" from-field="productStore"/>
@@ -140,10 +140,10 @@ under the License.
                     <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                     <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                     <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
@@ -175,10 +175,10 @@ under the License.
                     <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                     <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                     <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
@@ -210,7 +210,7 @@ under the License.
                     <clear-field field="issuanceCreateMap"/>
 
                     <calculate field="parameters.quantityNotIssued">
-                        <calcop field="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
+                        <calcop operator="subtract" field="parameters.quantityNotIssued"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -251,10 +251,10 @@ under the License.
                         <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                         <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                         <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                            <calcop field="parameters.deductAmount" operator="negative"/>
+                            <calcop operator="negative" field="parameters.deductAmount"/>
                         </calculate>
                         <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
-                            <calcop field="parameters.deductAmount" operator="negative"/>
+                            <calcop operator="negative" field="parameters.deductAmount"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>

@@ -272,14 +272,14 @@ under the License.
                 <set field="title" value="${uiLabelMap.ScrumRevisions}"/>
                 <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
                 <set field="parameters.noConditionFind" value="Y"/>
-                <entity-condition list="contents" entity-name="ContentRole">
+                <entity-condition entity-name="ContentRole" list="contents">
                     <condition-list>
                         <condition-expr field-name="partyId" from-field="parameters.partyId"/>
                         <condition-expr field-name="roleTypeId" value="OWNER"/>
                     </condition-list>
                 </entity-condition>
                 <set field="contentIds" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
-                <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
+                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                     <condition-list>
                         <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
                         <condition-expr field-name="contentId" operator="in" from-field="contentIds"/>
@@ -403,7 +403,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleScrumProductMembers"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="tabButtonItem" value="productMember"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://scrum/groovyScripts/ListScrumRolesPersonAndCompany.groovy"/>
             </actions>
             <widgets>

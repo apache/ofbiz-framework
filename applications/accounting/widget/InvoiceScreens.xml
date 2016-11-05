@@ -602,7 +602,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://party/groovyScripts/party/GetMyCompany.groovy"/>
-                <entity-condition list="invoices" entity-name="Invoice">
+                <entity-condition entity-name="Invoice" list="invoices">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
                         <condition-list combine="or">
@@ -627,7 +627,7 @@ under the License.
         <section>
             <actions>
                 <set field="myCompanyId" from-field="userLogin.partyId"/>
-                <entity-condition list="invoiceslistexternal" entity-name="Invoice">
+                <entity-condition entity-name="Invoice" list="invoiceslistexternal">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId"/>
                         <condition-expr field-name="invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>

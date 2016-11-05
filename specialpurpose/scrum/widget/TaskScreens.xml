@@ -281,7 +281,7 @@ under the License.
                                 <field-map field-name="workEffortId" from-field="parameters.taskId"/>
                             </entity-and>
                             <set field="partyId" from-field="assignTo[0].partyId"/>
-                            <entity-one value-field="person" entity-name="Person"/>
+                            <entity-one entity-name="Person" value-field="person"/>
                             <entity-condition list="SprintTasks" entity-name="ProjectSprintBacklogAndTask">
                                 <condition-list combine="and">
                                     <condition-expr field-name="projectId" from-field="parameters.projectId"/>
@@ -325,7 +325,7 @@ under the License.
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
                 <set field="sprintId" from-field="parameters.sprintId"/>
-                <entity-one value-field="sprint" entity-name="WorkEffort">
+                <entity-one entity-name="WorkEffort" value-field="sprint">
                     <field-map field-name="workEffortId" from-field="sprintId"/>
                 </entity-one>
             </actions>
@@ -381,7 +381,7 @@ under the License.
         <actions>
             <set field="workEffortId" from-field="parameters.taskId"/>
             <set field="taskId" from-field="parameters.taskId"/>
-            <entity-condition list="workNoteList" entity-name="WorkEffortNote" >
+            <entity-condition entity-name="WorkEffortNote" list="workNoteList" >
                 <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <order-by field-name="-noteId"/>
                 <limit-range start="0" size="5"/>
@@ -410,7 +410,7 @@ under the License.
     <screen name="ViewTask">
         <section>
             <actions>
-                <entity-one value-field="task" entity-name="WorkEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
             </actions>
             <widgets>
                 <include-screen name="taskInfo"/>
@@ -420,7 +420,7 @@ under the License.
     <screen name="InfoTestTaskNote">
         <section>        
         <actions>       
-                <entity-one value-field="task" entity-name="WorkEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
                 <set field="taskId" from-field="task.workEffortId"/>
             </actions>
             <widgets>

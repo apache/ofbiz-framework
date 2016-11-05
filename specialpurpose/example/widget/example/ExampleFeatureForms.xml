@@ -40,7 +40,7 @@ under the License.
             </service>
         </actions>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature">
+            <hyperlink description="${exampleFeatureId}" target="EditExampleFeature" also-hidden="false">
                 <parameter param-name="exampleFeatureId"/>
             </hyperlink>
         </field>
@@ -98,7 +98,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="feature_deleteExampleFeatureAppl" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="feature_deleteExampleFeatureAppl" also-hidden="false">
                 <parameter param-name="exampleId"/>
                 <parameter param-name="exampleFeatureId"/>
                 <parameter param-name="fromDate"/>
@@ -162,7 +162,7 @@ under the License.
         </actions>
         <!--<auto-fields-entity entity-name="ExampleFeature" default-field-type="display"/>-->
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
-            <hyperlink description="${exampleFeatureId}" also-hidden="false" target-type="plain" target="javascript:set_value('${exampleFeatureId}')"/>
+            <hyperlink description="${exampleFeatureId}" target="javascript:set_value('${exampleFeatureId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="featureSourceEnumId" title="${uiLabelMap.ExampleFeatureSource}">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]" also-hidden="false"/>

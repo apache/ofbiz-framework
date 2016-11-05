@@ -31,7 +31,7 @@ under the License.
             </service>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyId}" target="editVendor">
+            <hyperlink description="${partyId}" target="editVendor" also-hidden="false">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>

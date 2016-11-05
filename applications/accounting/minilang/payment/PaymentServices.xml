@@ -61,7 +61,7 @@ under the License.
             </if-compare-field>
         </if-not-empty>
         <if-not-empty field="parameters.paymentPreferenceId">
-            <entity-one value-field="orderPaymentPreference" entity-name="OrderPaymentPreference">
+            <entity-one entity-name="OrderPaymentPreference" value-field="orderPaymentPreference">
                 <field-map field-name="orderPaymentPreferenceId" from-field="parameters.paymentPreferenceId"/>
             </entity-one>
             <if-empty field="parameters.paymentMethodId">
@@ -236,13 +236,13 @@ under the License.
             <entity-one entity-name="Payment" value-field="toPayment">
                 <field-map field-name="paymentId" from-field="parameters.toPaymentId"/>
             </entity-one>
-            <entity-one value-field="toPaymentType" entity-name="PaymentType">
+            <entity-one entity-name="PaymentType" value-field="toPaymentType">
                 <field-map field-name="paymentTypeId" from-field="toPayment.paymentTypeId"/>
             </entity-one>
             <entity-one entity-name="Payment" value-field="payment">
                 <field-map field-name="paymentId" from-field="parameters.paymentId"/>
             </entity-one>
-            <entity-one value-field="paymentType" entity-name="PaymentType">
+            <entity-one entity-name="PaymentType" value-field="paymentType">
                 <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
             </entity-one>
 
@@ -280,7 +280,7 @@ under the License.
         <field-to-result field="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
 
         <create-value value-field="paymentAppl"/>
-        <entity-one value-field="payment" entity-name="Payment"/>
+        <entity-one entity-name="Payment" value-field="payment"/>
         <field-to-result field="payment.paymentTypeId" result-name="paymentTypeId"/>
     </simple-method>
 
@@ -369,14 +369,14 @@ under the License.
     <simple-method method-name="createPaymentAndApplication" short-description="Create a payment and a payment application for the full amount">
         <set-service-fields service-name="createPayment" map="parameters" to-map="createPaymentInMap"/>
         <call-service service-name="createPayment" in-map-name="createPaymentInMap">
-            <result-to-field field="paymentId" result-name="paymentId"/>
+            <result-to-field result-name="paymentId" field="paymentId"/>
         </call-service>
         <check-errors/>
         <set-service-fields service-name="createPaymentApplication" map="parameters" to-map="createPaymentAppInMap"/>
         <set field="createPaymentAppInMap.paymentId" from-field="paymentId"/>
         <set field="createPaymentAppInMap.amountApplied" from-field="parameters.amount"/>
         <call-service service-name="createPaymentApplication" in-map-name="createPaymentAppInMap">
-            <result-to-field field="paymentApplicationId" result-name="paymentApplicationId"/>
+            <result-to-field result-name="paymentApplicationId" field="paymentApplicationId"/>
         </call-service>
         <check-errors/>
         <field-to-result field="paymentId" result-name="paymentId"/>
@@ -411,26 +411,26 @@ under the License.
                     <field field="invoiceTerm.termDays" type="Long"/>
                 </call-class-method>
                 <calculate field="invoiceTermAmount" type="BigDecimal">
-                    <calcop field="invoiceTotalAmount" operator="multiply">
-                        <calcop field="invoiceTerm.termValue" operator="get"/>
+                    <calcop operator="multiply" field="invoiceTotalAmount">
+                        <calcop operator="get" field="invoiceTerm.termValue"/>
                     </calcop>
                 </calculate>
                 <calculate field="invoiceTermAmount" type="BigDecimal">
-                    <calcop field="invoiceTermAmount" operator="divide">
+                    <calcop operator="divide" field="invoiceTermAmount">
                         <number value="100"/>
                     </calcop>
                 </calculate>
                 <set field="invoicePaymentInfo.amount" from-field="invoiceTermAmount"/>
                 <calculate field="computedTotalAmount" type="BigDecimal">
-                    <calcop field="computedTotalAmount" operator="add">
-                        <calcop field="invoicePaymentInfo.amount" operator="get"/>
+                    <calcop operator="add" field="computedTotalAmount">
+                        <calcop operator="get" field="invoicePaymentInfo.amount"/>
                     </calcop>
                 </calculate>
                 <if-compare-field field="remainingAppliedAmount" to-field="invoiceTermAmount" operator="greater-equals" type="BigDecimal">
                     <set field="invoicePaymentInfo.paidAmount" from-field="invoiceTermAmount" type="BigDecimal"/>
                     <calculate field="remainingAppliedAmount" type="BigDecimal">
-                        <calcop field="remainingAppliedAmount" operator="subtract">
-                            <calcop field="invoiceTermAmount" operator="get"/>
+                        <calcop operator="subtract" field="remainingAppliedAmount">
+                            <calcop operator="get" field="invoiceTermAmount"/>
                         </calcop>
                     </calculate>
                 <else>
@@ -439,8 +439,8 @@ under the License.
                 </else>
                 </if-compare-field>
                 <calculate field="invoicePaymentInfo.outstandingAmount" type="BigDecimal">
-                    <calcop field="invoicePaymentInfo.amount" operator="subtract">
-                        <calcop field="invoicePaymentInfo.paidAmount" operator="get"/>
+                    <calcop operator="subtract" field="invoicePaymentInfo.amount">
+                        <calcop operator="get" field="invoicePaymentInfo.paidAmount"/>
                     </calcop>
                 </calculate>
                 <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
@@ -473,14 +473,14 @@ under the License.
                 </if-not-empty>
                 <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
                 <calculate field="invoicePaymentInfo.amount" type="BigDecimal">
-                    <calcop field="invoiceTotalAmount" operator="subtract">
-                        <calcop field="computedTotalAmount" operator="get"/>
+                    <calcop operator="subtract" field="invoiceTotalAmount">
+                        <calcop operator="get" field="computedTotalAmount"/>
                     </calcop>
                 </calculate>
                 <set field="invoicePaymentInfo.paidAmount" from-field="remainingAppliedAmount" type="BigDecimal"/>
                 <calculate field="invoicePaymentInfo.outstandingAmount" type="BigDecimal">
-                    <calcop field="invoicePaymentInfo.amount" operator="subtract">
-                        <calcop field="invoicePaymentInfo.paidAmount" operator="get"/>
+                    <calcop operator="subtract" field="invoicePaymentInfo.amount">
+                        <calcop operator="get" field="invoicePaymentInfo.paidAmount"/>
                     </calcop>
                 </calculate>
                 <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
@@ -509,7 +509,7 @@ under the License.
             <clear-field field="getInvoicePaymentInfoListInMap"/>
             <set field="getInvoicePaymentInfoListInMap.invoice" from-field="invoice"/>
             <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListInMap">
-                <result-to-field field="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+                <result-to-field result-name="invoicePaymentInfoList" field="invoicePaymentInfoList"/>
             </call-service>
             <iterate list="invoicePaymentInfoList" entry="invoicePaymentInfo">
                 <if>
@@ -566,7 +566,7 @@ under the License.
             <set field="copyAcctgTransCtx.fromAcctgTransId" from-field="acctgTransPayment.acctgTransId"/>
             <set field="copyAcctgTransCtx.revert" value="Y"/>
             <call-service service-name="copyAcctgTransAndEntries" in-map-name="copyAcctgTransCtx">
-                <result-to-field field="postAcctgTransMap.acctgTransId" result-name="acctgTransId"/>
+                <result-to-field result-name="acctgTransId" field="postAcctgTransMap.acctgTransId"/>
             </call-service>
             <if-compare field="acctgTransPayment.isPosted" operator="equals" value="Y">
                 <call-service service-name="postAcctgTrans" in-map-name="postAcctgTransMap"/>
@@ -880,7 +880,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createPaymentFromOrder" short-description="Service auto create Payment from Order when payment does exist yet and not disabled by accounting config">
-        <entity-one value-field="orderHeader" entity-name="OrderHeader"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
 
         <if-compare operator="equals" value="PURCHASE_ORDER" field="orderHeader.orderTypeId">
             <property-to-field resource="accounting" property="accounting.payment.purchaseorder.autocreate" field="purchaseAutoCreate" default="Y"/>
@@ -1006,18 +1006,18 @@ under the License.
         <set field="parameters.partyIdTo" from-field="orderRoleTo.partyId"/>
         <set field="parameters.paymentMethodTypeId" value="COMPANY_ACCOUNT"/>
         <set field="parameters.statusId" value="PMNT_NOT_PAID"/>
-        <set-service-fields service-name="createPayment" to-map="createPayment" map="parameters"/>
+        <set-service-fields service-name="createPayment" map="parameters" to-map="createPayment"/>/>
         <call-service service-name="createPayment" in-map-name="createPayment">
             <result-to-field result-name="paymentId" field="parameters.paymentId"/>
         </call-service>
         <set field="parameters.orderId" from-field="orderHeader.orderId"/>
         <set field="parameters.maxAmount" from-field="orderHeader.grandTotal"/>
 
-        <set-service-fields service-name="createOrderPaymentPreference" to-map="newOrderPaymentPreference" map="parameters"/>
+        <set-service-fields service-name="createOrderPaymentPreference" map="parameters" to-map="newOrderPaymentPreference"/>/>
         <call-service service-name="createOrderPaymentPreference" in-map-name="newOrderPaymentPreference">
             <result-to-field result-name="orderPaymentPreferenceId" field="parameters.paymentPreferenceId"/>
         </call-service>
-        <set-service-fields service-name="updatePayment" to-map="updatePayment" map="parameters"/>
+        <set-service-fields service-name="updatePayment" map="parameters" to-map="updatePayment"/>/>
         <call-service service-name="updatePayment" in-map-name="updatePayment"/>
         <field-to-result field="parameters.paymentId" result-name="paymentId"/>
         <log level="info" message="payment ${parameters.paymentId} with the not-paid status automatically created from order: ${parameters.orderId} (can be disabled in accounting.properties)"/>
@@ -1031,7 +1031,7 @@ under the License.
         </if-compare>
 
         <if-not-empty field="parameters.invoiceId">
-            <entity-one value-field="invoice" entity-name="Invoice"/>
+            <entity-one entity-name="Invoice" value-field="invoice"/>
             <if-not-empty field="invoice">
                 <call-class-method method-name="getInvoiceTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
                     <field field="invoice" type="GenericValue"/>
@@ -1042,7 +1042,7 @@ under the License.
                     <result-to-field result-name="isForeign"/>
                 </call-service>
                 <if-compare operator="equals" value="true" field="isForeign">
-                    <entity-condition list="payments" entity-name="Payment">
+                    <entity-condition entity-name="Payment" list="payments">
                         <condition-list combine="and">
                             <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
                             <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
@@ -1053,7 +1053,7 @@ under the License.
                         <order-by field-name="effectiveDate"/>
                     </entity-condition>
                     <else>
-                        <entity-condition list="payments" entity-name="Payment">
+                        <entity-condition entity-name="Payment" list="payments">
                             <condition-list combine="and">
                                 <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
                                 <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
@@ -1086,10 +1086,10 @@ under the License.
         </if-not-empty>
 
         <if-not-empty field="parameters.paymentId">
-            <entity-one value-field="payment" entity-name="Payment"/>
+            <entity-one entity-name="Payment" value-field="payment"/>
             <if-not-empty field="payment">
                         
-                <entity-condition list="invoices" entity-name="Invoice">
+                <entity-condition entity-name="Invoice" list="invoices">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" value="INVOICE_READY" operator="not-equals"/>
                         <condition-expr field-name="statusId" value="INVOICE_PAID" operator="not-equals"/>

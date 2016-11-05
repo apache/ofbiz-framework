@@ -29,7 +29,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target-type="plain" target="javascript:execRemoteCall('cloneLayout', '${drDataResourceId}', '${contentId}', 'TEMPLATE_MASTER', '')"/>
+            <hyperlink description="${contentId}" target-type="plain" target="javascript:execRemoteCall('cloneLayout', '${drDataResourceId}', '${contentId}', 'TEMPLATE_MASTER', '')" also-hidden="false"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>

@@ -104,7 +104,7 @@ under the License.
                 <set field="trackingCodeOrder" from-field="trackingCodeOrders[0]"/>
                 <log level="info" message="Create  Tracking Code Order Return  For ${trackingCodeOrder}"/>
                 <if-not-empty field="trackingCodeOrder">
-                    <set-service-fields to-map="trackingCodeOrderReturnContext" service-name="createTrackingCodeOrderReturn" map="trackingCodeOrder"/>
+                    <set-service-fields service-name="createTrackingCodeOrderReturn" map="trackingCodeOrder" to-map="trackingCodeOrderReturnContext"/>
                     <set field="trackingCodeOrderReturnContext.returnId" from-field="parameters.returnId"/>
                     <set field="trackingCodeOrderReturnContext.orderId" from-field="trackingCodeOrder.orderId"/>
                     <set field="trackingCodeOrderReturnContext.trackingCodeTypeId" value="PARTNER_MGD"/>

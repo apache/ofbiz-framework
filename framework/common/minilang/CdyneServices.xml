@@ -53,7 +53,7 @@ under the License.
                         </condition-list>
                     </condition-list>
                 </entity-condition>
-                <first-from-list entry="countyGeo" list="geoList"/>
+                <first-from-list list="geoList" entry="countyGeo"/>
                 <if-not-empty field="countyGeo">
                     <!-- We found a county, now just save off the ID -->
                     <set field="postalAddress.countyGeoId" from-field="countyGeo.geoId"/>

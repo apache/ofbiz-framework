@@ -316,7 +316,7 @@ under the License.
                 <set field="tabButtonItem" value="PayrollHistory"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="parameters.sortField" from-field="parameters.sortField" default-value="invoiceDate DESC"/>
-                <entity-condition list="payroll" entity-name="InvoiceAndType">
+                <entity-condition entity-name="InvoiceAndType" list="payroll">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyId"/>
                         <condition-expr field-name="invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/>

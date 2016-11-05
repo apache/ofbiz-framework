@@ -57,7 +57,7 @@ under the License.
                     <set-service-fields map="userLoginContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
                     <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
                         <result-to-field result-name="partyId" field="partyId"/>
-                        <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
+                        <result-to-field result-name="newUserLogin" field="createdUserLogin"/>
                     </call-service>
                     <set-current-user-login value-field="createdUserLogin"/>
                     <else>

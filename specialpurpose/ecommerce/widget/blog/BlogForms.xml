@@ -49,10 +49,10 @@
             <submit button-type="button"/>
         </field>
         <field name="createBlog" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditBlogArticle"/>
+            <hyperlink description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditBlogArticle" also-hidden="false"/>
         </field>
         <field name="createForum" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditForumArticle"/>
+            <hyperlink description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditForumArticle" also-hidden="false"/>
         </field>
     </form>
 
@@ -69,7 +69,7 @@
         </actions>
 
         <field name="editContent" title=" ">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="CMSContentEdit" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
                 <parameter param-name="contentIdTo"/>

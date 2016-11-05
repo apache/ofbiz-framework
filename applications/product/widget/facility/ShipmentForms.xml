@@ -71,7 +71,7 @@ under the License.
             </service>
         </actions>
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}" widget-style="buttontext">
-            <hyperlink target="EditShipment" description="${shipmentId}">
+            <hyperlink description="${shipmentId}" target="EditShipment">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
         </field>
@@ -144,13 +144,13 @@ under the License.
         </field>
 
         <field name="estimatedShipWorkEffId" title="${uiLabelMap.ProductEstimatedShipWorkEffId}" widget-style="buttontext">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" also-hidden="false" description="${shipment.estimatedShipWorkEffId}" target-type="inter-app">
+            <hyperlink description="${shipment.estimatedShipWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId" from-field="shipment.estimatedShipWorkEffId"/>
             </hyperlink>
         </field>
         <field name="estimatedArrivalDate" title="${uiLabelMap.ProductEstimatedArrivalDate}"><date-time/></field>
         <field name="estimatedArrivalWorkEffId" title="${uiLabelMap.ProductEstimatedArrivalWorkEffId}" widget-style="buttontext">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" also-hidden="false" description="${shipment.estimatedArrivalWorkEffId}" target-type="inter-app">
+            <hyperlink description="${shipment.estimatedArrivalWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId" from-field="shipment.estimatedArrivalWorkEffId"/>
             </hyperlink>
         </field>
@@ -221,7 +221,7 @@ under the License.
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeOrderShipmentFromShipment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeOrderShipmentFromShipment" also-hidden="false">
                 <parameter param-name="shipmentId"/>
                 <parameter param-name="shipmentItemSeqId"/>
                 <parameter param-name="orderId"/>
@@ -282,12 +282,12 @@ under the License.
         <field name="shipmentId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId} - ${orderItemSeqId}" >
+            <hyperlink description="${orderId} - ${orderItemSeqId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>

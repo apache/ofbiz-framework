@@ -534,7 +534,7 @@ under the License.
             <actions>
                 <set field="custRequestSortField" from-field="parameters.custRequestSortField" default-value="-custRequestDate"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-condition list="custRequests" entity-name="CustReqAndTypeAndPartyRel">
+                <entity-condition entity-name="CustReqAndTypeAndPartyRel" list="custRequests">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
                         <condition-list combine="and">
@@ -586,7 +586,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="screenletTitle" from-field="uiLabelMap.OrderOpenMyCustomerRequests"/>
-                        <entity-condition list="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
                             <condition-list combine="and">
                                 <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-empty="true"/>
                                 <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>
@@ -609,7 +609,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="screenletTitle" from-field="uiLabelMap.OrderCompletedMyCustomerRequests"/>
-                        <entity-condition list="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
                             <condition-list combine="and">
                                 <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-empty="true"/>
                                 <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>
@@ -627,7 +627,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="screenletTitle" from-field="uiLabelMap.OrderCancelledMyCustomerRequests"/>
-                        <entity-condition list="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
                             <condition-list combine="and">
                                 <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-null="true"/>
                                 <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>

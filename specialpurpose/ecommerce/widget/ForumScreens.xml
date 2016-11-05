@@ -65,7 +65,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <entity-condition list="forumMessages" entity-name="ContentAssocViewTo" >
+                <entity-condition entity-name="ContentAssocViewTo" list="forumMessages" >
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" from-field="parameters.forumId"/>
                         <condition-list combine="or">

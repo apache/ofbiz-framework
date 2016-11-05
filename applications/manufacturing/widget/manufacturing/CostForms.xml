@@ -24,7 +24,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext">
-            <hyperlink target="EditCostCalcs" description="${costComponentCalcId}" also-hidden="false">
+            <hyperlink description="${costComponentCalcId}" target="EditCostCalcs" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
@@ -37,7 +37,7 @@ under the License.
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
         </field>
         <field name="removeCostComponentCalc" title=" " widget-style="buttontext">
-            <hyperlink target="removeCostComponentCalc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeCostComponentCalc" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>

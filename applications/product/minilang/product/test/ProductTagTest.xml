@@ -33,7 +33,7 @@ under the License.
              Step 8) Check all product tags is created.
         -->
         <!-- Step 1 -->
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="request" from-field="parameters.request"/>

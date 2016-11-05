@@ -96,7 +96,7 @@
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
         <if-not-empty field="emplPositionTypeRates">
-            <first-from-list entry="emplPositionTypeRate" list="emplPositionTypeRates"/>
+            <first-from-list list="emplPositionTypeRates" entry="emplPositionTypeRate"/>
             <now-timestamp field="emplPositionTypeRate.thruDate"/>
             <store-value value-field="emplPositionTypeRate"/>
         </if-not-empty>
@@ -143,14 +143,14 @@
         <entity-and entity-name="Employment" list="employments" filter-by-date="true">
             <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
         </entity-and>
-        <first-from-list entry="employment" list="employments"/>
+        <first-from-list list="employments" entry="employment"/>
         <field-to-result field="employment"/>
         <!-- position -->
         <entity-and entity-name="EmplPositionAndFulfillment" list="emplPositionAndFulfillments" filter-by-date="true">
             <field-map field-name="employeePartyId" from-field="parameters.partyId"/>
             <field-map field-name="partyId" from-field="employment.partyIdFrom"/>
         </entity-and>
-        <first-from-list entry="emplPositionAndFulfillment" list="emplPositionAndFulfillments"/>
+        <first-from-list list="emplPositionAndFulfillments" entry="emplPositionAndFulfillment"/>
         <field-to-result field="emplPositionAndFulfillment" result-name="emplPosition"/>
         <!-- position type -->
         <if-not-empty field="emplPositionAndFulfillment">
@@ -165,7 +165,7 @@
             <field-map field-name="emplPositionTypeId" from-field="emplPositionType.emplPositionTypeId"/>
             <field-map field-name="rateCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
         </entity-and>
-        <first-from-list entry="rateAmount" list="rateAmounts"/>
+        <first-from-list list="rateAmounts" entry="rateAmount"/>
         <field-to-result field="rateAmount" result-name="emplPositionRateAmount"/>
     </simple-method>
 

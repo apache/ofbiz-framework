@@ -60,7 +60,7 @@ under the License.
             <hidden value="${donePage}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
+        <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field>
     </form>
 
    <form name="ListMarketingCampaign" type="list" paginate-target="FindMarketingCampaign"
@@ -69,7 +69,7 @@ under the License.
             <entity-condition entity-name="MarketingCampaign"/>
         </actions>
         <field name="marketingCampaignId" widget-style="buttontext" title="${uiLabelMap.MarketingCampaignId}">
-            <hyperlink target="EditMarketingCampaign" description="${marketingCampaignId}" also-hidden="false">
+            <hyperlink description="${marketingCampaignId}" target="EditMarketingCampaign" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
             </hyperlink>
         </field>
@@ -114,7 +114,7 @@ under the License.
             </display-entity>-->
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeMarketingCampaignRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeMarketingCampaignRole" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="partyId"/>
@@ -139,7 +139,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" widget-style="buttontext" title=" ">
-            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
             </hyperlink>
         </field>

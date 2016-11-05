@@ -123,9 +123,9 @@ under the License.
                         <actions>
                           <!-- Read portalPage to retrieve helpContentId,
                                if portalPage.originalPortalPageId is not null retrieve originalPortalPage-->
-                          <entity-one value-field="portalPageTmp" entity-name="PortalPage" use-cache="true"/>
+                          <entity-one entity-name="PortalPage" value-field="portalPageTmp" use-cache="true"/>
                           <set field="originalPortalPageId" from-field="portalPageTmp.originalPortalPageId" default-value="${parameters.portalPageId}"/>
-                          <entity-one value-field="portalPage" entity-name="PortalPage" use-cache="true">
+                          <entity-one entity-name="PortalPage" value-field="portalPage" use-cache="true">
                             <field-map field-name="portalPageId" from-field="originalPortalPageId"/>
                           </entity-one>
                         </actions>

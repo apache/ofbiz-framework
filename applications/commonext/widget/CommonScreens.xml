@@ -64,7 +64,7 @@ under the License.
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                             <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                         </entity-one>
-                        <entity-one value-field="orgPartyLogoMap" entity-name="PartyGroup">
+                        <entity-one entity-name="PartyGroup" value-field="orgPartyLogoMap">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                         </entity-one>
                         <entity-and entity-name="PartyContent" list="orgPartyContentMap" filter-by-date="true">

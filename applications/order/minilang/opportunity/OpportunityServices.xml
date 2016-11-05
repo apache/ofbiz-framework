@@ -138,7 +138,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
             <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
         </entity-and>
-        <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
+        <first-from-list list="salesOpportunityRoles" entry="lookedUpValue"/>
         <field-to-result field="lookedUpValue.partyId" result-name="partyId"/>
     </simple-method>
 </simple-methods>

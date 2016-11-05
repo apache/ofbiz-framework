@@ -92,7 +92,7 @@ under the License.
         <if-not-empty field="partyInvitationRoleAssocs">
             <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>
             <iterate list="partyInvitationRoleAssocs" entry="partyInvitationRoleAssoc">
-                <entity-one value-field="partyRole" entity-name="PartyRole">
+                <entity-one entity-name="PartyRole" value-field="partyRole">
                     <field-map field-name="roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
                 </entity-one>
                 <if-empty field="partyRole">

@@ -37,7 +37,7 @@
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>
-            <first-from-list entry="statusItem" list="contentStatus"/>
+            <first-from-list list="contentStatus" entry="statusItem"/>
             <set field="content.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
@@ -206,8 +206,8 @@
         <log level="always" message="assocContent, parameters:${parameters}"/>
         <log level="always" message="assocContent, context:${context}"/>
         <call-service in-map-name="parameters" service-name="checkAssocPermission">
-            <result-to-field field="permissionStatus" result-name="permissionStatus"/>
-            <result-to-field field="rolesOut" result-name="rolesOut"/>
+            <result-to-field result-name="permissionStatus" field="permissionStatus"/>
+            <result-to-field result-name="rolesOut" field="rolesOut"/>
         </call-service>
         <log level="always" message="permissionStatus:${permissionStatus}"/>
 
@@ -481,7 +481,7 @@
             -->
 
         <now-timestamp field="nowTimestamp"/>
-        <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
+        <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistIn"/>
         <!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
         <if-empty field="persistIn.dataResourceTypeId">
         <log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}"/>
@@ -530,7 +530,7 @@
         </check-permission>
         <check-errors/>
             -->
-        <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
+        <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistIn"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
             <results-to-map map-name="persistOut"/>
         </call-service>
@@ -867,7 +867,7 @@
 
         <set field="filterByDate" from-field="parameters.filterByDate" default-value="true" type="Boolean"/>
         <set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean"/>
-        <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
+        <entity-condition entity-name="ContentAssocViewTo" list="viewList" filter-by-date="${filterByDate}" use-cache="${useCache}">
           <condition-list combine="and">
               <condition-expr field-name="contentIdStart" from-field="parameters.contentId"/>
               <condition-expr field-name="caContentAssocTypeId" from-field="parameters.contentAssocTypeId" ignore-if-empty="true"/>
@@ -923,7 +923,7 @@
               </condition-list>
             </entity-condition>
             <clear-field field="view2"/>
-            <first-from-list entry="view2" list="viewList"/>
+            <first-from-list list="viewList" entry="view2"/>
             <clear-field field="map"/>
             <set field="map.contentIdFrom" from-field="view.contentId"/>
             <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>
@@ -979,7 +979,7 @@
                 </or>
             </condition>
             <then>
-                <entity-condition list="contents" entity-name="Content">
+                <entity-condition entity-name="Content" list="contents">
                     <condition-list combine="and">
                         <condition-expr field-name="contentName" operator="not-equals" from-field="nullField"/>
                             <condition-list combine="or">
@@ -993,7 +993,7 @@
                 </entity-condition>
             </then>
             <else>
-                <entity-condition list="contents" entity-name="Content">
+                <entity-condition entity-name="Content" list="contents">
                     <condition-list combine="and">
                         <condition-expr field-name="contentName" operator="not-equals" from-field="nullField"/>
                         <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
@@ -1010,7 +1010,7 @@
         </if>
         <iterate list="contents" entry="content">
             <set field="localeString" from-field="content.localeString" default-value="${defaultLocaleString}"/>
-            <entity-condition list="contentAssocDataResources" entity-name="ContentAssocDataResourceViewTo">
+            <entity-condition entity-name="ContentAssocDataResourceViewTo" list="contentAssocDataResources">
                 <condition-list combine="and">
                     <condition-expr field-name="caContentAssocTypeId" operator="equals" value="ALTERNATIVE_URL"/>
                     <condition-expr field-name="contentIdStart" operator="equals" from-field="content.contentId"/>
@@ -1102,7 +1102,7 @@
             
             <iterate list="parameters.productCategories" entry="productCategoryList">
                 <!-- Create Content Alternative URLs for Product Category Content -->
-                <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
+                <entity-condition entity-name="ProductCategoryContentAndInfo" list="productCategoryContentAndInfoList" filter-by-date="true" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
                         <condition-expr field-name="prodCatContentTypeId" operator="not-equals" value="ALTERNATIVE_URL"/>
@@ -1131,7 +1131,7 @@
                 </iterate>
                 
                 <!-- Create Content Alternative URLs for Product Content -->
-                <entity-condition list="productCategoryMemberList" entity-name="ProductCategoryMember" filter-by-date="true" use-cache="true">
+                <entity-condition entity-name="ProductCategoryMember" list="productCategoryMemberList" filter-by-date="true" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
                     </condition-list>
@@ -1139,7 +1139,7 @@
                 </entity-condition>
                 <iterate list="productCategoryMemberList" entry="productCategoryMember">
                     <set field="product.productId" from-field="productCategoryMember.productId"/>
-                    <entity-condition list="productContentAndInfoList" entity-name="ProductContentAndInfo" filter-by-date="true" use-cache="true">
+                    <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfoList" filter-by-date="true" use-cache="true">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="product.productId"/>
                             <condition-expr field-name="productContentTypeId" operator="not-equals" value="ALTERNATIVE_URL"/>
@@ -1232,7 +1232,7 @@
         </entity-and>
         <iterate list="productCategoryRollups" entry="productCategoryRollup">
             <!-- append product category to list -->
-            <entity-one value-field="productCategory" entity-name="ProductCategory">
+            <entity-one entity-name="ProductCategory" value-field="productCategory">
                 <field-map field-name="productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
             </entity-one>
             <field-to-list list="parameters.productCategories" field="productCategory"/>

@@ -81,7 +81,7 @@
             <check-errors/>
             
             <!-- find exist e-mail address. if have not exist then create new-->
-            <entity-condition list="existEmailAddresses" entity-name="WorkEffortContactMechView">
+            <entity-condition entity-name="WorkEffortContactMechView" list="existEmailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" from-field="parameters.workEffortId"/>
                     <condition-expr field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -101,7 +101,7 @@
                         <field-map field-name="workEffortId" from-field="oldEmailAddress.workEffortId"/>
                         <field-map field-name="contactMechId" from-field="oldEmailAddress.contactMechId"/>
                     </entity-and>
-                    <first-from-list entry="oldWorkEffortContactMech" list="oldWorkEffortContactMechs"/>
+                    <first-from-list list="oldWorkEffortContactMechs" entry="oldWorkEffortContactMech"/>
                     <now-timestamp field="oldWorkEffortContactMech.thruDate"/>
                     <store-value value-field="oldWorkEffortContactMech"/>
                 </iterate>
@@ -130,7 +130,7 @@
         </entity-and>
         <!-- end current record if required -->
         <if-not-empty field="workEffortPartyAssignments">
-            <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignments"/>
+            <first-from-list list="workEffortPartyAssignments" entry="workEffortPartyAssignment"/>
             <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId">
                 <now-timestamp field="workEffortPartyAssignment.thruDate"/>
                 <store-value value-field="workEffortPartyAssignment"/>
@@ -180,23 +180,23 @@
     </simple-method>
 
     <simple-method method-name="updateTaskAndRelatedInfo" short-description="Update the task and when info is provided update the related information too">
-        <set-service-fields service-name="updateWorkEffort" to-map="updateWorkeffort" map="parameters"/>
+        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updateWorkeffort"/>/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkeffort"/>
         <if-not-empty field="parameters.estimatedDuration">
-            <set-service-fields service-name="updateWorkEffortSkillStandard" to-map="updateWorkEffortSkillStandard" map="parameters"/>
+            <set-service-fields service-name="updateWorkEffortSkillStandard" map="parameters" to-map="updateWorkEffortSkillStandard"/>/>
             <if-empty field="parameters.skillTypeId">
                 <entity-and entity-name="WorkEffortSkillStandard" list="workEffortSkillStandards">
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
                 <if-not-empty field="workEffortSkillStandards">
-                    <first-from-list entry="workEffortSkillStandard" list="workEffortSkillStandards"/>
+                    <first-from-list list="workEffortSkillStandards" entry="workEffortSkillStandard"/>
                     <set field="updateWorkEffortSkillStandard.skillTypeId" from-field="workEffortSkillStandard.skillTypeId"/>
                     <else>
                         <set field="updateWorkEffortSkillStandard.skillTypeId" value="_NA_"/>
                     </else>
                 </if-not-empty>
             </if-empty>
-            <entity-one value-field="workEffortSkillStandard" entity-name="WorkEffortSkillStandard">
+            <entity-one entity-name="WorkEffortSkillStandard" value-field="workEffortSkillStandard">
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 <field-map field-name="skillTypeId" from-field="updateWorkEffortSkillStandard.skillTypeId"/>
             </entity-one>
@@ -344,7 +344,7 @@
                 <clear-field field="task.estimatedCompletionDate"/>
             </iterate>
 
-            <first-from-list entry="task" list="tasks"/>
+            <first-from-list list="tasks" entry="task"/>
             <set field="startDate" from-field="task.actualStartDate"/>
             <set field="taskId" from-field="task.workEffortId"/>
             <else>
@@ -483,7 +483,7 @@
                 <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
-            <first-from-list entry="projectAssign" list="projectAssigns"/>
+            <first-from-list list="projectAssigns" entry="projectAssign"/>
             <set field="parameters.partyId" from-field="timesheet.partyId"/>
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
@@ -550,7 +550,7 @@
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
-            <first-from-list entry="alreadyAssign" list="assigns"/>
+            <first-from-list list="assigns" entry="alreadyAssign"/>
             <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
                 <set field="upStat.partyId" from-field="timesheet.partyId"/>
                 <set field="upStat.statusId" value="PAS_COMPLETED"/>
@@ -718,7 +718,7 @@
         </entity-and>
         <filter-list-by-date list="emailAddresses"/>
         <if-not-empty field="emailAddresses">
-            <first-from-list entry="emailAddress" list="emailAddresses"/>
+            <first-from-list list="emailAddresses" entry="emailAddress"/>
             <set field="highInfo.emailAddress" from-field="emailAddress.infoString"/>
         </if-not-empty>
 
@@ -1050,7 +1050,7 @@
         </entity-condition>
 
         <!-- Now used TimeEntries to update (or not) actual start and end Date -->
-        <first-from-list entry="summaryInfo" list="summaryInfos"/>
+        <first-from-list list="summaryInfos" entry="summaryInfo"/>
         <set field="highInfo.estimatedStartDate" from-field="summaryInfo.estimatedStartDate"/>
         <set field="highInfo.estimatedCompletionDate" from-field="summaryInfo.estimatedCompletionDate"/>
         <set field="highInfo.actualStartDate" from-field="summaryInfo.actualStartDate"/>
@@ -1068,7 +1068,7 @@
             </condition-list>
             <select-field field-name="actualEntryStartDate"/>
         </entity-condition>
-        <first-from-list entry="timeEntriesInfo" list="summaryEntriesInfos"/>
+        <first-from-list list="summaryEntriesInfos" entry="timeEntriesInfo"/>
         <if-not-empty field="timeEntriesInfo">
           <if-not-empty field="timeEntriesInfo.actualEntryStartDate">
             <if>
@@ -1104,7 +1104,7 @@
         <clear-field field="originalActualHours"/>
 
         <!-- I- get timeEntries for which there is no rate  (originalHours)-->
-        <entity-condition list="notRatedValues" entity-name="ProjectPhaseTaskActualNotRatedHoursView">
+        <entity-condition entity-name="ProjectPhaseTaskActualNotRatedHoursView" list="notRatedValues">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
@@ -1113,13 +1113,13 @@
             </condition-list>
             <select-field field-name="totalOriginalHours"/>
         </entity-condition>
-        <first-from-list entry="notRatedValue" list="notRatedValues"/>
+        <first-from-list list="notRatedValues" entry="notRatedValue"/>
         <set field="originalHours" from-field="notRatedValue.totalOriginalHours" type="Double"/>
 
         <!-- II- get total for timeEntries having a partyRate that should be applied
         before applying rate (totalOriginalHours)
         after applying rate (totalRatedHours)-->
-        <entity-condition list="ratedValues" entity-name="ProjectPhaseTaskActualRatedHoursView">
+        <entity-condition entity-name="ProjectPhaseTaskActualRatedHoursView" list="ratedValues">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
@@ -1161,7 +1161,7 @@
         <set field="highInfo.actualHours" from-field="actualHours"/>
         <!-- do the same but for non-billed hours -->
         <!-- first get not rated hours -->
-        <entity-condition list="notRatedValues" entity-name="ProjectPhaseTaskActualNotRatedHoursView">
+        <entity-condition entity-name="ProjectPhaseTaskActualNotRatedHoursView" list="notRatedValues">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
@@ -1171,10 +1171,10 @@
             </condition-list>
             <select-field field-name="totalOriginalHours"/>
         </entity-condition>
-        <first-from-list entry="notRatedValue" list="notRatedValues"/>
+        <first-from-list list="notRatedValues" entry="notRatedValue"/>
         <set field="actualNonBilledHours" from-field="notRatedValue.totalOriginalHours" type="Double"/>
         <!-- second get non billed for entries having an invoiceId -->
-        <entity-condition list="ratedValues" entity-name="ProjectPhaseTaskActualRatedHoursView">
+        <entity-condition entity-name="ProjectPhaseTaskActualRatedHoursView" list="ratedValues">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
@@ -1358,7 +1358,7 @@
                 </entity-condition>
                 <if-not-empty field="timesheets">
                     <!-- use existing timesheet -->
-                    <first-from-list entry="timesheet" list="timesheets"/>
+                    <first-from-list list="timesheets" entry="timesheet"/>
                     <if-compare field="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="equals">
                         <set field="parameters.timesheetId" from-field="timesheet.timesheetId"/>
                         <else>
@@ -1383,7 +1383,7 @@
               <field-map field-name="partyId" from-field="parameters.partyId"/>
               <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
           </entity-and>
-          <first-from-list entry="taskRole" list="taskRoles"/>
+          <first-from-list list="taskRoles" entry="taskRole"/>
           <set field="parameters.roleTypeId" from-field="taskRole.roleTypeId"/>
           <set field="parameters.statusId" value="PAS_ASSIGNED"/>
           <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"/>

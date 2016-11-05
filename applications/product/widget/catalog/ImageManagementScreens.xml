@@ -96,7 +96,7 @@ under the License.
                                    <field-map field-name="contentAssocTypeId" value="ALTERNATE_LOCALE" />
                                 </entity-and>-->
                                 
-                                <!--<entity-one value-field="product" entity-name="Product"/>-->
+                                <!--<entity-one entity-name="Product" value-field="product"/>-->
                                 <!--<script location="component://product/groovyScripts/catalog/imagemanagement/SeoLocales.groovy"/>-->
                                 <script location="component://product/groovyScripts/catalog/imagemanagement/ImageGallery.groovy"/>
                             </actions>
@@ -415,7 +415,7 @@ under the License.
             <actions>
                 <set field="userTabButtonImage" value="ImageManage"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -642,7 +642,7 @@ under the License.
                 <set field="currentFormName" value="ListImageReplace"/>
                 <set field="statusForm" value="IM_APPROVED"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -826,7 +826,7 @@ under the License.
             <actions>
                 <set field="userTabButtonImage" value="ImageResize"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfos">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId"/>

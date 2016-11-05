@@ -22,18 +22,18 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="testUpdateSprintBacklog" short-description="Update Sprint Backlog" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="parameters.custRequestId" value="TEST9"/>
         <set field="parameters.estimatedMilliSeconds" value="36000000"/>
         <set field="parameters.userLogin" from-field="userLogin"/>
-        <set-service-fields service-name="updateCustRequest" to-map="inMap" map="parameters"/>
+        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>/>
         <call-service service-name="updateCustRequest" in-map-name="inMap"/>
     </simple-method>
     
     <simple-method method-name="testCreateSprintByScrummaster" short-description="Test Create Sprint By Scrummaster" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -62,7 +62,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testCreateSprintByAdmin" short-description="Test Create Sprint By Admin" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -91,7 +91,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testAddSprintMember" short-description="Test add Sprint member" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set field="parameters.workEffortId" value="DEMO-SPRINT-1"/>
@@ -104,7 +104,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testRemoveSprintMember" short-description="Test remove Sprint member" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set field="parameters.workEffortId" value="DEMO-SPRINT-1"/>

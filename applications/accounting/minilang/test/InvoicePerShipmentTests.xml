@@ -43,7 +43,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -103,11 +103,11 @@ under the License.
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->
-        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-entryDate"/>
         </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <first-from-list list="orderHeaders" entry="orderHeader"/>
         <log level="info" message="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ${orderHeader}"/>
         <script>groovy:
             import org.apache.ofbiz.shipment.packing.PackingSession;
@@ -133,7 +133,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" to-map="completePackInput" map="packInput"/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -170,7 +170,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response = ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -230,11 +230,11 @@ under the License.
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->
-        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-entryDate"/>
         </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <first-from-list list="orderHeaders" entry="orderHeader"/>
         <script>groovy:
             import org.apache.ofbiz.shipment.packing.PackingSession;
             packingSession = new PackingSession(dispatcher, userLogin);
@@ -259,7 +259,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" to-map="completePackInput" map="packInput"/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -288,7 +288,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response = ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -347,11 +347,11 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
-        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-entryDate"/>
         </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <first-from-list list="orderHeaders" entry="orderHeader"/>
         <set field="orderInput.orderId" from-field="orderHeader.orderId"/>
         <set field="orderInput.invoicePerShipment" value="N"/>
         <set field="orderInput.userLogin" from-field="userLogin"/>
@@ -384,7 +384,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" to-map="completePackInput" map="packInput"/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -413,7 +413,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response = ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -472,11 +472,11 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
-        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-entryDate"/>
         </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <first-from-list list="orderHeaders" entry="orderHeader"/>
         <set field="orderInput.orderId" from-field="orderHeader.orderId"/>
         <set field="orderInput.invoicePerShipment" value="Y"/>
         <set field="orderInput.userLogin" from-field="userLogin"/>
@@ -509,7 +509,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" to-map="completePackInput" map="packInput"/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>

@@ -41,7 +41,7 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${workEffortId}" target="javascript:set_value('${workEffortId}')"/>
+            <hyperlink description="${workEffortId}" target="javascript:set_value('${workEffortId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -76,7 +76,7 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${workEffortId}" target="javascript:set_value('${workEffortId}')"/>
+            <hyperlink description="${workEffortId}" target="javascript:set_value('${workEffortId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>

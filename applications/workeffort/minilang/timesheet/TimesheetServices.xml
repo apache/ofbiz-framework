@@ -79,7 +79,7 @@ under the License.
     <simple-method  method-name="createTimesheets" short-description="Creates Timesheet multiple parties at a time">
        <iterate list="parameters.partyIdList" entry="partyId">
            <set field="parameters.partyId" from-field="partyId"/>
-           <set-service-fields to-map="createParams" service-name="createTimesheet" map="parameters"/>
+           <set-service-fields service-name="createTimesheet" map="parameters" to-map="createParams"/>
            <call-service service-name="createTimesheet" in-map-name="createParams"/>
        </iterate>
     </simple-method>
@@ -160,7 +160,7 @@ under the License.
             <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
             <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
             <if-not-empty field="custRequestWorkEfforts">
-                <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
+                <first-from-list list="custRequestWorkEfforts" entry="custRequestWorkEffort"/>
                 <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
                 <if-not-empty field="custRequest">
                     <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
@@ -199,7 +199,7 @@ under the License.
                                     <field-map field-name="partyId" from-field="timeEntry.partyId"/>
                                 </entity-and>
                                 <if-not-empty field="partyRates">
-                                    <first-from-list entry="partyRate" list="partyRates"/>
+                                    <first-from-list list="partyRates" entry="partyRate"/>
                                     <if-not-empty field="partyRate.percentageUsed">
                                         <calculate field="timeEntry.hours" type="Double">
                                             <calcop operator="multiply" field="timeEntry.hours">

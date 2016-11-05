@@ -39,7 +39,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
-        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
+        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>
 
     <form name="ListDataSource" target="ListDataSource" title="" type="list"
@@ -48,14 +48,14 @@ under the License.
             <entity-condition entity-name="DataSource"/>
         </actions>
         <field name="dataSourceId"  widget-style="buttontext" title="${uiLabelMap.DataSourceDataSourceId}">
-            <hyperlink target="EditDataSource" description="${dataSourceId}" also-hidden="false">
+            <hyperlink description="${dataSourceId}" target="EditDataSource" also-hidden="false">
                 <parameter param-name="dataSourceId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display-entity entity-name="DataSourceType"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteDataSource" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteDataSource" also-hidden="false">
                 <parameter param-name="dataSourceId"/>
             </hyperlink>
         </field>
@@ -95,12 +95,12 @@ under the License.
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="editLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditDataSourceType" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditDataSourceType" also-hidden="false">
                 <parameter param-name="dataSourceTypeId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteDataSourceType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteDataSourceType" also-hidden="false">
                 <parameter param-name="dataSourceTypeId"/>
             </hyperlink>
         </field>
@@ -130,7 +130,7 @@ under the License.
             </service>
         </actions>
         <field name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${dataSourceId}" target="javascript:set_value('${dataSourceId}')" target-type="plain"/>
+            <hyperlink description="${dataSourceId}" target="javascript:set_value('${dataSourceId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display-entity entity-name="DataSourceType"/></field>
@@ -153,7 +153,7 @@ under the License.
             </service>
         </actions>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${dataSourceTypeId}" target="javascript:set_value('${dataSourceTypeId}')" target-type="plain"/>
+            <hyperlink description="${dataSourceTypeId}" target="javascript:set_value('${dataSourceTypeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>

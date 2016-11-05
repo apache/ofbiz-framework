@@ -119,7 +119,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
@@ -151,7 +151,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
@@ -180,7 +180,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>

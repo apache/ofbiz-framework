@@ -27,7 +27,7 @@
         </if-compare>
         <if-compare field="parameters.mode" value="UP" operator="equals">
             <!-- check custRequestTypeId -->
-            <entity-one value-field="custRequest" entity-name="CustRequest"/>
+            <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
                 <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                     <condition-list combine="and">
@@ -39,7 +39,7 @@
                         </condition-list>
                     </condition-list>
                 </entity-count>
-                <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId" />
                         <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG"/>
@@ -61,7 +61,7 @@
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                         </condition-list>
                     </entity-count>
-                    <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                    <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId" />
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
@@ -79,7 +79,7 @@
                         <set field="custReq[i].custSequenceNum" from-field="custReq[i-1].custSequenceNum" />
                         <set field="custReq[i-1].custSequenceNum" from-field="temp" />
 
-                        <entity-one value-field="firstup" entity-name="CustRequest">
+                        <entity-one entity-name="CustRequest" value-field="firstup">
                             <field-map field-name="custRequestId" from-field="custReq[i].custRequestId" />
                         </entity-one><!--<log level="always" message="666666666666666666666 firstup : ${firstup}"></log>-->
                         <set field="firstup.custSequenceNum" from-field="custReq[i].custSequenceNum" />
@@ -91,7 +91,7 @@
                                 </else>
                         </if-empty>
 
-                        <entity-one value-field="lastup" entity-name="CustRequest">
+                        <entity-one entity-name="CustRequest" value-field="lastup">
                             <field-map field-name="custRequestId" from-field="custReq[i-1].custRequestId" />
                         </entity-one>
                         <set field="lastup.custSequenceNum" from-field="custReq[i-1].custSequenceNum" />
@@ -108,7 +108,7 @@
         </if-compare>
         <!-- DOWN -->
         <if-compare field="parameters.mode" value="DWN" operator="equals">
-            <entity-one value-field="custRequest" entity-name="CustRequest"/>
+            <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
                 <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                     <condition-list combine="and">
@@ -120,7 +120,7 @@
                         </condition-list>
                     </condition-list>
                 </entity-count>
-                <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId" />
                         <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG"/>
@@ -142,7 +142,7 @@
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                         </condition-list>
                     </entity-count>
-                    <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                    <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId" />
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
@@ -161,7 +161,7 @@
                         <set field="custReq[i].custSequenceNum" from-field="custReq[i+1].custSequenceNum" />
                         <set field="custReq[i+1].custSequenceNum" from-field="temp" />
 
-                        <entity-one value-field="first" entity-name="CustRequest">
+                        <entity-one entity-name="CustRequest" value-field="first">
                             <field-map field-name="custRequestId" from-field="custReq[i].custRequestId" />
                         </entity-one>
                         <set field="first.custSequenceNum" from-field="custReq[i].custSequenceNum" />
@@ -173,7 +173,7 @@
                                 </else>
                         </if-empty>
 
-                        <entity-one value-field="last" entity-name="CustRequest">
+                        <entity-one entity-name="CustRequest" value-field="last">
                             <field-map field-name="custRequestId" from-field="custReq[i+1].custRequestId" />
                         </entity-one>
                         <set field="last.custSequenceNum" from-field="custReq[i+1].custSequenceNum" />
@@ -190,7 +190,7 @@
         </if-compare>
         <!-- TOP -->
         <if-compare field="parameters.mode" value="TOP" operator="equals">
-            <entity-one value-field="custRequest" entity-name="CustRequest"/>
+            <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
                 <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                     <condition-list combine="and">
@@ -202,7 +202,7 @@
                         </condition-list>
                     </condition-list>
                 </entity-count>
-                <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId" />
                         <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG"/>
@@ -224,7 +224,7 @@
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                         </condition-list>
                     </entity-count>
-                    <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                    <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId" />
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
@@ -246,7 +246,7 @@
                 </if-compare>
             </loop>
             <loop count="${selectedIndex}" field="j">
-                <entity-one value-field="custReqBottom" entity-name="CustRequest">
+                <entity-one entity-name="CustRequest" value-field="custReqBottom">
                     <field-map field-name="custRequestId" from-field="custReq[j].custRequestId" />
                 </entity-one>
                 <set field="custReqBottom.custSequenceNum" from-field="custReq[j+1].custSequenceNum"
@@ -260,7 +260,7 @@
                 </if-empty>
             </loop>
 
-            <entity-one value-field="updatetop" entity-name="CustRequest">
+            <entity-one entity-name="CustRequest" value-field="updatetop">
                 <field-map field-name="custRequestId" from-field="selectedCustReq.custRequestId" />
             </entity-one>
             <set field="updatetop.custSequenceNum" from-field="topCustReq.custSequenceNum"
@@ -275,7 +275,7 @@
         </if-compare>
         <!-- buttom -->
         <if-compare field="parameters.mode" value="BOT" operator="equals">
-            <entity-one value-field="custRequest" entity-name="CustRequest"/>
+            <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
                 <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                     <condition-list combine="and">
@@ -287,7 +287,7 @@
                         </condition-list>
                     </condition-list>
                 </entity-count>
-                <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId" />
                         <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG"/>
@@ -309,7 +309,7 @@
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                         </condition-list>
                     </entity-count>
-                    <entity-condition list="custReq" entity-name="CustRequestAndCustRequestItem">
+                    <entity-condition entity-name="CustRequestAndCustRequestItem" list="custReq">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="parameters.productId" />
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
@@ -333,7 +333,7 @@
             <loop count="${diffIndex}" field="j"><!--<log level="always" message="////////// j : ${j}"></log>-->
                 <set field="lowerSeqNum" from-field="custReq[j+selectedIndex].custSequenceNum" />
 
-                <entity-one value-field="update" entity-name="CustRequest">
+                <entity-one entity-name="CustRequest" value-field="update">
                     <field-map field-name="custRequestId"
                         from-field="custReq[j+selectedIndex+1].custRequestId" />
                 </entity-one>
@@ -348,7 +348,7 @@
                     </else>
                 </if-empty>
             </loop>
-            <entity-one value-field="update2" entity-name="CustRequest">
+            <entity-one entity-name="CustRequest" value-field="update2">
                 <field-map field-name="custRequestId" from-field="selectedCustReq.custRequestId" />
             </entity-one>
             <if-empty field="update2">
@@ -377,13 +377,13 @@
                 <field-map field-name="workEffortId" from-field="parameters.taskId" />
             </entity-one>
             <if-not-empty field="task">
-                <entity-condition list="sprintList" entity-name="ProjectSprintBacklogAndTask">
+                <entity-condition entity-name="ProjectSprintBacklogAndTask" list="sprintList">
                     <condition-list combine="and">
                         <condition-expr field-name="taskId" from-field="parameters.taskId"/>
                         <condition-expr field-name="sprintTypeId" operator="equals" value="SCRUM_SPRINT"/>
                     </condition-list>
                 </entity-condition>
-                <entity-one value-field="sprint" entity-name="WorkEffort">
+                <entity-one entity-name="WorkEffort" value-field="sprint">
                     <field-map field-name="workEffortId" from-field="sprintList[0].sprintId"/>
                 </entity-one>
                 <else>
@@ -400,14 +400,14 @@
         <!-- get project info -->
         <if-not-empty field="sprint">
             <!-- get project from sprint -->
-            <entity-condition list="projectList" entity-name="ProjectSprintBacklogAndTask">
+            <entity-condition entity-name="ProjectSprintBacklogAndTask" list="projectList">
                 <condition-list combine="and">
                     <condition-expr field-name="sprintId" from-field="sprint.workEffortId"/>
                     <condition-expr field-name="sprintTypeId" operator="equals" value="SCRUM_SPRINT"/>
                     <condition-expr field-name="taskId" from-field="parameters.taskId"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="project" list="projectList"/>
+            <first-from-list list="projectList" entry="project"/>
             <field-to-result field="project.projectId"
                 result-name="projectId" />
             <field-to-result field="project.projectName"
@@ -429,7 +429,7 @@
                 value="${project.projectId}.${sprint.sequenceNum}.${task.sequenceNum}" />
             <field-to-result field="taskWbsId" />
             <else>
-                <entity-condition list="tasksDetail" entity-name="ProjectSprintBacklogTaskAndParty">
+                <entity-condition entity-name="ProjectSprintBacklogTaskAndParty" list="tasksDetail">
                     <condition-list combine="and">
                         <condition-expr field-name="taskId" from-field="task.workEffortId"/>
                     </condition-list>
@@ -455,7 +455,7 @@
         </if-compare>
         
         <!-- Check : if parameter of workEffortId is leaveTypeId in EmplLeaveType -->
-        <entity-one value-field="emplLeaveTypeMap" entity-name="EmplLeaveType">
+        <entity-one entity-name="EmplLeaveType" value-field="emplLeaveTypeMap">
             <field-map field-name="leaveTypeId" from-field="parameters.workEffortId"/>
         </entity-one>
         <if-not-empty field="emplLeaveTypeMap">
@@ -488,7 +488,7 @@
                             <set field="leaveThruDate" value="${groovy:import java.sql.Timestamp;
                                 return new Timestamp(emplLeaveFromDate.getTime() + ((int) (60L*60L*1000L*hours)));}"/>
                             <set field="emplLeaveThruDate" from-field="leaveThruDate" type="Timestamp"/>
-                            <entity-one value-field="emplLeaveMap" entity-name="EmplLeave">
+                            <entity-one entity-name="EmplLeave" value-field="emplLeaveMap">
                                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
                                 <field-map field-name="leaveTypeId" from-field="parameters.workEffortId"/>
                                 <field-map field-name="fromDate" from-field="emplLeaveFromDate"/>
@@ -533,7 +533,7 @@
                                 <set field="leaveThruDate" value="${groovy:import java.sql.Timestamp;
                                 return new Timestamp(emplLeaveFromDate.getTime() + ((int) (60L*60L*1000L*hours)));}"/>
                                 <set field="emplLeaveThruDate" from-field="leaveThruDate" type="Timestamp"/>
-                                <entity-one value-field="emplLeave" entity-name="EmplLeave">
+                                <entity-one entity-name="EmplLeave" value-field="emplLeave">
                                     <field-map field-name="partyId" from-field="timesheet.partyId"/>
                                     <field-map field-name="leaveTypeId" from-field="parameters.workEffortId"/>
                                     <field-map field-name="fromDate" from-field="emplLeaveFromDate"/>
@@ -753,7 +753,7 @@
                         </condition-list>
                         <order-by field-name="-fromDate" />
                     </entity-condition>
-                    <first-from-list entry="lastTimeEntry" list="lastTimeEntrys" />
+                    <first-from-list list="lastTimeEntrys" entry="lastTimeEntry" />
                     <if-not-empty field="lastTimeEntry">
                         <set field="lastTimeEntry.planHours" from-field="parameters.planHours" />
                         <set field="lastTimeEntry.rateTypeId" from-field="parameters.rateTypeId" />
@@ -794,7 +794,7 @@
                                 <field-map field-name="partyId" from-field="timesheet.partyId" />
                             </entity-and>
                             <if-compare operator="not-equals" value="SCAS_COMPLETED" field="assigns[0].statusId">
-                            <first-from-list entry="alreadyAssign" list="assigns" />
+                            <first-from-list list="assigns" entry="alreadyAssign" />
                             <if-compare field="alreadyAssign.statusId" value="SCAS_COMPLETED" operator="not-equals">
                                 <set field="upStat.partyId" from-field="timesheet.partyId" />
                                 <set field="upStat.statusId" value="SCAS_COMPLETED" />
@@ -829,7 +829,7 @@
                 <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffortList">
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
-                <first-from-list entry="custRequestWorkEffortMap" list="custRequestWorkEffortList"/>
+                <first-from-list list="custRequestWorkEffortList" entry="custRequestWorkEffortMap"/>
                 <set field="backlogPlanMap.custRequestId" from-field="custRequestWorkEffortMap.custRequestId" />
                 <set field="taskPlanMap.custRequestId" from-field="custRequestWorkEffortMap.custRequestId" />
                 <call-service service-name="getScrumPlanHour" in-map-name="backlogPlanMap">
@@ -839,7 +839,7 @@
                     <result-to-field result-name="initPlanHours"/>
                 </call-service>
                 <if-compare-field field="planHours"  operator="greater" to-field="initPlanHours"  type="Double">
-                    <entity-one value-field="custRequestMap" entity-name="CustRequest">
+                    <entity-one entity-name="CustRequest" value-field="custRequestMap">
                         <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                     </entity-one>
                     <set field="planHoursIn" from-field="planHours" type="Double"/>
@@ -847,7 +847,7 @@
                     <store-value value-field="custRequestMap"/>
                     <else>
                         <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
-                            <entity-one value-field="custRequestMap" entity-name="CustRequest">
+                            <entity-one entity-name="CustRequest" value-field="custRequestMap">
                                 <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                             </entity-one>
                             <set field="planHoursIn" from-field="planHours" type="Double"/>
@@ -938,7 +938,7 @@
                     </entity-and>
                 </if-not-empty>
                 <if-empty field="resultCustType">
-                    <entity-condition list="tasks" entity-name="ProjectSprintBacklogAndTask">
+                    <entity-condition entity-name="ProjectSprintBacklogAndTask" list="tasks">
                         <condition-list combine="and">
                             <condition-expr field-name="projectId" operator="equals" from-field="parameters.projectId" ignore-if-empty="true" />
                             <condition-expr field-name="sprintId" operator="equals" from-field="parameters.sprintId" ignore-if-empty="true" />
@@ -956,13 +956,13 @@
                         <iterate list="tasks" entry="task">
                             <set field="taskIdCond[+0]" from-field="task.taskId" />
                         </iterate>
-                        <entity-condition list="timeEntries" entity-name="TimeEntry">
+                        <entity-condition entity-name="TimeEntry" list="timeEntries">
                             <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond" />
                             <order-by field-name="workEffortId" />
                         </entity-condition>
                     </if-not-empty>
                     <else>
-                        <entity-condition list="tasks" entity-name="UnPlannedBacklogsAndTasks">
+                        <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="tasks">
                             <condition-list combine="and">
                                 <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
                                 <condition-expr field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
@@ -978,7 +978,7 @@
                             <iterate list="tasks" entry="task">
                                 <set field="taskIdCond[+0]" from-field="task.workEffortId" />
                             </iterate>
-                            <entity-condition list="timeEntries" entity-name="TimeEntry">
+                            <entity-condition entity-name="TimeEntry" list="timeEntries">
                                 <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond" />
                                 <order-by field-name="workEffortId" />
                             </entity-condition>
@@ -986,7 +986,7 @@
                     </else>
                 </if-empty>
                 <if-empty field="taskIdCond">
-                    <entity-condition list="tasks" entity-name="CustRequestAndWorkEffort">
+                    <entity-condition entity-name="CustRequestAndWorkEffort" list="tasks">
                         <condition-list combine="and">
                             <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
                             <condition-list combine="or">
@@ -1001,7 +1001,7 @@
                          <iterate list="tasks" entry="task">
                              <set field="taskIdCond[+0]" from-field="task.workEffortId" />
                          </iterate>
-                         <entity-condition list="timeEntries" entity-name="TimeEntry">
+                         <entity-condition entity-name="TimeEntry" list="timeEntries">
                              <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond" />
                              <order-by field-name="workEffortId" />
                          </entity-condition>
@@ -1012,7 +1012,7 @@
         
         <!-- get time entry from task -->
         <if-not-empty field="parameters.taskId">
-            <entity-condition list="timeEntries" entity-name="TimeEntry">
+            <entity-condition entity-name="TimeEntry" list="timeEntries">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" from-field="parameters.taskId"/>
                     <condition-expr field-name="partyId" from-field="parameters.partyId" ignore-if-empty="true"/>
@@ -1020,12 +1020,12 @@
             </entity-condition>
         <else>
             <if-not-empty field="taskIdCond">
-                <entity-condition list="timeEntries" entity-name="TimeEntry">
+                <entity-condition entity-name="TimeEntry" list="timeEntries">
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond"/>
                     </condition-list>
                 </entity-condition>
-                <entity-condition list="listTimeEntriesNotBill" entity-name="TimeEntry">
+                <entity-condition entity-name="TimeEntry" list="listTimeEntriesNotBill">
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond"/>
                         <condition-expr field-name="invoiceId" operator="equals" from-field="nullField"/>
@@ -1055,7 +1055,7 @@
                         <field-map field-name="partyId" from-field="timeEntryNotBill.partyId"/>
                     </entity-and>
                     <if-not-empty field="partyRates">
-                        <first-from-list entry="partyRate" list="partyRates"/>
+                        <first-from-list list="partyRates" entry="partyRate"/>
                         <if-not-empty field="partyRate.percentageUsed">
                             <calculate field="timeEntryNotBill.hours" type="Double">
                                 <calcop operator="multiply" field="timeEntryNotBill.hours">
@@ -1085,7 +1085,7 @@
 
     <simple-method method-name="getScrumActualHourByTimesheet" short-description=" Get actual hour from (TimeSheet).">
         <if-not-empty field="parameters.timesheetId">
-            <entity-condition list="timeEntries" entity-name="TimeEntry">
+            <entity-condition entity-name="TimeEntry" list="timeEntries">
                 <condition-list combine="and">
                     <condition-expr field-name="timesheetId" from-field="parameters.timesheetId"/>
                 </condition-list>
@@ -1235,7 +1235,7 @@
             <set field="notFirst" value="Y" /><!-- do not create, only add -->
         </if-compare>
         <!-- get partyId in Company -->
-        <entity-condition list="listPartyIdInCompany" entity-name="PartyRelationship">
+        <entity-condition entity-name="PartyRelationship" list="listPartyIdInCompany">
             <condition-list combine="and">
                 <condition-expr field-name="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <condition-expr field-name="roleTypeIdFrom" value="ACCOUNT" />
@@ -1273,7 +1273,7 @@
             </condition-list>
         </entity-condition>
         <!-- get tasks from cancelled backlog item -->
-        <entity-condition list="cancelledBacklogTasks" entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet">
+        <entity-condition entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet" list="cancelledBacklogTasks">
             <condition-list combine="and">
                 <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" />
                 <condition-expr field-name="invoiceId" operator="equals" from-field="nullField" />
@@ -1285,7 +1285,7 @@
             </condition-list>
         </entity-condition>
         <!-- get unplanned task -->
-        <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsTaskAndTimeEntryTimeSheet">
+        <entity-condition entity-name="UnPlannedBacklogsTaskAndTimeEntryTimeSheet" list="unplannedTasks">
             <condition-list combine="and">
                 <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" />
                 <condition-expr field-name="invoiceId" operator="equals" from-field="nullField" />
@@ -1449,7 +1449,7 @@
         <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
         <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
         <if-not-empty field="custRequestWorkEfforts">
-            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
+            <first-from-list list="custRequestWorkEfforts" entry="custRequestWorkEffort"/>
             <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
             <if-not-empty field="custRequest">
                 <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_SCRUM_MEETINGS" >
@@ -1497,7 +1497,7 @@
                                     <field-map field-name="partyId" from-field="timeEntry.partyId"/>
                                 </entity-and>
                                 <if-not-empty field="partyRates">
-                                    <first-from-list entry="partyRate" list="partyRates"/>
+                                    <first-from-list list="partyRates" entry="partyRate"/>
                                     <if-not-empty field="partyRate.percentageUsed">
                                         <calculate field="timeEntry.hours" type="Double">
                                             <calcop operator="multiply" field="timeEntry.hours">
@@ -1683,7 +1683,7 @@
                         </condition-list>
                     <order-by field-name="-fromDate" />
                     </entity-condition>
-                    <first-from-list entry="planTimeEntry" list="listPlanHoursByPartyId"/>
+                    <first-from-list list="listPlanHoursByPartyId" entry="planTimeEntry"/>
                     <if-not-empty field="planTimeEntry">
                         <calculate field="taskPlanHours" type="Double">
                             <calcop operator="add" field="planTimeEntry.planHours">
@@ -1694,7 +1694,7 @@
                 </loop>
             </if-not-empty>
         <else>
-            <first-from-list entry="timeEntry" list="timeEntries" />
+            <first-from-list list="timeEntries" entry="timeEntry" />
             <!-- Check if have TimeEntry -->
             <if-not-empty field="timeEntry">
                 <calculate field="taskPlanHours" type="Double">
@@ -1752,7 +1752,7 @@
             </if-not-empty>
             
         <else>
-            <entity-condition list="tasks" entity-name="UnPlannedBacklogsAndTasks">
+            <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="tasks">
                 <condition-list combine="and">
                     <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
                     <condition-expr field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
@@ -1778,7 +1778,7 @@
             </if-not-empty>
         </else>
         </if-empty>
-        <entity-one value-field="custRequestMap" entity-name="CustRequest"/>
+        <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
         <if-compare field="custRequestMap.statusId" operator="equals" value="CRQ_ACCEPTED">
             <get-related relation-name="CustRequestWorkEffort" list="custWorkEffList" value-field="custRequestMap"/>
             <if-not-empty field="custWorkEffList">
@@ -1988,7 +1988,7 @@
             </condition-list>
             <order-by field-name="-fromDate" />
         </entity-condition>
-        <first-from-list entry="lastTimeEntry" list="lastTimeEntrys" />
+        <first-from-list list="lastTimeEntrys" entry="lastTimeEntry" />
         <if-not-empty field="lastTimeEntry">
             <set field="planHours" from-field="lastTimeEntry.planHours" />
         </if-not-empty>
@@ -2013,7 +2013,7 @@
             <set field="status" value="SRPINT_ACTIVE" />
             <set field="curDate" type="Timestamp" />
             <set field="projectId" from-field="sprint.workEffortParentId" />
-            <entity-one value-field="project" entity-name="WorkEffort">
+            <entity-one entity-name="WorkEffort" value-field="project">
                 <field-map field-name="workEffortId" from-field="projectId" />
             </entity-one>
             <if-not-empty field="project">
@@ -2092,7 +2092,7 @@
             </if-not-empty>
             <if-not-empty field="custRequest">
                 <calculate field="defaultBacklogPlanHours" type="Double">
-                    <calcop field="custRequest.custEstimatedMilliSeconds" operator="divide">
+                    <calcop operator="divide" field="custRequest.custEstimatedMilliSeconds">
                         <number value="3600000" />
                     </calcop>
                 </calculate>
@@ -2115,8 +2115,8 @@
                 <if-compare field="taskPlanHours" operator="greater"
                     value="0" type="Double">
                     <calculate field="planHours" type="Double">
-                        <calcop field="planHours" operator="subtract">
-                            <calcop field="taskPlanHours" operator="get" />
+                        <calcop operator="subtract" field="planHours">
+                            <calcop operator="get" field="taskPlanHours" />
                         </calcop>
                     </calculate>
                 </if-compare>
@@ -2145,8 +2145,8 @@
                         <result-to-field result-name="planHours" field="taskPlanChack" />
                     </call-service>
                     <calculate field="totalTaskPlanHours" type="Double">
-                        <calcop field="taskPlanChack" operator="add">
-                            <calcop field="totalTaskPlanHours" operator="get" />
+                        <calcop operator="add" field="taskPlanChack">
+                            <calcop operator="get" field="totalTaskPlanHours" />
                         </calcop>
                     </calculate>
                 </iterate>
@@ -2166,8 +2166,8 @@
                     </then>
                     <else>
                         <calculate field="newPlanHours" type="Double">
-                            <calcop field="planHours" operator="add">
-                                <calcop field="parameters.planHours" operator="get" />
+                            <calcop operator="add" field="planHours">
+                                <calcop operator="get" field="parameters.planHours" />
                             </calcop>
                         </calculate>
                     </else>
@@ -2199,7 +2199,7 @@
         <set field="sequenceNumStep" value="1" type="Long" />
         <iterate list="custRequestAndCustRequestItems" entry="custRequestAndCustRequestItem">
             <!-- update custSequenceNum field of cust request -->
-            <entity-one value-field="custRequest" entity-name="CustRequest">
+            <entity-one entity-name="CustRequest" value-field="custRequest">
                 <field-map field-name="custRequestId"
                     from-field="custRequestAndCustRequestItem.custRequestId" />
             </entity-one>
@@ -2220,9 +2220,9 @@
         <entity-and entity-name="CustRequestWorkEffort" list="sprintBacklogs">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId" />
         </entity-and>
-        <first-from-list entry="sprintBacklog" list="sprintBacklogs" />
+        <first-from-list list="sprintBacklogs" entry="sprintBacklog" />
         <set field="custRequestId" from-field="sprintBacklog.custRequestId" />
-        <entity-one value-field="custRequestMap" entity-name="CustRequest"/>
+        <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
         <set field="custRequestTypeId" from-field="custRequestMap.custRequestTypeId" />
         <if-not-empty field="custRequestId">
             <if-compare field="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
@@ -2290,11 +2290,11 @@
                     </and>
                 </condition>
                 <then>
-                    <entity-one value-field="custRequest" entity-name="CustRequest">
+                    <entity-one entity-name="CustRequest" value-field="custRequest">
                         <field-map field-name="custRequestId" from-field="custRequestId"/>
                     </entity-one>
                     <if-compare operator="not-equals" value="CRQ_COMPLETED" field="custRequest.statusId">
-                        <entity-one value-field="userLogin" entity-name="UserLogin">
+                        <entity-one entity-name="UserLogin" value-field="userLogin">
                             <field-map field-name="userLoginId" value="system"/>
                         </entity-one>
                         <if-empty field="custRequest.custRequestName">
@@ -2313,7 +2313,7 @@
                                 <set field="custRequest.fromPartyId" from-field="productRole[0].partyId"/>
                             </if-compare>
                         </if-empty>
-                        <set-service-fields service-name="updateCustRequest" to-map="updateCustRequest" map="custRequest"/>
+                        <set-service-fields service-name="updateCustRequest" map="custRequest" to-map="updateCustRequest"/>/>
                         <set field="updateCustRequest.webSiteId" from-field="parameters.webSiteId"/>
                         <call-service service-name="updateCustRequest" in-map-name="updateCustRequest"/>
                         <log level="info" message="Completed Sprint Backlog # ${custRequestId}"/>
@@ -2326,7 +2326,7 @@
                 <entity-one entity-name="WorkEffort" value-field="resultWorkEffort">
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-one>
-                <entity-condition list="listCustInSprint" entity-name="CustRequestAndWorkEffort" distinct="true">
+                <entity-condition entity-name="CustRequestAndWorkEffort" list="listCustInSprint" distinct="true">
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" from-field="resultWorkEffort.workEffortParentId"/>
                     </condition-list>
@@ -2448,15 +2448,15 @@
     </simple-method>
     <simple-method method-name="checkProductOwnerOfSprint" short-description="Check Product Owner Of Sprint">
         <set field="isProductOwner" type="Boolean" value="false"/>
-        <entity-one value-field="projectMap" entity-name="WorkEffort">
+        <entity-one entity-name="WorkEffort" value-field="projectMap">
             <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
         </entity-one>
         <entity-and entity-name="WorkEffortAndProduct" list="productList">
              <field-map field-name="workEffortId" from-field="projectMap.workEffortParentId"/>
         </entity-and>
-        <first-from-list entry="productMap" list="productList"/>
+        <first-from-list list="productList" entry="productMap"/>
         <if-not-empty field="productMap.productId">
-           <entity-condition list="productRoles" entity-name="ProductRole">
+           <entity-condition entity-name="ProductRole" list="productRoles">
                <condition-list combine="and">
                    <condition-expr field-name="roleTypeId" value="PRODUCT_OWNER"/>
                    <condition-expr field-name="productId" from-field="productMap.productId"/>
@@ -2468,12 +2468,12 @@
        </if-not-empty>
     </simple-method>
     <simple-method method-name="checkProductOwnerOfBacklog" short-description="Check Product Owner Of Backlog">
-        <entity-condition list="custRequestItems" entity-name="CustRequestItem">
+        <entity-condition entity-name="CustRequestItem" list="custRequestItems">
             <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
         </entity-condition>
-        <first-from-list entry="custRequestItem" list="custRequestItems"/>
+        <first-from-list list="custRequestItems" entry="custRequestItem"/>
         <if-not-empty field="custRequestItem.productId">
-            <entity-condition list="productRoles" entity-name="ProductRole">
+            <entity-condition entity-name="ProductRole" list="productRoles">
                 <condition-list combine="and">
                     <condition-expr field-name="roleTypeId" value="PRODUCT_OWNER"/>
                     <condition-expr field-name="productId" from-field="custRequestItem.productId"/>
@@ -2513,7 +2513,7 @@
         <if-not-empty field="committer">
             <set field="committer" value="${groovy: committer.toString().trim();}"/>
         </if-not-empty>
-        <entity-one value-field="user" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="user">
             <field-map field-name="userLoginId" from-field="committer"/>
         </entity-one>
         <if-empty field="user">
@@ -2524,7 +2524,7 @@
             </entity-and>
             <if-not-empty field="partyIdenList">
                 <first-from-list entry="partyIdenMap" list="partyIdenList"/>
-                <entity-one value-field="user" entity-name="Party">
+                <entity-one entity-name="Party" value-field="user">
                     <field-map field-name="partyId" from-field="partyIdenMap.partyId"/>
                 </entity-one>
                 <else>
@@ -2535,7 +2535,7 @@
                 </else>
             </if-not-empty>
         </if-empty>
-        <entity-one value-field="task" entity-name="WorkEffort">
+        <entity-one entity-name="WorkEffort" value-field="task">
             <field-map field-name="workEffortId" from-field="parameters.taskId"/>
         </entity-one>
         <if-not-empty field="task">
@@ -2544,7 +2544,7 @@
                 <field-map field-name="roleTypeId" value="OWNER"/>
             </entity-and>
             <set field="contentIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contentRoles, &quot;contentId&quot;, true)}"/>
-            <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
+            <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" from-field="parameters.taskId"/>
                     <condition-expr field-name="contentId" from-field="contentIds" operator="in"/>
@@ -2562,7 +2562,7 @@
             
             <set field="parameters.objectInfo" from-field="parameters.revisionLink"/>
             <set field="parameters.mimeTypeId" value="text/plain"/>
-            <set-service-fields service-name="createDataResource" to-map="newDataResource" map="parameters"/>
+            <set-service-fields service-name="createDataResource" map="parameters" to-map="newDataResource"/>/>
             <call-service service-name="createDataResource" in-map-name="newDataResource">
                 <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
             </call-service>
@@ -2571,14 +2571,14 @@
             <set field="parameters.partyId" from-field="user.partyId"/>
             <set field="parameters.contentName" value="R${parameters.revisionNumber}"/>
             <set field="parameters.description" from-field="parameters.revisionDescription"/>
-            <set-service-fields service-name="createContent" to-map="newContent" map="parameters"/>
+            <set-service-fields service-name="createContent" map="parameters" to-map="newContent"/>/>
             <call-service service-name="createContent" in-map-name="newContent">
                 <result-to-field result-name="contentId" field="parameters.contentId"/>
             </call-service>
             
             <set field="parameters.workEffortContentTypeId" value="TASK_SUB_INFO"/>
             <set field="parameters.workEffortId" from-field="task.workEffortId"/>
-            <set-service-fields service-name="createWorkEffortContent" to-map="newWorkEffortContent" map="parameters"/>
+            <set-service-fields service-name="createWorkEffortContent" map="parameters" to-map="newWorkEffortContent"/>/>
             <call-service service-name="createWorkEffortContent" in-map-name="newWorkEffortContent"/>
             
             <!-- check if party assigned to task-->
@@ -2588,7 +2588,7 @@
             </entity-and>
             <!-- create link from partyId to svn name -->
             <if-not-empty field="assignList">
-                <entity-one value-field="partyIdenMap" entity-name="PartyIdentification">
+                <entity-one entity-name="PartyIdentification" value-field="partyIdenMap">
                     <field-map field-name="partyId" from-field="user.partyId"/>
                     <field-map field-name="partyIdentificationTypeId" value="SVN_LOGIN"/>
                 </entity-one>
@@ -2641,7 +2641,7 @@
                     </and>
                 </condition>
                 <then>
-                    <first-from-list entry="timesheetMap" list="timesheetList"/>
+                    <first-from-list list="timesheetList" entry="timesheetMap"/>
                     <set field="planHourMap.taskId" from-field="task.workEffortId"/>
                     <set field="planHourMap.userLogin" from-field="userLogin"/>
                     <call-service service-name="getScrumPlanHour" in-map-name="planHourMap">
@@ -2655,7 +2655,7 @@
                         <field-map field-name="workEffortId" from-field="task.workEffortId"/>
                     </entity-and>
                     <if-not-empty field="timeEntryList">
-                        <first-from-list entry="timeEntryMap" list="timeEntryList"/>
+                        <first-from-list list="timeEntryList" entry="timeEntryMap"/>
                         <!-- remove old planned hour -->
                         <if-not-empty field="planHours">
                             <calculate field="planHours">
@@ -2698,7 +2698,7 @@
                     <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffortList">
                         <field-map field-name="workEffortId" from-field="task.workEffortId"/>
                     </entity-and>
-                    <first-from-list entry="custRequestWorkEffortMap" list="custRequestWorkEffortList"/>
+                    <first-from-list list="custRequestWorkEffortList" entry="custRequestWorkEffortMap"/>
                     <set field="backlogPlanMap.custRequestId" from-field="custRequestWorkEffortMap.custRequestId" />
                     <set field="backlogPlanMap.userLogin" from-field="userLogin"/>
                     <set field="taskPlanMap.custRequestId" from-field="custRequestWorkEffortMap.custRequestId" />
@@ -2710,7 +2710,7 @@
                         <result-to-field result-name="initPlanHours"/>
                     </call-service>
                     <if-compare-field field="planHours"  operator="greater" to-field="initPlanHours"  type="Double">
-                        <entity-one value-field="custRequestMap" entity-name="CustRequest">
+                        <entity-one entity-name="CustRequest" value-field="custRequestMap">
                             <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                         </entity-one>
                         <set field="planHoursIn" from-field="planHours" type="Double"/>
@@ -2718,7 +2718,7 @@
                         <store-value value-field="custRequestMap"/>
                         <else>
                             <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
-                                <entity-one value-field="custRequestMap" entity-name="CustRequest">
+                                <entity-one entity-name="CustRequest" value-field="custRequestMap">
                                     <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                                 </entity-one>
                                 <set field="planHoursIn" from-field="planHours" type="Double"/>
@@ -2739,7 +2739,7 @@
     </simple-method>
     
     <simple-method method-name="getPartyLeaveHoursForDate" short-description="Get party leave hours for date.">
-        <entity-one value-field="emplLeaveMap" entity-name="EmplLeave">
+        <entity-one entity-name="EmplLeave" value-field="emplLeaveMap">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="leaveTypeId" from-field="parameters.leaveTypeId"/>
             <field-map field-name="fromDate" from-field="parameters.fromDate"/>

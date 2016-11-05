@@ -103,13 +103,13 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <entity-one value-field="product" entity-name="Product"/>
-            <entity-one value-field="uom" entity-name="Uom">
+            <entity-one entity-name="Product" value-field="product"/>
+            <entity-one entity-name="Uom" value-field="uom">
                 <field-map field-name="uomId" from-field="product.quantityUomId"/>
             </entity-one>
         </row-actions>
         <field name="workEffortId" title=" " widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${workEffortId}" also-hidden="false">
+            <hyperlink description="${workEffortId}" target="ShowProductionRun" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortId"/>
             </hyperlink>
         </field>
@@ -154,7 +154,7 @@ under the License.
     <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" description="${orderId}/${orderItemSeqId}" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${orderId}/${orderItemSeqId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -221,7 +221,7 @@ under the License.
         <!--<field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>-->
         <field name="estimatedTotalMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedTotalMilliSeconds}" ><display/></field>
         <field name="editLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="ProductionRunTasks" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="ProductionRunTasks" also-hidden="false">
                 <parameter param-name="routingTaskId" from-field="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
@@ -233,7 +233,7 @@ under the License.
                 <parameter param-name="fromDate"/>
                 <parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
             </hyperlink>-->
-            <hyperlink target="deleteProductionRunRoutingTask" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductionRunRoutingTask" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
@@ -243,7 +243,7 @@ under the License.
     <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponents"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one value-field="product" entity-name="Product" use-cache="true"/>
+            <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]"/>
@@ -352,7 +352,7 @@ under the License.
         </field>
         <field name="secondaryLocationSeqId" use-when="estimatedQuantity != issuedQuantity">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}" key-field-name="locationSeqId">
+                <entity-options entity-name="ProductFacilityLocation" key-field-name="locationSeqId" description="${locationSeqId}">
                     <entity-constraint name="productId" env-name="productId"/>
                     <entity-constraint name="facilityId" env-name="facilityId"/>
                 </entity-options>
@@ -385,34 +385,34 @@ under the License.
         <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}" ><display/></field>
         <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}" ><display/></field>
         <field name="startLink" title=" " widget-style="smallSubmit" use-when="&quot;${startTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="changeProductionRunTaskStatus" description="${uiLabelMap.ManufacturingStartProductionRunTask}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ManufacturingStartProductionRunTask}" target="changeProductionRunTaskStatus" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
         </field>
         <field name="issueLinkAtp" title=" " widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask}" target="issueProductionRunRoutingTask" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
                 <parameter param-name="failIfItemsAreNotAvailable" value="Y"/>
             </hyperlink>
         </field>
         <field name="issueLinkQoh" title=" " widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueProductionRunTask}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ManufacturingIssueProductionRunTask}" target="issueProductionRunRoutingTask" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
                 <parameter param-name="failIfItemsAreNotAvailable" value="N"/>
             </hyperlink>
         </field>
         <field name="declareLink" title=" " widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
-            <hyperlink target="ProductionRunDeclaration" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" target="ProductionRunDeclaration" also-hidden="false">
                 <parameter param-name="actionForm" value="EditRoutingTask"/>
                 <parameter param-name="routingTaskId" from-field="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
         </field>
         <field name="completeLink" title=" " widget-style="smallSubmit" use-when="&quot;${completeTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="changeProductionRunTaskStatus" description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" target="changeProductionRunTaskStatus" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
@@ -449,7 +449,7 @@ under the License.
         </field>
         <field name="secondaryLocationSeqId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}" key-field-name="locationSeqId">
+                <entity-options entity-name="ProductFacilityLocation" key-field-name="locationSeqId" description="${locationSeqId}">
                     <entity-constraint name="productId" env-name="productId"/>
                     <entity-constraint name="facilityId" env-name="facilityId"/>
                 </entity-options>
@@ -558,7 +558,7 @@ under the License.
             <display description="default ${drObjectInfo}"/>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
-            <hyperlink target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow" description="${drObjectInfo}">
+            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
@@ -566,7 +566,7 @@ under the License.
             <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
         </field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false" target="deleteProductionRunContent">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductionRunContent" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="workEffortContentTypeId"/>
                 <parameter param-name="contentId"/>
@@ -590,7 +590,7 @@ under the License.
             <display description="default ${drObjectInfo}"/>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
-            <hyperlink target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow" description="${drObjectInfo}">
+            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
@@ -622,7 +622,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="smallSubmit"
                     use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false" target="removeWorkEffortFixedAssetAssign">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeWorkEffortFixedAssetAssign" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fromDate"/>
@@ -733,7 +733,7 @@ under the License.
     <form name="ListShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId" from-field="orderId"/>
             </hyperlink>
         </field>
@@ -752,7 +752,7 @@ under the License.
         <!-- total issued quantity -->
         <field name="totIssuedQuantity"><display/></field>
         <field name="productionRunId" widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${productionRunId}" also-hidden="false">
+            <hyperlink description="${productionRunId}" target="ShowProductionRun" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="productionRunId"/>
             </hyperlink>
         </field>
@@ -764,7 +764,7 @@ under the License.
     <form name="ListShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="shipmentId" widget-style="buttontext" sort-field="true">
-            <hyperlink target="/facility/control/ViewShipment" target-type="inter-app" description="${shipmentId}">
+            <hyperlink description="${shipmentId}" target="/facility/control/ViewShipment" target-type="inter-app">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
         </field>
@@ -773,7 +773,7 @@ under the License.
         </field>
         <field name="estimatedShipDate" sort-field="true"><display/></field>
         <field name="viewShipmentPlanLink" title=" " widget-style="buttontext">
-            <hyperlink target="WorkWithShipmentPlans" description="${uiLabelMap.CommonView}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonView}" target="WorkWithShipmentPlans" also-hidden="false">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
@@ -808,7 +808,7 @@ under the License.
     <form name="MandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title=" " widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false" link-type="anchor">
+            <hyperlink description="${workEffortIdFrom}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
                 <parameter param-name="productionRunId" from-field="workEffortIdFrom"/>
             </hyperlink>
         </field>
@@ -834,7 +834,7 @@ under the License.
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeProductionRunAssoc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProductionRunAssoc" also-hidden="false">
                 <parameter param-name="workEffortIdFrom"/>
                 <parameter param-name="workEffortIdTo" from-field="productionRunId"/>
                 <parameter param-name="fromDate" from-field="estimatedStartDate"/>
@@ -846,7 +846,7 @@ under the License.
     <form name="DependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title=" " widget-style="buttontext">
-            <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false" link-type="anchor">
+            <hyperlink description="${workEffortIdTo}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
                 <parameter param-name="productionRunId" from-field="workEffortIdTo"/>
             </hyperlink>
         </field>
@@ -872,7 +872,7 @@ under the License.
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeProductionRunAssoc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProductionRunAssoc" also-hidden="false">
                 <parameter param-name="workEffortIdFrom" from-field="productionRunId"/>
                 <parameter param-name="workEffortIdTo"/>
                 <parameter param-name="fromDate" from-field="estimatedStartDate"/>
@@ -956,7 +956,7 @@ under the License.
     <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one value-field="product" entity-name="Product" use-cache="true"/>
+            <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         </row-actions>
         <field name="productId"><display/></field>
         <field name="internalName" map-name="product" title="${uiLabelMap.ProductInternalName}"><display/></field>
@@ -966,7 +966,7 @@ under the License.
         <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="deleteProductionRunComponent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductionRunComponent" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="productId"/>
@@ -981,7 +981,7 @@ under the License.
             <set field="quantityOnHandDiff" value="${groovy:-1*quantityOnHandDiff}" type="BigDecimal"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem" description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${inventoryItemId}" target="/facility/control/EditInventoryItem" also-hidden="false" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>

@@ -36,7 +36,7 @@ under the License.
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
             <field field="days" type="int"/>
         </call-class-method>
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="createProductGroupOrderMap.userLogin" from-field="systemUserLogin"/>
@@ -58,7 +58,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -132,7 +132,7 @@ under the License.
         <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
             <field-map field-name="groupOrderId" from-field="groupOrderId"/>
         </entity-and>
-        <first-from-list entry="orderItemGroupOrder" list="orderItemGroupOrders"/>
+        <first-from-list list="orderItemGroupOrders" entry="orderItemGroupOrder"/>
         <entity-one entity-name="OrderItem" value-field="orderItem">
             <field-map field-name="orderId" from-field="orderItemGroupOrder.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItemGroupOrder.orderItemSeqId"/>
@@ -158,7 +158,7 @@ under the License.
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
             <field field="days" type="int"/>
         </call-class-method>
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="createProductGroupOrderMap.userLogin" from-field="systemUserLogin"/>
@@ -180,7 +180,7 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <script>groovy:
@@ -254,7 +254,7 @@ under the License.
         <entity-and entity-name="OrderItemGroupOrder" list="orderItemGroupOrders">
             <field-map field-name="groupOrderId" from-field="groupOrderId"/>
         </entity-and>
-        <first-from-list entry="orderItemGroupOrder" list="orderItemGroupOrders"/>
+        <first-from-list list="orderItemGroupOrders" entry="orderItemGroupOrder"/>
         <entity-one entity-name="OrderItem" value-field="orderItem">
             <field-map field-name="orderId" from-field="orderItemGroupOrder.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItemGroupOrder.orderItemSeqId"/>

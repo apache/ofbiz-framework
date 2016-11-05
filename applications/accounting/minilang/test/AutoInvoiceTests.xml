@@ -99,7 +99,7 @@ under the License.
     </simple-method>
     <simple-method method-name="assertInvoiceTotal" login-required="false"
     short-description="Inline method to assist testInvoiceWorkerGetInvoiceTotal">
-        <entity-one value-field="invoice" entity-name="Invoice">
+        <entity-one entity-name="Invoice" value-field="invoice">
             <field-map field-name="invoiceId"/>
         </entity-one>
         <call-class-method method-name="getInvoiceTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">

@@ -31,13 +31,13 @@
             <service service-name="getPartyTelephone" result-map="telResult"/>
         </row-actions>
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile">
+            <hyperlink description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile" also-hidden="false">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId"><hidden/></field>
         <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}">
-            <hyperlink target="/partymgr/control/EditCommunicationEvent" description="${emailResult.emailAddress}" target-type="inter-app">
+            <hyperlink description="${emailResult.emailAddress}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="partyIdTo" from-field="partyId"/>
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
@@ -48,7 +48,7 @@
         <field name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}${groovy:telResult.get(&quot;extension&quot;)!=null?&quot; Ext:&quot;:&quot; &quot;}${telResult.extension}"/></field>
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
-            <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeResource">
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
@@ -57,7 +57,7 @@
     <form name="ListBillingHours" type="list" list-name="billingList" paginate-target="ListResourcesBillingHours"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectName">
-            <hyperlink target="projectView" description="${projectName} [${projectId}]">
+            <hyperlink description="${projectName} [${projectId}]" target="projectView">
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>

@@ -57,7 +57,7 @@ under the License.
             <field-map field-name="shipmentId"/>
         </entity-and>
         <assert><not><if-empty field="acctgTransList"/></not></assert>
-        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
 
         <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
 
@@ -113,7 +113,7 @@ under the License.
         <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
             <field-map field-name="orderId"/>
         </entity-and>
-        <first-from-list entry="orderItemBilling" list="orderItemBillings"/>
+        <first-from-list list="orderItemBillings" entry="orderItemBilling"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>

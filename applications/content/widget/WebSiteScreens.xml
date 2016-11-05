@@ -211,7 +211,7 @@ under the License.
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
                 <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
-                <entity-condition list="assocs" entity-name="ContentAssoc">
+                <entity-condition entity-name="ContentAssoc" list="assocs">
                     <condition-list>
                         <condition-expr field-name="contentId" from-field="parameters.contentIdFrom" ignore-if-empty="true"/>
                         <condition-expr field-name="contentIdTo" from-field="parameters.contentId"/>

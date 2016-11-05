@@ -361,7 +361,7 @@ under the License.
     <screen name="ProductStoreGroupTree">
         <section>
             <actions>
-                <entity-one value-field="parentProductStoreGroup" entity-name="ProductStoreGroup"/>
+                <entity-one entity-name="ProductStoreGroup" value-field="parentProductStoreGroup"/>
                 <entity-condition entity-name="ProductStoreGroup" list="parentProductStoreGroups">
                     <condition-expr field-name="primaryParentGroupId" from-field="nullField"/>
                 </entity-condition>

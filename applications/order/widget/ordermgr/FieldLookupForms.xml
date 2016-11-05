@@ -100,14 +100,14 @@ under the License.
         <field name="postalCode"><text-find/></field>
         <field name="countryGeoId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" description="${geoName}" key-field-name="geoId">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
                 </entity-options>
              </drop-down>
         </field>
         <field name="stateProvinceGeoId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" description="${geoName}" key-field-name="geoId">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-constraint name="geoTypeId" value="STATE"/>
                 </entity-options>
              </drop-down>
@@ -129,7 +129,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden"/>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${orderId}" target="javascript:set_value('${orderId}')"/>
+            <hyperlink description="${orderId}" target="javascript:set_value('${orderId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="orderTypeId"><display-entity entity-name="OrderType"/></field>
         <field name="partyId"><display/></field>
@@ -167,14 +167,14 @@ under the License.
         <field name="postalCode"><text-find/></field>
         <field name="countryGeoId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" description="${geoName}" key-field-name="geoId">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
                 </entity-options>
              </drop-down>
         </field>
         <field name="stateProvinceGeoId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" description="${geoName}" key-field-name="geoId">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-constraint name="geoTypeId" value="STATE"/>
                 </entity-options>
              </drop-down>
@@ -245,7 +245,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="CustRequest" default-field-type="hidden"/>
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${custRequestId}" target="javascript:set_value('${custRequestId}')"/>
+            <hyperlink description="${custRequestId}" target="javascript:set_value('${custRequestId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="custRequestName"><display/></field>
         <field name="priority"><display/></field>
@@ -291,7 +291,7 @@ under the License.
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="hidden"/>
         <field name="custRequestId"><display/></field>
         <field name="custRequestItemSeqId" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')"/>
+            <hyperlink description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="priority"><display/></field>
         <field name="custRequestResolutionId"><display-entity also-hidden="false" entity-name="CustRequestResolution"/></field>
@@ -351,7 +351,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${quoteId}" target="javascript:set_value('${quoteId}')"/>
+            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}"><display-entity entity-name="QuoteType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity also-hidden="false" entity-name="StatusItem"/></field>
@@ -418,15 +418,15 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${quoteId}" target="javascript:set_value('${quoteId}')"/>
+            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy:isPromo==null}">
-            <hyperlink also-hidden="false" target-type="plain" description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')"/>
+            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy: 'N'.equals(isPromo)}">
-            <hyperlink also-hidden="false" target-type="plain" description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')"/>
+            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${groovy: 'Y'.equals(isPromo)}"><display/></field>
         <field name="productId">

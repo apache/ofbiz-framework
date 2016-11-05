@@ -29,7 +29,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="shoppingListId" title="${uiLabelMap.WorkEffortShopListId}" widget-style="buttontext">
-            <hyperlink target="/partymgr/control/editShoppingList" target-type="inter-app" description="${shoppingListId}">
+            <hyperlink description="${shoppingListId}" target="/partymgr/control/editShoppingList" target-type="inter-app">
                 <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
@@ -38,7 +38,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteShoppingListWorkEffort" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteShoppingListWorkEffort" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="shoppingListId"/>
             </hyperlink>

@@ -96,7 +96,7 @@
         <field name="rating"><text/></field>
         <field name="skillLevel"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmployeeSkill" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmployeeSkill" also-hidden="false">
                 <parameter param-name="skillTypeId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>
@@ -163,7 +163,7 @@
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmployeeQualification" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmployeeQualification" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="partyQualTypeId"/>
                 <parameter param-name="fromDate"/>
@@ -229,7 +229,7 @@
             </display-entity>
         </field>
         <field name="position" entry-name="emplPositionType.emplPositionTypeId">
-            <hyperlink target="emplPositionView" description="${employmentData.emplPositionType.description} [${employmentData.emplPosition.emplPositionId}]">
+            <hyperlink description="${employmentData.emplPositionType.description} [${employmentData.emplPosition.emplPositionId}]" target="emplPositionView">
                 <parameter param-name="emplPositionId" from-field="employmentData.emplPosition.emplPositionId"/>
             </hyperlink>
         </field>

@@ -52,7 +52,7 @@ under the License.
         <field name="contentTypeId"><display/></field>
         <field name="contentName"><display/></field>
         <field name="edit" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="rootContentId" from-field="caContentIdTo"/>
                 <parameter param-name="caContentAssocTypeId"/>
@@ -60,7 +60,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="edit" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="rootContentId" from-field="caContentIdTo"/>
                 <parameter param-name="caContentAssocTypeId"/>
@@ -68,7 +68,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="edit" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="rootContentId" from-field="caContentIdTo"/>
                 <parameter param-name="caContentAssocTypeId"/>
@@ -76,7 +76,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="edit" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="rootContentId" from-field="caContentIdTo"/>
                 <parameter param-name="caContentAssocTypeId"/>
@@ -84,12 +84,12 @@ under the License.
             </hyperlink>
         </field>
         <field name="tree" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree">
+            <hyperlink description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
             </hyperlink>
         </field>
         <field name="tree" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
+            <hyperlink description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
             </hyperlink>
         </field>
@@ -104,12 +104,12 @@ under the License.
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="caThruDate"><hidden/></field>
         <field name="editTemplate" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
             </hyperlink>
         </field>
         <field name="templateTree" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
+            <hyperlink description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
             </hyperlink>
         </field>
@@ -143,7 +143,7 @@ under the License.
         <field name="committedByPartyId"><display/></field>
         <field name="comments"><display/></field>
         <field name="editLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevision">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContentRevision" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentRevisionSeqId"/>
                 <parameter param-name="rootContentId"/>
@@ -151,7 +151,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="itemLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonItems}" target="ListContentRevisionItem">
+            <hyperlink description="${uiLabelMap.CommonItems}" target="ListContentRevisionItem" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentRevisionSeqId"/>
                 <parameter param-name="rootContentId"/>
@@ -159,7 +159,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="create" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreate}" target="EditContentRevision">
+            <hyperlink description="${uiLabelMap.CommonCreate}" target="EditContentRevision" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentRevisionSeqId"/>
                 <parameter param-name="rootContentId"/>
@@ -167,13 +167,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="tree" title=" " widget-style="buttontext" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
+            <hyperlink description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
                 <parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
             </hyperlink>
         </field>
         <field name="tree" title=" " widget-style="buttontext" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree">
+            <hyperlink description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree" also-hidden="false">
                 <parameter param-name="rootContentId" from-field="contentId"/>
                 <parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
             </hyperlink>
@@ -204,7 +204,7 @@ under the License.
         <field name="oldDataResourceId"><display/></field>
         <field name="newDataResourceId"><display/></field>
         <field name="editLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentRevisionSeqId"/>
                 <parameter param-name="itemContentId"/>
@@ -213,7 +213,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="create" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreate}" target="EditContentRevisionItem">
+            <hyperlink description="${uiLabelMap.CommonCreate}" target="EditContentRevisionItem" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentRevisionSeqId"/>
                 <parameter param-name="rootContentId"/>
@@ -298,7 +298,7 @@ under the License.
         <field name="comments" widget-style="inputBox"><textarea cols="30" rows="3"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink target="removeContentApproval" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentApproval">
                 <parameter param-name="contentApprovalId"/>
                 <parameter param-name="rootContentId"/>
                 <parameter param-name="rootContentRevisionSeqId"/>
@@ -470,7 +470,7 @@ under the License.
         </field>
         <field name="addSurveyResponse" map-name="dummy" widget-style="buttontext"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" also-hidden="false" target-window="_blank">
+            <hyperlink description="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" target-window="_blank" also-hidden="false">
                 <parameter param-name="surveyId" from-field="templateDataResource.relatedDetailId"/>
                 <parameter param-name="dataResourceId" from-field="dataResource.dataResourceId"/>
                 <parameter param-name="rootContentId"/>
@@ -478,7 +478,7 @@ under the License.
         </field>
         <field name="updateSurveyResponse" map-name="dummy" widget-style="buttontext"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="${uiLabelMap.CommonUpdate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId}, Response ${dataResource.relatedDetailId})" target="EditSurveyResponse" also-hidden="false" target-window="_blank">
+            <hyperlink description="${uiLabelMap.CommonUpdate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId}, Response ${dataResource.relatedDetailId})" target="EditSurveyResponse" target-window="_blank" also-hidden="false">
                 <parameter param-name="surveyId" from-field="templateDataResource.relatedDetailId"/>
                 <parameter param-name="surveyResponseId" from-field="dataResource.relatedDetailId"/>
                 <parameter param-name="dataResourceId" from-field="dataResource.dataResourceId"/>

@@ -74,7 +74,7 @@
             <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
         </actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet">
+            <hyperlink description="${timesheetId}" target="${my}Timesheet" also-hidden="false">
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
@@ -85,7 +85,7 @@
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimeSheetStatusToComplete" description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
@@ -134,7 +134,7 @@
             <set field="completeLink" value="${groovy:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
         </row-actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet">
+            <hyperlink description="${timesheetId}" target="Timesheet" also-hidden="false">
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
@@ -145,7 +145,7 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimeSheetStatusToComplete" description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
@@ -272,7 +272,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTimesheetEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTimesheetEntry" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="timeEntryId"/>
             </hyperlink>
@@ -283,7 +283,7 @@
         <field name="timesheetId"><hidden/></field>
         <field name="taskWbsId"><display/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
-            <hyperlink target="taskView" description="${workEffortName}">
+            <hyperlink description="${workEffortName}" target="taskView">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>

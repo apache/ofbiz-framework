@@ -64,7 +64,7 @@ under the License.
             <else>
                 <!-- Create the WorkEffort -->
                 <!-- Maintenance WorkEffort entity -->
-                <entity-one value-field="fixedAsset" entity-name="FixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <property-to-field field="workEffortName" resource="AccountingUiLabels" property="AccountingFixedAssetMaintWorkEffortName"/>
                 <set from-field="workEffortName" field="maintWorkEffortMap.workEffortName"/>
                 <set value="TASK" field="maintWorkEffortMap.workEffortTypeId"/>
@@ -111,7 +111,7 @@ under the License.
             </condition>
             <then>
                 <set field="workEffortId" from-field="lookedUpValue.scheduleWorkEffortId"/>
-                <entity-one value-field="workEffort" entity-name="WorkEffort"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <if>
                     <condition>
                         <and>
@@ -130,7 +130,7 @@ under the License.
                         <set field="updateWorkEffortCtx.actualCompletionDate" from-field="nowTimestamp"/>
                         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
                         <check-errors/>
-                        <entity-condition list="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                        <entity-condition entity-name="WorkEffortPartyAssignment" list="wepas" filter-by-date="true">
                             <condition-expr field-name="workEffortId" from-field="workEffortId" operator="equals"/>
                         </entity-condition>
                         <iterate list="wepas" entry="wepa">
@@ -176,7 +176,7 @@ under the License.
         </entity-and>
         <iterate list="productMaintList" entry="productMaintValue">
             <set field="repeatCount" from-field="productMaintValue.repeatCount" default-value="0" type="Long"/>
-            <entity-condition list="maintList" entity-name="FixedAssetMaint">
+            <entity-condition entity-name="FixedAssetMaint" list="maintList">
                 <condition-list combine="and">
                     <condition-expr field-name="fixedAssetId" operator="equals" from-field="fixedAssetValue.fixedAssetId"/>
                     <condition-expr field-name="productMaintTypeId" operator="equals" from-field="productMaintValue.productMaintTypeId"/>
@@ -209,7 +209,7 @@ under the License.
                     </else>
                 </if-compare>
                 <if-compare field="maintDue" operator="equals" value="true">
-                    <set-service-fields service-name="createFixedAssetMaint" to-map="createMaintCxt" map="productMaintValue"/>
+                    <set-service-fields service-name="createFixedAssetMaint" map="productMaintValue" to-map="createMaintCxt"/>/>
                     <set field="createMaintCxt.fixedAssetId" from-field="fixedAssetValue.fixedAssetId"/>
                     <set field="createMaintCxt.intervalQuantity" from-field="meterValue.meterValue"/>
                     <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
@@ -222,14 +222,14 @@ under the License.
     </simple-method>
     <simple-method method-name="createMaintsFromTimeInterval" short-description="Create Fixed Asset Maintenances From A Product Maint Time Interval">
         <now-timestamp field="nowTimestamp"/>
-        <entity-condition list="fixedAssets" entity-name="FixedAsset">
+        <entity-condition entity-name="FixedAsset" list="fixedAssets">
             <condition-list combine="and">
                 <condition-expr field-name="instanceOfProductId" operator="not-equals" from-field="null"/>
                 <condition-expr field-name="actualEndOfLife" operator="equals" from-field="null"/>
             </condition-list>
         </entity-condition>
         <iterate list="fixedAssets" entry="fixedAsset">
-            <entity-condition list="productMaints" entity-name="ProductMaint">
+            <entity-condition entity-name="ProductMaint" list="productMaints">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" from-field="fixedAsset.instanceOfProductId"/>
                     <condition-expr field-name="intervalUomId" operator="like" value="TF_%"/>
@@ -237,7 +237,7 @@ under the License.
             </entity-condition>
             <iterate list="productMaints" entry="productMaint">
                 <set field="repeatCount" from-field="productMaint.repeatCount" default-value="0" type="Long"/>
-                <entity-condition list="maintList" entity-name="FixedAssetMaintWorkEffort">
+                <entity-condition entity-name="FixedAssetMaintWorkEffort" list="maintList">
                     <condition-list combine="and">
                         <condition-expr field-name="fixedAssetId" operator="equals" from-field="fixedAsset.fixedAssetId"/>
                         <condition-expr field-name="productMaintTypeId" operator="equals" from-field="productMaint.productMaintTypeId"/>
@@ -282,7 +282,7 @@ under the License.
                                 </else>
                             </if-compare>
                             <if-compare field="maintDue" operator="equals" value="true">
-                                <set-service-fields service-name="createFixedAssetMaint" to-map="createMaintCxt" map="productMaint"/>
+                                <set-service-fields service-name="createFixedAssetMaint" map="productMaint" to-map="createMaintCxt"/>/>
                                 <set field="createMaintCxt.fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
                                 <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
                                 <call-service service-name="createFixedAssetMaint" in-map-name="createMaintCxt"/>

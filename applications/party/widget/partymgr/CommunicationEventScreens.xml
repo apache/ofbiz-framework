@@ -31,7 +31,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
@@ -42,7 +42,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -71,7 +71,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>

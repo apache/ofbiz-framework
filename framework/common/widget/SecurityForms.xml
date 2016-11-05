@@ -85,7 +85,7 @@ under the License.
         <field name="securityAnswer" title="${uiLabelMap.SecurityAnswer}"><text /></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -121,7 +121,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -144,7 +144,7 @@ under the License.
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeSecurityPermissionFromSecurityGroup" description="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeSecurityPermissionFromSecurityGroup">
                 <parameter param-name="permissionId"/>
                 <parameter param-name="groupId"/>
             </hyperlink>
@@ -181,7 +181,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup">
+            <hyperlink description="${groupId}" target="EditSecurityGroup" also-hidden="false">
                 <parameter param-name="groupId"/>
             </hyperlink>
         </field>
@@ -199,7 +199,7 @@ under the License.
         </actions>
         <field name="groupId"><hidden/></field>
         <field name="userLoginId" sort-field="true">
-            <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
+            <hyperlink description="${userLoginId}" target="editlogin" also-hidden="false">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
@@ -225,7 +225,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="userLoginId" widget-style="buttontext" sort-field="true">
-            <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
+            <hyperlink description="${userLoginId}" target="editlogin" also-hidden="false">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
@@ -285,7 +285,7 @@ under the License.
             </service>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="enabled"><display/></field>
         <field name="hasLoggedOut"><display/></field>
@@ -305,7 +305,7 @@ under the License.
         <field name="newPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>
@@ -324,7 +324,7 @@ under the License.
         <field name="userLdapDn" use-when="!&quot;true&quot;.equals(ldapEnabled)"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>

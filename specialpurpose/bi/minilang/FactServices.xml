@@ -288,7 +288,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-statusDatetime"/>
                 </entity-condition>
-                <first-from-list entry="orderStatus" list="orderStatusList"/>
+                <first-from-list list="orderStatusList" entry="orderStatus"/>
                 <if-not-empty field="orderStatus.statusDatetime">
                     <clear-field field="inMap"/>
                     <set field="inMap.dimensionEntityName" value="DateDimension"/>
@@ -403,7 +403,7 @@ under the License.
                 </condition-list>
             </entity-condition>
             <if-not-empty field="costs">
-                <first-from-list entry="cost" list="costs"/>
+                <first-from-list list="costs" entry="cost"/>
 
                 <set field="convertUomCurrencyMap.uomId" from-field="cost.currencyUomId"/>
                 <set field="convertUomCurrencyMap.uomIdTo" value="USD"/>
@@ -461,7 +461,7 @@ under the License.
                     <entity-and entity-name="ProductPromoCode" list="productPromo">
                         <field-map field-name="productPromoId" from-field="discount.productPromoId"/>
                     </entity-and>
-                    <first-from-list entry="productPromoCode" list="productPromo"/>
+                    <first-from-list list="productPromo" entry="productPromoCode"/>
                     <if-not-empty field="productPromoCode">
                         <set field="fact.productPromoCode" from-field="productPromoCode.productPromoCodeId"/>
                         <else>
@@ -627,7 +627,7 @@ under the License.
         <call-service service-name="loadDateDimension" in-map-name="inMap"/>
         <check-errors/>
 
-        <entity-condition list="orderStatusList" entity-name="OrderStatus">
+        <entity-condition entity-name="OrderStatus" list="orderStatusList">
             <condition-list combine="and">
                 <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
                 <condition-expr field-name="statusDatetime" operator="greater-equals" from-field="parameters.fromDate"/>
@@ -657,7 +657,7 @@ under the License.
             <order-by field-name="-fromDate"/>
         </entity-condition>
         <if-not-empty field="UomConversionDatedList">
-            <first-from-list entry="UomConversion" list="UomConversionDatedList"/>
+            <first-from-list list="UomConversionDatedList" entry="UomConversion"/>
             <field-to-result field="UomConversion.conversionFactor" result-name="conversionFactor"/>
         <else>
             <entity-condition entity-name="UomConversionDated" list="UomConversionDatedLastestList">
@@ -668,7 +668,7 @@ under the License.
                 </condition-list>
             </entity-condition>
             <if-not-empty field="UomConversionDatedLastestList">
-                <first-from-list entry="UomConversionLastest" list="UomConversionDatedLastestList"/>
+                <first-from-list list="UomConversionDatedLastestList" entry="UomConversionLastest"/>
                 <field-to-result field="UomConversionLastest.conversionFactor" result-name="conversionFactor"/>
             </if-not-empty>
         </else>

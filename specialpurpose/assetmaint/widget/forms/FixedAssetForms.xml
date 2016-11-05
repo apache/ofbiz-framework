@@ -75,7 +75,7 @@
             </service>
         </actions>
         <field name="maintHistSeqId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${maintHistSeqId}" target="EditFixedAssetMaint">
+            <hyperlink description="${maintHistSeqId}" target="EditFixedAssetMaint" also-hidden="false">
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="maintHistSeqId"/>
             </hyperlink>

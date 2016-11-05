@@ -133,7 +133,7 @@ under the License.
                     <widgets>
                         <section>
                             <actions>
-                                <entity-condition list="states" entity-name="Geo">
+                                <entity-condition entity-name="Geo" list="states">
                                     <condition-list combine="or">
                                         <condition-expr field-name="geoTypeId" value="STATE"/>
                                         <condition-expr field-name="geoTypeId" value="PROVINCE"/>
@@ -141,7 +141,7 @@ under the License.
                                     </condition-list>
                                     <order-by field-name="geoName"/>
                                 </entity-condition>
-                                <entity-condition list="countries" entity-name="Geo">
+                                <entity-condition entity-name="Geo" list="countries">
                                     <condition-list combine="or">
                                         <condition-expr field-name="geoTypeId" value="COUNTRY"/>
                                     </condition-list>

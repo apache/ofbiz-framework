@@ -205,7 +205,7 @@ under the License.
             <field-map field-name="primaryOrderId" value="DEMO10090"/>
             <field-map field-name="shipmentId" value="9998"/>
         </entity-and>
-        <first-from-list entry="shipment" list="shipments"/>
+        <first-from-list list="shipments" entry="shipment"/>
         <set field="shipRouteSegMap.shipmentId" from-field="shipment.shipmentId"/>
         <entity-one entity-name="UserLogin" value-field="shipRouteSegMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>

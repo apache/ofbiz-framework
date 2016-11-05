@@ -555,8 +555,8 @@ under the License.
                 <set from-field="thisContentId" field="map.contentId"/>
                 <set from-field="thisContentRevisionSeqId" field="map.contentRevisionSeqId"/>
                 <call-service service-name="getFinalApprovalStatus" in-map-name="map">
-                    <result-to-field field="finalApprovalStatusId" result-name="approvalStatusId"/>
-                    <result-to-field field="contentApprovalList" result-name="contentApprovalList"/>
+                    <result-to-field result-name="approvalStatusId" field="finalApprovalStatusId"/>
+                    <result-to-field result-name="contentApprovalList" field="contentApprovalList"/>
                 </call-service>
                 <!--  determine status of previous approvals --><!-- finalApprovalStatusId is the applicable status from previous approvals -->
                 <log level="info" message="cloneContentApprovals(2)- finalApprovalStatusId : ${finalApprovalStatusId} "/>

@@ -106,7 +106,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteCustRequest" short-description="Delete a draft Customer Request with no relations yet">
-        <entity-one value-field="custRequest" entity-name="CustRequest"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <if-compare operator="not-equals" value="CRQ_DRAFT" field="custRequest.statusId">
             <add-error ><fail-property resource="OrderErrorUiLabels" property="OrderCheckCustRequestDraftStatusForDelete"/></add-error>
         </if-compare>
@@ -175,7 +175,7 @@ under the License.
                 <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
             </entity-and>
             <if-not-empty field="custRequestItems">
-                <first-from-list entry="custRequestItem" list="custRequestItems"/>
+                <first-from-list list="custRequestItems" entry="custRequestItem"/>
                 <set-service-fields service-name="updateCustRequestItem" to-map="updateItem" map="custRequestItem"/>
                 <set field="updateItem.story" from-field="parameters.story"/>
                 <call-service service-name="updateCustRequestItem" in-map-name="updateItem"/>
@@ -420,7 +420,7 @@ under the License.
         <entity-one entity-name="CustRequestItem" value-field="custRequestItem" auto-field-map="true"/>
         <check-errors/>
 
-        <set-service-fields service-name="createCustRequestItem" to-map="createCustRequestItemInMap" map="custRequestItem"/>
+        <set-service-fields service-name="createCustRequestItem" map="custRequestItem" to-map="createCustRequestItemInMap"/>/>
         <set field="createCustRequestItemInMap.custRequestId" from-field="parameters.custRequestIdTo"/>
         <set field="createCustRequestItemInMap.custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
         <if-empty field="parameters.custRequestIdTo">
@@ -440,7 +440,7 @@ under the License.
             <get-related value-field="custRequestItem" relation-name="QuoteItem" list="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
-                <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
+                <set-service-fields service-name="createQuoteItem" map="quoteItem" to-map="createQuoteItemInMap"/>/>
                 <set field="createQuoteItemInMap.custRequestId" from-field="custRequestIdTo"/>
                 <set field="createQuoteItemInMap.custRequestItemSeqId" from-field="custRequestItemSeqId"/>
                 <clear-field field="createQuoteItemInMap.quoteItemSeqId"/>

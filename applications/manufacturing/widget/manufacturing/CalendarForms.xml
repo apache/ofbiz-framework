@@ -26,12 +26,12 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
         <field name="updateLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditCalendar" description="${uiLabelMap.CommonUpdate}" >
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditCalendar" >
                 <parameter param-name="calendarId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveCalendar" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="RemoveCalendar" also-hidden="false">
                 <parameter param-name="calendarId"/>
             </hyperlink>
         </field>
@@ -41,12 +41,12 @@ under the License.
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="updateLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditCalendarWeek" description="${uiLabelMap.CommonUpdate}" >
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditCalendarWeek" >
                 <parameter param-name="calendarWeekId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveCalendarWeek" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="RemoveCalendarWeek" also-hidden="false">
                 <parameter param-name="calendarWeekId"/>
             </hyperlink>
         </field>
@@ -59,13 +59,13 @@ under the License.
         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" ><display/></field>
         <field name="usedCapacity" title="${uiLabelMap.ManufacturingUsedCapacity}" ><display/></field>        
         <field name="updateLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditCalendarExceptionDay" description="${uiLabelMap.CommonSelect}" >
+            <hyperlink description="${uiLabelMap.CommonSelect}" target="EditCalendarExceptionDay" >
                 <parameter param-name="calendarId"/>
                 <parameter param-name="exceptionDateStartTime"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveCalendarExceptionDay" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="RemoveCalendarExceptionDay" also-hidden="false">
                 <parameter param-name="calendarId"/>
                 <parameter param-name="exceptionDateStartTime"/>
             </hyperlink>
@@ -110,13 +110,13 @@ under the License.
             <display description="${calendarWeek.description} "/>
         </field>
         <field name="updateLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditCalendarExceptionWeek" description="${uiLabelMap.CommonSelect}" >
+            <hyperlink description="${uiLabelMap.CommonSelect}" target="EditCalendarExceptionWeek" >
                 <parameter param-name="calendarId" from-field="calendarExceptionWeek.calendarId"/>
                 <parameter param-name="exceptionDateStart" from-field="calendarExceptionWeek.exceptionDateStart"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveCalendarExceptionWeek" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="RemoveCalendarExceptionWeek" also-hidden="false">
                 <parameter param-name="calendarId" from-field="calendarExceptionWeek.calendarId"/>
                 <parameter param-name="exceptionDateStart" from-field="calendarExceptionWeek.exceptionDateStart"/>
             </hyperlink>

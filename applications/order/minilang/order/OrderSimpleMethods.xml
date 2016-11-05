@@ -71,9 +71,9 @@ under the License.
                 <set field="totalsMap[receipt.orderItemSeqId]" value="0" type="BigDecimal"/>
             </if-empty>
             <calculate field="totalsMap[receipt.orderItemSeqId]">
-                <calcop field="totalsMap[receipt.orderItemSeqId]" operator="add">
-                    <calcop field="receipt.quantityAccepted" operator="get"/>
-                    <calcop field="receipt.quantityRejected" operator="get"/>
+                <calcop operator="add" field="totalsMap[receipt.orderItemSeqId]">
+                    <calcop operator="get" field="receipt.quantityAccepted"/>
+                    <calcop operator="get" field="receipt.quantityRejected"/>
                 </calcop>
             </calculate>
             <set from-field="receipt.orderId" field="newLookupMap.orderId"/>

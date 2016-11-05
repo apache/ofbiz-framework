@@ -271,10 +271,10 @@ under the License.
     <screen name="JobManagerLockEnable">
         <section>
             <actions>
-                <entity-condition list="currentJobManagerLocks" entity-name="JobManagerLock" filter-by-date="true">
+                <entity-condition entity-name="JobManagerLock" list="currentJobManagerLocks" filter-by-date="true">
                     <order-by field-name="fromDate"/>
                 </entity-condition>
-                <entity-condition list="nextJobManagerLocks" entity-name="JobManagerLock" filter-by-date="false">
+                <entity-condition entity-name="JobManagerLock" list="nextJobManagerLocks" filter-by-date="false">
                     <condition-list>
                         <condition-expr field-name="fromDate" operator="greater" from-field="nowTimestamp"/>
                         <condition-list combine="or">

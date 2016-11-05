@@ -101,7 +101,7 @@ under the License.
         </actions>
 
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -111,25 +111,25 @@ under the License.
         <field name="description"><display/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}"><display-entity entity-name="GlFiscalType"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+            <hyperlink description="${invoiceId}" target="editInvoice" also-hidden="false">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+            <hyperlink description="${paymentId}" target="editPayment" also-hidden="false">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
@@ -137,12 +137,12 @@ under the License.
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title=" " use-when="'N'.equals(isPosted)" widget-style="buttontext">
-            <hyperlink target="postAcctgTrans" description="${uiLabelMap.AccountingPostTransaction}">
+            <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans">
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>
         <field name="createTransactionDetailReportPDF" title=" " use-when="${isPosted=='Y'}" widget-style="buttontext">
-            <hyperlink target="acctgTransDetailReportPdf.pdf" target-window="_BLANK" description="${uiLabelMap.AccountingInvoicePDF}">
+            <hyperlink description="${uiLabelMap.AccountingInvoicePDF}" target="acctgTransDetailReportPdf.pdf" target-window="_BLANK">
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>
@@ -152,7 +152,7 @@ under the License.
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -161,13 +161,13 @@ under the License.
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}"><display-entity entity-name="AcctgTransType"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}"><display-entity entity-name="GlFiscalType"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+            <hyperlink description="${invoiceId}" target="editInvoice" also-hidden="false">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+            <hyperlink description="${paymentId}" target="editPayment" also-hidden="false">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
@@ -288,7 +288,7 @@ under the License.
         </field>
 
         <field name="acctgTransId" widget-style="buttontext" position="2">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -298,37 +298,37 @@ under the License.
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="2"><display-entity entity-name="AcctgTransType"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2"><display-entity entity-name="GlFiscalType"/></field>
         <field name="invoiceId" position="2" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+            <hyperlink description="${invoiceId}" target="editInvoice" also-hidden="false">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceId" position="2" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" position="2" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+            <hyperlink description="${paymentId}" target="editPayment" also-hidden="false">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" position="2" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentId" position="2" use-when="shipmentId==null"><display/></field>
         <field name="partyId" position="2" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" target-type="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" position="2" use-when="partyId==null"><display/></field>
         <field name="productId" position="2" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -365,7 +365,7 @@ under the License.
 
         <field name="transactionDate"><display/></field>
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans" also-hidden="false">
                 <parameter param-name="acctgTransId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -381,37 +381,37 @@ under the License.
             <display-entity entity-name="GlAccountClass"/>
         </field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+            <hyperlink description="${invoiceId}" target="editInvoice" also-hidden="false">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+            <hyperlink description="${paymentId}" target="editPayment" also-hidden="false">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="partyId" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" target-type="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="productId" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -796,7 +796,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${accountCode} - ${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                <entity-options entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
@@ -825,18 +825,18 @@ under the License.
         </field>
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+            <hyperlink description="${glAccountId}" target="GlAccountNavigate">
                 <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
         <field name="partyId">
-            <hyperlink target="/partymgr/control/viewprofile" description="${partyIdTo}" target-type="inter-app">
+            <hyperlink description="${partyIdTo}" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="productId"><display/></field>
         <field name="organizationPartyId">
-            <hyperlink target="/partymgr/control/viewprofile" description="${organizationPartyId}" target-type="inter-app">
+            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
@@ -885,7 +885,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccount" description="${accountCode} - ${accountName} [${glAccountId}]" key-field-name="glAccountId">
+                <entity-options entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
@@ -907,7 +907,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="glReconciliationId">
-            <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliations">
+            <hyperlink description="${glReconciliationId}" target="EditGlReconciliations" also-hidden="false">
                 <parameter param-name="glReconciliationId"/>
                 <parameter param-name="tabButtonItem" from-field="AccountReconciliations"/>
                 <parameter param-name="organizationPartyId"/>
@@ -918,12 +918,12 @@ under the License.
         <field name="createdByUserLogin"><display/></field>
         <field name="lastModifiedByUserLogin"><display/></field>
         <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+            <hyperlink description="${glAccountId}" target="GlAccountNavigate">
                 <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
         <field name="organizationPartyId">
-            <hyperlink target="/partymgr/control/viewprofile" description="${organizationPartyId}" target-type="inter-app">
+            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
@@ -956,8 +956,8 @@ under the License.
         <field name="postedDate" position="2"/>
         <field name="inventoryItemId" position="1"/>
         <field name="physicalInventoryId" position="2"/>
-        <field name="invoiceId" position="1"><hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/></field>
-        <field name="paymentId" position="2"><hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/></field>
+        <field name="invoiceId" position="1"><hyperlink description="${acctgTrans.invoiceId}" target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}"/></field>
+        <field name="paymentId" position="2"><hyperlink description="${acctgTrans.paymentId}" target="paymentOverview?paymentId=${acctgTrans.paymentId}"/></field>
         <field name="receiptId" position="1"/>
         <field name="workEffortId" position="2"/>
         <field name="shipmentId" position="1"/>

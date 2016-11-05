@@ -24,7 +24,7 @@ under the License.
     <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
              default-title-style="tableheadtext">
         <field name="facilityId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${facilityId}" target="menu">
+            <hyperlink description="${facilityId}" target="menu" also-hidden="false">
                 <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
@@ -89,7 +89,7 @@ under the License.
         <field name="quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeProductFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeProductFromCategory" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="fromDate"/>

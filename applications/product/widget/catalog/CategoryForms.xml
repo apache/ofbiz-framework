@@ -31,7 +31,7 @@ under the License.
         <field name="attrValue"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductCategoryAttribute" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductCategoryAttribute">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="attrName"/>
             </hyperlink>
@@ -102,12 +102,12 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         -->
         <field name="editLink" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
-            <hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeContentFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentFromCategory" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="prodCatContentTypeId"/>
@@ -173,7 +173,7 @@ under the License.
         <field name="imageUrl"><ignored/></field>
         <field name="imageTwoUrl"><ignored/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductCategoryLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductCategoryLink" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
                 <parameter param-name="linkSeqId"/>
                 <parameter param-name="fromDate"/>
@@ -206,7 +206,7 @@ under the License.
         <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="clearFormButton" title=" " use-when="productCategoryLink!=null">
-            <hyperlink target="EditProductCategoryLinks" target-type="intra-app" description="${uiLabelMap.CommonClear}">
+            <hyperlink description="${uiLabelMap.CommonClear}" target="EditProductCategoryLinks" target-type="intra-app">
                 <parameter param-name="productCategoryId"/>
             </hyperlink>
         </field>
@@ -214,7 +214,7 @@ under the License.
 
     <form name="ListTopCategory" type="list" list-name="noParentCategories" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"  widget-style="buttontext">
-            <hyperlink target="EditCategory" description="${productCategoryId}" also-hidden="false">
+            <hyperlink description="${productCategoryId}" target="EditCategory" also-hidden="false">
                 <parameter param-name="CATALOG_TOP_CATEGORY" value="${productCategoryId}"/>
                 <parameter param-name="productCategoryId" value="${productCategoryId}"/>
             </hyperlink>
@@ -245,7 +245,7 @@ under the License.
             </service>
         </actions>
         <field name="productCategoryId" sort-field="true">
-            <hyperlink also-hidden="false" description="${productCategoryId}" target="EditCategory">
+            <hyperlink description="${productCategoryId}" target="EditCategory" also-hidden="false">
                 <parameter param-name="productCategoryId"/>
             </hyperlink>
         </field>

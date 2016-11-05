@@ -41,7 +41,7 @@ under the License.
             </service>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
-            <hyperlink also-hidden="false" target-type="plain" description="${segmentGroupId}" target="javascript:set_value('${segmentGroupId}')"/>
+            <hyperlink description="${segmentGroupId}" target="javascript:set_value('${segmentGroupId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -56,13 +56,13 @@ under the License.
             </entity-and>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
-            <hyperlink also-hidden="false" target-type="intra-app" description="${segmentGroupId}" target="viewSegmentGroup">
+            <hyperlink description="${segmentGroupId}" target="viewSegmentGroup" also-hidden="false" target-type="intra-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.MarketingSegmentGroupPartyClassificationGroupId}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupClass" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
+            <hyperlink description="[${uiLabelMap.CommonDelete}]" target="deleteSegmentGroupClass" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
                 <parameter param-name="partyClassificationGroupId"/>
             </hyperlink>
@@ -97,7 +97,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="SalesForecast" default-field-type="display"/>
         <field name="salesForecastId"  widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${salesForecastId}" target="javascript:set_value('${salesForecastId}')"/>
+            <hyperlink description="${salesForecastId}" target="javascript:set_value('${salesForecastId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 </forms>

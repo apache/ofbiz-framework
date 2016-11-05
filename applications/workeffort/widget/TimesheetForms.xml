@@ -140,7 +140,7 @@ under the License.
             </display-entity>
         </field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/invoiceOverview" target-type="inter-app" description="${invoiceId}">
+            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -174,7 +174,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTimesheetRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTimesheetRole" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
@@ -238,7 +238,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTimesheetEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTimesheetEntry" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="timeEntryId"/>
             </hyperlink>

@@ -49,7 +49,7 @@ under the License.
             </service>
         </actions>
         <field name="custRequestId" widget-style="buttontext" title="Product Backlog Item Id">
-            <hyperlink also-hidden="false" target-type="plain" description="${custRequestId}" target="javascript:set_value('${custRequestId}')"/>
+            <hyperlink description="${custRequestId}" target="javascript:set_value('${custRequestId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="Product Backlog Item"><display/></field>
         <field name="parentCustRequestId" title="Parent Product Backlog Item"><display/></field>

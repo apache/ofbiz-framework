@@ -67,7 +67,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeFacilityGroupFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFacilityGroupFromGroup" also-hidden="false">
                 <parameter param-name="showFacilityGroupId" from-field="facilityGroupId"/>
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="parentFacilityGroupId"/>
@@ -104,7 +104,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeFacilityGroupFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFacilityGroupFromGroup" also-hidden="false">
                 <parameter param-name="showFacilityGroupId" from-field="parentFacilityGroupId"/>
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="parentFacilityGroupId"/>
@@ -141,7 +141,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeFacilityFromGroup" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeFacilityFromGroup" also-hidden="false">
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="facilityId"/>
                 <parameter param-name="fromDate"/>
@@ -177,7 +177,7 @@ under the License.
             <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removePartyFromFacilityGroup" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePartyFromFacilityGroup" also-hidden="false">
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>

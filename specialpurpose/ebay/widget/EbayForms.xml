@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down>
-                <entity-options entity-name="ProductStore" description="${storeName}" key-field-name="productStoreId">
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
             </drop-down>
@@ -43,7 +43,7 @@ under the License.
         <field name="externalId" title="${uiLabelMap.EbayImportEbayItem}"><display/></field>
         <field name="transactionId"><display/></field>
         <field name="orderId">
-            <hyperlink target="orderview" description="${orderId}">
+            <hyperlink description="${orderId}" target="orderview">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -92,7 +92,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down>
-                <entity-options entity-name="ProductStore" description="${storeName}" key-field-name="productStoreId">
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
             </drop-down>
@@ -113,7 +113,7 @@ under the License.
        <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayOrder}" tooltip="eBay Order"><display/></field>
        <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayTransaction}" tooltip="eBay Transaction"><display/></field>
         <field name="orderId">
-            <hyperlink target="/ordermgr/control/orderview" also-hidden="false" description="${orderId}" target-type="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -146,12 +146,12 @@ under the License.
         <field name="compatibilityLevel"><display/></field> 
         <field name="webSiteId" title="${uiLabelMap.ProductWebSite}"><display-entity entity-name="WebSite" description="${siteName} [${webSiteId}]"/></field>
         <field name="editEbayConfiguration" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink target="EditEbayConfiguration" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditEbayConfiguration" also-hidden="false">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
         <field name="deleteEbayConfiguration" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEbayConfiguration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEbayConfiguration" also-hidden="false">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
@@ -213,7 +213,7 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteEbayShippingMethod" title="" widget-style="buttontext">
-            <hyperlink target="deleteEbayShippingMethod" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEbayShippingMethod" also-hidden="false">
                 <parameter param-name="shipmentMethodName"/>
                 <parameter param-name="productStoreId"/>
             </hyperlink>
@@ -257,7 +257,7 @@ under the License.
         </field>
         <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
             <drop-down no-current-selected-key="${parameters.webSiteId}" allow-empty="true">
-                <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]" key-field-name="webSiteId">
+                <entity-options entity-name="WebSite" key-field-name="webSiteId" description="${siteName} [${webSiteId}]">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
             </drop-down>

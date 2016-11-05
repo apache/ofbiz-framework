@@ -495,7 +495,7 @@ under the License.
         <if-empty field="shipment.partyIdFrom">
             <set value="SHIP_FROM_VENDOR" field="limitRoleMap.roleTypeId"/>
             <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
-            <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
+            <first-from-list list="limitOrderRoles" entry="limitOrderRole"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdFrom"/>
             </if-not-empty>
@@ -505,7 +505,7 @@ under the License.
         <if-empty field="shipment.partyIdFrom">
             <set value="VENDOR" field="limitRoleMap.roleTypeId"/>
             <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
-            <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
+            <first-from-list list="limitOrderRoles" entry="limitOrderRole"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdFrom"/>
             </if-not-empty>
@@ -516,7 +516,7 @@ under the License.
         <if-empty field="shipment.partyIdTo">
             <set value="SHIP_TO_CUSTOMER" field="limitRoleMap.roleTypeId"/>
             <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
-            <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
+            <first-from-list list="limitOrderRoles" entry="limitOrderRole"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdTo"/>
             </if-not-empty>
@@ -526,7 +526,7 @@ under the License.
         <if-empty field="shipment.partyIdTo">
             <set value="CUSTOMER" field="limitRoleMap.roleTypeId"/>
             <filter-list-by-and list="orderRoles" map="limitRoleMap" to-list="limitOrderRoles"/>
-            <first-from-list entry="limitOrderRole" list="limitOrderRoles"/>
+            <first-from-list list="limitOrderRoles" entry="limitOrderRole"/>
             <if-not-empty field="limitOrderRole">
                 <set from-field="limitOrderRole.partyId" field="shipment.partyIdTo"/>
             </if-not-empty>
@@ -541,7 +541,7 @@ under the License.
             <!-- first try from orderContactMechs -->
             <set value="SHIPPING_LOCATION" field="destinationContactMap.contactMechPurposeTypeId"/>
             <filter-list-by-and list="orderContactMechs" map="destinationContactMap" to-list="destinationOrderContactMechs"/>
-            <first-from-list entry="destinationOrderContactMech" list="destinationOrderContactMechs"/>
+            <first-from-list list="destinationOrderContactMechs" entry="destinationOrderContactMech"/>
             <if-not-empty field="destinationOrderContactMech">
                 <set from-field="destinationOrderContactMech.contactMechId" field="shipment.destinationContactMechId"/>
                <else>
@@ -554,7 +554,7 @@ under the License.
             <if-empty field="shipment.originContactMechId">
                 <set value="SHIP_ORIG_LOCATION" field="originContactMap.contactMechPurposeTypeId"/>
                 <filter-list-by-and list="orderContactMechs" map="originContactMap" to-list="originOrderContactMechs"/>
-                <first-from-list entry="originOrderContactMech" list="originOrderContactMechs"/>
+                <first-from-list list="originOrderContactMechs" entry="originOrderContactMech"/>
                 <if-not-empty field="originOrderContactMech">
                     <set from-field="originOrderContactMech.contactMechId" field="shipment.originContactMechId"/>
                     <else>
@@ -568,7 +568,7 @@ under the License.
         <if-empty field="shipment.destinationTelecomNumberId">
             <set value="PHONE_SHIPPING" field="destTelecomOrderContactMechMap.contactMechPurposeTypeId"/>
             <filter-list-by-and list="orderContactMechs" map="destTelecomOrderContactMechMap" to-list="destTelecomOrderContactMechs"/>
-            <first-from-list entry="destTelecomOrderContactMech" list="destTelecomOrderContactMechs"/>
+            <first-from-list list="destTelecomOrderContactMechs" entry="destTelecomOrderContactMech"/>
             <if-not-empty field="destTelecomOrderContactMech">
                 <set from-field="destTelecomOrderContactMech.contactMechId" field="shipment.destinationTelecomNumberId"/>
                 <else>
@@ -576,7 +576,7 @@ under the License.
                     <entity-and entity-name="PartyAndTelecomNumber" list="phoneNumbers" filter-by-date="true">
                         <field-map field-name="partyId" from-field="shipment.partyIdTo"/>
                     </entity-and>
-                    <first-from-list entry="phoneNumber" list="phoneNumbers"/>
+                    <first-from-list list="phoneNumbers" entry="phoneNumber"/>
                     <if-not-empty field="phoneNumber">
                         <set from-field="phoneNumber.contactMechId" field="shipment.destinationTelecomNumberId"/>
                         <else>
@@ -590,7 +590,7 @@ under the License.
         <if-empty field="shipment.originTelecomNumberId">
             <set value="PHONE_SHIP_ORIG" field="originTelecomOrderContactMechMap.contactMechPurposeTypeId"/>
             <filter-list-by-and list="orderContactMechs" map="originTelecomOrderContactMechMap" to-list="originTelecomOrderContactMechs"/>
-            <first-from-list entry="originTelecomOrderContactMech" list="originTelecomOrderContactMechs"/>
+            <first-from-list list="originTelecomOrderContactMechs" entry="originTelecomOrderContactMech"/>
             <if-not-empty field="originTelecomOrderContactMech">
                 <set from-field="originTelecomOrderContactMech.contactMechId" field="shipment.originTelecomNumberId"/>
                 <else>
@@ -738,7 +738,7 @@ under the License.
             <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
         </entity-and>
 
-        <first-from-list entry="curUserPartyAndContactMech" list="curUserPartyAndContactMechs"/>
+        <first-from-list list="curUserPartyAndContactMechs" entry="curUserPartyAndContactMech"/>
         <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
 
         <!-- find email addresses of partyIdFrom, set as sendTo -->
@@ -804,9 +804,9 @@ under the License.
             </entity-and>
             <iterate list="receipts" entry="receipt">
                 <calculate field="issuanceQuantity">
-                    <calcop field="receipt.quantityAccepted" operator="get"/>
-                    <calcop field="receipt.quantityRejected" operator="get"/>
-                    <calcop field="issuanceQuantity" operator="get"/>
+                    <calcop operator="get" field="receipt.quantityAccepted"/>
+                    <calcop operator="get" field="receipt.quantityRejected"/>
+                    <calcop operator="get" field="issuanceQuantity"/>
                 </calculate>
             </iterate>
             <set field="issuance.quantity" from-field="issuanceQuantity"/>
@@ -1077,8 +1077,8 @@ under the License.
         <else>
             <!-- add the quantities and store it -->
             <calculate field="shipmentPackageContent.quantity">
-                <calcop field="shipmentPackageContent.quantity" operator="add"/>
-                <calcop field="parameters.quantity" operator="get"/>
+                <calcop operator="add" field="shipmentPackageContent.quantity"/>
+                <calcop operator="get" field="parameters.quantity"/>
             </calculate>
             <set-service-fields service-name="updateShipmentPackageContent" map="shipmentPackageContent" to-map="updateSPCMap"/>
             <call-service service-name="updateShipmentPackageContent" in-map-name="updateSPCMap"/>
@@ -1656,7 +1656,7 @@ under the License.
         <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>
         <if-compare-field field="inventoryItem.serialNumber" operator="not-equals" to-field="parameters.serialNumber">
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
-            <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
+            <set-service-fields service-name="reserveAnInventoryItem" map="parameters" to-map="reserveAnInventoryItemCtx"/>/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
                 <result-to-field result-name="inventoryItemId" field="parameters.inventoryItemId"/>
             </call-service>
@@ -1893,8 +1893,8 @@ under the License.
         <call-service service-name="deleteOrderShipment" in-map-name="inMap"/>
 
         <calculate field="shipmentItem.quantity">
-            <calcop field="shipmentItem.quantity" operator="subtract">
-                <calcop field="orderShipment.quantity" operator="get"/>
+            <calcop operator="subtract" field="shipmentItem.quantity">
+                <calcop operator="get" field="orderShipment.quantity"/>
             </calcop>
         </calculate>
         <clear-field field="inMap"/>
@@ -1977,8 +1977,8 @@ under the License.
         <find-by-and entity-name="OrderShipment" map="orderShipmentLookup" list="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="orderShipment">
             <calculate field="plannedQuantity">
-                <calcop field="plannedQuantity" operator="add">
-                    <calcop field="orderShipment.quantity" operator="get"/>
+                <calcop operator="add" field="plannedQuantity">
+                    <calcop operator="get" field="orderShipment.quantity"/>
                 </calcop>
             </calculate>
         </iterate>
@@ -1986,20 +1986,20 @@ under the License.
         <find-by-and entity-name="ItemIssuance" map="orderShipmentLookup" list="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="itemIssuance">
             <calculate field="issuedQuantity">
-                <calcop field="issuedQuantity" operator="get"/>
-                <calcop field="itemIssuance.quantity" operator="get"/>
-                <calcop field="itemIssuance.cancelQuantity" operator="negative"/>
+                <calcop operator="get" field="issuedQuantity"/>
+                <calcop operator="get" field="itemIssuance.quantity"/>
+                <calcop operator="negative" field="itemIssuance.cancelQuantity"/>
             </calculate>
         </iterate>
 
         <calculate field="totPlannedOrIssuedQuantity">
-            <calcop field="issuedQuantity" operator="get"/>
-            <calcop field="plannedQuantity" operator="get"/>
+            <calcop operator="get" field="issuedQuantity"/>
+            <calcop operator="get" field="plannedQuantity"/>
         </calculate>
         <calculate field="remainingQuantity">
-            <calcop field="orderItem.quantity" operator="subtract">
-                <calcop field="orderItem.cancelQuantity" operator="get"/>
-                <calcop field="totPlannedOrIssuedQuantity" operator="get"/>
+            <calcop operator="subtract" field="orderItem.quantity">
+                <calcop operator="get" field="orderItem.cancelQuantity"/>
+                <calcop operator="get" field="totPlannedOrIssuedQuantity"/>
             </calcop>
         </calculate>
         <field-to-result field="remainingQuantity"/>

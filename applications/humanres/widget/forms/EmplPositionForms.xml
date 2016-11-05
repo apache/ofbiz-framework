@@ -33,7 +33,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EmplPosition" default-field-type="display"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView">
+            <hyperlink description="${emplPositionId}" target="emplPositionView" also-hidden="false">
                 <parameter param-name="emplPositionId"/>
             </hyperlink>
         </field>
@@ -118,7 +118,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionFulfillment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplPositionFulfillment" also-hidden="false">
                 <parameter param-name="emplPositionId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="fromDate"/>
@@ -183,7 +183,7 @@ under the License.
         <field name="comments"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionReportingStruct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplPositionReportingStruct" also-hidden="false">
                 <parameter param-name="emplPositionIdReportingTo"/>
                 <parameter param-name="emplPositionIdManagedBy"/>
                 <parameter param-name="fromDate"/>
@@ -214,7 +214,7 @@ under the License.
         <field name="fromDate"><display /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplPositionResponsibility" also-hidden="false">
                 <parameter param-name="emplPositionId"/>
                 <parameter param-name="responsibilityTypeId"/>
                 <parameter param-name="fromDate"/>
@@ -246,7 +246,7 @@ under the License.
         <field name="fromDate"><display /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteValidResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteValidResponsibility" also-hidden="false">
                 <parameter param-name="emplPositionTypeId" from-field="emplPositionId"/>
                 <parameter param-name="responsibilityTypeId"/>
                 <parameter param-name="fromDate"/>

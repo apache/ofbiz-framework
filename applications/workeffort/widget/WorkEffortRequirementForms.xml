@@ -30,7 +30,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="requirementId" widget-style="linktext">
-            <hyperlink target="/ordermgr/control/EditRequirement" target-type="inter-app" description="${requirementId}">
+            <hyperlink description="${requirementId}" target="/ordermgr/control/EditRequirement" target-type="inter-app">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
@@ -38,7 +38,7 @@ under the License.
         <field name="statusItemDescription"><display/></field>
         <field name="requirementDescription"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortRequirement" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequirement" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="requirementId"/>
             </hyperlink>

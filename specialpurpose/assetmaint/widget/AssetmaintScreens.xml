@@ -288,7 +288,7 @@
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
-                <entity-condition list="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                <entity-condition entity-name="ProductInventoryItemAndItemIssuance" list="itemIssuanceList">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
             </actions>
@@ -321,11 +321,11 @@
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <set field="layoutSettings.documentTitle" from-field="uiLabelMap.AccountingFixedAssetMaintWorkEffortName"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
-                <entity-condition list="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                <entity-condition entity-name="ProductInventoryItemAndItemIssuance" list="itemIssuanceList">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
                 <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
-                <entity-condition list="notes" entity-name="WorkEffortNoteAndData">
+                <entity-condition entity-name="WorkEffortNoteAndData" list="notes">
                     <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="noteId"/>
                 </entity-condition>

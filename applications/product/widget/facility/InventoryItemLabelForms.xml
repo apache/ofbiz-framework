@@ -48,7 +48,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabelType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInventoryItemLabelType" also-hidden="false">
                 <parameter param-name="inventoryItemLabelTypeId"/>
             </hyperlink>
         </field>
@@ -57,7 +57,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemLabel" default-field-type="display"/>
         <field name="inventoryItemLabelId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">
+            <hyperlink description="${inventoryItemLabelId}" target="EditInventoryItemLabel" also-hidden="true">
                 <parameter param-name="inventoryItemLabelId"/>
             </hyperlink>
         </field>
@@ -65,7 +65,7 @@ under the License.
             <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]" also-hidden="true"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabel" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInventoryItemLabel" also-hidden="false">
                 <parameter param-name="inventoryItemLabelId"/>
             </hyperlink>
         </field>
@@ -101,7 +101,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabelAppl" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInventoryItemLabelAppl" also-hidden="false">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="inventoryItemLabelTypeId"/>
                 <parameter param-name="inventoryItemLabelId"/>

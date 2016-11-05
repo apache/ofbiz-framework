@@ -44,7 +44,7 @@ under the License.
         <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
-                    <entity-constraint name="roleTypeId" value="SUPPLIER" operator="equals"/>
+                    <entity-constraint name="roleTypeId" operator="equals"  value="SUPPLIER"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>

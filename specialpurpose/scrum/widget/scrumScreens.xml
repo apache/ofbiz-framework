@@ -75,7 +75,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleAddSprint"/>
                 <set field="tabButtonItem" value="editProject"/>
                 <set field="sprintId" from-field="parameters.sprintId"/>
-                <entity-one value-field="projectWorkEffort" entity-name="WorkEffort">
+                <entity-one entity-name="WorkEffort" value-field="projectWorkEffort">
                     <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 </entity-one>
             </actions>
@@ -113,7 +113,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleSprintOverview"/>
                 <set field="tabButtonItem" value="SprintSummary"/>
                 <set field="permissionMap.sprintId" from-field="parameters.sprintId"/>
-                <entity-one value-field="sprintStatus" entity-name="WorkEffort">
+                <entity-one entity-name="WorkEffort" value-field="sprintStatus">
                     <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
                 </entity-one>
                 <script location="component://scrum/groovyScripts/SprintBacklogListItems.groovy"/>
@@ -131,7 +131,7 @@ under the License.
                         <widgets>
                         <section>
                             <actions>
-                                <entity-one value-field="project" entity-name="WorkEffort">
+                                <entity-one entity-name="WorkEffort" value-field="project">
                                     <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                                 </entity-one>
                             </actions>
@@ -489,7 +489,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleProductBacklog"/>
                 <set field="tabButtonItem" value="editProductBacklog"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product">
+                <entity-one entity-name="Product" value-field="product">
                     <field-map field-name="productId"/>
                 </entity-one>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
@@ -650,7 +650,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="editProductBacklog"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one value-field="custRequestMap" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
                 <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
@@ -694,7 +694,7 @@ under the License.
                 <entity-and entity-name="CustRequestItem" list="custRequestItemList">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="parameters.productId" from-field="custRequestItemList[0].productId"/>
                 <entity-one entity-name="Product" value-field="productMap">
                     <field-map field-name="productId" from-field="parameters.productId"/>
@@ -717,7 +717,7 @@ under the License.
                 </entity-and>
                 <set field="update.productId" from-field="custRequestItemList[0].productId"/>
                 <set field="update.custRequestId" from-field="parameters.custRequestId"/>
-                <entity-condition list="commEvents" entity-name="CommunicationEventAndCustRequest">
+                <entity-condition entity-name="CommunicationEventAndCustRequest" list="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="COM_CANCELLED"/>
@@ -735,10 +735,10 @@ under the License.
                     <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
                 </entity-and>
                 <set field="productOwnerId" value="${productRole[0].partyId}"/>
-                <entity-one value-field="parentCom" entity-name="CommunicationEvent">
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
                 </entity-one>
-                <entity-one value-field="custStatus" entity-name="CustRequest">
+                <entity-one entity-name="CustRequest" value-field="custStatus">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-one>
                 <entity-condition entity-name="ProductBacklog" list="productBacklogs">
@@ -778,7 +778,7 @@ under the License.
                                     <screenlet title="${uiLabelMap.ScrumRevisions}" name="RevisionsList">
                                         <section>
                                             <actions>
-                                                <entity-condition list="plannedTasks" entity-name="ProjectSprintBacklogAndTask">
+                                                <entity-condition entity-name="ProjectSprintBacklogAndTask" list="plannedTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
                                                         <condition-expr field-name="sprintTypeId" value="SCRUM_SPRINT"/>
@@ -792,7 +792,7 @@ under the License.
                                                     <select-field field-name="taskId"/>
                                                 </entity-condition>
                                                 <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
-                                                <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsAndTasks">
+                                                <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="unplannedTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
                                                         <condition-list combine="or">
@@ -805,7 +805,7 @@ under the License.
                                                     <select-field field-name="workEffortId"/>
                                                 </entity-condition>
                                                 <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
-                                                <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
+                                                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
                                                         <condition-list combine="or">
@@ -865,12 +865,12 @@ under the License.
                 <entity-and entity-name="CustRequestItem" list="custRequestItem">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 <set field="productId" from-field="custRequestItem[0].productId"/>
                 <set field="update.productId" from-field="custRequestItem[0].productId"/>
                 <set field="update.custRequestId" from-field="parameters.custRequestId"/>
-                <entity-condition list="commEvents" entity-name="CommunicationEventAndCustRequest">
+                <entity-condition entity-name="CommunicationEventAndCustRequest" list="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="COM_CANCELLED"/>
@@ -884,7 +884,7 @@ under the License.
                     <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
                 </entity-and>
                 <set field="productOwnerId" value="${productRole[0].partyId}"/>
-                <entity-one value-field="parentCom" entity-name="CommunicationEvent">
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
                 </entity-one>
             </actions>
@@ -1000,7 +1000,7 @@ under the License.
                 <field-map field-name="noteName" value="How to test"/>
             </entity-and>
             <set field="noteIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(noteDataList, 'noteId', true);}" type="List"/>
-            <entity-condition list="custNoteList" entity-name="CustRequestNote" >
+            <entity-condition entity-name="CustRequestNote" list="custNoteList" >
                 <condition-list combine="and">
                     <condition-expr field-name="custRequestId" from-field="custRequestId"/>
                     <condition-expr field-name="noteId" operator="not-in" from-field="noteIds" ignore-if-empty="true"/>
@@ -1077,7 +1077,7 @@ under the License.
                 <entity-and entity-name="CustRequestItem" list="custRequestItem">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-condition list="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <condition-list combine="and">
                         <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
@@ -1096,7 +1096,7 @@ under the License.
                     <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
                 </entity-and>
                 <set field="productOwnerId" value="${productRole[0].partyId}"/>
-                <entity-one value-field="parentCom" entity-name="CommunicationEvent">
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
                 </entity-one>
             </actions>
@@ -1177,7 +1177,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="view"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one value-field="custRequestMap" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
                 <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
@@ -1275,7 +1275,7 @@ under the License.
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <set field="sprintId" from-field="parameters.sprintId"/>
                 <entity-one entity-name="WorkEffort" value-field="project"/>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1317,7 +1317,7 @@ under the License.
                 <set field="tabButtonItem" value="SprintList"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-one entity-name="WorkEffort" value-field="project"/>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
             </actions>
             <widgets>
                     <include-form name="ListDailyMeetingMinute" location="component://scrum/widget/scrumForms.xml"/>
@@ -1331,7 +1331,7 @@ under the License.
                 <set field="tabButtonItem" value="SprintList"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-one entity-name="WorkEffort" value-field="project"/>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1359,7 +1359,7 @@ under the License.
                 <set field="tabButtonItem" value="SprintList"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-one entity-name="WorkEffort" value-field="project"/>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="permissionMap.projectId" from-field="parameters.projectId"/>
                 <set field="permissionMap.sprintId" from-field="parameters.sprintId"/>
             </actions>
@@ -1462,7 +1462,7 @@ under the License.
                 <set field="tabButtonItem" value="listResourcesTask"/>
                 <set field="titleProperty" value="PageTitleListTaskByParty"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-condition list="tasks" entity-name="ProjectSprintBacklogTaskAndParty">
+                <entity-condition entity-name="ProjectSprintBacklogTaskAndParty" list="tasks">
                     <condition-list combine="and">
                         <condition-expr field-name="memberThruDate" value=""/>
                         <condition-list combine="or">
@@ -1592,7 +1592,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProduct"/>
                 <set field="tabButtonItem" value="edit"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="permissionMap.productId" from-field="parameters.productId"/>
                 <script location="component://scrum/groovyScripts/ListScrumRolesPersonAndCompany.groovy"/>
             </actions>
@@ -1642,7 +1642,7 @@ under the License.
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
                 <set field="custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="CommunicationEventAndProduct" list="commEvents">
                     <condition-list combine="and">
                         <condition-list combine="or">
@@ -1664,7 +1664,7 @@ under the License.
                     <field-map field-name="thruDate" value=""/>
                 </entity-and>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-condition list="sprints" entity-name="ProjectSprint">
+                <entity-condition entity-name="ProjectSprint" list="sprints">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" from-field="parameters.productId"/>
                     </condition-list>
@@ -1690,7 +1690,7 @@ under the License.
                                     <screenlet title="${uiLabelMap.ScrumRevisions}">
                                         <section>
                                             <actions>
-                                                <entity-condition list="backlogList" entity-name="CustRequestAndCustRequestItem">
+                                                <entity-condition entity-name="CustRequestAndCustRequestItem" list="backlogList">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="productId" from-field="productId"/>
                                                         <condition-list combine="or">
@@ -1700,7 +1700,7 @@ under the License.
                                                     </condition-list>
                                                 </entity-condition>
                                                 <set field="custRequestIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(backlogList, 'custRequestId', true);}" type="List"/>
-                                                <entity-condition list="plannedTasks" entity-name="ProjectSprintBacklogAndTask">
+                                                <entity-condition entity-name="ProjectSprintBacklogAndTask" list="plannedTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
                                                         <condition-expr field-name="sprintTypeId" value="SCRUM_SPRINT"/>
@@ -1714,7 +1714,7 @@ under the License.
                                                     <select-field field-name="taskId"/>
                                                 </entity-condition>
                                                 <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
-                                                <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsAndTasks">
+                                                <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="unplannedTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
                                                         <condition-list combine="or">
@@ -1729,7 +1729,7 @@ under the License.
                                                 <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
                                                 <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
                                                 <set field="parameters.noConditionFind" value="Y"/>
-                                                <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
+                                                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
                                                         <condition-list combine="or">
@@ -1809,7 +1809,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleBilling"/>
                 <set field="tabButtonItem" value="billing"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
                 <script location="component://scrum/groovyScripts/ProductBilling.groovy"/>
@@ -1823,10 +1823,10 @@ under the License.
                 </entity-and>
                 <set field="partyId" from-field="productRole[0].partyId"/>
                 <set field="partyIdFrom" from-field="organizationPartyId"/>
-                <entity-one value-field="partyMap" entity-name="PartyNameView">
+                <entity-one entity-name="PartyNameView" value-field="partyMap">
                     <field-map field-name="partyId" from-field="partyId"/>
                 </entity-one>
-                <entity-one value-field="companyMap" entity-name="PartyNameView">
+                <entity-one entity-name="PartyNameView" value-field="companyMap">
                     <field-map field-name="partyId" from-field="partyIdFrom"/>
                 </entity-one>
             </actions>
@@ -1929,7 +1929,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleProductBacklogCategories"/>
                 <set field="tabButtonItem" value="categories"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="productId" from-field="product.productId"/>
             </actions>
             <widgets>
@@ -1960,9 +1960,9 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductBacklogCategories"/>
                 <set field="tabButtonItem" value="categories"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="productId" from-field="product.productId"/>
-                <entity-one value-field="custRequest" entity-name="CustRequest"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <set field="custRequestId" from-field="custRequest.custRequestId"/>
             </actions>
             <widgets>
@@ -2061,7 +2061,7 @@ under the License.
                     <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
                 </entity-and>
                 <set field="productOwnerId" value="${productRole[0].partyId}"/>
-                <entity-one value-field="parentCom" entity-name="CommunicationEvent">
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
                     <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
                 </entity-one>
                 <set field="permissionMap.productId" from-field="productId"/>
@@ -2179,7 +2179,7 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="target" from-field="parameters.target" default-value="updateEmailForProduct"/>
-                <entity-one value-field="communicationEvent" entity-name="CommunicationEvent"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
         <widgets>
             <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -2660,7 +2660,7 @@ under the License.
                 <set field="headerItem" value="admin"/>
                 <set field="tabButtonItem" value="totalBilling"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
                 <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
                 <script location="component://scrum/groovyScripts/ProductBilling.groovy"/>
@@ -2674,10 +2674,10 @@ under the License.
                 </entity-and>
                 <set field="partyId" from-field="productRole[0].partyId"/>
                 <set field="partyIdFrom" from-field="organizationPartyId"/>
-                <entity-one value-field="partyMap" entity-name="PartyNameView">
+                <entity-one entity-name="PartyNameView" value-field="partyMap">
                     <field-map field-name="partyId" from-field="partyId"/>
                 </entity-one>
-                <entity-one value-field="companyMap" entity-name="PartyNameView">
+                <entity-one entity-name="PartyNameView" value-field="companyMap">
                     <field-map field-name="partyId" from-field="partyIdFrom"/>
                 </entity-one>
             </actions>
@@ -2722,7 +2722,7 @@ under the License.
                 <set field="headerItem" value="admin"/>
                 <set field="tabButtonItem" value="productStatistics"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">

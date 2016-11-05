@@ -37,7 +37,7 @@ under the License.
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequest">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequest" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="custRequestId"/>
             </hyperlink>
@@ -71,7 +71,7 @@ under the License.
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
         <field name="deleteLink" title=" " widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="custRequestItemSeqId"/>

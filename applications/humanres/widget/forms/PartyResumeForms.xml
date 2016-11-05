@@ -41,7 +41,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>
         <field name="resumeId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResumes">
+            <hyperlink description="${resumeId}" target="EditPartyResumes" also-hidden="false">
                 <parameter param-name="resumeId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>
@@ -54,7 +54,7 @@ under the License.
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-           <hyperlink target="deletePartyResume" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+           <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyResume" also-hidden="false">
                <parameter param-name="resumeId"/>
                <parameter param-name="partyId"/>
             </hyperlink>

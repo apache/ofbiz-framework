@@ -168,7 +168,7 @@ under the License.
         <set field="inputMap.quantity" from-field="requirement.quantity"/>
         <set field="inputMap.sendDate" from-field="requirement.requiredByDate"/>
         <call-service service-name="createInventoryTransfersForProduct" in-map-name="inputMap">
-            <result-to-field field="quantityNotTransferred" result-name="quantityNotTransferred"/>
+            <result-to-field result-name="quantityNotTransferred" field="quantityNotTransferred"/>
         </call-service>
         <check-errors/>
         <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="BigDecimal">

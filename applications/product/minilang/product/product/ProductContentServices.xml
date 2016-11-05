@@ -159,7 +159,7 @@ under the License.
 
     <!-- ProductPromoContent -->
     <simple-method method-name="removeProductPromoContent" short-description="Remove Content From Product Promo">
-        <set-service-fields service-name="updateProductPromoContent" to-map="updateProductPromoContentMap" map="parameters"/>
+        <set-service-fields service-name="updateProductPromoContent" map="parameters" to-map="updateProductPromoContentMap"/>/>
         <if-empty field="updateProductPromoContentMap.thruDate">
             <now-timestamp field="updateProductPromoContentMap.thruDate"/>
         </if-empty>
@@ -175,7 +175,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productContents">
                 <first-from-list entry="productContent" list="productContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">
@@ -197,7 +197,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productContents">
                 <first-from-list entry="productContent" list="productContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">
@@ -219,7 +219,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productContents">
                 <first-from-list entry="productContent" list="productContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">

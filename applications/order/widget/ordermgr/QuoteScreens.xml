@@ -748,7 +748,7 @@ under the License.
                 <entity-and entity-name="QuoteItem" list="quoteItemList">
                     <field-map field-name="quoteId" from-field="parameters.quoteId"/>
                 </entity-and>
-                <entity-one value-field="quote" entity-name="Quote">
+                <entity-one entity-name="Quote" value-field="quote">
                     <field-map field-name="quoteId" from-field="parameters.quoteId"/>
                 </entity-one>
                 <set field="quoteStatusId" from-field="quote.statusId"/>

@@ -45,7 +45,7 @@ under the License.
         </actions>
 
         <field name="caContentIdTo" title=" ">
-            <hyperlink also-hidden="false" description="${caContentIdTo}" target="EditAddContent">
+            <hyperlink description="${caContentIdTo}" target="EditAddContent" also-hidden="false">
                 <parameter param-name="MASTER_contentId" from-field="contentId"/>
                 <parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
                 <parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
@@ -54,7 +54,7 @@ under the License.
                 <parameter param-name="MASTER_caMapKey" from-field="caMapKey"/>
             </hyperlink>
 <!--
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContent" also-hidden="false">
                 <parameter param-name="caContentIdTo"/>
                 <parameter param-name="caFromDate"/>
                 <parameter param-name="contentId"/>
@@ -185,7 +185,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation" also-hidden="false">
                 <parameter param-name="contentPurposeTypeId"/>
                 <parameter param-name="contentOperationId"/>
                 <parameter param-name="roleTypeId"/>
@@ -293,7 +293,7 @@ under the License.
         </field>
 <!--
         <field name="submitContentEdit" title=" ">
-            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
+            <hyperlink description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" also-hidden="false" target-type="plain"/>
         </field>
 -->
        <field name="deactivateExisting" >

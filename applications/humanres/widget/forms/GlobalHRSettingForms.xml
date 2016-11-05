@@ -29,7 +29,7 @@ under the License.
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteSkillType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSkillType" also-hidden="false">
                 <parameter param-name="skillTypeId"/>
             </hyperlink>
         </field>
@@ -51,7 +51,7 @@ under the License.
         <auto-fields-service service-name="updateResponsibilityType" default-field-type="hidden"/>
         <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteResponsibilityType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteResponsibilityType" also-hidden="false">
                 <parameter param-name="responsibilityTypeId"/>
             </hyperlink>
         </field>
@@ -74,7 +74,7 @@ under the License.
         <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTerminationType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTerminationType" also-hidden="false">
                 <parameter param-name="terminationTypeId"/>
             </hyperlink>
         </field>
@@ -111,13 +111,13 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateEmplPositionType" default-field-type="hidden"/>
         <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmplPositionType}">
-            <hyperlink also-hidden="false" description="${emplPositionTypeId}" target="EditEmplPositionTypes">
+            <hyperlink description="${emplPositionTypeId}" target="EditEmplPositionTypes" also-hidden="false">
                 <parameter param-name="emplPositionTypeId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplPositionType" also-hidden="false">
                 <parameter param-name="emplPositionTypeId"/>
             </hyperlink>
         </field>
@@ -205,7 +205,7 @@ under the License.
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTerminationReason" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTerminationReason" also-hidden="false">
                 <parameter param-name="terminationReasonId"/>
             </hyperlink>
         </field>
@@ -226,7 +226,7 @@ under the License.
         <field name="jobInterviewTypeId"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteJobInterviewType"> 
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteJobInterviewType" also-hidden="false"> 
                 <parameter param-name="jobInterviewTypeId"/> 
             </hyperlink>
         </field>
@@ -247,7 +247,7 @@ under the License.
         <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}" widget-style="buttontext"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTrainingTypes"> 
+           <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTrainingTypes" also-hidden="false"> 
                 <parameter param-name="trainingClassTypeId"/> 
             </hyperlink>
         </field>
@@ -276,7 +276,7 @@ under the License.
         <field name="leaveTypeId"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplLeaveType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplLeaveType" also-hidden="false">
                 <parameter param-name="leaveTypeId"/>
             </hyperlink>
         </field>
@@ -299,7 +299,7 @@ under the License.
         <field name="emplLeaveReasonTypeId"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplLeaveReasonType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplLeaveReasonType" also-hidden="false">
                 <parameter param-name="emplLeaveReasonTypeId"/>
             </hyperlink>
         </field>

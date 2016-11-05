@@ -66,7 +66,7 @@ under the License.
         <alt-row-style use-when="'EXST_APPROVED'.equals(statusId)" style="Validate"/>
         <alt-row-style use-when="'EXST_CANCELLED'.equals(statusId)" style="Warn"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${exampleId}" target="EditExample">
+            <hyperlink description="${exampleId}" target="EditExample" also-hidden="false">
                 <parameter param-name="exampleId"/>
             </hyperlink>
         </field>
@@ -144,7 +144,7 @@ under the License.
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${exampleId}" target="EditExampleLayer" link-type="layered-modal">
+            <hyperlink description="${exampleId}" target="EditExampleLayer" also-hidden="false" link-type="layered-modal">
                 <parameter param-name="exampleId"/>
             </hyperlink>
         </field>
@@ -253,7 +253,7 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteExampleItem" description="${uiLabelMap.CommonDelete}" also-hidden="false" confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteExampleItem" also-hidden="false" confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
                 <parameter param-name="exampleId"/>
                 <parameter param-name="exampleItemSeqId"/>
             </hyperlink>
@@ -303,7 +303,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="example_deleteExampleFeatureAppl" description="${uiLabelMap.CommonDelete}" also-hidden="false" image-location="${iconsLocation}/delete.png">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="example_deleteExampleFeatureAppl" also-hidden="false" image-location="${iconsLocation}/delete.png">
                 <parameter param-name="exampleId"/>
                 <parameter param-name="exampleFeatureId"/>
                 <parameter param-name="fromDate"/>

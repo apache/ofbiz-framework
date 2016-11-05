@@ -26,7 +26,7 @@
             <set field="complete" value="${uiLabelMap.ScrumToComplete}"/>
         </actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="MyWork">
+            <hyperlink description="${timesheetId}" target="MyWork" also-hidden="false">
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
@@ -36,7 +36,7 @@
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="${my}TimeSheetStatusToComplete" description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="${my}TimeSheetStatusToComplete" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>

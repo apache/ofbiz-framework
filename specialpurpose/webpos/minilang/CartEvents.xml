@@ -250,7 +250,7 @@ under the License.
             <field-map field-name="currencyUomId" from-field="parameters.currencyUomId"/>
         </entity-and>
         <if-not-empty field="productFeaturePrices">
-            <first-from-list entry="productFeaturePrice" list="productFeaturePrices"/>
+            <first-from-list list="productFeaturePrices" entry="productFeaturePrice"/>
             <set field="amount" from-field="productFeaturePrice.price" type="BigDecimal" default-value="0"/>
             <set field="isoCode" from-field="productFeaturePrice.currencyUomId" type="String"/>
             <set field="maximumFractionDigits" value="2" type="Integer"/>

@@ -32,7 +32,7 @@ under the License.
     <form name="SearchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch"
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="editContent" title=" ">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="CMSContentEdit" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId" from-field="dataResourceId"/>
                 <parameter param-name="contentIdTo"/>

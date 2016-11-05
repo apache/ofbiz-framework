@@ -96,7 +96,7 @@ under the License.
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId"><display></display></field>
         <field name="categoryName">
-            <hyperlink target="getChildCategory" description="${prodCategory.categoryName}">
+            <hyperlink description="${prodCategory.categoryName}" target="getChildCategory">
                 <parameter param-name="productStoreId"/>
                 <parameter from-field="parameters.prodCatalogId" param-name="prodCatalogId"/>
                 <parameter param-name="productCategoryId"/>
@@ -134,7 +134,7 @@ under the License.
             <display-entity entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId"/>
         </field>
         <field name="delete" widget-style="buttontext">
-            <hyperlink target="removeCatalogFromStore" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeCatalogFromStore">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="prodCatalogId"/>
                 <parameter param-name="fromDate"/>

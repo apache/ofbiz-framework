@@ -33,7 +33,7 @@ under the License.
             </service>
         </actions>
         <field name="segmentGroupId" widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
-            <hyperlink also-hidden="false" description="${segmentGroupId}" target="viewSegmentGroup">
+            <hyperlink description="${segmentGroupId}" target="viewSegmentGroup" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
@@ -41,7 +41,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="productStoreId" title="${uiLabelMap.MarketingSegmentGroupProductStoreId}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSegmentGroup" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
@@ -98,7 +98,7 @@ under the License.
         <field name="segmentGroupId"><hidden/></field>
         <field name="partyClassificationGroupId"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSegmentGroupClassification" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
                 <parameter param-name="partyClassificationGroupId"/>
             </hyperlink>
@@ -124,7 +124,7 @@ under the License.
         <field name="segmentGroupId"><hidden/></field>
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupGeo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSegmentGroupGeo" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
                 <parameter param-name="geoId"/>
             </hyperlink>
@@ -168,7 +168,7 @@ under the License.
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSegmentGroupRole" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>

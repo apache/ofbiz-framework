@@ -136,7 +136,7 @@ under the License.
         <field name="roleTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
 
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -337,7 +337,7 @@ under the License.
         </field>
 
         <field name="subscriptionResourceId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${subscriptionResourceId}" target="EditSubscriptionResource">
+            <hyperlink description="${subscriptionResourceId}" target="EditSubscriptionResource" also-hidden="false">
                 <parameter param-name="subscriptionResourceId"/>
             </hyperlink>
         </field>
@@ -382,7 +382,7 @@ under the License.
         <field name="productId"><display/></field>
         <field name="useTimeUomId">
             <drop-down>
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} (${abbreviation})">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -410,7 +410,7 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductSubscriptionResourceSr" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductSubscriptionResourceSr" also-hidden="false">
                 <parameter param-name="subscriptionResourceId"/>
                 <parameter param-name="productId"/>
                 <parameter param-name="fromDate"/>
@@ -426,7 +426,7 @@ under the License.
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="useTimeUomId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} (${abbreviation})">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -480,7 +480,7 @@ under the License.
         </actions>
         <field name="subscriptionId"><hidden/></field>
         <field name="communicationEventId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" also-hidden="false" target-type="inter-app">
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
@@ -498,7 +498,7 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeSubscriptionCommEvent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeSubscriptionCommEvent" also-hidden="false">
                 <parameter param-name="subscriptionId"/>
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
