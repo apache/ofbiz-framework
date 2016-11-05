@@ -1822,6 +1822,34 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="CreateSalesAgreement" type="single" target="createSalesAgreement" title=""
+          header-row-style="header-row" default-table-style="basic-table">
+        <!--<auto-fields-service service-name="createAgreement" default-field-type="edit"/>-->
+        <field name="productId" parameter-name="productId"><hidden></hidden></field>
+        <field name="roleTypeIdFrom" ><hidden value="CUSTOMER"></hidden></field>
+        <field name="roleTypeIdTo" ><hidden value="INTERNAL_ORGANIZATIO"></hidden></field>
+        <field name="agreementTypeId" ><hidden value="SALES_AGREEMENT"></hidden></field>
+        <field name="agreementItemTypeId" ><hidden value="AGREEMENT_PRICING_PR"></hidden></field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}" required-field="true">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}" required-field="true">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text></text></field>
+        <field name="price" title="Price" ><text></text></field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
     <form name="ListSupplierProductAgreements" type="list" list-name="supplierProductAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>

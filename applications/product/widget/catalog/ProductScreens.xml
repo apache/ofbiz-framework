@@ -237,6 +237,9 @@ under the License.
                             <link target="/accounting/control/EditAgreement" url-mode="inter-app" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext">
                                 <parameter param-name="productId"/>
                             </link>
+                            <link target="CreateSalesAgreement" text="${uiLabelMap.CreateSalesAgreement}" style="buttontext">
+                                <parameter param-name="productId"/>
+                            </link>
                         </container>
                         <screenlet title="${uiLabelMap.ProductPurchases}">
                             <include-form name="ListSupplierProductAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
@@ -249,6 +252,25 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductProducts}">
                             <include-form name="ListProductAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateSalesAgreement">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
+                <set field="titleProperty" value="Create Sales Agreement"/>
+                <set field="tabButtonItem" value="ViewProductAgreements"/>
+                <set field="labelTitleProperty" value="ProductAgreements"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Create Sales Agreement">
+                            <include-form name="CreateSalesAgreement" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

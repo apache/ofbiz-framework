@@ -113,6 +113,13 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
+    <service name="createSalesAgreement" engine="group" location="createSalesAgreement" invoke="" auth="true">
+        <description>Create a new sales agreement with customer for the product</description>
+        <implements service="createAgreement"/>
+        <implements service="createAgreementItem"/>
+        <implements service="createAgreementProductAppl"/>
+    </service>
+
     <service name="quickCreateVirtualWithVariants" engine="java"
             location="org.apache.ofbiz.product.product.ProductServices" invoke="quickCreateVirtualWithVariants">
         <description>
