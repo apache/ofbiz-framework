@@ -110,11 +110,6 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="button-bar">
-                                    <link text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
-                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                    </link>
-                                </container>
                                 <screenlet>
                                     <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </screenlet>
@@ -817,6 +812,9 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
+                                <container style="button-bar">
+                                    <link text="${uiLabelMap.CommonCreate}" target="EditICalendar" style="buttontext"/>
+                                </container>
                                 <container style="h1">
                                     <label text="${title}"/>
                                 </container>
@@ -899,9 +897,6 @@ under the License.
                                         <include-form name="EditICalendar" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="button-bar">
-                                            <link text="${uiLabelMap.CommonCreate}" target="EditICalendar" style="buttontext"/>
-                                        </container>
                                         <include-form name="EditICalendar" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </fail-widgets>
                                 </section>

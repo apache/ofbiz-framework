@@ -23,9 +23,6 @@ under the License.
         <#if invalidProductId??>
             <div class="errorMessage">${invalidProductId}</div>
         </#if>
-        <div class="button-bar button-style-1">
-          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacility}</a>
-        </div>
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
           <h3>${uiLabelMap.ProductReceiptPurchaseOrder} ${purchaseOrder.orderId}</h3>

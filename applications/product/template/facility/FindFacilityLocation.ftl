@@ -18,7 +18,6 @@ under the License.
 -->
 
     <div class="button-bar button-style-1">
-      <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacility}</a>
       <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId!}</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
 
