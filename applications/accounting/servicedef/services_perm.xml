@@ -94,4 +94,9 @@ under the License.
         <description>Fixed Asset Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="acctgPaymentPermissionCheck" engine="simple"
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgPaymentPermissionCheck">
+        <description>Accounting Payment Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>
