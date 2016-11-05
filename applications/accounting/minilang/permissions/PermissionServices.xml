@@ -109,4 +109,9 @@ under the License.
     <simple-method method-name="acctgBillingAcctCheck" short-description="Accounting billing account permission logic">
         <call-simple-method method-name="basePermissionCheck"/>
     </simple-method>
+    
+    <!-- Returns hasPermission=true if user has one of the base ACCOUNTING/ACCOUNTING_ROLE CRUD+ADMIN permissions -->
+    <simple-method method-name="acctgPaymentPermissionCheck" short-description="Accounting Permission logic">
+        <call-simple-method method-name="basePlusRolePermissionCheck"/>
+    </simple-method>
 </simple-methods>
