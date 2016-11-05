@@ -370,12 +370,15 @@ public final class WidgetWorker {
 
     public static int getPaginatorNumber(Map<String, Object> context) {
         int paginator_number = 0;
-        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-        if (globalCtx != null) {
-            Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
+        if (context != null) {
+            Integer paginateNumberInt= (Integer)context.get("PAGINATOR_NUMBER");
             if (paginateNumberInt == null) {
                 paginateNumberInt = Integer.valueOf(0);
-                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+                context.put("PAGINATOR_NUMBER", paginateNumberInt);
+                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                if (globalCtx != null) {
+                    globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+                }
             }
             paginator_number = paginateNumberInt.intValue();
         }
@@ -389,8 +392,13 @@ public final class WidgetWorker {
             if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
                 globalCtx.remove("NO_PAGINATOR");
             } else {
-                Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
+                Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
+                if (paginateNumberInt == null) {
+                    paginateNumberInt = Integer.valueOf(0);
+                }
+                paginateNumberInt = Integer.valueOf(paginateNumberInt.intValue() + 1);
                 globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+                context.put("PAGINATOR_NUMBER", paginateNumberInt);
             }
         }
     }
