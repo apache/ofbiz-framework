@@ -40,6 +40,11 @@ under the License.
         <description>Create CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
+            </type-validate>
+        </attribute>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="OUT" optional="false"/>
     </service>
 

@@ -392,6 +392,11 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingContactMechTypeId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="updateContactMech" engine="simple"
             location="component://party/minilang/contact/ContactMechServices.xml" invoke="updateContactMech" auth="true">
@@ -845,8 +850,24 @@ under the License.
         <description>Creates a WorkEffort entity and CommunicationEventWorkEff</description>
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="WorkEffort"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffort"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="CommunicationEventWorkEff"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
+        <override name="workEffortId" optional="true"/>
+        <override name="currentStatusId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="PartyRequiredFieldMissingCurrentStatusId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortName" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="PartyRequiredFieldMissingWorkEffortName"/>
+            </type-validate>
+        </override>
+        <override name="workEffortTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="PartyRequiredFieldMissingWorkEffortTypeId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="setCommEventRoleToRead" engine="simple" default-entity-name="CommunicationEventRole"
         location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="setCommEventRoleToRead" auth="false">
@@ -1205,6 +1226,7 @@ under the License.
         <attribute name="setShippingPurpose" type="String" mode="IN" optional="true"/>
         <attribute name="setBillingPurpose" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <override name="contactMechId" optional="false"/>
     </service>
     <service name="updateContactMechAndPurposes" engine="simple" location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="updateContactMechAndPurposes">
         <description>Update postal address, telecom number and purposes. The setShippingPurpose and setBillingPurpose enable the service to create purposes for TelecomNumber</description>
@@ -1251,6 +1273,21 @@ under the License.
         <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <override name="address1" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingAddress1"/>
+            </type-validate>
+        </override>
+        <override name="city" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingCity"/>
+            </type-validate>
+        </override>
+        <override name="postalCode" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPostalCode"/>
+            </type-validate>
+        </override>
     </service>
 
      <!--  bounced message processing -->
@@ -1295,6 +1332,11 @@ under the License.
         <attribute name="countryCode" type="String" mode="IN" optional="true"/>
         <attribute name="emailType" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <override name="partyIdTo" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyIdTo"/>
+            </type-validate>
+        </override>
     </service>
     
     <!-- send account activated email notification -->
