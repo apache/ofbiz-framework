@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testUpdateRateAmount" short-description="test to update RateAmount" login-required="false">
+        <set field="serviceCtx.rateTypeId" value="OVERTIME"/>
+        <set field="serviceCtx.periodTypeId" value="RATE_HOUR"/>
+        <set field="serviceCtx.rateCurrencyUomId" value="USD"/>
+        <set field="serviceCtx.rateAmount" type="BigDecimal" value="25"/>
+        <set field="serviceCtx.emplPositionTypeId" value="TEST_EMPLOYEE"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateRateAmount" in-map-name="serviceCtx"/>
+        <entity-one entity-name="RateAmount" value-field="rateAmount">
+            <field-map field-name="rateTypeId" value="OVERTIME"/>
+            <field-map field-name="workEffortId" value="_NA_"/>
+            <field-map field-name="rateCurrencyUomId" value="USD"/>
+            <field-map field-name="emplPositionTypeId" value="TEST_EMPLOYEE"/>
+            <field-map field-name="partyId" value="_NA_"/>
+            <field-map field-name="periodTypeId" value="RATE_HOUR"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="rateAmount"/></not>
+            <if-compare field="rateAmount.rateAmount" operator="equals" value="25"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteRateAmount" short-description="test to delete RateAmount" login-required="false">
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <set field="serviceCtx.emplPositionTypeId" value="TEST_EMPLOYEE"/>
+        <set field="serviceCtx.periodTypeId" value="RATE_MONTH"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteRateAmount" in-map-name="serviceCtx"/>
+        <entity-one entity-name="RateAmount" value-field="rateAmount">
+            <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
+            <field-map field-name="workEffortId" value="_NA_"/>
+            <field-map field-name="rateCurrencyUomId" value="USD"/>
+            <field-map field-name="emplPositionTypeId" value="TEST_EMPLOYEE"/>
+            <field-map field-name="partyId" value="_NA_"/>
+            <field-map field-name="periodTypeId" value="RATE_MONTH"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="rateAmount"/></not>
+            <not><if-empty field="rateAmount.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetRateAmount" short-description="test to get Rates Amounts" login-required="false">
+        <set field="serviceCtx.workEffortId" value="Test_effort"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getRateAmount" in-map-name="serviceCtx">
+            <result-to-field result-name="rateAmount"/>
+        </call-service>
+        <assert>
+            <if-compare field="rateAmount" operator="equals" value="75"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetRatesAmountsFromWorkEffortId" short-description="test to get Rates Amounts From WorkEffortId" login-required="false">
+        <set field="serviceCtx.periodTypeId" value="RATE_HOUR"/>
+        <set field="serviceCtx.rateCurrencyUomId" value="USD"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <set field="serviceCtx.workEffortId" value="Test_effort"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getRatesAmountsFromWorkEffortId" in-map-name="serviceCtx">
+            <result-to-field result-name="ratesList"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="ratesList"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetRatesAmountsFromPartyId" short-description="test to get Rates Amounts From partyId" login-required="false">
+        <set field="serviceCtx.periodTypeId" value="RATE_HOUR"/>
+        <set field="serviceCtx.rateCurrencyUomId" value="USD"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <set field="serviceCtx.partyId" value="TEST_PARTY"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getRatesAmountsFromPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="ratesList"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="ratesList"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetRatesAmountsFromEmplPositionTypeId" short-description="test to get Rates Amounts From EmplPositionTypeId" login-required="false">
+        <set field="serviceCtx.periodTypeId" value="RATE_HOUR"/>
+        <set field="serviceCtx.rateCurrencyUomId" value="USD"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <set field="serviceCtx.emplPositionTypeId" value="TEST_EMPLOYEE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getRatesAmountsFromEmplPositionTypeId" in-map-name="serviceCtx">
+            <result-to-field result-name="ratesList"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="ratesList"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdatePartyRate" short-description="test to update PartyRate" login-required="false">
+        <set field="serviceCtx.partyId" value="TEST_PARTY"/>
+        <set field="serviceCtx.periodTypeId" value="RATE_MONTH"/>
+        <set field="serviceCtx.rateTypeId" value="DISCOUNTED"/>
+        <set field="serviceCtx.rateAmount" type="BigDecimal" value="75"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updatePartyRate" in-map-name="serviceCtx"/>
+        <entity-one entity-name="RateAmount" value-field="rateAmount">
+            <field-map field-name="rateTypeId" value="DISCOUNTED"/>
+            <field-map field-name="workEffortId" value="_NA_"/>
+            <field-map field-name="rateCurrencyUomId" value="USD"/>
+            <field-map field-name="emplPositionTypeId" value="_NA_"/>
+            <field-map field-name="partyId" value="TEST_PARTY"/>
+            <field-map field-name="periodTypeId" value="RATE_MONTH"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <entity-one entity-name="PartyRate" value-field="partyRate">
+            <field-map field-name="rateTypeId" value="DISCOUNTED"/>
+            <field-map field-name="partyId" value="TEST_PARTY"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="rateAmount"/></not>
+            <not><if-empty field="partyRate"/></not>
+            <if-compare field="rateAmount.rateAmount" operator="equals" value="75"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeletePartyRate" short-description="test to delete PartyRate" login-required="false">
+        <set field="serviceCtx.partyId" value="TEST_PARTY"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyRate" in-map-name="serviceCtx"/>
+         <entity-one entity-name="PartyRate" value-field="partyRate">
+            <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
+            <field-map field-name="partyId" value="TEST_PARTY"/>
+            <field-map field-name="fromDate" value="2013-07-04 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyRate"/></not>
+            <not><if-empty field="partyRate.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testFilterRateAmountList" short-description="test the service filterRateAmountList" login-required="false">
+        <entity-and entity-name="RateAmount" list="amountList">
+            <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
+            <field-map field-name="rateCurrencyUomId" value="USD"/>
+        </entity-and>
+        <set field="serviceCtx.ratesList" from-field="amountList" type="List"/>
+        <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="filterRateAmountList" in-map-name="serviceCtx">
+            <result-to-field result-name="filteredRatesList"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="filteredRatesList"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
