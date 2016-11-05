@@ -1420,4 +1420,20 @@ under the License.
         <description>Delete a NeedType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- CommunicationEventPrpTyp services -->
+    <service name="createCommunicationEventPrpTyp" default-entity-name="CommunicationEventPrpTyp" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a CommunicationEventPrpTyp</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateCommunicationEventPrpTyp" default-entity-name="CommunicationEventPrpTyp" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a CommunicationEventPrpTyp</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCommunicationEventPrpTyp" default-entity-name="CommunicationEventPrpTyp" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a CommunicationEventPrpTyp</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
