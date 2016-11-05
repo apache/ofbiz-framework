@@ -31,13 +31,13 @@ under the License.
         <auto-attributes entity-name="ShipmentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="updateShipmentGatewayConfigDhl" engine="entity-auto" invoke="update" default-entity-name="ShipmentGatewayDhl" auth="true">
-        <description>Update a ShipmentGatewayDhl record</description>
+    <service name="createShipmentGatewayDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentGatewayDhl</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createShipmentGatewayDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a ShipmentGatewayDhl</description>
+    <service name="updateShipmentGatewayConfigDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ShipmentGatewayDhl record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -46,13 +46,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateShipmentGatewayConfigFedex" engine="entity-auto" invoke="update" default-entity-name="ShipmentGatewayFedex" auth="true">
-        <description>Update a ShipmentGatewayFedex record</description>
+    <service name="createShipmentGatewayFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentGatewayFedex</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createShipmentGatewayFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a ShipmentGatewayFedex</description>
+    <service name="updateShipmentGatewayConfigFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ShipmentGatewayFedex record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
