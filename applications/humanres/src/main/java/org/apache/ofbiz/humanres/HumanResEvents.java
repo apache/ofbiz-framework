@@ -66,7 +66,7 @@ public class HumanResEvents {
 
         try {
             GenericValue partyGroup = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
-            if (UtilValidate.isNotEmpty(partyGroup)) {	
+            if (partyGroup != null) {	
                 paramMap.put("partyGroup", partyGroup);
                 /* get the child departments of company or party */
                 categoryList.addAll(getChildComps(paramMap));

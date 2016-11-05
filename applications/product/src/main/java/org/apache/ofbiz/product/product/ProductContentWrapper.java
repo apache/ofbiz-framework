@@ -163,7 +163,7 @@ public class ProductContentWrapper implements ContentWrapper {
         List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", productId, "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
         if (UtilValidate.isEmpty(productContentList) && ("Y".equals(product.getString("isVariant")))) {
             GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
-            if (UtilValidate.isNotEmpty(parent)) {
+            if (parent != null) {
                 productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", parent.get("productId"), "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
             }
         }

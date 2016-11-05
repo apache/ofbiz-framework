@@ -124,7 +124,7 @@ public class ShippingEvents {
         String contactMechId = shipAddr.getString("contactMechId");
         String partyId = null;
         GenericValue partyObject = orh.getPlacingParty();
-        if (UtilValidate.isNotEmpty(partyObject)) {
+        if (partyObject != null) {
              partyId = partyObject.getString("partyId");
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
@@ -298,7 +298,7 @@ public class ShippingEvents {
         GenericValue customMethod = null;
         try {
             customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", shipmentCustomMethodId).queryOne();
-            if (UtilValidate.isNotEmpty(customMethod)) {
+            if (customMethod != null) {
                 serviceName = customMethod.getString("customMethodName");
             }
         } catch (GenericEntityException e) {

@@ -863,7 +863,7 @@ public class EbayEvents {
 
                         if (UtilValidate.isNotEmpty(requestParams.get("requireEbayInventory")) && "Y".equals(requestParams.get("requireEbayInventory").toString())) {
                             GenericValue ebayProductStore = EntityQuery.use(delegator).from("EbayProductStoreInventory").where("productStoreId", productStoreId, "productId", productId).filterByDate().queryFirst();
-                            if (UtilValidate.isNotEmpty(ebayProductStore)) {
+                            if (ebayProductStore != null) {
                                 String facilityId = ebayProductStore.getString("facilityId");
                                 BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
                                 int intAtp = atp.intValue();
@@ -899,11 +899,11 @@ public class EbayEvents {
                         }
                         try {
                             GenericValue storeRole = EntityQuery.use(delegator).from("ProductStoreRole").where("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT").queryFirst();
-                            if (UtilValidate.isNotEmpty(storeRole)) {
+                            if (storeRole != null) {
                                 GenericValue eBayUserLogin = EntityQuery.use(delegator).from("UserLogin")
                                                                            .where("partyId", storeRole.get("partyId"))
                                                                            .queryFirst();
-                                if (UtilValidate.isNotEmpty(eBayUserLogin)) {
+                                if (eBayUserLogin != null) {
                                     prodMap.put("userLoginId", eBayUserLogin.get("userLoginId").toString());
                                 }
                             }

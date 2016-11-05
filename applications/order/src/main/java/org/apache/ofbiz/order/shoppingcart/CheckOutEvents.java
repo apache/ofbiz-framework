@@ -1151,7 +1151,7 @@ public class CheckOutEvents {
                                              .where("orderId", originalOrderId, "isPromo", sci.getIsPromo() ? "Y" : "N",
                                                      "productId", sci.getProductId(), "orderItemTypeId", sci.getItemType())
                                              .queryFirst();
-                if (UtilValidate.isNotEmpty(orderItem)) {
+                if (orderItem != null) {
                     sci.setAssociatedOrderId(orderItem.getString("orderId"));
                     sci.setAssociatedOrderItemSeqId(orderItem.getString("orderItemSeqId"));
                     sci.setOrderItemAssocTypeId("REPLACEMENT");

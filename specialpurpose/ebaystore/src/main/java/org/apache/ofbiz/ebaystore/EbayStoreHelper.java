@@ -624,7 +624,7 @@ public class EbayStoreHelper {
     GetOrdersResponseType resp = null;
     try {
         GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
-        if (UtilValidate.isNotEmpty(orderHeader)) {
+        if (orderHeader != null) {
             String externalId = orderHeader.getString("externalId").toString();
             List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment", null, null, false);
             if (orderShipment.size() > 0) {
@@ -725,7 +725,7 @@ public class EbayStoreHelper {
         boolean isReserve = false;
         try {
             GenericValue ebayProductStore = EntityQuery.use(delegator).from("EbayProductStoreInventory").where("productStoreId", productStoreId, "productId", productId).filterByDate().queryFirst();
-            if (UtilValidate.isNotEmpty(ebayProductStore)) {
+            if (ebayProductStore != null) {
                 BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
                 int intAtp = atp.intValue();
                 if (intAtp > 0) {

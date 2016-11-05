@@ -170,7 +170,7 @@ public class CommunicationEventServices {
                             continue;
                         }
                         GenericValue contactMech = commRole.getRelatedOne("ContactMech", false);
-                        if (UtilValidate.isNotEmpty(contactMech) && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
+                        if (contactMech != null && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
                             if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
                                 sendTo += "," + contactMech.getString("infoString");
                             } else if ("CC".equals(commRole.getString("roleTypeId"))) {
@@ -377,7 +377,7 @@ public class CommunicationEventServices {
                     GenericValue contactListPartyStatus = EntityQuery.use(delegator).from("ContactListPartyStatus")
                             .where("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED")
                             .queryFirst();
-                    if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
+                    if (contactListPartyStatus != null) {
                         // prepare body parameters
                         Map<String, Object> bodyParameters = new HashMap<String, Object>();
                         bodyParameters.put("contactListId", contactListId);
@@ -390,12 +390,12 @@ public class CommunicationEventServices {
                         NotificationServices.setBaseUrl(delegator, contactList.getString("verifyEmailWebSiteId"), bodyParameters);
 
                         GenericValue webSite = EntityQuery.use(delegator).from("WebSite").where("webSiteId", contactList.getString("verifyEmailWebSiteId")).queryOne();
-                        if (UtilValidate.isNotEmpty(webSite)) {
+                        if (webSite != null) {
                             GenericValue productStore = webSite.getRelatedOne("ProductStore", false);
-                            if (UtilValidate.isNotEmpty(productStore)) {
+                            if (productStore != null) {
                                 List<GenericValue> productStoreEmailSettings = productStore.getRelated("ProductStoreEmailSetting", UtilMisc.toMap("emailType", "CONT_EMAIL_TEMPLATE"), null, false);
                                 GenericValue productStoreEmailSetting = EntityUtil.getFirst(productStoreEmailSettings);
-                                if (UtilValidate.isNotEmpty(productStoreEmailSetting)) {
+                                if (productStoreEmailSetting != null) {
                                     // send e-mail using screen template
                                     sendMailParams.put("bodyScreenUri", productStoreEmailSetting.getString("bodyScreenLocation"));
                                     sendMailParams.put("bodyParameters", bodyParameters);

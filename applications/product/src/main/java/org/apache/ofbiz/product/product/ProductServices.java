@@ -1323,7 +1323,7 @@ public class ProductServices {
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
-                    if (UtilValidate.isNotEmpty(content)) {
+                    if (content != null) {
                         GenericValue dataResource = null;
                         try {
                             dataResource = content.getRelatedOne("DataResource", false);
@@ -1332,7 +1332,7 @@ public class ProductServices {
                             return ServiceUtil.returnError(e.getMessage());
                         }
 
-                        if (UtilValidate.isNotEmpty(dataResource)) {
+                        if (dataResource != null) {
                             dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                             try {
                                 dispatcher.runSync("updateDataResource", dataResourceCtx);

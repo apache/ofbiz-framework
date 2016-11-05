@@ -231,7 +231,7 @@ public class JanrainHelper {
             
             try {
                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", preferredUsername).cache().queryOne();
-                if (UtilValidate.isNotEmpty(userLogin)) {
+                if (userLogin != null) {
                     LoginWorker.doBasicLogin(userLogin, request);
                     LoginWorker.autoLoginSet(request, response);
                     return "success";

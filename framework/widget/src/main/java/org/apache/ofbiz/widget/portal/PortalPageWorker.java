@@ -152,7 +152,7 @@ public class PortalPageWorker {
 
         if (UtilValidate.isNotEmpty(portalPageId)) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
-            if (UtilValidate.isNotEmpty(userLogin)) {
+            if (userLogin != null) {
                 String userLoginId = (String) userLogin.get("userLoginId");
                 Security security = (Security) context.get("security");
 
@@ -160,7 +160,7 @@ public class PortalPageWorker {
                 try {
                     Delegator delegator = WidgetWorker.getDelegator(context);
                     GenericValue portalPage = EntityQuery.use(delegator).from("PortalPage").where("portalPageId", portalPageId).queryOne();
-                    if (UtilValidate.isNotEmpty(portalPage)) {
+                    if (portalPage != null) {
                         String ownerUserLoginId = (String) portalPage.get("ownerUserLoginId");
                         // Users with PORTALPAGE_ADMIN permission can configure every Portal Page
                         userIsAllowed = (ownerUserLoginId.equals(userLoginId) || hasPortalAdminPermission);

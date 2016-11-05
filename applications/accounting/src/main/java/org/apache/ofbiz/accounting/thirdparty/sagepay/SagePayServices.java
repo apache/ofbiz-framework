@@ -57,7 +57,7 @@ public class SagePayServices
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
                 GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(sagePay)) {
+                if (sagePay != null) {
                     Map<String, Object> tmp = sagePay.getAllFields();
                     Set<String> keys = tmp.keySet();
                     for (String key : keys) {

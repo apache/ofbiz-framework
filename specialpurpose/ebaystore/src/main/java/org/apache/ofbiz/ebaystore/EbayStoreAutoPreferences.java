@@ -143,7 +143,7 @@ public class EbayStoreAutoPreferences {
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             ebayProductStorePref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB").queryOne();
-            if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
+            if (ebayProductStorePref != null && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
                 isAutoPositiveFeedback = ebayProductStorePref.getString("enabled");
                 // if isAutoPositiveFeedback is N that means not start this job run service
                 if ("Y".equals(isAutoPositiveFeedback) && jobId.equals(ebayProductStorePref.getString("autoPrefJobId"))) {
@@ -272,7 +272,7 @@ public class EbayStoreAutoPreferences {
             ebayProductStorePref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_PIT_FB").queryOne();
             context.put("productStoreId", productStoreId);
             context.put("autoPrefEnumId", "EBAY_AUTO_PIT_FB");
-            if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
+            if (ebayProductStorePref != null && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
                 autoPrefJobId = ebayProductStorePref.getString("autoPrefJobId");
             }
             context.put("autoPrefJobId", autoPrefJobId);
@@ -748,7 +748,7 @@ public class EbayStoreAutoPreferences {
             if (sellingManagerSoldOrders != null) {
                 int soldOrderLength = sellingManagerSoldOrders.length;
                 GenericValue ebayPref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", "ENA_COMB_ORD").queryOne();
-                if (UtilValidate.isNotEmpty(ebayPref)) {
+                if (ebayPref != null) {
 
                     Timestamp beginDate = UtilDateTime.toTimestamp("01/01/2001 00:00:00");
                     Long daysCount = Long.parseLong(ebayPref.get("condition1").toString());

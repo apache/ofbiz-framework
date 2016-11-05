@@ -149,11 +149,11 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     }
 
     public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter, boolean cache) throws GeneralException, IOException {
-        if (UtilValidate.isEmpty(productPromoId) && UtilValidate.isNotEmpty(productPromo)) {
+        if (UtilValidate.isEmpty(productPromoId) && productPromo != null) {
             productPromoId = productPromo.getString("productPromoId");
         }
 
-        if (UtilValidate.isEmpty(delegator) && UtilValidate.isNotEmpty(productPromo)) {
+        if (UtilValidate.isEmpty(delegator) && productPromo != null) {
             delegator = productPromo.getDelegator();
         }
 
@@ -175,7 +175,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             productPromoContent = EntityUtil.getFirst(EntityUtil.filterByDate(productPromoContentList));
         }
 
-        if (UtilValidate.isNotEmpty(productPromoContent)) {
+        if (productPromoContent != null) {
             // when rendering the product promo content, always include the ProductPromo and ProductPromoContent records that this comes from
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productPromo", productPromo);
@@ -190,7 +190,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             if (UtilValidate.isEmpty(productPromo)) {
                 productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).cache().queryOne();
             }
-            if (UtilValidate.isNotEmpty(productPromo)) {
+            if (productPromo != null) {
                 String candidateValue = productPromo.getString(candidateFieldName);
                 if (UtilValidate.isNotEmpty(candidateValue)) {
                     outWriter.write(candidateValue);

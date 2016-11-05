@@ -227,7 +227,7 @@ public final class EntityUtilProperties implements Serializable {
                     .from("SystemProperty")
                     .where("systemResourceId", resourceName, "systemPropertyId", name)
                     .queryOne();
-            if (UtilValidate.isNotEmpty(gv)) {
+            if (gv != null) {
                 prevValue = gv.getString("systemPropertyValue");
                 gv.set("systemPropertyValue", value);
             } else {

@@ -316,7 +316,7 @@ public class CmsEvents {
                 String siteName = null;
                 try {
                     GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
-                    if (content != null && UtilValidate.isNotEmpty(content)) {
+                    if (content != null && UtilValidate.isNotEmpty(content.getString("contentName"))) {
                         contentName = content.getString("contentName");
                     } else {
                         request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");

@@ -1766,7 +1766,7 @@ public class UspsServices {
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
                 GenericValue usps = EntityQuery.use(delegator).from("ShipmentGatewayUsps").where("shipmentGatewayConfigId", shipmentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(usps)) {
+                if (usps != null) {
                     Object uspsField = usps.get(shipmentGatewayConfigParameterName);
                     if (uspsField != null) {
                         returnValue = uspsField.toString().trim();

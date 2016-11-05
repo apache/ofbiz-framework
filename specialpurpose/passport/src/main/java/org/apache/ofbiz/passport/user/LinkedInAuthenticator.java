@@ -105,7 +105,7 @@ public class LinkedInAuthenticator implements Authenticator {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
             GenericValue linkedInUser = delegator.findOne("LinkedInUser", UtilMisc.toMap("linedInUserId", externalAuthId), false);
-            if (UtilValidate.isNotEmpty(linkedInUser)) {
+            if (linkedInUser != null) {
                 String accessToken = linkedInUser.getString("accessToken");
                 if (UtilValidate.isNotEmpty(accessToken)) {
                     getMethod = new HttpGet(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri  + "?oauth2_access_token=" + accessToken);
@@ -217,7 +217,7 @@ public class LinkedInAuthenticator implements Authenticator {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
             GenericValue linkedInUser = delegator.findOne("LinkedInUser", UtilMisc.toMap("linkedInUserId", externalAuthId), false);
-            if (UtilValidate.isNotEmpty(linkedInUser)) {
+            if (linkedInUser != null) {
                 String accessToken = linkedInUser.getString("accessToken");
                 if (UtilValidate.isNotEmpty(accessToken)) {
                     getMethod = new HttpGet(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri + "?oauth2_access_token=" + accessToken);

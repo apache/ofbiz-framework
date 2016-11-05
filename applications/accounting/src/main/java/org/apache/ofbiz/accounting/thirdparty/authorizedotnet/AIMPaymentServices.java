@@ -551,7 +551,7 @@ public class AIMPaymentServices {
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         if (UtilValidate.isEmpty(orderId)) {
             GenericValue orderPaymentPreference = (GenericValue) params.get("orderPaymentPreference");
-            if (UtilValidate.isNotEmpty(orderPaymentPreference)) {
+            if (orderPaymentPreference != null) {
                 orderId = (String) orderPaymentPreference.get("orderId");
             }
         }
@@ -792,7 +792,7 @@ public class AIMPaymentServices {
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
                 GenericValue payflowPro = EntityQuery.use(delegator).from("PaymentGatewayAuthorizeNet").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(payflowPro)) {
+                if (payflowPro != null) {
                     Object payflowProField = payflowPro.get(paymentGatewayConfigParameterName);
                     if (payflowProField != null) {
                         returnValue = payflowProField.toString().trim();

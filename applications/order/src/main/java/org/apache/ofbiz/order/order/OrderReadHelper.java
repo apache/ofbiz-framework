@@ -2998,7 +2998,7 @@ public class OrderReadHelper {
     public BigDecimal getItemReceivedQuantity(GenericValue orderItem) {
         BigDecimal totalReceived = BigDecimal.ZERO;
         try {
-            if (UtilValidate.isNotEmpty(orderItem)) {
+            if (orderItem != null) {
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("orderId", orderItem.getString("orderId")),
                         EntityCondition.makeCondition("quantityAccepted", EntityOperator.GREATER_THAN, BigDecimal.ZERO),

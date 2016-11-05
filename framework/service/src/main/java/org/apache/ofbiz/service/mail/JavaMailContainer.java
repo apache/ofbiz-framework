@@ -131,7 +131,7 @@ public class JavaMailContainer implements Container {
         }
 
         // start the polling timer
-        if (UtilValidate.isNotEmpty(stores)) {
+        if (stores != null) {
             pollTimer.scheduleAtFixedRate(new PollerTask(dispatcher, userLogin), timerDelay, timerDelay, TimeUnit.MILLISECONDS);
         } else {
             Debug.logWarning("No JavaMail Store(s) configured; poller disabled.", module);
@@ -296,7 +296,7 @@ public class JavaMailContainer implements Container {
 
         @Override
         public void run() {
-            if (UtilValidate.isNotEmpty(stores)) {
+            if (stores != null) {
                 for (Map.Entry<Store, Session> entry: stores.entrySet()) {
                     Store store = entry.getKey();
                     Session session = entry.getValue();

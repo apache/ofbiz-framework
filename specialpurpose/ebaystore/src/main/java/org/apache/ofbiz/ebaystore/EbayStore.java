@@ -1550,7 +1550,7 @@ public class EbayStore {
             String facilityId = "";
             if (UtilValidate.isNotEmpty(context.get("requireEbayInventory")) && "on".equals(context.get("requireEbayInventory").toString())) {
                 GenericValue ebayProductStore = EntityQuery.use(delegator).from("EbayProductStoreInventory").where("productStoreId", context.get("productStoreId").toString(), "productId", context.get("productId")).filterByDate().queryFirst();
-                if (UtilValidate.isNotEmpty(ebayProductStore)) {
+                if (ebayProductStore != null) {
                     facilityId = ebayProductStore.getString("facilityId");
                     BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
                     intAtp = atp.intValue();
@@ -1563,9 +1563,9 @@ public class EbayStore {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (UtilValidate.isNotEmpty(context.get("productCategoryId"))) {
                 GenericValue prodCategoryMember = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", context.get("productCategoryId"),"productId", context.get("productId")).filterByDate().queryFirst();
-                if (UtilValidate.isNotEmpty(prodCategoryMember)) {
+                if (prodCategoryMember != null) {
                     GenericValue prodCategoryRole = EntityQuery.use(delegator).from("ProductCategoryRole").where("productCategoryId", prodCategoryMember.get("productCategoryId").toString(), "partyId", userLogin.get("partyId"),"roleTypeId", "EBAY_ACCOUNT").filterByDate().queryFirst();
-                    if (UtilValidate.isNotEmpty(prodCategoryRole)) {
+                    if (prodCategoryRole != null) {
                         context.put("ebayCategory", prodCategoryRole.get("comments"));
                     } else {
                         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
@@ -1578,9 +1578,9 @@ public class EbayStore {
                 while (prodCategoryMemberIter.hasNext()) {
                     GenericValue prodCategory = prodCategoryMemberIter.next();
                     GenericValue prodCatalogCategory = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", context.get("prodCatalogId"), "productCategoryId", prodCategory.get("productCategoryId").toString()).filterByDate().queryFirst();
-                    if (UtilValidate.isNotEmpty(prodCatalogCategory)) {
+                    if (prodCatalogCategory != null) {
                         GenericValue prodCategoryRole = EntityQuery.use(delegator).from("ProductCategoryRole").where("productCategoryId", prodCatalogCategory.get("productCategoryId").toString(), "partyId", userLogin.get("partyId"),"roleTypeId", "EBAY_ACCOUNT").filterByDate().queryFirst();
-                        if (UtilValidate.isNotEmpty(prodCategoryRole)) {
+                        if (prodCategoryRole != null) {
                             context.put("ebayCategory", prodCategoryRole.get("comments"));
                         } else {
                             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
@@ -2471,7 +2471,7 @@ public class EbayStore {
         boolean checkResult = false;
         try {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-            if(UtilValidate.isNotEmpty(product)) {
+            if(product != null) {
                 checkResult = true;
             }
         } catch(GenericEntityException e) {

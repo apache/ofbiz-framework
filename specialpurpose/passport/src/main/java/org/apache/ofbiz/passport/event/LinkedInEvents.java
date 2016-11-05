@@ -252,7 +252,7 @@ public class LinkedInEvents {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
-        if (UtilValidate.isNotEmpty(linkedInUser)) {
+        if (linkedInUser != null) {
             boolean dataChanged = false;
             if (!accessToken.equals(linkedInUser.getString("accessToken"))) {
                 linkedInUser.set("accessToken", accessToken);

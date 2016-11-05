@@ -80,7 +80,7 @@ public class WebSiteFilter implements Filter {
 
         GenericValue webSite = null;
         try {
-            if (UtilValidate.isNotEmpty(webSiteAlias) && UtilValidate.isEmpty(webSite)) {
+            if (UtilValidate.isNotEmpty(webSiteAlias) && webSite != null) {
                 webSite = EntityQuery.use(delegator).from("WebSite").where("hostedPathAlias", webSiteAlias).cache().queryFirst();
             }
             if (UtilValidate.isEmpty(webSite)) {

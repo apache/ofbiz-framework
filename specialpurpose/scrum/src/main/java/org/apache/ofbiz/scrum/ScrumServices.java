@@ -73,7 +73,7 @@ public class ScrumServices {
                             String productId = subject.substring(pdLocation + 3, nonDigitLocation);
                             // Debug.logInfo("=======================Product id found in subject: >>" + custRequestId + "<<", module);
                             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-                            if (UtilValidate.isNotEmpty(product)) {
+                            if (product != null) {
                                 GenericValue communicationEventProductMap = EntityQuery.use(delegator).from("CommunicationEventProduct").where("productId", productId, "communicationEventId", communicationEventId).queryOne();
                                 if (UtilValidate.isEmpty(communicationEventProductMap)) {
                                     GenericValue communicationEventProduct = delegator.makeValue("CommunicationEventProduct", UtilMisc.toMap("productId", productId, "communicationEventId", communicationEventId));

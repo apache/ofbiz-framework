@@ -1126,16 +1126,16 @@ public class ProductionRunServices {
 
             // Now get the cost information associated to the fixed asset and compute the costs
             GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset", false);
-            if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {
+            if (fixedAsset != null && routingTask != null) {
                 fixedAsset = routingTask.getRelatedOne("FixedAsset", false);
             }
-            if (UtilValidate.isNotEmpty(fixedAsset)) {
+            if (fixedAsset != null) {
                 List<GenericValue> setupCosts = fixedAsset.getRelated("FixedAssetStdCost", 
                         UtilMisc.toMap("fixedAssetStdCostTypeId", "SETUP_COST"), null, false);
                 GenericValue setupCost = EntityUtil.getFirst(EntityUtil.filterByDate(setupCosts));
                 List<GenericValue> usageCosts = fixedAsset.getRelated("FixedAssetStdCost", UtilMisc.toMap("fixedAssetStdCostTypeId", "USAGE_COST"), null, false);
                 GenericValue usageCost = EntityUtil.getFirst(EntityUtil.filterByDate(usageCosts));
-                if (UtilValidate.isNotEmpty(setupCost) || UtilValidate.isNotEmpty(usageCost)) {
+                if (setupCost != null || usageCost != null) {
                     String currencyUomId = (setupCost != null? setupCost.getString("amountUomId"): usageCost.getString("amountUomId"));
                     BigDecimal setupCostAmount = ZERO;
                     if (setupCost != null) {

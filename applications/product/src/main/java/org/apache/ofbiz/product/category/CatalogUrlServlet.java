@@ -93,7 +93,7 @@ public class CatalogUrlServlet extends HttpServlet {
                 productId = lastPathElement.substring(2);
             } else {
                 GenericValue productCategory =  EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", lastPathElement).cache(true).queryOne();
-                if (UtilValidate.isNotEmpty(productCategory)) {
+                if (productCategory != null) {
                     categoryId = lastPathElement;
                 } else {
                     productId = lastPathElement;

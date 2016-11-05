@@ -121,7 +121,7 @@ public class LoginEvents {
 
         try {
             GenericValue userLoginSecurityQuestion = delegator.findOne("UserLoginSecurityQuestion", UtilMisc.toMap("questionEnumId", questionEnumId, "userLoginId", userLoginId), true);
-            if (UtilValidate.isNotEmpty(userLoginSecurityQuestion)) {
+            if (userLoginSecurityQuestion != null) {
                 if (UtilValidate.isEmpty(securityAnswer)) {
                     errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_empty", UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);

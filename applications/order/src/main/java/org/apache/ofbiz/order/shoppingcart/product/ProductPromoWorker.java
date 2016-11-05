@@ -689,7 +689,7 @@ public final class ProductPromoWorker {
 
                 if ("PPIP_PARTY_CLASS".equalsIgnoreCase(productPromoCond.getString("inputParamEnumId"))) {
                     GenericValue partyClassificationGroup = EntityQuery.use(delegator).from("PartyClassificationGroup").where("partyClassificationGroupId", condValue).cache(true).queryOne();
-                    if (UtilValidate.isNotEmpty(partyClassificationGroup) && UtilValidate.isNotEmpty(partyClassificationGroup.getString("description"))) {
+                    if (partyClassificationGroup != null && UtilValidate.isNotEmpty(partyClassificationGroup.getString("description"))) {
                         condValue = partyClassificationGroup.getString("description");
                     }
 
@@ -1106,7 +1106,7 @@ public final class ProductPromoWorker {
         } else if ("PPIP_GEO_ID".equals(inputParamEnumId)) {
             compareBase = Integer.valueOf(1);
             GenericValue shippingAddress = cart.getShippingAddress();
-            if (UtilValidate.isNotEmpty(condValue) && UtilValidate.isNotEmpty(shippingAddress)) {
+            if (UtilValidate.isNotEmpty(condValue) && shippingAddress != null) {
                 if(condValue.equals(shippingAddress.getString("countryGeoId")) || condValue.equals(shippingAddress.getString("countyGeoId")) 
                         || condValue.equals(shippingAddress.getString("postalCodeGeoId")) || condValue.equals(shippingAddress.getString("stateProvinceGeoId"))) {
                     compareBase = Integer.valueOf(0);

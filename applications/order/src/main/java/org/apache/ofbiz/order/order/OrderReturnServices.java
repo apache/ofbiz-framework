@@ -162,7 +162,7 @@ public class OrderReturnServices {
                     Debug.logError(e, module);
                     throw new GeneralRuntimeException(e.getMessage());
                 }
-                if (UtilValidate.isNotEmpty(issue)) {
+                if (issue != null) {
                     Debug.logInfo("Found item issuance reference", module);
                     // just use the first one for now; maybe later we can find a better way to determine which was the
                     // actual item being returned; maybe by serial number
@@ -736,7 +736,7 @@ public class OrderReturnServices {
             if (UtilValidate.isNotEmpty(returnItems)) {
                 returnItem = EntityUtil.getFirst(returnItems);
             }
-            if (UtilValidate.isNotEmpty(returnItem)) {
+            if (returnItem != null) {
                 try {
                     orderHeader = returnItem.getRelatedOne("OrderHeader", false);
                 } catch (GenericEntityException e) {
@@ -822,7 +822,7 @@ public class OrderReturnServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
-                        if (UtilValidate.isNotEmpty(finAccount)) {
+                        if (finAccount != null) {
                             finAccountId = finAccount.getString("finAccountId");
                         }
 
@@ -1201,7 +1201,7 @@ public class OrderReturnServices {
                         GenericValue orderItemAssoc = EntityQuery.use(delegator).from("OrderItemAssoc")
                                                           .where("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT")
                                                           .queryFirst();
-                        if (UtilValidate.isNotEmpty(orderItemAssoc)) {
+                        if (orderItemAssoc != null) {
                             String originalOrderId = orderItemAssoc.getString("orderId");
                             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", originalOrderId).queryOne();
                             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
@@ -1231,7 +1231,7 @@ public class OrderReturnServices {
                     }
                     orgAcctgPref = (GenericValue) acctgPreferencesResult.get("partyAccountingPreference");
 
-                    if (UtilValidate.isNotEmpty(orgAcctgPref)) {
+                    if (orgAcctgPref != null) {
                         try {
                             orgAcctgPref.getRelatedOne("PaymentMethod", false);
                         } catch (GenericEntityException e) {
@@ -1420,7 +1420,7 @@ public class OrderReturnServices {
 
                             // Fill out the data for the new ReturnItemResponse
                             Map<String, Object> response = new HashMap<String, Object>();
-                            if (UtilValidate.isNotEmpty(refundOrderPaymentPreference)) {
+                            if (refundOrderPaymentPreference != null) {
                                 response.put("orderPaymentPreferenceId", refundOrderPaymentPreference.getString("orderPaymentPreferenceId"));
                             } else {
                                 response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
@@ -1781,16 +1781,16 @@ public class OrderReturnServices {
                                 GenericValue refurbItem = null;
                                 if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
                                     try {
-                                        if (UtilValidate.isNotEmpty(product)) {
+                                        if (product != null) {
                                             GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"), UtilMisc.toList("sequenceNum"), false)));
-                                            if (UtilValidate.isNotEmpty(refurbItemAssoc)) {
+                                            if (refurbItemAssoc != null) {
                                                 refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct", false);
                                             }
                                         }
                                     } catch (GenericEntityException e) {
                                         Debug.logError(e, module);
                                     }
-                                    if (UtilValidate.isNotEmpty(refurbItem)) {
+                                    if (refurbItem != null) {
                                         boolean inventoryAvailable = false;
                                         try {
                                             Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
@@ -1864,7 +1864,7 @@ public class OrderReturnServices {
                                 if ("RTN_REPAIR_REPLACE".equals(returnTypeId)) {
                                     List<GenericValue> repairItems = null;
                                     try {
-                                        if (UtilValidate.isNotEmpty(product)) {
+                                        if (product != null) {
                                             repairItems = EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REPAIR_SRV"), UtilMisc.toList("sequenceNum"), false));
                                         }
                                     } catch (GenericEntityException e) {
@@ -1880,7 +1880,7 @@ public class OrderReturnServices {
                                                 Debug.logError(e, module);
                                                 continue;
                                             }
-                                            if (UtilValidate.isNotEmpty(repairItemProduct)) {
+                                            if (repairItemProduct != null) {
                                                 BigDecimal repairUnitQuantity = repairItem.getBigDecimal("quantity");
                                                 if (UtilValidate.isEmpty(repairUnitQuantity)) {
                                                     repairUnitQuantity = BigDecimal.ONE;
@@ -1937,7 +1937,7 @@ public class OrderReturnServices {
                                                 newItem.set("statusId", "ITEM_CREATED");
                                                 orderItems.add(newItem);
                                                 additionalItemTotal = additionalItemTotal.add(repairQuantity.multiply(repairUnitPrice));
-                                                if (UtilValidate.isNotEmpty(orderItemShipGroupAssoc)) {
+                                                if (orderItemShipGroupAssoc != null) {
                                                     GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", repairQuantity));
                                                     orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
                                                 }
@@ -1982,7 +1982,7 @@ public class OrderReturnServices {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
-                    if (UtilValidate.isNotEmpty(paymentMethod)) {
+                    if (paymentMethod != null) {
                         String paymentMethodId = paymentMethod.getString("paymentMethodId");
                         String paymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
                         GenericValue opp = delegator.makeValue("OrderPaymentPreference");
@@ -2381,7 +2381,7 @@ public class OrderReturnServices {
                         returnItem = EntityQuery.use(delegator).from("ReturnItem")
                                 .where("returnId", returnId, "orderId", orderAdjustment.getString("orderId"), "orderItemSeqId", orderAdjustment.getString("orderItemSeqId"))
                                 .queryFirst();
-                        if (UtilValidate.isNotEmpty(returnItem)) {
+                        if (returnItem != null) {
                             orderItem = returnItem.getRelatedOne("OrderItem", false);
                         }
                     }

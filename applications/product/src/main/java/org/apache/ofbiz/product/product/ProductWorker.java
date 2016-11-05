@@ -89,7 +89,7 @@ public final class ProductWorker {
         return isAllowedToAddress(product, postalAddress, "PG_SHIP_");
     }
     private static boolean isAllowedToAddress(GenericValue product, GenericValue postalAddress, String productGeoPrefix) {
-        if (UtilValidate.isNotEmpty(product) && UtilValidate.isNotEmpty(postalAddress)) {
+        if (product != null && postalAddress != null) {
             Delegator delegator = product.getDelegator();
             List<GenericValue> productGeos = null;
             try {
@@ -134,7 +134,7 @@ public final class ProductWorker {
     public static boolean isSerialized (Delegator delegator, String productId) {
         try {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
-            if (UtilValidate.isNotEmpty(product)) {
+            if (product != null) {
                 return "SERIALIZED_INV_ITEM".equals(product.getString("inventoryItemTypeId"));
             }
         } catch (GenericEntityException e) {
@@ -161,9 +161,9 @@ public final class ProductWorker {
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
         GenericValue instanceProduct = EntityQuery.use(delegator).from("Product").where("productId", instanceProductId).queryOne();
 
-        if (UtilValidate.isNotEmpty(instanceProduct) && EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", instanceProduct.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
+        if (instanceProduct != null && EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", instanceProduct.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
             GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"), null, false)));
-            if (UtilValidate.isNotEmpty(productAssoc)) {
+            if (productAssoc != null) {
                 return productAssoc.getString("productId");
             }
         }
@@ -186,7 +186,7 @@ public final class ProductWorker {
     public static List<GenericValue> getAggregatedAssocs(Delegator delegator, String  aggregatedProductId) throws GenericEntityException {
         GenericValue aggregatedProduct = EntityQuery.use(delegator).from("Product").where("productId", aggregatedProductId).queryOne();
 
-        if (UtilValidate.isNotEmpty(aggregatedProduct) && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
+        if (aggregatedProduct != null && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
             List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"), null, false));
             return productAssocs;
         }
@@ -894,7 +894,7 @@ public final class ProductWorker {
             product = EntityQuery.use(delegator).from("Product").where("productId", idToFind).cache().queryOne();
         }
 
-        if (UtilValidate.isNotEmpty(product)) {
+        if (product != null) {
             if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
             else productsFound = UtilMisc.toList(product);
         }
@@ -909,7 +909,7 @@ public final class ProductWorker {
 
     public static String findProductId(Delegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
         GenericValue product = findProduct(delegator, idToFind, goodIdentificationTypeId);
-        if (UtilValidate.isNotEmpty(product)) {
+        if (product != null) {
             return product.getString("productId");
         } else {
             return null;
@@ -1097,7 +1097,7 @@ nextProd:
                                 .filterByDate().queryList();
                         if (UtilValidate.isNotEmpty(productFeaturePrices)) {
                             GenericValue productFeaturePrice = productFeaturePrices.get(0);
-                            if (UtilValidate.isNotEmpty(productFeaturePrice)) {
+                            if (productFeaturePrice != null) {
                                 productPrice.put("price", productPrice.getBigDecimal("price").add(productFeaturePrice.getBigDecimal("price")));
                             }
                         }
