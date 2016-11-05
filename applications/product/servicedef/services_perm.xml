@@ -23,8 +23,8 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <service name="facilityManagerPermission" engine="simple"
-            location="component://product/minilang/permission/PermissionServices.xml" invoke="facilityManagerPermission">
+    <service name="facilityPermissionCheck" engine="simple"
+            location="component://product/minilang/permission/PermissionServices.xml" invoke="facilityPermissionCheck">
         <description>Facility Manager permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>

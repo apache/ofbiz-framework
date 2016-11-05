@@ -615,7 +615,7 @@ under the License.
     <service name="createFacilityContactMech" engine="simple" debug="true"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMech" auth="true">
         <description>Create a FacilityContactMech</description>
-        <permission-service service-name="facilityManagerPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -624,7 +624,7 @@ under the License.
     <service name="updateFacilityContactMech" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityContactMech" auth="true">
         <description>Update a FacilityContactMech</description>
-        <permission-service service-name="facilityManagerPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
@@ -634,14 +634,14 @@ under the License.
     <service name="deleteFacilityContactMech" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMech" auth="true">
         <description>Delete a FacilityContactMech</description>
-        <permission-service service-name="facilityManagerPermission" main-action="DELETE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFacilityPostalAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityPostalAddress" auth="true">
         <description>Create a Postal Address</description>
-        <permission-service service-name="facilityManagerPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
@@ -654,7 +654,7 @@ under the License.
     <service name="updateFacilityPostalAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityPostalAddress" auth="true">
         <description>Update a Postal Address</description>
-        <permission-service service-name="facilityManagerPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -663,7 +663,7 @@ under the License.
     <service name="createFacilityTelecomNumber" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityTelecomNumber" auth="true">
         <description>Create a Telecommunications Number</description>
-        <permission-service service-name="facilityManagerPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -672,7 +672,7 @@ under the License.
     <service name="updateFacilityTelecomNumber" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityTelecomNumber" auth="true">
         <description>Update a Telecommunications Number</description>
-        <permission-service service-name="facilityManagerPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -680,7 +680,7 @@ under the License.
     <service name="createFacilityEmailAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityEmailAddress" auth="true">
         <description>Create an Email Address</description>
-        <permission-service service-name="facilityManagerPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -690,7 +690,7 @@ under the License.
     <service name="updateFacilityEmailAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityEmailAddress" auth="true">
         <description>Update an Email Address</description>
-        <permission-service service-name="facilityManagerPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
@@ -699,7 +699,7 @@ under the License.
     <service name="createFacilityContactMechPurpose" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMechPurpose">
         <description>Create a purpose for facility contact mech</description>
-        <permission-service service-name="facilityManagerPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false">
             <exclude field-name="fromDate"/>
         </auto-attributes>
@@ -708,7 +708,7 @@ under the License.
     <service name="deleteFacilityContactMechPurpose" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMechPurpose">
         <description>Delete a purpose for facility contact mech</description>
-        <permission-service service-name="facilityManagerPermission" main-action="DELETE"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false"/>
     </service>
 <!-- end cm -->
@@ -809,7 +809,7 @@ under the License.
             sufficient availableToPromise to move the stock, in fact it is generally triggered because
             some promised inventory is in a bulk location and needs to be moved to a pick location.
         </description>
-        <permission-service service-name="facilityManagerPermission" main-action="VIEW"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="VIEW"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="moveByOisgirInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="stockMoveHandled" type="Map" mode="OUT" optional="true"/>
@@ -820,7 +820,7 @@ under the License.
         <description>
             Find all Stock Moves that should be done based on minimum quantities on each Pick/Primary ProductFacilityLocation.
         </description>
-        <permission-service service-name="facilityManagerPermission" main-action="VIEW"/>
+        <permission-service service-name="facilityPermissionCheck" main-action="VIEW"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="stockMoveHandled" type="Map" mode="IN" optional="true"/>
         <attribute name="moveByPflInfoList" type="List" mode="OUT" optional="true"/>
