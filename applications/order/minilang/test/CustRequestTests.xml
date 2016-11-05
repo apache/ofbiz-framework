@@ -81,9 +81,9 @@ under the License.
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
         <set field="serviceCtx.custRequestId" value="9000"/>
-        <set field="serviceCtx.custRequestItemSeqId" value="00001"/
-        <set field="serviceCtx.noteInfo" value="Test"/>
-        <call-service service-name="createCustRequestNote" in-map-name="serviceCtx">
+        <set field="serviceCtx.custRequestItemSeqId" value="00001"/>
+        <set field="serviceCtx.note" value="Test"/>
+        <call-service service-name="createCustRequestItemNote" in-map-name="serviceCtx">
             <results-to-map map-name="noteId"/>
         </call-service>
         <assert>
@@ -139,5 +139,79 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-
+    <simple-method method-name="testSetCustRequestStatus" short-description="Set Cust Request Status" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="setCustRequestStatus" in-map-name="serviceCtx">
+            <results-to-map map-name="oldStatusId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="oldStatusId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetCustRequestsByRole" short-description="Get Cust Requests By Role" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.roleTypeId" value="OWNER"/>
+        <call-service service-name="getCustRequestsByRole" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestContent" short-description="Create Cust Request Content" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.contentId" value="100-ALT"/>
+        <call-service service-name="createCustRequestContent" in-map-name="serviceCtx">
+            <results-to-map map-name="custRequestStatusId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="custRequestStatusId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestAttribute" short-description="Create Cust Request Attribute" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.attrName" value="Test Name"/>
+        <set field="serviceCtx.attrValue" value="Test Value"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <call-service service-name="createCustRequestAttribute" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyCustRequestItem" short-description="Copy Cust Request Item" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="00001"/>
+        <call-service service-name="copyCustRequestItem" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
