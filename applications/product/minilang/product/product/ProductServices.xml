@@ -38,7 +38,7 @@ under the License.
             <check-errors />
             <entity-one value-field="dummyProduct" entity-name="Product"><field-map field-name="productId" from-field="parameters.productId"/></entity-one>
             <if-not-empty field="dummyProduct">
-                <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDublicateKey" /></add-error>
+                <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDuplicateKey" /></add-error>
             </if-not-empty>
             <check-errors />
         </else>
