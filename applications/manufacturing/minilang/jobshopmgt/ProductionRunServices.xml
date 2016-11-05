@@ -108,7 +108,29 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="issueProductionRunTaskComponent" short-description="Issues the Inventory for a Production Run Task Component" login-required="false">
+
+        <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <entity-one entity-name="WorkEffort" value-field="productionRun">
+            <field-map field-name="workEffortId" from-field="workEffort.workEffortParentId"/>
+        </entity-one>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CANCELLED"/>
+                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CLOSED"/>
+                </or>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-property property="ManufacturingAddProdCompInCompCanStatusError" resource="ManufacturingUiLabels"/>
+                </add-error>
+            </then>
+        </if>
+        <check-errors/>
+
         <if-empty field="parameters.fromDate">
+            <set field="productId" from-field="parameters.productId"/>
             <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="BigDecimal"/>
         <else>
             <entity-one entity-name="WorkEffortGoodStandard" value-field="workEffortGoodStandard" auto-field-map="false">
@@ -130,10 +152,13 @@ under the License.
                 <set field="createWorkEffortGoodStdMap.productId" from-field="parameters.productId"/>
                 <set field="createWorkEffortGoodStdMap.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
                 <set field="createWorkEffortGoodStdMap.fromDate" from-field="parameters.fromDate" />
-	            <set field="createWorkEffortGoodStdMap.estimatedQuantity" from-field="parameters.quantity"/>
+                <set field="createWorkEffortGoodStdMap.estimatedQuantity" from-field="parameters.quantity"/>
                 <set field="createWorkEffortGoodStdMap.statusId" value="WEGS_CREATED"/>
                 <call-service service-name="createWorkEffortGoodStandard" in-map-name="createWorkEffortGoodStdMap"/>
-                <set field="productId" from-field="parameters.productId"/>
+                <!-- if the task is in completed status we want to make WEIA for the added product as well -->
+                <if-compare value="workEffort.currentStatusId" operator="equals" field="PRUN_COMPLETED">
+                    <set field="productId" from-field="parameters.productId"/>
+                </if-compare>
             </if-empty>
         </else>
         </if-empty>
@@ -141,9 +166,6 @@ under the License.
         <!-- kind of like the inventory reservation routine, find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
         <if-not-empty field="productId">
             <now-timestamp field="nowTimestamp"/>
-
-            <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
-            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
 
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field="parameters.reserveOrderEnumId">

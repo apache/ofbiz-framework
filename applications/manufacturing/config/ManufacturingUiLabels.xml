@@ -811,6 +811,9 @@
         <value xml:lang="zh">指定固定资产</value>
         <value xml:lang="zh-TW">指定固定資產</value>
     </property>
+    <property key="ManufacturingAddProdCompInCompCanStatusError">
+        <value xml:lang="en">Can't Add Component in Cancelled/Closed Production Run.</value>
+    </property>s
     <property key="ManufacturingAddProductionRunProductComponent">
         <value xml:lang="de">Komponente zu Produktionsauftrag hinzufügen</value>
         <value xml:lang="en">Add ProductComponent to ProductionRun</value>
