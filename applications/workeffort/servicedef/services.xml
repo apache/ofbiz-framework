@@ -427,7 +427,11 @@ under the License.
         <description>Creates a CustRequestWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequest"/>
-        <override name="custRequestId" optional="true" mode="INOUT"/>
+        <override name="custRequestId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
+            </type-validate>
+        </override>
         <override name="description" allow-html="any"/>
     </service>
     <service name="deleteWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="delete" auth="true">
@@ -437,13 +441,15 @@ under the License.
     <service name="createWorkEffortRequestItemAndRequestItem" engine="group" location="createWorkEffortRequestItemAndRequestItem" invoke="" auth="true">
         <description>Creates a CustRequestItem entity and CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
-        <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequestItem"/>
+        <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="OUT" optional="true"/>
     </service>
     <service name="createWorkEffortRequestItem" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
-        <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequestItem"/>
+        <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="IN" optional="true"/>
     </service>
     <service name="deleteWorkEffortRequestItem" engine="entity-auto" invoke="delete" auth="true">
@@ -460,7 +466,11 @@ under the License.
         <description>Creates a QuoteWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="QuoteWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="Quote"/>
-        <override name="quoteId" optional="true" mode="INOUT"/>
+        <override name="quoteId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuoteId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortQuote" default-entity-name="QuoteWorkEffort" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes a QuoteWorkEffort</description>
@@ -472,6 +482,16 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="Requirement"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
+        <override name="requirementTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementTypeId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkRequirementFulfillment" engine="entity-auto" default-entity-name="WorkRequirementFulfillment" auth="true" invoke="delete">
         <description>Deletes a WorkRequirementFulfillment</description>
@@ -613,6 +633,11 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortReview" default-entity-name="WorkEffortReview" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Work Effort Review</description>
@@ -650,7 +675,7 @@ under the License.
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeywords" auth="true">
         <description>Create a Work Effort Keyword</description>
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteWorkEffortKeywords" engine="simple"

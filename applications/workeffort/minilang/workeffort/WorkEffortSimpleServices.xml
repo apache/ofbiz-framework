@@ -864,6 +864,9 @@ under the License.
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
 
+            <if-empty field="newEntity.userLoginId">
+                <set field="newEntity.userLoginId" from-field="parameters.userLogin.userLoginId"/>
+            </if-empty>
             <if-empty field="newEntity.reviewDate">
                 <now-timestamp field="nowTimestamp"/>
                 <set field="newEntity.reviewDate" from-field="nowTimestamp"/>
