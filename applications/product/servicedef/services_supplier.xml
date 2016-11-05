@@ -39,4 +39,20 @@ under the License.
         <description>Delete a ReorderGuideline record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <!-- SupplierRatingType services -->
+    <service name="createSupplierRatingType" default-entity-name="SupplierRatingType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SupplierRatingType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateSupplierRatingType" default-entity-name="SupplierRatingType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SupplierRatingType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSupplierRatingType" default-entity-name="SupplierRatingType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SupplierRatingType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

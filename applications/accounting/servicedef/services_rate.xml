@@ -108,4 +108,20 @@ under the License.
         <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/><!-- to be able to expire rateamount specific to a party records....-->
     </service>
 
+    <!-- RateType services -->
+    <service name="createRateType" default-entity-name="RateType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RateType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateRateType" default-entity-name="RateType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RateType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteRateType" default-entity-name="RateType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RateType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

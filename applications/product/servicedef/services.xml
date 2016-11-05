@@ -1870,4 +1870,19 @@ under the License.
         <description>Delete a ProductTypeAttr</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createProdCatalogInvFacility" default-entity-name="ProdCatalogInvFacility" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProdCatalogInvFacility</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProdCatalogInvFacility" default-entity-name="ProdCatalogInvFacility" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProdCatalogInvFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="expireProdCatalogInvFacility" default-entity-name="ProdCatalogInvFacility" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a ProdCatalogInvFacility Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>

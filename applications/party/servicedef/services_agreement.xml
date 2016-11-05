@@ -31,4 +31,52 @@
         <description>Delete an AgreementItemType record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <!-- TermType services -->
+    <service name="createTermType" default-entity-name="TermType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create TermType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateTermType" default-entity-name="TermType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update TermType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteTermType" default-entity-name="TermType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete TermType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- TermTypeAttr services -->
+    <service name="createTermTypeAttr" default-entity-name="TermTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create TermTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateTermTypeAttr" default-entity-name="TermTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update TermTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteTermTypeAttr" default-entity-name="TermTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete TermTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- Addendum services -->
+    <service name="createAddendum" default-entity-name="Addendum" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Addendum Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAddendum" default-entity-name="Addendum" engine="entity-auto" invoke="update" auth="true">
+        <description>Update Addendum Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAddendum" default-entity-name="Addendum" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete Addendum record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>

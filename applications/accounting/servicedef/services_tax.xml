@@ -208,4 +208,36 @@ under the License.
         <description>Zip Sales Calc Tax Service - change this to calcTax to run</description>
         <implements service="calcTaxInterface"/>
     </service>
+
+    <!-- TaxAuthorityAssocType services -->
+    <service name="createTaxAuthorityAssocType" default-entity-name="TaxAuthorityAssocType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a TaxAuthorityAssocType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+   </service>
+    <service name="updateTaxAuthorityAssocType" default-entity-name="TaxAuthorityAssocType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a TaxAuthorityAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityAssocType" default-entity-name="TaxAuthorityAssocType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a TaxAuthorityAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- TaxAuthorityRateType services -->
+    <service name="createTaxAuthorityRateType" default-entity-name="TaxAuthorityRateType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a TaxAuthorityRateType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+   </service>
+    <service name="updateTaxAuthorityRateType" default-entity-name="TaxAuthorityRateType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a TaxAuthorityRateType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityRateType" default-entity-name="TaxAuthorityRateType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a TaxAuthorityRateType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
