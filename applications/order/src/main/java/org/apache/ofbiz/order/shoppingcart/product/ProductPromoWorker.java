@@ -662,8 +662,8 @@ public final class ProductPromoWorker {
         if (productPromo == null) {
             return "";
         }
-        ArrayList<String> partyClassificationsIncluded = new ArrayList<String>();
-        ArrayList<String> partyClassificationsExcluded = new ArrayList<String>();
+        List<String> partyClassificationsIncluded = new ArrayList<String>();
+        List<String> partyClassificationsExcluded = new ArrayList<String>();
         StringBuilder promoDescBuf = new StringBuilder();
         List<GenericValue> productPromoRules = productPromo.getRelated("ProductPromoRule", null, null, true);
         Iterator<GenericValue> promoRulesIter = productPromoRules.iterator();

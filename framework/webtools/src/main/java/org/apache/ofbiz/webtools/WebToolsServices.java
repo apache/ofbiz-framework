@@ -620,8 +620,8 @@ public class WebToolsServices {
 
         ModelReader reader = delegator.getModelReader();
         Map<String, TreeSet<String>> entitiesByPackage = new HashMap<String, TreeSet<String>>();
-        TreeSet<String> packageNames = new TreeSet<String>();
-        TreeSet<String> tableNames = new TreeSet<String>();
+        Set<String> packageNames = new TreeSet<String>();
+        Set<String> tableNames = new TreeSet<String>();
 
         //put the entityNames TreeSets in a HashMap by packageName
         try {

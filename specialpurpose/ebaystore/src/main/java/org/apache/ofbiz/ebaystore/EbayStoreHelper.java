@@ -468,7 +468,7 @@ public class EbayStoreHelper {
     public static Map<String, Object> setEbayProductListingAttribute(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        HashMap<String, Object> attributeMapList = UtilGenerics.cast(context.get("attributeMapList"));
+        Map<String, Object> attributeMapList = UtilGenerics.cast(context.get("attributeMapList"));
         String productListingId = (String) context.get("productListingId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String, Object> ebayProductListingAttributeMap = new HashMap<String, Object>();

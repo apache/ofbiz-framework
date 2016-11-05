@@ -275,7 +275,7 @@ public class ShoppingCartHelper {
     }
 
     public Map<String, Object> addToCartFromOrder(String catalogId, String orderId, String[] itemIds, boolean addAll, String itemGroupNumber) {
-        ArrayList<String> errorMsgs = new ArrayList<String>();
+        List<String> errorMsgs = new ArrayList<String>();
         Map<String, Object> result;
         String errMsg = null;
 
@@ -569,7 +569,7 @@ public class ShoppingCartHelper {
      * quantity is 0, do not add
      */
     public Map<String, Object> addCategoryDefaults(String catalogId, String categoryId, String itemGroupNumber) {
-        ArrayList<String> errorMsgs = new ArrayList<String>();
+        List<String> errorMsgs = new ArrayList<String>();
         Map<String, Object> result = null;
         String errMsg = null;
 
@@ -630,7 +630,7 @@ public class ShoppingCartHelper {
     /** Delete an item from the shopping cart. */
     public Map<String, Object> deleteFromCart(Map<String, ? extends Object> context) {
         Map<String, Object> result = null;
-        ArrayList<String> errorMsgs = new ArrayList<String>();
+        List<String> errorMsgs = new ArrayList<String>();
         for (String o : context.keySet()) {
             if (o.toUpperCase().startsWith("DELETE")) {
                 try {
@@ -663,8 +663,8 @@ public class ShoppingCartHelper {
             locale = this.cart.getLocale();
         }
 
-        ArrayList<ShoppingCartItem> deleteList = new ArrayList<ShoppingCartItem>();
-        ArrayList<String> errorMsgs = new ArrayList<String>();
+        List<ShoppingCartItem> deleteList = new ArrayList<ShoppingCartItem>();
+        List<String> errorMsgs = new ArrayList<String>();
 
         BigDecimal oldQuantity = BigDecimal.ONE.negate();
         String oldDescription = "";

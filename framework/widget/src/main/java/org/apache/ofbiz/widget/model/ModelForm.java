@@ -467,7 +467,7 @@ public abstract class ModelForm extends ModelWidget {
         if (parentModel != null) {
             useWhenFields.addAll(parentModel.useWhenFields);
         }
-        ArrayList<ModelFormFieldBuilder> fieldBuilderList = new ArrayList<ModelFormFieldBuilder>();
+        List<ModelFormFieldBuilder> fieldBuilderList = new ArrayList<ModelFormFieldBuilder>();
         Map<String, ModelFormFieldBuilder> fieldBuilderMap = new HashMap<String, ModelFormFieldBuilder>();
         if (parentModel != null) {
             // Create this fieldList/Map from clones of parentModel's
@@ -610,7 +610,7 @@ public abstract class ModelForm extends ModelWidget {
             rowCountExdr = parentModel.rowCountExdr;
         }
         this.rowCountExdr = paginate;
-        ArrayList<ModelFormFieldBuilder> multiSubmitBuilders = new ArrayList<ModelFormFieldBuilder>();
+        List<ModelFormFieldBuilder> multiSubmitBuilders = new ArrayList<ModelFormFieldBuilder>();
         ArrayList<AutoFieldsService> autoFieldsServices = new ArrayList<AutoFieldsService>();
         ArrayList<AutoFieldsEntity> autoFieldsEntities = new ArrayList<AutoFieldsEntity>();
         ArrayList<SortField> sortOrderFields = new ArrayList<SortField>();
@@ -666,7 +666,7 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
         if (sortOrderFields.size() > 0) {
-            ArrayList<ModelFormFieldBuilder> sortedFields = new ArrayList<ModelFormFieldBuilder>();
+            List<ModelFormFieldBuilder> sortedFields = new ArrayList<ModelFormFieldBuilder>();
             for (SortField sortField : sortOrderFields) {
                 String fieldName = sortField.getFieldName();
                 if (UtilValidate.isEmpty(fieldName)) {

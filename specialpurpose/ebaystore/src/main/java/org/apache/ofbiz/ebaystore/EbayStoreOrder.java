@@ -553,7 +553,7 @@ public class EbayStoreOrder {
         BigDecimal price = new BigDecimal(itemPrice);
         price = price.setScale(ShoppingCart.scale, ShoppingCart.rounding);
 
-        HashMap<String, Object> attrs = new HashMap<String, Object>();
+        Map<String, Object> attrs = new HashMap<String, Object>();
         attrs.put("shipGroup", groupIdx);
 
         int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, null, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);

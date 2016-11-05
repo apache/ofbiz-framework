@@ -529,7 +529,7 @@ public class ModelMenuItem extends ModelWidget {
 
         public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
             this.linkMenuItem = parentMenuItem;
-            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+            List<Parameter> parameterList = new ArrayList<Parameter>();
             if (parentMenuItem.link != null) {
                 parameterList.addAll(parentMenuItem.link.getParameterList());
             }

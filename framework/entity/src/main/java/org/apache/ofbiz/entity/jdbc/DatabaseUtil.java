@@ -211,7 +211,7 @@ public class DatabaseUtil {
 
         timer.timerString("Before Individual Table/Column Check");
 
-        ArrayList<ModelEntity> modelEntityList = new ArrayList<ModelEntity>(modelEntities.values());
+        List<ModelEntity> modelEntityList = new ArrayList<ModelEntity>(modelEntities.values());
         // sort using compareTo method on ModelEntity
         Collections.sort(modelEntityList);
         int curEnt = 0;

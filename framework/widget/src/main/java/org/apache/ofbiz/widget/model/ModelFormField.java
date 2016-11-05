@@ -355,7 +355,7 @@ public class ModelFormField {
                 } else if (retVal instanceof Collection) {
                     Collection<Object> col = UtilGenerics.checkCollection(retVal);
                     Iterator<Object> iter = col.iterator();
-                    ArrayList<Object> newCol = new ArrayList<Object>(col.size());
+                    List<Object> newCol = new ArrayList<Object>(col.size());
                     while (iter.hasNext()) {
                         Object item = iter.next();
                         if (item == null) {
