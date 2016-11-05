@@ -272,4 +272,33 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testGetNextQuoteId" short-description="Get Next Quote Id" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.partyId" value="DemoCustomer-1"/>
+        <call-service service-name="getNextQuoteId" in-map-name="serviceCtx">
+            <results-to-map map-name="quoteId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="quoteId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyQuoteItem" short-description="Copy Quote Item" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.quoteId" value="CQ0001"/>
+        <set field="serviceCtx.quoteItemSeqId" value="00001"/>
+        <call-service service-name="copyQuoteItem" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
