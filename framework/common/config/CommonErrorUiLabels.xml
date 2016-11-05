@@ -19,9 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="CommonErrorDublicateKey">
+    <property key="CommonErrorDuplicateKey">
         <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
-        <value xml:lang="en">Dublicate Key. The Key already exist.</value>
+        <value xml:lang="en">Duplicate Key. The Key already exist.</value>
         <value xml:lang="fr">Clé dupliquée. Cette valeur est déjà présente.</value>
         <value xml:lang="ja">重複キー。キーはすでに存在します。</value>
         <value xml:lang="ru">Ключ дубликат. Ключ уже существует.</value>
