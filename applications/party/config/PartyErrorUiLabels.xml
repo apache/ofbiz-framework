@@ -1304,4 +1304,28 @@
         <value xml:lang="zh">无法更新人员信息 (写失败)：${0}</value>
         <value xml:lang="zh-TW">無法更新人員資訊 (寫失敗):${0}</value>
     </property>
+    <property key="PartyRequiredFieldMissingContactMechTypeId">
+        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingCurrentStatusId">
+        <value xml:lang="en">Required Field Missing : Current Status Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingWorkEffortName">
+        <value xml:lang="en">Required Field Missing : WorkEffort Name.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingWorkEffortTypeId">
+        <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyIdTo">
+        <value xml:lang="en">Required Field Missing : Party Id To.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingAddress1">
+        <value xml:lang="en">Required Field Missing : Address1.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingCity">
+        <value xml:lang="en">Required Field Missing : City.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPostalCode">
+        <value xml:lang="en">Required Field Missing : Postal Code.</value>
+    </property>
 </resource>

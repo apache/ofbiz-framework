@@ -257,7 +257,8 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="createContentAssoc">
         <description>Create a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <auto-attributes include="all" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <!-- deprecated fields to be removed -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
@@ -268,7 +269,7 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
-        <override name="fromDate" mode="INOUT"/>
+        <override name="fromDate" mode="INOUT" optional="true"/>
         <!-- end of deprecated fields -->
     </service>
     <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
@@ -402,7 +403,7 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="updateSingleContentPurpose">
         <description>Removes content purposes and creates a new one</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 

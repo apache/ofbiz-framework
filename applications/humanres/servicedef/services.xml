@@ -783,7 +783,11 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="approverId" optional="false"/>
-        <override name="trainingClassTypeId" optional="true"/>
+        <override name="trainingClassTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="HumanResErrorUiLabels.xml" property="HumanResRequiredFieldMissingTrainingClassTypeId"/>
+            </type-validate>
+        </override>
         <override name="fromDate" optional="true"/>
         <override name="workEffortId" optional="false"/>
     </service>
@@ -794,7 +798,11 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="approverId" optional="false"/>
-        <override name="trainingClassTypeId" optional="true"/>
+        <override name="trainingClassTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="HumanResErrorUiLabels.xml" property="HumanResRequiredFieldMissingTrainingClassTypeId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="createTrainingTypes" engine="entity-auto" default-entity-name="TrainingClassType" invoke="create" auth="true">

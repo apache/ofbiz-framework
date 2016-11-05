@@ -5406,4 +5406,31 @@
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
         <value xml:lang="zh-TW">把工作流程行動指派給使用者角色</value>
     </property>
+    <property key="WorkEffortRequiredFieldMissingQuoteId">
+        <value xml:lang="en">Required Field Missing : Quote Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingCustRequestId">
+        <value xml:lang="en">Required Field Missing : Cust Request Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortId">
+        <value xml:lang="en">Required Field Missing : WorkEffort Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortId">
+        <value xml:lang="en">Required Field Missing : WorkEffort Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingRequirementTypeId">
+        <value xml:lang="en">Required Field Missing : Requirement Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingContactMechTypeId">
+        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingCurrentStatusId">
+        <value xml:lang="en">Required Field Missing : Current Status Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortName">
+        <value xml:lang="en">Required Field Missing : WorkEffort Name.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortTypeId">
+        <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
+    </property>
 </resource>
