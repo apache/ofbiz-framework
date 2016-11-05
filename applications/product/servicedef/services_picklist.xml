@@ -139,8 +139,7 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updatePicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistBin" auth="true">
+    <service name="updatePicklistBin" default-entity-name="PicklistBin" engine="entity-auto" invoke="update" auth="true">
         <description>Update PicklistBin</description>
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -217,8 +216,7 @@ under the License.
         </auto-attributes>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updatePicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistRole" auth="true">
+    <service name="updatePicklistRole" default-entity-name="PicklistRole" engine="entity-auto" invoke="update" auth="true">
         <description>Update PicklistRole</description>
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

@@ -38,7 +38,7 @@ under the License.
         <make-value entity-name="ProductPromoCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoCond" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <if-not-empty field="parameters.carrierShipmentMethod">
             <set field="lookedUpValue.otherValue" from-field="parameters.carrierShipmentMethod"/>
         </if-not-empty>

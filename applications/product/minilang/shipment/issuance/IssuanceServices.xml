@@ -70,7 +70,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ItemIssuance" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteItemIssuance" short-description="Delete ItemIssuance">

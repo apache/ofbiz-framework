@@ -517,10 +517,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWorkEffortFixedAssetStd" engine="simple" auth="true"
-            default-entity-name="WorkEffortFixedAssetStd"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-            invoke="updateWorkEffortFixedAssetStd">
+    <service name="updateWorkEffortFixedAssetStd" engine="entiy-auto" auth="true"
+            default-entity-name="WorkEffortFixedAssetStd" invoke="update">
         <description>Updates an existing WorkEffortFixedAssetStd entry</description>
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -546,10 +544,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true" mode="IN"/>
     </service>
-    <service name="updateWorkEffortFixedAssetAssign" engine="simple" auth="true"
-            default-entity-name="WorkEffortFixedAssetAssign"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-            invoke="updateWorkEffortFixedAssetAssign">
+    <service name="updateWorkEffortFixedAssetAssign" engine="entity-auto" auth="true"
+            default-entity-name="WorkEffortFixedAssetAssign" invoke="update">
         <description>Update an existing WorkEffortFixedAssetAssign entry</description>
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -618,8 +614,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWorkEffortReview" default-entity-name="WorkEffortReview" engine="simple"
-                location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortReview" auth="true">
+    <service name="updateWorkEffortReview" default-entity-name="WorkEffortReview" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Work Effort Review</description>
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

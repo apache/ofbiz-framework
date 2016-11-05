@@ -35,7 +35,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <set-nonpk-fields map="parameters" value-field="timesheet"/>
+        <set-nonpk-fields map="parameters" value-field="timesheet" set-if-null="false"/>
         <store-value value-field="timesheet"/>
     </simple-method>
     <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
@@ -352,7 +352,7 @@ under the License.
             </then>
         </if>
         
-        <set-nonpk-fields map="fieldsToCopy" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="fieldsToCopy" value-field="lookedUpValue" set-if-null="false"/>
         
         <if-not-empty field="parameters.invoiceId">
             <if-empty field="lookedUpValue.invoiceId">

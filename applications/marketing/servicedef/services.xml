@@ -278,8 +278,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTrackingCodeType" default-entity-name="TrackingCodeType" engine="simple"
-            location="component://marketing/minilang/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeType" auth="true">
+    <service name="updateTrackingCodeType" default-entity-name="TrackingCodeType" engine="entity-auto" invoke="update" auth="true">
         <description>Update a TrackingCodeType record</description>
         <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

@@ -816,7 +816,7 @@ under the License.
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
         <store-value value-field="lookedUpValue"/>
@@ -837,14 +837,6 @@ under the License.
         <field-to-result field="newEntity.picklistBinId" result-name="picklistBinId"/>
 
         <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updatePicklistBin" short-description="Update PicklistBin">
-        <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePicklistBin" short-description="Delete PicklistBin">
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
@@ -890,7 +882,7 @@ under the License.
         <field-to-result field="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <!-- store the changes -->
         <store-value value-field="lookedUpValue"/>
@@ -1119,14 +1111,6 @@ under the License.
         </if-empty>
 
         <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updatePicklistRole" short-description="Update PicklistRole">
-        <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePicklistRole" short-description="Delete PicklistRole">
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>

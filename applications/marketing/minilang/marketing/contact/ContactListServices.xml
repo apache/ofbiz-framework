@@ -154,7 +154,7 @@ under the License.
                 <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
             </if-compare-field>
         </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
         <field-to-result field="parameters.productStoreId" result-name="productStoreId" />
         <field-to-result field="parameters.contactListId" result-name="contactListId" />
@@ -418,7 +418,7 @@ under the License.
         </entity-and>
         <first-from-list list="webSiteContactList" entry="entryWebSiteContactList"/>
         <set-pk-fields value-field="entryWebSiteContactList" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="entryWebSiteContactList"/>
+        <set-nonpk-fields map="parameters" value-field="entryWebSiteContactList" set-if-null="false"/>
         <store-value value-field="entryWebSiteContactList"/>
     </simple-method>
     <simple-method method-name="deleteWebSiteContactList" short-description="Delete WebSite ContactList">
@@ -468,7 +468,7 @@ under the License.
              <set field="lookedUpValue.changeByUserLoginId" from-field="userLogin.userLoginId"/>
              <create-value value-field="lookedUpValue"/>
              <else>
-                 <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+                 <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
                  <set field="lookedUpValue.changeByUserLoginId" from-field="userLogin.userLoginId"/>
                  <store-value value-field="lookedUpValue"/> 
              </else>

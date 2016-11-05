@@ -890,9 +890,8 @@ under the License.
         <override name="fromDate" optional="true"/>
         <override name="linkSeqId" optional="true"/>
     </service>
-    <service name="updateProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
-            location="component://product/minilang/product/category/CategoryServices.xml"
-            invoke="updateProductCategoryLink" auth="true">
+    <service name="updateProductCategoryLink" default-entity-name="ProductCategoryLink" engine="entity-auto"
+           invoke="update" auth="true">
         <description>Update a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

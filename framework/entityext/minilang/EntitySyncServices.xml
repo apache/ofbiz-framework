@@ -30,12 +30,6 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
-    <simple-method method-name="updateEntitySync" short-description="Update a EntitySync">
-        <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
-        <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
-        <set-nonpk-fields map="parameters" value-field="valueToStore"/>
-        <store-value value-field="valueToStore"/>
-    </simple-method>
     <simple-method method-name="resetEntitySyncStatusToNotStarted" short-description="Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)">
         <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
@@ -60,13 +54,6 @@ under the License.
         <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>
         <store-value value-field="entitySync"/>
     </simple-method>
-    <simple-method method-name="updateEntitySyncHistory" short-description="Update EntitySyncHistory">
-        <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -80,13 +67,6 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateEntitySyncInclude" short-description="Update EntitySyncInclude">
-        <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncInclude" short-description="Delete EntitySyncInclude">
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>

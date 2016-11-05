@@ -135,7 +135,7 @@ under the License.
             </else>
         </if>
 
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <!-- make sure the replenishLevel is a sane number -->
         <calculate field="lookedUpValue.replenishLevel" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">

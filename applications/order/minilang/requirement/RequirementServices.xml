@@ -138,7 +138,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="requirementRole"/>
+        <set-nonpk-fields map="parameters" value-field="requirementRole" set-if-null="false"/>
         <store-value value-field="requirementRole"/>
         <check-errors/>
     </simple-method>

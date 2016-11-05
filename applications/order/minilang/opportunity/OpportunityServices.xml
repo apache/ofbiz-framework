@@ -53,7 +53,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <entity-one entity-name="SalesForecast" auto-field-map="true" value-field="salesForecast"/>
 
         <!-- set the fields from the parameters -->
-        <set-nonpk-fields map="parameters" value-field="salesForecast"/>
+        <set-nonpk-fields map="parameters" value-field="salesForecast" set-if-null="false"/>
 
         <!-- store the value -->
         <store-value value-field="salesForecast"/>

@@ -60,7 +60,7 @@ under the License.
 
         <make-value entity-name="RateAmount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity" set-if-null="false"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <clear-field field="newEntity.thruDate"/>
         <create-value value-field="newEntity"/>
@@ -349,7 +349,7 @@ under the License.
         <make-value entity-name="PartyRate" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity" set-if-null="false"/>
         <call-simple-method method-name="checkOtherDefaultRate"/>
         <create-value value-field="newEntity"/>
 
