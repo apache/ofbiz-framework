@@ -425,6 +425,7 @@ under the License.
     <InvoiceItemType description="Invoice Item Surcharge(Sales)" hasTable="N" invoiceItemTypeId="ITM_SURCHARGE_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
     <InvoiceItemType description="Invoice Item Additional Feature(Sales)" hasTable="N" invoiceItemTypeId="ITM_ADD_FEATURE" parentTypeId="SINVOICE_ITM_ADJ"/>
     <InvoiceItemType description="Invoice Item Warranty(Sales)" hasTable="N" invoiceItemTypeId="ITM_WARRANTY_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item VAT Tax(Sales)" hasTable="N" invoiceItemTypeId="ITM_VAT_TAX" parentTypeId="SINVOICE_ITM_ADJ"/>
 
     <InvoiceItemType description="Invoice Product Item(Sales)" hasTable="N" invoiceItemTypeId="INV_PROD_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Invoice Finished Good Item(Sales)" hasTable="N" invoiceItemTypeId="INV_FPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
@@ -562,7 +563,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SURCHARGE_ADJUSTMENT" invoiceItemTypeId="ITM_SURCHARGE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="ADDITIONAL_FEATURE" invoiceItemTypeId="ITM_ADD_FEATURE"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="WARRANTY_ADJUSTMENT" invoiceItemTypeId="ITM_WARRANTY_ADJ"/>
-
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="VAT_TAX" invoiceItemTypeId="ITM_VAT_TAX"/>
     <!-- orderItemTypeId -->
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="INVENTORY_ORDER_ITEM" invoiceItemTypeId="PINV_INVPRD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SUPPLIES_ORDER_ITEM" invoiceItemTypeId="PINV_SUPLPRD_ITEM"/>
