@@ -850,6 +850,15 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewProductAgreements"/>
     </request-map>
+    <request-map uri="CreateSalesAgreement">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateSalesAgreement"/>
+    </request-map>
+    <request-map uri="createSalesAgreement">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSalesAgreement"/>
+        <response name="success" type="view" value="ViewProductAgreements"/>
+    </request-map>
 
     <!-- ================ Product Costs Requests ================= -->
     <request-map uri="EditProductCosts">
@@ -3103,6 +3112,7 @@ under the License.
     <view-map name="EditProductAssoc" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAssoc"/>
     <view-map name="ViewProductManufacturing" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductManufacturing"/>
     <view-map name="ViewProductAgreements" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductAgreements"/>
+    <view-map name="CreateSalesAgreement" type="screen" page="component://product/widget/catalog/ProductScreens.xml#CreateSalesAgreement"/>
     <view-map name="EditProductCosts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductCosts"/>
 
     <view-map name="EditProductAttributes" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAttributes"/>

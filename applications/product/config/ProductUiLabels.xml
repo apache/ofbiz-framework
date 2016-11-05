@@ -78,6 +78,9 @@
         <value xml:lang="zh">新建产品特征类型</value>
         <value xml:lang="zh-TW">新建產品特色類型</value>
     </property>
+    <property key="CreateSalesAgreement">
+        <value xml:lang="en">Create Sales Agreement</value>
+    </property>
     <property key="FacilityActualShippingCharges">
         <value xml:lang="de">Aktuelle Lieferkosten</value>
         <value xml:lang="en">Actual shipping charges</value>
