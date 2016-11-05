@@ -79,4 +79,20 @@
         <description>Delete Addendum record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <!-- AgreementContentType services -->
+    <service name="createAgreementContentType" default-entity-name="AgreementContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create AgreementContentType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAgreementContentType" default-entity-name="AgreementContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update AgreementContentType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAgreementContentType" default-entity-name="AgreementContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete AgreementContentType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
