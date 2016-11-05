@@ -45,6 +45,9 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
+                                <container>
+                                  <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
+                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
