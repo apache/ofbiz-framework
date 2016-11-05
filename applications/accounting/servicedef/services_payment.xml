@@ -371,16 +371,6 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="createPaymentMethodType" engine="entity-auto" invoke="create" default-entity-name="PaymentMethodType" auth="true">
-        <description>Create a PaymentMethodType record</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deletePaymentMethodType" engine="entity-auto" invoke="delete" default-entity-name="PaymentMethodType" auth="true">
-        <description>Delete a PaymentMethodType record</description>
-        <auto-attributes include="pk" mode="IN"/>
-    </service>
-
     <service name="createPaymentType" engine="entity-auto" invoke="create" default-entity-name="PaymentType" auth="true">
         <description>Create a PaymentType record</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>

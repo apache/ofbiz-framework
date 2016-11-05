@@ -830,11 +830,20 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- Update updatePaymentMethodType -->
+    <!-- PaymentMethodType -->
+    <service name="createPaymentMethodType" engine="entity-auto" default-entity-name="PaymentMethodType" invoke="create" auth="true">
+        <description>Create a PaymentMethodType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="updatePaymentMethodType" default-entity-name="PaymentMethodType" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Payment Method Type</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePaymentMethodType" default-entity-name="PaymentMethodType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PaymentMethodType record</description>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
     <!-- Payment Group -->
