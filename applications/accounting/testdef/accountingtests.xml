@@ -52,4 +52,10 @@
     <test-case case-name="auto-accounting-finaccount-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgFinAccountTests.xml"/>
     </test-case>
+    <test-case case-name="auto-accounting-fixedasset-tests">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgFixedAssetTests.xml"/>
+    </test-case>
+    <test-case case-name="auto-accounting-invoice-tests">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgInvoiceTests.xml"/>
+    </test-case>
 </test-suite>

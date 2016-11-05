@@ -80,4 +80,15 @@ under the License.
     <!-- For Testing service setFinAccountTransStatus -->
     <FinAccount finAccountId="1005" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
     <FinAccountTransType finAccountTransId="1010" finAccountTransTypeId="ADJUSTMENT" finAccountId="1005" statusId="FINACT_TRNS_CREATED" />
+    !-- For Testing service cancelFixedAssetStdCost -->
+    <FixedAsset fixedAssetId="1000" fixedAssetTypeId="REAL_ESTATE" partyId="DEMO_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <FixedAssetStdCost fixedAssetId="1000" fixedAssetStdCostTypeId="SETUP_COST" fromDate="2016-11-03 00:00:00" amountUomId="USD" amount="1000.00"/>
+    <!-- For Testing service copyInvoice -->
+    <Invoice invoiceId="1000" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+    <Invoice invoiceId="1001" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+    <InvoiceItem invoiceId="1001" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FXASTPRD_ITEM"/>
+    <Invoice invoiceId="1002" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+    <!-- For Testing service setInvoiceStatus -->
+    <Invoice invoiceId="1002" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+
 </entity-engine-xml>

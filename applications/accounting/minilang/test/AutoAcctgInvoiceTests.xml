@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testCopyInvoice" short-description="Test case for service copyInvoice" login-required="false">
+        <set field="serviceCtx.invoiceIdToCopyFrom" value="1000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="copyInvoice" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <not><if-empty field="serviceResult.invoiceId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateInvoice" short-description="Test case for service createInvoice" login-required="false">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
+        <set field="serviceCtx.partyIdFrom" value="DEMO_COMPANY"/>
+        <set field="serviceCtx.partyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.invoiceDate"  from-field="nowTimestamp" />
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createInvoice" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <not><if-empty field="serviceResult.invoiceId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetInvoice" short-description="Test case for service getInvoice" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1001"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getInvoice" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult.invoice"/></not>
+            <not><if-empty field="serviceResult.invoiceItems"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testSetInvoiceStatus" short-description="Test case for service setInvoiceStatus" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1002"/>
+        <set field="serviceCtx.statusId" value="INVOICE_APPROVED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setInvoiceStatus" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <entity-one  entity-name="Invoice" value-field="invoice">
+            <field-map field-name="invoiceId" value="1002"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="invoice"/></not>
+            <if-compare operator="equals" value="INVOICE_APPROVED" field="invoice.statusId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyInvoiceToTemplate" short-description="Test case for service copyInvoiceToTemplate" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1002"/>
+        <set field="serviceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="copyInvoiceToTemplate" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <not><if-empty field="serviceResult.invoiceId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
