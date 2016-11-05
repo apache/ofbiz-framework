@@ -137,7 +137,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>        
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="contactListId" type="String" mode="INOUT" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
         <attribute name="baseLocation" type="String" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -149,7 +148,6 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="contactListId" type="String" mode="INOUT" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
         <attribute name="email" type="String" mode="IN" optional="true"/>
         <attribute name="baseLocation" type="String" mode="IN" optional="true"/>
