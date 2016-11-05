@@ -61,5 +61,83 @@ under the License.
         <call-service service-name="updateCustRequest" in-map-name="updateRequestMap"/>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testCreateCustRequestItem" short-description="Create Cust Request Item" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <call-service service-name="createCustRequestItem" in-map-name="serviceCtx">
+            <results-to-map map-name="custRequestId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="custRequestId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestItemNote" short-description="Create Cust Request Item Note" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="00001"/
+        <set field="serviceCtx.noteInfo" value="Test"/>
+        <call-service service-name="createCustRequestNote" in-map-name="serviceCtx">
+            <results-to-map map-name="noteId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="noteId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestNote" short-description="Create Cust Request Note" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.noteInfo" value="Test"/>
+        <call-service service-name="createCustRequestNote" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <if-compare operator="equals" field="serviceResult.fromPartyId" value="DemoCustomer"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestParty" short-description="Create Cust Request Party" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.partyId" value="Company"/>
+        <set field="serviceCtx.roleTypeId" value="OWNER"/>
+        <call-service service-name="createCustRequestParty" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateCustRequestStatus" short-description="Create Cust Request Status" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="00001"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="createCustRequestStatus" in-map-name="serviceCtx">
+            <results-to-map map-name="custRequestStatusId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="custRequestStatusId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
 
 </simple-methods>
