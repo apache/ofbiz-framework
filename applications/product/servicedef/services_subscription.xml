@@ -124,13 +124,23 @@ under the License.
         <description>Creates or updates Subscription record</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <service name="createSubscriptionAttribute" default-entity-name="SubscriptionAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SubscriptionAttribute</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
     <service name="updateSubscriptionAttribute" default-entity-name="SubscriptionAttribute" auth="true" engine="simple"
-        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
+             location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
         <description>Create (when not exist) or update (when exist) a Subscription attribute</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
         <attribute name="subscriptionId" type="String" mode="INOUT" optional="false"/>
         <attribute name="attrName" type="String" mode="IN" optional="false"/>
         <attribute name="attrValue" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSubscriptionAttribute" default-entity-name="SubscriptionAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SubscriptionAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createSubscriptionCommEvent" default-entity-name="SubscriptionCommEvent" engine="entity-auto" invoke="create" auth="true">
@@ -161,5 +171,53 @@ under the License.
         <description>A dummy service to test subscription expiration, expected to change depending upon the specific service logic that providers will write. 
             See https://issues.apache.org/jira/browse/OFBIZ-5333 for more information</description>
         <attribute name="subscriptionId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SubscriptionActivity services -->
+    <service name="createSubscriptionActivity" default-entity-name="SubscriptionActivity" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SubscriptionActivity</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateSubscriptionActivity" default-entity-name="SubscriptionActivity" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SubscriptionActivity</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSubscriptionActivity" default-entity-name="SubscriptionActivity" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SubscriptionActivity</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SubscriptionType services -->
+    <service name="createSubscriptionType" default-entity-name="SubscriptionType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SubscriptionType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateSubscriptionType" default-entity-name="SubscriptionType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SubscriptionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSubscriptionType" default-entity-name="SubscriptionType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SubscriptionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SubscriptionTypeAttr services -->
+    <service name="createSubscriptionTypeAttr" default-entity-name="SubscriptionTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SubscriptionTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateSubscriptionTypeAttr" default-entity-name="SubscriptionTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SubscriptionTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSubscriptionTypeAttr" default-entity-name="SubscriptionTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SubscriptionTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>

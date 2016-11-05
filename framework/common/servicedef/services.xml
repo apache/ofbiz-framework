@@ -909,4 +909,35 @@ under the License.
         <description>Delete UomGroup record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <!-- StatusValidChange services -->
+    <service name="createStatusValidChange" default-entity-name="StatusValidChange" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a StatusValidChange</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateStatusValidChange" default-entity-name="StatusValidChange" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a StatusValidChange</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteStatusValidChange" default-entity-name="StatusValidChange" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a StatusValidChange</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createUom" engine="entity-auto" invoke="create" default-entity-name="Uom" auth="true">
+        <description>Create Uom Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUom" engine="entity-auto" invoke="update" default-entity-name="Uom" auth="true">
+        <description>Update Uom Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteUom" engine="entity-auto" invoke="delete" default-entity-name="Uom" auth="true">
+        <description>Delete Uom Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

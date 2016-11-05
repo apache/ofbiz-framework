@@ -207,4 +207,19 @@ under the License.
         <description>Delete a StatusType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createSequenceValueItem" default-entity-name="SequenceValueItem" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SequenceValueItem</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSequenceValueItem" default-entity-name="SequenceValueItem" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SequenceValueItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSequenceValueItem" default-entity-name="SequenceValueItem" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SequenceValueItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

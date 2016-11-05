@@ -312,4 +312,20 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
+    <!-- OrderContentType services -->
+    <service name="createOrderContentType" default-entity-name="OrderContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a OrderContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateOrderContentType" default-entity-name="OrderContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a OrderContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteOrderContentType" default-entity-name="OrderContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a OrderContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
