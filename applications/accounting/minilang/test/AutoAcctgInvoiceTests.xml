@@ -105,4 +105,98 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testCreateInvoiceItem" short-description="Test case for service createInvoiceItem" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1003"/>
+        <set field="serviceCtx.invoiceItemTypeId" value="PINV_FXASTPRD_ITEM"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createInvoiceItem" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <not><if-empty field="serviceResult.invoiceItemSeqId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateInvoiceStatus" short-description="Test case for service createInvoiceStatus" login-required="false">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceCtx.invoiceId" value="1004"/>
+        <set field="serviceCtx.statusId" value="INVOICE_IN_PROCESS"/>
+        <set field="serviceCtx.statusDate" from-field="nowTimestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createInvoiceStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="InvoiceStatus" value-field="invoiceStatus">
+            <field-map field-name="invoiceId" value="1004"/>
+            <field-map field-name="statusId" value="INVOICE_IN_PROCESS"/>
+            <field-map field-name="statusDate" from-field="nowTimestamp"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="invoiceStatus"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateInvoiceStatus" short-description="Test case for service createInvoiceRole" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1005"/>
+        <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
+        <set field="serviceCtx.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createInvoiceRole" in-map-name="serviceCtx"/>
+        <entity-one entity-name="InvoiceRole" value-field="invoiceRole">
+            <field-map field-name="invoiceId" value="1005"/>
+            <field-map field-name="partyId" value="DEMO_COMPANY"/>
+            <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="invoiceRole"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateInvoiceTerm" short-description="Test case for service createInvoiceTerm" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1006"/>
+        <set field="serviceCtx.invoiceItemSeqId" value="00001"/>
+        <set field="serviceCtx.termTypeId" value="FINANCIAL_TERM"/>
+        <set field="serviceCtx.termValue" value="50.00"/>
+        <set field="serviceCtx.termDays" value="10"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createInvoiceTerm" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <entity-one entity-name="InvoiceTerm" value-field="invoiceTerm">
+            <field-map field-name="invoiceTermId" from-field="serviceResult.invoiceTermId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="invoiceTerm"/></not>
+            <if-compare operator="equals" value="1006" field="invoiceTerm.invoiceId"></if-compare>
+            <if-compare operator="equals" value="00001" field="invoiceTerm.invoiceItemSeqId"></if-compare>
+            <if-compare operator="equals" value="50.00" field="invoiceTerm.termValue"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCancelInvoice" short-description="Test case for service cancelInvoice" login-required="false">
+        <set field="serviceCtx.invoiceId" value="1007"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="cancelInvoice" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <not><if-empty field="serviceResult.invoiceTypeId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
