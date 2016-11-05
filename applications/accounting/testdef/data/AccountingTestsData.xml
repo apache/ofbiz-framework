@@ -77,4 +77,7 @@ under the License.
     <!-- For Testing service updateFinAccountRole -->
     <FinAccount finAccountId="1004" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
     <FinAccountRole finAccountId="1004" partyId="DEMO_COMPANY" roleTypeId="SUPPLIER" fromDate="2016-11-03 00:00:00"/>
+    <!-- For Testing service setFinAccountTransStatus -->
+    <FinAccount finAccountId="1005" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+    <FinAccountTransType finAccountTransId="1010" finAccountTransTypeId="ADJUSTMENT" finAccountId="1005" statusId="FINACT_TRNS_CREATED" />
 </entity-engine-xml>

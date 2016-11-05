@@ -179,6 +179,47 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-
-
+    <simple-method method-name="testCreateFinAccountAuth" short-description="Test case for service createFinAccountAuth" login-required="false">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceCtx.finAccountId" value="1004"/>
+        <set field="serviceCtx.amount" value="100.00" type="BigDecimal"/>
+        <set field="serviceCtx.currencyUomId" value="USD" />
+        <set field="serviceCtx.authorizationDate" from-field="nowTimestamp"/>
+        <set field="serviceCtx.fromDate" from-field="nowTimestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createFinAccountAuth" in-map-name="serviceCtx">
+            <results-to-map map-name="finAccountAuthResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="finAccountAuthResult"/></not>
+            <not><if-empty field="finAccountAuthResult.finAccountAuthId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="setFinAccountTransStatus" short-description="Test case for service setFinAccountTransStatus" login-required="false">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceCtx.finAccountTransId" value="1010"/>
+        <set field="serviceCtx.statusId" value="FINACT_TRNS_APPROVED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin">
+            <results-to-map map-name="finAccountAuthResult"/>
+        </set>
+        <call-service service-name="setFinAccountTransStatus" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans">
+            <field-map field-name="finAccountTransId" value="1010"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="finAccountTrans"/></not>
+            <if-compare operator="equals" value="FINACT_TRNS_APPROVED" field="finAccountTrans.statusId"></if-compare>
+            <if-compare operator="equals" value="FINACT_TRNS_CREATED" field="serviceResult.oldStatusId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
