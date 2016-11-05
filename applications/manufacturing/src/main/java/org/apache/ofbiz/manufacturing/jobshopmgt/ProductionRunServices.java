@@ -1673,9 +1673,10 @@ public class ProductionRunServices {
         }
         // the inventory item unit cost is the product's standard cost
         BigDecimal unitCost = ZERO;
+        GenericValue facility = null;
         try {
             // get the currency
-            GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility", false);
+            facility = productionRun.getGenericValue().getRelatedOne("Facility", false);
             Map<String, Object> outputMap = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.<String, Object>toMap("userLogin", userLogin, "organizationPartyId", facility.getString("ownerPartyId")));
             GenericValue partyAccountingPreference = (GenericValue)outputMap.get("partyAccountingPreference");
             if (partyAccountingPreference == null) {
@@ -1686,6 +1687,18 @@ public class ProductionRunServices {
             if (unitCost == null) {
                 unitCost = ZERO;
             }
+            
+         // Before creating InvntoryItem and InventoryItemDetails, check weather the record of ProductFacility exist in the system or not
+            GenericValue productFacility = EntityQuery.use(delegator). from("ProductFacility").where("productId", productionRun.getProductProduced().getString("productId")
+            		, "facilityId", facility.get("facilityId")).queryOne();
+            
+            if (productFacility == null) {
+            	Map<String, Object> createProductFacilityCtx = new HashMap<String, Object>();
+            	createProductFacilityCtx.put("productId", productionRun.getProductProduced().getString("productId"));
+            	createProductFacilityCtx.put("facilityId", facility.get("facilityId"));
+            	createProductFacilityCtx.put("userLogin", userLogin);
+            	dispatcher.runSync("createProductFacility", createProductFacilityCtx);
+            }
 
         } catch (GenericServiceException gse) {
             Debug.logWarning(gse.getMessage(), module);
@@ -1694,7 +1707,7 @@ public class ProductionRunServices {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }
-
+        
         if ("SERIALIZED_INV_ITEM".equals(inventoryItemTypeId)) {
             try {
                 int numOfItems = quantity.intValue();
