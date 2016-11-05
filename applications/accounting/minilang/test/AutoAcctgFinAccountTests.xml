@@ -20,24 +20,79 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="testDeleteFinAccountRole" short-description="Test case for service deleteFinAccountRole" login-required="false">
-        <set field="serviceCtx.finAccountId" value="1004"/>
-        <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
-        <set field="serviceCtx.roleTypeId" value="SUPPLIER"/>
-        <set field="serviceCtx.fromDate" value="2016-11-03 00:00:00" type="Timestamp"/>
+    <simple-method method-name="testCreateFinAccount" short-description="Test case for service createFinAccount" login-required="false">
+        <set field="serviceCtx.finAccountId" value="1000"/>
+        <set field="serviceCtx.finAccountTypeId" value="BANK_ACCOUNT"/>
+        <set field="serviceCtx.finAccountName" value="Bank Account" />
+        <set field="serviceCtx.finAccountCode" value="1000"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="deleteFinAccountRole" in-map-name="serviceCtx"/>
+        <call-service service-name="createFinAccount" in-map-name="serviceCtx"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount">
+            <field-map field-name="finAccountId" value="1000"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="finAccount"/></not>
+            <if-compare operator="equals" value="BANK_ACCOUNT" field="finAccount.finAccountTypeId"></if-compare>
+            <if-compare operator="equals" value="1000" field="finAccount.finAccountCode"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateFinAccount" short-description="Test case for service updateFinAccount" login-required="false">
+        <set field="serviceCtx.finAccountId" value="1001"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY2"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateFinAccount" in-map-name="serviceCtx"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount">
+            <field-map field-name="finAccountId" value="1001"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="finAccount"/></not>
+            <if-compare operator="equals" value="DEMO_COMPANY2" field="finAccount.organizationPartyId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteFinAccount" short-description="Test case for service deleteFinAccount" login-required="false">
+        <set field="serviceCtx.finAccountId" value="1002"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteFinAccount" in-map-name="serviceCtx"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount">
+            <field-map field-name="finAccountId" value="1002"/>
+        </entity-one>
+        <assert>
+            <if-empty field="finAccount"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateFinAccountRole" short-description="Test case for service createFinAccountRole" login-required="false">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceCtx.finAccountId" value="1003"/>
+        <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
+        <set field="serviceCtx.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+        <set field="serviceCtx.fromDate" from-field="nowTimestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createFinAccountRole" in-map-name="serviceCtx"/>
         <entity-and list="finAccountRoles" entity-name="FinAccountRole">
-            <field-map field-name="finAccountId" value="1004"/>
+            <field-map field-name="finAccountId" value="1003"/>
             <field-map field-name="partyId" value="DEMO_COMPANY"/>
-            <field-map field-name="roleTypeId" value="SUPPLIER"/>
+            <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
         </entity-and>
         <first-from-list entry="finAccountRole" list="finAccountRoles"/>
         <assert>
-            <if-empty field="finAccountRole"/>
+            <not><if-empty field="finAccountRole"/></not>
         </assert>
         <check-errors/>
     </simple-method>
@@ -65,25 +120,24 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreateFinAccountRole" short-description="Test case for service createFinAccountRole" login-required="false">
-        <now-timestamp field="nowTimestamp"/>
-        <set field="serviceCtx.finAccountId" value="1003"/>
+    <simple-method method-name="testDeleteFinAccountRole" short-description="Test case for service deleteFinAccountRole" login-required="false">
+        <set field="serviceCtx.finAccountId" value="1004"/>
         <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
-        <set field="serviceCtx.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-        <set field="serviceCtx.fromDate" from-field="nowTimestamp"/>
+        <set field="serviceCtx.roleTypeId" value="SUPPLIER"/>
+        <set field="serviceCtx.fromDate" value="2016-11-03 00:00:00" type="Timestamp"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createFinAccountRole" in-map-name="serviceCtx"/>
+        <call-service service-name="deleteFinAccountRole" in-map-name="serviceCtx"/>
         <entity-and list="finAccountRoles" entity-name="FinAccountRole">
-            <field-map field-name="finAccountId" value="1003"/>
+            <field-map field-name="finAccountId" value="1004"/>
             <field-map field-name="partyId" value="DEMO_COMPANY"/>
-            <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            <field-map field-name="roleTypeId" value="SUPPLIER"/>
         </entity-and>
         <first-from-list entry="finAccountRole" list="finAccountRoles"/>
         <assert>
-            <not><if-empty field="finAccountRole"/></not>
+            <if-empty field="finAccountRole"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -125,58 +179,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testDeleteFinAccount" short-description="Test case for service deleteFinAccount" login-required="false">
-        <set field="serviceCtx.finAccountId" value="1002"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="deleteFinAccount" in-map-name="serviceCtx"/>
-        <entity-one entity-name="FinAccount" value-field="finAccount">
-            <field-map field-name="finAccountId" value="1002"/>
-        </entity-one>
-        <assert>
-            <if-empty field="finAccount"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
-    <simple-method method-name="testUpdateFinAccount" short-description="Test case for service updateFinAccount" login-required="false">
-        <set field="serviceCtx.finAccountId" value="1001"/>
-        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY2"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="updateFinAccount" in-map-name="serviceCtx"/>
-        <entity-one entity-name="FinAccount" value-field="finAccount">
-            <field-map field-name="finAccountId" value="1001"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="finAccount"/></not>
-            <if-compare operator="equals" value="DEMO_COMPANY2" field="finAccount.organizationPartyId"></if-compare>
-        </assert>
-        <check-errors/>
-    </simple-method>
-    <simple-method method-name="testCreateFinAccount" short-description="Test case for service createFinAccount" login-required="false">
-        <set field="serviceCtx.finAccountId" value="1000"/>
-        <set field="serviceCtx.finAccountTypeId" value="BANK_ACCOUNT"/>
-        <set field="serviceCtx.finAccountName" value="Bank Account" />
-        <set field="serviceCtx.finAccountCode" value="1000"/>
-        <set field="serviceCtx.currencyUomId" value="USD"/>
-        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY"/>
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createFinAccount" in-map-name="serviceCtx"/>
-        <entity-one entity-name="FinAccount" value-field="finAccount">
-            <field-map field-name="finAccountId" value="1000"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="finAccount"/></not>
-            <if-compare operator="equals" value="BANK_ACCOUNT" field="finAccount.finAccountTypeId"></if-compare>
-            <if-compare operator="equals" value="1000" field="finAccount.finAccountCode"></if-compare>
-        </assert>
-        <check-errors/>
-    </simple-method>
+
+
 </simple-methods>
