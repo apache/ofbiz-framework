@@ -43,7 +43,7 @@ under the License.
     <service name="getRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
         location="component://accounting/minilang/rate/RateServices.xml" invoke="getRateAmount">
         <description>Get Rate Amount</description>
-        <permission-service service-name="acctgBasePermissionCheck" main-action="READ"/>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="level" type="String" mode="OUT" optional="true"/><!-- the level the amount was retrieved from(specific -> general): workEffort, party, emplPositionType, rateType or 'null' if not found-->
         <attribute name="rateAmount" type="BigDecimal" mode="OUT" optional="true"/>
@@ -55,7 +55,7 @@ under the License.
     <service name="getRatesAmountsFromWorkEffortId" default-entity-name="RateAmount" engine="simple" auth="true"
              location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromWorkEffortId">
         <description>Get all Rates Amounts for a given workEffortId</description>
-        <permission-service service-name="acctgBasePermissionCheck" main-action="READ"/>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
@@ -66,7 +66,7 @@ under the License.
     <service name="getRatesAmountsFromPartyId" default-entity-name="RateAmount" engine="simple" auth="true"
              location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromPartyId">
         <description>Get all Rates Amounts for a given partyId</description>
-        <permission-service service-name="acctgBasePermissionCheck" main-action="READ"/>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
@@ -77,7 +77,7 @@ under the License.
     <service name="getRatesAmountsFromEmplPositionTypeId" default-entity-name="RateAmount" engine="simple" auth="true"
              location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromEmplPositionTypeId">
         <description>Get all Rates Amounts for a given emplPositionTypeId</description>
-        <permission-service service-name="acctgBasePermissionCheck" main-action="READ"/>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
