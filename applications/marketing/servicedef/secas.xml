@@ -47,7 +47,7 @@ under the License.
     <!--  update contact list communication status -->
     <eca service="updateCommunicationEvent" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action mode="sync" service="updateCommStatusFromCommEvent"/>
+        <action service="updateCommStatusFromCommEvent" mode="sync"/>
     </eca>
     
     <!--  update contact list party for bounced messages -->

@@ -31,6 +31,6 @@ under the License.
             complete before the xml assertion test is run -->
     <eca service="testServiceEcaGlobalEventExec" event="return">
         <set field-name="duration" value="5000" format="long"/>
-        <action mode="sync" service="blockingTestScv"/>
+        <action service="blockingTestScv" mode="sync"/>
     </eca>
 </service-eca>

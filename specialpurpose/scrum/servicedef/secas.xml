@@ -23,52 +23,52 @@ under the License.
     <eca service="updateWorkEffort" event="commit">
         <condition field-name="currentStatusId" operator="equals" value="STS_COMPLETED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoCompleteBacklog"/>
+        <action service="autoCompleteBacklog" mode="sync"/>
     </eca>
     <eca service="createWorkEffort" event="commit">
         <condition field-name="currentStatusId" operator="equals" value="SPRINT_ACTIVE"/>
         <set field-name="sprintId" env-name="workEffortId"/>
         <set field-name="sprintStatusId" env-name="currentStatusId"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="updateWorkEffort" event="commit">
         <condition field-name="currentStatusId" operator="equals" value="SPRINT_CLOSED"/>
         <set field-name="sprintId" env-name="workEffortId"/>
         <set field-name="sprintStatusId" env-name="currentStatusId"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="createCustRequest" event="commit">
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
         <set field-name="custRequestStatusId" value="CRQ_ACCEPTED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="equals" value="CRQ_REVIEWED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
         <set field-name="custRequestStatusId" value="CRQ_ACCEPTED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
         <set field-name="custRequestStatusId" value="CRQ_REVIEWED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
         <set field-name="custRequestStatusId" value="CRQ_COMPLETED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
         <set field-name="custRequestStatusId" value="CRQ_CANCELLED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
-        <action mode="sync" service="autoScrumNotification"/>
+        <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <!-- when a communication event is created check the subject for a PD# string, if found link the email to the certain product-->
     <eca service="createCommunicationEvent" event="commit">

@@ -23,20 +23,20 @@ under the License.
     <eca service="createEbayProductStorePref" event="commit">
         <condition field-name="enabled" operator="equals" value="Y"/>
         <condition field-name="serviceName" operator="is-not-empty"/>
-        <action mode="sync" service="startEbayAutoPreference"/>
+        <action service="startEbayAutoPreference" mode="sync"/>
     </eca>
     <eca service="updateEbayProductStorePref" event="commit">
         <condition field-name="enabled" operator="equals" value="Y"/>
         <condition field-name="serviceName" operator="is-not-empty"/>
-        <action mode="sync" service="startEbayAutoPreference"/>
+        <action service="startEbayAutoPreference" mode="sync"/>
     </eca>
     <eca service="createEbayProductStorePref" event="commit">
         <condition field-name="enabled" operator="equals" value="N"/>
         <condition field-name="serviceName" operator="is-not-empty"/>
-        <action mode="sync" service="stopEbayAutoPreference"/>
+        <action service="stopEbayAutoPreference" mode="sync"/>
     </eca>
     <eca service="updateEbayProductStorePref" event="commit">
         <condition field-name="enabled" operator="equals" value="N"/>
-        <action mode="sync" service="stopEbayAutoPreference"/>
+        <action service="stopEbayAutoPreference" mode="sync"/>
     </eca>
 </service-eca>
