@@ -436,7 +436,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         }
         // NOTE: nothing here to maintain the status history, that should be done with a custom service called by SECA rule
 
-        lookedUpValue.setNonPKFields(parameters, true);
+        lookedUpValue.setNonPKFields(parameters, false);
         if (modelEntity.getField("lastModifiedDate") != null
                 || modelEntity.getField("changedDate") != null) {
             if (modelEntity.getField("lastModifiedDate") != null) {
