@@ -344,6 +344,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="deleteProductStoreGroupRollup" default-entity-name="ProductStoreGroupRollup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreGroupRollup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="checkProductStoreGroupRollup" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="checkProductStoreGroupRollup" auth="true">
         <description>Check if a productStoreGroupId with a primaryParentGroupId has related productStoreGroupRollup or for first ProductStoreGroupRollup on a ProductStoreGroup set relation on primaryParentGroupId</description>
@@ -365,10 +369,6 @@ under the License.
     </service>
     <service name="deleteProductStoreGroupRole" default-entity-name="ProductStoreGroupRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductStoreGroupRole</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="deleteProductStoreGroupRollup" default-entity-name="ProductStoreGroupRollup" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a ProductStoreGroupRollup</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
