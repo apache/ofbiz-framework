@@ -1114,32 +1114,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- ShipmentContactMech services -->
-    <simple-method method-name="createShipmentContactMech" short-description="Create ShipmentContactMech">
-        <make-value value-field="newEntity" entity-name="ShipmentContactMech"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateShipmentContactMech" short-description="Update ShipmentContactMech">
-        <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteShipmentContactMech" short-description="Delete ShipmentContactMech">
-        <set value="Delete ShipmentContactMech" field="operationName"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- ShipmentRouteSegment services -->
     <simple-method method-name="createShipmentRouteSegment" short-description="Create ShipmentRouteSegment">
         <set value="Create ShipmentRouteSegment" field="operationName"/>

@@ -336,22 +336,19 @@ under the License.
     </service>
 
     <!-- ShipmentContactMech Services -->
-    <service name="createShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentContactMech" auth="true">
+    <service name="createShipmentContactMech" default-entity-name="ShipmentContactMech" engine="entity-auto" invoke="create" auth="true">
         <description>Create ShipmentContactMech</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentContactMech" auth="true">
+    <service name="updateShipmentContactMech" default-entity-name="ShipmentContactMech" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentContactMech</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentContactMech" auth="true">
+    <service name="deleteShipmentContactMech" default-entity-name="ShipmentContactMech" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ShipmentContactMech</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
