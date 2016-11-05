@@ -457,7 +457,9 @@ public class EbayStoreHelper {
                 }
             }
             result = ServiceUtil.returnSuccess();
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
@@ -694,6 +696,8 @@ public class EbayStoreHelper {
                 }
             }
         }
+    } catch (GenericEntityException gee) {
+        return ServiceUtil.returnError(gee.getMessage());
     } catch (Exception e) {
         return ServiceUtil.returnError(e.getMessage());
     }

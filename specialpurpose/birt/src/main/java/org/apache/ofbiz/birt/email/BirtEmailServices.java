@@ -48,6 +48,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
@@ -257,7 +258,7 @@ public class BirtEmailServices {
             } else {
                 dispatcher.runSync("sendMail", serviceContext);
             }
-        } catch (Exception e) {
+        } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resource, "BirtErrorInSendingEmail", UtilMisc.toMap("errorString", e.toString()), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);

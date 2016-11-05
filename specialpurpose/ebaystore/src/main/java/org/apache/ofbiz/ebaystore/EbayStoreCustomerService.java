@@ -142,6 +142,8 @@ public class EbayStoreCustomerService {
             result.put("email", email);
             result.put("itemName", itemName);
             result.put("quantity", quantity);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreErrorFromUpdateContactStatus", locale) + e);
         }
@@ -162,6 +164,8 @@ public class EbayStoreCustomerService {
             GenericValue ebayUserBestOffer = EntityQuery.use(delegator).from("EbayUserBestOffer").where("itemId", itemId, "userId", userId).queryOne();
             ebayUserBestOffer.remove();
             result.put("productStoreId", productStoreId);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreErrorFromDeleteContactStatus", locale) + e);
         }

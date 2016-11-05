@@ -47,6 +47,7 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.apache.ofbiz.party.party.PartyWorker;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
@@ -65,7 +66,7 @@ public class EbayStoreOrder {
                 }
                 result = dispatcher.runSync("EbayStoreCreateTransactionShoppingCart", context);
             }
-        } catch (Exception e) {
+        } catch (GenericServiceException e) {
             result = ServiceUtil.returnFailure(e.getMessage());
         }
         result.put("productStoreId", context.get("productStoreId").toString());
@@ -78,7 +79,7 @@ public class EbayStoreOrder {
         if (UtilValidate.isEmpty(context.get("orderId"))) {
             try {
                 result = dispatcher.runSync("EbayStoreCreateOrderShoppingCart", context);
-            } catch (Exception e) {
+            } catch (GenericServiceException e) {
                 result = ServiceUtil.returnFailure(e.getMessage());
             }
         }

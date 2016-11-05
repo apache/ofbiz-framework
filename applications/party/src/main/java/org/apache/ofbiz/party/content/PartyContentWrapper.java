@@ -99,6 +99,12 @@ public class PartyContentWrapper implements ContentWrapper {
     public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
+        } catch (GeneralException ge) {
+            Debug.logError(ge, module);
+            return null;
+        } catch (IOException ioe) {
+            Debug.logError(ioe, module);
+            return null;
         } catch (Exception e) {
             Debug.logError(e, module);
             return null;

@@ -39,6 +39,7 @@ import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.webapp.WebAppUtil;
@@ -127,6 +128,8 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
                     url = mountPoint + url;
                 }
             }
+        } catch (GenericEntityException gee) {
+            Debug.logWarning("[Exception] : " + gee.getMessage(), module);
         } catch (Exception e) {
             Debug.logWarning("[Exception] : " + e.getMessage(), module);
         }

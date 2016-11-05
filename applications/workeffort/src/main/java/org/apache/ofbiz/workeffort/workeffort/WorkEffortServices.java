@@ -1039,7 +1039,7 @@ public class WorkEffortServices {
                 Map<String, Object> emailCtx = UtilMisc.toMap("emailTemplateSettingId", "WEFF_EVENT_REMINDER", "sendTo", toAddress, "bodyParameters", parameters);
                 try {
                     dispatcher.runAsync("sendMailFromTemplateSetting", emailCtx);
-                } catch (Exception e) {
+                } catch (GenericServiceException e) {
                     Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
                 }
             } else {

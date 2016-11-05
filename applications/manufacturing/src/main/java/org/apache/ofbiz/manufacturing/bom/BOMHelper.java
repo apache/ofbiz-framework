@@ -29,6 +29,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 /** Helper class containing static method useful when dealing
@@ -151,6 +152,10 @@ public final class BOMHelper {
             }
             dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId", shipmentId, "userLogin", userLogin));
         }
+        } catch (GenericEntityException gee) {
+            Debug.logWarning(gee, module);
+        } catch (GenericServiceException gse) {
+            Debug.logWarning(gse, module);
         } catch (Exception e) {
             // if there is an exception for either, the other probably wont work
             Debug.logWarning(e, module);

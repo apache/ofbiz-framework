@@ -111,7 +111,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         String dataResourceId = null;
         try {
             dataResourceId = (String) view.get("drDataResourceId");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             dataResourceId = (String) view.get("dataResourceId");
         }
         String subContentIdSub = (String) view.get("contentId");
@@ -120,7 +120,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         if (UtilValidate.isEmpty(subDataResourceTypeId)) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 // view may be "Content"
             }
             // TODO: If this value is still empty then it is probably necessary to get a value from

@@ -35,6 +35,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.techdata.TechDataServices;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 
@@ -424,6 +425,8 @@ public class ProductionRun {
                     Map<String, Object> resultService = dispatcher.runSync(serviceName, serviceContext);
                     totalTaskTime = ((BigDecimal)resultService.get("totalTime")).doubleValue();
                 }
+            } catch (GenericServiceException exc) {
+                Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             } catch (Exception exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }

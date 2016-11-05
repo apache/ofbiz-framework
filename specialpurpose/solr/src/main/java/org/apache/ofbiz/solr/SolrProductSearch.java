@@ -96,6 +96,12 @@ public abstract class SolrProductSearch {
                 else {
                     result = ServiceUtil.returnSuccess();
                 }
+            } catch (GenericEntityException gee) {
+                Debug.logError(gee, gee.getMessage(), module);
+                result = ServiceUtil.returnError(gee.toString());
+            } catch (GenericServiceException gse) {
+                Debug.logError(gse, gse.getMessage(), module);
+                result = ServiceUtil.returnError(gse.toString());
             } catch (Exception e) {
                 Debug.logError(e, e.getMessage(), module);
                 result = ServiceUtil.returnError(e.toString());

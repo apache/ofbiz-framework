@@ -1089,6 +1089,10 @@ public class EbayEvents {
                 updateQuantityInventoryProduct(itemObj, productStoreId, locale, delegator, dispatcher, userLogin);
                 dispatcher.runSync("exportProductEachItem", UtilMisc.toMap("itemObject", itemObj));
             }
+        } catch (GenericServiceException gse) {
+            Debug.logError(e.getMessage(), module);
+            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(gse.getMessage()));
+            return "error";
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
             request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));

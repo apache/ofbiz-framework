@@ -156,6 +156,12 @@ public class ProductionRunServices {
                         }
                     }
                 }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Problem accessing WorkEffortGoodStandard entity", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem calling the updateWorkEffort service", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
             } catch (Exception e) {
                 Debug.logError(e, "Problem calling the updateWorkEffort service", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
@@ -839,6 +845,10 @@ public class ProductionRunServices {
                         serviceContext.put("userLogin", userLogin);
                         dispatcher.runSync("issueProductionRunTask", serviceContext);
                     }
+                } catch (GenericServiceException e) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+                } catch (GenericEntityException e) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 } catch (Exception e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 }
@@ -951,6 +961,8 @@ public class ProductionRunServices {
                             dispatcher.runSync("createCostComponent", inMap);
                         }
                     }
+                } catch(GenericServiceException gse) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToFindOverheadCosts", UtilMisc.toMap("errorString", gse.getMessage()), locale));
                 } catch(Exception e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToFindOverheadCosts", UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
@@ -1025,6 +1037,10 @@ public class ProductionRunServices {
                 totalCost = totalCost.add(taskCost);
             }
             result.put("totalCost", totalCost);
+        } catch (GenericEntityException exc) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToFindCosts", locale) + " " + workEffortId + " " + exc.getMessage());
+        } catch (GenericServiceException exc) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToFindCosts", locale) + " " + workEffortId + " " + exc.getMessage());
         } catch (Exception exc) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToFindCosts", locale) + " " + workEffortId + " " + exc.getMessage());
         }
@@ -1141,6 +1157,10 @@ public class ProductionRunServices {
                     dispatcher.runSync("createCostComponent", inMap);
                 }
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gee.getMessage()), locale));
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gse.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", e.getMessage()), locale));
         }
@@ -1171,6 +1191,10 @@ public class ProductionRunServices {
                 inMap.put("cost", materialsCost);
                 dispatcher.runSync("createCostComponent", inMap);
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gee.getMessage()), locale));
+        } catch (GenericServiceException gse) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gse.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", e.getMessage()), locale));
         }
@@ -1663,6 +1687,9 @@ public class ProductionRunServices {
                 unitCost = ZERO;
             }
 
+        } catch (GenericServiceException gse) {
+            Debug.logWarning(gse.getMessage(), module);
+            return ServiceUtil.returnError(gse.getMessage());
         } catch (Exception e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1707,6 +1734,8 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 }
+            } catch (GenericServiceException exc) {
+                return ServiceUtil.returnError(exc.getMessage());
             } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
@@ -1750,6 +1779,8 @@ public class ProductionRunServices {
                     serviceContext.put("priorityOrderItemSeqId", orderItem.getString("orderItemSeqId"));
                 }
                 resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
+            } catch (GenericServiceException exc) {
+                return ServiceUtil.returnError(exc.getMessage());
             } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
@@ -1909,6 +1940,8 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 }
+            } catch (GenericServiceException exc) {
+                return ServiceUtil.returnError(exc.getMessage());
             } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
@@ -1949,6 +1982,8 @@ public class ProductionRunServices {
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
+            } catch (GenericServiceException exc) {
+                return ServiceUtil.returnError(exc.getMessage());
             } catch (Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
@@ -2178,6 +2213,8 @@ public class ProductionRunServices {
             serviceContext.put("quantityRejected", totalQuantityRejected);
             serviceContext.put("userLogin", userLogin);
             dispatcher.runSync("updateWorkEffort", serviceContext);
+        } catch (GenericServiceException exc) {
+            return ServiceUtil.returnError(exc.getMessage());
         } catch (Exception exc) {
             return ServiceUtil.returnError(exc.getMessage());
         }
@@ -2741,6 +2778,12 @@ public class ProductionRunServices {
                 }
                 serviceContext.clear();
             }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem accessing the WorkEffort entity", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem calling the changeProductionRunTaskStatus service", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
         } catch (Exception e) {
             Debug.logError(e, "Problem calling the changeProductionRunTaskStatus service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
@@ -2968,6 +3011,12 @@ public class ProductionRunServices {
                                                     "userLogin", userLogin);
                 dispatcher.runSync("decomposeInventoryItem", serviceContext);
             }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem accessing the InventoryItem entity", module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem calling the checkDecomposeInventoryItem service", module);
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             Debug.logError(e, "Problem calling the checkDecomposeInventoryItem service", module);
             return ServiceUtil.returnError(e.getMessage());

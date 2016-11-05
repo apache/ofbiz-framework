@@ -221,6 +221,9 @@ public class EbayHelper {
                     }
                 }
             } 
+        } catch (GenericEntityException gee) {
+            Debug.logError(gee, "Cannot get payment preferences for order #" + orderId, module);
+            return false;
         } catch (Exception e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;
@@ -256,7 +259,10 @@ public class EbayHelper {
                 return false;
             }
             return true;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Failed to create the payment for order " + orderId, module);
+            return false;
+        } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to create the payment for order " + orderId, module);
             return false;
         }
@@ -312,6 +318,8 @@ public class EbayHelper {
                 partyId = (String) summaryResult.get("partyId");
                 Debug.logVerbose("Created Customer Party: " + partyId, module);
             }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Failed to createPerson", module);
         } catch (Exception e) {
             Debug.logError(e, "Failed to createPerson", module);
         }
@@ -402,7 +410,7 @@ public class EbayHelper {
             context.put("contactMechPurposeTypeId", "PHONE_SHIPPING");
             summaryResult = dispatcher.runSync("createPartyTelecomNumber", context);
             phoneContactMechId = (String) summaryResult.get("contactMechId");
-        } catch (Exception e) {
+        } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to createPartyPhone", module);
         }
         return phoneContactMechId;
@@ -429,7 +437,7 @@ public class EbayHelper {
                 context.put("userLogin", userLogin);
                 summaryResult = dispatcher.runSync("createPartyContactMech", context);
             }
-        } catch (Exception e) {
+        } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to createPartyEmail", module);
         }
         return emailContactMechId;
@@ -446,7 +454,7 @@ public class EbayHelper {
                 context.put("attrValue", eias);
                 context.put("userLogin", userLogin);
                 summaryResult = dispatcher.runSync("createPartyAttribute", context);
-            } catch (Exception e) {
+            } catch (GenericServiceException e) {
                 Debug.logError(e, "Failed to create eBay EIAS party attribute");
             }
             context.clear();
@@ -459,7 +467,7 @@ public class EbayHelper {
                 context.put("attrValue", ebayUserIdBuyer);
                 context.put("userLogin", userLogin);
                 summaryResult = dispatcher.runSync("createPartyAttribute", context);
-            } catch (Exception e) {
+            } catch (GenericServiceException e) {
                 Debug.logError(e, "Failed to create eBay userId party attribute");
             }
         }
@@ -482,7 +490,7 @@ public class EbayHelper {
                 delegator.create(geo);
                 Debug.logInfo("Creating new geo entity: " + geo, module);
             }
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failed to find/setup geo id";
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
@@ -590,7 +598,7 @@ public class EbayHelper {
                         .equals((phoneNumber.get("contactNumber").toString()))) {
                     return contactMechId;
                 }
-            } catch (Exception e) {
+            } catch (GenericEntityException e) {
                 Debug.logError("Problem with verifying phone number for contactMechId " + contactMechId + ".", module);
             }
         }
