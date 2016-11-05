@@ -53,7 +53,7 @@
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
-        <set-nonpk-fields map="parameters" value-field="content"/>
+        <set-nonpk-fields map="parameters" value-field="content" set-if-null="false"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -116,7 +116,7 @@
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <set field="contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
         <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
-        <set-nonpk-fields map="parameters" value-field="assoc"/>
+        <set-nonpk-fields map="parameters" value-field="assoc" set-if-null="false"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -578,7 +578,7 @@
                 <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForUpdate"/>
             </add-error>
         </if-empty>
-        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc"/>
+        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc" set-if-null="false"/>
         <store-value value-field="commEventContentAssoc"/>
     </simple-method>
 

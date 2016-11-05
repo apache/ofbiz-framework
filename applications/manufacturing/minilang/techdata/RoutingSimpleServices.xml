@@ -57,7 +57,7 @@ under the License.
         <make-value entity-name="TechDataCalendar" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendar" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -114,7 +114,7 @@ under the License.
         <make-value entity-name="TechDataCalendarWeek" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarWeek" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -171,7 +171,7 @@ under the License.
         <make-value entity-name="TechDataCalendarExcDay" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcDay" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -212,7 +212,7 @@ under the License.
         <make-value entity-name="TechDataCalendarExcWeek" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcWeek" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 

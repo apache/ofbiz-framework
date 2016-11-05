@@ -49,7 +49,7 @@ under the License.
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
         </if-empty>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitation" short-description="Remove a PartyInvitation">

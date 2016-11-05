@@ -31,8 +31,7 @@ under the License.
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCarrierShipmentMethod" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateCarrierShipmentMethod" auth="true">
+    <service name="updateCarrierShipmentMethod" engine="entity-auto" default-entity-name="CarrierShipmentMethod" invoke="update" auth="true">
         <description>Updates A CarrierShipmentMethod</description>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
@@ -321,8 +320,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageRouteSeg" auth="true">
+    <service name="updateShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="entity-auto" invoke="update" auth="true">
         <description>Update ShipmentPackageRouteSeg</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -899,8 +897,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateQuantityBreak" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateQuantityBreak" auth="true">
+    <service name="updateQuantityBreak" engine="entity-auto" invoke="update" default-entity-name="QuantityBreak" auth="true">
         <description>Update a QuantityBreak</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>

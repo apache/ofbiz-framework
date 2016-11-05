@@ -232,7 +232,7 @@ under the License.
         <!-- only try to update content if the status is in process.... -->
         <if-compare field="lookedUpValue.statusId" operator="equals" value="INVOICE_IN_PROCESS">
             <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
-            <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+            <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
             <!-- only save if something has changed, do not update status here -->
             <set from-field="savedValue.statusId" field="lookedUpValue.statusId"/>  <!-- get old status back -->
@@ -313,7 +313,7 @@ under the License.
         <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
 
         <!-- set all parameters -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <!-- check if the productNumber is updated, when yes retrieve product description and price -->
         <if-not-empty field="productId">
@@ -964,7 +964,7 @@ under the License.
         <make-value entity-name="InvoiceContent" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
 
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>

@@ -126,7 +126,7 @@ under the License.
         <check-errors/>
 
         <set field="statusIdSave" from-field="payment.statusId"/><!-- do not allow status change here -->
-        <set-nonpk-fields map="parameters" value-field="payment"/>
+        <set-nonpk-fields map="parameters" value-field="payment" set-if-null="false"/>
         <set field="payment.statusId" from-field="statusIdSave"/><!-- do not allow status change here -->
 
         <if-empty field="payment.effectiveDate">
@@ -1183,7 +1183,7 @@ under the License.
         <make-value entity-name="PaymentContent" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
 
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>

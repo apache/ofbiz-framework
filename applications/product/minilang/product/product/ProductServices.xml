@@ -100,7 +100,7 @@ under the License.
         <entity-one entity-name="Product" value-field="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <set from-field="lookedUpValue.primaryProductCategoryId" field="saveIdMap.primaryProductCategoryId"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
@@ -489,7 +489,7 @@ under the License.
         <make-value entity-name="ProductReview" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.productId" field="productId"/>
@@ -799,7 +799,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -824,7 +824,7 @@ under the License.
 
     <simple-method method-name="updateProductGroupOrder" short-description="Update ProductGroupOrder">
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
-        <set-nonpk-fields map="parameters" value-field="productGroupOrder"/>
+        <set-nonpk-fields map="parameters" value-field="productGroupOrder" set-if-null="false"/>
         <store-value value-field="productGroupOrder"/>
         
         <if-compare field="productGroupOrder.statusId" operator="equals" value="GO_CREATED">

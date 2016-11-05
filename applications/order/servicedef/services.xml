@@ -1112,8 +1112,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="quoteItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteTerm">
+    <service name="updateQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="update">
         <description>
             Edit the Quate term.
         </description>

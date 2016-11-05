@@ -87,7 +87,7 @@ under the License.
         <set from-field="parameters.productStoreId" field="lookupPKMap.productStoreId"/>
         <find-by-primary-key entity-name="ProductStore" map="lookupPKMap" value-field="store"/>
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
-        <set-nonpk-fields map="parameters" value-field="store"/>
+        <set-nonpk-fields map="parameters" value-field="store" set-if-null="false"/>
 
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="store.vatTaxAuthGeoId">

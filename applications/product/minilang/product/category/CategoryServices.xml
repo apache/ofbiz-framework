@@ -84,7 +84,7 @@ under the License.
         <entity-one entity-name="ProductCategory" value-field="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
         <store-value value-field="lookedUpValue"/>
 
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
@@ -591,7 +591,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductCategoryAttribute" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap" set-if-null="false"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map="parameters" value-field="ProductCategoryAttributeInstance"/>
         <store-value value-field="ProductCategoryAttributeInstance"/>
@@ -629,12 +629,6 @@ under the License.
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateProductCategoryLink" short-description="update a ProductCategoryLink">
-        <entity-one entity-name="ProductCategoryLink" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deleteProductCategoryLink" short-description="delete a ProductCategoryLink">

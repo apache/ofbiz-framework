@@ -33,16 +33,6 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
-    <simple-method method-name="updateTrackingCodeType" short-description="Update an TrackingCodeType">
-        <now-timestamp field="nowStamp"/>
-
-        <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="deleteTrackingCodeType" short-description="Delete an TrackingCodeType">
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -67,7 +57,7 @@ under the License.
         <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrder" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
@@ -121,7 +111,7 @@ under the License.
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>

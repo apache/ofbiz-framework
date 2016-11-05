@@ -737,7 +737,7 @@ under the License.
                parameters.put("carrierRoleTypeId", arr[2]);
             }
         </script>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
 
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
@@ -782,7 +782,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="OrderHeaderNote" value-field="orderHeaderNote"/>
-        <set-nonpk-fields map="parameters" value-field="orderHeaderNote"/>
+        <set-nonpk-fields map="parameters" value-field="orderHeaderNote" set-if-null="false"/>
         <store-value value-field="orderHeaderNote"/>
     </simple-method>
 
