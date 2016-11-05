@@ -138,14 +138,14 @@ under the License.
             <set field="nowDate" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="EmplPositionTypeRateAndAmount" filter-by-date="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId" operator="equals"/>
+                    <condition-expr field-name="emplPositionTypeId" operator="equals" from-field="parameters.emplPositionTypeId"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="rateAmountFromDate" from-field="null" operator="equals"/>
-                        <condition-expr field-name="rateAmountFromDate" from-field="nowDate" operator="less"/>
+                        <condition-expr field-name="rateAmountFromDate" operator="equals" from-field="null"/>
+                        <condition-expr field-name="rateAmountFromDate" operator="less" from-field="nowDate"/>
                     </condition-list>
                     <condition-list combine="or">
-                        <condition-expr field-name="rateAmountThruDate" from-field="null" operator="equals"/>
-                        <condition-expr field-name="rateAmountThruDate" from-field="nowDate" operator="greater"/>
+                        <condition-expr field-name="rateAmountThruDate" operator="equals" from-field="null"/>
+                        <condition-expr field-name="rateAmountThruDate" operator="greater" from-field="nowDate"/>
                     </condition-list>
                 </condition-list>
                 <order-by field-name="rateTypeId"/>

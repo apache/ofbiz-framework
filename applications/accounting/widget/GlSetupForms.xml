@@ -97,8 +97,8 @@ under the License.
             <entity-condition entity-name="InvoiceExport">
                 <condition-list combine="and">
                     <condition-list combine="or">
-                        <condition-expr field-name="partyIdFrom" from-field="organizationPartyId" operator="equals"/>
-                        <condition-expr field-name="partyId" from-field="organizationPartyId" operator="equals"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="organizationPartyId"/>
                     </condition-list>
                     <condition-expr field-name="invoiceDate" operator="greater-equals" from-field="parameters.startDate" ignore-if-empty="true"/>
                     <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>

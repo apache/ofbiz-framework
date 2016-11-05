@@ -1045,10 +1045,10 @@ under the License.
                     <entity-condition entity-name="Payment" list="payments">
                         <condition-list combine="and">
                             <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
-                            <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
-                            <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
-                            <condition-expr field-name="actualCurrencyAmount" from-field="invoiceTotal" operator="equals"/>
-                            <condition-expr field-name="actualCurrencyUomId" from-field="invoice.currencyUomId" operator="equals"/>
+                            <condition-expr field-name="partyIdFrom" operator="equals" from-field="invoice.partyId"/>
+                            <condition-expr field-name="partyIdTo" operator="equals" from-field="invoice.partyIdFrom"/>
+                            <condition-expr field-name="actualCurrencyAmount" operator="equals" from-field="invoiceTotal"/>
+                            <condition-expr field-name="actualCurrencyUomId" operator="equals" from-field="invoice.currencyUomId"/>
                         </condition-list>
                         <order-by field-name="effectiveDate"/>
                     </entity-condition>
@@ -1056,10 +1056,10 @@ under the License.
                         <entity-condition entity-name="Payment" list="payments">
                             <condition-list combine="and">
                                 <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
-                                <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
-                                <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
-                                <condition-expr field-name="amount" from-field="invoiceTotal" operator="equals"/>
-                                <condition-expr field-name="currencyUomId" from-field="invoice.currencyUomId" operator="equals"/>
+                                <condition-expr field-name="partyIdFrom" operator="equals" from-field="invoice.partyId"/>
+                                <condition-expr field-name="partyIdTo" operator="equals" from-field="invoice.partyIdFrom"/>
+                                <condition-expr field-name="amount" operator="equals" from-field="invoiceTotal"/>
+                                <condition-expr field-name="currencyUomId" operator="equals" from-field="invoice.currencyUomId"/>
                             </condition-list>
                             <order-by field-name="effectiveDate"/>
                         </entity-condition>

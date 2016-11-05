@@ -572,7 +572,7 @@
     <simple-method method-name="updateCommEventContentAssoc" short-description="Update CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
         <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
-        <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+        <find-by-primary-key entity-name="CommEventContentAssoc" map="pkCommEventContentAssoc" value-field="commEventContentAssoc"/>
         <if-empty field="commEventContentAssoc">
             <add-error>
                 <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForUpdate"/>
@@ -585,7 +585,7 @@
     <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
         <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
-        <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+        <find-by-primary-key entity-name="CommEventContentAssoc" map="pkCommEventContentAssoc" value-field="commEventContentAssoc"/>
         <if-empty field="commEventContentAssoc">
             <add-error>
                 <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForDelete"/>

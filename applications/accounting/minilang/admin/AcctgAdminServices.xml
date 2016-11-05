@@ -27,7 +27,7 @@ under the License.
         <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
         <set from-field="parameters.partyId" field="lookupParams.partyId"/>
         <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
-        <find-by-primary-key use-cache="true" entity-name="PartyRole" value-field="partyRole" map="lookupParams"/>
+        <<find-by-primary-key entity-name="PartyRole" map="lookupParams" value-field="partyRole" use-cache="true"/>
         <if-empty field="partyRole">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
             <check-errors/>

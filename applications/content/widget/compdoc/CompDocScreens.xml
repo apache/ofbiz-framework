@@ -410,7 +410,7 @@ under the License.
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <entity-condition entity-name="ContentRevision" list="contentRevisions" use-cache="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentId" from-field="rootContentId" operator="equals"/>
+                        <condition-expr field-name="contentId" operator="equals" from-field="rootContentId"/>
                     </condition-list>
                     <order-by field-name="-contentRevisionSeqId"/>
                 </entity-condition>
@@ -510,7 +510,7 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="contentId" from-field="rootContentId"/>
                         <condition-expr field-name="itemContentId" from-field="contentId"/>
-                        <condition-expr field-name="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId" operator="less-equals" ignore-if-empty="true"/>
+                        <condition-expr field-name="contentRevisionSeqId" operator="less-equals" from-field="parameters.contentRevisionSeqId" ignore-if-empty="true"/>
                     </condition-list>
                     <order-by field-name="-contentRevisionSeqId"/>
                 </entity-condition>
@@ -856,7 +856,7 @@ under the License.
                 <set value="COMPDOC_INSTANCE" field="contentTypeId"/>
                 <entity-condition entity-name="ContentRevision" list="contentRevisions" use-cache="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentId" from-field="rootContentId" operator="equals"/>
+                        <condition-expr field-name="contentId" operator="equals" from-field="rootContentId"/>
                     </condition-list>
                     <order-by field-name="-contentRevisionSeqId"/>
                 </entity-condition>
@@ -1024,7 +1024,7 @@ under the License.
                 <set from-field="instanceContent.instanceOfContentId" field="templateContentId"/>
                 <entity-condition entity-name="ContentRevision" list="contentTemplateRevisions" use-cache="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentId" from-field="templateContentId" operator="equals"/>
+                        <condition-expr field-name="contentId" operator="equals" from-field="templateContentId"/>
                     </condition-list>
                     <order-by field-name="-contentRevisionSeqId"/>
                 </entity-condition>
