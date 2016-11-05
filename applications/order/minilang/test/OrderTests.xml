@@ -39,4 +39,63 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testCreateOrderDeliverySchedule" short-description="Create Order Delivery Schedule" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.orderId" value="TEST_DEMO10090"/>
+        <call-service service-name="createOrderDeliverySchedule" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateOrderItemChange" short-description="create Order Item Change" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.changeTypeEnumId" value="ODR_ITM_APPEND"/>
+        <set field="serviceCtx.orderId" value="TEST_DEMO10090"/>
+        <set field="serviceCtx.orderItemSeqId" value="00001"/>
+        <call-service service-name="createOrderItemChange" in-map-name="serviceCtx">
+            <results-to-map map-name="orderItemChangeId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="orderItemChangeId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateOrderPaymentApplication" short-description="create Order Payment Application" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.paymentId" value="1014"/>
+        <call-service service-name="createOrderPaymentApplication" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateRequirement" short-description="Create Requirement" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.custRequestId" value="9000"/>
+        <set field="serviceCtx.requirementTypeId" value="CUSTOMER_REQUIREMENT"/>
+        <call-service service-name="createRequirement" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
