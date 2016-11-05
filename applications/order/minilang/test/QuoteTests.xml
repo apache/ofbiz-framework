@@ -40,7 +40,7 @@ under the License.
         </assert>
 
         <!-- Confirm the database changes -->
-        <entity-one value-field="quoteWorkEffort" entity-name="QuoteWorkEffort">
+        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort">
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="workEffortId" from-field="serviceCtx.workEffortId"/>
         </entity-one>
@@ -75,7 +75,7 @@ under the License.
         <assert><if-compare field="serviceResult.responseMessage" operator="equals" value="error"/></assert>
 
         <!-- Confirm the database changes, in this case nothing should have changed -->
-        <entity-condition list="quoteWorkEfforts" entity-name="QuoteWorkEffort">
+        <entity-condition entity-name="QuoteWorkEffort" list="quoteWorkEfforts">
             <condition-list>
                 <condition-expr field-name="lastUpdatedStamp" operator="greater-equals" from-field="startTime"/>
                 <condition-expr field-name="quoteId" from-field="serviceCtx.quoteId"/>
@@ -118,7 +118,7 @@ under the License.
         <assert>
             <not><if-empty field="workEfforts"/></not>
         </assert>
-        <entity-one value-field="quoteWorkEffort" entity-name="QuoteWorkEffort">
+        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort">
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
         </entity-one>
@@ -145,7 +145,7 @@ under the License.
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
         </entity-and>
-        <first-from-list entry="quoteTerm" list="quoteTermList"/>
+        <first-from-list list="quoteTermList" entry="quoteTerm"/>
         <assert>
            <not><if-empty field="quoteTerm"/></not>
            <if-compare-field operator="equals" to-field="quoteTerm.termTypeId" field="serviceCtx.termTypeId"/>
@@ -174,7 +174,7 @@ under the License.
             <results-to-map map-name="serviceResult"/>
         </call-service>
 <!--         Confirm that a matching Quoteterm was updated -->
-        <entity-one value-field="quoteTerm" entity-name="QuoteTerm">
+        <entity-one entity-name="QuoteTerm" value-field="quoteTerm">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
@@ -202,7 +202,7 @@ under the License.
         <call-service service-name="deleteQuoteTerm" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
-        <entity-one value-field="quoteTerm" entity-name="QuoteTerm">
+        <entity-one entity-name="QuoteTerm" value-field="quoteTerm">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>

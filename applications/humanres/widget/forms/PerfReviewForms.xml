@@ -57,7 +57,7 @@ under the License.
         </field>
         <field name="managerRoleTypeId"><ignored/></field>
         <field name="perfReviewId">
-           <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview">
+           <hyperlink description="${perfReviewId}" target="EditPerfReview" also-hidden="false">
                 <parameter param-name="perfReviewId"/>
                 <parameter param-name="employeePartyId"/>
                 <parameter param-name="employeeRoleTypeId"/>
@@ -102,7 +102,7 @@ under the License.
         <field name="perfReviewItemTypeId"><display-entity entity-name="PerfReviewItemType"></display-entity></field>
         <field name="perfRatingTypeId"><display-entity entity-name="PerfRatingType"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deletePerfReviewItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePerfReviewItem" also-hidden="false">
                 <parameter param-name="perfReviewId"/>
                 <parameter param-name="employeePartyId"/>
                 <parameter param-name="employeeRoleTypeId"/>

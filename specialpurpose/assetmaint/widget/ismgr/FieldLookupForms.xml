@@ -50,7 +50,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
+            <hyperlink description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
@@ -85,7 +85,7 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')"/>
+            <hyperlink description="${fixedAssetId}" target="javascript:set_value('${fixedAssetId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>

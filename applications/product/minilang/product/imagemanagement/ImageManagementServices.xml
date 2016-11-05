@@ -189,7 +189,7 @@ under the License.
             <remove-value value-field="contentKeyword"/>
         </iterate>
         
-        <entity-one value-field="content" entity-name="Content">
+        <entity-one entity-name="Content" value-field="content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-one>
         <set field="removeContentPKMap.contentId" from-field="parameters.contentId"/>
@@ -204,7 +204,7 @@ under the License.
             <remove-value value-field="dataResourceRoles[0]"/>
         </if-not-empty>
         
-        <entity-one value-field="dataResource" entity-name="DataResource">
+        <entity-one entity-name="DataResource" value-field="dataResource">
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>
         </entity-one>
         <set field="removeImageFile.productId" from-field="parameters.productId"/>
@@ -220,7 +220,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="setImageDetail" short-description="Set Image Detail">
-        <entity-one value-field="productContent" entity-name="ProductContent"/>
+        <entity-one entity-name="ProductContent" value-field="productContent"/>
         <set field="productContent.sequenceNum" from-field="parameters.sequenceNum" type="Long"/>
         <store-value value-field="productContent"/>
         <if-not-empty field="parameters.sequenceNum">
@@ -230,12 +230,12 @@ under the License.
         </if-not-empty>
         
         <!-- set caption -->
-        <entity-one value-field="content" entity-name="Content"/>
+        <entity-one entity-name="Content" value-field="content"/>
         <set field="content.description" from-field="parameters.description"/>
         <store-value value-field="content"/>
         
         <if-compare field="content.statusId" operator="equals" value="IM_APPROVED">
-            <entity-one value-field="dataResource" entity-name="DataResource">
+            <entity-one entity-name="DataResource" value-field="dataResource">
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
             <set field="dataResource.isPublic" from-field="parameters.drIsPublic"/>
@@ -268,7 +268,7 @@ under the License.
                 <field-map field-name="contentId" from-field="parameters.contentId"/>
                 <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
             </entity-and>
-            <first-from-list entry="contentApproval" list="contentApprovals"/>
+            <first-from-list list="contentApprovals" entry="contentApproval"/>
             <set field="contentApproval.approvalStatusId" from-field="parameters.checkStatusId"/>
             <store-value value-field="contentApproval"/>
         </else>
@@ -307,7 +307,7 @@ under the License.
                             <field-map field-name="contentId" from-field="parameters.contentId"/>
                             <field-map field-name="productContentTypeId" value="IMAGE"/>
                         </entity-and>
-                        <first-from-list entry="productContent" list="productContents"/>
+                        <first-from-list list="productContents" entry="productContent"/>
                         <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
                         <store-value value-field="productContent"/>
                     <else>
@@ -327,7 +327,7 @@ under the License.
                                 <field-map field-name="contentId" from-field="parameters.contentId"/>
                                 <field-map field-name="productContentTypeId" value="IMAGE"/>
                             </entity-and>
-                            <first-from-list entry="productContent" list="productContents"/>
+                            <first-from-list list="productContents" entry="productContent"/>
                             <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
                             <store-value value-field="productContent"/>
                             
@@ -353,7 +353,7 @@ under the License.
                         <field-map field-name="contentId" from-field="parameters.contentId"/>
                         <field-map field-name="productContentTypeId" value="IMAGE"/>
                     </entity-and>
-                    <first-from-list entry="productContent" list="productContents"/>
+                    <first-from-list list="productContents" entry="productContent"/>
                     <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
                     <store-value value-field="productContent"/>
                     
@@ -397,7 +397,7 @@ under the License.
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="productContentTypeId" value="IMAGE"/>
         </entity-and>
-        <first-from-list entry="productContent" list="productContents"/>
+        <first-from-list list="productContents" entry="productContent"/>
         <set field="productContent.thruDate" from-field="nowTimestam"/>
         <store-value value-field="productContent"/>
     </simple-method>

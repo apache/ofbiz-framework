@@ -86,7 +86,7 @@ under the License.
         </actions>
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}" sort-field="true"><display/></field>
         <field name="jobId" title="${uiLabelMap.CommonId}" sort-field="true">
-            <hyperlink also-hidden="false" description="${jobId}" target="JobDetails">
+            <hyperlink description="${jobId}" target="JobDetails" also-hidden="false">
                 <parameter param-name="jobId" from-field="jobId"/>
             </hyperlink>
         </field>
@@ -94,14 +94,14 @@ under the License.
         <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}" sort-field="true"><display/></field>
         <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}" sort-field="true"><display/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsService}" sort-field="true">
-            <hyperlink also-hidden="false" description="${serviceName}" target="ServiceList">
+            <hyperlink description="${serviceName}" target="ServiceList" also-hidden="false">
                 <parameter param-name="sel_service_name" from-field="serviceName"/>
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="finishDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
         <field name="cancelButton" title=" " use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob">
+            <hyperlink description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob" also-hidden="false">
                 <parameter param-name="jobId"/>
             </hyperlink>
         </field>
@@ -179,7 +179,7 @@ under the License.
         <field name="reasonEnumId" sort-field="true" title="${uiLabelMap.CommonReason}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] ${description}"/></field>
         <field name="comments"><display/></field>
         <field name="cancelButton" title=" " use-when="editable &amp;&amp; cancelable" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock">
+            <hyperlink description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock" also-hidden="false">
                 <parameter param-name="instanceId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="thruDate" value="${nowTimestamp}"/>
@@ -219,7 +219,7 @@ under the License.
         <field name="createdByUserLogin" title="${uiLabelMap.CommonBy}"><display/></field>
         <field name="reasonEnumId" title="${uiLabelMap.CommonReason}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] ${description}"/></field>
         <field name="cancelButton" title=" " use-when="editable &amp;&amp; cancelable" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock">
+            <hyperlink description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock" also-hidden="false">
                 <parameter param-name="instanceId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="thruDate" value="${nowTimestamp}"/>

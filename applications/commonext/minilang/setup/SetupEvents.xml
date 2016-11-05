@@ -368,7 +368,7 @@
         <entity-and entity-name="PartyAndPostalAddress" list="listPartyPostalAddress" filter-by-date="true">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
-        <first-from-list entry="partyPostalAddress" list="listPartyPostalAddress"/>
+        <first-from-list list="listPartyPostalAddress" entry="partyPostalAddress"/>
         <sequenced-id sequence-name="ContactMech" field="partyPostalAddress.contactMechId"/>
         <set-service-fields service-name="createPostalAddress" map="partyPostalAddress" to-map="addressContext"/>
         <call-service service-name="createPostalAddress" in-map-name="addressContext">
@@ -604,7 +604,7 @@
                 <call-service service-name="createProductPrice" in-map-name="createDefaultPriceMap"/>
                 
                 <else>
-                    <first-from-list entry="defaultPrice" list="defaultPriceValues"/>
+                    <first-from-list list="defaultPriceValues" entry="defaultPrice"/>
                     <set field="updateDefaultPriceMap.productId" from-field="productId"/>
                     <set field="updateDefaultPriceMap.price" from-field="parameters.defaultPrice" type="BigDecimal"/>
                     <set field="updateDefaultPriceMap.productPricePurposeId" from-field="defaultPrice.productPricePurposeId"/>
@@ -636,7 +636,7 @@
                 <call-service service-name="createProductPrice" in-map-name="createAverageCostMap"/>
                 
                 <else>
-                    <first-from-list entry="averageCost" list="averageCostValues"/>
+                    <first-from-list list="averageCostValues" entry="averageCost"/>
                     <set field="updateAverageCostMap.productId" from-field="productId"/>
                     <set field="updateAverageCostMap.productPricePurposeId" from-field="averageCost.productPricePurposeId"/>
                     <set field="updateAverageCostMap.productPriceTypeId" from-field="averageCost.productPriceTypeId"/>

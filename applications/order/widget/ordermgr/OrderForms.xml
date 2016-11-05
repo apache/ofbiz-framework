@@ -88,7 +88,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="EditOrderHeader" description="[${orderId}]">
+            <hyperlink description="[${orderId}]" target="EditOrderHeader">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -103,7 +103,7 @@ under the License.
         <field name="orderItemSeqId"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeOrderTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeOrderTerm" also-hidden="false">
                 <parameter param-name="orderId"/>
                 <parameter param-name="termTypeId"/>
                 <parameter param-name="orderItemSeqId"/>
@@ -240,7 +240,7 @@ under the License.
             <display-entity entity-name="OrderType"/>
         </field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}">
-            <hyperlink target="orderview" description="${orderId}">
+            <hyperlink description="${orderId}" target="orderview">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>

@@ -130,7 +130,7 @@ under the License.
             <!-- Do custom conversion, if we have customMethodId -->
             <if-not-empty field="uomConversion.customMethodId">  <!-- custom conversion? -->
                 <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
-                <set-service-fields service-name="convertUomCustom" to-map="customParms" map="parameters"/>
+                <set-service-fields service-name="convertUomCustom" map="parameters" to-map="customParms"/>/>
                 <set field="customParms.uomConversion" from-field="uomConversion"/>
                 <call-service service-name="convertUomCustom" in-map-name="customParms">
                     <result-to-field result-name="convertedValue"/>
@@ -206,7 +206,7 @@ under the License.
     <simple-method method-name="getVisualThemeResources" short-description="Get visual theme resources" login-required="false">
         <set field="visualThemeId" from-field="parameters.visualThemeId"/>
         <set field="themeResources" from-field="parameters.themeResources"/>
-        <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
+        <entity-condition entity-name="VisualThemeResource" list="resourceList" use-cache="true">
             <condition-expr field-name="visualThemeId" from-field="visualThemeId"/>
             <order-by field-name="resourceTypeEnumId"/>
             <order-by field-name="sequenceId"/>
@@ -214,7 +214,7 @@ under the License.
         <if-empty field="resourceList">
             <!-- if not found use the good old initial ofbiz theme so the system will at least start up and will be usable -->
             <log level="error" message="Could not find the '${visualThemeId}' theme, reverting back to the good old OFBiz theme..."></log>
-            <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
+            <entity-condition entity-name="VisualThemeResource" list="resourceList" use-cache="true">
                 <condition-expr field-name="visualThemeId" value="FLAT_GREY"/>
                 <order-by field-name="resourceTypeEnumId"/>
                 <order-by field-name="sequenceId"/>

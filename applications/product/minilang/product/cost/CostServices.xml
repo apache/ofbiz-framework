@@ -57,7 +57,7 @@ under the License.
 
     <!-- Services to get the product and tasks costs -->
     <simple-method method-name="getProductCost" short-description="Gets the product's costs (from CostComponent or ProductPrice)">
-        <entity-condition list="costComponents" entity-name="CostComponent" filter-by-date="true">
+        <entity-condition entity-name="CostComponent" list="costComponents" filter-by-date="true">
             <condition-list>
                 <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
                 <condition-expr field-name="costUomId" operator="equals" from-field="parameters.currencyUomId"/>
@@ -67,8 +67,8 @@ under the License.
         <set field="productCost" value="0" type="BigDecimal"/>
         <iterate list="costComponents" entry="costComponent">
             <calculate field="productCost" decimal-scale="6">
-                <calcop field="costComponent.cost" operator="add">
-                    <calcop field="productCost" operator="get"/>
+                <calcop operator="add" field="costComponent.cost">
+                    <calcop operator="get" field="productCost"/>
                 </calcop>
             </calculate>
             <!--set field="productCost" value="${costComponent.cost + productCost}" type="BigDecimal"/-->
@@ -158,8 +158,8 @@ under the License.
         </call-service>
 
         <calculate field="estimatedTaskTime" decimal-scale="6">
-            <calcop field="totalEstimatedTaskTime" operator="subtract">
-                <calcop field="setupTime" operator="get"/>
+            <calcop operator="subtract" field="totalEstimatedTaskTime">
+                <calcop operator="get" field="setupTime"/>
             </calcop>
         </calculate>
 
@@ -179,18 +179,18 @@ under the License.
         </if-not-empty>
         <calculate field="taskCost" decimal-scale="6">
             <calcop operator="add">
-                <calcop field="estimatedTaskTime" operator="multiply">
-                    <calcop field="usageCost.amount" operator="get"/>
+                <calcop operator="multiply" field="estimatedTaskTime">
+                    <calcop operator="get" field="usageCost.amount"/>
                 </calcop>
-                <calcop field="setupTime" operator="multiply">
-                    <calcop field="setupCost.amount" operator="get"/>
+                <calcop operator="multiply" field="setupTime">
+                    <calcop operator="get" field="setupCost.amount"/>
                 </calcop>
             </calcop>
         </calculate>
 
         <!-- Time is converted from milliseconds to hours -->
         <calculate field="taskCost" decimal-scale="6">
-            <calcop field="taskCost" operator="divide">
+            <calcop operator="divide" field="taskCost">
                 <number value="3600000"/>
             </calcop>
         </calculate>
@@ -207,18 +207,18 @@ under the License.
                 <if-not-empty field="costComponentCalc.perMilliSecond">
                     <if-compare operator="not-equals" value="0" field="costComponentCalc.perMilliSecond" type="BigDecimal">
                         <calculate field="totalCostComponentTime" decimal-scale="6">
-                            <calcop field="totalEstimatedTaskTime" operator="divide">
-                                <calcop field="costComponentCalc.perMilliSecond" operator="get"/>
+                            <calcop operator="divide" field="totalEstimatedTaskTime">
+                                <calcop operator="get" field="costComponentCalc.perMilliSecond"/>
                             </calcop>
                         </calculate>
                         <calculate field="totalCostComponentCost" decimal-scale="6">
-                            <calcop field="totalCostComponentTime" operator="multiply">
-                                <calcop field="costComponentCalc.variableCost" operator="get"/>
+                            <calcop operator="multiply" field="totalCostComponentTime">
+                                <calcop operator="get" field="costComponentCalc.variableCost"/>
                             </calcop>
                         </calculate>
                         <calculate field="totalCostComponentCost" decimal-scale="6">
-                            <calcop field="totalCostComponentCost" operator="add">
-                                <calcop field="costComponentCalc.fixedCost" operator="get"/>
+                            <calcop operator="add" field="totalCostComponentCost">
+                                <calcop operator="get" field="costComponentCalc.fixedCost"/>
                             </calcop>
                         </calculate>
                         <set field="costsByType.${wecc.costComponentTypeId}" from-field="totalCostComponentCost"/>
@@ -271,9 +271,9 @@ under the License.
                     <result-to-field result-name="productCost"/>
                 </call-service>
                 <calculate field="totalProductsCost" decimal-scale="6">
-                    <calcop field="totalProductsCost" operator="add">
-                        <calcop field="componentMap.quantity" operator="multiply">
-                            <calcop field="productCost" operator="get"/>
+                    <calcop operator="add" field="totalProductsCost">
+                        <calcop operator="multiply" field="componentMap.quantity">
+                            <calcop operator="get" field="productCost"/>
                         </calcop>
                     </calcop>
                 </calculate>
@@ -287,7 +287,7 @@ under the License.
                     <result-to-field result-name="productCost"/>
                 </call-service>
                 <calculate field="totalProductsCost" decimal-scale="6">
-                    <calcop field="productCost" operator="get"/>
+                    <calcop operator="get" field="productCost"/>
                 </calculate>
             </else>
         </if-not-empty>
@@ -308,15 +308,15 @@ under the License.
                 <result-to-field result-name="costsByType" field="costsByType"/>
             </call-service>
             <calculate field="totalTaskCost" decimal-scale="6">
-                <calcop field="totalTaskCost" operator="add">
-                    <calcop field="taskCost" operator="get"/>
+                <calcop operator="add" field="totalTaskCost">
+                    <calcop operator="get" field="taskCost"/>
                 </calcop>
             </calculate>
             <iterate-map map="costsByType" key="costType" value="costAmount">
                 <if-not-empty field="totalCostsByType.${costType}">
                     <calculate field="totalCostsByType.${costType}" decimal-scale="6">
-                        <calcop field="costAmount" operator="add">
-                            <calcop field="totalCostsByType.${costType}" operator="get"/>
+                        <calcop operator="add" field="costAmount">
+                            <calcop operator="get" field="totalCostsByType.${costType}"/>
                         </calcop>
                     </calculate>
                 <else>
@@ -324,17 +324,17 @@ under the License.
                 </else>
                 </if-not-empty>
                 <calculate field="totalOtherTaskCost" decimal-scale="6">
-                    <calcop field="totalOtherTaskCost" operator="add">
-                        <calcop field="costAmount" operator="get"/>
+                    <calcop operator="add" field="totalOtherTaskCost">
+                        <calcop operator="get" field="costAmount"/>
                     </calcop>
                 </calculate>
             </iterate-map>
         </iterate>
 
         <calculate field="totalCost" decimal-scale="6">
-            <calcop field="totalTaskCost" operator="add">
-                <calcop field="totalProductsCost" operator="get"/>
-                <calcop field="totalOtherTaskCost" operator="get"/>
+            <calcop operator="add" field="totalTaskCost">
+                <calcop operator="get" field="totalProductsCost"/>
+                <calcop operator="get" field="totalOtherTaskCost"/>
             </calcop>
         </calculate>
 
@@ -397,8 +397,8 @@ under the License.
                 <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
                 <!--set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/-->
                 <calculate field="totalCost" decimal-scale="6">
-                    <calcop field="totalCost" operator="add">
-                        <calcop field="productCostAdjustment" operator="get"/>
+                    <calcop operator="add" field="totalCost">
+                        <calcop operator="get" field="productCostAdjustment"/>
                     </calcop>
                 </calculate>
             </else>

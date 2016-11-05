@@ -220,29 +220,29 @@
         <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}"><display description="${resultTask.workEffortName}"/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}" ><display description="${workEffortType.description}"/></field>
         <field name="custRequestId" title="${uiLabelMap.ScrumProductBacklog}">
-            <hyperlink target="ViewProdBacklogItem" description="${custRequest.description} [${custRequest.custRequestId}]">
+            <hyperlink description="${custRequest.description} [${custRequest.custRequestId}]" target="ViewProdBacklogItem">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
                 <parameter param-name="productId" from-field="productId"/>
             </hyperlink>
         </field>
         <field name="sprintName" title="${uiLabelMap.ScrumSprint}" use-when="sprintId!=null">
-            <hyperlink target="ViewSprint" description="${sprintName} [${sprintId}]">
+            <hyperlink description="${sprintName} [${sprintId}]" target="ViewSprint">
                 <parameter param-name="projectId" from-field="projectId"/>
                 <parameter param-name="sprintId" from-field="sprintId"/>
             </hyperlink>
         </field>
         <field name="projectName" title="${uiLabelMap.ScrumProject}" use-when="projectId!=null">
-            <hyperlink target="viewScrumProject" description="${projectName} [${projectId}]">
+            <hyperlink description="${projectName} [${projectId}]" target="viewScrumProject">
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.PageTitleProduct}">
-            <hyperlink target="ViewProduct" description="${product.internalName} [${productId}]">
+            <hyperlink description="${product.internalName} [${productId}]" target="ViewProduct">
                 <parameter param-name="productId" from-field="productId"/>
             </hyperlink>
         </field>
         <field name="groupName" title="${uiLabelMap.ScrumCompany}">
-            <hyperlink target="viewprofile" description="${companyList[0].groupName}">
+            <hyperlink description="${companyList[0].groupName}" target="viewprofile">
                 <parameter param-name="partyId" from-field="companyList[0].partyId"/>
             </hyperlink>
         </field>
@@ -592,7 +592,7 @@
             </entity-condition>
         </actions>
         <field name="partyId" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile" description="${lastName} ${firstName}">
+            <hyperlink description="${lastName} ${firstName}" target="viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -627,7 +627,7 @@
         </row-actions>
         <field name="workEffortId"><hidden/></field>
         <field name="taskName" title="${uiLabelMap.ScrumTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${taskName} - [${taskId}] " target="taskView">
+            <hyperlink description="${taskName} - [${taskId}] " target="taskView" also-hidden="false">
                 <parameter param-name="taskId" from-field="workEffortId"/>
             </hyperlink>
         </field>
@@ -647,7 +647,7 @@
         </field>
         <field name="UpdateButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
         <field name="RemoveButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="unassignPartyFromWorkEffort" description="${uiLabelMap.CommonRemove}" confirmation-message="Are you sure to remove this task ?" link-type="hidden-form">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="unassignPartyFromWorkEffort" confirmation-message="Are you sure to remove this task ?" link-type="hidden-form">
                 <parameter param-name="workEffortId" from-field="taskId"/>
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="roleTypeId" from-field="roleTypeId"/>
@@ -703,7 +703,7 @@
             </display-entity>
         </field>
         <field name="sprintId" use-when="sprintId==null">
-            <hyperlink target="unplanBacklog" description="${uiLabelMap.ScrumUnplanSprint}">
+            <hyperlink description="${uiLabelMap.ScrumUnplanSprint}" target="unplanBacklog">
                 <parameter param-name="productId" from-field="productId"/>
             </hyperlink>
         </field>
@@ -736,13 +736,13 @@
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display description="${result.actualHours}"/></field>
         <field name="taskEstimatedStartDate" title="${uiLabelMap.CommonStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
         <field name="editButton" title=" " widget-style="buttontext">
-            <hyperlink target="EditTask" description="${uiLabelMap.CommonEdit}" link-type="hidden-form">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTask" link-type="hidden-form">
                 <parameter param-name="taskId"/>
                 <parameter param-name="sprintId"></parameter>
             </hyperlink>
         </field>
         <field name="deleteButton" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTask" description="${uiLabelMap.CommonDelete}" link-type="hidden-form" confirmation-message="Are you sure to delete this task?">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTask" link-type="hidden-form" confirmation-message="Are you sure to delete this task?">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="workEffortId" from-field="taskId"/>
             </hyperlink>
@@ -832,7 +832,7 @@
             <property-to-field resource="revision" property="revision.url" field="url"/>
         </row-actions>
         <field name="contentName" title="${uiLabelMap.ScrumRevision}" widget-style="buttontext">
-                <hyperlink target="RevisionInfo?repository=${url}${drObjectInfo}" description="${contentName}" link-type="anchor" target-window="_BLANK" target-type="plain"/>
+                <hyperlink description="${contentName}" target="RevisionInfo?repository=${url}${drObjectInfo}" link-type="anchor" target-window="_BLANK" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonMessage}"><display description="${groovy:description.toString().substring(0,Math.min(description.toString().length(),100))}"/></field>
         <field name="partyId" title="${uiLabelMap.ScrumCommitter}">
@@ -946,7 +946,7 @@
         <field name="sprintId"><hidden value="${parameters.sprintId}"/></field>
         <field name="partyId"><hidden/></field>
         <field name="memberName" title="${uiLabelMap.ScrumMembersName}">
-            <hyperlink target="viewprofile" description="${lastName} ${firstName} ${middleName} [${partyId}]">
+            <hyperlink description="${lastName} ${firstName} ${middleName} [${partyId}]" target="viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>

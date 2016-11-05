@@ -23,19 +23,19 @@ under the License.
 
     <form name="ListLookupAccount" extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <field name="partyId">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="relatedCompany"><hidden/></field>
     </form>
     <form name="ListLookupLead" extends="listLeads" extends-resource="component://marketing/widget/sfa/forms/LeadForms.xml">
         <field name="partyId">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="relatedCompany"><hidden/></field>
     </form>
     <form name="ListLookupAccountLead" extends="ListAccountLeads" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <field name="partyId">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="relatedCompany"><hidden/></field>
     </form>

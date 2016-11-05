@@ -194,12 +194,12 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/FindContent">
         <field name="editContent" title=" ">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContent" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
             </hyperlink>
 <!--
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContent" also-hidden="false">
                 <parameter param-name="caContentIdTo"/>
                 <parameter param-name="caFromDate"/>
                 <parameter param-name="contentId"/>
@@ -645,7 +645,7 @@ under the License.
         </field>
 <!--
         <field name="submitContentEdit" title=" ">
-            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
+            <hyperlink description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" also-hidden="false" target-type="plain"/>
         </field>
 -->
        <field name="deactivateExisting" >

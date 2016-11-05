@@ -41,7 +41,7 @@ under the License.
         <field name="year" title="${uiLabelMap.CommonYear}" required-field="true"><text size="4"/></field>
         <field name="organizationPartyId" required-field="false">
             <drop-down allow-empty="true" no-current-selected-key="Company">
-                <entity-options entity-name="PartyRoleNameDetail" description="${groupName} [${partyId}]" key-field-name="partyId">
+                <entity-options entity-name="PartyRoleNameDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
                     <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="groupName"/>
                 </entity-options>
@@ -100,7 +100,7 @@ under the License.
     <form name="IncomeStatementRevenues" type="list" list-name="revenueAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -111,7 +111,7 @@ under the License.
     <form name="IncomeStatementExpenses" type="list" list-name="expenseAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -122,7 +122,7 @@ under the License.
     <form name="IncomeStatementIncome" type="list" list-name="incomeAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -178,7 +178,7 @@ under the License.
     <form name="ComparativeIncomeStatementRevenues" type="list" list-name="revenueAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -193,7 +193,7 @@ under the License.
     <form name="ComparativeIncomeStatementExpenses" type="list" list-name="expenseAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -208,7 +208,7 @@ under the License.
     <form name="ComparativeIncomeStatementIncome" type="list" list-name="incomeAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -237,7 +237,7 @@ under the License.
     <form name="BalanceSheetAssets" type="list" list-name="assetAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -248,7 +248,7 @@ under the License.
     <form name="BalanceSheetLiabilities" type="list" list-name="liabilityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -259,7 +259,7 @@ under the License.
     <form name="BalanceSheetEquities" type="list" list-name="equityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -321,7 +321,7 @@ under the License.
     <form name="ComparativeBalanceSheetAssets" type="list" list-name="assetAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -336,7 +336,7 @@ under the License.
     <form name="ComparativeBalanceSheetLiabilities" type="list" list-name="liabilityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -351,7 +351,7 @@ under the License.
     <form name="ComparativeBalanceSheetEquities" type="list" list-name="equityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -407,7 +407,7 @@ under the License.
             <set field="closingC" value="${openingC + C}" type="BigDecimal"/>
         </row-actions>
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -574,7 +574,7 @@ under the License.
     <form name="TrialBalanceReport" type="list" list-name="accountBalances"
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -608,7 +608,7 @@ under the License.
     <form name="CashFlowStatementOpeningCashBalance" type="list" list-name="openingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -622,7 +622,7 @@ under the License.
     <form name="CashFlowStatementPeriodCashBalance" type="list" list-name="periodCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -638,7 +638,7 @@ under the License.
     <form name="CashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -696,7 +696,7 @@ under the License.
     <form name="ComparativeCashFlowStatementOpeningCashBalance" type="list" list-name="openingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -711,7 +711,7 @@ under the License.
     <form name="ComparativeCashFlowStatementPeriodCashBalance" type="list" list-name="periodCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -730,7 +730,7 @@ under the License.
     <form name="ComparativeCashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+            <hyperlink description="${accountCode}" target="FindAcctgTransEntries">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>

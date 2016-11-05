@@ -40,7 +40,7 @@ under the License.
         <session-to-field field="context.userLogin" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="checkContentPermission">
-            <result-to-field field="permissionStatus" result-name="permissionStatus"/>
+            <result-to-field result-name="permissionStatus" field="permissionStatus"/>
         </call-service>
 
         <log level="always" message="permissionStatus:${permissionStatus}"/>

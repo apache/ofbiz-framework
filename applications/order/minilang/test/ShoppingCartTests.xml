@@ -618,7 +618,7 @@ under the License.
             <field field="testParams" type="java.util.Map"/>
         </call-object-method>
         
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
         <script>groovy:
@@ -664,11 +664,11 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
-        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-entryDate"/>
         </entity-condition>
-        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <first-from-list list="orderHeaders" entry="orderHeader"/>
         <set field="orderId" from-field="orderHeader.orderId"/>
         <log level="info" message="======== Test order with id: [${orderId}] has been approved: [${approved}]========"/>
 
@@ -703,7 +703,7 @@ under the License.
             <field-map field-name="orderId" from-field="orderMap.orderId"/>
             <field-map field-name="productId" value="GZ-2644"/>
         </entity-and>
-        <first-from-list entry="orderItem" list="orderItems"/>
+        <first-from-list list="orderItems" entry="orderItem"/>
         
         <set field="map.orderId" from="orderMap.orderId"/>
         <set field="map.contactMechId" value="9015"/>

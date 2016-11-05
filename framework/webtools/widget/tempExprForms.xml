@@ -40,7 +40,7 @@ under the License.
     <form name="BasicExpressionList" type="list"
          default-table-style="basic-table hover-bar" odd-row-style="alternate-row" header-row-style="header-row-2">
         <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}" sort-field="true">
-            <hyperlink also-hidden="false" target-type="plain" description="${tempExprId}" target="editTemporalExpression">
+            <hyperlink description="${tempExprId}" target="editTemporalExpression" also-hidden="false" target-type="plain">
                 <parameter param-name="tempExprId"/>
             </hyperlink>
         </field>
@@ -70,7 +70,7 @@ under the License.
     <form name="ListChildExpressions" extends="BasicExpressionList" list-name="childExpressionList" paginate-target="editTemporalExpression?tempExprId=${tempExprId}">
         <field name="exprAssocType"><display/></field>
         <field name="deleteButton" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTemporalExpressionAssoc">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTemporalExpressionAssoc" also-hidden="false">
                 <parameter param-name="tempExprId" from-field="parameters.tempExprId"/>
                 <parameter param-name="fromTempExprId"/>
                 <parameter param-name="toTempExprId" from-field="tempExprId"/>

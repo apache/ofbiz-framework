@@ -616,7 +616,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFixedAssetGeoLocation"/>
                 <set field="tabButtonItem" value="FixedAssetGeoLocation"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one value-field="fixedAsset" entity-name="FixedAsset"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <script location="component://accounting/groovyScripts/fixedasset/FixedAssetGeoLocation.groovy"/>
             </actions>
             <widgets>

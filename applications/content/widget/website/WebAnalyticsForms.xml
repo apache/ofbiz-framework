@@ -37,7 +37,7 @@ under the License.
             <display-entity entity-name="WebAnalyticsType" description="${description} [${webAnalyticsTypeId}]"/>
         </field>
         <field name="webAnalyticsCode">
-            <hyperlink target="EditWebAnalyticsConfig" description="${webAnalyticsCode}">
+            <hyperlink description="${webAnalyticsCode}" target="EditWebAnalyticsConfig">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="webAnalyticsTypeId"/>
                 <parameter param-name="webSiteId"/>
@@ -45,7 +45,7 @@ under the License.
         </field>
         <field name="webSiteId"><hidden value="${webSiteId}"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="deleteWebAnalyticsConfig" description="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteWebAnalyticsConfig">
                 <parameter param-name="webSiteId"/>
                 <parameter param-name="webAnalyticsTypeId"/>
             </hyperlink>

@@ -59,13 +59,13 @@ under the License.
             <set field="hasVariants" value="${groovy: org.apache.ofbiz.entity.util.EntityUtil.filterByDate(delegator.findByAnd('ProductAssoc', org.apache.ofbiz.base.util.UtilMisc.toMap('productId', productId, 'productAssocTypeId', 'PRODUCT_VARIANT'), null, true)).size() > 0}" type="Boolean"/>
         </row-actions>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+            <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
         <field name="searchVariants" title=" " widget-style="buttontext" use-when="hasVariants">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -97,7 +97,7 @@ under the License.
             </service>
         </actions>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+            <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
@@ -122,7 +122,7 @@ under the License.
             </service>
         </actions>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+            <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
@@ -191,12 +191,12 @@ under the License.
         </row-actions>
         <!--
         <field name="productId" title=" " widget-style="buttontext" use-when="isVirtual==null||&quot;${isVirtual}&quot;.equals(&quot;N&quot;)">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+            <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)"><display/></field>
         -->
         <field name="productId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+            <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
@@ -205,7 +205,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="searchVariants" title=" " widget-style="buttontext" use-when="hasVariants">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -261,7 +261,7 @@ under the License.
         <auto-fields-entity entity-name="ProductCategory" default-field-type="display"/>
         <field name="productCategoryTypeId"><display-entity entity-name="ProductCategoryType"/></field>
         <field name="productCategoryId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productCategoryId}" target="javascript:set_value('${productCategoryId}')"/>
+            <hyperlink description="${productCategoryId}" target="javascript:set_value('${productCategoryId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="longDescription"><ignored/></field>
         <field name="categoryImageUrl"><ignored/></field>
@@ -303,7 +303,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
         <field name="productFeatureId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 
@@ -333,7 +333,7 @@ under the License.
         <!-- <auto-fields-entity entity-name="ProductStore" default-field-type="display"/> -->
 
         <field name="productStoreId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productStoreId}" target="javascript:set_value('${productStoreId}')"/>
+            <hyperlink description="${productStoreId}" target="javascript:set_value('${productStoreId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="primaryStoreGroupId"><display/></field>
         <field name="storeName"><display/></field>
@@ -371,7 +371,7 @@ under the License.
             </service>
         </actions>
         <field name="costComponentCalcId" title="${uiLabelMap.ProductCostComponentCalcId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${costComponentCalcId}" target="javascript:set_value('${costComponentCalcId}')"/>
+            <hyperlink description="${costComponentCalcId}" target="javascript:set_value('${costComponentCalcId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="costGlAccountTypeId" title="${uiLabelMap.ProductCostGlAccountTypeId}"><display/></field>

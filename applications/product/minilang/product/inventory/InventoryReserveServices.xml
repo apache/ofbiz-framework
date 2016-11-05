@@ -173,7 +173,7 @@ under the License.
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
                             <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                                <calcop field="parameters.quantityNotReserved" operator="negative"/>
+                                <calcop operator="negative" field="parameters.quantityNotReserved"/>
                             </calculate>
                             
                             <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
@@ -242,7 +242,7 @@ under the License.
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
                             <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                                <calcop field="parameters.quantityNotReserved" operator="negative"/>
+                                <calcop operator="negative" field="parameters.quantityNotReserved"/>
                             </calculate>
                             <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -315,7 +315,7 @@ under the License.
           <set field="createDetailMap.availableToPromiseDiff" value="-1" type="BigDecimal"/>
           <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         </if-compare>
-        <set-service-fields map="parameters" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+        <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>/>
         <set field="cancelOrderItemShipGrpInvResMap.cancelQuantity" from-field="parameters.quantity"/>
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
@@ -343,9 +343,9 @@ under the License.
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map="inventoryReservationLookUp" list="invReservations" entity-name="OrderItemShipGrpInvRes"/>
-        <first-from-list entry="inventoryItemReservation" list="invReservations"/>
+        <first-from-list list="invReservations" entry="inventoryItemReservation"/>
         <if-not-empty field="inventoryItemReservation">
-            <set-service-fields map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap"/>/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
             <!-- Hold our inventoryItem -->
             <refresh-value value-field="inventoryItem"/>
@@ -420,7 +420,7 @@ under the License.
                     <clear-field field="reserveOisgirMap"/>
 
                     <calculate field="parameters.quantityNotReserved">
-                        <calcop field="parameters.quantityNotReserved" operator="subtract"><number value="1.0"/></calcop>
+                        <calcop operator="subtract" field="parameters.quantityNotReserved"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -454,7 +454,7 @@ under the License.
                         <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                         <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                         <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
-                            <calcop field="parameters.deductAmount" operator="negative"/>
+                            <calcop operator="negative" field="parameters.deductAmount"/>
                         </calculate>
                         <if-not-empty field="ebayReserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>

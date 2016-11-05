@@ -41,7 +41,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentType">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentType" also-hidden="false">
                 <parameter param-name="contentTypeId"/>
             </hyperlink>
         </field>
@@ -73,7 +73,7 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentTypeAttr">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentTypeAttr" also-hidden="false">
                 <parameter param-name="contentTypeId"/>
                 <parameter param-name="attrName"/>
             </hyperlink>
@@ -101,7 +101,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssocType">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssocType" also-hidden="false">
                 <parameter param-name="contentAssocTypeId"/>
             </hyperlink>
         </field>
@@ -128,7 +128,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeType">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentPurposeType" also-hidden="false">
                 <parameter param-name="contentPurposeTypeId"/>
             </hyperlink>
         </field>
@@ -155,7 +155,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssocPredicate">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssocPredicate" also-hidden="false">
                 <parameter param-name="contentAssocPredicateId"/>
             </hyperlink>
         </field>
@@ -182,7 +182,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentOperation">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentOperation" also-hidden="false">
                 <parameter param-name="contentOperationId"/>
             </hyperlink>
         </field>
@@ -218,7 +218,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation" also-hidden="false">
                 <parameter param-name="contentPurposeTypeId"/>
                 <parameter param-name="contentOperationId"/>
                 <parameter param-name="roleTypeId"/>

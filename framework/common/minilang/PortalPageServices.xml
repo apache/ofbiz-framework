@@ -57,7 +57,7 @@ under the License.
                 <field-map field-name="columnSeqId"  from-field="column.columnSeqId"/>
             </entity-and>
             <iterate list="portalPortletList" entry="portalPortlet">
-                <set-service-fields service-name="deletePortalPagePortlet" to-map="deletePortalPagePortletInMap" map="portalPortlet"/>
+                <set-service-fields service-name="deletePortalPagePortlet" map="portalPortlet" to-map="deletePortalPagePortletInMap"/>/>
                 <call-service service-name="deletePortalPagePortlet" in-map-name="deletePortalPagePortletInMap"/>
             </iterate>
             <remove-value value-field="column"/>
@@ -70,13 +70,13 @@ under the License.
         <make-value entity-name="PortalPagePortlet" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <entity-condition list="portlets" entity-name="PortalPagePortlet">
+        <entity-condition entity-name="PortalPagePortlet" list="portlets">
             <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
             <select-field field-name="sequenceNum"/>
             <order-by field-name="-sequenceNum"/>
             <limit-range size="1" start="0"/>
         </entity-condition>
-        <first-from-list entry="portalPagePortlet" list="portlets"/>
+        <first-from-list list="portlets" entry="portalPagePortlet"/>
 
         <if-empty field="portalPagePortlet.sequenceNum">
             <calculate field="newEntity.sequenceNum" type="Long"><number value="1"/></calculate>
@@ -122,7 +122,7 @@ under the License.
                 <field-map field-name="ownerUserLoginId" from-field="parameters.ownerUserLoginId"/>
                 <field-map field-name="portalPortletId"  from-field="parameters.portalPortletId"/>
             </entity-and>
-            <first-from-list entry="portalPage" list="ppList"/>
+            <first-from-list list="ppList" entry="portalPage"/>
             <set field="parameters.portalPageId" from-field="portalPage.portalPageId"/>
         </if-not-empty>
         <entity-condition entity-name="PortletAttribute" list="attributeList">
@@ -170,7 +170,7 @@ under the License.
                     <condition-expr field-name="parentPortalPageId" operator="equals" from-field="parameters.parentPortalPageId"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="checkSequenceNum" list="checkSequenceNums"/>
+            <first-from-list list="checkSequenceNums" entry="checkSequenceNum"/>
             <if-not-empty field="checkSequenceNum.portalPageId">
                 <set field="first.portalPageId" from-field="checkSequenceNum.portalPageId"/>
                 <set field="first.sequenceNum" from-field="getPortalPage.sequenceNum" type="Long"/>
@@ -265,7 +265,7 @@ under the License.
                 <order-by field-name="-sequenceNum"/>
             </entity-condition>
         </if-compare>
-        <first-from-list entry="getData" list="getDatas"/>
+        <first-from-list list="getDatas" entry="getData"/>
         <set field="portalPage.sequenceNum" from-field="getData.sequenceNum" type="Long"/>
         <store-value value-field="portalPage"/>
         <set field="first.portalPageId" from-field="getData.portalPageId"/>
@@ -279,7 +279,7 @@ under the License.
         <call-simple-method method-name="checkOwnerShip"/>
 
         <!-- origin Portlet -->
-        <entity-one value-field="originPp" entity-name="PortalPagePortlet">
+        <entity-one entity-name="PortalPagePortlet" value-field="originPp">
             <field-map field-name="portalPageId" from-field="parameters.o_portalPageId"/>
             <field-map field-name="portalPortletId" from-field="parameters.o_portalPortletId"/>
             <field-map field-name="portletSeqId" from-field="parameters.o_portletSeqId"/>
@@ -297,7 +297,7 @@ under the License.
                 <field-map field-name="portletSeqId" from-field="parameters.d_portletSeqId"/>
             </entity-one>
 
-            <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+            <entity-condition entity-name="PortalPagePortlet" list="modifyPpList">
              <condition-list combine="and">
                 <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
                 <condition-expr field-name="columnSeqId" operator="equals" from-field="columnSeqId"/>
@@ -317,7 +317,7 @@ under the License.
                 <field-map field-name="portletSeqId" from-field="parameters.d_portletSeqId"/>
             </entity-one>
 
-            <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+            <entity-condition entity-name="PortalPagePortlet" list="modifyPpList">
              <condition-list combine="and">
                 <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
                 <condition-expr field-name="columnSeqId" operator="equals" from-field="columnSeqId"/>

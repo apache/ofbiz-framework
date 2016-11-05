@@ -68,7 +68,7 @@ under the License.
         </row-actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
-            <hyperlink target="EditSalesOpportunity" description="${opportunityName}[${salesOpportunityId}] ${roleTypeId}">
+            <hyperlink description="${opportunityName}[${salesOpportunityId}] ${roleTypeId}" target="EditSalesOpportunity">
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
@@ -86,7 +86,7 @@ under the License.
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}" sort-field="true"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="editButton" title="${uiLabelMap.CommonClose}" use-when="estimatedCloseDate == void || estimatedCloseDate == null || org.apache.ofbiz.base.util.UtilValidate.isDateAfterNow(estimatedCloseDate) || opportunityStageId != &quot;SOSTG_CLOSED&quot;" widget-style="buttontext">
-            <hyperlink target="closeSalesOpportunity" description="${uiLabelMap.CommonClose}">
+            <hyperlink description="${uiLabelMap.CommonClose}" target="closeSalesOpportunity">
                 <parameter param-name="salesOpportunityId"/>
                 <parameter param-name="opportunityStageId" value="SOSTG_CLOSED"/>
             </hyperlink>

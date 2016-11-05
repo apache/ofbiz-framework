@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="testcreateSprintBacklogByAdmin" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -32,7 +32,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testcreateSprintBacklogByScrummaster" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -43,7 +43,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testdeleteSprintBacklogByAdmin" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -53,7 +53,7 @@ under the License.
     </simple-method>
     
      <simple-method method-name="testdeleteSprintBacklogByScurmmaster" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>

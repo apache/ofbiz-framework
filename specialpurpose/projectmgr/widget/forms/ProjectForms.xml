@@ -42,7 +42,7 @@
         <field name="projectId"><hidden/></field>
         <field name="templateId" use-when="projectId==null">
             <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT_TEMPLATE"/>
                 </entity-options>
             </drop-down>
@@ -60,7 +60,7 @@
         </field>
         <field name="organizationPartyId">
             <drop-down no-current-selected-key="defaultOrganizationPartyId">
-                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>
+                <entity-options entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId" description="${groupName}"/>
             </drop-down>
         </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
@@ -86,7 +86,7 @@
         </field>
         <field name="parentProjectName" entry-name="parentProjectId" parameter-name="workEffortParentId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
                     <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
                 </entity-options>
@@ -140,7 +140,7 @@
         </row-actions>
         <field name="workEffortId"><hidden/></field>
         <field name="phaseName" position="1" use-when="showPosition1"><display description="${phaseName}[${phaseId}]"/></field>
-        <field name="workEffortName" title="${uiLabelMap.FormFieldTitle_taskName}" position="1" use-when="showPosition1"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/></field>
+        <field name="workEffortName" title="${uiLabelMap.FormFieldTitle_taskName}" position="1" use-when="showPosition1"><hyperlink description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/></field>
         <field name="timesheetId" position="2">
             <hyperlink description="${timesheetId}" target="Timesheet">
                 <parameter param-name="timesheetId"/>
@@ -221,7 +221,7 @@
         <field name="workEffortParentId"><hidden value=""/></field>
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="projectView">
+            <hyperlink description="${workEffortName}" target="projectView" also-hidden="false">
                 <parameter param-name="projectId" from-field="workEffortId"/>
             </hyperlink>
         </field>
@@ -352,7 +352,7 @@
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
         <field name="edit" title=" ">
-            <hyperlink target="EditTask?workEffortId=${workEffortId}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTask?workEffortId=${workEffortId}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
@@ -415,7 +415,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="wbsId"><display description="${projectId}.${phaseSeqNum}"/></field>
         <field name="phase">
-            <hyperlink target="FindPhase" description="${phaseName}">
+            <hyperlink description="${phaseName}" target="FindPhase">
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
@@ -435,7 +435,7 @@
         </row-actions>
         <field name="wbsId"><display description="${projectId}.${phaseSeqNum}.${sequenceNum}"/></field>
         <field name="task">
-            <hyperlink target="taskView" description="${workEffortName}">
+            <hyperlink description="${workEffortName}" target="taskView">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -457,7 +457,7 @@
     </form>
     <form name="ListOrderInfo" target="EditProjectOrders?projectId=${projectId}" type="list" list-name="listOrderAssoProject" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -467,7 +467,7 @@
         <field name="orderDate"><display/></field>
         <field name="entryDate"><display/></field>
         <field name="linkProjectOrder" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
-            <hyperlink target="unLinkProjectOrder" description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}">
+            <hyperlink description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}" target="unLinkProjectOrder">
                 <parameter param-name="workEffortId" from-field="projectId"/>
                 <parameter param-name="orderId"/>
                 <parameter param-name="projectId"/>
@@ -548,7 +548,7 @@
         </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile" description="${groupName} [${partyId}]">
+            <hyperlink description="${groupName} [${partyId}]" target="viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -691,13 +691,13 @@
             <set field="statusId" from-field="result.statusId"/>
         </row-actions>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView">
+            <hyperlink description="${workEffortName}" target="taskView" also-hidden="false">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink target="projectView" description="${resultProject.projectName}">
+            <hyperlink description="${resultProject.projectName}" target="projectView">
                 <parameter param-name="projectId" from-field="resultProject.projectId"/>
             </hyperlink>
         </field>
@@ -723,7 +723,7 @@
         </hyperlink>
         </field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
-        <hyperlink target="updateResourcesTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
+        <hyperlink description="${uiLabelMap.CommonStatustoComplete}" target="updateResourcesTaskAssigment">
             <parameter param-name="workEffortId"/>
             <parameter param-name="partyId"/>
             <parameter param-name="roleTypeId"/>
@@ -749,7 +749,7 @@
             <set field="ActualCompletionDate" from-field="result.projectInfo.actualCompletionDate"/>
         </row-actions>
         <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
-            <hyperlink target="projectView" description="${workEffortName}[${workEffortId}]">
+            <hyperlink description="${workEffortName}[${workEffortId}]" target="projectView">
                 <parameter param-name="projectId" from-field="workEffortId"/>
             </hyperlink>
         </field>
@@ -773,7 +773,7 @@
         <field name="partyId"><hidden/></field>
         <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ProjectMgrProjectName}"><!-- project level -->
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
                     <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
                     <entity-constraint name="currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
@@ -888,7 +888,7 @@
         <field name="thruDate"><ignored/></field>
         <field name="submitButton"><ignored/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProjectContent" also-hidden="false">
                 <auto-parameters-entity/>
             </hyperlink>
         </field>
@@ -896,7 +896,7 @@
             <hyperlink description="${uiLabelMap.ContentDownload}" target="ViewSimpleContent?contentId=${contentId}"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaskContent" also-hidden="false">
                 <auto-parameters-entity/>
             </hyperlink>
         </field>

@@ -58,13 +58,13 @@ under the License.
             </service>
         </actions>
         <field name="export" title="${uiLabelMap.SfaVCard}">
-            <hyperlink target="createVCardFromContact" description="${uiLabelMap.SfaVCard}">
+            <hyperlink description="${uiLabelMap.SfaVCard}" target="createVCardFromContact">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
-            <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
+            <hyperlink description="${uiLabelMap.SfaAssignToMe}" target="createPartyRelationshipAndRole">
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="roleTypeIdFrom"/>
                 <parameter param-name="roleTypeIdTo"/>
@@ -175,7 +175,7 @@ under the License.
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ContactList" description="${groovy:contactListName.substring(0,Math.min(contactListName.length(), 12))}..." key-field-name="contactListId"/>
+                <entity-options entity-name="ContactList" key-field-name="contactListId" description="${groovy:contactListName.substring(0,Math.min(contactListName.length(), 12))}..."/>
             </drop-down>
         </field>
         <field name="quickAdd"><hidden value="Y"/></field>

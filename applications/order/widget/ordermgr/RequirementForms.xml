@@ -236,7 +236,7 @@ under the License.
     <form name="ApproveRequirements" type="multi" use-row-submit="true" target="approveRequirements" title="" list-name="requirements"
         paginate-target="ApproveRequirements" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
+            <hyperlink description="${requirementId}" target="EditRequirement" also-hidden="true">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
@@ -300,12 +300,12 @@ under the License.
             </service>
         </actions>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
+            <hyperlink description="${requirementId}" target="EditRequirement" also-hidden="true">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -319,7 +319,7 @@ under the License.
             </display-entity>
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}">
-            <hyperlink target="/catalog/control/EditProductSuppliers?productId=${productId}" description="${supplierProductId}" target-type="inter-app"/>
+            <hyperlink description="${supplierProductId}" target="/catalog/control/EditProductSuppliers?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" widget-area-style="align-text"><display/></field>
@@ -334,12 +334,12 @@ under the License.
         <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
+            <hyperlink description="${requirementId}" target="EditRequirement" also-hidden="true">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -367,7 +367,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId" id-name="orderId_o_0"><text/></field>
         <field name="submitButton" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.orderId_o_0.value=document.ApprovedProductRequirementsSubmit.orderId_o_0.value;document.ApprovedProductRequirements.submit()"/>
+            <hyperlink description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.orderId_o_0.value=document.ApprovedProductRequirementsSubmit.orderId_o_0.value;document.ApprovedProductRequirements.submit()" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
@@ -391,7 +391,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="align-text"><display also-hidden="false"/></field>
         <field name="billToCustomerPartyId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName} ${groupName} (${partyId})" key-field-name="partyId">
+                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${firstName} ${lastName} ${groupName} (${partyId})">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="firstName"/>
                     <entity-order-by field-name="lastName"/>
@@ -402,7 +402,7 @@ under the License.
         <field name="prepareFind"><hidden value="Y"/></field>
         <field name="facilityId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Facility" description="${facilityName} (${facilityId})" key-field-name="facilityId">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} (${facilityId})">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
             </drop-down>

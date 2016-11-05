@@ -29,7 +29,7 @@ under the License.
             <field-map field-name="exampleId" from-field="parameters.exampleId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>
-        <first-from-list entry="oldExampleStatus" list="oldExampleStatusList"/>
+        <first-from-list list="oldExampleStatusList" entry="oldExampleStatus"/>
         <if-not-empty field="oldExampleStatus">
             <set field="oldExampleStatus.statusEndDate" from-field="nowTimestamp"/>
             <store-value value-field="oldExampleStatus"/>

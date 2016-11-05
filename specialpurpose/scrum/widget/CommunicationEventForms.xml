@@ -130,7 +130,7 @@ under the License.
         <field name="fromDate"><hidden/></field>
         <field name="my"><hidden/></field>
         <field name="contentName">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewSimpleContent" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="communicationEventId"/>
@@ -181,7 +181,7 @@ under the License.
         <field name="subject" tooltip="Do not remove the &quot;PD#${product.productId}&quot; number"><text size="74"  maxlength="255" default-value="PD#${product.productId} - ${product.internalName}"/></field>
         <field name="send" title=" " position="1" widget-style="buttontext" 
             use-when="&quot;${communicationEvent.statusId}&quot;!=&quot;COM_COMPLETE&quot;&amp;&amp;&quot;${communicationEvent.statusId}&quot;!=&quot;COM_IN_PROGRESS&quot;">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmailForProduct.form.value='list'),(document.EditEmailForProduct.statusId.value='COM_IN_PROGRESS'),(document.EditEmailForProduct.submit())"/>
+            <hyperlink description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmailForProduct.form.value='list'),(document.EditEmailForProduct.statusId.value='COM_IN_PROGRESS'),(document.EditEmailForProduct.submit())" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="ViewEmailForProduct" type="single" extends="EditEmail" target="${target}" default-map-name="communicationEvent" id="updateEmailForProduct">
@@ -192,7 +192,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="custRequestId"><ignored/> </field>
          <field name="contentName">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewSimpleContent" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="communicationEventId"/>

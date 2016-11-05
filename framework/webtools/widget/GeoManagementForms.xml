@@ -60,7 +60,7 @@
         </field>
         <field name="wellKnownText" title="${uiLabelMap.CommonGeoWellKnownText}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteGeo" description="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteGeo">
                 <parameter param-name="geoId"/>
                 <parameter param-name="noConditionFind" value="Y"/>
             </hyperlink>
@@ -113,7 +113,7 @@
     </form>
     <form name="ListLookupGeo" extends="ListGeos">
         <field name="geoId" title="${uiLabelMap.CommonGeoId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${geoId}" target="javascript:set_value('${geoId}')"/>
+            <hyperlink description="${geoId}" target="javascript:set_value('${geoId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="deleteLink"><ignored/></field>
     </form>

@@ -33,7 +33,7 @@ under the License.
             </service>
         </actions>
         <field name="budgetId" widget-style="linktext" sort-field="true">
-            <hyperlink also-hidden="false" description="${budgetId}" target="EditBudget">
+            <hyperlink description="${budgetId}" target="EditBudget" also-hidden="false">
                 <parameter param-name="budgetId"/>
             </hyperlink>
         </field>

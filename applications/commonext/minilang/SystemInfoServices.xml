@@ -38,7 +38,7 @@ under the License.
         </entity-and>
         <if-not-empty field="ulList">
             <set field="haveUserLogin" value="true"/>
-            <first-from-list entry="userLogin" list="ulList"/>
+            <first-from-list list="ulList" entry="userLogin"/>
             <set field="paMap.ownerUserLoginId" from-field="userLogin.userLoginId"/>
             <set field="paMap.portalPortletId" value="SystemInfoNotes"/>
             <call-service service-name="getPortletAttributes" in-map-name="paMap">
@@ -48,7 +48,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteSystemInfoNote" short-description="Delete SystemInfo Note">
-        <entity-one value-field="noteData" entity-name="NoteData"/>
+        <entity-one entity-name="NoteData" value-field="noteData"/>
         <remove-related relation-name="CustRequestItemNote" value-field="noteData"/>
         <remove-related relation-name="CustRequestNote" value-field="noteData"/>
         <remove-related relation-name="MarketingCampaignNote" value-field="noteData"/>
@@ -82,7 +82,7 @@ under the License.
         </entity-condition>
         <if-compare field="comCount" value="0" operator="greater">
             <set field="status.noteInfo" value="Open communication events: ${comCount}"/>
-            <first-from-list entry="comm" list="comms"/>
+            <first-from-list list="comms" entry="comm"/>
             <set field="status.noteDateTime" from-field="comm.entryDate"/>
             <field-to-list field="status" list="systemInfoStatus"/>
             <clear-field field="status"/>
@@ -103,7 +103,7 @@ under the License.
         </entity-count>            
         <if-compare field="assignCount" value="0" operator="greater">
             <set field="status.noteInfo" value="Assigned and not completed tasks: ${assignCount}"/>
-            <first-from-list entry="assign" list="assigns"/>
+            <first-from-list list="assigns" entry="assign"/>
             <set field="status.noteDateTime" from-field="assign.fromDate"/>
             <field-to-list field="status" list="systemInfoStatus"/>
         </if-compare>

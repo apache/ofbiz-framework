@@ -174,10 +174,10 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.submit())"/>
+            <hyperlink description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.submit())" also-hidden="false" target-type="plain"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
+            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())" also-hidden="false" target-type="plain"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
@@ -211,7 +211,7 @@ under the License.
                 target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.statusId.value='COM_ENTERED'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.submit())"/>
+            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.submit())" also-hidden="true" target-type="plain"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
@@ -470,7 +470,7 @@ under the License.
             </service>
         </actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent">
@@ -657,7 +657,7 @@ under the License.
             <display-entity entity-name="CommunicationEventPrpTyp"/>
         </field>
         <field name="removeLink" title=" " widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose" also-hidden="false">
                 <parameter param-name="communicationEventPrpTypId"/>
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
@@ -733,7 +733,7 @@ under the License.
         <field name="fromDate"><hidden/></field>
         <field name="my"><hidden/></field>
         <field name="contentName">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewSimpleContent" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="communicationEventId"/>
@@ -832,7 +832,7 @@ under the License.
         </field>
         <field name="surveyResponseLink" map-name="dummy" widget-style="smallSubmit"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" also-hidden="false" target-window="_blank">
+            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" target-window="_blank" also-hidden="false">
                 <parameter param-name="surveyId" from-field="templateDataResource.relatedDetailId"/>
             </hyperlink>
         </field>
@@ -1010,7 +1010,7 @@ under the License.
             <set field="orderTypeId" from-field="orderHeader.orderTypeId"/>
         </row-actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId"><hidden/></field>
         <field name="orderTypeId" title="${uiLabelMap.OrderOrderType}">

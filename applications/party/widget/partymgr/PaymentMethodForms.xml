@@ -26,14 +26,14 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="avsDeclineString" title="${uiLabelMap.PartyAvsString}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="[${uiLabelMap.CommonCancelDone}]"/></field>
+        <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink description="[${uiLabelMap.CommonCancelDone}]" target="backHome" also-hidden="false"/></field>
     </form>
     
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" extends="EditBillingAccount" extends-resource="component://accounting/widget/BillingAccountForms.xml">
         <field name="submitButton"><hidden/></field>
         <field name="saveButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext">
-            <hyperlink target="viewprofile" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="viewprofile">
                 <parameter param-name="partyId" from-field="partyId"/>
             </hyperlink>
         </field>

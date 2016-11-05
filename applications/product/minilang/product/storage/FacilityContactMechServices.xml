@@ -64,7 +64,7 @@ under the License.
             <field-map field-name="facilityId" from-field="parameters.facilityId"/>
             <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
         </entity-and>
-        <first-from-list entry="facilityContactMech" list="facilityContactMechs"/>
+        <first-from-list list="facilityContactMechs" entry="facilityContactMech"/>
         <if-empty field="facilityContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyCannotUpdateContactBecauseNotWithSpecifiedParty"/>
@@ -131,7 +131,7 @@ under the License.
         <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
         <filter-list-by-date list="facilityContactMechs" to-list="validFacilityContactMechs"/>
 
-        <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
+        <first-from-list list="validFacilityContactMechs" entry="facilityContactMech"/>
         <if-empty field="facilityContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>

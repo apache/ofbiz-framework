@@ -146,7 +146,7 @@ under the License.
         <store-list list="uomConversions"/>
 
         <!-- now create a new conversion relationship -->
-        <set-service-fields to-map="createParams" service-name="createUomConversionDated" map="parameters"/>
+        <set-service-fields service-name="createUomConversionDated" map="parameters" to-map="createParams"/>
         <if-empty field="parameters.fromDate">
             <set field="createParams.fromDate" from-field="nowTimestamp"/>
         </if-empty>

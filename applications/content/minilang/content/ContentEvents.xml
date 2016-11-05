@@ -52,7 +52,7 @@ under the License.
         <session-to-field field="context.userLogin" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="createContent">
-            <result-to-field field="contentId" result-name="contentId"/>
+            <result-to-field result-name="contentId" field="contentId"/>
             <result-to-request request-name="contentId" result-name="contentId"/>
         </call-service>
         <if-empty field="contentId">
@@ -113,7 +113,7 @@ under the License.
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field="context.userLogin" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="updateContent">
-            <result-to-field field="contentId" result-name="contentId"/>
+            <result-to-field result-name="contentId" field="contentId"/>
         </call-service>
         <check-errors/>
     </simple-method>

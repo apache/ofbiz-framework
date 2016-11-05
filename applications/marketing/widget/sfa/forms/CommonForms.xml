@@ -41,7 +41,7 @@ under the License.
             <set field="postalAddress" from-field="postalAddresses[0]" type="Object"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyName} [${partyId}]" target-window="_blank">
+            <hyperlink description="${partyName} [${partyId}]" target="viewprofile" target-window="_blank">
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>

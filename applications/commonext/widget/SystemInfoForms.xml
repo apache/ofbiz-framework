@@ -24,9 +24,9 @@ under the License.
     <form name="SystemInfoNotes" type="list" list-name="systemInfoNotes" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="${uiLabelMap.CommonExtDateInfoCreated}"><display type="date-time"/></field>
-        <field name="noteInfo" title="${uiLabelMap.CommonExtSystemInfoNote}"><hyperlink target="${moreInfoUrl}${groovy: if (moreInfoItemName &amp;&amp;moreInfoItemId)&quot;?&quot; + moreInfoItemName + &quot;=&quot; + moreInfoItemId + &quot;&amp;id=&quot; + moreInfoItemId;}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
+        <field name="noteInfo" title="${uiLabelMap.CommonExtSystemInfoNote}"><hyperlink description="${noteInfo}" target="${moreInfoUrl}${groovy: if (moreInfoItemName &amp;&amp;moreInfoItemId)&quot;?&quot; + moreInfoItemName + &quot;=&quot; + moreInfoItemId + &quot;&amp;id=&quot; + moreInfoItemId;}" target-type="inter-app"></hyperlink></field>
         <field name="deleteLink" title=" " widget-style="buttontext" >
-            <hyperlink target="deleteSystemInfoNote" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteSystemInfoNote">
                 <parameter param-name="noteId"/>
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </hyperlink>
@@ -46,7 +46,7 @@ under the License.
     <form name="SystemInfoStatus" type="list" list-name="systemInfoStatus"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="noteDateTime" title="${uiLabelMap.CommonExtDateLastChanged}"><display type="date-time"/></field>
-        <field name="noteInfo" title="${uiLabelMap.CommonExtSystemInfoStatus}"><hyperlink target="${moreInfoUrl}" target-type="inter-app" description="${noteInfo}"></hyperlink></field>
+        <field name="noteInfo" title="${uiLabelMap.CommonExtSystemInfoStatus}"><hyperlink description="${noteInfo}" target="${moreInfoUrl}" target-type="inter-app"></hyperlink></field>
     </form>
     
     <form name="CreateSystemInfoNote" type="single" target="createSystemInfoNote">

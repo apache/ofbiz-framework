@@ -38,7 +38,7 @@
         <field name="partyId"><hidden/></field>
         <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ScrumProjectName}"><!-- project level -->
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="SCRUM_PROJECT"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="SPJ_ACTIVE"/>
                     <entity-order-by field-name="workEffortName"/>
@@ -78,7 +78,7 @@
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="fromDate"><hidden/></field>
         <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
-            <hyperlink target="viewScrumProject" description="${workEffortName}[${workEffortId}]">
+            <hyperlink description="${workEffortName}[${workEffortId}]" target="viewScrumProject">
                 <parameter param-name="projectId" from-field="workEffortId"/>
             </hyperlink>
         </field>

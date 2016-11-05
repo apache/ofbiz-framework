@@ -94,7 +94,7 @@ under the License.
         </field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaxAuthorityCategory" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="productCategoryId"/>
@@ -146,7 +146,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityAssoc" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaxAuthorityAssoc" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="toTaxAuthPartyId"/>
@@ -204,7 +204,7 @@ under the License.
         </field>
 
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityGlAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaxAuthorityGlAccount" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="glAccountId"/>
@@ -267,7 +267,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityRateProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaxAuthorityRateProduct" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="taxAuthorityRateSeqId"/>
@@ -362,7 +362,7 @@ under the License.
         <field name="isNexus"><display/></field>
 
         <field name="editLink" title=" " widget-style="buttontext">
-            <hyperlink target="EditTaxAuthorityPartyInfo" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTaxAuthorityPartyInfo" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="partyId"/>
@@ -370,7 +370,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityPartyInfo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaxAuthorityPartyInfo" also-hidden="false">
                 <parameter param-name="taxAuthPartyId"/>
                 <parameter param-name="taxAuthGeoId"/>
                 <parameter param-name="partyId"/>

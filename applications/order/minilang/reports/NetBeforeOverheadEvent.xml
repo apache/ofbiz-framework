@@ -27,7 +27,7 @@
             <set field="DateMonth" value="12"/>
             <set field="mount1" from-field="DateMonth" type="Integer"/>
             <calculate field="mount2" type="Integer">
-                <calcop field="mount1" operator="subtract">
+                <calcop operator="subtract" field="mount1">
                     <number value="1"/>
                 </calcop>
             </calculate>

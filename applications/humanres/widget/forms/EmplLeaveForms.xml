@@ -77,14 +77,14 @@
         </field>
         <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="updateLeave" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="hasAdminPermission">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonUpdate}" target="EditEmplLeave">
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditEmplLeave" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="leaveTypeId"/>
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext" use-when="hasAdminPermission">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteEmplLeave">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmplLeave" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="leaveTypeId"/>
                 <parameter param-name="fromDate"/>
@@ -158,7 +158,7 @@
         </field>
         <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
-            <hyperlink target="EditEmplLeaveStatus" description="${uiLabelMap.CommonUpdate}" >
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditEmplLeaveStatus" >
                 <parameter param-name="partyId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="leaveTypeId"/>

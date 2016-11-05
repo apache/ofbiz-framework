@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
         
     <simple-method method-name="testCreateScrumProjectByProductOwner" short-description="Test Create Scrum Project" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="productowner"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -37,7 +37,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testUpdateScrumProjectByProductOwner" short-description="Test Create Scrum Project" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="productowner"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -52,7 +52,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testUpdateScrumProjectByScrumMaster" short-description="Test Create Scrum Project" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="productowner"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
@@ -67,7 +67,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testCloseScrumProject" short-description="Test Close Scrum Project " login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>

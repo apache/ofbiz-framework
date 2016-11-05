@@ -25,13 +25,13 @@
         paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
         <field name="quantityBreakId" widget-style="buttontext">
-            <hyperlink target="ListQuantityBreaks" description="${quantityBreakId}" also-hidden="false">
+            <hyperlink description="${quantityBreakId}" target="ListQuantityBreaks" also-hidden="false">
                 <parameter param-name="quantityBreakId"/>
             </hyperlink>
         </field>
         <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteQuantityBreak" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteQuantityBreak" also-hidden="false">
                 <parameter param-name="quantityBreakId"/>
             </hyperlink>
         </field>
@@ -54,12 +54,12 @@
         paginate-target="ListShipmentMethodTypes" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentMethodType" default-field-type="display"/>
         <field name="shipmentMethodTypeId" widget-style="buttontext">
-            <hyperlink target="ListShipmentMethodTypes" description="${shipmentMethodTypeId}" also-hidden="false">
+            <hyperlink description="${shipmentMethodTypeId}" target="ListShipmentMethodTypes" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteShipmentMethodType" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteShipmentMethodType" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
             </hyperlink>
         </field>
@@ -77,14 +77,14 @@
         <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
         <field name="editLink" title=" " widget-style="buttontext">
-            <hyperlink target="ListCarrierShipmentMethods" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="ListCarrierShipmentMethods" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteCarrierShipmentMethod" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteCarrierShipmentMethod" also-hidden="false">
                 <parameter param-name="shipmentMethodTypeId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>

@@ -31,7 +31,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="communicationEventId"  widget-style="buttontext">
-            <hyperlink target="/partymgr/control/EditCommunicationEvent" target-type="inter-app" description="${communicationEventId}">
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
@@ -40,7 +40,7 @@ under the License.
         <field name="description"><text size="40"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteCommunicationEventWorkEff" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCommunicationEventWorkEff" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="communicationEventId"/>
             </hyperlink>

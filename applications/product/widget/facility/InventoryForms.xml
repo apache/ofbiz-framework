@@ -81,7 +81,7 @@ under the License.
         <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"/>
         <field name="facilityId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
                 <sub-hyperlink use-when="facilityId!=null" target="EditFacility" description="${uiLabelMap.ProductEditFacility} [${facilityId}]">
@@ -191,12 +191,12 @@ under the License.
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="shipmentId" widget-style="buttontext">
-            <hyperlink target="ViewShipment" description="${shipmentId}" >
+            <hyperlink description="${shipmentId}" target="ViewShipment" >
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
@@ -211,7 +211,7 @@ under the License.
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -221,7 +221,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title=" " widget-style="buttontext">
-            <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">
+            <hyperlink description="${inventoryItemLabelId}" target="EditInventoryItemLabel" also-hidden="true">
                 <parameter param-name="inventoryItemLabelId"/>
             </hyperlink>
         </field>
@@ -232,7 +232,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabelApplFromItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInventoryItemLabelApplFromItem" also-hidden="false">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="inventoryItemLabelTypeId"/>
                 <parameter param-name="inventoryItemLabelId"/>

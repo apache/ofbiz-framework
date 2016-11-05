@@ -58,7 +58,7 @@ under the License.
             </service>
         </actions>
         <field name="partyInvitationId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+            <hyperlink description="${partyInvitationId}" target="editPartyInvitation" also-hidden="false">
                 <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
@@ -69,7 +69,7 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="lastInviteDate"><display/></field>
         <field name="remove" title=" " widget-style="buttontext">
-            <hyperlink target="deletePartyInvitation" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyInvitation">
                 <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
             </hyperlink>
         </field>
@@ -107,7 +107,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="partyInvitationId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+            <hyperlink description="${partyInvitationId}" target="editPartyInvitation" also-hidden="false">
                 <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
@@ -119,7 +119,7 @@ under the License.
             </display-entity>
         </field>
         <field name="remove" title=" " widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationGroupAssoc" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyInvitationGroupAssoc">
                 <parameter param-name="partyInvitationId"/>
                 <parameter param-name="partyIdTo"/>
             </hyperlink>
@@ -150,13 +150,13 @@ under the License.
             </entity-condition>
         </actions>
         <field name="partyInvitationId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+            <hyperlink description="${partyInvitationId}" target="editPartyInvitation" also-hidden="false">
                 <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title=" " widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationRoleAssoc" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyInvitationRoleAssoc">
                 <parameter param-name="partyInvitationId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>

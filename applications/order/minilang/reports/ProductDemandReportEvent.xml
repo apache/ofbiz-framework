@@ -26,17 +26,17 @@
             <set field="year" from-field="Year" type="Integer"/>
             <set field="week1" from-field="Week" type="Integer"/>
             <calculate field="week2" type="Integer">
-                <calcop field="week1" operator="subtract">
+                <calcop operator="subtract" field="week1">
                     <number value="1"/>
                 </calcop>
             </calculate>
             <calculate field="week3" type="Integer">
-                <calcop field="week1" operator="subtract">
+                <calcop operator="subtract" field="week1">
                     <number value="2"/>
                 </calcop>
             </calculate>
             <calculate field="week4" type="Integer">
-                <calcop field="week1" operator="subtract">
+                <calcop operator="subtract" field="week1">
                     <number value="3"/>
                 </calcop>
             </calculate>

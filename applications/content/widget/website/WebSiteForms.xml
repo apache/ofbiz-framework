@@ -93,7 +93,7 @@ under the License.
             </service>
         </actions>
         <field name="pathAlias" sort-field="true" widget-style="buttontext">
-            <hyperlink target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}" description="${pathAlias}"></hyperlink>
+            <hyperlink description="${pathAlias}" target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}"></hyperlink>
         </field>        
         <field name="aliasTo" sort-field="true"><display/></field>
         <field name="contentId" sort-field="true">
@@ -107,7 +107,7 @@ under the License.
         <field name="fromDate" sort-field="true"><display/></field>
         <field name="thruDate" sort-field="true"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeWebSitePathAlias" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeWebSitePathAlias" also-hidden="false">
               <parameter param-name="webSiteId"/>
               <parameter param-name="pathAlias"/>
             </hyperlink>
@@ -161,7 +161,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveWebSiteContent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="RemoveWebSiteContent" also-hidden="false">
                 <parameter param-name="webSiteId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="webSiteContentTypeId"/>
@@ -226,7 +226,7 @@ under the License.
         <field name="thruDate"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeWebSiteRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeWebSiteRole" also-hidden="false">
                 <parameter param-name="webSiteId" from-field="webSiteRole.webSiteId"/>
                 <parameter param-name="partyId" from-field="webSiteRole.partyId"/>
                 <parameter param-name="roleTypeId" from-field="webSiteRole.roleTypeId"/>
@@ -310,7 +310,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteWebSiteContactList" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWebSiteContactList">
                 <parameter param-name="webSiteId"/>
                 <parameter param-name="contactListId"/>
                 <parameter param-name="fromDate"/>

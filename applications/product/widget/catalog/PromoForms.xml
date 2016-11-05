@@ -23,7 +23,7 @@ under the License.
     <form name="ListProductPromos" type="list" title="" list-name="productPromos"
         paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productPromoId" widget-style="buttontext">
-            <hyperlink target="EditProductPromo" description="${productPromoId}" also-hidden="false">
+            <hyperlink description="${productPromoId}" target="EditProductPromo" also-hidden="false">
                 <parameter param-name="productPromoId"/>
             </hyperlink>
         </field>
@@ -107,12 +107,12 @@ under the License.
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
         <field name="productPromoId"><hidden/></field>
         <field name="productPromoCodeId" widget-style="buttontext">
-            <hyperlink target="EditProductPromoCode" description="${productPromoCodeId}" also-hidden="false">
+            <hyperlink description="${productPromoCodeId}" target="EditProductPromoCode" also-hidden="false">
                 <parameter param-name="productPromoCodeId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductPromoCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductPromoCode" also-hidden="false">
                 <parameter param-name="productPromoCodeId"/>
                 <parameter param-name="productPromoId"/>
             </hyperlink>
@@ -134,7 +134,7 @@ under the License.
     <form name="ListProductPromoContent" type="list" list-name="productPromoContents"
             odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="editProductPromoContent" title="${uiLabelMap.ProductContent}" widget-style="buttontext">
-            <hyperlink target="EditProductPromoContent" description="${description} [${contentId}]" also-hidden="false">
+            <hyperlink description="${description} [${contentId}]" target="EditProductPromoContent" also-hidden="false">
                 <parameter param-name="productPromoId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="productPromoContentTypeId"/>
@@ -147,12 +147,12 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
         <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
-            <hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}" also-hidden="false">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
         <field name="removeContent" title=" " widget-style="buttontext">
-            <hyperlink target="removeContentFromProductPromo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentFromProductPromo" also-hidden="false">
                 <parameter param-name="productPromoId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="productPromoContentTypeId"/>

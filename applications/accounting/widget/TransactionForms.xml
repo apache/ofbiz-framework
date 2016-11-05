@@ -97,7 +97,7 @@ under the License.
     <form name="ViewGatewayResponseRelations" type="single" target="" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="inter-app" description="${orderId}" target="/ordermgr/control/orderview">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>

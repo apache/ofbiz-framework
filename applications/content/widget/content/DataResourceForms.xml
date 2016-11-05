@@ -53,7 +53,7 @@ under the License.
         </field>
         <!--<field name="localeString" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
+                <entity-options entity-name="CountryCode" key-field-name="countryCode" description="${countryName} [${countryCode}]">
                     <entity-order-by field-name="countryName"/>
                 </entity-options>
             </drop-down>
@@ -141,14 +141,14 @@ under the License.
             </service>
         </actions>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
-            <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
+            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="dataResourceName"><display/></field>
     </form>
     <form name="MruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
+            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="dataResourceName" widget-style="buttontext"><display/></field>
         <field name="dataCategoryId" widget-style="buttontext"><display/></field>
@@ -227,7 +227,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="/EditContent">
+            <hyperlink description="${contentId}" target="/EditContent" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -375,7 +375,7 @@ under the License.
         <field name="attrValue"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute" also-hidden="false">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="attrName"/>
             </hyperlink>
@@ -410,7 +410,7 @@ under the License.
         <field name="thruDate" widget-style="buttontext"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole" also-hidden="false">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="partyId"/>
@@ -439,7 +439,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature" also-hidden="false">
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="productFeatureId"/>
             </hyperlink>
@@ -468,13 +468,13 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
         <field name="productFeatureId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="MruLookupProductFeature" default-entity-name="ProductFeature" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.FormFieldTitle_contentName}" widget-style="buttontext"><display/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}" widget-style="buttontext"><display/></field>

@@ -23,7 +23,7 @@ under the License.
     <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true" target="updateForumGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId">
-            <hyperlink target="findForums" description="${uiLabelMap.FormFieldTitle_forums}">
+            <hyperlink description="${uiLabelMap.FormFieldTitle_forums}" target="findForums">
                 <parameter param-name="forumGroupId" from-field="contentId"/>
             </hyperlink>
         </field>
@@ -47,7 +47,7 @@ under the License.
         <field name="caContentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
         <field name="contentTypeId"><hidden/></field>
         <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId">
-            <hyperlink target="findForumMessages" description="${uiLabelMap.ContentForumMessages}">
+            <hyperlink description="${uiLabelMap.ContentForumMessages}" target="findForumMessages">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="forumId" from-field="contentId"/>
             </hyperlink>
@@ -57,7 +57,7 @@ under the License.
         <field name="thruDate" entry-name="caThruDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="updateForum" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="updateForum">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="caContentIdTo" from-field="contentId"/>
                 <parameter param-name="caContentId"/>
@@ -112,7 +112,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}">
-            <hyperlink target="deleteForumGroupRole" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteForumGroupRole">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="contentId"/>
@@ -158,7 +158,7 @@ under the License.
         <field name="fromDate" entry-name="caFromDate"><display description="${groovy:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
         <field name="thruDate" entry-name="caThruDate"><display description="${groovy:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="updateForumMessage" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="updateForumMessage">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="forumId" from-field="${parameters.forumId}"/>
                 <parameter param-name="caContentIdTo"/>
@@ -171,7 +171,7 @@ under the License.
         <field name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext">
-            <hyperlink target="addForumMessage" description="${uiLabelMap.FormFieldTitle_reponse}">
+            <hyperlink description="${uiLabelMap.FormFieldTitle_reponse}" target="addForumMessage">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                 <parameter param-name="forumMessageIdTo" from-field="contentId"/>

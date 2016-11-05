@@ -31,7 +31,7 @@ under the License.
             </service>
         </actions>
         <field name="facilityId">
-            <hyperlink target="EditFacility" description="${facilityId}">
+            <hyperlink description="${facilityId}" target="EditFacility">
                 <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
@@ -106,7 +106,7 @@ under the License.
             </service>
         </actions>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
@@ -118,14 +118,14 @@ under the License.
         <field name="datetimeReceived"><display/></field>
         <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"><display/></field>
         <field name="productId">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="internalName"><display/></field>
         <field name="partyId"><display/></field>
         <field name="locationSeqId" widget-style="buttontext">
-            <hyperlink target="EditFacilityLocation" description="${areaId}:${aisleId}:${sectionId}:${levelId}:${positionId} [${locationSeqId}]">
+            <hyperlink description="${areaId}:${aisleId}:${sectionId}:${levelId}:${positionId} [${locationSeqId}]" target="EditFacilityLocation">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="locationSeqId"/>
             </hyperlink>
@@ -139,7 +139,7 @@ under the License.
         <field name="softIdentifier"><display/></field>
         <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
         <field name="transfer" title="${uiLabelMap.ProductTransfer}" entry-name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem" description="${uiLabelMap.ProductTransfer}">
+            <hyperlink description="${uiLabelMap.ProductTransfer}" target="TransferInventoryItem">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
@@ -149,7 +149,7 @@ under the License.
          override-list-size="${inventoryItemsSize}" paginate-target="SearchInventoryItemsByLabels"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
@@ -161,7 +161,7 @@ under the License.
         <field name="datetimeReceived"><display/></field>
         <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"><display/></field>
         <field name="productId">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -233,13 +233,13 @@ under the License.
         </row-actions>
 
         <field name="inventoryItemId" widget-style="buttontext" position="1" use-when="showPosition1">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
         <field name="productId" position="1" use-when="showPosition1" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -262,19 +262,19 @@ under the License.
         </field>
         <field name="description" position="2"><display/></field>
         <field name="orderId" widget-style="buttontext" position="2">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="orderItemSeqId" position="2"><display/></field>
         <field name="shipmentId" widget-style="buttontext" position="2">
-            <hyperlink target="ViewShipment" description="${shipmentId}" >
+            <hyperlink description="${shipmentId}" target="ViewShipment" >
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentItemSeqId" position="2"><display/></field>
         <field name="workEffortId" widget-style="buttontext" position="2">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" target-type="inter-app" description="${workEffortId}" >
+            <hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" >
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -297,14 +297,14 @@ under the License.
         </row-actions>
 
         <field name="productId" position="1" use-when="showPosition1" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
 
         <field name="effectiveDate" position="2"><display/></field>
         <field name="inventoryItemId" widget-style="buttontext" position="2">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
@@ -318,19 +318,19 @@ under the License.
         </field>
         <field name="description" position="2"><display/></field>
         <field name="orderId" widget-style="buttontext" position="2">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="orderItemSeqId" position="2"><display/></field>
         <field name="shipmentId" widget-style="buttontext" position="2">
-            <hyperlink target="ViewShipment" description="${shipmentId}" >
+            <hyperlink description="${shipmentId}" target="ViewShipment" >
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentItemSeqId" position="2"><display/></field>
         <field name="workEffortId" widget-style="buttontext" position="2">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" target-type="inter-app" description="${workEffortId}" >
+            <hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" >
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -351,12 +351,12 @@ under the License.
 
         <field name="effectiveDate"><display/></field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
@@ -370,19 +370,19 @@ under the License.
         </field>
         <field name="description"><display/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="orderItemSeqId"><display/></field>
         <field name="shipmentId" widget-style="buttontext">
-            <hyperlink target="ViewShipment" description="${shipmentId}" >
+            <hyperlink description="${shipmentId}" target="ViewShipment" >
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentItemSeqId"><display/></field>
         <field name="workEffortId" widget-style="buttontext">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" target-type="inter-app" description="${workEffortId}" >
+            <hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" >
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -413,7 +413,7 @@ under the License.
         <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
-                    <entity-constraint name="roleTypeId" value="SUPPLIER" operator="equals"/>
+                    <entity-constraint name="roleTypeId" operator="equals"  value="SUPPLIER"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
@@ -448,7 +448,7 @@ under the License.
             <script location="component://product/groovyScripts/facility/facility/ComputeProductSellThroughData.groovy"/>
         </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink target="EditFacilityInventoryItems" description="${productId}">
+            <hyperlink description="${productId}" target="EditFacilityInventoryItems">
                 <parameter param-name="productId"/>
                 <parameter param-name="facilityId"/>
             </hyperlink>
@@ -485,17 +485,17 @@ under the License.
     <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments?facilityId=${facilityId}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
-            <hyperlink target="ViewShipment" description="${shipmentId}">
+            <hyperlink description="${shipmentId}" target="ViewShipment">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
-            <hyperlink target="/ordermgr/control/orderview" description="${primaryOrderId}" target-type="inter-app">
+            <hyperlink description="${primaryOrderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId" from-field="primaryOrderId"/>
             </hyperlink>
         </field>
         <field name="shipmentRouteSegmentId">
-            <hyperlink target="EditShipmentRouteSegments" description="${shipmentRouteSegmentId}">
+            <hyperlink description="${shipmentRouteSegmentId}" target="EditShipmentRouteSegments">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
@@ -527,12 +527,12 @@ under the License.
     <form name="Labels" type="multi" use-row-submit="true" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
-            <hyperlink target="ViewShipment" description="${shipmentId}">
+            <hyperlink description="${shipmentId}" target="ViewShipment">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
-            <hyperlink target="/ordermgr/control/orderview" description="${primaryOrderId}" target-type="inter-app">
+            <hyperlink description="${primaryOrderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId" from-field="primaryOrderId"/>
             </hyperlink>
         </field>
@@ -545,7 +545,7 @@ under the License.
             <display-entity entity-name="ShipmentMethodType"/>
         </field>
         <field name="label" title="${uiLabelMap.ProductLabel}">
-          <hyperlink target="viewShipmentPackageRouteSegLabelImage" description="${uiLabelMap.ProductLabel}">
+          <hyperlink description="${uiLabelMap.ProductLabel}" target="viewShipmentPackageRouteSegLabelImage">
                 <parameter param-name="shipmentId"/>
                 <parameter param-name="shipmentRouteSegmentId"/>
                 <parameter param-name="shipmentPackageSeqId"/>
@@ -614,7 +614,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removeGroupFromFacility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeGroupFromFacility" also-hidden="false">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="fromDate"/>
@@ -647,7 +647,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="removePartyFromFacility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removePartyFromFacility" also-hidden="false">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
@@ -687,7 +687,7 @@ under the License.
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
             paginate-target="InventoryAverageCosts" override-list-size="${overrideListSize}">
         <field name="productId2" title="${uiLabelMap.ProductProductId}" entry-name="productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -734,17 +734,17 @@ under the License.
         </row-actions>
 
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+            <hyperlink description="${inventoryTransferId}" target="TransferInventoryItem">
                 <parameter param-name="inventoryTransferId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
         <field name="facilityId" widget-style="buttontext">
-            <hyperlink target="EditFacility" description="${facilityId}">
+            <hyperlink description="${facilityId}" target="EditFacility">
                 <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
@@ -753,7 +753,7 @@ under the License.
         </field>
         <field name="locationSeqId"><display/></field>
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${product.productId}">
+            <hyperlink description="${product.productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>
@@ -778,17 +778,17 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+            <hyperlink description="${inventoryTransferId}" target="TransferInventoryItem">
                 <parameter param-name="inventoryTransferId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
         <field name="facilityIdTo" widget-style="buttontext">
-            <hyperlink target="EditFacility" description="${facilityIdTo}">
+            <hyperlink description="${facilityIdTo}" target="EditFacility">
                 <parameter param-name="facilityId" from-field="facilityIdTo"/>
             </hyperlink>
         </field>
@@ -797,7 +797,7 @@ under the License.
         </field>
         <field name="locationSeqIdTo"><display/></field>
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${product.productId}">
+            <hyperlink description="${product.productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>
@@ -823,17 +823,17 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+            <hyperlink description="${inventoryTransferId}" target="TransferInventoryItem">
                 <parameter param-name="inventoryTransferId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
         <field name="facilityIdTo" widget-style="buttontext">
-            <hyperlink target="EditFacility" description="${facilityIdTo}" also-hidden="false">
+            <hyperlink description="${facilityIdTo}" target="EditFacility" also-hidden="false">
                 <parameter param-name="facilityId" from-field="facilityIdTo"/>
             </hyperlink>
         </field>
@@ -842,7 +842,7 @@ under the License.
         </field>
         <field name="locationSeqIdTo"><display also-hidden="false"/></field>
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${product.productId}" also-hidden="false">
+            <hyperlink description="${product.productId}" target="/catalog/control/EditProduct" target-type="inter-app" also-hidden="false">
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>
@@ -890,7 +890,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="facilityId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.CommonView}">
-            <hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" target-type="inter-app">
+            <hyperlink description="[${contentId}]" target="/content/control/ViewSimpleContent" target-type="inter-app">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -899,7 +899,7 @@ under the License.
         <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}"><display-entity entity-name="ContentType" also-hidden="false"/></field>
         <field name="fromDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteFacilityContent">
+           <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFacilityContent" also-hidden="false">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>
@@ -937,7 +937,7 @@ under the License.
     <form name="ListFacilityAgreements" type="list" list-name="facilityAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/EditAgreementItemFacility" target-type="inter-app" description="${agreementId}/${agreementItemSeqId}" also-hidden="false">
+            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemFacility" target-type="inter-app" also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="faclityId"/>
@@ -972,13 +972,13 @@ under the License.
         <alt-target use-when="${groovy: inventoryItem==null}" target="createInventoryTransfersForProduct"/>
         <alt-target use-when="${groovy: inventoryTransferId!=null}" target="UpdateInventoryTransfer"/>
         <field name="inventoryItemId" widget-style="buttontext" use-when="${groovy: inventoryItem != null}">
-            <hyperlink target="/catalog/control/EditInventoryItem" target-type="inter-app" description="${inventoryItemId}">
+            <hyperlink description="${inventoryItemId}" target="/catalog/control/EditInventoryItem" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
         <field name="inventoryItemTypeId" use-when="${groovy: inventoryItem != null}"><display description="${inventoryItemType.description}"/></field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${groovy: if(inventoryItem) inventoryItem.productId else parameters.productId}">
+            <hyperlink description="${groovy: if(inventoryItem) inventoryItem.productId else parameters.productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -1003,7 +1003,7 @@ under the License.
             </drop-down>
         </field>
         <field name="facilityIdTo" use-when="${groovy: inventoryTransfer!=null}" widget-style="buttontext">
-            <hyperlink target="EditFacility" description="${inventoryTransfer.facilityIdTo}" also-hidden="false">
+            <hyperlink description="${inventoryTransfer.facilityIdTo}" target="EditFacility" also-hidden="false">
                 <parameter param-name="facilityIdTo" value="${inventoryTransfer.facilityIdTo}"/>
             </hyperlink>
         </field>

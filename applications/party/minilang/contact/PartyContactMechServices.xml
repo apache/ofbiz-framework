@@ -80,7 +80,7 @@ under the License.
         <set-pk-fields value-field="partyContactMechMap" map="parameters"/>
         <find-by-and entity-name="PartyContactMech" list="partyContactMechs" map="partyContactMechMap"/>
         <filter-list-by-date list="partyContactMechs" to-list="validPartyContactMechs"/>
-        <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
+        <first-from-list list="validPartyContactMechs" entry="partyContactMech"/>
         <if-empty field="partyContactMech">
             <add-error><fail-property resource="PartyUiLabels" property="PartyCannotUpdateContactBecauseNotWithSpecifiedParty"/></add-error>
         </if-empty>
@@ -152,7 +152,7 @@ under the License.
         <set-pk-fields value-field="partyContactMechMap" map="parameters"/>
         <find-by-and entity-name="PartyContactMech" list="partyContactMechs" map="partyContactMechMap"/>
         <filter-list-by-date list="partyContactMechs" to-list="validPartyContactMechs"/>
-        <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
+        <first-from-list list="validPartyContactMechs" entry="partyContactMech"/>
         <if-empty field="partyContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>
@@ -269,7 +269,7 @@ under the License.
         <check-errors/>
 
         <!-- if e-mail address already exists simply return -->
-        <entity-condition list="partyAndContactMechs" entity-name="PartyAndContactMech">
+        <entity-condition entity-name="PartyAndContactMech" list="partyAndContactMechs">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" from-field="parameters.partyId"/>
                 <condition-expr field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -279,7 +279,7 @@ under the License.
         <filter-list-by-date list="partyAndContactMechs"/>
         <if-not-empty field="partyAndContactMechs">
             <log level="info" message="E-mail address: ${parameters.emailAddress} already exists, did not add again.."/>
-            <first-from-list entry="existsPartyAndContactMech" list="partyAndContactMechs"/>
+            <first-from-list list="partyAndContactMechs" entry="existsPartyAndContactMech"/>
             <field-to-result field="existsPartyAndContactMech.contactMechId" result-name="contactMechId"/>
             <field-to-request field="existsPartyAndContactMech.contactMechId" request-name="contactMechId"/>
             <return/>
@@ -419,7 +419,7 @@ under the License.
 
     <simple-method method-name="createPostalAddressAndPurposes" short-description="Create postal address, purposes and set them defaults" login-required="false">
         <if-not-empty field="parameters.roleTypeId">
-            <entity-one value-field="partyRole" entity-name="PartyRole" />
+            <entity-one entity-name="PartyRole" value-field="partyRole" />
             <if-empty field="partyRole">
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <add-error><fail-property resource="PartyUiLabels" property="PartyRoleTypeNotFoundForTheParty"/></add-error>
@@ -446,7 +446,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry="pcmp" list="pcmpList"/>
+                        <first-from-list list="pcmpList" entry="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
@@ -465,7 +465,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry="pcmp" list="pcmpList"/>
+                        <first-from-list list="pcmpList" entry="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                     </if-not-empty>

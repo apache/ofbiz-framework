@@ -180,7 +180,7 @@ under the License.
     <simple-method method-name="createPartyIdentifications" short-description="create mass party identification with association between value and type">
         <set field="partyIdentCtx.partyId" from-field="parameters.partyId"/>
         <iterate-map key="key" value="value" map="parameters.identifications">
-            <entity-one value-field="identificationType" entity-name="PartyIdentificationType" use-cache="true">
+            <entity-one entity-name="PartyIdentificationType" value-field="identificationType" use-cache="true">
                 <field-map field-name="partyIdentificationTypeId" from-field="value"/>
             </entity-one>
             <if-not-empty field="identificationType">
@@ -245,7 +245,7 @@ under the License.
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
            <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
-           <first-from-list entry="extension" list="extensions"/>
+           <first-from-list list="extensions" entry="extension"/>
            <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResource"/>
            <!-- create the data resource object -->
            <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
@@ -339,7 +339,7 @@ under the License.
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
                <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
-               <first-from-list entry="extension" list="extensions"/>
+               <first-from-list list="extensions" entry="extension"/>
                <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResource"/>
                <!-- create the data resource object -->
                 <!-- create the data resource object -->
@@ -619,7 +619,7 @@ under the License.
             </entity-and>
         </if-empty>
         <if-not-empty field="emailAddresses">
-            <first-from-list entry="emailAddress" list="emailAddresses"/>
+            <first-from-list list="emailAddresses" entry="emailAddress"/>
             <field-to-result field="emailAddress.infoString" result-name="emailAddress"/>
             <field-to-result field="emailAddress.contactMechId" result-name="contactMechId"/>
         </if-not-empty>
@@ -673,7 +673,7 @@ under the License.
             <else>
                 <find-by-and entity-name="PartyAndContactMech" map="findMap" list="telephoneAll1"/>
                 <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2"/>
-                <first-from-list entry="telephone" list="telephoneAll2"/>
+                <first-from-list list="telephoneAll2" entry="telephone"/>
                 <field-to-result field="telephone.contactMechId" result-name="contactMechId"/>
                 <if-not-empty field="telephone.tnCountryCode">
                     <field-to-result field="telephone.tnCountryCode" result-name="countryCode"/>
@@ -746,7 +746,7 @@ under the License.
             <else>
                 <find-by-and entity-name="PartyAndContactMech" map="findMap" list="addressAll1"/>
                 <filter-list-by-date list="addressAll1" to-list="addressAll2"/>
-                <first-from-list entry="address" list="addressAll2"/>
+                <first-from-list list="addressAll2" entry="address"/>
                       <field-to-result field="address.contactMechId" result-name="contactMechId"/>
                       <if-not-empty field="address.paAddress1">
                           <field-to-result field="address.paAddress1" result-name="address1"/>
@@ -836,7 +836,7 @@ under the License.
     <simple-method method-name="createPartyRelationshipContactAccount" short-description="create a company/contact relationship and add the related roles">
         <set field="roleMap.partyId" from-field="parameters.accountPartyId"/>
         <set field="roleMap.roleTypeId" value="ACCOUNT"/>
-        <entity-one value-field="partyRole" entity-name="PartyRole">
+        <entity-one entity-name="PartyRole" value-field="partyRole">
             <field-map field-name="partyId" from-field="roleMap.partyId"/>
             <field-map field-name="roleTypeId" from-field="roleMap.roleTypeId"/>
         </entity-one>
@@ -845,7 +845,7 @@ under the License.
         </if-empty>
         <set field="roleMap.partyId" from-field="parameters.contactPartyId"/>
         <set field="roleMap.roleTypeId" value="CONTACT"/>
-        <entity-one value-field="partyRole" entity-name="PartyRole">
+        <entity-one entity-name="PartyRole" value-field="partyRole">
             <field-map field-name="partyId" from-field="roleMap.partyId"/>
             <field-map field-name="roleTypeId" from-field="roleMap.roleTypeId"/>
         </entity-one>
@@ -876,7 +876,7 @@ under the License.
         <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry="webSite" list="webSites"/>
+        <first-from-list list="webSites" entry="webSite"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <entity-one entity-name="Person" value-field="person"/>
             <set field="bodyParameters.person" from-field="person"/>
@@ -909,7 +909,7 @@ under the License.
         <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry="webSite" list="webSites"/>
+        <first-from-list list="webSites" entry="webSite"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <if-not-empty field="parameters.updatedUserLogin.partyId">
                 <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
@@ -923,7 +923,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="equals"  from-field="partyId"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="partyContactDetailByPurpose" list="partyContactDetailByPurposes"/>
+            <first-from-list list="partyContactDetailByPurposes" entry="partyContactDetailByPurpose"/>
             <entity-one entity-name="PartyAndPerson" value-field="partyAndPerson"/>
             <set field="bodyParameters.partyAndPerson" from-field="partyAndPerson"/>
             <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>
@@ -1043,7 +1043,7 @@ under the License.
         <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry="webSite" list="webSites"/>
+        <first-from-list list="webSites" entry="webSite"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <entity-one entity-name="UserLogin" value-field="userLoginParty"/>
             <set field="parameters.partyId" from-field="userLoginParty.partyId"/>
@@ -1053,7 +1053,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="equals"  from-field="parameters.partyId"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="partyContactDetailByPurpose" list="partyContactDetailByPurposes"/>
+            <first-from-list list="partyContactDetailByPurposes" entry="partyContactDetailByPurpose"/>
             <entity-one entity-name="Person" value-field="person"/>
             <set field="bodyParameters.person" from-field="person"/>
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>

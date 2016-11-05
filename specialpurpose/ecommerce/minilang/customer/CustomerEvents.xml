@@ -290,7 +290,7 @@ under the License.
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
             <result-to-field result-name="partyId" field="tempMap.partyId"/>
-            <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
+            <result-to-field result-name="newUserLogin" field="createdUserLogin"/>
         </call-service>
         <set-current-user-login value-field="createdUserLogin"/>
 
@@ -1267,7 +1267,7 @@ under the License.
         </if-compare-field>
     </simple-method>
     <simple-method method-name="createAnonContact" short-description="Create a non Contact" login-required="false">
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="parameters.userLogin" from-field="systemUserLogin"/>
@@ -1295,11 +1295,11 @@ under the License.
         </if-compare-field>
         <check-errors/>
         <if-empty field="parameters.partyId">
-            <set-service-fields service-name="createPerson" to-map="newPerson" map="parameters"/>
+            <set-service-fields service-name="createPerson" map="parameters" to-map="newPerson"/>/>
             <call-service service-name="createPerson" in-map-name="newPerson">
                 <result-to-field result-name="partyId" field="parameters.partyId"/>
             </call-service>
-            <set-service-fields service-name="createPartyContactMech" to-map="newContact" map="parameters"/>
+            <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="newContact"/>/>
             <set field="newContact.infoString" from-field="parameters.emailAddress"/>
             <set field="newContact.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <set field="newContact.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
@@ -1310,7 +1310,7 @@ under the License.
                 <set field="parameters.contactMechIdFrom" from-field="contact.contactMechId"/>
             </else>
         </if-empty>
-        <set-service-fields service-name="sendContactUsEmailToCompany" to-map="newComm" map="parameters"/>
+        <set-service-fields service-name="sendContactUsEmailToCompany" map="parameters" to-map="newComm"/>/>
         <set field="newComm.emailType" value="CONT_NOTI_EMAIL"/>
         <call-service service-name="sendContactUsEmailToCompany" in-map-name="newComm">
             <default-message property="ThankYouForContactingUs" resource="EcommerceUiLabels"></default-message>

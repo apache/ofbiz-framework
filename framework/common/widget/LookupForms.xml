@@ -85,7 +85,7 @@ under the License.
             </service>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="enabled"><display/></field>
         <field name="hasLoggedOut"><display/></field>
@@ -111,7 +111,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PortalPage" default-field-type="display"/>
         <field name="portalPageId" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${portalPageId}" target="javascript:set_value('${portalPageId}')"/>
+            <hyperlink description="${portalPageId}" target="javascript:set_value('${portalPageId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 
@@ -124,7 +124,7 @@ under the License.
     <form name="ListLocales" type="list" list-name="locales" paginate-target="LookupLocale"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="localeString" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')"/>
+            <hyperlink description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="localeName" title="${uiLabelMap.CommonLanguageTitle}"><display/></field>
     </form>

@@ -115,7 +115,7 @@ under the License.
         <field name="lastModifiedDate" sort-field="true"><display/></field>
         <!--field name="statusId"><hidden value="CRQ_REJECTED"/></field-->
         <field name="rejectButton">
-            <hyperlink target="setCustRequestStatus" description="${uiLabelMap.FormFieldTitle_rejectButton}">
+            <hyperlink description="${uiLabelMap.FormFieldTitle_rejectButton}" target="setCustRequestStatus">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="statusId" value="CRQ_REJECTED"/>
             </hyperlink>
@@ -226,7 +226,7 @@ under the License.
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId">
-            <hyperlink target="/workeffort/control/WorkEffortSummary" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -552,7 +552,7 @@ under the License.
         <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
+            <hyperlink description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
             </hyperlink>
         </field>
@@ -641,7 +641,7 @@ under the License.
         <field name="mimeTypeId"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="tabButtonItem!=void&amp;&amp;tabButtonItem.equals(&quot;custRequestContent&quot;)">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent">
+           <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent" also-hidden="false">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>

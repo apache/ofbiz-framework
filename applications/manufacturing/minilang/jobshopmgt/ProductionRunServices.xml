@@ -72,7 +72,7 @@ under the License.
                 <iterate list="components" entry="component">
                     <if-not-empty field="component.productId">
                         <clear-field field="callSvcMap"/>
-                        <set-service-fields to-map="callSvcMap" service-name="issueProductionRunTaskComponent" map="component"/>
+                        <set-service-fields service-name="issueProductionRunTaskComponent" map="component" to-map="callSvcMap"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <!-- calculate quantity needed if the produced run quantity is produced partially -->
                         <entity-and entity-name="WorkEffortAndInventoryAssign" list="issuances">
@@ -83,8 +83,8 @@ under the License.
                         <iterate list="issuances" entry="issuance">
                             <calculate field="totalIssuance">
                                 <calcop operator="add">
-                                    <calcop field="issuance.quantity" operator="get"/>
-                                    <calcop field="totalIssuance" operator="get"/>
+                                    <calcop operator="get" field="issuance.quantity"/>
+                                    <calcop operator="get" field="totalIssuance"/>
                                 </calcop>
                             </calculate>
                         </iterate>
@@ -92,7 +92,7 @@ under the License.
                         <if-compare field="totalIssuance" operator="not-equals" value="0.00">
                             <set field="callSvcMap.quantity" value="0.00" type="BigDecimal"/>
                             <calculate field="callSvcMap.quantity">
-                                <calcop field="component.estimatedQuantity" operator="subtract">
+                                <calcop operator="subtract" field="component.estimatedQuantity">
                                     <calcop operator="get" field="totalIssuance"/>
                                 </calcop>
                             </calculate>
@@ -245,10 +245,10 @@ under the License.
                     <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                     <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                     <calculate field="createDetailMap.availableToPromiseDiff">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <calculate field="createDetailMap.quantityOnHandDiff">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
@@ -278,10 +278,10 @@ under the License.
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
                     <set field="createDetailMap.workEffortId" from-field="parameters.workEffortId"/>
                     <calculate field="createDetailMap.availableToPromiseDiff">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <calculate field="createDetailMap.quantityOnHandDiff">
-                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
+                        <calcop operator="negative" field="parameters.quantityNotIssued"/>
                     </calculate>
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
@@ -299,8 +299,8 @@ under the License.
                 <iterate list="issuances" entry="issuance">
                     <calculate field="totalIssuance">
                         <calcop operator="add">
-                            <calcop field="issuance.quantity" operator="get"/>
-                            <calcop field="totalIssuance" operator="get"/>
+                            <calcop operator="get" field="issuance.quantity"/>
+                            <calcop operator="get" field="totalIssuance"/>
                         </calcop>
                     </calculate>
                 </iterate>
@@ -328,7 +328,7 @@ under the License.
                     <clear-field field="issuanceCreateMap"/>
 
                     <calculate field="parameters.quantityNotIssued">
-                        <calcop field="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
+                        <calcop operator="subtract" field="parameters.quantityNotIssued"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -372,10 +372,10 @@ under the License.
                             <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                             <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                             <calculate field="createDetailMap.availableToPromiseDiff">
-                                <calcop field="parameters.deductAmount" operator="negative"/>
+                                <calcop operator="negative" field="parameters.deductAmount"/>
                             </calculate>
                             <calculate field="createDetailMap.quantityOnHandDiff">
-                                <calcop field="parameters.deductAmount" operator="negative"/>
+                                <calcop operator="negative" field="parameters.deductAmount"/>
                             </calculate>
                             <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                             <set field="createDetailMap.description" from-field="parameters.description"/>
@@ -454,10 +454,10 @@ under the License.
                 <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                 <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                 <calculate field="createDetailMap.availableToPromiseDiff">
-                    <calcop field="deductAmount" operator="negative"/>
+                    <calcop operator="negative" field="deductAmount"/>
                 </calculate>
                 <calculate field="createDetailMap.quantityOnHandDiff">
-                    <calcop field="deductAmount" operator="negative"/>
+                    <calcop operator="negative" field="deductAmount"/>
                 </calculate>
                 <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                 <field-to-result field="deductAmount" result-name="quantityIssued"/>

@@ -215,7 +215,7 @@
                     <field-map field-name="contentIdTo" from-field="imageContent.contentId"/>
                     <field-map field-name="mapKey" value="IMAGE"/>
                 </entity-and>
-                <first-from-list entry="oldAssoc" list="oldAssocs"/>
+                <first-from-list list="oldAssocs" entry="oldAssoc"/>
                 <now-timestamp field="oldAssoc.thruDate"/>
                 <store-value value-field="oldAssoc"/>
             </if-not-empty>

@@ -75,7 +75,7 @@ under the License.
                                 in-map-name="parameters" out-map-name="context"/>
             <check-errors/>
             <call-service service-name="createBOMAssoc" in-map-name="context">
-                <result-to-field field="errorMessage" result-name="errorMessage"/>
+                <result-to-field result-name="errorMessage" field="errorMessage"/>
             </call-service>
              <if-not-empty field="errorMessage">
                 <add-error>

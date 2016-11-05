@@ -30,7 +30,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/AdminSearch">
         <field name="editContent" title=" ">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="CMSContentEdit" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
                 <parameter param-name="contentIdTo"/>

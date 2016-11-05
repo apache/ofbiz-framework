@@ -33,17 +33,17 @@ under the License.
         <field name="deleteLink"><hidden/></field>
         <field name="currentStatusId"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="assignedByUserLoginId" title="${uiLabelMap.SfaAssignedBy}">
-            <hyperlink target="/partymgr/control/viewprofile" description="${assignByPartyName.firstName} ${assignByPartyName.middleName} ${assignByPartyName.lastName} ${assignByPartyName.groupName} [${assignByPartyName.partyId}]" target-type="inter-app">
+            <hyperlink description="${assignByPartyName.firstName} ${assignByPartyName.middleName} ${assignByPartyName.lastName} ${assignByPartyName.groupName} [${assignByPartyName.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="assignByPartyName.partyId"/>
             </hyperlink>
         </field>
         <field name="complete" title="${uiLabelMap.SfaComplete}" widget-style="buttontext">
-            <hyperlink target="updateWorkEffort" description="${uiLabelMap.SfaComplete}">
+            <hyperlink description="${uiLabelMap.SfaComplete}" target="updateWorkEffort">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="currentStatusId" value="CAL_COMPLETED"/>
             </hyperlink>

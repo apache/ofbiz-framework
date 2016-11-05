@@ -74,7 +74,7 @@
             <set field="rateAmount" from-field="rateResult[0].rateAmount"/>
         </row-actions>
         <field name="lastName" parameter-name="partyId" title="${uiLabelMap.ScrumMember}" sort-field="true">
-            <hyperlink also-hidden="false" description="${partyNameView.lastName}, ${partyNameView.firstName} ${partyNameView.middleName} - [${partyId}]" target="viewprofile" link-type="hidden-form">
+            <hyperlink description="${partyNameView.lastName}, ${partyNameView.firstName} ${partyNameView.middleName} - [${partyId}]" target="viewprofile" also-hidden="false" link-type="hidden-form">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -86,14 +86,14 @@
         <field name="rateAmount" use-when="rateTypeId!=null"><display/></field>
         <field name="percentageUsed" use-when="rateTypeId!=null"><display/></field>
         <field name="update" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="rateTypeId!=null">
-            <hyperlink target="QuickAddPartyRate" description="${uiLabelMap.CommonUpdate}" link-type="hidden-form">
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="QuickAddPartyRate" link-type="hidden-form">
                 <parameter param-name="partyId"/>
                 <parameter param-name="rateTypeId"/>
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove}" link-type="hidden-form" confirmation-message="Are you sure to delete this person ?">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeResource" link-type="hidden-form" confirmation-message="Are you sure to delete this person ?">
                 <parameter param-name="partyId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="userLoginId"/>
@@ -200,14 +200,14 @@
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
             <set field="fieldList[]" value="workEffortId"/>
             <set field="fieldList[]" value="lastStatusUpdate"/>
-            <entity-condition list="contents" entity-name="ContentRole">
+            <entity-condition entity-name="ContentRole" list="contents">
                 <condition-list>
                     <condition-expr field-name="partyId" from-field="parameters.partyId"/>
                     <condition-expr field-name="roleTypeId" value="OWNER"/>
                 </condition-list>
             </entity-condition>
             <set field="contentIds" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
-            <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
+            <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                 <condition-list>
                     <condition-expr field-name="contentName" operator="like" value="%${parameters.contentName}%" ignore-if-empty="true" ignore-case="true"/>
                     <condition-expr field-name="description" operator="like" value="%${parameters.description}%" ignore-if-empty="true" ignore-case="true"/>
@@ -366,7 +366,7 @@
             <set field="compCheck" value="${groovy: if (roleTypeId==&quot;PRODUCT_OWNER_COMP&quot; || roleTypeId==&quot;PRODUCT_OWNER&quot;) compCheck = true; else compCheck = false;}" type="Boolean"/>
         </row-actions>
         <field name="lastName" parameter-name="partyId" title="${uiLabelMap.ScrumMember}" sort-field="true">
-            <hyperlink also-hidden="false" description="${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName} ${partyNameView.groupName} - [${partyId}]" target="viewprofile" link-type="hidden-form">
+            <hyperlink description="${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName} ${partyNameView.groupName} - [${partyId}]" target="viewprofile" also-hidden="false" link-type="hidden-form">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -377,7 +377,7 @@
             <display type="date"/>
         </field>
         <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" use-when="!compCheck">
-            <hyperlink target="removeProductMember" description="${uiLabelMap.CommonRemove}" link-type="hidden-form">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProductMember" link-type="hidden-form">
                 <parameter param-name="productId" from-field="productId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>

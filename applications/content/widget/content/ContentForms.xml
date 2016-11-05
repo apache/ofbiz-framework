@@ -62,7 +62,7 @@ under the License.
         </field>
         <!--<field name="localeString">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
+                <entity-options entity-name="CountryCode" key-field-name="countryCode" description="${countryName} [${countryCode}]">
                     <entity-order-by field-name="countryName"/>
                 </entity-options>
             </drop-down>
@@ -123,7 +123,7 @@ under the License.
             <call-parent-actions/>
         </actions>
         <field name="contentId">
-            <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="mimeTypeId"><display/></field>
@@ -223,7 +223,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName" widget-style="buttontext"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" widget-style="buttontext"><display/></field>
@@ -294,7 +294,7 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="contentAssocTypeId"/>
@@ -325,7 +325,7 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssoc" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="contentAssocTypeId"/>
@@ -377,7 +377,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="remove${contentRoleTarget}ContentRole">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="remove${contentRoleTarget}ContentRole" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="partyId"/>
@@ -411,7 +411,7 @@ under the License.
         <field name="sequenceNum"><text /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentPurpose" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentPurposeTypeId"/>
             </hyperlink>
@@ -438,7 +438,7 @@ under the License.
         <field name="attrValue" widget-style="buttontext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAttribute">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAttribute" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="attrName"/>
             </hyperlink>
@@ -484,7 +484,7 @@ under the License.
         <field name="metaDataPredicateId" widget-style="buttontext"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentMetaData">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentMetaData" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="metaDataPredicateId"/>
             </hyperlink>
@@ -495,7 +495,7 @@ under the License.
     <form name="MruLookupPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="firstName" title=" " widget-style="buttontext"><display/></field>
         <field name="lastName" title=" " widget-style="buttontext"><display/></field>
@@ -503,7 +503,7 @@ under the License.
     <form name="MruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="firstName" title=" " widget-style="buttontext"><display/></field>
         <field name="lastName" title=" " widget-style="buttontext"><display/></field>
@@ -547,7 +547,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent" also-hidden="false">
                 <parameter param-name="workEffortContentTypeId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="workEffortId"/>
@@ -558,10 +558,10 @@ under the License.
     <!--form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"
         odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <field name="contentId" use-when="&quot;application/pdf&quot;.equals(mimeTypeId)">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContentPdf?contentId=${contentId}" target-window="_blank"/>
+            <hyperlink description="${contentName} [${contentId}]" target="showContentPdf?contentId=${contentId}" target-window="_blank" also-hidden="false"/>
         </field>
         <field name="contentId" use-when="&quot;text/html&quot;.equals(mimeTypeId)">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContent?contentId=${contentId}" target-window="_blank"/>
+            <hyperlink description="${contentName} [${contentId}]" target="showContent?contentId=${contentId}" target-window="_blank" also-hidden="false"/>
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId"/>
@@ -574,7 +574,7 @@ under the License.
         </field>
         <field name="caCreatedDate"><display/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}">
-            <hyperlink target="removeDocumentFromTree" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDocumentFromTree">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="contentAssocTypeId"/>
@@ -616,7 +616,7 @@ under the License.
     </form>
     <form name="ViewContentDetail" type="single" default-map-name="lookupContentDetail">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="contentTypeId"><display/></field>

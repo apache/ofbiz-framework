@@ -26,7 +26,7 @@ under the License.
         <!-- TODO: Do we need to create a GlJournal record here? -->
 
         <!-- first, create the AcctgTrans -->
-        <set-service-fields service-name="createAcctgTrans" to-map="createAcctgTransParams" map="parameters"/>
+        <set-service-fields service-name="createAcctgTrans" map="parameters" to-map="createAcctgTransParams"/>/>
         <if-empty field="createAcctgTransParams.transactionDate">
             <now-timestamp field="createAcctgTransParams.transactionDate"/>
         </if-empty>
@@ -337,10 +337,10 @@ under the License.
                 <if-compare field="acctgTransEntry.origAmount" operator="less" value="0">
                     <log level="verbose" message="${acctgTransEntry} is going to get inverted"/>
                     <calculate field="acctgTransEntry.origAmount">
-                        <calcop field="acctgTransEntry.origAmount" operator="negative"/>
+                        <calcop operator="negative" field="acctgTransEntry.origAmount"/>
                     </calculate>
                     <calculate field="acctgTransEntry.amount">
-                        <calcop field="acctgTransEntry.amount" operator="negative"/>
+                        <calcop operator="negative" field="acctgTransEntry.amount"/>
                     </calculate>
                     <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                         <set value="C" field="acctgTransEntry.debitCreditFlag"/>
@@ -684,18 +684,18 @@ under the License.
                 </condition>
                 <then>
                     <calculate field="totalDebitAmount">
-                        <calcop field="totalDebitAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
+                        <calcop operator="add" field="totalDebitAmount"><calcop operator="get" field="amount"/></calcop>
                     </calculate>
                 </then>
                 <else>
                     <calculate field="totalCreditAmount">
-                        <calcop field="totalCreditAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
+                        <calcop operator="add" field="totalCreditAmount"><calcop operator="get" field="amount"/></calcop>
                     </calculate>
                 </else>
             </if>
         </iterate>
         <calculate field="totalAmount">
-            <calcop field="totalCreditAmount" operator="subtract"><calcop field="totalDebitAmount" operator="get"/></calcop>
+            <calcop operator="subtract" field="totalCreditAmount"><calcop operator="get" field="totalDebitAmount"/></calcop>
         </calculate>
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
@@ -963,31 +963,31 @@ under the License.
                 </condition>
                 <then>
                     <calculate field="amount">
-                        <calcop field="amount" operator="negative"/>
+                        <calcop operator="negative" field="amount"/>
                     </calculate>
                 </then>
             </if>
             <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                 <calculate field="amount">
-                    <calcop field="amount" operator="negative"/>
+                    <calcop operator="negative" field="amount"/>
                 </calculate>
             </if-compare>
             <calculate field="totalNetIncome">
-                <calcop field="totalNetIncome" operator="add"><calcop field="amount" operator="get"/></calcop>
+                <calcop operator="add" field="totalNetIncome"><calcop operator="get" field="amount"/></calcop>
             </calculate>
             <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                 <if-empty field="glAccountTotalsExpenseMap[glAccount.glAccountId]">
                     <set field="glAccountTotalsExpenseMap[glAccount.glAccountId]" value="0.0" type="BigDecimal"/>
                 </if-empty>
                 <calculate field="glAccountTotalsExpenseMap[glAccount.glAccountId]">
-                    <calcop field="glAccountTotalsExpenseMap[glAccount.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
+                    <calcop operator="add" field="glAccountTotalsExpenseMap[glAccount.glAccountId]"><calcop operator="get" field="amount"/></calcop>
                 </calculate>
             <else>
                 <if-empty field="glAccountTotalsProfitMap[glAccount.glAccountId]">
                     <set field="glAccountTotalsProfitMap[glAccount.glAccountId]" value="0.0" type="BigDecimal"/>
                 </if-empty>
                 <calculate field="glAccountTotalsProfitMap[glAccount.glAccountId]">
-                    <calcop field="glAccountTotalsProfitMap[glAccount.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
+                    <calcop operator="add" field="glAccountTotalsProfitMap[glAccount.glAccountId]"><calcop operator="get" field="amount"/></calcop>
                 </calculate>
             </else>
             </if-compare>
@@ -1976,7 +1976,7 @@ under the License.
                 <iterate list="orderItemBillings" entry="orderItemBilling">
                     <get-related-one value-field="orderItemBilling" relation-name="OrderItem" to-value-field="orderItem"/>
                     <calculate field="amountFromOrder" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-                        <calcop field="amountFromOrder" operator="add">
+                        <calcop operator="add" field="amountFromOrder">
                             <calcop operator="multiply">
                                 <calcop operator="get" field="orderItemBilling.quantity"/>
                                 <calcop operator="get" field="orderItem.unitPrice"/>
@@ -2399,7 +2399,7 @@ under the License.
         <!--Cloning AcctgTrans-->
         <clone-value value-field="acctgTrans" new-value-field="newAcctgTrans"/>
         <clear-field field="newAcctgTrans.acctgTransId"/>
-        <set-service-fields to-map="createAcctgTransInMap" service-name="createAcctgTrans" map="newAcctgTrans"/>
+        <set-service-fields service-name="createAcctgTrans" map="newAcctgTrans" to-map="createAcctgTransInMap"/>
         <now-timestamp field="nowTimestamp"/>
         <set field="createAcctgTransInMap.transactionDate" from-field="nowTimestamp"/>
         <set field="createAcctgTransInMap.isPosted" value="N"/>
@@ -2415,7 +2415,7 @@ under the License.
             <!--Cloning AcctgTransEntry-->
             <clone-value value-field="acctgTransEntry" new-value-field="newAcctgTransEntry"/>
             <clear-field field="newAcctgTransEntry.acctgTransId"/>
-            <set-service-fields to-map="createAcctgTransAndEntryInMap" service-name="createAcctgTransEntry" map="newAcctgTransEntry"/>
+            <set-service-fields service-name="createAcctgTransEntry" map="newAcctgTransEntry" to-map="createAcctgTransAndEntryInMap"/>
             <set field="createAcctgTransAndEntryInMap.acctgTransId" from-field="newAcctgTrans.acctgTransId"/>
             <if-compare field="parameters.revert" operator="equals" value="Y">
                 <if-compare field="newAcctgTransEntry.debitCreditFlag" operator="equals" value="D">
@@ -2690,7 +2690,7 @@ under the License.
                 <call-service service-name="createGlAccountCategoryMember" in-map-name="createGlAccountCategoryMemberMap"/>
                 <log level="info" message="GlAccountCategoryMember created for [${glAccountCategoryId}] and [${glAccountId}]"/>
             <else>
-                <set-service-fields service-name="updateGlAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap" map="glAccountCategoryMember"/>
+                <set-service-fields service-name="updateGlAccountCategoryMember" map="glAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap"/>/>
                 <set field="updateGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
                 <call-service service-name="updateGlAccountCategoryMember" in-map-name="updateGlAccountCategoryMemberMap"/>
             </else>

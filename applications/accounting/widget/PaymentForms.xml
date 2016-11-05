@@ -308,7 +308,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink target="invoiceOverview" description="${invoiceId}">
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -330,7 +330,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId" widget-style="buttontext">
-            <hyperlink target="paymentOverview" description="[${toPaymentId}]">
+            <hyperlink description="[${toPaymentId}]" target="paymentOverview">
                 <parameter param-name="paymentId" from-field="toPaymentId"/>
             </hyperlink>
         </field>
@@ -379,12 +379,12 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1"><display-entity entity-name="StatusItem"/></field>
         <field name="paymentMethodId" position="2"><display-entity entity-name="PaymentMethod" description="${description} [${paymentMethodId}]"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="1">
-            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]">
+            <hyperlink description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="payment.partyIdFrom"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="2">
-            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${payment.partyIdTo}]">
+            <hyperlink description="${partyNameResultTo.fullName} [${payment.partyIdTo}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="payment.partyIdTo"/>
             </hyperlink>
         </field>
@@ -421,23 +421,23 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink target="invoiceOverview" description="${invoiceId}">
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceItemSeqId" widget-style="buttontext">
-            <hyperlink target="listInvoiceItems" description="${invoiceItemSeqId}">
+            <hyperlink description="${invoiceItemSeqId}" target="listInvoiceItems">
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="invoiceItemSeqId"/>
             </hyperlink>
         </field>
         <field name="toPaymentId" widget-style="buttontext">
-            <hyperlink target="paymentOverview" description="${toPaymentId}">
+            <hyperlink description="${toPaymentId}" target="paymentOverview">
                 <parameter param-name="paymentId" from-field="toPaymentId"/>
             </hyperlink>
         </field>
         <field name="billingAccountId" widget-style="buttontext">
-            <hyperlink target="EditBillingAccount" description="${billingAccountId}">
+            <hyperlink description="${billingAccountId}" target="EditBillingAccount">
                 <parameter param-name="billingAccountId"/>
             </hyperlink>
         </field>
@@ -447,13 +447,13 @@ under the License.
 
     <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/widget/InvoiceForms.xml">
         <field name="paymentId"><hidden/></field>
-        <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
+        <field name="invoiceId"><hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/></field>
     </form>
 
     <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target-window="_blank">
         <field name="paymentId">
-            <hyperlink target="paymentOverview" description="${paymentId}">
+            <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
@@ -471,7 +471,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
-            <hyperlink target="paymentOverview" description="${paymentId}">
+            <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
@@ -522,7 +522,7 @@ under the License.
     <form name="ListInvoicesByDueDate" type="list" list-name="invoicePaymentInfoList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink target="invoiceOverview" description="${invoiceId}">
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -539,7 +539,7 @@ under the License.
         <field name="finAccountTransTypeId" title="${uiLabelMap.FormFieldTitle_finAccountTransType}" position="2"><display-entity entity-name="FinAccountTransType"/></field>
         <field name="amount" position="1"><display type="currency" currency="${payment.currencyUomId}"/></field>
         <field name="glReconciliationId" position="2">
-            <hyperlink target="ViewGlReconciliationWithTransaction" description="${finAccountTrans.glReconciliationId}">
+            <hyperlink description="${finAccountTrans.glReconciliationId}" target="ViewGlReconciliationWithTransaction">
                 <parameter param-name="glReconciliationId" from-field="finAccountTrans.glReconciliationId"/>
                 <parameter param-name="finAccountId" from-field="finAccountTrans.finAccountId"/>
             </hyperlink>

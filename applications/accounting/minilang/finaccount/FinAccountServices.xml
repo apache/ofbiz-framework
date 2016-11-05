@@ -148,7 +148,7 @@ under the License.
         <field-to-result field="lookedUpValue.finAccountId" result-name="finAccountId"/>
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
-        <entity-one value-field="finAccount" entity-name="FinAccount"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <remove-value value-field="finAccount"/>
     </simple-method>
 
@@ -494,7 +494,7 @@ under the License.
                 <field-map field-name="paymentId" from-field="payment.paymentId"/>
             </entity-and>
             <if-not-empty field="paymentGroupMembers">
-                <first-from-list entry="paymentGroupMember" list="paymentGroupMembers"/>
+                <first-from-list list="paymentGroupMembers" entry="paymentGroupMember"/>
                 <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
                 <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
                 <clear-field field="expirePaymentGroupMemberMap"/>

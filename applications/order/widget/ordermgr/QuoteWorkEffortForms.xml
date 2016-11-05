@@ -28,7 +28,7 @@ under the License.
         </actions>
         <field name="quoteId"><hidden/></field>
         <field name="workEffortId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditQuoteWorkEffort">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="EditQuoteWorkEffort" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="quoteId"/>
             </hyperlink>
@@ -40,7 +40,7 @@ under the License.
         <field name="actualStartDate"><display/></field>
         <field name="actualEndDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="quoteId"/>
             </hyperlink>

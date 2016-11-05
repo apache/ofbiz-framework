@@ -94,7 +94,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="createLink" title=" " widget-style="buttontext" position="1">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
+            <hyperlink description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER" also-hidden="false"/>
         </field>
         -->
     </form>
@@ -154,13 +154,13 @@ under the License.
               </service>
           </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+            <hyperlink description="${contentId}" target="EditLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
             </hyperlink>
         </field>
         <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
-            <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout">
+            <hyperlink description="${contentId}" target="clipFindLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
                 <parameter param-name="viewSize"/>
@@ -173,7 +173,7 @@ under the License.
         <field name="drObjectInfo"><display/></field>
         <!--
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="contentAssocTypeId"/>
@@ -186,7 +186,7 @@ under the License.
     <form name="ListListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+            <hyperlink description="${contentId}" target="EditLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
             </hyperlink>
@@ -195,7 +195,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="drObjectInfo"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo" from-field="caContentIdTo"/>
                 <parameter param-name="contentAssocTypeId" from-field="caContentAssocTypeId"/>
@@ -388,7 +388,7 @@ under the License.
     <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceView" list-name="entityList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+            <hyperlink description="${contentId}" target="EditLayout" also-hidden="false">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
             </hyperlink>

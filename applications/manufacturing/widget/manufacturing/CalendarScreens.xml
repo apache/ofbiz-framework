@@ -71,7 +71,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <entity-condition list="techDataCalendars" entity-name="TechDataCalendar"/>
+                <entity-condition entity-name="TechDataCalendar" list="techDataCalendars"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -97,7 +97,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <entity-condition list="calendarWeeks" entity-name="TechDataCalendarWeek"/>
+                <entity-condition entity-name="TechDataCalendarWeek" list="calendarWeeks"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">

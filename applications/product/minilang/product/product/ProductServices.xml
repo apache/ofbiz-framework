@@ -36,7 +36,7 @@ under the License.
         <else>
             <check-id field="newEntity.productId"/>
             <check-errors />
-            <entity-one value-field="dummyProduct" entity-name="Product"><field-map field-name="productId" from-field="parameters.productId"/></entity-one>
+            <entity-one entity-name="Product" value-field="dummyProduct"><field-map field-name="productId" from-field="parameters.productId"/></entity-one>
             <if-not-empty field="dummyProduct">
                 <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDuplicateKey" /></add-error>
             </if-not-empty>
@@ -426,8 +426,8 @@ under the License.
             <create-value value-field="productCalculatedInfo"/>
         <else>
             <calculate field="productCalculatedInfo.totalTimesViewed" type="Long">
-                <calcop field="productCalculatedInfo.totalTimesViewed" operator="add">
-                    <calcop field="parameters.weight" operator="get"></calcop>
+                <calcop operator="add" field="productCalculatedInfo.totalTimesViewed">
+                    <calcop operator="get" field="parameters.weight"></calcop>
                 </calcop>
             </calculate>
             <store-value value-field="productCalculatedInfo"/>
@@ -914,7 +914,7 @@ under the License.
                     <field-map field-name="productIdTo" from-field="orderItem.productId"/>
                     <field-map field-name="productAssocTypeId" value="PRODUCT_VARIANT"/>
                 </entity-and>
-                <first-from-list entry="variantProductAssoc" list="variantProductAssocs"/>
+                <first-from-list list="variantProductAssocs" entry="variantProductAssoc"/>
                 <set field="productId" from-field="variantProductAssoc.productId"/>
             </if-compare>
 
@@ -922,10 +922,10 @@ under the License.
                 <field-map field-name="productId" from-field="productId"/>
             </entity-and>
             <if-not-empty field="productGroupOrders">
-                <first-from-list entry="productGroupOrder" list="productGroupOrders"/>
+                <first-from-list list="productGroupOrders" entry="productGroupOrder"/>
                 <calculate field="productGroupOrder.soldOrderQty">
-                    <calcop field="productGroupOrder.soldOrderQty" operator="add">
-                        <calcop field="orderItem.quantity" operator="get"/>
+                    <calcop operator="add" field="productGroupOrder.soldOrderQty">
+                        <calcop operator="get" field="orderItem.quantity"/>
                     </calcop>
                 </calculate>
                 <store-value value-field="productGroupOrder"/>
@@ -956,7 +956,7 @@ under the License.
                 <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
             </entity-and>
             <if-not-empty field="orderItemGroupOrders">
-                <first-from-list entry="orderItemGroupOrder" list="orderItemGroupOrders"/>
+                <first-from-list list="orderItemGroupOrders" entry="orderItemGroupOrder"/>
                 <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder">
                     <field-map field-name="groupOrderId" from-field="orderItemGroupOrder.groupOrderId"/>
                 </entity-one>
@@ -970,8 +970,8 @@ under the License.
                             </else>
                             </if-not-empty>
                             <calculate field="productGroupOrder.soldOrderQty">
-                                <calcop field="productGroupOrder.soldOrderQty" operator="subtract">
-                                    <calcop field="cancelQuantity" operator="get"/>
+                                <calcop operator="subtract" field="productGroupOrder.soldOrderQty">
+                                    <calcop operator="get" field="cancelQuantity"/>
                                 </calcop>
                             </calculate>
                         </if-compare>
@@ -1017,7 +1017,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
         
-        <entity-one value-field="productReview" entity-name="ProductReview"/>
+        <entity-one entity-name="ProductReview" value-field="productReview"/>
         <if-not-empty field="productReview">
             <if-compare-field field="productReview.statusId" to-field="parameters.statusId" operator="not-equals">
                 <entity-one entity-name="StatusValidChange" value-field="statusChange">

@@ -48,7 +48,7 @@
         <set-service-fields map="parameters" service-name="updateWorkEffort" to-map="updateWorkEffortCtx"/>
         <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set from-field="parameters.scheduleWorkEffortId" field="workEffortId"/>
-        <entity-one value-field="workEffort" entity-name="WorkEffort"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <set field="updateWorkEffortCtx.actualCompletionDate" from-field="parameters.actualCompletionDate" default-value="${workEffort.actualCompletionDate}"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
     </simple-method>

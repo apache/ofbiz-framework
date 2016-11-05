@@ -512,7 +512,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Sprints"/>
-                <entity-one value-field="sprint" entity-name="WorkEffort">
+                <entity-one entity-name="WorkEffort" value-field="sprint">
                     <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
                 </entity-one>
                 <set field="parameters.projectId" from-field="sprint.workEffortParentId"/>

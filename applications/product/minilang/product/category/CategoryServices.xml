@@ -107,7 +107,7 @@ under the License.
     <!-- ================================================================ -->
 
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
-        <set-service-fields service-name="addProductToCategory" to-map="addProductToCategoryMap" map="parameters"/>
+        <set-service-fields service-name="addProductToCategory" map="parameters" to-map="addProductToCategoryMap"/>/>
         <if-instance-of field="parameters.categories" class="java.util.List">
             <iterate list="parameters.categories" entry="category">
                 <set field="addProductToCategoryMap.productCategoryId" from-field="category"/>
@@ -747,7 +747,7 @@ under the License.
         <set field="callingMethodName" from-field="resourceDescription"/>
         <set field="checkAction" from-field="parameters.mainAction" default-value="UPDATE"/>
 
-        <entity-condition list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="true">
+        <entity-condition entity-name="ProdCatalogCategory" list="prodCatalogCategoryList" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="productCategoryId" from-field="parameters.productCategoryId"/>
                 <condition-list combine="or">
@@ -833,13 +833,13 @@ under the License.
             <set field="week" value="52"/>
         <else>
             <calculate field="week">
-                <calcop field="week" operator="subtract">
+                <calcop operator="subtract" field="week">
                     <number value="1"/>
                 </calcop>
             </calculate>
             <if-compare field="week" operator="equals" value="1">
                 <calculate field="year">
-                    <calcop field="year" operator="subtract">
+                    <calcop operator="subtract" field="year">
                         <number value="1"/>
                     </calcop>
                 </calculate>

@@ -56,12 +56,12 @@ under the License.
         <set field="serviceCtx.quantity" from-field="quantity"/>
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="serviceCtx"/>
 
-        <entity-condition list="acctgTransList" entity-name="AcctgTrans">
+        <entity-condition entity-name="AcctgTrans" list="acctgTransList">
             <condition-expr field-name="shipmentId" from-field="shipmentId"/>
             <order-by field-name="-postedDate"/>
         </entity-condition>
         <assert><not><if-empty field="acctgTransList"/></not></assert>
-        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
 
         <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
 
@@ -119,12 +119,12 @@ under the License.
         <set field="serviceCtx.statusId" value="SHIPMENT_PACKED"/>
         <call-service service-name="updateShipment" in-map-name="serviceCtx"/>
 
-        <entity-condition list="shipmentItemBillings" entity-name="ShipmentItemBilling">
+        <entity-condition entity-name="ShipmentItemBilling" list="shipmentItemBillings">
             <condition-expr field-name="shipmentId" value="9998"/>
             <order-by field-name="-createdStamp"/>
         </entity-condition>
         <assert><not><if-empty field="shipmentItemBillings"/></not></assert>
-        <first-from-list entry="shipmentItemBilling" list="shipmentItemBillings"/>
+        <first-from-list list="shipmentItemBillings" entry="shipmentItemBilling"/>
         <set field="invoiceId" from-field="shipmentItemBilling.invoiceId"/>
 
         <entity-one entity-name="Invoice" value-field="invoice">
@@ -136,7 +136,7 @@ under the License.
         <!-- Check the invoice transaction -->
         <set field="acctgTransFilter.acctgTransTypeId" value="SALES_INVOICE"/>
         <filter-list-by-and to-list="salesAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
-        <first-from-list entry="salesAcctgTrans" list="salesAcctgTransList"/>
+        <first-from-list list="salesAcctgTransList" entry="salesAcctgTrans"/>
 
         <assert><if-compare field="salesAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
 
@@ -160,7 +160,7 @@ under the License.
         <clear-field field="acctgTransEntryFilter"/>
         <set field="acctgTransFilter.acctgTransTypeId" value="PAYMENT_APPL"/>
         <filter-list-by-and to-list="paymentAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
-        <first-from-list entry="paymentAcctgTrans" list="paymentAcctgTransList"/>
+        <first-from-list list="paymentAcctgTransList" entry="paymentAcctgTrans"/>
 
         <assert><if-compare field="paymentAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
 
@@ -202,7 +202,7 @@ under the License.
         <entity-and entity-name="PartyRole" list="customerRoles">
             <field-map field-name="roleTypeId" value="CUSTOMER"/>
         </entity-and>
-        <first-from-list entry="customerRole" list="customerRoles"/>
+        <first-from-list list="customerRoles" entry="customerRole"/>
         <set field="serviceCtx.partyIdFrom" from-field="customerRole.partyId"/>
         <set field="serviceCtx.amount" value="100.00" type="BigDecimal"/>
         <set field="serviceCtx.partyIdTo" value="Company"/>

@@ -1073,15 +1073,15 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleTransferInventoryItem}"/>
                 
-                <entity-one value-field="inventoryItem" entity-name="InventoryItem"/>
-                <entity-one value-field="inventoryItemType" entity-name="InventoryItemType">
+                <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+                <entity-one entity-name="InventoryItemType" value-field="inventoryItemType">
                     <field-map field-name="inventoryItemTypeId" value="${inventoryItem.inventoryItemTypeId}"/>
                 </entity-one>
-                <entity-one value-field="statusItem" entity-name="StatusItem">
+                <entity-one entity-name="StatusItem" value-field="statusItem">
                     <field-map field-name="statusId" value="${inventoryItem.statusId}"/>
                 </entity-one>
-                <entity-one value-field="inventoryTransfer" entity-name="InventoryTransfer"/>
-                <entity-one value-field="product" entity-name="Product"/>
+                <entity-one entity-name="InventoryTransfer" value-field="inventoryTransfer"/>
+                <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">

@@ -58,14 +58,14 @@
         
         <!-- Scrum CommonDecorator Only-->
         <if-compare operator="equals" value="SCRUM" field="sec_object">
-            <entity-condition list="securityGroupList" entity-name="ScrumMemberUserLoginAndSecurityGroup">
+            <entity-condition entity-name="ScrumMemberUserLoginAndSecurityGroup" list="securityGroupList">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" operator="equals" from-field="partyId"/>
                     <condition-expr field-name="partyStatusId" operator="not-equals" value="PARTY_DISABLED"/>
                     <condition-expr field-name="thruDate" operator="equals" value=""/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry="securityGroupMap" list="securityGroupList"/>
+            <first-from-list list="securityGroupList" entry="securityGroupMap"/>
             <if>
                 <condition>
                     <or>
@@ -474,7 +474,7 @@
     <simple-method method-name="projectUpdateMemberPermission" short-description="Check Project update Member Permission">
         <set field="hasPermission" value="false" type="Boolean"/>
         <if-has-permission permission="PROJECT" action="_UPDATE">
-            <entity-condition list="workEffortPartyAssignments" entity-name="WorkEffortPartyAssignment">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                     <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
@@ -489,7 +489,7 @@
     <simple-method method-name="taskUpdateMemberPermission" short-description="Check Project update Member Permission">
         <set field="hasPermission" value="false" type="Boolean"/>
         <if-has-permission permission="TASK" action="_UPDATE">
-            <entity-condition list="workEffortPartyAssignments" entity-name="WorkEffortPartyAssignment">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                     <condition-expr field-name="roleTypeId" value="SCRUM_MASTER"/>
@@ -558,7 +558,7 @@
     <simple-method method-name="projectTaskCreatePermission" short-description="Check Project Create Task Permission">
         <set field="hasPermission" value="false" type="Boolean"/>
         <if-has-permission permission="TASK" action="_CREATE">
-            <entity-condition list="workEffortPartyAssignments" entity-name="WorkEffortPartyAssignment">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                     <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
@@ -573,7 +573,7 @@
     <simple-method method-name="projectTaskDeletePermission" short-description="Check Project Delete Task Permission">
         <set field="hasPermission" value="false" type="Boolean"/>
         <if-has-permission permission="TASK" action="_DELETE">
-            <entity-condition list="workEffortPartyAssignments" entity-name="WorkEffortPartyAssignment">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
                     <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>

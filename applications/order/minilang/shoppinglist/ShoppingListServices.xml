@@ -154,7 +154,7 @@ under the License.
                 <store-value value-field="shoppingList"/>
             </if-compare-field>
         <else>
-            <first-from-list entry="shoppingListItem" list="shoppingListItems"/>
+            <first-from-list list="shoppingListItems" entry="shoppingListItem"/>
             <calculate field="totalquantity" >
                 <calcop operator="add" field="shoppingListItem.quantity">
                     <calcop operator="get" field="parameters.quantity"/>
@@ -252,7 +252,7 @@ under the License.
             </if-not-empty>
             <set field="itemPrice" from-field="shoppingListItem.modifiedPrice" default-value="${calcPriceOutMap.price}"/>
             <calculate field="totalPrice">
-                <calcop field="totalPrice" operator="add"/>
+                <calcop operator="add" field="totalPrice"/>
                 <calcop operator="multiply">
                     <calcop operator="get" field="itemPrice"/>
                     <calcop operator="get" field="shoppingListItem.quantity"/>
@@ -272,8 +272,8 @@ under the License.
                 <result-to-field result-name="totalPrice" field="calcPriceOutMap.totalPrice"/>
             </call-service>
             <calculate field="totalPrice">
-                <calcop field="totalPrice" operator="get"/>
-                <calcop field="calcPriceOutMap.totalPrice" operator="get"/>
+                <calcop operator="get" field="totalPrice"/>
+                <calcop operator="get" field="calcPriceOutMap.totalPrice"/>
             </calculate>
             <clear-field field="calcChildPriceInMap"/>
         </iterate>

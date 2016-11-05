@@ -35,11 +35,11 @@
         </entity-and>
         <if-not-empty field="emplPositionFulfillment">
             <set field="parameters.fromDate" from-field="emplPositionFulfillment[0].fromDate"/>
-            <set-service-fields service-name="deleteEmplPositionFulfillment" to-map="delFullfillCtx" map="parameters"/>
+            <set-service-fields service-name="deleteEmplPositionFulfillment" map="parameters" to-map="delFullfillCtx"/>/>
             <call-service service-name="deleteEmplPositionFulfillment" in-map-name="delFullfillCtx"></call-service>
         </if-not-empty>
         
-        <set-service-fields service-name="deleteEmplPosition" to-map="delEmlpCtx" map="parameters"/>
+        <set-service-fields service-name="deleteEmplPosition" map="parameters" to-map="delEmlpCtx"/>/>
         <call-service service-name="deleteEmplPosition" in-map-name="delEmlpCtx"></call-service>
     </simple-method>
     <simple-method method-name="removeInternalOrg" short-description="">

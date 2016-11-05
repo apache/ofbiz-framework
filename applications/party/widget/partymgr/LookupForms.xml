@@ -47,7 +47,7 @@ under the License.
         </actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType"/>
@@ -87,7 +87,7 @@ under the License.
         </row-actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${contactMechId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${contactMechId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="name" title="${uiLabelMap.PartyName}"><display/></field>
         <field name="infoString" title="${uiLabelMap.PartyEmailAddress}"><display/></field>
@@ -117,7 +117,7 @@ under the License.
             <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType"/>
@@ -158,7 +158,7 @@ under the License.
             </service>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType"/>
@@ -186,7 +186,7 @@ under the License.
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
         <field name="partyId"  widget-style="smallSubmit" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="middleName" title="${uiLabelMap.PartyMiddleInitial}"><display/></field>
@@ -222,7 +222,7 @@ under the License.
             <display description="${partyId}"/>
         </field>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
     </form>
@@ -248,7 +248,7 @@ under the License.
             <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display description="${partyId}"/>
@@ -276,7 +276,7 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display/></field>
         <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 
@@ -307,7 +307,7 @@ under the License.
         </actions>
 
         <field name="partyClassificationGroupId" title=" " widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyClassificationGroupId}" target="javascript:set_value('${partyClassificationGroupId}')"/>
+            <hyperlink description="${partyClassificationGroupId}" target="javascript:set_value('${partyClassificationGroupId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyClassificationTypeId"><display/></field>
         <field name="parentGroupId"><display/></field>
@@ -367,7 +367,7 @@ under the License.
             </service>
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${communicationEventId}" target="javascript:set_value('${communicationEventId}')" target-type="plain"/>
+            <hyperlink description="${communicationEventId}" target="javascript:set_value('${communicationEventId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}">
             <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>

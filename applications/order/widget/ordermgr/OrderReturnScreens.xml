@@ -110,7 +110,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleReturnList"/>
                 <set field="headerItem" value="return"/>
-                <entity-condition list="returnList" entity-name="ReturnHeader"/>
+                <entity-condition entity-name="ReturnHeader" list="returnList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">

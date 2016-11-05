@@ -251,7 +251,7 @@
     <simple-method method-name="createEmailTemplate" short-description="Create Email Template">
         <!-- create content -->
         <set field="parameters.dataTemplateTypeId" value="FTL"/>
-        <set-service-fields service-name="createElectronicText" to-map="newElectronicText" map="parameters"/>
+        <set-service-fields service-name="createElectronicText" map="parameters" to-map="newElectronicText"/>/>
         <call-service service-name="createElectronicText" in-map-name="newElectronicText">
             <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
         </call-service>
@@ -259,7 +259,7 @@
         <set field="parameters.roleTypeId" value="OWNER"/>
         <set field="parameters.contentTypeId" value="DOCUMENT"/>
         <set field="parameters.ownerContentId" from-field="parameters.emailType"/>
-        <set-service-fields service-name="createContent" to-map="newContent" map="parameters"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="newContent"/>/>
         <call-service service-name="createContent" in-map-name="newContent" >
             <result-to-field result-name="contentId"/>
         </call-service>
@@ -271,7 +271,7 @@
         <if-not-empty field="parameters.includeCrossPromotions">
             <set field="parameters.subject" value="${parameters.includeCrossPromotions} INCLUDE_CROSS_PROMOTIONS"/>
         </if-not-empty>
-        <set-service-fields service-name="createProductStoreEmailSetting" to-map="newEmailSetting" map="parameters"/>
+        <set-service-fields service-name="createProductStoreEmailSetting" map="parameters" to-map="newEmailSetting"/>/>
         <call-service service-name="createProductStoreEmailSetting" in-map-name="newEmailSetting" >
             <result-to-field result-name="contentId"/>
         </call-service>
@@ -279,7 +279,7 @@
 
     <simple-method method-name="updateEmailTemplate" short-description="Create Email Template">
         <!-- update content -->
-        <set-service-fields service-name="updateElectronicText" to-map="updateElectronicText" map="parameters"/>
+        <set-service-fields service-name="updateElectronicText" map="parameters" to-map="updateElectronicText"/>/>
         <call-service service-name="updateElectronicText" in-map-name="updateElectronicText">
             <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
         </call-service>
@@ -291,7 +291,7 @@
         <if-not-empty field="parameters.includeCrossPromotions">
             <set field="parameters.subject" value="${parameters.subject} INCLUDE_CROSS_PROMOTIONS"/>
         </if-not-empty-->
-        <set-service-fields service-name="updateProductStoreEmailSetting" to-map="updateEmailSetting" map="parameters"/>
+        <set-service-fields service-name="updateProductStoreEmailSetting" map="parameters" to-map="updateEmailSetting"/>/>
         <call-service service-name="updateProductStoreEmailSetting" in-map-name="updateEmailSetting" >
             <result-to-field result-name="contentId"/>
         </call-service>

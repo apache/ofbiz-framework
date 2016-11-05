@@ -41,7 +41,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataResourceType" also-hidden="false">
                 <parameter param-name="dataResourceTypeId"/>
             </hyperlink>
         </field>
@@ -73,7 +73,7 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr" also-hidden="false">
                 <parameter param-name="dataResourceTypeId"/>
                 <parameter param-name="attrName"/>
             </hyperlink>
@@ -101,7 +101,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeCharacterSet" also-hidden="false">
                 <parameter param-name="characterSetId"/>
             </hyperlink>
         </field>
@@ -113,7 +113,7 @@ under the License.
         <auto-fields-service service-name="createDataCategory"/>
         <field name="parentCategoryId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="DataCategory" description="${categoryName}" key-field-name="dataCategoryId"></entity-options>
+                <entity-options entity-name="DataCategory" key-field-name="dataCategoryId" description="${categoryName}"></entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
@@ -140,7 +140,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeDataCategory" also-hidden="false">
                 <parameter param-name="dataCategoryId"/>
             </hyperlink>
         </field>
@@ -178,7 +178,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFileExtension" also-hidden="false">
                 <parameter param-name="fileExtensionId"/>
             </hyperlink>
         </field>
@@ -206,7 +206,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate" also-hidden="false">
                 <parameter param-name="metaDataPredicateId"/>
             </hyperlink>
         </field>
@@ -233,7 +233,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeMimeType" also-hidden="false">
                 <parameter param-name="mimeTypeId"/>
             </hyperlink>
         </field>
@@ -268,7 +268,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeTypeHtmlTemplate">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeMimeTypeHtmlTemplate" also-hidden="false">
                 <parameter param-name="mimeTypeId"/>
                 <parameter param-name="dataResourceId"/>
                 <parameter param-name="fromDate"/>

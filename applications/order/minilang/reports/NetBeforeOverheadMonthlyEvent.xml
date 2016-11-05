@@ -57,7 +57,7 @@
         <set field="count1" value="-1"/>
         <iterate list="saleschannels" entry="saleschannel">
             <calculate field="count1">
-                <calcop field="count1" operator="add">
+                <calcop operator="add" field="count1">
                     <number value="1"/>
                 </calcop>
             </calculate>
@@ -77,7 +77,7 @@
             </if-compare-field> 
             <if-compare-field field="countdate.salesChannelEnumId" to-field="checksalesChannel1" operator="not-equals"> 
                 <calculate field="count2">
-                    <calcop field="count2" operator="add">
+                    <calcop operator="add" field="count2">
                         <number value="1"/>
                     </calcop>
                 </calculate>
@@ -93,12 +93,12 @@
         <set field="count4" value="0"/>
         <iterate list="starschemas" entry="starschema">
             <calculate field="count3">
-                <calcop field="count3" operator="add">
+                <calcop operator="add" field="count3">
                     <number value="1"/>
                 </calcop>
             </calculate>
             <calculate field="count4">
-                <calcop field="count4" operator="add">
+                <calcop operator="add" field="count4">
                     <number value="1"/>
                 </calcop>
             </calculate>

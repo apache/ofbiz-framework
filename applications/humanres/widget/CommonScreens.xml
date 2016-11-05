@@ -217,7 +217,7 @@ under the License.
                                         <not><if-empty field="perfReview"/></not>
                                     </condition>
                                     <actions>
-                                        <entity-one value-field="partyNameView" entity-name="PartyNameView">
+                                        <entity-one entity-name="PartyNameView" value-field="partyNameView">
                                             <field-map field-name="partyId" from-field="perfReview.employeePartyId"/>
                                         </entity-one>
                                     </actions>
@@ -423,7 +423,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission action="_VIEW" permission="HUMANRES"/>
+                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>

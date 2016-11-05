@@ -61,11 +61,11 @@
                                                 <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                                             </service>
                                             <set field="userLoginId" from-field="result.userLoginId"/>
-                                            <entity-one value-field="ebayUser" entity-name="UserLogin">
+                                            <entity-one entity-name="UserLogin" value-field="ebayUser">
                                                 <field-map field-name="userLoginId" from-field="result.userLoginId"/>
                                             </entity-one>
                                             <set field="parameters.partyId" from-field="ebayUser.partyId" global="true"/>
-                                            <entity-one value-field="person" entity-name="Person">
+                                            <entity-one entity-name="Person" value-field="person">
                                                <field-map field-name="partyId" from-field="parameters.partyId"/>
                                             </entity-one>
                                         </actions>

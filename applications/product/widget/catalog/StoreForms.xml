@@ -30,7 +30,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" widget-style="buttontext" sort-field="true">
-            <hyperlink target="EditProductStore" description="${productStoreId}">
+            <hyperlink description="${productStoreId}" target="EditProductStore">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
@@ -68,7 +68,7 @@ under the License.
             </drop-down>
         </field>
         <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title=" " widget-style="buttontext">
-            <hyperlink target="/facility/control/EditFacility" target-type="inter-app" description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" target="/facility/control/EditFacility" target-type="inter-app" also-hidden="false">
                 <parameter param-name="facilityId" from-field="productStore.inventoryFacilityId"/>
             </hyperlink>
         </field>
@@ -448,7 +448,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductStoreCatalog" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductStoreCatalog" also-hidden="false">
                 <parameter param-name="prodCatalogId"/>
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="fromDate"/>
@@ -459,7 +459,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <field name="productStoreId"><hidden/></field>
         <field name="productPromoId" widget-style="buttontext">
-            <hyperlink target="EditProductPromo" description="${productPromoId}" also-hidden="true">
+            <hyperlink description="${productPromoId}" target="EditProductPromo" also-hidden="true">
                 <parameter param-name="productPromoId"/>
             </hyperlink>
         </field>
@@ -532,7 +532,7 @@ under the License.
         <field name="thruDate"><display/></field>
         <field name="sequenceNum"><display/></field>
         <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
-           <hyperlink target="FindProductStoreRoles" description="${uiLabelMap.CommonEdit}">
+           <hyperlink description="${uiLabelMap.CommonEdit}" target="FindProductStoreRoles">
                 <parameter param-name="partyId"/>
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="roleTypeId"/>
@@ -540,7 +540,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="deleteLink" widget-style="buttontext" title="${uiLabelMap.CommonDelete}">
-            <hyperlink target="storeRemoveRole" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="storeRemoveRole">
                 <parameter param-name="partyId"/>
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="roleTypeId"/>
@@ -638,7 +638,7 @@ under the License.
         </actions>
         <field name="productStoreGroupId"><hidden/></field>
         <field name="productStoreGroupName">
-            <hyperlink target="EditProductStoreGroupAndAssoc" description="${productStoreGroupName} [${productStoreGroupId}]">
+            <hyperlink description="${productStoreGroupName} [${productStoreGroupId}]" target="EditProductStoreGroupAndAssoc">
                 <parameter param-name="productStoreGroupId"/>
             </hyperlink>
         </field>
@@ -682,7 +682,7 @@ under the License.
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
         <field name="submitButton" title=" ">
-            <hyperlink target="updateProductStoreGroupRollup" request-confirmation="true" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="updateProductStoreGroupRollup" request-confirmation="true">
                 <parameter param-name="productStoreGroupId"/>
                 <parameter param-name="parentGroupId"/>
                 <parameter param-name="fromDate"/>
@@ -698,7 +698,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="productStoreId">
-            <hyperlink target="EditProductStore" description="${productStoreId}">
+            <hyperlink description="${productStoreId}" target="EditProductStore">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
@@ -732,13 +732,13 @@ under the License.
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="remove" title=" " widget-style="buttontext">
-            <hyperlink target="RemoveProductStoreFinAccountSettings" description="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="RemoveProductStoreFinAccountSettings">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="finAccountTypeId"/>
             </hyperlink>
         </field>
         <field name="edit" title=" " widget-style="buttontext">
-            <hyperlink target="EditProductStoreFinAccountSettings" description="${uiLabelMap.CommonEdit}">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditProductStoreFinAccountSettings">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="finAccountTypeId"/>
             </hyperlink>
@@ -802,7 +802,7 @@ under the License.
         <field name="fromAddress" title="${uiLabelMap.CommonFromAddress}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeProductStoreEmail" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeProductStoreEmail" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="emailType"/>
             </hyperlink>
@@ -880,7 +880,7 @@ under the License.
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
         <field name="editLink" title=" " use-when="${groovy:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
-            <hyperlink target="EditProductStorePaySetup" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditProductStorePaySetup" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
                 <parameter param-name="paymentServiceTypeEnumId"/>
@@ -890,7 +890,7 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title=" " use-when="${groovy:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
-            <hyperlink target="storeRemovePaySetting" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="storeRemovePaySetting" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
                 <parameter param-name="paymentServiceTypeEnumId"/>
@@ -908,14 +908,14 @@ under the License.
             </entity-and>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.ProductSegmentGroupId}">
-            <hyperlink also-hidden="false" target-type="inter-app" description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup">
+            <hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" also-hidden="false" target-type="inter-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.ProductSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="/marketing/control/deleteSegmentGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="/marketing/control/deleteSegmentGroup" also-hidden="false" target-type="inter-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
@@ -950,7 +950,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteProductStoreKeywordOvrd" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductStoreKeywordOvrd" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="keyword"/>
                 <parameter param-name="fromDate"/>
@@ -1015,7 +1015,7 @@ under the License.
         <field name="productStoreId"><hidden/></field>
         <field name="carrierRoleTypeId"><hidden/></field>
         <field name="shipmentCostEstimateId" title=" " widget-style="buttontext">
-            <hyperlink target="EditProductStoreShipmentCostEstimates" description="${shipmentCostEstimateId}" also-hidden="false">
+            <hyperlink description="${shipmentCostEstimateId}" target="EditProductStoreShipmentCostEstimates" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="shipmentCostEstimateId"/>
             </hyperlink>
@@ -1048,7 +1048,7 @@ under the License.
             <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="storeRemoveShipRate" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="storeRemoveShipRate" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="shipmentCostEstimateId"/>
             </hyperlink>
@@ -1207,7 +1207,7 @@ under the License.
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="productStoreShipMethId" title=" " widget-style="buttontext">
-            <hyperlink target="EditProductStoreShipSetup" description="${productStoreShipMethId}" also-hidden="false">
+            <hyperlink description="${productStoreShipMethId}" target="EditProductStoreShipSetup" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="productStoreShipMethId"/>
             </hyperlink>
@@ -1235,7 +1235,7 @@ under the License.
             <display-entity entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId" />
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="storeRemoveShipMeth" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="storeRemoveShipMeth" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="productStoreShipMethId"/>
             </hyperlink>

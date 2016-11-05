@@ -231,7 +231,7 @@ under the License.
         <if-empty field="targetWorkEffortId">
             <sequenced-id sequence-name="WorkEffort" field="targetWorkEffortId" />
         </if-empty>
-        <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="sourceWorkEffort" />
+        <set-service-fields service-name="createWorkEffort" map="sourceWorkEffort" to-map="createWorkEffortCtx"/> />
         <set field="createWorkEffortCtx.workEffortId" from-field="targetWorkEffortId" />
         <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin" />
         <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx" />
@@ -241,7 +241,7 @@ under the License.
         </entity-one>
         <set field="copyWorkEffortAssocs" from-field="parameters.copyWorkEffortAssocs" default-value="N" />
         <if-compare field="copyWorkEffortAssocs" operator="equals" value="Y">
-            <set-service-fields service-name="copyWorkEffortAssocs" to-map="copyWorkEffortAssocsCtx" map="parameters" />
+            <set-service-fields service-name="copyWorkEffortAssocs" map="parameters" to-map="copyWorkEffortAssocsCtx"/> />
             <set field="copyWorkEffortAssocsCtx.targetWorkEffortId" from-field="targetWorkEffortId" />
             <call-service service-name="copyWorkEffortAssocs" in-map-name="copyWorkEffortAssocsCtx" />
             <check-errors />
@@ -339,7 +339,7 @@ under the License.
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
         </entity-and>
         <if-not-empty field="currentAssignments">
-            <first-from-list entry="firstAssignment" list="currentAssignments"/>
+            <first-from-list list="currentAssignments" entry="firstAssignment"/>
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortPartyAssignmentError"/>
             </add-error>
@@ -728,7 +728,7 @@ under the License.
             <set field="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo" />
             <if-compare field="deepCopy" operator="equals" value="Y">
                 <clear-field field="copyWorkEffortCtx" />
-                <set-service-fields service-name="copyWorkEffort" to-map="copyWorkEffortCtx" map="parameters" />
+                <set-service-fields service-name="copyWorkEffort" map="parameters" to-map="copyWorkEffortCtx"/> />
                 <clear-field field="copyWorkEffortCtx.targetWorkEffortId"/>
                 <set field="copyWorkEffortCtx.sourceWorkEffortId" from-field="workEffortIdTo" />
                 <set field="copyWorkEffortCtx.copyWorkEffortAssocs" value="Y" />
@@ -750,8 +750,8 @@ under the License.
         <entity-one entity-name="WorkEffortInventoryAssign" value-field="foundEntity"/>
         <if-not-empty field="foundEntity">
             <calculate field="foundEntity.quantity" type="Double">
-                <calcop field="foundEntity.quantity" operator="get"/>
-                <calcop field="parameters.quantity" operator="get"/>
+                <calcop operator="get" field="foundEntity.quantity"/>
+                <calcop operator="get" field="parameters.quantity"/>
             </calculate>
             <store-value value-field="foundEntity"/>
         <else>
@@ -1009,7 +1009,7 @@ under the License.
         </if-empty>
 
         <!-- Create the new WorkEffort from the old one and the status -->
-        <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="oldWorkEffort"/>
+        <set-service-fields service-name="createWorkEffort" map="oldWorkEffort" to-map="createWorkEffortCtx"/>/>
         <set field="createWorkEffortCtx.workEffortId" from-field="workEffortId"/>
         <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin"/>
         <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx"/>
@@ -1222,7 +1222,7 @@ under the License.
                         </condition-list>
                     </entity-condition>
                     <if-not-empty field="partyRates">
-                        <first-from-list entry="partyRate" list="partyRates"/>
+                        <first-from-list list="partyRates" entry="partyRate"/>
                         <if-not-empty field="partyRate.percentageUsed">
                             <calculate field="actual.hours" type="Double">
                                 <calcop operator="multiply" field="actual.hours">
@@ -1314,7 +1314,7 @@ under the License.
     <simple-method method-name="getICalWorkEfforts" short-description="Get All Work Efforts Related To An iCalendar Publish Point" login-required="false">
         <!-- Servlet already confirmed workEffortId is a valid publish point -->
         <set field="workEffortId" from-field="parameters.workEffortId"/>
-        <entity-condition list="assignedParties" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+        <entity-condition entity-name="WorkEffortPartyAssignment" list="assignedParties" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortId" from-field="workEffortId"/>
                 <condition-expr field-name="roleTypeId" value="ICAL_MEMBER"/>
@@ -1345,7 +1345,7 @@ under the License.
             </entity-condition>
             <list-to-list list="resultList" to-list="workEfforts"/>
         </iterate>
-        <entity-condition list="resultList" entity-name="WorkEffortAssocToView" filter-by-date="true">
+        <entity-condition entity-name="WorkEffortAssocToView" list="resultList" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
                 <condition-expr field-name="workEffortTypeId" operator="equals" from-field="parameters.workEffortTypeId" ignore-if-empty="true"/>
@@ -1359,7 +1359,7 @@ under the License.
     <simple-method method-name="getPartyICalUrl" short-description="Get The Party iCalendar URL" login-required="false">
         <!-- RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URI (4.3.3) -->
         <set field="partyId" from-field="parameters.partyId"/>
-        <entity-condition list="contactMechs" entity-name="PartyContactWithPurpose">
+        <entity-condition entity-name="PartyContactWithPurpose" list="contactMechs">
             <condition-list combine="and">
                 <condition-list combine="or">
                     <condition-expr field-name="contactMechPurposeTypeId" value="ICAL_URL"/>

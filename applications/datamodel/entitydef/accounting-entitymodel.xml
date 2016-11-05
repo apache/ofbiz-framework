@@ -4316,4 +4316,7 @@ under the License.
             <key-map field-name="fixedAssetId"/>
         </relation>
     </extend-entity>
+    <extend-entity entity-name="TaxAuthorityRateProduct">
+        <field name="isTaxInShippingPrice" type="indicator"></field>
+    </extend-entity>
 </entitymodel>

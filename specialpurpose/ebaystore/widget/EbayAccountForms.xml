@@ -42,7 +42,7 @@ under the License.
         <field name="itemID"><display description="${itemID} - ${title}"/></field>
         <field name="userID"><display description="${userID}"/></field>
         <field name="actions" use-when="&quot;${commentType}&quot; == &quot;&quot;">
-            <hyperlink target="LeaveFeedback" description="Leave Feedback">
+            <hyperlink description="Leave Feedback" target="LeaveFeedback">
                 <parameter param-name="itemId" value="${itemID}"/>
                 <parameter param-name="transactionId" value="${transactionID}"/>
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>

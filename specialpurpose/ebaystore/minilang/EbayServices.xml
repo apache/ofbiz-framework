@@ -22,26 +22,26 @@
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createEbayAccount" short-description="Create Ebay Account">
 
-        <set-service-fields service-name="createPersonAndUserLogin" to-map="newPerson" map="parameters"/>
+        <set-service-fields service-name="createPersonAndUserLogin" map="parameters" to-map="newPerson"/>/>
         <call-service service-name="createPersonAndUserLogin" in-map-name="newPerson">
             <result-to-field result-name="partyId" field="parameters.partyId"/>
         </call-service>
 
         <set field="parameters.roleTypeId" value="VENDOR" />
-        <set-service-fields service-name="createPartyRole" to-map="newPartyRole" map="parameters"/>
+        <set-service-fields service-name="createPartyRole" map="parameters" to-map="newPartyRole"/>/>
         <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
 
         <set field="parameters.storeName" value="${parameters.userLoginId}_store"/>
-        <set-service-fields service-name="createProductStore" to-map="newProductStore" map="parameters"/>
+        <set-service-fields service-name="createProductStore" map="parameters" to-map="newProductStore"/>/>
         <call-service service-name="createProductStore" in-map-name="newProductStore">
             <result-to-field result-name="productStoreId" field="parameters.productStoreId"/>
         </call-service>
 
         <set field="parameters.roleTypeId" value="EBAY_ACCOUNT"/>
-        <set-service-fields service-name="createPartyRole" to-map="newPartyRole" map="parameters"/>
+        <set-service-fields service-name="createPartyRole" map="parameters" to-map="newPartyRole"/>/>
         <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
 
-        <set-service-fields service-name="createProductStoreRole" to-map="newProductStoreRole" map="parameters"/>
+        <set-service-fields service-name="createProductStoreRole" map="parameters" to-map="newProductStoreRole"/>/>
         <call-service service-name="createProductStoreRole" in-map-name="newProductStoreRole"/>
         <field-to-result field="parameters.productStoreId" result-name="productStoreId"/>
 
@@ -105,7 +105,7 @@
                 <check-errors/>
             </if-empty>
 
-            <set-service-fields map="parameters" to-map="callServiceMap" service-name="reserveEbayProductInventoryByStoreFacility"/>
+            <set-service-fields service-name="reserveEbayProductInventoryByStoreFacility" map="parameters" to-map="callServiceMap"/>/>
             <set from-field="facilityId" field="callServiceMap.facilityId"/>
             <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
             <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>

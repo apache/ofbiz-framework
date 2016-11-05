@@ -41,7 +41,7 @@ under the License.
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
             <field-map field-name="paymentApplicationId" from-field="paymentApplicationId"/>
         </entity-one>
-        <entity-one value-field="payment" entity-name="Payment">
+        <entity-one entity-name="Payment" value-field="payment">
             <field-map field-name="paymentId" from-field="serviceInMap.paymentId"/>
         </entity-one>
         <assert>
@@ -91,7 +91,7 @@ under the License.
             <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
-        <entity-one value-field="payment" entity-name="Payment">
+        <entity-one entity-name="Payment" value-field="payment">
             <field-map field-name="paymentId" from-field="serviceInMap.paymentId"/>
         </entity-one>
         <assert>
@@ -142,7 +142,7 @@ under the License.
             <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
-        <entity-one value-field="payment" entity-name="Payment">
+        <entity-one entity-name="Payment" value-field="payment">
             <field-map field-name="paymentId" from-field="serviceInMap.paymentId"/>
         </entity-one>
         <assert>
@@ -186,7 +186,7 @@ under the License.
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
             <field-map field-name="paymentApplicationId" from-field="paymentApplicationId"/>
         </entity-one>
-        <entity-one value-field="payment" entity-name="Payment">
+        <entity-one entity-name="Payment" value-field="payment">
             <field-map field-name="paymentId" from-field="serviceInMap.paymentId"/>
         </entity-one>
         <assert>

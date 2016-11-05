@@ -51,7 +51,7 @@ under the License.
 
         <!-- end existing value -->
         <if-not-empty field="rateAmounts">
-            <first-from-list entry="rateAmount" list="rateAmounts"/>
+            <first-from-list list="rateAmounts" entry="rateAmount"/>
             <if-compare-field field="rateAmount.rateAmount" operator="not-equals" to-field="parameters.rateAmount">
                 <set-service-fields service-name="deleteRateAmount" map="rateAmount" to-map="delRateAmount"/>
                 <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
@@ -195,7 +195,7 @@ under the License.
 
         <!-- We narrowed as much as we could the result, now returning the first record of the list -->
         <if-not-empty field="parameters.ratesList">
-            <first-from-list entry="amount" list="parameters.ratesList"/>
+            <first-from-list list="parameters.ratesList" entry="amount"/>
             <if-empty field="amount.rateAmount">
                 <set field="amount.rateAmount" value="0" type="BigDecimal"/>
             </if-empty>
@@ -341,7 +341,7 @@ under the License.
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
         <if-not-empty field="partyRates">
-            <first-from-list entry="partyRate" list="partyRates"/>
+            <first-from-list list="partyRates" entry="partyRate"/>
             <now-timestamp field="partyRate.thruDate"/>
             <store-value value-field="partyRate"/>
         </if-not-empty>
@@ -371,7 +371,7 @@ under the License.
                 <field-map field-name="defaultRate" value="Y"/>
             </entity-and>
             <if-not-empty field="rates">
-                <first-from-list entry="rate" list="rates"/>
+                <first-from-list list="rates" entry="rate"/>
                 <set field="rate.defaultRate" value="N"/>
                 <store-value value-field="rate"/>
             </if-not-empty>

@@ -43,7 +43,7 @@ under the License.
     <simple-method method-name="createPartyTaxAuthInfo" short-description="create a PartyTaxAuthInfo">
         <call-simple-method method-name="validatePartyTaxIdInline"/>
 
-        <entity-one value-field="taxAuth" entity-name="TaxAuthority"/>
+        <entity-one entity-name="TaxAuthority" value-field="taxAuth"/>
         <if-empty field="taxAuth">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyTaxAuthPartyAndGeoNotAvailable"/>

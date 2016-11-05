@@ -270,17 +270,17 @@
             <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}" use-when="partyAcctgPreference==null" widget-style="buttontext">
-            <hyperlink target="viewprofile" description="${partyGroup.groupName} [${partyId}]">
+            <hyperlink description="${partyGroup.groupName} [${partyId}]" target="viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}" use-when="partyAcctgPreference!=null" widget-style="buttontext">
-            <hyperlink target="showMessage" description="${partyGroup.groupName} [${partyId}]">
+            <hyperlink description="${partyGroup.groupName} [${partyId}]" target="showMessage">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="setToComplete" title=" " use-when="partyAcctgPreference==null" widget-style="buttontext">
-            <hyperlink target="OrganizationToComplete" description="${uiLabelMap.SetupSetToComplete}">
+            <hyperlink description="${uiLabelMap.SetupSetToComplete}" target="OrganizationToComplete">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -288,7 +288,7 @@
     
     <form name="EditCustomer" extends="EditPerson" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
             </hyperlink>
         </field>

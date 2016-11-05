@@ -138,7 +138,7 @@ under the License.
             <set field="existRelationship" from-field="existRelationships[0]"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyName} [${partyId}]" >
+            <hyperlink description="${partyName} [${partyId}]" target="viewprofile" >
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
@@ -152,7 +152,7 @@ under the License.
             <display-entity entity-name="Geo" description="${geoName}" key-field-name="geoId"/>
         </field>
         <field name="relatedCompany" use-when="relatedCompanyPartyId!=null" title="${uiLabelMap.PartyRelatedCompany}">
-            <hyperlink target="viewprofile" description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator,relatedCompanyPartyId,true);} [${relatedCompanyPartyId}]">
+            <hyperlink description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator,relatedCompanyPartyId,true);} [${relatedCompanyPartyId}]" target="viewprofile">
                 <parameter param-name="partyId" from-field="relatedCompanyPartyId"/>
             </hyperlink>
         </field>
@@ -161,7 +161,7 @@ under the License.
     <form name="ListAccounts" extends="ListAccounts">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
-            <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
+            <hyperlink description="${uiLabelMap.SfaAssignToMe}" target="createPartyRelationshipAndRole">
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="roleTypeIdFrom"/>
                 <parameter param-name="roleTypeIdTo"/>

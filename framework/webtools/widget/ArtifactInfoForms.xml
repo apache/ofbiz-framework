@@ -23,7 +23,7 @@
         <form name="ComponentList" type="list" separate-columns="true" title="Component List" list-name="componentList" target=""
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="compName">
-            <hyperlink target="TestSuiteInfo?compName=${compName}" description="${compName}" ></hyperlink>
+            <hyperlink description="${compName}" target="TestSuiteInfo?compName=${compName}" ></hyperlink>
         </field>
         <field name="rootLocation"><display/></field>
         <field name="enabled"><display/></field>
@@ -37,11 +37,11 @@
         <field name="compName"><hidden value="${parameters.compName}"/></field>
         <field name="suiteName"><display/></field>
         <field name="runSuite" use-when="suiteName!=void">
-            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}" description="run suite"/>
+            <hyperlink description="run suite" target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}"/>
         </field>
         <field name="caseName"><display/></field>
         <field name="runCase">
-            <hyperlink target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}&amp;caseName=${caseName}" description="run case"/>
+            <hyperlink description="run case" target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}&amp;caseName=${caseName}"/>
         </field>
     </form>
 </forms>

@@ -24,7 +24,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="contentId"><hidden/></field>
         <field name="contentName">
-            <hyperlink target="editBlog" description="${contentName} [${contentId}]">
+            <hyperlink description="${contentName} [${contentId}]" target="editBlog">
                 <parameter param-name="blogContentId" from-field="contentId"/>
             </hyperlink>
         </field>
@@ -40,7 +40,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="contentId"><hidden/></field>
         <field name="contentName">
-            <hyperlink target="ViewBlogArticle" description="${contentName} [${contentId}]">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewBlogArticle">
                 <parameter param-name="articleContentId" from-field="contentId"/>
                 <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
             </hyperlink>

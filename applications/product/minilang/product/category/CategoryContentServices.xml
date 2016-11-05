@@ -74,7 +74,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productCategoryContents">
                 <first-from-list entry="productCategoryContent" list="productCategoryContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productCategoryContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">
@@ -96,7 +96,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productCategoryContents">
                 <first-from-list entry="productCategoryContent" list="productCategoryContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productCategoryContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">
@@ -118,7 +118,7 @@ under the License.
             </entity-and>
             <if-not-empty field="productCategoryContents">
                 <first-from-list entry="productCategoryContent" list="productCategoryContents"/>
-                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                <entity-one entity-name="ElectronicText" value-field="electronicText">
                     <field-map field-name="dataResourceId" from-field="productCategoryContent.dataResourceId"/>
                 </entity-one>
                 <if-not-empty field="electronicText">

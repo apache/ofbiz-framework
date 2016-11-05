@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
         
     <simple-method method-name="testDailyMinute" short-description="Daily Meeting Minute Test" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/> 

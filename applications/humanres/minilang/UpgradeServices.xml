@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="migrateSalaryStep" short-description="Migrate data from OldSalaryStep to SalaryStep">
         <entity-condition entity-name="OldSalaryStep" list="oldSalarySteps"/>
         <now field="fromDate"/>
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <iterate list="oldSalarySteps" entry="oldSalaryStep">

@@ -106,7 +106,7 @@ under the License.
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="capture" use-when="${groovy:!paidInvoice}" widget-style="buttontext">
-            <hyperlink target="capturePaymentsByInvoice" description="${uiLabelMap.AccountingCapture}">
+            <hyperlink description="${uiLabelMap.AccountingCapture}" target="capturePaymentsByInvoice">
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="billingAccountId"/>
             </hyperlink>
@@ -137,7 +137,7 @@ under the License.
         </field>
         <field name="contactMechId" tooltip="${uiLabelMap.AccountingBillingContactMechIdMessage}" use-when="billingAccount != null">
             <drop-down>
-                <entity-options entity-name="BillingAccountRoleAndAddress" description="[${partyId}][${contactMechId}] ${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}" key-field-name="contactMechId" filter-by-date="true">
+                <entity-options entity-name="BillingAccountRoleAndAddress" key-field-name="contactMechId" description="[${partyId}][${contactMechId}] ${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}" filter-by-date="true">
                     <entity-constraint name="billingAccountId" env-name="billingAccountId"/>
                     <entity-order-by field-name="partyId"/>
                     <entity-order-by field-name="contactMechId"/>
@@ -184,7 +184,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteBillingAccountRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteBillingAccountRole" also-hidden="false">
                 <parameter param-name="billingAccountId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="partyId"/>
@@ -324,7 +324,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" also-hidden="false">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" also-hidden="false">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>

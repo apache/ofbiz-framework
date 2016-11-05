@@ -126,7 +126,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" position="1"><submit/></field>
         <field name="cancelButton" title=" " widget-style="smallSubmit" position="2">
-            <hyperlink target="soldListing" description="${uiLabelMap.CommonCancel}">
+            <hyperlink description="${uiLabelMap.CommonCancel}" target="soldListing">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
             </hyperlink>
         </field>
@@ -302,7 +302,7 @@ under the License.
         <field name="afterDays" title="${uiLabelMap.EbayAfter}"  position="1"  tooltip="${uiLabelMap.CommonDays} ${uiLabelMap.EbayIsSendCopyEmailTooltip}" ><text default-value="5" size="5" maxlength="2"></text></field>
         <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
         <field name="emailTemplate" title="Email" tooltip="Edit Feedback Reminder email template">
-            <hyperlink target="editEmailTemplate" description="Edit Email Template">
+            <hyperlink description="Edit Email Template" target="editEmailTemplate">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
                 <parameter param-name="emailType" value="EBAY_WIN_BUYER_NOTI"/>
             </hyperlink>
@@ -324,7 +324,7 @@ under the License.
         <field name="isAutoSendPayReceivedEmail" tooltip="${uiLabelMap.EbayAutoPaymentReceviedEmail}" position="1" title="${uiLabelMap.EbayIsAutoSendEmail}"><check></check></field>
         <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
         <field name="emailTemplate" title="Email" tooltip="Edit Payment received email template">
-            <hyperlink target="editEmailTemplate" description="${uiLabelMap.EbayEditEmailTemplate}">
+            <hyperlink description="${uiLabelMap.EbayEditEmailTemplate}" target="editEmailTemplate">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
                 <parameter param-name="emailType" value="EBAY_PAY_RECIEVED"/>
             </hyperlink>
@@ -473,7 +473,7 @@ under the License.
         <field name="itemId"><display/></field>
         <field name="SKU" title="Product ID"><display/></field>
         <field name="title">
-            <hyperlink target="${viewItemURL}" description="${title}" target-type="plain" target-window="_BLANK"/>
+            <hyperlink description="${title}" target="${viewItemURL}" target-type="plain" target-window="_BLANK"/>
         </field>
         <field name="buyItNowPrice"><display/></field>
         <field name="reservePrice"><display/></field>
@@ -483,7 +483,7 @@ under the License.
         <field name="quantity"><display/></field>
         <field name="listingType"><display/></field>
         <field name="EditItem">
-            <hyperlink target="getItemProduct?productStoreId=${parameters.productStoreId}&amp;itemId=${itemId}" description="Edit" target-type="plain" target-window="_BLANK"/>
+            <hyperlink description="Edit" target="getItemProduct?productStoreId=${parameters.productStoreId}&amp;itemId=${itemId}" target-type="plain" target-window="_BLANK"/>
         </field>
     </grid>
     <!-- Unsold Listing -->
@@ -647,7 +647,7 @@ under the License.
         <field name="offerStatus" title="Offer Status"><display description="${inMap.offerStatus}"/></field>
         <field name="contactStatus" title="Contact Status"><display description="${contactStatus}"/></field>
         <field name="viewCustomerDataButton" widget-style="buttontext" title="View Customer Offer Data">
-            <hyperlink target="customerOfferData" description="View Data" also-hidden="false">
+            <hyperlink description="View Data" target="customerOfferData" also-hidden="false">
                 <parameter param-name="productStoreId" from-field="productStoreId"/>
                 <parameter param-name="itemId" from-field="itemId"/>
                 <parameter param-name="userId" from-field="userId"/>
@@ -661,7 +661,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="deleteOfferButton" title="Delete Offer Alert Data" widget-style="buttontext">
-            <hyperlink target="deleteContactAlert" description="Delete Data" also-hidden="false">
+            <hyperlink description="Delete Data" target="deleteContactAlert" also-hidden="false">
                 <parameter param-name="itemId" from-field="itemId"/>
                 <parameter param-name="userId" from-field="userId"/>
                 <parameter param-name="productStoreId" from-field="productStoreId"/>
@@ -704,7 +704,7 @@ under the License.
         <field name="itemId" title="Item ID" sort-field="true"><display description="${itemId}"/></field>
         <field name="SKU" title="Product ID"><display description="${SKU}"/></field>
         <field name="title">
-            <hyperlink target="${viewItemURL}" description="${title}" target-type="plain" target-window="_BLANK"/>
+            <hyperlink description="${title}" target="${viewItemURL}" target-type="plain" target-window="_BLANK"/>
         </field>
         <field name="sellingStatus" title="Status"><display description="${sellingStatus}"/></field>
         <field name="endTime" title="Closing Time"><display description="${endTime}"/></field>
@@ -721,7 +721,7 @@ under the License.
         <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
         <field name="orderId" title="Order ID">
-            <hyperlink target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="plain" target-window="_BLANK"/>
+            <hyperlink description="${orderId}" target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" target-type="plain" target-window="_BLANK"/>
         </field>
         <field name="externalId" title="Transaction ID"><display description="${externalId}"/></field>
         <field name="ebayUserIdBuyer" title="Winner Bidder"><display description="${ebayUserIdBuyer}"/></field>
@@ -762,7 +762,7 @@ under the License.
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
         <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>
         <field name="orderId" position="1" title="Order ID" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}">
-            <hyperlink target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="plain" target-window="_BLANK"/>
+            <hyperlink description="${orderId}" target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" target-type="plain" target-window="_BLANK"/>
         </field>
         <field name="externalId" title="External ID" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${externalId}"></display></field>
         <field name="ebayUserIdBuyer" title="Winning Bidder" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${ebayUserIdBuyer}"></display></field>

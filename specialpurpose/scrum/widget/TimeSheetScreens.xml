@@ -54,7 +54,7 @@ under the License.
                 <set field="headerItem" value="timesheet"/>
                 <set field="tabButtonItem" value="timesheets"/>
                 <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
-                <entity-one value-field="partyNameViewMap" entity-name="PartyNameView">
+                <entity-one entity-name="PartyNameView" value-field="partyNameViewMap">
                     <field-map field-name="partyId" from-field="timesheet.partyId"/>
                 </entity-one>
             </actions>

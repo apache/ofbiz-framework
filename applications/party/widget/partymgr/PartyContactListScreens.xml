@@ -35,7 +35,7 @@ under the License.
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <screenlet id="AddPartyContactListPanel" title="${uiLabelMap.PartyContactListPartyCreate}" collapsible="true">

@@ -40,7 +40,7 @@ under the License.
         <field name="orderDate"><display/></field>
         <field name="grandTotal"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortOrderHeader" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortOrderHeader" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="orderId"/>
             </hyperlink>

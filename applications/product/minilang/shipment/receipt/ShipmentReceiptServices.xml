@@ -47,7 +47,7 @@ under the License.
         </if-not-empty>
         <set field="affectAccounting" type="Boolean" value="true"/>
         
-        <entity-one value-field="product" entity-name="Product"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <if>
             <condition>
                 <or>
@@ -382,7 +382,7 @@ under the License.
                 </condition-list>
                 <order-by field-name="shipmentItemSeqId"/>
             </entity-condition>
-            <first-from-list entry="shipmentItem" list="shipmentItems"/>
+            <first-from-list list="shipmentItems" entry="shipmentItem"/>
         </if-not-empty>
 
         <if-empty field="shipmentItem">
@@ -418,7 +418,7 @@ under the License.
                 <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                 <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
             </entity-and>
-            <first-from-list entry="orderShipment" list="orderShipments"/>
+            <first-from-list list="orderShipments" entry="orderShipment"/>
             <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
                 <set field="quantityToAdd" value="${receivedQuantity$bigDecimal - totalIssuedQuantity$bigDecimal}" type="BigDecimal"/>
                 <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
@@ -454,7 +454,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateIssuanceShipmentAndPoOnReceiveInventory" short-description="Update issuance, shipment and order items if quantity received is higher than quantity on purchase order">
-        <entity-one value-field="orderItem" entity-name="OrderItem"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <if-not-empty field="parameters.orderCurrencyUnitPrice">
             <if-compare-field field="parameters.orderCurrencyUnitPrice" operator="not-equals" to-field="orderItem.unitPrice" type="BigDecimal">
                 <set field="orderItem.unitPrice" from-field="parameters.orderCurrencyUnitPrice" type="BigDecimal"/>
@@ -479,7 +479,7 @@ under the License.
                     <calcop operator="get" field="orderItem.quantity"/>
                 </calcop>
             </calculate>
-            <first-from-list entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs"/>
+            <first-from-list list="orderItemShipGroupAssocs" entry="orderItemShipGroupAssoc"/>
             <calculate field="oisgaQuantity" type="BigDecimal" decimal-scale="2" rounding-mode="HalfUp">
                 <calcop operator="add">
                     <calcop operator="get" field="orderItemShipGroupAssoc.quantity"/>
@@ -504,7 +504,7 @@ under the License.
                         </condition-list>
                         <order-by field-name="shipmentItemSeqId"/>
                     </entity-condition>
-                    <first-from-list entry="shipmentItem" list="shipmentItems"/>
+                    <first-from-list list="shipmentItems" entry="shipmentItem"/>
                     <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                     <store-value value-field="shipmentItem"/>
                     
@@ -514,7 +514,7 @@ under the License.
                         <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
                         <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                     </entity-and>
-                    <first-from-list entry="orderShipment" list="orderShipments"/>
+                    <first-from-list list="orderShipments" entry="orderShipment"/>
                     <set field="orderShipment.quantity" value="${orderShipment.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                     <store-value value-field="orderShipment"/>
                     <!--

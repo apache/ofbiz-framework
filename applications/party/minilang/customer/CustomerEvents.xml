@@ -262,7 +262,7 @@ under the License.
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
             <result-to-field result-name="partyId" field="tempMap.partyId"/>
-            <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
+            <result-to-field result-name="newUserLogin" field="createdUserLogin"/>
         </call-service>
         <set-current-user-login value-field="createdUserLogin"/>
 
