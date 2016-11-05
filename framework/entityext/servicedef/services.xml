@@ -170,18 +170,21 @@ under the License.
     <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
         <description>Create EntitySync</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateEntitySync" default-entity-name="EntitySync" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySync" auth="true">
         <description>Update EntitySync</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncInclude" auth="true">
         <description>Create EntitySyncInclude</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="applEnumId" optional="false"/>
@@ -189,12 +192,14 @@ under the License.
     <service name="updateEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySyncInclude" auth="true">
         <description>Update EntitySyncInclude</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="deleteEntitySyncInclude" auth="true">
         <description>Delete EntitySyncInclude</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateEntitySyncRunning" engine="simple"
@@ -205,6 +210,7 @@ under the License.
     <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Create EntitySyncHistory</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="startDate" mode="OUT"/>
@@ -212,12 +218,14 @@ under the License.
     <service name="updateEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Update EntitySyncHistory</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="deleteEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Delete EntitySyncHistory</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateOfflineEntitySync" engine="java"
@@ -232,6 +240,7 @@ under the License.
     <service name="resetEntitySyncStatusToNotStarted" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="resetEntitySyncStatusToNotStarted" auth="true" transaction-timeout="600">
         <description>Generally run manually to reset the status of an EntitySync when it has "crashed". Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -449,5 +458,10 @@ under the License.
     <service name="deleteServerHitType" default-entity-name="ServerHitType" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ServerHitType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="entitySyncPermissionCheck" engine="simple"
+             location="component://entityext/minilang/EntitySyncServices.xml" invoke="entitySyncPermissionCheck">
+        <description>Entity sync permission Checking Logic</description>
+        <implements service="permissionInterface"/>
     </service>
 </services>

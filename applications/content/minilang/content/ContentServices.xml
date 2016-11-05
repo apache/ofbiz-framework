@@ -312,11 +312,6 @@
 
     <!-- Generic content services -->
     <simple-method method-name="createEmailContent" short-description="Create Email as Content">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- Create subject -->
         <set-service-fields service-name="createContent" map="parameters" to-map="createSubjectContent"/>
         <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
@@ -355,11 +350,6 @@
         <field-to-result field="createBodyAssoc.contentId" result-name="contentId"/>
     </simple-method>
     <simple-method method-name="updateEmailContent" short-description="Update Email Content">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <if-not-empty field="parameters.subjectDataResourceId">
             <set from-field="parameters.subjectDataResourceId" field="updateSubjectEt.dataResourceId"/>
             <set from-field="parameters.subject" field="updateSubjectEt.textData"/>
@@ -378,11 +368,6 @@
     </simple-method>
 
     <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
         <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
         <call-service service-name="createOtherDataResource" in-map-name="createDownload">
@@ -393,11 +378,6 @@
         </call-service>
     </simple-method>
     <simple-method method-name="updateDownloadContent" short-description="Update Download Content">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <if-not-empty field="parameters.fileDataResourceId">
             <set from-field="parameters.fileDataResourceId" field="updateFile.dataResourceId"/>
             <set from-field="parameters.file" field="updateFile.dataResourceContent"/>
@@ -406,11 +386,6 @@
     </simple-method>
 
     <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
 
@@ -432,11 +407,6 @@
         </call-service>
     </simple-method>
     <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-
         <if-not-empty field="parameters.textDataResourceId">
             <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>
             <set from-field="parameters.text" field="updateSimpleText.textData"/>

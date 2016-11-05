@@ -694,10 +694,6 @@ under the License.
     <simple-method method-name="prepForApproval" short-description="Set ContentApprovals for approval process">
         <log level="info" message="got into prepForApproval- parameters: ${parameters}"/>
         <set field="rootContentId" from-field="parameters.rootContentId"/>
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
         <!--  bump CDI up one for new approval -->
         <set field="context2.contentId" from-field="parameters.rootContentId"/>
         <call-service service-name="persistContentRevisionAndItem" in-map-name="context2">

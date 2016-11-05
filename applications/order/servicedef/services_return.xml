@@ -44,6 +44,7 @@ under the License.
     <service name="updateReturnHeader" default-entity-name="ReturnHeader" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="updateReturnHeader">
         <description>Update a ReturnHeader</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
@@ -73,6 +74,7 @@ under the License.
     <service name="updateReturnItem" engine="simple" default-entity-name="ReturnItem"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="updateReturnItem">
         <description>Update a ReturnItem and related adjustments</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
@@ -80,12 +82,14 @@ under the License.
     <service name="updateReturnItemsStatus" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="updateReturnItemsStatus">
         <description>Update ReturnItem(s) Status</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeReturnItem" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="removeReturnItem">
         <description>Remove a ReturnItem and related adjustments</description>
+        <permission-service service-name="returnPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createReturnItemResponse" engine="entity-auto" invoke="create">
@@ -102,12 +106,14 @@ under the License.
     <service name="cancelReturnItems" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="cancelReturnItems">
         <description>Cancel ReturnItems and set their status to "RETURN_CANCELLED"</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="cancelReplacementOrderItems" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="cancelReplacementOrderItems">
         <description>Cancel the associated OrderItems of the replacement order, if any.</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -133,6 +139,7 @@ under the License.
     <service name="removeReturnAdjustment" engine="simple" location="component://order/minilang/order/OrderReturnServices.xml"
                  invoke="removeReturnAdjustment">
         <description>Simple remove service</description>
+        <permission-service service-name="returnPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createReturnAndItemOrAdjustment" engine="simple" location="component://order/minilang/order/OrderReturnServices.xml"
@@ -281,6 +288,7 @@ under the License.
     <service name="updateReturnStatusFromReceipt" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="updateReturnStatusFromReceipt">
         <description>Update return/item status when items have been received</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnHeaderStatus" type="String" mode="OUT" optional="false"/>
     </service>
@@ -320,6 +328,7 @@ under the License.
     <service name="createReturnItemShipment" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="createReturnItemShipment">
         <description>Create a new ReturnItemShipment</description>
+        <permission-service service-name="returnPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ReturnItemShipment" include="all" mode="IN" optional="false"/>
     </service>
 
@@ -359,6 +368,7 @@ under the License.
     <service name="updateReturnContactMech" engine="simple"
             location="component://order/minilang/order/OrderReturnServices.xml" invoke="updateReturnContactMech" auth="true" default-entity-name="ReturnContactMech">
         <description>Update Return Contact Mech</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
     </service>

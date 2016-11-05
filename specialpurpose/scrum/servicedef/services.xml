@@ -159,6 +159,7 @@ under the License.
     <service name="scrumAddWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="component://scrum/minilang/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to a new Invoice</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

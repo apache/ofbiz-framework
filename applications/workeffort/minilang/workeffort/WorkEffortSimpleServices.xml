@@ -301,10 +301,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateCommunicationEventWorkEff" short-description="Update a CommunicationEventWorkEff">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
-        </check-permission>
-        <check-errors/>
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-field="communicationEventWorkEff" map="parameters"/>
@@ -320,10 +316,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors/>
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-field="communicationEventWorkEff" map="parameters"/>
@@ -807,10 +799,6 @@ under the License.
     <!-- WorkEffort-FixedAsset -->
     <simple-method method-name="createWorkEffortFixedAssetStd"
             short-description="Create a WorkEffort FixedAsset Standard">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error>
@@ -827,29 +815,17 @@ under the License.
     </simple-method>
     <simple-method method-name="updateWorkEffortFixedAssetStd"
             short-description="Update an existing WorkEffort FixedAsset Standard">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetStd"
             short-description="Delete a WorkEffort FixedAsset Standard">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createWorkEffortFixedAssetAssign"
             short-description="Create a WorkEffort FixedAsset Assign">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error>
@@ -877,30 +853,18 @@ under the License.
     </simple-method>
     <simple-method method-name="updateWorkEffortFixedAssetAssign"
             short-description="Update an existing WorkEffort FixedAsset Assign">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetAssign"
             short-description="Remove a WorkEffort FixedAsset Assign">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Create/Update/Delete Work Effort Review-->
     <simple-method method-name="createWorkEffortReview" short-description="Create Work Effort Review">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error>
@@ -921,20 +885,12 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateWorkEffortReview" short-description="Update Work Effort Review">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortReview"
             short-description="Remove a WorkEffort Review">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -956,10 +912,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createWorkEffortKeyword" short-description="Create Work Effort Keyword">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error>
@@ -988,19 +940,11 @@ under the License.
 
     <simple-method method-name="deleteWorkEffortKeyword"
             short-description="Remove a WorkEffort Keyword">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
         <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortKeywords" short-description="Create all Work Effort Keyword">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
         <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
         <call-class-method class-name="org.apache.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
@@ -1010,10 +954,6 @@ under the License.
 
     <simple-method method-name="deleteWorkEffortKeywords"
             short-description="Remove all WorkEffort Keyword">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
         <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
         <if-not-empty field="workEffortInstance.workEffortId">

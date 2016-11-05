@@ -27,10 +27,6 @@ under the License.
 
     <simple-method method-name="findStockMovesNeeded" short-description="Find all Stock Moves that need to be done">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
-        <check-permission permission="FACILITY" action="_VIEW">
-            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
-        </check-permission>
-        <check-errors/>
 
         <!-- First find all OrderItemShipGrpInvRes that are in a FLT_BULK location in the current Facility -->
         <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
@@ -195,10 +191,6 @@ under the License.
     </simple-method>
     <simple-method method-name="findStockMovesRecommended" short-description="Find all Stock Moves recommended to be done based on ProductFacilityLocation settings">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
-        <check-permission permission="FACILITY" action="_VIEW">
-            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
-        </check-permission>
-        <check-errors/>
 
         <set field="stockMoveHandled" from-field="parameters.stockMoveHandled"/>
         <set field="productSave.productId" value=""/>

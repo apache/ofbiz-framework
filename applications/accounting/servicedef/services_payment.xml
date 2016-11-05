@@ -47,6 +47,7 @@ under the License.
     <service name="setPaymentStatus" engine="simple" default-entity-name="Payment"
         location="component://accounting/minilang/payment/PaymentServices.xml" invoke="setPaymentStatus" auth="true">
         <description>Change the status of a Payment</description>
+        <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
@@ -145,6 +146,7 @@ under the License.
             location="component://accounting/minilang/payment/PaymentServices.xml" invoke="voidPayment" auth="true">
         <description>Sets payment status to PMNT_VOID, removes all PaymentApplications, changes related invoice statuses to 
             INVOICE_READY if status is INVOICE_PAID, and reverses related AcctgTrans by calling copyAcctgTransAndEntries service</description>
+        <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <attribute name="paymentId" mode="IN" optional="false" type="String"/>
         <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>

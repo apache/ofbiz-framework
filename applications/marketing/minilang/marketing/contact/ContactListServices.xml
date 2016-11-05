@@ -22,11 +22,6 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ContactList methods -->
     <simple-method method-name="createContactList" short-description="Create an ContactList">
-        <check-permission permission="MARKETING" action="_CREATE">
-            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value entity-name="ContactList" value-field="newEntity"/>
         <if-empty field="parameters.contactListId">
             <sequenced-id sequence-name="ContactList" field="newEntity.contactListId"/>
