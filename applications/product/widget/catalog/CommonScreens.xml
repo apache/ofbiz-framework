@@ -139,6 +139,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                                <container style="button-bar button-style-2">
+                                                    <link target="EditProductStore"  text="${uiLabelMap.ProductNewProductStore}" style="buttontext create" url-mode="plain"/>
+                                                </container>
                                             </widgets>
                                         </section>
                                     </widgets>

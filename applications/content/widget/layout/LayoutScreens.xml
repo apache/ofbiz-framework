@@ -36,14 +36,6 @@ under the License.
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
-                                                <parameter param-name="mode" value="add"/>
-                                                <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
-                                            </link>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                                     </decorator-section>
@@ -75,12 +67,6 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListLayout}">
-                            <container>
-                                <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
-                                    <parameter param-name="mode" value="add"/>
-                                    <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
-                                </link>
-                            </container>
                             <include-form name="ListListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
