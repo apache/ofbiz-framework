@@ -131,7 +131,7 @@ under the License.
             </drop-down>
         </field>
         <field name="isRefundable">
-            <drop-down no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" use-when="finAccountId==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -335,7 +335,7 @@ under the License.
         </field>
         <field name="glReconciliationId" position="2">
             <drop-down allow-empty="true">
-                <option key="_NA_" description="${uiLabelMap.CommonNotAssigned}"/>
+                <option key="${uiLabelMap.CommonNotAssigned}" description="_NA_"/>
                 <list-options list-name="glReconciliations" key-name="glReconciliationId" 
                     description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
             </drop-down>

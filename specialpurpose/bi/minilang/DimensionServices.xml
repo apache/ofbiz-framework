@@ -91,7 +91,7 @@ under the License.
                     <store-value value-field="currencyDim"/>
                 </iterate>
             <else>
-                <make-value value-field="currencyDim" entity-name="CurrencyDimension"/>
+                <make-value entity-name="CurrencyDimension" value-field="currencyDim"/>
                 <sequenced-id sequence-name="CurrencyDimension" field="currencyDim.dimensionId"/>
                 <set field="currencyDim.currencyId" from-field="currency.uomId"/>
                 <set field="currencyDim.description" from-field="currency.description"/>
@@ -109,7 +109,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <make-value value-field="productDimension" entity-name="ProductDimension"/>
+        <make-value entity-name="ProductDimension" value-field="productDimension"/>
         <set-nonpk-fields map="product" value-field="productDimension"/>
 
         <get-related-one value-field="product" relation-name="ProductType" to-value-field="productType"/>

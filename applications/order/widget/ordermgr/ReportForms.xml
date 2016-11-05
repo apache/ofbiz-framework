@@ -109,8 +109,8 @@ under the License.
         </field>
         <field name="orderTypeId">
             <drop-down allow-empty="false">
-                <option key="SALES_ORDER" description="${uiLabelMap.OrderSalesOrder}"/>
-                <option key="PURCHASE_ORDER" description="${uiLabelMap.OrderPurchaseOrder}"/>
+                <option key="${uiLabelMap.OrderSalesOrder}" description="SALES_ORDER"/>
+                <option key="${uiLabelMap.OrderPurchaseOrder}" description="PURCHASE_ORDER"/>
             </drop-down>
         </field>
         <field name="orderStatusId">

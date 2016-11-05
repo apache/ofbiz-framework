@@ -131,7 +131,7 @@ under the License.
         <set field="context3.contentPurposeList" from-field="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="ASSOC_CONTENT"/>
         <set field="context3.targetOperationList" from-field="targetOperationList"/>
-        <call-service in-map-name="context3" service-name="assocContent"></call-service>
+        <call-service service-name="assocContent" in-map-name="context3"></call-service>
 
     </simple-method>
     <simple-method method-name="createDocument" short-description="Create Document Tree">

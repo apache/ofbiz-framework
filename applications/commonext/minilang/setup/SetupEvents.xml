@@ -257,12 +257,12 @@
         <!-- Create partyId for UserLogin -->
         <session-to-field field="userLoginCtx" session-name="userLogin"/>
         <if-empty field="userLoginCtx.partyId">
-            <make-value value-field="newEntity" entity-name="Party"/>
+            <make-value entity-name="Party" value-field="newEntity"/>
             <set field="newEntity.partyId" from-field="userLoginCtx.userLoginId"/>
             <set field="newEntity.partyTypeId" value="PERSON"/>
             <create-value value-field="newEntity"/>
             <clear-field field="newEntity"/>
-            <make-value value-field="newPerson" entity-name="Person"/>
+            <make-value entity-name="Person" value-field="newPerson"/>
             <set field="newPerson.partyId" from-field="userLoginCtx.userLoginId"/>
             <create-value value-field="newPerson"/>
             <clear-field field="newPerson"/>
@@ -345,7 +345,7 @@
         </if-empty>
         <check-errors/>
         
-        <make-value value-field="newEntity" entity-name="Facility"/>
+        <make-value entity-name="Facility" value-field="newEntity"/>
         <set field="defaultDaysToShip" from-field="parameters.defaultDaysToShip" type="Long"/>
         <clear-field field="parameters.defaultDaysToShip"/>
         
@@ -426,7 +426,7 @@
         <!-- create the ProductStoreFacility record -->
         <now-timestamp field="nowTimestamp"/>
         <if-not-empty field="newEntity.inventoryFacilityId">
-            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
+            <make-value entity-name="ProductStoreFacility" value-field="storeFacility"/>
             <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
@@ -505,7 +505,7 @@
             <result-to-request result-name="productCategoryId" request-name="productCategoryId"/>
         </call-service>
 
-        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+        <make-value entity-name="ProductCategoryRollup" value-field="newEntity"/>
         <set field="newEntity.parentProductCategoryId" from-field="parameters.primaryParentCategoryId"/>
         <set field="newEntity.productCategoryId" from-field="productCategoryId"/>
         <set field="newEntity.sequenceNum" value="1" type="Long"/>

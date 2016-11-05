@@ -78,10 +78,10 @@ under the License.
             </drop-down>
         </field>
         <field position="1" name="isVirtual" title="${uiLabelMap.ProductVirtualProduct}">
-            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+            <drop-down><option key="${uiLabelMap.CommonN}" description="N"/><option key="${uiLabelMap.CommonY}" description="Y"/></drop-down>
         </field>
         <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}">
-            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+            <drop-down><option key="${uiLabelMap.CommonN}" description="N"/><option key="${uiLabelMap.CommonY}" description="Y"/></drop-down>
         </field>
         <field position="3" name="virtualVariantMethodEnum" title="${uiLabelMap.ProductVirtualVariantMethod}">
             <drop-down allow-empty="true">
@@ -112,7 +112,7 @@ under the License.
         <field position="4" name="supportDiscontinuationDate" title="${uiLabelMap.ProductSupportThruDate}" red-when="before-now"><date-time/></field>
 
         <field name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
             </field>
         <field position="1" name="requirementMethodEnumId" title="${uiLabelMap.ProductRequirementMethodEnumId}">
             <drop-down allow-empty="true">
@@ -124,7 +124,7 @@ under the License.
         </field>
 
         <field name="requireInventory" title="${uiLabelMap.ProductRequireInventory}" tooltip="${uiLabelMap.ProductInventoryRequiredProduct}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
         <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}" use-when="product==null">
@@ -140,9 +140,9 @@ under the License.
 
         <field name="lotIdFilledIn" title="${uiLabelMap.ProductLotId}">
             <drop-down allow-empty="false">
-                <option key="Allowed" description="${uiLabelMap.lotIdFilledInAllowed}"/>
-                <option key="Mandatory" description="${uiLabelMap.lotIdFilledInMandatory}"/>
-                <option key="Forbidden" description="${uiLabelMap.lotIdFilledInForbidden}"/>
+                <option key="${uiLabelMap.lotIdFilledInAllowed}" description="Allowed"/>
+                <option key="${uiLabelMap.lotIdFilledInMandatory}" description="Mandatory"/>
+                <option key="${uiLabelMap.lotIdFilledInForbidden}" description="Forbidden"/>
             </drop-down>
         </field>
 
@@ -157,7 +157,7 @@ under the License.
         <field position="2" title="${uiLabelMap.ProductRating}" name="productRating"><text size="10" maxlength="20"/></field>
 
         <field position="1" name="requireAmount" title="${uiLabelMap.ProductRequireAmount}" tooltip="${uiLabelMap.ProductRequireCustomerAmount}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field position="2" name="amountUomTypeId" title="${uiLabelMap.ProductAmountUomTypeId}">
             <drop-down allow-empty="true">
@@ -231,7 +231,7 @@ under the License.
         </field>
         <field position="1" name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><text size="10" maxlength="20"/></field>
         <field position="2" name="inShippingBox" title="${uiLabelMap.ProductShippingBox}">
-            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+            <drop-down><option key="${uiLabelMap.CommonN}" description="N"/><option key="${uiLabelMap.CommonY}" description="Y"/></drop-down>
         </field>
         <field position="3" name="defaultShipmentBoxTypeId" title="${uiLabelMap.ProductDefaultShipmentBoxTypeId}">
             <drop-down allow-empty="true">
@@ -241,21 +241,21 @@ under the License.
             </drop-down>
         </field>
         <field position="4" name="chargeShipping" title="${uiLabelMap.ProductChargeShipping}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
 
         <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field position="2" name="includeInPromotions" title="${uiLabelMap.ProductIncludePromotions}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
 
         <field position="3" name="taxable" title="${uiLabelMap.ProductTaxable}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field position="4" name="autoCreateKeywords" title="${uiLabelMap.ProductAutoCreateKeywords}">
-            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
 
         <field name="contentInfoText" title="${uiLabelMap.ProductContentInfoText}" widget-style="tooltip">
@@ -281,7 +281,7 @@ under the License.
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
         <field name="orderDecimalQuantity" >
-            <drop-down allow-empty="true" ><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="true" ><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <sort-order>
             <field-group>
@@ -942,8 +942,8 @@ under the License.
         </field>
         <field name="canDropShip" title="${uiLabelMap.ProductSupplierCanDropShip}">
             <drop-down allow-empty="false" no-current-selected-key="N">
-                <option key="Y" description="${uiLabelMap.CommonY}"/>
-                <option key="N" description="${uiLabelMap.CommonN}"/>
+                <option key="${uiLabelMap.CommonY}" description="Y"/>
+                <option key="${uiLabelMap.CommonN}" description="N"/>
             </drop-down>
         </field>
         <field use-when="supplierProduct == null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
@@ -1005,8 +1005,8 @@ under the License.
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="configTypeId">
             <drop-down allow-empty="false">
-                <option key="STANDARD" description="${uiLabelMap.ProductStandard}"/>
-                <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
+                <option key="${uiLabelMap.ProductStandard}" description="STANDARD"/>
+                <option key="${uiLabelMap.ProductQuestion}" description="QUESTION"/>
             </drop-down>
         </field>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItem}">
@@ -1033,8 +1033,8 @@ under the License.
         </field>
         <field name="configTypeId">
             <drop-down allow-empty="false">
-                <option key="STANDARD" description="${uiLabelMap.ProductStandard}"/>
-                <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
+                <option key="${uiLabelMap.ProductStandard}" description="STANDARD"/>
+                <option key="${uiLabelMap.ProductQuestion}" description="QUESTION"/>
             </drop-down>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
@@ -1308,7 +1308,7 @@ under the License.
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="costComponentTypePrefix">
             <drop-down allow-empty="false">
-                <option key="EST_STD" description="${uiLabelMap.ProductEstimatedCosts}"/>
+                <option key="${uiLabelMap.ProductEstimatedCosts}" description="EST_STD"/>
             </drop-down>
         </field>
         <field name="costUomId" title="${uiLabelMap.CommonCurrency}">
@@ -1436,7 +1436,7 @@ under the License.
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="costComponentTypePrefix">
             <drop-down allow-empty="false">
-                <option key="EST_STD" description="${uiLabelMap.ProductEstimatedCosts}"/>
+                <option key="${uiLabelMap.ProductEstimatedCosts}" description="EST_STD"/>
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">

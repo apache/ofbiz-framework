@@ -79,9 +79,9 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.ContentTemplateTextOnly}"/>
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.ContentTemplateImageCentered}"/>
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.ContentTemplateImageLeft}"/>
+                <option key="${uiLabelMap.ContentTemplateTextOnly}" description="TEMPLATE_TEXT_ONLY"/>
+                <option key="${uiLabelMap.ContentTemplateImageCentered}" description="TEMPLATE_IMAGE_CENTERED"/>
+                <option key="${uiLabelMap.ContentTemplateImageLeft}" description="TEMPLATE_IMAGE_LEFT"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
@@ -209,13 +209,13 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
+                <option key="${uiLabelMap.CommonNA}" description="_NA_"/>
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
+                <option key="${uiLabelMap.CommonNA}" description="_NA_"/>
                 <entity-options
                     entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PUBLISH_STATUS"/>
@@ -224,7 +224,7 @@ under the License.
         </field>
         <field name="privilegeEnumId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
+                <option key="${uiLabelMap.CommonNA}" description="_NA_"/>
                 <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="SUBSCRIPTION_TYPE"/>
                 </entity-options>

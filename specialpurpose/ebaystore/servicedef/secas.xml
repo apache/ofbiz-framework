@@ -21,22 +21,22 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createEbayProductStorePref" event="commit">
-        <condition operator="equals" field-name="enabled" value="Y"/>
-        <condition operator="is-not-empty" field-name="serviceName"/>
+        <condition field-name="enabled" operator="equals" value="Y"/>
+        <condition field-name="serviceName" operator="is-not-empty"/>
         <action mode="sync" service="startEbayAutoPreference"/>
     </eca>
     <eca service="updateEbayProductStorePref" event="commit">
-        <condition operator="equals" field-name="enabled" value="Y"/>
-        <condition operator="is-not-empty" field-name="serviceName"/>
+        <condition field-name="enabled" operator="equals" value="Y"/>
+        <condition field-name="serviceName" operator="is-not-empty"/>
         <action mode="sync" service="startEbayAutoPreference"/>
     </eca>
     <eca service="createEbayProductStorePref" event="commit">
-        <condition operator="equals" field-name="enabled" value="N"/>
-        <condition operator="is-not-empty" field-name="serviceName"/>
+        <condition field-name="enabled" operator="equals" value="N"/>
+        <condition field-name="serviceName" operator="is-not-empty"/>
         <action mode="sync" service="stopEbayAutoPreference"/>
     </eca>
     <eca service="updateEbayProductStorePref" event="commit">
-        <condition operator="equals" field-name="enabled" value="N"/>
+        <condition field-name="enabled" operator="equals" value="N"/>
         <action mode="sync" service="stopEbayAutoPreference"/>
     </eca>
 </service-eca>

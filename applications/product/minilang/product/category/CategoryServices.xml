@@ -33,7 +33,7 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowTimestamp"/>
-        <make-value value-field="newEntity" entity-name="ProductCategory"/>
+        <make-value entity-name="ProductCategory" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="parameters.productCategoryId">
@@ -67,7 +67,7 @@ under the License.
             </entity-and>
             <iterate list="productCategoryRoles" entry="productCategoryRole">
                 <!-- add this new product to the category -->
-                <make-value value-field="newLimitRollup" entity-name="ProductCategoryRollup"/>
+                <make-value entity-name="ProductCategoryRollup" value-field="newLimitRollup"/>
                 <set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
                 <set field="newLimitRollup.parentProductCategoryId" from-field="productCategoryRole.productCategoryId"/>
                 <set field="newLimitRollup.fromDate" from-field="nowTimestamp"/>
@@ -145,7 +145,7 @@ under the License.
             <store-value value-field="product"/>
         </if-compare-field>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
+        <make-value entity-name="ProductCategoryMember" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -161,7 +161,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="ProductCategoryRole"/>
+        <make-value entity-name="ProductCategoryRole" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -177,7 +177,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
+        <make-value entity-name="ProductCategoryRole" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -189,7 +189,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
+        <make-value entity-name="ProductCategoryRole" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -207,7 +207,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+        <make-value entity-name="ProductCategoryRollup" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -227,7 +227,7 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+                <make-value entity-name="ProductCategoryRollup" value-field="newEntity"/>
                 <set field="newEntity.parentProductCategoryId" from-field="category"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -246,7 +246,7 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+                <make-value entity-name="ProductCategoryRollup" value-field="newEntity"/>
                 <set field="newEntity.parentProductCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -267,7 +267,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
+        <make-value entity-name="ProductCategoryRollup" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -282,7 +282,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
+        <make-value entity-name="ProductCategoryRollup" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -577,7 +577,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="ProductCategoryAttribute"/>
+        <make-value entity-name="ProductCategoryAttribute" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
@@ -590,7 +590,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
+        <make-value entity-name="ProductCategoryAttribute" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map="parameters" value-field="ProductCategoryAttributeInstance"/>
@@ -603,7 +603,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
+        <make-value entity-name="ProductCategoryAttribute" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <remove-value value-field="ProductCategoryAttributeInstance"/>

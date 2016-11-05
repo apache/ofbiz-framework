@@ -208,9 +208,9 @@ under the License.
         <field name="quantityOnHandDiff" tooltip="${uiLabelMap.ProductMessageQoh}"><text-find default-value="0" default-option="notEqual" ignore-case="false"/></field>
         <field name="reportType">
             <drop-down allow-empty="false">
-                <option key="BY_ITEM" description="${uiLabelMap.ProductByInventoryItem}"/>
-                <option key="BY_PRODUCT" description="${uiLabelMap.ProductByProduct}"/>
-                <option key="BY_DATE" description="${uiLabelMap.ProductByDate}"/>
+                <option key="${uiLabelMap.ProductByInventoryItem}" description="BY_ITEM"/>
+                <option key="${uiLabelMap.ProductByProduct}" description="BY_PRODUCT"/>
+                <option key="${uiLabelMap.ProductByDate}" description="BY_DATE"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onclick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
@@ -510,7 +510,7 @@ under the License.
         <field name="billingWeight" title="${uiLabelMap.CommonWeight}"><text size="10"/></field>
         <field name="billingWeightUomId"  title="${uiLabelMap.ProductWeightUomId}">
             <drop-down allow-empty="false">
-                <option key="${defaultWeightUom.uomId}" description="${defaultWeightUom.description}"/>
+                <option key="${defaultWeightUom.description}" description="${defaultWeightUom.uomId}"/>
                 <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" operator="equals" value="WEIGHT_MEASURE"/>
                 </entity-options>

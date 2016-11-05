@@ -30,7 +30,7 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-object-method obj-field="newEntity.enteredKeyword" method-name="toLowerCase" ret-field="newEntity.enteredKeyword"/>
@@ -42,7 +42,7 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <store-value value-field="newEntity"/>
@@ -52,14 +52,14 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <remove-by-and entity-name="KeywordThesaurus" map="newEntity"/>
     </simple-method>
 
     <!-- Uom Conversion service -->
     <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
-        <make-value value-field="newEntity" entity-name="UomConversionDated"/>
+        <make-value entity-name="UomConversionDated" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -285,7 +285,7 @@ under the License.
                     </entity-one>
                     <if-empty field="oldGeoAssoc">
                         <!-- Add as it does not exist -->
-                        <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
+                        <make-value entity-name="GeoAssoc" value-field="newGeoAssoc"/>
                         <set field="newGeoAssoc.geoId" from-field="parameters.geoId"/>
                         <set field="newGeoAssoc.geoIdTo" from-field="geoIdTo"/>
                         <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>

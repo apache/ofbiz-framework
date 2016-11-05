@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createTrackingCodeType" short-description="Create an TrackingCodeType">
         <now-timestamp field="nowStamp"/>
 
-        <make-value value-field="newEntity" entity-name="TrackingCodeType"/>
+        <make-value entity-name="TrackingCodeType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
@@ -52,7 +52,7 @@ under the License.
 
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
         <now-timestamp field="nowStamp"/>
-        <make-value value-field="newEntity" entity-name="TrackingCodeOrder"/>
+        <make-value entity-name="TrackingCodeOrder" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
@@ -78,7 +78,7 @@ under the License.
     <!-- add service for tracking code return -->
     <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
         <now-timestamp field="nowStamp"/>
-        <make-value value-field="newEntity" entity-name="TrackingCodeOrderReturn"/>
+        <make-value entity-name="TrackingCodeOrderReturn" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 

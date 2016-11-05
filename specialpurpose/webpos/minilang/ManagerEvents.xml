@@ -45,7 +45,7 @@ under the License.
                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/></add-error>
                         <check-errors/>
                     <else>
-                        <make-value value-field="terminalState" entity-name="PosTerminalState"/>
+                        <make-value entity-name="PosTerminalState" value-field="terminalState"/>
                         <call-object-method obj-field="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
                         <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
                         <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
@@ -310,7 +310,7 @@ under the License.
                         </simple-map-processor>
                     </call-map-processor>
                     <if-not-empty field="context.amountInOut">
-                        <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
+                        <make-value entity-name="PosTerminalInternTx" value-field="internTx"/>
                         <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
                         <set field="internTx.paidAmount" from-field="context.amountInOut" type="BigDecimal"/>
                         <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>

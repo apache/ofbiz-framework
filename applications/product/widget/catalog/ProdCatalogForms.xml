@@ -70,7 +70,7 @@ under the License.
         <field name="catalogName"><text size="30" maxlength="60"/></field>
 
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
 
         <field name="styleSheet" title="${uiLabelMap.ProductStyleSheet}"><text size="60" maxlength="250"/></field>
@@ -79,10 +79,10 @@ under the License.
         <field name="templatePathPrefix" title="${uiLabelMap.ProductTemplatePathPrefix}"  tooltip="${uiLabelMap.ProductPrependedTemplatePaths}"><text size="60" maxlength="250"/></field>
 
         <field name="viewAllowPermReqd" title="${uiLabelMap.ProductCategoryViewAllowPermReqd}">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
         <field name="purchaseAllowPermReqd" title="${uiLabelMap.ProductCategoryPurchaseAllowPermReqd}">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>

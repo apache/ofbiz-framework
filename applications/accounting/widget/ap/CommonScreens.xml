@@ -151,7 +151,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
+                        <include-menu name="ApInvoiceTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>

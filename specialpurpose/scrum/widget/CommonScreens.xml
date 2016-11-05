@@ -383,7 +383,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
-                                        <include-menu location="component://scrum/widget/scrumMenus.xml" name="ResourceTabBar"/>
+                                        <include-menu name="ResourceTabBar" location="component://scrum/widget/scrumMenus.xml"/>
                                         <container>
                                             <section>
                                                 <widgets>

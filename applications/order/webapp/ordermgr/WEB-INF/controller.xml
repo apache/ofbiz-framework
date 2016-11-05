@@ -1291,7 +1291,7 @@ under the License.
 
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteCustRequestContent" type="service"/>
+        <event type="service" invoke="deleteCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>

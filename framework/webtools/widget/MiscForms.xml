@@ -34,8 +34,8 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
             <drop-down>
-                <option key="Y" description="${uiLabelMap.CommonYes}" />
-                <option key="N" description="${uiLabelMap.CommonNo}" />
+                <option key="${uiLabelMap.CommonYes}" description="Y" />
+                <option key="${uiLabelMap.CommonNo}" description="N" />
             </drop-down>
         </field>
         <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
@@ -43,8 +43,8 @@ under the License.
         </field>
         <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
             <radio>
-                <option key="Y" description="${uiLabelMap.CommonYes}" />
-                <option key="N" description="${uiLabelMap.CommonNo}" />
+                <option key="${uiLabelMap.CommonYes}" description="Y" />
+                <option key="${uiLabelMap.CommonNo}" description="N" />
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
@@ -59,8 +59,8 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
             <drop-down>
-                <option key="Y" description="${uiLabelMap.CommonYes}" />
-                <option key="N" description="${uiLabelMap.CommonNo}" />
+                <option key="${uiLabelMap.CommonYes}" description="Y" />
+                <option key="${uiLabelMap.CommonNo}" description="N" />
             </drop-down>
         </field>
         <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
@@ -68,8 +68,8 @@ under the License.
         </field>
         <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
             <radio>
-                <option key="Y" description="${uiLabelMap.CommonYes}" />
-                <option key="N" description="${uiLabelMap.CommonNo}" />
+                <option key="${uiLabelMap.CommonYes}" description="Y" />
+                <option key="${uiLabelMap.CommonNo}" description="N" />
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="button-col">

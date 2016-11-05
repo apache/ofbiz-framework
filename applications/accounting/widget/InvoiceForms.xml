@@ -431,8 +431,8 @@ under the License.
         <field position="1" name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="10"/></field>
         <field position="2" name="taxableFlag">
         <drop-down allow-empty="false" current="selected">
-            <option key="Y" description="${uiLabelMap.CommonYes}"/>
-            <option key="N" description="${uiLabelMap.CommonNo}"/>
+            <option key="${uiLabelMap.CommonYes}" description="Y"/>
+            <option key="${uiLabelMap.CommonNo}" description="N"/>
         </drop-down>
         </field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit" use-when="invoiceItem==null">

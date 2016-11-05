@@ -28,10 +28,10 @@ under the License.
         <field name="contentName"><text-find/></field>
         <field name="contentTypeId">
             <drop-down no-current-selected-key="COMPDOC_TEMPLATE">
-                <option key="COMPDOC_TEMPLATE" description="${uiLabelMap.ContentTemplateRoot}"/>
-                <option key="COMPDOC_INSTANCE" description="${uiLabelMap.ContentTemplateRootInstance}"/>
-                <option key="TEMPLATE" description="${uiLabelMap.ContentTemplateChild}"/>
-                <option key="DOCUMENT" description="${uiLabelMap.ContentTemplateInstanceChild}"/>
+                <option key="${uiLabelMap.ContentTemplateRoot}" description="COMPDOC_TEMPLATE"/>
+                <option key="${uiLabelMap.ContentTemplateRootInstance}" description="COMPDOC_INSTANCE"/>
+                <option key="${uiLabelMap.ContentTemplateChild}" description="TEMPLATE"/>
+                <option key="${uiLabelMap.ContentTemplateInstanceChild}" description="DOCUMENT"/>
             </drop-down>
         </field>
         <!-- <field name="rootonly" map-name="dummy" title="Root CompDocs Only"><check/></field> -->
@@ -239,9 +239,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
-                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
-                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
+                <option key="${uiLabelMap.ContentSoftRejected}" description="SOFT_REJ"/>
+                <option key="${uiLabelMap.ContentRejected}" description="REJECTED"/>
+                <option key="${uiLabelMap.CommonApproved}" description="APPROVED"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"><date-time/></field>
@@ -288,9 +288,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
-                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
-                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
+                <option key="${uiLabelMap.ContentSoftRejected}" description="SOFT_REJ"/>
+                <option key="${uiLabelMap.ContentRejected}" description="REJECTED"/>
+                <option key="${uiLabelMap.CommonApproved}" description="APPROVED"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"   use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)"><date-time/></field>
@@ -322,9 +322,9 @@ under the License.
         </field>
         <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="true">
-                <option key="SOFT_REJ" description="${uiLabelMap.ContentSoftRejected}"/>
-                <option key="REJECTED" description="${uiLabelMap.ContentRejected}"/>
-                <option key="APPROVED" description="${uiLabelMap.CommonApproved}"/>
+                <option key="${uiLabelMap.ContentSoftRejected}" description="SOFT_REJ"/>
+                <option key="${uiLabelMap.ContentRejected}" description="REJECTED"/>
+                <option key="${uiLabelMap.CommonApproved}" description="APPROVED"/>
             </drop-down>
         </field>
         <field name="approvalDate" widget-style="inputBox"><date-time/></field>
@@ -397,16 +397,16 @@ under the License.
         </field>
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
-                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
-                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
-                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
-                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
-                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
-                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
-                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
+                <option key="${uiLabelMap.ContentMSWord}" description="application/msword"/>
+                <option key="${uiLabelMap.ContentPDFFile}" description="application/pdf"/>
+                <option key="${uiLabelMap.ContentSurvey}" description="application/vnd.ofbiz.survey"/>
+                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
+                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
+                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
+                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
+                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
+                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
+                <option key="${uiLabelMap.ContentResourceOther}" description="application/octet-stream"/>
             </drop-down>
         </field>
         <field name="rootContentId"><hidden/></field>
@@ -429,16 +429,16 @@ under the License.
         <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)">
             <drop-down allow-empty="false">
-                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
-                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
-                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
-                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
-                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
-                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
-                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
-                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
+                <option key="${uiLabelMap.ContentMSWord}" description="application/msword"/>
+                <option key="${uiLabelMap.ContentPDFFile}" description="application/pdf"/>
+                <option key="${uiLabelMap.ContentSurvey}" description="application/vnd.ofbiz.survey"/>
+                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
+                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
+                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
+                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
+                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
+                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
+                <option key="${uiLabelMap.ContentResourceOther}" description="application/octet-stream"/>
             </drop-down>
         </field>
         <field name="mimeTypeId" map-name="dataResource"

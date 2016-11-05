@@ -38,12 +38,12 @@ under the License.
         </field>
         <field name="isPublic" title="${uiLabelMap.MarketingContactListIsPublic}">
             <drop-down allow-empty="true">
-                <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
+                <option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/>
             </drop-down>
         </field>
         <field name="singleUse" title="${uiLabelMap.MarketingContactListIsSingleUse}">
             <drop-down allow-empty="true">
-                <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
+                <option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/>
             </drop-down>
         </field>
 

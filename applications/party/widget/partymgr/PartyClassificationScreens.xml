@@ -65,7 +65,7 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="PartyClassificationTabBar"/>
+                                <include-menu name="PartyClassificationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -136,7 +136,7 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="PartyClassificationTabBar"/>
+                                <include-menu name="PartyClassificationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

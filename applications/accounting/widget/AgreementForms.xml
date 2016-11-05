@@ -287,7 +287,7 @@ under the License.
         <field name="agreementId"><hidden value="${agreement.agreementId}"/></field>
         <field name="agreementItemSeqId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description=" "/>
+                <option key=" " description="_NA_"/>
                 <entity-options entity-name="AgreementItem" description="${agreementItemSeqId}">
                     <entity-constraint name="agreementId" env-name="agreement.agreementId"/>
                     <entity-order-by field-name="agreementItemSeqId"/>
@@ -661,7 +661,7 @@ under the License.
         <field name="agreementId"><hidden value="${agreementId}"/></field>
         <field name="agreementItemSeqId">
             <drop-down allow-empty="false">
-                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
+                <option key="${uiLabelMap.CommonNA}" description="_NA_"/>
                 <entity-options entity-name="AgreementItem" description="${agreementItemSeqId}">
                     <entity-constraint name="agreementId" operator="equals" env-name="agreementId"/>
                     <entity-order-by field-name="agreementItemSeqId"/>

@@ -1141,7 +1141,7 @@
                 <now-timestamp field="workEffortPartyAssignment.thruDate" />
                 <store-value value-field="workEffortPartyAssignment" />
                 <!-- create a new one -->
-                <make-value value-field="newAssign" entity-name="WorkEffortPartyAssignment" />
+                <make-value entity-name="WorkEffortPartyAssignment" value-field="newAssign" />
                 <set field="newAssign.workEffortId" from-field="parameters.workEffortId" />
                 <set field="newAssign.partyId" from-field="parameters.newPartyId" />
                 <set field="newAssign.roleTypeId" from-field="parameters.newRoleTypeId" />

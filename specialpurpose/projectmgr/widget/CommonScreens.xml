@@ -352,7 +352,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
-                                        <include-menu location="component://projectmgr/widget/ProjectMenus.xml" name="ResourceTabBar"/>
+                                        <include-menu name="ResourceTabBar" location="component://projectmgr/widget/ProjectMenus.xml"/>
                                         <container>
                                             <section>
                                                 <widgets>

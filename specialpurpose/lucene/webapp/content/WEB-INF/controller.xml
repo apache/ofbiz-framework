@@ -33,7 +33,7 @@ under the License.
     <request-map uri="AdminIndex"><security https="true" auth="true"/><response name="success" type="view" value="AdminIndex"/></request-map>
     <request-map uri="indexContentTree">
         <security https="true" auth="true"/>
-        <event invoke="indexContentTree" path="org.apache.ofbiz.content.search.SearchEvents" type="java"/>
+        <event type="java" invoke="indexContentTree" path="org.apache.ofbiz.content.search.SearchEvents"/>
         <response name="success" type="view" value="AdminIndex"/>
         <response name="error" type="view" value="AdminIndex"/>
     </request-map>

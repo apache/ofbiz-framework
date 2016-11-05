@@ -44,10 +44,10 @@ under the License.
         </field>
         <field name="type">
             <drop-down>
-                <option key="0" description="${uiLabelMap.ManufacturingExplosion}"/>
-                <option key="1" description="${uiLabelMap.ManufacturingExplosionSingleLevel}"/>
-                <option key="2" description="${uiLabelMap.ManufacturingExplosionManufacturing}"/>
-                <option key="3" description="${uiLabelMap.ManufacturingImplosion}"/>
+                <option key="${uiLabelMap.ManufacturingExplosion}" description="0"/>
+                <option key="${uiLabelMap.ManufacturingExplosionSingleLevel}" description="1"/>
+                <option key="${uiLabelMap.ManufacturingExplosionManufacturing}" description="2"/>
+                <option key="${uiLabelMap.ManufacturingImplosion}" description="3"/>
             </drop-down>
         </field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
@@ -121,8 +121,8 @@ under the License.
         </field>
         <field name="ruleOperator">
             <drop-down>
-                <option key="OR" description="${uiLabelMap.CommonOr}"/>
-                <option key="AND" description="${uiLabelMap.CommonAnd}"/>
+                <option key="${uiLabelMap.CommonOr}" description="OR"/>
+                <option key="${uiLabelMap.CommonAnd}" description="AND"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
@@ -134,8 +134,8 @@ under the License.
         <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productAssocTypeId"  title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="true">
-                <option key="MANUF_COMPONENT" description="${uiLabelMap.ManufacturingBillOfMaterials}"/>
-                <option key="ENGINEER_COMPONENT" description="${uiLabelMap.ManufacturingEngineeringBillOfMaterials}"/>
+                <option key="${uiLabelMap.ManufacturingBillOfMaterials}" description="MANUF_COMPONENT"/>
+                <option key="${uiLabelMap.ManufacturingEngineeringBillOfMaterials}" description="ENGINEER_COMPONENT"/>
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>

@@ -77,7 +77,7 @@
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu location="component://commonext/widget/ofbizsetup/Menus.xml" name="SetupSubTabBar"/>
+                                <include-menu name="SetupSubTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
                             </widgets>
                         </section>
                         <section>

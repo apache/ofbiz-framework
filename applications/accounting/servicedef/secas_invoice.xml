@@ -37,13 +37,13 @@ under the License.
     </eca>
 
     <eca service="setInvoiceStatus" event="commit">
-        <condition operator="equals" field-name="statusId" value="INVOICE_APPROVED"/>
-        <condition operator="not-equals" field-name="oldStatusId" value="INVOICE_APPROVED"/>
+        <condition field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_APPROVED"/>
         <action service="createMatchingPaymentApplication" mode="sync"/>
     </eca>
     <eca service="setInvoiceStatus" event="return">
-        <condition operator="equals" field-name="statusId" value="INVOICE_READY"/>
-        <condition operator="equals" field-name="oldStatusId" value="INVOICE_IN_PROCESS"/>
+        <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="equals" value="INVOICE_IN_PROCESS"/>
         <action service="createMatchingPaymentApplication" mode="sync"/>
     </eca>
 
