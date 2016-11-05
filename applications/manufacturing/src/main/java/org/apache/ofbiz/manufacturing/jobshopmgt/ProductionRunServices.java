@@ -1684,8 +1684,25 @@ public class ProductionRunServices {
             }
             outputMap = dispatcher.runSync("getProductCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productId", productionRun.getProductProduced().getString("productId"), "currencyUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"), "costComponentTypePrefix", "EST_STD"));
             unitCost = (BigDecimal)outputMap.get("productCost");
-            if (unitCost == null) {
-                unitCost = ZERO;
+            if (unitCost != null && unitCost.compareTo(BigDecimal.ZERO) == 0) {
+                BigDecimal totalCost = ZERO;
+                List<GenericValue> tasks = productionRun.getProductionRunRoutingTasks();
+                // generic_cost
+                List<GenericValue> actualGenCosts = EntityQuery.use(delegator).from("CostComponent").where("workEffortId", productionRunId, "costUomId", (String) partyAccountingPreference.get("baseCurrencyUomId")).queryList();
+                for (GenericValue actualGenCost : actualGenCosts) {
+                    totalCost = totalCost.add((BigDecimal) actualGenCost.get("cost"));
+                }
+                for (GenericValue task : tasks) {
+                    List<GenericValue> otherCosts = EntityQuery.use(delegator).from("CostComponent").where("workEffortId", task.get("workEffortId"), "costUomId", (String) partyAccountingPreference.get("baseCurrencyUomId")).queryList();
+                    for (GenericValue otherCost : otherCosts) {
+                        totalCost = totalCost.add((BigDecimal) otherCost.get("cost"));
+                    }
+                }
+                if (totalCost != null) {
+                    unitCost = totalCost.divide(quantity);
+                } else {
+                    unitCost = BigDecimal.ZERO;
+                }
             }
             
          // Before creating InvntoryItem and InventoryItemDetails, check weather the record of ProductFacility exist in the system or not
