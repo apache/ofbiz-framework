@@ -79,7 +79,7 @@ under the License.
                 <entity-condition entity-name="SupplierProduct" list="supplierProducts">
                     <condition-list>
                         <condition-expr field-name="productId" from-field="requirement.productId"/>
-                        <condition-expr field-name="minimumOrderQuantity" from-field="requirement.quantity" operator="less-equals"/>
+                        <condition-expr field-name="minimumOrderQuantity" operator="less-equals" from-field="requirement.quantity"/>
                     </condition-list>
                     <order-by field-name="lastPrice"/>
                     <order-by field-name="supplierPrefOrderId"/>

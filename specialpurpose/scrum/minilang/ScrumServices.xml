@@ -2547,7 +2547,7 @@
             <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" from-field="parameters.taskId"/>
-                    <condition-expr field-name="contentId" from-field="contentIds" operator="in"/>
+                    <condition-expr field-name="contentId" operator="in" from-field="contentIds"/>
                     <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
                 </condition-list>
                 <order-by field-name="fromDate"/>

@@ -492,7 +492,7 @@
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignView" list="assigns" distinct="true">
                 <condition-list combine="and">
-                    <condition-expr field-name="workEffortId" from-field="parameters.projectId" operator="equals"/>
+                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.projectId"/>
                     <condition-expr field-name="roleTypeId" value="PROVIDER%" operator="like"/>
                 </condition-list>
                 <select-field field-name="partyId"/>

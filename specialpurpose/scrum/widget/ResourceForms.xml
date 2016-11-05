@@ -124,7 +124,7 @@
             </entity-condition>
             <entity-condition entity-name="ScrumPersonAndCompany" distinct="true" list="listPerson">
                 <condition-list combine="and">
-                    <condition-expr field-name="groupName" from-field="${nullField}" operator="not-equals"/>
+                    <condition-expr field-name="groupName" operator="not-equals" from-field="${nullField}"/>
                     <condition-expr field-name="statusId" value="PARTY_DISABLED" operator="not-equals"/>
                 </condition-list>
                 <select-field field-name="lastName"/>

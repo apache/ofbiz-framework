@@ -154,7 +154,7 @@ under the License.
                 <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="30" type="Integer"/>
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
                <!-- <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
-                    <condition-expr field-name="contentIdStart" from-field="contentId" operator="equals"/>
+                    <condition-expr field-name="contentIdStart" operator="equals" from-field="contentId"/>
                     </entity-condition>-->
                 <script location="component://content/groovyScripts/content/GetContentLookupList.groovy"/>
             </actions>

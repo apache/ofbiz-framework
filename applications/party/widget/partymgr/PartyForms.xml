@@ -1405,7 +1405,7 @@ under the License.
                         <condition-expr field-name="roleTypeId" value="EMPLOYEE" operator="equals"/>
                     </condition-list>
                     <condition-expr field-name="statusId" value="PARTY_DISABLED" operator="not-equals"/>
-                    <condition-expr field-name="partyId" from-field="partyId" operator="equals" value="${parameters.partyId}" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" from-field="partyId" value="${parameters.partyId}" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="partyId"/>
             </entity-condition>

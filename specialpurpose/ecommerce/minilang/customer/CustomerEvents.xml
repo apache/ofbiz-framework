@@ -381,7 +381,7 @@ under the License.
         <!-- club number -->
         <if-not-empty field="parameters.REQUIRE_CLUB">
             <set from-field="tempMap.partyId" field="personLookup.partyId"/>
-            <find-by-primary-key map="personLookup" value-field="personVo" entity-name="Person"/>
+            <find-by-primary-key entity-name="Person" map="personLookup" value-field="personVo"/>
             <if-empty field="parameters.CLUB_NUMBER">
                 <script>groovy:
                     clubId = org.apache.ofbiz.party.party.PartyWorker.createClubId(delegator, "999", 13);

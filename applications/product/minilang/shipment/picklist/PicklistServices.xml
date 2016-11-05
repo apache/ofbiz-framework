@@ -922,7 +922,7 @@ under the License.
         <!-- In order to check if there is a link between the lot and the productId,
             we retrieve all the inventoryItems with this lotId ... -->
         <entity-condition entity-name="InventoryItem" list="inventoryItemList">
-            <condition-expr field-name="lotId" from-field="parameters.lotId" operator="equals"/>
+            <condition-expr field-name="lotId" operator="equals" from-field="parameters.lotId"/>
         </entity-condition>
         
         <set value="ko" field="linkProductAndLot"/>
