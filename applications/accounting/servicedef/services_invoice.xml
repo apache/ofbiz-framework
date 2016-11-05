@@ -160,6 +160,17 @@ under the License.
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+    <service name="updateInvoiceTerm" engine="entity-auto" default-entity-name="InvoiceTerm" invoke="update">
+        <description>Update Invoice (Item) Term Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteInvoiceTerm" engine="entity-auto" default-entity-name="InvoiceTerm" invoke="delete">
+        <description>Delete Invoice (Item) Term Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
     <service name="createInvoiceForOrderAllItems" engine="java"
         location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrderAllItems">
         <description>
@@ -290,12 +301,16 @@ under the License.
         <description>Checks to see if the payments applied to an invoice total up to the invoice total; if so sets to PAID</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createInvoiceContactMech" engine="simple"
-            location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="createInvoiceContactMech">
+    <service name="createInvoiceContactMech" engine="entity-auto" invoke="create" default-entity-name="InvoiceContactMech">
         <description>Create a ContactMech for an invoice</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
-        <auto-attributes entity-name="InvoiceContactMech" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="deleteInvoiceContactMech" engine="entity-auto" invoke="delete" default-entity-name="InvoiceContactMech">
+        <description>Delete a ContactMech for an invoice</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calculateInvoicedAdjustmentTotal" engine="java"
             location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="calculateInvoicedAdjustmentTotal">
@@ -405,13 +420,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeInvoiceContent" default-entity-name="InvoiceContent" engine="simple"
-        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="removeInvoiceContent" auth="true">
+    <service name="removeInvoiceContent" default-entity-name="InvoiceContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Content From Invoice</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="createSimpleTextContentForInvoice" default-entity-name="InvoiceContent" engine="simple"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="createSimpleTextContentForInvoice" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>

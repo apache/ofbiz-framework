@@ -322,4 +322,132 @@ under the License.
         <description>Remotely Pull And Report Entity Sync Data</description>
         <implements service="pullAndReportEntitySyncData"/>
     </service>
+
+    <!-- TestingSubtype services -->
+    <service name="createTestingSubtype" default-entity-name="TestingSubtype" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a TestingSubtype record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateTestingSubtype" default-entity-name="TestingSubtype" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a TestingSubtype record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteTestingSubtype" default-entity-name="TestingSubtype" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a TestingSubtype record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- TestingType services -->
+    <service name="createTestingType" default-entity-name="TestingType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a TestingType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateTestingType" default-entity-name="TestingType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a TestingType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteTestingType" default-entity-name="TestingType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a TestingType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- UserAgentType services -->
+    <service name="createUserAgentType" default-entity-name="UserAgentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a UserAgentType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateUserAgentType" default-entity-name="UserAgentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a UserAgentType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteUserAgentType" default-entity-name="UserAgentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a UserAgentType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- UserAgentMethodType services -->
+    <service name="createUserAgentMethodType" default-entity-name="UserAgentMethodType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a UserAgentMethodType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateUserAgentMethodType" default-entity-name="UserAgentMethodType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a UserAgentMethodType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteUserAgentMethodType" default-entity-name="UserAgentMethodType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a UserAgentMethodType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- BrowserType services -->
+    <service name="createBrowserType" default-entity-name="BrowserType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a BrowserType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateBrowserType" default-entity-name="BrowserType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a BrowserType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteBrowserType" default-entity-name="BrowserType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a BrowserType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PlatformType services -->
+    <service name="createPlatformType" default-entity-name="PlatformType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a PlatformType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updatePlatformType" default-entity-name="PlatformType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PlatformType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePlatformType" default-entity-name="PlatformType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PlatformType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProtocolType services -->
+    <service name="createProtocolType" default-entity-name="ProtocolType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProtocolType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProtocolType" default-entity-name="ProtocolType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProtocolType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProtocolType" default-entity-name="ProtocolType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProtocolType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ServerHitType services -->
+    <service name="createServerHitType" default-entity-name="ServerHitType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ServerHitType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateServerHitType" default-entity-name="ServerHitType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ServerHitType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteServerHitType" default-entity-name="ServerHitType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ServerHitType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

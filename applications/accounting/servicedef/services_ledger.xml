@@ -368,39 +368,33 @@ under the License.
     </service>
 
     <!-- FinAccountTypeGlAccount Services -->
-    <service name="createFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountTypeGlAccount" auth="true">
+    <service name="createFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Create a FinAccountTypeGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccountTypeGlAccount" auth="true">
+    <service name="updateFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a FinAccountTypeGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteFinAccountTypeGlAccount" auth="true">
+    <service name="deleteFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a FinAccountTypeGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- VarianceReasonGlAccount Services -->
-    <service name="createVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createVarianceReasonGlAccount" auth="true">
+    <service name="createVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>create a Variance Reason Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateVarianceReasonGlAccount" auth="true">
+    <service name="updateVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Variance Reason Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="simple"
-                location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteVarianceReasonGlAccount" auth="true">
+    <service name="deleteVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>delete a Variance Reason Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
