@@ -763,17 +763,4 @@ under the License.
         </if>
     </simple-method>
 
-    <simple-method method-name="createFixedAssetTypeGlAccount" short-description="Create a Fixed Asset Type Gl Account Mapping">
-        <make-value entity-name="FixedAssetTypeGlAccount" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <if-empty field="newEntity.fixedAssetId">
-            <set field="newEntity.fixedAssetId" from-field="_NA_"/>
-        </if-empty>
-        <if-empty field="newEntity.fixedAssetTypeId">
-            <set field="newEntity.fixedAssetTypeId" from-field="_NA_"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
 </simple-methods>

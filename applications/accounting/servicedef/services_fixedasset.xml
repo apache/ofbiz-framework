@@ -276,6 +276,11 @@ under the License.
         <attribute name="fixedAssetId" type="String" mode="IN" optional="true" default-value="_NA_"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="updateFixedAssetTypeGlAccount" default-entity-name="FixedAssetTypeGlAccount" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Fixed Asset Type Gl Account Mapping</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="deleteFixedAssetTypeGlAccount" default-entity-name="FixedAssetTypeGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Fixed Asset Type Gl Account Mapping</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>

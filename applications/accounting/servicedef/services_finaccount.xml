@@ -48,8 +48,7 @@ under the License.
         <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
         <attribute name="replenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
-            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
+    <service name="deleteFinAccount" default-entity-name="FinAccount" engine="entity-auto" invoke="delete">
         <description>Delete a Financial Account</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
@@ -96,16 +95,14 @@ under the License.
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccountRole">
-        <description>Update a Financial Account Role</description>
-        <auto-attributes mode="IN" optional="false" include="pk"/>
-        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    <service name="updateFinAccountRole" default-entity-name="FinAccountRole" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteFinAccountRole">
-        <description>Remove a Financial Account Role</description>
-        <auto-attributes mode="IN" optional="false" include="pk"/>
+    <service name="deleteFinAccountRole" default-entity-name="FinAccountRole" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"

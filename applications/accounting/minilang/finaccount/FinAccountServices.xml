@@ -221,15 +221,6 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
-    <simple-method method-name="updateFinAccountRole" short-description="Update a Financial Account Role">
-        <entity-one entity-name="FinAccountRole" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteFinAccountRole" short-description="Delete a Financial Account Role">
-        <entity-one entity-name="FinAccountRole" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <!-- FinAccountAuth Services -->
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
@@ -349,44 +340,6 @@ under the License.
         <set field="finAccount.actualBalance" from-field="actualBalanceSum"/>
         <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
         <store-value value-field="finAccount"/>
-    </simple-method>
-
-    <!-- FinAccountTypeGlAccount methods -->
-    <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
-        <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
-        <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteFinAccountTypeGlAccount" short-description="Delete an FinAccountTypeGlAccount">
-        <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- VarianceReasonGlAccount methods -->
-    <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
-        <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">
-        <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteVarianceReasonGlAccount" short-description="Delete an Variance Reason Gl Account">
-        <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="depositWithdrawPayments" short-description="Deposit withdraw payments">
