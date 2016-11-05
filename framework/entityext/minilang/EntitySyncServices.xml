@@ -21,11 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createEntitySync" short-description="Create a EntitySync">
-        <check-permission permission="ENTITY_SYNC" action="_CREATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="EntitySync"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -36,22 +31,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateEntitySync" short-description="Update a EntitySync">
-        <check-permission permission="ENTITY_SYNC" action="_UPDATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
         <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <set-nonpk-fields map="parameters" value-field="valueToStore"/>
         <store-value value-field="valueToStore"/>
     </simple-method>
     <simple-method method-name="resetEntitySyncStatusToNotStarted" short-description="Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)">
-        <check-permission permission="ENTITY_SYNC" action="_UPDATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
         <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
@@ -63,11 +48,6 @@ under the License.
 
     <!-- EntitySyncHistory services -->
     <simple-method method-name="createEntitySyncHistory" short-description="Create EntitySyncHistory">
-        <check-permission permission="ENTITY_SYNC" action="_CREATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp field="newEntity.startDate"/>
@@ -81,11 +61,6 @@ under the License.
         <store-value value-field="entitySync"/>
     </simple-method>
     <simple-method method-name="updateEntitySyncHistory" short-description="Update EntitySyncHistory">
-        <check-permission permission="ENTITY_SYNC" action="_UPDATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
@@ -93,11 +68,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
-        <check-permission permission="ENTITY_SYNC" action="_DELETE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
@@ -106,22 +76,12 @@ under the License.
 
     <!-- EntitySyncInclude services -->
     <simple-method method-name="createEntitySyncInclude" short-description="Create EntitySyncInclude">
-        <check-permission permission="ENTITY_SYNC" action="_CREATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="EntitySyncInclude"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateEntitySyncInclude" short-description="Update EntitySyncInclude">
-        <check-permission permission="ENTITY_SYNC" action="_UPDATE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
@@ -129,14 +89,14 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncInclude" short-description="Delete EntitySyncInclude">
-        <check-permission permission="ENTITY_SYNC" action="_DELETE">
-            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="entitySyncPermissionCheck" short-description="Check user permission for entity sync.">
+        <set field="primaryPermission" value="ENTITY_SYNC"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
     </simple-method>
 </simple-methods>

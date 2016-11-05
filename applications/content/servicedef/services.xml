@@ -141,6 +141,7 @@
 
     <!-- Generic Content Services -->
     <service name="createEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createEmailContent">
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="plainBody" type="String" mode="IN" optional="false"/>
@@ -148,6 +149,7 @@
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateEmailContent">
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="subjectDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="true"/>
         <attribute name="plainBodyDataResourceId" type="String" mode="IN" optional="true"/>
@@ -157,21 +159,25 @@
     </service>
 
     <service name="createDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createDownloadContent">
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateDownloadContent">
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateSimpleTextContent">
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
@@ -697,6 +703,7 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="prepForApproval" auth="true">
         <description>Set ContentApprovals for approval process</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <attribute name="rootContentId" type="String" mode="IN" optional="false"/>
         <attribute name="rootContentRevisionSeqId" type="String" mode="OUT" optional="false"/>
     </service>

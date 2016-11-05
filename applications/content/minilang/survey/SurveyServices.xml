@@ -23,9 +23,6 @@
 
     <!-- Methods for SurveyQuestion -->
     <simple-method method-name="createSurveyQuestion" short-description="Create Survey Question">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
         <if>
             <condition>
                 <and>
@@ -65,9 +62,6 @@
         <field-to-result result-name="surveyQuestionId" field="newEntity.surveyQuestionId"/>
     </simple-method>
     <simple-method method-name="updateSurveyQuestion" short-description="Update Survey Question">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
         <if>
             <condition>
                 <and>

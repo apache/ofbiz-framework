@@ -1400,10 +1400,6 @@
         </if-not-empty>
     </simple-method>
     <simple-method method-name="scrumAddWorkEffortTimeToInvoice" short-description="Scrum Add Work Effort Time to Invoice">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <if-empty field="parameters.invoiceId">
             <set-service-fields service-name="createInvoice" map="parameters" to-map="createInvoiceMap"/>

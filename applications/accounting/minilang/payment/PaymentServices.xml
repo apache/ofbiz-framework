@@ -285,11 +285,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setPaymentStatus" short-description="Set The Payment Status">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-
         <entity-one entity-name="Payment" value-field="payment"/>
         <entity-one entity-name="StatusItem" value-field="statusItem">
             <field-map field-name="statusId" from-field="parameters.statusId"/>
@@ -534,10 +529,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="voidPayment" short-description="Service to void a payment">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
         <entity-one entity-name="Payment" value-field="payment"/>
         <field-to-result field="payment.finAccountTransId" result-name="finAccountTransId"/>
         <set field="transStatusId" value="FINACT_TRNS_CANCELED"/>

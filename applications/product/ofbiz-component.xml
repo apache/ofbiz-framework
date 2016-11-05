@@ -59,6 +59,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_shipment.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_store.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_subscription.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_supplier.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_rental.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_view.xml"/>

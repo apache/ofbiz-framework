@@ -70,12 +70,14 @@ under the License.
     <service name="addTimesheetToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
         <description>Add Timesheet to Invoice</description>
+        <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="addTimesheetToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
         <description>Add Timesheet to Invoice</description>
+        <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -94,6 +96,7 @@ under the License.
     <service name="addWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to a new Invoice with the option to combine all time entries with the same rateType into one invoiceItem</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -106,12 +109,14 @@ under the License.
     <service name="createTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheetRole">
         <description>Creates TimesheetRole</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimesheetRole">
         <description>Deletes TimesheetRole</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -142,6 +147,7 @@ under the License.
     <service name="getTimeEntryRate" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="getTimeEntryRate">
         <description>Creates TimeEntry</description>
+        <permission-service service-name="workEffortManagerPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="currencyUomId" mode="IN" type="String" optional="true"/>
         <attribute name="rateAmount" type="BigDecimal" mode="OUT" optional="true"/>

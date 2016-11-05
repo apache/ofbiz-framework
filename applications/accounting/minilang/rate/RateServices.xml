@@ -22,12 +22,6 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="updateRateAmount" short-description="update/create a rate amount value">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- set defaults -->
         <if-empty field="parameters.rateCurrencyUomId">
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
@@ -73,12 +67,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteRateAmount" short-description="update/create a rate amount value">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- set defaults -->
         <if-empty field="parameters.rateCurrencyUomId">
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
@@ -113,11 +101,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getRateAmount" short-description="Get the applicable rate amount value">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
         <!--
            Search for the applicable rate from most specific to most general in the RateAmount entity
            Defaults for periodTypeId is per hour and default currency is the currency in general.properties
@@ -225,12 +208,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getRatesAmountsFromWorkEffortId" short-description="Get all the rateAmount for a given workEffortId">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -254,12 +231,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getRatesAmountsFromPartyId" short-description="Get all the rateAmount for a given partyId">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             <field-map field-name="partyId" from-field="parameters.partyId"/>
@@ -282,12 +253,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getRatesAmountsFromEmplPositionTypeId" short-description="Get all the rateAmount for a given emplPositionTypeId">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
@@ -370,12 +335,6 @@ under the License.
 
     <!-- party rate services -->
     <simple-method method-name="updatePartyRate" short-description="Update/Create PartyRate">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- check if already exist is so expire current record -->
         <entity-and entity-name="PartyRate" list="partyRates" filter-by-date="true">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
@@ -419,12 +378,6 @@ under the License.
         </if-compare>
     </simple-method>
     <simple-method method-name="deletePartyRate" short-description="Delete PartyRate">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
         <now-timestamp field="lookedUpValue.thruDate"/>
         <store-value value-field="lookedUpValue"/>

@@ -135,9 +135,6 @@ under the License.
         <field-to-result field="responseMessage" result-name="successMessage"/>
     </simple-method>
     <simple-method method-name="updateReturnHeader" short-description="Update a ReturnHeader">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
 
         <!-- test the total return amount vs the total order amount -->
@@ -415,9 +412,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateReturnItem" short-description="Update Return Item">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
-        <check-errors/>
-
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
         <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
@@ -445,9 +439,6 @@ under the License.
 
     </simple-method>
     <simple-method method-name="updateReturnItemsStatus" short-description="Update Return Items Status">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
-        <check-errors/>
-
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="returnItems"/>
         <iterate entry="item" list="returnItems">
@@ -459,9 +450,6 @@ under the License.
         </iterate>
     </simple-method>
     <simple-method method-name="removeReturnItem" short-description="Remove Return Item">
-        <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
         <if-compare field="returnHeader.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
@@ -512,11 +500,6 @@ under the License.
         <field-to-result field="responseMessage" result-name="successMessage"/>
     </simple-method>
     <simple-method method-name="removeReturnAdjustment" short-description="Remove Return Adjustment">
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorDeletePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <set from-field="parameters.returnAdjustmentId" field="lookupPKMap.returnAdjustmentId"/>
         <find-by-primary-key entity-name="ReturnAdjustment" map="lookupPKMap" value-field="returnAdjustment"/>
         <if-not-empty field="returnAdjustment">
@@ -525,9 +508,6 @@ under the License.
     </simple-method>
     <!-- note that this service is designed to be called once for each shipment receipt that is created -->
     <simple-method method-name="updateReturnStatusFromReceipt" short-description="Update Return Status From ShipmentReceipt">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
-        <check-errors/>
-
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map="lookupPKMap" list="shipmentReceipts"/>
@@ -823,8 +803,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="cancelReturnItems" short-description="Update a ReturnItems">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
-        <check-errors/>
         <entity-condition entity-name="ReturnItem" list="returnItems" distinct="true">
             <condition-expr field-name="returnId" operator="equals" from-field="parameters.returnId"/>
         </entity-condition>
@@ -837,8 +815,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="cancelReplacementOrderItems" short-description="Cancel the associated OrderItems of the replacement order, if any.">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="ReturnItem" value-field="returnItem"/>
         <if>
             <condition>
@@ -931,8 +907,6 @@ under the License.
     </simple-method> 
 
     <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
-        <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>
-        <check-errors/>
         <make-value value-field="newEntity" entity-name="ReturnItemShipment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -1116,11 +1090,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateReturnContactMech" short-description="Update ReturnContactMech">
-        <check-permission permission="ORDERMGR" action="_UPDATE">
-           <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderContactMech"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="returnContactMechMap" entity-name="ReturnContactMech"/>
 
         <set-pk-fields map="parameters" value-field="returnContactMechMap"/>
