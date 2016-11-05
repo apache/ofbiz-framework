@@ -26,8 +26,8 @@ under the License.
             <condition-expr field-name="parentTypeId" value="PAYROL"/>
         </entity-condition>
         <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
-        <iterate entry="payrolGroup" list="PayrolGroup">
-            <iterate entry="payrolList" list="PayrolList">
+        <iterate list="PayrolGroup" entry="payrolGroup">
+            <iterate list="PayrolList" entry="payrolList">
                 <if-compare field="payrolList.parentTypeId" value="${payrolGroup.invoiceItemTypeId}" operator="equals">
                     <set field="AddInvoiceItem" value="N"/>
                     <set field="createInvoiceItem.invoiceId" from-field="parameters.invoiceId"/>

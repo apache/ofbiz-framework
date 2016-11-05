@@ -24,7 +24,7 @@
     <!-- base content CRUD services -->
     <simple-method method-name="createContent" short-description="Create a Content Record">
         <make-value value-field="content" entity-name="Content"/>
-        <set-nonpk-fields value-field="content" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="content"/>
         <set-pk-fields value-field="content" map="parameters"/>
 
         <if-empty field="parameters.contentId">
@@ -53,7 +53,7 @@
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
-        <set-nonpk-fields value-field="content" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="content"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -94,7 +94,7 @@
     <!-- content assoc services -->
     <simple-method method-name="createContentAssoc" short-description="Create a ContntAssoc Record">
         <make-value value-field="assoc" entity-name="ContentAssoc"/>
-        <set-nonpk-fields value-field="assoc" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="assoc"/>
         <set-pk-fields value-field="assoc" map="parameters"/>
 
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
@@ -116,7 +116,7 @@
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <set field="contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
         <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
-        <set-nonpk-fields value-field="assoc" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="assoc"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -182,7 +182,7 @@
         <entity-and entity-name="ContentAssoc" list="assocs">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
-        <iterate entry="assoc" list="assocs">
+        <iterate list="assocs" entry="assoc">
             <set field="assoc.contentId" from-field="newContentId"/>
             <set-service-fields service-name="createContentAssoc" map="assoc" to-map="assocS"/>
             <call-service service-name="createContentAssoc" in-map-name="assocS"/>
@@ -191,7 +191,7 @@
         <entity-and entity-name="ContentAssoc" list="assocsTo">
             <field-map field-name="contentIdTo" from-field="parameters.contentId"/>
         </entity-and>
-        <iterate entry="assocTo" list="assocsTo">
+        <iterate list="assocsTo" entry="assocTo">
             <set field="assocTo.contentIdTo" from-field="newContentId"/>
             <set-service-fields service-name="createContentAssoc" map="assocTo" to-map="assocTos"/>
             <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
@@ -249,7 +249,7 @@
         <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
         <find-by-and entity-name="ContentRole" map="lookupKeyValue" list="roleList"/>
-        <iterate entry="contentRoleMap" list="roleList">
+        <iterate list="roleList" entry="contentRoleMap">
             <make-value entity-name="ContentRole" value-field="role" map="contentRoleMap"/>
             <now-timestamp field="role.thruDate"/>
             <store-value value-field="role"/>
@@ -289,11 +289,11 @@
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
         <set field="mapKeys" from-field="parameters.mapKeys"/>
         <field-to-list field="mapKey" list="mapKeys"/>
-        <iterate entry="mapKey" list="mapKeys">
+        <iterate list="mapKeys" entry="mapKey">
             <set from-field="mapKey" field="queryMap.mapKey"/>
             <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
             <filter-list-by-date list="resultMap" to-list="validContent"/>
-            <iterate entry="contentAssoc" list="validContent">
+            <iterate list="validContent" entry="contentAssoc">
                 <field-to-list field="contentAssoc" list="result"/>
             </iterate>
         </iterate>
@@ -559,7 +559,7 @@
     <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="commEventContentAssoc"/>
         <set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
-        <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc"/>
         <if-empty field="commEventContentAssoc.fromDate">
             <now-timestamp field="commEventContentAssoc.fromDate"/>
         </if-empty>
@@ -578,7 +578,7 @@
                 <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForUpdate"/>
             </add-error>
         </if-empty>
-        <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc"/>
         <store-value value-field="commEventContentAssoc"/>
     </simple-method>
 
@@ -689,7 +689,7 @@
         <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="origContentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="ownerContentId" from-field="parameters.threadContentId"/>
-        <if-compare operator="equals" field="origContentAssocTypeId" value="PUBLISH_LINK">
+        <if-compare field="origContentAssocTypeId" operator="equals" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="parameters.pubPtContentId"/>
         </if-compare>
         <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
@@ -710,7 +710,7 @@
             <field field="subStringLen" type="int"/>
         </call-object-method>
         <log level="info" message="subDescript:${subDescript}"/>
-        <if-compare operator="equals" field="contentAssocTypeId" value="PUBLISH_LINK">
+        <if-compare field="contentAssocTypeId" operator="equals" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="pubPtContentId"/>
         </if-compare>
 
@@ -851,7 +851,7 @@
         </if>
 
         <!-- If a response, still link it to the publish point -->
-        <if-compare operator="equals" field="origContentAssocTypeId" value="RESPONSE">
+        <if-compare field="origContentAssocTypeId" operator="equals" value="RESPONSE">
             <set field="contentAssocMap.contentId" from-field="pubPtContentId"/>
             <set field="contentAssocMap.contentIdTo" from-field="contentId"/>
             <set field="contentAssocMap.contentAssocTypeId" value="RESPONSE"/>
@@ -875,7 +875,7 @@
           </condition-list>
         </entity-condition>
 
-        <iterate entry="view" list="viewList">
+        <iterate list="viewList" entry="view">
             <set field="hasPermission" value="true" type="Boolean"/>
             <if>
                 <condition>
@@ -898,7 +898,7 @@
                     </call-service>
                 </then>
             </if>
-            <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean">
                 <set field="contentViewList[]" from-field="view"/>
             </if-compare>
         </iterate>
@@ -914,7 +914,7 @@
             <result-to-field result-name="subContentList"/>
         </call-service>
 
-        <iterate entry="view" list="subContentList">
+        <iterate list="subContentList" entry="view">
             <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
               <condition-list combine="and">
                   <condition-expr field-name="contentIdStart" from-field="view.caContentIdTo"/>
@@ -1008,7 +1008,7 @@
                 </entity-condition>
             </else>
         </if>
-        <iterate entry="content" list="contents">
+        <iterate list="contents" entry="content">
             <set field="localeString" from-field="content.localeString" default-value="${defaultLocaleString}"/>
             <entity-condition list="contentAssocDataResources" entity-name="ContentAssocDataResourceViewTo">
                 <condition-list combine="and">
@@ -1085,22 +1085,22 @@
         <set field="contentsNotUpdated" value="0" type="Integer"/>
         <set field="contentsUpdated" value="0" type="Integer"/>
         <if-not-empty field="parameters.prodCatalogId">
-            <entity-and list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="false">
+            <entity-and entity-name="ProdCatalogCategory" list="prodCatalogCategoryList" filter-by-date="false">
                 <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
             </entity-and>
             
             <!-- Get all categories -->
             <set field="parameters.productCategories" value="${groovy: [];}" type="List"/>
-            <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
+            <iterate list="prodCatalogCategoryList" entry="prodCatalogCategory">
                 <set field="rootProductCategoryId" from-field="prodCatalogCategory.productCategoryId"/>
-                <entity-and list="productCategoryRollupList" entity-name="ProductCategoryRollup" filter-by-date="true">
+                <entity-and entity-name="ProductCategoryRollup" list="productCategoryRollupList" filter-by-date="true">
                     <field-map field-name="parentProductCategoryId" from-field="rootProductCategoryId"/>
                 </entity-and>
                 <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
                 <call-simple-method method-name="createMissingCategoryContentAltUrlInline"/>
             </iterate>
             
-            <iterate entry="productCategoryList" list="parameters.productCategories">
+            <iterate list="parameters.productCategories" entry="productCategoryList">
                 <!-- Create Content Alternative URLs for Product Category Content -->
                 <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
                     <condition-list combine="and">
@@ -1109,7 +1109,7 @@
                     </condition-list>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
-                <iterate entry="productCategoryContentAndInfo" list="productCategoryContentAndInfoList">
+                <iterate list="productCategoryContentAndInfoList" entry="productCategoryContentAndInfo">
                     <set field="createMissingCategoryContentAltUrlsMap.contentId" from-field="productCategoryContentAndInfo.contentId"/>
                     <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingCategoryContentAltUrlsMap">
                         <result-to-field result-name="contentCreated" field="contentCreated"/>
@@ -1137,7 +1137,7 @@
                     </condition-list>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>
-                <iterate entry="productCategoryMember" list="productCategoryMemberList">
+                <iterate list="productCategoryMemberList" entry="productCategoryMember">
                     <set field="product.productId" from-field="productCategoryMember.productId"/>
                     <entity-condition list="productContentAndInfoList" entity-name="ProductContentAndInfo" filter-by-date="true" use-cache="true">
                         <condition-list combine="and">
@@ -1146,7 +1146,7 @@
                         </condition-list>
                         <order-by field-name="-fromDate"/>
                     </entity-condition>
-                    <iterate entry="productContentAndInfo" list="productContentAndInfoList">
+                    <iterate list="productContentAndInfoList" entry="productContentAndInfo">
                         <set field="createMissingProductContentAltUrlsMap.contentId" from-field="productContentAndInfo.contentId"/>
                         <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingProductContentAltUrlsMap">
                             <result-to-field result-name="contentCreated" field="contentCreated"/>
@@ -1174,11 +1174,11 @@
         <entity-and list="webSiteContents" entity-name="WebSiteContent" filter-by-date="true">
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
         </entity-and>
-        <iterate entry="webSiteContent" list="webSiteContents">
+        <iterate list="webSiteContents" entry="webSiteContent">
             <entity-and list="subContents" entity-name="ContentAssoc" filter-by-date="true">
                 <field-map field-name="contentId" from-field="webSiteContent.contentId"/>
             </entity-and>
-            <iterate entry="subContent" list="subContents">
+            <iterate list="subContents" entry="subContent">
                 <set field="createMissingContentAltUrlsMap.contentId" from-field="subContent.contentIdTo"/>
                 <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingContentAltUrlsMap">
                     <result-to-field result-name="contentCreated" field="contentCreated"/>
@@ -1197,10 +1197,10 @@
                         </calcop>
                     </calculate>
                 </if-compare>
-                <entity-and list="contentAssocs" entity-name="ContentAssoc" filter-by-date="true">
+                <entity-and entity-name="ContentAssoc" list="contentAssocs" filter-by-date="true">
                     <field-map field-name="contentId" from-field="subContent.contentIdTo"/>
                 </entity-and>
-                <iterate entry="contentAssoc" list="contentAssocs">
+                <iterate list="contentAssocs" entry="contentAssoc">
                     <set field="createMissingContentAltUrlsMap.contentId" from-field="contentAssoc.contentIdTo"/>
                     <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingContentAltUrlsMap">
                         <result-to-field result-name="contentCreated" field="contentCreated"/>
@@ -1227,10 +1227,10 @@
     </simple-method>
 
     <simple-method method-name="createMissingCategoryContentAltUrlInline" short-description="create missing category alternative inline">
-        <entity-and list="productCategoryRollups" entity-name="ProductCategoryRollup" filter-by-date="true">
+        <entity-and entity-name="ProductCategoryRollup" list="productCategoryRollups" filter-by-date="true">
             <field-map field-name="parentProductCategoryId" from-field="parameters.parentProductCategoryId"/>
         </entity-and>
-        <iterate entry="productCategoryRollup" list="productCategoryRollups">
+        <iterate list="productCategoryRollups" entry="productCategoryRollup">
             <!-- append product category to list -->
             <entity-one value-field="productCategory" entity-name="ProductCategory">
                 <field-map field-name="productCategoryId" from-field="productCategoryRollup.productCategoryId"/>

@@ -432,7 +432,7 @@ under the License.
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
                 <entity-and entity-name="ProductAssoc" list="parents">
-                    <field-map from-field="productId" field-name="productIdTo"/>
+                    <field-map field-name="productIdTo" from-field="productId"/>
                     <field-map field-name="productAssocTypeId"/>
                 </entity-and>
                 <entity-and entity-name="WorkEffortGoodStandard" list="routings">

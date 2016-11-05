@@ -168,7 +168,7 @@ under the License.
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>
-        <iterate entry="timeEntry" list="timeEntryList">
+        <iterate list="timeEntryList" entry="timeEntry">
             <if>
                 <condition>
                     <or>
@@ -220,7 +220,7 @@ under the License.
                                 <result-to-field result-name="rateAmount"/>
                             </call-service>
                             <!--  check if the RateTypeId changed or the first time entry record and invoice item is not exist with the same amount and description-->
-                            <entity-and list="existAmountAndDescriptionInvoiceItems" entity-name="InvoiceItem">
+                            <entity-and entity-name="InvoiceItem" list="existAmountAndDescriptionInvoiceItems">
                                 <field-map field-name="invoiceId" from-field="invoiceItemMap.invoiceId"/>
                                 <field-map field-name="amount" from-field="rateAmount"/>
                                 <field-map field-name="description" from-field="invoiceItemMap.description"/>

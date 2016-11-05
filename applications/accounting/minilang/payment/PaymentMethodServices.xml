@@ -48,7 +48,7 @@ under the License.
         <set field="lookupMap.contactMechId" from-field="parameters.oldContactMechId"/>
 
         <find-by-and entity-name="CreditCard" map="lookupMap" list="creditCards"/>
-        <iterate entry="creditCard" list="creditCards">
+        <iterate list="creditCards" entry="creditCard">
             <call-class-method class-name="org.apache.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isNotExpired">
                 <field field="creditCard.expireDate"/>
             </call-class-method>
@@ -62,7 +62,7 @@ under the License.
         </iterate>
 
         <find-by-and entity-name="EftAccount" map="lookupMap" list="eftAccounts"/>
-        <iterate entry="eftAccount" list="eftAccounts">
+        <iterate list="eftAccounts" entry="eftAccount">
             <get-related-one relation-name="PaymentMethod" to-value-field="paymentMethod" value-field="eftAccount"/>
             <if-empty field="paymentMethod.thruDate">
                 <set-service-fields service-name="updateEftAccount" map="eftAccount" to-map="ueaMap"/>
@@ -87,15 +87,15 @@ under the License.
         <if-empty field="newPaymentMethod.paymentMethodId">
             <sequenced-id sequence-name="PaymentMethod" field="newPaymentMethod.paymentMethodId"/>
         </if-empty>
-        <set-nonpk-fields value-field="newPaymentMethod" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newPaymentMethod"/>
         <set field="newPaymentMethod.paymentMethodTypeId" value="EXT_PAYPAL"/>
         <create-value value-field="newPaymentMethod"/>
 
         <make-value value-field="newPayPalPaymentMethod" entity-name="PayPalPaymentMethod"/>
         <set field="newPayPalPaymentMethod.paymentMethodId" from-field="newPaymentMethod.paymentMethodId"/>
-        <set-nonpk-fields value-field="newPayPalPaymentMethod" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newPayPalPaymentMethod"/>
         <create-value value-field="newPayPalPaymentMethod"/>
-        <field-to-result result-name="paymentMethodId" field="newPaymentMethod.paymentMethodId"/>
+        <field-to-result field="newPaymentMethod.paymentMethodId" result-name="paymentMethodId"/>
     </simple-method>
 
     <simple-method method-name="createPaymentGroupMember" short-description="Check For Outgoing/Incoming Payment And Create Payment Group Member">

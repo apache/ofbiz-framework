@@ -199,7 +199,7 @@ under the License.
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
 
         <!-- Find a customer -->
-        <entity-and list="customerRoles" entity-name="PartyRole">
+        <entity-and entity-name="PartyRole" list="customerRoles">
             <field-map field-name="roleTypeId" value="CUSTOMER"/>
         </entity-and>
         <first-from-list entry="customerRole" list="customerRoles"/>
@@ -214,7 +214,7 @@ under the License.
             <result-to-field result-name="paymentId"/>
         </call-service>
 
-        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+        <entity-and entity-name="AcctgTrans" list="acctgTransList">
             <field-map field-name="paymentId"/>
             <field-map field-name="acctgTransTypeId" value="INCOMING_PAYMENT"/>
         </entity-and>
@@ -228,7 +228,7 @@ under the License.
 
         <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
 
-        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                <assert>
                     <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCREC_UNAPPLIED"/>

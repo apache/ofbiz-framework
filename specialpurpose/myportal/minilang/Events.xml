@@ -46,7 +46,7 @@ under the License.
         <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="submittedCaptcha"/>
         <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.get("captchaImage")?.toLowerCase()</script>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
-            <if-compare-field operator="equals" field="submittedCaptcha" to-field="actualCaptcha">
+            <if-compare-field field="submittedCaptcha" operator="equals" to-field="actualCaptcha">
 
                 <!-- Create user login and Person -->
                 <find-by-primary-key entity-name="UserLogin" map="userLoginContext" value-field="existingUserLogin"/>

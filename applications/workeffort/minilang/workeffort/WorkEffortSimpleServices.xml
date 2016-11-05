@@ -99,10 +99,10 @@ under the License.
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
             <set field="updCustReq.webSiteId" from-field="parameters.webSiteId"/>
             <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
-            <entity-and list="custRequestContents" entity-name="CustRequestContent">
+            <entity-and entity-name="CustRequestContent" list="custRequestContents">
                 <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
             </entity-and>
-            <iterate entry="custRequestContent" list="custRequestContents">
+            <iterate list="custRequestContents" entry="custRequestContent">
                 <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
                 <set field="newWorkEffortContent.contentId" from-field="custRequestContent.contentId"/>
                 <set field="newWorkEffortContent.workEffortContentTypeId" value="SUPPORTING_MEDIA"/>
@@ -250,7 +250,7 @@ under the License.
         <if-compare field="copyRelatedValues" operator="equals" value="Y">
             <set field="excludeExpiredRelations" from-field="parameters.excludeExpiredRelations" default-value="N" />
             <set field="modelRelationList" from-field="groovy:delegator.getModelEntity('WorkEffort').getRelationsManyList();" />
-            <iterate entry="modelRelation" list="modelRelationList">
+            <iterate list="modelRelationList" entry="modelRelation">
                 <set field="relatedEntityName" from-field="groovy:modelRelation.getRelEntityName();" />
                 <if-compare field="relatedEntityName" operator="not-equals" value="WorkEffortAssoc">
                     <set field="relationName" from-field="groovy:modelRelation.getCombinedName();" />
@@ -264,7 +264,7 @@ under the License.
                                 <filter-list-by-date list="relationValues" />
                             </if-not-empty>
                         </if-compare>
-                        <iterate entry="relatedValue" list="relationValues">
+                        <iterate list="relationValues" entry="relatedValue">
                             <clone-value value-field="relatedValue" new-value-field="newRelatedValue" />
                             <set field="newRelatedValue[relatedIdFieldName]" from-field="targetWorkEffortId" />
                             <make-value value-field="newRelatedPks" entity-name="${relatedEntityName}" />
@@ -311,7 +311,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields value-field="communicationEventWorkEff" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="communicationEventWorkEff"/>
         <store-value value-field="communicationEventWorkEff"/>
     </simple-method>
 
@@ -457,7 +457,7 @@ under the License.
         </if-empty>
 
         <if-compare-field to-field="newWorkEffortContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
-            <set-nonpk-fields value-field="newWorkEffortContactMech" map="parameters" set-if-null="false"/>
+            <set-nonpk-fields map="parameters" value-field="newWorkEffortContactMech"/> set-if-null="false"/>
             <now-timestamp field="newWorkEffortContactMech.fromDate"/>
             <now-timestamp field="workEffortContactMech.thruDate"/>
             <create-value value-field="newWorkEffortContactMech"/>
@@ -658,8 +658,8 @@ under the License.
     <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
         <entity-one entity-name="WorkEffortNote" value-field="lookedUpValue"/>
         <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
-        <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValueForNoteData"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValueForNoteData"/>
     </simple-method>
@@ -724,7 +724,7 @@ under the License.
         <if-compare field="excludeExpiredAssocs" operator="equals" value="Y">
             <filter-list-by-date list="workEffortAssocs" />
         </if-compare>
-        <iterate entry="workEffortAssoc" list="workEffortAssocs">
+        <iterate list="workEffortAssocs" entry="workEffortAssoc">
             <set field="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo" />
             <if-compare field="deepCopy" operator="equals" value="Y">
                 <clear-field field="copyWorkEffortCtx" />
@@ -1020,7 +1020,7 @@ under the License.
         <set field="duplicateWorkEffortAssocs" from-field="parameters.duplicateWorkEffortAssocs" default-value="N" />
         <if-compare field="duplicateWorkEffortAssocs" operator="equals" value="Y">
             <find-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext" list="foundValues" />
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue" />
                 <set from-field="workEffortId" field="newTempValue.workEffortIdFrom" />
                 <create-value value-field="newTempValue" />
@@ -1028,7 +1028,7 @@ under the License.
             <entity-and entity-name="WorkEffortAssoc" list="foundValues">
                 <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId" />
             </entity-and>
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue" />
                 <set from-field="workEffortId" field="newTempValue.workEffortIdTo" />
                 <create-value value-field="newTempValue" />
@@ -1038,7 +1038,7 @@ under the License.
         <set field="duplicateWorkEffortNotes" from-field="parameters.duplicateWorkEffortNotes" default-value="N" />
         <if-compare field="duplicateWorkEffortNotes" operator="equals" value="Y">
             <find-by-and entity-name="WorkEffortNote" map="workEffortFindContext" list="foundValues" />
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue" />
                 <set from-field="workEffortId" field="newTempValue.workEffortId" />
                 <create-value value-field="newTempValue" />
@@ -1047,7 +1047,7 @@ under the License.
         <set field="duplicateWorkEffortContents" from-field="parameters.duplicateWorkEffortContents" default-value="N" />
         <if-compare field="duplicateWorkEffortContents" operator="equals" value="Y">
             <find-by-and entity-name="WorkEffortContent" map="workEffortFindContext" list="foundValues" />
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue" />
                 <set from-field="workEffortId" field="newTempValue.workEffortId" />
                 <create-value value-field="newTempValue" />
@@ -1057,7 +1057,7 @@ under the License.
         <if-compare field="duplicateWorkEffortAssignmentRates" operator="equals" value="Y">
             <find-by-and entity-name="RateAmount" map="workEffortFindContext" list="foundValuesAll" />
             <filter-list-by-date list="foundValuesAll" to-list="foundValues" />
-            <iterate entry="foundValue" list="foundValues">
+            <iterate list="foundValues" entry="foundValue">
                 <clone-value value-field="foundValue" new-value-field="newTempValue" />
                 <set from-field="workEffortId" field="newTempValue.workEffortId" />
                 <create-value value-field="newTempValue" />
@@ -1186,7 +1186,7 @@ under the License.
         <!-- add the planned hours together -->
         <get-related value-field="lowInfo" relation-name="WorkEffortSkillStandard" list="estimates"/>
         <if-not-empty field="estimates">
-            <iterate entry="estimate" list="estimates">
+            <iterate list="estimates" entry="estimate">
                 <if-not-empty field="estimate.estimatedDuration">
                     <if-not-empty field="highInfo.plannedHours">
                         <calculate field="highInfo.plannedHours" type="Double">
@@ -1204,7 +1204,7 @@ under the License.
         <!-- get the actual billed / non billed hours -->
         <get-related value-field="lowInfo" relation-name="TimeEntry" list="actuals"/>
         <if-not-empty field="actuals">
-            <iterate entry="actual" list="actuals">
+            <iterate list="actuals" entry="actual">
                 <if-not-empty field="actual.hours">
                     <get-related-one value-field="actual" relation-name="Timesheet" to-value-field="timesheet"/>
 
@@ -1320,7 +1320,7 @@ under the License.
                 <condition-expr field-name="roleTypeId" value="ICAL_MEMBER"/>
             </condition-list>
         </entity-condition>
-        <iterate entry="assignedParty" list="assignedParties">
+        <iterate list="assignedParties" entry="assignedParty">
             <entity-condition list="resultList" entity-name="WorkEffortAndPartyAssign" filter-by-date="true">
                 <condition-list combine="and">
                     <condition-expr field-name="scopeEnumId" value="WES_PUBLIC"/>
@@ -1331,10 +1331,10 @@ under the License.
             </entity-condition>
             <list-to-list list="resultList" to-list="workEfforts"/>
         </iterate>
-        <entity-and list="assignedFixedAssets" entity-name="WorkEffortFixedAssetAssign" filter-by-date="true">
+        <entity-and entity-name="WorkEffortFixedAssetAssign" list="assignedFixedAssets" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="workEffortId"/>
         </entity-and>
-        <iterate entry="assignedFixedAsset" list="assignedFixedAssets">
+        <iterate list="assignedFixedAssets" entry="assignedFixedAsset">
             <entity-condition list="resultList" entity-name="WorkEffortAndFixedAssetAssign" filter-by-date="true">
                 <condition-list combine="and">
                     <condition-expr field-name="scopeEnumId" value="WES_PUBLIC"/>

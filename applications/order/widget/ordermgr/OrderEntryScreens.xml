@@ -122,7 +122,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleShoppingList}"/>
                 <set field="partyId" from-field="requestParameters.partyId"/>
                 <entity-and entity-name="ShoppingList" list="customershoppinglists">
-                    <field-map from-field="partyId" field-name="partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -142,7 +142,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleShoppingListItem}"/>
                 <set field="shoppingListId" from-field="requestParameters.shoppingListId"/>
                 <entity-and entity-name="ShoppingListItem" list="shoppinglistitems">
-                    <field-map from-field="shoppingListId" field-name="shoppingListId"/>
+                    <field-map field-name="shoppingListId" from-field="shoppingListId"/>
                 </entity-and>
             </actions>
             <widgets>

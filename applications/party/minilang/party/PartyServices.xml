@@ -38,7 +38,7 @@ under the License.
                 <if>
                     <condition><if-compare-field field="partyGroup.groupName" to-field="parameters.groupName" operator="not-equals"/></condition>
                     <then>
-                        <set-nonpk-fields value-field="partyNameHistory" map="partyGroup"/>
+                        <set-nonpk-fields map="partyGroup" value-field="partyNameHistory"/>
                         <create-value value-field="partyNameHistory"/>
                     </then>
                 </if>
@@ -66,7 +66,7 @@ under the License.
                             </or>
                         </condition>
                         <then>
-                            <set-nonpk-fields value-field="partyNameHistory" map="person"/>
+                            <set-nonpk-fields map="person" value-field="partyNameHistory"/>
                             <create-value value-field="partyNameHistory"/>
                         </then>
                     </if>
@@ -87,7 +87,7 @@ under the License.
             <set field="parameters.compareDate" from-field="nowTimestamp"/>
         </if-empty>
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->
-        <iterate entry="partyNameHistory" list="partyNameHistoryList">
+        <iterate list="partyNameHistoryList" entry="partyNameHistory">
             <if-compare-field field="partyNameHistory.changeDate" to-field="parameters.compareDate" operator="greater" type="Timestamp">
                 <set field="partyNameHistoryCurrent" from-field="partyNameHistory"/>
             </if-compare-field>
@@ -209,7 +209,7 @@ under the License.
         </if-empty>
 
         <!-- update the fields -->
-        <set-nonpk-fields value-field="partyProfileDefault" map="parameters" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="partyProfileDefault"/> set-if-null="false"/>
         <store-value value-field="partyProfileDefault"/>
     </simple-method>
 
@@ -467,7 +467,7 @@ under the License.
     <simple-method method-name="followPartyRelationshipsInlineRecurse" short-description="followPartyRelationshipsInlineRecurse">
         <clear-field field="_inline_NewRelatedPartyIdList"/>
 
-        <iterate entry="relatedPartyId" list="relatedPartyIdList">
+        <iterate list="relatedPartyIdList" entry="relatedPartyId">
             <if>
                 <condition><not><if-compare-field field="_inline_relatedPartyIdAlreadySearchedList" to-field="relatedPartyId" operator="contains"/></not></condition>
                 <then>
@@ -491,7 +491,7 @@ under the License.
                         <!-- get the newest (highest date) first -->
                         <order-by field-name="-fromDate"/>
                     </entity-condition>
-                    <iterate entry="_inline_PartyRelationship" list="_inline_PartyRelationshipList">
+                    <iterate list="_inline_PartyRelationshipList" entry="_inline_PartyRelationship">
                         <if>
                             <condition>
                                 <and>
@@ -524,7 +524,7 @@ under the License.
                             <!-- get the newest (highest date) first -->
                             <order-by field-name="-fromDate"/>
                         </entity-condition>
-                        <iterate entry="_inline_PartyRelationship" list="_inline_PartyRelationshipList">
+                        <iterate list="_inline_PartyRelationshipList" entry="_inline_PartyRelationship">
                             <if>
                                 <condition>
                                     <and>
@@ -561,7 +561,7 @@ under the License.
     <simple-method method-name="getChildRoleTypesInline" short-description="getChildRoleTypes">
         <clear-field field="_inline_NewRoleTypeIdList"/>
 
-        <iterate entry="roleTypeId" list="${roleTypeIdListName}">
+        <iterate list="${roleTypeIdListName}" entry="roleTypeId">
             <if>
                 <condition><not><if-compare-field field="_inline_roleTypeIdAlreadySearchedList" to-field="roleTypeId" operator="contains"/></not></condition>
                 <then>
@@ -571,7 +571,7 @@ under the License.
                     <entity-condition entity-name="RoleType" list="_inline_RoleTypeList" use-cache="true">
                         <condition-expr field-name="parentTypeId" operator="equals" from-field="roleTypeId"/>
                     </entity-condition>
-                    <iterate entry="newRoleType" list="_inline_RoleTypeList">
+                    <iterate list="_inline_RoleTypeList" entry="newRoleType">
                         <if>
                             <condition>
                                 <and>
@@ -647,8 +647,8 @@ under the License.
         <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list="telephoneAll2" to-list="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
-            <iterate entry="type" list="types">
-                <iterate entry="telephone" list="telephoneAll3">
+            <iterate list="types" entry="type">
+                <iterate list="telephoneAll3" entry="telephone">
                     <if-empty field="found">
                         <if-compare-field field="telephone.contactMechPurposeTypeId" to-field="type" operator="equals">
                             <set field="found" value="notImportant"/>
@@ -708,8 +708,8 @@ under the License.
         <filter-list-by-date list="addressAll1" to-list="addressAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list="addressAll2" to-list="addressAll3"/>
         <if-not-empty field="addressAll3">
-            <iterate entry="type" list="types">
-                <iterate entry="address" list="addressAll3">
+            <iterate list="types" entry="type">
+                <iterate list="addressAll3" entry="address">
                     <if-empty field="found">
                         <if-compare-field field="address.contactMechPurposeTypeId" to-field="type" operator="equals">
                             <set field="found" value="notImportant"/>
@@ -789,7 +789,7 @@ under the License.
         <entity-condition entity-name="AddressMatchMap" list="addrs">
             <use-iterator/>
         </entity-condition>
-        <iterate entry="addr" list="addrs">
+        <iterate list="addrs" entry="addr">
             <remove-value value-field="addr"/>
         </iterate>
     </simple-method>
@@ -873,7 +873,7 @@ under the License.
             <field-map field-name="emailType"/>
             <field-map field-name="productStoreId"/>
         </entity-one>
-        <entity-and list="webSites" entity-name="WebSite">
+        <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry="webSite" list="webSites"/>
@@ -906,7 +906,7 @@ under the License.
             <field-map field-name="emailType" value="UPD_PRSNL_INF_CNFRM"/>
             <field-map field-name="productStoreId"/>
         </entity-one>
-        <entity-and list="webSites" entity-name="WebSite">
+        <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry="webSite" list="webSites"/>
@@ -1011,7 +1011,7 @@ under the License.
         </entity-and>
         <!-- find the role in the list -->
         <clear-field field="mainRoleTypeId"/>
-        <iterate entry="partyRole" list="partyRoles">
+        <iterate list="partyRoles" entry="partyRole">
             <if-empty field="mainRoleTypeId">
                 <entity-and entity-name="RoleTypeIn3Levels" list="roleTypeIn3Levels">
                     <field-map field-name="topRoleTypeId" value="MAIN_ROLE" />
@@ -1027,7 +1027,7 @@ under the License.
             <entity-one entity-name="RoleType" value-field="roleType">
                 <field-map field-name="roleTypeId" from-field="mainRoleTypeId" />
             </entity-one>
-            <field-to-result result-name="description" field="roleType.description" />
+            <field-to-result field="roleType.description" result-name="description" />
         </if-not-empty>
     </simple-method>
     
@@ -1040,7 +1040,7 @@ under the License.
             <field-map field-name="emailType"/>
             <field-map field-name="productStoreId"/>
         </entity-one>
-        <entity-and list="webSites" entity-name="WebSite">
+        <entity-and entity-name="WebSite" list="webSites">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry="webSite" list="webSites"/>

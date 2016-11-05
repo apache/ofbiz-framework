@@ -483,7 +483,7 @@ under the License.
             <entity-and entity-name="SalesOrderItemFact" list="checkGSList">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             </entity-and>
-            <iterate entry="checkGS" list="checkGSList">
+            <iterate list="checkGSList" entry="checkGS">
                 <if-not-empty field="checkGS.GS">
                     <if-compare field="checkGS.GS" operator="not-equals" value="0">
                         <set field="countGS" value="1"/>
@@ -526,7 +526,7 @@ under the License.
             <entity-and entity-name="SalesOrderItemFact" list="checkGSPList">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             </entity-and>
-            <iterate entry="checkGSP" list="checkGSPList">
+            <iterate list="checkGSPList" entry="checkGSP">
                 <if-not-empty field="checkGSP.GSP">
                     <if-compare field="checkGSP.GSP" operator="not-equals" value="0">
                         <set field="countGSP" value="1"/>
@@ -534,7 +534,7 @@ under the License.
                 </if-not-empty>
             </iterate>
             <if-compare field="countGSP" operator="equals" value="0">
-                <entity-and list="orderItemList" entity-name="OrderItem">
+                <entity-and entity-name="OrderItem" list="orderItemList">
                     <field-map field-name="orderId" from-field="orderHeader.orderId"/>
                 </entity-and>
 
@@ -585,7 +585,7 @@ under the License.
             <entity-and entity-name="SalesOrderItemFact" list="checkCountOrderList">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             </entity-and>
-            <iterate entry="checkCountOrder" list="checkCountOrderList">
+            <iterate list="checkCountOrderList" entry="checkCountOrder">
                 <if-not-empty field="checkCountOrder.countOrder">
                     <if-compare field="checkCountOrder.countOrder" operator="not-equals" value="0">
                         <set field="countOrder" value="1"/>

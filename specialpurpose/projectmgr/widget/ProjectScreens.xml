@@ -1108,7 +1108,7 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
-                                <include-screen location="component://party/widget/partymgr/CommunicationEventScreens.xml" name="commOverview"/>
+                                <include-screen name="commOverview" location="component://party/widget/partymgr/CommunicationEventScreens.xml" />
                             </widgets>
                         </section>
                     </decorator-section>

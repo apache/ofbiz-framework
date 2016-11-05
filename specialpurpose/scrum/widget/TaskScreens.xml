@@ -56,7 +56,7 @@ under the License.
                                     </widgets>
                                 </section>
                                 <screenlet name="FindTask" title="${uiLabelMap.PageTitleFindTask}" collapsible="true" initially-collapsed="false">
-                                    <include-form location="component://scrum/widget/TaskForms.xml" name="FindTask"/>
+                                    <include-form name="FindTask" location="component://scrum/widget/TaskForms.xml"/>
                                 </screenlet>
                                 <section>
                                     <condition>
@@ -64,30 +64,30 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet name="TasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListError"/>
+                                            <include-form name="TasksListError" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListInstall"/>
+                                            <include-form name="TasksListInstall" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListTest"/>
+                                            <include-form name="TasksListTest" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListCoding"/>
+                                            <include-form name="TasksListCoding" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
                                         <screenlet name="TasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListErrorNoAction"/>
+                                            <include-form name="TasksListErrorNoAction" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListInstallNoAction"/>
+                                            <include-form name="TasksListInstallNoAction" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListTestNoAction"/>
+                                            <include-form name="TasksListTestNoAction" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                         <screenlet name="TasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
-                                            <include-form location="component://scrum/widget/TaskForms.xml" name="TasksListCodingNoAction"/>
+                                            <include-form name="TasksListCodingNoAction" location="component://scrum/widget/TaskForms.xml"/>
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
@@ -107,7 +107,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="workEffortId" from-field="parameters.taskId"/>
                 <entity-one entity-name="WorkEffort" value-field="task"/>
-                <entity-and list="custRequestWorkEffort" entity-name="CustRequestWorkEffort">
+                <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
                 <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
@@ -133,7 +133,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.ScrumRevisions}"/>
                 <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
                 <set field="parameters.noConditionFind" value="Y"/>
-                <entity-and list="listIt" entity-name="WorkEffortAndContentDataResource">
+                <entity-and entity-name="WorkEffortAndContentDataResource" list="listIt">
                     <field-map field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
                     <field-map field-name="workEffortId" from-field="parameters.taskId"/>
                     <order-by field-name="fromDate"/>
@@ -273,7 +273,7 @@ under the License.
                         <section>
                         <actions>
                             <entity-one value-field="task" entity-name="WorkEffort"/>
-                            <entity-and list="custRequestWorkEffort" entity-name="CustRequestWorkEffort">
+                            <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
                                 <field-map field-name="workEffortId" from-field="workEffortId"/>
                             </entity-and>
                             <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId" type="String"/>
@@ -296,7 +296,7 @@ under the License.
                                 </condition-list>
                             </entity-condition>
                             <set field="sprintId" from-field="SprintTasks[3].sprintId"/>
-                            <entity-and list="sprintMembers" entity-name="WorkEffortPartyAssignment">
+                            <entity-and entity-name="WorkEffortPartyAssignment" list="sprintMembers">
                                 <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
                             </entity-and>
                         </actions>
@@ -317,11 +317,11 @@ under the License.
                 <set field="titleProperty" value="ScrumTaskSummary"/>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.taskId"/>
-                <entity-and list="custRequestWorkEffort" entity-name="CustRequestWorkEffort">
+                <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
                 <set field="custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
-                <entity-and list="notes" entity-name="CustRequestNoteView">
+                <entity-and entity-name="CustRequestNoteView" list="notes">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
                 <set field="sprintId" from-field="parameters.sprintId"/>
@@ -338,7 +338,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <screenlet title="${uiLabelMap.ScrumTaskAttachements}">
-                                <include-form location="component://scrum/widget/OpenTestForms.xml" name="ContentTask"/>
+                                <include-form name="ContentTask" location="component://scrum/widget/OpenTestForms.xml"/>
                             </screenlet>
                             <include-screen name="TaskNoteInfo"/>
                             <screenlet title="${uiLabelMap.PageTitleTaskMember}">
@@ -357,7 +357,7 @@ under the License.
                 <set field="tabButtonItem" value="taskNote"/>
                 <set field="workEffortId" from-field="parameters.taskId"/>
                 <set field="taskId" from-field="parameters.taskId"/>
-                <entity-and list="workNoteList" entity-name="WorkEffortNote">
+                <entity-and entity-name="WorkEffortNote" list="workNoteList">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteId"/>
                 </entity-and>
@@ -400,10 +400,10 @@ under the License.
                 <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
             </condition>
             <widgets>
-                <include-form location="component://scrum/widget/TaskForms.xml" name="TaskMemberListInfo"/>
+                <include-form name="TaskMemberListInfo" location="component://scrum/widget/TaskForms.xml"/>
             </widgets>
             <fail-widgets>
-                <include-form location="component://scrum/widget/TaskForms.xml" name="TaskMemberListInfoForStakeholder"/>
+                <include-form name="TaskMemberListInfoForStakeholder" location="component://scrum/widget/TaskForms.xml"/>
             </fail-widgets>
         </section>
     </screen>

@@ -126,7 +126,7 @@ under the License.
                 <set field="currentMenuItemName" value="approval"/>
 
                 <entity-one entity-name="ContentApproval" value-field="contentApproval" use-cache="true">
-                    <field-map from-field="parameters.contentApprovalId" field-name="contentApprovalId"/>
+                    <field-map field-name="contentApprovalId" from-field="parameters.contentApprovalId"/>
                 </entity-one>
                 <set from-field="contentApproval.contentId" field="rootContentId"/>
                 <set from-field="contentApproval.contentRevisionSeqId" field="rootContentRevisionSeqId"/>
@@ -167,7 +167,7 @@ under the License.
                 </entity-one>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <entity-and entity-name="ContentRevision" list="contentRevisionList" use-cache="true">
-                    <field-map from-field="contentId" field-name="contentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-and>
 
                 <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRev} ${rootContentRevisionSeqId}"/>

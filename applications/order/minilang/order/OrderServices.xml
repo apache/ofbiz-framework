@@ -114,8 +114,8 @@ under the License.
     <simple-method method-name="getProductFacilityAndQuantities" short-description="finds ProductFacility and QOH, ATP inventory for an inventoryItem">
         <!-- Get the ProductFacility for the minimum stock level -->
         <entity-one entity-name="ProductFacility" value-field="productFacility">
-            <field-map from-field="inventoryItem.productId" field-name="productId"/>
-            <field-map from-field="inventoryItem.facilityId" field-name="facilityId"/>
+            <field-map field-name="productId" from-field="inventoryItem.productId"/>
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
         </entity-one>
 
         <!-- Get the product's total quantityOnHand in the facility -->
@@ -146,7 +146,7 @@ under the License.
                 </condition>
                 <then>
                     <entity-one entity-name="ProductStore" value-field="productStore">
-                        <field-map from-field="order.productStoreId" field-name="productStoreId"/>
+                        <field-map field-name="productStoreId" from-field="order.productStoreId"/>
                     </entity-one>
                     <set from-field="productStore.requirementMethodEnumId" field="requirementMethodId"/>
                 </then>
@@ -180,7 +180,7 @@ under the License.
         <if-not-empty field="parameters.itemIssuanceId">
             <entity-one entity-name="ItemIssuance" auto-field-map="true" value-field="itemIssuance"/>
             <entity-one entity-name="InventoryItem" value-field="inventoryItem">
-                <field-map from-field="itemIssuance.inventoryItemId" field-name="inventoryItemId"/>
+                <field-map field-name="inventoryItemId" from-field="itemIssuance.inventoryItemId"/>
             </entity-one>
         <else>
             <entity-one entity-name="InventoryItem" auto-field-map="true" value-field="inventoryItem"/>
@@ -325,7 +325,7 @@ under the License.
                         <condition-expr field-name="statusId" operator="not-equals" value="REQ_REJECTED"/>
                     </condition-list>
                 </entity-condition>
-                <iterate entry="requirement" list="requirements">
+                <iterate list="requirements" entry="requirement">
                     <calculate field="existingRequirementTotal">
                         <calcop operator="get" field="existingRequirementTotal"/>
                         <calcop operator="get" field="requirement.quantity"/>
@@ -356,7 +356,7 @@ under the License.
         <check-errors/>
 
         <entity-and entity-name="ProductFacility" list="products">
-            <field-map from-field="parameters.facilityId" field-name="facilityId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
         </entity-and>
 
         <iterate list="products" entry="productFacility">
@@ -545,7 +545,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields value-field="orderHeader" map="parameters" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="orderHeader"/> set-if-null="false"/>
         <store-value value-field="orderHeader"/>
     </simple-method>
 
@@ -684,8 +684,8 @@ under the License.
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
         <set from-field="parameters.contactMechId" field="inputMap.contactMechId"/>
-        <if-compare value="SHIPPING_LOCATION" field="parameters.contactMechPurposeTypeId" operator="equals">
-           <if-compare value="parameters.oldContactMechId" field="parameters.contactMechId" operator="not-equals">
+        <if-compare field="parameters.contactMechPurposeTypeId" operator="equals" value="SHIPPING_LOCATION">
+           <if-compare field="parameters.contactMechId" operator="not-equals" value="parameters.oldContactMechId">
            <set field="orderItemShipGroupMap.orderId" from-field="parameters.orderId"/>
            <set field="orderItemShipGroupMap.contactMechId" from-field="parameters.oldContactMechId"/>
            <find-by-and entity-name="OrderItemShipGroup" list="shipGroupList" map="orderItemShipGroupMap"/>
@@ -782,7 +782,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="OrderHeaderNote" value-field="orderHeaderNote"/>
-        <set-nonpk-fields value-field="orderHeaderNote" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="orderHeaderNote"/>
         <store-value value-field="orderHeaderNote"/>
     </simple-method>
 
@@ -1023,7 +1023,7 @@ under the License.
                     <if-compare field="keepAddressBook" operator="equals" value="Y">
                         <make-value entity-name="PostalAddress" value-field="newValue"/>
                         <set-pk-fields value-field="newValue" map="billToAddressCtx"/>
-                        <set-nonpk-fields value-field="newValue" map="billToAddressCtx"/>
+                        <set-nonpk-fields map="billToAddressCtx" value-field="newValue"/>
                         <entity-one entity-name="PostalAddress" value-field="oldValue" auto-field-map="false">
                             <field-map field-name="contactMechId" from-field="billToAddressCtx.contactMechId"/>
                         </entity-one>
@@ -1119,11 +1119,11 @@ under the License.
                 </entity-and>
                 <first-from-list list="orderSuppliers" entry="orderSupplier"/>
                 <entity-and list="supplierProducts" entity-name="SupplierProduct">
-                    <field-map from-field="parameters.productId" field-name="productId"/>
-                    <field-map from-field="orderSupplier.partyId" field-name="partyId"/>
-                    <field-map from-field="nullField" field-name="availableThruDate"/>
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="partyId" from-field="orderSupplier.partyId"/>
+                    <field-map field-name="availableThruDate" from-field="nullField"/>
                 </entity-and>
-                <iterate entry="supplierProduct" list="supplierProducts">
+                <iterate list="supplierProducts" entry="supplierProduct">
                     <now-timestamp field="nowTimestamp"/>
                     <if-not-empty field="parameters.orderCurrencyUnitPrice">
                         <if-compare-field field="parameters.orderCurrencyUnitPrice" operator="not-equals" to-field="supplierProduct.lastPrice" type="BigDecimal">
@@ -1159,7 +1159,7 @@ under the License.
                         <entity-and entity-name="OrderItem" list="orderItems">
                             <field-map field-name="orderId" from-field="parameters.orderId"/>
                         </entity-and>
-                        <iterate entry="orderItem" list="orderItems">
+                        <iterate list="orderItems" entry="orderItem">
                             <iterate-map key="orderItemSeqId" value="unitPrice" map="parameters.itemPriceMap">
                                 <if>
                                     <condition>
@@ -1174,11 +1174,11 @@ under the License.
                                                 <then>
                                                     <set field="orderItem.unitPrice" from-field="unitPrice" type="BigDecimal"/>
                                                     <entity-and list="supplierProducts" entity-name="SupplierProduct">
-                                                        <field-map from-field="orderItem.productId" field-name="productId"/>
-                                                        <field-map from-field="parameters.supplierPartyId" field-name="partyId"/>
-                                                        <field-map from-field="nullField" field-name="availableThruDate"/>
+                                                        <field-map field-name="productId" from-field="orderItem.productId"/>
+                                                        <field-map field-name="partyId" from-field="parameters.supplierPartyId"/>
+                                                        <field-map field-name="availableThruDate" from-field="nullField"/>
                                                     </entity-and>
-                                                    <iterate entry="supplierProduct" list="supplierProducts">
+                                                    <iterate list="supplierProducts" entry="supplierProduct">
                                                         <now-timestamp field="nowTimestamp"/>
                                                         <if>
                                                             <condition>
@@ -1206,9 +1206,9 @@ under the License.
                     <else>
                         <iterate entry="orderItem" list="parameters.orderItems">
                             <entity-and list="supplierProducts" entity-name="SupplierProduct">
-                                <field-map from-field="orderItem.productId" field-name="productId"/>
-                                <field-map from-field="parameters.supplierPartyId" field-name="partyId"/>
-                                <field-map from-field="nullField" field-name="availableThruDate"/>
+                                <field-map field-name="productId" from-field="orderItem.productId"/>
+                                <field-map field-name="partyId" from-field="parameters.supplierPartyId"/>
+                                <field-map field-name="availableThruDate" from-field="nullField"/>
                             </entity-and>
                             <iterate entry="supplierProduct" list="supplierProducts">
                                 <now-timestamp field="nowTimestamp"/>
@@ -1243,11 +1243,11 @@ under the License.
                 <condition-expr field-name="statusId" operator="not-equals" value="ORDER_COMPLETED"/>
             </condition-list>
         </entity-condition>
-        <iterate entry="currentOrder" list="orders">
+        <iterate list="orders" entry="currentOrder">
             <entity-and list="orderItems" entity-name="OrderItem">
                 <field-map field-name="orderId" from-field="currentOrder.orderId"/>
             </entity-and>
-            <iterate entry="currentOrderItem" list="orderItems">
+            <iterate list="orderItems" entry="currentOrderItem">
                 <set field="backOrderDate" from-field="currentOrderItem.cancelBackOrderDate" type="Timestamp"/>
                 <if>
                     <condition>
@@ -1320,7 +1320,7 @@ under the License.
     <simple-method method-name="productAvailabalityByFacility" short-description="Calculate ATP and Qoh According For each facility">
         <set field="facilityMap.ownerPartyId" from-field="parameters.ownerPartyId"/>
         <find-by-and map="facilityMap" list="facilityList" entity-name="Facility"/>
-        <iterate entry="facility" list="facilityList">
+        <iterate list="facilityList" entry="facility">
             <set field="getInventoryAvailableByFacilityMap.facilityId" from-field="facility.facilityId"/>
             <set field="getInventoryAvailableByFacilityMap.productId" from-field="parameters.productId"/>
             <call-service service-name="getInventoryAvailableByFacility" in-map-name="getInventoryAvailableByFacilityMap">
@@ -1343,7 +1343,7 @@ under the License.
         <entity-one value-field="orderPaymentPreMap" entity-name="OrderPaymentPreference">
             <field-map field-name="orderPaymentPreferenceId" from-field="paymentMap.paymentPreferenceId"/>
         </entity-one>
-        <entity-and list="orderItemBilList" entity-name="OrderItemBilling">
+        <entity-and entity-name="OrderItemBilling" list="orderItemBilList">
             <field-map field-name="orderId" from-field="orderPaymentPreMap.orderId"/>
             <order-by field-name="invoiceId"/>
         </entity-and>

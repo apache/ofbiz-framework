@@ -44,7 +44,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <call-simple-method method-name="saveSalesForecastHistory"/>
 
         <!-- return the ID -->
-        <field-to-result result-name="salesForecastId" field="salesForecastId"/>
+        <field-to-result field="salesForecastId" result-name="salesForecastId"/>
     </simple-method>
 
     <simple-method method-name="updateSalesForecast" short-description="Updates a sales forecast and stores a copy in sales forecast history.">
@@ -68,7 +68,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
         <sequenced-id sequence-name="SalesForecastHistory" field="salesForecastHistoryId"/>
         <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/>
-        <set-nonpk-fields value-field="salesForecastHistory" map="salesForecast"/>
+        <set-nonpk-fields map="salesForecast" value-field="salesForecastHistory"/>
 
         <!-- get the change note from the parameters -->
         <set field="salesForecastHistory.changeNote" from-field="parameters.changeNote"/>
@@ -92,16 +92,16 @@ This file contains basic services for SalesOpportunity and SalesForecast.
                 </call-class-method>
             </if-empty>
         </if-compare>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createSalesOpportunityAccountRole" short-description="Create Sales Opportunity Account Role">
-        <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
+        <entity-and entity-name="SalesOpportunityRole" list="salesOpportunityRoles">
             <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <field-map field-name="roleTypeId" value="ACCOUNT"/>
         </entity-and>
         <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
-        <if-compare-field operator="not-equals" field="lookedUpValue.partyId" to-field="parameters.accountPartyId">
+        <if-compare-field field="lookedUpValue.partyId" operator="not-equals" to-field="parameters.accountPartyId">
             <if-not-empty field="lookedUpValue">
                 <remove-value value-field="lookedUpValue"/>
             </if-not-empty>
@@ -116,12 +116,12 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         </if-compare-field>
     </simple-method>
     <simple-method method-name="createSalesOpportunityLeadRole" short-description="Create Sales Opportunity Lead Role">
-        <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
+        <entity-and entity-name="SalesOpportunityRole" list="salesOpportunityRoles">
             <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <field-map field-name="roleTypeId" value="LEAD"/>
         </entity-and>
         <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
-        <if-compare-field operator="not-equals" field="lookedUpValue.partyId" to-field="parameters.leadPartyId">
+        <if-compare-field field="lookedUpValue.partyId" operator="not-equals" to-field="parameters.leadPartyId">
             <if-not-empty field="lookedUpValue">
                 <remove-value value-field="lookedUpValue"/>
             </if-not-empty>
@@ -134,7 +134,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         </if-compare-field>
     </simple-method>
     <simple-method method-name="findPartyInSalesOpportunityRole" short-description="find party in role specified by in parameter">
-        <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
+        <entity-and entity-name="SalesOpportunityRole" list="salesOpportunityRoles">
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
             <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
         </entity-and>

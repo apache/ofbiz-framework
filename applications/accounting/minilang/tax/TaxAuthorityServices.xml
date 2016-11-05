@@ -67,7 +67,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="validatePartyTaxIdInline" short-description="validatePartyTaxIdInline">

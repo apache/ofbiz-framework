@@ -201,7 +201,7 @@ under the License.
 
     <simple-method method-name="testCreateShipmentRouteSegment" short-description="Test to create Shipment Route Segment" login-required="false">
         <log level="info" message="====================Create a Shipment Route Segment test case=========================================="/>
-        <entity-and list="shipments" entity-name="Shipment">
+        <entity-and entity-name="Shipment" list="shipments">
             <field-map field-name="primaryOrderId" value="DEMO10090"/>
             <field-map field-name="shipmentId" value="9998"/>
         </entity-and>

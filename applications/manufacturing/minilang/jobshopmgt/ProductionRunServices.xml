@@ -75,7 +75,7 @@ under the License.
                         <set-service-fields to-map="callSvcMap" service-name="issueProductionRunTaskComponent" map="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <!-- calculate quantity needed if the produced run quantity is produced partially -->
-                        <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
+                        <entity-and entity-name="WorkEffortAndInventoryAssign" list="issuances">
                             <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
                             <field-map field-name="productId" from-field="component.productId"/>
                         </entity-and>
@@ -192,7 +192,7 @@ under the License.
             <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
             <set field="parameters.useReservedItems" value="N"/>
-            <iterate entry="inventoryItem" list="inventoryItemList">
+            <iterate list="inventoryItemList" entry="inventoryItem">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
             </iterate>
@@ -206,7 +206,7 @@ under the License.
                 </condition>
                 <then>
                     <set field="parameters.useReservedItems" value="Y"/>
-                    <iterate entry="inventoryItem" list="inventoryItemList">
+                    <iterate list="inventoryItemList" entry="inventoryItem">
                         <if-compare field="parameters.quantityNotIssued" operator="greater" value="0" type="BigDecimal">
                             <refresh-value value-field="inventoryItem"/>
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -227,7 +227,7 @@ under the License.
                     </condition>
                     <then>
                         <add-error>
-                            <fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/>
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingMaterialsNotAvailable"/>
                         </add-error>
                     </then>
                 </if>
@@ -292,7 +292,7 @@ under the License.
                 <calculate field="parameters.quantityNotIssued" ><number value="0"/></calculate>
             </if-compare>
             <if-not-empty field="workEffortGoodStandard">
-                <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
+                <entity-and entity-name="WorkEffortAndInventoryAssign" list="issuances">
                     <field-map field-name="workEffortId" from-field="workEffortGoodStandard.workEffortId"/>
                     <field-map field-name="productId" from-field="workEffortGoodStandard.productId"/>
                 </entity-and>
@@ -337,7 +337,7 @@ under the License.
                     <and>
                         <or>
                             <if-empty field="inventoryItem.statusId"/>
-                            <if-compare operator="equals" field="inventoryItem.statusId" value="INV_AVAILABLE"/>
+                            <if-compare field="inventoryItem.statusId" operator="equals" value="INV_AVAILABLE"/>
                         </or>
                         <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                     </and>

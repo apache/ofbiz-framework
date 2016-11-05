@@ -94,7 +94,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="${orderByString}"/>
                 </entity-condition>
-                <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
+                <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
                     <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                         <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                         <make-value entity-name="InventoryItem" map="inventoryItemAndLocation" value-field="inventoryItem"/>
@@ -117,7 +117,7 @@ under the License.
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
-                    <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
+                    <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
                         <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                             <make-value entity-name="InventoryItem" map="inventoryItemAndLocation" value-field="inventoryItem"/>
@@ -141,7 +141,7 @@ under the License.
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
-                    <iterate entry="inventoryItem" list="inventoryItems">
+                    <iterate list="inventoryItems" entry="inventoryItem">
                         <if>
                             <condition>
                                 <and>
@@ -564,7 +564,7 @@ under the License.
             <log level="verbose" message="OISGIR Cancel for single item : ${oisgirListLookupMap}"/>
         </if-not-empty>
         <find-by-and entity-name="OrderItemShipGrpInvRes" map="oisgirListLookupMap" list="oisgirList" use-cache="false"/>
-        <iterate entry="oisgir" list="oisgirList">
+        <iterate list="oisgirList" entry="oisgir">
             <set from-field="oisgir.orderId" field="cancelOisgirMap.orderId"/>
             <set from-field="oisgir.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
             <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
@@ -593,7 +593,7 @@ under the License.
             <set from-field="parameters.orderItemSeqId" field="oisgirListLookupMap.orderItemSeqId"/>
             <set from-field="parameters.shipGroupSeqId" field="oisgirListLookupMap.shipGroupSeqId"/>
             <find-by-and entity-name="OrderItemShipGrpInvRes" map="oisgirListLookupMap" list="oisgirList" use-cache="false"/>
-            <iterate entry="oisgir" list="oisgirList">
+            <iterate list="oisgirList" entry="oisgir">
                 <if-compare field="toCancelAmount" operator="greater" value="0" type="BigDecimal">
                     <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="greater-equals" type="BigDecimal">
                         <set from-field="toCancelAmount" field="cancelOisgirMap.cancelQuantity"/>

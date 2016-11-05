@@ -37,7 +37,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SolrCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form location="component://solr/widget/forms/SolrForms.xml" name="NewQuery"/>
+                        <include-form name="NewQuery" location="component://solr/widget/forms/SolrForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

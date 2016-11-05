@@ -57,7 +57,7 @@ under the License.
 
             <else>
                 <!-- multi-checked -->
-                <iterate entry="thisType" list="parameters.webSiteContentTypeId">
+                <iterate list="parameters.webSiteContentTypeId" entry="thisType">
                     <entity-one entity-name="WebSiteContentType" value-field="wct">
                         <field-map field-name="webSiteContentTypeId" from-field="thisType"/>
                     </entity-one>
@@ -90,12 +90,12 @@ under the License.
         </entity-one>
         <!-- Create Missing Category and Product Alternative URL's -->
         <if-compare operator="equals" value="all" field="parameters.prodCatalogId">
-            <entity-and list="productStoreCatalogs" entity-name="ProductStoreCatalog" filter-by-date="true">
+            <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogs" filter-by-date="true">
                 <field-map field-name="productStoreId" from-field="webSite.productStoreId"/>
             </entity-and>
             <if-not-empty field="productStoreCatalogs">
-                <iterate entry="productStoreCatalog" list="productStoreCatalogs">
-                    <iterate entry="typeGenerate" list="parameters.typeGenerate">
+                <iterate list="productStoreCatalogs" entry="productStoreCatalog">
+                    <iterate list="parameters.typeGenerate" entry="typeGenerate">
                         <if-compare operator="equals" value="category" field="typeGenerate">
                             <set field="createMissingCategoryAltUrlsMap.prodCatalogId" from-field="productStoreCatalog.prodCatalogId"/>
                             <set field="createMissingCategoryAltUrlsMap.category" value="category"/>
@@ -153,7 +153,7 @@ under the License.
                     </iterate>
                 </iterate>
             <else>
-                <iterate entry="typeGenerate" list="parameters.typeGenerate">
+                <iterate list="parameters.typeGenerate" entry="typeGenerate">
                     <if-compare operator="equals" value="content" field="typeGenerate">
                         <set field="createMissingContentAltUrlsMap.webSiteId" from-field="parameters.webSiteId"/>
                         <call-service service-name="createMissingContentAltUrls" in-map-name="createMissingContentAltUrlsMap">
@@ -175,7 +175,7 @@ under the License.
             </else>
             </if-not-empty>
         <else>
-            <iterate entry="typeGenerate" list="parameters.typeGenerate">
+            <iterate list="parameters.typeGenerate" entry="typeGenerate">
                 <if-compare operator="equals" value="category" field="typeGenerate">
                     <set field="createMissingCategoryAltUrlsMap.prodCatalogId" from-field="parameters.prodCatalogId"/>
                     <set field="createMissingCategoryAltUrlsMap.category" value="category"/>
@@ -236,7 +236,7 @@ under the License.
 
         <set field="generateMissingSeoUrlMessage" value="Generate missing seo url's successfully"/>
         <field-to-list list="successMessageList" field="generateMissingSeoUrlMessage"/>
-        <iterate entry="typeGenerate" list="parameters.typeGenerate">
+        <iterate list="parameters.typeGenerate" entry="typeGenerate">
             <if-compare operator="equals" value="category" field="typeGenerate">
                 <set field="categoriesMessage" value="Categories already having seo url's: ${totalCategoriesNotUpdated}, Categories with url added: ${totalCategoriesUpdated}"/>
                 <field-to-list list="successMessageList" field="categoriesMessage"/>

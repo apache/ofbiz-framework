@@ -49,7 +49,7 @@ under the License.
              - orderItemShipGrpInvResInfoList (to be done later if we need it)
         -->
         <!-- start by making a Map where the locationSeqId is the key and the value is a List of orderItemShipGrpInvResAndItemLocation -->
-        <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
+        <iterate list="orderItemShipGrpInvResAndItemLocationList" entry="orderItemShipGrpInvResAndItemLocation">
             <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByLocMap[orderItemShipGrpInvResAndItemLocation.locationSeqId]"/>
         </iterate>
 
@@ -57,7 +57,7 @@ under the License.
         <iterate-map key="locationSeqId" value="perLocationOiirailList" map="oiirailByLocMap">
             <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
             <clear-field field="oiirailByProdMap"/>
-            <iterate entry="orderItemShipGrpInvResAndItemLocation" list="perLocationOiirailList">
+            <iterate list="perLocationOiirailList" entry="orderItemShipGrpInvResAndItemLocation">
                 <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByProdMap[orderItemShipGrpInvResAndItemLocation.productId]"/>
             </iterate>
 
@@ -90,7 +90,7 @@ under the License.
 
                     <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
                     <calculate field="moveInfo.totalQuantity"><number value="0"/></calculate>
-                    <iterate entry="perProductOiirail" list="perProductOiirailList">
+                    <iterate list="perProductOiirailList" entry="perProductOiirail">
                         <calculate field="moveInfo.totalQuantity">
                             <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="perProductOiirail.quantity" operator="get"/></calcop>
                         </calculate>
@@ -105,7 +105,7 @@ under the License.
 
                     <calculate field="totalQuantityOnHand"><number value="0"/></calculate>
                     <calculate field="totalAvailableToPromise"><number value="0"/></calculate>
-                    <iterate entry="inventoryItem" list="inventoryItemList">
+                    <iterate list="inventoryItemList" entry="inventoryItem">
                         <calculate field="totalQuantityOnHand">
                             <calcop field="totalQuantityOnHand" operator="get"/>
                             <calcop field="inventoryItem.quantityOnHandTotal" operator="get"/>
@@ -128,7 +128,7 @@ under the License.
                         <get-related value-field="moveInfo.targetProductFacilityLocation" relation-name="InventoryItem" list="targetInventoryItemList"/>
                         <calculate field="targetTotalAvailableToPromise"><number value="0"/></calculate>
                         <calculate field="targetTotalQuantityOnHand"><number value="0"/></calculate>
-                        <iterate entry="inventoryItem" list="targetInventoryItemList">
+                        <iterate list="targetInventoryItemList" entry="inventoryItem">
                             <calculate field="targetTotalAvailableToPromise">
                                 <calcop field="targetTotalAvailableToPromise" operator="add"><calcop field="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                             </calculate>
@@ -215,7 +215,7 @@ under the License.
             <order-by field-name="productId"/>
         </entity-and>
 
-        <iterate entry="productFacilityLocationQuantityTest" list="productFacilityLocationQuantityTestList">
+        <iterate list="productFacilityLocationQuantityTestList" entry="productFacilityLocationQuantityTest">
             <!-- TODO: this comparison could be done by the database and be more efficient, but since we don't have field to field comparisons in the entity engine or EntityCondition operations in simple-methods, some work needs to be done before that can happen -->
             <set field="minimumStock" from-field="productFacilityLocationQuantityTest.minimumStock" default-value="0" type="BigDecimal"/>
             <if>
@@ -263,7 +263,7 @@ under the License.
                                 <set from-field="productFacilityLocationQuantityTest.moveQuantity" field="targetLocationMoveQuantity"/>
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
                                 <clear-field field="InventoryItemAndLocationByLocMap"/>
-                                <iterate entry="InventoryItemAndLocation" list="inventoryItemAndLocationList">
+                                <iterate list="inventoryItemAndLocationList" entry="InventoryItemAndLocation">
                                     <field-to-list field="InventoryItemAndLocation" list="InventoryItemAndLocationByLocMap[InventoryItemAndLocation.locationSeqId]"/>
                                 </iterate>
                                 <clear-field field="locationSeqId"/>
@@ -272,7 +272,7 @@ under the License.
                                     <if-empty field="fromLocationTotalAvailableToPromise[locationSeqId]">
                                         <calculate field="totalQuantityOnHand"><number value="0"/></calculate>
                                         <calculate field="totalAvailableToPromise"><number value="0"/></calculate>
-                                        <iterate entry="inventoryItem" list="perLocationInventoryItemAndLocList">
+                                        <iterate list="perLocationInventoryItemAndLocList" entry="inventoryItem">
                                             <calculate field="totalQuantityOnHand">
                                                 <calcop field="totalQuantityOnHand" operator="add"><calcop field="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                                             </calculate>
@@ -370,7 +370,7 @@ under the License.
                 <order-by field-name="datetimeReceived"/>
             </entity-and>
 
-            <iterate entry="inventoryItem" list="inventoryItemList">
+            <iterate list="inventoryItemList" entry="inventoryItem">
                 <!-- for each inventoryItem only process if quantityLeftToProcess > 0 and inventoryItem.availableToPromiseTotal > 0 -->
                 <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="BigDecimal">
                     <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="BigDecimal">
@@ -434,7 +434,7 @@ under the License.
 
         <clear-field field="oiirailByInvItemMap"/>
         <log level="info" message="In processOisgirMoveByStatusInline orderItemShipGrpInvResAndItemLocationList=${orderItemShipGrpInvResAndItemLocationList}"/>
-        <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
+        <iterate list="orderItemShipGrpInvResAndItemLocationList" entry="orderItemShipGrpInvResAndItemLocation">
             <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByInvItemMap[orderItemShipGrpInvResAndItemLocation.inventoryItemId]"/>
         </iterate>
 
@@ -473,7 +473,7 @@ under the License.
                     sure to stay within quantityOnHand
                 -->
                 <set from-field="inventoryItem.quantityOnHandTotal" field="remainingQuantityOnHand"/>
-                <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
+                <iterate list="orderItemShipGrpInvResAndItemLocationList" entry="orderItemShipGrpInvResAndItemLocation">
                     <get-related-one value-field="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-field="orderItemShipGrpInvRes"/>
 
                     <!-- see if there is enough physically moved over to move this reservation -->

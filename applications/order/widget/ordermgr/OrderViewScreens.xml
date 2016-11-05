@@ -489,7 +489,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderShipmentMethodHistory}">
-                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderShipmentMethodHistory"/>
+                    <include-form name="OrderShipmentMethodHistory" location="component://order/widget/ordermgr/OrderForms.xml"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -509,7 +509,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderUnitPriceHistory}">
-                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderUnitPriceHistory"/>
+                    <include-form name="OrderUnitPriceHistory" location="component://order/widget/ordermgr/OrderForms.xml"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -529,7 +529,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderQuantityHistory}">
-                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderQuantityHistory"/>
+                    <include-form name="OrderQuantityHistory" location="component://order/widget/ordermgr/OrderForms.xml"/>
                 </screenlet>
             </widgets>
             <fail-widgets>

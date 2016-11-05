@@ -1440,7 +1440,7 @@ under the License.
                 <!-- get the default facility Uom -->
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <entity-one entity-name="Uom" value-field="defaultWeightUom" use-cache="true" auto-field-map="false">
-                    <field-map from-field="facility.defaultWeightUomId" field-name="uomId"/>
+                    <field-map field-name="uomId" from-field="facility.defaultWeightUomId"/>
                 </entity-one>
             </actions>
             <widgets>

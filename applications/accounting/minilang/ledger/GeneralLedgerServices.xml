@@ -65,7 +65,7 @@ under the License.
             </condition-list>
         </entity-condition>
 
-        <iterate entry="acctgTrans" list="acctgTransList">
+        <iterate list="acctgTransList" entry="acctgTrans">
             <clear-field field="callServiceMap"/>
             <clear-field field="serviceResults"/>
             <set from-field="acctgTrans.acctgTransId" field="callServiceMap.acctgTransId"/>
@@ -112,7 +112,7 @@ under the License.
                 <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
             </condition-list>
         </entity-condition>
-        <iterate entry="acctgTrans" list="acctgTransList">
+        <iterate list="acctgTransList" entry="acctgTrans">
             <clear-field field="callServiceMap"/>
             <set from-field="acctgTrans.acctgTransId" field="callServiceMap.acctgTransId"/>
             <call-service service-name="postAcctgTrans" in-map-name="callServiceMap"/>
@@ -1365,7 +1365,7 @@ under the License.
                 </calcop>
             </calculate>
             <!-- if originAmount is equals to 0 do not create transaction, this is causing error in postAcctgTrans -->
-            <if-compare operator="not-equals" field="origAmount" value="0">
+            <if-compare field="origAmount" operator="not-equals" value="0">
                 <!-- Credit -->
                 <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                 <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1868,7 +1868,7 @@ under the License.
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
-                <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
+                <iterate list="taxAuthGeoIds" entry="taxAuthGeoId">
                     <clear-field field="debitEntry"/>
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
@@ -2035,7 +2035,7 @@ under the License.
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
-                <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
+                <iterate list="taxAuthGeoIds" entry="taxAuthGeoId">
                     <clear-field field="debitEntry"/>
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
@@ -2190,7 +2190,7 @@ under the License.
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
-                <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
+                <iterate list="taxAuthGeoIds" entry="taxAuthGeoId">
                     <clear-field field="creditEntry"/>
                     <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                     <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -2279,7 +2279,7 @@ under the License.
             <field field="payment" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
 
-        <if-compare value="true" field="isDisbursement" operator="equals" type="Boolean">
+        <if-compare field="isDisbursement" operator="equals" value="true" type="Boolean">
             <set field="organizationPartyId" from-field="payment.partyIdFrom"/>
             <set field="partyId" from-field="payment.partyIdTo"/>
             <set field="roleTypeId" value="BILL_FROM_VENDOR"/>

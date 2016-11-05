@@ -87,7 +87,7 @@ under the License.
         </if-not-empty>
         <set field="maxNumberOfOrders" type="Long" from-field="parameters.maxNumberOfOrders" set-if-empty="true"/>
         <set field="numberSoFar" type="Long" value="0"/>
-        <iterate entry="orderHeader" list="orderHeaderList">
+        <iterate list="orderHeaderList" entry="orderHeader">
             <log level="info" message="Checking order #${orderHeader.orderId} to add to picklist"/>
             <!-- get all ship groups, and iterate over them for each order -->
             <entity-and entity-name="OrderItemShipGroup" list="orderItemShipGroupList">
@@ -203,7 +203,7 @@ under the License.
             </else>
             </if>
 
-            <iterate entry="orderItemShipGroup" list="orderItemShipGroupList">
+            <iterate list="orderItemShipGroupList" entry="orderItemShipGroup">
                 <!-- get the order items and the order item inventory res entries -->
                 <if>
                     <condition>
@@ -230,7 +230,7 @@ under the License.
                         <set value="N" field="needsStockMove"/>
                         <set value="Y" field="allPickStarted"/>
                         <set value="N" field="hasStockToPick"/>
-                        <iterate entry="orderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
+                        <iterate list="orderItemShipGrpInvResList" entry="orderItemShipGrpInvRes">
                             <get-related-one value-field="orderItemShipGrpInvRes" relation-name="OrderItem" to-value-field="orderItem"/>
                             <if-compare field="orderItem.statusId" value="ITEM_APPROVED" operator="not-equals">
                                 <set value="N" field="pickThisOrder"/>
@@ -466,7 +466,7 @@ under the License.
         <!-- if maxNumberOfOrders is passed, get at most that many orders and go over them -->
         <!-- moved above in findOrdersToPickMove
         <calculate field="numberSoFar" type="Long"><number value="0"/></calculate>
-        <iterate entry="pickMoveInfo" list="pickMoveInfoList">
+        <iterate list="pickMoveInfoList" entry="pickMoveInfo">
             <if>
                 <condition>
                     <or>
@@ -485,15 +485,15 @@ under the License.
         </iterate>
         -->
 
-        <iterate entry="pickMoveInfo" list="pickMoveInfoList">
-            <iterate entry="orderReadyToPickInfo" list="pickMoveInfo.orderReadyToPickInfoList">
-                <iterate entry="orderItemAndShipGroupAssoc" list="orderReadyToPickInfo.orderItemAndShipGroupAssocList">
+        <iterate list="pickMoveInfoList" entry="pickMoveInfo">
+            <iterate list="pickMoveInfo.orderReadyToPickInfoList" entry="orderReadyToPickInfo">
+                <iterate list="orderReadyToPickInfo.orderItemAndShipGroupAssocList" entry="orderItemAndShipGroupAssoc">
                     <if-compare value="ITEM_APPROVED" operator="equals" field="orderItemAndShipGroupAssoc.statusId">
                         <calculate field="reservedQuantity"><number value="0"/></calculate>
 
                         <set from-field="orderItemAndShipGroupAssoc.orderItemSeqId" field="itemFilterMap.orderItemSeqId"/>
                         <filter-list-by-and map="itemFilterMap" list="orderReadyToPickInfo.orderItemShipGrpInvResList" to-list="perItemResList"/>
-                        <iterate entry="orderItemShipGrpInvRes" list="perItemResList">
+                        <iterate list="perItemResList" entry="orderItemShipGrpInvRes">
                             <set from-field="orderItemShipGrpInvRes.inventoryItemId" field="inventoryItemId"/>
                             <!-- update reserved quantity per inventoryItem, keep track of orderItems this came from -->
                             <set from-field="inventoryItems[inventoryItemId]" field="inventoryItem"/>
@@ -542,7 +542,7 @@ under the License.
                         <!-- must include issued items as well, otherwise can't really do an effective check... -->
                         <get-related value-field="orderItemAndShipGroupAssoc" relation-name="ItemIssuance" list="itemIssuances"/>
                         <calculate field="issuedQuantity"><number value="0"/></calculate>
-                        <iterate entry="itemIssuance" list="itemIssuances">
+                        <iterate list="itemIssuances" entry="itemIssuance">
                             <calculate field="issuedQuantity">
                                 <calcop field="issuedQuantity" operator="get"/>
                                 <calcop field="itemIssuance.quantity" operator="get"/>
@@ -637,7 +637,7 @@ under the License.
 
             <!-- iterate over the orderHeaderInfoList and create a PicklistBin for each order and a PicklistItem for each item -->
             <calculate field="binLocationNumber" type="Long"><number value="1"/></calculate>
-            <iterate entry="orderHeaderInfo" list="orderHeaderInfoList">
+            <iterate list="orderHeaderInfoList" entry="orderHeaderInfo">
                 <clear-field field="picklistBinId"/>
                 <clear-field field="createPicklistBinMap"/>
                 <set from-field="picklistId" field="createPicklistBinMap.picklistId"/>
@@ -651,8 +651,8 @@ under the License.
                 <calculate field="binLocationNumber" type="Long"><calcop field="binLocationNumber" operator="add"/><number value="1"/></calculate>
                 <set field="itemsInBin" type="Long" value="0"/>
 
-                <iterate entry="orderItemInfo" list="orderHeaderInfo.orderItemInfoList">
-                    <iterate entry="orderItemShipGrpInvRes" list="orderItemInfo.orderItemShipGrpInvResList">
+                <iterate list="orderHeaderInfo.orderItemInfoList" entry="orderItemInfo">
+                    <iterate list="orderItemInfo.orderItemShipGrpInvResList" entry="orderItemShipGrpInvRes">
                         <log level="info" message="Getting pick quantity : ${orderItemShipGrpInvRes.quantity} - ${orderItemShipGrpInvRes.quantityNotAvailable}"/>
                         <set field="quantityToPick" from-field="orderItemShipGrpInvRes.quantity"/>
                         <!--If a portion of the item is not available, then reduce the quantity to pick.  For example,
@@ -716,12 +716,12 @@ under the License.
     <simple-method method-name="printPickSheets" short-description="Print pick sheets for orders">
         <if-empty field="parameters.maxNumberOfOrdersToPrint">
             <add-error error-list-name="error_list">
-                <fail-property property="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet" resource="ProductErrorUiLabels"/>
+                <fail-property resource="ProductErrorUiLabels" property="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet"/>
             </add-error>
         <else>
             <if-compare field="parameters.maxNumberOfOrdersToPrint" operator="less-equals" value="0" type="Long">
                 <add-error error-list-name="error_list">
-                    <fail-property property="ProductNumberOfOrdersMustBeGreaterThenZeroToPrintPickSheet" resource="ProductErrorUiLabels"/>
+                    <fail-property resource="ProductErrorUiLabels" property="ProductNumberOfOrdersMustBeGreaterThenZeroToPrintPickSheet"/>
                 </add-error>
             </if-compare>
         </else>
@@ -791,8 +791,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
-                    <field-map from-field="lookedUpValue.statusId" field-name="statusId"/>
-                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map field-name="statusId" from-field="lookedUpValue.statusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
@@ -874,8 +874,8 @@ under the License.
             <if-compare-field field="parameters.itemStatusId" to-field="lookedUpValue.itemStatusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
-                    <field-map from-field="lookedUpValue.itemStatusId" field-name="statusId"/>
-                    <field-map from-field="parameters.itemStatusId" field-name="statusIdTo"/>
+                    <field-map field-name="statusId" from-field="lookedUpValue.itemStatusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.itemStatusId"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.itemStatusId} to ${parameters.itemStatusId} is not allowed." field="error_list[]"/>
@@ -928,7 +928,7 @@ under the License.
         <set value="ko" field="linkProductAndLot"/>
         
         <!-- ... and check if one of the inventoryItems have this productId -->
-        <iterate entry="inventoryItem" list="inventoryItemList">
+        <iterate list="inventoryItemList" entry="inventoryItem">
             <if-compare-field operator="equals" to-field="inventoryItem.productId" field="parameters.productId">
                 <set value="ok" field="linkProductAndLot"/>
             </if-compare-field>
@@ -967,10 +967,10 @@ under the License.
         
            <!-- Retreive the informations about the OrderItemShipGrpInvRes of the edited PicklistItem -->
            <entity-one value-field="oisgir" entity-name="OrderItemShipGrpInvRes">
-               <field-map from-field="parameters.orderId" field-name="orderId"/>
-               <field-map from-field="parameters.shipGroupSeqId" field-name="shipGroupSeqId"/>
-               <field-map from-field="parameters.orderItemSeqId" field-name="orderItemSeqId"/>
-               <field-map from-field="parameters.inventoryItemId" field-name="inventoryItemId"/>
+               <field-map field-name="orderId" from-field="parameters.orderId"/>
+               <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
+               <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+               <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
            </entity-one>
            
            <!-- We remove the edited PicklistItem ... -->
@@ -997,7 +997,7 @@ under the License.
            
            <!-- If the new OrderItemShipGrpInvRes don't contains all of the item, we recreate OrderItemShipGrpInvRes
                with the previous parameters -->
-           <if-compare-field operator="less" field="parameters.quantity" to-field="picklistItem.quantity" type="Integer">
+           <if-compare-field field="parameters.quantity" operator="less" to-field="picklistItem.quantity" type="Integer">
                <clear-field field="inputMap"/>
                
                <set from-field="parameters.orderId" field="inputMap.orderId"/>
@@ -1045,7 +1045,7 @@ under the License.
            <clear-field field="inputMap"/>
            
            <!-- We create the PicklistItem who correspond at the new(s) OrderItemShipGrpInvRes -->
-           <iterate entry="oisgir" list="oisgirs">
+           <iterate list="oisgirs" entry="oisgir">
                
                <!-- actionOnPli can have 3 values :
                    - new : the picklistItem has never existed and is created by this service
@@ -1065,8 +1065,8 @@ under the License.
                </if-not-empty>
                
                <iterate entry="pli" list="picklistItemList">
-                   <if-compare-field operator="equals" field="pli.inventoryItemId" to-field="oisgir.inventoryItemId">
-                       <if-compare-field operator="equals" field="pli.quantity" to-field="quantity">
+                   <if-compare-field field="pli.inventoryItemId" operator="equals" to-field="oisgir.inventoryItemId">
+                       <if-compare-field field="pli.quantity" operator="equals" to-field="quantity">
                            <set field="actionOnPli" value="none" />
                            <else>
                                <set field="actionOnPli" value="edit" />
@@ -1158,7 +1158,7 @@ under the License.
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>
         </entity-count>
-        <iterate entry="picklist" list="picklistList">
+        <iterate list="picklistList" entry="picklist">
             <call-simple-method method-name="getPicklistSingleInfoInline"/>
             <field-to-list field="picklistInfo" list="picklistInfoList"/>
         </iterate>
@@ -1193,10 +1193,10 @@ under the License.
         <field-to-result field="picklistInfo"/>
 
         <!-- Assemble the information per facility location for the pick sheet -->
-        <iterate entry="picklistBinInfo" list="picklistInfo.picklistBinInfoList">
+        <iterate list="picklistInfo.picklistBinInfoList" entry="picklistBinInfo">
             <set from-field="picklistBinInfo.picklistBin" field="picklistBinByIdMap[picklistBinInfo.picklistBin.picklistBinId]"/>
 
-            <iterate entry="picklistItemInfo" list="picklistBinInfo.picklistItemInfoList">
+            <iterate list="picklistBinInfo.picklistItemInfoList" entry="picklistItemInfo">
                 <!--
                     In this iteration through the items we want 2 things:
                       1. A Map with all FacilityLocation records by locationSeqId, so that we have one unique of each
@@ -1252,13 +1252,13 @@ under the License.
         <order-value-list list="facilityLocationList" order-by-list="facilityLocsOrdLst"/>
 
         <!-- Now we have an ordered list of FacilityLocations, create a facilityLocationInfoList -->
-        <iterate entry="facilityLocation" list="facilityLocationList">
+        <iterate list="facilityLocationList" entry="facilityLocation">
             <clear-field field="facilityLocationInfo"/>
             <set from-field="facilityLocation" field="facilityLocationInfo.facilityLocation"/>
             <set from-field="picklistItemInfoListByLocationSeqIdMap[facilityLocation.locationSeqId]" field="facilityLocationInfo.picklistItemInfoList"/>
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
-            <iterate entry="picklistItemInfo" list="facilityLocationInfo.picklistItemInfoList">
+            <iterate list="facilityLocationInfo.picklistItemInfoList" entry="picklistItemInfo">
                 <calculate field="facilityLocationInfo.pickQuantity">
                     <calcop field="facilityLocationInfo.pickQuantity" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
@@ -1305,13 +1305,13 @@ under the License.
         <order-value-list list="productList" order-by-list="productsOrdLst"/>
 
         <!-- Now we have an ordered list of Products, create a noLocationProductInfoList -->
-        <iterate entry="product" list="productList">
+        <iterate list="productList" entry="product">
             <clear-field field="productInfo"/>
             <set from-field="product" field="productInfo.product"/>
             <set from-field="picklistItemInfoListByProductIdMap[product.productId]" field="productInfo.picklistItemInfoList"/>
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
-            <iterate entry="picklistItemInfo" list="productInfo.picklistItemInfoList">
+            <iterate list="productInfo.picklistItemInfoList" entry="picklistItemInfo">
                 <calculate field="productInfo.pickQuantity">
                     <calcop field="productInfo.pickQuantity" operator="add"/>
                     <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
@@ -1359,7 +1359,7 @@ under the License.
         <!-- expects a picklist GenericValue to be in the context, and creates a picklistInfo Map -->
         <clear-field field="picklistRoleInfoList"/>
         <get-related value-field="picklist" relation-name="PicklistRole" list="picklistRoleList"/>
-        <iterate entry="picklistRole" list="picklistRoleList">
+        <iterate list="picklistRoleList" entry="picklistRole">
             <clear-field field="picklistRoleInfo"/>
             <get-related-one value-field="picklistRole" relation-name="PartyNameView" to-value-field="picklistRoleInfo.partyNameView" use-cache="true"/>
             <get-related-one value-field="picklistRole" relation-name="RoleType" to-value-field="picklistRoleInfo.roleType" use-cache="true"/>
@@ -1369,7 +1369,7 @@ under the License.
 
         <clear-field field="picklistStatusHistoryInfoList"/>
         <get-related value-field="picklist" relation-name="PicklistStatusHistory" list="picklistStatusHistoryList"/>
-        <iterate entry="picklistStatusHistory" list="picklistStatusHistoryList">
+        <iterate list="picklistStatusHistoryList" entry="picklistStatusHistory">
             <clear-field field="picklistStatusHistoryInfo"/>
             <get-related-one value-field="picklistStatusHistory" relation-name="StatusItem" to-value-field="picklistStatusHistoryInfo.statusItem" use-cache="true"/>
             <get-related-one value-field="picklistStatusHistory" relation-name="ToStatusItem" to-value-field="picklistStatusHistoryInfo.statusItemTo" use-cache="true"/>
@@ -1382,7 +1382,7 @@ under the License.
 
         <set value="+binLocationNumber" field="picklistBinOrderList[]"/>
         <get-related value-field="picklist" relation-name="PicklistBin" list="picklistBinList" order-by-list="picklistBinOrderList"/>
-        <iterate entry="picklistBin" list="picklistBinList">
+        <iterate list="picklistBinList" entry="picklistBin">
             <clear-field field="picklistBinInfo"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderHeader" to-value-field="picklistBinInfo.primaryOrderHeader"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderItemShipGroup" to-value-field="picklistBinInfo.primaryOrderItemShipGroup"/>
@@ -1390,7 +1390,7 @@ under the License.
 
             <clear-field field="picklistItemInfoList"/>
             <get-related value-field="picklistBin" relation-name="PicklistItem" list="picklistItemList" use-cache="true"/>
-            <iterate entry="picklistItem" list="picklistItemList">
+            <iterate list="picklistItemList" entry="picklistItem">
                 <clear-field field="picklistItemInfo"/>
                 <get-related-one value-field="picklistItem" relation-name="OrderItem" to-value-field="picklistItemInfo.orderItem"/>
                 <get-related-one value-field="picklistItemInfo.orderItem" relation-name="Product" to-value-field="picklistItemInfo.product"/>
@@ -1505,14 +1505,14 @@ under the License.
         <order-value-list list="facilityLocations" order-by-list="facilityLocsOrdLst"/>
 
         <!-- for each facility location add an entry to the inventoryItemInfoList -->
-        <iterate entry="facilityLocation" list="facilityLocations">
+        <iterate list="facilityLocations" entry="facilityLocation">
             <!-- facilityLocationInfoList: facilityLocation, productInfoList (product, quantity, inventoryItemList, orderItemList) -->
             <clear-field field="facilityLocationInfo"/>
             <set from-field="facilityLocation" field="facilityLocationInfo.facilityLocation"/>
 
             <!-- inventoryItemInfoList: facilityLocation, inventoryItem, orderItems, quantity, product, statusItems -->
             <set from-field="inventoryItemsByLocation[facilityLocation.locationSeqId]" field="inventoryItemIdList"/>
-            <iterate entry="inventoryItemId" list="inventoryItemIdList">
+            <iterate list="inventoryItemIdList" entry="inventoryItemId">
                 <clear-field field="inventoryItemInfo"/>
                 <set from-field="facilityLocation" field="inventoryItemInfo.facilityLocation"/>
                 <set from-field="inventoryItems[inventoryItemId]" field="inventoryItemInfo.inventoryItem"/>
@@ -1531,7 +1531,7 @@ under the License.
                 </calculate>
                 <set from-field="inventoryItemInfo.inventoryItem" field="productInfoMap.${inventoryItemInfo.product.productId}.inventoryItemList[]"/>
                 <!-- put orderItems in Map by orderId:orderItemSeqId to make sure they are unique -->
-                <iterate entry="orderItem" list="inventoryItemInfo.orderItems">
+                <iterate list="inventoryItemInfo.orderItems" entry="orderItem">
                     <set from-field="orderItem" field="orderItemMap.${orderItem.orderId}:${orderItem.orderItemSeqId}"/>
                 </iterate>
             </iterate>
@@ -1551,7 +1551,7 @@ under the License.
         </iterate>
 
         <!-- add all noLocationInventoryItemIds to inventoryItemInfoList with all entries except facilityLocation -->
-        <iterate entry="inventoryItemId" list="noLocationInventoryItemIds">
+        <iterate list="noLocationInventoryItemIds" entry="inventoryItemId">
             <set from-field="inventoryItems${inventoryItemId}" field="inventoryItemInfo.inventoryItem"/>
             <set from-field="inventoryItemOrderItems[inventoryItemId]" field="inventoryItemInfo.orderItems"/>
             <set from-field="inventoryItemQuantities[inventoryItemId]" field="inventoryItemInfo.quantity"/>
@@ -1584,7 +1584,7 @@ under the License.
         <set field="allCancelled" type="Boolean" value="true"/>
 
         <!-- determine if all the items are completed and/or cancelled -->
-        <iterate entry="item" list="picklistItem">
+        <iterate list="picklistItem" entry="item">
             <log level="info" message="checking status for item: ${item}"/>
             <if-compare field="item.itemStatusId" value="PICKITEM_CANCELLED" operator="not-equals">
                 <log level="info" message="item is not cancelled; all cancelled set to false"/>
@@ -1618,12 +1618,12 @@ under the License.
             <field-map field-name="picklistId" from-field="parameters.picklistId"/>
         </entity-and>
         <if-not-empty field="picklistBinList">
-            <iterate entry="picklistBin" list="picklistBinList">
+            <iterate list="picklistBinList" entry="picklistBin">
                 <entity-and entity-name="PicklistItem" list="itemList">
                     <field-map field-name="picklistBinId" from-field="picklistBin.picklistBinId"/>
                 </entity-and>
                 <if-not-empty field="itemList">
-                    <iterate entry="item" list="itemList">
+                    <iterate list="itemList" entry="item">
                         <set field="item.itemStatusId" value="PICKITEM_CANCELLED"/>
                         <store-value value-field="item"/>
                     </iterate>

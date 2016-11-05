@@ -34,7 +34,7 @@ under the License.
         </if-empty>
 
         <!-- only set statusId if hasScheduleAdminRelatedPermission -->
-        <set-nonpk-fields value-field="schedule" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="schedule"/>
         <if-has-permission permission="ORDERMGR" action="_${checkAction}">
         <else>
             <!-- no permission, set to initial -->
@@ -58,7 +58,7 @@ under the License.
 
         <!-- only set statusId if hasScheduleAdminRelatedPermission -->
         <set from-field="schedule.statusId" field="saveStatusId"/>
-        <set-nonpk-fields value-field="schedule" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="schedule"/>
         <if-has-permission permission="ORDERMGR" action="_${checkAction}">
         <else>
             <!-- no permission, restore saved status -->
@@ -93,7 +93,7 @@ under the License.
         <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
         <find-by-and entity-name="PartyRole" map="shipmentClerkFindMap" list="shipmentClerkRoles"/>
-        <iterate entry="shipmentClerkRole" list="shipmentClerkRoles">
+        <iterate list="shipmentClerkRoles" entry="shipmentClerkRole">
             <set field="sendToPartyIdMap[shipmentClerkRole.partyId]" from-field="shipmentClerkRole.partyId"/>
         </iterate>
 
@@ -102,7 +102,7 @@ under the License.
             <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
             <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map="sendToPartyPcmFindMap" list="sendToPartyPartyAndContactMechs"/>
-            <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
+            <iterate list="sendToPartyPartyAndContactMechs" entry="sendToPartyPartyAndContactMech">
                 <string-append field="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>

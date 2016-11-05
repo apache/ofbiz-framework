@@ -136,17 +136,17 @@
                         </condition>
                         <then>
                             <!-- Product Owner -->
-                            <entity-and list="productRoles" entity-name="ProductRole">
+                            <entity-and entity-name="ProductRole" list="productRoles">
                                 <field-map field-name="productId" from-field="productId"/>
                                 <field-map field-name="partyId" from-field="partyId"/>
                                 <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
                             </entity-and>
                             <!-- Memberships related to this product. -->
-                            <entity-and list="projectSprints" entity-name="ProjectSprint">
+                            <entity-and entity-name="ProjectSprint" list="projectSprints">
                                 <field-map field-name="productId" from-field="productId"/>
                             </entity-and>
                             <set field="isMembership" type="Boolean" value="false"/>
-                            <iterate entry="projectSprintEntry" list="projectSprints">
+                            <iterate list="projectSprints" entry="projectSprintEntry">
                                 <entity-condition list="assigns" entity-name="WorkEffortPartyAssignAndRoleType">
                                     <condition-list>
                                         <condition-expr field-name="workEffortId" operator="equals" from-field="projectSprintEntry.sprintId"/>

@@ -109,7 +109,7 @@ under the License.
             </and>
         </assert>
         <!-- Confirm that a matching WorkEffort was created -->
-        <entity-and list="workEfforts" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="workEfforts">
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
             <field-map field-name="currentStatusId" from-field="serviceCtx.currentStatusId"/>
             <field-map field-name="workEffortName" from-field="serviceCtx.workEffortName"/>
@@ -140,7 +140,7 @@ under the License.
             <results-to-map map-name="serviceResult"/>
         </call-service>
 <!--         Confirm that a matching Quoteterm was created -->
-        <entity-and list="quoteTermList" entity-name="QuoteTerm">
+        <entity-and entity-name="QuoteTerm" list="quoteTermList">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>

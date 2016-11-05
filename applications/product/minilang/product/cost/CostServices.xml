@@ -65,7 +65,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <set field="productCost" value="0" type="BigDecimal"/>
-        <iterate entry="costComponent" list="costComponents">
+        <iterate list="costComponents" entry="costComponent">
             <calculate field="productCost" decimal-scale="6">
                 <calcop field="costComponent.cost" operator="add">
                     <calcop field="productCost" operator="get"/>
@@ -198,7 +198,7 @@ under the License.
         <!-- Now compute the costs derived from CostComponentCalc records associated with the task -->
         <get-related relation-name="WorkEffortCostCalc" list="weccs" value-field="task"/>
         <filter-list-by-date list="weccs"/>
-        <iterate entry="wecc" list="weccs">
+        <iterate list="weccs" entry="wecc">
             <clear-field field="totalCostComponentCost"/>
             <clear-field field="totalCostComponentTime"/>
             <get-related-one relation-name="CostComponentCalc" to-value-field="costComponentCalc" value-field="wecc"/>
@@ -261,7 +261,7 @@ under the License.
             <result-to-field result-name="componentsMap"/>
         </call-service>
         <if-not-empty field="componentsMap">
-            <iterate entry="componentMap" list="componentsMap">
+            <iterate list="componentsMap" entry="componentMap">
                 <clear-field field="inputMap"/>
                 <set field="product" from-field="componentMap.product"/>
                 <set field="inputMap.productId" from-field="product.productId"/>
@@ -297,7 +297,7 @@ under the License.
             <result-to-field result-name="tasks"/>
             <result-to-field result-name="routing"/>
         </call-service>
-        <iterate entry="task" list="tasks">
+        <iterate list="tasks" entry="task">
             <clear-field field="callSvcMap"/>
             <set from-field="task.workEffortIdTo" field="callSvcMap.workEffortId"/>
             <set from-field="parameters.currencyUomId" field="callSvcMap.currencyUomId"/>
@@ -373,7 +373,7 @@ under the License.
             <condition-expr field-name="productId" from-field="parameters.productId"/>
             <order-by field-name="sequenceNum"/>
         </entity-condition>
-        <iterate entry="productCostComponentCalc" list="productCostComponentCalcs">
+        <iterate list="productCostComponentCalcs" entry="productCostComponentCalc">
             <get-related-one relation-name="CostComponentCalc" to-value-field="costComponentCalc" value-field="productCostComponentCalc"/>
             <get-related-one relation-name="CustomMethod" to-value-field="customMethod" value-field="costComponentCalc"/>
             <if-empty field="customMethod">

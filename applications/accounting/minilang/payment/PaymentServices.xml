@@ -109,9 +109,9 @@ under the License.
             <!-- check if only status change -->
             <make-value value-field="newPayment" entity-name="Payment"/>
             <make-value value-field="oldPayment" entity-name="Payment"/>
-            <set-nonpk-fields value-field="newPayment" map="payment"/>
-            <set-nonpk-fields value-field="oldPayment" map="payment"/>
-            <set-nonpk-fields value-field="newPayment" map="parameters"/>
+            <set-nonpk-fields map="payment" value-field="newPayment"/>
+            <set-nonpk-fields map="payment" value-field="oldPayment"/>
+            <set-nonpk-fields map="parameters" value-field="newPayment"/>
             <!-- fields :- comments, paymentRefNum, finAccountTransId, statusId can editable for Payment -->
             <set field="oldPayment.statusId" from-field="newPayment.statusId"/>
             <set field="oldPayment.comments" from-field="newPayment.comments"/>
@@ -254,7 +254,7 @@ under the License.
                 <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedToPayment">
                     <field field="toPayment" type="GenericValue"/>
                 </call-class-method>
-                <if-compare-field operator="less" field="notAppliedPayment" to-field="notAppliedToPayment">
+                <if-compare-field field="notAppliedPayment" operator="less" to-field="notAppliedToPayment">
                     <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
                     <else>
                         <set field="paymentAppl.amountApplied" from-field="notAppliedToPayment"/>
@@ -910,18 +910,18 @@ under the License.
             <return/>
         </if-not-empty>
 
-        <entity-and list="orderRoleToList" entity-name="OrderRole">
+        <entity-and entity-name="OrderRole" list="orderRoleToList">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
         </entity-and>
         <first-from-list entry="orderRoleTo" list="orderRoleToList"/>
-        <entity-and list="orderRoleFromList" entity-name="OrderRole">
+        <entity-and entity-name="OrderRole" list="orderRoleFromList">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             <field-map field-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
         </entity-and>
         <first-from-list entry="orderRoleFrom" list="orderRoleFromList"/>
         <if-compare operator="equals" value="PURCHASE_ORDER" field="orderHeader.orderTypeId">
-            <entity-and list="agreementList" entity-name="Agreement" filter-by-date="true">
+            <entity-and entity-name="Agreement" list="agreementList" filter-by-date="true">
                 <field-map field-name="partyIdFrom" from-field="orderRoleFrom.partyId"/>
                 <field-map field-name="partyIdTo" from-field="orderRoleTo.partyId"/>
                 <field-map field-name="agreementTypeId" value="PURCHASE_AGREEMENT"/>
@@ -929,7 +929,7 @@ under the License.
             <set field="parameters.paymentTypeId" value="VENDOR_PAYMENT"/>
             <set field="organizationPartyId" from-field="orderRoleFrom.partyId"/>
             <else>
-               <entity-and list="agreementList" entity-name="Agreement" filter-by-date="true">
+               <entity-and entity-name="Agreement" list="agreementList" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="orderRoleFrom.partyId"/>
                     <field-map field-name="partyIdTo" from-field="orderRoleTo.partyId"/>
                     <field-map field-name="agreementTypeId" value="SALES_AGREEMENT"/>
@@ -940,7 +940,7 @@ under the License.
         </if-compare>
         <first-from-list entry="agreement" list="agreementList"/>
         <if-not-empty field="agreement">
-            <entity-and list="orderTermList" entity-name="OrderTerm">
+            <entity-and entity-name="OrderTerm" list="orderTermList">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
                 <field-map field-name="termTypeId" value="FIN_PAYMENT_TERM"/>
             </entity-and>
@@ -969,14 +969,14 @@ under the License.
                     <not>
                         <if-empty field="partyAcctgPreference.baseCurrencyUomId" />
                     </not>
-                    <if-compare-field to-field="partyAcctgPreference.baseCurrencyUomId" operator="equals" field="orderHeader.currencyUom" />
+                    <if-compare-field field="orderHeader.currencyUom" operator="equals" to-field="partyAcctgPreference.baseCurrencyUomId"> />
                 </and>
             </condition>
             <then>
                 <set field="parameters.currencyUomId" from-field="orderHeader.currencyUom" />
                 <set field="parameters.amount" from-field="orderHeader.grandTotal" />
                 <!-- get conversion rate from related invoice when exists -->
-                <entity-and list="invoices" entity-name="OrderItemBillingAndInvoiceAndItem">
+                <entity-and entity-name="OrderItemBillingAndInvoiceAndItem" list="invoices">
                     <field-map field-name="orderId" from-field="orderId" />
                 </entity-and>
                 <if-not-empty field="invoices">
@@ -1068,7 +1068,7 @@ under the License.
 
                 <if-not-empty field="payments">
                     <!-- check if already applied -->
-                    <entity-and list="paymentAppls" entity-name="PaymentApplication">
+                    <entity-and entity-name="PaymentApplication" list="paymentAppls">
                         <field-map field-name="paymentId" from-field="payments[0].paymentId"/>
                     </entity-and>
                     <if-empty field="paymentAppls">
@@ -1100,7 +1100,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="invoiceDate"/>
                 </entity-condition>
-                <iterate entry="invoice" list="invoices">
+                <iterate list="invoices" entry="invoice">
                     <set field="isPurchaseInvoice" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
                     <set field="isSalesInvoice" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')}" type="Boolean"/>
                     <if>
@@ -1120,15 +1120,15 @@ under the License.
                                 <result-to-field result-name="isForeign"/>
                             </call-service>
                             <if-compare operator="equals" value="true" field="isForeign">
-                                <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.actualCurrencyAmount">
-                                    <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.actualCurrencyUomId">
+                                <if-compare-field field="invoiceTotal" operator="equals" to-field="payment.actualCurrencyAmount">
+                                    <if-compare-field field="invoice.currencyUomId" operator="equals" to-field="payment.actualCurrencyUomId">
                                         <set field="invoiceId" from-field="invoice.invoiceId"/>
                                         <set field="amountApplied" from-field="payment.actualCurrencyAmount"/>
                                     </if-compare-field>
                                 </if-compare-field>
                                 <else>
-                                    <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
-                                        <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.currencyUomId">
+                                    <if-compare-field field="invoiceTotal" operator="equals" to-field="payment.amount">
+                                        <if-compare-field field="invoice.currencyUomId" operator="equals" to-field="payment.currencyUomId">
                                             <set field="invoiceId" from-field="invoice.invoiceId"/>
                                             <set field="amountApplied" from-field="payment.amount"/>
                                         </if-compare-field>
@@ -1139,7 +1139,7 @@ under the License.
                     </if>
                 </iterate>
                 <if-not-empty field="invoiceId">
-                    <entity-and list="paymentAppls" entity-name="PaymentApplication">
+                    <entity-and entity-name="PaymentApplication" list="paymentAppls">
                         <field-map field-name="invoiceId" from-field="invoiceId"/>
                     </entity-and>
                     <if-empty field="paymentAppls">

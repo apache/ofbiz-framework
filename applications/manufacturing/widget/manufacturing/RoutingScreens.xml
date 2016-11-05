@@ -242,7 +242,7 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortAssoc" list="allRoutings">
-                    <field-map from-field="workEffortId" field-name="workEffortIdTo"/>
+                    <field-map field-name="workEffortIdTo" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -267,7 +267,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allProducts">
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
-                    <field-map from-field="workEffortId" field-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -293,7 +293,7 @@ under the License.
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
-                    <field-map from-field="workEffortId" field-name="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffortGoodStandard" value-field="routingProductLink" auto-field-map="true"/>
@@ -319,8 +319,8 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
                 <entity-and entity-name="WorkEffortAssocView" list="allRoutingTasks">
-                    <field-map from-field="workEffortId" field-name="workEffortIdFrom"/>
-                    <field-map from-field="workEffortAssocTypeId" field-name="workEffortAssocTypeId"/>
+                    <field-map field-name="workEffortIdFrom" from-field="workEffortId"/>
+                    <field-map field-name="workEffortAssocTypeId" from-field="workEffortAssocTypeId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
@@ -353,8 +353,8 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <!--<entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>-->
                 <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
-                    <field-map from-field="workEffortId" field-name="workEffortId"/>
-                    <field-map from-field="workEffortGoodStdTypeId" field-name="workEffortGoodStdTypeId"/>
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <field-map field-name="workEffortGoodStdTypeId" from-field="workEffortGoodStdTypeId"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffortGoodStandard" value-field="routingProductLink" auto-field-map="true"/>
                 <!--<script location="component://manufacturing/groovyScripts/routing/EditRoutingProductLink.groovy"/>-->

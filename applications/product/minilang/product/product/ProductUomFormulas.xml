@@ -41,7 +41,7 @@ under the License.
         <set field="args" from-field="parameters.arguments"/>
 
         <if-empty field="args.conversionParameters.productId">
-            <add-error> <fail-property property="ProductNoSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <add-error> <fail-property resource="ProductUiLabels" property="ProductNoSpecifiedForUomConversion"/> </add-error>
             <check-errors/>
         </if-empty>
 
@@ -52,7 +52,7 @@ under the License.
         <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
 
         <if-empty field="product">
-            <add-error> <fail-property property="ProductNoSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <add-error> <fail-property resource="ProductUiLabels" property="ProductNoSpecifiedForUomConversion"/> </add-error>
             <check-errors/>
         </if-empty>
 

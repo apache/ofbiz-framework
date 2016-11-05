@@ -428,7 +428,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/>
         </check-permission>
         <check-errors/>
-        <entity-and list="quoteTermList" entity-name="QuoteTerm">
+        <entity-and entity-name="QuoteTerm" list="quoteTermList">
             <field-map field-name="quoteId" from-field="parameters.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
         </entity-and>
@@ -604,7 +604,7 @@ under the License.
         <make-value value-field="lookupRequestRole" entity-name="CustRequestParty"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
         <find-by-and entity-name="CustRequestParty" map="lookupRequestRole" list="roles"/>
-        <iterate entry="role" list="roles">
+        <iterate list="roles" entry="role">
             <clear-field field="cqrContext"/>
             <set from-field="quoteId" field="cqrContext.quoteId"/>
             <set from-field="role.partyId" field="cqrContext.partyId"/>

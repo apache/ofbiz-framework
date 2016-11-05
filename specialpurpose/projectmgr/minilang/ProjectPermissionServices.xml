@@ -163,7 +163,7 @@
             <!--call-simple-method method-name="checkProjectMembership"/-->
             <set field="isMember" value="true" type="Boolean"/>
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
-            <entity-and list="custRequests" entity-name="WorkEffortCustRequestView">
+            <entity-and entity-name="WorkEffortCustRequestView" list="custRequests">
                 <field-map field-name="workEffortId" from-field="taskId"/>
             </entity-and>
             <first-from-list list="custRequests" entry="custRequest"/>

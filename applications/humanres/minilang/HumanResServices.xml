@@ -61,7 +61,7 @@
             </then>
             <else>
                 <add-error>
-                    <fail-property property="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff" resource="HumanResUiLabels"/>
+                    <fail-property resource="HumanResUiLabels" property="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff"/>
                 </add-error>
                 <check-errors/>
             </else>
@@ -126,7 +126,7 @@
     <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <check-errors/>
         <property-to-field resource="HumanResUiLabels" property="HumanResLeaveCreationSuccess" field="successMessage"/>
@@ -210,7 +210,7 @@
     
     <simple-method method-name="updateSalaryStep" short-description="Update Salary Step">
         <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="parameters.userLogin.userLoginId"/>
         <now field="fromDate"/>
         <set field="lookedUpValue.dateModified" from-field="fromDate"/>

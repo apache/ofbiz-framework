@@ -144,7 +144,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="Send BIRT report by mail">
-                                    <include-form location="component://birt/widget/birt/BirtForms.xml" name="EditMail"/>
+                                    <include-form name="EditMail" location="component://birt/widget/birt/BirtForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>

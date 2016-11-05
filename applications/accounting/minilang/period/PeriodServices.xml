@@ -28,7 +28,7 @@ under the License.
                 <result-to-field result-name="parentOrganizationPartyIdList"/>
             </call-service>
 
-            <iterate entry="curOrganizationPartyId" list="parentOrganizationPartyIdList">
+            <iterate list="parentOrganizationPartyIdList" entry="curOrganizationPartyId">
                 <clear-field field="orgTimePeriodList"/>
                 <entity-condition entity-name="CustomTimePeriod" list="orgTimePeriodList" use-cache="true">
                     <condition-list combine="and">

@@ -30,7 +30,7 @@
             <entity-and entity-name="CommunicationEventRole" list="commRoles">
                 <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
-            <iterate entry="commRole" list="commRoles">
+            <iterate list="commRoles" entry="commRole">
                 <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
                 <store-value value-field="commRole"/>
             </iterate>
@@ -103,7 +103,7 @@
         </entity-and>
         <!-- if all assigns are complete the task will be set to complete -->
         <if-not-empty field="assigns">
-            <iterate entry="assign" list="assigns">
+            <iterate list="assigns" entry="assign">
                 <set-service-fields service-name="updateTaskAssigment" map="assign" to-map="upd"/>
                 <set field="upd.statusId" value="PAS_COMPLETED"/>
                 <call-service service-name="updateTaskAssigment" in-map-name="upd"/>

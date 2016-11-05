@@ -46,10 +46,10 @@ under the License.
                 <set field="layoutSettings.middleTopLink3" value="${lastSystemInfoNote3.moreInfoUrl}${groovy: if (lastSystemInfoNote3&amp;&amp;lastSystemInfoNote3.moreInfoItemName&amp;&amp;lastSystemInfoNote3.moreInfoItemId)&quot;?&quot; + lastSystemInfoNote3.moreInfoItemName + &quot;=&quot; + lastSystemInfoNote3.moreInfoItemId + &quot;&amp;id=&quot; + lastSystemInfoNote3.moreInfoItemId;}"/>
                 <!-- Help link actions -->
                 <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
-                <entity-and list="pageAvail" entity-name="ContentAssoc">
+                <entity-and entity-name="ContentAssoc" list="pageAvail">
                     <field-map field-name="mapKey" from-field="helpTopic"/>
                 </entity-and>
-                <entity-and list="layoutSettings.WEB_ANALYTICS" entity-name="WebAnalyticsConfig">
+                <entity-and entity-name="WebAnalyticsConfig" list="layoutSettings.WEB_ANALYTICS">
                     <field-map field-name="webAnalyticsTypeId" value="BACKEND_ANALYTICS"/>
                 </entity-and>
             </actions>
@@ -67,7 +67,7 @@ under the License.
                         <entity-one value-field="orgPartyLogoMap" entity-name="PartyGroup">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                         </entity-one>
-                        <entity-and list="orgPartyContentMap" entity-name="PartyContent" filter-by-date="true">
+                        <entity-and entity-name="PartyContent" list="orgPartyContentMap" filter-by-date="true">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                             <field-map field-name="partyContentTypeId" value="LGOIMGURL"/>
                             <order-by field-name="-fromDate"/>

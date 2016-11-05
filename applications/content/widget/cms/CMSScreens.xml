@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindCMSContent"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
                 <service service-name="urlEncodeArgs" result-map="result">
-                    <field-map from-field="requestParameters" field-name="mapIn"/>
+                    <field-map field-name="mapIn" from-field="requestParameters"/>
                 </service>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>

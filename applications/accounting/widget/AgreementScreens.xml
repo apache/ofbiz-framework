@@ -160,7 +160,7 @@ under the License.
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-and entity-name="AgreementItem" list="agreementItems">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -268,8 +268,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementPromoAppl" list="agreementPromoAppls">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
             </actions>
@@ -331,8 +331,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementTerm" list="agreementTerms">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -393,8 +393,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="productId"/>
                 </entity-and>
             </actions>
@@ -429,8 +429,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementFacilityAppl" list="agreementFacilities">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="facilityId"/>
                 </entity-and>
             </actions>
@@ -466,8 +466,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="productId"/>
                 </entity-and>
             </actions>
@@ -499,8 +499,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementFacilityAppl" list="agreementFacilities">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="facilityId"/>
                 </entity-and>
             </actions>
@@ -592,8 +592,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="productId"/>
                 </entity-and>
             </actions>
@@ -630,8 +630,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                     <order-by field-name="productId"/>
                 </entity-and>
             </actions>
@@ -712,8 +712,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementPartyApplic" list="agreementParties">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -774,8 +774,8 @@ under the License.
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementGeographicalApplic" list="agreementGeographicalApplics">
-                    <field-map from-field="agreement.agreementId" field-name="agreementId"/>
-                    <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <field-map field-name="agreementId" from-field="agreement.agreementId"/>
+                    <field-map field-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                 </entity-and>
             </actions>
             <widgets>

@@ -59,7 +59,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="SurveyQuestion" field="newEntity.surveyQuestionId"/>
         <create-value value-field="newEntity"/>
-        <field-to-result result-name="surveyQuestionId" field="newEntity.surveyQuestionId"/>
+        <field-to-result field="newEntity.surveyQuestionId" result-name="surveyQuestionId"/>
     </simple-method>
     <simple-method method-name="updateSurveyQuestion" short-description="Update Survey Question">
         <if>
@@ -157,14 +157,14 @@
         <set field="answers" from-field="parameters.answers"/>
 
         <!-- make sure all required fields were responded to -->
-        <iterate entry="surveyQuestionAndAppl" list="surveyQuestionAndApplList">
+        <iterate list="surveyQuestionAndApplList" entry="surveyQuestionAndAppl">
             <!-- for validation get SurveyMultiResp and SurveyMultiRespColumn entries and if exist process for each surveyMultiRespColId -->
             <get-related-one value-field="surveyQuestionAndAppl" relation-name="SurveyMultiResp" to-value-field="surveyMultiResp" use-cache="true"/>
             <if-not-empty field="surveyMultiResp">
                 <!-- if the surveyQuestionAndAppl has a surveyMultiRespColId, then just look for one answer with that ID -->
                 <if-empty field="surveyQuestionAndAppl.surveyMultiRespColId">
                     <get-related value-field="surveyMultiResp" relation-name="SurveyMultiRespColumn" list="surveyMultiRespColumnList" use-cache="true"/>
-                    <iterate entry="surveyMultiRespColumn" list="surveyMultiRespColumnList">
+                    <iterate list="surveyMultiRespColumnList" entry="surveyMultiRespColumn">
                         <set field="answerFieldName" value="answers[&quot;${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}&quot;]"/>
                         <call-simple-method method-name="validateSurveyResponseInline"/>
                     </iterate>
@@ -193,7 +193,7 @@
         <if-empty field="surveyResponse">
             <make-value value-field="surveyResponse" entity-name="SurveyResponse"/>
             <sequenced-id sequence-name="SurveyResponse" field="surveyResponse.surveyResponseId"/>
-            <set-nonpk-fields value-field="surveyResponse" map="parameters"/>
+            <set-nonpk-fields map="parameters" value-field="surveyResponse"/>
             <create-value value-field="surveyResponse"/>
         </if-empty>
 
@@ -214,7 +214,7 @@
 
         <!-- lookup any existing response answers -->
         <get-related value-field="surveyResponse" relation-name="SurveyResponseAnswer" list="existingAnswers"/>
-        <iterate entry="existingAnswer" list="existingAnswers">
+        <iterate list="existingAnswers" entry="existingAnswer">
             <set field="currentAnswersFieldName" from-field="existingAnswer.surveyQuestionId"/>
             <if>
                 <condition>
@@ -222,7 +222,7 @@
                         <not>
                             <if-empty field="existingAnswer.surveyMultiRespColId"/>
                         </not>
-                        <if-compare operator="not-equals" field="existingAnswer.surveyMultiRespColId" value="_NA_"/>
+                        <if-compare field="existingAnswer.surveyMultiRespColId" operator="not-equals" value="_NA_"/>
                     </and>
                 </condition>
                 <then>
@@ -233,14 +233,14 @@
         </iterate>
 
         <!-- create the response answers -->
-        <iterate entry="surveyQuestionAndAppl" list="surveyQuestionAndApplList">
+        <iterate list="surveyQuestionAndApplList" entry="surveyQuestionAndAppl">
             <!-- for process inputs get SurveyMultiResp and SurveyMultiRespColumn entries and if exist process for each surveyMultiRespColId -->
             <get-related-one value-field="surveyQuestionAndAppl" relation-name="SurveyMultiResp" to-value-field="surveyMultiResp" use-cache="true"/>
             <if-not-empty field="surveyMultiResp">
                 <!-- if the surveyQuestionAndAppl has a surveyMultiRespColId, then just look for one answer with that ID -->
                 <if-empty field="surveyQuestionAndAppl.surveyMultiRespColId">
                     <get-related value-field="surveyMultiResp" relation-name="SurveyMultiRespColumn" list="surveyMultiRespColumnList" use-cache="true"/>
-                    <iterate entry="surveyMultiRespColumn" list="surveyMultiRespColumnList">
+                    <iterate list="surveyMultiRespColumnList" entry="surveyMultiRespColumn">
                         <set field="currentFieldName" value="${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}"/>
                         <call-simple-method method-name="processSurveyResponseInline"/>
                     </iterate>
@@ -293,7 +293,7 @@
             <set field="finAccountMap.statusId" value="FNACT_ACTIVE"/>
             <set field="codeOk" value="false"/>
             <find-by-and entity-name="FinAccount" map="finAccountMap" list="finAccountList"/>
-            <iterate entry="finAccount" list="finAccountList">
+            <iterate list="finAccountList" entry="finAccount">
                 <if-compare field="finAccount.finAccountCode" operator="equals" value="${${answerFieldName}}">
                     <set field="codeOk" value="true"/>
                 </if-compare>

@@ -134,7 +134,7 @@ under the License.
                     <!-- check for related workefforts ...and when no time recorded cancel these too -->
                     <get-related value-field="custRequest" relation-name="CustRequestWorkEffort" list="workEfforts"/>
                     <if-not-empty field="workEfforts">
-                        <iterate entry="workEffort" list="workEfforts">
+                        <iterate list="workEfforts" entry="workEffort">
                             <entity-one entity-name="WorkEffort" value-field="lowInfo">
                                 <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
                             </entity-one>
@@ -171,7 +171,7 @@ under the License.
         
         <!-- if story is provided update the first item of the customer request -->
         <if-not-empty field="parameters.story">
-            <entity-and list="custRequestItems" entity-name="CustRequestItem">
+            <entity-and entity-name="CustRequestItem" list="custRequestItems">
                 <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
             </entity-and>
             <if-not-empty field="custRequestItems">
@@ -312,8 +312,8 @@ under the License.
     <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
         <entity-one entity-name="CustRequestNote" value-field="lookedUpValue"/>
         <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
-        <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValueForNoteData"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValueForNoteData"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
@@ -477,12 +477,12 @@ under the License.
         <if-compare operator="not-equals" value="CRQ_DRAFT" field="parameters.statusId">
             <if-empty field="custRequest.fromPartyId">
                 <add-error>
-                    <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
+                    <fail-property resource="OrderUiLabels" property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft"/>
                 </add-error>
             </if-empty>
             <if-empty field="custRequest.custRequestName">
                 <add-error>
-                    <fail-property property="OrderCustRequestShouldHaveCustRequestNameIfNotDraft" resource="OrderUiLabels"/>
+                    <fail-property resource="OrderUiLabels" property="OrderCustRequestShouldHaveCustRequestNameIfNotDraft"/>
                 </add-error>
             </if-empty>
         </if-compare>
@@ -541,7 +541,7 @@ under the License.
         <entity-and entity-name="CommEventContentAssoc" list="custRequestContents">
             <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>
-        <iterate entry="custRequestContent" list="custRequestContents">
+        <iterate list="custRequestContents" entry="custRequestContent">
             <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
             <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
             <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>

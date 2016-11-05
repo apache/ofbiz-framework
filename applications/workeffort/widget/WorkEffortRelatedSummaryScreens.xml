@@ -76,7 +76,7 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <include-form location="component://workeffort/widget/WorkEffortForms.xml" name="DisplayWorkEffortPartyAssigns"/>
+                                    <include-form name="DisplayWorkEffortPartyAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </container>
                             </widgets>
                         </section>
@@ -88,7 +88,7 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleListWorkEffortFixedAssetAssigns}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <include-form location="component://workeffort/widget/WorkEffortForms.xml" name="DisplayWorkEffortFixedAssetAssigns"/>
+                                    <include-form name="DisplayWorkEffortFixedAssetAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </container>
                             </widgets>
                         </section>

@@ -114,7 +114,7 @@ under the License.
         
         <!-- Create a lot before -->
         <entity-one value-field="product" entity-name="Product">
-            <field-map from-field="parameters.productId" field-name="productId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
         </entity-one>
         
         <!-- Check if this product can or not have a lotId -->
@@ -154,7 +154,7 @@ under the License.
         <if-compare operator="equals" value="N" field="parameters.isReturned">
             <if-not-empty field="parameters.lotId">
                   <!-- Check if the lot already exists -->
-                  <entity-and list="lotList" entity-name="Lot">
+                  <entity-and entity-name="Lot" list="lotList">
                       <field-map field-name="lotId" from-field="parameters.lotId" />
                   </entity-and>
                   <if-empty field="lotList">
@@ -304,7 +304,7 @@ under the License.
         <set field="oldUnitCost" from-field="lookedUpValue.unitCost"/>
         <if-not-empty field="parameters.lotId">
         	<!-- Check if the lot already exists -->
-            <entity-and list="lotList" entity-name="Lot">
+            <entity-and entity-name="Lot" list="lotList">
                   <field-map field-name="lotId" from-field="parameters.lotId" />
             </entity-and>
             <if-empty field="lotList">
@@ -629,7 +629,7 @@ under the License.
 
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
-        <iterate entry="inventoryItem" list="inventoryItems">
+        <iterate list="inventoryItems" entry="inventoryItem">
             <!-- NOTE: this code no longer distinguishes between serialized and non-serialized because both now have availableToPromiseTotal and quantityOnHandTotal populated (for serialized are based on status, non-serialized are based on InventoryItemDetail) -->
             <if>
                 <condition>
@@ -915,8 +915,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="inventoryTransfer.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
-                    <field-map from-field="inventoryTransfer.statusId" field-name="statusId"/>
-                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map field-name="statusId" from-field="inventoryTransfer.statusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${inventoryTransfer.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
@@ -975,7 +975,7 @@ under the License.
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
                 
                 <set field="locationTypeEnumIds" value="${groovy: ['FLT_PICKLOC', 'FLT_BULK', null]}"/>
-                <iterate entry="locationTypeEnumId" list="locationTypeEnumIds">
+                <iterate list="locationTypeEnumIds" entry="locationTypeEnumId">
                     <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
                     <entity-condition list="inventoryItemAndLocations" entity-name="InventoryItemAndLocation">
                         <condition-list>
@@ -988,7 +988,7 @@ under the License.
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
 	                <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-	                <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
+	                <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
 	                    <clear-field field="inputMap"/>
 	                    <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
 	                    <if-empty field="parameters.statusId">
@@ -1083,10 +1083,10 @@ under the License.
         </entity-one>
         <set field="priority" from-field="parameters.priority"/>
         <if-empty field="priority">
-            <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+            <entity-and entity-name="OrderItemShipGrpInvRes" list="oisgirs">
                 <field-map field-name="orderId" from-field="orderId"/>
             </entity-and>
-            <iterate entry="oisgir" list="oisgirs">
+            <iterate list="oisgirs" entry="oisgir">
                 <set field="oisgir.priority" default-value="2"/>
                 <store-value value-field="oisgir"/>
             </iterate>
@@ -1095,10 +1095,10 @@ under the License.
         <else>
             <set field="orderHeader.priority" from-field="priority"/>
             <store-value value-field="orderHeader"/>
-            <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+            <entity-and entity-name="OrderItemShipGrpInvRes" list="oisgirs">
                 <field-map field-name="orderId" from-field="orderId"/>
             </entity-and>
-            <iterate entry="oisgir" list="oisgirs">
+            <iterate list="oisgirs" entry="oisgir">
                 <set field="oisgir.priority" from-field="priority"/>
                 <store-value value-field="oisgir"/>
                 <clear-field field="oisgir"/>
@@ -1106,7 +1106,7 @@ under the License.
             <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="oisgirais">
                 <condition-expr field-name="orderId" operator="equals" from-field="orderId"/>
             </entity-condition>
-            <iterate entry="oisgir" list="oisgirais">
+            <iterate list="oisgirais" entry="oisgir">
                 <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
                 <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
                 <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
@@ -1119,7 +1119,7 @@ under the License.
         <entity-one value-field="inventoryItem" entity-name="InventoryItem"  auto-field-map="false">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
-        <entity-and list="productFacilities" entity-name="ProductFacility">
+        <entity-and entity-name="ProductFacility" list="productFacilities">
             <field-map field-name="productId" from-field="inventoryItem.productId" />
         </entity-and>
         <if-not-empty field="productFacilities">

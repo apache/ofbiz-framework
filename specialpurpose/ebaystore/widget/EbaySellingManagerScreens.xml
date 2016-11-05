@@ -367,7 +367,7 @@
                 <decorator-screen name="EbaySoldListing">
                     <decorator-section name="body">
                         <screenlet title="Open Unpaid">
-                               <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="OpenUnpaid"/>
+                               <include-form name="OpenUnpaid" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                            </screenlet>
                        </decorator-section>
                 </decorator-screen>
@@ -387,7 +387,7 @@
                 <decorator-screen name="EbaySoldListing">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.EbayAddSecondChanceOffer}">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="MakeSecondChanceOffer"/>
+                            <include-form name="MakeSecondChanceOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -464,7 +464,7 @@
                 <decorator-screen name="EbayActiveListing">
                     <decorator-section name="body">
                         <screenlet title="Active to Open Listings">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                             <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
                         </screenlet>
                     </decorator-section>
@@ -500,7 +500,7 @@
                 <decorator-screen name="EbayUnsoldListing">
                     <decorator-section name="body">
                         <screenlet title="Unsold Listing">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                             <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="UnsoldItemList"/>
                         </screenlet>
                     </decorator-section>
@@ -525,7 +525,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="uiLabelMap.EbayWaitingToShipping">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="WaitingToShippingOption"/>
+                            <include-form name="WaitingToShippingOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                             <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
                         </screenlet>
                     </decorator-section>
@@ -624,7 +624,7 @@
                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                    <decorator-section name="body">
                        <screenlet name="customerData"  title="Customer Offer Data">
-                           <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ViewCustomerOfferData"/>
+                           <include-form name="ViewCustomerOfferData" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                        </screenlet>
                    </decorator-section>
                </decorator-screen>
@@ -657,7 +657,7 @@
                 <decorator-screen name="EbayclosedListing">
                     <decorator-section name="body">
                         <screenlet title="Closed Item Listings">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                             <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ClosedItemList"/>
                         </screenlet>
                     </decorator-section>
@@ -715,8 +715,8 @@
                                 </section>
                                     <screenlet title="Order Listings (Import single Transactions)">
                                         <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
-                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="FindEbayStoreOrders"/>
-                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="TransactionList"/>
+                                        <include-form name="FindEbayStoreOrders" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                        <include-form name="TransactionList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>
@@ -746,8 +746,8 @@
                                 </section>
                                     <screenlet title="Order Listings (Import many transactions)">
                                         <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
-                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="FindEbayStoreOrders"/>
-                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="OrderList"/>
+                                        <include-form name="FindEbayStoreOrders" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                        <include-form name="OrderList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>

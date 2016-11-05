@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="testFindProjectWithSearchParameters" short-description="Test find project service on certain search parameters" login-required="false">
         <set field="searchParameters.workEffortTypeId" value="SCRUM_PROJECT"/>
-        <entity-and list="workEffortList" entity-name="WorkEffort">
+        <entity-and entity-name="WorkEffort" list="workEffortList">
             <field-map field-name="workEffortTypeId" from-field="searchParameters.workEffortTypeId"/>
         </entity-and>
     </simple-method>

@@ -124,7 +124,7 @@ under the License.
 
         <if-empty field="uomConversion">
             <!-- if still no uom conversion entity, then no conversion is possible -->
-            <add-error><fail-property property="CommonNoUomConversionFound" resource="CommonUiLabels"/></add-error>
+            <add-error><fail-property resource="CommonUiLabels" property="CommonNoUomConversionFound"/></add-error>
             <check-errors/>
         <else>
             <!-- Do custom conversion, if we have customMethodId -->
@@ -171,7 +171,7 @@ under the License.
         <entity-one entity-name="CustomMethod" value-field="customMethod" auto-field-map="true" use-cache="true"/>
 
         <if-empty field="customMethod.customMethodName">
-            <add-error> <fail-property property="CommonNoCustomMethodName" resource="CommonUiLabels"/> </add-error>
+            <add-error> <fail-property resource="CommonUiLabels" property="CommonNoCustomMethodName"/> </add-error>
             <check-errors/>
         <else>
             <log level="verbose" message="calling custom method ${customMethod.customMethodName}"/>
@@ -221,7 +221,7 @@ under the License.
             </entity-condition>
         </if-empty>
         <if-empty field="resourceList">
-            <add-error><fail-property property="CommonVisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
+            <add-error><fail-property resource="CommonUiLabels" property="CommonVisualThemeResourcesNotFound"/></add-error>
             <check-errors/>
         </if-empty>
         <iterate list="resourceList" entry="resourceRecord">

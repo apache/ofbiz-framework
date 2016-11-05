@@ -281,7 +281,7 @@ under the License.
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
 
                 <entity-and entity-name="RequirementCustRequest" list="requirementCustRequests">
-                    <field-map from-field="requirementId" field-name="requirementId"/>
+                    <field-map field-name="requirementId" from-field="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -307,7 +307,7 @@ under the License.
                 <set field="requirementId" from-field="parameters.requirementId"/>
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
                 <entity-and entity-name="OrderRequirementCommitment" list="orderRequirements">
-                    <field-map from-field="requirementId" field-name="requirementId"/>
+                    <field-map field-name="requirementId" from-field="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -333,7 +333,7 @@ under the License.
                 <set field="requirementId" from-field="parameters.requirementId"/>
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
                 <entity-and entity-name="RequirementRole" list="requirementRoles">
-                    <field-map from-field="requirementId" field-name="requirementId"/>
+                    <field-map field-name="requirementId" from-field="requirementId"/>
                 </entity-and>
             </actions>
             <widgets>

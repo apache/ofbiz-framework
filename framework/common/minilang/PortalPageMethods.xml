@@ -55,7 +55,7 @@ under the License.
                             </condition-list>
                         </entity-condition>
                         <!-- remove all not supplied attributes -->
-                        <iterate entry="attribute" list="attributeList">
+                        <iterate list="attributeList" entry="attribute">
                             <if-empty field="parameters.${attribute.attrName}">
                                 <remove-value value-field="attribute"/>
                             </if-empty>
@@ -108,7 +108,7 @@ under the License.
             <field-map field-name="portalPageId" from-field="parameters.portalPageId" />
           </entity-and>
           <set field="first" value="true" type="Boolean" />
-          <iterate entry="portalPageColumn" list="portalPageColumns">
+          <iterate list="portalPageColumns" entry="portalPageColumn">
             <set-service-fields service-name="addPortalPageColumn" map="portalPageColumn" to-map="addColumnMap" />
             <clear-field field="addColumnMap.columnSeqId" />
             <set field="addColumnMap.portalPageId" from-field="portalPageId" />
@@ -119,7 +119,7 @@ under the License.
           <entity-and entity-name="PortalPagePortlet" list="portalPagePortlets">
             <field-map field-name="portalPageId" from-field="parameters.portalPageId" />
           </entity-and>
-          <iterate entry="portalPagePortlet" list="portalPagePortlets">
+          <iterate list="portalPagePortlets" entry="portalPagePortlet">
             <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet" />
             <set field="createPortLet.portalPageId" from-field="portalPageId" />
             <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet" />
@@ -129,7 +129,7 @@ under the License.
               <field-map field-name="portalPortletId" from-field="portalPagePortlet.portalPortletId" />
               <field-map field-name="portletSeqId" from-field="portalPagePortlet.portletSeqId" />
             </entity-and>
-            <iterate entry="portletAttribute" list="portletAttributes">
+            <iterate list="portletAttributes" entry="portletAttribute">
               <set field="portletAttribute.portalPageId" from-field="portalPageId" />
               <create-value value-field="portletAttribute" />
             </iterate>

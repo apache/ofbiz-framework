@@ -83,13 +83,13 @@ under the License.
             </calculate>
             <store-value value-field="orderShipment"/>
             <get-related value-field="itemIssuance" relation-name="ItemIssuanceRole" list="itemIssuanceRoles"/>
-            <iterate entry="itemIssuanceRole" list="itemIssuanceRoles">
+            <iterate list="itemIssuanceRoles" entry="itemIssuanceRole">
                 <remove-value value-field="itemIssuanceRole"/>
             </iterate>
             <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                 <condition-expr field-name="itemIssuanceId" operator="equals" from-field="itemIssuance.itemIssuanceId"/>
             </entity-condition>
-            <iterate entry="inventoryItemDetail" list="inventoryItemDetails">
+            <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
                 <set field="inventoryItemDetail.itemIssuanceId" from-field="nullField"/>
                 <store-value value-field="inventoryItemDetail"/>
             </iterate>

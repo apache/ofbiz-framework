@@ -32,7 +32,7 @@
                 <decorator-screen name="AccountDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
-                            <include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
+                            <include-form name="EbayPersonalInformationForm" location="component://ebaystore/widget/EbayAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

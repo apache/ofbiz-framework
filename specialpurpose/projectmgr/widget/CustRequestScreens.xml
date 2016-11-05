@@ -27,7 +27,7 @@ under the License.
                 <if-has-permission permission="PROJECTMGR" action="_ADMIN"/>
             </condition>
             <actions>
-                <entity-and list="custRequests" entity-name="CustRequest">
+                <entity-and entity-name="CustRequest" list="custRequests">
                     <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
                     <order-by field-name="lastModifiedDate"/>
                 </entity-and>
@@ -105,13 +105,13 @@ under the License.
                 <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
                 <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>
                 <get-related-one value-field="custRequest" relation-name="FulfillContactMech" to-value-field="fulfillContactMech"/>
-                <entity-and list="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                <entity-and entity-name="CustRequestAndWorkEffort" list="requestWorkEfforts">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
                 <get-related value-field="custRequest" relation-name="CustRequestParty" list="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
                 <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems" order-by-list="orderBy"/>
-                <entity-and list="commEvents" entity-name="CommunicationEventAndCustRequest">
+                <entity-and entity-name="CommunicationEventAndCustRequest" list="commEvents">
                     <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
                 </entity-and>
                 <entity-condition entity-name="CustRequestItemNoteView" list="custRequestItemNoteViews">

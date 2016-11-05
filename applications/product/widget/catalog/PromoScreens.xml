@@ -331,7 +331,7 @@ under the License.
                 <set field="parameters.thruDate" type="Timestamp" from-field="parameters.thruDate"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo"/>
                 <entity-one entity-name="ProductPromoContent" value-field="productPromoContent"/>
-                <entity-and list="productPromoContents" entity-name="ProductPromoContent">
+                <entity-and entity-name="ProductPromoContent" list="productPromoContents">
                     <field-map field-name="productPromoId" from-field="productPromoId"/>
                 </entity-and>
             </actions>

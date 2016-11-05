@@ -72,7 +72,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare-field operator="equals" field="quote.partyId" to-field="userLogin.partyId"></if-compare-field>
+                                <if-compare-field field="quote.partyId" operator="equals" to-field="userLogin.partyId"></if-compare-field>
                             </condition>
                             <widgets>
                                 <platform-specific>
