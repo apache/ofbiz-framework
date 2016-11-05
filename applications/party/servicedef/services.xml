@@ -800,6 +800,11 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="updateCommunicationEventPurpose" default-entity-name="CommunicationEventPurpose" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a CommunicationEventPurpose</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="removeCommunicationEventPurpose" default-entity-name="CommunicationEventPurpose" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Communication Event Purpose</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
