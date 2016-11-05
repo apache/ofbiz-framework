@@ -423,7 +423,18 @@ public class InvoiceServices {
                     shippingApplies = true;
                 }
 
-                BigDecimal billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, ROUNDING);
+                BigDecimal billingAmount = BigDecimal.ZERO;
+                GenericValue OrderAdjustment = EntityUtil.getFirst(orderItem.getRelated("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "VAT_TAX"), null, false));
+                /* Apply formula to get actual product price to set amount in invoice item
+                    Formula is: productPrice = (productPriceWithTax.multiply(100)) / (orderAdj sourcePercentage + 100))
+                    product price = (43*100) / (20+100) = 35.83 (Here product price is 43 with VAT)
+                 */
+                if (UtilValidate.isNotEmpty(OrderAdjustment) && (OrderAdjustment.getBigDecimal("amount").signum() == 0) && UtilValidate.isNotEmpty(OrderAdjustment.getBigDecimal("amountAlreadyIncluded")) && OrderAdjustment.getBigDecimal("amountAlreadyIncluded").signum() != 0) {
+                    BigDecimal sourcePercentageTotal = OrderAdjustment.getBigDecimal("sourcePercentage").add(new BigDecimal(100));
+                    billingAmount = orderItem.getBigDecimal("unitPrice").divide(sourcePercentageTotal, 100, ROUNDING).multiply(new BigDecimal(100)).setScale(invoiceTypeDecimals, ROUNDING);
+                } else {
+                    billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, ROUNDING);
+                }
 
                 Map<String, Object> createInvoiceItemContext = new HashMap<String, Object>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
@@ -532,6 +543,11 @@ public class InvoiceServices {
 //                    if (adj.get("amount") == null) { TODO check usage with webPos. Was: fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
 //                        continue;
 //                    }
+                    // Set adjustment amount as amountAlreadyIncluded to continue invoice item creation process
+                    Boolean isTaxIncludedInPrice = adj.getString("orderAdjustmentTypeId").equals("VAT_TAX") && UtilValidate.isNotEmpty(adj.getBigDecimal("amountAlreadyIncluded")) && adj.getBigDecimal("amountAlreadyIncluded").signum() != 0;
+                    if ((adj.getBigDecimal("amount").signum() == 0) && isTaxIncludedInPrice) {
+                        adj.set("amount", adj.getBigDecimal("amountAlreadyIncluded"));
+                    }
                     // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced, so skip this adjustment
                     if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                         continue;
@@ -541,10 +557,52 @@ public class InvoiceServices {
                     BigDecimal amount = ZERO;
                     if (originalOrderItemQuantity.signum() != 0) {
                         if (adj.get("amount") != null) {
-                            // pro-rate the amount
-                            // set decimals = 100 means we don't round this intermediate value, which is very important
-                            amount = adj.getBigDecimal("amount").divide(originalOrderItemQuantity, 100, ROUNDING);
-                            amount = amount.multiply(billingQuantity);
+                                if("PROMOTION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId")) && adj.get("productPromoId") != null) {
+                                    /* Find negative amountAlreadyIncluded in OrderAdjustment to subtract it from discounted amount.
+                                                                          As we stored negative sales tax amount in order adjustment for discounted item.
+                                     */
+                                    List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderItem.getString("orderId")),
+                                            EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.getString("orderItemSeqId")),
+                                            EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "VAT_TAX"),
+                                            EntityCondition.makeCondition("amountAlreadyIncluded", EntityOperator.LESS_THAN, BigDecimal.ZERO));
+                                    EntityCondition andCondition = EntityCondition.makeCondition(exprs, EntityOperator.AND);
+                                    GenericValue orderAdjustment =  EntityUtil.getFirst(delegator.findList("OrderAdjustment", andCondition, null, null, null, false));
+                                    if (UtilValidate.isNotEmpty(orderAdjustment)) {
+                                        amount = adj.getBigDecimal("amount").subtract(orderAdjustment.getBigDecimal("amountAlreadyIncluded")).setScale(100, ROUNDING);
+                                    } else {
+                                        amount = adj.getBigDecimal("amount");
+                                    }
+                                } else {
+                                    // pro-rate the amount
+                                    // set decimals = 100 means we don't round this intermediate value, which is very important
+                                    if (isTaxIncludedInPrice) {
+                                        BigDecimal priceWithTax = originalOrderItem.getBigDecimal("unitPrice");
+                                        // Get tax included in item price
+                                        amount = priceWithTax.subtract(billingAmount);
+                                        amount = amount.multiply(billingQuantity);
+                                        // get adjustment amount
+                                        /* Get tax amount of other invoice and calculate remaining amount need to store in invoice item(Handle case of of partial shipment and promotional item)
+                                                                              to adjust tax amount in invoice item. 
+                                         */
+                                        BigDecimal otherInvoiceTaxAmount = BigDecimal.ZERO;
+                                        GenericValue orderAdjBilling = EntityUtil.getFirst(delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", adj.getString("orderAdjustmentId")), null, false));
+                                        if (UtilValidate.isNotEmpty(orderAdjBilling)) {
+                                            List<GenericValue> invoiceItems = delegator.findByAnd("InvoiceItem", 
+                                                    UtilMisc.toMap("invoiceId", orderAdjBilling.getString("invoiceId"), "invoiceItemTypeId", "ITM_SALES_TAX", "productId", originalOrderItem.getString("productId")), null, isTaxIncludedInPrice);
+                                            for (GenericValue invoiceItem : invoiceItems) {
+                                                otherInvoiceTaxAmount = otherInvoiceTaxAmount.add(invoiceItem.getBigDecimal("amount"));
+                                            }
+                                            if (otherInvoiceTaxAmount.compareTo(BigDecimal.ZERO) > 0) {
+                                                BigDecimal remainingAmount = adj.getBigDecimal("amountAlreadyIncluded").subtract(otherInvoiceTaxAmount);
+                                                amount = amount.min(remainingAmount);
+                                            }
+                                        }
+                                        amount = amount.min(adj.getBigDecimal("amountAlreadyIncluded")).setScale(100, ROUNDING);
+                                    } else {
+                                        amount = adj.getBigDecimal("amount").divide(originalOrderItemQuantity, 100, ROUNDING);
+                                        amount = amount.multiply(billingQuantity);
+                                    }
+                                }                            
                             // Tax needs to be rounded differently from other order adjustments
                             if (adj.getString("orderAdjustmentTypeId").equals("SALES_TAX")) {
                                 amount = amount.setScale(TAX_DECIMALS, TAX_ROUNDING);
