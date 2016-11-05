@@ -1222,7 +1222,7 @@ nextProd:
 
     // Method to filter-out out of stock products 
     public static List<GenericValue> filterOutOfStockProducts (List<GenericValue> productsToFilter, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
-        ArrayList<GenericValue> productsInStock = new ArrayList<GenericValue>();
+        List<GenericValue> productsInStock = new ArrayList<GenericValue>();
         if (UtilValidate.isNotEmpty(productsToFilter)) {
             for (GenericValue genericRecord : productsToFilter) {
                 String productId = genericRecord.getString("productId");

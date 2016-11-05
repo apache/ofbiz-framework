@@ -3064,7 +3064,7 @@ public class OrderServices {
                 }
             } else {
                 // check for auto-cancel items
-                ArrayList<EntityCondition> itemsExprs = new ArrayList<EntityCondition>();
+                List<EntityCondition> itemsExprs = new ArrayList<EntityCondition>();
 
                 // create the query expressions
                 itemsExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
@@ -6245,7 +6245,7 @@ public class OrderServices {
         // In order to improve efficiency a little bit, we will always create the ProductAssoc records
         // with productId < productIdTo when the two are compared.  This way when checking for an existing
         // record we don't have to check both possible combinations of productIds
-        TreeSet<String> productIdSet = new TreeSet<String>();
+        Set<String> productIdSet = new TreeSet<String>();
         if (orderItems != null) {
             for (GenericValue orderItem : orderItems) {
                 String productId = orderItem.getString("productId");
@@ -6256,7 +6256,7 @@ public class OrderServices {
                 }
             }
         }
-        TreeSet<String> productIdToSet = new TreeSet<String>(productIdSet);
+        Set<String> productIdToSet = new TreeSet<String>(productIdSet);
         for (String productId : productIdSet) {
             productIdToSet.remove(productId);
             for (String productIdTo : productIdToSet) {

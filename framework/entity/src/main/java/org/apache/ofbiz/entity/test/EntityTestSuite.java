@@ -586,7 +586,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "rnmat:%"))
                                                .queryList();
 
-        ArrayList<GenericValue> testings = new ArrayList<GenericValue>();
+        List<GenericValue> testings = new ArrayList<GenericValue>();
 
         for (GenericValue nodeMember: values) {
             testings.add(nodeMember.getRelatedOne("Testing", false));

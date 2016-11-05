@@ -122,7 +122,7 @@ public final class UtilDateTime {
     }
 
     public static String formatInterval(double interval, int count, Locale locale) {
-        ArrayList<Double> parts = new ArrayList<Double>(timevals.length);
+        List<Double> parts = new ArrayList<Double>(timevals.length);
         for (String[] timeval: timevals) {
             int value = Integer.valueOf(timeval[0]);
             double remainder = interval % value;

@@ -44,7 +44,7 @@ public abstract class GenericTestCaseBase extends TestCase {
     }
 
     public static void useAllMemory() throws Exception {
-        LinkedList<long[]> dummy = new LinkedList<long[]>();
+        List<long[]> dummy = new LinkedList<long[]>();
         try {
             do {
                 dummy.add(new long[1048576]);
@@ -300,7 +300,7 @@ OUTER:
         Map<?, ?> gotMap = (Map<?, ?>) got;
         if (!got.equals(wanted)) {
             Set<T> leftKeys = new LinkedHashSet<T>(wanted.keySet());
-            HashSet<Object> rightKeys = new HashSet<Object>(gotMap.keySet());
+            Set<Object> rightKeys = new HashSet<Object>(gotMap.keySet());
             for (T key: leftKeys) {
                 assertTrue(msg + "got key(" + key + ")", rightKeys.remove(key));
                 assertEquals(msg + "key(" + key + ") value", wanted.get(key), gotMap.get(key));
@@ -345,7 +345,7 @@ OUTER:
     }
 
     public static <T> List<T> list(T value) {
-        ArrayList<T> list = new ArrayList<T>(1);
+        List<T> list = new ArrayList<T>(1);
         list.add(value);
         return list;
     }
@@ -355,7 +355,7 @@ OUTER:
     }
 
     public static <T> Set<T> set(T value) {
-        HashSet<T> set = new HashSet<T>(1);
+        Set<T> set = new HashSet<T>(1);
         set.add(value);
         return set;
     }
@@ -369,7 +369,7 @@ OUTER:
     }
 
     public static <T> Set<T> set(Iterator<T> it) {
-        HashSet<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<T>();
         while (it.hasNext()) {
             T item = it.next();
             set.add(item);

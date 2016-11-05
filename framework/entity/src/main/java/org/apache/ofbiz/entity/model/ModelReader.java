@@ -319,7 +319,7 @@ TEMP_VIEW_LOOP:
                     }
 
                     // auto-create relationships
-                    TreeSet<String> orderedMessages = new TreeSet<String>();
+                    Set<String> orderedMessages = new TreeSet<String>();
                     for (String curEntityName: new TreeSet<String>(this.getEntityNames())) {
                         ModelEntity curModelEntity = this.getModelEntity(curEntityName);
                         if (curModelEntity instanceof ModelViewEntity) {

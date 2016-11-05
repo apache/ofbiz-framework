@@ -568,7 +568,7 @@ public class ModelFormFieldBuilder {
                         Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("indicator".equals(modelField.getType())) {
-                ArrayList<OptionSource> optionSources = new ArrayList<OptionSource>();
+                List<OptionSource> optionSources = new ArrayList<OptionSource>();
                 optionSources.add(new ModelFormField.SingleOption("Y", null, null));
                 optionSources.add(new ModelFormField.SingleOption("N", null, null));
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,

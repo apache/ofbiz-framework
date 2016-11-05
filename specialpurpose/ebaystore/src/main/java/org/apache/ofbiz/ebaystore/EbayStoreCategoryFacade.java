@@ -160,7 +160,7 @@ public class EbayStoreCategoryFacade {
 
     //remove all 'null' code type
     private static BuyerPaymentMethodCodeType[] fiterPaymentMethod(BuyerPaymentMethodCodeType[] paymentMethods) {
-        ArrayList<BuyerPaymentMethodCodeType> al = new ArrayList<BuyerPaymentMethodCodeType>();
+        List<BuyerPaymentMethodCodeType> al = new ArrayList<BuyerPaymentMethodCodeType>();
         for (BuyerPaymentMethodCodeType pm : paymentMethods) {
             if (pm != null) {
                 al.add(pm);

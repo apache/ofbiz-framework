@@ -540,7 +540,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
             List<? extends Element> subElementList = UtilXml.childElementList(screenletElement);
             // Make a copy of the unmodifiable List so we can modify it.
-            ArrayList<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList));
+            List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList));
             Menu navigationMenu = null;
             String navMenuName = screenletElement.getAttribute("navigation-menu-name");
             if (!navMenuName.isEmpty()) {

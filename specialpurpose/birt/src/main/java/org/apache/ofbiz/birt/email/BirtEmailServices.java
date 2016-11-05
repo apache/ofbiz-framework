@@ -173,7 +173,7 @@ public class BirtEmailServices {
                     birtContentType = "application/pdf";
                 }
                 IReportEngine engine = BirtFactory.getReportEngine();
-                HashMap<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
+                Map<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
                 appContext.put("delegator", delegator);
                 appContext.put("dispatcher", dispatcher);
                 appContext.put("security", security);

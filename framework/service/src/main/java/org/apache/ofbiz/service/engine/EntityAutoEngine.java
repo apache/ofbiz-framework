@@ -90,7 +90,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         try {
             boolean allPksInOnly = true;
-            LinkedList<String> pkFieldNameOutOnly = null;
+            List<String> pkFieldNameOutOnly = null;
             /* Check for each pk if it's :
              * 1. part IN 
              * 2. or part IN and OUT, but without value but present on parameters map
@@ -519,7 +519,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     private static Map<String, Object> invokeExpire(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
-        LinkedList<String> fieldThruDates = new LinkedList<String>();
+        List<String> fieldThruDates = new LinkedList<String>();
         boolean thruDatePresent = false;
         String fieldDateNameIn = null;
 

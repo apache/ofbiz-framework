@@ -599,7 +599,7 @@ public class EbayEvents {
     }
 
     public static ShippingServiceDetailsType[] filterShippingService(ShippingServiceDetailsType[] array) {
-        ArrayList<ShippingServiceDetailsType> list = new ArrayList<ShippingServiceDetailsType>();
+        List<ShippingServiceDetailsType> list = new ArrayList<ShippingServiceDetailsType>();
         for (int i = 0; i < array.length; i++) {
             if (isFlat(array[i].getServiceType()) && array[i].getShippingServiceID() < SHIPPING_SERVICE_ID_LIMIT) {
                 list.add(array[i]);
@@ -615,7 +615,7 @@ public class EbayEvents {
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        HashMap<String, Object> attributeMapList = new HashMap<String, Object>();
+        Map<String, Object> attributeMapList = new HashMap<String, Object>();
         String id = "";
         if (UtilValidate.isNotEmpty(requestParams.get("listype"))) {
             if ("auction".equals(requestParams.get("listype"))) {
