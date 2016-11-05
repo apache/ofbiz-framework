@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <WorkEffort workEffortId="Test_effort" workEffortName="Test workeffort"/>
+    <EmplPositionType emplPositionTypeId="TEST_EMPLOYEE" hasTable="N" description="Test employee"/>
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="TEST_EMPLOYEE" fromDate="2013-07-04 00:00:00"/>
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="Test_effort" partyId="_NA_" rateAmount="75" emplPositionTypeId="_NA_" fromDate="2013-07-04 00:00:00"/>
+    <Party partyId="TEST_PARTY"/>
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="TEST_PARTY" emplPositionTypeId="_NA_" fromDate="2013-07-04 00:00:00"/>
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="TEST_EMPLOYEE" fromDate="2013-07-04 00:00:00"/>
+    <PartyRate partyId="TEST_PARTY" rateTypeId="AVERAGE_PAY_RATE" periodTypeId="RATE_MONTH" fromDate="2013-07-04 00:00:00"/>
+</entity-engine-xml>
