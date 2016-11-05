@@ -218,7 +218,7 @@ public class ShoppingCartHelper {
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, module);
                 }
-                if (UtilValidate.isNotEmpty(productFeatureAndAppl)) {
+                if (productFeatureAndAppl != null) {
                     productFeatureAndAppl.set("productFeatureApplTypeId", "STANDARD_FEATURE");
                 }
                 additionalFeaturesMap.put(selectedFeatureType, productFeatureAndAppl);

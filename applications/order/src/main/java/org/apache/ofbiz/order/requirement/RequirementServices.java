@@ -340,7 +340,7 @@ public class RequirementServices {
                 GenericValue orderRequirementCommitment = EntityQuery.use(delegator).from("OrderRequirementCommitment")
                         .where(UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")))
                         .queryFirst();
-                if (UtilValidate.isNotEmpty(orderRequirementCommitment)) {
+                if (orderRequirementCommitment != null) {
                     String requirementId = orderRequirementCommitment.getString("requirementId");
                     /* Change status of requirement to ordered */
                     Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId", "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));

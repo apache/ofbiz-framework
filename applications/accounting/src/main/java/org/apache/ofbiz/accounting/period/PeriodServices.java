@@ -85,7 +85,7 @@ public class PeriodServices {
                     findParams.put("periodTypeId", periodTypeId);
                 }
                 GenericValue timePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").where(findParams).orderBy("fromDate ASC").queryFirst();
-                if (UtilValidate.isNotEmpty(timePeriod) && UtilValidate.isNotEmpty(timePeriod.get("fromDate"))) {
+                if (timePeriod != null && UtilValidate.isNotEmpty(timePeriod.get("fromDate"))) {
                     lastClosedDate = timePeriod.getTimestamp("fromDate");
                 } else {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPeriodCannotGet", locale));

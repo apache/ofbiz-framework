@@ -62,7 +62,7 @@ public class WebPosEvents {
         String responseString = LoginEvents.storeLogin(request, response);
         GenericValue userLoginNew = (GenericValue)session.getAttribute("userLogin");
         
-        if (UtilValidate.isNotEmpty(userLoginNew) && UtilValidate.isNotEmpty(posTerminalId)) {
+        if (userLoginNew != null && UtilValidate.isNotEmpty(posTerminalId)) {
             webPosSession.setUserLogin(userLoginNew);
         }
         return responseString;
@@ -93,14 +93,14 @@ public class WebPosEvents {
             String facilityId = null;
             String currencyUomId = request.getParameter("currencyUomId");
 
-            if (UtilValidate.isNotEmpty(productStore)) {
+            if (productStore != null) {
                 facilityId = productStore.getString("inventoryFacilityId");
                 if (UtilValidate.isEmpty(currencyUomId)) {
                     currencyUomId = productStore.getString("defaultCurrencyUomId");
                 }
             }
             
-            if (UtilValidate.isNotEmpty(userLogin)) {
+            if (userLogin != null) {
                 session.setAttribute("userLogin", userLogin);
             }
 
@@ -162,7 +162,7 @@ public class WebPosEvents {
             try {
                 String productId = request.getParameter("productId");
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-                if (UtilValidate.isNotEmpty(product)) {
+                if (product != null) {
                     request.setAttribute("product", product);
                     if (UtilValidate.isNotEmpty(product.getString("isVirtual")) && "Y".equalsIgnoreCase(product.getString("isVirtual"))) {
                         String virtualVariantMethodEnum = product.getString("virtualVariantMethodEnum");
@@ -188,7 +188,7 @@ public class WebPosEvents {
                                             for (int i=0; i < featureOrder.size(); i++) {
                                                 String featureKey = featureOrder.get(i);
                                                 GenericValue featureValue = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", featureOrder.get(i)).cache().queryOne();
-                                                if (UtilValidate.isNotEmpty(featureValue) && 
+                                                if (featureValue != null && 
                                                     UtilValidate.isNotEmpty(featureValue.get("description"))) {
                                                     featureTypes.put(featureKey, featureValue.get("description"));
                                                 } else {

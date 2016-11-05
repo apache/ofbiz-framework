@@ -593,7 +593,7 @@ public final class InvoiceWorker {
         BigDecimal taxGrandTotal = ZERO;
         List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = new LinkedList<Map<String,Object>>();
         List<GenericValue> invoiceItems = null;
-        if (UtilValidate.isNotEmpty(invoice)) {
+        if (invoice != null) {
             try {
                 invoiceItems = invoice.getRelated("InvoiceItem", null, null, false);
             } catch (GenericEntityException e) {

@@ -254,11 +254,11 @@ public class VCard {
                 address.setLocality(postalAddress.getString("city"));
                 address.setPostalCode(postalAddress.getString("postalCode"));
                 GenericValue state = postalAddress.getRelatedOne("StateProvinceGeo", false);
-                if (UtilValidate.isNotEmpty(state)) {
+                if (state != null) {
                     address.setRegion(state.getString("geoName"));
                 }
                 GenericValue countryGeo = postalAddress.getRelatedOne("CountryGeo", false);
-                if (UtilValidate.isNotEmpty(countryGeo)) {
+                if (countryGeo != null) {
                     String country = postalAddress.getRelatedOne("CountryGeo", false).getString("geoName");
                     address.setCountry(country);
                     address.getTypes().add(AddressType.WORK);;
@@ -268,7 +268,7 @@ public class VCard {
             }
 
             GenericValue telecomNumber = PartyWorker.findPartyLatestTelecomNumber(partyId, delegator);
-            if (UtilValidate.isNotEmpty(telecomNumber)) {
+            if (telecomNumber != null) {
                 Telephone tel = new Telephone(telecomNumber.getString("areaCode") + telecomNumber.getString("contactNumber"));
                 tel.getTypes().add(TelephoneType.WORK);
                 vcard.addTelephoneNumber(tel);

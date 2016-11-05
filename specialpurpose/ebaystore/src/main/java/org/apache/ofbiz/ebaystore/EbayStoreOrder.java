@@ -105,7 +105,7 @@ public class EbayStoreOrder {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productStoreIdIsMandatory", locale));
             } else {
                 GenericValue productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).queryOne();
-                if (UtilValidate.isNotEmpty(productStore)) {
+                if (productStore != null) {
                     defaultCurrencyUomId = productStore.getString("defaultCurrencyUomId");
                     payToPartyId = productStore.getString("payToPartyId");
                     facilityId = productStore.getString("inventoryFacilityId");
@@ -173,7 +173,7 @@ public class EbayStoreOrder {
                 BigDecimal shippingAmount = new BigDecimal(shippingCost);
                 if (shippingAmount.doubleValue() > 0) {
                     GenericValue shippingAdjustment = EbayHelper.makeOrderAdjustment(delegator, "SHIPPING_CHARGES", cart.getOrderId(), null, null, shippingAmount.doubleValue(), 0.0);
-                    if (UtilValidate.isNotEmpty(shippingAdjustment)) {
+                    if (shippingAdjustment != null) {
                         cart.addAdjustment(shippingAdjustment);
                     }
                 }
@@ -200,7 +200,7 @@ public class EbayStoreOrder {
                         salesPercent = new Double(salesTaxPercent).doubleValue();
                     }
                     GenericValue salesTaxAdjustment = EbayHelper.makeOrderAdjustment(delegator, "SALES_TAX", cart.getOrderId(), null, null, salesTaxAmountTotal, salesPercent);
-                    if (UtilValidate.isNotEmpty(salesTaxAdjustment)) {
+                    if (salesTaxAdjustment != null) {
                         cart.addAdjustment(salesTaxAdjustment);
                     }
                 }
@@ -216,7 +216,7 @@ public class EbayStoreOrder {
                 }
 
                 // if we get a party, check its contact information.
-                if (UtilValidate.isNotEmpty(partyAttribute)) {
+                if (partyAttribute != null) {
                     partyId = (String) partyAttribute.get("partyId");
                     Debug.logInfo("Found existing party associated to the eBay buyer: " + partyId, module);
                     GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
@@ -444,7 +444,7 @@ public class EbayStoreOrder {
             GenericValue partyAttribute = null;
             if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
                 partyAttribute = EntityQuery.use(delegator).from("PartyAttribute").where("attrValue", (String) context.get("eiasTokenBuyer")).queryFirst();
-                if (UtilValidate.isNotEmpty(partyAttribute)) {
+                if (partyAttribute != null) {
                     partyId = (String) partyAttribute.get("partyId");
                 }
             }

@@ -142,7 +142,7 @@ public class PriceServices {
         String currencyDefaultUomId = (String) context.get("currencyUomId");
         String currencyUomIdTo = (String) context.get("currencyUomIdTo"); 
         if (UtilValidate.isEmpty(currencyDefaultUomId)) {
-            if (UtilValidate.isNotEmpty(productStore) && UtilValidate.isNotEmpty(productStore.getString("defaultCurrencyUomId"))) {
+            if (productStore != null && UtilValidate.isNotEmpty(productStore.getString("defaultCurrencyUomId"))) {
                 currencyDefaultUomId = productStore.getString("defaultCurrencyUomId");
             } else {
                 currencyDefaultUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
@@ -344,7 +344,7 @@ public class PriceServices {
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "An error occurred while getting the customPriceCalcService", module);
                 }
-                if (UtilValidate.isNotEmpty(customMethod) && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
+                if (customMethod != null && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
                     Map<String, Object> inMap = UtilMisc.toMap("userLogin", context.get("userLogin"), "product", product);
                     inMap.put("initialPrice", defaultPriceValue.getBigDecimal("price"));
                     inMap.put("currencyUomId", currencyDefaultUomId);

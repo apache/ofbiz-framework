@@ -2252,7 +2252,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if (UtilValidate.isNotEmpty(shipItems)) {
                     for (ShoppingCartItem cartItem : shipItems) {
                         GenericValue product = cartItem.getProduct();
-                        if (UtilValidate.isNotEmpty(product)) {
+                        if (product != null) {
                             if (!ProductWorker.isShippableToAddress(product, shippingAddress)) {
                                 throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
                             }
@@ -4675,7 +4675,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
                 if (shippingAddress != null) {
                     GenericValue product = item.getProduct();
-                    if (UtilValidate.isNotEmpty(product)) {
+                    if (product != null) {
                         return ProductWorker.isShippableToAddress(product, shippingAddress);
                     }
                 }

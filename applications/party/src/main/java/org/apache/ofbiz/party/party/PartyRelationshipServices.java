@@ -145,7 +145,7 @@ public class PartyRelationshipServices {
                         .where(sideChecked, partyId, "roleTypeIdFrom", roleTypeIdFrom, "roleTypeIdTo", roleTypeIdTo, "partyRelationshipTypeId", partyRelationshipTypeId)
                         .filterByDate()
                         .queryFirst();
-                if (UtilValidate.isNotEmpty(oldPartyRelationShip)) {
+                if (oldPartyRelationShip != null) {
                         oldPartyRelationShip.setFields(UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp())); // Current becomes inactive
                         oldPartyRelationShip.store();
                 }

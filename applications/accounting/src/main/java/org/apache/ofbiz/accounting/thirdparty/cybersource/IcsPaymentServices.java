@@ -672,7 +672,7 @@ public class IcsPaymentServices {
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
                 GenericValue cyberSource = EntityQuery.use(delegator).from("PaymentGatewayCyberSource").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(cyberSource)) {
+                if (cyberSource != null) {
                     Object cyberSourceField = cyberSource.get(paymentGatewayConfigParameterName);
                     if (cyberSourceField != null) {
                         returnValue = cyberSourceField.toString().trim();

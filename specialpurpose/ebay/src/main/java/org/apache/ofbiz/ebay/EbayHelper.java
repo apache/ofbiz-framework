@@ -74,7 +74,7 @@ public class EbayHelper {
                 String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.unableToFindEbayConfig" + e.getMessage(), locale);
                 return ServiceUtil.returnError(errMsg);
             }
-            if (UtilValidate.isNotEmpty(eBayConfig)) {
+            if (eBayConfig != null) {
                 buildEbayConfigContext.put("devID", eBayConfig.getString("devId"));
                 buildEbayConfigContext.put("appID", eBayConfig.getString("appId"));
                 buildEbayConfigContext.put("certID", eBayConfig.getString("certId"));
@@ -172,7 +172,7 @@ public class EbayHelper {
         String shipmentMethodTypeId = "NO_SHIPPING";
         try {
             GenericValue ebayShippingMethod = EntityQuery.use(delegator).from("EbayShippingMethod").where("shipmentMethodName", shippingService, "productStoreId", productStoreId).queryOne();
-            if (UtilValidate.isNotEmpty(ebayShippingMethod)) {
+            if (ebayShippingMethod != null) {
                 partyId = ebayShippingMethod.getString("carrierPartyId");
                 shipmentMethodTypeId = ebayShippingMethod.getString("shipmentMethodTypeId");
             } else {
@@ -297,7 +297,7 @@ public class EbayHelper {
         String partyId = null;
 
         try {
-            if (UtilValidate.isNotEmpty(name) && UtilValidate.isNotEmpty(userLogin)) {
+            if (UtilValidate.isNotEmpty(name) && userLogin != null) {
                 Debug.logVerbose("Creating Customer Party: " + name, module);
 
                 // Try to split the lastname from the firstname
@@ -624,7 +624,7 @@ public class EbayHelper {
                 }
                 if (UtilValidate.isNotEmpty(titleFirstWord)) {
                     GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", titleFirstWord).queryOne();
-                    if (UtilValidate.isNotEmpty(product)) {
+                    if (product != null) {
                         productId = product.getString("productId");
                     }
                 }

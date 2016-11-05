@@ -98,7 +98,7 @@ public class CatalogUrlFilter implements Filter {
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)) {
                                 for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOne("ElectronicText", true);
-                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                    if (ElectronicText != null) {
                                         String textData = (String) ElectronicText.get("textData");
                                         textData = UrlServletHelper.invalidCharacter(textData);
                                         if (alternativeUrl.matches(textData + ".+$")) {
@@ -153,7 +153,7 @@ public class CatalogUrlFilter implements Filter {
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)) {
                                 for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOne("ElectronicText", true);
-                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                    if (ElectronicText != null) {
                                         String textData = (String) ElectronicText.get("textData");
                                         if (UtilValidate.isNotEmpty(textData)) {
                                             textData = UrlServletHelper.invalidCharacter(textData);
@@ -175,7 +175,7 @@ public class CatalogUrlFilter implements Filter {
                                 List<GenericValue> contentDataResourceViews = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", contentId, "drDataResourceTypeId", "ELECTRONIC_TEXT").cache(true).queryList();
                                 for (GenericValue contentDataResourceView : contentDataResourceViews) {
                                     GenericValue ElectronicText = contentDataResourceView.getRelatedOne("ElectronicText", true);
-                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                    if (ElectronicText != null) {
                                         String textData = (String) ElectronicText.get("textData");
                                         if (UtilValidate.isNotEmpty(textData)) {
                                             textData = UrlServletHelper.invalidCharacter(textData);

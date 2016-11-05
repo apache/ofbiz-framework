@@ -1065,7 +1065,7 @@ public class FedexServices {
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
                 GenericValue fedex = EntityQuery.use(delegator).from("ShipmentGatewayFedex").where("shipmentGatewayConfigId", shipmentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(fedex)) {
+                if (fedex != null) {
                     Object fedexField = fedex.get(shipmentGatewayConfigParameterName);
                     if (fedexField != null) {
                         returnValue = fedexField.toString().trim();

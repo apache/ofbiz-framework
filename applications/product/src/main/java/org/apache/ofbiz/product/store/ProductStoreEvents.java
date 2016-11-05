@@ -50,7 +50,7 @@ public class ProductStoreEvents {
 
         try {
             GenericValue productStoreGroup = EntityQuery.use(delegator).from("ProductStoreGroup").where("productStoreGroupId", parentGroupId).cache(true).queryOne();
-            if (UtilValidate.isNotEmpty(productStoreGroup)) {
+            if (productStoreGroup != null) {
                 children = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", parentGroupId).cache(true).filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(children)) {
                     for (GenericValue child : children ) {

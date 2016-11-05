@@ -123,7 +123,7 @@ public class OrderServices {
         if (UtilValidate.isEmpty(orderParty)) {
             orderParty = orh.getPlacingParty();
         }
-        if (UtilValidate.isNotEmpty(orderParty)) {
+        if (orderParty != null) {
             partyId = orderParty.getString("partyId");
         }
         boolean hasPermission = hasPermission(orderTypeId, partyId, userLogin, action, security);
@@ -4348,7 +4348,7 @@ public class OrderServices {
                     Debug.logError(e, module);
                     throw new GeneralException(e.getMessage());
                 }
-                if (UtilValidate.isNotEmpty(oldOrderItem)) {
+                if (oldOrderItem != null) {
 
                     //  Existing order item found. Check for modifications and store if any
                     String oldItemDescription = oldOrderItem.getString("itemDescription") != null ? oldOrderItem.getString("itemDescription") : "";
@@ -5796,14 +5796,14 @@ public class OrderServices {
             String orderId= (String) context.get("orderId");
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             String shipGroupSeqId= (String) context.get("shipGroupSeqId");
-            if (UtilValidate.isNotEmpty(orderHeader) && UtilValidate.isNotEmpty(shipGroupSeqId)) {
+            if (orderHeader != null && UtilValidate.isNotEmpty(shipGroupSeqId)) {
                 orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
                 if (UtilValidate.isEmpty(orderItemShipGroup)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderItemShipGroupDoesNotExist", locale));
                 }
             }
         }
-        if (UtilValidate.isNotEmpty(orderItemShipGroup)) {
+        if (orderItemShipGroup != null) {
             orderItemShipGroup.remove();
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         }
@@ -5848,7 +5848,7 @@ public class OrderServices {
                     if (UtilValidate.isNotEmpty(oisgas)) {
                         GenericValue oisga = EntityUtil.getFirst(oisgas);
                         GenericValue oisg = oisga.getRelatedOne("OrderItemShipGroup", false);
-                        if (UtilValidate.isNotEmpty(oisg)) {
+                        if (oisg != null) {
                             addOrderItemShipGroupMap.put("shipmentMethodTypeId", oisg.get("shipmentMethodTypeId"));
                             addOrderItemShipGroupMap.put("carrierPartyId", oisg.get("carrierPartyId"));
                             addOrderItemShipGroupMap.put("carrierRoleTypeId", oisg.get("carrierRoleTypeId"));
@@ -5879,7 +5879,7 @@ public class OrderServices {
             }
             //test if this association already exist if yes display error
             GenericValue oisgAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId).queryOne();
-            if (UtilValidate.isNotEmpty(oisgAssoc)) {
+            if (oisgAssoc != null) {
                 String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderErrorOrderItemAlreadyRelatedToShipGroup", locale);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -6020,7 +6020,7 @@ public class OrderServices {
             oisga.store();
             // reserve the inventory
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
-            if (UtilValidate.isNotEmpty(orderHeader)) {
+            if (orderHeader != null) {
                 Map<String, Object> cancelResp = dispatcher.runSync("cancelOrderInventoryReservation", UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId ));
                 if (ServiceUtil.isError(cancelResp)) {
                     throw new GeneralException(ServiceUtil.getErrorMessage(cancelResp));

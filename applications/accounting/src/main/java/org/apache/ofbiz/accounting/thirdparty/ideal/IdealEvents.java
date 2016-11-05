@@ -404,7 +404,7 @@ public class IdealEvents {
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
                 GenericValue ideal = EntityQuery.use(delegator).from("PaymentGatewayiDEAL").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(ideal)) {
+                if (ideal != null) {
                     Object idealField = ideal.get(paymentGatewayConfigParameterName);
                     if (idealField != null) {
                         returnValue = idealField.toString().trim();

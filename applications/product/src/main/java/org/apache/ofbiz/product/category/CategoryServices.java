@@ -466,7 +466,7 @@ public class CategoryServices {
 
         try {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
-            if (UtilValidate.isNotEmpty(category)) {
+            if (category != null) {
                 if (isCatalog.equals("true") && isCategoryType.equals("false")) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));

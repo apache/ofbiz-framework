@@ -632,7 +632,7 @@ public class ShoppingListEvents {
         Cookie[] cookies = request.getCookies();
         
         // check userLogin
-        if (UtilValidate.isNotEmpty(userLogin)) {
+        if (userLogin != null) {
             String partyId = userLogin.getString("partyId");
             if (UtilValidate.isEmpty(partyId)) {
                 return "success";

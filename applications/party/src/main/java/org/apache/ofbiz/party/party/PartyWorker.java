@@ -508,7 +508,7 @@ public class PartyWorker {
             party = EntityQuery.use(delegator).from("Party").where("partyId", idToFind).cache().queryOne();
         }
 
-        if (UtilValidate.isNotEmpty(party)) {
+        if (party != null) {
             if (UtilValidate.isNotEmpty(partiesFound)) partiesFound.add(party);
             else partiesFound = UtilMisc.toList(party);
         }
@@ -523,7 +523,7 @@ public class PartyWorker {
 
     public static String findPartyId(Delegator delegator, String idToFind, String partyIdentificationTypeId) throws GenericEntityException {
         GenericValue party = findParty(delegator, idToFind, partyIdentificationTypeId);
-        if (UtilValidate.isNotEmpty(party)) {
+        if (party != null) {
             return party.getString("partyId");
         } else {
             return null;

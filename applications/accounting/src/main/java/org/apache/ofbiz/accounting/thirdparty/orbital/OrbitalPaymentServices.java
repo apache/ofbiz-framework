@@ -290,9 +290,9 @@ public class OrbitalPaymentServices {
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
                 GenericValue paymentGatewayOrbital = EntityQuery.use(delegator).from("PaymentGatewayOrbital").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
-                if (UtilValidate.isNotEmpty(paymentGatewayOrbital)) {
+                if (paymentGatewayOrbital != null) {
                     Object paymentGatewayOrbitalField = paymentGatewayOrbital.get(paymentGatewayConfigParameterName);
-                    if (UtilValidate.isNotEmpty(paymentGatewayOrbitalField)) {
+                    if (paymentGatewayOrbitalField != null) {
                         return returnValue = paymentGatewayOrbitalField.toString().trim();
                     }
                 }

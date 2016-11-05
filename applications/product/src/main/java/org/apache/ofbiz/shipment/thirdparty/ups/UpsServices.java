@@ -515,13 +515,13 @@ public class UpsServices {
                     UtilXml.addChildElementValue(dimensionsElement, "Length", UtilValidate.isNotEmpty(boxLength) ? ""+boxLength.intValue() : "", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(dimensionsElement, "Width", UtilValidate.isNotEmpty(boxWidth) ? ""+boxWidth.intValue() : "", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(dimensionsElement, "Height", UtilValidate.isNotEmpty(boxHeight) ? ""+boxHeight.intValue() : "", shipmentConfirmRequestDoc);
-                } else if (UtilValidate.isNotEmpty(shipmentPackage) && UtilValidate.isNotEmpty(shipmentPackage.getBigDecimal("boxLength"))
+                } else if (shipmentPackage != null && UtilValidate.isNotEmpty(shipmentPackage.getBigDecimal("boxLength"))
                                                                     && UtilValidate.isNotEmpty(shipmentPackage.getBigDecimal("boxWidth"))
                                                                     && UtilValidate.isNotEmpty(shipmentPackage.getBigDecimal("boxHeight"))) {
                     Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", shipmentConfirmRequestDoc);
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
                     GenericValue dimensionUom = shipmentPackage.getRelatedOne("DimensionUom", false);
-                    if (UtilValidate.isNotEmpty(dimensionUom)) {
+                    if (dimensionUom != null) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);

@@ -80,7 +80,7 @@ public class ShippingEstimateWrapper {
             try {
                 for (ShoppingCartItem item : cart.getShipGroupItems(shipGroup).keySet()) {
                     GenericValue allowanceProductPrice = EntityQuery.use(delegator).from("ProductPrice").where("productPriceTypeId", "SHIPPING_ALLOWANCE", "productId", item.getProductId()).filterByDate().queryFirst();
-                    if (UtilValidate.isNotEmpty(allowanceProductPrice) && UtilValidate.isNotEmpty(allowanceProductPrice.get("price"))) {
+                    if (allowanceProductPrice != null && UtilValidate.isNotEmpty(allowanceProductPrice.get("price"))) {
                         totalAllowance = totalAllowance.add(allowanceProductPrice.getBigDecimal("price")).multiply(item.getQuantity());
                     }
                 }

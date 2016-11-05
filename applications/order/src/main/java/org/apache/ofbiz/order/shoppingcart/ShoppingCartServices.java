@@ -448,7 +448,7 @@ public class ShoppingCartServices {
                                                                   .where("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId"))
                                                                   .filterByDate()
                                                                   .queryFirst();
-                            if (UtilValidate.isNotEmpty(productAssoc)) {
+                            if (productAssoc != null) {
                                 productId = productAssoc.getString("productId");
                                 configId = product.getString("configId");
                             }
@@ -1170,7 +1170,7 @@ public class ShoppingCartServices {
                     cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
                 }
             }
-            if (UtilValidate.isNotEmpty(vendorProduct)) {
+            if (vendorProduct != null) {
                 String vendorPartyId = vendorProduct.getString("vendorPartyId");
                 if (vendorMap.containsKey(vendorPartyId)) {
                     index = ((Integer) vendorMap.get(vendorPartyId)).intValue();

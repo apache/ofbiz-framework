@@ -66,7 +66,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
         glAccountId = (String) ctx.get("glAccountId" + suffix);
         try {
             GenericValue acctgTransEntry = EntityQuery.use(delegator).from("AcctgTransEntry").where("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId).queryOne();
-            if (UtilValidate.isNotEmpty(acctgTransEntry)) {
+            if (acctgTransEntry != null) {
                 //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
                 debitCreditFlag = acctgTransEntry.getString("debitCreditFlag");
                 if ("D".equalsIgnoreCase(debitCreditFlag)) {
@@ -104,7 +104,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
         acctgTransEntrySeqId = (String) ctx.get("acctgTransEntrySeqId" + suffix);
         try {
             GenericValue acctgTransEntry = EntityQuery.use(delegator).from("AcctgTransEntry").where("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId).queryOne();
-            if (UtilValidate.isNotEmpty(acctgTransEntry)) {
+            if (acctgTransEntry != null ) {
                 reconciledAmount = acctgTransEntry.getString("amount");
                 acctgTransId = acctgTransEntry.getString("acctgTransId");
                 acctgTransEntrySeqId = acctgTransEntry.getString("acctgTransEntrySeqId");
