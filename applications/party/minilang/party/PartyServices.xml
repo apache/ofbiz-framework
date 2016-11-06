@@ -259,7 +259,7 @@ under the License.
            <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
            <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false"/>
            <set from-field="dataResource.dataResourceId" field="lookup.dataResourceId"/>
-           <<find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
+           <find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
        </if-not-empty>
 
        <set-service-fields service-name="createContent" map="parameters" to-map="createContentMap"/>
@@ -322,13 +322,13 @@ under the License.
 
         <if-not-empty field="parameters._uploadedFile_fileName">
            <set from-field="parameters.contentId" field="lookupParam.contentId"/>
-           <<find-by-primary-key entity-name="Content" map="lookupParam" value-field="content" use-cache="true"/>
+           <find-by-primary-key entity-name="Content" map="lookupParam" value-field="content" use-cache="true"/>
            <if-not-empty field="content.dataResourceId">
                <set-service-fields service-name="updateDataResource" map="parameters" to-map="dataResource"/>
                <set from-field="content.dataResourceId" field="dataResource.dataResourceId"/>
                <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false"/>
                <set from-field="content.dataResourceId" field="lookup.dataResourceId"/>
-               <<find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
+               <find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
             <else>
                <set field="absolute" value="true" type="Boolean"/>
                <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.apache.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
@@ -357,7 +357,7 @@ under the License.
                 <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
                 <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false"/>
                 <set from-field="dataResource.dataResourceId" field="lookup.dataResourceId"/>
-                <<find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
+                <find-by-primary-key entity-name="DataResource" map="lookup" value-field="dataResourceMap" use-cache="true"/>
             </else>
            </if-not-empty>
        </if-not-empty>
