@@ -788,7 +788,7 @@ under the License.
     
     <service name="getServerTimestamp" engine="simple" auth="false"
         location="component://common/minilang/CommonServices.xml" invoke="getServerTimestamp">
-        <attribute name="serverTimestamp" mode="OUT" type="TimeStamp"/>
+        <attribute name="serverTimestamp" mode="OUT" type="Timestamp"/>
     </service>
     
     <service name="getServerTimeZone" engine="simple" auth="false"
