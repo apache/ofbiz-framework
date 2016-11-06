@@ -363,6 +363,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffort"/>
         <auto-attributes include="pk" mode="INOUT" optional="false" entity-name="WorkEffortAssoc"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffortAssoc"/>
+        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <override name="workEffortIdTo" optional="true"/>
         <override name="fromDate" optional="true"/>
         <override name="currentStatusId" optional="false">
@@ -380,7 +381,6 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortTypeId"/>
             </type-validate>
         </override>
-        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateWorkEffortAndAssoc" engine="group" location="updateWorkEffortAndAssoc" invoke="" auth="true">
         <description>Creates a WorkEffort entity and WorkEffortAssoc</description>
