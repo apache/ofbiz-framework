@@ -102,8 +102,8 @@ under the License.
         <alias-all entity-alias="EFAAFV"/>
         <entity-condition>
             <condition-list combine="and">
-                <condition-expr field-name="exampleTypeId" value="CONTRIVED"/>
-                <condition-expr field-name="exampleFeatureApplTypeId" value="REQUIRED"/>
+                <condition-expr entity-alias="EFAAFV" field-name="exampleTypeId" operator="equals" value="CONTRIVED"/>
+                <condition-expr entity-alias="EFAAFV" field-name="exampleFeatureApplTypeId" operator="equals" value="REQUIRED"/>
             </condition-list>
             <order-by field-name="exampleName"/>
         </entity-condition>
@@ -122,7 +122,7 @@ under the License.
             <key-map field-name="exampleFeatureApplTypeId"/>
         </view-link>
         <entity-condition>
-            <condition-expr field-name="exampleFeatureApplTypeId" value="DESIRED"/>
+            <condition-expr entity-alias="EXFTAPTP" field-name="exampleFeatureApplTypeId" operator="equals" value="DESIRED"/>
         </entity-condition>
     </view-entity>
     <view-entity entity-name="AllExamplesWithDesiredCustomerFeaturesReport" package-name="org.apache.ofbiz.example.example">
@@ -142,7 +142,7 @@ under the License.
             <key-map field-name="exampleId"/>
         </view-link>
         <entity-condition>
-            <condition-expr field-name="featureSourceEnumId" value="EXFTSRC_CUSTOMER"/>
+            <condition-expr entity-alias="EXFT" field-name="featureSourceEnumId" operator="equals" value="EXFTSRC_CUSTOMER"/>
             <order-by field-name="exampleName"/>
         </entity-condition>
     </view-entity>
