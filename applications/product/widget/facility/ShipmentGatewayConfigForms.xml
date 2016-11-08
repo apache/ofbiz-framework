@@ -68,7 +68,7 @@ under the License.
         </field>
     </form>
     
-    <form name="EditShipmentGatewayConfigDhl" type="single" target="UpdateShipmentGatewayConfigDhl" default-map-name="shipmentGatewayDhl" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditShipmentGatewayConfigDhl" type="single" target="updateShipmentGatewayDhl" default-map-name="shipmentGatewayDhl" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayDhl" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="connectUrl" title="${uiLabelMap.FacilityShipmentDhlConnectUrl}">
@@ -112,7 +112,7 @@ under the License.
         </field>
     </form>
     
-    <form name="EditShipmentGatewayConfigFedex" type="single" target="UpdateShipmentGatewayConfigFedex" default-map-name="shipmentGatewayFedex" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditShipmentGatewayConfigFedex" type="single" target="updateShipmentGatewayFedex" default-map-name="shipmentGatewayFedex" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayFedex" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="connectUrl" title="${uiLabelMap.FacilityShipmentFedexConnectUrl}">
@@ -180,7 +180,7 @@ under the License.
         </field>
     </form>
     
-    <form name="EditShipmentGatewayConfigUps" type="single" target="UpdateShipmentGatewayConfigUps" default-map-name="shipmentGatewayUps" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditShipmentGatewayConfigUps" type="single" target="updateShipmentGatewayUps" default-map-name="shipmentGatewayUps" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayUps" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="connectUrl" title="${uiLabelMap.FacilityShipmentUpsConnectUrl}">
@@ -274,7 +274,7 @@ under the License.
         </field>
     </form>
     
-    <form name="EditShipmentGatewayConfigUsps" type="single" target="UpdateShipmentGatewayConfigUsps" default-map-name="shipmentGatewayUsps" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditShipmentGatewayConfigUsps" type="single" target="updateShipmentGatewayUsps" default-map-name="shipmentGatewayUsps" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayUsps" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="connectUrl" title="${uiLabelMap.FacilityShipmentUspsConnectUrl}">

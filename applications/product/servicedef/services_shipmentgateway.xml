@@ -29,7 +29,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateShipmentGatewayConfigDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateShipmentGatewayDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ShipmentGatewayDhl record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -44,7 +44,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateShipmentGatewayConfigFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateShipmentGatewayFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ShipmentGatewayFedex record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

@@ -1281,25 +1281,25 @@ under the License.
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateShipmentGatewayConfigDhl">
+    <request-map uri="updateShipmentGatewayDhl">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayConfigDhl"/>
+        <event type="service" invoke="updateShipmentGatewayDhl"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateShipmentGatewayConfigFedex">
+    <request-map uri="updateShipmentGatewayFedex">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayConfigFedex"/>
+        <event type="service" invoke="updateShipmentGatewayFedex"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateShipmentGatewayConfigUps">
+    <request-map uri="updateShipmentGatewayUps">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateShipmentGatewayUps"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateShipmentGatewayConfigUsps">
+    <request-map uri="updateShipmentGatewayUsps">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateShipmentGatewayUsps"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
