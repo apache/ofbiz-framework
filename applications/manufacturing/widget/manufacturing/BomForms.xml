@@ -44,10 +44,10 @@ under the License.
         </field>
         <field name="type">
             <drop-down>
-                <option key="${uiLabelMap.ManufacturingExplosion}" description="0"/>
-                <option key="${uiLabelMap.ManufacturingExplosionSingleLevel}" description="1"/>
-                <option key="${uiLabelMap.ManufacturingExplosionManufacturing}" description="2"/>
-                <option key="${uiLabelMap.ManufacturingImplosion}" description="3"/>
+                <option key="0" description="${uiLabelMap.ManufacturingExplosion}"/>
+                <option key="1" description="${uiLabelMap.ManufacturingExplosionSingleLevel}"/>
+                <option key="2" description="${uiLabelMap.ManufacturingExplosionManufacturing}"/>
+                <option key="3" description="${uiLabelMap.ManufacturingImplosion}"/>
             </drop-down>
         </field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
