@@ -212,7 +212,7 @@ public class EbayStoreAutoPreferences {
                 }
             }
         } catch (GenericEntityException gee) {
-        	return ServiceUtil.returnError(gee.getMessage());
+            return ServiceUtil.returnError(gee.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreProblemConnectingToEbaySite", locale) + e);
         }
@@ -496,10 +496,8 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -571,10 +569,8 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -646,10 +642,8 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -1152,10 +1146,8 @@ public class EbayStoreAutoPreferences {
                     }
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }

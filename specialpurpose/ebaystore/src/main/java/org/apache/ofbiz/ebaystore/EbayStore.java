@@ -1649,10 +1649,8 @@ public class EbayStore {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
                 result.put(ModelService.ERROR_MESSAGE_LIST, ProductsExportToEbay.getproductExportFailureMessageList());
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }

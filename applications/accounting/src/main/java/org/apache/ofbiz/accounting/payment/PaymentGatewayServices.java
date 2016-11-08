@@ -2893,10 +2893,8 @@ public class PaymentGatewayServices {
         try {
             dispatcher.addRollbackService("savePaymentGatewayResponse", context, true);
             delegator.create(pgr);
-        } catch (GenericEntityException gee) {
-            Debug.logError(gee, module);
-        } catch (GenericServiceException gse) {
-            Debug.logError(gse, module);
+        } catch (GenericEntityException|GenericServiceException ge) {
+            Debug.logError(ge, module);
         } catch (Exception e) {
             Debug.logError(e, module);
         }
@@ -2913,10 +2911,8 @@ public class PaymentGatewayServices {
             for (GenericValue message : messages) {
                 delegator.create(message);
             }
-        } catch (GenericEntityException gee) {
-            Debug.logError(gee, module);
-        } catch (GenericServiceException gse) {
-            Debug.logError(gse, module);
+        } catch (GenericEntityException|GenericServiceException ge) {
+            Debug.logError(ge, module);
         } catch (Exception e) {
             Debug.logError(e, module);
         }
@@ -3045,7 +3041,7 @@ public class PaymentGatewayServices {
         }
 
         // prepare the order payment preference (facade)
-        GenericValue orderPaymentPref = delegator.makeValue("OrderPaymentPreference", new HashMap());
+        GenericValue orderPaymentPref = delegator.makeValue("OrderPaymentPreference", new HashMap<String, Object>());
         orderPaymentPref.set("orderPaymentPreferenceId", "_NA_");
         orderPaymentPref.set("orderId", "_NA_");
         orderPaymentPref.set("presentFlag", "N");

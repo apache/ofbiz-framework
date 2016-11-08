@@ -192,10 +192,8 @@ public class BOMServices {
                     variantProduct.store();
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", gee.getMessage()), locale));
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", gse.getMessage()), locale));
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", ge.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }

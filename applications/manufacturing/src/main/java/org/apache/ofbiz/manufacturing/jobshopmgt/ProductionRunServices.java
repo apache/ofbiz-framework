@@ -1157,10 +1157,8 @@ public class ProductionRunServices {
                     dispatcher.runSync("createCostComponent", inMap);
                 }
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gee.getMessage()), locale));
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gse.getMessage()), locale));
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateRoutingCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", e.getMessage()), locale));
         }
@@ -1191,10 +1189,8 @@ public class ProductionRunServices {
                 inMap.put("cost", materialsCost);
                 dispatcher.runSync("createCostComponent", inMap);
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gee.getMessage()), locale));
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", gse.getMessage()), locale));
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()), locale));
         } catch (Exception e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunUnableToCreateMaterialsCosts", UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", e.getMessage()), locale));
         }
@@ -1707,14 +1703,14 @@ public class ProductionRunServices {
             
          // Before creating InvntoryItem and InventoryItemDetails, check weather the record of ProductFacility exist in the system or not
             GenericValue productFacility = EntityQuery.use(delegator). from("ProductFacility").where("productId", productionRun.getProductProduced().getString("productId")
-            		, "facilityId", facility.get("facilityId")).queryOne();
+                    , "facilityId", facility.get("facilityId")).queryOne();
             
             if (productFacility == null) {
-            	Map<String, Object> createProductFacilityCtx = new HashMap<String, Object>();
-            	createProductFacilityCtx.put("productId", productionRun.getProductProduced().getString("productId"));
-            	createProductFacilityCtx.put("facilityId", facility.get("facilityId"));
-            	createProductFacilityCtx.put("userLogin", userLogin);
-            	dispatcher.runSync("createProductFacility", createProductFacilityCtx);
+                Map<String, Object> createProductFacilityCtx = new HashMap<String, Object>();
+                createProductFacilityCtx.put("productId", productionRun.getProductProduced().getString("productId"));
+                createProductFacilityCtx.put("facilityId", facility.get("facilityId"));
+                createProductFacilityCtx.put("userLogin", userLogin);
+                dispatcher.runSync("createProductFacility", createProductFacilityCtx);
             }
 
         } catch (GenericServiceException gse) {

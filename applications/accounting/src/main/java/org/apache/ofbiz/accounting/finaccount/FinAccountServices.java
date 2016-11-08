@@ -165,10 +165,8 @@ public class FinAccountServices {
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
                 return creditTransResult;
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(gse.getMessage());
+        } catch (GenericEntityException|GenericServiceException ge) {
+            return ServiceUtil.returnError(ge.getMessage());
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
