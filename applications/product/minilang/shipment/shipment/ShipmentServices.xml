@@ -1644,7 +1644,7 @@ under the License.
         <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>
         <if-compare-field field="inventoryItem.serialNumber" operator="not-equals" to-field="parameters.serialNumber">
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
-            <set-service-fields service-name="reserveAnInventoryItem" map="parameters" to-map="reserveAnInventoryItemCtx"/>/>
+            <set-service-fields service-name="reserveAnInventoryItem" map="parameters" to-map="reserveAnInventoryItemCtx"/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
                 <result-to-field result-name="inventoryItemId" field="parameters.inventoryItemId"/>
             </call-service>

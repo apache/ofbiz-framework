@@ -245,7 +245,7 @@ under the License.
         </entity-and>
         <first-from-list list="partyContactWithPurposes" entry="partyContactWithPurpose"/>
         <set field="email" from-field="partyContactWithPurpose.infoString"/>
-        <set-service-fields service-name="unsubscribeContactListParty" map="parameters" to-map="unsubscribeContactListPartyCtx"/>/>
+        <set-service-fields service-name="unsubscribeContactListParty" map="parameters" to-map="unsubscribeContactListPartyCtx"/>
         <set field="unsubscribeContactListPartyCtx.email" from-field="email"/>
         <call-service service-name="unsubscribeContactListParty" in-map-name="unsubscribeContactListPartyCtx"/>
     </simple-method>

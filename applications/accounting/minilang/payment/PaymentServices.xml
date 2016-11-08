@@ -1006,18 +1006,18 @@ under the License.
         <set field="parameters.partyIdTo" from-field="orderRoleTo.partyId"/>
         <set field="parameters.paymentMethodTypeId" value="COMPANY_ACCOUNT"/>
         <set field="parameters.statusId" value="PMNT_NOT_PAID"/>
-        <set-service-fields service-name="createPayment" map="parameters" to-map="createPayment"/>/>
+        <set-service-fields service-name="createPayment" map="parameters" to-map="createPayment"/>
         <call-service service-name="createPayment" in-map-name="createPayment">
             <result-to-field result-name="paymentId" field="parameters.paymentId"/>
         </call-service>
         <set field="parameters.orderId" from-field="orderHeader.orderId"/>
         <set field="parameters.maxAmount" from-field="orderHeader.grandTotal"/>
 
-        <set-service-fields service-name="createOrderPaymentPreference" map="parameters" to-map="newOrderPaymentPreference"/>/>
+        <set-service-fields service-name="createOrderPaymentPreference" map="parameters" to-map="newOrderPaymentPreference"/>
         <call-service service-name="createOrderPaymentPreference" in-map-name="newOrderPaymentPreference">
             <result-to-field result-name="orderPaymentPreferenceId" field="parameters.paymentPreferenceId"/>
         </call-service>
-        <set-service-fields service-name="updatePayment" map="parameters" to-map="updatePayment"/>/>
+        <set-service-fields service-name="updatePayment" map="parameters" to-map="updatePayment"/>
         <call-service service-name="updatePayment" in-map-name="updatePayment"/>
         <field-to-result field="parameters.paymentId" result-name="paymentId"/>
         <log level="info" message="payment ${parameters.paymentId} with the not-paid status automatically created from order: ${parameters.orderId} (can be disabled in accounting.properties)"/>

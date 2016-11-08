@@ -148,7 +148,7 @@
                 </call-service>
                 <set field="parameters.custRequestId" from-field="custRequestId"/>
                 <set field="parameters.workEffortId" from-field="workEffortId"/>
-                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>/>
+                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>
                 <call-service service-name="createWorkEffortRequest" in-map-name="createWorkEffortRequest">
                     <result-to-field result-name="workEffortId" field="workEffort"/>
                 </call-service>
@@ -163,7 +163,7 @@
                 </call-service>
                 <set field="parameters.custRequestId" from-field="custRequestId"/>
                 <set field="parameters.workEffortId" from-field="workEffortId"/>
-                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>/>
+                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>
                 <call-service service-name="createWorkEffortRequest" in-map-name="createWorkEffortRequest">
                     <result-to-field result-name="workEffortId" field="workEffortId"/>
                 </call-service>
@@ -178,7 +178,7 @@
                 </call-service>
                 <set field="parameters.custRequestId" from-field="custRequestId"/>
                 <set field="parameters.workEffortId" from-field="workEffortId"/>
-                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>/>
+                <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="createWorkEffortRequest"/>
                 <call-service service-name="createWorkEffortRequest" in-map-name="createWorkEffortRequest">
                     <result-to-field result-name="workEffortId" field="workEffortId"/>
                 </call-service>
@@ -450,7 +450,7 @@
                 <entity-one entity-name="UserLogin" value-field="sysUserLogin">
                     <field-map field-name="userLoginId" value="system"/>
                 </entity-one>
-                <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createProject"/>/>
+                <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createProject"/>
                 <set field="createProject.workEffortTypeId" value="SCRUM_PROJECT"/>
                 <set field="createProject.currentStatusId" value="SPJ_ACTIVE"/>
                 <set field="createProject.userLogin" from-field="sysUserLogin"/>
@@ -519,7 +519,7 @@
             </condition>
             <then>
                 <now-timestamp field="now"/>
-                <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updateProject"/>/>
+                <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updateProject"/>
                 <call-service service-name="updateWorkEffort" in-map-name="updateProject"/>
                 <!-- remove old workeffort associate with product -->
                 <entity-and entity-name="WorkEffortGoodStandard" list="workEffGSDList">
@@ -1041,7 +1041,7 @@
                 <number value="3600000"/>
             </calcop>
         </calculate>
-        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>/>
+        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>
         <call-service service-name="updateCustRequest" in-map-name="inMap"/>
     </simple-method>
     
@@ -1252,7 +1252,7 @@
             <set field="parameters.roleTypeId" value="STAKEHOLDER"/>
         </if-compare>
 
-        <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="ensurePartyRole"/>/>
+        <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="ensurePartyRole"/>
         <set field="ensurePartyRole.userLogin" from-field="sysUserLogin"/>
         <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRole"/>
         <entity-one entity-name="UserLogin" value-field="sysUserLogin">
@@ -1265,7 +1265,7 @@
         </entity-and>
         <if-empty field="listGroupId">
             <set field="parameters.userLoginId" from-field="userLoginId"/>
-            <set-service-fields service-name="addUserLoginToSecurityGroup" map="parameters" to-map="inMap"/>/>
+            <set-service-fields service-name="addUserLoginToSecurityGroup" map="parameters" to-map="inMap"/>
             <set field="inMap.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="addUserLoginToSecurityGroup" in-map-name="inMap"/>
             <else>
@@ -1370,7 +1370,7 @@
         <if-compare field="formInput.formInput.workEffortTypeId" operator="equals" value="SCRUM_TASK_INST">
             <set field="formInput.formInput.priority" value="4"/>
         </if-compare>
-        <set-service-fields service-name="createWorkEffort" map="formInput.formInput" to-map="createWorkEffort"/>/>
+        <set-service-fields service-name="createWorkEffort" map="formInput.formInput" to-map="createWorkEffort"/>
         <entity-one entity-name="UserLogin" value-field="sysUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -1381,7 +1381,7 @@
             <result-to-field result-name="workEffortId" field="formInput.formInput.workEffortId"/>
         </call-service>
         <set field="formInput.formInput.custRequestId" from-field="custRequestId"/>
-        <set-service-fields service-name="createWorkEffortRequest" map="formInput.formInput" to-map="createWorkEffortRequest"/>/>
+        <set-service-fields service-name="createWorkEffortRequest" map="formInput.formInput" to-map="createWorkEffortRequest"/>
         <call-service service-name="createWorkEffortRequest" in-map-name="createWorkEffortRequest"/>
         
         <!--if plan hours(from task) more than first plan hours -->
@@ -1527,11 +1527,11 @@
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
 
-        <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="ensurePartyRole"/>/>
+        <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="ensurePartyRole"/>
         <set field="ensurePartyRole.userLogin" from-field="sysUserLogin"/>
         <set field="ensurePartyRole.roleTypeId" from-field="parameters.roleTypeId"/>
         <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRole"/>
-        <set-service-fields service-name="assignPartyToWorkEffort" map="parameters" to-map="assignPartyToWorkEffort"/>/>
+        <set-service-fields service-name="assignPartyToWorkEffort" map="parameters" to-map="assignPartyToWorkEffort"/>
         <set field="assignPartyToWorkEffort.userLogin" from-field="sysUserLogin"/>
         <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffort"/>
     </simple-method>
@@ -2068,7 +2068,7 @@
             </if-not-empty>
         </if-empty>
         
-        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="inMap"/>/>
+        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="inMap"/>
         <call-service service-name="updateWorkEffort" in-map-name="inMap"/>
         <if-not-empty field="parameters.partyId">
         <!-- Assigned -->
@@ -2218,7 +2218,7 @@
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
         </entity-and>
         <if-not-empty field="partyRoles">
-            <set-service-fields service-name="deletePartyRole" map="parameters" to-map="deletePartyRoleMap"/>/>
+            <set-service-fields service-name="deletePartyRole" map="parameters" to-map="deletePartyRoleMap"/>
             <set field="deletePartyRoleMap.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="deletePartyRole" in-map-name="deletePartyRoleMap"/>
         </if-not-empty>
@@ -2285,7 +2285,7 @@
             </call-service>
             <field-to-request field="workEffortId"/>
             <set field="formInput.formInput.workEffortId" from-field="workEffortId"/>
-            <set-service-fields service-name="createWorkEffortRequest" map="formInput.formInput" to-map="workEffortRequestCtx"/>/>
+            <set-service-fields service-name="createWorkEffortRequest" map="formInput.formInput" to-map="workEffortRequestCtx"/>
             <call-service service-name="createWorkEffortRequest" in-map-name="workEffortRequestCtx"/>
             
             <!-- createWorkEffortRequest not provide to add the workEffortParentId into WorkEffort entity. -->
@@ -2647,7 +2647,7 @@
                 <now-timestamp field="now"/>
                 <!-- calculate estimatedMilliSeconds from initail planned hours -->
                 <set field="plannedHours" from-field="parameters.plannedHours" default-value="0" type="Integer"/>
-                <set-service-fields service-name="createWorkEffort" map="parameters" to-map="workEffortMap"/>/>
+                <set-service-fields service-name="createWorkEffort" map="parameters" to-map="workEffortMap"/>
                 <set field="parameters.estimatedMilliSeconds" value="${groovy:plannedHours*60*60*1000}"/>
                 <call-service service-name="createWorkEffort" in-map-name="workEffortMap">
                    <result-to-field result-name="workEffortId"/>
@@ -3483,7 +3483,7 @@
                 <if-not-empty field="workEffGSDList">
                     <remove-list list="workEffGSDList"/>
                 </if-not-empty>
-                <set-service-fields service-name="deleteWorkEffort" map="workEffortMap" to-map="serviceMap"/>/>
+                <set-service-fields service-name="deleteWorkEffort" map="workEffortMap" to-map="serviceMap"/>
                 <call-service service-name="deleteWorkEffort" in-map-name="serviceMap">
                     <default-message>The Default Task record successfully deleted.</default-message>
                 </call-service>
@@ -4133,7 +4133,7 @@
         <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set-service-fields service-name="updatePartyRate" map="parameters" to-map="partyRateMap"/>/>
+        <set-service-fields service-name="updatePartyRate" map="parameters" to-map="partyRateMap"/>
         <set field="partyRateMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="updatePartyRate" in-map-name="partyRateMap"/>
         <field-to-request field="parameters.partyId" request-name="partyId"/>
@@ -4143,7 +4143,7 @@
         <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set-service-fields service-name="deletePartyRate" map="parameters" to-map="partyRateMap"/>/>
+        <set-service-fields service-name="deletePartyRate" map="parameters" to-map="partyRateMap"/>
         <set field="partyRateMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="deletePartyRate" in-map-name="partyRateMap"/>
         <field-to-request field="parameters.partyId" request-name="partyId"/>
@@ -4153,7 +4153,7 @@
         <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set-service-fields service-name="createPartyRelationshipContactAccount" map="parameters" to-map="partyRelationshipMap"/>/>
+        <set-service-fields service-name="createPartyRelationshipContactAccount" map="parameters" to-map="partyRelationshipMap"/>
         <set field="partyRelationshipMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="createPartyRelationshipContactAccount" in-map-name="partyRelationshipMap">
             <default-message>Successfully created party relationship.</default-message>

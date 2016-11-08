@@ -133,7 +133,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -259,7 +259,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -384,7 +384,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -509,7 +509,7 @@ under the License.
             <result-to-field result-name="responseMessage"/>
         </call-service>
         <log level="info" message="===== >>> Service: packBulkItems, Response = ${responseMessage}"/>
-        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>/>
+        <set-service-fields service-name="completePack" map="packInput" to-map="completePackInput"/>
         <call-service service-name="completePack" in-map-name="completePackInput">
             <result-to-field result-name="shipmentId"/>
         </call-service>

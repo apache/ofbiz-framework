@@ -995,7 +995,7 @@ under the License.
         </if-empty>
 
         <!-- Create the new WorkEffort from the old one and the status -->
-        <set-service-fields service-name="createWorkEffort" map="oldWorkEffort" to-map="createWorkEffortCtx"/>/>
+        <set-service-fields service-name="createWorkEffort" map="oldWorkEffort" to-map="createWorkEffortCtx"/>
         <set field="createWorkEffortCtx.workEffortId" from-field="workEffortId"/>
         <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin"/>
         <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx"/>

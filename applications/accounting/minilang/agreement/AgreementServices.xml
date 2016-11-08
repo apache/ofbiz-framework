@@ -39,7 +39,7 @@ under the License.
     <simple-method method-name="copyAgreement" short-description="Copy an existing Agreement">
         <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>
-        <set-service-fields service-name="createAgreement" map="agreement" to-map="createAgreementInMap"/>/>
+        <set-service-fields service-name="createAgreement" map="agreement" to-map="createAgreementInMap"/>
         <call-service service-name="createAgreement" in-map-name="createAgreementInMap">
             <result-to-field result-name="agreementId" field="agreementIdTo"/>
         </call-service>
@@ -47,7 +47,7 @@ under the License.
         <get-related value-field="agreement" relation-name="AgreementItem" list="agreementItems"/>
         <iterate list="agreementItems" entry="agreementItem">
             <clear-field field="createAgreementItemInMap"/>
-            <set-service-fields service-name="createAgreementItem" map="agreementItem" to-map="createAgreementItemInMap"/>/>
+            <set-service-fields service-name="createAgreementItem" map="agreementItem" to-map="createAgreementItemInMap"/>
             <set from-field="agreementIdTo" field="createAgreementItemInMap.agreementId"/>
             <call-service service-name="createAgreementItem" in-map-name="createAgreementItemInMap"/>
         </iterate>
@@ -55,7 +55,7 @@ under the License.
             <get-related value-field="agreement" relation-name="AgreementTerm" list="agreementTerms"/>
             <iterate list="agreementTerms" entry="agreementTerm">
                 <clear-field field="createAgreementTermInMap"/>
-                <set-service-fields service-name="createAgreementTerm" map="agreementTerm" to-map="createAgreementTermInMap"/>/>
+                <set-service-fields service-name="createAgreementTerm" map="agreementTerm" to-map="createAgreementTermInMap"/>
                 <set from-field="agreementIdTo" field="createAgreementTermInMap.agreementId"/>
                 <call-service service-name="createAgreementTerm" in-map-name="createAgreementTermInMap"/>
             </iterate>
@@ -64,7 +64,7 @@ under the License.
             <get-related value-field="agreement" relation-name="AgreementProductAppl" list="agreementProductAppls"/>
             <iterate list="agreementProductAppls" entry="agreementProductAppl">
                 <clear-field field="createAgreementProductApplInMap"/>
-                <set-service-fields service-name="createAgreementProductAppl" map="agreementProductAppl" to-map="createAgreementProductApplInMap"/>/>
+                <set-service-fields service-name="createAgreementProductAppl" map="agreementProductAppl" to-map="createAgreementProductApplInMap"/>
                 <set from-field="agreementIdTo" field="createAgreementProductApplInMap.agreementId"/>
                 <call-service service-name="createAgreementProductAppl" in-map-name="createAgreementProductApplInMap"/>
             </iterate>
@@ -73,7 +73,7 @@ under the License.
             <get-related value-field="agreement" relation-name="AgreementFacilityAppl" list="agreementFacilityAppls"/>
             <iterate list="agreementFacilityAppls" entry="agreementFacilityAppl">
                 <clear-field field="createAgreementFacilityApplInMap"/>
-                <set-service-fields service-name="createAgreementFacilityAppl" map="agreementFacilityAppl" to-map="createAgreementFacilityApplInMap"/>/>
+                <set-service-fields service-name="createAgreementFacilityAppl" map="agreementFacilityAppl" to-map="createAgreementFacilityApplInMap"/>
                 <set from-field="agreementIdTo" field="createAgreementFacilityApplInMap.agreementId"/>
                 <call-service service-name="createAgreementFacilityAppl" in-map-name="createAgreementFacilityApplInMap"/>
             </iterate>
@@ -82,7 +82,7 @@ under the License.
             <get-related value-field="agreement" relation-name="AgreementPartyApplic" list="agreementPartyApplic"/>
             <iterate list="agreementPartyApplics" entry="agreementPartyApplic">
                 <clear-field field="createAgreementPartyApplicInMap"/>
-                <set-service-fields service-name="createAgreementPartyApplic" map="agreementPartyApplic" to-map="createAgreementPartyApplicInMap"/>/>
+                <set-service-fields service-name="createAgreementPartyApplic" map="agreementPartyApplic" to-map="createAgreementPartyApplicInMap"/>
                 <set from-field="agreementIdTo" field="createAgreementPartyApplicInMap.agreementId"/>
                 <call-service service-name="createAgreementPartyApplic" in-map-name="createAgreementPartyApplicInMap"/>
             </iterate>

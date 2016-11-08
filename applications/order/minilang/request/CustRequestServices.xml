@@ -420,7 +420,7 @@ under the License.
         <entity-one entity-name="CustRequestItem" value-field="custRequestItem" auto-field-map="true"/>
         <check-errors/>
 
-        <set-service-fields service-name="createCustRequestItem" map="custRequestItem" to-map="createCustRequestItemInMap"/>/>
+        <set-service-fields service-name="createCustRequestItem" map="custRequestItem" to-map="createCustRequestItemInMap"/>
         <set field="createCustRequestItemInMap.custRequestId" from-field="parameters.custRequestIdTo"/>
         <set field="createCustRequestItemInMap.custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
         <if-empty field="parameters.custRequestIdTo">
@@ -440,7 +440,7 @@ under the License.
             <get-related value-field="custRequestItem" relation-name="QuoteItem" list="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
-                <set-service-fields service-name="createQuoteItem" map="quoteItem" to-map="createQuoteItemInMap"/>/>
+                <set-service-fields service-name="createQuoteItem" map="quoteItem" to-map="createQuoteItemInMap"/>
                 <set field="createQuoteItemInMap.custRequestId" from-field="custRequestIdTo"/>
                 <set field="createQuoteItemInMap.custRequestItemSeqId" from-field="custRequestItemSeqId"/>
                 <clear-field field="createQuoteItemInMap.quoteItemSeqId"/>

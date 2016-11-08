@@ -107,7 +107,7 @@ under the License.
     <!-- ================================================================ -->
 
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
-        <set-service-fields service-name="addProductToCategory" map="parameters" to-map="addProductToCategoryMap"/>/>
+        <set-service-fields service-name="addProductToCategory" map="parameters" to-map="addProductToCategoryMap"/>
         <if-instance-of field="parameters.categories" class="java.util.List">
             <iterate list="parameters.categories" entry="category">
                 <set field="addProductToCategoryMap.productCategoryId" from-field="category"/>

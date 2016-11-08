@@ -26,7 +26,7 @@ under the License.
         <!-- TODO: Do we need to create a GlJournal record here? -->
 
         <!-- first, create the AcctgTrans -->
-        <set-service-fields service-name="createAcctgTrans" map="parameters" to-map="createAcctgTransParams"/>/>
+        <set-service-fields service-name="createAcctgTrans" map="parameters" to-map="createAcctgTransParams"/>
         <if-empty field="createAcctgTransParams.transactionDate">
             <now-timestamp field="createAcctgTransParams.transactionDate"/>
         </if-empty>
@@ -2690,7 +2690,7 @@ under the License.
                 <call-service service-name="createGlAccountCategoryMember" in-map-name="createGlAccountCategoryMemberMap"/>
                 <log level="info" message="GlAccountCategoryMember created for [${glAccountCategoryId}] and [${glAccountId}]"/>
             <else>
-                <set-service-fields service-name="updateGlAccountCategoryMember" map="glAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap"/>/>
+                <set-service-fields service-name="updateGlAccountCategoryMember" map="glAccountCategoryMember" to-map="updateGlAccountCategoryMemberMap"/>
                 <set field="updateGlAccountCategoryMemberMap.amountPercentage" from-field="amountPercentage" type="BigDecimal"/>
                 <call-service service-name="updateGlAccountCategoryMember" in-map-name="updateGlAccountCategoryMemberMap"/>
             </else>

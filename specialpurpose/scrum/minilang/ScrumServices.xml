@@ -2313,7 +2313,7 @@
                                 <set field="custRequest.fromPartyId" from-field="productRole[0].partyId"/>
                             </if-compare>
                         </if-empty>
-                        <set-service-fields service-name="updateCustRequest" map="custRequest" to-map="updateCustRequest"/>/>
+                        <set-service-fields service-name="updateCustRequest" map="custRequest" to-map="updateCustRequest"/>
                         <set field="updateCustRequest.webSiteId" from-field="parameters.webSiteId"/>
                         <call-service service-name="updateCustRequest" in-map-name="updateCustRequest"/>
                         <log level="info" message="Completed Sprint Backlog # ${custRequestId}"/>
@@ -2562,7 +2562,7 @@
             
             <set field="parameters.objectInfo" from-field="parameters.revisionLink"/>
             <set field="parameters.mimeTypeId" value="text/plain"/>
-            <set-service-fields service-name="createDataResource" map="parameters" to-map="newDataResource"/>/>
+            <set-service-fields service-name="createDataResource" map="parameters" to-map="newDataResource"/>
             <call-service service-name="createDataResource" in-map-name="newDataResource">
                 <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
             </call-service>
@@ -2571,14 +2571,14 @@
             <set field="parameters.partyId" from-field="user.partyId"/>
             <set field="parameters.contentName" value="R${parameters.revisionNumber}"/>
             <set field="parameters.description" from-field="parameters.revisionDescription"/>
-            <set-service-fields service-name="createContent" map="parameters" to-map="newContent"/>/>
+            <set-service-fields service-name="createContent" map="parameters" to-map="newContent"/>
             <call-service service-name="createContent" in-map-name="newContent">
                 <result-to-field result-name="contentId" field="parameters.contentId"/>
             </call-service>
             
             <set field="parameters.workEffortContentTypeId" value="TASK_SUB_INFO"/>
             <set field="parameters.workEffortId" from-field="task.workEffortId"/>
-            <set-service-fields service-name="createWorkEffortContent" map="parameters" to-map="newWorkEffortContent"/>/>
+            <set-service-fields service-name="createWorkEffortContent" map="parameters" to-map="newWorkEffortContent"/>
             <call-service service-name="createWorkEffortContent" in-map-name="newWorkEffortContent"/>
             
             <!-- check if party assigned to task-->

@@ -159,7 +159,7 @@ under the License.
 
     <!-- ProductPromoContent -->
     <simple-method method-name="removeProductPromoContent" short-description="Remove Content From Product Promo">
-        <set-service-fields service-name="updateProductPromoContent" map="parameters" to-map="updateProductPromoContentMap"/>/>
+        <set-service-fields service-name="updateProductPromoContent" map="parameters" to-map="updateProductPromoContentMap"/>
         <if-empty field="updateProductPromoContentMap.thruDate">
             <now-timestamp field="updateProductPromoContentMap.thruDate"/>
         </if-empty>

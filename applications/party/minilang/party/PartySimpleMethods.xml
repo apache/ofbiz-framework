@@ -236,7 +236,7 @@ under the License.
     <simple-method method-name="deleteBillingAccount" short-description="delete billing account">
         <now-timestamp field="nowTimestamp"/>
         <set field="parameters.thruDate" from-field="nowTimestamp"/>
-        <set-service-fields service-name="updateBillingAccount" map="parameters" to-map="deleteBillingAccountCtx"/>/>
+        <set-service-fields service-name="updateBillingAccount" map="parameters" to-map="deleteBillingAccountCtx"/>
         <call-service service-name="updateBillingAccount" in-map-name="deleteBillingAccountCtx"/>
     </simple-method>
 </simple-methods>

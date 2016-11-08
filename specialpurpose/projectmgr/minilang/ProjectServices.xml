@@ -180,10 +180,10 @@
     </simple-method>
 
     <simple-method method-name="updateTaskAndRelatedInfo" short-description="Update the task and when info is provided update the related information too">
-        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updateWorkeffort"/>/>
+        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updateWorkeffort"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkeffort"/>
         <if-not-empty field="parameters.estimatedDuration">
-            <set-service-fields service-name="updateWorkEffortSkillStandard" map="parameters" to-map="updateWorkEffortSkillStandard"/>/>
+            <set-service-fields service-name="updateWorkEffortSkillStandard" map="parameters" to-map="updateWorkEffortSkillStandard"/>
             <if-empty field="parameters.skillTypeId">
                 <entity-and entity-name="WorkEffortSkillStandard" list="workEffortSkillStandards">
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>

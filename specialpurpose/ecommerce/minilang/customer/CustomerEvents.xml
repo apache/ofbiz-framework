@@ -1295,11 +1295,11 @@ under the License.
         </if-compare-field>
         <check-errors/>
         <if-empty field="parameters.partyId">
-            <set-service-fields service-name="createPerson" map="parameters" to-map="newPerson"/>/>
+            <set-service-fields service-name="createPerson" map="parameters" to-map="newPerson"/>
             <call-service service-name="createPerson" in-map-name="newPerson">
                 <result-to-field result-name="partyId" field="parameters.partyId"/>
             </call-service>
-            <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="newContact"/>/>
+            <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="newContact"/>
             <set field="newContact.infoString" from-field="parameters.emailAddress"/>
             <set field="newContact.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <set field="newContact.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
@@ -1310,7 +1310,7 @@ under the License.
                 <set field="parameters.contactMechIdFrom" from-field="contact.contactMechId"/>
             </else>
         </if-empty>
-        <set-service-fields service-name="sendContactUsEmailToCompany" map="parameters" to-map="newComm"/>/>
+        <set-service-fields service-name="sendContactUsEmailToCompany" map="parameters" to-map="newComm"/>
         <set field="newComm.emailType" value="CONT_NOTI_EMAIL"/>
         <call-service service-name="sendContactUsEmailToCompany" in-map-name="newComm">
             <default-message property="ThankYouForContactingUs" resource="EcommerceUiLabels"></default-message>
