@@ -28,7 +28,7 @@ under the License.
         <set field="parameters.custRequestId" value="TEST9"/>
         <set field="parameters.estimatedMilliSeconds" value="36000000"/>
         <set field="parameters.userLogin" from-field="userLogin"/>
-        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>/>
+        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>
         <call-service service-name="updateCustRequest" in-map-name="inMap"/>
     </simple-method>
     

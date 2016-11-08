@@ -563,7 +563,7 @@ under the License.
                 </condition>
                 <then>
                     <clear-field field="cancelOrderItemInMap"/>
-                    <set-service-fields service-name="cancelOrderItemNoActions" map="parameters" to-map="cancelOrderItemInMap"/>/>
+                    <set-service-fields service-name="cancelOrderItemNoActions" map="parameters" to-map="cancelOrderItemInMap"/>
                     <set from-field="orderItem.orderItemSeqId" field="cancelOrderItemInMap.orderItemSeqId"/>
                     <call-service service-name="cancelOrderItemNoActions" in-map-name="cancelOrderItemInMap"/>
                 </then>
@@ -594,7 +594,7 @@ under the License.
         </iterate>
 
         <!-- Recalculate the promotions for the order -->
-        <set-service-fields service-name="loadCartFromOrder" map="parameters" to-map="loadCartFromOrderInMap"/>/>
+        <set-service-fields service-name="loadCartFromOrder" map="parameters" to-map="loadCartFromOrderInMap"/>
         <set value="true" field="loadCartFromOrderInMap.skipInventoryChecks" type="Boolean"/>
         <set value="true" field="loadCartFromOrderInMap.skipProductChecks" type="Boolean"/>
         <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
@@ -1292,26 +1292,26 @@ under the License.
         </else>
         </if-compare-field>
         <if-compare-field field="diffPercentage" operator="greater" to-field="percentAllowed" type="BigDecimal">
-            <set-service-fields service-name="updateOrderItemShipGroup" map="parameters" to-map="updateOrderItemShipGroupContext"/>/>
+            <set-service-fields service-name="updateOrderItemShipGroup" map="parameters" to-map="updateOrderItemShipGroupContext"/>
             <call-service service-name="updateOrderItemShipGroup" in-map-name="updateOrderItemShipGroupContext"/>
-            <set-service-fields service-name="updateOrderAdjustment" map="parameters" to-map="updateOrderAdjustmentContext"/>/>
+            <set-service-fields service-name="updateOrderAdjustment" map="parameters" to-map="updateOrderAdjustmentContext"/>
             <call-service service-name="updateOrderAdjustment" in-map-name="updateOrderAdjustmentContext"/>
-            <set-service-fields service-name="updateShipmentRouteSegment" map="parameters" to-map="updateShipmentRouteSegmentContext"/>/>
+            <set-service-fields service-name="updateShipmentRouteSegment" map="parameters" to-map="updateShipmentRouteSegmentContext"/>
             <clear-field field="updateShipmentRouteSegmentContext.trackingIdNumber"/>
             <clear-field field="updateShipmentRouteSegmentContext.trackingDigest"/>
             <clear-field field="updateShipmentRouteSegmentContext.carrierServiceStatusId"/>
             <call-service service-name="updateShipmentRouteSegment" in-map-name="updateShipmentRouteSegmentContext"/>
-            <set-service-fields service-name="upsShipmentConfirm" map="parameters" to-map="upsShipmentConfirmContext"/>/>
+            <set-service-fields service-name="upsShipmentConfirm" map="parameters" to-map="upsShipmentConfirmContext"/>
             <call-service service-name="upsShipmentConfirm" in-map-name="upsShipmentConfirmContext"/>
         <else>
-            <set-service-fields service-name="updateOrderItemShipGroup" map="parameters" to-map="updateOrderItemShipGroupContext"/>/>
+            <set-service-fields service-name="updateOrderItemShipGroup" map="parameters" to-map="updateOrderItemShipGroupContext"/>
             <call-service service-name="updateOrderItemShipGroup" in-map-name="updateOrderItemShipGroupContext"/>
-            <set-service-fields service-name="updateShipmentRouteSegment" map="parameters" to-map="updateShipmentRouteSegmentContext"/>/>
+            <set-service-fields service-name="updateShipmentRouteSegment" map="parameters" to-map="updateShipmentRouteSegmentContext"/>
             <clear-field field="updateShipmentRouteSegmentContext.trackingIdNumber"/>
             <clear-field field="updateShipmentRouteSegmentContext.trackingDigest"/>
             <clear-field field="updateShipmentRouteSegmentContext.carrierServiceStatusId"/>
             <call-service service-name="updateShipmentRouteSegment" in-map-name="updateShipmentRouteSegmentContext"/>
-            <set-service-fields service-name="upsShipmentConfirm" map="parameters" to-map="upsShipmentConfirmContext"/>/>
+            <set-service-fields service-name="upsShipmentConfirm" map="parameters" to-map="upsShipmentConfirmContext"/>
             <call-service service-name="upsShipmentConfirm" in-map-name="upsShipmentConfirmContext"/>
         </else>
         </if-compare-field>

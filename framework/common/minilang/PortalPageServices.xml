@@ -57,7 +57,7 @@ under the License.
                 <field-map field-name="columnSeqId"  from-field="column.columnSeqId"/>
             </entity-and>
             <iterate list="portalPortletList" entry="portalPortlet">
-                <set-service-fields service-name="deletePortalPagePortlet" map="portalPortlet" to-map="deletePortalPagePortletInMap"/>/>
+                <set-service-fields service-name="deletePortalPagePortlet" map="portalPortlet" to-map="deletePortalPagePortletInMap"/>
                 <call-service service-name="deletePortalPagePortlet" in-map-name="deletePortalPagePortletInMap"/>
             </iterate>
             <remove-value value-field="column"/>

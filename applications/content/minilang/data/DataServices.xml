@@ -72,7 +72,7 @@ under the License.
            <check-errors/>
        </if-empty>
    
-       <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResourceCtx"/>/>
+       <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResourceCtx"/>
        <call-service service-name="createDataResource" in-map-name="dataResourceCtx">
            <result-to-field result-name="dataResource"/>
        </call-service>

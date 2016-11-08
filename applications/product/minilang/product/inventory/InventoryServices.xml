@@ -1140,7 +1140,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createUpdateFacilityGeoPoint" short-description="Create or update GeoPoint assigned to facility">
         <if-empty field="parameters.geoPointId">
-            <set-service-fields service-name="createGeoPoint" map="parameters" to-map="createGeoPointMap"/>/>
+            <set-service-fields service-name="createGeoPoint" map="parameters" to-map="createGeoPointMap"/>
             <call-service service-name="createGeoPoint" in-map-name="createGeoPointMap">
                 <result-to-field result-name="geoPointId" field="geoPointId"/>
             </call-service>
@@ -1148,7 +1148,7 @@ under the License.
             <set field="facility.geoPointId" from-field="geoPointId"/>
             <store-value value-field="facility"/>
             <else>
-                <set-service-fields service-name="updateGeoPoint" map="parameters" to-map="updateGeoPointMap"/>/>
+                <set-service-fields service-name="updateGeoPoint" map="parameters" to-map="updateGeoPointMap"/>
                 <call-service service-name="updateGeoPoint" in-map-name="updateGeoPointMap"/>
             </else>
         </if-empty>

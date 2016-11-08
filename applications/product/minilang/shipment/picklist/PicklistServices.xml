@@ -969,7 +969,7 @@ under the License.
            <remove-value value-field="picklistItem"/>
            
            <!-- ... and its OrderItemShipGrpInvRes -->
-           <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>/>
+           <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>
            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
            
            <clear-field field="inputMap"/>

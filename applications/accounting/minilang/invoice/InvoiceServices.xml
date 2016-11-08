@@ -150,7 +150,7 @@ under the License.
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
         <if-empty field="parameters.invoiceId">
-            <set-service-fields service-name="getNextInvoiceId" map="parameters" to-map="getNextInvoiceIdMap"/>/>
+            <set-service-fields service-name="getNextInvoiceId" map="parameters" to-map="getNextInvoiceIdMap"/>
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
                 <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>

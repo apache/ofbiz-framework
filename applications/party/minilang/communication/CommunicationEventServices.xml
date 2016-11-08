@@ -558,7 +558,7 @@ under the License.
                                 </entity-one>
                                 <if-not-empty field="communicationEventRole">
                                     <if-compare operator="not-equals" value="COM_ROLE_COMPLETED" field="comunnicationEventRole.statusId">
-                                        <set-service-fields service-name="updateCommunicationEventRole" map="communicationEventRole" to-map="updateRole"/>/>
+                                        <set-service-fields service-name="updateCommunicationEventRole" map="communicationEventRole" to-map="updateRole"/>
                                         <set field="updateRole.statusId" value="COM_ROLE_COMPLETED"/>
                                         
                                         <call-service service-name="updateCommunicationEventRole" in-map-name="updateRole"/>

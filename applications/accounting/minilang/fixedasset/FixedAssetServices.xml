@@ -209,7 +209,7 @@ under the License.
                     </else>
                 </if-compare>
                 <if-compare field="maintDue" operator="equals" value="true">
-                    <set-service-fields service-name="createFixedAssetMaint" map="productMaintValue" to-map="createMaintCxt"/>/>
+                    <set-service-fields service-name="createFixedAssetMaint" map="productMaintValue" to-map="createMaintCxt"/>
                     <set field="createMaintCxt.fixedAssetId" from-field="fixedAssetValue.fixedAssetId"/>
                     <set field="createMaintCxt.intervalQuantity" from-field="meterValue.meterValue"/>
                     <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
@@ -282,7 +282,7 @@ under the License.
                                 </else>
                             </if-compare>
                             <if-compare field="maintDue" operator="equals" value="true">
-                                <set-service-fields service-name="createFixedAssetMaint" map="productMaint" to-map="createMaintCxt"/>/>
+                                <set-service-fields service-name="createFixedAssetMaint" map="productMaint" to-map="createMaintCxt"/>
                                 <set field="createMaintCxt.fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
                                 <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
                                 <call-service service-name="createFixedAssetMaint" in-map-name="createMaintCxt"/>

@@ -159,7 +159,7 @@ under the License.
                     </add-error>
                     <check-errors/>
                 </if-empty>
-                <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>/>
+                <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>
                 <set from-field="productStore.inventoryFacilityId" field="callServiceMap.facilityId"/>
                 <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
                 <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -203,7 +203,7 @@ under the License.
                     <first-from-list list="productStoreFacilities" entry="storeFound"/>
                 </if-empty>
                 <set from-field="storeFound.facilityId" field="facilityId" default-value=""/>
-                <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>/>
+                <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>
                 <set from-field="facilityId" field="callServiceMap.facilityId"/>
                 <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
                 <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -230,7 +230,7 @@ under the License.
                 </add-error>
                 <check-errors/>
             </if-empty>
-            <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>/>
+            <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>
             <set from-field="facilityId" field="callServiceMap.facilityId"/>
             <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
             <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -420,7 +420,7 @@ under the License.
             <set value="Y" field="availableOrNotRequired"/>
             <field-to-result field="availableOrNotRequired"/>
         <else>
-            <set-service-fields service-name="isStoreInventoryAvailable" map="parameters" to-map="callServiceMap"/>/>
+            <set-service-fields service-name="isStoreInventoryAvailable" map="parameters" to-map="callServiceMap"/>
             <call-service service-name="isStoreInventoryAvailable" in-map-name="callServiceMap">
                 <result-to-result result-name="available" service-result-name="availableOrNotRequired"/>
             </call-service>
@@ -517,7 +517,7 @@ under the License.
             <entity-one entity-name="ProductStoreGroupRollup" value-field="productStoreGroupRollup"/>
             <if-not-empty field="productStoreGroupRollup">
                 <set field="productStoreGroup.primaryParentGroupId"/>
-                <set-service-fields service-name="updateProductStoreGroup" map="productStoreGroup" to-map="productStoreGroupMap"/>/>
+                <set-service-fields service-name="updateProductStoreGroup" map="productStoreGroup" to-map="productStoreGroupMap"/>
                 <call-service service-name="updateProductStoreGroup" in-map-name="productStoreGroupMap"/>
             </if-not-empty>
             <else>

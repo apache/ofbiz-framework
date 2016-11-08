@@ -315,7 +315,7 @@ under the License.
           <set field="createDetailMap.availableToPromiseDiff" value="-1" type="BigDecimal"/>
           <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         </if-compare>
-        <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>/>
+        <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>
         <set field="cancelOrderItemShipGrpInvResMap.cancelQuantity" from-field="parameters.quantity"/>
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
@@ -345,7 +345,7 @@ under the License.
         <find-by-and map="inventoryReservationLookUp" list="invReservations" entity-name="OrderItemShipGrpInvRes"/>
         <first-from-list list="invReservations" entry="inventoryItemReservation"/>
         <if-not-empty field="inventoryItemReservation">
-            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap"/>/>
+            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
             <!-- Hold our inventoryItem -->
             <refresh-value value-field="inventoryItem"/>
