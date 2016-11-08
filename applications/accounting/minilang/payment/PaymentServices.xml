@@ -969,7 +969,7 @@ under the License.
                     <not>
                         <if-empty field="partyAcctgPreference.baseCurrencyUomId" />
                     </not>
-                    <if-compare-field field="orderHeader.currencyUom" operator="equals" to-field="partyAcctgPreference.baseCurrencyUomId"> />
+                    <if-compare-field field="orderHeader.currencyUom" operator="equals" to-field="partyAcctgPreference.baseCurrencyUomId"/>
                 </and>
             </condition>
             <then>
