@@ -194,14 +194,14 @@ public class SequenceUtil {
                     try {
                         connection = TransactionFactoryLoader.getInstance().getConnection(SequenceUtil.this.helperInfo);
                     } catch (SQLException sqle) {
-                        Debug.logWarning("Unable to esablish a connection with the database. Error was:" + sqle.toString(), module);
+                        Debug.logWarning("Unable to establish a connection with the database. Error was:" + sqle.toString(), module);
                         throw sqle;
                     } catch (GenericEntityException e) {
-                        Debug.logWarning("Unable to esablish a connection with the database. Error was: " + e.toString(), module);
+                        Debug.logWarning("Unable to establish a connection with the database. Error was: " + e.toString(), module);
                         throw e;
                     }
                     if (connection == null) {
-                        throw new GenericEntityException("Unable to esablish a connection with the database, connection was null...");
+                        throw new GenericEntityException("Unable to establish a connection with the database, connection was null...");
                     }
 
                     try {
