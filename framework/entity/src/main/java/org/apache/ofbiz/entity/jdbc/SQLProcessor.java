@@ -260,12 +260,12 @@ public class SQLProcessor {
             _connection = TransactionFactoryLoader.getInstance().getConnection(helperInfo);
             if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:connection() : manualTx=" + _manualTX, module);
         } catch (SQLException sqle) {
-            throw new GenericDataSourceException("Unable to esablish a connection with the database.", sqle);
+            throw new GenericDataSourceException("Unable to establish a connection with the database.", sqle);
         }
 
         // make sure we actually did get a connection
         if (_connection == null) {
-            throw new GenericDataSourceException("Unable to esablish a connection with the database. Connection was null!");
+            throw new GenericDataSourceException("Unable to establish a connection with the database. Connection was null!");
         }
 
         // test the connection
