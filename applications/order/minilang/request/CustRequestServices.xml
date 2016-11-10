@@ -125,7 +125,7 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
-        <set-nonpk-fields map="parameters" value-field="custRequest" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="custRequest"/>
         <set field="custRequest.statusId" from-field="oldStatusId"/><!-- not update status yet -->
         <store-value value-field="custRequest"/>
         <if-not-empty field="parameters.statusId">
@@ -250,7 +250,7 @@ under the License.
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
         <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
-        <set-nonpk-fields map="parameters" value-field="custRequestItem" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="custRequestItem"/>
         <store-value value-field="custRequestItem"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
@@ -277,7 +277,7 @@ under the License.
     <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
         <call-simple-method method-name="checkStatusCustRequest"/>                
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>

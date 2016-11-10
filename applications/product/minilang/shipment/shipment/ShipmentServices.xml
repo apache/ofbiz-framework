@@ -275,7 +275,7 @@ under the License.
         <field-to-result field="lookedUpValue.destinationFacilityId" result-name="oldDestinationFacilityId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <field-to-result field="lookedUpValue.shipmentId" result-name="shipmentId"/>
@@ -837,7 +837,7 @@ under the License.
         <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentItem" short-description="Delete ShipmentItem">
@@ -977,7 +977,7 @@ under the License.
         <make-value entity-name="ShipmentPackage" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
@@ -1048,7 +1048,7 @@ under the License.
         <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageContent" short-description="Delete ShipmentPackageContent">
@@ -1137,7 +1137,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ShipmentRouteSegment" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="newEntity.carrierServiceStatusId">
             <set value="SHRSCS_NOT_STARTED" field="newEntity.carrierServiceStatusId"/>

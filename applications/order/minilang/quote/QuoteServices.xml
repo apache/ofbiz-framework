@@ -184,7 +184,7 @@ under the License.
                 <check-errors/>
             </if-empty>
         </if-compare-field>
-        <set-nonpk-fields map="parameters" value-field="quote" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="quote"/>
         <store-value value-field="quote"/>
         <check-errors/>
     </simple-method>
@@ -417,7 +417,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="quoteItem" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="quoteItem"/>
         <store-value value-field="quoteItem"/>
         <check-errors/>
     </simple-method>
@@ -502,7 +502,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAttribute" value-field="quoteAttribute" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="quoteAttribute" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="quoteAttribute"/>
         <store-value value-field="quoteAttribute"/>
         <check-errors/>
     </simple-method>
@@ -759,7 +759,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAdjustment" value-field="quoteAdjustment" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="quoteAdjustment" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="quoteAdjustment"/>
         <store-value value-field="quoteAdjustment"/>
         <check-errors/>
     </simple-method>

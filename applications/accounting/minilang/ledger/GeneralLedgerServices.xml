@@ -141,7 +141,7 @@ under the License.
         <call-service service-name="setGlReconciliationStatus" in-map-name="setGlReconciliationStatusMap"/>
         <check-errors/>
         <entity-one entity-name="GlReconciliation" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpValue"/>
@@ -187,7 +187,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateGlReconciliationEntry" short-description="Update Entry To GlReconciliation">
         <entity-one entity-name="GlReconciliationEntry" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
 
         <!-- when changing entries, also update the last modified info for the GlReconciliation -->

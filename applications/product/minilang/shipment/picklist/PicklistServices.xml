@@ -816,7 +816,7 @@ under the License.
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
         <store-value value-field="lookedUpValue"/>
@@ -882,7 +882,7 @@ under the License.
         <field-to-result field="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- store the changes -->
         <store-value value-field="lookedUpValue"/>

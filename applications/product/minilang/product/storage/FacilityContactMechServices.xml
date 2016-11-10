@@ -89,7 +89,7 @@ under the License.
             </else>
         </if-empty>
 
-        <set-nonpk-fields map="parameters" value-field="newFacilityContactMech"/> set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="newFacilityContactMech"/>
 
         <now-timestamp field="newFacilityContactMech.fromDate"/>
         <now-timestamp field="facilityContactMech.thruDate"/>

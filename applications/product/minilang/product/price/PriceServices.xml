@@ -66,7 +66,7 @@ under the License.
         <!-- grab the old price value before setting nonpk parameter fields -->
         <field-to-result field="lookedUpValue.price" result-name="oldPrice"/>
 
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>

@@ -84,7 +84,7 @@ under the License.
         <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map="parameters" value-field="newEntity" set-if-null="false"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-field="newEntity"/>
             <else>
                 <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

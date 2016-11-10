@@ -313,7 +313,7 @@ under the License.
                 <create-value value-field="lot"/>
             </if-empty>
         </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <!-- if the unit cost is changed create an InventoryItemDetail to keep track of unit cost history -->
         <if-not-empty field="parameters.unitCost">
@@ -925,7 +925,7 @@ under the License.
             </if-compare-field>
         </if-not-empty>
 
-        <set-nonpk-fields map="parameters" value-field="inventoryTransfer" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="inventoryTransfer"/>
         <store-value value-field="inventoryTransfer"/>
     </simple-method>
 

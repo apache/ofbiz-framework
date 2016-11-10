@@ -167,7 +167,7 @@ under the License.
             </then>
         </if>
         <!-- after checking status change, set all parameters -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- only save if something has changed -->
         <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
@@ -311,7 +311,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields map="parameters" value-field="communicationEventWorkEff" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="communicationEventWorkEff"/>
         <store-value value-field="communicationEventWorkEff"/>
     </simple-method>
 
@@ -376,7 +376,7 @@ under the License.
         </if-compare-field>
          -->
         <set from-field="workEffortPartyAssignment.statusId" field="oldStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="workEffortPartyAssignment" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="workEffortPartyAssignment"/>
 
         <if-compare-field field="parameters.statusId" to-field="oldStatusId" operator="not-equals">
             <now-timestamp field="workEffortPartyAssignment.statusDateTime"/>
@@ -457,7 +457,7 @@ under the License.
         </if-empty>
 
         <if-compare-field to-field="newWorkEffortContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
-            <set-nonpk-fields map="parameters" value-field="newWorkEffortContactMech"/> set-if-null="false"/>
+            <set-nonpk-fields map="parameters" value-field="newWorkEffortContactMech"/>
             <now-timestamp field="newWorkEffortContactMech.fromDate"/>
             <now-timestamp field="workEffortContactMech.thruDate"/>
             <create-value value-field="newWorkEffortContactMech"/>

@@ -41,7 +41,7 @@ under the License.
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>
         </if-compare>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
@@ -124,7 +124,7 @@ under the License.
         <!-- Only status change will be allowed in case of posted entry -->
         <make-value entity-name="AcctgTransEntry" value-field="acctgTransEntry"/>
         <set field="acctgTransEntry" from-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="acctgTransEntry" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="acctgTransEntry"/>
         <set field="lookedUpValue.reconcileStatusId" from-field="acctgTransEntry.reconcileStatusId"/>
         <if-compare-field field="acctgTransEntry" operator="not-equals" to-field="lookedUpValue">
             <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>

@@ -247,7 +247,7 @@ under the License.
         </if-compare>
 
         <field-to-result field="returnHeader.statusId" result-name="oldStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="returnHeader" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="returnHeader"/>
         <store-value value-field="returnHeader"/>
     </simple-method>
 
@@ -419,7 +419,7 @@ under the License.
         <set field="originalReturnQuantity" from-field="returnItem.returnQuantity"/>
         <field-to-result field="returnItem.statusId" result-name="oldStatusId"/>
 
-        <set-nonpk-fields map="parameters" value-field="returnItem" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="returnItem"/>
         <store-value value-field="returnItem"/>
         <refresh-value value-field="returnItem"/>
 
