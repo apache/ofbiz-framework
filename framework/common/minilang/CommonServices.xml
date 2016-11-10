@@ -44,7 +44,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <store-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">

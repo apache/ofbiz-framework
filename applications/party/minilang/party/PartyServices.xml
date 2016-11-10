@@ -209,7 +209,7 @@ under the License.
         </if-empty>
 
         <!-- update the fields -->
-        <set-nonpk-fields map="parameters" value-field="partyProfileDefault"/> set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="partyProfileDefault"/>
         <store-value value-field="partyProfileDefault"/>
     </simple-method>
 
@@ -822,7 +822,7 @@ under the License.
         <if-empty field="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
 
         <entity-one entity-name="PartyRelationship" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyRelationship" short-description="deletePartyRelationship">

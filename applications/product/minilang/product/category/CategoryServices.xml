@@ -84,7 +84,7 @@ under the License.
         <entity-one entity-name="ProductCategory" value-field="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
 
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
@@ -591,7 +591,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductCategoryAttribute" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap" set-if-null="false"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map="parameters" value-field="ProductCategoryAttributeInstance"/>
         <store-value value-field="ProductCategoryAttributeInstance"/>

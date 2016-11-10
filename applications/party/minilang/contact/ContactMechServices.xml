@@ -173,7 +173,7 @@ under the License.
         <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set-pk-fields value-field="newValue" map="parameters"/>
         <find-by-primary-key entity-name="TelecomNumber" map="newValue" value-field="oldValue"/>
-        <set-nonpk-fields map="parameters" value-field="newValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
 
         <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">

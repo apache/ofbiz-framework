@@ -638,7 +638,7 @@ public class PartyServices {
                     "partyservices.could_not_update_affiliate_information_not_found", locale));
         }
 
-        affiliate.setNonPKFields(context, false);
+        affiliate.setNonPKFields(context);
 
         try {
             affiliate.store();

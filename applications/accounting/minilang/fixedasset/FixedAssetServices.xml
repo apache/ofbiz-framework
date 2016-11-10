@@ -91,7 +91,7 @@ under the License.
         <entity-one entity-name="FixedAssetMaint" value-field="lookedUpValue"/>
         <set field="oldStatusId" from-field="lookedUpValue.statusId"/>
         <field-to-result field="oldStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             <entity-one entity-name="ProductMaint" value-field="productMaint">
@@ -156,7 +156,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFixedAssetMeter" short-description="Update a Fixed Asset Meter Reading">
         <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <check-errors/>
         <set field="meterValue" from-field="lookedUpValue"/>

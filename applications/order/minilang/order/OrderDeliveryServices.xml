@@ -58,7 +58,7 @@ under the License.
 
         <!-- only set statusId if hasScheduleAdminRelatedPermission -->
         <set from-field="schedule.statusId" field="saveStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="schedule" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="schedule"/>
         <if-has-permission permission="ORDERMGR" action="_${checkAction}">
         <else>
             <!-- no permission, restore saved status -->

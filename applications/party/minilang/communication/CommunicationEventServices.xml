@@ -328,7 +328,7 @@ under the License.
                 <set field="parameters.contactMechIdTo" from-field="newRoleTo.contactMechId"/>
             </then>
         </if>
-        <set-nonpk-fields map="parameters" value-field="event" set-if-null="false"/>
+        <set-nonpk-fields map="parameters" value-field="event"/>
         <store-value value-field="event"/>
         <!-- set status at the end if required with the com event completed -->
         <if-not-empty field="newStatusId">
@@ -453,7 +453,7 @@ under the License.
     <simple-method method-name="updateCommunicationEventRole" short-description="Create a CommunicationEventRole">
         <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
         <if-not-empty field="eventRole">
-            <set-nonpk-fields map="parameters" value-field="eventRole" set-if-null="false"/>
+            <set-nonpk-fields map="parameters" value-field="eventRole"/>
             <store-value value-field="eventRole"/>
         </if-not-empty>
     </simple-method>
