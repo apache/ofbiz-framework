@@ -81,11 +81,11 @@ configurations {
 }
 
 dependencies {
-    // general framework compile libs
+    // ofbiz compile libs
     compile 'apache-xerces:xercesImpl:2.9.1'
-    compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.0'
+    compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20160628.1'
     compile 'com.ibm.icu:icu4j:57.1'
     compile 'com.lowagie:itext:2.1.7'
@@ -129,22 +129,23 @@ dependencies {
     compile 'org.zapodot:jackson-databind-java-optional:2.4.2'
     compile 'oro:oro:2.0.8'
     compile 'wsdl4j:wsdl4j:1.6.2'
+
+    // ofbiz unit-test compile libs
     testCompile 'org.mockito:mockito-core:1.+'
 
-    // general framework runtime libs
+    // ofbiz runtime libs
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
+    runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
+    runtime 'net.sf.barcode4j:barcode4j:2.1'
     runtime 'org.apache.axis2:axis2-transport-http:1.7.1'
     runtime 'org.apache.axis2:axis2-transport-local:1.7.1'
     runtime 'org.apache.derby:derby:10.11.1.1'
     runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtime 'org.apache.logging.log4j:log4j-core:2.6.2' // the implementation of the log4j 2 API
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.6.2' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.apache.logging.log4j:log4j-1.2-api:2.6.2' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-core:2.6.2' // the implementation of the log4j 2 API
     runtime 'org.apache.logging.log4j:log4j-jul:2.6.2' // for external jars using the java.util.logging: routes logging to log4j 2
-
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.6.2' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
-    runtime 'net.sf.barcode4j:barcode4j:2.1'
-    runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
 
     /* TODO We suspect that all the below dependencies are not needed and can be
      * deleted from this file. They used to be compile time dependencies and we
