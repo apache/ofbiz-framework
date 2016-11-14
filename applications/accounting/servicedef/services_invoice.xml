@@ -301,7 +301,8 @@ under the License.
         <description>Checks to see if the payments applied to an invoice total up to the invoice total; if so sets to PAID</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createInvoiceContactMech" engine="entity-auto" invoke="create" default-entity-name="InvoiceContactMech">
+    <service name="createInvoiceContactMech" engine="simple" location="component://accounting/minilang/invoice/InvoiceServices.xml"
+             invoke="createInvoiceContactMech" default-entity-name="InvoiceContactMech">
         <description>Create a ContactMech for an invoice</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
