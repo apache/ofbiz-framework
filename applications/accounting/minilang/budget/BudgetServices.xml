@@ -51,11 +51,11 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-not-empty field="statusValidChange">
-                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/> mode="IN"/>
+                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/>
                 <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
             </if-not-empty>
             <else>
-                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/> mode="IN"/>
+                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/>
                 <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
             </else>
         </if-not-empty>
