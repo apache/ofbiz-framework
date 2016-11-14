@@ -541,6 +541,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createPartyContactMech" in-map-name="serviceCtx"/>
         <entity-and entity-name="PartyContactMech" list="partyContactMechList">
             <field-map field-name="contactMechId" value="TestContactMech3"/>
