@@ -1005,7 +1005,7 @@ under the License.
         <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
             <result-to-field result-name="partyAccountingPreference"/>
         </call-service>
-        <if-compare-field field="invoice.currencyUomId" operator="equals" to-field="partyAccountingPreference.baseCurrencyUomId">>
+        <if-compare-field field="invoice.currencyUomId" operator="equals" to-field="partyAccountingPreference.baseCurrencyUomId">
             <set field="isForeign" value="false" type="Boolean"/>
             <else>
                 <set field="isForeign" value="true" type="Boolean"/>
@@ -1013,5 +1013,4 @@ under the License.
         </if-compare-field>
         <field-to-result field="isForeign"/>
     </simple-method>
-
 </simple-methods>
