@@ -250,7 +250,7 @@ under the License.
     <simple-method method-name="updateCommunicationEvent"
         short-description="Update a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
-        <if-compare-field field="event.statusId" operator="not-equals" to-field="parameters.statusId">>
+        <if-compare-field field="event.statusId" operator="not-equals" to-field="parameters.statusId">
             <set field="newStatusId" from-field="parameters.statusId"/>
             <set field="parameters.statusId" from-field="event.statusId"/>
         </if-compare-field>
