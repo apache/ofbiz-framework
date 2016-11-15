@@ -1013,10 +1013,4 @@ under the License.
         </if-compare-field>
         <field-to-result field="isForeign"/>
     </simple-method>
-    <simple-method method-name="createInvoiceContactMech" short-description="Create a ContactMech for an invoice">
-        <make-value value-field="invoiceContactMech" entity-name="InvoiceContactMech"/>
-        <set-pk-fields map="parameters" value-field="invoiceContactMech"/>
-        <create-value value-field="invoiceContactMech"/>
-        <field-to-result field="contactMechId" result-name="invoiceContactMech"/>
-    </simple-method>
 </simple-methods>
