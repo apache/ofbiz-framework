@@ -694,17 +694,6 @@
         <value xml:lang="zh">简历正文</value>
         <value xml:lang="zh-TW">簡歷正文</value>
     </property>
-    <property key="FormFieldTitle_routingNumber">
-        <value xml:lang="en">Routing Number</value>
-        <value xml:lang="fr">N° de routage</value>
-        <value xml:lang="it">Numero Routing</value>
-        <value xml:lang="ja">ルーティング番号</value>
-        <value xml:lang="pt-BR">Número de rota</value>
-        <value xml:lang="th">หมายเลข Routing</value>
-        <value xml:lang="vi">Số phân công</value>
-        <value xml:lang="zh">汇款路线码</value>
-        <value xml:lang="zh-TW">匯款路線碼</value>
-    </property>
     <property key="FormFieldTitle_salary">
         <value xml:lang="en">Salary</value>
         <value xml:lang="it">Salario</value>
