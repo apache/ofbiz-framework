@@ -570,7 +570,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="percentage" type="floating-point"></field>
       <field name="flatAmount" type="currency-amount"></field>
-      <field name="routingNumber" type="short-varchar"></field>
+      <field name="routingNumber" type="short-varchar"><description>See https://en.wikipedia.org/wiki/Bank_code </description></field>
       <field name="accountNumber" type="short-varchar"></field>
       <field name="bankName" type="name"></field>
       <prim-key field="partyId"/>

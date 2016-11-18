@@ -2799,7 +2799,7 @@ under the License.
             title="EFT Account Information Entity">
       <field name="paymentMethodId" type="id-ne"></field>
       <field name="bankName" type="name"></field>
-      <field name="routingNumber" type="short-varchar"></field>
+      <field name="routingNumber" type="short-varchar"><description>See https://en.wikipedia.org/wiki/Bank_code </description></field>
       <field name="accountType" type="short-varchar"></field>
       <field name="accountNumber" type="long-varchar"></field>
       <field name="nameOnAccount" type="name"></field>
@@ -2823,7 +2823,7 @@ under the License.
             title="Check Information Entity">
       <field name="paymentMethodId" type="id-ne"></field>
       <field name="bankName" type="name"></field>
-      <field name="routingNumber" type="short-varchar"></field>
+      <field name="routingNumber" type="short-varchar"><description>See https://en.wikipedia.org/wiki/Bank_code </description></field>
       <field name="accountType" type="short-varchar"></field>
       <field name="accountNumber" type="long-varchar"></field>
       <field name="nameOnAccount" type="name"></field>
@@ -3300,7 +3300,7 @@ under the License.
     <alias entity-alias="PM" name="fromDate"/>
     <alias entity-alias="PM" name="thruDate"/>
     <alias entity-alias="EA" name="bankName"/>
-    <alias entity-alias="EA" name="routingNumber"/><!-- also used for IBAN number -->
+    <alias entity-alias="EA" name="routingNumber"/><!-- also used for IBAN number, see https://en.wikipedia.org/wiki/Bank_code  -->
     <alias entity-alias="EA" name="accountType"/>
     <alias entity-alias="EA" name="accountNumber"/>
     <alias entity-alias="EA" name="nameOnAccount"/>
