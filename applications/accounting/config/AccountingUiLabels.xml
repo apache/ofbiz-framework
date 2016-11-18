@@ -14056,6 +14056,7 @@
         <value xml:lang="cs">Kód banky</value>
         <value xml:lang="de">Bankleitzahl</value>
         <value xml:lang="en">Routing Number</value>
+        <value xml:lang="en-AU">Bank-State-Branch</value>
         <value xml:lang="es">Ruta</value>
         <value xml:lang="fr">N° de transfert</value>
         <value xml:lang="hi-IN">Routing नम्बर</value>
