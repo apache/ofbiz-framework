@@ -873,7 +873,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     <#if uniqueItemName?has_content>
         <div id="${uniqueItemName}"></div>
         <a href="javascript:void(0);" id="${uniqueItemName}_link" 
-        <#if style?has_content>class="${style}"</#if>>
+        <#if linkStyle?has_content>class="${linkStyle}"</#if>>
         <#if description?has_content>${description}</#if></a>
         <script type="text/javascript">
             function ${uniqueItemName}_data () {
