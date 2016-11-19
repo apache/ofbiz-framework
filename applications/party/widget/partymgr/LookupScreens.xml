@@ -308,6 +308,8 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupAccount}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
+                <set field="searchFields" value="[partyId, groupName, firstName, lastName]"/>
+                <set field="conditionFields.roleTypeId" value="ACCOUNT"/>
                 <set field="parameters.roleTypeId" value="ACCOUNT"/>
             </actions>
             <widgets>
