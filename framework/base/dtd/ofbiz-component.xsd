@@ -292,24 +292,3 @@ under the License.
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
-<!--
-    <ofbiz-component name="core">
-        <resource-loader name="maincomponent" type="component"/>
-        <resource-loader name="mainfile" type="file" prepend-env="ofbiz.home" prefix=""/>
-        <resource-loader name="maincp" type="classpath"/>
-        <resource-loader name="mainurl" type="url"/>
-
-        <classpath type="jar" location="lib/product.jar"/>
-        <classpath type="dir" location="classes"/>
-
-        <entity-resource type="model" reader-name="main" loader="maincomponent" location="entity/entitymodel.xml"/>
-        <entity-resource type="group" reader-name="main" loader="maincomponent" location="entity/entitygroup.xml"/>
-        <entity-resource type="eca" reader-name="main" loader="maincomponent" location="entity/eecas.xml"/>
-
-        <service-resource type="model" loader="maincomponent" location="service/services_test.xml"/>
-        <service-resource type="group" loader="maincomponent" location="service/groups_test.xml"/>
-        <service-resource type="eca" loader="maincomponent" location="service/secas_test.xml"/>
-
-        <webapp name="webtools" title="WebTools" server="default" location="webtools" mount-point="/webtools"/>
-    </ofbiz-component>
--->
