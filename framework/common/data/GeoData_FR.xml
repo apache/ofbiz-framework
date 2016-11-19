@@ -344,7 +344,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-94" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-95" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-GP" geoId="FR-GUA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-GF" geoId="FR-GUY"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-GF" geoId="FR-GF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-RE" geoId="FR-LRE"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-YT" geoId="FR-MAY"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-MQ" geoId="FR-MQ"/> <!-- no better solution here so far -->
