@@ -67,6 +67,8 @@ subprojects {
         pluginLibsCompile
         // runtime plugin libraries
         pluginLibsRuntime
+        //compile-only libraries
+        pluginLibsCompileOnly
     }
 }
 
@@ -167,6 +169,7 @@ dependencies {
     subprojects.each { subProject ->
         compile project(path: subProject.path, configuration: 'pluginLibsCompile')
         runtime project(path: subProject.path, configuration: 'pluginLibsRuntime')
+        compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
     // libs needed for junitreport
