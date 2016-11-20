@@ -402,7 +402,7 @@ public class ConfigXMLReader {
             if (firstvisitElement != null) {
                 for (Element eventElement : UtilXml.childElementList(firstvisitElement, "event")) {
                     String eventName = eventElement.getAttribute("name");
-                    if (UtilValidate.isEmpty(eventName)) {
+                    if (eventName.isEmpty()) {
                         eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
                     }
                     this.firstVisitEventList.put(eventName, new Event(eventElement));
@@ -413,7 +413,7 @@ public class ConfigXMLReader {
             if (preprocessorElement != null) {
                 for (Element eventElement : UtilXml.childElementList(preprocessorElement, "event")) {
                     String eventName = eventElement.getAttribute("name");
-                    if (UtilValidate.isEmpty(eventName)) {
+                    if (eventName.isEmpty()) {
                         eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
                     }
                     this.preprocessorEventList.put(eventName, new Event(eventElement));
@@ -424,7 +424,7 @@ public class ConfigXMLReader {
             if (postprocessorElement != null) {
                 for (Element eventElement : UtilXml.childElementList(postprocessorElement, "event")) {
                     String eventName = eventElement.getAttribute("name");
-                    if (UtilValidate.isEmpty(eventName)) {
+                    if (eventName.isEmpty()) {
                         eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
                     }
                     this.postprocessorEventList.put(eventName, new Event(eventElement));
@@ -435,7 +435,7 @@ public class ConfigXMLReader {
             if (afterLoginElement != null) {
                 for (Element eventElement : UtilXml.childElementList(afterLoginElement, "event")) {
                     String eventName = eventElement.getAttribute("name");
-                    if (UtilValidate.isEmpty(eventName)) {
+                    if (eventName.isEmpty()) {
                         eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
                     }
                     this.afterLoginEventList.put(eventName, new Event(eventElement));
@@ -446,7 +446,7 @@ public class ConfigXMLReader {
             if (beforeLogoutElement != null) {
                 for (Element eventElement : UtilXml.childElementList(beforeLogoutElement, "event")) {
                     String eventName = eventElement.getAttribute("name");
-                    if (UtilValidate.isEmpty(eventName)) {
+                    if (eventName.isEmpty()) {
                         eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
                     }
                     this.beforeLogoutEventList.put(eventName, new Event(eventElement));
@@ -471,7 +471,7 @@ public class ConfigXMLReader {
         protected void loadIncludes(Element rootElement) {
             for (Element includeElement : UtilXml.childElementList(rootElement, "include")) {
                 String includeLocation = includeElement.getAttribute("location");
-                if (UtilValidate.isNotEmpty(includeLocation)) {
+                if (!includeLocation.isEmpty()) {
                     try {
                         URL urlLocation = FlexibleLocation.resolveLocation(includeLocation);
                         includes.add(urlLocation);
@@ -626,7 +626,7 @@ public class ConfigXMLReader {
                     this.redirectParameterValueMap.put(redirectParameterElement.getAttribute("name"), redirectParameterElement.getAttribute("value"));
                 } else {
                     String from = redirectParameterElement.getAttribute("from");
-                    if (UtilValidate.isEmpty(from))
+                    if (from.isEmpty())
                         from = redirectParameterElement.getAttribute("name");
                     this.redirectParameterMap.put(redirectParameterElement.getAttribute("name"), from);
                 }
