@@ -31,10 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.CollectionUtils;
-
-//import net.sf.json.JSONArray;
-//import net.sf.json.JSONObject;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilDateTime;
