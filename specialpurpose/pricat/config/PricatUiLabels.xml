@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="PriCatCompanyName">
+        <value xml:lang="en">OFBiz: PriCat Demo</value>
+        <value xml:lang="zh">OFBiz：价目表</value>
+    </property>
+    <property key="PriCatApplication">
+        <value xml:lang="en">PriCat</value>
+        <value xml:lang="zh">价目表</value>
+    </property>
+    <property key="PriCatDemoCompanyName">
+        <value xml:lang="en">OFBiz: PriCat Demo</value>
+        <value xml:lang="zh">OFBiz：价目表演示</value>
+    </property>
+    <property key="PriCatDemoApplication">
+        <value xml:lang="en">PriCat Demo</value>
+        <value xml:lang="zh">价目表演示</value>
+    </property>
+    <property key="PriCatDemoCountDown">
+        <value xml:lang="en">HTML Report Demo - Count Down</value>
+        <value xml:lang="zh">页面输出演示 - 倒计数</value>
+    </property>
+    <property key="PriCatDemoCountUp">
+        <value xml:lang="en">HTML Report Demo - Count Up</value>
+        <value xml:lang="zh">页面输出演示 - 正计数</value>
+    </property>
+    <property key="PriCatDemoParseSamplePricat">
+        <value xml:lang="en">PriCat Demo - Parse PriCat</value>
+        <value xml:lang="zh">价目表演示 - 解析价目表</value>
+    </property>
+    <property key="PriCatDemoMainPage">
+        <value xml:lang="en">PriCat Demo Main Page</value>
+        <value xml:lang="zh">价目表演示首页</value>
+    </property>
+    <property key="PricatDemoMessage">
+        <value xml:lang="en">PriCat Demo includes 2 HTML Report Demo and 1 Parse PriCat File Demo.</value>
+        <value xml:lang="zh">价目表演示包含了2个页面输出演示和1个解析价目表文件的演示。</value>
+    </property>
+    <property key="ParseSamplePricatDemo">
+        <value xml:lang="en">Parse Sample PriCat Demo</value>
+        <value xml:lang="zh">演示解析样例价目表文件</value>
+    </property>
+    <property key="SamplePricatTemplate">
+        <value xml:lang="en">Sample PriCat Template</value>
+        <value xml:lang="zh">价目表样例模板</value>
+    </property>
+    <property key="DownloadPricatTemplate">
+        <value xml:lang="en">Download PriCat Template</value>
+        <value xml:lang="zh">下载价目表模板</value>
+    </property>
+    <property key="UploadPricat">
+        <value xml:lang="en">Upload PriCat</value>
+        <value xml:lang="zh">上传价目表</value>
+    </property>
+    <property key="ParseSamplePricat">
+        <value xml:lang="en">Parse Sample PriCat</value>
+        <value xml:lang="zh">解析样例价目表</value>
+    </property>
+    <property key="ExcelTemplateType">
+        <value xml:lang="en">Template Type</value>
+        <value xml:lang="zh">模板类型</value>
+    </property>
+    <property key="SamplePricatType">
+        <value xml:lang="en">Sample PriCat</value>
+        <value xml:lang="zh">样例价目表</value>
+    </property>
+    <property key="OFBizPricatType">
+        <value xml:lang="en">OFBiz Type</value>
+        <value xml:lang="zh">OFBiz类型</value>
+    </property>
+    <property key="StartStoreExcel">
+        <value xml:lang="en">Storing your upload file to server ... </value>
+        <value xml:lang="zh">正在把上传文件存到服务器中 ... </value>
+    </property>
+    <property key="NoFileUploaded">
+        <value xml:lang="en">no file uploaded!</value>
+        <value xml:lang="zh">没有上传文件！</value>
+    </property>
+    <property key="StartParsePricat">
+        <value xml:lang="en">Start parsing the uploaded file ...</value>
+        <value xml:lang="zh">开始解析上传的文件 ...</value>
+    </property>
+    <property key="PricatParseCompleted">
+        <value xml:lang="en">... parsing completed</value>
+        <value xml:lang="zh">... 完成解析</value>
+    </property>
+    <property key="CurrentUserLoginNoFacility">
+        <value xml:lang="en">Cannot find any facility for current user(userLoginId: [{0}]).</value>
+        <value xml:lang="zh">没有找到当前用户（userLoginId: [{0}]）的任何一个仓库。</value>
+    </property>
+    <property key="GetCurrentUserLoginFacility">
+        <value xml:lang="en">Getting facilities of current user ... </value>
+        <value xml:lang="zh">正在获得当前用户的仓库 ... </value>
+    </property>
+    <property key="FacilityFoundForCurrentUserLogin">
+        <value xml:lang="en">({0}) Facility found for current user: {1}[{2}].</value>
+        <value xml:lang="zh">({0}) 找到当前用户的仓库：{1}[{2}]。</value>
+    </property>
+    <property key="FacilityNotBelongToYou">
+        <value xml:lang="en">Facility {0}[{1}] does not belong to you. Please use a facility of yours.</value>
+        <value xml:lang="zh">仓库{0}[{1}]不属于你，请改为你自己的仓库。</value>
+    </property>
+    <property key="ExcelTemplateTypeSelected">
+        <value xml:lang="en">The selected Excel template type: </value>
+        <value xml:lang="zh">选择的Excel模板类型：</value>
+    </property>
+    <property key="FacilityIdSelected">
+        <value xml:lang="en">The selected facility Id: </value>
+        <value xml:lang="zh">选择的仓库编号：</value>
+    </property>
+    <property key="ParsePricatFileStatement">
+        <value xml:lang="en">Loading file {0} ... </value>
+        <value xml:lang="zh">正在读入文件{0} ... </value>
+    </property>
+    <property key="PricatSuggestion">
+        <value xml:lang="en">Please make sure your Excel file is in format of Microsoft Excel 2007 and later. And then try again.</value>
+        <value xml:lang="zh">请确认你的Excel文件格式是微软Office 2007或更新版本的，然后重试一下。</value>
+    </property>
+    <property key="CheckPricatHasSheet">
+        <value xml:lang="en">Checking whether your file contains at least a sheet ... </value>
+        <value xml:lang="zh">正在检查你的文件是否包含至少一个表单 ... </value>
+    </property>
+    <property key="PricatVersionNotSupport">
+        <value xml:lang="en">Pricat Version {0} is not supported.</value>
+        <value xml:lang="zh">还不能支持这个价格分类的版本{0}。</value>
+    </property>
+    <property key="PricatTableOnlyParse1stSheet">
+        <value xml:lang="en">Only the 1st sheet will be parsed.</value>
+        <value xml:lang="zh">只解析第一张表。</value>
+    </property>
+    <property key="PricatTableNoSheet">
+        <value xml:lang="en">There's no sheet in the PriCat file.</value>
+        <value xml:lang="zh">价格分类文件中没有表。</value>
+    </property>
+    <property key="PricatTableRows">
+        <value xml:lang="en">Sheet [{2}] has {0} rows of header and {1} rows of data.</value>
+        <value xml:lang="zh">表单[{2}]有{0}行表头和{1}行数据。</value>
+    </property>
+    <property key="PricatTableRow">
+        <value xml:lang="en">Sheet [{0}] has only 1 row of data.</value>
+        <value xml:lang="zh">表单[{0}]只有一行数据。</value>
+    </property>
+    <property key="ExcelTableNoRow">
+        <value xml:lang="en">There's no row in sheet [{0}].</value>
+        <value xml:lang="zh">表单[{0}]中没有数据。</value>
+    </property>
+    <property key="ExcelTableColumnNumberNotMatch">
+        <value xml:lang="en">The sheet has {0} columns, it's not the same as sample sheet's {1}.</value>
+        <value xml:lang="zh">表单有{0}列，与样例表单的{1}列不同。</value>
+    </property>
+    <property key="ExcelTableColumnNotMatch">
+        <value xml:lang="en">The column {0} has a name {1}, it's not identical to {2}.</value>
+        <value xml:lang="zh">列{0}的名字是{1}，应是{2}。</value>
+    </property>
+    <property key="ExcelParsingRow">
+        <value xml:lang="en">({0}) parsing {1} ...</value>
+        <value xml:lang="zh">({0}) 正在解析 {1} ...</value>
+    </property>
+    <property key="StartCheckPricatVersion">
+        <value xml:lang="en">Check PriCat file's version ... </value>
+        <value xml:lang="zh">检查价格分类文件的版本 ... </value>
+    </property>
+    <property key="StartCheckCurrencyId">
+        <value xml:lang="en">Checking currencyId ... </value>
+        <value xml:lang="zh">正在检查币种 ... </value>
+    </property>
+    <property key="CurrencyIdRequired">
+        <value xml:lang="en">CurrencyId is required. Please set it at row 3 column 2.</value>
+        <value xml:lang="zh">必须设置货币。请设置在第三行、第二列。</value>
+    </property>
+    <property key="CurrencyIdIs">
+        <value xml:lang="en">CurrencyId is {0}</value>
+        <value xml:lang="zh">货币是{0}</value>
+    </property>
+    <property key="CurrencyIdNotFound">
+        <value xml:lang="en">CurrencyId {0} cannot be found in this system.</value>
+        <value xml:lang="zh">本系统中找不到货币{0}。</value>
+    </property>
+    <property key="CurrencyIdNotCurrency">
+        <value xml:lang="en">{0} is not a currency in this system.</value>
+        <value xml:lang="zh">{0}在这个系统里不是货币。</value>
+    </property>
+    <property key="HeaderContainsError">
+        <value xml:lang="en">There are errors in PriCat header. Please correct it and upload it again.</value>
+        <value xml:lang="zh">表头中有错误，请修改后重新上传。</value>
+    </property>
+    <property key="PricatNoDataRows">
+        <value xml:lang="en">There are no data in your PriCat file, no further operation is required.</value>
+        <value xml:lang="zh">你的价格分类文件中没有数据，不再做数据解析了。</value>
+    </property>
+    <property key="DataContainsError">
+        <value xml:lang="en">There are errors in data of your PriCat file. Please correct it and upload it again.</value>
+        <value xml:lang="zh">价格分类文件的数据中有错误，请修改后重新上传。</value>
+    </property>
+    <property key="CellTypeNotString">
+        <value xml:lang="en">The type of cell[{0}, {1}] is not String. The cell value will be changed to String type.</value>
+        <value xml:lang="zh">单元格[{0}, {1}]不是字符类型。将把这个单元格的值转为字符类型。</value>
+    </property>
+    <property key="CellTypeNotNumeric">
+        <value xml:lang="en">The type of cell[{0}, {1}] is not numeric. The cell value will be changed to numeric type.</value>
+        <value xml:lang="zh">单元格[{0}, {1}]不是数字类型。将把这个单元格的值转为数字类型。</value>
+    </property>
+    <property key="ErrorParseValueToNumeric">
+        <value xml:lang="en">Unable to parse the value to a numeric.</value>
+        <value xml:lang="zh">无法把这个单元格的值转为数字。</value>
+    </property>
+    <property key="StartCheckHeaderColNum">
+        <value xml:lang="en">Checking whether the number of header columns matches the template's of version {0} ... </value>
+        <value xml:lang="zh">正在检查表头的列数是否与版本{0}的模板一致 ... </value>
+    </property>
+     <property key="HeaderColNumNotMatch">
+        <value xml:lang="en">The number of columns of {0} template header columns, column number {1} and imported template columns are not consistent ... </value>
+        <value xml:lang="zh">模板表头的列数{0}列,与导入的模板的列数{1}列不一致 ... </value>
+    </property>
+    <property key="StartCheckHeaderColLabel">
+        <value xml:lang="en">Checking whether the header labels match the template's of version {0} ... </value>
+        <value xml:lang="zh">正在检查表头的文字是否与版本{0}的模板一致 ... </value>
+    </property>
+    <property key="HeaderColLabelNotMatch">
+        <value xml:lang="en">The lable of row {0} colum {1} is [{2}], it does not match [{3}] as expected.</value>
+        <value xml:lang="zh">行{0}列{1}的文字是[{2}]，与期望的[{3}]不一致。</value>
+    </property>
+	<property key="HeaderColNumShortThanRequired">
+        <value xml:lang="en">Table header column number less than the required {0}</value>
+        <value xml:lang="zh">表头列数小于要求的{0}列</value>
+    </property>
+	<property key="UseHeaderColNum">
+        <value xml:lang="en">the first {0} column labels will be checked</value>
+        <value xml:lang="zh">将检查表头的前{0}列的标签</value>
+    </property>
+    <property key="WriteCommentsBackToExcel">
+        <value xml:lang="en">Writing errors as commonts to your Excel file ... </value>
+        <value xml:lang="zh">正在把错误信息作为批注写到你的Excel文件里 ... </value>
+    </property>
+    <property key="CLEANUP_LOGANDEXCEL_BEGIN">
+        <value xml:lang="en">Start to clean log and commented excel files</value>
+        <value xml:lang="zh">开始清理日志和批注过的Excel文件</value>
+    </property> 
+    <property key="HistoryLessThan">
+        <value xml:lang="en">history entries less than {0}</value>
+        <value xml:lang="zh">历史记录少于{0}条</value>
+    </property> 
+    <property key="HistoryEntryToRemove">
+        <value xml:lang="en">{0} entries to remove</value>
+        <value xml:lang="zh">要删除{0}条记录</value>
+    </property> 
+    <property key="FacilityNameNotMatchId">
+        <value xml:lang="en">In the system, the name of facilityId[{0}] is [{1}], NOT [{2}]. Please correct it and import again.</value>
+        <value xml:lang="zh">系统中，仓库标识[{0}]的名称是[{1}]，不是[{2}]。请修改后重新导入。</value>
+    </property>
+    <property key="ExcelEmptyRow">
+        <value xml:lang="en">empty row</value>
+        <value xml:lang="zh">空行</value>
+    </property>
+
+    <property key="REPORT_EXCEPTION">
+        <value xml:lang="en">Exception: </value>
+        <value xml:lang="zh">意外错误：</value>
+    </property>
+    <property key="DIALOG_BUTTON_OK">
+        <value xml:lang="en">OK</value>
+        <value xml:lang="zh">确定</value>
+    </property>
+    <property key="DIALOG_BUTTON_CANCEL">
+        <value xml:lang="en">Cancel</value>
+        <value xml:lang="zh">取消</value>
+    </property>
+    <property key="DIALOG_BUTTON_EDIT">
+        <value xml:lang="en">Edit</value>
+        <value xml:lang="zh">编辑</value>
+    </property>
+    <property key="DIALOG_BUTTON_DISCARD">
+        <value xml:lang="en">Discard</value>
+        <value xml:lang="zh">放弃</value>
+    </property>
+    <property key="DIALOG_BUTTON_CLOSE">
+        <value xml:lang="en">Close</value>
+        <value xml:lang="zh">关闭</value>
+    </property>
+    <property key="DIALOG_BUTTON_ADVANCE">
+        <value xml:lang="en">Advance</value>
+        <value xml:lang="zh">高级</value>
+    </property>
+    <property key="DIALOG_BUTTON_SET">
+        <value xml:lang="en">Set</value>
+        <value xml:lang="zh">设置</value>
+    </property>
+    <property key="DIALOG_BUTTON_BACK">
+        <value xml:lang="en">Back</value>
+        <value xml:lang="zh">返回</value>
+    </property>
+    <property key="DIALOG_BUTTON_CONTINUE">
+        <value xml:lang="en">Continue</value>
+        <value xml:lang="zh">继续</value>
+    </property>
+    <property key="DIALOG_BUTTON_DETAIL">
+        <value xml:lang="en">Detail</value>
+        <value xml:lang="zh">详细</value>
+    </property>
+    <property key="DIALOG_BUTTON_DOWNLOAD">
+        <value xml:lang="en">Download</value>
+        <value xml:lang="zh">下载</value>
+    </property>
+    <property key="FORMAT_DEFAULT">
+        <value xml:lang="en">({0}) This is default format.</value>
+        <value xml:lang="zh">({0}) 这是缺省格式。</value>
+    </property>
+    <property key="FORMAT_WARNING">
+        <value xml:lang="en">({0}) This is warning format.</value>
+        <value xml:lang="zh">({0}) 这是警告格式。</value>
+    </property>
+    <property key="FORMAT_HEADLINE">
+        <value xml:lang="en">({0}) This is headline format.</value>
+        <value xml:lang="zh">({0}) 这是标题格式。</value>
+    </property>
+    <property key="FORMAT_NOTE">
+        <value xml:lang="en">({0}) This is note format.</value>
+        <value xml:lang="zh">({0}) 这是记录格式。</value>
+    </property>
+    <property key="FORMAT_OK">
+        <value xml:lang="en">({0}) This is OK format.</value>
+        <value xml:lang="zh">({0}) 这是正确时的格式。</value>
+    </property>
+    <property key="FORMAT_ERROR">
+        <value xml:lang="en">({0}) This is error format.</value>
+        <value xml:lang="zh">({0}) 这是错误时的格式。</value>
+    </property>
+    <property key="FORMAT_THROWABLE">
+        <value xml:lang="en">({0}) This is throwable format.</value>
+        <value xml:lang="zh">({0}) 这是抛出错误的格式。</value>
+    </property>
+    <property key="START_COUNT_DOWN">
+        <value xml:lang="en">Start counting down ...</value>
+        <value xml:lang="zh">开始倒数 ...</value>
+    </property>
+    <property key="COUNT_COMPLETED">
+        <value xml:lang="en">... counting completed.</value>
+        <value xml:lang="zh">... 完成计数。</value>
+    </property>
+    <property key="START_COUNT_UP">
+        <value xml:lang="en">String counting up ...</value>
+        <value xml:lang="zh">开始正计数 ...</value>
+    </property>
+    <property key="RPT_ERROR">
+        <value xml:lang="en">Error: </value>
+        <value xml:lang="zh">错误：</value>
+    </property>
+    <property key="RPT_ERROR_DETAILS">
+        <value xml:lang="en">Details: </value>
+        <value xml:lang="zh">详细：</value>
+    </property>
+    <property key="ParseExcelDemo">
+        <value xml:lang="en">Click here to see Import Excel demo</value>
+        <value xml:lang="zh">点击这里看导入Excel演示</value>
+    </property>
+    <property key="StartParseExcel">
+        <value xml:lang="en">Start parsing a sample excel file ...</value>
+        <value xml:lang="zh">开始解析一个Excel样例文件 ...</value>
+    </property>
+    <property key="ExcelParseCompleted">
+        <value xml:lang="en">... parsing completed</value>
+        <value xml:lang="zh">... 完成解析</value>
+    </property>
+    <property key="ExcelTableOnlyParse1stSheet">
+        <value xml:lang="en">Only the 1st sheet will be parsed.</value>
+        <value xml:lang="zh">只解析第一张表。</value>
+    </property>
+    <property key="ExcelTableNoSheet">
+        <value xml:lang="en">There's no sheet in the excel.</value>
+        <value xml:lang="zh">Excel中没有表。</value>
+    </property>
+    <property key="ExcelTableRows">
+        <value xml:lang="en">Sheet {1} has {0} rows.</value>
+        <value xml:lang="zh">表单{1}有{0}行数据。</value>
+    </property>
+    <property key="ExcelTableRow">
+        <value xml:lang="en">Sheet {0} has only 1 row.</value>
+        <value xml:lang="zh">表单{0}只有一行数据。</value>
+    </property>
+    <property key="ExcelTableNoRow">
+        <value xml:lang="en">There's no row in sheet {0}.</value>
+        <value xml:lang="zh">表单{0}中没有数据。</value>
+    </property>
+    <property key="ExcelTableColumnNumberNotMatch">
+        <value xml:lang="en">The sheet has {0} columns, it's not the same as sample sheet's {1}.</value>
+        <value xml:lang="zh">表单有{0}列，与样例表单的{1}列不同。</value>
+    </property>
+    <property key="ExcelTableColumnNotMatch">
+        <value xml:lang="en">The column {0} has a name {1}, it's not identical to {2}.</value>
+        <value xml:lang="zh">列{0}的名字是{1}，应是{2}。</value>
+    </property>
+    <property key="ExcelParsingRow">
+        <value xml:lang="en">({0}) parsing {1} ...</value>
+        <value xml:lang="zh">({0}) 正在解析 {1} ...</value>
+    </property>
+    <property key="ParseExcelEncoding">
+        <value xml:lang="en">  Using {0} to parsing the excel file.</value>
+        <value xml:lang="zh">  正在使用{0}解析Excel文件。</value>
+    </property>
+    <property key="ParseExcelToolStatement">
+        <value xml:lang="en">  Using {0} to parsing the {1} format excel file...</value>
+        <value xml:lang="zh">  正在使用{0}解析{1}格式的Excel文件...</value>
+    </property>
+    <property key="ok">
+        <value xml:lang="en">ok</value>
+        <value xml:lang="zh">完成</value>
+    </property>
+    <property key="error">
+        <value xml:lang="en">error</value>
+        <value xml:lang="zh">出错了</value>
+    </property>
+    <property key="skipped">
+        <value xml:lang="en">skipped</value>
+        <value xml:lang="zh">跳过</value>
+    </property>
+
+	<property key="ExcelImportHistoryList">
+        <value xml:lang="en">Excel Import History</value>
+        <value xml:lang="zh">Excel导入操作历史记录</value>
+    </property>
+	<property key="OnlyYourOwnImportHistoryDisplayed">
+        <value xml:lang="en">(Only current login user's history can be displayed)</value>
+        <value xml:lang="zh">（仅能显示当前用户的导入操作历史记录）</value>
+    </property>
+	<property key="SerialNumber">
+        <value xml:lang="en">No.</value>
+        <value xml:lang="zh">序号</value>
+    </property>
+	<property key="Filename">
+        <value xml:lang="en">Filename</value>
+        <value xml:lang="zh">文件名</value>
+    </property>
+	<property key="FromDate">
+        <value xml:lang="en">Start Time</value>
+        <value xml:lang="zh">开始时间</value>
+    </property>
+	<property key="ThruDate">
+        <value xml:lang="en">End Time</value>
+        <value xml:lang="zh">结束时间</value>
+    </property>
+	<property key="ThruReasonId">
+        <value xml:lang="en">End Reason</value>
+        <value xml:lang="zh">结束原因</value>
+    </property>
+	<property key="ImportStatus">
+        <value xml:lang="en">Import Status</value>
+        <value xml:lang="zh">导入状态</value>
+    </property>
+	<property key="Actions">
+        <value xml:lang="en">Actions</value>
+        <value xml:lang="zh">操作</value>
+    </property>
+	<property key="ExcelImportTipNoData">
+        <value xml:lang="en">No excel import history data.</value>
+        <value xml:lang="zh">没有Excel导入历史记录</value>
+    </property>
+	<property key="EXCEL_IMPORTING">
+        <value xml:lang="en">Importing</value>
+        <value xml:lang="zh">正在导入</value>
+    </property>
+	<property key="EXCEL_IMPORTED">
+        <value xml:lang="en">Imported</value>
+        <value xml:lang="zh">已导入</value>
+    </property>
+	<property key="EXCEL_IMPORT_SUCCESS">
+        <value xml:lang="en">Success</value>
+        <value xml:lang="zh">成功</value>
+    </property>
+	<property key="EXCEL_IMPORT_STOPPED">
+        <value xml:lang="en">Stopped by user</value>
+        <value xml:lang="zh">用户终止了导入</value>
+    </property>
+	<property key="EXCEL_IMPORT_ERROR">
+        <value xml:lang="en">Stopped by error</value>
+        <value xml:lang="zh">因出错而停止了导入</value>
+    </property>
+	<property key="EXCEL_IMPORT_QUEST">
+        <value xml:lang="en">Data error found</value>
+        <value xml:lang="zh">数据中有错误</value>
+    </property>
+	<property key="ViewExcelImportLogContent">
+        <value xml:lang="en">View log content</value>
+        <value xml:lang="zh">浏览日志内容</value>
+    </property>
+	<property key="DownloadCommentedExcel">
+        <value xml:lang="en">Download excel</value>
+        <value xml:lang="zh">下载Excel</value>
+    </property>
+	<property key="ViewExcelImportHistory">
+        <value xml:lang="en">View Import History</value>
+        <value xml:lang="zh">导入操作历史记录</value>
+    </property>
+	<property key="ViewPricatLog">
+        <value xml:lang="en">View</value>
+        <value xml:lang="zh">浏览</value>
+    </property>
+	<property key="DownloadCommentedPricat">
+        <value xml:lang="en">Download</value>
+        <value xml:lang="zh">下载</value>
+    </property>
+
+	<property key="ReasonOK">
+        <value xml:lang="en">OK</value>
+    </property>
+	<property key="ReasonStopped">
+        <value xml:lang="en">[S]</value>
+    </property>
+	<property key="ReasonError">
+        <value xml:lang="en">[E]</value>
+    </property>
+	<property key="ReasonWarning">
+        <value xml:lang="en">[W]</value>
+    </property>
+</resource>

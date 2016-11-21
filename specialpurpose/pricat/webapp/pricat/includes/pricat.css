@@ -1,0 +1,255 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+ 
+.main input {
+	margin-right: 7px;
+}
+
+/* headline of dialog window */
+.dialoghead {
+	background-color: ActiveCaption;
+	margin-bottom: 8px;
+	padding: 2px;
+	color: CaptionText;
+	font-size: 12px;
+	font-weight: bold;
+	white-space: nowrap;	
+}
+
+
+/* outer table of complete dialog window */
+table.dialog {
+    margin: 20px auto;
+	width: 85%;
+	border-left: 1px solid ThreeDLightShadow;
+	border-top: 1px solid ThreeDLightShadow;
+	border-right: 1px solid ThreedDarkShadow;
+	border-bottom: 1px solid ThreedDarkShadow;
+}
+
+/* inner table of complete dialog window */
+table.dialogbox {
+	width: 100%;
+	background-color: ThreeDFace;
+	background-color: ThreeDFace;
+	border-left: 1px solid ThreeDHighlight;
+	border-top: 1px solid ThreeDHighlight;
+	border-right: 1px solid ThreeDShadow;
+	border-bottom: 1px solid ThreeDShadow;
+	padding-top: 1px;	
+	
+}
+
+body.dialog {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding: 0;
+	margin: 0;
+	
+}
+
+/* Button - Image button in image style */
+img.button {
+	height: 20px;
+	width: 20px;
+	border: 0px none;
+	vertical-align: middle;
+}
+
+/* Button - Link (href) style */
+a.button {
+	color: ButtonText;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Button - Normal style (inactive) */
+span.norm {
+	display: block;
+	border: 1px solid ThreeDFace;
+}
+
+/* Button - Hover style */
+span.over {
+	display: block;
+	border-top: 1px solid ThreeDHighlight;
+	border-left: 1px solid ThreeDHighlight;
+	border-bottom: 1px solid ThreeDShadow;
+	border-right: 1px solid ThreeDShadow;
+}
+
+/* Button - Push style */
+span.push {
+	display: block;
+	border-top: 1px solid ThreeDShadow;
+	border-left: 1px solid ThreeDShadow;
+	border-bottom: 1px solid ThreeDHighlight;
+	border-right: 1px solid ThreeDHighlight;
+}
+
+/* Button - Disabled style */
+span.disabled {
+	display: block;
+	border: 1px solid ThreeDFace;
+	color: GrayText;
+}
+
+/* Button - Separator */
+span.separator {
+	display: block;
+	height: 18px;
+	width: 0px;
+	border-top: 0px;
+	border-left: 1px solid ThreeDShadow;
+	border-bottom: 0px;
+	border-right: 1px solid ThreeDHighlight;
+}
+
+/* final button row of dialog window */
+.dialogbuttons {
+	padding: 3px 8px 5px;
+	text-align: center;
+	
+}
+
+.dialogcontent {
+	border-left: 1px solid ThreeDHighlight;
+	border-top: 1px solid ThreeDHighlight;
+	border-right: 2px solid ThreeDShadow;
+	border-bottom: 2px solid ThreeDShadow;
+	margin: 8px;
+	padding: 15px;
+}
+
+/* Submit and other buttons */
+input.dialogbutton {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	background-color: ButtonFace;
+	width: 100px;
+	height: 20px;
+	padding: 0 5px;
+	margin-left: 12px;
+	overflow: visible;
+}
+
+/* empty dummy style */
+.empty {}
+
+/* element without margin and padding */
+.nomargin {
+	padding: 0;
+	margin: 0;
+}
+
+/* hide a block */
+.hide {
+	display: none;
+	visibility: hidden;
+}
+
+/* show a block */
+.show {
+	display: inline;
+	visibility: visible;
+}
+
+.help { 
+    color: InfoText; 
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    padding: 5px; 
+    width: 200px; 
+    border: 1px solid WindowFrame; 
+    background-color: InfoBackground; 
+    visibility: hidden; 
+    font-size: 8pt; 
+} 
+
+span.head  { color: #000099; font-weight: bold; }
+span.note  { color: #666666; }
+span.ok    { color: #009900; }
+span.warn  { color: #990000; padding-left: 40px; } 
+span.err   { color: #990000; font-weight: bold; padding-left: 40px; }   
+span.throw { color: #990000; font-weight: bold; }
+
+.text-left {
+  text-align: left;
+}
+
+.p-md {
+  padding: 25px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table > thead > tr > th {
+  border-bottom: 1px solid #DDDDDD;
+  vertical-align: bottom;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top: 1px solid #e7eaec;
+  line-height: 1.42857;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.ms-table-primary thead{
+	background-color: #eeeeee;
+}
+.ms-table-primary tr.ms-table-header,
+tr.ms-table-header span{
+	font-weight: bold;
+}
+.ms-table-primary{
+	width: 100%;
+	border:0;
+	margin:0;
+	border-collapse:collapse;
+}
+.ms-table-primary td,th{
+	padding:0;
+	text-align: center;
+	vertical-align: middle !important;
+}
+.ms-table-primary .text-left{
+	padding:0;
+	text-align: left;
+	vertical-align: middle !important;
+}
+.ms-table-primary .text-right{
+	padding:0;
+	text-align: right;
+	vertical-align: middle !important;
+}
+
+.p-xs {
+  padding: 10px;
+}
+.p-sm {
+  padding: 15px;
+}
