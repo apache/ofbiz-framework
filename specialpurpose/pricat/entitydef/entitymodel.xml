@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    
+    <entity entity-name="ExcelImportHistory"
+            package-name="org.ofbiz.product.catalog"
+            title="Excel Import History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <field name="fileName" type="value"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="thruReasonId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="threadName" type="name"></field>
+      <field name="logFileName" type="value"></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="sequenceNum"/>
+      <relation rel-entity-name="UserLogin" type="one" fk-name="EXCELIMPORT_USERLOGIN">
+      	<key-map field-name="userLoginId"/>
+      </relation>
+      <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_STATUS">
+      	<key-map field-name="statusId" rel-field-name="enumId"/>
+      </relation>
+      <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_REASON">
+      	<key-map field-name="thruReasonId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
+    
+</entitymodel>
