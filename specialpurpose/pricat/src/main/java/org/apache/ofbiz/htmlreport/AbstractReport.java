@@ -66,7 +66,7 @@ public abstract class AbstractReport implements InterfaceReport {
 
     public String formatRuntime() {
 
-    	long runtime = getRuntime();
+        long runtime = getRuntime();
         long seconds = (runtime / SECONDS) % 60;
         long minutes = (runtime / MINUTES) % 60;
         long hours = (runtime / HOURS) % 24;
@@ -137,7 +137,7 @@ public abstract class AbstractReport implements InterfaceReport {
     protected void init(Locale locale) {
         startTime = System.currentTimeMillis();
         this.locale = locale;
-    	errors = new ArrayList<Object>();
+        errors = new ArrayList<Object>();
     }
 
     /**

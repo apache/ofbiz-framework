@@ -21,7 +21,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     
     <entity entity-name="ExcelImportHistory"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             title="Excel Import History Entity">
       <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="sequenceNum" type="numeric"></field>
@@ -35,13 +35,13 @@ under the License.
       <prim-key field="userLoginId"/>
       <prim-key field="sequenceNum"/>
       <relation rel-entity-name="UserLogin" type="one" fk-name="EXCELIMPORT_USERLOGIN">
-      	<key-map field-name="userLoginId"/>
+          <key-map field-name="userLoginId"/>
       </relation>
       <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_STATUS">
-      	<key-map field-name="statusId" rel-field-name="enumId"/>
+          <key-map field-name="statusId" rel-field-name="enumId"/>
       </relation>
       <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_REASON">
-      	<key-map field-name="thruReasonId" rel-field-name="enumId"/>
+          <key-map field-name="thruReasonId" rel-field-name="enumId"/>
       </relation>
     </entity>
     

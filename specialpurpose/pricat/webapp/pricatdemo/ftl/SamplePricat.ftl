@@ -25,7 +25,7 @@ under the License.
   </div>
   <div class="screenlet-body">
   <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>pricatUpload</@ofbizUrl>">
-	<input type="hidden" name="action" value="store_excel" />
+    <input type="hidden" name="action" value="store_excel" />
     <input type="file" size="60" name="filename"/><br />
     ${uiLabelMap.ExcelTemplateType}:
     <select name="excelTemplateType" id="excelTemplateType">

@@ -47,15 +47,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
-						<section>
-						    <widgets>
-							    <platform-specific>
-								    <html>
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
                                         <html-template location="component://pricat/webapp/pricatdemo/ftl/main.ftl"/>
-								    </html>
-							    </platform-specific>
+                                    </html>
+                                </platform-specific>
                             </widgets>
-						</section>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -70,15 +70,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
-						<section>
-						    <widgets>
-							    <platform-specific>
-								    <html>
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
                                         <html-template location="component://pricat/webapp/pricatdemo/ftl/countdownreport.ftl"/>
-								    </html>
-							    </platform-specific>
+                                    </html>
+                                </platform-specific>
                             </widgets>
-						</section>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -93,15 +93,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
-						<section>
-						    <widgets>
-							    <platform-specific>
-								    <html>
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
                                         <html-template location="component://pricat/webapp/pricatdemo/ftl/countupreport.ftl"/>
-								    </html>
-							    </platform-specific>
+                                    </html>
+                                </platform-specific>
                             </widgets>
-						</section>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

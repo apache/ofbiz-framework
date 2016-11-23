@@ -50,7 +50,7 @@ import org.apache.ofbiz.htmlreport.util.ReportStringUtil;
  */
 public class HtmlReport extends AbstractReport {
 
-	public static final String module = HtmlReport.class.getName();
+    public static final String module = HtmlReport.class.getName();
 
     /** The delimiter that is used in the resource list request parameter. */
     public static final String DELIMITER_RESOURCES = "|";
@@ -171,7 +171,7 @@ public class HtmlReport extends AbstractReport {
     public static final String FORM_URI = "formuri";
     
     public static final String resource = "PricatUiLabels";
-	
+    
     /** Log file. */
     protected File logFile;
     
@@ -213,43 +213,43 @@ public class HtmlReport extends AbstractReport {
     }
     
     public static HtmlReport getInstance(HttpServletRequest request, HttpServletResponse response) {
-    	HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
-    	if (wp == null) {
-    		wp = new HtmlReport(request, response, true, true);
-    		request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
-    	}
-    	return wp;
+        HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
+        if (wp == null) {
+            wp = new HtmlReport(request, response, true, true);
+            request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
+        }
+        return wp;
     }
     
     public static HtmlReport getInstance(HttpServletRequest request, HttpServletResponse response, boolean writeHtml, boolean isTransient) {
-    	HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
-    	if (wp == null) {
-    		wp = new HtmlReport(request, response, writeHtml, isTransient);
-    		request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
-    	}
-    	return wp;
+        HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
+        if (wp == null) {
+            wp = new HtmlReport(request, response, writeHtml, isTransient);
+            request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
+        }
+        return wp;
     }
     
     public static HtmlReport getInstance(HttpServletRequest request, HttpServletResponse response, boolean writeHtml, boolean isTransient, String logFileName) {
-    	HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
-    	if (wp == null || UtilValidate.isEmpty(wp.getLogFileName()) || !wp.getLogFileName().equals(logFileName)) {
-    		wp = new HtmlReport(request, response, writeHtml, isTransient);
-    		request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
-    	}
-    	return wp;
+        HtmlReport wp = (HtmlReport) request.getSession().getAttribute(SESSION_REPORT_CLASS);
+        if (wp == null || UtilValidate.isEmpty(wp.getLogFileName()) || !wp.getLogFileName().equals(logFileName)) {
+            wp = new HtmlReport(request, response, writeHtml, isTransient);
+            request.getSession().setAttribute(SESSION_REPORT_CLASS, wp);
+        }
+        return wp;
     }
     
     public String getParamAction(HttpServletRequest request) {
-		paramAction = request.getParameter("action");
-    	return paramAction != null ? paramAction : "reportbegin";
+        paramAction = request.getParameter("action");
+        return paramAction != null ? paramAction : "reportbegin";
     }
     
     public void setParamAction(String action) {
-    	paramAction = action;
+        paramAction = action;
     }
 
     public void setParamThread(String name) {
-    	paramThread = name;
+        paramThread = name;
     }
 
     public synchronized String getReportUpdate() {
@@ -283,12 +283,12 @@ public class HtmlReport extends AbstractReport {
         indexNext = isTransient ? 0 : indexEnd;
         
         if (isTransient && logFileOutputStream != null && logResult.toString().length() > 0) {
-        	try {
-				logFileOutputStream.write((logResult.toString() + "\n").getBytes());
-				logFileOutputStream.flush();
-			} catch (IOException e) {
-				Debug.logError(e.getMessage(), module);
-			}
+            try {
+                logFileOutputStream.write((logResult.toString() + "\n").getBytes());
+                logFileOutputStream.flush();
+            } catch (IOException e) {
+                Debug.logError(e.getMessage(), module);
+            }
         }
         return result.toString();
     }
@@ -351,44 +351,44 @@ public class HtmlReport extends AbstractReport {
         content.add(buf.toString());
 
         switch (format) {
-        	case FORMAT_HEADLINE:
-        		buf = new StringBuffer();
-        		buf.append("<span class='head'>");
-        		buf.append(value);
-        		buf.append("</span>");
-        		break;
-        	case FORMAT_WARNING:
-        		buf = new StringBuffer();
-        		buf.append("<span class='warn'>");
-        		buf.append(value);
-        		buf.append("</span>");
-        		addWarning(value);
-        		break;
-        	case FORMAT_ERROR:
-        		buf = new StringBuffer();
-        		buf.append("<span class='err'>");
-        		buf.append(value);
-        		buf.append("</span>");
-        		addError(value);
-        		break;
-        	case FORMAT_NOTE:
-        		buf = new StringBuffer();
-        		buf.append("<span class='note'>");
-        		buf.append(value);
-        		buf.append("</span>");
-        		break;
-        	case FORMAT_OK:
-        		buf = new StringBuffer();
-        		buf.append("<span class='ok'>");
-        		buf.append(value);
-        		buf.append("</span>");
-        		break;
-        	case FORMAT_DEFAULT:
-        	default:
-        		buf = new StringBuffer(value);
+            case FORMAT_HEADLINE:
+                buf = new StringBuffer();
+                buf.append("<span class='head'>");
+                buf.append(value);
+                buf.append("</span>");
+                break;
+            case FORMAT_WARNING:
+                buf = new StringBuffer();
+                buf.append("<span class='warn'>");
+                buf.append(value);
+                buf.append("</span>");
+                addWarning(value);
+                break;
+            case FORMAT_ERROR:
+                buf = new StringBuffer();
+                buf.append("<span class='err'>");
+                buf.append(value);
+                buf.append("</span>");
+                addError(value);
+                break;
+            case FORMAT_NOTE:
+                buf = new StringBuffer();
+                buf.append("<span class='note'>");
+                buf.append(value);
+                buf.append("</span>");
+                break;
+            case FORMAT_OK:
+                buf = new StringBuffer();
+                buf.append("<span class='ok'>");
+                buf.append(value);
+                buf.append("</span>");
+                break;
+            case FORMAT_DEFAULT:
+            default:
+                buf = new StringBuffer(value);
         }
         if (value.trim().endsWith(getLineBreak())) {
-        	buf.append("\n");
+            buf.append("\n");
         }
         logContent.add(buf.toString());
     }
@@ -432,7 +432,7 @@ public class HtmlReport extends AbstractReport {
             buf.append(UtilProperties.getMessage(resource, "REPORT_EXCEPTION", getLocale()));
             String exception = ReportEncoder.escapeXml(throwable.getLocalizedMessage());
             if (UtilValidate.isEmpty(exception)) {
-            	exception = ReportEncoder.escapeXml(throwable.getMessage());
+                exception = ReportEncoder.escapeXml(throwable.getMessage());
             }
             if (UtilValidate.isNotEmpty(exception)) {
                 exception = exception.replaceAll("[\r\n]+", LINEBREAK);
@@ -457,7 +457,7 @@ public class HtmlReport extends AbstractReport {
             buf.append(UtilProperties.getMessage(resource, "REPORT_EXCEPTION", getLocale()));
             String exception = ReportEncoder.escapeXml(throwable.getLocalizedMessage());
             if (UtilValidate.isEmpty(exception)) {
-            	exception = ReportEncoder.escapeXml(throwable.getMessage());
+                exception = ReportEncoder.escapeXml(throwable.getMessage());
             }
             if (UtilValidate.isNotEmpty(exception)) {
                 exception = exception.replaceAll("[\r\n]+", LINEBREAK);
@@ -478,11 +478,11 @@ public class HtmlReport extends AbstractReport {
 
     public void printMessageWithParam(String uiLabel, Object param) {
         print(uiLabel, InterfaceReport.FORMAT_NOTE);
-	}
+    }
 
-	public void printMessageWithParam(int m, int n, String uiLabel, Object param) {
+    public void printMessageWithParam(int m, int n, String uiLabel, Object param) {
         print(uiLabel, InterfaceReport.FORMAT_NOTE);
-	}
+    }
 
     /**
      * Builds the start html of the page, including setting of DOCTYPE and 
@@ -571,13 +571,13 @@ public class HtmlReport extends AbstractReport {
         threadGroup.enumerate(threads, true);
         AbstractReportThread thread = null;
         for (int j=0; j<threads.length; j++) {
-        	Thread threadInstance = threads[j];
-        	if (threadInstance instanceof AbstractReportThread) {
-        		if(((AbstractReportThread)threadInstance).getUUID().toString().equals(getParamThread(request))) {
-            		thread = (AbstractReportThread) threadInstance;
-            		break;
-        		}
-        	}
+            Thread threadInstance = threads[j];
+            if (threadInstance instanceof AbstractReportThread) {
+                if(((AbstractReportThread)threadInstance).getUUID().toString().equals(getParamThread(request))) {
+                    thread = (AbstractReportThread) threadInstance;
+                    break;
+                }
+            }
         }
         if (thread != null) {
             return thread.isAlive();
@@ -592,8 +592,8 @@ public class HtmlReport extends AbstractReport {
      * @return the thread parameter value
      */
     public String getParamThread(HttpServletRequest request) {
-    	String thread = request.getParameter("thread");
-    	return ReportStringUtil.isNotEmptyOrWhitespaceOnly(thread) ? thread : (paramThread == null? "" : paramThread);
+        String thread = request.getParameter("thread");
+        return ReportStringUtil.isNotEmptyOrWhitespaceOnly(thread) ? thread : (paramThread == null? "" : paramThread);
     }
 
     /**
@@ -602,8 +602,8 @@ public class HtmlReport extends AbstractReport {
      * @return the threadhasnext parameter value
      */
     public String getParamThreadHasNext(HttpServletRequest request) {
-    	String threadhasnext = request.getParameter("threadhasnext");
-    	return ReportStringUtil.isNotEmptyOrWhitespaceOnly(threadhasnext) ? threadhasnext : "false";
+        String threadhasnext = request.getParameter("threadhasnext");
+        return ReportStringUtil.isNotEmptyOrWhitespaceOnly(threadhasnext) ? threadhasnext : "false";
     }
 
     /**
@@ -792,10 +792,10 @@ public class HtmlReport extends AbstractReport {
      * @return the value of the title parameter
      */
     public String getParamTitle(HttpServletRequest request) {
-    	if (paramTitle == null) {
-    		paramTitle = request.getParameter("title");
-    	}
-    	return paramTitle != null ? paramTitle : "";
+        if (paramTitle == null) {
+            paramTitle = request.getParameter("title");
+        }
+        return paramTitle != null ? paramTitle : "";
     }
 
     /**
@@ -1214,7 +1214,7 @@ public class HtmlReport extends AbstractReport {
      * @return the value of the file parameter
      */
     public String getParamResource(HttpServletRequest request) {
-    	paramResource = request.getParameter("resource");
+        paramResource = request.getParameter("resource");
         if ((paramResource != null) && !"null".equals(paramResource)) {
             return paramResource;
         } else {
@@ -1288,7 +1288,7 @@ public class HtmlReport extends AbstractReport {
      * @param formUri
      */
     public void setFormRealUri(HttpServletRequest request, String formUri) {
-    	request.setAttribute(FORM_URI, formUri);
+        request.setAttribute(FORM_URI, formUri);
     }
 
     /**
@@ -1298,50 +1298,50 @@ public class HtmlReport extends AbstractReport {
      * @return
      */
     public String getFormRealUri(HttpServletRequest request) {
-    	return (String) request.getAttribute(FORM_URI);
+        return (String) request.getAttribute(FORM_URI);
     }
 
-	public void addLogFile(String logFileName) {
-		if (logFile == null || logFileOutputStream == null) {
-			this.logFileName = logFileName;
-			logFile = FileUtil.getFile(logFileName);
-			try {
-				logFileOutputStream = new FileOutputStream(logFile);
-			} catch (FileNotFoundException e) {
-				// do nothing
-			}
-		}
-	}
-	
-	public String closeLogFile() {
-		if (logFileOutputStream != null) {
-			try {
-				logFileOutputStream.flush();
-			} catch (IOException e) {
-				// do nothing
-			} finally {
-				if (logFileOutputStream != null) {
-					try {
-						logFileOutputStream.close();
-					} catch (IOException e) {
-						// do nothing
-						Debug.logError(e, HtmlReport.module);
-					}
-				}
-			}
-		}
-		return logFileName;
-	}
-	
-	public String getLogFileName() {
-		return logFileName;
-	}
-	
-	public long getSequenceNum() {
-		return sequenceNum;
-	}
+    public void addLogFile(String logFileName) {
+        if (logFile == null || logFileOutputStream == null) {
+            this.logFileName = logFileName;
+            logFile = FileUtil.getFile(logFileName);
+            try {
+                logFileOutputStream = new FileOutputStream(logFile);
+            } catch (FileNotFoundException e) {
+                // do nothing
+            }
+        }
+    }
+    
+    public String closeLogFile() {
+        if (logFileOutputStream != null) {
+            try {
+                logFileOutputStream.flush();
+            } catch (IOException e) {
+                // do nothing
+            } finally {
+                if (logFileOutputStream != null) {
+                    try {
+                        logFileOutputStream.close();
+                    } catch (IOException e) {
+                        // do nothing
+                        Debug.logError(e, HtmlReport.module);
+                    }
+                }
+            }
+        }
+        return logFileName;
+    }
+    
+    public String getLogFileName() {
+        return logFileName;
+    }
+    
+    public long getSequenceNum() {
+        return sequenceNum;
+    }
 
-	public void setSequenceNum(long sequenceNum) {
-		this.sequenceNum = sequenceNum;
-	}
+    public void setSequenceNum(long sequenceNum) {
+        this.sequenceNum = sequenceNum;
+    }
 }

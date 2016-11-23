@@ -72,7 +72,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     
     
     public UUID getUUID() {
-    	return uuid;
+        return uuid;
     }
 
     /**
@@ -211,7 +211,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
     
     protected Locale getLocale() {
-    	return locale;
+        return locale;
     }
 
 }
