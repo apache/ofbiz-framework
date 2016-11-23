@@ -17,23 +17,23 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div id="wrapper">
-	<div id="page-wrapper" class="gray-bg">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="ibox float-e-margins">
-					<div id="htmlreport" class="ibox-content text-left p-md">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div id="htmlreport" class="ibox-content text-left p-md">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script language='JavaScript'>
 <!--
 jQuery(document).ready( function() {
-	jQuery("#htmlreport").html("${StringUtil.wrapString(logFileContent!)}");
+    jQuery("#htmlreport").html("${StringUtil.wrapString(logFileContent!)}");
 });
 //-->
 </script>

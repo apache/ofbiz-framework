@@ -22,15 +22,15 @@ import org.apache.poi.ss.util.CellReference;
 import com.microsoft.schemas.vml.CTShape;
 
 public final class OFBizPricatUtil {
-	public static void formatCommentShape(XSSFSheet sheet, CellReference cell) {
+    public static void formatCommentShape(XSSFSheet sheet, CellReference cell) {
         XSSFVMLDrawing vml = sheet.getVMLDrawing(true);
         CTShape ctshape = vml.findCommentShape(cell.getRow(), cell.getCol());
         ctshape.setType("#_x0000_t202");
-	}
+    }
 
-	public static void formatCommentShape(XSSFSheet sheet, int rowNum, short colNum) {
+    public static void formatCommentShape(XSSFSheet sheet, int rowNum, short colNum) {
         XSSFVMLDrawing vml = sheet.getVMLDrawing(true);
         CTShape ctshape = vml.findCommentShape(rowNum, colNum);
         ctshape.setType("#_x0000_t202");
-	}
+    }
 }

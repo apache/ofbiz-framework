@@ -43,6 +43,6 @@ under the License.
         <response name="success" type="view" value="viewExcelImportLog"/>
     </request-map>
     
-	<view-map name="main" type="screen" page="component://pricat/widget/CommonScreens.xml#viewExcelImportHistory"/>
-	<view-map name="viewExcelImportLog" type="screen" page="component://pricat/widget/CommonScreens.xml#viewExcelImportLog"/>
+    <view-map name="main" type="screen" page="component://pricat/widget/CommonScreens.xml#viewExcelImportHistory"/>
+    <view-map name="viewExcelImportLog" type="screen" page="component://pricat/widget/CommonScreens.xml#viewExcelImportLog"/>
 </site-conf>

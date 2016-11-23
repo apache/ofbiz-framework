@@ -37,48 +37,48 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.pricat.PricatEvents;
 
 public class SamplePricatEvents extends PricatEvents {
-	
-	public static final String module = SamplePricatEvents.class.getName();
-	
-	public static final String PricatLatestVersion = UtilProperties.getPropertyValue("pricat", "pricat.latest.version", "V1.1");
-	
-	public static final String DemoPricatFileName = "SamplePricatTemplate_" + PricatLatestVersion + ".xlsx";
-	
-	public static final String DemoPricatPath = "component://pricat/webapp/pricatdemo/downloads/";
-	
+    
+    public static final String module = SamplePricatEvents.class.getName();
+    
+    public static final String PricatLatestVersion = UtilProperties.getPropertyValue("pricat", "pricat.latest.version", "V1.1");
+    
+    public static final String DemoPricatFileName = "SamplePricatTemplate_" + PricatLatestVersion + ".xlsx";
+    
+    public static final String DemoPricatPath = "component://pricat/webapp/pricatdemo/downloads/";
+    
     /**
-	 * Download excel template.
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws JDOMException
-	 */
-	public static String downloadExcelTemplate(HttpServletRequest request, HttpServletResponse response) {
-		String templateType = request.getParameter("templateType");
-		if (UtilValidate.isEmpty(templateType)) {
-			return "error";
-		}
-		try {
-			String path = ComponentLocationResolver.getBaseLocation(DemoPricatPath).toString();
-			String fileName = null;
-			if ("pricatExcelTemplate".equals(templateType)) {
-				fileName = DemoPricatFileName;
-			}
-			if (UtilValidate.isEmpty(fileName)) {
-				return "error";
-			}
-	        Path file = Paths.get(path + fileName);
-	        byte[] bytes = Files.readAllBytes(file);
-	        UtilHttp.streamContentToBrowser(response, bytes, "application/octet-stream", URLEncoder.encode(fileName, "UTF-8"));
-		} catch (MalformedURLException e) {
-			Debug.logError(e.getMessage(), module);
-			return "error";
-		} catch (IOException e) {
-			Debug.logError(e.getMessage(), module);
-			return "error";
-		}
+     * Download excel template.
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     * @throws JDOMException
+     */
+    public static String downloadExcelTemplate(HttpServletRequest request, HttpServletResponse response) {
+        String templateType = request.getParameter("templateType");
+        if (UtilValidate.isEmpty(templateType)) {
+            return "error";
+        }
+        try {
+            String path = ComponentLocationResolver.getBaseLocation(DemoPricatPath).toString();
+            String fileName = null;
+            if ("pricatExcelTemplate".equals(templateType)) {
+                fileName = DemoPricatFileName;
+            }
+            if (UtilValidate.isEmpty(fileName)) {
+                return "error";
+            }
+            Path file = Paths.get(path + fileName);
+            byte[] bytes = Files.readAllBytes(file);
+            UtilHttp.streamContentToBrowser(response, bytes, "application/octet-stream", URLEncoder.encode(fileName, "UTF-8"));
+        } catch (MalformedURLException e) {
+            Debug.logError(e.getMessage(), module);
+            return "error";
+        } catch (IOException e) {
+            Debug.logError(e.getMessage(), module);
+            return "error";
+        }
         return "success";
     }
 }

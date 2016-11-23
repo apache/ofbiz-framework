@@ -211,20 +211,20 @@ public interface InterfaceReport {
      * 
      * @param logFileName
      */
-	void addLogFile(String logFileName);
+    void addLogFile(String logFileName);
 
-	/**
-	 * Close log file if necessary.
-	 * 
-	 */
-	String closeLogFile();
-	
-	/**
-	 * Set log's sequence number.
-	 * @param sequenceNum
-	 */
-	void setSequenceNum(long sequenceNum);
-	
-	long getSequenceNum();
+    /**
+     * Close log file if necessary.
+     * 
+     */
+    String closeLogFile();
+    
+    /**
+     * Set log's sequence number.
+     * @param sequenceNum
+     */
+    void setSequenceNum(long sequenceNum);
+    
+    long getSequenceNum();
 
 }

@@ -47,7 +47,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ViewExcelImportHistory"/>
 
-				<script location="component://pricat/groovyScripts/pricat/FindMyExcelImport.groovy"/>
+                <script location="component://pricat/groovyScripts/pricat/FindMyExcelImport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
@@ -66,7 +66,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ViewExcelImportLogContent"/>
 
-				<script location="component://pricat/groovyScripts/pricat/FindMyExcelImportLog.groovy"/>
+                <script location="component://pricat/groovyScripts/pricat/FindMyExcelImportLog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">

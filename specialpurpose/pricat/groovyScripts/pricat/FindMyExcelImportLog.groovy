@@ -27,19 +27,19 @@ context.borderSimpleStyle = "2px solid /*begin-color ThreeDFace*/#f0f0f0/*end-co
 sequenceNum = request.getParameter("sequenceNum");
 
 if (sequenceNum == null) {
-	context.logFileContent = "No sequenceNum parameter found.";
-	return; 
+    context.logFileContent = "No sequenceNum parameter found.";
+    return; 
 }
 
 historyEntry = delegator.findOne("ExcelImportHistory", [sequenceNum : Long.valueOf(sequenceNum), userLoginId : userLogin.userLoginId], false);
 if (historyEntry == null) {
-	context.logFileContent = "No import history found.";
-	return;
+    context.logFileContent = "No import history found.";
+    return;
 }
 
 logFile = FileUtil.getFile("runtime/pricat/" + userLogin.userLoginId + "/" + sequenceNum + ".log");
 if (!logFile.exists()) {
-	context.logFileContent = "No log file found.";
+    context.logFileContent = "No log file found.";
 }
 
 FileInputStream fis = new FileInputStream(logFile);
@@ -47,7 +47,7 @@ InputStreamReader isr = new InputStreamReader(fis);
 BufferedReader br = new BufferedReader(isr);
 logFileContent = "";
 while((s = br.readLine())!=null){
-	logFileContent += s;
+    logFileContent += s;
 }
 context.logFileContent = logFileContent;
 

@@ -19,111 +19,111 @@ under the License.
 <#assign report = Static["org.apache.ofbiz.htmlreport.HtmlReport"].getInstance(request, response)>
 <#assign resourceParam = "resource"
          borderStyle = "2px inset ThreeDHighlight"
-	     borderSimpleStyle = "2px solid ThreeDFace">
+         borderSimpleStyle = "2px solid ThreeDFace">
 <#if report.isMultiOperation(request)?string("true", "false") == "true">
-	<#assign resourceParam = null>
+    <#assign resourceParam = null>
 </#if>
 <#assign action = report.getParamAction(request)>
 <#-- start of switch statement -->
 <#switch action>
-	<#case "reportupdate">
+    <#case "reportupdate">
 <#-- ACTION: get report update -->
-		<#assign htmlStart = report.htmlStart(false)>
-		${StringUtil.wrapString(htmlStart)}
+        <#assign htmlStart = report.htmlStart(false)>
+        ${StringUtil.wrapString(htmlStart)}
 
 <script language='JavaScript'>
 <!--
 
 function a(message) {
-	parent.append(message);
+    parent.append(message);
 }
 
 function aH(message) {
-	parent.appendHead(message);
+    parent.appendHead(message);
 }
 
 function aW(message) {
-	parent.appendWarning(message);
+    parent.appendWarning(message);
 }
 
 function aE(message) {
-	parent.appendError(message);
+    parent.appendError(message);
 }
 
 function aN(message) {
-	parent.appendNote(message);
+    parent.appendNote(message);
 }
 
 function aO(message) {
-	parent.appendOk(message);
+    parent.appendOk(message);
 }
 
 function aT(message) {
-	parent.appendThrowable(message);
+    parent.appendThrowable(message);
 }
 
 function aB() {
-	parent.appendBr();
+    parent.appendBr();
 }
 
 var active = null;
 
 function init() {
-	if (active != null) {
-		clearTimeout(active);
-	}
-	<#assign alive = report.isAlive(request)?string("true", "false")>
+    if (active != null) {
+        clearTimeout(active);
+    }
+    <#assign alive = report.isAlive(request)?string("true", "false")>
   var alive=${alive};
     
   parent.flushArray();
 
 ${StringUtil.wrapString(report.getReportUpdate())}
-	
+    
   parent.update();
-	if (alive) {
-    	active = setTimeout("reload('reportupdate');", 2000);
+    if (alive) {
+        active = setTimeout("reload('reportupdate');", 2000);
   } else {
-   	var hasNext = "${report.getParamThreadHasNext(request)}";
-   	if (hasNext == "true") {
-   			if (!${report.hasError()?string("true", "false")} || parent.isContinueChecked()) {
-   				// all actions ok or continue checked, continue automatically
-   				continueReport();
-   			} else {
-   				// wait for user interaction
-   				setTimeout('parent.stop();', 10);
-   			}// end hasError
-   	} else {
-   			  setTimeout('parent.stop();', 10);
-   	}// end hasNext
+       var hasNext = "${report.getParamThreadHasNext(request)}";
+       if (hasNext == "true") {
+               if (!${report.hasError()?string("true", "false")} || parent.isContinueChecked()) {
+                   // all actions ok or continue checked, continue automatically
+                   continueReport();
+               } else {
+                   // wait for user interaction
+                   setTimeout('parent.stop();', 10);
+               }// end hasError
+       } else {
+                 setTimeout('parent.stop();', 10);
+       }// end hasNext
   }// end alive
 }
 
 function reload(actionParam) {
     <#assign resName = report.getResourceList(request).get(0)>
-	var resName = "${resName}";
-	if (resName != "") {
-		resName = "&resource=" + encodeURIComponent(resName);
-	}
-	<#assign dialogUri = report.getDialogRealUri(request)
-	         thread = report.getParamThread(request)
-	         threadhasnext = report.getParamThreadHasNext(request)>
-	location.href="${StringUtil.wrapString(dialogUri)}?action=" + actionParam + "&thread=${thread}&threadhasnext=${threadhasnext}" + resName;
+    var resName = "${resName}";
+    if (resName != "") {
+        resName = "&resource=" + encodeURIComponent(resName);
+    }
+    <#assign dialogUri = report.getDialogRealUri(request)
+             thread = report.getParamThread(request)
+             threadhasnext = report.getParamThreadHasNext(request)>
+    location.href="${StringUtil.wrapString(dialogUri)}?action=" + actionParam + "&thread=${thread}&threadhasnext=${threadhasnext}" + resName;
 }
 
 
 
 function continueReport() {
-	if (!parent.buttonsInitialized) {
-		parent.initButtons();
-	}
-	parent.disableButtons("buttonrowok");
-	parent.displayButtonRowOk();
-	parent.hasError = false;
-	parent.lastError = "";	
-	setTimeout("reload('reportend');", 2000);
-	if (parent.document.main.threadhasnext) {
-		parent.document.main.threadhasnext.value = "false";
-	}
+    if (!parent.buttonsInitialized) {
+        parent.initButtons();
+    }
+    parent.disableButtons("buttonrowok");
+    parent.displayButtonRowOk();
+    parent.hasError = false;
+    parent.lastError = "";    
+    setTimeout("reload('reportend');", 2000);
+    if (parent.document.main.threadhasnext) {
+        parent.document.main.threadhasnext.value = "false";
+    }
 }
 
 // -->
@@ -133,11 +133,11 @@ function continueReport() {
     ${StringUtil.wrapString(report.bodyEnd())}
     ${StringUtil.wrapString(report.htmlEnd())}
 
-		<#break>
-	<#-- ACTION: report begin -->
-	<#case "reportbegin">
-	<#default>
-		${report.setParamAction("reportend")}
+        <#break>
+    <#-- ACTION: report begin -->
+    <#case "reportbegin">
+    <#default>
+        ${report.setParamAction("reportend")}
 
 ${StringUtil.wrapString(report.htmlStart())}
 
@@ -180,46 +180,46 @@ var FORMAT_ERROR = 7;
 var buttonsInitialized = false;
 
 function append(message) {
-	reportOutputFormats.push(FORMAT_DEFAULT);
-	reportOutputMessages.push(message);
+    reportOutputFormats.push(FORMAT_DEFAULT);
+    reportOutputMessages.push(message);
 }
 
 function appendHead(message) {
-	reportOutputFormats.push(FORMAT_HEADLINE);
-	reportOutputMessages.push(message);
-	lastHeadline = "" + message;
+    reportOutputFormats.push(FORMAT_HEADLINE);
+    reportOutputMessages.push(message);
+    lastHeadline = "" + message;
 }
 
 function appendWarning(message) {
-	reportOutputFormats.push(FORMAT_WARNING);
-	reportOutputMessages.push(message);
+    reportOutputFormats.push(FORMAT_WARNING);
+    reportOutputMessages.push(message);
 }
 
 function appendError(message) {
-	reportOutputFormats.push(FORMAT_ERROR);
-	reportOutputMessages.push(message);
-	hasError = true;
-	lastError = message;
+    reportOutputFormats.push(FORMAT_ERROR);
+    reportOutputMessages.push(message);
+    hasError = true;
+    lastError = message;
 }
 
 function appendNote(message) {
-	reportOutputFormats.push(FORMAT_NOTE);
-	reportOutputMessages.push(message);
+    reportOutputFormats.push(FORMAT_NOTE);
+    reportOutputMessages.push(message);
 }
 
 function appendOk(message) {
-	reportOutputFormats.push(FORMAT_OK);
-	reportOutputMessages.push(message);
+    reportOutputFormats.push(FORMAT_OK);
+    reportOutputMessages.push(message);
 }
 
 function appendThrowable(message) {
-	reportOutputFormats.push(FORMAT_THROWABLE);
-	reportOutputMessages.push(message);
+    reportOutputFormats.push(FORMAT_THROWABLE);
+    reportOutputMessages.push(message);
 }
 
 function appendBr() {
-	reportOutputFormats.push(FORMAT_NEWLINE);
-	reportOutputMessages.push("");
+    reportOutputFormats.push(FORMAT_NEWLINE);
+    reportOutputMessages.push("");
 }
 
 var cssStyle =
@@ -250,54 +250,54 @@ var pageStartSimple =
     "<td valign='middle'>";
     
 var pageEndSimple = 
-	"</td></tr>\n" +
-	"</table></div>\n" +
-	"</body>\n</html>";    
+    "</td></tr>\n" +
+    "</table></div>\n" +
+    "</body>\n</html>";    
 
 var pageStartExtended =
     "<html>\n<head>\n" +
     "<meta HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=UTF-8'>\n"+ 
-	cssStyle +
+    cssStyle +
     "</head>\n" +
     "<body style='overflow: auto;'>\n" +  
     "<div class='main'>\n";
     
 var pageEndExtended = 
-	"</div>\n" +
-	"</body>\n" +
-	"</html>\n";                                
+    "</div>\n" +
+    "</body>\n" +
+    "</html>\n";                                
 
 function start() {
 
-	isRunning = true;
+    isRunning = true;
 
-	initButtons();
+    initButtons();
 }
 
 function stop() {
-	isRunning = false;
-	
-	if (document.main.threadhasnext) {
-		document.main.threadhasnext.value = "false";
-	}
-	enableButtons("buttonrowcontinue");
-	enableButtons("buttonrowok");
-	
-	updateReport();	
+    isRunning = false;
+    
+    if (document.main.threadhasnext) {
+        document.main.threadhasnext.value = "false";
+    }
+    enableButtons("buttonrowcontinue");
+    enableButtons("buttonrowok");
+    
+    updateReport();    
 }
 
 // flush the arrays with the report formats and messages
-function flushArray() {	
+function flushArray() {    
     reportOutputFormats = new Array();
-	reportOutputMessages = new Array();	
+    reportOutputMessages = new Array();    
 }
 
 // updates the report, builds the HTML string from the JavaScript input
 function update() {
 
-	var size = 512000; 
+    var size = 512000; 
 
-	// resize the HTML string
+    // resize the HTML string
     if (htmlText.length > size) {
         htmlText = htmlText.substring(htmlText.length - size, htmlText.length);
         var pos = htmlText.indexOf("\n"); 
@@ -305,21 +305,21 @@ function update() {
             // cut output at the first linebreak to have a "nice" start
             htmlText = htmlText.substring(pos, htmlText.length);      
         }
-    }    	
-	
-	// append the HTML of the extended report format to the HTML string
+    }        
+    
+    // append the HTML of the extended report format to the HTML string
     htmlText += getContentExtended();
-		
-	// write the HTML output to the iframe
-	updateReport();
+        
+    // write the HTML output to the iframe
+    updateReport();
 }
 
 // writes the HTML output to the iframe
 // this function gets also invoked when the report output format is toggled
 function updateReport() {
 
-   	pageBody = pageStartExtended + htmlText + pageEndExtended;
-   	document.getElementById("report").style.border = "${borderStyle}";
+       pageBody = pageStartExtended + htmlText + pageEndExtended;
+       document.getElementById("report").style.border = "${borderStyle}";
     report.document.open();    
     report.document.write(pageBody);
     report.document.close();
@@ -329,122 +329,122 @@ function updateReport() {
 
 // builds the HTML string from the JavaScript input
 function getContentExtended() {
-	var htmlStr = "";
-	var i = 0;
-	for (i=0;i<reportOutputFormats.length && i<reportOutputMessages.length;i++) {
-		switch (reportOutputFormats[i]) {
-			case FORMAT_WARNING :
-				htmlStr += "<span class='warn'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";
-				break;
-			case FORMAT_ERROR :
-				htmlStr += "<span class='err'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";
-				break;
-			case FORMAT_HEADLINE :
-				htmlStr += "<span class='head'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";			
-				break;
-			case FORMAT_NOTE :
-				htmlStr += "<span class='note'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";			
-				break;
-			case FORMAT_OK :
-				htmlStr += "<span class='ok'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";			
-				break;	
-			case FORMAT_NEWLINE :
-				htmlStr += "\n";
-				break;	
-			case FORMAT_THROWABLE :
-				htmlStr += "<span class='throw'>";
-				htmlStr += reportOutputMessages[i];
-				htmlStr += "</span>";			
-				break;
-			case FORMAT_DEFAULT :			
-			default :
-				htmlStr += "<span>";
-				htmlStr += reportOutputMessages[i];			
-				htmlStr += "</span>";							
-		}
-	}
-	
-	return htmlStr;
+    var htmlStr = "";
+    var i = 0;
+    for (i=0;i<reportOutputFormats.length && i<reportOutputMessages.length;i++) {
+        switch (reportOutputFormats[i]) {
+            case FORMAT_WARNING :
+                htmlStr += "<span class='warn'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";
+                break;
+            case FORMAT_ERROR :
+                htmlStr += "<span class='err'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";
+                break;
+            case FORMAT_HEADLINE :
+                htmlStr += "<span class='head'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";            
+                break;
+            case FORMAT_NOTE :
+                htmlStr += "<span class='note'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";            
+                break;
+            case FORMAT_OK :
+                htmlStr += "<span class='ok'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";            
+                break;    
+            case FORMAT_NEWLINE :
+                htmlStr += "\n";
+                break;    
+            case FORMAT_THROWABLE :
+                htmlStr += "<span class='throw'>";
+                htmlStr += reportOutputMessages[i];
+                htmlStr += "</span>";            
+                break;
+            case FORMAT_DEFAULT :            
+            default :
+                htmlStr += "<span>";
+                htmlStr += reportOutputMessages[i];            
+                htmlStr += "</span>";                            
+        }
+    }
+    
+    return htmlStr;
 }
 
 function doScroll() {
-	var pos = 1000000;
+    var pos = 1000000;
     report.window.scrollTo(0, pos);
 }
 
 function isContinueChecked() {
-	if (document.main.continuereport && document.main.continuereport.checked == true) {
-		return true;
-	} else {
-		return false;
-	}
+    if (document.main.continuereport && document.main.continuereport.checked == true) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function displayButtonRowContinue() {
-	displayButtonRow("buttonrowcontinue", true);
-	displayButtonRow("checkcontinue", true);
-	displayButtonRow("buttonrowok", false);
+    displayButtonRow("buttonrowcontinue", true);
+    displayButtonRow("checkcontinue", true);
+    displayButtonRow("buttonrowok", false);
 }
 
 function displayButtonRowOk() {
-	displayButtonRow("buttonrowcontinue", false);
-	toggleButton("continuereport", true);
-	displayButtonRow("buttonrowok", true);
+    displayButtonRow("buttonrowcontinue", false);
+    toggleButton("continuereport", true);
+    displayButtonRow("buttonrowok", true);
 }
 
 function displayButtonRow(rowId, show) {
-	if (show) {
-		document.getElementById(rowId).className = "show";
-	} else {
-		document.getElementById(rowId).className = "hide";
-	}
+    if (show) {
+        document.getElementById(rowId).className = "show";
+    } else {
+        document.getElementById(rowId).className = "hide";
+    }
 }
 
 function enableButtons(rowId) {
-	if (rowId == "buttonrowcontinue") {
-		toggleButton("contok", false);
-		toggleButton("contcancel", false);
-	} else {
-		toggleButton("okclose", false);
-	}
+    if (rowId == "buttonrowcontinue") {
+        toggleButton("contok", false);
+        toggleButton("contcancel", false);
+    } else {
+        toggleButton("okclose", false);
+    }
 }
 
 function disableButtons(rowId) {
-	if (rowId == "buttonrowcontinue") {
-		toggleButton("contok", true);
-		toggleButton("contcancel", true);
-	} else {
-		toggleButton("okclose", true);
-		toggleButton("okcancel", true);
-	}
+    if (rowId == "buttonrowcontinue") {
+        toggleButton("contok", true);
+        toggleButton("contcancel", true);
+    } else {
+        toggleButton("okclose", true);
+        toggleButton("okcancel", true);
+    }
 }
 
 function toggleButton(buttonId, disableButton) {
-	if (document.getElementById(buttonId))  {
-		document.getElementById(buttonId).disabled = disableButton;
-	}
+    if (document.getElementById(buttonId))  {
+        document.getElementById(buttonId).disabled = disableButton;
+    }
 }
 
 function initButtons() {
-	if (document.main.threadhasnext && document.main.threadhasnext.value == "true"
-			&& document.main.reportcontinuekey && document.main.reportcontinuekey.value != "") {
-		displayButtonRowContinue();
-	} else {
-		displayButtonRowOk();
-	}
-	disableButtons("buttonrowcontinue");
-	disableButtons("buttonrowok");
-	buttonsInitialized = true;
+    if (document.main.threadhasnext && document.main.threadhasnext.value == "true"
+            && document.main.reportcontinuekey && document.main.reportcontinuekey.value != "") {
+        displayButtonRowContinue();
+    } else {
+        displayButtonRowOk();
+    }
+    disableButtons("buttonrowcontinue");
+    disableButtons("buttonrowok");
+    buttonsInitialized = true;
 }
 
 function submitActionRefresh(para1, para2, para3) {
@@ -491,7 +491,7 @@ function downloadPricat(sequenceNum) {
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" height="400">
 <tr>
-	<td><iframe name="report" id="report" src="about:blank" frameborder="0" style="width:99.8%; height:400px; padding: 0; margin: 0; border: ${borderStyle};"></iframe></td>
+    <td><iframe name="report" id="report" src="about:blank" frameborder="0" style="width:99.8%; height:400px; padding: 0; margin: 0; border: ${borderStyle};"></iframe></td>
 </tr>
 </table>
 

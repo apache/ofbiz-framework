@@ -238,11 +238,11 @@ under the License.
         <value xml:lang="en">The lable of row {0} colum {1} is [{2}], it does not match [{3}] as expected.</value>
         <value xml:lang="zh">行{0}列{1}的文字是[{2}]，与期望的[{3}]不一致。</value>
     </property>
-	<property key="HeaderColNumShortThanRequired">
+    <property key="HeaderColNumShortThanRequired">
         <value xml:lang="en">Table header column number less than the required {0}</value>
         <value xml:lang="zh">表头列数小于要求的{0}列</value>
     </property>
-	<property key="UseHeaderColNum">
+    <property key="UseHeaderColNum">
         <value xml:lang="en">the first {0} column labels will be checked</value>
         <value xml:lang="zh">将检查表头的前{0}列的标签</value>
     </property>
@@ -432,101 +432,101 @@ under the License.
         <value xml:lang="zh">跳过</value>
     </property>
 
-	<property key="ExcelImportHistoryList">
+    <property key="ExcelImportHistoryList">
         <value xml:lang="en">Excel Import History</value>
         <value xml:lang="zh">Excel导入操作历史记录</value>
     </property>
-	<property key="OnlyYourOwnImportHistoryDisplayed">
+    <property key="OnlyYourOwnImportHistoryDisplayed">
         <value xml:lang="en">(Only current login user's history can be displayed)</value>
         <value xml:lang="zh">（仅能显示当前用户的导入操作历史记录）</value>
     </property>
-	<property key="SerialNumber">
+    <property key="SerialNumber">
         <value xml:lang="en">No.</value>
         <value xml:lang="zh">序号</value>
     </property>
-	<property key="Filename">
+    <property key="Filename">
         <value xml:lang="en">Filename</value>
         <value xml:lang="zh">文件名</value>
     </property>
-	<property key="FromDate">
+    <property key="FromDate">
         <value xml:lang="en">Start Time</value>
         <value xml:lang="zh">开始时间</value>
     </property>
-	<property key="ThruDate">
+    <property key="ThruDate">
         <value xml:lang="en">End Time</value>
         <value xml:lang="zh">结束时间</value>
     </property>
-	<property key="ThruReasonId">
+    <property key="ThruReasonId">
         <value xml:lang="en">End Reason</value>
         <value xml:lang="zh">结束原因</value>
     </property>
-	<property key="ImportStatus">
+    <property key="ImportStatus">
         <value xml:lang="en">Import Status</value>
         <value xml:lang="zh">导入状态</value>
     </property>
-	<property key="Actions">
+    <property key="Actions">
         <value xml:lang="en">Actions</value>
         <value xml:lang="zh">操作</value>
     </property>
-	<property key="ExcelImportTipNoData">
+    <property key="ExcelImportTipNoData">
         <value xml:lang="en">No excel import history data.</value>
         <value xml:lang="zh">没有Excel导入历史记录</value>
     </property>
-	<property key="EXCEL_IMPORTING">
+    <property key="EXCEL_IMPORTING">
         <value xml:lang="en">Importing</value>
         <value xml:lang="zh">正在导入</value>
     </property>
-	<property key="EXCEL_IMPORTED">
+    <property key="EXCEL_IMPORTED">
         <value xml:lang="en">Imported</value>
         <value xml:lang="zh">已导入</value>
     </property>
-	<property key="EXCEL_IMPORT_SUCCESS">
+    <property key="EXCEL_IMPORT_SUCCESS">
         <value xml:lang="en">Success</value>
         <value xml:lang="zh">成功</value>
     </property>
-	<property key="EXCEL_IMPORT_STOPPED">
+    <property key="EXCEL_IMPORT_STOPPED">
         <value xml:lang="en">Stopped by user</value>
         <value xml:lang="zh">用户终止了导入</value>
     </property>
-	<property key="EXCEL_IMPORT_ERROR">
+    <property key="EXCEL_IMPORT_ERROR">
         <value xml:lang="en">Stopped by error</value>
         <value xml:lang="zh">因出错而停止了导入</value>
     </property>
-	<property key="EXCEL_IMPORT_QUEST">
+    <property key="EXCEL_IMPORT_QUEST">
         <value xml:lang="en">Data error found</value>
         <value xml:lang="zh">数据中有错误</value>
     </property>
-	<property key="ViewExcelImportLogContent">
+    <property key="ViewExcelImportLogContent">
         <value xml:lang="en">View log content</value>
         <value xml:lang="zh">浏览日志内容</value>
     </property>
-	<property key="DownloadCommentedExcel">
+    <property key="DownloadCommentedExcel">
         <value xml:lang="en">Download excel</value>
         <value xml:lang="zh">下载Excel</value>
     </property>
-	<property key="ViewExcelImportHistory">
+    <property key="ViewExcelImportHistory">
         <value xml:lang="en">View Import History</value>
         <value xml:lang="zh">导入操作历史记录</value>
     </property>
-	<property key="ViewPricatLog">
+    <property key="ViewPricatLog">
         <value xml:lang="en">View</value>
         <value xml:lang="zh">浏览</value>
     </property>
-	<property key="DownloadCommentedPricat">
+    <property key="DownloadCommentedPricat">
         <value xml:lang="en">Download</value>
         <value xml:lang="zh">下载</value>
     </property>
 
-	<property key="ReasonOK">
+    <property key="ReasonOK">
         <value xml:lang="en">OK</value>
     </property>
-	<property key="ReasonStopped">
+    <property key="ReasonStopped">
         <value xml:lang="en">[S]</value>
     </property>
-	<property key="ReasonError">
+    <property key="ReasonError">
         <value xml:lang="en">[E]</value>
     </property>
-	<property key="ReasonWarning">
+    <property key="ReasonWarning">
         <value xml:lang="en">[W]</value>
     </property>
 </resource>

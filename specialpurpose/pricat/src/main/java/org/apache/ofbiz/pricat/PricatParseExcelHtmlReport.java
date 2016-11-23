@@ -31,9 +31,9 @@ import org.apache.ofbiz.htmlreport.util.ReportStringUtil;
  * 
  */
 public class PricatParseExcelHtmlReport extends AbstractHtmlReport {
-	
-	public static final String PRICAT_REPORT_CLASS = "PRICAT_HTML_REPORT";
-	
+    
+    public static final String PRICAT_REPORT_CLASS = "PRICAT_HTML_REPORT";
+    
     /**
      * Public constructor with report variables.<p>
      * 
@@ -46,31 +46,31 @@ public class PricatParseExcelHtmlReport extends AbstractHtmlReport {
     }
     
     public static PricatParseExcelHtmlReport getReport(HttpServletRequest request, HttpServletResponse response) {
-    	
-    	PricatParseExcelHtmlReport wp = (PricatParseExcelHtmlReport) request.getAttribute(PRICAT_REPORT_CLASS);
-    	if (wp == null) {
-    		wp = new PricatParseExcelHtmlReport(request, response);
-    		request.setAttribute(PRICAT_REPORT_CLASS, wp);
-    	}
-    	return wp;
+        
+        PricatParseExcelHtmlReport wp = (PricatParseExcelHtmlReport) request.getAttribute(PRICAT_REPORT_CLASS);
+        if (wp == null) {
+            wp = new PricatParseExcelHtmlReport(request, response);
+            request.setAttribute(PRICAT_REPORT_CLASS, wp);
+        }
+        return wp;
     }
     
     public InterfaceReportThread initializeThread(HttpServletRequest request, HttpServletResponse response, String name) {
 
-		if (name == null) {
-			name = "";
-		}
+        if (name == null) {
+            name = "";
+        }
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
         int i = threadGroup.activeCount();
         Thread[] threads = new Thread[i];
         threadGroup.enumerate(threads, true);
         InterfaceReportThread thread = null;
         for (int j=0; j<threads.length; j++) {
-        	Thread threadInstance = threads[j];
-        	if (threadInstance instanceof PricatParseExcelHtmlThread) {
-        		thread = (PricatParseExcelHtmlThread) threadInstance;
-        		break;
-        	}
+            Thread threadInstance = threads[j];
+            if (threadInstance instanceof PricatParseExcelHtmlThread) {
+                thread = (PricatParseExcelHtmlThread) threadInstance;
+                break;
+            }
         }
         if (thread == null) {
             thread = new PricatParseExcelHtmlThread(request, response, name);
@@ -80,36 +80,36 @@ public class PricatParseExcelHtmlReport extends AbstractHtmlReport {
     }
 
     public static String checkButton(HttpServletRequest request, HttpServletResponse response) {
-    	String action = request.getParameter("action");
-    	if (ReportStringUtil.isNotEmpty(action)) {
-    		if (action.equalsIgnoreCase("ok")) {
-    			request.removeAttribute(PRICAT_REPORT_CLASS);
-    			request.removeAttribute(DIALOG_URI);
-    			return "ok";
-    		} else if (action.equalsIgnoreCase("cancel")) {
-    			request.removeAttribute(PRICAT_REPORT_CLASS);
-    			request.removeAttribute(DIALOG_URI);
-    			return "cancel";
-    		}
-    	}
-    	action = request.getParameter("ok");
-    	if (ReportStringUtil.isNotEmpty(action)) {
-    		if (action.equalsIgnoreCase("ok")) {
-    			request.removeAttribute(PRICAT_REPORT_CLASS);
-    			request.removeAttribute(DIALOG_URI);
-    			return "ok";
-    		}
-    	}
+        String action = request.getParameter("action");
+        if (ReportStringUtil.isNotEmpty(action)) {
+            if (action.equalsIgnoreCase("ok")) {
+                request.removeAttribute(PRICAT_REPORT_CLASS);
+                request.removeAttribute(DIALOG_URI);
+                return "ok";
+            } else if (action.equalsIgnoreCase("cancel")) {
+                request.removeAttribute(PRICAT_REPORT_CLASS);
+                request.removeAttribute(DIALOG_URI);
+                return "cancel";
+            }
+        }
+        action = request.getParameter("ok");
+        if (ReportStringUtil.isNotEmpty(action)) {
+            if (action.equalsIgnoreCase("ok")) {
+                request.removeAttribute(PRICAT_REPORT_CLASS);
+                request.removeAttribute(DIALOG_URI);
+                return "ok";
+            }
+        }
         action = request.getParameter("cancel");
         if (ReportStringUtil.isNotEmpty(action)) {
-        	if (action.equalsIgnoreCase("cancel")) {
-    			request.removeAttribute(PRICAT_REPORT_CLASS);
-    			request.removeAttribute(DIALOG_URI);
-        		return "cancel";
-        	}
+            if (action.equalsIgnoreCase("cancel")) {
+                request.removeAttribute(PRICAT_REPORT_CLASS);
+                request.removeAttribute(DIALOG_URI);
+                return "cancel";
+            }
         }
         
-    	return "success";
+        return "success";
     }
 
     /**
@@ -119,10 +119,10 @@ public class PricatParseExcelHtmlReport extends AbstractHtmlReport {
      */
     public void prepareDisplayReport(HttpServletRequest request, HttpServletResponse response, String name, String dialogUri) throws IOException {
 
-    	if (ReportStringUtil.isNotEmpty(dialogUri)) {
-    		setDialogRealUri(request, dialogUri);
-    	}
-    	
+        if (ReportStringUtil.isNotEmpty(dialogUri)) {
+            setDialogRealUri(request, dialogUri);
+        }
+        
         String action = getParamAction(request);
         if (action == null) action = "";
         if (action.equals("reportend") || action.equals("cancel")) {
