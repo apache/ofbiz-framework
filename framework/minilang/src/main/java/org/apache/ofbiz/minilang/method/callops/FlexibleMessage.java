@@ -34,23 +34,33 @@ import org.w3c.dom.Element;
 public final class FlexibleMessage implements Serializable {
 
     private final FlexibleStringExpander messageFse;
-    private final String propertykey;
+    private final FlexibleStringExpander keyFse;
     private final String propertyResource;
+    private String propertykey;
 
     public FlexibleMessage(Element element, String defaultProperty) {
         if (element != null) {
             String message = UtilXml.elementValue(element);
             if (message != null) {
                 messageFse = FlexibleStringExpander.getInstance(message);
+                keyFse = null;
                 propertykey = null;
                 propertyResource = null;
             } else {
                 messageFse = null;
                 propertykey = MiniLangValidate.checkAttribute(element.getAttribute("property"), defaultProperty);
+                int exprStart = propertykey.indexOf(FlexibleStringExpander.openBracket);
+                int exprEnd = propertykey.indexOf(FlexibleStringExpander.closeBracket, exprStart);
+                if (exprStart > -1 && exprStart < exprEnd) {
+                    keyFse = FlexibleStringExpander.getInstance(propertykey);
+                } else {
+                    keyFse = null;
+                }
                 propertyResource = MiniLangValidate.checkAttribute(element.getAttribute("resource"), "DefaultMessagesUiLabels");
             }
         } else {
             messageFse = null;
+            keyFse = null;
             propertykey = defaultProperty;
             propertyResource = "DefaultMessagesUiLabels";
         }
@@ -60,6 +70,9 @@ public final class FlexibleMessage implements Serializable {
         if (messageFse != null) {
             return messageFse.expandString(methodContext.getEnvMap());
         } else {
+            if (keyFse != null) {
+                propertykey = keyFse.expandString(methodContext.getEnvMap());
+            }
             return UtilProperties.getMessage(propertyResource, propertykey, methodContext.getEnvMap(), methodContext.getLocale());
         }
     }
