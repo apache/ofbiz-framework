@@ -986,7 +986,6 @@ public class LoginServices {
                             "security.login.password.pattern.description", "loginservices.password_must_be_least_characters_long", delegator);
                     errMsg = UtilProperties.getMessage(resource, passwordPatternMessage, messageMap, locale);
                     messageMap = UtilMisc.toMap("passwordPatternMessage", errMsg);
-                    errMsg = UtilProperties.getMessage(resource,"loginservices.password.pattern.errmsg", messageMap, locale);
                     errorMessageList.add(errMsg);
                 }
             } else {
