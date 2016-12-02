@@ -1205,19 +1205,24 @@ public class InvoiceServices {
         // 2. For every order check the invoice
         // 2.a If the invoice is in In-Process status, then move its status to ready and capture the payment.
         // 2.b If the invoice is in status other then IN-Process, skip this. These would be already paid and captured.
-
+        GenericValue shipment = null;
         try {
-            EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
+            shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting Shipment entity for shipment " + shipmentId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "AccountingTroubleGettingShipmentEntity",
                     UtilMisc.toMap("shipmentId", shipmentId), locale));
         }
+        if (shipment == null) {
+            Debug.logError(UtilProperties.getMessage(resource, "AccountingShipmentNotFound", locale), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingShipmentNotFound", locale));
+        }
+
         List<GenericValue> itemIssuances = new LinkedList<GenericValue>();
         try {
             itemIssuances = EntityQuery.use(delegator).select("orderId", "shipmentId")
-                    .from("ItemIssuance").orderBy("orderId").distinct().queryList();
+                    .from("ItemIssuance").where("shipmentId", shipmentId).orderBy("orderId").distinct().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting issued items from shipments", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
