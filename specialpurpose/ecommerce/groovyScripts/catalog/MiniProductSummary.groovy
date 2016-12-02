@@ -56,7 +56,7 @@ if (miniProduct && productStoreId && prodCatalogId ) {
     context.priceResult = priceResult
     // Check if Price has to be displayed with tax
     if (productStore.get("showPricesWithVatTax").equals("Y")) {
-        Map priceMap = runServic('calcTaxForDisplay', ["basePrice": priceResult.get("price"), "locale": locale, "productId": optProductId, "productStoreId": productStoreId])
+        Map priceMap = runService('calcTaxForDisplay', ["basePrice": priceResult.get("price"), "locale": locale, "productId": optProductId, "productStoreId": productStoreId])
         context.price = priceMap.get("priceWithTax")
     } else {
         context.price = priceResult.get("price")
