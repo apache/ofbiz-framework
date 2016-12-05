@@ -62,7 +62,7 @@ under the License.
             package-name="org.apache.ofbiz.security.login"
             title="User Login Entity">
       <field name="userLoginId" type="id-vlong-ne"></field>
-      <field name="currentPassword" type="short-varchar"></field>
+      <field name="currentPassword" type="long-varchar"></field>
       <field name="passwordHint" type="description"></field>
       <field name="isSystem" type="indicator"></field>
       <field name="enabled" type="indicator"></field>
@@ -89,7 +89,7 @@ under the License.
       <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="currentPassword" type="short-varchar"></field>
+      <field name="currentPassword" type="long-varchar"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="USER_LPH_USER" rel-entity-name="UserLogin">

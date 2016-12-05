@@ -22,6 +22,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -29,11 +33,12 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilIO;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
- * Utility class for doing SHA-1/MD5 One-Way Hash Encryption
+ * Utility class for doing SHA-1/MD5/PBKDF2 One-Way Hash Encryption
  *
  */
 public class HashCrypt {
@@ -41,6 +46,16 @@ public class HashCrypt {
     public static final String module = HashCrypt.class.getName();
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
+    private static final String PBKDF2_SHA1 ="pbkdf2_sha1";
+    
+    private static final String PBKDF2_SHA256 ="pbkdf2_sha256"; 
+    
+    private static final String PBKDF2_SHA384 ="pbkdf2_sha384";
+    
+    private static final String PBKDF2_SHA512 ="pbkdf2_sha512";
+
+    private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 1000);
+    
     public static MessageDigest getMessageDigest(String type) {
         try {
             return MessageDigest.getInstance(type);
@@ -55,6 +70,8 @@ public class HashCrypt {
             return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
         } else if (crypted.startsWith("$")) {
             return doComparePosix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
+        } else if (crypted.startsWith("pbkdf2")) {
+            return doComparePbkdf2(crypted, password);
         } else {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareBare(crypted, defaultCrypt, password.getBytes());
@@ -106,15 +123,24 @@ public class HashCrypt {
      */
     @Deprecated
     public static String cryptPassword(String hashType, String salt, String password) {
+    	if (hashType.startsWith("PBKDF2")) {
+            return password != null ? pbkdf2HashCrypt(hashType, salt, password) : null;
+        }
         // FIXME: should have been getBytes("UTF-8") originally
         return password != null ? cryptBytes(hashType, salt, password.getBytes()) : null;
     }
 
     public static String cryptUTF8(String hashType, String salt, String value) {
+    	if (hashType.startsWith("PBKDF2")) {
+            return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
+        }
         return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
     }
 
     public static String cryptValue(String hashType, String salt, String value) {
+    	if (hashType.startsWith("PBKDF2")) {
+            return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
+        }
         return value != null ? cryptBytes(hashType, salt, value.getBytes()) : null;
     }
 
@@ -142,6 +168,90 @@ public class HashCrypt {
         }
     }
 
+    public static String pbkdf2HashCrypt(String hashType, String salt, String value){
+        char[] chars = value.toCharArray();
+        if (UtilValidate.isEmpty(salt)) {
+            salt = getSalt();
+        }
+        try {
+            PBEKeySpec spec = new PBEKeySpec(chars, salt.getBytes(UtilIO.getUtf8()), PBKDF2_ITERATIONS, 64 * 4);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(hashType);
+            byte[] hash = Base64.encodeBase64(skf.generateSecret(spec).getEncoded());
+            String pbkdf2Type = null;
+            switch (hashType) {
+                case "PBKDF2WithHmacSHA1":
+                    pbkdf2Type = PBKDF2_SHA1;
+                    break;
+                case "PBKDF2WithHmacSHA256":
+                    pbkdf2Type = PBKDF2_SHA256;
+                    break;
+                case "PBKDF2WithHmacSHA384":
+                    pbkdf2Type = PBKDF2_SHA384;
+                    break;
+                case "PBKDF2WithHmacSHA512":
+                    pbkdf2Type = PBKDF2_SHA512;
+                    break;
+                default: 
+                    pbkdf2Type = PBKDF2_SHA1; 
+            }
+            return pbkdf2Type + "$" + PBKDF2_ITERATIONS + "$" + salt + "$" + new String(hash);
+        } catch (InvalidKeySpecException e) {
+            throw new GeneralRuntimeException("Error while creating SecretKey", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new GeneralRuntimeException("Error while computing SecretKeyFactory", e);
+        }
+    }
+    
+    public static boolean doComparePbkdf2(String storedPassword, String originalPassword){
+        try {
+            String[] parts = storedPassword.split("\\$");
+            String hashHead = parts[0];
+            int iterations = Integer.parseInt(parts[1]);
+            byte[] salt = parts[2].getBytes();
+            byte[] hash = Base64.decodeBase64(parts[3].getBytes());
+            
+            PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
+            String hashType = null;
+            switch (hashHead.substring(hashHead.indexOf("_")+4)) {
+                case "256":
+                    hashType = "PBKDF2WithHmacSHA256";
+                    break;
+                case "384":
+                    hashType = "PBKDF2WithHmacSHA384";
+                    break;
+                case "512":
+                    hashType = "PBKDF2WithHmacSHA512";
+                    break;
+                default:  
+                    hashType = "PBKDF2WithHmacSHA1";
+            }
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(hashType);
+            byte[] testHash = skf.generateSecret(spec).getEncoded();
+            int diff = hash.length ^ testHash.length;
+            
+            for (int i = 0; i < hash.length && i < testHash.length; i++) {
+                diff |= hash[i] ^ testHash[i];
+            }
+            
+            return diff == 0;
+        } catch (NoSuchAlgorithmException e) {
+            throw new GeneralRuntimeException("Error while computing SecretKeyFactory", e);
+        } catch (InvalidKeySpecException e) {
+            throw new GeneralRuntimeException("Error while creating SecretKey", e);
+        }
+    }
+    
+    private static String getSalt() {
+        try {
+            SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+            byte[] salt = new byte[16];
+            sr.nextBytes(salt);
+            return salt.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new GeneralRuntimeException("Error while creating salt", e);
+        }
+    }
+    
     /**
      * @deprecated use digestHash("SHA", null, str)
      */
