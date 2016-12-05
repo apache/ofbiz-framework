@@ -34,13 +34,13 @@ under the License.
       <field name="logFileName" type="value"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="sequenceNum"/>
-      <relation rel-entity-name="UserLogin" type="one" fk-name="EXCELIMPORT_USERLOGIN">
+      <relation type="one" rel-entity-name="UserLogin" title="UserLogin" fk-name="EXCELIMPORT_USERLG">
           <key-map field-name="userLoginId"/>
       </relation>
-      <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_STATUS">
+      <relation type="one" rel-entity-name="Enumeration" title="ImportStatus" fk-name="EXCELIMPORT_STATUS">
           <key-map field-name="statusId" rel-field-name="enumId"/>
       </relation>
-      <relation rel-entity-name="Enumeration" type="one" fk-name="EXCELIMPORT_REASON">
+      <relation type="one" rel-entity-name="Enumeration" title="ThruReason" fk-name="EXCELIMPORT_REASON">
           <key-map field-name="thruReasonId" rel-field-name="enumId"/>
       </relation>
     </entity>
