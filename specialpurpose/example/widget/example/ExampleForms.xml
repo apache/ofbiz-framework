@@ -206,7 +206,7 @@ under the License.
         <field name="longDescription" title="${uiLabelMap.ExampleLongDescription}"/>
         <field name="anotherText">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.ExampleExplicitOption}" description="Explicit Option"/>
+                <option key="Explicit Option" description="${uiLabelMap.ExampleExplicitOption}"/>
                 <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -333,56 +333,56 @@ under the License.
         <field name="userPassword" title="${uiLabelMap.PDFUserPassword}"><text size="15" maxlength="250"/></field>
         <field name="allowPrint" title="${uiLabelMap.PDFAllowPrint}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowCopyContent" title="${uiLabelMap.PDFAllowCopyContent}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowEditContent" title="${uiLabelMap.PDFAllowEditContent}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowEditAnnotations" title="${uiLabelMap.PDFAllowEditAnnotations}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowFillInForms" title="${uiLabelMap.PDFAllowFillInForms}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowAccessContent" title="${uiLabelMap.PDFAllowAccessContent}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowAssembleDocument" title="${uiLabelMap.PDFAllowAssembleDocument}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="allowPrintHq" title="${uiLabelMap.PDFAllowPrintHq}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="encrypt-metadata" title="${uiLabelMap.PDFEncryptMetadata}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="encryption-length" title="${uiLabelMap.PDFEncryptionLength}"><text size="15"/></field>

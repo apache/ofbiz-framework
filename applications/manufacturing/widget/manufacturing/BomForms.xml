@@ -121,8 +121,8 @@ under the License.
         </field>
         <field name="ruleOperator">
             <drop-down>
-                <option key="${uiLabelMap.CommonOr}" description="OR"/>
-                <option key="${uiLabelMap.CommonAnd}" description="AND"/>
+                <option key="OR" description="${uiLabelMap.CommonOr}"/>
+                <option key="AND" description="${uiLabelMap.CommonAnd}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
@@ -134,8 +134,8 @@ under the License.
         <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productAssocTypeId"  title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.ManufacturingBillOfMaterials}" description="MANUF_COMPONENT"/>
-                <option key="${uiLabelMap.ManufacturingEngineeringBillOfMaterials}" description="ENGINEER_COMPONENT"/>
+                <option key="MANUF_COMPONENT" description="${uiLabelMap.ManufacturingBillOfMaterials}"/>
+                <option key="ENGINEER_COMPONENT" description="${uiLabelMap.ManufacturingEngineeringBillOfMaterials}"/>
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>

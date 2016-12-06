@@ -49,13 +49,13 @@ under the License.
 
         <field name="promoText" title="${uiLabelMap.ProductPromoText}"><textarea cols="70" rows="5"/></field>
         <field name="userEntered" title="${uiLabelMap.ProductPromoUserEntered}">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="showToCustomer" title="${uiLabelMap.ProductPromoShowToCustomer}">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="requireCode" title="${uiLabelMap.ProductPromotionReqCode}">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="${uiLabelMap.CommonN}" description="N"/><option key="${uiLabelMap.CommonY}" description="Y"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
         <field name="overrideOrgPartyId"><lookup target-form-name="LookupPartyName"/></field>
 
@@ -86,10 +86,10 @@ under the License.
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductPromoCodeBlank}"><text/></field>
 
         <field name="userEntered">
-            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="requireEmailOrParty">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="${uiLabelMap.CommonN}" description="N"/><option key="${uiLabelMap.CommonY}" description="Y"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>

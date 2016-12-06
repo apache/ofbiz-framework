@@ -85,21 +85,21 @@
         <field name="currentStatusId" use-when="task==null||task==void"><hidden value="PTS_CREATED"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
-                <option key="${uiLabelMap.WorkEffortPriorityOne}" description="1"/>
-                <option key="${uiLabelMap.WorkEffortPriorityTwo}" description="2"/>
-                <option key="${uiLabelMap.WorkEffortPriorityThree}" description="3"/>
-                <option key="${uiLabelMap.WorkEffortPriorityFour}" description="4"/>
-                <option key="${uiLabelMap.WorkEffortPriorityFive}" description="5"/>
-                <option key="${uiLabelMap.WorkEffortPrioritySix}" description="6"/>
-                <option key="${uiLabelMap.WorkEffortPrioritySeventh}" description="7"/>
-                <option key="${uiLabelMap.WorkEffortPriorityEight}" description="8"/>
-                <option key="${uiLabelMap.WorkEffortPriorityNine}" description="9"/>
+                <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
+                <option key="2" description="${uiLabelMap.WorkEffortPriorityTwo}"/>
+                <option key="3" description="${uiLabelMap.WorkEffortPriorityThree}"/>
+                <option key="4" description="${uiLabelMap.WorkEffortPriorityFour}"/>
+                <option key="5" description="${uiLabelMap.WorkEffortPriorityFive}"/>
+                <option key="6" description="${uiLabelMap.WorkEffortPrioritySix}"/>
+                <option key="7" description="${uiLabelMap.WorkEffortPrioritySeventh}"/>
+                <option key="8" description="${uiLabelMap.WorkEffortPriorityEight}"/>
+                <option key="9" description="${uiLabelMap.WorkEffortPriorityNine}"/>
             </drop-down>
         </field>
         <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false" current="selected">
-                <option key="${uiLabelMap.FormFieldTitle_task}" description="TASK"/>
-                <option key="${uiLabelMap.FormFieldTitle_milestone}" description="MILESTONE"/>
+                <option key="TASK" description="${uiLabelMap.FormFieldTitle_task}"/>
+                <option key="MILESTONE" description="${uiLabelMap.FormFieldTitle_milestone}"/>
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
@@ -717,15 +717,15 @@
         </field>
         <field name="taskPriority" parameter-name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
-                <option key="${uiLabelMap.WorkEffortPriorityOne}" description="1"/>
-                <option key="${uiLabelMap.WorkEffortPriorityTwo}" description="2"/>
-                <option key="${uiLabelMap.WorkEffortPriorityThree}" description="3"/>
-                <option key="${uiLabelMap.WorkEffortPriorityFour}" description="4"/>
-                <option key="${uiLabelMap.WorkEffortPriorityFive}" description="5"/>
-                <option key="${uiLabelMap.WorkEffortPrioritySix}" description="6"/>
-                <option key="${uiLabelMap.WorkEffortPrioritySeventh}" description="7"/>
-                <option key="${uiLabelMap.WorkEffortPriorityEight}" description="8"/>
-                <option key="${uiLabelMap.WorkEffortPriorityNine}" description="9"/>
+                <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
+                <option key="2" description="${uiLabelMap.WorkEffortPriorityTwo}"/>
+                <option key="3" description="${uiLabelMap.WorkEffortPriorityThree}"/>
+                <option key="4" description="${uiLabelMap.WorkEffortPriorityFour}"/>
+                <option key="5" description="${uiLabelMap.WorkEffortPriorityFive}"/>
+                <option key="6" description="${uiLabelMap.WorkEffortPrioritySix}"/>
+                <option key="7" description="${uiLabelMap.WorkEffortPrioritySeventh}"/>
+                <option key="8" description="${uiLabelMap.WorkEffortPriorityEight}"/>
+                <option key="9" description="${uiLabelMap.WorkEffortPriorityNine}"/>
             </drop-down>
         </field>
         <field name="taskScopeEnumId" parameter-name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">

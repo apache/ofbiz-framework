@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductCategoryContent -->
     <simple-method method-name="createCategoryContent" short-description="Create Content For Product Category">
-        <make-value entity-name="ProductCategoryContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -41,7 +41,7 @@ under the License.
         <field-to-result field="newEntity.prodCatContentTypeId" result-name="prodCatContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateCategoryContent" short-description="Update Content For Category">
-        <make-value entity-name="ProductCategoryContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

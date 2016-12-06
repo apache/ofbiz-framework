@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createShipmentReceipt" short-description="Create a ShipmentReceipt">
-        <make-value entity-name="ShipmentReceipt" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="ShipmentReceipt" field="receiptId"/>
@@ -64,7 +64,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">
-        <make-value entity-name="ShipmentReceiptRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -72,7 +72,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeShipmentReceiptRole" short-description="Remove a ShipmentReceipt Role">
-        <make-value entity-name="ShipmentReceiptRole" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentReceiptRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>

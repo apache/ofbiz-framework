@@ -75,7 +75,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value entity-name="ProductFeatureType" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureType"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
@@ -88,7 +88,7 @@ under the License.
             <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductFeatureApplAttr" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureApplAttr"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">

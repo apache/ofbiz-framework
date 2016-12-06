@@ -100,18 +100,18 @@ under the License.
         </field>
         <field name="statusProductId" title="${uiLabelMap.ProductStatus}" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <radio no-current-selected-key="${checkRadio}">
-                <option key="${uiLabelMap.FormFieldTitle_approve}" description="IM_APPROVED__${productId}"/>
-                <option key="${uiLabelMap.FormFieldTitle_rejectButton}" description="IM_REJECTED__${productId}"/>
-                <option key="${uiLabelMap.FormFieldTitle_pending}" description="IM_PENDING__${productId}"/>
+                <option key="IM_APPROVED__${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
+                <option key="IM_REJECTED__${productId}" description="${uiLabelMap.FormFieldTitle_rejectButton}"/>
+                <option key="IM_PENDING__${productId}" description="${uiLabelMap.FormFieldTitle_pending}"/>
             </radio>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
         <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="checkStatusId" position="2" title="${uiLabelMap.CommonStatus}">
             <radio no-current-selected-key="${checkRadio}">
-                <option key="${uiLabelMap.FormFieldTitle_approve}" description="IM_APPROVED/${productId}"/>
-                <option key="${uiLabelMap.FormFieldTitle_rejectButton}" description="IM_REJECTED/${productId}"/>
-                <option key="${uiLabelMap.FormFieldTitle_pending}" description="IM_PENDING/${productId}"/>
+                <option key="IM_APPROVED/${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
+                <option key="IM_REJECTED/${productId}" description="${uiLabelMap.FormFieldTitle_rejectButton}"/>
+                <option key="IM_PENDING/${productId}" description="${uiLabelMap.FormFieldTitle_pending}"/>
             </radio>
         </field>
         <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
@@ -310,9 +310,9 @@ under the License.
             document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
             document.ListImageManage.submit();">
             <drop-down allow-empty="true">
-                  <option key="${uiLabelMap.ImageManagementFrame}" description="frame"/>
-                  <option key="${uiLabelMap.ImageManagementCrop}" description="crop"/>
-                  <option key="${uiLabelMap.ImageManagementRotate}" description="rotate"/>
+                  <option key="frame" description="${uiLabelMap.ImageManagementFrame}"/>
+                  <option key="crop" description="${uiLabelMap.ImageManagementCrop}"/>
+                  <option key="rotate" description="${uiLabelMap.ImageManagementRotate}"/>
             </drop-down>
         </field>
         <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementCaption}"><text/></field>
@@ -765,8 +765,8 @@ under the License.
     <form name="ImageResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="resizeImages">
         <field name="resizeOption">
             <drop-down >
-                <option key="Resize All Images" description="resizeAllImages"/>
-                <option key="Create New Thumbnail Size" description="createNewThumbnail"/>
+                <option key="resizeAllImages" description="Resize All Images"/>
+                <option key="createNewThumbnail" description="Create New Thumbnail Size"/>
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>

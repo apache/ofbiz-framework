@@ -107,21 +107,21 @@ under the License.
         <field name="transaction"><text disabled="true" default-value="${parameters.transactionId}"/></field>
         <field name="disputeReasonCodeType">
             <radio no-current-selected-key="TransactionMutuallyCanceled">
-                <option key="The buyer has not paid for the item" description="BUYER_HAS_NOT_PAID"/>
-                <option key="We have both agreed not to complete the transaction" description="TRANSACTION_MUTUALLY_CANCELED"/>
+                <option key="BUYER_HAS_NOT_PAID" description="The buyer has not paid for the item"/>
+                <option key="TRANSACTION_MUTUALLY_CANCELED" description="We have both agreed not to complete the transaction"/>
             </radio>
         </field>
            <field name="disputeExplanationCodeType">
             <drop-down>
                 <option key="" description="- - Select One - -"/>
-                <option key="Buyer purchased item by mistake or changed mind" description="BUYER_PURCHASING_MISTAKE"/>
-                <option key="Buyer is returning item for a refund" description="BUYER_RETURNED_ITEM_FOR_REFUND"/>
-                <option key="Buyer and I disagreed over terms" description="UNABLE_TO_RESOLVE_TERMS"/>
-                <option key="Buyer is unresponsive" description="BUYER_HAS_NOT_RESPONDED"/>
-                <option key="Buyer's payment hasn't been received or hasn't cleared" description="PAYMENT_METHOD_NOT_SUPPORTED"/>
-                <option key="Buyer requested shipment to an unconfirmed address" description="SHIPPING_ADDRESS_NOT_CONFIRMED"/>
-                <option key="Seller doesn't ship to the country requested by buyer" description="SHIP_COUNTRY_NOT_SUPPORTED"/>
-                   <option key="Other reason" description="OTHER_EXPLANATION"/>
+                <option key="BUYER_PURCHASING_MISTAKE" description="Buyer purchased item by mistake or changed mind"/>
+                <option key="BUYER_RETURNED_ITEM_FOR_REFUND" description="Buyer is returning item for a refund"/>
+                <option key="UNABLE_TO_RESOLVE_TERMS" description="Buyer and I disagreed over terms"/>
+                <option key="BUYER_HAS_NOT_RESPONDED" description="Buyer is unresponsive"/>
+                <option key="PAYMENT_METHOD_NOT_SUPPORTED" description="Buyer's payment hasn't been received or hasn't cleared"/>
+                <option key="SHIPPING_ADDRESS_NOT_CONFIRMED" description="Buyer requested shipment to an unconfirmed address"/>
+                <option key="SHIP_COUNTRY_NOT_SUPPORTED" description="Seller doesn't ship to the country requested by buyer"/>
+                   <option key="OTHER_EXPLANATION" description="Other reason"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" position="1"><submit/></field>
@@ -135,10 +135,10 @@ under the License.
         <auto-fields-service service-name="addEbaySecondChanceOffer"/>
         <field name="duration">
             <drop-down>
-                <option key="a day" description="DAYS_1"/>
-                <option key="3 days" description="DAYS_3"/>
-                <option key="5 days" description="DAYS_5"/>
-                <option key="7 days" description="DAYS_7"/>
+                <option key="DAYS_1" description="a day"/>
+                <option key="DAYS_3" description="3 days"/>
+                <option key="DAYS_5" description="5 days"/>
+                <option key="DAYS_7" description="7 days"/>
             </drop-down>
         </field>
         <field name="recipientBidderUserId">
@@ -206,8 +206,8 @@ under the License.
         <field name="quantity" required-field="true"><text default-value="${ebayProductStoreInventory.quantityReserved}"></text></field>
         <field name="actionType">
             <drop-down allow-empty="false">
-                <option key="Add" description="ADD"/>
-                <option key="Remove" description="REMOVE"/>
+                <option key="ADD" description="Add"/>
+                <option key="REMOVE" description="Remove"/>
             </drop-down>
         </field>
         <field name="submitButton"><submit button-type="button"/></field>
@@ -273,8 +273,8 @@ under the License.
         <field name="isAutoPositiveFeedback" position="1" title="${uiLabelMap.EbayIsAutoPositiveFeedback}"><check></check></field>
         <field name="feedbackEventCode"  position="2" title="${uiLabelMap.EbaySituations}">
             <radio>
-                <option key="${uiLabelMap.EbayTxtPaymentReceive}" description="PAYMENT_RECEIVED"/>
-                <option key="${uiLabelMap.EbayTxtPaymentReceiveAndPositive}" description="POSITIVE_FEEDBACK_RECEIVED"/>
+                <option key="PAYMENT_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceive}"/>
+                <option key="POSITIVE_FEEDBACK_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceiveAndPositive}"/>
             </radio>
         </field>
         <field name="headerLabel" title=" " encode-output="false"><display type="text" description="&lt;br/&gt;&lt;b&gt;Your stored positive feedback comments.&lt;/b&gt;"></display></field>
@@ -396,55 +396,55 @@ under the License.
         <field name="emailDetail" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayEmailDetail}"/></field>
         <field name="autoText" action="doSelect(this.id)" event="onchange" >
             <drop-down allow-empty="true">
-                <option key="Buyer User ID" description="$\{buyerUserId}"/>
-                <option key="Buyer name" description="$\{buyerName}"/>
-                <option key="Buyer First name" description="$\{buyerFirstName}"/>
-                <option key="Buyer Last name" description="$\{buyerLastName}"/>
-                <option key="Buyer street 1" description="$\{buyerStreet1}"/>
-                <option key="Buyer street 2" description="$\{buyerStreet2}"/>
-                <option key="Buyer City" description="$\{buyerCity}"/>
-                <option key="Buyer State" description="$\{buyerState}"/>
-                <option key="Buyer zip code" description="$\{buyerZipCode}"/>
-                <option key="Buyer Country" description="$\{buyerCountry}"/>
-                <option key="Item Number" description="$\{itemId}"/>
-                <option key="Item Title" description="$\{itemTitle}"/>
-                <option key="Link to listing" description="$\{linkToListing}"/>
-                <option key="Quantity" description="$\{Quantity}"/>
-                <option key="Favorites list" description="$\{favoriteslist}"/>
-                <option key="Feedback link" description="$\{feedbackLink}"/>
-                <option key="Closing Date/Time" description="$\{closingDateTime}"/>
-                <option key="Total price" description="$\{totalPrice}"/>
-                <option key="Closing price" description="$\{closingPrice}"/>
-                <option key="S&amp;H fee" description="$\{SHFee}"/>
-                <option key="Insurance cost" description="$\{insuranceCost}"/>
-                <option key="Insurance option" description="$\{insuranceOption}"/>
-                <option key="Tax" description="$\{tax}"/>
-                <option key="Tax State" description="$\{taxState}"/>
-                <option key="Payment accepted" description="$\{paymentAcceped}"/>
-                <option key="Payment instructions" description="$\{paymentInstructions}"/>
-                <option key="Seller User ID" description="$\{sellerUserId}"/>
-                <option key="Seller name" description="$\{sellerName}"/>
-                <option key="Seller First name" description="$\{sellerFirstName}"/>
-                <option key="Seller Last name" description="$\{sellerLastName}"/>
-                <option key="Seller street 1" description="$\{sellerStreet1}"/>
-                <option key="Seller street 2" description="$\{sellerStreet2}"/>
-                <option key="Seller city" description="$\{sellerCity}"/>
-                <option key="Seller state" description="$\{sellerState}"/>
-                <option key="Seller zip code" description="$\{sellerZipCode}"/>
-                <option key="Seller country" description="$\{sellerCountry}"/>
-                <option key="Seller email" description="$\{sellerEmail}"/>
-                <option key="Seller phone" description="$\{sellerPhone}"/>
-                <option key="Sales record number" description="$\{salesRecordNumber}"/>
-                <option key="Shipped date" description="$\{shippedDate}"/>
-                <option key="Transaction table" description="$\{transactionTable}"/>
-                <option key="Checkout link" description="$\{checkoutLink}"/>
-                <option key="Shipping Calculator" description="$\{shippingCalculator}"/>
-                <option key="Track shipment link" description="$\{trackShipmentLink}"/>
-                <option key="Shipping Options" description="$\{shippingOptions}"/>
-                <option key="Notes to buyer" description="$\{notesToBuyer}"/>
-                <option key="Discounts or Charges" description="$\{DiscountsOrCharges}"/>
-                <option key="Refund Amount" description="$\{refundAmount}"/>
-                <option key="Variation details" description="$\{variationDetails}"/>
+                <option key="$\{buyerUserId}" description="Buyer User ID"/>
+                <option key="$\{buyerName}" description="Buyer name"/>
+                <option key="$\{buyerFirstName}" description="Buyer First name"/>
+                <option key="$\{buyerLastName}" description="Buyer Last name"/>
+                <option key="$\{buyerStreet1}" description="Buyer street 1"/>
+                <option key="$\{buyerStreet2}" description="Buyer street 2"/>
+                <option key="$\{buyerCity}" description="Buyer City"/>
+                <option key="$\{buyerState}" description="Buyer State"/>
+                <option key="$\{buyerZipCode}" description="Buyer zip code"/>
+                <option key="$\{buyerCountry}" description="Buyer Country"/>
+                <option key="$\{itemId}" description="Item Number"/>
+                <option key="$\{itemTitle}" description="Item Title"/>
+                <option key="$\{linkToListing}" description="Link to listing"/>
+                <option key="$\{Quantity}" description="Quantity"/>
+                <option key="$\{favoriteslist}" description="Favorites list"/>
+                <option key="$\{feedbackLink}" description="Feedback link"/>
+                <option key="$\{closingDateTime}" description="Closing Date/Time"/>
+                <option key="$\{totalPrice}" description="Total price"/>
+                <option key="$\{closingPrice}" description="Closing price"/>
+                <option key="$\{SHFee}" description="S&amp;H fee"/>
+                <option key="$\{insuranceCost}" description="Insurance cost"/>
+                <option key="$\{insuranceOption}" description="Insurance option"/>
+                <option key="$\{tax}" description="Tax"/>
+                <option key="$\{taxState}" description="Tax State"/>
+                <option key="$\{paymentAcceped}" description="Payment accepted"/>
+                <option key="$\{paymentInstructions}" description="Payment instructions"/>
+                <option key="$\{sellerUserId}" description="Seller User ID"/>
+                <option key="$\{sellerName}" description="Seller name"/>
+                <option key="$\{sellerFirstName}" description="Seller First name"/>
+                <option key="$\{sellerLastName}" description="Seller Last name"/>
+                <option key="$\{sellerStreet1}" description="Seller street 1"/>
+                <option key="$\{sellerStreet2}" description="Seller street 2"/>
+                <option key="$\{sellerCity}" description="Seller city"/>
+                <option key="$\{sellerState}" description="Seller state"/>
+                <option key="$\{sellerZipCode}" description="Seller zip code"/>
+                <option key="$\{sellerCountry}" description="Seller country"/>
+                <option key="$\{sellerEmail}" description="Seller email"/>
+                <option key="$\{sellerPhone}" description="Seller phone"/>
+                <option key="$\{salesRecordNumber}" description="Sales record number"/>
+                <option key="$\{shippedDate}" description="Shipped date"/>
+                <option key="$\{transactionTable}" description="Transaction table"/>
+                <option key="$\{checkoutLink}" description="Checkout link"/>
+                <option key="$\{shippingCalculator}" description="Shipping Calculator"/>
+                <option key="$\{trackShipmentLink}" description="Track shipment link"/>
+                <option key="$\{shippingOptions}" description="Shipping Options"/>
+                <option key="$\{notesToBuyer}" description="Notes to buyer"/>
+                <option key="$\{DiscountsOrCharges}" description="Discounts or Charges"/>
+                <option key="$\{refundAmount}" description="Refund Amount"/>
+                <option key="$\{variationDetails}" description="Variation details"/>
             </drop-down>
         </field>
         <field name="subject"><text/></field>
@@ -507,9 +507,9 @@ under the License.
         <field name="listingType" action="document.ItemOption.submit()" event="onchange">
             <drop-down>
                 <option key="" description="All"/>
-                <option key="Auction Only" description="AUCTION"/>
-                <option key="Fixed Price Item Only" description="FIXED_PRICE_ITEM"/>
-                <option key="Stores Inventory Only" description="STORES_FIXED_PRICE"/>
+                <option key="AUCTION" description="Auction Only"/>
+                <option key="FIXED_PRICE_ITEM" description="Fixed Price Item Only"/>
+                <option key="STORES_FIXED_PRICE" description="Stores Inventory Only"/>
             </drop-down>
         </field>
         <field name="submitButton"><submit/></field>
@@ -545,8 +545,8 @@ under the License.
         <field name="orderTypeId" title="Order Type">
             <drop-down>
                 <option key="" description="Any Order Type"/>
-                <option key="Purchase Order" description="PURCHASE_ORDER"/>
-                <option key="Sales Order" description="SALES_ORDER"/>
+                <option key="PURCHASE_ORDER" description="Purchase Order"/>
+                <option key="SALES_ORDER" description="Sales Order"/>
             </drop-down>
         </field>
         <field name="statusId" title="Status">
@@ -690,11 +690,11 @@ under the License.
         <field name="contactStatus"><hidden value="${contactStatus}"/></field>
         <field name="contactSetting" title="Contact Status Setting">
             <drop-down >
-                <option key="_Select_" description="_NA_"/>
-                <option key="Not Contact" description="NOT_CONTACT"/>
-                <option key="Contacting" description="CONTACTING"/>
-                <option key="Accept Offer" description="ACCEPT"/>
-                <option key="Decline Offer" description="DECLINE"/>
+                <option key="_NA_" description="_Select_"/>
+                <option key="NOT_CONTACT" description="Not Contact"/>
+                <option key="CONTACTING" description="Contacting"/>
+                <option key="ACCEPT" description="Accept Offer"/>
+                <option key="DECLINE" description="Decline Offer"/>
             </drop-down>
         </field>
         <field name="updateContactStatus"><submit button-type="button"/></field>

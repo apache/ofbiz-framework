@@ -922,7 +922,7 @@ under the License.
     </request-map>
     <request-map uri="uploadParty">
         <security auth="true" https="true"/>
-        <event type="service" invoke="importParty" path=""/>
+        <event invoke="importParty" path="" type="service"/>
         <response name="success" type="request" value="ImportExport"/>
         <response name="error" type="view" value="ImportExport"/>
     </request-map>

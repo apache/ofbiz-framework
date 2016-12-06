@@ -61,8 +61,8 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="50"/></field>
         <field name="createDependentProductionRuns" title="${uiLabelMap.ManufacturingCreateDependentProductionRuns}">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
@@ -360,8 +360,8 @@ under the License.
         </field>
         <field name="failIfItemsAreNotAvailable" use-when="estimatedQuantity != issuedQuantity">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="_rowSubmit"><hidden value="Y"/></field>
@@ -427,8 +427,8 @@ under the License.
         <field name="fromDate"><hidden/></field>
         <field name="failIfItemsAreNotAvailable">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">

@@ -683,7 +683,7 @@ under the License.
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
         <if-empty field="fact">
-            <make-value entity-name="InventoryItemFact" value-field="fact"/>
+            <make-value value-field="fact" entity-name="InventoryItemFact"/>
             <set field="fact.inventoryItemId" from-field="inventory.inventoryItemId"/>
             <!-- conversion of the inventory date -->
             <if-not-empty field="inventory.createdStamp">

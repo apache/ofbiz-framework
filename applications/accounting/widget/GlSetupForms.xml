@@ -163,18 +163,18 @@ under the License.
         <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null"
             tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('fiscalYearStartMonth')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <option key="${uiLabelMap.AccountingFiscalMonth01}" description="1"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth02}" description="2"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth03}" description="3"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth04}" description="4"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth05}" description="5"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth06}" description="6"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth07}" description="7"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth08}" description="8"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth09}" description="9"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth10}" description="10"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth11}" description="11"/>
-                <option key="${uiLabelMap.AccountingFiscalMonth12}" description="12"/>
+                <option key="1" description="${uiLabelMap.AccountingFiscalMonth01}"/>
+                <option key="2" description="${uiLabelMap.AccountingFiscalMonth02}"/>
+                <option key="3" description="${uiLabelMap.AccountingFiscalMonth03}"/>
+                <option key="4" description="${uiLabelMap.AccountingFiscalMonth04}"/>
+                <option key="5" description="${uiLabelMap.AccountingFiscalMonth05}"/>
+                <option key="6" description="${uiLabelMap.AccountingFiscalMonth06}"/>
+                <option key="7" description="${uiLabelMap.AccountingFiscalMonth07}"/>
+                <option key="8" description="${uiLabelMap.AccountingFiscalMonth08}"/>
+                <option key="9" description="${uiLabelMap.AccountingFiscalMonth09}"/>
+                <option key="10" description="${uiLabelMap.AccountingFiscalMonth10}"/>
+                <option key="11" description="${uiLabelMap.AccountingFiscalMonth11}"/>
+                <option key="12" description="${uiLabelMap.AccountingFiscalMonth12}"/>
             </drop-down>
         </field>
         <field name="fiscalYearStartDay" use-when="partyAcctgPreference==null"
@@ -237,7 +237,7 @@ under the License.
             tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('useInvoiceIdForReturns')!=null)return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="quoteIdPrefix" use-when="partyAcctgPreference==null"
@@ -716,8 +716,8 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="isClosed">
             <drop-down>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
         </field>
         <field name="parentPeriodId">
@@ -1193,7 +1193,7 @@ under the License.
         <auto-fields-service service-name="createFixedAssetTypeGlAccount" default-field-type="edit"/>
         <field name="fixedAssetId">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAll}" description="_NA_"/>
+                <option key="_NA_" description="${uiLabelMap.CommonAll}"/>
                 <entity-options entity-name="FixedAsset" description="${fixedAssetId} - ${fixedAssetName}">
                     <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
                     <entity-order-by field-name="fixedAssetId"/>
@@ -1202,7 +1202,7 @@ under the License.
         </field>
         <field name="fixedAssetTypeId">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAll}" description="_NA_"/>
+                <option key="_NA_" description="${uiLabelMap.CommonAll}"/>
                 <entity-options entity-name="FixedAssetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>

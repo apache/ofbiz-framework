@@ -82,8 +82,8 @@ under the License.
         </field>
         <field name="sagePayMode" title="${uiLabelMap.AccountingSagePayMode}">
             <drop-down>
-                <option key="${uiLabelMap.AccountingSagePayTest}" description="TEST"/>
-                <option key="${uiLabelMap.AccountingSagePayProduction}" description="PRODUCTION"/>
+                <option key="TEST" description="${uiLabelMap.AccountingSagePayTest}"/>
+                <option key="PRODUCTION" description="${uiLabelMap.AccountingSagePayProduction}"/>
             </drop-down>
         </field>
         <field name="protocolVersion" title="${uiLabelMap.AccountingSagePayProtocolVersion}">
@@ -91,9 +91,9 @@ under the License.
         </field>
         <field name="authenticationTransType" title="${uiLabelMap.AccountingSagePayAuthenticationTransType}">
             <drop-down>
-                <option key="${uiLabelMap.CommonPayment}" description="PAYMENT"/>
-                <option key="${uiLabelMap.CommonAuthenticate}" description="AUTHENTICATE"/>
-                <option key="${uiLabelMap.CommonDeferred}" description="DEFERRED"/>
+                <option key="PAYMENT" description="${uiLabelMap.CommonPayment}"/>
+                <option key="AUTHENTICATE" description="${uiLabelMap.CommonAuthenticate}"/>
+                <option key="DEFERRED" description="${uiLabelMap.CommonDeferred}"/>
             </drop-down>
         </field>
         <field name="authenticationUrl" title="${uiLabelMap.AccountingSagePayAuthenticationUrl}">
@@ -101,8 +101,8 @@ under the License.
         </field>        
         <field name="authoriseTransType" title="${uiLabelMap.AccountingSagePayAuthorisationTransType}">
             <drop-down>
-                <option key="${uiLabelMap.CommonAuthorise}" description="AUTHORISE"/>
-                <option key="${uiLabelMap.CommonRelease}" description="RELEASE"/>
+                <option key="AUTHORISE" description="${uiLabelMap.CommonAuthorise}"/>
+                <option key="RELEASE" description="${uiLabelMap.CommonRelease}"/>
             </drop-down>
         </field>
         <field name="authoriseUrl" title="${uiLabelMap.AccountingSagePayAuthorisationUrl}">
@@ -110,8 +110,8 @@ under the License.
         </field>
         <field name="releaseTransType" title="${uiLabelMap.AccountingSagePayReleaseTransType}">
             <drop-down>
-                <option key="${uiLabelMap.CommonCancel}" description="CANCEL"/>
-                <option key="${uiLabelMap.CommonAbort}" description="ABORT"/>
+                <option key="CANCEL" description="${uiLabelMap.CommonCancel}"/>
+                <option key="ABORT" description="${uiLabelMap.CommonAbort}"/>
             </drop-down>
         </field>
         <field name="releaseUrl" title="${uiLabelMap.AccountingSagePayReleaseUrl}">
@@ -139,8 +139,8 @@ under the License.
         </field>
         <field name="delimitedData" title="${uiLabelMap.AccountingAuthorizeNetDelimitedData}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="TRUE"/>
-                <option key="${uiLabelMap.CommonFalse}" description="FALSE"/>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="delimiterChar" title="${uiLabelMap.AccountingAuthorizeNetDelimiterChar}">
@@ -148,31 +148,31 @@ under the License.
         </field>
         <field name="method" title="${uiLabelMap.AccountingAuthorizeNetMethod}">
             <drop-down>
-                <option key="${uiLabelMap.AccountingAuthorizeNetMethodCC}" description="CC"/>
+                <option key="CC" description="${uiLabelMap.AccountingAuthorizeNetMethodCC}"/>
             </drop-down>
         </field>
         <field name="emailCustomer" title="${uiLabelMap.AccountingAuthorizeNetEmailCustomer}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="TRUE"/>
-                <option key="${uiLabelMap.CommonFalse}" description="FALSE"/>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="emailMerchant" title="${uiLabelMap.AccountingAuthorizeNetEmailMerchant}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="TRUE"/>
-                <option key="${uiLabelMap.CommonFalse}" description="FALSE"/>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="testMode" title="${uiLabelMap.AccountingAuthorizeNetTestMode}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="TRUE"/>
-                <option key="${uiLabelMap.CommonFalse}" description="FALSE"/>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>        
         <field name="relayResponse" title="${uiLabelMap.AccountingAuthorizeNetRelayResponse}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="TRUE"/>
-                <option key="${uiLabelMap.CommonFalse}" description="FALSE"/>
+                <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
+                <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="cpVersion" title="${uiLabelMap.AccountingAuthorizeNetCpVersion}">
@@ -200,16 +200,16 @@ under the License.
         </field>
         <field name="production" title="${uiLabelMap.AccountingCyberSourceProduction}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="keysDir" title="${uiLabelMap.AccountingCyberSourceKeysDir}"><text size="80" maxlength="80"/></field>
         <field name="keysFile" title="${uiLabelMap.AccountingCyberSourceKeysFile}"><text size="80" maxlength="80"/></field>
         <field name="logEnabled" title="${uiLabelMap.AccountingCyberSourceLogEnable}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="logDir" title="${uiLabelMap.AccountingCyberSourceLogDir}"><text size="80" maxlength="80"/></field>
@@ -219,32 +219,32 @@ under the License.
         <field name="merchantContact" title="${uiLabelMap.AccountingCyberSourceMerchantContact}"><text size="80" maxlength="80"/></field>
         <field name="autoBill" title="${uiLabelMap.AccountingCyberSourceAutoBill}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="ignoreAvs" title="${uiLabelMap.AccountingCyberSourceIgnoreAvs}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="enableDav" title="${uiLabelMap.AccountingCyberSourceEnableDav}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="fraudScore" title="${uiLabelMap.AccountingCyberSourceFraudScore}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="disableBillAvs" title="${uiLabelMap.AccountingCyberSourceDisableBillAvs}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="avsDeclineCodes" title="${uiLabelMap.AccountingCyberSourceAvsDeclineCodes}"><text size="20" maxlength="20"/></field>
@@ -259,43 +259,43 @@ under the License.
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="checkAvs">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="checkCvv2">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="preAuth">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="enableTransmit">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="loggingLevel">
             <drop-down>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingOff}" description="6"/>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingSeverityFatal}" description="5"/>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingSeverityError}" description="4"/>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingSeverityWarn}" description="3"/>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingSeverityInfo}" description="2"/>
-                <option key="${uiLabelMap.AccountingPayflowProLoggingSeverityDebug}" description="1"/>
+                <option key="6" description="${uiLabelMap.AccountingPayflowProLoggingOff}"/>
+                <option key="5" description="${uiLabelMap.AccountingPayflowProLoggingSeverityFatal}"/>
+                <option key="4" description="${uiLabelMap.AccountingPayflowProLoggingSeverityError}"/>
+                <option key="3" description="${uiLabelMap.AccountingPayflowProLoggingSeverityWarn}"/>
+                <option key="2" description="${uiLabelMap.AccountingPayflowProLoggingSeverityInfo}"/>
+                <option key="1" description="${uiLabelMap.AccountingPayflowProLoggingSeverityDebug}"/>
             </drop-down>
         </field>
         <field name="maxLogFileSize"><text size="20" maxlength="20"/></field>
         <field name="stackTraceOn">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -308,16 +308,16 @@ under the License.
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="enableCVM">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="processMode">
             <drop-down>
-                <option key="${uiLabelMap.AccountingPaymentGatewayApprove}" description="Y"/>
-                <option key="${uiLabelMap.AccountingPaymentGatewayDecline}" description="N"/>
-                <option key="${uiLabelMap.AccountingPaymentGatewayRandom}" description="R"/>
-                <option key="${uiLabelMap.AccountingPaymentGatewayProduction}" description="P"/>
+                <option key="Y" description="${uiLabelMap.AccountingPaymentGatewayApprove}"/>
+                <option key="N" description="${uiLabelMap.AccountingPaymentGatewayDecline}"/>
+                <option key="R" description="${uiLabelMap.AccountingPaymentGatewayRandom}"/>
+                <option key="P" description="${uiLabelMap.AccountingPaymentGatewayProduction}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -330,20 +330,20 @@ under the License.
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="testMode">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="enableBeagle">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="enableCvn">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -358,26 +358,26 @@ under the License.
         <field name="instId" title="${uiLabelMap.AccountingWorldPayInstId}"><text size="10" maxlength="10"/></field>
         <field name="authMode" title="${uiLabelMap.AccountingWorldPayAuthMode}">
             <drop-down>
-                <option key="${uiLabelMap.AccountingWorldPayFullAuth}" description="A"/>
-                <option key="${uiLabelMap.AccountingWorldPayPreAuth}" description="E"/>
+                <option key="A" description="${uiLabelMap.AccountingWorldPayFullAuth}"/>
+                <option key="E" description="${uiLabelMap.AccountingWorldPayPreAuth}"/>
             </drop-down>
         </field>
         <field name="fixContact" title="${uiLabelMap.AccountingWorldPayFixContact}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="hideContact" title="${uiLabelMap.AccountingWorldPayHideContact}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="hideCurrency" title="${uiLabelMap.AccountingWorldPayHideCurrency}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="langId" title="${uiLabelMap.AccountingWorldPayLangId}">
@@ -385,21 +385,21 @@ under the License.
         </field>
         <field name="noLanguageMenu" title="${uiLabelMap.AccountingWorldPayNoLanguageMenu}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="withDelivery" title="${uiLabelMap.AccountingWorldPayWithDelivery}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="testMode" title="${uiLabelMap.AccountingWorldPayTestMode}">
             <drop-down>
-                <option key="${uiLabelMap.AccountingWorldPayApprove}" description="100"/>
-                <option key="${uiLabelMap.AccountingWorldPayCancelled}" description="101"/>
-                <option key="${uiLabelMap.AccountingWorldPayLive}" description="0"/>
+                <option key="100" description="${uiLabelMap.AccountingWorldPayApprove}"/>
+                <option key="101" description="${uiLabelMap.AccountingWorldPayCancelled}"/>
+                <option key="0" description="${uiLabelMap.AccountingWorldPayLive}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -447,8 +447,8 @@ under the License.
         </field>
         <field name="hasTable">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">

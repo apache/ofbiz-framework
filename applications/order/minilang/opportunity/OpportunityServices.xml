@@ -28,7 +28,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="createSalesForecast" short-description="Creates a sales forecast and stores a copy in sales forecast history.">
 
         <!-- make the value and set the fields from the parameters -->
-        <make-value entity-name="SalesForecast" value-field="salesForecast"/>
+        <make-value value-field="salesForecast" entity-name="SalesForecast"/>
         <sequenced-id sequence-name="SalesForecast" field="salesForecastId"/>
         <set field="salesForecast.salesForecastId" from-field="salesForecastId"/>
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
@@ -65,7 +65,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="saveSalesForecastHistory" short-description="Given a salesForecast map, saves the data in the history.">
 
         <!-- make the value and set the fields from the salesForecast map -->
-        <make-value entity-name="SalesForecastHistory" value-field="salesForecastHistory"/>
+        <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
         <sequenced-id sequence-name="SalesForecastHistory" field="salesForecastHistoryId"/>
         <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/>
         <set-nonpk-fields map="salesForecast" value-field="salesForecastHistory"/>

@@ -165,7 +165,7 @@ under the License.
         <set field="context.textData" from-field="parameters.textData"/>
         <session-to-field field="context.userLogin" session-name="userLogin"/>
 
-        <call-service service-name="persistContentAndAssoc" in-map-name="context">
+        <call-service in-map-name="context" service-name="persistContentAndAssoc">
             <result-to-field result-name="contentId" field="contentId"/>
             <result-to-field result-name="dataResourceId" field="dataResourceId"/>
         </call-service>
@@ -318,7 +318,7 @@ under the License.
         <set field="context.contentIdTo" from-field="parameters.contentIdTo"/>
         <session-to-field field="context.userLogin" session-name="userLogin"/>
 
-        <call-service service-name="persistContentAndAssoc" in-map-name="context">
+        <call-service in-map-name="context" service-name="persistContentAndAssoc">
             <result-to-field result-name="contentId" field="contentId"/>
             <result-to-field result-name="dataResourceId" field="dataResourceId"/>
         </call-service>

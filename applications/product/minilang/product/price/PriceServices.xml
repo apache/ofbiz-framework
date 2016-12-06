@@ -32,7 +32,7 @@ under the License.
 
         <call-simple-method method-name="inlineHandlePriceWithTaxIncluded"/>
 
-        <make-value entity-name="ProductPrice" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductPrice"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
@@ -167,7 +167,7 @@ under the License.
     <!-- TODO NMA convert to entity auto when changed fileds are managed -->
     <simple-method method-name="saveProductPriceChange" short-description="Save History of ProductPrice Change">
         <!-- Note that this is kept pretty simple: if a price is specific but no oldPrice, then it is generally a create, if both are specified it is generally an update, if only the oldPrice is specified it is generally a delete -->
-        <make-value entity-name="ProductPriceChange" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="ProductPriceChange" field="productPriceChangeId"/>
@@ -192,7 +192,7 @@ under the License.
         <if-not-empty field="parameters.condValueInput">
             <set field="parameters.condValue" from-field="parameters.condValueInput"/>
         </if-not-empty>
-        <make-value entity-name="ProductPriceCond" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-field="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>

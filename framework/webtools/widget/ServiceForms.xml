@@ -31,13 +31,13 @@ under the License.
         <field name="SERVICE_FREQUENCY" title="${uiLabelMap.WebtoolsFrequency}">
             <drop-down>
                 <option key="" description="${uiLabelMap.CommonNone}"/>
-                <option key="${uiLabelMap.CommonDaily}" description="4"/>
-                <option key="${uiLabelMap.CommonWeekly}" description="5"/>
-                <option key="${uiLabelMap.CommonMonthly}" description="6"/>
-                <option key="${uiLabelMap.CommonYearly}" description="7"/>
-                <option key="${uiLabelMap.CommonHourly}" description="3"/>
-                <option key="${uiLabelMap.CommonMinutely}" description="2"/>
-                <option key="${uiLabelMap.CommonSecondly}" description="1"/>
+                <option key="4" description="${uiLabelMap.CommonDaily}"/>
+                <option key="5" description="${uiLabelMap.CommonWeekly}"/>
+                <option key="6" description="${uiLabelMap.CommonMonthly}"/>
+                <option key="7" description="${uiLabelMap.CommonYearly}"/>
+                <option key="3" description="${uiLabelMap.CommonHourly}"/>
+                <option key="2" description="${uiLabelMap.CommonMinutely}"/>
+                <option key="1" description="${uiLabelMap.CommonSecondly}"/>
             </drop-down>
         </field>
         <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsForUseWithFrequency}"><text/></field>

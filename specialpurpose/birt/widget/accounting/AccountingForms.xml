@@ -24,8 +24,8 @@ under the License.
     <form name="PaymentReport" type="single"  target="paymentReportHtml" extends="FindPayments" extends-resource="component://accounting/widget/PaymentForms.xml" target-window="_BLANK">
         <field name="contentType" action="document.PaymentReport.action=this.value" event="onchange">
             <drop-down>
-                <option key="text/html" description="paymentReportHtml"></option>
-                <option key="application/pdf" description="paymentReportPdf"></option>
+                <option key="paymentReportHtml" description="text/html"></option>
+                <option key="paymentReportPdf" description="application/pdf"></option>
                 <!--option key="application/vnd.ms-excel">application/vnd.ms-excel</option>
                 <option key="application/vnd.ms-word">application/vnd.ms-word</option>
                 <option key="application/vnd.ms-powerpoint">application/vnd.ms-powerpoint</option-->

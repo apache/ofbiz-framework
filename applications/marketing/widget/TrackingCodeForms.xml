@@ -110,7 +110,7 @@ under the License.
 
         <field name="isBillable" title="${uiLabelMap.MarketingTrackingCodeOrderIsBilliable}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
 

@@ -23,8 +23,8 @@
         default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}">
             <drop-down>
-                <option key="${uiLabelMap.ContentBlogs}" description="OFBIZBLOGROOT"/>
-                <option key="${uiLabelMap.ContentForums}" description="OFBIZFORUMROOT"/>
+                <option key="OFBIZBLOGROOT" description="${uiLabelMap.ContentBlogs}"/>
+                <option key="OFBIZFORUMROOT" description="${uiLabelMap.ContentForums}"/>
             </drop-down>
         </field>
         <field name="caMapKey">
@@ -100,8 +100,8 @@
         </field>
         <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
-                <option key="${uiLabelMap.ContentBlogPost}" description="CTNT_PUBLISHED"/>
-                <option key="${uiLabelMap.ContentBlogPreview}" description="CTNT_INITIAL_DRAFT"/>
+                <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
@@ -167,8 +167,8 @@
         </field>
         <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
-                <option key="${uiLabelMap.ContentBlogPost}" description="CTNT_PUBLISHED"/>
-                <option key="${uiLabelMap.ContentBlogPreview}" description="CTNT_INITIAL_DRAFT"/>
+                <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
