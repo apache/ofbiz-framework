@@ -20,20 +20,19 @@ package org.apache.ofbiz.base.start;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.TimeZone;
+
+import org.apache.ofbiz.base.util.StringUtil;
 
 /**
  * OFBiz server parameters needed on system startup and retrieved from
@@ -42,33 +41,25 @@ import java.util.TimeZone;
 public final class Config {
 
     public final String ofbizHome;
-    public final String awtHeadless;
     public final InetAddress adminAddress;
     public final String adminKey;
     public final int portOffset;
     public final int adminPort;
     public final String containerConfig;
-    public final List<Map<String, String>> loaders;
+    public final List<String> loaders;
     public final String logDir;
     public final boolean shutdownAfterLoad;
     public final boolean useShutdownHook;
-    public final String classpathAddComponent;
 
     Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
         // fetch OFBiz Properties object
-        Properties props;
-        try {
-            props = getPropertiesFile(ofbizCommands);
-        } catch (IOException e) {
-            throw new StartupException(e);
-        }
+        Properties props = getPropertiesFile(ofbizCommands);;
 
         // set this class fields
         ofbizHome = getOfbizHome(props);
-        awtHeadless = getProperty(props, "java.awt.headless", "false");
         adminAddress = getAdminAddress(props);
-        adminKey = getProperty(props, "ofbiz.admin.key", "NA");
+        adminKey = getProperty(props, "ofbiz.admin.key", "so3du5kasd5dn");
         portOffset = getPortOffsetValue(ofbizCommands);
         adminPort = getAdminPort(props, portOffset);
         containerConfig = getAbsolutePath(props, "ofbiz.container.config", "framework/base/config/ofbiz-containers.xml", ofbizHome);
@@ -76,13 +67,12 @@ public final class Config {
         logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
         shutdownAfterLoad = isShutdownAfterLoad(props);
         useShutdownHook = isUseShutdownHook(props);
-        classpathAddComponent = props.getProperty("ofbiz.start.classpath.addComponent");
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
         // set system properties
         System.setProperty("ofbiz.home", ofbizHome);
-        System.setProperty("java.awt.headless", awtHeadless);
+        System.setProperty("java.awt.headless", getProperty(props, "java.awt.headless", "true"));
         System.setProperty("derby.system.home", getProperty(props, "derby.system.home", "runtime/data/derby"));
 
         // set the default locale
@@ -111,46 +101,30 @@ public final class Config {
         }
     }
 
-    private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws IOException {
+    private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws StartupException {
         String fileName = determineOfbizPropertiesFileName(ofbizCommands);
-        String fullyQualifiedFileName = "org/apache/ofbiz/base/start/" + fileName + ".properties";
-        InputStream propsStream = null;
+        String fullyQualifiedFileName = "org/apache/ofbiz/base/start/" + fileName;
         Properties props = new Properties();
-        try {
+
+        try (InputStream propsStream = getClass().getClassLoader().getResourceAsStream(fullyQualifiedFileName)) {
             // first try classpath
-            propsStream = getClass().getClassLoader().getResourceAsStream(fullyQualifiedFileName);
             if (propsStream != null) {
                 props.load(propsStream);
             } else {
-                throw new IOException();
-            }
-        } catch (IOException e) {
             // next try file location
-            File propsFile = new File(fullyQualifiedFileName);
-            if (propsFile != null) {
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(propsFile);
+                try(FileInputStream fis = new FileInputStream(new File(fullyQualifiedFileName))) {
                     if (fis != null) {
                         props.load(fis);
                     }
-                } catch (FileNotFoundException e2) {
-                    // do nothing; we will see empty props below
-                } finally {
-                    if (fis != null) {
-                        fis.close();
-                    }
                 }
             }
-        } finally {
-            if (propsStream != null) {
-                propsStream.close();
-            }
+        } catch (IOException e) {
+            throw new StartupException(e);
         }
 
         // check for empty properties
         if (props.isEmpty()) {
-            throw new IOException("Cannot load configuration properties : " + fullyQualifiedFileName);
+            throw new StartupException("Cannot load configuration properties : " + fullyQualifiedFileName);
         }
         System.out.println("Start.java using configuration file " + fullyQualifiedFileName);
         return props;
@@ -159,22 +133,30 @@ public final class Config {
     private String determineOfbizPropertiesFileName(List<StartupCommand> ofbizCommands) {
         String fileName = null;
         if (ofbizCommands.stream().anyMatch(command ->
-        command.getName() == StartupCommandUtil.StartupOption.START.getName()
-        || command.getName() == StartupCommandUtil.StartupOption.SHUTDOWN.getName()
-        || command.getName() == StartupCommandUtil.StartupOption.STATUS.getName() )
+        command.getName().equals(StartupCommandUtil.StartupOption.START.getName())
+        || command.getName().equals(StartupCommandUtil.StartupOption.SHUTDOWN.getName())
+        || command.getName().equals(StartupCommandUtil.StartupOption.STATUS.getName()))
         || ofbizCommands.isEmpty()
-        || ofbizCommands.stream().allMatch(command ->
-            command.getName() == StartupCommandUtil.StartupOption.PORTOFFSET.getName()) 
-                ){
-            fileName = "start";
+        || ofbizCommands.stream().allMatch(command -> 
+                command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))) {
+            fileName = "start.properties";
         } else if(ofbizCommands.stream().anyMatch(
-                option -> option.getName() == StartupCommandUtil.StartupOption.LOAD_DATA.getName())) {
-            fileName = "load-data";
+                option -> option.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))) {
+            fileName = "load-data.properties";
         } else if(ofbizCommands.stream().anyMatch(
-                option -> option.getName() == StartupCommandUtil.StartupOption.TEST.getName())) {
-            fileName = "test";
+                option -> option.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))) {
+            fileName = "test.properties";
         }
         return fileName;
+    }
+
+    private List<String> getLoaders(Properties props) {
+        String loadersProp = getProperty(props, "ofbiz.start.loaders", "");
+        List<String> loaders = new ArrayList<String>();
+        for(String loader : StringUtil.split(loadersProp, ",")) {
+            loaders.add(loader);
+        }
+        return loaders;
     }
 
     private void setDefaultLocale(Properties props) {
@@ -182,14 +164,14 @@ public final class Config {
         if (localeString != null && localeString.length() > 0) {
             String locales[] = localeString.split("_");
             switch (locales.length) {
-                case 1:
-                    Locale.setDefault(new Locale(locales[0]));
-                    break;
-                case 2:
-                    Locale.setDefault(new Locale(locales[0], locales[1]));
-                    break;
-                case 3:
-                    Locale.setDefault(new Locale(locales[0], locales[1], locales[2]));
+            case 1:
+                Locale.setDefault(new Locale(locales[0]));
+                break;
+            case 2:
+                Locale.setDefault(new Locale(locales[0], locales[1]));
+                break;
+            case 3:
+                Locale.setDefault(new Locale(locales[0], locales[1], locales[2]));
             }
             System.setProperty("user.language", localeString);
         }
@@ -232,27 +214,6 @@ public final class Config {
             calculatedAdminPort = 10523;
         }
         return calculatedAdminPort;
-    }
-
-    private List<Map<String, String>> getLoaders(Properties props) {
-        ArrayList<Map<String, String>> loadersTmp = new ArrayList<Map<String, String>>();
-        int currentPosition = 1;
-        Map<String, String> loader = null;
-        while (true) {
-            loader = new HashMap<String, String>();
-            String loaderClass = props.getProperty("ofbiz.start.loader" + currentPosition);
-
-            if (loaderClass == null || loaderClass.length() == 0) {
-                break;
-            } else {
-                loader.put("class", loaderClass);
-                loader.put("profiles", props.getProperty("ofbiz.start.loader" + currentPosition + ".loaders"));
-                loadersTmp.add(Collections.unmodifiableMap(loader));
-                currentPosition++;
-            }
-        }
-        loadersTmp.trimToSize();
-        return Collections.unmodifiableList(loadersTmp);
     }
 
     private String getOfbizHome(Properties props) {

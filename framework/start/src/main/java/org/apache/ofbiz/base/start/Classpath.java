@@ -35,9 +35,7 @@ import java.util.List;
  */
 public final class Classpath {
 
-    private static final String nativeLibExt = System.mapLibraryName("someLib").replace("someLib", "").toLowerCase();
     private List<File> elements = new ArrayList<File>();
-    private final List<File> nativeFolders = new ArrayList<File>();
 
     /**
      * Default constructor.
@@ -103,7 +101,6 @@ public final class Classpath {
         }
         if (path.isDirectory() && path.exists()) {
             // load all .jar, .zip files and native libs in this directory
-            boolean containsNativeLibs = false;
             for (File file : path.listFiles()) {
                 String fileName = file.getName().toLowerCase();
                 if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
@@ -112,16 +109,6 @@ public final class Classpath {
                         if (!elements.contains(key)) {
                             elements.add(key);
                         }
-                    }
-                } else if (fileName.endsWith(nativeLibExt)) {
-                    containsNativeLibs = true;
-                }
-            }
-            if (containsNativeLibs) {
-                File key = path.getCanonicalFile();
-                synchronized (nativeFolders) {
-                    if (!nativeFolders.contains(key)) {
-                        nativeFolders.add(key);
                     }
                 }
             }
@@ -137,17 +124,6 @@ public final class Classpath {
             cp.append('"');
         } else {
             cp.append(path);
-        }
-    }
-
-    /**
-     * Returns a list of folders containing native libraries.
-     * 
-     * @return A list of folders containing native libraries
-     */
-    public List<File> getNativeFolders() {
-        synchronized (nativeFolders) {
-            return new ArrayList<File>(nativeFolders);
         }
     }
 

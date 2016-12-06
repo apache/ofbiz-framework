@@ -70,22 +70,22 @@ public final class Start {
             instance.config = StartupControlPanel.init(ofbizCommands);
         }
         switch (commandType) {
-            case HELP:
-                StartupCommandUtil.printOfbizStartupHelp(System.out);
-                break;
-            case STATUS:
-                System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
-                break;
-            case SHUTDOWN:
-                System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
-                break;
-            case START:
-                try {
-                    StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
-                } catch (StartupException e) {
-                    StartupControlPanel.fullyTerminateSystem(e);
-                }
-                break;
+        case HELP:
+            StartupCommandUtil.printOfbizStartupHelp(System.out);
+            break;
+        case STATUS:
+            System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
+            break;
+        case SHUTDOWN:
+            System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
+            break;
+        case START:
+            try {
+                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
+            } catch (StartupException e) {
+                StartupControlPanel.fullyTerminateSystem(e);
+            }
+            break;
         }
     }
 
