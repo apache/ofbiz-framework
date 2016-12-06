@@ -204,19 +204,19 @@ sourceSets {
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
+            srcDirs += "${rootDir}/framework/base/dtd"
             exclude excludedJavaSources
             exclude excludedConfigFiles
             // Below are necessary for unit tests run by Gradle and integration tests
+            exclude { FileTreeElement elem -> elem.getName().contains('.Labels.xml') }
             exclude { FileTreeElement elem -> elem.getName().contains('.properties') && 
                 !elem.getName().contains('start.properties') && 
                 !elem.getName().contains('load-data.properties') && 
                 !elem.getName().contains('debug.properties') &&
                 !elem.getName().contains('cache.properties') &&
                 !elem.getName().contains('test.properties') &&
-                !elem.getName().contains('rmi.properties')}
-            exclude { FileTreeElement elem -> elem.getName().contains('.xml') && 
-                !elem.getName().contains('entityengine.xml')
-                }
+                !elem.getName().contains('rmi.properties')
+            }
         }
     }
 

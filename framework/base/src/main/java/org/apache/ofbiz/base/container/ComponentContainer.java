@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -30,7 +32,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
 import org.apache.ofbiz.base.start.Classpath;
-import org.apache.ofbiz.base.start.NativeLibClassLoader;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
@@ -43,7 +44,7 @@ import org.apache.ofbiz.base.util.FileUtil;
  * defined in OFBiz. This container must run before any other containers to
  * allow components to access any necessary resources. Furthermore, the
  * ComponentContainer also builds up the <code>ComponentConfigCache</code>
- * to keep track of all loaded components
+ * defined in <code>ComponentConfig</code> to keep track of loaded components
  *
  */
 public class ComponentContainer implements Container {
@@ -52,6 +53,7 @@ public class ComponentContainer implements Container {
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
+    private final List<Classpath> componentsClassPath = new ArrayList<Classpath>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -68,6 +70,7 @@ public class ComponentContainer implements Container {
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
+        loadClassPathForAllComponents(componentsClassPath);
         Debug.logInfo("All components loaded", module);
     }
 
@@ -76,6 +79,28 @@ public class ComponentContainer implements Container {
      */
     public boolean start() throws ContainerException {
         return loaded.get();
+    }
+
+    /**
+     * Iterate over all the components and load their classpath URLs into the classloader
+     * and set the classloader as the context classloader
+     *
+     * @param componentsClassPath: a list of classpaths for all components
+     * @throws ContainerException
+     */
+    private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) throws ContainerException {
+        List<URL> allComponentUrls = new ArrayList<URL>();
+        for(Classpath classPath : componentsClassPath) {
+            try {
+                allComponentUrls.addAll(Arrays.asList(classPath.getUrls()));
+            } catch (MalformedURLException e) {
+                Debug.logError("Unable to load component classpath" + classPath.toString(), module);
+                Debug.logError(e.getMessage(), module);
+            }
+        }
+        URL[] componentURLs = allComponentUrls.toArray(new URL[allComponentUrls.size()]);
+        URLClassLoader classLoader = new URLClassLoader(componentURLs, Thread.currentThread().getContextClassLoader());
+        Thread.currentThread().setContextClassLoader(classLoader);
     }
 
     /**
@@ -197,28 +222,19 @@ public class ComponentContainer implements Container {
 
     /**
      * Load a single component by adding all its classpath entries to
-     * the classloader
+     * the list of classpaths to be loaded
      *
      * @param config: the component configuration
      * @throws IOException
      */
     private void loadComponent(ComponentConfig config) throws IOException {
-        if (!config.enabled()) {
+        if (config.enabled()) {
+            Classpath classpath = buildClasspathFromComponentConfig(config);
+            componentsClassPath.add(classpath);
+            Debug.logInfo("Added class path for component : [" + config.getComponentName() + "]", module);
+        } else {
             Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it is disabled", module);
-            return;
         }
-
-        NativeLibClassLoader classloader = (NativeLibClassLoader) Thread.currentThread().getContextClassLoader();
-        Classpath classPath = buildClasspathFromComponentConfig(config);
-
-        for (URL url : classPath.getUrls()) {
-            classloader.addURL(url);
-        }
-        for (File folder : classPath.getNativeFolders()) {
-            classloader.addNativeClassPath(folder);
-        }
-
-        Debug.logInfo("Loaded component : [" + config.getComponentName() + "]", module);
     }
 
     /**

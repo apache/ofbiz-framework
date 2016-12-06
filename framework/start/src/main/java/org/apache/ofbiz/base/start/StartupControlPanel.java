@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
@@ -61,14 +60,13 @@ final class StartupControlPanel {
             AtomicReference<ServerState> serverState,
             List<StartupCommand> ofbizCommands) throws StartupException {
 
+        //TODO loaders should be converted to a single loader
         List<StartupLoader> loaders = new ArrayList<StartupLoader>();
         Thread adminServer = createAdminServer(config, serverState, loaders);
-        Classpath classPath = createClassPath(config);
-        NativeLibClassLoader classLoader = createAndSetContextClassLoader(config, classPath);
 
         createLogDirectoryIfMissing(config);
         createRuntimeShutdownHook(config, loaders, serverState);
-        loadStartupLoaders(config, loaders, ofbizCommands, serverState, classLoader);
+        loadStartupLoaders(config, loaders, ofbizCommands, serverState);
         executeShutdownAfterLoadIfConfigured(config, loaders, serverState, adminServer);
     }
 
@@ -159,42 +157,6 @@ final class StartupControlPanel {
         return adminServer;
     }
 
-    private static Classpath createClassPath(Config config) throws StartupException {
-        Classpath classPath = new Classpath();
-        try {
-            classPath.addComponent(config.ofbizHome);
-            String ofbizHomeTmp = config.ofbizHome;
-            if (!ofbizHomeTmp.isEmpty() && !ofbizHomeTmp.endsWith("/")) {
-                ofbizHomeTmp = ofbizHomeTmp.concat("/");
-            }
-            if (config.classpathAddComponent != null) {
-                String[] components = config.classpathAddComponent.split(",");
-                for (String component : components) {
-                    classPath.addComponent(ofbizHomeTmp.concat(component.trim()));
-                }
-            }
-        } catch (IOException e) {
-            throw new StartupException("Cannot create classpath", e);
-        }
-        return classPath;
-    }
-
-    private static NativeLibClassLoader createAndSetContextClassLoader(Config config, Classpath classPath) throws StartupException {
-        ClassLoader parent = Thread.currentThread().getContextClassLoader();
-        NativeLibClassLoader classloader = null;
-        try {
-            classloader = new NativeLibClassLoader(classPath.getUrls(), parent);
-            classloader.addNativeClassPath(System.getProperty("java.library.path"));
-            for (File folder : classPath.getNativeFolders()) {
-                classloader.addNativeClassPath(folder);
-            }
-        } catch (IOException e) {
-            throw new StartupException("Couldn't create NativeLibClassLoader", e);
-        }
-        Thread.currentThread().setContextClassLoader(classloader);
-        return classloader;
-    }
-
     private static void createLogDirectoryIfMissing(Config config) {
         File logDir = new File(config.logDir);
         if (!logDir.exists()) {
@@ -224,33 +186,24 @@ final class StartupControlPanel {
     private static void loadStartupLoaders(Config config, 
             List<StartupLoader> loaders,
             List<StartupCommand> ofbizCommands,
-            AtomicReference<ServerState> serverState,
-            NativeLibClassLoader classloader) throws StartupException {
+            AtomicReference<ServerState> serverState) throws StartupException {
+
+        String startupLoaderName = "org.apache.ofbiz.base.container.ContainerLoader";
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
         synchronized (loaders) {
-            for (Map<String, String> loaderMap : config.loaders) {
-                if (serverState.get() == ServerState.STOPPING) {
-                    return;
-                }
-                try {
-                    String loaderClassName = loaderMap.get("class");
-                    Class<?> loaderClass = classloader.loadClass(loaderClassName);
-                    StartupLoader loader = (StartupLoader) loaderClass.newInstance();
-                    loaders.add(loader); // add before loading, so unload can occur if error during loading
-                    loader.load(config, ofbizCommands);
-                } catch (ReflectiveOperationException e) {
-                    throw new StartupException(e.getMessage(), e);
-                }
+            if (serverState.get() == ServerState.STOPPING) {
+                return;
+            }
+            try {
+                Class<?> loaderClass = classloader.loadClass(startupLoaderName);
+                StartupLoader loader = (StartupLoader) loaderClass.newInstance();
+                loaders.add(loader); // add before loading, so unload can occur if error during loading
+                loader.load(config, ofbizCommands);
+            } catch (ReflectiveOperationException e) {
+                throw new StartupException(e);
             }
         }
-        StringBuilder sb = new StringBuilder();
-        for (String path : classloader.getNativeLibPaths()) {
-            if (sb.length() > 0) {
-                sb.append(File.pathSeparator);
-            }
-            sb.append(path);
-        }
-        System.setProperty("java.library.path", sb.toString());
     }
 
     private static void executeShutdownAfterLoadIfConfigured(
