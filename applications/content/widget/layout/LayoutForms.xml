@@ -105,30 +105,30 @@ under the License.
         </field>
         <field name="drDataResourceTypeId" >
             <drop-down no-current-selected-key="LOCAL_FILE">
-                <option key="${uiLabelMap.ContentAbsoluteFile}" description="LOCAL_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToOFBizHome}" description="OFBIZ_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToWebappRoot}" description="CONTEXT_FILE"/>
-                <option key="${uiLabelMap.ContentDataBaseText}" description="ELECTRONIC_TEXT"/>
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
             </drop-down>
         </field>
         <field name="drMimeTypeId" >
             <drop-down no-current-selected-key="text/html">
-                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
-                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drDataResourceTypeId" >
             <drop-down no-current-selected-key="LOCAL_FILE">
-                <option key="${uiLabelMap.ContentAbsoluteFile}" description="LOCAL_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToOFBizHome}" description="OFBIZ_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToWebappRoot}" description="CONTEXT_FILE"/>
-                <option key="${uiLabelMap.ContentDataBaseText}" description="ELECTRONIC_TEXT"/>
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
             </drop-down>
         </field>
         <field name="drMimeTypeId" >
             <drop-down no-current-selected-key="text/html">
-                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
-                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
@@ -302,10 +302,10 @@ under the License.
         </field>
         <field name="drMimeTypeId" >
             <drop-down>
-                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
-                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
-                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
-                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
@@ -340,10 +340,10 @@ under the License.
         </field>
         <field name="drMimeTypeId" >
             <drop-down>
-                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
-                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
-                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
-                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
@@ -419,10 +419,10 @@ under the License.
         </field>
         <field name="drDataResourceTypeId" >
             <drop-down no-current-selected-key="ELECTRONIC_TEXT">
-                <option key="${uiLabelMap.ContentAbsoluteFile}" description="LOCAL_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToOFBizHome}" description="OFBIZ_FILE"/>
-                <option key="${uiLabelMap.ContentFileRelToWebappRoot}" description="CONTEXT_FILE"/>
-                <option key="${uiLabelMap.ContentDataBaseText}" description="ELECTRONIC_TEXT"/>
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
             </drop-down>
         </field>
         <field name="drDataTemplateTypeId" >
@@ -432,8 +432,8 @@ under the License.
         </field>
         <field name="drMimeTypeId">
             <drop-down no-current-selected-key="text/html">
-                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
-                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">

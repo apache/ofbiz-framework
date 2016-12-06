@@ -755,22 +755,22 @@ under the License.
         <field name="sequenceNum"><text/></field>
         <field name="drMimeTypeId" widget-style="smallSelect">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.ContentMSWord}" description="application/msword"/>
-                <option key="${uiLabelMap.ContentPDFFile}" description="application/pdf"/>
-                <option key="${uiLabelMap.ContentSurvey}" description="application/vnd.ofbiz.survey"/>
-                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
-                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
-                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
-                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
-                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
-                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
-                <option key="${uiLabelMap.ContentResourceOther}" description="application/octet-stream"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
@@ -788,22 +788,22 @@ under the License.
         <field name="sequenceNum"><text/></field>
         <field name="drMimeTypeId">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.ContentMSWord}" description="application/msword"/>
-                <option key="${uiLabelMap.ContentPDFFile}" description="application/pdf"/>
-                <option key="${uiLabelMap.ContentSurvey}" description="application/vnd.ofbiz.survey"/>
-                <option key="${uiLabelMap.ContentHtmlText}" description="text/html"/>
-                <option key="${uiLabelMap.ContentPlainText}" description="text/plain"/>
-                <option key="${uiLabelMap.ContentJPEG}" description="image/jpeg"/>
-                <option key="${uiLabelMap.ContentGIF}" description="image/gif"/>
-                <option key="${uiLabelMap.ContentTIFF}" description="image/tiff"/>
-                <option key="${uiLabelMap.ContentPNG}" description="image/png"/>
-                <option key="${uiLabelMap.ContentResourceOther}" description="application/octet-stream"/>
+                <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
+                <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
+                <option key="application/vnd.ofbiz.survey" description="${uiLabelMap.ContentSurvey}"/>
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="application/octet-stream" description="${uiLabelMap.ContentResourceOther}"/>
             </drop-down>
         </field>
         <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="dataResourceTypeId" entry-name="drDataResourceTypeId">
@@ -974,8 +974,8 @@ under the License.
         </field>
         <field name="internalNotesOnly">
             <drop-down>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
             </drop-down></field>
         <field name="updateButton"><submit/></field>
     </form>

@@ -23,7 +23,7 @@ under the License.
 
     <!-- Facility Location Services -->
     <simple-method method-name="createFacilityLocation" short-description="Create a Facility Location">
-        <make-value entity-name="FacilityLocation" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="FacilityLocation"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.facilityId" from-field="parameters.facilityId"/>
 
@@ -63,14 +63,14 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removePartyFromFacilityGroup" short-description="Remove Party From FacilityGroup">
-        <make-value entity-name="FacilityGroupRole" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="FacilityGroupRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityGroupRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deleteFacilityContent" short-description="Delete Content From Facility">
-        <make-value entity-name="FacilityContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="FacilityContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <now-timestamp field="lookedUpValue.thruDate"/>

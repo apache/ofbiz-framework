@@ -131,7 +131,7 @@ under the License.
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom" event="onchange" action="javascript:(document.NewPaymentOut.action = 'newPayment'),(document.NewPaymentOut.submit())">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
-                <option key="${partyGroupName}" description="${parameters.partyIdFrom}"/>
+                <option key="${parameters.partyIdFrom}" description="${partyGroupName}"/>
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
                     <entity-order-by field-name="groupName"/>
                 </entity-options>

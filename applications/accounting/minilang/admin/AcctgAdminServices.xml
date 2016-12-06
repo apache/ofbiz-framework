@@ -35,7 +35,7 @@ under the License.
         <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->
 
         <!-- TODO: maybe check to make sure that all fields are not null -->
-        <make-value entity-name="PartyAcctgPreference" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PartyAcctgPreference"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

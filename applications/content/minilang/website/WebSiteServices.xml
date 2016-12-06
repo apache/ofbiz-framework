@@ -24,7 +24,7 @@ under the License.
 
     <!-- WebSite Path Alias -->
     <simple-method method-name="getWebSitePathAlias" short-description="Returns a WebSite Path Alias">
-        <make-value entity-name="WebSitePathAlias" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="alias" use-cache="true"/>
         <field-to-result field="alias.pathTo" result-name="pathTo"/>

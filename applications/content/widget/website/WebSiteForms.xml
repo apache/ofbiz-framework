@@ -35,7 +35,7 @@ under the License.
 
         <field name="siteName"><text size="30" maxlength="60"/></field>
         <field name="enableHttps">
-            <drop-down allow-empty="true"><option key="${uiLabelMap.CommonY}" description="Y"/><option key="${uiLabelMap.CommonN}" description="N"/></drop-down>
+            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
         <field name="productStoreId">
@@ -253,7 +253,7 @@ under the License.
         <field name="webSiteId"><hidden/></field>
         <field name="prodCatalogId" title="${uiLabelMap.Catalog}">
             <drop-down>
-                <option key="All" description="all"/>
+                <option key="all" description="All"/>
                 <entity-options description="${prodCatalogId}" entity-name="ProductStoreCatalog">
                     <entity-constraint name="productStoreId" value="${webSite.productStoreId}"/>
                 </entity-options>
@@ -261,9 +261,9 @@ under the License.
         </field>
         <field name="typeGenerate" title="Generate Type">
             <check all-checked="false">
-                <option key="Category" description="category"/>
-                <option key="Product" description="product"/>
-                <option key="Content" description="content"/>
+                <option key="category" description="Category"/>
+                <option key="product" description="Product"/>
+                <option key="content" description="Content"/>
             </check>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>

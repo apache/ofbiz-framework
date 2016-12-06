@@ -90,11 +90,11 @@ under the License.
         <field name="lastIntMonth" title="${uiLabelMap.BirtFacilityReportLastIntMonth}"><text size="15" default-value="0"></text></field>
         <field name="contentType" action="document.ViewFacilityInventoryHistoryReportForm.action=this.value" event="onchange">
             <drop-down allow-empty="false" >
-                <option key="HTML" description="RenderInventoryReportHtml"/>
-                <option key="PDF" description="RenderInventoryReportPDF"/>
+                <option key="RenderInventoryReportHtml" description="HTML"/>
+                <option key="RenderInventoryReportPDF" description="PDF"/>
                 <!--option key="RenderInventoryReportExcel" description="MS-Excel"/>
-              <option key="MS-Word" description="RenderInventoryReportMSWord"/>
-              <option key="MS-Powerpoint" description="RenderInventoryReportPPT"/-->
+              <option key="RenderInventoryReportMSWord" description="MS-Word"/>
+              <option key="RenderInventoryReportPPT" description="MS-Powerpoint"/-->
             </drop-down>
         </field>
         <field name="submitButton"><hidden/></field>

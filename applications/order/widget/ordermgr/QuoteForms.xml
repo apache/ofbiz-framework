@@ -272,8 +272,8 @@ under the License.
         <!--
         <field name="isPromo" title="${uiLabelMap.OrderOrderIsPromo}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonN}" description="N"/>
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
             </drop-down>
         </field>
          -->

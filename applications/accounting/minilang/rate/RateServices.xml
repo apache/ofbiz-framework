@@ -346,7 +346,7 @@ under the License.
             <store-value value-field="partyRate"/>
         </if-not-empty>
 
-        <make-value entity-name="PartyRate" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PartyRate"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

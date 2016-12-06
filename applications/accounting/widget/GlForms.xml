@@ -51,8 +51,8 @@ under the License.
         </field>
         <field name="isPosted"  position="1">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
         </field>
         <field name="invoiceId" position="2"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
@@ -228,8 +228,8 @@ under the License.
         </field>
         <field name="isPosted">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -245,8 +245,8 @@ under the License.
         <field name="performSearch"><hidden value="Y"/></field>
         <field name="reportType">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.AccountingByAccount}" description="byAccount"/>
-                <option key="${uiLabelMap.AccountingByDate}" description="byDate"/>
+                <option description="${uiLabelMap.AccountingByAccount}" key="byAccount"/>
+                <option description="${uiLabelMap.AccountingByDate}" key="byDate"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
@@ -587,8 +587,8 @@ under the License.
         </field>
         <field name="debitCreditFlag" position="1" entry-name="resetFieldValue">
             <drop-down current="selected">
-                <option key="${uiLabelMap.FormFieldTitle_credit}" description="C"/>
-                <option key="${uiLabelMap.FormFieldTitle_debit}" description="D"/>
+                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
+                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
             </drop-down>
         </field>
         <field name="partyId" position="2"><text size="30"/></field>
@@ -673,8 +673,8 @@ under the License.
         <field name="isSummary"><display/></field>
         <field name="debitCreditFlag">
             <drop-down current="selected">
-                <option key="${uiLabelMap.FormFieldTitle_credit}" description="C"/>
-                <option key="${uiLabelMap.FormFieldTitle_debit}" description="D"/>
+                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
+                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
             </drop-down>
         </field>
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
@@ -737,8 +737,8 @@ under the License.
         <field name="scheduledPostingDate"  position="2"></field>
         <field name="isPosted"  position="1">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
         </field>
         <field name="postedDate" position="2"><date-time/></field>

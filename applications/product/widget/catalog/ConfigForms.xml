@@ -70,8 +70,8 @@ under the License.
         <field use-when="configItem==null&amp;&amp;configItemId==null" name="configItemId" title="${uiLabelMap.ProductConfigItem}"><ignored/></field>
         <field name="configItemTypeId" title="${uiLabelMap.ProductConfigItem} ${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.ProductSingleChoice}" description="SINGLE"/>
-                <option key="${uiLabelMap.ProductMultiChoice}" description="MULTIPLE"/>
+                <option key="SINGLE" description="${uiLabelMap.ProductSingleChoice}"/>
+                <option key="MULTIPLE" description="${uiLabelMap.ProductMultiChoice}"/>
             </drop-down>
         </field>
 

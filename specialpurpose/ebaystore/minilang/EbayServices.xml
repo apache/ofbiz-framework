@@ -155,7 +155,7 @@
         </entity-one>
         <if-empty field="ebayProductStoreInventory">
             <!-- add new reserved product  -->
-            <make-value entity-name="EbayProductStoreInventory" value-field="newEbayProductStoreInven"/>
+            <make-value value-field="newEbayProductStoreInven" entity-name="EbayProductStoreInventory"/>
             <set field="newEbayProductStoreInven.productStoreId" from-field="parameters.productStoreId"/>
             <set field="newEbayProductStoreInven.facilityId" from-field="parameters.facilityId"/>
             <set field="newEbayProductStoreInven.productId" from-field="parameters.productId"/>

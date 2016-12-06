@@ -60,8 +60,8 @@
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
         <field name="isSale" title="${uiLabelMap.ProductSaleRule}">
             <drop-down>
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>

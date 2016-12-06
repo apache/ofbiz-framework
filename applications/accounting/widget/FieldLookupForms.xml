@@ -359,8 +359,8 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="isClosed">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>

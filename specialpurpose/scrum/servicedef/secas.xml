@@ -21,51 +21,51 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="updateWorkEffort" event="commit">
-        <condition field-name="currentStatusId" operator="equals" value="STS_COMPLETED"/>
+        <condition operator="equals" field-name="currentStatusId" value="STS_COMPLETED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoCompleteBacklog" mode="sync"/>
     </eca>
     <eca service="createWorkEffort" event="commit">
-        <condition field-name="currentStatusId" operator="equals" value="SPRINT_ACTIVE"/>
+        <condition operator="equals" field-name="currentStatusId" value="SPRINT_ACTIVE"/>
         <set field-name="sprintId" env-name="workEffortId"/>
         <set field-name="sprintStatusId" env-name="currentStatusId"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="updateWorkEffort" event="commit">
-        <condition field-name="currentStatusId" operator="equals" value="SPRINT_CLOSED"/>
+        <condition operator="equals" field-name="currentStatusId" value="SPRINT_CLOSED"/>
         <set field-name="sprintId" env-name="workEffortId"/>
         <set field-name="sprintStatusId" env-name="currentStatusId"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="createCustRequest" event="commit">
-        <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+        <condition operator="equals" field-name="statusId" value="CRQ_ACCEPTED"/>
         <set field-name="custRequestStatusId" value="CRQ_ACCEPTED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="equals" value="CRQ_REVIEWED"/>
-        <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+        <condition operator="equals" field-name="statusId" value="CRQ_ACCEPTED"/>
         <set field-name="custRequestStatusId" value="CRQ_ACCEPTED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
+        <condition operator="equals" field-name="statusId" value="CRQ_REVIEWED"/>
         <set field-name="custRequestStatusId" value="CRQ_REVIEWED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+        <condition operator="equals" field-name="statusId" value="CRQ_COMPLETED"/>
         <set field-name="custRequestStatusId" value="CRQ_COMPLETED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>
     </eca>
     <eca service="setCustRequestStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
+        <condition operator="equals" field-name="statusId" value="CRQ_CANCELLED"/>
         <set field-name="custRequestStatusId" value="CRQ_CANCELLED"/>
         <set field-name="webSiteId" env-name="webSiteId"/>
         <action service="autoScrumNotification" mode="sync"/>

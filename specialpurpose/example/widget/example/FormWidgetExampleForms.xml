@@ -137,8 +137,8 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField1Title}"
                tooltip="${uiLabelMap.ExampleDropDownField1Tooltip}" tooltip-style="button-text">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -148,8 +148,8 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField2Title}"
                tooltip="${uiLabelMap.ExampleDropDownField2Tooltip}" tooltip-style="button-text">
             <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -159,8 +159,8 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField5Title}"
                tooltip="${uiLabelMap.ExampleDropDownField5Tooltip}" tooltip-style="button-text">
             <drop-down no-current-selected-key="N">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -172,8 +172,8 @@ under the License.
                action="return showErrorAlert('${uiLabelMap.CommonErrorMessage2}','${uiLabelMap.YouChangedTheSelectBoxValue}');"
                tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}" tooltip-style="button-text">
             <drop-down>
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
 
@@ -253,10 +253,10 @@ under the License.
         <field name="otherValue" title="${uiLabelMap.ExampleSpecifyOtherDropdown}"
             tooltip="${uiLabelMap.ExampleSpecifyOtherTooltip}" tooltip-style="button-text" >
             <drop-down other-field-size="15">
-                <option key="Option A" description="A" />
-                <option key="Option B" description="B" />
-                <option key="Option C" description="C" />
-                <option key="specify other" description="_OTHER_" />
+                <option key="A" description="Option A" />
+                <option key="B" description="Option B" />
+                <option key="C" description="Option C" />
+                <option key="_OTHER_" description="specify other" />
             </drop-down>
         </field>
         <!-- ****************************** -->

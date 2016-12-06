@@ -75,14 +75,14 @@ under the License.
         <field name="uploadedFile" title="${uiLabelMap.ContentImage}"><file size="25"/></field>
         <field name="templateDataResourceId" title="${uiLabelMap.ContentTemplate}">
             <drop-down>
-                <option key="${uiLabelMap.ContentBlogTopLeft}" description="BLOG_TPL_TOPLEFT"/>
-                <option key="${uiLabelMap.ContentBlogTopCenter}" description="BLOG_TPL_TOPCENTER"/>
+                <option key="BLOG_TPL_TOPLEFT" description="${uiLabelMap.ContentBlogTopLeft}"/>
+                <option key="BLOG_TPL_TOPCENTER" description="${uiLabelMap.ContentBlogTopCenter}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
-                <option key="${uiLabelMap.ContentBlogPublish}" description="CTNT_PUBLISHED"/>
-                <option key="${uiLabelMap.ContentBlogPreview}" description="CTNT_INITIAL_DRAFT"/>
+                <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPublish}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>

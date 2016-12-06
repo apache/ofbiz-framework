@@ -900,7 +900,7 @@ under the License.
     -->
     <simple-method method-name="editPicklistItem" short-description="Edit a Picklist Item">
 
-        <make-value entity-name="PicklistItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="picklistItem"/>
         
@@ -1192,7 +1192,7 @@ under the License.
                          A Map with a List of PicklistItemInfo records keyed by the productId
                 -->
                 <if-not-empty field="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
-                    <make-value entity-name="FacilityLocation" value-field="facilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
+                    <make-value value-field="facilityLocation" entity-name="FacilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
                     <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap[facilityLocation.locationSeqId]"/>
 
                     <clear-field field="picklistItemInfoTempList"/>
@@ -1550,12 +1550,12 @@ under the License.
     <!-- special method to check update the picklist status from the item status -->
     <simple-method method-name="checkPicklistBinItemStatuses" short-description="Checks the item status and updates the pick list status">
         <!-- find the picklist bin -->
-        <make-value entity-name="PicklistBin" value-field="binLookup"/>
+        <make-value value-field="binLookup" entity-name="PicklistBin"/>
         <set-pk-fields map="parameters" value-field="binLookup"/>
         <find-by-primary-key map="binLookup" value-field="picklistBin"/>
 
         <!-- find the pick list -->
-        <make-value entity-name="Picklist" value-field="plLookup"/>
+        <make-value value-field="plLookup" entity-name="Picklist"/>
         <set-pk-fields map="picklistBin" value-field="plLookup"/>
         <find-by-primary-key map="plLookup" value-field="picklist"/>
 

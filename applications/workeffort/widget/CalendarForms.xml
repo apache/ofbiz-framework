@@ -62,9 +62,9 @@ under the License.
     <form name="EditCalendar" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="initialView">
             <drop-down>
-                <option key="${uiLabelMap.WorkEffortDayView}" description="day"/>
-                <option key="${uiLabelMap.WorkEffortWeekView}" description="week"/>
-                <option key="${uiLabelMap.WorkEffortMonthView}" description="month"/>
+                <option key="day" description="${uiLabelMap.WorkEffortDayView}"/>
+                <option key="week" description="${uiLabelMap.WorkEffortWeekView}"/>
+                <option key="month" description="${uiLabelMap.WorkEffortMonthView}"/>
             </drop-down>
         </field>
         <field name="updateButton"><submit/></field>

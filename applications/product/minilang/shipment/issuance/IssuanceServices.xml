@@ -26,7 +26,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/minilang/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <make-value entity-name="ItemIssuance" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ItemIssuance"/>
         <sequenced-id sequence-name="ItemIssuance" field="newEntity.itemIssuanceId"/>
         <field-to-result field="newEntity.itemIssuanceId" result-name="itemIssuanceId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -87,7 +87,7 @@ under the License.
         <set value="Create ItemIssuanceRole" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/minilang/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
-        <make-value entity-name="ItemIssuanceRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ItemIssuanceRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

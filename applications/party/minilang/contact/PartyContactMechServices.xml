@@ -169,7 +169,7 @@ under the License.
         </if-empty>
 
         <set-service-fields service-name="createPostalAddress" map="parameters" to-map="createPostalAddressMap"/>
-        <call-service service-name="createPostalAddress" in-map-name="createPostalAddressMap">
+        <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId"/>
         </call-service>
@@ -193,7 +193,7 @@ under the License.
         </if-empty>
 
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
-        <call-service service-name="updatePostalAddress" in-map-name="updatePostalAddressMap">
+        <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId"/>
         </call-service>
@@ -216,7 +216,7 @@ under the License.
 
         <log level="info" message="Creating telecom number"/>
         <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="createTelecomNumberMap"/>
-        <call-service service-name="createTelecomNumber" in-map-name="createTelecomNumberMap">
+        <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId"/>
         </call-service>
@@ -250,7 +250,7 @@ under the License.
         <set field="updatePartyContactMechMap.contactMechTypeId" value="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to updatePartyContactMechMap: ${updatePartyContactMechMap.newContactMechId}"/>
 
-        <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechMap">
+        <call-service in-map-name="updatePartyContactMechMap" service-name="updatePartyContactMech">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
         </call-service>
         <log level="info" message="Setting result id: ${newPartyContactMech.contactMechId}"/>

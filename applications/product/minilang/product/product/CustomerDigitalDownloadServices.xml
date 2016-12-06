@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createCustomerDigitalDownloadProduct" short-description="createCustomerDigitalDownloadProduct">
         <now-timestamp field="nowTimestamp"/>
 
-        <make-value entity-name="Product" value-field="createProductMap"/>
+        <make-value value-field="createProductMap" entity-name="Product"/>
         <sequenced-id sequence-name="Product" field="createProductMap.productId"/>
         <set field="productId" from-field="createProductMap.productId"/>
 
@@ -33,7 +33,7 @@ under the License.
         <set field="createProductMap.productTypeId" value="DIGITAL_GOOD"/>
         <create-value value-field="createProductMap"/>
 
-        <make-value entity-name="ProductPrice" value-field="createProductPriceMap"/>
+        <make-value value-field="createProductPriceMap" entity-name="ProductPrice"/>
         <set field="createProductPriceMap.productId" from-field="productId"/>
         <set field="createProductPriceMap.productPriceTypeId" value="DEFAULT_PRICE"/>
         <set field="createProductPriceMap.productPricePurposeId" value="PURCHASE"/>
@@ -43,7 +43,7 @@ under the License.
         <set field="createProductPriceMap.price" from-field="parameters.price"/>
         <create-value value-field="createProductPriceMap"/>
 
-        <make-value entity-name="SupplierProduct" value-field="createProductSupplierMap"/>
+        <make-value value-field="createProductSupplierMap" entity-name="SupplierProduct"/>
         <set field="createProductSupplierMap.productId" from-field="productId"/>
         <set field="createProductSupplierMap.partyId" from-field="userLogin.partyId"/>
         <set field="createProductSupplierMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
@@ -59,7 +59,7 @@ under the License.
         <!-- create association with ProductStore.digProdUploadCategoryId -->
         <entity-one entity-name="ProductStore" value-field="productStore"/>
         <if-not-empty field="productStore.digProdUploadCategoryId">
-            <make-value entity-name="ProductCategoryMember" value-field="addProductToCategoryMap"/>
+            <make-value value-field="addProductToCategoryMap" entity-name="ProductCategoryMember"/>
             <set field="addProductToCategoryMap.productId" from-field="productId"/>
             <set field="addProductToCategoryMap.productCategoryId" from-field="productStore.digProdUploadCategoryId"/>
             <create-value value-field="addProductToCategoryMap"/>
@@ -168,7 +168,7 @@ under the License.
 
         <check-errors/>
 
-        <make-value entity-name="ProductContent" value-field="productContent"/>
+        <make-value value-field="productContent" entity-name="ProductContent"/>
         <set field="productContent.productId" from-field="parameters.productId"/>
         <set field="productContent.contentId" from-field="parameters.contentId"/>
         <set field="productContent.productContentTypeId" value="DIGITAL_DOWNLOAD"/>

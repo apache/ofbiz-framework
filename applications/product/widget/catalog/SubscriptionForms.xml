@@ -64,8 +64,8 @@ under the License.
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
         <field name="automaticExtend" title="Automatic Extend" ><!-- TODO: ${uiLabelMap.FormFieldTitle_automaticExtend} get overwritten with the description of the field from the entitymodel-->
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
 
@@ -283,8 +283,8 @@ under the License.
         </field>
         <field name="automaticExtend" title="Automatic Extend" ><!-- TODO: ${uiLabelMap.FormFieldTitle_automaticExtend} get overwritten with the description of the field from the entitymodel-->
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="canclAutmExtTime" title="Cancel time"></field>
@@ -397,8 +397,8 @@ under the License.
         </field>
         <field name="automaticExtend">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="canclAutmExtTimeUomId">
@@ -441,8 +441,8 @@ under the License.
         </field>
         <field name="automaticExtend">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="canclAutmExtTimeUomId">

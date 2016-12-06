@@ -460,7 +460,7 @@
                 <field-to-request field="workEffortId" request-name="projectId"/>
                 <log level="info" message="Creating new project, projectId=${workEffortId}"/>
                 <!-- Create workeffort associate with product -->
-                <make-value entity-name="WorkEffortGoodStandard" value-field="goodStandardMap"/>
+                <make-value value-field="goodStandardMap" entity-name="WorkEffortGoodStandard"/>
                 <set field="goodStandardMap.workEffortId" from-field="workEffortId"/>
                 <set field="goodStandardMap.productId" from-field="parameters.productId"/>
                 <set field="goodStandardMap.workEffortGoodStdTypeId" value="SCRUM_PRO_WORKEFF"/>
@@ -469,7 +469,7 @@
                 <create-value value-field="goodStandardMap"/>
                 <!-- Create project billed options -->
                 <if-not-empty field="parameters.billed">
-                    <make-value entity-name="WorkEffortAttribute" value-field="workEffortAttMap"/>
+                    <make-value value-field="workEffortAttMap" entity-name="WorkEffortAttribute"/>
                     <set field="workEffortAttMap.workEffortId" from-field="workEffortId"/>
                     <set field="workEffortAttMap.attrName" value="PROJECT_BILLED"/>
                     <set field="workEffortAttMap.attrValue" from-field="parameters.billed"/>
@@ -530,7 +530,7 @@
                     <remove-list list="workEffGSDList"/>
                 </if-not-empty>
                 <!-- create old workeffort associate with product -->
-                <make-value entity-name="WorkEffortGoodStandard" value-field="goodStandardMap"/>
+                <make-value value-field="goodStandardMap" entity-name="WorkEffortGoodStandard"/>
                 <set field="goodStandardMap.workEffortId" from-field="parameters.workEffortId"/>
                 <set field="goodStandardMap.productId" from-field="parameters.productId"/>
                 <set field="goodStandardMap.workEffortGoodStdTypeId" value="SCRUM_PRO_WORKEFF"/>
@@ -546,7 +546,7 @@
                     <set field="workEffortAttMap.attrValue" from-field="parameters.billed"/>
                     <store-value value-field="workEffortAttMap"/>
                     <else>
-                        <make-value entity-name="WorkEffortAttribute" value-field="workEffortAttMap"/>
+                        <make-value value-field="workEffortAttMap" entity-name="WorkEffortAttribute"/>
                         <set field="workEffortAttMap.workEffortId" from-field="parameters.workEffortId"/>
                         <set field="workEffortAttMap.attrName" value="PROJECT_BILLED"/>
                         <set field="workEffortAttMap.attrValue" from-field="parameters.billed"/>
@@ -596,7 +596,7 @@
         <remove-by-and entity-name="CustRequestItemNote" map="custRequestItemCtx"/>
         <remove-by-and entity-name="CustRequestItemWorkEffort" map="custRequestItemCtx"/>
         
-        <make-value entity-name="CustRequestItem" value-field="deleteCustRequestItem"/>
+        <make-value value-field="deleteCustRequestItem" entity-name="CustRequestItem"/>
         <set-pk-fields value-field="deleteCustRequestItem" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="deleteCustRequestItem"/>
         <remove-value value-field="deleteCustRequestItem"/>
@@ -1015,7 +1015,7 @@
                     <call-service service-name="createNote" in-map-name="newNoteMap">
                         <result-to-field result-name="noteId" field="noteId"/>
                     </call-service>
-                    <make-value entity-name="CustRequestNote" value-field="newEntity"/>
+                    <make-value value-field="newEntity" entity-name="CustRequestNote"/>
                     <set from-field="custRequestId" field="newEntity.custRequestId"/>
                     <set from-field="noteId" field="newEntity.noteId"/>
                     <create-value value-field="newEntity"/>
@@ -1671,7 +1671,7 @@
                 <if-empty field="custRequestNoteViews">
                     <!-- create CustRequestNote -->
                     <if-not-empty field="parameters.noteInfo">
-                        <make-value entity-name="CustRequestNote" value-field="newEntity"/>
+                        <make-value value-field="newEntity" entity-name="CustRequestNote"/>
                         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
                         <set field="newNoteMap.note" from-field="parameters.noteInfo"/>
                         <set field="newNoteMap.noteName" value="How to test"/>
@@ -1749,12 +1749,12 @@
                 <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
             </entity-one>
             <if-empty field="partyRoles">
-                <make-value entity-name="PartyRole" value-field="partyRole"/>
+                <make-value value-field="partyRole" entity-name="PartyRole"/>
                 <set field="partyRole.partyId" value="${parameters.partyId}"/>
                 <set field="partyRole.roleTypeId" value="PRODUCT_OWNER"/>
                 <create-value value-field="partyRole"/>
             </if-empty>
-            <make-value entity-name="ProductRole" value-field="productRole" />
+            <make-value value-field="productRole" entity-name="ProductRole" />
             <set field="productRole.productId" from-field="parameters.productId" />
                 <set field="productRole.partyId" value="${parameters.partyId}"/>
             <set field="productRole.roleTypeId" value="PRODUCT_OWNER"/>
@@ -1766,12 +1766,12 @@
                 <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
             </entity-one>
             <if-empty field="partyRoles">
-                <make-value entity-name="PartyRole" value-field="partyRole"/>
+                <make-value value-field="partyRole" entity-name="PartyRole"/>
                 <set field="partyRole.partyId" value="${companyId}"/>
                 <set field="partyRole.roleTypeId" value="PRODUCT_OWNER_COMP"/>
                 <create-value value-field="partyRole"/>
             </if-empty>
-            <make-value entity-name="ProductRole" value-field="productRole" />
+            <make-value value-field="productRole" entity-name="ProductRole" />
             <set field="productRole.productId" from-field="parameters.productId" />
             <set field="productRole.partyId" value="${companyId}"/>
             <set field="productRole.roleTypeId" value="PRODUCT_OWNER_COMP"/>
@@ -1828,7 +1828,7 @@
                             <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                         </entity-and>  
                         <if-empty field="partyRoleList">
-                            <make-value entity-name="PartyRole" value-field="partyRole"/>
+                            <make-value value-field="partyRole" entity-name="PartyRole"/>
                             <set field="partyRole.partyId" value="${companyId}"/>
                             <set field="partyRole.roleTypeId" value="PRODUCT_OWNER_COMP"/>
                             <create-value value-field="partyRole"/>
@@ -1836,7 +1836,7 @@
                         <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="formDate">
                             <field field="nowTimestamp" type="java.sql.Timestamp"/>
                         </call-class-method>
-                        <make-value entity-name="ProductRole" value-field="productRole" />
+                        <make-value value-field="productRole" entity-name="ProductRole" />
                         <set field="productRole.productId" from-field="parameters.productId" />
                         <set field="productRole.partyId" value="${companyId}"/>
                         <set field="productRole.roleTypeId" value="PRODUCT_OWNER_COMP"/>
@@ -1879,7 +1879,7 @@
                             <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                         </entity-and>
                         <if-empty field="productCompList">
-                            <make-value entity-name="ProductRole" value-field="productComp" />
+                            <make-value value-field="productComp" entity-name="ProductRole" />
                             <set field="productComp.productId" from-field="parameters.productId" />
                             <set field="productComp.partyId" value="${companyId}"/>
                             <set field="productComp.roleTypeId" value="PRODUCT_OWNER_COMP"/>
@@ -1954,7 +1954,7 @@
                 </call-class-method>
     
                 <if-not-empty field="parameters.noteInfo1">
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                     <sequenced-id sequence-name="NoteData" field="noteId"/>
                     <set field="noteData.noteId" from-field="noteId"/>
                     <set field="noteData.noteName" from-field="parameters.noteName1"/>
@@ -1963,16 +1963,16 @@
                     <set field="noteData.noteDateTime" from-field="noteDateTime" type="Timestamp"/>
                     <create-value value-field="noteData"/>
                     
-                    <make-value entity-name="WorkEffortNote" value-field="newWorkEffortNote"/>
+                    <make-value value-field="newWorkEffortNote" entity-name="WorkEffortNote"/>
                     <set from-field="noteId" field="newWorkEffortNote.noteId"/>
                     <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
                     <create-value value-field="newWorkEffortNote"/>
                     
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                 </if-not-empty>
                 
                 <if-not-empty field="parameters.noteInfo2">
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                     <sequenced-id sequence-name="NoteData" field="noteId"/>
                     <set field="noteData.noteId" from-field="noteId"/>
                     <set field="noteData.noteName" from-field="parameters.noteName2"/>
@@ -1981,16 +1981,16 @@
                     <set field="noteData.noteDateTime" from-field="noteDateTime" type="Timestamp"/>
                     <create-value value-field="noteData"/>
                     
-                    <make-value entity-name="WorkEffortNote" value-field="newWorkEffortNote"/>
+                    <make-value value-field="newWorkEffortNote" entity-name="WorkEffortNote"/>
                     <set from-field="noteId" field="newWorkEffortNote.noteId"/>
                     <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
                     <create-value value-field="newWorkEffortNote"/>
                     
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                 </if-not-empty>
                 
                 <if-not-empty field="parameters.noteInfo3">
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                     <sequenced-id sequence-name="NoteData" field="noteId"/>
                     <set field="noteData.noteId" from-field="noteId"/>
                     <set field="noteData.noteName" from-field="parameters.noteName3"/>
@@ -1999,12 +1999,12 @@
                     <set field="noteData.noteDateTime" from-field="noteDateTime" type="Timestamp"/>
                     <create-value value-field="noteData"/>
                     
-                    <make-value entity-name="WorkEffortNote" value-field="newWorkEffortNote"/>
+                    <make-value value-field="newWorkEffortNote" entity-name="WorkEffortNote"/>
                     <set from-field="noteId" field="newWorkEffortNote.noteId"/>
                     <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
                     <create-value value-field="newWorkEffortNote"/>
                     
-                    <make-value entity-name="NoteData" value-field="noteData"/>
+                    <make-value value-field="noteData" entity-name="NoteData"/>
                 </if-not-empty>
                 <field-to-request field="parameters.workEffortId" request-name="projectId"/>
             </then>
@@ -2176,7 +2176,7 @@
             <call-service service-name="createNote" in-map-name="newNoteMap">
                 <result-to-field result-name="noteId" field="noteId"/>
             </call-service>
-            <make-value entity-name="WorkEffortNote" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="WorkEffortNote"/>
             <set field="newEntity.workEffortId" from-field="parameters.workEffortId" />
             <set field="newEntity.noteId" from-field="noteId" />
             <set field="newEntity.internalNote" value="Y"/>
@@ -2392,7 +2392,7 @@
                             </if-compare>
                         </iterate>
                     </if-not-empty>
-                    <make-value entity-name="CustRequest" value-field="custRequestMap"/>
+                    <make-value value-field="custRequestMap" entity-name="CustRequest"/>
                     <set field="custRequestMap.custRequestId" from-field="formInput.formInput.custRequestId"/>
                     <set field="custRequestMap.custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
                     <store-value value-field="custRequestMap"/>
@@ -2653,7 +2653,7 @@
                    <result-to-field result-name="workEffortId"/>
                 </call-service>
                 <if-compare field="parameters.workEffortPurposeTypeId" operator="not-equals" value="SYSTEM_DEFAULT_TASK" >
-                    <make-value entity-name="WorkEffortGoodStandard" value-field="goodStandardMap"/>
+                    <make-value value-field="goodStandardMap" entity-name="WorkEffortGoodStandard"/>
                     <set field="goodStandardMap.workEffortId" from-field="workEffortId"/>
                     <set field="goodStandardMap.productId" from-field="parameters.productId"/>
                     <set field="goodStandardMap.workEffortGoodStdTypeId" value="SCRUM_PRO_WORKEFF"/>
@@ -2971,7 +2971,7 @@
             <call-service service-name="createNote" in-map-name="newNoteMap">
                 <result-to-field result-name="noteId" field="noteId"/>
             </call-service>
-            <make-value entity-name="CustRequestNote" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="CustRequestNote"/>
             <set field="newEntity.custRequestId" from-field="parameters.custRequestId" />
             <set field="newEntity.noteId" from-field="noteId" />
             <create-value value-field="newEntity"/>
@@ -3603,7 +3603,7 @@
                     <call-service service-name="createNote" in-map-name="newNoteMap">
                         <result-to-field result-name="noteId" field="noteId"/>
                     </call-service>
-                    <make-value entity-name="CustRequestNote" value-field="newEntity"/>
+                    <make-value value-field="newEntity" entity-name="CustRequestNote"/>
                     <set from-field="custRequestId" field="newEntity.custRequestId"/>
                     <set from-field="noteId" field="newEntity.noteId"/>
                     <log level="always" message=">>>>>>>>>>>>>>>>>> newEntity : ${newEntity}"></log>
@@ -4321,13 +4321,13 @@
                 <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
             </entity-and>  
             <if-empty field="partyRoleList">
-                <make-value entity-name="PartyRole" value-field="partyRole"/>
+                <make-value value-field="partyRole" entity-name="PartyRole"/>
                 <set field="partyRole.partyId" from-field="parameters.partyId"/>
                 <set field="partyRole.roleTypeId" from-field="parameters.roleTypeId"/>
                 <create-value value-field="partyRole"/>
             </if-empty>
             <now-timestamp field="nowTimestamp"/>
-            <make-value entity-name="ProductRole" value-field="productRoleMap" />
+            <make-value value-field="productRoleMap" entity-name="ProductRole" />
             <set field="productRoleMap.productId" from-field="parameters.productId" />
             <set field="productRoleMap.partyId" from-field="parameters.partyId"/>
             <set field="productRoleMap.roleTypeId" from-field="parameters.roleTypeId"/>

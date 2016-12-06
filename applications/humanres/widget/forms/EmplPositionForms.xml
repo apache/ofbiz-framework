@@ -277,26 +277,26 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="salaryFlag">
             <drop-down allow-empty="false" current="selected">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="exemptFlag">
             <drop-down allow-empty="false" current="selected">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="fulltimeFlag">
             <drop-down allow-empty="false" current="selected">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="temporaryFlag">
             <drop-down allow-empty="false" current="selected">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>

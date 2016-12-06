@@ -27,7 +27,7 @@ under the License.
         <set field="parameters.portalPageId" from-field="parameters.newPortalPageId"/>
         <call-simple-method method-name="copyIfRequiredSystemPage" xml-resource="component://common/minilang/PortalPageMethods.xml"/>
         <set field="parameters.newPortalPageId" from-field="portalPageId"/>
-        <make-value entity-name="PortalPagePortlet" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PortalPagePortlet"/>
         <set field="newEntity.portalPortletId" from-field="parameters.portalPortletId"/>
         <set field="newEntity.portalPageId" from-field="parameters.newPortalPageId"/>
         <set field="newEntity.columnNum" value="1"/>
@@ -99,7 +99,7 @@ under the License.
         <call-simple-method method-name="checkOwnerShip"/>
         <entity-one entity-name="PortalPagePortlet" value-field="portlet" auto-field-map="true"/>
         <if-not-empty field="portlet">
-            <make-value entity-name="PortletAttribute" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="PortletAttribute"/>
             <set field="newEntity.portalPageId" from-field="portlet.portalPageId"/>
             <set field="newEntity.portalPortletId" from-field="portlet.portalPortletId"/>
             <set field="newEntity.portletSeqId" from-field="portlet.portletSeqId"/>

@@ -82,7 +82,7 @@ under the License.
         </field>
         <field name="headAction" title="${uiLabelMap.FacilityShipmentDhlHeadAction}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentDhlHeadActionRequest}" description="Request"/>
+                <option key="Request" description="${uiLabelMap.FacilityShipmentDhlHeadActionRequest}"/>
             </drop-down>
         </field>
         <field name="accessUserId" title="${uiLabelMap.FacilityShipmentDhlAccessUserId}">
@@ -99,12 +99,12 @@ under the License.
         </field>
         <field name="labelImageFormat" title="${uiLabelMap.FacilityShipmentDhlLabelImageFormat}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentDhlLabelImageFormatPng}" description="PNG"/>
+                <option key="PNG" description="${uiLabelMap.FacilityShipmentDhlLabelImageFormatPng}"/>
             </drop-down>
         </field>
         <field name="rateEstimateTemplate" title="${uiLabelMap.FacilityShipmentDhlRateEstimate}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentDhlRateEstimate}" description="api.schema.DHL"/>
+                <option key="api.schema.DHL" description="${uiLabelMap.FacilityShipmentDhlRateEstimate}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -138,32 +138,32 @@ under the License.
         </field>
         <field name="labelImageType" title="${uiLabelMap.FacilityShipmentFedexLabelImageType}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentFedexLabelImageTypePdf}" description="PDF"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexLabelImageTypePng}" description="PNG"/>
+                <option key="PDF" description="${uiLabelMap.FacilityShipmentFedexLabelImageTypePdf}"/>
+                <option key="PNG" description="${uiLabelMap.FacilityShipmentFedexLabelImageTypePng}"/>
             </drop-down>
         </field>
         <field name="defaultDropoffType" title="${uiLabelMap.FacilityShipmentFedexDropoffType}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentFedexDropoffTypeRegularPickup}" description="REGULARPICKUP"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexDropoffTypeRequestCourier}" description="REQUESTCOURIER"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexDropoffTypeDropBox}" description="DROPBOX"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexDropoffTypeBusinessService}" description="BUSINESSSERVICECTR"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexDropoffTypeStation}" description="STATION"/>
+                <option key="REGULARPICKUP" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeRegularPickup}"/>
+                <option key="REQUESTCOURIER" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeRequestCourier}"/>
+                <option key="DROPBOX" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeDropBox}"/>
+                <option key="BUSINESSSERVICECTR" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeBusinessService}"/>
+                <option key="STATION" description="${uiLabelMap.FacilityShipmentFedexDropoffTypeStation}"/>
             </drop-down>
         </field>
         <field name="defaultPackagingType" title="${uiLabelMap.FacilityShipmentFedexPackingType}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingEnveloper}" description="FXENV"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingEnveloperLegal}" description="FXENV_LGL"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingPakSmall}" description="FXPAK_SM"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingPakLarge}" description="FXPAK_LRG"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingBoxSmall}" description="FXBOX_SM"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingBoxMedium}" description="FXBOX_MED"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingBoxLarge}" description="FXBOX_LRG"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingTube}" description="FXTUBE"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingBox10Kg}" description="FX10KGBOX"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingBox25Kg}" description="FX25KGBOX"/>
-                <option key="${uiLabelMap.FacilityShipmentFedexPackingYour}" description="YOURPACKNG"/>
+                <option key="FXENV" description="${uiLabelMap.FacilityShipmentFedexPackingEnveloper}"/>
+                <option key="FXENV_LGL" description="${uiLabelMap.FacilityShipmentFedexPackingEnveloperLegal}"/>
+                <option key="FXPAK_SM" description="${uiLabelMap.FacilityShipmentFedexPackingPakSmall}"/>
+                <option key="FXPAK_LRG" description="${uiLabelMap.FacilityShipmentFedexPackingPakLarge}"/>
+                <option key="FXBOX_SM" description="${uiLabelMap.FacilityShipmentFedexPackingBoxSmall}"/>
+                <option key="FXBOX_MED" description="${uiLabelMap.FacilityShipmentFedexPackingBoxMedium}"/>
+                <option key="FXBOX_LRG" description="${uiLabelMap.FacilityShipmentFedexPackingBoxLarge}"/>
+                <option key="FXTUBE" description="${uiLabelMap.FacilityShipmentFedexPackingTube}"/>
+                <option key="FX10KGBOX" description="${uiLabelMap.FacilityShipmentFedexPackingBox10Kg}"/>
+                <option key="FX25KGBOX" description="${uiLabelMap.FacilityShipmentFedexPackingBox25Kg}"/>
+                <option key="YOURPACKNG" description="${uiLabelMap.FacilityShipmentFedexPackingYour}"/>
             </drop-down>
         </field>
         <field name="templateShipment" title="${uiLabelMap.FacilityShipmentFedexShipmentTemplateLocation}">
@@ -206,8 +206,8 @@ under the License.
         </field>
         <field name="saveCertInfo" title="${uiLabelMap.FacilityShipmentUpsSaveCertInfo}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="saveCertPath" title="${uiLabelMap.FacilityShipmentUpsSaveCertPath}">
@@ -215,20 +215,20 @@ under the License.
         </field>
         <field name="shipperPickupType" title="${uiLabelMap.FacilityShipmentUpsShipperPickupType}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupDaily}" description="01"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupCustomerCounter}" description="03"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupOneTime}" description="06"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupOnCallAir}" description="07"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupSuggestedRetailRates}" description="11"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupLetterCenter}" description="19"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsPickupAirServiceCenter}" description="20"/>
+                <option key="01" description="${uiLabelMap.FacilityShipmentUpsPickupDaily}"/>
+                <option key="03" description="${uiLabelMap.FacilityShipmentUpsPickupCustomerCounter}"/>
+                <option key="06" description="${uiLabelMap.FacilityShipmentUpsPickupOneTime}"/>
+                <option key="07" description="${uiLabelMap.FacilityShipmentUpsPickupOnCallAir}"/>
+                <option key="11" description="${uiLabelMap.FacilityShipmentUpsPickupSuggestedRetailRates}"/>
+                <option key="19" description="${uiLabelMap.FacilityShipmentUpsPickupLetterCenter}"/>
+                <option key="20" description="${uiLabelMap.FacilityShipmentUpsPickupAirServiceCenter}"/>
             </drop-down>
         </field>
         <field name="customerClassification" title="${uiLabelMap.FacilityShipmentUpsCustomerClassification}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentUpsCustomerClassificationWholesale}" description="01"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsCustomerClassificationOccasional}" description="03"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsCustomerClassificationRetail}" description="04"/>
+                <option key="01" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationWholesale}"/>
+                <option key="03" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationOccasional}"/>
+                <option key="04" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationRetail}"/>
             </drop-down>
         </field>
         <field name="maxEstimateWeight" title="${uiLabelMap.FacilityShipmentUpsMaxEstimateWeight}">
@@ -239,8 +239,8 @@ under the License.
         </field>
         <field name="codAllowCod" title="${uiLabelMap.FacilityShipmentUpsAllowCod}">
             <drop-down>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
         </field>
         <field name="codSurchargeAmount" title="${uiLabelMap.FacilityShipmentUpsSurchargeAmount}">
@@ -251,16 +251,16 @@ under the License.
         </field>
         <field name="codSurchargeApplyToPackage" title="${uiLabelMap.FacilityShipmentUpsSurchargeApplyToPackage}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentUpsSurchargeAll}" description="all"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsSurchargeFirst}" description="first"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsSurchargeSplit}" description="split"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsSurchargeNone}" description="none"/>
+                <option key="all" description="${uiLabelMap.FacilityShipmentUpsSurchargeAll}"/>
+                <option key="first" description="${uiLabelMap.FacilityShipmentUpsSurchargeFirst}"/>
+                <option key="split" description="${uiLabelMap.FacilityShipmentUpsSurchargeSplit}"/>
+                <option key="none" description="${uiLabelMap.FacilityShipmentUpsSurchargeNone}"/>
             </drop-down>
         </field>
         <field name="codFundsCode" title="${uiLabelMap.FacilityShipmentUpsFundsCode}">
             <drop-down>
-                <option key="${uiLabelMap.FacilityShipmentUpsUnsecuredFundsAllowed}" description="0"/>
-                <option key="${uiLabelMap.FacilityShipmentUpsSecuredFundsOnly}" description="8"/>
+                <option key="0" description="${uiLabelMap.FacilityShipmentUpsUnsecuredFundsAllowed}"/>
+                <option key="8" description="${uiLabelMap.FacilityShipmentUpsSecuredFundsOnly}"/>
             </drop-down>
         </field>
         <field name="defaultReturnLabelMemo" title="${uiLabelMap.FacilityShipmentUpsDefaultReturnLabelMemo}">
@@ -294,8 +294,8 @@ under the License.
         </field>
         <field name="test" title="${uiLabelMap.FacilityShipmentUspsTestMode}">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -343,8 +343,8 @@ under the License.
         </field>
         <field name="hasTable">
             <drop-down>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">

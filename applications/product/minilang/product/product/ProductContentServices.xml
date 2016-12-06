@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductContent -->
     <simple-method method-name="createProductContent" short-description="Create Content For Product">
-        <make-value entity-name="ProductContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -41,7 +41,7 @@ under the License.
         <field-to-result field="newEntity.productContentTypeId" result-name="productContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateProductContent" short-description="Update Content For Product">
-        <make-value entity-name="ProductContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -51,7 +51,7 @@ under the License.
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeProductContent" short-description="Remove Content From Product">
-        <make-value entity-name="ProductContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>

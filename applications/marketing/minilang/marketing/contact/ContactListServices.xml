@@ -401,7 +401,7 @@ under the License.
             <field-map field-name="fromDate" from-field="parameters.fromDate"/>
         </entity-and>
         <if-empty field="webSiteContactList">
-            <make-value entity-name="WebSiteContactList" value-field="webSiteContactList"/>
+            <make-value value-field="webSiteContactList" entity-name="WebSiteContactList"/>
             <set-pk-fields value-field="webSiteContactList" map="parameters"/>
             <set-nonpk-fields map="parameters" value-field="webSiteContactList"/>
             <create-value value-field="webSiteContactList"/>

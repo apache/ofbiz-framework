@@ -28,16 +28,16 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
         <field name="reportBy" title="${uiLabelMap.BirtOrderReportReportBy}">
             <drop-down>
-                <option key="${uiLabelMap.CommonDays}" description="day"></option>
-                <option key="${uiLabelMap.CommonWeeks}" description="week"></option>
-                <option key="${uiLabelMap.CommonMonths}" description="month"></option>
+                <option key="day" description="${uiLabelMap.CommonDays}"></option>
+                <option key="week" description="${uiLabelMap.CommonWeeks}"></option>
+                <option key="month" description="${uiLabelMap.CommonMonths}"></option>
             </drop-down>
         </field>
         <field name="exportType" title="${uiLabelMap.BirtOrderReportFormatType}">
             <drop-down>
-                <option key="PDF" description="pdf"></option>
-                <option key="Excel" description="excel"></option>
-                <option key="HTML" description="html"></option>
+                <option key="pdf" description="PDF"></option>
+                <option key="excel" description="Excel"></option>
+                <option key="html" description="HTML"></option>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>

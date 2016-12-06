@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Shipment services -->
     <simple-method method-name="createShipment" short-description="Create Shipment">
-        <make-value entity-name="Shipment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Shipment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-not-empty field="parameters.shipmentId">
@@ -115,7 +115,7 @@ under the License.
         <set value="Update Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
 
-        <make-value entity-name="Shipment" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Shipment"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
@@ -821,7 +821,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
@@ -834,7 +834,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -856,7 +856,7 @@ under the License.
             </add-error>
             <check-errors/>
         <else>
-            <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
+            <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
             <set-pk-fields map="parameters" value-field="lookupPKMap"/>
             <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
             <remove-value value-field="lookedUpValue"/>
@@ -949,7 +949,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackage" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -974,7 +974,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusShipped"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackage" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1033,7 +1033,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1045,7 +1045,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1056,7 +1056,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -1065,7 +1065,7 @@ under the License.
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
-        <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <find-by-primary-key value-field="shipmentPackageContent" map="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
@@ -1090,7 +1090,7 @@ under the License.
 
     <!-- ShipmentPackageRouteSeg services -->
     <simple-method method-name="createShipmentPackageRouteSeg" short-description="Create ShipmentPackageRouteSeg">
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1101,7 +1101,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -1113,7 +1113,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentRouteSegment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentRouteSegment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1231,7 +1231,7 @@ under the License.
 
     <!-- shipment method type services -->
     <simple-method method-name="createCarrierShipmentMethod" short-description="Creates a CarrierShipmentMethod">
-        <make-value entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
+        <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
         <set-pk-fields map="parameters" value-field="carrierShipmentMethod"/>
         <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
         <create-value value-field="carrierShipmentMethod"/>
@@ -1242,7 +1242,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
-        <make-value entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
+        <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
         <set-pk-fields map="parameters" value-field="shipmentMethodType"/>
         <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
         <create-value value-field="shipmentMethodType"/>
@@ -2015,7 +2015,7 @@ under the License.
     <!-- QuantityBreak services -->
     <!-- create a new QuantityBreak -->
     <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
-        <make-value entity-name="QuantityBreak" value-field="quantityBreak"/>
+        <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
         <create-value value-field="quantityBreak"/>

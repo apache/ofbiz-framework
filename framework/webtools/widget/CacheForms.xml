@@ -68,8 +68,8 @@ under the License.
         <field name="UTIL_CACHE_EXPIRE_TIME" entry-name="expireTime" title="${uiLabelMap.WebtoolsExpireTime}"><text/></field>
         <field name="UTIL_CACHE_USE_SOFT_REFERENCE" entry-name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}">
             <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonFalse}" description="false"/>
-                <option key="${uiLabelMap.CommonTrue}" description="true"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>

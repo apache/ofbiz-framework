@@ -501,8 +501,8 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ScrumProjectName}"><text/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" map-name="workEffAttMap">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="currentStatusId" use-when="workEffortId==null"><hidden value="SPJ_ACTIVE"/></field>
@@ -697,14 +697,14 @@ under the License.
         <field name="custSequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" use-when="custRequest==null">
             <drop-down allow-empty="false" no-current-selected-key="Y">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" use-when="custRequest!=null&amp;&amp;isTeamMember==false&amp;&amp;projectBilled==null">
             <drop-down allow-empty="false" no-current-selected-key="Y">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" use-when="custRequest!=null&amp;&amp;isTeamMember==false&amp;&amp;projectBilled!=null" tooltip="${uiLabelMap.ScrumSetOnProjectLevel}">
@@ -713,8 +713,8 @@ under the License.
         <field name="billed" title="${uiLabelMap.ScrumBilled}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumUnplanBacklog}" use-when="isTeamMember==false">
             <drop-down allow-empty="false" no-current-selected-key="N">
-                <option key="${uiLabelMap.CommonY}" description="RF_UNPLAN_BACKLOG"/>
-                <option key="${uiLabelMap.CommonN}" description="RF_PROD_BACKLOG"/>
+                <option key="RF_UNPLAN_BACKLOG" description="${uiLabelMap.CommonY}"/>
+                <option key="RF_PROD_BACKLOG" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumUnplanBacklog}" use-when="custRequest!=null&amp;&amp;isTeamMember==true">
@@ -722,8 +722,8 @@ under the License.
         </field>
         <field name="unplannedFlag" title="${uiLabelMap.ScrumUnplanBacklog}" use-when="custRequest==null">
             <drop-down allow-empty="false" no-current-selected-key="N">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="custRequest!=null">
@@ -806,14 +806,14 @@ under the License.
         </field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" position="2">
             <drop-down allow-empty="true" current-description="" >
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumPlanned}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="RF_PROD_BACKLOG"/>
-                <option key="${uiLabelMap.CommonN}" description="RF_UNPLAN_BACKLOG"/>
+                <option key="RF_PROD_BACKLOG" description="${uiLabelMap.CommonY}"/>
+                <option key="RF_UNPLAN_BACKLOG" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
@@ -863,14 +863,14 @@ under the License.
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumPlanned}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="RF_PROD_BACKLOG"/>
-                <option key="${uiLabelMap.CommonN}" description="RF_UNPLAN_BACKLOG"/>
+                <option key="RF_PROD_BACKLOG" description="${uiLabelMap.CommonY}"/>
+                <option key="RF_UNPLAN_BACKLOG" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" position="2">
             <drop-down allow-empty="true" current-description="" >
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
@@ -1471,7 +1471,7 @@ under the License.
         </field>
          <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} - ${uiLabelMap.ScrumProductName}" event="onchange" action="javascript:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent!=null">
             <drop-down allow-empty="false" current-description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}" >
-                <option key="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}" description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}(${companyCurrentList[0].partyId})"/>
+                <option key="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}(${companyCurrentList[0].partyId})" description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}"/>
                 <option key="" description=""/>
                 <list-options list-name="scrumRolesPersonAndCompanyList" description="${groupName}[${partyIdFrom}] - ${lastName} ${firstName} ${middleName}" key-name="partyId"/>
             </drop-down>
@@ -1686,7 +1686,7 @@ under the License.
             <field name="internalName" title="${uiLabelMap.ScrumProductName}"><text/></field>
             <field name="statusId" parameter-name="statusId">
                 <drop-down allow-empty="false">
-                    <option key="${uiLabelMap.CommonAny}" description="Any"/>
+                    <option key="Any" description="${uiLabelMap.CommonAny}"/>
                     <entity-options entity-name="StatusItem">
                         <entity-constraint name="statusTypeId" operator="equals" value="PRODUCT_STATUS"/>
                     </entity-options>
@@ -1812,8 +1812,8 @@ under the License.
         <field name="backlogId" parameter-name="custRequestId" use-when="${groovy:showPosition1==false}"><hidden value="${custRequestId}"/></field>
         <field name="billed" position="1" use-when="${groovy:showPosition1==true}" title="${uiLabelMap.ScrumBilled}">
             <drop-down allow-empty="true">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="dummy1" title=" " position="1" use-when="${groovy:showPosition1==true}"><display description=" "/></field>
@@ -1853,8 +1853,8 @@ under the License.
         </field>
         <field name="reCreate" position="1" title="${uiLabelMap.ScrumRecreateInvoice}: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
             <drop-down no-current-selected-key="N">
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
            </field>
         <field name="invoiceDate" title="${uiLabelMap.ScrumInvoiceDate}" use-when="context.get(&quot;invoiceId&quot;)!=null"><date-time type="date"></date-time></field>
@@ -2826,15 +2826,15 @@ under the License.
         <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true"><text size="50" maxlength="255"/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}">
             <drop-down allow-empty="false" no-current-selected-key="Y">
-                <option key="${uiLabelMap.CommonY}" description="Y"/>
-                <option key="${uiLabelMap.CommonN}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="unplanned" title="${uiLabelMap.ScrumUnplanBacklog}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();" required-field="true">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectOne} -"/>
-                <option key="${uiLabelMap.CommonYes}" description="Y"/>
-                <option key="${uiLabelMap.CommonNo}" description="N"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ScrumProductName}" use-when="${groovy: unplanned.equals(&quot;Y&quot;)}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();"
