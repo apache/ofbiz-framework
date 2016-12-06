@@ -149,22 +149,6 @@ dependencies {
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.6.2' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
-    /* TODO We suspect that all the below dependencies are not needed and can be
-     * deleted from this file. They used to be compile time dependencies and we
-     * converted them to runtime and OFBiz seems to operate normally without them.
-     * We are keeping them until thorough testing is done to ensure correct
-     * operation without these libraries.
-     */
-    runtime 'apache-xerces:resolver:2.9.1'
-    runtime 'commons-el:commons-el:1.0'
-    runtime 'net.sf.dozer:dozer:4.2.1'
-    runtime 'org.apache.axis2:axis2-adb:1.7.1'
-    runtime 'org.apache.httpcomponents:httpcore:4.4.1'
-    runtime 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.xpp3:1.1.4c_7'
-    runtime 'org.apache.tomcat.extras:tomcat-extras-juli-adapters:8.0.39'
-    runtime 'org.apache.xalan:com.springsource.org.apache.xml.serializer:2.7.1'
-    runtime 'ws-commons-java5:ws-commons-java5:1.0.1'
-
     // plugin libs
     subprojects.each { subProject ->
         compile project(path: subProject.path, configuration: 'pluginLibsCompile')
