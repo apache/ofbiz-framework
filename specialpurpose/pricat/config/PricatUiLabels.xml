@@ -395,22 +395,6 @@ under the License.
         <value xml:lang="en">Sheet {0} has only 1 row.</value>
         <value xml:lang="zh">表单{0}只有一行数据。</value>
     </property>
-    <property key="ExcelTableNoRow">
-        <value xml:lang="en">There's no row in sheet {0}.</value>
-        <value xml:lang="zh">表单{0}中没有数据。</value>
-    </property>
-    <property key="ExcelTableColumnNumberNotMatch">
-        <value xml:lang="en">The sheet has {0} columns, it's not the same as sample sheet's {1}.</value>
-        <value xml:lang="zh">表单有{0}列，与样例表单的{1}列不同。</value>
-    </property>
-    <property key="ExcelTableColumnNotMatch">
-        <value xml:lang="en">The column {0} has a name {1}, it's not identical to {2}.</value>
-        <value xml:lang="zh">列{0}的名字是{1}，应是{2}。</value>
-    </property>
-    <property key="ExcelParsingRow">
-        <value xml:lang="en">({0}) parsing {1} ...</value>
-        <value xml:lang="zh">({0}) 正在解析 {1} ...</value>
-    </property>
     <property key="ParseExcelEncoding">
         <value xml:lang="en">  Using {0} to parsing the excel file.</value>
         <value xml:lang="zh">  正在使用{0}解析Excel文件。</value>
