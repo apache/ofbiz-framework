@@ -46,15 +46,11 @@ public class HashCrypt {
     public static final String module = HashCrypt.class.getName();
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
-    private static final String PBKDF2_SHA1 ="pbkdf2_sha1";
-    
-    private static final String PBKDF2_SHA256 ="pbkdf2_sha256"; 
-    
-    private static final String PBKDF2_SHA384 ="pbkdf2_sha384";
-    
-    private static final String PBKDF2_SHA512 ="pbkdf2_sha512";
-
-    private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 1000);
+    private static final String PBKDF2_SHA1 ="PBKDF2-SHA1";
+    private static final String PBKDF2_SHA256 ="PBKDF2-SHA256"; 
+    private static final String PBKDF2_SHA384 ="PBKDF2-SHA384";
+    private static final String PBKDF2_SHA512 ="PBKDF2-SHA512";
+    private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 10000);
     
     public static MessageDigest getMessageDigest(String type) {
         try {
@@ -65,13 +61,13 @@ public class HashCrypt {
     }
 
     public static boolean comparePassword(String crypted, String defaultCrypt, String password) {
-        if (crypted.startsWith("{")) {
+    	if (crypted.startsWith("{PBKDF2")) {
+            return doComparePbkdf2(crypted, password);
+    	} else if (crypted.startsWith("{")) {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
         } else if (crypted.startsWith("$")) {
             return doComparePosix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
-        } else if (crypted.startsWith("pbkdf2")) {
-            return doComparePbkdf2(crypted, password);
         } else {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareBare(crypted, defaultCrypt, password.getBytes());
@@ -194,7 +190,12 @@ public class HashCrypt {
                 default: 
                     pbkdf2Type = PBKDF2_SHA1; 
             }
-            return pbkdf2Type + "$" + PBKDF2_ITERATIONS + "$" + salt + "$" + new String(hash);
+            StringBuilder sb = new StringBuilder();
+            sb.append("{").append(pbkdf2Type).append("}");
+            sb.append(PBKDF2_ITERATIONS).append("$");
+            sb.append(org.apache.ofbiz.base.util.Base64.base64Encode(salt)).append("$");
+            sb.append(new String(hash)).toString();
+            return sb.toString();
         } catch (InvalidKeySpecException e) {
             throw new GeneralRuntimeException("Error while creating SecretKey", e);
         } catch (NoSuchAlgorithmException e) {
@@ -202,24 +203,24 @@ public class HashCrypt {
         }
     }
     
-    public static boolean doComparePbkdf2(String storedPassword, String originalPassword){
+    public static boolean doComparePbkdf2(String crypted, String password){
         try {
-            String[] parts = storedPassword.split("\\$");
-            String hashHead = parts[0];
-            int iterations = Integer.parseInt(parts[1]);
-            byte[] salt = parts[2].getBytes();
-            byte[] hash = Base64.decodeBase64(parts[3].getBytes());
+        	int typeEnd = crypted.indexOf("}");
+            String hashType = crypted.substring(1, typeEnd);
+            String[] parts = crypted.split("\\$");
+            int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
+            byte[] salt = org.apache.ofbiz.base.util.Base64.base64Decode(parts[1]).getBytes();
+            byte[] hash = Base64.decodeBase64(parts[2].getBytes());
             
-            PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
-            String hashType = null;
-            switch (hashHead.substring(hashHead.indexOf("_")+4)) {
-                case "256":
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
+            switch (hashType.substring(hashType.indexOf("-")+1)) {
+                case "SHA256":
                     hashType = "PBKDF2WithHmacSHA256";
                     break;
-                case "384":
+                case "SHA384":
                     hashType = "PBKDF2WithHmacSHA384";
                     break;
-                case "512":
+                case "SHA512":
                     hashType = "PBKDF2WithHmacSHA512";
                     break;
                 default:  
