@@ -167,6 +167,12 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
+        <entity-one entity-name="Product" value-field="dummyProduct">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+        </entity-one>
+        <if-not-empty field="dummyProduct">
+            <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDuplicateKey" /></add-error>
+        </if-not-empty>
         <check-errors/>
 
         <!-- look up the old product and clone it -->
