@@ -638,7 +638,7 @@ public class EntityPermissionChecker {
             if (idx1 == 0) {
                 String roleOp1 = roleOp.substring(4); // lop off "HAS_"
                 int idx2 = roleOp1.indexOf("_ROLE");
-                if (idx2 == (roleOp1.length() - 5)) {
+                if (idx2 == roleOp1.length() - 5) {
                     String roleOp2 = roleOp1.substring(0, roleOp1.indexOf("_ROLE") - 1); // lop off "_ROLE"
                     //if (Debug.infoOn()) Debug.logInfo("roleOp2:" + roleOp2, module);
                     newHasRoleList.add(roleOp2);
