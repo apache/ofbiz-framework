@@ -49,7 +49,7 @@ public class ContainerLoader implements StartupLoader {
     private final List<Container> loadedContainers = new LinkedList<Container>();
 
     /**
-     * @see org.apache.ofbiz.base.start.StartupLoader#load(Config, String[])
+     * @see org.apache.ofbiz.base.start.StartupLoader#load(Config, List<StartupCommand>[])
      */
     @Override
     public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {

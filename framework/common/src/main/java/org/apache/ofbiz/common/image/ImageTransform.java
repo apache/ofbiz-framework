@@ -63,7 +63,7 @@ public class ImageTransform {
      * @param   fileLocation    Full file Path or URL
      * @return  URL images for all different size types
      * @throws  IOException Error prevents the document from being fully parsed
-     * @throws  JDOMException Errors occur in parsing
+     * @throws  IllegalArgumentException Errors occur in parsing
      */
     public static  Map<String, Object> getBufferedImage(String fileLocation, Locale locale)
         throws IllegalArgumentException, IOException {
