@@ -314,7 +314,7 @@ public final class ModelUtil {
      * Check is a ModelEntity have a default resource associate to resolve localized value
      * When the ModelEntity is a ModelViewEntity, check with the list fields to resolve these related entities
      * @param modelEntity
-     * @param fieldName
+     * @param fieldNames
      * @return
      */
     public static boolean isPotentialLocalizedFields(ModelEntity modelEntity, List<String> fieldNames) {

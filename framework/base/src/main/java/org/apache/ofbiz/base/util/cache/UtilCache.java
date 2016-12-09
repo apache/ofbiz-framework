@@ -111,7 +111,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     /** Constructor which specifies the cacheName as well as the sizeLimit, expireTime and useSoftReference.
      * The passed sizeLimit, expireTime and useSoftReference will be overridden by values from cache.properties if found.
      * @param sizeLimit The sizeLimit member is set to this value
-     * @param expireTime The expireTime member is set to this value
+     * @param expireTimeMillis The expireTime member is set to this value
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */

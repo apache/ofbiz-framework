@@ -104,7 +104,7 @@ public class EntityQuery {
      * Note that the select methods are not additive, if a subsequent 
      * call is made to select then the existing fields for selection 
      * will be replaced.
-     * @param fieldsToSelect - Strings containing the field names to be selected
+     * @param fields - Strings containing the field names to be selected
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery select(String...fields) {
@@ -157,7 +157,7 @@ public class EntityQuery {
     /** Set a series of field name/values to be ANDed together as the WHERE clause for the query
      * 
      * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
-     * @param fieldMap - A series of field names/values to be ANDed together as the where clause for the query
+     * @param fields - A series of field names/values to be ANDed together as the where clause for the query
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery where(Object...fields) {
@@ -179,7 +179,7 @@ public class EntityQuery {
     /** Set a list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * 
      * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
-     * @param fieldMap - A list of EntityCondition objects to be ANDed together as the WHERE clause for the query
+     * @param andConditions - A list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * @return this EntityQuery object, to enable chaining
      */
     public <T extends EntityCondition> EntityQuery where(List<T> andConditions) {
@@ -214,7 +214,7 @@ public class EntityQuery {
     /** The fields of the named entity to order the resultset by; optionally add a " ASC" for ascending or " DESC" for descending
      * 
      * NOTE: Each successive call to any of the orderBy(...) methods will replace the currently set orderBy fields for the query.
-     * @param orderBy - The fields of the named entity to order the resultset by
+     * @param fields - The fields of the named entity to order the resultset by
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery orderBy(String...fields) {
@@ -349,7 +349,7 @@ public class EntityQuery {
 
     /** Specifies whether the query should return only values that are currently active using the specified from/thru field name pairs.
      * 
-     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(String... filterByFieldName) {
@@ -359,7 +359,7 @@ public class EntityQuery {
     /** Specifies whether the query should return only values that are active during the specified moment using the specified from/thru field name pairs.
      * 
      * @param moment - Timestamp representing the moment in time that the values should be active during
-     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(Timestamp moment, String... filterByFieldName) {

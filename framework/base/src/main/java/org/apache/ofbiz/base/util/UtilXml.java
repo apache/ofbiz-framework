@@ -1148,7 +1148,7 @@ public final class UtilXml {
     
     /**
      * get tag name without any prefix
-     * @param node
+     * @param element
      * @return
      */
     public static String getTagNameIgnorePrefix(Element element){
@@ -1163,7 +1163,7 @@ public final class UtilXml {
     
     /**
      * get attribute value ignoring prefix in attribute name
-     * @param node
+     * @param element
      * @return
      */
     public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
