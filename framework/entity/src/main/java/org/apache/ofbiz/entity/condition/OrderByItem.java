@@ -159,11 +159,10 @@ public class OrderByItem implements Comparator<GenericEntity> {
         if (value1 == null) {
             result = value2 == null ? 0 : 1;
         } else if (value2 == null) {
-            result = value1 == null ? 0 : -1;
+            result = -1;
         } else {
             result = value1.compareTo(value2);
         }
-        // if (Debug.infoOn()) Debug.logInfo("[OrderByComparator.compareAsc] Result is " + result + " for [" + value + "] and [" + value2 + "]", module);
         return descending ? -result : result;
     }
 
