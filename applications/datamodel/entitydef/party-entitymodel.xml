@@ -3056,7 +3056,7 @@ under the License.
         </view-link>
     </view-entity>
     
-    <view-entity entity-name="PartyClassificationGroupAndType" package-name="org.ofbiz.party.party" title="PartyClassificationGroup and PartyClassificationTypeView">
+    <view-entity entity-name="PartyClassificationGroupAndType" package-name="org.apache.ofbiz.party.party" title="PartyClassificationGroup and PartyClassificationTypeView">
         <member-entity entity-alias="PCG" entity-name="PartyClassificationGroup"/>
         <member-entity entity-alias="PCT" entity-name="PartyClassificationType"/>
         <alias-all entity-alias="PCG"/>
