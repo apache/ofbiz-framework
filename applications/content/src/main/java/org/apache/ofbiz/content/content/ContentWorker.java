@@ -31,10 +31,9 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -61,6 +60,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -343,7 +343,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 || rendered.contains("<div")
                 || rendered.contains("<style>")
                 || rendered.contains("<span")
-                || rendered.contains("<input")
                 || rendered.contains("<input")
                 || rendered.contains("<iframe")
                 || rendered.contains("<a"))) {
