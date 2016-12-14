@@ -76,7 +76,7 @@ import org.w3c.dom.Element;
  * </li>
  * </ul>
  * </p>
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-The{{%3Csimplemethod%3E}}element">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
 

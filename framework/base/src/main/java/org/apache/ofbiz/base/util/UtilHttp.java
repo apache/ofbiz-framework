@@ -1216,9 +1216,13 @@ public final class UtilHttp {
      * the composite according to compositeType. For example, consider the following
      * form widget field,
      *
-     *   <field name="meetingDate">
+     * <pre>
+     * {@code
+     * <field name="meetingDate">
      *     <date-time type="timestamp" input-method="time-dropdown">
-     *   </field>
+     * </field>
+     * }
+     * </pre>
      *
      * The result in HTML is three input boxes to input the date, hour and minutes separately.
      * The parameter names are named meetingDate_c_date, meetingDate_c_hour, meetingDate_c_minutes.

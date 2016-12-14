@@ -88,14 +88,21 @@ public class ProposedOrder {
     }
     /**
      * calculate the ProposedOrder requirementStartDate and update the requirementStartDate property.
-     * <li>For the build product, <ul>
-     *         <li>read the routing associated to the product,
-     *         <li>read the routingTask associated to the routing
-     *         <li> step by step calculate from the endDate the startDate</ul>
-     * <li>For the bought product, the first ProductFacility.daysToShip is used to calculated the startDate
-     * @return <ul>
-     * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.
-     * <li>else null.
+     * <ul>
+     *   <li>For the build product,
+     *     <ul>
+     *       <li>read the routing associated to the product,</li>
+     *       <li>read the routingTask associated to the routing</li>
+     *       <li> step by step calculate from the endDate the startDate</li>
+     *     </ul>
+     *   </li>
+     *   <li>For the bought product, the first ProductFacility.daysToShip is used to calculated the startDate</li>
+     * </ul>
+     * @return
+     * <ul> 
+     * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.</li>
+     * <li>else null.</li>
+     * </ul>
      **/
     public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
         Map<String, Object> result = null;
@@ -191,7 +198,7 @@ public class ProposedOrder {
 
     /**
      * calculate the ProposedOrder quantity and update the quantity property.
-     * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity < reorderQuantity) quantity = reorderQuantity;
+     * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity &lt; reorderQuantity) quantity = reorderQuantity;
      **/
     // FIXME: facilityId
     public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator<GenericValue>  listIterIEP) {

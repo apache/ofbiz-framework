@@ -65,12 +65,8 @@ public abstract class AbstractHtmlReport extends HtmlReport {
     }
     
     /**
-     * Prepare display an html report.<p>
+     * Prepare display an html report.
      * 
-     * @throws JspException if dialog actions fail
-     * @throws IOException 
-     * @throws ServletException 
-     * @throws TemplateException 
      * @throws IOException 
      */
     public void prepareDisplayReport(HttpServletRequest request, HttpServletResponse response, String name, String dialogUri) throws IOException {

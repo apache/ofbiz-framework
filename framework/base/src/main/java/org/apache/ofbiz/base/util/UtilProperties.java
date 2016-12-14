@@ -871,23 +871,26 @@ public final class UtilProperties implements Serializable {
         return propertiesNotFound.contains(createResourceName(resource, locale, removeExtension));
     }
 
-    /** Resolve a properties file URL.
-     * <p>This method uses the following strategy:<br />
+    /** 
+     * Resolve a properties file URL.
+     * <p>This method uses the following strategy:</p>
      * <ul>
-     * <li>Locate the XML file specified in <code>resource (MyProps.xml)</code></li>
-     * <li>Locate the file that starts with the name specified in
-     * <code>resource</code> and ends with the locale's string and
-     * <code>.xml (MyProps_en.xml)</code></li>
-     * <li>Locate the file that starts with the name specified in
-     * <code>resource</code> and ends with the locale's string and
-     * <code>.properties (MyProps_en.properties)</code></li>
-     * <li>Locate the file that starts with the name specified in
-     * <code>resource and ends with the locale's string (MyProps_en)</code></li>
+     *   <li>Locate the XML file specified in <code>resource (MyProps.xml)</code></li>
+     *   <li>Locate the file that starts with the name specified in
+     *     <code>resource</code> and ends with the locale's string and
+     *     <code>.xml (MyProps_en.xml)</code>
+     *   </li>
+     *   <li>Locate the file that starts with the name specified in
+     *     <code>resource</code> and ends with the locale's string and
+     *     <code>.properties (MyProps_en.properties)</code>
+     *   </li>
+     *   <li>Locate the file that starts with the name specified in
+     *     <code>resource and ends with the locale's string (MyProps_en)</code>
+     *   </li>
      * </ul>
-     * <br />
+     *
      * The <code>component://</code> protocol is supported in the
      * <code>resource</code> parameter.
-     * </p>
      *
      * @param resource The resource to resolve
      * @param locale The desired locale
@@ -961,22 +964,25 @@ public final class UtilProperties implements Serializable {
         return null;
     }
 
-    /** Convert XML property file to Properties instance. This method will convert
+    /** 
+     * Convert XML property file to Properties instance. This method will convert
      * both the Java XML properties file format and the OFBiz custom XML
      * properties file format.
-     * <p>
-     * The format of the custom XML properties file is:<br />
-     * <br />
-     * <code>
-     * &lt;resource&gt;<br />
-     * &nbsp;&lt;property key="key"&gt;<br />
-     * &nbsp;&nbsp;&lt;value xml:lang="locale 1"&gt;Some value&lt;/value&gt<br />
-     * &nbsp;&nbsp;&lt;value xml:lang="locale 2"&gt;Some value&lt;/value&gt<br />
-     * &nbsp;&nbsp;...<br />
-     * &nbsp;&lt;/property&gt;<br />
-     * &nbsp;...<br />
-     * &lt;/resource&gt;<br /><br /></code> where <em>"locale 1", "locale 2"</em> are valid xml:lang values..
-     * </p>
+     *
+     * <p>The format of the custom XML properties file is:</p>
+     * <pre>
+     * {@code
+     * <resource>
+     *     <property key="key">
+     *     <value xml:lang="locale 1">Some value</value>
+     *     <value xml:lang="locale 2">Some value</value>
+     *     ...
+     *     </property>
+     *     ...
+     * </resource>
+     * }
+     * </pre>
+     * where <em>"locale 1", "locale 2"</em> are valid xml:lang values..
      *
      * @param in XML file InputStream
      * @param locale The desired locale

@@ -499,8 +499,10 @@ public class MrpServices {
 
     /**
      * Find the quantity on hand of products for MRP.
+     * <ul>
      * <li>PreConditions : none</li>
      * <li>Result : We get the quantity of product available in the stocks.</li>
+     * </ul>
      *
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
@@ -583,14 +585,13 @@ public class MrpServices {
 
     /**
      * Launch the MRP.
+     * <ul>
      * <li>PreConditions : none</li>
-     * <li>Result : The date when we must order or begin to build the products and subproducts we need are calclated</li>
+     * <li>Result : The date when we must order or begin to build the products and subproducts we need are calculated</li>
+     * <li>INPUT : parameters to get from the context: <ul><li>String mrpName</li></ul></li>
+     * <li>OUTPUT : Result to put in the map : <ul><li>none</li></ul></li>
+     * </ul>
      *
-     * <li>INPUT : parameters to get from the context :</li><ul>
-     * <li>String mrpName</li></ul>
-     *
-     * <li>OUTPUT : Result to put in the map :</li><ul>
-     * <li>none</li></ul>
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId routingId, quantity, startDate.
      * @return Map with the result of the service, the output parameters.

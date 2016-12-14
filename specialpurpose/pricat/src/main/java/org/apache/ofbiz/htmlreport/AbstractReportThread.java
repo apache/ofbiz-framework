@@ -49,9 +49,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     private Locale locale;
 
     /**
-     * Constructs a new report Thread with the given name.<p>
-     *
-     * @param name the name of the Thread
+     * Constructs a new report Thread with the given name.
      */
     protected AbstractReportThread(HttpServletRequest request, HttpServletResponse response, String name) {
 
@@ -76,7 +74,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Adds an error object to the list of errors that occured during the report.<p>
+     * Adds an error object to the list of errors that occured during the report.
      * 
      * @param obj the error object
      */
@@ -89,7 +87,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
 
     /**
      * Returns the error exception in case there was an error during the execution of
-     * this Thread, null otherwise.<p>
+     * this Thread, null otherwise.
      * 
      * @return the error exception in case there was an error, null otherwise
      */
@@ -99,7 +97,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Returns a list of all errors that occured during the report.<p>
+     * Returns a list of all errors that occured during the report.
      * 
      * @return an error list that occured during the report
      */
@@ -113,14 +111,14 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Returns the part of the report that is ready for output.<p>
+     * Returns the part of the report that is ready for output.
      * 
      * @return the part of the report that is ready for output
      */
     public abstract String getReportUpdate();
 
     /** 
-     * Returns the time this report has been running.<p>
+     * Returns the time this report has been running.
      * 
      * @return the time this report has been running
      */
@@ -134,7 +132,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Returns if the report generated an error output.<p>
+     * Returns if the report generated an error output.
      * 
      * @return true if the report generated an error, otherwise false
      */
@@ -148,11 +146,11 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Returns true if this thread is already "doomed" to be deleted.<p>
+     * Returns true if this thread is already "doomed" to be deleted.
      * 
      * A OFBiz deamon Thread (the "Grim Reaper") will collect all 
      * doomed Threads, i.e. threads that are not longer active for some
-     * time.<p>
+     * time.
      * 
      * @return true if this thread is already "doomed" to be deleted
      */
@@ -173,7 +171,7 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Returns the report where the output of this Thread is written to.<p>
+     * Returns the report where the output of this Thread is written to.
      * 
      * @return the report where the output of this Thread is written to
      */
@@ -183,9 +181,8 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
 
     /**
-     * Initialize a HTML report for this Thread.<p>
+     * Initialize a HTML report for this Thread.
      * 
-     * @param locale the locale for the report output messages
      */
     protected void initHtmlReport(HttpServletRequest request, HttpServletResponse response) {
 
@@ -194,9 +191,8 @@ public abstract class AbstractReportThread extends Thread implements InterfaceRe
     }
     
     /**
-     * Initialize a HTML report for this Thread.<p>
+     * Initialize a HTML report for this Thread.
      * 
-     * @param locale the locale for the report output messages
      */
     protected void initHtmlReport(HttpServletRequest request, HttpServletResponse response, boolean writeHtml, boolean isTransient) {
 

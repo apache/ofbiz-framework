@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;call-simple-method&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ccallsimplemethod%3E}}">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CallSimpleMethod extends MethodOperation {
 

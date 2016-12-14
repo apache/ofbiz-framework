@@ -76,17 +76,16 @@ public class PackingServices {
 
     /**
      * <p>Create or update package lines.</p>
-     * <p>Context parameters:
+     * Context parameters:
      * <ul>
      * <li>selInfo - selected rows</li>
      * <li>iteInfo - orderItemIds</li>
      * <li>prdInfo - productIds</li>
      * <li>pkgInfo - package numbers</li>
      * <li>wgtInfo - weights to pack</li>
-     * <li>numPackagesInfo - number of packages to pack per line (>= 1, default: 1)<br/>
+     * <li>numPackagesInfo - number of packages to pack per line (&gt;= 1, default: 1)<br>
      * Packs the same items n times in consecutive packages, starting from the package number retrieved from pkgInfo.</li>
      * </ul>
-     * </p>
      * @param dctx the dispatch context
      * @param context the context
      * @return returns the result of the service execution

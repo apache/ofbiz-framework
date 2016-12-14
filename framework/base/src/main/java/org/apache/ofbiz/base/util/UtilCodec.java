@@ -237,7 +237,10 @@ public class UtilCodec {
 
     /**
      * Uses a black-list approach for necessary characters for HTML.
-     * Does not allow various characters (after canonicalization), including "<", ">", "&" (if not followed by a space), and "%" (if not followed by a space).
+     * <p>
+     * Does not allow various characters (after canonicalization), including
+     * "&lt;", "&gt;", "&amp;" (if not followed by a space), and "%" (if not 
+     * followed by a space).
      *
      * @param value
      * @param errorMessageList

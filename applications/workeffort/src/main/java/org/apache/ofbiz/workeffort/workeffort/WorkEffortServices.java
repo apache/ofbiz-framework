@@ -434,16 +434,16 @@ public class WorkEffortServices {
      * This method takes the following parameters:
      * </p>
      * <ul>
-     * <li>start - TimeStamp (Period start date/time)</li>
-     * <li>numPeriods - Integer</li>
-     * <li>periodType - Integer (see java.util.Calendar)</li>
-     * <li>eventStatus - String</li>
-     * <li>partyId - String</li>
-     * <li>partyIds - List</li>
-     * <li>facilityId - String</li>
-     * <li>fixedAssetId - String</li>
-     * <li>filterOutCanceledEvents - Boolean</li>
-     * <li>entityExprList - List</li>
+     *   <li>start - TimeStamp (Period start date/time)</li>
+     *   <li>numPeriods - Integer</li>
+     *   <li>periodType - Integer (see java.util.Calendar)</li>
+     *   <li>eventStatus - String</li>
+     *   <li>partyId - String</li>
+     *   <li>partyIds - List</li>
+     *   <li>facilityId - String</li>
+     *   <li>fixedAssetId - String</li>
+     *   <li>filterOutCanceledEvents - Boolean</li>
+     *   <li>entityExprList - List</li>
      * </ul>
      * <p>
      * The method will find all matching Work Effort events and return them as a List called
@@ -456,15 +456,14 @@ public class WorkEffortServices {
      * key/value pairs:
      * </p>
      * <ul>
-     * <li>start - TimeStamp (Period start date/time)</li>
-     * <li>end - TimeStamp (Period end date/time)</li>
-     * <li>calendarEntries - List of Maps. Each Map contains the following
-     * key/value pairs:</li>
-     * <ul>
-     * <li>workEffort - GenericValue</li>
-     * <li>periodSpan - Integer (Number of periods this Work Effort spans)</li>
-     * <li>startOfPeriod - Boolean (true if this is the first occurrence in the period range)</li>
-     * </ul>
+     *   <li>start - TimeStamp (Period start date/time)</li>
+     *   <li>end - TimeStamp (Period end date/time)</li>
+     *   <li>calendarEntries - List of Maps. Each Map contains the following key/value pairs</li>
+     *   <li><ul>
+     *       <li>workEffort - GenericValue</li>
+     *       <li>periodSpan - Integer (Number of periods this Work Effort spans)</li>
+     *       <li>startOfPeriod - Boolean (true if this is the first occurrence in the period range)</li>
+     *   </ul></li>
      * </ul>
      */
 

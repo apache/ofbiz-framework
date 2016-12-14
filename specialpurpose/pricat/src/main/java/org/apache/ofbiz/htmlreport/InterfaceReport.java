@@ -159,11 +159,11 @@ public interface InterfaceReport {
 
     /**
      * Prints a localized message to the report, using the indicated formatting.<p>
-     * 
-     * Use the contants starting with <code>FORMAT</code> from this interface
-     * to indicate which formatting to use.<p>
      *
-     * @param container the message container to add
+     * Use the contents starting with <code>FORMAT</code> from this interface
+     * to indicate which formatting to use.
+     *
+     * @param uiLabel the message container to add
      * @param format the formatting to use for the output
      */
     void println(String uiLabel, int format);
