@@ -33,8 +33,8 @@ public class SampleHtmlReport extends AbstractHtmlReport {
     /**
      * Public constructor with report variables.<p>
      * 
-     * @param req the HttpServletRequest request
-     * @param res the HttpServletResponse response
+     * @param request the HttpServletRequest request
+     * @param response the HttpServletResponse response
      */
     public SampleHtmlReport(HttpServletRequest request, HttpServletResponse response) {
 

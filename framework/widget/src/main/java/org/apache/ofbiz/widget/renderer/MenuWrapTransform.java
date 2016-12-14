@@ -51,16 +51,18 @@ import freemarker.template.TransformControl;
  * to pages.
  *
  * Accepts the following arguments (all of which can alternatively be present in the template context):
- * - List<Map<String, ? extends Object>> globalNodeTrail
- * - String contentAssocPredicateId
- * - String nullThruDatesOnly
- * - String subDataResourceTypeId
- * - String renderOnStart
- * - String renderOnClose
- * - String menuDefFile
- * - String menuName
- * - String menuWrapperClassName
- * - String associatedContentId
+ * <ul>
+ *   <li><code>List&lt;Map&lt;String, ? extends Object&gt;&gt; globalNodeTrail</code></li>
+ *   <li><code>String contentAssocPredicateId</code></li>
+ *   <li><code>String nullThruDatesOnly</code></li>
+ *   <li><code>String subDataResourceTypeId</code></li>
+ *   <li><code>String renderOnStart</code></li>
+ *   <li><code>String renderOnClose</code></li>
+ *   <li><code>String menuDefFile</code></li>
+ *   <li><code>String menuName</code></li>
+ *   <li><code>String menuWrapperClassName</code></li>
+ *   <li><code>String associatedContentId</code></li>
+ * </ul>
  *
  * This is an interactive FreeMarker transform that allows the user to modify the contents that are placed within it.
  */

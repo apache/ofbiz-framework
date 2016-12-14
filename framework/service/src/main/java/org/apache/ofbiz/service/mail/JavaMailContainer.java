@@ -75,7 +75,7 @@ public class JavaMailContainer implements Container {
     /**
      * Initialize the container
      *
-     * @param args       args from calling class
+     * @param ofbizCommands command line arguments
      * @param configFile Location of master OFBiz configuration file
      * @throws org.apache.ofbiz.base.container.ContainerException
      *

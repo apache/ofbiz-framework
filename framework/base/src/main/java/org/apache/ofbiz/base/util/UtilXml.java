@@ -80,7 +80,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
- * Utilities methods to simplify dealing with JAXP & DOM XML parsing
+ * Utilities methods to simplify dealing with JAXP and DOM XML parsing
  *
  */
 public final class UtilXml {

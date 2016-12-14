@@ -68,7 +68,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
- * ValueLinkApi - Implementation of ValueLink Encryption & Transport
+ * ValueLinkApi - Implementation of ValueLink Encryption and Transport
  */
 public class ValueLinkApi {
 

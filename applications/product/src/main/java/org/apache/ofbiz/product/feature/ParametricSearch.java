@@ -48,9 +48,11 @@ public class ParametricSearch {
 
     public static final int DEFAULT_PER_TYPE_MAX_SIZE = 1000;
 
-    /** Gets all features associated with the specified category through:
-     * ProductCategory -> ProductFeatureCategoryAppl -> ProductFeatureCategory -> ProductFeature.
-     * Returns a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
+    /**
+     * Gets all features associated with the specified category through:<br>
+     * ProductCategory -&gt; ProductFeatureCategoryAppl -&gt; ProductFeatureCategory -&gt; ProductFeature.
+     *
+     * @return a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
      */
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator) {
         return makeCategoryFeatureLists(productCategoryId, delegator, DEFAULT_PER_TYPE_MAX_SIZE);

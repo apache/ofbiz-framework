@@ -19,7 +19,7 @@
 package org.apache.ofbiz.webapp.webdav;
 
 public interface RequestHandlerFactory {
-    /** Returns a <code>RequestHandler<code> instance appropriate
+    /** Returns a <code>RequestHandler</code> instance appropriate
      * for the WebDAV HTTP method.
      *
      * @param method The WebDAV HTTP method. Implementations MUST

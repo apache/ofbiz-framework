@@ -23,13 +23,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * An observable object.
- * <p>This class is similar to <code>java.util.Observable</code> but it has some differences:
+ * <p>This class is similar to <code>java.util.Observable</code> but it has some differences:</p>
  * <ul>
- * <li>It has improved concurrency</li>
- * <li>It cannot be subclassed</li>
- * <li>The <code>notifyObservers</code> method does not clear the changed flag</li>
- * <li>Protected methods have been made public</li>
- * </ul></p>
+ *   <li>It has improved concurrency</li>
+ *   <li>It cannot be subclassed</li>
+ *   <li>The <code>notifyObservers</code> method does not clear the changed flag</li>
+ *   <li>Protected methods have been made public</li>
+ * </ul>
  *
  */
 public final class Observable {
@@ -92,8 +92,10 @@ public final class Observable {
      * <p>Each <code>Observer</code> has its <code>update</code> method called with two
      * arguments: this observable object and <code>null</code>. In other 
      * words, this method is equivalent to:
-     * <blockquote><tt>
-     * notifyObservers(null)</tt></blockquote></p>
+     * </p>
+     * <blockquote>
+     *   <tt>notifyObservers(null)</tt>
+     * </blockquote>
      *
      */
     public void notifyObservers() {

@@ -332,13 +332,14 @@ public class PackingSession implements java.io.Serializable {
 
     /**
      * <p>Delivers all the packing lines grouped by package.</p>
-     * <p>Output map:
+     * Output map:
      * <ul>
-     * <li>packageMap - a Map of type Map<Integer, List<PackingSessionLine>>
+     * <li>packageMap - a Map of type {@code Map<Integer, List<PackingSessionLine>>}
      * that maps package sequence ids to the lines that belong in
      * that package</li>
-     * <li>sortedKeys - a List of type List<Integer> with the sorted package
+     * <li>sortedKeys - a List of type List&lt;Integer&gt; with the sorted package
      * sequence numbers to index the packageMap</li>
+     * </ul>
      * @return result Map with packageMap and sortedKeys
      */
     public Map<Object, Object> getPackingSessionLinesByPackage() {

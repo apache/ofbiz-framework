@@ -100,8 +100,6 @@ public final class SeoConfigUtil {
 
     /**
      * Initialize url regular express configuration.
-     * 
-     * @return result to indicate the status of initialization.
      */
     public static void init() {
         FileInputStream configFileIS = null;
@@ -440,7 +438,7 @@ public final class SeoConfigUtil {
     /**
      * Get user exception url pattern configures.
      * 
-     * @return user exception url pattern configures (java.util.List<Pattern>)
+     * @return user exception url pattern configures (java.util.List&lt;Pattern&gt;)
      */
     public static List<Pattern> getUserExceptionPatterns() {
         return userExceptionPatterns;
@@ -449,7 +447,7 @@ public final class SeoConfigUtil {
     /**
      * Get char filters.
      * 
-     * @return char filters (java.util.Map<String, String>)
+     * @return char filters (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getCharFilters() {
         return charFilters;
@@ -458,7 +456,7 @@ public final class SeoConfigUtil {
     /**
      * Get seo url pattern configures.
      * 
-     * @return seo url pattern configures (java.util.Map<String, Pattern>)
+     * @return seo url pattern configures (java.util.Map&lt;String, Pattern&gt;)
      */
     public static Map<String, Pattern> getSeoPatterns() {
         return seoPatterns;
@@ -467,7 +465,7 @@ public final class SeoConfigUtil {
     /**
      * Get seo replacement configures.
      * 
-     * @return seo replacement configures (java.util.Map<String, String>)
+     * @return seo replacement configures (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getSeoReplacements() {
         return seoReplacements;
@@ -476,7 +474,7 @@ public final class SeoConfigUtil {
     /**
      * Get forward replacement configures.
      * 
-     * @return forward replacement configures (java.util.Map<String, String>)
+     * @return forward replacement configures (java.util.Map&lt;String, String&gt;)
      */
     public static Map<String, String> getForwardReplacements() {
         return forwardReplacements;
@@ -485,7 +483,7 @@ public final class SeoConfigUtil {
     /**
      * Get forward response codes.
      * 
-     * @return forward response code configures (java.util.Map<String, Integer>)
+     * @return forward response code configures (java.util.Map&lt;String, Integer&gt;)
      */
     public static Map<String, Integer> getForwardResponseCodes() {
         return forwardResponseCodes;
