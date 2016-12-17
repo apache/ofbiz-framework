@@ -613,7 +613,7 @@ under the License.
         <auto-fields-entity entity-name="AgreementPartyApplic" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
         <field name="agreementItemSeqId"><hidden/></field>
-        <field name="partyId" use-when="agreementPartyApplic==null">
+        <field name="partyId" use-when="agreementPartyApplic==null" required-field="true">
             <lookup target-form-name="LookupPartyName"/>
         </field>
         <field name="partyId" use-when="agreementPartyApplic!=null"><display/></field>
