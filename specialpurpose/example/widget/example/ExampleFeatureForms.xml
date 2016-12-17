@@ -58,7 +58,7 @@ under the License.
         <field use-when="exampleFeature!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><display/></field>
         <field use-when="exampleFeature==null @and exampleFeatureId==null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><ignored/></field>
         <field use-when="exampleFeature==null @and exampleFeatureId!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleFeatureId}]" also-hidden="false"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"/>
         <field name="featureSourceEnumId" title="${uiLabelMap.ExampleFeatureSource}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
