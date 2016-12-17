@@ -160,7 +160,7 @@ under the License.
     <form name="AddEbayConfiguration" type="single" target="createEbayConfiguration" title="">
         <alt-target use-when="ebayConfig != null" target="updateEbayConfiguration"/>
         <field name="productStoreId" use-when="ebayConfig != null"><display/></field>
-        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" use-when="ebayConfig == null">
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" use-when="ebayConfig == null" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
