@@ -356,6 +356,31 @@ under the License.
             <redirect-parameter name="workEffortId"/>
         </response>
     </request-map>
+    <request-map uri="EditRoutingTaskSkills">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskSkills"/>
+    </request-map>
+    <request-map uri="createRoutingTaskSkill">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortSkillStandard"/>
+        <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
+            <redirect-parameter name="workEffortId"/>
+        </response>
+    </request-map>
+    <request-map uri="updateRoutingTaskSkill">
+         <security https="true" auth="true"/>
+         <event type="service" invoke="updateWorkEffortSkillStandard"/>
+         <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
+            <redirect-parameter name="workEffortId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteRoutingTaskSkill">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortSkillStandard"/>
+        <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
+            <redirect-parameter name="workEffortId"/>
+        </response>
+    </request-map>
     <!-- CostCalc mappings -->
     <request-map uri="EditCostCalcs">
         <security https="true" auth="true"/>
@@ -822,6 +847,7 @@ under the License.
     <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
     <view-map name="EditRoutingTaskFixedAssets" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets" type="screen"/>
     <view-map name="EditRoutingTaskParties" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskParties" type="screen"/>
+    <view-map name="EditRoutingTaskSkills" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskSkills" type="screen"/>
     <!-- Lookup view mappings -->
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>

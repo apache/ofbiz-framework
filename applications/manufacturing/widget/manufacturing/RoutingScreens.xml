@@ -415,4 +415,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditRoutingTaskSkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WorkEffortSkills"/>
+                <entity-and entity-name="WorkEffortSkillStandard" list="routingTaskSkills">
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRoutingTaskDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="Add Skill">
+                            <include-form name="AddRoutingTaskSkill" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListRoutingTaskSkills" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

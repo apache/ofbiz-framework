@@ -435,4 +435,34 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="AddRoutingTaskSkill" target="createRoutingTaskSkill" type="single"
+          header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="WorkEffortSkillStandard" default-field-type="edit"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="skillTypeId" required-field="true">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListRoutingTaskSkills" type="list" target="updateRoutingTaskSkill" list-name="routingTaskSkills"
+          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditRoutingTaskSkills" separate-columns="true">
+        <auto-fields-entity entity-name="WorkEffortSkillStandard"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="skillTypeId">
+            <display-entity entity-name="SkillType" key-field-name="skillTypeId"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteRoutingTaskSkill" also-hidden="false">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="skillTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>
