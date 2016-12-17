@@ -53,11 +53,10 @@ public class RenderSubContentTransform implements TemplateTransformModel {
 
     /**
      * @deprecated use FreeMarkerWorker.getArg()
-     * Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
-     * Secondly, it looks to see if it is passed as a parameter in the template context object.
-     * <p/>
-     * Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
-     * object.
+     * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
+     * Secondly, it looks to see if it is passed as a parameter in the template context object.</p>
+     * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
+     * object.</p>
      */
     @Deprecated
     public static String getArg(Map<String, Object> args, String key, Environment env) {

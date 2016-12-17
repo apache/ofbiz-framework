@@ -967,7 +967,7 @@ public class ShoppingCartEvents {
         return cart;
     }
 
-    /** Main get cart method; uses the locale & currency from the session */
+    /** Main get cart method, uses the locale and currency from the session */
     public static ShoppingCart getCartObject(HttpServletRequest request) {
         return getCartObject(request, null, null);
     }

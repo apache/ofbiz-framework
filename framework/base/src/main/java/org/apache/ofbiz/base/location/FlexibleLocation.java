@@ -88,7 +88,7 @@ public final class FlexibleLocation {
      *
      * The general format of the location is like a URL: {locationType}://location/path/file.ext
      *
-     * Supports standard locationTypes like http, https, ftp, jar, & file
+     * Supports standard locationTypes like http, https, ftp, jar and file
      * Supports a classpath location type for when desired to be used like any other URL
      * Supports OFBiz specific location types like ofbizhome and component
      * Supports additional locationTypes specified in the locationresolvers.properties file

@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.jdom.JDOMException;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
@@ -61,8 +60,6 @@ public class PricatEvents {
      * @param request
      * @param response
      * @return
-     * @throws IOException
-     * @throws JDOMException
      */
     public static String downloadExcelTemplate(HttpServletRequest request, HttpServletResponse response) {
         String templateType = request.getParameter("templateType");
@@ -144,8 +141,6 @@ public class PricatEvents {
      * @param request
      * @param response
      * @return
-     * @throws IOException
-     * @throws JDOMException
      */
     public static String downloadCommentedExcel(HttpServletRequest request, HttpServletResponse response) {
         String sequenceNum = request.getParameter("sequenceNum");

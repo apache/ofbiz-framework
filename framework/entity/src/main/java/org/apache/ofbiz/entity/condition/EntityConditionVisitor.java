@@ -22,8 +22,8 @@ package org.apache.ofbiz.entity.condition;
 import java.util.List;
 
 /**
- * Represents the conditions to be used to constrain a query
- * <br/>An EntityCondition can represent various type of constraints, including:
+ * <p>Represents the conditions to be used to constrain a query.</p>
+ * <p>An EntityCondition can represent various type of constraints, including:</p>
  * <ul>
  *  <li>EntityConditionList: a list of EntityConditions, combined with the operator specified
  *  <li>EntityExpr: for simple expressions or expressions that combine EntityConditions

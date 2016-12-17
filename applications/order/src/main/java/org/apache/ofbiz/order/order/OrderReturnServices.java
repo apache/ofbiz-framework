@@ -2188,7 +2188,7 @@ public class OrderReturnServices {
     }
 
     /**
-     * Takes a List of returnItems and returns a Map of orderId -> items and a Map of orderId -> orderTotal
+     * Takes a List of returnItems and returns a Map of orderId -&gt; items and a Map of orderId -&gt; orderTotal
      * @param returnItems a List of return items
      * @param returnItemsByOrderId the return items by order id
      * @param totalByOrder the total by order id
@@ -2548,7 +2548,7 @@ public class OrderReturnServices {
     }
 
     /**
-     * Get the total return adjustments for a set of key -> value condition pairs.  Done for code efficiency.
+     * Get the total return adjustments for a set of key -&gt; value condition pairs.  Done for code efficiency.
      * @param delegator the delegator
      * @param condition the conditions to use
      * @return return the total return adjustments

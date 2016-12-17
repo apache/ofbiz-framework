@@ -39,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * Generic Script Event Handler. This event handler uses the javax.script package (JSR-223) to invoke scripts or script functions.
- * <p>The script event handler will put the following artifacts in the script engine's bindings:<br />
+ * <p>The script event handler will put the following artifacts in the script engine's bindings:</p>
  * <ul>
  *   <li><code>parameters</code> - a <code>Map</code> containing servlet context, session, request attributes and parameters</li>
  *   <li><code>request</code> - a <code>HttpServletRequest</code> instance</li>
@@ -51,7 +51,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  *   <li><code>locale</code> - a <code>Locale</code> instance</li>
  *   <li><code>timeZone</code> - a <code>TimeZone</code> instance</li>
  *   <li><code>userLogin</code> - a UserLogin <code>GenericValue</code></li>
- * </ul></p>
+ * </ul>
  * <p>If the event element includes an invoke attribute, then the matching script function/method will be called
  * with a single argument - the bindings <code>Map</code>.</p>
  */

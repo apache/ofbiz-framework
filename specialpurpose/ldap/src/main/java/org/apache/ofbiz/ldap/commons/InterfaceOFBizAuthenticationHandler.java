@@ -72,7 +72,6 @@ public interface InterfaceOFBizAuthenticationHandler {
      * @param rootElement Element root element of ldap config file
      *
      * @return success if the user can login successfully; otherwise, error.
-     * @throws Exception
      */
     String logout(HttpServletRequest request, HttpServletResponse response, Element rootElement);
 
@@ -85,7 +84,7 @@ public interface InterfaceOFBizAuthenticationHandler {
      * @param bindRequired boolean if true, bind; false, just search the user in LDAP
      *
      * @return result SearchResult if ldap search successfully; otherwise, null.
-     * @throws Exception
+     * @throws NamingException
      */
     SearchResult getLdapSearchResult(String username, String password, Element rootElement, boolean bindRequired) throws NamingException;
 

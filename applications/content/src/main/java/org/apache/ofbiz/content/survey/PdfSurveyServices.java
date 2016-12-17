@@ -455,7 +455,7 @@ public class PdfSurveyServices {
     }
 
     /**
-     * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
+     * Returns list of maps with "question" -&gt; SurveyQuestion and "response" -&gt; SurveyResponseAnswer
      */
     public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();

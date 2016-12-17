@@ -37,8 +37,8 @@ public class PricatParseExcelHtmlReport extends AbstractHtmlReport {
     /**
      * Public constructor with report variables.<p>
      * 
-     * @param req the HttpServletRequest request
-     * @param res the HttpServletResponse response
+     * @param request the HttpServletRequest request
+     * @param response the HttpServletResponse response
      */
     public PricatParseExcelHtmlReport(HttpServletRequest request, HttpServletResponse response) {
 
