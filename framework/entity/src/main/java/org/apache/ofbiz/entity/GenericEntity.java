@@ -759,7 +759,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *    definition as the resource name. To specify a resource name manually, use the other getResource method.
      *
      *  So, the key in the resource bundle (properties file) should be as follows:
-     *    <entity-name>.<field-name>.<pk-field-value-1>.<pk-field-value-2>...<pk-field-value-n>
+     *    &lt;entity-name&gt;.&lt;field-name&gt;.&lt;pk-field-value-1&gt;.&lt;pk-field-value-2&gt;...&lt;pk-field-value-n&gt;
      *  For example:
      *    ProductType.description.FINISHED_GOOD
      *
@@ -1419,8 +1419,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         return tempResult;
     }
 
-    /** Clones this GenericEntity, this is a shallow clone & uses the default shallow HashMap clone
-     *@return Object that is a clone of this GenericEntity
+    /** Clones this GenericEntity, this is a shallow clone and uses the default shallow HashMap clone
+     *  @return Object that is a clone of this GenericEntity
      */
     @Override
     public Object clone() {

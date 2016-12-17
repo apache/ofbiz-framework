@@ -71,16 +71,14 @@ public class EntityQuery {
 
 
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator - The delegator instance to use for the query
-     * @return Returns a new EntityQuery object
+     * @param delegator The delegator instance to use for the query
      */
     public static EntityQuery use(Delegator delegator) {
         return new EntityQuery(delegator);
     }
 
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator - The delegator instance to use for the query
-     * @return Returns a new EntityQuery object
+     * @param delegator The delegator instance to use for the query
      */
     public EntityQuery(Delegator delegator) {
         this.delegator = delegator;

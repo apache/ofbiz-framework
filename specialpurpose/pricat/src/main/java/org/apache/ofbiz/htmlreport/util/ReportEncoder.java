@@ -426,7 +426,7 @@ public final class ReportEncoder {
      * entity representation, for example &amp; becomes &amp;#38;.<p>
      * 
      * A character <code>num</code> is replaced if<br>
-     * <code>((ch != 32) && ((ch > 122) || (ch < 48) || (ch == 60) || (ch == 62)))</code><p>
+     * <code>((ch != 32) &amp;&amp; ((ch &gt; 122) || (ch &lt; 48) || (ch == 60) || (ch == 62)))</code><p>
      * 
      * @param source the String to escape
      * 
@@ -471,7 +471,7 @@ public final class ReportEncoder {
      * entity representation, for example &amp; becomes &amp;#38;.<p>
      * 
      * A character <code>num</code> is replaced if<br>
-     * <code>(ch > 255)</code><p>
+     * <code>(ch &gt; 255)</code><p>
      * 
      * @param source the String to escape
      * 

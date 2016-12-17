@@ -484,12 +484,13 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a uri according to forward pattern regular expressions.
-     * 
-     * @param uri
-     *            String to reverse transform
+     * @param request
+     * @param response
+     * @param delegator
+     * @param controlServlet
      * @return boolean to indicate whether the uri is forwarded.
-     * @throws IOException
      * @throws ServletException
+     * @throws IOException
      */
     public static boolean forwardUri(HttpServletRequest request, HttpServletResponse response, Delegator delegator, String controlServlet) throws ServletException, IOException {
         String pathInfo = request.getRequestURI();
@@ -605,12 +606,13 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a category uri according to forward pattern regular expressions.
-     * 
-     * @param uri
-     *            String to reverse transform
-     * @return String
-     * @throws IOException
+     * @param request
+     * @param response
+     * @param delegator
+     * @param controlServlet
+     * @return
      * @throws ServletException
+     * @throws IOException
      */
     public static boolean forwardCategoryUri(HttpServletRequest request, HttpServletResponse response, Delegator delegator, String controlServlet) throws ServletException, IOException {
         String pathInfo = request.getRequestURI();
@@ -668,7 +670,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
      * @param wrapper
      * @param prefix
      * @param contextPath
-     * @param productCategoryId
+     * @param currentCategoryId
      * @param previousCategoryId
      * @param productId
      * @return
@@ -755,7 +757,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
      * @param delegator
      * @param wrapper
      * @param prefix
-     * @param productCategoryId
+     * @param currentCategoryId
      * @param previousCategoryId
      * @param productId
      * @param viewSize

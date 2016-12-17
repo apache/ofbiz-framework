@@ -28,7 +28,6 @@ import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jdom.JDOMException;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -52,8 +51,6 @@ public class SamplePricatEvents extends PricatEvents {
      * @param request
      * @param response
      * @return
-     * @throws IOException
-     * @throws JDOMException
      */
     public static String downloadExcelTemplate(HttpServletRequest request, HttpServletResponse response) {
         String templateType = request.getParameter("templateType");
