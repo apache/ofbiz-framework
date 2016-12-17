@@ -477,7 +477,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="taxAuthPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="isExempt">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
