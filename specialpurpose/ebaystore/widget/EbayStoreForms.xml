@@ -115,8 +115,8 @@ under the License.
                 <option key="F" description="${uiLabelMap.CommonFemale}"/>
             </drop-down>
         </field>
-        <field name="currentPassword"><password/></field>
-        <field name="currentPasswordVerify"><password/></field>
+        <field name="currentPassword" required-field="true"><password/></field>
+        <field name="currentPasswordVerify" required-field="true"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="AddCatalog" type="single" target="associateCatalogToStore">
