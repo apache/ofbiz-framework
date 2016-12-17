@@ -204,7 +204,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
