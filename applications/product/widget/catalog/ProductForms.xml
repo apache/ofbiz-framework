@@ -562,7 +562,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="safeAddProductToCategory"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" required-field="true"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
