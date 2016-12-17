@@ -463,7 +463,7 @@ under the License.
         <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
         <field name="agreementItemSeqId"><hidden/></field>
-        <field name="productId" use-when="agreementProductAppl==null">
+        <field name="productId" use-when="agreementProductAppl==null" required-field="true">
             <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
