@@ -390,7 +390,7 @@ OR
 
 #### Execute an integration test case
 
-run a test case, in this example the componnet is "entity" and the case
+run a test case, in this example the component is "entity" and the case
 name is "entity-tests"
 
 `gradlew "ofbiz --test component=entity --test case=entity-tests"`
