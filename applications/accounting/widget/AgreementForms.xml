@@ -477,7 +477,7 @@ under the License.
         <auto-fields-entity entity-name="AgreementFacilityAppl" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
         <field name="agreementItemSeqId"><hidden/></field>
-        <field name="facilityId" use-when="agreementFacilityAppl==null">
+        <field name="facilityId" use-when="agreementFacilityAppl==null" required-field="true">
             <lookup target-form-name="LookupFacility"/>
         </field>
         <field name="facilityId" use-when="agreementFacilityAppl!=null"><display/></field>
