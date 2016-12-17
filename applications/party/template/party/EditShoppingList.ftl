@@ -103,8 +103,8 @@ under the License.
             <select name="isPublic" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
               <option>${shoppingList.isPublic}</option>
               <option value="${shoppingList.isPublic}">--</option>
-              <option>${uiLabelMap.CommonYes}</option>
-              <option>${uiLabelMap.CommonNo}</option>
+              <option value="Y">${uiLabelMap.CommonYes}</option>
+              <option value="N">${uiLabelMap.CommonNo}</option>
             </select>
           </td>
         </tr>
