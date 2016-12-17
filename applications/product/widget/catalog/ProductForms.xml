@@ -1164,9 +1164,9 @@ under the License.
     <form name="EditProductAssoc" type="single" use-row-submit="true"  title="" default-map-name="productAssoc" target="createProductAssoc"
          default-table-style="basic-table" paginate-target="EditProductAssoc">
         <alt-target use-when="productAssoc!=null" target="updateProductAssoc"/>
-        <field name="productId" use-when="productAssoc==null" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" use-when="productAssoc==null" title="${uiLabelMap.ProductProductId}" required-field="true"><lookup target-form-name="LookupProduct"/></field>
         <field name="productId" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductRecreateAssociation}" ><display/></field>
-        <field name="productIdTo" use-when="productAssoc==null" title="${uiLabelMap.ProductProductIdTo}">
+        <field name="productIdTo" use-when="productAssoc==null" title="${uiLabelMap.ProductProductIdTo}" required-field="true">
             <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productIdTo" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductIdTo}" tooltip="${uiLabelMap.ProductRecreateAssociation}"><display/></field>
