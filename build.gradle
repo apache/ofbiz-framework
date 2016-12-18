@@ -35,7 +35,7 @@ ext.pluginsDir = "${rootDir}/specialpurpose"
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx1024M']
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
-javadoc.failOnError = false
+javadoc.failOnError = true
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
