@@ -113,11 +113,13 @@ public class ProductionRun {
         return productionRun;
     }
     /**
-     * store  the modified ProductionRun object in the database.
-     *     <li>store the the productionRun header
-     *     <li> the productProduced related data
-     *     <li> the listRoutingTask related data
-     *     <li> the productComponent list related data
+     * Store the modified ProductionRun object in the database.
+     * <ul>
+     *     <li>store the the productionRun header</li>
+     *     <li> the productProduced related data</li>
+     *     <li> the listRoutingTask related data</li>
+     *     <li> the productComponent list related data</li>
+     * </ul>
      * @return true if success false otherwise
      **/
     public boolean store() {
@@ -245,10 +247,10 @@ public class ProductionRun {
         this.estimatedCompletionDate = estimatedCompletionDate;
     }
     /**
-     * recalculated  the estimatedCompletionDate property.
-     *     Use the quantity and the estimatedStartDate properties as entries parameters.
-     *     <br/>read the listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object.
-     *     <br/> no store in the database is done.
+     * Recalculate the estimatedCompletionDate property.
+     * Use the quantity and the estimatedStartDate properties as entries parameters.
+     * Read the listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object.
+     * No store in the database is done.
      * @param priority give the routingTask start point to recalculated
      * @return the estimatedCompletionDate calculated
      **/

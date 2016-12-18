@@ -280,7 +280,7 @@ public final class SqlJdbcUtil {
         return sql.toString();
     }
 
-    /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    /** Makes a WHERE clause String with "&lt;col name&gt;=?" if not null or "&lt;col name&gt; IS null" if null, all AND separated */
     @Deprecated
     public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator) {
         return makeWhereStringFromFields(new StringBuilder(), modelFields, fields, operator, null).toString();
@@ -290,13 +290,13 @@ public final class SqlJdbcUtil {
         return makeWhereStringFromFields(sb, modelFields, fields, operator, null);
     }
 
-    /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    /** Makes a WHERE clause String with "&lt;col name&gt;=?" if not null or "&lt;col name&gt; IS null" if null, all AND separated */
     @Deprecated
     public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
         return makeWhereStringFromFields(new StringBuilder(), modelFields, fields, operator, entityConditionParams).toString();
     }
 
-    /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    /** Makes a WHERE clause String with "&lt;col name&gt;=?" if not null or "&lt;col name&gt; IS null" if null, all AND separated */
     public static StringBuilder makeWhereStringFromFields(StringBuilder sb, List<ModelField> modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
         if (modelFields.size() < 1) {
             return sb;

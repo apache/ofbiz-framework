@@ -174,14 +174,16 @@ public class ProductionRunServices {
 
     /**
      * Creates a Production Run.
-     *  <li> check if routing - product link exist
-     *  <li> check if product have a Bill Of Material
-     *  <li> check if routing have routingTask
-     *  <li> create the workEffort for ProductionRun
-     *  <li> create the WorkEffortGoodStandard for link between ProductionRun and the product it will produce
-     *  <li> for each valid routingTask of the routing create a workeffort-task
-     *  <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard
-     *  <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard
+     * <ul>
+     *  <li> check if routing - product link exist</li>
+     *  <li> check if product have a Bill Of Material</li>
+     *  <li> check if routing have routingTask</li>
+     *  <li> create the workEffort for ProductionRun</li>
+     *  <li> create the WorkEffortGoodStandard for link between ProductionRun and the product it will produce</li>
+     *  <li> for each valid routingTask of the routing create a workeffort-task</li>
+     *  <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard</li>
+     *  <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard</li>
+     * </ul> 
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, pRQuantity, startDate, workEffortName, description
      * @return Map with the result of the service, the output parameters.
@@ -481,11 +483,13 @@ public class ProductionRunServices {
 
     /**
      * Update a Production Run.
-     *  <li> update field and after recalculate the entire ProductionRun data (routingTask and productComponent)
-     *  <li> create the WorkEffortGoodStandard for link between ProductionRun and the product it will produce
-     *  <li> for each valid routingTask of the routing create a workeffort-task
-     *  <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard
-     *  <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard
+     * <ul>
+     *  <li> update field and after recalculate the entire ProductionRun data (routingTask and productComponent)</li>
+     *  <li> create the WorkEffortGoodStandard for link between ProductionRun and the product it will produce</li>
+     *  <li> for each valid routingTask of the routing create a workeffort-task</li>
+     *  <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard</li>
+     *  <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard</li>
+     * </ul> 
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, quantity, estimatedStartDate, workEffortName, description
      * @return Map with the result of the service, the output parameters.
@@ -1198,12 +1202,14 @@ public class ProductionRunServices {
     }
 
     /**
-     * check if field for routingTask update are correct and if need recalculated data in Production Run.
-     *  Check<ul>
-     *  <li> if estimatedStartDate is not before Production Run estimatedStartDate.</ul>
-     *  <li> if there is not a another routingTask with the same priority
-     *  If priority or estimatedStartDate has changed recalculated data for routingTask after that one.
-     * <br/> update the productionRun
+     * Check if field for routingTask update are correct and if need recalculated data in Production Run.
+     * Check
+     * <ul>
+     *  <li> if estimatedStartDate is not before Production Run estimatedStartDate.</li>
+     *  <li> if there is not a another routingTask with the same priority</li>
+     *  <li>If priority or estimatedStartDate has changed recalculated data for routingTask after that one.</li>
+     * </ul> 
+     * Update the productionRun
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, priority, estimatedStartDate, estimatedSetupMillis, estimatedMilliSeconds
      * @return Map with the result of the service, the output parameters, estimatedCompletionDate.

@@ -563,7 +563,8 @@ public class WebToolsServices {
 
     /** Get entity reference data. Returns the number of entities in
      * <code>numberOfEntities</code> and a List of Maps -
-     * <code>packagesList</code>.<br/> Each Map contains:<br/>
+     * <code>packagesList</code>.
+     * Each Map contains:<br>
      * <ul><li><code>packageName</code> - the entity package name</li>
      * <li><code>entitiesList</code> - a list of Maps:
        <ul>
