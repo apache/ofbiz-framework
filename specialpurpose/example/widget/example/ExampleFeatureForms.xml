@@ -29,7 +29,7 @@ under the License.
     </form>
 
 
-    <form name="ListExampleFeatures" type="list" list-name="listIt" paginate-target="FindExampleFeature" default-entity-name="ExampleFeature"
+    <grid name="ListExampleFeatures" list-name="listIt" paginate-target="FindExampleFeature" default-entity-name="ExampleFeature"
         separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -45,7 +45,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-    </form>
+    </grid>
 
     <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="exampleFeature">
         <actions>
@@ -72,7 +72,7 @@ under the License.
     </form>
 
     <!-- ExampleFeatureAppl -->
-    <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="feature_updateExampleFeatureAppl">
+    <grid name="ListExampleFeatureAppls"  list-name="exampleFeatureAppls"  target="feature_updateExampleFeatureAppl">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
                 <order-by field-name="exampleId"/>
@@ -104,7 +104,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
 
     <form name="AddExampleFeatureAppl" type="single" target="feature_createExampleFeatureAppl" title="">
@@ -149,7 +149,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="LookupListExampleFeature" list-name="listIt" title="" type="list"
+    <grid name="LookupListExampleFeature" list-name="listIt" title=""
         paginate-target="LookupExampleFeature">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -168,6 +168,6 @@ under the License.
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]" also-hidden="false"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display also-hidden="false"/></field>
-    </form>
+    </grid>
 
 </forms>
