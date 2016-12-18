@@ -90,7 +90,7 @@ public class GitHubAuthenticator implements Authenticator {
      * externalAuthId, and the externalAuthId has a valid accessToken in 
      * GitHubUser entity.
      *
-     * @param username      User's username
+     * @param userLoginId   User's login id
      * @param password      User's password
      * @param isServiceAuth true if authentication is for a service call
      * @return true if the user is authenticated

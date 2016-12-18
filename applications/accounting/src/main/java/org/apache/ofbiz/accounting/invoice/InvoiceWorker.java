@@ -369,7 +369,7 @@ public final class InvoiceWorker {
         return InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).subtract(getInvoiceApplied(invoice, actualCurrency));
     }
     /**
-     * Returns amount not applied (i.e., still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate <= asOfDateTime
+     * Returns amount not applied (i.e., still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate &lt;= asOfDateTime
      *
      * @param invoice GenericValue object of the invoice
      * @param asOfDateTime the date to use
@@ -391,7 +391,7 @@ public final class InvoiceWorker {
     }
 
     /**
-     * Returns amount applied to invoice before an asOfDateTime, based on Payment.effectiveDate <= asOfDateTime
+     * Returns amount applied to invoice before an asOfDateTime, based on Payment.effectiveDate &lt;= asOfDateTime
      *
      * @param delegator the delegator
      * @param invoiceId the invoice id

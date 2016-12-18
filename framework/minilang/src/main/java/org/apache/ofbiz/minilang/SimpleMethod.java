@@ -67,7 +67,7 @@ import org.w3c.dom.Element;
  * has a model class, and each model class has its own factory.
  * </p>
  * <p>
- * Mini-language can be extended by:<br />
+ * Mini-language can be extended by:</p>
  * <ul>
  * <li>Creating model classes that extend {@link org.apache.ofbiz.minilang.method.MethodOperation}</li>
  * <li>Creating factories for the model classes that implement {@link org.apache.ofbiz.minilang.method.MethodOperation.Factory}</li>
@@ -75,7 +75,7 @@ import org.w3c.dom.Element;
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
  * </li>
  * </ul>
- * </p>
+ * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
