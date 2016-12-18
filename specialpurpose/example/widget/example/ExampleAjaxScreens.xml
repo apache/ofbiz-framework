@@ -75,7 +75,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListExamplesAjax" location="component://example/widget/example/ExampleForms.xml"/>
+                <include-grid name="ListExamplesAjax" location="component://example/widget/example/ExampleForms.xml"/>
             </widgets>
         </section>
     </screen>

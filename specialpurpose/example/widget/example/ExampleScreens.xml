@@ -50,7 +50,7 @@ under the License.
                                         <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="${formExampleListName}" location="component://example/widget/example/ExampleForms.xml"/>
+                                        <include-grid name="${formExampleListName}" location="component://example/widget/example/ExampleForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -77,7 +77,7 @@ under the License.
                                 <set field="exampleCtx" from-field="parameters"/>
                             </actions>
                             <widgets>
-                                <include-form name="ListExampleExport" location="component://example/widget/example/ExampleForms.xml"/>
+                                <include-grid name="ListExampleExport" location="component://example/widget/example/ExampleForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
@@ -152,7 +152,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListExampleItems" location="component://example/widget/example/ExampleForms.xml"/>
+                        <include-grid name="ListExampleItems" location="component://example/widget/example/ExampleForms.xml"/>
                         <include-form name="AddExampleItem" location="component://example/widget/example/ExampleForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -166,7 +166,7 @@ under the License.
                  <link text="${uiLabelMap.CommonEdit}" target="EditExampleItems">
                      <parameter param-name="exampleId" from-field="exampleId"/>
                  </link>
-                 <include-form name="ListExampleItemsInLine" location="component://example/widget/example/ExampleForms.xml"/>
+                 <include-grid name="ListExampleItemsInLine" location="component://example/widget/example/ExampleForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -181,7 +181,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleForms.xml"/>
+                        <include-grid name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleForms.xml"/>
                         <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

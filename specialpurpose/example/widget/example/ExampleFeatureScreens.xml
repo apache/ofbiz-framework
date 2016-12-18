@@ -45,7 +45,7 @@ under the License.
                                         <include-form name="FindExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                                        <include-grid name="ListExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -90,7 +90,7 @@ under the License.
                 <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ExampleFeaturesByExample}">
-                            <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                            <include-grid name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="Add Feature To Example">
                             <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>
@@ -136,7 +136,7 @@ under the License.
                         <include-form name="LookupFindExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="LookupListExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        <include-grid name="LookupListExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

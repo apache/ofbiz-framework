@@ -51,7 +51,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListExamples" type="list" list-name="listIt" paginate-target="FindExample" default-entity-name="Example" separate-columns="true"
+    <grid name="ListExamples" list-name="listIt" paginate-target="FindExample" default-entity-name="Example" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -75,15 +75,15 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
         <field name="conditionalDesc" ignore-when="&quot;exampleName&quot;.equals(sortField)" title="my desc"><display description="${description}"/></field>
-    </form>
+    </grid>
 
     <!--example form with include an other form -->
-    <form name="ListExamplesWithFeatures" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+    <grid name="ListExamplesWithFeatures" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
         <actions>
             <call-parent-actions/>
         </actions>
         <field name="features"><include-form name="ExampleFeaturesInLine" location="component://example/widget/example/ExampleForms.xml"/></field>
-    </form>
+    </grid>
     <form name="ExampleFeaturesInLine" type="list" default-table-style="basic-table light-grid" default-entity-name="ExampleFeatureAppl">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
@@ -96,13 +96,14 @@ under the License.
     </form>
 
     <!--example form with include a screen -->
-    <form name="ListExamplesWithItems" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+    <grid name="ListExamplesWithItems" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
         <actions>
             <call-parent-actions/>
         </actions>
         <field name="items"><include-screen name="ExampleItemsInLine" location="component://example/widget/example/ExampleScreens.xml"/></field>
-    </form>
-    <form name="ListExampleItemsInLine" type="list" default-table-style="basic-table light-grid">
+    </grid>
+
+    <grid name="ListExampleItemsInLine" default-table-style="basic-table light-grid">
         <actions>
             <entity-condition entity-name="ExampleItem">
                 <condition-expr field-name="exampleId" from-field="exampleId"/>
@@ -110,15 +111,16 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ExampleItem" default-field-type="display"/>
         <field name="exampleId"><ignored/></field>
-    </form>
+    </grid>
 
     <!--example form with include a grid -->
-    <form name="ListExamplesWithStatus" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+    <grid name="ListExamplesWithStatus" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
         <actions>
             <call-parent-actions/>
         </actions>
         <field name="status"><include-grid name="ExampleStatusInLine" location="component://example/widget/example/ExampleForms.xml"/></field>
-    </form>
+    </grid>
+
     <grid name="ExampleStatusInLine" default-table-style="basic-table light-grid" default-entity-name="ExampleStatus">
         <actions>
             <entity-condition entity-name="ExampleStatus">
@@ -130,16 +132,17 @@ under the License.
         <field name="exampleId"><ignored/></field>
     </grid>
 
-    <form name="ListExampleExport" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml" paginate="false">
+    <grid name="ListExampleExport" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml" paginate="false">
         <actions>
             <call-parent-actions/>
         </actions>
-    </form>
+    </grid>
+
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
         have these attributes.
          For the Ajax example we want all example entities listed, so the we use the entity-condition
          instead of the performFind service. -->
-    <form name="ListExamplesAjax" extends="ListExamples" type="list" paginate-target="authview/findExampleAjax">
+    <grid name="ListExamplesAjax" extends="ListExamples" paginate-target="authview/findExampleAjax">
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
@@ -167,7 +170,7 @@ under the License.
             </display>
         </field>
         <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
-    </form>
+    </grid>
 
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example" default-entity-name="Example">
         <actions>
@@ -233,7 +236,7 @@ under the License.
     </form>
 
     <!-- ExampleItem -->
-    <form name="ListExampleItems" type="list"  list-name="exampleItems"  target="updateExampleItem">
+    <grid name="ListExampleItems"  list-name="exampleItems"  target="updateExampleItem">
         <actions>
             <entity-condition entity-name="ExampleItem">
                 <condition-expr field-name="exampleId" from-field="exampleId"/>
@@ -259,7 +262,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>
+    </grid>
 
     <form name="AddExampleItem" type="single" target="createExampleItem" title="">
         <auto-fields-service service-name="createExampleItem"/>
@@ -277,7 +280,7 @@ under the License.
     </form>
 
     <!-- ExampleFeatureAppl -->
-    <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="example_updateExampleFeatureAppl">
+    <grid name="ListExampleFeatureAppls"  list-name="exampleFeatureAppls"  target="example_updateExampleFeatureAppl">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
                 <condition-expr field-name="exampleId" from-field="exampleId"/>
@@ -309,7 +312,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
