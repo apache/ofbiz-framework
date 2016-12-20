@@ -27,8 +27,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.TimeZone;
 
@@ -178,19 +176,16 @@ public final class Config {
     }
 
     private int getPortOffsetValue(List<StartupCommand> ofbizCommands) throws StartupException {
-        int extractedPortOffset = 0;
-        Optional<StartupCommand> portOffsetCommand = ofbizCommands.stream()
-                .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))
-                .findFirst();
-        if(portOffsetCommand.isPresent()) {
-            Map<String,String> commandArgs = portOffsetCommand.get().getProperties();
-            try {
-                extractedPortOffset = Integer.parseInt(commandArgs.keySet().iterator().next());
-            } catch(NumberFormatException e) {
-                throw new StartupException("invalid portoffset number", e);
-            }
+        String extractedPortOffset = ofbizCommands.stream()
+            .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))
+            .findFirst()
+                .map(ofbizCommand -> ofbizCommand.getProperties().keySet().iterator().next())
+                .orElse("0");
+        try {
+            return Integer.parseInt(extractedPortOffset);
+        } catch(NumberFormatException e) {
+            throw new StartupException("invalid portoffset number: " + extractedPortOffset, e);
         }
-        return extractedPortOffset;
     }
 
     private InetAddress getAdminAddress(Properties props) throws StartupException {
