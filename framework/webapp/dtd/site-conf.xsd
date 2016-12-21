@@ -743,7 +743,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The name of the view handler that will render the output: screen, screenfop, ftl etc...
-                    A most comprehensive list can be found in the common-controller.
+                    A most comprehensive list can be found in the handlers-controller.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
