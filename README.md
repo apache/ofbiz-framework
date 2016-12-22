@@ -462,10 +462,15 @@ time consuming
 
 #### Setup eclipse project for OFBiz
 
-Thanks to some gradle magic, setting up OFBiz on eclipse is very
-easy. All you need is to execute one command and then you can
-import the project to eclipse. This command will generate
-the necessary __.classpath__ and __.project__ files for eclipse.
+Setting up OFBiz on eclipse is easy by simply running the below command
+and then importing the project to eclipse. This command will generate
+the necessary __.classpath__ and __.project__ files for eclipse and it
+will also make the source code for external libraries available in
+eclipse (i.e. you can view source through Ctrl + Click)
+
+The first time you run this command it will take a long time to execute
+because it will download source packages available for project
+dependencies.
 
 `gradlew eclipse`
 
