@@ -29,8 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -90,13 +88,10 @@ public class LoginWorker {
     public final static String module = LoginWorker.class.getName();
     public static final String resourceWebapp = "SecurityextUiLabels";
 
-    public static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     public static final String X509_CERT_ATTR = "SSLx509Cert";
     public static final String securityProperties = "security.properties";
 
     private static final String keyValue = UtilProperties.getPropertyValue(securityProperties, "login.secret_key_string");
-    /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
-    private static Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<String, GenericValue>();
 
     public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
@@ -126,55 +121,6 @@ public class LoginWorker {
         }
 
         return StringUtil.wrapString(loginUrl);
-    }
-
-    /**
-     * Gets (and creates if necessary) a key to be used for an external login parameter
-     */
-    public static String getExternalLoginKey(HttpServletRequest request) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", delegator));
-        if (!externalLoginKeyEnabled) {
-            return null;
-        }
-        //Debug.logInfo("Running getExternalLoginKey, externalLoginKeys.size=" + externalLoginKeys.size(), module);
-        GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
-
-        String externalKey = (String) request.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
-        if (externalKey != null) return externalKey;
-
-        HttpSession session = request.getSession();
-        synchronized (session) {
-            // if the session has a previous key in place, remove it from the master list
-            String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
-
-            if (sesExtKey != null) {
-                if (isAjax(request)) return sesExtKey;
-
-                externalLoginKeys.remove(sesExtKey);
-            }
-
-            //check the userLogin here, after the old session setting is set so that it will always be cleared
-            if (userLogin == null) return "";
-
-            //no key made yet for this request, create one
-            while (externalKey == null || externalLoginKeys.containsKey(externalKey)) {
-                UUID uuid = UUID.randomUUID();
-                externalKey = "EL" + uuid.toString();
-            }
-
-            request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            session.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            externalLoginKeys.put(externalKey, userLogin);
-            return externalKey;
-        }
-    }
-
-    public static void cleanupExternalLoginKey(HttpSession session) {
-        String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
-        if (sesExtKey != null) {
-            externalLoginKeys.remove(sesExtKey);
-        }
     }
 
     public static void setLoggedOut(String userLoginId, Delegator delegator) {
@@ -567,7 +513,7 @@ public class LoginWorker {
         }
     }
 
-    private static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher) {
+    protected static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher) {
         HttpSession session = request.getSession();
         // NOTE: we do NOT want to set this in the servletContext, only in the request and session
         // We also need to setup the security objects since they are dependent on the delegator
@@ -1018,46 +964,6 @@ public class LoginWorker {
         return count > 0;
     }
 
-    public static String checkExternalLoginKey(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-
-        String externalKey = request.getParameter(LoginWorker.EXTERNAL_LOGIN_KEY_ATTR);
-        if (externalKey == null) return "success";
-
-        GenericValue userLogin = LoginWorker.externalLoginKeys.get(externalKey);
-        if (userLogin != null) {
-            //to check it's the right tenant
-            //in case username and password are the same in different tenants
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
-            String oldDelegatorName = delegator.getDelegatorName();
-            if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
-                delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
-                LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(session.getServletContext(), delegator);
-                setWebContextObjects(request, response, delegator, dispatcher);
-            }
-            // found userLogin, do the external login...
-
-            // if the user is already logged in and the login is different, logout the other user
-            GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
-            if (currentUserLogin != null) {
-                if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
-                    // is the same user, just carry on...
-                    return "success";
-                }
-
-                // logout the current user and login the new user...
-                logout(request, response);
-                // ignore the return value; even if the operation failed we want to set the new UserLogin
-            }
-
-            doBasicLogin(userLogin, request);
-        } else {
-            Debug.logWarning("Could not find userLogin for external login key: " + externalKey, module);
-        }
-
-        return "success";
-    }
-
     public static boolean isFlaggedLoggedOut(GenericValue userLogin, Delegator delegator) {
         if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "login.disable.global.logout", delegator))) {
             return false;
@@ -1157,10 +1063,6 @@ public class LoginWorker {
             Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
         }
         return userLoginSessionMap;
-    }
-
-    public static boolean isAjax(HttpServletRequest request) {
-       return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     public static String autoChangePassword(HttpServletRequest request, HttpServletResponse response) {

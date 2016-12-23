@@ -49,7 +49,7 @@ under the License.
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
         <!-- This event allows affilate/distributor entry on any page -->
-        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
         <event name="setAssociationId" type="java" path="org.apache.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
         <event name="checkTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
         <event name="checkPartnerTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
