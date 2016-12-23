@@ -10,7 +10,7 @@
 
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
-        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey" />
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey" />
     </preprocessor>
     
     <!-- Security Mappings -->

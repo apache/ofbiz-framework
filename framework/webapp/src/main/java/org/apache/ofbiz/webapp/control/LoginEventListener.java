@@ -23,8 +23,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.ofbiz.webapp.control.LoginWorker;
-
 /**
  * HttpSessionListener that finalizes login information
  */
@@ -41,6 +39,6 @@ public class LoginEventListener implements HttpSessionListener {
 
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
-        LoginWorker.cleanupExternalLoginKey(session);
+        ExternalLoginKeysManager.cleanupExternalLoginKey(session);
     }
 }

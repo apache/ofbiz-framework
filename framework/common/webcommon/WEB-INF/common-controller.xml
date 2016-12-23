@@ -30,7 +30,7 @@ under the License.
         <event name="check509CertLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
         <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
-        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
         <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
         <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
