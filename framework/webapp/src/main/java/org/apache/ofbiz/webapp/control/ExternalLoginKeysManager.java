@@ -104,8 +104,6 @@ public class ExternalLoginKeysManager {
      * @return - &amp;success&amp; in all the cases
      */
     public static String checkExternalLoginKey(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
@@ -117,12 +115,13 @@ public class ExternalLoginKeysManager {
             String oldDelegatorName = delegator.getDelegatorName();
             if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
                 delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
-                LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(session.getServletContext(), delegator);
+                LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(request.getServletContext(), delegator);
                 LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
             }
             // found userLogin, do the external login...
 
             // if the user is already logged in and the login is different, logout the other user
+            HttpSession session = request.getSession();
             GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
             if (currentUserLogin != null) {
                 if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
