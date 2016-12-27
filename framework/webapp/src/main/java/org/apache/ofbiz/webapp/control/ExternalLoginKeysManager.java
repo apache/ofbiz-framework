@@ -22,7 +22,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
@@ -51,13 +50,6 @@ public class ExternalLoginKeysManager {
      * @return the authentication token as persisted in the session and request objects
      */
     public static String getExternalLoginKey(HttpServletRequest request) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", delegator));
-        if (!externalLoginKeyEnabled) {
-            return null;
-        }
-        GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
-
         String externalKey = (String) request.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey != null) return externalKey;
 
@@ -72,6 +64,7 @@ public class ExternalLoginKeysManager {
                 externalLoginKeys.remove(sesExtKey);
             }
 
+            GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
             //check the userLogin here, after the old session setting is set so that it will always be cleared
             if (userLogin == null) return "";
 
