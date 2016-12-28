@@ -600,6 +600,32 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     /**
+     * Validates a Map against the IN or OUT parameter information
+     * Same than validate() with same signature but returns a boolean instead of exceptions
+     * @param context the context
+     * @param mode Test either mode IN or mode OUT
+     * @param locale the actual locale to use
+     */
+    public boolean isValid(Map<String, Object> context, String mode, Locale locale) { 
+        boolean verboseOn = Debug.verboseOn();
+        if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
+
+        // do not validate results with errors
+        if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
+            if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
+                if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
+                return false;
+            }
+        }
+        try {
+            validate(context, mode, locale);
+        } catch (ServiceValidationException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Validates a map of name, object types to a map of name, objects
      * @param info The map of name, object types
      * @param test The map to test its value types.
