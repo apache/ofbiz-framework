@@ -222,4 +222,21 @@ under the License.
         <description>Delete a SequenceValueItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- JobSandbox Services -->
+    <service name="createJobSandbox" engine="entity-auto" invoke="create" default-entity-name="JobSandbox" auth="true">
+        <description>Create JobSandbox record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateJobSandbox" engine="entity-auto" invoke="update" default-entity-name="JobSandbox" auth="true">
+        <description>Update JobSandbox record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteJobSandbox" engine="entity-auto" invoke="delete" default-entity-name="JobSandbox" auth="true">
+        <description>Delete JobSandbox record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
 </services>
