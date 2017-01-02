@@ -17,5 +17,5 @@
  * under the License.
  */
 dependencies {
-    pluginLibsCompile 'org.apache.solr:solr-core:5.3.1'
+    pluginLibsCompile 'org.apache.solr:solr-core:6.2.1'
 }

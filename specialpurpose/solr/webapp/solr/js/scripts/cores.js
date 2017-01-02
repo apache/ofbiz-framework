@@ -48,11 +48,6 @@ sammy.bind
           {
             params.success( app.cores_data );
           }
-          /** OFBiz customization **/
-          else if( response.ofbizLogin )
-          {
-            params.ofbizLogin();
-          }
           else
           {
             params.error();
@@ -133,11 +128,6 @@ sammy.get
     (
       'cores_load_data',
       {
-        /** OFBiz customization **/
-        ofbizLogin : function()
-        {
-          context.redirect( 'control/checkLogin' );
-        },
         success : function( cores )
         {
           var first_core = null;
@@ -311,11 +301,6 @@ sammy.get
     (
       'cores_load_data',
       {
-        /** OFBiz customization **/
-        ofbizLogin : function()
-        {
-          context.redirect( 'control/checkLogin' );
-        },
         error : function()
         {
           context.redirect( '#/' + context.params.splat[0] );

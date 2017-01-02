@@ -20,10 +20,13 @@ package org.apache.ofbiz.solr.webapp;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -157,12 +160,14 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
      * Override this to change CoreContainer initialization
      * @return a CoreContainer to hold this server's cores
      */
-    protected CoreContainer createCoreContainer(String solrHome, Properties extraProperties) {
+    protected CoreContainer createCoreContainer(Path solrHome, Properties extraProperties) {
         NodeConfig nodeConfig = null;
         try {
             nodeConfig = loadNodeConfig(solrHome, extraProperties);
         } catch (SolrException e) {
-            nodeConfig = loadNodeConfig("specialpurpose/solr/home", extraProperties);
+//            nodeConfig = loadNodeConfig("specialpurpose/solr/home", extraProperties);
+            Path path = Paths.get("specialpurpose/solr/home");
+			nodeConfig = loadNodeConfig(path, extraProperties);
         }
         cores = new CoreContainer(nodeConfig, extraProperties, true);
         cores.load();

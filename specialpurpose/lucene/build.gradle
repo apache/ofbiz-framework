@@ -17,7 +17,7 @@
  * under the License.
  */
 dependencies {
-    pluginLibsCompile 'org.apache.lucene:lucene-core:5.3.1'
-    pluginLibsCompile 'org.apache.lucene:lucene-queryparser:5.3.1'
-    pluginLibsCompile 'org.apache.lucene:lucene-analyzers-common:5.3.1'
+    pluginLibsCompile 'org.apache.lucene:lucene-core:6.2.1'
+    pluginLibsCompile 'org.apache.lucene:lucene-queryparser:6.2.1'
+    pluginLibsCompile 'org.apache.lucene:lucene-analyzers-common:6.2.1'
 }
