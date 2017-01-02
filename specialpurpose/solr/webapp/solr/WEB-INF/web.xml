@@ -46,7 +46,7 @@
         <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/error:/css:/img:/js:/tpl:/favicon.ico:/admin:/admin.html:/#:/schema:/config:/:/solrdefault</param-value>
+            <param-value>/control:/error:/css:/img:/js:/tpl:/favicon.ico:/admin:/admin.html:/#:/schema:/config:/:/solrdefault:/libs:/partials:/info:/logging:/level:/solr:/~logging:</param-value>
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
