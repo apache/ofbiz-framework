@@ -129,7 +129,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 }
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                     try {
-                        String txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
+                        String txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                         if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
                         }

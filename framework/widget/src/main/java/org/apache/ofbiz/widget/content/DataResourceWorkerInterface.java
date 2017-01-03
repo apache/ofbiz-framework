@@ -31,4 +31,7 @@ import org.apache.ofbiz.entity.Delegator;
 public interface DataResourceWorkerInterface {
     public String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
+
+    public void renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
+            Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 }

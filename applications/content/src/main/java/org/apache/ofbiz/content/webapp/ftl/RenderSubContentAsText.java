@@ -122,7 +122,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 try {
-                    String txt = ContentWorker.renderSubContentAsText(dispatcher, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);
+                    String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);
                     }

@@ -93,10 +93,10 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                         String mapKey = (String)templateRoot.get("mapKey");
                         String contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
                         if (UtilValidate.isNotEmpty(mapKey) || UtilValidate.isNotEmpty(contentAssocTypeId)) {
-                            String txt = ContentWorker.renderSubContentAsText(dispatcher, contentId, mapKey, templateRoot, locale, mimeTypeId, true);
+                            String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, mapKey, templateRoot, locale, mimeTypeId, true);
                             out.write(txt);
                         } else if (contentId != null) {
-                            ContentWorker.renderContentAsText(dispatcher, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
+                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
                         }
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + (String)templateRoot.get("contentId") + " msg:" + e.toString();

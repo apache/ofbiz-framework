@@ -209,7 +209,7 @@ public class ContentKeywordIndex {
     public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue content) {
         Map<String, Object> drContext = UtilMisc.<String, Object>toMap("content", content);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, drView.getString("dataResourceId"), drContext, null, null, false);
+            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }

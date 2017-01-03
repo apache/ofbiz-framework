@@ -169,7 +169,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
-            ContentWorker.renderContentAsText(dispatcher, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
         

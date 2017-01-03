@@ -49,6 +49,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.tika.Tika;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
@@ -79,7 +80,6 @@ import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
-import org.apache.tika.Tika;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -584,24 +584,21 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
     }
 
-    public static String renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
+    public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
              Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
-        renderDataResourceAsText(dispatcher, delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
+        renderDataResourceAsText(delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
         return writer.toString();
     }
 
-    public static String renderDataResourceAsText(LocalDispatcher dispatcher, String dataResourceId, Appendable out,
+    public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
             Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-       renderDataResourceAsText(dispatcher, null, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
+       renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
        return out.toString();
    }
 
-    public static void renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId,
-            Appendable out, Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
-        if (delegator == null) {
-            delegator = dispatcher.getDelegator();
-        }
+    public static void renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
+            Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         if (dataResourceId == null) {
             throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
         }
@@ -1075,6 +1072,11 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-        return renderDataResourceAsText(null, delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
+        return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
+    }
+
+    public void renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
+            Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+        renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache);
     }
 }
