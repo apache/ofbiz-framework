@@ -142,9 +142,9 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 }
                 try {
                     if (subContentId != null) {
-                        ContentWorker.renderContentAsText(dispatcher, subContentId, out, templateRoot, locale, mimeTypeId, null, null, false);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, subContentId, out, templateRoot, locale, mimeTypeId, null, null, false);
                     } else {
-                        ContentWorker.renderSubContentAsText(dispatcher, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
                     }
                 } catch (GeneralException e) {
                     Debug.logError(e, "Error rendering content", module);

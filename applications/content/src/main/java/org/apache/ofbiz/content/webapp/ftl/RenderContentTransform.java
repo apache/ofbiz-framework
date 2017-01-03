@@ -103,9 +103,9 @@ public class RenderContentTransform implements TemplateTransformModel {
 
                     String mapKey = (String)templateRoot.get("mapKey");
                     if (UtilValidate.isEmpty(mapKey)) {
-                        txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
+                        txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                     } else {
-                        txt = ContentWorker.renderSubContentAsText(dispatcher, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);
+                        txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);
                     }
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);

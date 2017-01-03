@@ -846,7 +846,7 @@ public class ContentServices {
         }
 
         try {
-            ContentWorker.renderSubContentAsText(dispatcher, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
+            ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (GeneralException e) {
@@ -896,7 +896,7 @@ public class ContentServices {
         }
 
         try {
-            ContentWorker.renderContentAsText(dispatcher, contentId, outWriter, templateContext, locale, mimeTypeId, null, null, true);
+            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, outWriter, templateContext, locale, mimeTypeId, null, null, true);
             if (out != null) out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (GeneralException e) {

@@ -488,7 +488,7 @@ public class DataServices {
         }
 
         Writer outWriter = new StringWriter();
-        DataResourceWorker.renderDataResourceAsText(dctx.getDispatcher(), dataResourceId, outWriter, templateContext, locale, mimeTypeId, true);
+        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, outWriter, templateContext, locale, mimeTypeId, true);
         try {
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
