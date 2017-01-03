@@ -18,6 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.search;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.DoublePoint;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.LongPoint;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.Term;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -32,22 +46,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.lucene.document.Document;
-//import org.apache.lucene.document.DoubleField;
-import org.apache.lucene.document.DoublePoint;
-import org.apache.lucene.document.Field;
-//import org.apache.lucene.document.LongField;
-import org.apache.lucene.document.LongPoint;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.Term;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class ProductDocument implements LuceneDocument {
     private static final String module = ProductDocument.class.getName();
@@ -207,7 +205,7 @@ public class ProductDocument implements LuceneDocument {
                         }
                         try {
                             Map<String, Object> drContext = UtilMisc.<String, Object>toMap("product", product);
-                            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, productContentAndInfo.getString("dataResourceId"), drContext, null, null, false);
+                            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, productContentAndInfo.getString("dataResourceId"), drContext, null, null, false);
                             this.addTextFieldByWeight(doc, "content", contentText, null, weight, false, "fullText", delegator);
                         } catch (IOException e1) {
                             Debug.logError(e1, "Error getting content text to index", module);

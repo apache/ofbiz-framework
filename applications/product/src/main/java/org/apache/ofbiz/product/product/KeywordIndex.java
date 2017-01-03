@@ -211,7 +211,7 @@ public class KeywordIndex {
     public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue product) {
         Map<String, Object> drContext = UtilMisc.<String, Object>toMap("product", product);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
+            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, drView.getString("dataResourceId"), drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
@@ -227,7 +227,7 @@ public class KeywordIndex {
             int weight = 1;
 
             try {
-            	Delegator delegator = value.getDelegator();
+                Delegator delegator = value.getDelegator();
                 weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, 1).intValue();
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);

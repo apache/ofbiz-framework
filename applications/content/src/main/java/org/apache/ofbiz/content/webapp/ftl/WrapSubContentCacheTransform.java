@@ -173,7 +173,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     String mimeTypeId = (String)templateCtx.get("mimeTypeId");
                     Locale locale = null;
                     try {
-                        ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
+                        ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                         throw new IOException("Error rendering content" + e.toString());
