@@ -180,7 +180,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
             return;
         }
         
