@@ -157,7 +157,7 @@ public class OrderContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            ContentWorker.renderContentAsText(dispatcher, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 }

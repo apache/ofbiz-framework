@@ -217,7 +217,7 @@ public class PartyContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            ContentWorker.renderContentAsText(dispatcher, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
         
@@ -271,7 +271,7 @@ public class PartyContentWrapper implements ContentWrapper {
                 Map<String, Object> inContext = new HashMap<String, Object>();
                 inContext.put("party", party);
                 inContext.put("partyContent", partyContent);
-                ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
+                ContentWorker.renderContentAsText(dispatcher, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
                 contentList.add(outWriter.toString());
             }
         }

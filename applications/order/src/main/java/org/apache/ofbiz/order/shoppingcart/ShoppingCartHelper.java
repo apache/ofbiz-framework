@@ -803,7 +803,7 @@ public class ShoppingCartHelper {
                                         oldQuantity = item.getQuantity();
                                         if (oldQuantity.compareTo(quantity) != 0) {
                                             // save the old description and price, in case the user wants to change those as well
-                                            oldDescription = item.getName();
+                                            oldDescription = item.getName(this.dispatcher);
                                             oldPrice = item.getBasePrice();
 
                                             if (UtilValidate.isNotEmpty(item.getProductId())) {
@@ -824,7 +824,7 @@ public class ShoppingCartHelper {
                                                     item.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                                                     item.setQuantity(quantity, dispatcher, this.cart);
                                                     item.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
-                                                    item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct, cart.getLocale()));
+                                                    item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct, cart.getLocale(), dispatcher));
                                                 }
                                             } else {
                                                 item.setQuantity(quantity, dispatcher, this.cart);

@@ -105,7 +105,7 @@ public class CmsEvents {
                 writer = response.getWriter();
                 GenericValue webSiteContent = EntityQuery.use(delegator).from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MAINTENANCE_PAGE").filterByDate().queryFirst();
                 if (webSiteContent != null) {
-                    ContentWorker.renderContentAsText(dispatcher, delegator, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
+                    ContentWorker.renderContentAsText(dispatcher, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
                     return "success";
                 } else {
                     request.setAttribute("_ERROR_MESSAGE_", "Not able to display maintenance page for [" + webSiteId + "]");
@@ -295,11 +295,11 @@ public class CmsEvents {
                     List<GenericValue> webAnalytics = EntityQuery.use(delegator).from("WebAnalyticsConfig").where("webSiteId", webSiteId).queryList();
                     // render
                     if (UtilValidate.isNotEmpty(webAnalytics) && hasErrorPage) {
-                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
+                        ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
                     } else if (UtilValidate.isEmpty(mapKey)) {
-                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true);
+                        ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true);
                     } else {
-                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
+                        ContentWorker.renderSubContentAsText(dispatcher, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                     }
 
                 } catch (TemplateException e) {

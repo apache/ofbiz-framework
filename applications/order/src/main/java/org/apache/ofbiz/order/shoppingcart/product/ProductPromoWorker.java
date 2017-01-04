@@ -658,7 +658,7 @@ public final class ProductPromoWorker {
         }
     }
 
-    public static String makeAutoDescription(GenericValue productPromo, Delegator delegator, Locale locale) throws GenericEntityException {
+    public static String makeAutoDescription(GenericValue productPromo, Delegator delegator, Locale locale, LocalDispatcher dispatcher) throws GenericEntityException {
         if (productPromo == null) {
             return "";
         }
@@ -672,7 +672,7 @@ public final class ProductPromoWorker {
 
             List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", productPromo.get("productPromoId")).orderBy("productPromoCondSeqId").cache(true).queryList();
             productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
-            // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
+            // using the other method to consolidate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
             Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
             while (productPromoCondIter != null && productPromoCondIter.hasNext()) {
                 GenericValue productPromoCond = productPromoCondIter.next();
@@ -723,7 +723,7 @@ public final class ProductPromoWorker {
                 if (UtilValidate.isEmpty(messageContext.get("partyId"))) messageContext.put("partyId", "any");
                 GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                 if (product != null) {
-                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null, "html"));
+                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher, "html"));
                 }
 
                 String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoAction." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);

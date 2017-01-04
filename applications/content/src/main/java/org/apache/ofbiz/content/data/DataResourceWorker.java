@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -49,13 +50,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.tika.Tika;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
@@ -71,15 +72,21 @@ import org.apache.ofbiz.content.content.UploadContentAndImage;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.widget.model.FormFactory;
+import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ScreenFactory;
+import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.apache.tika.Tika;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -92,6 +99,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public static final String module = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
+    private static final String formrenderer = UtilProperties.getPropertyValue("widget", "screen.formrenderer");
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.
@@ -584,21 +592,24 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
     }
 
-    public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
+    public static String renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
              Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
-        renderDataResourceAsText(delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
+        renderDataResourceAsText(dispatcher, delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
         return writer.toString();
     }
 
-    public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
+    public static String renderDataResourceAsText(LocalDispatcher dispatcher, String dataResourceId, Appendable out,
             Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-       renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
+       renderDataResourceAsText(dispatcher, null, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
        return out.toString();
    }
 
-    public static void renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
-            Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
+    public static void renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId,
+            Appendable out, Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
+        if (delegator == null) {
+            delegator = dispatcher.getDelegator();
+        }
         if (dataResourceId == null) {
             throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
         }
@@ -1072,11 +1083,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-        return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
-    }
-
-    public void renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
-            Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-        renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache);
+        return renderDataResourceAsText(null, delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
     }
 }

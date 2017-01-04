@@ -68,8 +68,8 @@ import org.apache.ofbiz.product.category.CategoryWorker;
 import org.apache.ofbiz.product.config.ProductConfigWrapper;
 import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -498,24 +498,23 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
 
-       return addOrIncreaseItem(productId,selectedAmount,quantity,reservStart,reservLength,reservPersons,
-                       null,null,shipBeforeDate,shipAfterDate,features,attributes,prodCatalogId,
+       return addOrIncreaseItem(productId,selectedAmount,quantity,reservStart,reservLength,reservPersons, null,null,shipBeforeDate,shipAfterDate,features,attributes,prodCatalogId,
                 configWrapper,itemType,itemGroupNumber,parentProductId,dispatcher);
     }
 
     /** add rental (with accommodation) item to cart  */
     public int addOrIncreaseItem(String productId, BigDecimal selectedAmount, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
-               String accommodationMapId, String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
-            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
+               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, 
+               String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
             return addOrIncreaseItem(productId, selectedAmount, quantity, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, features, attributes, null, prodCatalogId, configWrapper, itemType, itemGroupNumber, parentProductId, dispatcher);
     }
 
     /** add rental (with accommodation) item to cart and order item attributes*/
+    // TODO change method signature, this one is really scary, above are not bad too :/ !
     public int addOrIncreaseItem(String productId, BigDecimal selectedAmount, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
-               String accommodationMapId, String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, Map<String, String> orderItemAttributes, String prodCatalogId,
-            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
+               String accommodationMapId, String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, 
+               Object> attributes, Map<String, String> orderItemAttributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, 
+               String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
            throw new CartItemModifyException("Cart items cannot be changed");
         }
@@ -560,7 +559,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (supplierProduct != null && supplierProduct.getBigDecimal("lastPrice") != null) {
                         sci.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                         sci.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
-                        sci.setName(ShoppingCartItem.getPurchaseOrderItemDescription(sci.getProduct(), supplierProduct, this.getLocale()));
+                        sci.setName(ShoppingCartItem.getPurchaseOrderItemDescription(sci.getProduct(), supplierProduct, this.getLocale(), dispatcher));
                     } else {
                        throw new CartItemModifyException("SupplierProduct not found");
                     }
@@ -3668,7 +3667,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 orderItem.set("shoppingListId", item.getShoppingListId());
                 orderItem.set("shoppingListItemSeqId", item.getShoppingListItemSeqId());
 
-                orderItem.set("itemDescription", item.getName());
+                orderItem.set("itemDescription", item.getName(dispatcher));
                 orderItem.set("comments", item.getItemComment());
                 orderItem.set("estimatedDeliveryDate", item.getDesiredDeliveryDate());
                 orderItem.set("correspondingPoId", this.getPoNumber());
