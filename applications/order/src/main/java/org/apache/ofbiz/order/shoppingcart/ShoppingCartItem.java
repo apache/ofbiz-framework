@@ -53,6 +53,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart.ShoppingCartItemGroup;
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.apache.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.apache.ofbiz.product.catalog.CatalogWorker;
@@ -692,7 +693,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     protected ShoppingCartItem() {}
 
     /** Creates new ShoppingCartItem object. 
-     * @deprecated Use {@link #ShoppingCartItem(GenericValue,Map<String, GenericValue>,Map<String, Object>,String,Locale,String,ShoppingCart.ShoppingCartItemGroup,LocalDispatcher)} instead*/
+     * @deprecated Use {@link #ShoppingCartItem(GenericValue, Map, Map, String, Locale, String, ShoppingCartItemGroup, LocalDispatcher)} instead*/
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, locale, itemType, itemGroup, null);
     }
