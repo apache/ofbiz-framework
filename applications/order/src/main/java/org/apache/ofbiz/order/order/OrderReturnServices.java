@@ -1598,7 +1598,7 @@ public class OrderReturnServices {
         try {
             GenericValue response = EntityQuery.use(delegator).from("ReturnItemResponse").where("returnItemResponseId", responseId).queryOne();
             if (response == null) {
-            	 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg,"responseId", responseId), locale));
+                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg,"responseId", responseId), locale));
             }
             BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(decimals, rounding);
             String paymentId = response.getString("paymentId");
@@ -1818,7 +1818,7 @@ public class OrderReturnServices {
                                     newItem.set("itemDescription", orderItem.get("itemDescription"));
                                 } else {
                                     newItem.set("productId", refurbItem.get("productId"));
-                                    newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(refurbItem, "PRODUCT_NAME", locale, null, "html"));
+                                    newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(refurbItem, "PRODUCT_NAME", locale, dispatcher, "html"));
                                 }
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
                                 newItem.set("productFeatureId", orderItem.get("productFeatureId"));
@@ -1933,7 +1933,7 @@ public class OrderReturnServices {
                                                 newItem.set("productId", repairItemProduct.get("productId"));
                                                 // TODO: orderItemTypeId, prodCatalogId, productCategoryId
                                                 newItem.set("quantity", repairQuantity);
-                                                newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, null, "html"));
+                                                newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, dispatcher, "html"));
                                                 newItem.set("statusId", "ITEM_CREATED");
                                                 orderItems.add(newItem);
                                                 additionalItemTotal = additionalItemTotal.add(repairQuantity.multiply(repairUnitPrice));

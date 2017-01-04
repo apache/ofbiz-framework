@@ -249,7 +249,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // if supplierProduct has no supplierProductName, use the regular supplierProductId
         if (supplierProduct != null) {
             newItem.setSupplierProductId(supplierProduct.getString("supplierProductId"));
-            newItem.setName(getPurchaseOrderItemDescription(product, supplierProduct, cart.getLocale()));
+            newItem.setName(getPurchaseOrderItemDescription(product, supplierProduct, cart.getLocale(), dispatcher));
             newItem.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
         } else {
             newItem.setName(product.getString("internalName"));
@@ -691,16 +691,24 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Cannot create shopping cart item with no parameters */
     protected ShoppingCartItem() {}
 
-    /** Creates new ShoppingCartItem object. */
+    /** Creates new ShoppingCartItem object. 
+     * @deprecated Use {@link #ShoppingCartItem(GenericValue,Map<String, GenericValue>,Map<String, Object>,String,Locale,String,ShoppingCart.ShoppingCartItemGroup,LocalDispatcher)} instead*/
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, locale, itemType, itemGroup, null);
+    }
+
+    /** Creates new ShoppingCartItem object. 
+     * @param dispatcher TODO*/
+    protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, Locale locale, 
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
          if (product != null) {
-            String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, null, "html");
+            String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
             // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
             if (UtilValidate.isEmpty(productName)) {
                 GenericValue parentProduct = this.getParentProduct();
                 if (parentProduct != null) {
-                    productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, null, "html");
+                    productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, dispatcher, "html");
                 }
             }
 
@@ -982,14 +990,14 @@ public class ShoppingCartItem implements java.io.Serializable {
         return inventoryAvailable;
     }
 
-    protected void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
+    protected void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup,
+            boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
         if (this.quantity.compareTo(quantity) == 0) {
             return;
         }
 
         if (this.isPromo) {
-            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", this.getName(),
-                                            "productId",   productId);
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", this.getName(dispatcher), "productId", productId);
             String excMsg = UtilProperties.getMessage(resource, "OrderCannotChangeQuantityInPromotion", messageMap , cart.getLocale());
             throw new CartItemModifyException(excMsg);
         }
@@ -1001,9 +1009,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             // check inventory if new quantity is greater than old quantity; don't worry about inventory getting pulled out from under, that will be handled at checkout time
             if (_product != null && quantity.compareTo(this.quantity) > 0) {
                 if (!isInventoryAvailableOrNotRequired(quantity, productStoreId, dispatcher)) {
-                    Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity.doubleValue()),
-                                                    "productName",       this.getName(),
-                                                    "productId",         productId);
+                    Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity.doubleValue()), 
+                            "productName",this.getName(dispatcher), "productId", productId);
                     String excMsg = UtilProperties.getMessage(resource, "OrderDoNotHaveEnoughProducts", messageMap , cart.getLocale());
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
@@ -1661,23 +1668,30 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.locale = locale;
     }
 
-    /** Set the item's name. */
+    /** Set the item's description. */
     public void setName(String itemName) {
         this.itemDescription = itemName;
     }
-    /** Returns the item's name. */
+    /** Returns the item's description. 
+    * @deprecated use getName(LocalDispatcher dispatcher) 
+    **/
     public String getName() {
+        return itemDescription;
+    }
+    
+    /** Returns the item's description or PRODUCT_NAME from content. */
+    public String getName(LocalDispatcher dispatcher) {
        if (itemDescription != null) {
           return itemDescription;
        } else {
         GenericValue product = getProduct();
         if (product != null) {
-            String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, null, "html");
+            String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
             // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
             if (UtilValidate.isEmpty(productName)) {
                 GenericValue parentProduct = this.getParentProduct();
                 if (parentProduct != null) {
-                    productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, null, "html");
+                    productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, dispatcher, "html");
                 }
             }
             if (productName == null) {
@@ -1692,17 +1706,17 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Returns the item's description. */
-    public String getDescription() {
+    public String getDescription(LocalDispatcher dispatcher) {
         GenericValue product = getProduct();
 
         if (product != null) {
-            String description = ProductContentWrapper.getProductContentAsText(product, "DESCRIPTION", this.locale, null, "html");
+            String description = ProductContentWrapper.getProductContentAsText(product, "DESCRIPTION", this.locale, dispatcher, "html");
 
             // if the description is null or empty, see if there is an associated virtual product and get the description of that product
             if (UtilValidate.isEmpty(description)) {
                 GenericValue parentProduct = this.getParentProduct();
                 if (parentProduct != null) {
-                    description = ProductContentWrapper.getProductContentAsText(parentProduct, "DESCRIPTION", this.locale, null, "html");
+                    description = ProductContentWrapper.getProductContentAsText(parentProduct, "DESCRIPTION", this.locale, dispatcher, "html");
                 }
             }
 
@@ -2492,7 +2506,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return newItems;
     }
 
-    public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale) {
+    public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale, LocalDispatcher dispatcher) {
 
         String itemDescription = null;
 
@@ -2501,7 +2515,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (UtilValidate.isEmpty(itemDescription)) {
-            itemDescription = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null, "html");
+            itemDescription = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher, "html");
         }
 
         return itemDescription;
