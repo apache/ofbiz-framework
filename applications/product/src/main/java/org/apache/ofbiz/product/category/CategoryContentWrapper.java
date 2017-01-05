@@ -110,7 +110,7 @@ public class CategoryContentWrapper implements ContentWrapper {
                 outString = productCategory.getModelEntity().isField(candidateFieldName) ? productCategory.getString(candidateFieldName): "";
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.sanitize(outString);
+            outString = encoder.sanitize(outString, null);
             if (categoryContentCache != null) {
                 categoryContentCache.put(cacheKey, outString);
             }
