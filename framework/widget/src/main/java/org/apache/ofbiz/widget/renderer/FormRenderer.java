@@ -44,10 +44,11 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.AbstractModelAction;
 import org.apache.ofbiz.widget.model.FieldInfo;
-import org.apache.ofbiz.widget.model.*;
+import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
 import org.apache.ofbiz.widget.model.ModelFormField;
+import org.apache.ofbiz.widget.model.ModelGrid;
 
 /**
  * A form rendering engine.
@@ -227,8 +228,7 @@ public class FormRenderer {
      *   (String, optional alternate name for form, defaults to the
      *   value of the name attribute)
      */
-    public void render(Appendable writer, Map<String, Object> context)
-            throws Exception {
+    public void render(Appendable writer, Map<String, Object> context) throws Exception {
         //  increment the paginator, only for list and multi forms
         if (modelForm instanceof ModelGrid) {
             WidgetWorker.incrementPaginatorNumber(context);
