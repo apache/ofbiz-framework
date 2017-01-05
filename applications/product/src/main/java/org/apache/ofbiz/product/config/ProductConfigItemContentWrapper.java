@@ -133,7 +133,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
                 outString = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.sanitize(outString);
+            outString = encoder.sanitize(outString, null);
             if (configItemContentCache != null) {
                 configItemContentCache.put(cacheKey, outString);
             }
@@ -141,11 +141,11 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
             String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut);
+            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
             String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut);
+            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
         }
     }
 

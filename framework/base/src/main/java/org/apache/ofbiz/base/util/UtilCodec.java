@@ -60,7 +60,11 @@ public class UtilCodec {
 
     public static interface SimpleEncoder {
         public String encode(String original);
-        public String sanitize(String outString); // Only really useful with HTML, else simply calls encode() method 
+        /**
+         * @deprecated Use {@link #sanitize(String,String)} instead
+         */
+        public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method 
+        public String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method 
     }
 
     public static interface SimpleDecoder {
@@ -76,25 +80,69 @@ public class UtilCodec {
             }
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
+        /**
+         * @deprecated Use {@link #sanitize(String,String)} instead
+         */
         public String sanitize(String original) {
+            return sanitize(original, null);
+        }
+        public String sanitize(String original, String contentTypeId) {
             if (original == null) {
                 return null;
             }
             PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.STYLES);
-            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {
+
+            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {// TODO to be improved to use a (or several) contentTypeId/s if possible 
                 sanitizer = sanitizer.and(PERMISSIVE_POLICY);
+            }
+            if ("REPORT_MASTER".equals(contentTypeId)) {
+                sanitizer = sanitizer.and(BIRT_REPORT_BUILDER_GENERATION_POLICY);
+            }
+            if ("REPORT".equals(contentTypeId)) {
+                sanitizer = sanitizer.and(BIRT_REPORT_BUILDER_USAGE_POLICY);
             }
             return sanitizer.sanitize(original);
         }
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true. 
-        // Note that I was unable to render </html> and </body>. I guess because are <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
+        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
         // You might even want to adapt the PERMISSIVE_POLICY to your needs... Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
+                .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
-                .allowElements("html", "body", "div", "center", "span", "table", "td")
+                .allowElements("div", "center", "span", "table", "td")
                 .allowWithoutAttributes("html", "body", "div", "span", "table", "td")
                 .allowAttributes("width").onElements("table")
+                .toFactory();
+        // This is the PolicyFactory used for the Birt Report Builder generation feature ("REPORT_MASTER" contentTypeId)
+        // It allows to create the OOTB Birt Report Builder example.
+        // You might need to enhance it for your needs but normally you should not
+        // In any case be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before changing things here...
+        public static final PolicyFactory BIRT_REPORT_BUILDER_GENERATION_POLICY = new HtmlPolicyBuilder()
+                .allowWithoutAttributes("html", "body")
+                .allowElements("div", "span", "table", "tr", "td")
+                .allowElements("form", "input", "textarea", "label", "select", "option")
+                .allowAttributes("id", "class", "name", "value", "onclick").globally()
+                .allowAttributes("width", "cellspacing").onElements("table")
+                .allowAttributes("type", "size", "maxlength").onElements("input")
+                .allowAttributes("cols", "rows").onElements("textarea")
+                .allowAttributes("class").onElements("td")
+                .allowAttributes("method").onElements("form")
+                .toFactory();
+        // This is the PolicyFactory used for the Birt Report Builder usage feature.  ("REPORT" contentTypeId)
+        // It allows to use the OOTB Birt Report Builder example.
+        // You might need to enhance it for your needs but normally you should not
+        // In any case be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before changing things here...
+        public static final PolicyFactory BIRT_REPORT_BUILDER_USAGE_POLICY = new HtmlPolicyBuilder()
+                .allowWithoutAttributes("html", "body")
+                .allowElements("div", "span", "table", "tr", "td", "script")
+                .allowElements("form", "input", "textarea", "label", "select", "option")
+                .allowAttributes("id", "class", "name", "value", "onclick").globally()
+                .allowAttributes("width", "cellspacing").onElements("table")
+                .allowAttributes("type", "size", "maxlength").onElements("input")
+                .allowAttributes("cols", "rows").onElements("textarea")
+                .allowAttributes("class").onElements("td")
+                .allowAttributes("method", "onsubmit").onElements("form")
                 .toFactory();
     }
 
@@ -107,7 +155,13 @@ public class UtilCodec {
                }
                return xmlCodec.encode(IMMUNE_XML, original);
         }
+        /**
+         * @deprecated Use {@link #sanitize(String,String)} instead
+         */
         public String sanitize(String original) {
+            return sanitize(original, null);
+        }
+        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
     }
@@ -121,7 +175,13 @@ public class UtilCodec {
                 return null;
             }
         }
+        /**
+         * @deprecated Use {@link #sanitize(String,String)} instead
+         */
         public String sanitize(String original) {
+            return sanitize(original, null);
+        }
+        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
 
@@ -143,7 +203,13 @@ public class UtilCodec {
             }
             return original;
         }
+        /**
+         * @deprecated Use {@link #sanitize(String,String)} instead
+         */
         public String sanitize(String original) {
+            return sanitize(original, null);
+        }
+        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
     }
