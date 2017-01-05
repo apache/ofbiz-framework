@@ -168,7 +168,7 @@ public class PartyContentWrapper implements ContentWrapper {
                 outString = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.sanitize(outString, null);
+            outString = encoder.sanitize(outString);
             if (partyContentCache != null) {
                 partyContentCache.put(cacheKey, outString);
             }
@@ -176,11 +176,11 @@ public class PartyContentWrapper implements ContentWrapper {
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            return candidateOut == null? "" : encoder.sanitize(candidateOut);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            return candidateOut == null? "" : encoder.sanitize(candidateOut);
         }
     }
 
