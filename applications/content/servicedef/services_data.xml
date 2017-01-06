@@ -117,6 +117,25 @@
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
         <override name="textData" allow-html="any"/>
     </service>
+    <service name="createElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
+            location="component://content/minilang/data/DataServices.xml" invoke="createElectronicTextForm" auth="true">
+        <description>Create a ElectronicText with Form code</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <implements service="createDataResource"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
+        <override name="textData" allow-html="any"/>
+    </service>
+    <service name="updateElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
+            location="component://content/minilang/data/DataServices.xml" invoke="updateElectronicTextForm" auth="true">
+        <description>Update a ElectronicText with Form code</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
+        <override name="textData" allow-html="any"/>
+    </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>

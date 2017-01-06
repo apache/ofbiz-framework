@@ -148,6 +148,7 @@ under the License.
 
     <entity entity-name="Content"
             package-name="org.apache.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
             title="Content Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
@@ -159,9 +160,7 @@ under the License.
       <field name="dataSourceId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="privilegeEnumId" type="id"></field>
-      <field name="serviceName" type="long-varchar">
-          <description>Deprecated : use customMethod pattern instead of. Kept for backward compatibility</description>
-      </field>
+      <field name="serviceName" type="long-varchar"><description>Deprecated : use customMethod pattern instead. Kept for backward compatibility</description></field>
       <field name="customMethodId" type="id"></field>
       <field name="contentName" type="value"></field>
       <field name="description" type="description"></field>
