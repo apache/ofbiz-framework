@@ -41,7 +41,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
@@ -289,19 +288,20 @@ public class CommonEvents {
         }
         try {
             JSON json = JSON.from(attrMap);
-            writeJSONtoResponse(json, request.getMethod(), response);
+            writeJSONtoResponse(json, request, response);
         } catch (Exception e) {
             return "error";
         }
         return "success";
     }
 
-    private static void writeJSONtoResponse(JSON json, String httpMethod, HttpServletResponse response) throws UnsupportedEncodingException {
+    private static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String jsonStr = json.toString();
         if (jsonStr == null) {
             Debug.logError("JSON Object was empty; fatal error!", module);
             return;
         }
+        String httpMethod = request.getMethod();
 
         // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
         // Though normally you simply have to access the data you want, so should not be annoyed by the "//" prefix
@@ -309,8 +309,11 @@ public class CommonEvents {
             Debug.logWarning("for security reason (OFBIZ-5409) the the '//' prefix was added handling the JSON response.  "
                     + "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix."
                     + "You might need to remove it if you use Ajax GET responses (not recommended)."
-                    + "In case, the util.js scrpt is there to help you", module);
-            jsonStr = "//" + jsonStr;
+                    + "In case, the util.js scrpt is there to help you."
+                    + "This can be customized in general.properties with the http.json.xssi.prefix property", module);
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            String xssiPrefix =EntityUtilProperties.getPropertyValue("general", "http.json.xssi.prefix", delegator);
+            jsonStr = xssiPrefix + jsonStr;
         }
 
         // set the JSON content type
@@ -357,7 +360,7 @@ public class CommonEvents {
                 uiLabelMap.put(resource, labels);
             }
         }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request.getMethod(), response);
+        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
         return "success";
     }
 
@@ -387,13 +390,13 @@ public class CommonEvents {
                 uiLabelMap.put(resource, label);
             }
         }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request.getMethod(), response);
+        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
         return "success";
     }
 
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
-        	Delegator delegator = (Delegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator"); 
             final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"), "default");
             final String captchaSizeConfig = EntityUtilProperties.getPropertyValue("captcha", "captcha." + captchaSizeConfigName, delegator);
             final String[] captchaSizeConfigs = captchaSizeConfig.split("\\|");
