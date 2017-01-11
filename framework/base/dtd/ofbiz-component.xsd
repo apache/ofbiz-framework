@@ -196,7 +196,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     This value determines in which application menu the application is shown. 
-                    For instance "secondary" is used by specialpurpose and webtools webapps to put their menu-names in the second menu.
+                    For instance "secondary" is used by plugins and webtools webapps to put their menu-names in the second menu.
                     Note that not all OOTB themes use this "secondary" option, for instance Flat-Grey does not.
                 </xs:documentation>
             </xs:annotation>

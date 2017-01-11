@@ -480,7 +480,7 @@ OFBiz plugin system
 -------------------
 
 OFBiz provides an extension mechanism through plugins. Plugins are standard
-OFBiz components that reside in the specialpurpose directory. Plugins can be
+OFBiz components that reside in the plugins directory. Plugins can be
 added manually or fetched from a maven repository. The standard tasks for
 managing plugins are listed below.
 
@@ -508,14 +508,14 @@ If you have a plugin called mycustomplugin and want to install it in OFBiz follo
 below instructions:
 
 - Extract the plugin if it is compressed
-- Place the extracted directory into /specialpurpose
+- Place the extracted directory into /plugins
 - Run the below command
 
 `gradlew installPlugin -PpluginId=myplugin`
 
 The above commands achieve the following:
 
-- add the plugin to /specialpurpose/component-load.xml
+- add the plugin to /plugins/component-load.xml
 - executes the task "install" in the plugin's build.gradle file if it exists
 
 ### Uninstall a plugin
@@ -528,7 +528,7 @@ run the below command
 The above commands achieve the following:
 
 - executes the task "uninstall" in the plugin's build.gradle file if it exists
-- removes the plugin from /specialpurpose/component-load.xml
+- removes the plugin from /plugins/component-load.xml
 
 ### Remove a plugin
 
@@ -551,8 +551,8 @@ Create a new plugin. The following project parameters are passed:
 
 The above commands achieve the following:
 
-- create a new plugin in /specialpurpose/myplugin
-- add the plugin to /specialpurpose/component-load.xml
+- create a new plugin in /plugins/myplugin
+- add the plugin to /plugins/component-load.xml
 
 ### Push a plugin to a repository
 

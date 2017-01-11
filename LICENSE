@@ -225,8 +225,8 @@ under the "MIT" license. For details, see framework/images/webapp/images/date/da
 This product bundles "jQuery" and "jQuery" plugins and extensions, which are available
 under the "MIT" license. For details, see:
 framework/images/webapp/images/jquery/
-specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
-specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
+plugins/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
+plugins/webpos/webapp/webpos/images/js/WebPosHotkeys.js
 
 =========================================================================
 
@@ -239,15 +239,15 @@ For details, see framework/images/webapp/images/icons/
 
 This product bundles files from the "Birt" technology platform (www.eclipse.org/birt/)
 which are available under the "Eclipse Public License - v 1.0".
-For details, see specialpurpose/birt/webapp/birt/webcontent/birt/
+For details, see plugins/birt/webapp/birt/webcontent/birt/
 
 =========================================================================
 
 This product bundles "Webhelp for DocBook", which is available
-under the "MIT" License. For details, see specialpurpose/cmssite/template/docbook/webhelp/
+under the "MIT" License. For details, see plugins/cmssite/template/docbook/webhelp/
 
 =========================================================================
 
 This product bundles "DocBook XSL Stylesheets 1.77.1", which is available
 under the "MIT" license.
-For details, see specialpurpose/cmssite/template/docbook/
+For details, see plugins/cmssite/template/docbook/

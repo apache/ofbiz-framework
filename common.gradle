@@ -19,7 +19,7 @@
 def iterateOverActiveComponents(applyFunction) {
     def frameworkComponents = new XmlParser().parse("${rootDir}/framework/component-load.xml")
     def applicationsComponents = new XmlParser().parse("${rootDir}/applications/component-load.xml")
-    def specialpurposeComponents = new XmlParser().parse("${rootDir}/specialpurpose/component-load.xml")
+    def pluginsComponents = new XmlParser().parse("${rootDir}/plugins/component-load.xml")
 
     applyFunction file("${rootDir}/framework/start")
 
@@ -29,8 +29,8 @@ def iterateOverActiveComponents(applyFunction) {
     applicationsComponents.children().each { component ->
         applyFunction file("${rootDir}/applications/"+component.@"component-location")
     }
-    specialpurposeComponents.children().each { component ->
-        applyFunction file("${rootDir}/specialpurpose/"+component.@"component-location")
+    pluginsComponents.children().each { component ->
+        applyFunction file("${rootDir}/plugins/"+component.@"component-location")
     }
 
     file("${rootDir}/themes").eachDir { component ->

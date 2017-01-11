@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- eBay store -->
+    <DataResource dataResourceId="HELP_EBAY_STORE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_EbayStore.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="eBay Store" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EBAY_STORE" contentTypeId="DOCUMENT" contentName="eBay Store" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_EBAY_STORE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_EBAY_STORE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"  mapKey="EBAYSTORE_main"/>
+
+    <DataResource dataResourceId="EBAY_NewEbayAccount" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_NewEbayAccount.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_NewEbayAccount" contentTypeId="DOCUMENT" contentName="EBay store new ebay Account" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_NewEbayAccount" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_NewEbayAccount" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_NewEbayAccount"/>
+
+    <DataResource dataResourceId="EBAY_StoreSetting" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_StoreSetting.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_StoreSetting" contentTypeId="DOCUMENT" contentName="EBay store setting" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_StoreSetting" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_StoreSetting" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_ebayStoreDetail"/>
+
+    <DataResource dataResourceId="EBAY_ExpCatToEbay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_ExportCategoriesToEbay.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ExpCatToEbay" contentTypeId="DOCUMENT" contentName="EBay export categories to store" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ExpCatToEbay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_ExpCatToEbay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_exportCategoryEbayStore"/>
+
+    <!-- ebay feedback -->
+    <DataResource dataResourceId="EBAY_LeaveFeedback" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_LeaveFeedback.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_LeaveFeedback" contentTypeId="DOCUMENT" contentName="EBay Leave Feedback" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_LeaveFeedback" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_LeaveFeedback" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_LeaveFeedback"/>
+
+    <DataResource dataResourceId="EBAY_Feedback" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_Feedback.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_Feedback" contentTypeId="DOCUMENT" contentName="EBay Feedback" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_Feedback" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_Feedback" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_Feedback"/>
+
+    <DataResource dataResourceId="EBAY_AutoPref" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_AutoPref.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_AutoPref" contentTypeId="DOCUMENT" contentName="EBay Automation Preferences" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_AutoPref" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_AutoPref" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_AutomationPreferences"/>
+
+    <!-- block out of stock  -->
+    <DataResource dataResourceId="EBAY_BlockItem" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_BlockItemOutStock.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_BlockItem" contentTypeId="DOCUMENT" contentName="Block item that out of stock on eBay" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_BlockItem" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_BlockItem" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_blockItemOutOfStock"/>
+
+    <!-- ebay product inventory -->
+    <DataResource dataResourceId="EBAY_ProdInventory" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_ProductInventory.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ProdInventory" contentTypeId="DOCUMENT" contentName="handle ebay store inventory by ofbiz inventory" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ProdInventory" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_ProdInventory" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_ebayStoreInventory"/>    
+
+    <DataResource dataResourceId="EBAY_reserveProd" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/ebaystore/data/helpdata/HELP_EBAY_ReserveProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_reserveProd" contentTypeId="DOCUMENT" contentName="reserve product from ofbiz inventory" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_reserveProd" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY_STORE" contentIdTo="EBAY_reserveProd" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAYSTORE_reserveEbayProductInventory"/>
+</entity-engine-xml>

@@ -261,6 +261,6 @@ under the License.
     <EntityGroupEntry entityGroupId="6930" entityOrPackage="org.apache.ofbiz.security" applEnumId="ESIA_INCLUDE"/>
 -    <EntityGroup entityGroupId="6990" entityGroupName="Technical: WebPOS, OAGIS, Other"/>
 -    <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.apache.ofbiz.pos.terminal" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.apache.ofbiz.specialpurpose.oagis" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.apache.ofbiz.plugins.oagis" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6990" entityOrPackage="org.apache.ofbiz.catalina.session" applEnumId="ESIA_INCLUDE"/>
 </entity-engine-xml>

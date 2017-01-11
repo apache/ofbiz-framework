@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+
+    <!-- PortalPortlet System provided pages -->
+    <!-- no security group -->
+    <PortalPage portalPageId="MYPORTAL_NONE" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/><!-- user belonging to no portal security group -->
+
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE" sequenceNum="0" portalPageName="Main" description="The OFBiz System info page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE0" sequenceNum="50" portalPageName="My Comms" description="The OFBiz My Communications page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE6" sequenceNum="600" portalPageName="My Leave" description="The OFBiz My Portal My Leave page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE7" sequenceNum="700" portalPageName="My Trainings" description="My Portal trainings page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE8" sequenceNum="800" portalPageName="My Payments" description="The OFBiz My Portal My Payments page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML" sequenceNum="0" portalPageName="Main" description="The OFBiz System info page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML0" sequenceNum="50" portalPageName="My Comms" description="The OFBiz My Communications page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page for a customers" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER2" sequenceNum="200" portalPageName="Invoices" description="The OFBiz My Portal Invoices page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER3" sequenceNum="300" portalPageName="Projects" description="The OFBiz My Portal Project page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER4" sequenceNum="400" portalPageName="Orders" description="The OFBiz My Portal Order page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER5" sequenceNum="500" portalPageName="My Orders" description="The OFBiz My Portal Order page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+
+    <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00002" columnWidthPercentage="50"/>
+
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE0" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE1" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE1" columnSeqId="00002" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE2" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE4" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE5" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE6" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE7" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE8" columnSeqId="00001"/>
+
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML0" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML1" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML1" columnSeqId="00002" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML2" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML4" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML5" columnSeqId="00001"/>
+
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER1" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER1" columnSeqId="00002" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER4" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER5" columnSeqId="00001"/>
+
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
+
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="SystemInfoNotes" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="SystemInfoStatus" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="Calendar" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE0" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE0" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="partyRelContacts" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="partyRelAccounts" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00001" sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="ShipperAccount" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE6" portalPortletId="myLeave" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE7" portalPortletId="MyTrainings" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE8" portalPortletId="ListPayments" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_EMPLOYEE8" portalPortletId="ListPayments" portletSeqId="00001" attrName="statusId" attrValue="PMNT_NOT_PAID"/>
+
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoNotes" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoStatus" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="Calendar" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML0" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML0" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="partyRelContacts" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="partyRelAccounts" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002"  sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002"  sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002"  sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="7"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+
+    <!-- open 'own' customer requests -->
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00001" attrName="statusGroup" attrValue="OPEN"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00001" attrName="otherContacts" attrValue="N"/>
+    <!-- completed 'own' customer requests -->
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" columnSeqId="00001"  sequenceNum="2"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" attrName="statusGroup" attrValue="COMPLETED"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" attrName="otherContacts" attrValue="N"/>
+    <!-- open 'other people in same company' customer requests -->
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00003" columnSeqId="00001"  sequenceNum="4"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00003" attrName="statusGroup" attrValue="OPEN"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00003" attrName="otherContacts" attrValue="Y"/>
+    
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="6"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="MyCommunications" portletSeqId="00001" attrName="internalNotesOnly" attrValue="Y"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="partyRelContacts" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="partyRelAccounts" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001"  sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002"  sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002"  sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="7"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="8"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListCustomerInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListCustomerProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" attrName="statusId" attrValue="ORDER_APPROVED"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" attrName="roleTypeId" attrValue="PLACING_CUSTOMER"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER5" portalPortletId="ListCustReturns" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER5" portalPortletId="ListCustReturns" portletSeqId="00001" attrName="statusId" attrValue="RETURN_REQUESTED"/>
+    
+    <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="LIST_CUSTOMER"/>
+    <PortletPortletCategory portalPortletId="ListCustomerInvoices" portletCategoryId="LIST_CUSTOMER"/>
+
+    <!-- Myportal help pages -->
+    <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+      objectInfo="plugins/myportal/data/helpdata/HELP_MYPORTAL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+      dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_MYPORTAL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_MYPORTAL" statusId="CTNT_IN_PROGRESS" 
+      contentName="My Portal" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MYPORTAL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
+
+</entity-engine-xml>

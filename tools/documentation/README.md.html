@@ -246,7 +246,7 @@ under the License.
 <p><code>gradlew eclipse</code></p>
 <hr />
 <h2 id="ofbiz-plugin-system">OFBiz plugin system</h2>
-<p>OFBiz provides an extension mechanism through plugins. Plugins are standard OFBiz components that reside in the specialpurpose directory. Plugins can be added manually or fetched from a maven repository. The standard tasks for managing plugins are listed below.</p>
+<p>OFBiz provides an extension mechanism through plugins. Plugins are standard OFBiz components that reside in the plugins directory. Plugins can be added manually or fetched from a maven repository. The standard tasks for managing plugins are listed below.</p>
 <blockquote>
 <p><em>Note</em>: OFBiz plugin versions follow <a href="http://semver.org/">Semantic Versioning 2.0.0</a></p>
 </blockquote>
@@ -261,13 +261,13 @@ under the License.
 <p>If you have a plugin called mycustomplugin and want to install it in OFBiz follow the below instructions:</p>
 <ul>
 <li>Extract the plugin if it is compressed</li>
-<li>Place the extracted directory into /specialpurpose</li>
+<li>Place the extracted directory into /plugins</li>
 <li>Run the below command</li>
 </ul>
 <p><code>gradlew installPlugin -PpluginId=myplugin</code></p>
 <p>The above commands achieve the following:</p>
 <ul>
-<li>add the plugin to /specialpurpose/component-load.xml</li>
+<li>add the plugin to /plugins/component-load.xml</li>
 <li>executes the task &quot;install&quot; in the plugin's build.gradle file if it exists</li>
 </ul>
 <h3 id="uninstall-a-plugin">Uninstall a plugin</h3>
@@ -276,7 +276,7 @@ under the License.
 <p>The above commands achieve the following:</p>
 <ul>
 <li>executes the task &quot;uninstall&quot; in the plugin's build.gradle file if it exists</li>
-<li>removes the plugin from /specialpurpose/component-load.xml</li>
+<li>removes the plugin from /plugins/component-load.xml</li>
 </ul>
 <h3 id="remove-a-plugin">Remove a plugin</h3>
 <p>Calls <strong>uninstallPlugin</strong> on an existing plugin and then delete it from the file-system</p>
@@ -293,8 +293,8 @@ under the License.
 <p><code>gradlew createPlugin -PpluginId=myplugin -PpluginResourceName=MyPlugin -PwebappName=mypluginweb -PbasePermission=MYSECURITY</code></p>
 <p>The above commands achieve the following:</p>
 <ul>
-<li>create a new plugin in /specialpurpose/myplugin</li>
-<li>add the plugin to /specialpurpose/component-load.xml</li>
+<li>create a new plugin in /plugins/myplugin</li>
+<li>add the plugin to /plugins/component-load.xml</li>
 </ul>
 <h3 id="push-a-plugin-to-a-repository">Push a plugin to a repository</h3>
 <p>This task publishes an OFBiz plugin into a maven package and then uploads it to a maven repository. Currently, pushing is limited to localhost maven repository (work in progress). To push a plugin the following parameters are passed:</p>

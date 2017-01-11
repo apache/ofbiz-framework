@@ -3,7 +3,7 @@ build/
 applications/*/build
 framework/*/build
 hot-deploy/*/build
-specialpurpose/*/build
+plugins/*/build
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl

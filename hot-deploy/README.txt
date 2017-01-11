@@ -4,7 +4,7 @@ All components in this tree will be loaded after the OFBiz components, including
 framework
 themes
 applications
-specialpurpose
+plugins
 
 The hot-deploy Auto-Loading feature loads all components in the order they are found (i.e. alphabetic or creation date).
 
