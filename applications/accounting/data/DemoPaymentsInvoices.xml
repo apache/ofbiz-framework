@@ -76,7 +76,7 @@ under the License.
     <InvoiceItem invoiceId="8001" invoiceItemSeqId="1" invoiceItemTypeId="PINV_SURCHARGE_ADJ" taxableFlag="Y" quantity="1.000000" amount="10.000"/>
     
     <!--
-         specialpurpose components are loaded after applications components. DemoSupplier & AcctBigSupplier data exists in ecommerce component. 
+         plugins components are loaded after applications components. DemoSupplier & AcctBigSupplier data exists in ecommerce component. 
          So it creates foreign key violation as accounting component is loaded first and it tries to find 'DemoSupplier' and 'AcctBigSupplier' party.
          This change will help to load test data without producing any foreign key error. 
      -->

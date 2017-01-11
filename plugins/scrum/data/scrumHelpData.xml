@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+
+    <DataResource dataResourceId="HELP_SCRUM" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="SCRUM Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_SCRUM" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_SCRUM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Scrum" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_SCRUM" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" mapKey="SCRUM_Sprints"/>
+    <!-- === Project === -->
+    <DataResource dataResourceId="HELP_SCRUM_PROJECT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_Project.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Project" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_SCRUM_PROJECT" contentTypeId="DOCUMENT" contentName="Project" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SCRUM_PROJECT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="HELP_SCRUM_PROJECT" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_viewScrumProject"/>
+    
+    <DataResource dataResourceId="HELP_SCRUM_PRODUCT" localeString="en" dataResourceTypeId="OFBIZ_FILE"
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ProductView.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Product" mimeTypeId="text/xml" isPublic="Y"/>
+    <Content contentId="HELP_SCRUM_PRODUCT" contentTypeId="DOCUMENT" contentName="Product" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SCRUM_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="HELP_SCRUM_PRODUCT" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_main"/>
+    
+    <DataResource dataResourceId="SCRUM_CreteScrProj" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_CreateScrumProject.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Create Scrum Project Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_CreteScrProj" contentTypeId="DOCUMENT" contentName="Create Scrum Project Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_CreteScrProj" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_CreteScrProj" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_editScrumProject"/>
+    
+    <DataResource dataResourceId="SCRUM_AddProdBacklog" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_AddProdBacklog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Create Scrum Product Backlog Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_AddProdBacklog" contentTypeId="DOCUMENT" contentName="Create Scrum Product Backlog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_AddProdBacklog" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_AddProdBacklog" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_AddProdBacklog"/>
+    
+    <DataResource dataResourceId="SCRUM_EditProduct" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_AddProdBacklog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Scrum Product Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditProduct" contentTypeId="DOCUMENT" contentName="Create Scrum Product Backlog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_AddProdBacklog" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_EditProduct" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditProduct"/>
+    
+    <DataResource dataResourceId="SCRUM_EditProBacklog" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditProdBacklog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Create Scrum Product Backlog Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditProBacklog" contentTypeId="DOCUMENT" contentName="Edit Scrum Product Backlog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditProBacklog" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_EditProBacklog" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditProdBacklog"/>
+
+    <DataResource dataResourceId="SCRUM_EDIT_SPB" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditSprintBacklog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Sprint Backlog Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EDIT_SPB" contentTypeId="DOCUMENT" contentName="Edit Sprint Backlog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EDIT_SPB" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_EDIT_SPB" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditSprintBacklog"/>
+    
+    <DataResource dataResourceId="SCRUM_EditSprint" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditSprint.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Sprint" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditSprint" contentTypeId="DOCUMENT" contentName="Edit Sprint" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditSprint" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_EditSprint" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditSprint"/>
+
+    <DataResource dataResourceId="SCRUM_AddSprintBL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_AddSprintBacklog.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Add Sprint Backlog Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_AddSprintBL" contentTypeId="DOCUMENT" contentName="Add Sprint Backlog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_AddSprintBL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_AddSprintBL" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_AddSprintBacklog"/>
+    
+    <DataResource dataResourceId="SCRUM_AddSprint" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_AddSprint.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Add Sprint Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_AddSprint" contentTypeId="DOCUMENT" contentName="Add Sprint Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_AddSprint" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_AddSprint" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_AddSprint"/>
+    
+    <DataResource dataResourceId="SCRUM_AddProduct" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_AddProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Create Scrum Product Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_AddProduct" contentTypeId="DOCUMENT" contentName="Create Scrum Product Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_AddProduct" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_AddProduct" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_AddProduct"/>
+    
+    <DataResource dataResourceId="SCRUM_SprintList" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_SprintList.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Sprint List Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_SprintList" contentTypeId="DOCUMENT" contentName="Sprint List Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_SprintList" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_SprintList" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_SprintList"/>
+    
+    <DataResource dataResourceId="SCRUM_ViewSprint" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ViewSprint.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Sprint View Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ViewSprint" contentTypeId="DOCUMENT" contentName="Sprint View Help" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ViewSprint" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_ViewSprint" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ViewSprint"/>
+    
+    <DataResource dataResourceId="SCRUM_OpenTest" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_OpenTest.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Open Test" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_OpenTest" contentTypeId="DOCUMENT" contentName="Open Test" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_OpenTest" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_OpenTest" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_openTest"/>
+    
+    <DataResource dataResourceId="SCRUM_TaskView" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_TaskView.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="View Task" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_TaskView" contentTypeId="DOCUMENT" contentName="View Task" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_TaskView" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_TaskView" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_taskView"/>
+    
+    <DataResource dataResourceId="SCRUM_FindResource" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_FindResource.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Member" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_FindResource" contentTypeId="DOCUMENT" contentName="Member" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_FindResource" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_FindResource" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_FindResource"/>
+    
+    <DataResource dataResourceId="SCRUM_MyWork" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_MyWork.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="MyWork" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_MyWork" contentTypeId="DOCUMENT" contentName="MyWork" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_MyWork" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_MyWork" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_MyWork"/>
+    
+    <DataResource dataResourceId="SCRUM_FindTimeSheet" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_FindTimeSheet.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="TimeSheet" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_FindTimeSheet" contentTypeId="DOCUMENT" contentName="TimeSheet" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_FindTimeSheet" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM" contentIdTo="SCRUM_FindTimeSheet" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_FindTimeSheet"/>
+    
+    <DataResource dataResourceId="SCRUM_ViewProduct" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ViewProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Product Overview" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ViewProduct" contentTypeId="DOCUMENT" contentName="Product Overview" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ViewProduct" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ViewProduct" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ViewProduct"/>
+    
+    <DataResource dataResourceId="SCRUM_defaultTasks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_defaultTasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Default Tasks" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_defaultTasks" contentTypeId="DOCUMENT" contentName="Default Tasks" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_defaultTasks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_defaultTasks" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_defaultTasks"/>
+        
+    <DataResource dataResourceId="SCRUM_editDefTask" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_defaultTasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Default Task" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_editDefTask" contentTypeId="DOCUMENT" contentName="Edit Default Task" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_editDefTask" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_editDefTask" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_editDefaultTask"/>
+    
+    <DataResource dataResourceId="SCRUM_ListBackCate" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ListProductBacklogCategories.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="List Product Backlog Categories" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ListBackCate" contentTypeId="DOCUMENT" contentName="List Product Backlog Categories" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ListBackCate" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ListBackCate" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ListProductBacklogCategories"/>
+    
+    <DataResource dataResourceId="SCRUM_EditBackCate" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ListProductBacklogCategories.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Product Backlog Categories" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditBackCate" contentTypeId="DOCUMENT" contentName="Edit Product Backlog Categories" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditBackCate" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_EditBackCate" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditProductBacklogCategory"/>
+    
+    <DataResource dataResourceId="SCRUM_EditProContent" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditProductContents.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Product Contents" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditProContent" contentTypeId="DOCUMENT" contentName="Edit Product Contents" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditProContent" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_EditProContent" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditProductContents"/>
+    
+    <DataResource dataResourceId="SCRUM_ProductEmails" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ProductEmails.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Communication Product Emails" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ProductEmails" contentTypeId="DOCUMENT" contentName="Communication Product Emails" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ProductEmails" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ProductEmails" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ProductEmails"/>
+    
+    <DataResource dataResourceId="SCRUM_NewProEmail" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_NewProductEmail.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="New Emails" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_NewProEmail" contentTypeId="DOCUMENT" contentName="New Emails" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_NewProEmail" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_NewProEmail" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_NewProductEmail"/>
+    
+    <DataResource dataResourceId="SCRUM_EditProjCon" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditProjectContents.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Product Content" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditProjCon" contentTypeId="DOCUMENT" contentName="Edit Product Content" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditProjCon" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_EditProjCon" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditProjectContents"/>
+    
+    <DataResource dataResourceId="SCRUM_EditBkItemCon" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_EditBacklogItemContent.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Product Item Content" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_EditBkItemCon" contentTypeId="DOCUMENT" contentName="Edit Product Item Content" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_EditBkItemCon" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_EditBkItemCon" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_EditBacklogItemContent"/>
+    
+    <DataResource dataResourceId="SCRUM_ViewBkItem" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ViewProdBacklogItem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="View Product Backlog Item" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ViewBkItem" contentTypeId="DOCUMENT" contentName="View Product Backlog Item" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ViewBkItem" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ViewBkItem" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ViewProdBacklogItem"/>
+    
+    <DataResource dataResourceId="SCRUM_ViewBkItem" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ViewProdBacklogItem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="View Product Backlog Item" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ViewBkItem" contentTypeId="DOCUMENT" contentName="View Product Backlog Item" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ViewBkItem" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ViewBkItem" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ViewProdBacklogItem"/>
+    
+    <DataResource dataResourceId="SCRUM_ProdBKEmail" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_ProductBacklogEmails.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Product Backlog Communications" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_ProdBKEmail" contentTypeId="DOCUMENT" contentName="Product Backlog Communications" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_ProdBKEmail" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PRODUCT" contentIdTo="SCRUM_ProdBKEmail" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_ProductBacklogEmails"/>
+    
+    <DataResource dataResourceId="SCRUM_SprintMember" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_SprintMember.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Sprint Member" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_SprintMember" contentTypeId="DOCUMENT" contentName="Sprint Member" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_SprintMember" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_SprintMember" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_SprintMember"/>
+    
+    <DataResource dataResourceId="SCRUM_Minute" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="plugins/scrum/data/helpdata/HELP_SCRUM_DailyScrumMeetingMinute.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Daily Scrum Meeting Minute" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="SCRUM_Minute" contentTypeId="DOCUMENT" contentName="Daily Scrum Meeting Minute" templateDataResourceId="HELP_TEMPL" dataResourceId="SCRUM_Minute" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SCRUM_PROJECT" contentIdTo="SCRUM_Minute" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" sequenceNum="000" mapKey="SCRUM_DailyScrumMeetingMinute"/>
+</entity-engine-xml>

@@ -30,7 +30,7 @@ apply from: 'common.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
-ext.pluginsDir = "${rootDir}/specialpurpose"
+ext.pluginsDir = "${rootDir}/plugins"
 
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx1024M']
@@ -258,7 +258,7 @@ eclipse.classpath.file.whenMerged { classpath ->
             entry.path ==~ '.*/+(' + componentName.tokenize(osDirSeparator).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
-            entry.path ==~ /(\/+specialpurpose)$/ ||
+            entry.path ==~ /(\/+plugins)$/ ||
             entry.path ==~ /(\/+themes)$/ ||
             entry.path ==~ /(\/+hot-deploy)$/ ||
             entry.path ==~ eclipseEntry + '/config' ||
@@ -590,9 +590,9 @@ task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run i
     }
 
     if (project.hasProperty('pluginId')) {
-        if (subprojectExists(":specialpurpose:${pluginId}")) {
-            if (taskExistsInproject(":specialpurpose:${pluginId}", 'install')) {
-                dependsOn ":specialpurpose:${pluginId}:install"
+        if (subprojectExists(":plugins:${pluginId}")) {
+            if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
+                dependsOn ":plugins:${pluginId}:install"
                 doLast { println "installed plugin ${pluginId}" }
             } else {
                 doLast { println "No install task defined for plugin ${pluginId}" }
@@ -615,13 +615,13 @@ task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if
         if (!project.hasProperty('pluginId')) {
             throw new GradleException('Missing property \"pluginId\"')
         }
-        if (!subprojectExists(":specialpurpose:${pluginId}")) {
+        if (!subprojectExists(":plugins:${pluginId}")) {
             throw new GradleException("Plugin \"${pluginId}\" does not exist")
         }
     }
 
-    if (project.hasProperty('pluginId') && taskExistsInproject(":specialpurpose:${pluginId}", 'uninstall')) {
-        dependsOn ":specialpurpose:${pluginId}:uninstall"
+    if (project.hasProperty('pluginId') && taskExistsInproject(":plugins:${pluginId}", 'uninstall')) {
+        dependsOn ":plugins:${pluginId}:uninstall"
     }
 
     doLast {
@@ -630,7 +630,7 @@ task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if
 }
 
 task removePlugin(group: ofbizPlugin, description: 'Uninstall a plugin and delete its files') {
-    if (project.hasProperty('pluginId') && subprojectExists(":specialpurpose:${pluginId}")) {
+    if (project.hasProperty('pluginId') && subprojectExists(":plugins:${pluginId}")) {
         dependsOn uninstallPlugin
     }
 
@@ -647,7 +647,7 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
 
     if (project.hasProperty('pluginId')) {
         doFirst {
-            if (!subprojectExists(":specialpurpose:${pluginId}")) {
+            if (!subprojectExists(":plugins:${pluginId}")) {
                 throw new GradleException("Plugin ${pluginId} does not exist, cannot publish")
             }
         }
@@ -675,7 +675,7 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
             }
         }
 
-        if (subprojectExists(":specialpurpose:${pluginId}")) {
+        if (subprojectExists(":plugins:${pluginId}")) {
             dependsOn publishToMavenLocal
         }
 
@@ -778,7 +778,7 @@ task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifac
     /* TODO this task is temporary and should be deleted after some
      * time when users have updated their trees. */
     doLast {
-        ['framework', 'specialpurpose', 'applications'].each { componentGroup ->
+        ['framework', 'plugins', 'applications'].each { componentGroup ->
             file(componentGroup).eachDir { component ->
                 delete file(component.toString() + '/build')
             }
