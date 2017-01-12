@@ -812,7 +812,6 @@ public class ContentServices {
      */
     public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = new HashMap<String, Object>();
-        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
@@ -868,7 +867,6 @@ public class ContentServices {
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String,Object> results = new HashMap<String, Object>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Delegator delegator = dctx.getDelegator();
         Writer out = (Writer) context.get("outWriter");
 
         Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
