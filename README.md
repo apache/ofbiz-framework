@@ -76,6 +76,9 @@ MS Windows:
 Unix-like OS:
 `./gradlew ofbiz`
 
+>_Note_: then ignore the % progress indicator because this task does not end as long as OFBiz is running.
+
+
 ### Visit OFBiz through your browser:
 
 [Order Back Office](https://localhost:8443/ordermgr)
