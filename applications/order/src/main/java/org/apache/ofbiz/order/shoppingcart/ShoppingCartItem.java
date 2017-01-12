@@ -701,7 +701,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Creates new ShoppingCartItem object. 
      * @param dispatcher TODO*/
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, Locale locale, 
-            String itemType, ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
          if (product != null) {
             String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
