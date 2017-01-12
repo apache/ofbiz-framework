@@ -44,15 +44,11 @@ command `gradlew eclipse` before creating the project in Eclipse.
 This command will prepare OFBiz for Eclipse with the correct classpath and settings 
 by creating the.classpath and .project files.
 
-Security
--------------------
-
-You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.
-
->_Note_: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): [The infamous Java serialization vulnerability](https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability)
-
-You can find more information about security in OFBiz at [Keeping OFBiz secure](https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure) 
-
+>_Note_: if you want to use an external DBMS, instead of the embedded Derby, you will need a JDBC driver.
+The only thing you need to do is add a dependency in build.gradle to the MySQL/PostgreSQL/whatever JDBC driver.
+Search in Jcenter for the database driver suitable for the database installed on your production system.
+For example, under the dependencies section you can add something like this for mysql: `runtime 'mysql:mysql-connector-java:5.1.36'`
+Of course you need to make sure the connector is compatible with _your_ version of the database installed!
 
 Quick start
 -----------
@@ -93,6 +89,16 @@ You can log in with the user __admin__ and password __ofbiz__.
 >_Note_: the default configuration uses an embedded Java database
 (Apache Derby) and embedded application server components such as
 Apache Tomcat®, Apache Geronimo (transaction manager), etc.
+
+Security
+-------------------
+
+You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.
+
+>_Note_: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): [The infamous Java serialization vulnerability](https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability)
+
+You can find more information about security in OFBiz at [Keeping OFBiz secure](https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure) 
+
 
 * * * * * * * * * * * *
 
