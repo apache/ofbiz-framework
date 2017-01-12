@@ -37,12 +37,9 @@ under the License.
 <blockquote>
 <p><em>Note</em>: if you are using Eclipse, make sure of running the appropriate Eclipse command <code>gradlew eclipse</code> before creating the project in Eclipse. This command will prepare OFBiz for Eclipse with the correct classpath and settings by creating the.classpath and .project files.</p>
 </blockquote>
-<h2 id="security">Security</h2>
-<p>You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.</p>
 <blockquote>
-<p><em>Note</em>: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): <a href="https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability">The infamous Java serialization vulnerability</a></p>
+<p><em>Note</em>: if you want to use an external DBMS, instead of the embedded Derby, you will need a JDBC driver. The only thing you need to do is add a dependency in build.gradle to the MySQL/PostgreSQL/whatever JDBC driver. Search in Jcenter for the database driver suitable for the database installed on your production system. For example, under the dependencies section you can add something like this for mysql: <code>runtime 'mysql:mysql-connector-java:5.1.36'</code> Of course you need to make sure the connector is compatible with <em>your</em> version of the database installed!</p>
 </blockquote>
-<p>You can find more information about security in OFBiz at <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure">Keeping OFBiz secure</a></p>
 <h2 id="quick-start">Quick start</h2>
 <p>To quickly install and fire-up OFBiz, please follow the below instructions from the command line at the OFBiz top level directory (folder)</p>
 <h3 id="prepare-ofbiz">Prepare OFBiz:</h3>
@@ -52,6 +49,9 @@ under the License.
 <h3 id="start-ofbiz">Start OFBiz:</h3>
 <p>MS Windows: <code>gradlew ofbiz</code></p>
 <p>Unix-like OS: <code>./gradlew ofbiz</code></p>
+<blockquote>
+<p><em>Note</em>: then ignore the % progress indicator because this task does not end as long as OFBiz is running.</p>
+</blockquote>
 <h3 id="visit-ofbiz-through-your-browser">Visit OFBiz through your browser:</h3>
 <p><a href="https://localhost:8443/ordermgr">Order Back Office</a></p>
 <p><a href="https://localhost:8443/accounting">Accounting Back Office</a></p>
@@ -60,6 +60,12 @@ under the License.
 <blockquote>
 <p><em>Note</em>: the default configuration uses an embedded Java database (Apache Derby) and embedded application server components such as Apache Tomcat®, Apache Geronimo (transaction manager), etc.</p>
 </blockquote>
+<h2 id="security">Security</h2>
+<p>You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.</p>
+<blockquote>
+<p><em>Note</em>: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): <a href="https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability">The infamous Java serialization vulnerability</a></p>
+</blockquote>
+<p>You can find more information about security in OFBiz at <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure">Keeping OFBiz secure</a></p>
 <hr />
 <h2 id="build-system-syntax">Build system syntax</h2>
 <p>All build tasks are executed using the <strong>Gradle</strong> build system which is embedded in OFBiz. To execute build tasks go to OFBiz top-level directory (folder) and execute tasks from there.</p>
@@ -211,7 +217,7 @@ under the License.
 <p>OR</p>
 <p><code>gradlew 'ofbiz --test'</code></p>
 <h4 id="execute-an-integration-test-case">Execute an integration test case</h4>
-<p>run a test case, in this example the componnet is &quot;entity&quot; and the case name is &quot;entity-tests&quot;</p>
+<p>run a test case, in this example the component is &quot;entity&quot; and the case name is &quot;entity-tests&quot;</p>
 <p><code>gradlew &quot;ofbiz --test component=entity --test case=entity-tests&quot;</code></p>
 <h4 id="execute-an-integration-test-case-in-debug-mode">Execute an integration test case in debug mode</h4>
 <p>listens on port <strong>5005</strong></p>
@@ -242,7 +248,8 @@ under the License.
 <p>The below command activates a gradle plugin (OWASP) and Identifies and reports known vulnerabilities (CVEs) in OFBiz library dependencies. This command takes a long time to execute because it needs to download all plugin dependencies and the CVE identification process is also time consuming</p>
 <p><code>gradlew -PenableOwasp dependencyCheck</code></p>
 <h4 id="setup-eclipse-project-for-ofbiz">Setup eclipse project for OFBiz</h4>
-<p>Thanks to some gradle magic, setting up OFBiz on eclipse is very easy. All you need is to execute one command and then you can import the project to eclipse. This command will generate the necessary <strong>.classpath</strong> and <strong>.project</strong> files for eclipse.</p>
+<p>Setting up OFBiz on eclipse is easy by simply running the below command and then importing the project to eclipse. This command will generate the necessary <strong>.classpath</strong> and <strong>.project</strong> files for eclipse and it will also make the source code for external libraries available in eclipse (i.e. you can view source through Ctrl + Click)</p>
+<p>The first time you run this command it will take a long time to execute because it will download source packages available for project dependencies.</p>
 <p><code>gradlew eclipse</code></p>
 <hr />
 <h2 id="ofbiz-plugin-system">OFBiz plugin system</h2>
@@ -310,9 +317,9 @@ under the License.
 <h2 id="useful-tips">Useful Tips</h2>
 <h3 id="gradle-tab-completion-on-unix-like-systems">Gradle tab-completion on Unix-like systems:</h3>
 <p>To get tab completion (auto complete gradle commands by pressing tab) you can download the script from the below link and place it in the appropriate location for your system.</p>
-<p><a href="https://gist.github.com/nolanlawson/8694399">Gradle tab completion</a></p>
+<p><a href="https://gist.github.com/Ea87/46401a96df31cd208a87">Gradle tab completion</a></p>
 <p>For example, on debian based systems, you can use the following command:</p>
-<p><code>sudo curl -L -s https://gist.github.com/nolanlawson/8694399/raw/gradle-tab-completion.bash -o /etc/bash_completion.d/gradle-tab-completion.bash</code></p>
+<p><code>sudo curl -L -s https://gist.github.com/Ea87/46401a96df31cd208a87/raw/gradle-tab-completion.bash -o /etc/bash_completion.d/gradle-tab-completion.bash</code></p>
 <h2 id="crypto-notice">Crypto notice</h2>
 <p>This distribution includes cryptographic software. The country in which you currently reside may have restrictions on the import, possession, use, and/or re-export to another country, of encryption software. BEFORE using any encryption software, please check your country's laws, regulations and policies concerning the import, possession, or use, and re-export of encryption software, to see if this is permitted. See <a href="http://www.wassenaar.org/" class="uri">http://www.wassenaar.org/</a> for more information.</p>
 <p>The U.S. Government Department of Commerce, Bureau of Industry and Security (BIS), has classified this software as Export Commodity Control Number (ECCN) 5D002.C.1, which includes information security software using or performing cryptographic functions with asymmetric algorithms. The form and manner of this Apache Software Foundation distribution makes it eligible for export under the License Exception ENC Technology Software Unrestricted (TSU) exception (see the BIS Export Administration Regulations, Section 740.13) for both object code and source code.</p>
