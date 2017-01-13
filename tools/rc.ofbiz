@@ -72,7 +72,7 @@ start() {
     cd $OFBIZ_HOME
     umask 007
     /bin/rm -f $OFBIZ_LOG
-    gradlew ofbiz >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
+    ./gradlew ofbiz >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
     echo_success
     return 0
 }
@@ -92,10 +92,10 @@ stop() {
     # All clear
     cd $OFBIZ_HOME
     umask 007
-    gradlew "ofbiz --shutdown" >>$OFBIZ_LOG
+    ./gradlew "ofbiz --shutdown" >>$OFBIZ_LOG
     ofbizprocs
     if [ "$OFBIZ_PROCS" != "" ]; then
-        gradlew terminateOfbiz
+        ./gradlew terminateOfbiz
     fi
     ofbizprocs
     if [ "$OFBIZ_PROCS" != "" ]; then
