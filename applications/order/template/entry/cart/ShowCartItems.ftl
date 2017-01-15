@@ -80,8 +80,8 @@ under the License.
                   <#if cartLine.getProductId()??>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
-                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br />
-                    <i>${cartLine.getDescription()!}</i>
+                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName(dispatcher)?default("")}"/><br />
+                    <i>${cartLine.getDescription(dispatcher)!}</i>
                     <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                       <#-- only applies to sales orders, not purchase orders -->
                       <#-- if inventory is not required check to see if it is out of stock and needs to have a message shown about that... -->
@@ -93,7 +93,7 @@ under the License.
                     </#if>
                   <#else>
                     <#-- this is a non-product item -->
-                    <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
+                    <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
                   </#if>
                     <#-- display the item's features -->
                    <#assign features = "">

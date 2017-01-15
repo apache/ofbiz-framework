@@ -3606,8 +3606,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public List<GenericValue> makeOrderItems() {
-        return makeOrderItems(false, false, null);
+    public List<GenericValue> makeOrderItems(LocalDispatcher dispatcher) {
+        return makeOrderItems(false, false, dispatcher);
     }
 
     public List<GenericValue> makeOrderItems(boolean explodeItems, boolean replaceAggregatedId, LocalDispatcher dispatcher) {

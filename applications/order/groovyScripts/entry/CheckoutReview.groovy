@@ -38,7 +38,7 @@ context.productStore = ProductStoreWorker.getProductStore(request)
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_")
 
-orderItems = cart.makeOrderItems()
+orderItems = cart.makeOrderItems(dispatcher)
 context.orderItems = orderItems
 
 orderAdjustments = cart.makeAllAdjustments()

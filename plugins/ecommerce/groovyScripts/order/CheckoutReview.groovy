@@ -30,7 +30,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker
 cart = session.getAttribute("shoppingCart")
 context.cart = cart
 
-orderItems = cart.makeOrderItems()
+orderItems = cart.makeOrderItems(dispatcher)
 context.orderItems = orderItems
 
 orderAdjustments = cart.makeAllAdjustments()

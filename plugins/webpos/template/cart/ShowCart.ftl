@@ -110,10 +110,10 @@ under the License.
                   <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
                 </#if>
                 <#-- end code to display a small image of the product -->
-                ${cartLine.getProductId()} - ${cartLine.getName()!} : ${cartLine.getDescription()!}
+                ${cartLine.getProductId()} - ${cartLine.getName(dispatcher)!} : ${cartLine.getDescription(dispatcher)!}
               <#else>
                 <#-- this is a non-product item -->
-                <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
+                <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
               </#if>
             </div>
           </td>
