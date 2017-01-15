@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- North Island -->
+    <Geo abbreviation="Ntl" geoCode="NTL" geoId="NZ-NTL" geoName="Northland"          geoTypeId="REGION"/>
+    <Geo abbreviation="Auk" geoCode="AUK" geoId="NZ-AUK" geoName="Auckland"           geoTypeId="REGION"/>
+    <Geo abbreviation="Wko" geoCode="WKO" geoId="NZ-WKO" geoName="Waikato"            geoTypeId="REGION"/>
+    <Geo abbreviation="BoP" geoCode="BOP" geoId="NZ-BOP" geoName="Bay of Plenty"      geoTypeId="REGION"/>
+    <Geo abbreviation="Gis" geoCode="GIS" geoId="NZ-GIS" geoName="Gisborne"           geoTypeId="REGION"/>
+    <Geo abbreviation="HkB" geoCode="HKB" geoId="NZ-HKB" geoName="Hawkes Bay"         geoTypeId="REGION"/>
+    <Geo abbreviation="Tki" geoCode="TKI" geoId="NZ-TKI" geoName="Taranaki"           geoTypeId="REGION"/>
+    <Geo abbreviation="Mwt" geoCode="MWT" geoId="NZ-MWT" geoName="Manawatu-Whanganui" geoTypeId="REGION"/>
+    <Geo abbreviation="Wgn" geoCode="WGN" geoId="NZ-WGN" geoName="Wellington"         geoTypeId="REGION"/>
+
+    <!-- South Island -->
+    <Geo abbreviation="Mbh" geoCode="MBH" geoId="NZ-MBH" geoName="Marlborough"        geoTypeId="REGION"/>
+    <Geo abbreviation="Nsn" geoCode="NSN" geoId="NZ-NSN" geoName="Nelson"             geoTypeId="REGION"/>
+    <Geo abbreviation="Tas" geoCode="TAS" geoId="NZ-TAS" geoName="Tasman"             geoTypeId="REGION"/>
+    <Geo abbreviation="Can" geoCode="CAN" geoId="NZ-CAN" geoName="Canterbury"         geoTypeId="REGION"/>
+    <Geo abbreviation="WtC" geoCode="WTC" geoId="NZ-WTC" geoName="West Coast"         geoTypeId="REGION"/>
+    <Geo abbreviation="Ota" geoCode="OTA" geoId="NZ-OTA" geoName="Otago"              geoTypeId="REGION"/>
+    <Geo abbreviation="Stl" geoCode="STL" geoId="NZ-STL" geoName="Southland"          geoTypeId="REGION"/>
+
+    <!-- Outer Islands -->
+    <Geo abbreviation="CIT" geoCode="CIT" geoId="NZ-CIT" geoName="Chatham Islands"    geoTypeId="TERRITORY"/>
+
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-NTL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-AUK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-WKO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-BOP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-GIS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-HKB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-TKI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-MWT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-WGN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-MBH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-NSN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-TAS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-CAN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-WTC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-OTA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-STL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NZL" geoIdTo="NZ-CIT" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
