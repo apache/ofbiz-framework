@@ -1,13 +1,13 @@
-3 instances of OFBiz on the OFBiz demo VM2 at https://ofbiz-vm2.apache.org. This is the second instance of VM we use hence the 2 in its name.
+Three instances of OFBiz on the OFBiz demo VM2 at https://ofbiz-vm2.apache.org. This is the second instance of VM we use hence the 2 in its name.
 
 We currently use a self-signed certificate
 
-trunk: the trunk version
-stable: the last stable version (currently 16.11)
-old: the previous stable version (currently 13.07)
+* trunk: the trunk version
+* stable: the last stable version (currently 16.11)
+* old: the previous stable version (currently 13.07)
 
-Note: Only run the ofbiz demos using the 'ofbizDemo' user, never run as root.
-
+>_Note_: Only run the ofbiz demos using the 'ofbizDemo' user, never run as root. 
+    
     To do this sudo to the ofbizDemo user:
 
     sudo -s -u ofbizDemo -H
@@ -30,7 +30,7 @@ directory, it is run by an ofbiz cron job every 24 hours at 3 AM.
 You should therefore only need to start/stop manually if there is
 a problem.
 
-If you want to tackle only a single instance you can respectively use
+If you want to restart only a single instance you can respectively use
 
 trunk-manual-nicely.sh
 stable-manual-nicely.sh
