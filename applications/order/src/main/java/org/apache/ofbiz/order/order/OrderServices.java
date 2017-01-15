@@ -4212,7 +4212,7 @@ public class OrderServices {
             }
         }
 
-        toStore.addAll(cart.makeOrderItems());
+        toStore.addAll(cart.makeOrderItems(dispatcher));
         toStore.addAll(cart.makeAllAdjustments());
 
         long groupIndex = cart.getShipInfoSize();

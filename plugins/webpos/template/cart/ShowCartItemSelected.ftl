@@ -39,17 +39,17 @@ under the License.
             ${cartLine.getProductId()}
             <br/>
           </#if>
-          <#if cartLine.getName()?has_content>
-            ${cartLine.getName()}
+          <#if cartLine.getName(dispatcher)?has_content>
+            ${cartLine.getName(dispatcher)}
           <#else>
-            <#if cartLine.getDescription()?has_content>
-            ${cartLine.getDescription()}
+            <#if cartLine.getDescription(dispatcher)?has_content>
+            ${cartLine.getDescription(dispatcher)}
             </#if>
           </#if>
       <#else>
         <div id="CartItemSelectedRight">
           <#-- this is a non-product item -->
-          <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
+          <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
       </#if>
       <br/>
       <b>${uiLabelMap.CommonQuantity}</b>&nbsp;

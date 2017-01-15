@@ -265,8 +265,8 @@ under the License.
                       <#-- ${cartLineIndex} - -->
                       <a href="<@ofbizCatalogAltUrl productId=parentProductId/>"
                           class="linktext">${cartLine.getProductId()} -
-                        ${cartLine.getName()!}
-                      </a> : ${cartLine.getDescription()!}
+                        ${cartLine.getName(dispatcher)!}
+                      </a> : ${cartLine.getDescription(dispatcher)!}
                       <#-- For configurable products, the selected options are shown -->
                       <#if cartLine.getConfigWrapper()??>
                         <#assign selectedOptions = cartLine.getConfigWrapper().getSelectedOptions()! />
@@ -293,7 +293,7 @@ under the License.
 
                     <#else>
                       <#-- this is a non-product item -->
-                      ${cartLine.getItemTypeDescription()!}: ${cartLine.getName()!}
+                      ${cartLine.getItemTypeDescription()!}: ${cartLine.getName(dispatcher)!}
                     </#if>
 
                     <#assign attrs = cartLine.getOrderItemAttributes()/>

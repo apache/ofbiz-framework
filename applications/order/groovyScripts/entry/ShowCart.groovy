@@ -53,7 +53,7 @@ context.shoppingCart = shoppingCart
 context.currencyUomId = shoppingCart.getCurrency()
 context.orderType = shoppingCart.getOrderType()
 
-orderItems = shoppingCart.makeOrderItems()
+orderItems = shoppingCart.makeOrderItems(dispatcher)
 orderAdjustments = shoppingCart.makeAllAdjustments()
 orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos()
 if (orderItemShipGroupInfo) {
@@ -114,7 +114,7 @@ if (productStore) {
     productStoreFacilityId = productStore.inventoryFacilityId
 }
 context.facilityId = productStoreFacilityId
-inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : shoppingCart.makeOrderItems(), facilityId : productStoreFacilityId])
+inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : shoppingCart.makeOrderItems(dispatcher), facilityId : productStoreFacilityId])
 context.availableToPromiseMap = inventorySummary.availableToPromiseMap
 context.quantityOnHandMap = inventorySummary.quantityOnHandMap
 context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap

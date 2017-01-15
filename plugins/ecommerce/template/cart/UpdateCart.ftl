@@ -87,7 +87,7 @@ under the License.
             <td headers="orderItem">
               <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>"
                   alt = "Product Image" /></td>
-            <td headers="description">${cartLine.getName()!}</td>
+            <td headers="description">${cartLine.getName(dispatcher)!}</td>
             <td headers="unitPrice">${cartLine.getDisplayPrice()}</td>
             <td headers="quantity">
               <span id="completedCartItemQty_${cartLine_index}">${cartLine.getQuantity()?string.number}</span>
@@ -182,7 +182,7 @@ under the License.
                     </#if>
                   </#if>
                 </td>
-                <td headers="editDescription">${cartLine.getName()!}</td>
+                <td headers="editDescription">${cartLine.getName(dispatcher)!}</td>
                 <td headers="editUnitPrice" id="itemUnitPrice_${cartLine_index}">
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency() />
                 </td>
