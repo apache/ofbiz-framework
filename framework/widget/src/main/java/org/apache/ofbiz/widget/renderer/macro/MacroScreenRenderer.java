@@ -504,7 +504,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String expandedMapKey = content.getMapKey(context);
          String renderedContent = "";
          LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-         Delegator delegator = (Delegator) context.get("delegator");
 
          // create a new map for the content rendering; so our current context does not get overwritten!
          Map<String, Object> contentContext = new HashMap<String, Object>();
