@@ -1,1 +1,1 @@
-pandoc C:\projectsASF\ofbiz\tools\demo-backup\README.md -s -o C:\projectsASF\ofbiz\tools\demo-backup\README.md.html
+pandoc tools/demo-backup/README.MD -s -o tools/demo-backup/README.md.html
