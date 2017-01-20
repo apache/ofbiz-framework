@@ -107,7 +107,7 @@ under the License.
         <view-link entity-alias="INV" rel-entity-alias="PFR" rel-optional="true">
             <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
             <entity-condition>
-                <condition-expr entity-alias="PFR" field-name="partyIdentificationTypeId" value="INVOICE_EXPORT"/>
+                <condition-expr field-name="partyIdentificationTypeId" value="INVOICE_EXPORT"/>
             </entity-condition>
         </view-link>
         <view-link entity-alias="INV" rel-entity-alias="PTO" rel-optional="true">
