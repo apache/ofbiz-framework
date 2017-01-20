@@ -204,6 +204,7 @@ final class StartupControlPanel {
                 throw new StartupException(e);
             }
         }
+        serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING); 
     }
 
     private static void executeShutdownAfterLoadIfConfigured(
