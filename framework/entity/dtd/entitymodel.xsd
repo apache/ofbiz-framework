@@ -435,7 +435,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-expr">
-        <xs:attribute name="entity-alias" type="xs:string"/>
+        <xs:attribute name="entity-alias" type="xs:string"  use="required"/>
         <xs:attribute name="field-name" type="xs:string" use="required"/>
         <xs:attribute name="operator" default="equals">
             <xs:simpleType>
