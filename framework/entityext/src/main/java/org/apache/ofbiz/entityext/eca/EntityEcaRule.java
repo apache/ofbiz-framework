@@ -132,7 +132,7 @@ public final class EntityEcaRule implements java.io.Serializable {
             }
         }
 
-        if( !fieldsToLoad.isEmpty()) {
+        if(!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
             GenericValue oldValue =  delegator.findOne(entityName, value.getPrimaryKey(), false);
             if(UtilValidate.isNotEmpty(oldValue)) {
