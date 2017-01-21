@@ -297,7 +297,7 @@ under the License.
         <description>Get the quantity allowed for an item to be returned</description>
         <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="returnableQuantity" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="returnablePrice" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="returnablePrice" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="getReturnableItems" engine="java"
             location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getReturnableItems">
