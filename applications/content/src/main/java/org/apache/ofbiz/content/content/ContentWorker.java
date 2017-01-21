@@ -340,7 +340,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String rendered = writer.toString();
         // According to https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#XSS_Prevention_Rules_Summary
         // Normally head is protected by X-XSS-Protection Response Header by default
-        if (!"REPORT".equals(contentTypeId)) { // FIXME here BIRT_REPORT_BUILDER_USAGE_POLICY should be used but I could not tweak it yet: the content of <script> are removed and should not. Also a more annoying no yet spotted issue with contentId dissapearing
+        if (!"FLEXIBLE_REPORT".equals(contentTypeId)) { // FIXME here BIRT_REPORT_BUILDER_USAGE_POLICY should be used but I could not tweak it yet: the content of <script> are removed and should not. Also a more annoying no yet spotted issue with contentId dissapearing
             if (rendered.contains("<script>")
                     || rendered.contains("<!--")
                     || rendered.contains("<div")
