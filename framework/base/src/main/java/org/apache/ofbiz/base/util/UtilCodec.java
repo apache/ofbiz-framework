@@ -129,7 +129,7 @@ public class UtilCodec {
                 .allowAttributes("class").onElements("td")
                 .allowAttributes("method").onElements("form")
                 .toFactory();
-        // This is the PolicyFactory used for the Birt Report Builder usage feature.  ("REPORT" contentTypeId)
+        // This is the PolicyFactory used for the Birt Report Builder usage feature.  ("FLEXIBLE_REPORT" contentTypeId)
         // It allows to use the OOTB Birt Report Builder example.
         // You might need to enhance it for your needs but normally you should not
         // In any case be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before changing things here...
