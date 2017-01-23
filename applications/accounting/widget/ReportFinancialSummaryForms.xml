@@ -508,7 +508,7 @@ under the License.
                 <option description="${uiLabelMap.CommonAll}" key="ALL"/>
             </drop-down>
         </field>
-        <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
+        <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
     <form name="InventoryValuation" type="single" target="InventoryValuation" header-row-style="header-row" default-table-style="basic-table">
