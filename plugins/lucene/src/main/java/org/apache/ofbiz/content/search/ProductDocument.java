@@ -86,12 +86,14 @@ public class ProductDocument implements LuceneDocument {
                 this.addTextFieldByWeight(doc, "brandName", product.getString("brandName"), "index.weight.Product.brandName", 0, false, "fullText", delegator);
                 this.addTextFieldByWeight(doc, "description", product.getString("description"), "index.weight.Product.description", 0, false, "fullText", delegator);
                 this.addTextFieldByWeight(doc, "longDescription", product.getString("longDescription"), "index.weight.Product.longDescription", 0, false, "fullText", delegator);
-                //doc.add(new StringField("introductionDate", checkValue(product.getString("introductionDate")), Store.NO));
-//                doc.add(new LongField("introductionDate", quantizeTimestampToDays(product.getTimestamp("introductionDate")), Field.Store.NO));
-                doc.add(new LongPoint("introductionDate", quantizeTimestampToDays(product.getTimestamp("introductionDate"))));
+                // OFBiz-8316, the LongPoint should be reused when updating to Solr 6.4.1 or later
+                doc.add(new StringField("introductionDate", String.valueOf(quantizeTimestampToDays(product.getTimestamp("introductionDate"))), Field.Store.NO));
+//                doc.add(new LongPoint("introductionDate", quantizeTimestampToDays(product.getTimestamp("introductionDate"))));
                 nextReIndex = this.checkSetNextReIndex(product.getTimestamp("introductionDate"), nextReIndex);
+                // OFBiz-8316, the LongPoint should be reused when updating to Solr 6.4.1 or later
 //                doc.add(new LongField("salesDiscontinuationDate", quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate")), Field.Store.NO));
-                doc.add(new LongPoint("salesDiscontinuationDate", quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate"))));
+                doc.add(new StringField("salesDiscontinuationDate", String.valueOf(quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate"))), Field.Store.NO));
+//                doc.add(new LongPoint("salesDiscontinuationDate", quantizeTimestampToDays(product.getTimestamp("salesDiscontinuationDate"))));
                 nextReIndex = this.checkSetNextReIndex(product.getTimestamp("salesDiscontinuationDate"), nextReIndex);
                 doc.add(new StringField("isVariant", product.get("isVariant") != null && product.getBoolean("isVariant") ? "true" : "false", Field.Store.NO));
 
@@ -248,8 +250,10 @@ public class ProductDocument implements LuceneDocument {
                     fieldNameSb.append('_');
                     fieldNameSb.append(productPrice.getString("productStoreGroupId"));
                     fieldNameSb.append("_price");
+                    // OFBiz-8316, the DoublePoint should be reused when updating to Solr 6.4.1 or later
 //                    doc.add(new DoubleField(fieldNameSb.toString(), productPrice.getDouble("price"), Field.Store.NO));
-                    doc.add(new DoublePoint(fieldNameSb.toString(), productPrice.getDouble("price")));
+                    doc.add(new StringField(fieldNameSb.toString(), String.valueOf(productPrice.getDouble("price")), Field.Store.NO));
+//                    doc.add(new DoublePoint(fieldNameSb.toString(), productPrice.getDouble("price")));
                 }
 
                 // Index ProductSuppliers
