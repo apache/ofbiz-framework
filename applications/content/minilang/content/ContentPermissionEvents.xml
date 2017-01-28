@@ -29,7 +29,7 @@ under the License.
             <set field="currentContent.contentId" from-field="id"/>
         </if-empty>
 
-        <log level="always" message="currentContent: ${currentContent}"/>
+        <log level="info" message="currentContent: ${currentContent}"/>
 
         <field-to-list field="parameters.contentPurposeTypeId" list="contentPurposeList"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
@@ -43,7 +43,7 @@ under the License.
             <result-to-field result-name="permissionStatus" field="permissionStatus"/>
         </call-service>
 
-        <log level="always" message="permissionStatus:${permissionStatus}"/>
+        <log level="info" message="permissionStatus:${permissionStatus}"/>
 
         <if-compare field="permissionStatus" operator="not-equals" type="String" value="granted">
             <add-error>

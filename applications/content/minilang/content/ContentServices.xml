@@ -203,13 +203,13 @@
 
     <!-- Methods for ContentAssoc -->
     <simple-method login-required="true" method-name="assocContent" short-description="Associate Content" >
-        <log level="always" message="assocContent, parameters:${parameters}"/>
-        <log level="always" message="assocContent, context:${context}"/>
+        <log level="info" message="assocContent, parameters:${parameters}"/>
+        <log level="info" message="assocContent, context:${context}"/>
         <call-service in-map-name="parameters" service-name="checkAssocPermission">
             <result-to-field result-name="permissionStatus" field="permissionStatus"/>
             <result-to-field result-name="rolesOut" field="rolesOut"/>
         </call-service>
-        <log level="always" message="permissionStatus:${permissionStatus}"/>
+        <log level="info" message="permissionStatus:${permissionStatus}"/>
 
 
         <set from-field="parameters.contentIdTo" field="pk.contentId"/>
@@ -269,10 +269,10 @@
             <result-to-field result-name="contentId" field="parameters.parentContentId"/>
         </call-service>
 
-        <log level="always" message="${parameters}"/>
+        <log level="info" message="${parameters}"/>
 
         <if-not-empty field="parameters.uploadedFile">
-            <log level="always" message="Uploaded file found; processing sub-content"/>
+            <log level="info" message="Uploaded file found; processing sub-content"/>
             <set-service-fields service-name="createContentFromUploadedFile" map="parameters" to-map="uploadContext"/>
             <set field="uploadContext.ownerContentId" from-field="parameters.parentContentId"/>
             <set field="uploadContext.contentIdFrom" from-field="parameters.parentContentId"/>
@@ -806,7 +806,7 @@
                 <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createText.partyId" from-field="userLogin.partyId"/>
 
-                <log level="always" message="calling createTextContent with map: ${createText}"/>
+                <log level="info" message="calling createTextContent with map: ${createText}"/>
                 <call-service service-name="createTextContent" in-map-name="createText">
                     <result-to-field result-name="contentId" field="textContentId"/>
                 </call-service>

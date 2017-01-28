@@ -573,7 +573,7 @@ under the License.
         </else>
         </if-empty>
         
-        <!-- <log level="always" message="In updateProductAverageCostOnReceiveInventory creating new average cost with productAverageCostMap: ${productAverageCostMap}"/> -->
+        <!-- <log level="info" message="In updateProductAverageCostOnReceiveInventory creating new average cost with productAverageCostMap: ${productAverageCostMap}"/> -->
         <call-service service-name="createProductAverageCost" in-map-name="productAverageCostMap"/>
         <log level="info" message="For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}"/>
     </simple-method>

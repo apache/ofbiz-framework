@@ -771,9 +771,9 @@ under the License.
         <if-not-empty field="custRequestItem">
             <set field="custRequestItemExists" value="true"/>
             <field-to-result field="custRequestItemExists"/>
-            <log level="always" message="custRequestItemExists: ${custRequestItemExists}"/>
+            <log level="info" message="custRequestItemExists: ${custRequestItemExists}"/>
             <else>
-                <log level="always" message="custRequestItemExists: empty"/>
+                <log level="info" message="custRequestItemExists: empty"/>
             </else>
         </if-not-empty>
     </simple-method>

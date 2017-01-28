@@ -241,7 +241,7 @@ under the License.
                <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                <field field="absolute" type="boolean"/>
            </call-class-method>
-           <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
+           <log level="info" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
            <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
@@ -335,7 +335,7 @@ under the License.
                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                    <field field="absolute" type="boolean"/>
                </call-class-method>
-               <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
+               <log level="info" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
                <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
