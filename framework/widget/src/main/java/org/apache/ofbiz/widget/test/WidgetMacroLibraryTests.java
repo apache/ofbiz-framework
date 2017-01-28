@@ -20,23 +20,21 @@
 package org.apache.ofbiz.widget.test;
 
 import java.io.InputStream;
-import java.net.ContentHandler;
 
-import org.apache.tika.Tika;
-import org.apache.tika.config.TikaConfig;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.pdf.PDFParser;
-import org.apache.tika.sax.BodyContentHandler;
+import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.sax.BodyContentHandler;
 
 
 public class WidgetMacroLibraryTests extends OFBizTestCase {
 
-    protected final String screenUrl = "https://localhost:8443/webtools/control/WebtoolsLayoutDemo" ; //use existing screen to present most of layout use case
+    protected String screenUrl = "https://localhost:8443/webtools/control/WebtoolsLayoutDemo" ; //use existing screen to present most of layout use case
     protected final String authentificationQuery = "?USERNAME=admin&PASSWORD=ofbiz";
 
     public WidgetMacroLibraryTests(String name) {
@@ -56,6 +54,10 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
 
     public void testHtmlMacroLibrary() throws Exception {
         HttpClient http = initHttpClient();
+        if (Start.getInstance().getConfig().portOffset != 0) {
+            Integer port = 8443 + Start.getInstance().getConfig().portOffset;
+            screenUrl = screenUrl.replace("8443", port.toString());
+        }
         http.setUrl(screenUrl.concat(authentificationQuery));
         String screenOutString = http.post();
         assertNotNull("Response failed from ofbiz", screenOutString);
