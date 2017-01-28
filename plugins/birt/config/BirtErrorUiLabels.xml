@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="BirtErrorCannotDetermineDataSource">
+        <value xml:lang="en">Failed to determine data source for report</value>
+        <value xml:lang="fr">La détermination de la source de données à échoué</value>
+    </property>
+    <property key="BirtErrorCannotFindUploadedFile">
+        <value xml:lang="en">Could not find uploaded file</value>
+        <value xml:lang="fr">Impossible de trouver le fichier uploadé</value>
+    </property>
+    <property key="BirtErrorCannotLocateReportFile">
+        <value xml:lang="en">Report file cannot be located. It does not exist in specified directory.</value>
+        <value xml:lang="fr">Le fichier de rapport n'a pas pu être localisé. Il n'existe pas dans le dossier spécifié.</value>
+    </property>
+    <property key="BirtErrorCannotLocateReportFolder">
+        <value xml:lang="en">Report folder cannot be located. Are you sure you configured correctly birt.properties for the report folder path?</value>
+        <value xml:lang="fr">Le dossier de stockage des rapports n'a pu être localisé. Êtes-vous sûr d'avoir bien configuré birt.properties pour le chemin du dossier ?</value>
+    </property>
+    <property key="BirtErrorConversionFieldToBirtFailed">
+        <value xml:lang="en">Failed to convert fieldType to birtType</value>
+        <value xml:lang="fr">Conversion du type de champ en type birt échouée</value>
+    </property>
+    <property key="BirtErrorCreatingDefaultSearchForm">
+        <value xml:lang="en">An error happened while creating the display of current form.</value>
+        <value xml:lang="fr">Erreur à la création de l'affichage du formulaire actuel</value>
+    </property>
+    <property key="BirtErrorCreatingFlexibleReport">
+        <value xml:lang="en">Error while generating report</value>
+        <value xml:lang="fr">Erreur lors de la création du rapport</value>
+    </property>
+    <property key="BirtErrorEntityViewNotExist">
+        <value xml:lang="en">This entity/view name is not valid</value>
+        <value xml:lang="fr">Ce nom de vue/entité n'est pas valide</value>
+    </property>
+    <property key="BirtErrorEntityViewNotFound">
+        <value xml:lang="en">No view entity name found</value>
+        <value xml:lang="fr">Aucun nom de vue/entité n'a été trouvé</value>
+    </property>
+    <property key="BirtErrorNoAttributeFound">
+        <value xml:lang="en">Master workflow attribute not found</value>
+        <value xml:lang="fr">L'attribut de workflow du master n'as pas pu être trouvé</value>
+    </property>
+    <property key="BirtErrorNoFlexibleReportToDelete">
+        <value xml:lang="en">No report to delete</value>
+        <value xml:lang="fr">Aucun rapport à supprimer</value>
+    </property>
+    <property key="BirtErrorRetrievingTurnOver">
+        <value xml:lang="en">Error while retrieving turnover informations</value>
+        <value xml:lang="fr">Erreur lors de l'accès aux informations liées au chiffre d'affaire</value>
+    </property>
+    <property key="BirtErrorRunningPerformFind">
+        <value xml:lang="en">Error running performFind</value>
+        <value xml:lang="fr">Erreur lors de l'exécution du performFind</value>
+    </property>
+    <property key="BirtErrorUnauthorisedCharacter">
+        <value xml:lang="en">Form refused: unauthorised character detected</value>
+        <value xml:lang="fr">Formulaire refusé : caractère non autorisé</value>
+    </property>
+    <property key="BirtErrorUnexpectedNumberReportToDelete">
+        <value xml:lang="en">Unexpected number of reports selected for deletion</value>
+        <value xml:lang="fr">Tentative de suppression d'un nombre inattendu de rapports</value>
+    </property>
+</resource>

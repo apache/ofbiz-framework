@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.birt.BirtFactory;
 import org.apache.ofbiz.birt.BirtWorker;
+import org.apache.ofbiz.birt.flexible.BirtUtil;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
@@ -75,11 +76,17 @@ public class BirtViewHandler implements ViewHandler {
             IReportEngine engine = org.apache.ofbiz.birt.BirtFactory.getReportEngine();
             // open report design
             IReportRunnable design = null;
+
+            // add dynamic parameter for page
+            if (UtilValidate.isEmpty(page) || page.equals("ExecuteFlexibleReport")) {
+                page = (String) request.getParameter("rptDesignFile");
+            }
+
             if (page.startsWith("component://")) {
                 InputStream reportInputStream = BirtFactory.getReportInputStreamFromLocation(page);
                 design = engine.openReportDesign(reportInputStream);
             } else {
-                design = engine.openReportDesign(servletContext.getRealPath(page));
+                design = engine.openReportDesign(page);
             }
             
             Map<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
@@ -99,18 +106,29 @@ public class BirtViewHandler implements ViewHandler {
                 locale = UtilHttp.getLocale(request);
             }
             
-            // set output file name
-            String outputFileName = (String) request.getAttribute(BirtWorker.getBirtOutputFileName());
-            if (UtilValidate.isNotEmpty(outputFileName)) {
-                UtilHttp.setContentDisposition(response, outputFileName);
-            }
-            
             // set override content type
-            String overrideContentType = (String) request.getAttribute(BirtWorker.getBirtContentType());
+            String overrideContentType = (String) request.getParameter(BirtWorker.getBirtContentType());
             if (UtilValidate.isNotEmpty(overrideContentType)) {
                 contentType = overrideContentType;
             }
             
+            // set output file name to get also file extension
+            String outputFileName = (String) request.getParameter(BirtWorker.getBirtOutputFileName());
+            if (UtilValidate.isNotEmpty(outputFileName)) {
+                outputFileName = BirtUtil.encodeReportName(outputFileName);
+                String format = BirtUtil.getMimeTypeFileExtension(contentType);
+                if (! outputFileName.endsWith(format)) {
+                    outputFileName = outputFileName.concat(format);
+                }
+                outputFileName = UtilHttp.canonicalizeParameter(outputFileName);
+                response.setHeader("Content-Disposition", "attachment; filename=" + outputFileName);
+            }
+
+            // checking consistency between Birt content type and response content type
+            if (! contentType.equals(response.getContentType())) {
+                response.setContentType(contentType);
+            }
+
             context.put(BirtWorker.getBirtLocale(), locale);
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             String birtImageDirectory = EntityUtilProperties.getPropertyValue("birt", "birt.html.image.directory", delegator);

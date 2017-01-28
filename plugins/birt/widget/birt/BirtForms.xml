@@ -25,21 +25,121 @@ under the License.
         <field name="sendFrom"><text/></field>
         <field name="sendTo"><text/></field>
         <field name="subject"><text/></field>
-        <field name="birtReportLocation" tooltip="Example is component://birt/webapp/birt/report/example.rptdesign" required-field="true"><text/></field>
         <field name="birtContentType">
             <drop-down>
-                <option key="text/html" description="text/html"/>
-                <option key="application/pdf" description="application/pdf"/>
-                <option key="application/postscript" description="application/postscript"/>
-                <option key="application/vnd.ms-excel" description="application/vnd.ms-excel"/>
-                <option key="application/vnd.ms-word" description="application/vnd.ms-word"/>
-                <option key="application/vnd.ms-powerpoint" description="application/vnd.ms-powerpoint"/>
-                <option key="application/vnd.oasis.opendocument.text" description="application/vnd.oasis.opendocument.text"/>
-                <option key="application/vnd.oasis.opendocument.spreadsheet" description="application/vnd.oasis.opendocument.spreadsheet"/>
-                <option key="application/vnd.oasis.opendocument.presentation" description="application/vnd.oasis.opendocument.presentation"/>
+                <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="description">
+                    <entity-constraint name="enumTypeId" value="FLEXIBLE_BIRT"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="attachmentName" required-field="true"><text/></field>
-        <field name="sendButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="birtReportLocation" tooltip="Example is component://birt/webapp/birt/report/example.rptdesign" required-field="true"><text/></field>
+        <field name="sendButton"><submit/></field>
     </form>
+
+    <!-- Flexible Report Form -->
+    <form name="CreateFlexibleReport" type="single" target="CreateFlexibleReport">
+        <field name="contentId" title="${uiLabelMap.BirtSelectMasterFlexibleReport}" >
+            <drop-down>
+                <entity-options description="${description}" entity-name="Content" key-field-name="contentId">
+                    <entity-constraint name="contentTypeId" value="REPORT_MASTER" />
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="reportName" required-field="true"><text/></field>
+        <field name="description" required-field="true"><text /></field>
+        <field name="writeFilters"><check/></field>
+        <field name="sendButton"><submit/></field>
+    </form>
+    <form name="ListPublishFlexibleReport" type="single" target="DisplayFlexibleReportSearchForm">
+        <field name="contentId" title="${uiLabelMap.BirtSelectFlexibleReport}" >
+            <drop-down>
+                <entity-options description="[${contentName}] ${description}" entity-name="ContentAssocViewTo" key-field-name="contentId">
+                    <entity-constraint name="contentTypeId" value="FLEXIBLE_REPORT" />
+                    <entity-constraint name="statusId" value="CTNT_PUBLISHED"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="sendButton"><submit /></field>
+    </form>
+
+    <form name="EditFlexibleReport" type="single" target="UpdateFlexibleReport" default-map-name="content">
+        <field name="contentId"><hidden/></field>
+        <field name="contentName" title="${uiLabelMap.FormFieldTitle_reportName}"><display/></field>
+        <field name="description"><text/></field>
+        <field name="statusId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusId" operator="in" value="CTNT_PUBLISHED,CTNT_IN_PROGRESS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
+    <form name="UploadRptDesign" type="upload" target="UploadRptDesign">
+        <actions>
+            <entity-and entity-name="ContentAssoc" use-cache="true" list="contentAssocs">
+                <field-map field-name="contentId" from-field="content.contentId"/>
+            </entity-and>
+            <set field="contentAssoc" from-field="contentAssocs[0]" type="Object"/>
+            <entity-one entity-name="Content" value-field="contentRpt">
+                <field-map from-field="contentAssoc.contentIdTo" field-name="contentId"/>
+            </entity-one>
+        </actions>
+        <field name="contentId"><hidden value="${content.contentId}"/></field>
+        <field name="dataResourceIdRpt"><hidden value="${contentRpt.dataResourceId}"/></field>
+        <field name="downloadRptDesignLink" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.BirtDownloadRptDesign}" target="ViewBinaryDataResource" target-window="_blank">
+                <parameter param-name="dataResourceId" from-field="contentRpt.dataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="uploadRptDesign" title=" "><file/></field>
+        <field name="upload" title="${uiLabelMap.CommonUpload}" position="2"><submit/></field>
+    </form>
+
+    <form name="EditFlexibleReportSearchForm" type="single" target="EditFlexibleReportSearchForm">
+        <actions>
+            <set field="statusId" from-field="content.statusId"/>
+            <set field="reportContentId" from-field="content.contentId"/>
+            <entity-and entity-name="ContentAssoc" list="masterContent">
+                <field-map field-name="contentIdTo" from-field="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="SUB_CONTENT"/>
+            </entity-and>
+            <service service-name="prepareFlexibleReportSearchFormToEdit" auto-field-map="true" result-map="displayFormMap"/>
+        </actions>
+        <field name="overrideFilters" title=" "><textarea cols="90" rows="20" default-value="${displayFormMap.textForm}"/></field>
+        <field name="reportContentId"><hidden/></field>
+        <field name="previewButton" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <on-event-update-area event-type="submit" area-id="preview-column" area-target="PreviewReportSearchForm">
+            <parameter param-name="contentId" value="${contentId}"/>
+        </on-event-update-area>
+    </form>
+
+    <form name="ListFlexibleReport" type="list" target="" odd-row-style="alternate-row" list-name="contentTypeReport" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="Content" value-field="content" />
+            <set field="contentId" from-field="content.contentId"/>
+            <entity-and entity-name="ContentAssoc" use-cache="true" list="contentAssocs">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <set field="contentAssoc" from-field="contentAssocs[0]" type="Object"/>
+            <entity-one entity-name="Content" value-field="contentRpt">
+                <field-map from-field="contentAssoc.contentIdTo" field-name="contentId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" use-cache="true" list="masterContentAssocs">
+                <field-map field-name="contentIdTo" from-field="contentId"/>
+            </entity-and>
+            <set field="masterContentAssoc" from-field="masterContentAssocs[0]" type="Object"/>
+            <entity-one entity-name="Content" value-field="masterContent">
+                <field-map from-field="masterContentAssoc.contentId" field-name="contentId"/>
+            </entity-one>
+        </row-actions>
+        <field name="contentName" sort-field="true"><display/></field>
+        <field name="masterContentName" sort-field="true" map-name="masterContent" entry-name="contentName"><display /></field>
+        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem" /></field>
+        <field name="description" sort-field="true"><display/></field>
+        <field name="manageLink"><include-menu name="ListFlexibleBirtAction" location="component://birt/widget/birt/BirtMenus.xml"/></field>
+  </form>
+
 </forms>

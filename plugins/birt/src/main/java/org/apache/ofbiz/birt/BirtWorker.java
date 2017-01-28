@@ -18,8 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.birt;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,6 +32,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.birt.flexible.BirtUtil;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.eclipse.birt.report.engine.api.EXCELRenderOption;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
@@ -38,13 +57,6 @@ import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
 
 public final class BirtWorker {
 
@@ -55,10 +67,11 @@ public final class BirtWorker {
     private final static String BIRT_IMAGE_DIRECTORY = "birtImageDirectory";
     private final static String BIRT_CONTENT_TYPE = "birtContentType";
     private final static String BIRT_OUTPUT_FILE_NAME = "birtOutputFileName";
+    private static final String resourceError = "BirtErrorUiLabels";
 
     private final static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
 
-    private BirtWorker () {}
+    private BirtWorker() {}
 
     /**
      * export report
@@ -71,16 +84,18 @@ public final class BirtWorker {
      * @throws SQLException
      */
     public static void exportReport(IReportRunnable design, Map<String, ? extends Object> context, String contentType, OutputStream output)
-        throws EngineException, GeneralException, SQLException {
+            throws EngineException, GeneralException, SQLException {
 
-        Locale birtLocale = (Locale)context.get(BIRT_LOCALE);
-        String birtImageDirectory = (String)context.get(BIRT_IMAGE_DIRECTORY);
+        Locale birtLocale = (Locale) context.get(BIRT_LOCALE);
+        String birtImageDirectory = (String) context.get(BIRT_IMAGE_DIRECTORY);
 
         if (contentType == null) {
             contentType = "text/html";
+        } else {
+            contentType = contentType.toLowerCase();
         }
         if (birtImageDirectory == null) {
-             birtImageDirectory = "/";
+            birtImageDirectory = "/";
         }
         Debug.logInfo("Get report engine", module);
         IReportEngine engine = BirtFactory.getReportEngine();
@@ -92,107 +107,65 @@ public final class BirtWorker {
         }
 
         // set parameters if exists
-        Map<String, Object> parameters = UtilGenerics.cast(context.get(BirtWorker.BIRT_PARAMETERS));
+        Map<String, Object> parameters = UtilGenerics.cast(context.get(BirtWorker.getBirtParameters()));
         if (parameters != null) {
-            Debug.logInfo("Set BIRT parameters:" + parameters, module);
+            //Debug.logInfo("Set BIRT parameters:" + parameters, module);
             task.setParameterValues(parameters);
         }
 
         // set output options
+        if (! BirtUtil.isSupportedMimeType(contentType)) {
+            throw new GeneralException("Unknown content type : " + contentType);
+        }
         RenderOption options = new RenderOption();
-        if ("text/html".equalsIgnoreCase(contentType)) { // HTML
-            options.setOutputFormat(RenderOption.OUTPUT_FORMAT_HTML);
+        options.setOutputFormat(BirtUtil.getMimeTypeOutputFormat(contentType));
+
+        //specific process for mimetype
+        if ("text/html".equals(contentType)) { // HTML
             HTMLRenderOption htmlOptions = new HTMLRenderOption(options);
             htmlOptions.setImageDirectory(birtImageDirectory);
             htmlOptions.setBaseImageURL(birtImageDirectory);
             options.setImageHandler(imageHandler);
-        } else if ("application/postscript".equalsIgnoreCase(contentType)) { // Post Script
-            options.setOutputFormat("postscript");
-        } else if ("application/pdf".equalsIgnoreCase(contentType)) { // PDF
-            options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
+        } else if ("application/pdf".equals(contentType)) { // PDF
             PDFRenderOption pdfOptions = new PDFRenderOption(options);
-            pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, Boolean.TRUE );
-        } else if ("application/vnd.ms-word".equalsIgnoreCase(contentType)) { // MS Word
-            options.setOutputFormat("doc");
-        }  else if ("application/vnd.ms-excel".equalsIgnoreCase(contentType)) { // MS Excel
-            options.setOutputFormat("xls");
+            pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, Boolean.TRUE);
+        } else if ("application/vnd.ms-excel".equals(contentType)) { // MS Excel
             new EXCELRenderOption(options);
-        } else if ("application/vnd.ms-powerpoint".equalsIgnoreCase(contentType)) { // MS Power Point
-            options.setOutputFormat("ppt");
-        } else if ("application/vnd.oasis.opendocument.text".equalsIgnoreCase(contentType)) { // Open Document Text
-            options.setOutputFormat("odt");
-        } else if ("application/vnd.oasis.opendocument.spreadsheet".equalsIgnoreCase(contentType)) { // Open Document Spreadsheet
-            options.setOutputFormat("ods");
-        } else if ("application/vnd.oasis.opendocument.presentation".equalsIgnoreCase(contentType)) { // Open Document Presentation
-            options.setOutputFormat("odp");
-        } else if ("application/vnd.openxmlformats-officedocument.wordprocessingml.document".equalsIgnoreCase(contentType)) { // MS Word 2007
-            options.setOutputFormat("docx");
-        } else if ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equalsIgnoreCase(contentType)) { // MS Excel 2007
-            options.setOutputFormat("xlsx");
-        } else if ("application/vnd.openxmlformats-officedocument.presentationml.presentation".equalsIgnoreCase(contentType)) { // MS Word 2007
-            options.setOutputFormat("pptx");
-        } else {
-            throw new GeneralException("Unknown content type : " + contentType);
         }
 
         options.setOutputStream(output);
         task.setRenderOption(options);
 
         // run report
-        Debug.logInfo("BIRT's locale is: " + task.getLocale(), module);
-        Debug.logInfo("Run report's task", module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("BIRT's locale is: " + task.getLocale(), module);
+            Debug.logInfo("Run report's task", module);
+        }
         task.run();
         task.close();
     }
-    
+
     /**
      * set web context objects
      * @param appContext
      * @param request
      * @param response
      */
-    public static void setWebContextObjects(Map<String, Object> appContext, HttpServletRequest request, HttpServletResponse response) {
+    public static void setWebContextObjects(Map<String, Object> appContext, HttpServletRequest request, HttpServletResponse response)
+    throws GeneralException {
         HttpSession session = request.getSession();
         ServletContext servletContext = session.getServletContext();
-        
-        // set delegator
-        Delegator delegator = (Delegator) session.getAttribute("delegator");
-        if (UtilValidate.isEmpty(delegator)) {
-            delegator = (Delegator) servletContext.getAttribute("delegator");
-        }
-        if (UtilValidate.isEmpty(delegator)) {
-            delegator = (Delegator) request.getAttribute("delegator");
-        }
-        if (UtilValidate.isNotEmpty(delegator)) {
-            appContext.put("delegator", delegator);
+
+        if (appContext == null || servletContext == null) {
+            throw new GeneralException("The context reporting is empty, check your configuration");
         }
 
-        // set JDBC connection
-        //appContext.put("OdaJDBCDriverPassInConnection", connection);
-
-        // set dispatcher
-        LocalDispatcher dispatcher = (LocalDispatcher) session.getAttribute("dispatcher");
-        if (UtilValidate.isEmpty(dispatcher)) {
-            dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
-        }
-        if (UtilValidate.isEmpty(dispatcher)) {
-            dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        }
-        if (UtilValidate.isNotEmpty(dispatcher)) {
-            appContext.put("dispatcher", dispatcher);
-        }
-
-        // set security
-        Security security = (Security) session.getAttribute("security");
-        if (UtilValidate.isEmpty(security)) {
-            security = (Security) servletContext.getAttribute("security");
-        }
-        if (UtilValidate.isEmpty(security)) {
-            security = (Security) request.getAttribute("security");
-        }
-        if (UtilValidate.isNotEmpty(security)) {
-            appContext.put("security", security);
-        }
+        // initialize the delegator
+        appContext.put("delegator", WebAppUtil.getDelegator(servletContext));
+        // initialize security
+        appContext.put("security", WebAppUtil.getSecurity(servletContext));
+        // initialize the services dispatcher
+        appContext.put("dispatcher", WebAppUtil.getDispatcher(servletContext));
     }
 
     public static String getBirtParameters () {
@@ -214,4 +187,93 @@ public final class BirtWorker {
     public static String getBirtOutputFileName () {
         return BIRT_OUTPUT_FILE_NAME;
     }
+
+    //TODO documentation
+    public static String recordReportContent(Delegator delegator, LocalDispatcher dispatcher, Map<String, Object> context) throws GeneralException {
+        Locale locale = (Locale) context.get("locale");
+        String description = (String) context.get("description");
+        String reportName = (String) context.get("reportName");
+        String writeFilters = (String) context.get("writeFilters");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String entityViewName = (String) context.get("entityViewName");
+        String serviceName = (String) context.get("serviceName");
+        String masterContentId = (String) context.get("masterContentId");
+        String dataResourceId = delegator.getNextSeqId("DataResource");
+        String contentId = delegator.getNextSeqId("Content");
+        context.put("contentId", contentId);
+
+        if (UtilValidate.isEmpty(serviceName) && UtilValidate.isEmpty(entityViewName)) {
+            throw new GenericServiceException("Service and entity name cannot be both empty");
+        }
+
+        String modelType = null;
+        String modelElementName = null;
+        String workflowType = null;
+        if (UtilValidate.isEmpty(serviceName)) {
+            modelElementName = entityViewName;
+            workflowType = "Entity";
+        } else {
+            modelElementName = serviceName;
+            workflowType = "Service";
+        }
+
+        //resolve the path location to store the RptDesign file, check if the file already exists under this name and increment index name if needed
+        List<GenericValue> listRptDesigns = null;
+        EntityCondition entityConditionRpt = EntityCondition.makeCondition("contentTypeId", "RPTDESIGN");
+        String templatePathLocation = BirtUtil.resolveTemplatePathLocation();
+        File templatePathLocationDir = new File(templatePathLocation);
+            if (!templatePathLocationDir.exists()) {
+                boolean created = templatePathLocationDir.mkdirs();
+                if (!created) {
+                    new GeneralException(UtilProperties.getMessage(resourceError, "BirtErrorCannotLocateReportFolder", locale));
+                }
+            }
+        int i = 0;
+        String templateFileLocation = null;
+        EntityCondition ecl = null;
+        do {
+            StringBuffer rptDesignNameSb = new StringBuffer(templatePathLocation);
+            rptDesignNameSb.append(BirtUtil.encodeReportName(reportName));
+            rptDesignNameSb.append("_").append(i);
+            rptDesignNameSb.append(".rptdesign");
+            templateFileLocation = rptDesignNameSb.toString();
+            EntityCondition entityConditionOnName = EntityCondition.makeCondition("drObjectInfo", templateFileLocation);
+            ecl = EntityCondition.makeCondition(UtilMisc.toList(entityConditionRpt, entityConditionOnName));
+            i++;
+        } while (delegator.findCountByCondition("ContentDataResourceView", ecl, null, null) > 0);
+
+        //resolve the initial form structure from master content
+        Map<String, Object> resultElectronicText = dispatcher.runSync("getElectronicText", UtilMisc.toMap("contentId", masterContentId, "locale", locale, "userLogin", userLogin));
+        if (ServiceUtil.isError(resultElectronicText)) {
+            new GeneralException(ServiceUtil.getErrorMessage(resultElectronicText));
+        }
+        String reportForm = (String) resultElectronicText.get("textData");
+        if (! reportForm.startsWith("<?xml")) {
+            StringBuffer xmlHeaderForm = new StringBuffer("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            xmlHeaderForm.append("<forms xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://ofbiz.apache.org/dtds/widget-form.xsd\">");
+            xmlHeaderForm.append(reportForm);
+            xmlHeaderForm.append("</forms>");
+            reportForm = xmlHeaderForm.toString();
+        }
+        FlexibleStringExpander reportFormExpd = FlexibleStringExpander.getInstance(reportForm);
+        reportForm = reportFormExpd.expandString(context);
+
+        //create content and dataressource strucutre
+        dispatcher.runSync("createDataResource", UtilMisc.toMap("dataResourceId", dataResourceId, "dataResourceTypeId", "ELECTRONIC_TEXT", "dataTemplateTypeId", "FORM_COMBINED", "userLogin", userLogin));
+        dispatcher.runSync("createElectronicTextForm", UtilMisc.toMap("dataResourceId", dataResourceId, "textData", reportForm, "userLogin", userLogin));
+        dispatcher.runSync("createContent", UtilMisc.toMap("contentId", contentId, "contentTypeId", "FLEXIBLE_REPORT", "dataResourceId", dataResourceId, "statusId", "CTNT_IN_PROGRESS", "contentName", reportName, "description", description, "userLogin", userLogin));
+        String dataResourceIdRpt = delegator.getNextSeqId("DataResource");
+        String contentIdRpt = delegator.getNextSeqId("Content");
+        String rptDesignName = BirtUtil.encodeReportName(reportName);
+        if (! rptDesignName.endsWith(".rptdesign")) {
+            rptDesignName = rptDesignName.concat(".rptdesign");
+        }
+        dispatcher.runSync("createDataResource", UtilMisc.toMap("dataResourceId", dataResourceIdRpt, "dataResourceTypeId", "LOCAL_FILE", "mimeTypeId", "text/rptdesign", "dataResourceName", rptDesignName, "objectInfo", templateFileLocation, "userLogin", userLogin));
+        dispatcher.runSync("createContent", UtilMisc.toMap("contentId", contentIdRpt, "contentTypeId", "RPTDESIGN", "dataResourceId", dataResourceIdRpt, "statusId", "CTNT_PUBLISHED", "contentName", reportName, "description", description + " (.rptDesign file)", "userLogin", userLogin));
+        dispatcher.runSync("createContentAssoc", UtilMisc.toMap("contentId", masterContentId, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT", "userLogin", userLogin));
+        dispatcher.runSync("createContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdRpt, "contentAssocTypeId", "SUB_CONTENT", "userLogin", userLogin));
+        dispatcher.runSync("createContentAttribute", UtilMisc.toMap("contentId", contentId, "attrName", workflowType, "attrValue", modelElementName, "userLogin", userLogin));
+        return contentId;
+    }
+
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Form"
+       xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <!--This form present std field for the flexible birt engine, you need to heritate it for each domain
+        with an auto attribute or something like that to use cache system
+    -->
+    <form name="AbstractFlexibleReportSearchForm" type="single" target="ExecuteFlexibleReport">
+        <actions>
+            <entity-one entity-name="Content" value-field="content"/>
+            <entity-condition entity-name="ContentAttribute" list="contentAttrs">
+                <condition-list>
+                    <condition-expr field-name="contentId" from-field="content.contentId"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="attrName" value="Service"/>
+                        <condition-expr field-name="attrName" value="Entity"/>
+                    </condition-list>
+                </condition-list>
+            </entity-condition>
+            <set field="rptDesignFile" value="${groovy: org.apache.ofbiz.birt.flexible.BirtUtil.resolveRptDesignFilePathFromContent(delegator, content.contentId)}"/>
+        </actions>
+        <field name="birtContentType">
+            <drop-down>
+                <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="description">
+                    <entity-constraint name="enumTypeId" value="FLEXIBLE_BIRT"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="rptDesignFile"><hidden/></field>
+        <field name="birtOutputFileName"><hidden value="${content.contentName}"/></field>
+        <field name="modelElementName"><hidden value="${contentAttrs[0].attrValue}"/></field>
+        <field name="sendButton"><submit/></field>
+        <sort-order>
+            <last-field name="birtContentType"/>
+            <last-field name="sendButton"/>
+        </sort-order>
+    </form>
+
+    <form name="CTNT_MASTER_EXAMPLE" type="single" extends="AbstractFlexibleReportSearchForm">
+        <auto-fields-entity entity-name="Example" default-field-type="find"/>
+    </form>
+    <form name="CTNT_MASTER_TURNOVER" type="single" extends="AbstractFlexibleReportSearchForm">
+        <field name="fromDate"><date-time type="date"/></field>
+        <field name="thruDate"><date-time type="date"/></field>
+        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="productStoreId"><lookup target-form-name="LookupProductStore"/></field>
+    </form>
+
+</forms>

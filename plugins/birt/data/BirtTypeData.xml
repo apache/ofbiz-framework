@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    <ContentType contentTypeId="REPORT_MASTER" description="Report Master" />
+    <ContentType contentTypeId="FLEXIBLE_REPORT" description="Report" />
+    <ContentType contentTypeId="RPTDESIGN" description="Birt report (.rptDesign) file" />
+    <DataTemplateType dataTemplateTypeId="FORM_COMBINED" description="Form widget" extension="xml" />
+
+    <CustomMethodType customMethodTypeId="FLEXIBLE_BIRT" description="Service calling from a birt rptDesign file to populate the data source"/>
+    <CustomMethod customMethodId="CM_FB_PERFORM_FIND" customMethodTypeId="FLEXIBLE_BIRT" customMethodName="callPerformFindFromBirt" description="Generic service to call the standard performFind service from birt rptDesign file"/>
+
+    <EnumerationType enumTypeId="FLEXIBLE_BIRT" description="Mime Type Format available for flexible birt system"/>
+
+    <Enumeration enumId="FB_ODS" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.oasis.opendocument.spreadsheet" sequenceId="01" enumCode="LibreOffice Calc (.ods)"/>
+    <Enumeration enumId="FB_ODT" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.oasis.opendocument.text" sequenceId="02" enumCode="LibreOffice Writer (.odt)"/>
+    <Enumeration enumId="FB_ODP" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.oasis.opendocument.presentation" sequenceId="03" enumCode="LibreOffice Impress (.odp)"/>
+    <Enumeration enumId="FB_PDF" enumTypeId="FLEXIBLE_BIRT" description="application/pdf" sequenceId="04" enumCode="Pdf (.pdf)"/>
+    <Enumeration enumId="FB_PS" enumTypeId="FLEXIBLE_BIRT" description="application/postscript" sequenceId="05" enumCode="Postscript (.ps)"/>
+    <Enumeration enumId="FB_HTML" enumTypeId="FLEXIBLE_BIRT" description="text/html" sequenceId="06" enumCode="Text (.html)"/>
+    <Enumeration enumId="FB_XSLX" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" sequenceId="07" enumCode="Excel (.xlsx)"/>
+    <Enumeration enumId="FB_DOCX" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.openxmlformats-officedocument.wordprocessingml.document" sequenceId="08" enumCode="Word (.docx)"/>
+    <Enumeration enumId="FB_PPTX" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.openxmlformats-officedocument.presentationml.presentation" sequenceId="09" enumCode="Powerpoint (.pptx)"/>
+    <Enumeration enumId="FB_XLS" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.ms-excel" sequenceId="10" enumCode="Excel (.xls)"/>
+    <Enumeration enumId="FB_DOC" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.ms-word" sequenceId="11" enumCode="Word (.doc)"/>
+    <Enumeration enumId="FB_PPT" enumTypeId="FLEXIBLE_BIRT" description="application/vnd.ms-powerpoint" sequenceId="12" enumCode="Powerpoint (.ppt)"/>
+</entity-engine-xml>

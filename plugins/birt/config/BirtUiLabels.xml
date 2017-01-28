@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="BirtApplication">
         <value xml:lang="en">Eclipse BIRT Application</value>
+        <value xml:lang="fr">Application Eclipse Birt</value>
         <value xml:lang="ja">Eclipse BIRT 業務</value>
         <value xml:lang="th">Eclipse BIRT Application</value>
         <value xml:lang="zh">Eclipse BIRT应用程序</value>
@@ -40,6 +41,22 @@
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
         <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
+    </property>
+    <property key="BirtConfirmDeleteFlexibleReports">
+        <value xml:lang="en">Are you sure you want to delete all reports?</value>
+        <value xml:lang="fr">Voulez-vous vraiment supprimer tous les rapports ?</value>
+    </property>
+    <property key="BirtDeleteFlexibeReports">
+        <value xml:lang="en">Delete all reports</value>
+        <value xml:lang="fr">Supprimer tous les rapports</value>
+    </property>
+    <property key="BirtDownloadRptDesign">
+        <value xml:lang="en">Download rptdesign file</value>
+        <value xml:lang="fr">Télécharger le fichier rptdesign</value>
+    </property>
+    <property key="BirtEditFlexibleReport">
+        <value xml:lang="en">Edit report</value>
+        <value xml:lang="fr">Modification du rapport</value>
     </property>
     <property key="BirtErrorFOPRenderingAttachmentForEmail">
         <value xml:lang="en">Error FOP rendering ${birtContentType} attachment for email: ${errorString}</value>
@@ -87,6 +104,66 @@
         <value xml:lang="en">Number of last month to sold out</value>
         <value xml:lang="fr">Ruptures de stock, pour le nombre de derniers mois : </value>
         <value xml:lang="zh">上月脱销的数量</value>
+    </property>
+    <property key="BirtFindCompareOperator">
+        <value xml:lang="en"> - Operator - </value>
+        <value xml:lang="fr"> - Opérateur - </value>
+    </property>
+    <property key="BirtFindFieldOptionValue0">
+        <value xml:lang="en"> - Lower bound or equal - </value>
+        <value xml:lang="fr"> - Borne basse ou égal - </value>
+    </property>
+    <property key="BirtFindFieldOptionValue1">
+        <value xml:lang="en"> - Higher bound  - </value>
+        <value xml:lang="fr"> - Borne haute - </value>
+    </property>
+    <property key="BirtFilteringParameters">
+        <value xml:lang="en">Filtering parameters</value>
+        <value xml:lang="fr">Paramètres de filtrage</value>
+    </property>
+    <property key="BirtFlexibleReport">
+        <value xml:lang="en">Flexible Report</value>
+        <value xml:lang="fr">Rapport configurable</value>
+    </property>
+    <property key="BirtFlexibleReportGeneration">
+        <value xml:lang="en">Generate report</value>
+        <value xml:lang="fr">Générer un rapport</value>
+    </property>
+    <property key="BirtFlexibleReportInformation">
+        <value xml:lang="en">Report information</value>
+        <value xml:lang="fr">Informations du rapport</value>
+    </property>
+    <property key="BirtFlexibleReportManagement">
+        <value xml:lang="en">Reports management</value>
+        <value xml:lang="fr">Gestion des rapports</value>
+    </property>
+    <property key="BirtFlexibleReportSuccessfullyDeleted">
+        <value xml:lang="en">The report has been successfully deleted</value>
+        <value xml:lang="fr">Le rapport a été supprimé avec succès</value>
+    </property>
+    <property key="BirtFlexibleReportsSuccessfullyDeleted">
+        <value xml:lang="en">All reports have been successfully deleted</value>
+        <value xml:lang="fr">Tous les rapports ont été supprimés avec succès</value>
+    </property>
+    <property key="BirtFlexibleReportSuccessfullyGenerated">
+        <value xml:lang="en">Report has been successfully generated under the name: </value>
+        <value xml:lang="fr">Le rapport a été généré avec succès sous le nom : </value>
+    </property>
+    <property key="BirtFlexibleRptDesignSuccessfullyUploaded">
+        <value xml:lang="en">Report file successfully uploaded</value>
+        <value xml:lang="fr">Le fichier de rapport a été uploadé avec succès</value>
+    </property>
+    <property key="BirtGenericReport">
+        <value xml:lang="en">Use a report</value>
+        <value xml:lang="fr">Utiliser un rapport</value>
+    </property>
+    <property key="BirtManageReports">
+        <value xml:lang="en">Manage reports</value>
+        <value xml:lang="fr">Gérer les rapports</value>
+    </property>
+    <property key="BirtNoKnownFlexibleReport">
+        <value xml:lang="en">You have no report yet</value>
+        <value xml:lang="fr">Vous n'avez aucun rapport pour l'instant</value>
     </property>
     <property key="BirtOrderReportAllOrderItemsWithDiscountCode">
         <value xml:lang="en">All order items with discount code</value>
@@ -138,6 +215,26 @@
         <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la nécessaire màj du fichier bi.properties après septembre 2023). Ensuite seules les commandes nouvellement approuvées seront prises en compte.</value>
         <value xml:lang="zh">4个Birt报告（最近3个月销售、销售、销售订单折扣优惠码、产品需求）要求提供BI数据库（注意：bi.properites文件需要在2023年9月后进行更新）。只会统计新批准的那些订单。</value>
     </property>
+    <property key="BirtPermissionError">
+        <value xml:lang="en">Birt Permission Error</value>
+        <value xml:lang="fr">Erreur d'autorisation sur le composant Birt</value>
+    </property>
+    <property key="BirtSearchFormSuccessfullyOverridde">
+        <value xml:lang="en">The form has been successfully updated</value>
+        <value xml:lang="fr">Le formulaire a bien été mis à jour</value>
+    </property>
+    <property key="BirtSelectFlexibleReport">
+        <value xml:lang="en">Report choice</value>
+        <value xml:lang="fr">Choix du rapport</value>
+    </property>
+    <property key="BirtSelectMasterFlexibleReport">
+        <value xml:lang="en">Choose report topic</value>
+        <value xml:lang="fr">Choix du sujet du rapport</value>
+    </property>
+    <property key="BirtUploadRptDesign">
+        <value xml:lang="en">Upload rptdesign file</value>
+        <value xml:lang="fr">Importer le fichier rptdesign</value>
+    </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
         <value xml:lang="fr">Graphiques HTML</value>
@@ -154,6 +251,7 @@
     </property>
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>
+        <value xml:lang="fr">Exemples BIRT</value>
         <value xml:lang="ja">BIRT サンプル</value>
         <value xml:lang="th">ตัวอย่าง BIRT</value>
         <value xml:lang="zh">BIRT样例</value>
@@ -161,18 +259,27 @@
     </property>
     <property key="ExampleBirtMail">
         <value xml:lang="en">Send any format through Mail</value>
+        <value xml:lang="fr">Envoyer différents formats par mail</value>
         <value xml:lang="ja">任意の書式をメールで送信する</value>
         <value xml:lang="zh">通过邮件发送任一格式</value>
         <value xml:lang="zh-TW">通過郵件發送任一格式</value>
     </property>
     <property key="ExampleBirtReport">
         <value xml:lang="en">HTML</value>
-        <value xml:lang="zh">HTML</value>
-        <value xml:lang="zh-TW">HTML</value>
     </property>
     <property key="ExampleBirtViewHandler">
         <value xml:lang="en">PDF</value>
-        <value xml:lang="zh">PDF</value>
-        <value xml:lang="zh-TW">PDF</value>
+    </property>
+    <property key="FormFieldTitle_birtContentType">
+        <value xml:lang="en">Birt export format</value>
+        <value xml:lang="fr">Format d'export Birt</value>
+    </property>
+    <property key="FormFieldTitle_reportName">
+        <value xml:lang="en">Report name</value>
+        <value xml:lang="fr">Nom du rapport</value>
+    </property>
+    <property key="FormFieldTitle_writeFilters">
+        <value xml:lang="en">Generate filters in design</value>
+        <value xml:lang="fr">Générer les filtres dans le design</value>
     </property>
 </resource>
