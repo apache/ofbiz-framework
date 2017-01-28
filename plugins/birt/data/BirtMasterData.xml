@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    <DataResource dataResourceId="DR_MASTER_EXAMPLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FORM_COMBINED" />
+    <ElectronicText dataResourceId="DR_MASTER_EXAMPLE">
+        <textData><![CDATA[<!--default domain form-->
+<form name="${masterContentId}_${contentId}" type="single" extends="${masterContentId}" extends-resource="component://birt/widget/birt/BirtMasterForms.xml">
+</form>]]>
+        </textData>
+    </ElectronicText>
+    <Content contentId="CTNT_MASTER_EXAMPLE" contentTypeId="REPORT_MASTER"  dataResourceId="DR_MASTER_EXAMPLE" statusId="CTNT_PUBLISHED" contentName="Example" description="Master Content for Example" />
+    <!-- Data retrieval will be done using perform find on entity Example-->
+    <ContentAttribute contentId="CTNT_MASTER_EXAMPLE" attrName="Entity" attrValue="Example"/>
+
+    <CustomMethod customMethodId="CM_FB_TURNOVER" customMethodTypeId="FLEXIBLE_BIRT" customMethodName="flexibleReportTurnOver" description="service to resolve invoice for turnover report domain"/>
+    <DataResource dataResourceId="DR_MASTER_TURNOVER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FORM_COMBINED" />
+    <ElectronicText dataResourceId="DR_MASTER_TURNOVER">
+        <textData><![CDATA[<!--default domain form-->
+<form name="${masterContentId}_${contentId}" type="single" extends="${masterContentId}" extends-resource="component://birt/widget/birt/BirtMasterForms.xml">
+</form>]]>
+        </textData>
+    </ElectronicText>
+    <Content contentId="CTNT_MASTER_TURNOVER" customMethodId="CM_FB_TURNOVER" contentTypeId="REPORT_MASTER" dataResourceId="DR_MASTER_TURNOVER" statusId="CTNT_PUBLISHED" contentName="Turnover" description="Master Content for TURNOVER domain" />
+    <!-- Data retrieval will be done using two service call. First the contentAttribute Service give the service that will define which data and label will be retrieved,
+    and which filter and label are supported by the report design (default value will call the second service with "prepareField" suffix).
+    Second, the custom method give the service to retrieve all data in the report design.
+    Here : flexibleReportTurnOverPrepareFields (customMethodName + "prepareFields") then flexibleReportTurnOver-->
+    <ContentAttribute contentId="CTNT_MASTER_TURNOVER" attrName="Service" attrValue="default"/>
+
+</entity-engine-xml>

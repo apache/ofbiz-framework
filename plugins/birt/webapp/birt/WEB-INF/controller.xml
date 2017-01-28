@@ -28,6 +28,7 @@ under the License.
     <description>BIRT Component Site Configuration File</description>
 
     <handler name="birt" type="view" class="org.apache.ofbiz.birt.webapp.view.BirtViewHandler"/>
+    <handler name="simplecontent" type="view" class="org.apache.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -80,6 +81,59 @@ under the License.
         <response name="success" type="view" value="chartViewHandler"/>
     </request-map>
 
+    <!--Flexible Report Request-->
+    <request-map uri="UseFlexibleReport"><security https="true" auth="true" /><response name="success" type="view" value="UseFlexibleReport"/></request-map>
+    <request-map uri="ListFlexibleReport"><security https="true" auth="true" /><response name="success" type="view" value="ListFlexibleReport" /></request-map>
+    <request-map uri="SelectMasterFlexibleReport"><security https="true" auth="true" /><response name="success" type="view" value="CreateFlexibleReport" /></request-map>
+    <request-map uri="EditFlexibleReport"><security https="true" auth="true" /><response name="success" type="view" value="EditFlexibleReport" /></request-map>
+    <request-map uri="PreviewReportSearchForm"><security https="true" auth="true" /><response name="success" type="view" value="PreviewReportSearchForm" /></request-map>
+    <request-map uri="DisplayFlexibleReportSearchForm"><security https="true" auth="true" /><response name="success" type="view" value="DisplayFlexibleReportSearchForm" /></request-map>
+    <request-map uri="ViewBinaryDataResource"><security auth="true" https="true" /><response name="success" type="view" value="ViewBinaryDataResource" /></request-map>
+
+    <request-map uri="ExecuteFlexibleReport">
+        <security https="true" auth="true" />
+        <event type="groovy" path="component://birt/groovyScripts/report/PrepareBirtCall.groovy" />
+        <response name="success" type="view" value="ExecuteFlexibleReport" />
+        <response name="error" type="request" value="viewLast" />
+    </request-map>
+    <request-map uri="CreateFlexibleReport">
+        <security https="true" auth="true" />
+        <event type="service" invoke="createFlexibleReportFromMaster" />
+        <response name="error" type="view" value="CreateFlexibleReport" />
+        <response name="success" type="view" value="EditFlexibleReport" />
+    </request-map>
+    <request-map uri="EditFlexibleReportSearchForm">
+        <security https="true" auth="true" />
+        <event type="service" invoke="updateFlexibleReportSearchForm" />
+        <response name="error" type="view" value="DisplayFlexibleReportSearchForm" />
+        <response name="success" type="view" value="DisplayFlexibleReportSearchForm" />
+    </request-map>
+
+    <request-map uri="DeleteAllFlexibleReports">
+        <security https="true" auth="true" />
+        <event type="service" invoke="deleteAllFlexibleReports" />
+        <response name="success" type="view" value="main" />
+        <response name="error" type="view" value="main" />
+    </request-map>
+    <request-map uri="DeleteFlexibleReport">
+        <security https="true" auth="true" />
+        <event type="service" invoke="deleteFlexibleReport" />
+        <response name="success" type="view" value="ListFlexibleReport" />
+        <response name="error" type="view" value="ListFlexibleReport" />
+    </request-map>
+
+    <request-map uri="UpdateFlexibleReport">
+        <security https="true" auth="true" />
+        <event type="service" invoke="updateContent" />
+        <response name="success" type="view" value="ListFlexibleReport" />
+        <response name="error" type="view" value="ListFlexibleReport" />
+    </request-map>
+    <request-map uri="UploadRptDesign">
+        <security https="true" auth="true" />
+        <event type="service" invoke="uploadFlexibleReportRptDesign" />
+        <response name="success" type="view" value="EditFlexibleReport" />
+        <response name="error" type="view" value="EditFlexibleReport" />
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -105,5 +159,14 @@ under the License.
      -->
     <view-map name="ViewHandler" type="birt" page="component://birt/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
     <view-map name="chartViewHandler" type="birt" page="component://birt/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
+    <view-map name="UseFlexibleReport" type="screen" page="component://birt/widget/birt/BirtScreens.xml#UseFlexibleReport"/>
+    <view-map name="EditFlexibleReportSearchForm" type="screen" page="component://birt/widget/birt/BirtScreens.xml#EditFlexibleReportSearchForm"/>
+    <view-map name="CreateFlexibleReport" type="screen" page="component://birt/widget/birt/BirtScreens.xml#CreateFlexibleReport"/>
+    <view-map name="DisplayFlexibleReportSearchForm" type="screen" page="component://birt/widget/birt/BirtScreens.xml#DisplayFlexibleReportSearchForm"/>
+    <view-map name="ListFlexibleReport" type="screen" page="component://birt/widget/birt/BirtScreens.xml#ListFlexibleReport"/>
+    <view-map name="EditFlexibleReport" type="screen" page="component://birt/widget/birt/BirtScreens.xml#EditFlexibleReport"/>
+    <view-map name="PreviewReportSearchForm" type="screen" page="component://birt/widget/birt/BirtScreens.xml#PreviewReportSearchForm"/>
+    <view-map name="ExecuteFlexibleReport" type="birt" />
+    <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
     <!-- end of view mappings -->
 </site-conf>

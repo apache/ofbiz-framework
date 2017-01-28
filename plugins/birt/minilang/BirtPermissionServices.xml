@@ -1,0 +1,106 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="genericBirtPermission" short-description="Generic Service for Birt Permissions">
+        <set field="primaryPermission" value="BIRT"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+
+        <!-- mainAction based call outs -->
+        <if>
+            <condition>
+                <not>
+                    <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
+                </not>
+            </condition>
+            <then>
+                <if>
+                    <!-- view data resource -->
+                    <condition>
+                        <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
+                    </condition>
+                    <then>
+                        <call-simple-method method-name="viewBirtPermission"/>
+                    </then>
+                    <else-if>
+                        <!-- create data resource -->
+                        <condition>
+                            <if-compare field="parameters.mainAction" value="CREATE" operator="equals"/>
+                        </condition>
+                        <then>
+                            <call-simple-method method-name="createBirtPermission"/>
+                        </then>
+                    </else-if>
+                    <else-if>
+                        <!-- update data resource -->
+                        <condition>
+                            <if-compare field="parameters.mainAction" value="UPDATE" operator="equals"/>
+                        </condition>
+                        <then>
+                            <call-simple-method method-name="updateBirtPermission"/>
+                        </then>
+                    </else-if>
+                    <!-- all other actions use main base check -->
+                </if>
+            </then>
+            <else>
+                <log level="info" message="Admin permission found: ${primaryPermission}_${mainAction}"/>
+            </else>
+        </if>
+
+        <log level="info" message="Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}"/>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+
+    <!-- Birt View Permission -->
+    <simple-method method-name="viewBirtPermission" short-description="Check user can view Birt reports">
+        <!-- if called directly check the main permission -->
+        <if-empty field="hasPermission">
+            <set field="primaryPermission" value="BIRT"/>
+            <set field="mainAction" value="VIEW"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+        </if-empty>
+    </simple-method>
+
+    <!-- Birt Create Permission -->
+    <simple-method method-name="createBirtPermission" short-description="Check user can create new Birt report">
+        <!-- if called directly check the main permission -->
+        <if-empty field="hasPermission">
+            <set field="primaryPermission" value="BIRT"/>
+            <set field="mainAction" value="CREATE"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+        </if-empty>
+        <!-- this is about the same as the VIEW permission; but left as a unique service for extending purposes -->
+    </simple-method>
+
+    <!-- Birt Update Permission -->
+    <simple-method method-name="updateBirtPermission" short-description="Check user can update existing Birt report">
+        <!-- if called directly check the main permission -->
+        <if-empty field="hasPermission">
+            <set field="primaryPermission" value="BIRT"/>
+            <set field="mainAction" value="UPDATE"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+        </if-empty>
+    </simple-method>
+</simple-methods>

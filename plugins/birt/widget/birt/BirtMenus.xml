@@ -22,6 +22,9 @@ under the License.
        xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
     <menu name="BirtAppBar" title="${uiLabelMap.BirtApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="FlexibleReport" title="${uiLabelMap.BirtFlexibleReport}">
+            <link target="ListFlexibleReport" />
+        </menu-item>
     </menu>
     <menu name="BirtTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Report" title="${uiLabelMap.ExampleBirtReport}"><link target="Report"/></menu-item>
@@ -30,5 +33,58 @@ under the License.
         <!-- Reports using charts-->
         <menu-item name="chartReport" title="${uiLabelMap.ExampleBirtChartReport}"><link target="chartReport"/></menu-item>
         <menu-item name="chartExport" title="${uiLabelMap.ExampleBirtChartViewHandler}"><link target="chartViewHandler" target-window="_BLANK"/></menu-item>
+    </menu>
+    <menu name="FlexibleBirtTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="ListFlexibleReport" title="${uiLabelMap.BirtManageReports}">
+            <condition>
+                <if-has-permission permission="BIRT_UPDATE"/>
+            </condition>
+            <link target="ListFlexibleReport"/>
+        </menu-item>
+        <menu-item name="UseFlexibleReport" title="${uiLabelMap.BirtGenericReport}"><link target="UseFlexibleReport"/></menu-item>
+        <!-- enable this onl for test
+        <menu-item name="deleteReports" title="${uiLabelMap.BirtDeleteFlexibeReports}">
+            <condition>
+                <if-has-permission permission="BIRT_DELETE"/>
+            </condition>
+            <link target="DeleteAllFlexibleReports" confirmation-message="${uiLabelMap.BirtConfirmDeleteFlexibleReports}" request-confirmation="true"/>
+        </menu-item>
+        -->
+    </menu>
+    <menu name="ListFlexibleBirtAction" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="publishLink" title="${uiLabelMap.CommonPublish}">
+            <condition>
+                <if-compare field="content.statusId" operator="not-equals" value="CTNT_PUBLISHED"/>
+            </condition>
+            <link target="UpdateFlexibleReport">
+                <parameter param-name="contentId" from-field="content.contentId"/>
+                <parameter param-name="statusId" value="CTNT_PUBLISHED"/>
+            </link>
+        </menu-item>
+        <menu-item name="updateLink" title="${uiLabelMap.CommonOpen}">
+            <condition>
+                <if-compare field="content.statusId" operator="not-equals" value="CTNT_IN_PROGRESS"/>
+            </condition>
+            <link target="UpdateFlexibleReport">
+                <parameter param-name="statusId" value="CTNT_IN_PROGRESS"/>
+                <parameter param-name="contentId" from-field="content.contentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editLink" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <if-compare field="content.statusId" operator="equals" value="CTNT_IN_PROGRESS"/>
+            </condition>
+            <link target="EditFlexibleReport">
+                <parameter param-name="contentId" from-field="content.contentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="deleteLink" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <if-compare field="content.statusId" operator="equals" value="CTNT_IN_PROGRESS"/>
+            </condition>
+            <link target="DeleteFlexibleReport">
+                <parameter param-name="contentId" from-field="content.contentId"/>
+            </link>
+        </menu-item>
     </menu>
 </menus>

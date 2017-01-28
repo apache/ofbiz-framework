@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.base.util.GeneralException;
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.report.context.BirtContext;
 import org.eclipse.birt.report.context.IContext;
@@ -40,11 +41,15 @@ public class BirtViewerServlet extends ViewerServlet {
 
     @Override
     protected IContext __getContext(HttpServletRequest request, HttpServletResponse response) throws BirtException {
-        BirtReportServiceFactory.getReportService().setContext(getServletContext( ), null);
+        BirtReportServiceFactory.getReportService().setContext(getServletContext(), null);
         
         // set app context
         Map<String, Object> appContext = UtilGenerics.cast(ReportEngineService.getInstance().getEngineConfig().getAppContext());
-        BirtWorker.setWebContextObjects(appContext, request, response);
+        try {
+            BirtWorker.setWebContextObjects(appContext, request, response);
+        } catch (GeneralException e) {
+            throw new BirtException(e.getMessage());
+        }
         
         return new BirtContext(new ViewerServletRequest(ParameterAccessor.getParameter(request, ParameterAccessor.PARAM_REPORT)
                         , request), response);
