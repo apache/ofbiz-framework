@@ -33,7 +33,7 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <log level="always" message="===2==processing: ${attributeKey}"></log>
+                        <log level="info" message="===2==processing: ${attributeKey}"></log>
                         <clear-field field="attributeEntityMap"/>
                         <set-service-fields service-name="createPortletAttribute" map="parameters" to-map="attributeEntityMap"/>
                         <set field="attributeEntityMap.attrName"  from-field="attributeKey"/>

@@ -21,8 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createContentAndPurpose" short-description="Create Content And Purpose" login-required="false">
-        <log level="always" message="in createContentAndPurpose."/>
-        <log level="always" message="parameters: ${parameters}"/>
+        <log level="info" message="in createContentAndPurpose."/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
@@ -43,8 +42,7 @@ under the License.
         </call-map-processor>
         <map-to-map map="currentContent" to-map="context"/>
 
-        <log level="always" message="currentContent: ${currentContent}"/>
-        <log level="always" message="context: ${context}"/>
+        <log level="info" message="currentContent: ${currentContent}"/>
 
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
@@ -68,25 +66,25 @@ under the License.
         </if-not-empty>
         <make-value entity-name="Content" value-field="contentPK"/>
         <set field="contentPK.contentId" from-field="contentId"/>
-        <log level="always" message="contentPK: ${contentPK}"/>
+        <log level="info" message="contentPK: ${contentPK}"/>
         <set field="currentEntityMap.Content" from-field="contentPK"/>
-        <log level="always" message="currentEntityMap: ${currentEntityMap}"/>
+        <log level="info" message="currentEntityMap: ${currentEntityMap}"/>
         <field-to-session session-name="currentEntityMap" field="currentEntityMap"/>
 
         <if-not-empty field="parameters.contentPurposeTypeId">
-            <log level="always" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>
+            <log level="info" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>
             <make-value entity-name="ContentPurpose" value-field="newContentPurpose"/>
             <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-            <log level="always" message="contentId: ${contentId}"/>
+            <log level="info" message="contentId: ${contentId}"/>
             <set field="newContentPurpose.contentId" from-field="contentId"/>
             <create-value value-field="newContentPurpose"/>
-            <log level="always" message="newContentPurpose: ${newContentPurpose}"/>
+            <log level="info" message="newContentPurpose: ${newContentPurpose}"/>
         </if-not-empty>
     </simple-method>
 
     <simple-method method-name="updateContent" short-description="Update Content" login-required="false">
-        <log level="always" message="/nin updateContent."/>
-        <log level="always" message="parameters: ${parameters}"/>
+        <log level="info" message="/nin updateContent."/>
+        <log level="info" message="parameters: ${parameters}"/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
@@ -105,7 +103,7 @@ under the License.
                 </process>
             </simple-map-processor>
         </call-map-processor>
-        <log level="always" message="datesConverted: ${datesConverted}"/>
+        <log level="info" message="datesConverted: ${datesConverted}"/>
         <map-to-map map="currentContent" to-map="context"/>
         <get-related value-field="currentContent" relation-name="ContentPurpose" list="contentPurposeList"/>
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
@@ -119,8 +117,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="addContentAssoc" short-description="Add Content Assoc" login-required="true" >
-        <log level="always" message="in addContentAssoc."/>
-        <log level="always" message="parameters: ${parameters}"/>
+        <log level="info" message="in addContentAssoc."/>
+        <log level="info" message="parameters: ${parameters}"/>
 
         <!-- link article to publish point -->
         <set field="context3.contentIdTo" from-field="parameters.contentIdTo"/>

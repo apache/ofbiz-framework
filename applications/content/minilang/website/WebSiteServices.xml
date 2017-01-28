@@ -36,7 +36,6 @@ under the License.
             <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
         </entity-one>
         <now-timestamp field="now"/>
-        <log level="always" message="Parameters: ${parameters}"/>
 
         <if-instance-of field="parameters.webSiteContentTypeId" class="String">
             <!-- just one checked -->

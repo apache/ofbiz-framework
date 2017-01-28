@@ -54,7 +54,6 @@
         <!-- reset contentIdFrom to new contentId -->
         <set field="contentAssocTypeId" value="SUB_CONTENT"/>
         <set field="contentIdFrom" from-field="contentId"/>
-        
 
         <if-not-empty field="parameters._uploadedFile_fileName">
             <!-- upload a picture -->
@@ -92,7 +91,7 @@
             <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
             <set field="createText.partyId" from-field="userLogin.partyId"/>
             <set field="createText.mapKey" value="ARTICLE"/>
-            <log level="always" message="calling createTextContent with map: ${createText}"/>
+            <log level="info" message="calling createTextContent with map: ${createText}"/>
             <call-service service-name="createTextContent" in-map-name="createText">
                 <result-to-field result-name="contentId" field="textContentId"/>
             </call-service>

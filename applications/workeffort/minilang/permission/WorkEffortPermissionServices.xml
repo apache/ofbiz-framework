@@ -136,11 +136,11 @@ under the License.
                 <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
                 <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
                 <set value="CAL_OWNER" field="lookupRoleWorkEffortMap.roleTypeId"/>
-                <log level="always" message="Running find-by-and: ${lookupRoleWorkEffortMap}"/>
+                <log level="info" message="Running find-by-and: ${lookupRoleWorkEffortMap}"/>
 
                 <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupRoleWorkEffortMap" list="roleParties"/>
                 <filter-list-by-date list="roleParties"/>
-                <log level="always" message="Found role parties: ${roleParties}"/>
+                <log level="info" message="Found role parties: ${roleParties}"/>
 
                 <if-empty field="roleParties">
                     <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
@@ -258,7 +258,7 @@ under the License.
 
                 <find-by-and entity-name="WorkEffortPartyAssignView" map="lookupPartyRoleWorkEffortMap" list="rolePartyGroups"/>
                 <filter-list-by-date list="rolePartyGroups"/>
-                <log level="always" message="Found role parties Group: ${rolePartyGroups}"/>
+                <log level="info" message="Found role parties Group: ${rolePartyGroups}"/>
 
                 <if-empty field="rolePartyGroups">
                     <log level="info" message="No Party Group found in CAL_OWNER role with workEffort: ${workEffortId}"/>
@@ -274,9 +274,9 @@ under the License.
                         <set from-field="rolePartyGroup.partyId" field="lookupPartyRoleMap.partyIdFrom"/>
                         <!-- logged party partyId-->
                         <set from-field="userLogin.partyId" field="lookupPartyRoleMap.partyIdTo"/>
-                        <log level="always" message="Conditions: ${lookupPartyRoleMap}"/>
+                        <log level="info" message="Conditions: ${lookupPartyRoleMap}"/>
                         <find-by-and entity-name="PartyRelationship" map="lookupPartyRoleMap" list="partyGroupRelationships"/>
-                        <log level="always" message="Found role parties relations: ${partyGroupRelationships}"/>
+                        <log level="info" message="Found role parties relations: ${partyGroupRelationships}"/>
                         <if-not-empty field="partyGroupRelationships">
                             <set field="hasPermission" type="Boolean" value="true"/>
                             <field-to-result field="hasPermission"/>

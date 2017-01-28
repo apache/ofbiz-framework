@@ -77,7 +77,7 @@ under the License.
             <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
                 <result-to-field result-name="contentId" field="parameters.contentId"/>
             </call-service>
-            <log level="always" message=" Content : ${parameters.contentId}"/>
+            <log level="info" message=" Content : ${parameters.contentId}"/>
         </if-empty>
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
