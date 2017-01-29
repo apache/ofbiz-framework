@@ -576,7 +576,6 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         generateFileFromTemplate(templateDir+"/build.gradle", pluginDir,
             filterTokens, "build.gradle")
     
-        activatePlugin pluginId
         println "plugin successfully created in directory ${pluginsDir}/${pluginId}."
     }
 }
@@ -603,7 +602,7 @@ task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run i
              * as a gradle subproject and install it i.e. gradle calling gradle
              */
             doLast {
-                activateAndInstallPlugin pluginId
+                installPlugin pluginId
             }
         }
     }
@@ -622,10 +621,6 @@ task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if
 
     if (project.hasProperty('pluginId') && taskExistsInproject(":plugins:${pluginId}", 'uninstall')) {
         dependsOn ":plugins:${pluginId}:uninstall"
-    }
-
-    doLast {
-        deactivatePlugin pluginId
     }
 }
 
@@ -722,7 +717,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
                 from zipTree(pluginArchive)
                 into "${pluginsDir}/${pluginId}"
             }
-            activateAndInstallPlugin pluginId
+            installPlugin pluginId
         }
     }
 }
@@ -1012,43 +1007,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
     return taskExists
 }
 
-def activatePlugin(pluginId) {
-    def pluginLoadFile = "${pluginsDir}/component-load.xml"
-    def componentRegister = new XmlParser().parse(pluginLoadFile)
-
-    // check that plugin directory exists.
-    if (!file("${pluginsDir}/${pluginId}").exists()) {
-        throw new GradleException("Cannot add plugin \"${pluginId}\", directory does not exist")
-    }
-
-    // only add plugin if it does not exist in component-load.xml
-    if (!componentExistsInRegister(componentRegister, pluginId)) {
-        componentRegister.appendNode('load-component', ['component-location':pluginId])
-        groovy.xml.XmlUtil.serialize(componentRegister, new FileWriter(pluginLoadFile))
-        println "Activated plugin ${pluginId}"
-    } else {
-        println "The plugin ${pluginId} is already activated"
-    }
-}
-
-def deactivatePlugin(pluginId) {
-    def pluginLoadFile = "${pluginsDir}/component-load.xml"
-    def componentRegister = new XmlParser().parse(pluginLoadFile)
-
-    // Ensure that the plugin exists in component-load.xml then remove it
-    if (componentExistsInRegister(componentRegister, pluginId)) {
-        componentRegister.children().removeIf { plugin ->
-            pluginId.equals(plugin.@"component-location")
-        }
-        groovy.xml.XmlUtil.serialize(componentRegister, new FileWriter(pluginLoadFile))
-        println "Deactivated plugin ${pluginId}"
-    } else {
-        println "The plugin ${pluginId} is not active"
-    }
-}
-
-def activateAndInstallPlugin(pluginId) {
-    activatePlugin pluginId
+def installPlugin(pluginId) {
     def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
     exec { commandLine gradleRunner, 'installPlugin', "-PpluginId=${pluginId}" }
 }
