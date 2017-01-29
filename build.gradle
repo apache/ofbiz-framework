@@ -973,16 +973,6 @@ def getJarManifestClasspathForCurrentOs() {
     return osClassPath
 }
 
-def componentExistsInRegister(componentRegister, componentName) {
-    def componentFound = false
-    componentRegister.children().each { component ->
-        if (componentName.equals(component.@"component-location")) {
-            componentFound = true
-        }
-    }
-    return componentFound
-}
-
 def subprojectExists(fullyQualifiedProject) {
     def projectFound = false
     subprojects.each { subproject ->
