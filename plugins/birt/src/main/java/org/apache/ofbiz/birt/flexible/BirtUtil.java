@@ -43,6 +43,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -234,16 +235,16 @@ public final class BirtUtil {
      * @throws GenericEntityException
      */
     public static String resolveRptDesignFilePathFromContent(Delegator delegator, String contentId) throws GenericEntityException {
-        List<GenericValue> listContentRpt = delegator.findList("ContentAssoc", EntityCondition.makeCondition("contentId", contentId), UtilMisc.toSet("contentIdTo"), null, null, true);
-        if (UtilValidate.isNotEmpty(listContentRpt)) {
-            String contentIdRpt = EntityUtil.getFirst(listContentRpt).getString("contentIdTo");
+        GenericValue contentRpt = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId).select("contentIdTo").cache().queryFirst();
+        if (contentRpt != null) {
+            String contentIdRpt = contentRpt.getString("contentIdTo");
             List<EntityExpr> listConditions = UtilMisc.toList(
                     EntityCondition.makeCondition("contentTypeId", "RPTDESIGN"),
                     EntityCondition.makeCondition("contentId", contentIdRpt));
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(listConditions);
-            List<GenericValue> listDataRessouceRptDesignFile = delegator.findList("ContentDataResourceView", ecl, UtilMisc.toSet("drObjectInfo"), null, null, true);
-            if (UtilValidate.isNotEmpty(listDataRessouceRptDesignFile)) {
-                return EntityUtil.getFirst(listDataRessouceRptDesignFile).getString("drObjectInfo");
+            GenericValue dataRessouceRptDesignFile = EntityQuery.use(delegator).from("ContentDataResourceView").where(ecl).select("drObjectInfo").cache().queryFirst();
+            if (dataRessouceRptDesignFile != null) {
+                return dataRessouceRptDesignFile.getString("drObjectInfo");
             }
         }
         return "";
