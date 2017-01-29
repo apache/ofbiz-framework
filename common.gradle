@@ -17,27 +17,37 @@
  * under the License.
  */
 def iterateOverActiveComponents(applyFunction) {
-    def frameworkComponents = new XmlParser().parse("${rootDir}/framework/component-load.xml")
-    def applicationsComponents = new XmlParser().parse("${rootDir}/applications/component-load.xml")
-    def pluginsComponents = new XmlParser().parse("${rootDir}/plugins/component-load.xml")
 
+    // Start is not a real component, therefore loading it manually
     applyFunction file("${rootDir}/framework/start")
 
-    frameworkComponents.children().each { component ->
-        applyFunction file("${rootDir}/framework/"+component.@"component-location")
-    }
-    applicationsComponents.children().each { component ->
-        applyFunction file("${rootDir}/applications/"+component.@"component-location")
-    }
-    pluginsComponents.children().each { component ->
-        applyFunction file("${rootDir}/plugins/"+component.@"component-location")
-    }
+    def rootComponents = new XmlParser().parse("${rootDir}/framework/base/config/component-load.xml")
+    rootComponents.children().each { rootComponent ->
+        File componentLoadFile = file "${rootDir}/"+ rootComponent.@"parent-directory" + "/component-load.xml"
 
-    file("${rootDir}/themes").eachDir { component ->
-        applyFunction(component)
+        if(componentLoadFile.exists()) {
+            // iterate through the components defined in component-load.xml
+            def parsedComponents = new XmlParser().parse(componentLoadFile.toString())
+            parsedComponents.children().each { component ->
+                def componentLocation = file "${rootDir}/"+ rootComponent.@"parent-directory" + '/' + component.@"component-location"
+                applyIfEnabled(componentLocation, applyFunction)
+            }
+        } else {
+            // iterate through all components (subdirectories of the root component)
+            file(rootComponent.@"parent-directory").eachDir { componentLocation ->
+                applyIfEnabled(componentLocation, applyFunction)
+            }
+        }
     }
-    file("${rootDir}/hot-deploy").eachDir { component ->
-        applyFunction(component)
+}
+
+def applyIfEnabled(componentDir, applyFunction) {
+    File componentFile = file componentDir.toString() + '/ofbiz-component.xml'
+    if(componentFile.exists()) {
+        def parsedComponent = new XmlParser().parse(componentFile.toString())
+        if(parsedComponent.@enabled == null || parsedComponent.@enabled == "true") {
+            applyFunction componentDir
+        }
     }
 }
 
