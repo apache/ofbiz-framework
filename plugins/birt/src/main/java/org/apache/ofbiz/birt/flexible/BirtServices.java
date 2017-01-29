@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.xml.sax.SAXException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -221,7 +222,7 @@ public class BirtServices {
         GenericValue masterContentAttribute = null;
         try {
             EntityCondition entityCondition = EntityCondition.makeCondition("contentId", masterContentId);
-            masterContentAttribute = EntityUtil.getFirst(delegator.findList("ContentAttribute", entityCondition, null, null, null, false));
+            masterContentAttribute = EntityQuery.use(delegator).from("ContentAttribute").where(entityCondition).queryFirst();
         } catch (GenericEntityException e) {
             e.printStackTrace();
             return ServiceUtil.returnError(e.getMessage());
@@ -302,7 +303,7 @@ public class BirtServices {
         }
 
         try {
-            GenericValue content = delegator.findOne("Content", true, UtilMisc.toMap("contentId", reportContentId));
+            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", reportContentId).queryOne();
             String dataResourceId = content.getString("dataResourceId");
             StringBuffer newForm = new StringBuffer("<?xml version=\"1.0\" encoding=\"UTF-8\"?> <forms xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://ofbiz.apache.org/dtds/widget-form.xsd\">");
             newForm.append(overrideFilters);
@@ -351,10 +352,10 @@ public class BirtServices {
             contentId = BirtWorker.recordReportContent(delegator, dispatcher, context);
             // callPerformFindFromBirt is the customMethod for Entity workflow
             String rptDesignFileName = BirtUtil.resolveRptDesignFilePathFromContent(delegator, contentId);
-            GenericValue content = delegator.findOne("Content", true, "contentId", contentId);
+            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             String customMethodId = content.getString("customMethodId");
             if (UtilValidate.isEmpty(customMethodId)) customMethodId = "CM_FB_PERFORM_FIND";
-            GenericValue customMethod = delegator.findOne("CustomMethod", true, "customMethodId", customMethodId);
+            GenericValue customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", customMethodId).cache().queryOne();
             if (customMethod == null) {
                 return ServiceUtil.returnError("CustomMethod not exist : " + customMethodId); //todo labelise
             }
@@ -394,12 +395,12 @@ public class BirtServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         try {
-            GenericValue masterContent = delegator.findOne("Content", true, "contentId", masterContentId);
+            GenericValue masterContent = EntityQuery.use(delegator).from("Content").where("contentId", masterContentId).cache().queryOne();
             String customMethodId = masterContent.getString("customMethodId");
             if (UtilValidate.isEmpty(customMethodId)) {
                 throw new GeneralException("The master content " + masterContentId + " haven't a customMethod");
             }
-            GenericValue customMethod = delegator.findOne("CustomMethod", true, "customMethodId", customMethodId);
+            GenericValue customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", customMethodId).cache().queryOne();
             if (customMethod == null) {
                 return ServiceUtil.returnError("CustomMethod not exist : " + customMethodId); //todo labelise
             }
@@ -518,9 +519,9 @@ public class BirtServices {
 
         String textData = null;
         try {
-            GenericValue content = delegator.findOne("Content", true, "contentId", reportContentId);
+            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", reportContentId).cache().queryOne();
             String dataResourceId = content.getString("dataResourceId");
-            GenericValue electronicText = delegator.findOne("ElectronicText", true, "dataResourceId", dataResourceId);
+            GenericValue electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).cache().queryOne();
             textData = electronicText.getString("textData");
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
@@ -551,7 +552,7 @@ public class BirtServices {
         List<GenericValue> listContent = null;
         EntityCondition entityConditionContent = EntityCondition.makeCondition("contentTypeId", "FLEXIBLE_REPORT");
         try {
-            listContent = delegator.findList("Content", entityConditionContent, UtilMisc.toSet("contentId"), null, null, false);
+            listContent = EntityQuery.use(delegator).from("Content").where(entityConditionContent).select("contentId").queryList();
         } catch (GenericEntityException e) {
             e.printStackTrace();
             return ServiceUtil.returnError(e.getMessage());
@@ -587,11 +588,11 @@ public class BirtServices {
         List<GenericValue> listRptDesignFileGV = null;
         String contentIdRpt;
         try {
-            listContentRpt = delegator.findList("ContentAssoc", EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId), UtilMisc.toSet("contentIdTo"), null, null, false);
+            listContentRpt = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId).select("contentIdTo").queryList();
             contentIdRpt = listContentRpt.get(0).getString("contentIdTo");
             List<EntityExpr> listConditions = UtilMisc.toList(EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "RPTDESIGN"), EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentIdRpt));
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(listConditions, EntityOperator.AND);
-            listRptDesignFileGV = delegator.findList("ContentDataResourceView", ecl, UtilMisc.toSet("drObjectInfo"), null, null, false);
+            listRptDesignFileGV = EntityQuery.use(delegator).from("ContentDataResourceView").where(ecl).select("drObjectInfo").queryList();
         } catch (GenericEntityException e1) {
             e1.printStackTrace();
             return ServiceUtil.returnError(e1.getMessage());
@@ -656,7 +657,7 @@ public class BirtServices {
 
         GenericValue dataResource = null;
         try {
-            dataResource = delegator.findOne("DataResource", false, "dataResourceId", dataResourceId);
+            dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e1) {
             e1.printStackTrace();
             return ServiceUtil.returnError(e1.getMessage());

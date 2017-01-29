@@ -43,6 +43,7 @@ import org.apache.ofbiz.birt.flexible.BirtUtil;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -240,7 +241,7 @@ public final class BirtWorker {
             EntityCondition entityConditionOnName = EntityCondition.makeCondition("drObjectInfo", templateFileLocation);
             ecl = EntityCondition.makeCondition(UtilMisc.toList(entityConditionRpt, entityConditionOnName));
             i++;
-        } while (delegator.findCountByCondition("ContentDataResourceView", ecl, null, null) > 0);
+        } while (EntityQuery.use(delegator).from("ContentDataResourceView").where(ecl).queryCount() > 0);
 
         //resolve the initial form structure from master content
         Map<String, Object> resultElectronicText = dispatcher.runSync("getElectronicText", UtilMisc.toMap("contentId", masterContentId, "locale", locale, "userLogin", userLogin));
