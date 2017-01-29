@@ -17,12 +17,12 @@
  * under the License.
  */
 
-def birtParameters = [:];
+def birtParameters = [:]
 
 birtParameters.parameters = parameters
 birtParameters.modelElementName = parameters.modelElementName
 birtParameters.userLogin = context.userLogin
 birtParameters.locale = locale
 
-request.setAttribute("birtParameters", birtParameters);
-return "success";
+request.setAttribute("birtParameters", birtParameters)
+return "success"
