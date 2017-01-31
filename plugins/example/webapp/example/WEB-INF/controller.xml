@@ -299,6 +299,9 @@ under the License.
         application/vnd.oasis.opendocument.text
         application/vnd.oasis.opendocument.spreadsheet
         application/vnd.oasis.opendocument.presentation
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        application/vnd.openxmlformats-officedocument.presentationml.presentation
      -->
 
     <view-map name="ExampleReportPdfOptions" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReportPdfOptions"/>
