@@ -224,7 +224,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        if (processChildren.booleanValue()) {            
+        if (processChildren.booleanValue()) {
             StringWriter sr = new StringWriter();
             sr.append("<@renderLastElement ");
             sr.append("style=\"");
@@ -246,9 +246,9 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" style=\"");
         sr.append(style);
         sr.append("\" labelText=\"");
-        sr.append(labelText);        
+        sr.append(labelText);
         sr.append("\" />");
-        executeMacro(sr.toString());        
+        executeMacro(sr.toString());
     }
 
     public void renderLink(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
@@ -259,8 +259,8 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         
         if (UtilValidate.isNotEmpty(target)) {
             WidgetWorker.buildHyperlinkUrl(linkUrl, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);            
-        }        
+                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+        }
         
         String id = link.getId(context);
         String style = link.getStyle(context);
@@ -288,20 +288,20 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" title=\"");
         sr.append(title);
         sr.append("\" targetWindow=\"");
-        sr.append(targetWindow);  
+        sr.append(targetWindow);
         sr.append("\" linkUrl=\"");
-        sr.append(linkUrl);     
+        sr.append(linkUrl);
         sr.append("\" linkText=\"");
-        sr.append(linkText);           
+        sr.append(linkText);
         sr.append("\" imgStr=\"");
         sr.append(imgStr.replaceAll("\"", "\\\\\""));
         sr.append("\" />");
-        executeMacro(sr.toString());
+        executeMacro(sr.toString().replace("|", "%7C")); // Fix for OFBIZ-9191 
     }
   
     public void renderImage(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
         if (image == null) {
-            return ;            
+            return;
         }
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -357,7 +357,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" urlString=\"");
         sr.append(urlString);
         sr.append("\" />");
-        executeMacro(sr.toString());        
+        executeMacro(sr.toString());
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
