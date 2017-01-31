@@ -38,9 +38,9 @@
         </textData>
     </ElectronicText>
     <Content contentId="CTNT_MASTER_TURNOVER" customMethodId="CM_FB_TURNOVER" contentTypeId="REPORT_MASTER" dataResourceId="DR_MASTER_TURNOVER" statusId="CTNT_PUBLISHED" contentName="Turnover" description="Master Content for TURNOVER domain" />
-    <!-- Data retrieval will be done using two service call. First the contentAttribute Service give the service that will define which data and label will be retrieved,
+    <!-- Data retrieval will be done using two service calls. First the contentAttribute Service gives the service that will define which data and label will be retrieved,
     and which filter and label are supported by the report design (default value will call the second service with "prepareField" suffix).
-    Second, the custom method give the service to retrieve all data in the report design.
+    Second, the custom method gives the service to retrieve all data in the report design.
     Here : flexibleReportTurnOverPrepareFields (customMethodName + "prepareFields") then flexibleReportTurnOver-->
     <ContentAttribute contentId="CTNT_MASTER_TURNOVER" attrName="Service" attrValue="default"/>
 
