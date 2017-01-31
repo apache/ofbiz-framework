@@ -65,6 +65,14 @@
         <value xml:lang="es">Unicode 8 bit</value>
         <value xml:lang="fr">Unicode 8 bit</value>
     </property>
+    <property key="Content.description.CTNT_MASTER_EXAMPLE">
+        <value xml:lang="en">Example</value>
+        <value xml:lang="fr">Exemple</value>
+    </property>
+    <property key="Content.description.CTNT_MASTER_TURNOVER">
+        <value xml:lang="en">Turnover (product)</value>
+        <value xml:lang="fr">Rotation (des stocks)</value>
+    </property>
     <property key="ContentAssocPredicate.description.categorizes">
         <value xml:lang="da">kategorier</value>
         <value xml:lang="de">kategorisiert</value>
@@ -3207,9 +3215,5 @@
         <value xml:lang="vi">Điểm xuất bản</value>
         <value xml:lang="zh">发布点</value>
         <value xml:lang="zh-TW">發佈點</value>
-    </property>
-    <property key="Content.description.CTNT_MASTER_EXAMPLE">
-        <value xml:lang="en">Example</value>
-        <value xml:lang="fr">Exemple</value>
     </property>
 </resource>

@@ -136,6 +136,10 @@ under the License.
     </request-map>
     <!-- end of request mappings -->
 
+    <!-- ================ Entity Lookup Requests ================= -->
+    <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
+    <request-map uri="LookupProductStore"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://birt/widget/birt/BirtScreens.xml#main"/>
     <view-map name="Report" type="screen" page="component://birt/widget/birt/BirtScreens.xml#Report"/>
@@ -168,5 +172,7 @@ under the License.
     <view-map name="PreviewReportSearchForm" type="screen" page="component://birt/widget/birt/BirtScreens.xml#PreviewReportSearchForm"/>
     <view-map name="ExecuteFlexibleReport" type="birt" />
     <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
-    <!-- end of view mappings -->
+    
+    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
+    <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
 </site-conf>
