@@ -30,13 +30,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.eclipse.birt.core.exception.BirtException;
-import org.eclipse.birt.report.engine.api.IReportEngine;
-import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.birt.BirtFactory;
 import org.apache.ofbiz.birt.BirtWorker;
@@ -46,11 +44,15 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.view.ViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
+import org.eclipse.birt.core.exception.BirtException;
+import org.eclipse.birt.report.engine.api.IReportEngine;
+import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.xml.sax.SAXException;
 
 public class BirtViewHandler implements ViewHandler {
 
     public static final String module = BirtViewHandler.class.getName();
+    public static final String resource_error = "BirtErrorUiLabels";
 
     protected ServletContext servletContext = null;
 
@@ -81,7 +83,10 @@ public class BirtViewHandler implements ViewHandler {
             if (UtilValidate.isEmpty(page) || page.equals("ExecuteFlexibleReport")) {
                 page = (String) request.getParameter("rptDesignFile");
             }
-
+            if (UtilValidate.isEmpty(page)) {
+                Locale locale = (Locale) request.getLocale();
+                throw new ViewHandlerException(UtilProperties.getMessage(resource_error, "BirtErrorNotPublishedReport", locale));
+            }
             if (page.startsWith("component://")) {
                 InputStream reportInputStream = BirtFactory.getReportInputStreamFromLocation(page);
                 design = engine.openReportDesign(reportInputStream);
@@ -101,7 +106,7 @@ public class BirtViewHandler implements ViewHandler {
                 context.put(BirtWorker.getBirtParameters(), UtilHttp.getParameterMap(request));
             }
             // set locale from request
-            Locale locale = (Locale)request.getAttribute(BirtWorker.getBirtLocale());
+            Locale locale = (Locale) request.getAttribute(BirtWorker.getBirtLocale());
             if (locale == null) {
                 locale = UtilHttp.getLocale(request);
             }
