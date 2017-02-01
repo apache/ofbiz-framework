@@ -65,6 +65,10 @@
         <value xml:lang="en">No report to delete</value>
         <value xml:lang="fr">Aucun rapport à supprimer</value>
     </property>
+    <property key="BirtErrorNotPublishedReport">
+        <value xml:lang="en">After creating a new Flexible Birt report, before visualising it, you need to add the data set fields with the Birt Report Designer and publish the report</value>
+        <value xml:lang="fr">Après avoir créé un nouveau rapport Birt Flexible, avant de le visualiser, vous devez ajouter les champs du jeu de données (data set fields) avec le Concepteur de rapports Birt (Birt Report Designer) et publier le rapport</value>
+    </property>
     <property key="BirtErrorRetrievingTurnOver">
         <value xml:lang="en">Error while retrieving turnover informations</value>
         <value xml:lang="fr">Erreur lors de l'accès aux informations liées au chiffre d'affaire</value>
