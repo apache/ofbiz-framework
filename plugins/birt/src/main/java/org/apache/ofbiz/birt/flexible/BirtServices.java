@@ -34,8 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.xml.sax.SAXException;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -55,6 +54,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.util.EntityListIterator;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -76,9 +76,10 @@ import org.eclipse.birt.report.model.api.SlotHandle;
 import org.eclipse.birt.report.model.api.VariableElementHandle;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
 import org.eclipse.birt.report.model.elements.SimpleMasterPage;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import com.ibm.icu.util.ULocale;
-import org.w3c.dom.Document;
 
 
 /**
@@ -93,7 +94,7 @@ public class BirtServices {
     public static final String resourceProduct = "BirtUiLabels";
 
     /**
-     * Instanciate a new Flexible report, using the data given in parameters and <code>ReportDesignGenerator</code> class.
+     * Instantiate a new Flexible report, using the data given in parameters and <code>ReportDesignGenerator</code> class.
      */
     public static Map<String, Object> createFlexibleReport(DispatchContext dctx, Map<String, Object> context) {
         ReportDesignGenerator rptGenerator;

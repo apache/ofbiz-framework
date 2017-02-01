@@ -368,7 +368,7 @@ under the License.
                                         <include-form name="EditFlexibleReport" location="component://birt/widget/birt/BirtForms.xml"/>
                                         <label style="h2">${uiLabelMap.BirtUploadRptDesign}</label>
                                         <include-form name="UploadRptDesign" location="component://birt/widget/birt/BirtForms.xml" />
-                                        <label style="h2">${uiLabelMap.overrideFilters}</label>
+                                        <label style="h2">${uiLabelMap.BirtOverrideFilters}</label>
                                         <include-form name="EditFlexibleReportSearchForm" location="component://birt/widget/birt/BirtForms.xml"/>
                                     </screenlet>
                                 </container>
