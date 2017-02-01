@@ -985,7 +985,6 @@ public class RequestHandler {
             vh.render(view, nextPage, viewMap.info, contentType, charset, req, resp);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
-
             throw new RequestHandlerException(e.getNonNestedMessage(), throwable);
         }
 
