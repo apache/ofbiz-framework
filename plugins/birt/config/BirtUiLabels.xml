@@ -215,6 +215,10 @@
         <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la nécessaire màj du fichier bi.properties après septembre 2023). Ensuite seules les commandes nouvellement approuvées seront prises en compte.</value>
         <value xml:lang="zh">4个Birt报告（最近3个月销售、销售、销售订单折扣优惠码、产品需求）要求提供BI数据库（注意：bi.properites文件需要在2023年9月后进行更新）。只会统计新批准的那些订单。</value>
     </property>
+    <property key="BirtOverrideFilters">
+        <value xml:lang="en">Override filters</value>
+        <value xml:lang="fr">Surcharge des filtres</value>
+    </property>
     <property key="BirtPermissionError">
         <value xml:lang="en">Birt Permission Error</value>
         <value xml:lang="fr">Erreur d'autorisation sur le composant Birt</value>

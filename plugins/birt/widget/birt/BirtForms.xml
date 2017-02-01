@@ -110,7 +110,7 @@ under the License.
         </actions>
         <field name="overrideFilters" title=" "><textarea cols="90" rows="20" default-value="${displayFormMap.textForm}"/></field>
         <field name="reportContentId"><hidden/></field>
-        <field name="previewButton" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="saveButton" title="${uiLabelMap.CommonSave}"><submit/></field>
         <on-event-update-area event-type="submit" area-id="preview-column" area-target="PreviewReportSearchForm">
             <parameter param-name="contentId" value="${contentId}"/>
         </on-event-update-area>
