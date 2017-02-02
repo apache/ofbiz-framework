@@ -44,7 +44,7 @@ public final class EntityOne extends EntityOperation {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "auto-field-map", "value-field", "delegator-name");
-            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "value-field");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "delegator-name");
             MiniLangValidate.childElements(simpleMethod, element, "field-map", "select-field");
         }

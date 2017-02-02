@@ -29,8 +29,6 @@ under the License.
   </form>
   <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCatalog}</a></div>
   <br />
-<p>Output format: ${.output_format}
-<p>Auto-escaping: ${.auto_esc?c}  
   <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
   <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
     <@htmlTemplate.lookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory"/>
