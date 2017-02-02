@@ -36,9 +36,6 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.StringTemplateLoader;
-import freemarker.cache.TemplateLoader;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -48,8 +45,15 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
+import freemarker.cache.ConditionalTemplateConfigurationFactory;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.PathGlobMatcher;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import freemarker.cache.URLTemplateLoader;
 import freemarker.core.Environment;
+import freemarker.core.HTMLOutputFormat;
+import freemarker.core.TemplateConfiguration;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
@@ -90,6 +94,14 @@ public final class FreeMarkerWorker {
 
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
         Configuration newConfig = newConfiguration();
+
+        TemplateConfiguration tcHTML = new TemplateConfiguration();
+        tcHTML.setOutputFormat(HTMLOutputFormat.INSTANCE);
+
+        newConfig.setTemplateConfigurations(
+                new ConditionalTemplateConfigurationFactory(
+                        new PathGlobMatcher("*.ftl"),
+                        tcHTML));
 
         newConfig.setObjectWrapper(wrapper);
         TemplateHashModel staticModels = wrapper.getStaticModels();
