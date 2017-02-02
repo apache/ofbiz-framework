@@ -185,7 +185,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderLabel ");
-        sr.append("text=\"");
+        sr.append("text=r\"");
         sr.append(labelText);
         sr.append("\"");
         sr.append(" />");

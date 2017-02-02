@@ -339,7 +339,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
             </xs:sequence>
             <xs:attribute name="entity-name" type="xs:string" use="required" />
-            <xs:attribute name="value-field" type="xs:string" use="required" />
+            <xs:attribute name="value-field" type="xs:string"/>
             <xs:attribute name="use-cache" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
