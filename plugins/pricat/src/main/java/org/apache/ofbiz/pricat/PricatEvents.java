@@ -40,9 +40,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.pricat.AbstractPricatParser;
-import org.apache.ofbiz.pricat.InterfacePricatParser;
-import org.apache.ofbiz.pricat.PricatParseExcelHtmlThread;
 
 public class PricatEvents {
     
@@ -59,7 +56,6 @@ public class PricatEvents {
      * 
      * @param request
      * @param response
-     * @return
      */
     public static String downloadExcelTemplate(HttpServletRequest request, HttpServletResponse response) {
         String templateType = request.getParameter("templateType");
