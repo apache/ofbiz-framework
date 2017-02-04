@@ -27,4 +27,12 @@ under the License.
     <description>OFBiz: eCommerce SEO Controller Configuration File</description>
     
     <handler name="jsp" type="view" class="org.apache.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
+    
+    <request-map uri="stream">
+        <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+        <response name="io-error" type="none"/>
+    </request-map>
+    
 </site-conf>
