@@ -116,7 +116,7 @@ if (orderHeader) {
     taxAmount = OrderReadHelper.getOrderTaxByTaxAuthGeoAndParty(orderAdjustments).taxGrandTotal
     context.taxAmount = taxAmount
 
-    grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments)
+    grandTotal = orderReadHelper.getOrderGrandTotal()
     context.grandTotal = grandTotal
 
     orderItemList = orderReadHelper.getOrderItems()
