@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +51,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.eclipse.birt.report.engine.api.EXCELRenderOption;
+import org.eclipse.birt.report.engine.api.EngineConfig;
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
 import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
@@ -73,6 +76,18 @@ public final class BirtWorker {
     private final static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
 
     private BirtWorker() {}
+
+    public static final Map<Integer, Level> levelIntMap = new HashMap<>();
+    static {
+        levelIntMap.put(Debug.ERROR, Level.SEVERE);
+        levelIntMap.put(Debug.TIMING, Level.FINE);
+        levelIntMap.put(Debug.INFO, Level.INFO);
+        levelIntMap.put(Debug.IMPORTANT, Level.INFO);
+        levelIntMap.put(Debug.WARNING, Level.WARNING);
+        levelIntMap.put(Debug.ERROR, Level.SEVERE);
+        levelIntMap.put(Debug.FATAL, Level.ALL);
+        levelIntMap.put(Debug.ALWAYS, Level.ALL);
+    }
 
     /**
      * export report
@@ -277,4 +292,20 @@ public final class BirtWorker {
         return contentId;
     }
 
+    /**
+     * initialize configuration log with the low level present on debug.properties
+     * @param config
+     */
+    public static void setLogConfig(EngineConfig config) {
+        String ofbizHome = System.getProperty("ofbiz.home");
+        int lowerLevel = 0;
+        //resolve the lower level open on debug.properties, maybe it's better to implement correctly log4j here
+        for (int i = 1; i < 7; i++) {
+            if (Debug.isOn(i)) {
+                lowerLevel = i;
+                break;
+            }
+        }
+        config.setLogConfig(UtilProperties.getPropertyValue("debug", "log4j.appender.css.dir", ofbizHome + "/runtime/logs/"), levelIntMap.get(lowerLevel));
+    }
 }
