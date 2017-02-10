@@ -90,7 +90,7 @@ public final class FindByAnd extends EntityOperation {
                                                                   .from(entityName)
                                                                   .where(whereCond)
                                                                   .orderBy(orderByNames)
-                                                                  .queryList());
+                                                                  .queryIterator());
             } else {
                 listFma.put(methodContext.getEnvMap(), EntityQuery.use(delegator)
                                                                   .select(UtilMisc.toSet(fieldsToSelectListFma.get(methodContext.getEnvMap())))
