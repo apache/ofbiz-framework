@@ -97,8 +97,7 @@ public final class UtilURL {
         }
         url = loader.getResource(resourceName);
         if (url != null) {
-            // Do not cache URLs from ClassLoader - interferes with EntityClassLoader operation
-            //urlMap.put(resourceName, url);
+            urlMap.put(resourceName, url);
             return url;
         }
         url = ClassLoader.getSystemResource(resourceName);
