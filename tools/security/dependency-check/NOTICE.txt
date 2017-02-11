@@ -1,8 +1,8 @@
-dependency-check-cli
+dependency-check
 
-Copyright (c) 2013 Jeremy Long. All Rights Reserved.
+Copyright (c) 2012-2013 Jeremy Long. All Rights Reserved.
 
-The licenses for the software listed below can be found in the licenses.
+The licenses for the software listed below can be found in the META-INF/licenses/[dependency name].
 
 This product includes software developed by The Apache Software Foundation (http://www.apache.org/).
 
