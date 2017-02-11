@@ -16,15 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 
 /* ========================================================
  * Project setup
  * ======================================================== */
-
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+      classpath "at.bxm.gradleplugins:gradle-svntools-plugin:latest.release"
+    }
+}
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: "at.bxm.svntools"
 
 apply from: 'common.gradle'
 
@@ -719,6 +728,20 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
             }
             installPlugin pluginId
         }
+    }
+}
+
+task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
+
+    if (project.hasProperty('pluginId')) {
+        task pullPluginFromSvn(type: SvnCheckout) {
+            svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/${pluginId}"
+            workspaceDir = "${rootDir}/plugins/${pluginId}"
+        }
+        dependsOn pullPluginFromSvn
+    }
+    doLast {
+        installPlugin pluginId
     }
 }
 
