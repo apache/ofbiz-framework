@@ -514,6 +514,14 @@ If you need username and password to access the custom repository:
 
 `gradlew pullPlugin -PrepoUrl="http://www.example.com/custom-maven" -PrepoUser=myuser -PrepoPassword=mypassword -PdependencyId="org.apache.ofbiz.plugin:myplugin:0.1.0"`
 
+### Pull a source plugin
+
+Download a plugin from source control (currently subversion) and place it in
+the plugins directory. This is mostly useful when working on the trunk branch
+as it requires the latest version of a plugin
+
+`gradlew pullPluginSource -PpluginId=ecommerce`
+
 ### Install a plugin
 
 If you have a plugin called mycustomplugin and want to install it in OFBiz follow the
@@ -525,10 +533,8 @@ below instructions:
 
 `gradlew installPlugin -PpluginId=myplugin`
 
-The above commands achieve the following:
-
-- add the plugin to /plugins/component-load.xml
-- executes the task "install" in the plugin's build.gradle file if it exists
+The above commands executes the task "install" in the plugin's build.gradle
+file if it exists
 
 ### Uninstall a plugin
 
@@ -537,10 +543,8 @@ run the below command
 
 `gradlew uninstallPlugin -PpluginId=myplugin`
 
-The above commands achieve the following:
-
-- executes the task "uninstall" in the plugin's build.gradle file if it exists
-- removes the plugin from /plugins/component-load.xml
+The above command executes the task "uninstall" in the plugin's build.gradle
+file if it exists
 
 ### Remove a plugin
 
@@ -561,10 +565,7 @@ Create a new plugin. The following project parameters are passed:
 
 `gradlew createPlugin -PpluginId=myplugin -PpluginResourceName=MyPlugin -PwebappName=mypluginweb -PbasePermission=MYSECURITY`
 
-The above commands achieve the following:
-
-- create a new plugin in /plugins/myplugin
-- add the plugin to /plugins/component-load.xml
+The above command creates a new plugin in /plugins/myplugin
 
 ### Push a plugin to a repository
 
