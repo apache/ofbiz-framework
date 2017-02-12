@@ -785,6 +785,7 @@ under the License.
     </service>
     <service name="deleteWorkEffortInventoryProduced" engine="entity-auto" default-entity-name="WorkEffortInventoryProduced" invoke="delete" auth="true">
         <description>Delete WorkEffortInventoryProduced</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
@@ -870,10 +871,5 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteWorkEffortInventoryProduced" engine="entity-autp" default-entity-name="WorkEffortInventoryProduced" invoke="delete" auth="true">
-        <description>Delete a WorkEffort Survey</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>
