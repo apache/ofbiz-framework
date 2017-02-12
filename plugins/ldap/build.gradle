@@ -1,3 +1,0 @@
-dependencies {
-    pluginLibsCompile 'org.jasig.cas:cas-server-core:3.3.5'
-}
