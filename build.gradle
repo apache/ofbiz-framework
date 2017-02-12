@@ -735,7 +735,7 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
 
     if (project.hasProperty('pluginId')) {
         task pullPluginFromSvn(type: SvnCheckout) {
-            svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/${pluginId}"
+            svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk/${pluginId}"
             workspaceDir = "${rootDir}/plugins/${pluginId}"
         }
         dependsOn pullPluginFromSvn
