@@ -469,7 +469,7 @@ and reports known vulnerabilities (CVEs) in OFBiz library dependencies.
 This command takes a long time to execute because it needs to download
 all plugin dependencies and the CVE identification process is also
 time consuming. But it's the only way to check OFBiz does not use 
-vulnerables libraries.
+vulnerable libraries.
 
 `gradlew -PenableOwasp dependencyCheck`
 
