@@ -242,7 +242,7 @@ under the License.
         <menu-item name="all" title="${uiLabelMap.WebtoolsAll}">
             <link target="FindGeneric">
                 <parameter param-name="entityName"/>
-                <parameter param-name="find" value="true"/>
+                <parameter param-name="noConditionFind" value="Y"/>
             </link>
         </menu-item>
     </menu>
