@@ -606,10 +606,6 @@ task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run i
                 doLast { println "No install task defined for plugin ${pluginId}" }
             }
         } else {
-            /* if the plugin is not added to component-load.xml, then add
-             * it to the file and call gradle again to load the new plugin
-             * as a gradle subproject and install it i.e. gradle calling gradle
-             */
             doLast {
                 installPlugin pluginId
             }
@@ -923,18 +919,18 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
 def createOfbizBackgroundCommandTask(taskName) {
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
-
+    def serverCommand = "ofbiz ${arguments}".toString()
     def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 
     task (taskName) {
         doLast {
-            spawnProcess(gradleRunner, "ofbiz ${arguments}")
+            spawnProcess([gradleRunner, "--no-daemon", serverCommand])
         }
     }
 }
 
-def spawnProcess(command, arguments) {
-    ProcessBuilder pb = new ProcessBuilder(command, arguments)
+def spawnProcess(command) {
+    ProcessBuilder pb = new ProcessBuilder(command)
     File consoleLog = file("${rootDir}/runtime/logs/console.log");
 
     pb.directory(file("${rootDir}"))
@@ -1022,5 +1018,5 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 
 def installPlugin(pluginId) {
     def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
-    exec { commandLine gradleRunner, 'installPlugin', "-PpluginId=${pluginId}" }
+    exec { commandLine gradleRunner, '--no-daemon', 'installPlugin', "-PpluginId=${pluginId}" }
 }
