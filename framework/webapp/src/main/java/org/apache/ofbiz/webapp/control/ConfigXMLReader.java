@@ -555,7 +555,7 @@ public class ConfigXMLReader {
             Element securityElement = UtilXml.firstChildElement(requestMapElement, "security");
             if (securityElement != null) {
                 if (!UtilProperties.propertyValueEqualsIgnoreCase("url", "no.http", "Y")) {
-                this.securityHttps = "true".equals(securityElement.getAttribute("https"));
+                    this.securityHttps = "true".equals(securityElement.getAttribute("https"));
                 } else {
                     String httpRequestMapList = UtilProperties.getPropertyValue("url", "http.request-map.list");
                     if (UtilValidate.isNotEmpty(httpRequestMapList)) {
