@@ -61,6 +61,10 @@ public final class EntityUtilProperties implements Serializable {
             return results;
         }
         resource = resource.replace(".properties", "");
+        if (delegator == null) {
+            Debug.logInfo("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+            return results;
+        }
         try {
             GenericValue systemProperty = EntityQuery.use(delegator)
                     .from("SystemProperty")
