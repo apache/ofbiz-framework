@@ -108,11 +108,12 @@ public final class WebSiteProperties {
                 httpPort = httpPortValue.toString();
                 if (!dontAdd) {
                     Integer httpsPortValue = Integer.valueOf(httpsPort);
-                    if (! httpsPort.isEmpty()) 
-                    httpsPortValue += Start.getInstance().getConfig().portOffset;
+                    if (!httpsPort.isEmpty()) {
+                        httpsPortValue += Start.getInstance().getConfig().portOffset;
+                    }
                     httpsPort = httpsPortValue.toString();
                 }
-            }                
+            }
             
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
@@ -145,7 +146,7 @@ public final class WebSiteProperties {
             Integer httpsPortValue = Integer.valueOf(httpsPort);
             httpsPortValue += Start.getInstance().getConfig().portOffset; // Here unlike above we trust the user and don't rely on the request, no dontAdd.
             httpsPort = httpsPortValue.toString();
-        }                
+        }
         
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
     }
