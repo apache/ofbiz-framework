@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -1005,6 +1006,62 @@ public class RequestHandler {
                 System.currentTimeMillis() - viewStartTime, userLogin);
         }
     }
+
+    /**
+     * Returns a URL String that contains only the scheme and host parts. This method
+     * should not be used because it ignores settings in the WebSite entity.
+     * 
+     * @param request
+     * @param secure
+     * @deprecated Use OfbizUrlBuilder
+     */
+    @Deprecated
+    public static String getDefaultServerRootUrl(HttpServletRequest request, boolean secure) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String httpsPort = EntityUtilProperties.getPropertyValue("url", "port.https", "443", delegator);
+        String httpsServer = EntityUtilProperties.getPropertyValue("url", "force.https.host", delegator);
+        String httpPort = EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator);
+        String httpServer = EntityUtilProperties.getPropertyValue("url", "force.http.host", delegator);
+        boolean useHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "port.https.enabled", "Y", delegator);
+
+        if (Start.getInstance().getConfig().portOffset != 0) {
+            Integer httpPortValue = Integer.valueOf(httpPort);
+            httpPortValue += Start.getInstance().getConfig().portOffset;
+            httpPort = httpPortValue.toString();
+            Integer httpsPortValue = Integer.valueOf(httpsPort);
+            httpsPortValue += Start.getInstance().getConfig().portOffset;
+            httpsPort = httpsPortValue.toString();
+        }
+        
+        StringBuilder newURL = new StringBuilder();
+
+        if (secure && useHttps) {
+            String server = httpsServer;
+            if (UtilValidate.isEmpty(server)) {
+                server = request.getServerName();
+            }
+
+            newURL.append("https://");
+            newURL.append(server);
+            if (!httpsPort.equals("443")) {
+                newURL.append(":").append(httpsPort);
+            }
+
+        } else {
+            String server = httpServer;
+            if (UtilValidate.isEmpty(server)) {
+                server = request.getServerName();
+            }
+
+            newURL.append("http://");
+            newURL.append(server);
+            if (!httpPort.equals("80")) {
+                newURL.append(":").append(httpPort);
+            }
+        }
+        return newURL.toString();
+    }
+
 
     /**
      * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect parameters are specified.
