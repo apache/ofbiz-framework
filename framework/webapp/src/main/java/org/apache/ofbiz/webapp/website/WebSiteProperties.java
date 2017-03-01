@@ -57,6 +57,7 @@ public final class WebSiteProperties {
         Assert.notNull("request", request);
         WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
         if (webSiteProps == null) {
+            Boolean dontAddPortoffset = false;
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             WebSiteProperties defaults = new WebSiteProperties(delegator);
             String httpPort = defaults.getHttpPort();
@@ -95,6 +96,7 @@ public final class WebSiteProperties {
             }
             if (httpsPort.isEmpty() && request.isSecure()) {
                 httpsPort = String.valueOf(request.getServerPort());
+                dontAddPortoffset = true; // We take the port from the request, don't add the portOffset
             }
             if (httpsHost.isEmpty()) {
                 httpsHost = request.getServerName();
@@ -104,10 +106,14 @@ public final class WebSiteProperties {
                 Integer httpPortValue = Integer.valueOf(httpPort);
                 httpPortValue += Start.getInstance().getConfig().portOffset;
                 httpPort = httpPortValue.toString();
-                Integer httpsPortValue = Integer.valueOf(httpsPort);
-                httpsPortValue += Start.getInstance().getConfig().portOffset;
-                httpsPort = httpsPortValue.toString();
-            }                
+                if (!dontAddPortoffset) {
+                    Integer httpsPortValue = Integer.valueOf(httpsPort);
+                    if (!httpsPort.isEmpty()) {
+                        httpsPortValue += Start.getInstance().getConfig().portOffset;
+                    }
+                    httpsPort = httpsPortValue.toString();
+                }
+            }
             
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
@@ -138,9 +144,9 @@ public final class WebSiteProperties {
             httpPortValue += Start.getInstance().getConfig().portOffset;
             httpPort = httpPortValue.toString();
             Integer httpsPortValue = Integer.valueOf(httpsPort);
-            httpsPortValue += Start.getInstance().getConfig().portOffset;
+            httpsPortValue += Start.getInstance().getConfig().portOffset; // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
             httpsPort = httpsPortValue.toString();
-        }                
+        }
         
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
     }
