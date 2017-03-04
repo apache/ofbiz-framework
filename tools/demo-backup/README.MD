@@ -1,10 +1,24 @@
-Three instances of OFBiz on the OFBiz demo VM2 at https://ofbiz-vm2.apache.org. This is the second instance of VM we use hence the 2 in its name.
-
-We currently use a self-signed certificate
+Three instances of OFBiz run on the OFBiz demo VM2 at https://ofbiz-vm2.apache.org.
 
 * trunk: the trunk version
 * stable: the last stable version (currently 16.11)
 * old: the previous stable version (currently 13.07)
+ 
+This is the second instance of VM we use hence the 2 in its domain name.
+The root of https://ofbiz-vm2.apache.org is the so called bigfiles directory 
+which is actually at /home/ofbizDemo/big-files
+
+We own 3 Apache sub domains
+* https://demo-trunk.ofbiz.apache.org
+* https://demo-stable.ofbiz.apache.org
+* https://demo-old.ofbiz.apache.org
+
+Trunk and stable use a Let's Encrypt certificate
+Because of technical issues we currently use a self-signed certificate for the old version
+
+The Puppet configuration is at 
+https://github.com/apache/infrastructure-puppet/blob/deployment/data/nodes/ofbiz-vm2.apache.org.yaml
+
 
 >_Note_: Only run the ofbiz demos using the 'ofbizDemo' user, never run as root. 
     
