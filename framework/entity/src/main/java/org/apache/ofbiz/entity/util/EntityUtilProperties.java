@@ -47,7 +47,7 @@ import org.apache.ofbiz.entity.GenericValue;
 public final class EntityUtilProperties implements Serializable {
 
     public final static String module = EntityUtilProperties.class.getName();
-    
+
     private EntityUtilProperties () {}
 
     private static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
@@ -62,7 +62,7 @@ public final class EntityUtilProperties implements Serializable {
         }
         resource = resource.replace(".properties", "");
         if (delegator == null) {
-            Debug.logInfo("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+            Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
             return results;
         }
         try {
@@ -83,7 +83,7 @@ public final class EntityUtilProperties implements Serializable {
                 return results;
             }
         } catch (Exception e) {
-            Debug.logInfo("Could not get a system property for " + name + " : " + e.getMessage(), module);
+            Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), module);
         }
         return results;
     }
