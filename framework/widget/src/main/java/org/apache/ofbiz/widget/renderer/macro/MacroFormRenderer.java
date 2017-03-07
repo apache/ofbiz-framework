@@ -38,6 +38,7 @@ import java.util.WeakHashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -418,6 +419,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(placeholder);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
+        sr.append("\" delegatorName=\"");
+        sr.append(((HttpSession)context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
@@ -2262,6 +2265,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(lastViewName);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
+        sr.append("\" delegatorName=\"");
+        sr.append(((HttpSession)context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.addAsterisks(writer, context, modelFormField);
