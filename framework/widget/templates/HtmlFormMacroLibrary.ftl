@@ -48,7 +48,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex  readonly placeholder="">
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default">
   <#if mask?has_content>
     <script type="text/javascript">
       jQuery(function($){jQuery("#${id}").mask("${mask}");});
@@ -69,8 +69,8 @@ under the License.
     require
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultMinLength", delegator)>
-    <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultDelay", delegator)>
+    <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultMinLength", delegatorName)>
+    <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultDelay", delegatorName)>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
@@ -631,8 +631,9 @@ Parameter: showDescription, String, optional - If the showDescription parameter 
 Parameter: initiallyCollapsed, Not used.
 Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true, the contents of lastViewName will be appended to the Ajax URL.
 Parameter: tabindex, String, optional - HTML tabindex number.
+Parameter: delegatorName, String, optional - name of the delegator in context.
 -->
-<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="">
+<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
   <#if Static["org.apache.ofbiz.widget.model.ModelWidget"].widgetBoundaryCommentsEnabled(context)><#-- context is always null here, but this is handled in widgetBoundaryCommentsEnabled -->
   <!-- @renderLookupField -->
   </#if>
@@ -641,7 +642,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
   </#if>
   <#if (!showDescription?has_content)>
-    <#local showDescriptionProp = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.showDescription", "N", delegator)>
+    <#local showDescriptionProp = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.showDescription", "N", delegatorName)>
     <#if "Y" == showDescriptionProp>
       <#local showDescription = "true" />
     <#else>
@@ -649,13 +650,13 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     </#if>
   </#if>
   <#if (!position?has_content)>
-    <#local position = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.position", "topleft", delegator)>
+    <#local position = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.position", "topleft", delegatorName)>
   </#if>
   <#if (!width?has_content)>
-    <#local width = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.width", "620", delegator)>
+    <#local width = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.width", "620", delegatorName)>
   </#if>
   <#if (!height?has_content)>
-    <#local height = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.height", "500", delegator)>
+    <#local height = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.height", "500", delegatorName)>
   </#if>
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
@@ -692,8 +693,8 @@ Parameter: tabindex, String, optional - HTML tabindex number.
       );"></a><#rt>
     <#else>
       <#if ajaxEnabled?has_content && ajaxEnabled>
-        <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultMinLength", delegator)>
-        <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultDelay", delegator)>
+        <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultMinLength", delegatorName)>
+        <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultDelay", delegatorName)>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
         <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && showDescription == "true">

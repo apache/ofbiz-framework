@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 
@@ -61,10 +62,6 @@ public final class EntityUtilProperties implements Serializable {
             return results;
         }
         resource = resource.replace(".properties", "");
-        if (delegator == null) {
-            Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
-            return results;
-        }
         try {
             GenericValue systemProperty = EntityQuery.use(delegator)
                     .from("SystemProperty")
@@ -82,7 +79,7 @@ public final class EntityUtilProperties implements Serializable {
                 results.put("value", "");
                 return results;
             }
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), module);
         }
         return results;
@@ -103,6 +100,27 @@ public final class EntityUtilProperties implements Serializable {
     }
 
     public static String getPropertyValue(String resource, String name, String defaultValue, Delegator delegator) {
+        Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
+        if ("Y".equals(propMap.get("isExistInDb"))) {
+            String s = propMap.get("value");
+            return (UtilValidate.isEmpty(s)) ? defaultValue : s;
+        } else {
+            return UtilProperties.getPropertyValue(resource, name, defaultValue);
+        }
+    }
+    
+    public static String getPropertyValueFromDelegatorName(String resource, String name, String defaultValue, String delegatorName) {
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
+        if (delegator == null) { // This should not happen, but in case...
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            // this will be the common case for now as the delegator isn't available where we want to do this
+            // we'll cheat a little here and assume the default delegator
+            delegator = DelegatorFactory.getDelegator("default");
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            if (delegator == null) {
+                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+            }
+        }
         Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
         if ("Y".equals(propMap.get("isExistInDb"))) {
             String s = propMap.get("value");
@@ -149,6 +167,26 @@ public final class EntityUtilProperties implements Serializable {
     }
 
     public static String getPropertyValue(String resource, String name, Delegator delegator) {
+        Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
+        if ("Y".equals(propMap.get("isExistInDb"))) {
+            return propMap.get("value");
+        } else {
+            return UtilProperties.getPropertyValue(resource, name);
+        }
+    }
+
+    public static String getPropertyValueFromDelegatorName(String resource, String name, String delegatorName) {
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
+        if (delegator == null) { // This should not happen, but in case...
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            // this will be the common case for now as the delegator isn't available where we want to do this
+            // we'll cheat a little here and assume the default delegator
+            delegator = DelegatorFactory.getDelegator("default");
+            Debug.logError("Could not get a delegator. Using the 'default' delegator", module);
+            if (delegator == null) {
+                Debug.logError("Could not get a system property for " + name + ". Reason: the delegator is null", module);
+            }
+        }
         Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
         if ("Y".equals(propMap.get("isExistInDb"))) {
             return propMap.get("value");
