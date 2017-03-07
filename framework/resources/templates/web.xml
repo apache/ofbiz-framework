@@ -21,13 +21,6 @@
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://@component-name@/widget/CommonScreens.xml</param-value>
     </context-param>
-    <!--
-    <context-param>
-        <param-name>widgetVerbose</param-name>
-        <param-value>false</param-value>
-        <description>Enable widget boundary comments. See org.apache.ofbiz.widget.model.ModelWidget.widgetBoundaryCommentsEnabled().</description>
-    </context-param>
-    -->
     <context-param>
         <description>Remove unnecessary whitespace from HTML output.</description>
         <param-name>compressHTML</param-name>
