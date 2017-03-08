@@ -51,7 +51,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField><!--hyper--></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder=""><@makeBlock className value /></#macro>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default"><@makeBlock className value /></#macro>
 
 <#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable language buttons tabindex language=""><@makeBlock className value /></#macro>
 
@@ -130,7 +130,7 @@ under the License.
 <@makeBlock className value />
 </#macro>
 
-<#macro renderLookupField name formName fieldFormName className="" alert="" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="" width="" height="" position="" fadeBackground="" clearText="" showDescription="" initiallyCollapsed="" lastViewName="" tabindex=""></#macro>
+<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default"></#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete tabindex><@makeBlock className value /></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete tabindex><@makeBlock className "" /></#macro>
