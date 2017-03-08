@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.minilang.method.conditional;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,18 +45,6 @@ public abstract class Compare {
         if (rValue == null) {
             throw new IllegalArgumentException("Cannot compare: r-value is null");
         }
-    }
-
-    private static int compareBigDecimals(BigDecimal lBigDecimal, BigDecimal rBigDecimal) {
-        // Developers: Do not change this. We are comparing two fixed-point decimal numbers,
-        // not performing accounting calculations - so it is okay to specify the rounding mode.
-        int decimals = lBigDecimal.scale();
-        if (rBigDecimal.scale() < decimals) {
-            lBigDecimal = lBigDecimal.setScale(rBigDecimal.scale(), RoundingMode.UP);
-        } else if (decimals < rBigDecimal.scale()) {
-            rBigDecimal = rBigDecimal.setScale(decimals, RoundingMode.UP);
-        }
-        return lBigDecimal.compareTo(rBigDecimal);
     }
 
     private static Map<String, Compare> createInstanceMap() {
@@ -132,12 +118,6 @@ public abstract class Compare {
             if (convertedRvalue == null) {
                 return false;
             }
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) == 0;
-            }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
@@ -154,12 +134,6 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) > 0;
-            }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
@@ -176,12 +150,6 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) >= 0;
-            }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
@@ -225,12 +193,6 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) < 0;
-            }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
@@ -247,12 +209,6 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) <= 0;
-            }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
@@ -273,12 +229,6 @@ public abstract class Compare {
             }
             if (convertedRvalue == null) {
                 return true;
-            }
-            if (convertedLvalue instanceof BigDecimal &&
-                convertedRvalue instanceof BigDecimal) {
-                BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
-                BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
-                return compareBigDecimals(lBigDecimal, rBigDecimal) != 0;
             }
             if (convertedLvalue instanceof Comparable &&
                 convertedRvalue instanceof Comparable) {
