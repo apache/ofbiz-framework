@@ -137,8 +137,12 @@ public class EmailServices {
         // check to see if we should redirect all mail for testing
         String redirectAddress = EntityUtilProperties.getPropertyValue("general", "mail.notifications.redirectTo", delegator);
         if (UtilValidate.isNotEmpty(redirectAddress)) {
-            String originalRecipients = " [To: " + sendTo + ", Cc: " + sendCc + ", Bcc: " + sendBcc + "]";
-            subject += originalRecipients;
+            StringBuilder sb = new StringBuilder();
+            sb.append(" [To: ").append(sendTo);
+            if (UtilValidate.isNotEmpty(sendCc)) sb.append(", Cc: ").append(sendCc);
+            if (UtilValidate.isNotEmpty(sendBcc)) sb.append(", Bcc: ").append(sendBcc);
+            sb.append("]");
+            subject += sb.toString();
             sendTo = redirectAddress;
             sendCc = null;
             sendBcc = null;
