@@ -88,11 +88,12 @@ under the License.
     </service>
 
     <!--  test service for local loopback testing (OFBiz Client SOAP -> OFBiz Server SOAP)  
-        http://ofbiz-vm.apache.org:8080/webtools/control/SOAPService is the ultimate location for the testRemoteSoap 
-        (it's redirected from http://demo-trunk-ofbiz.apache.org/webtools/control/SOAPService by the SSL ASF proxy)
+        https://ofbiz-vm2.apache.org:8443/webtools/control/SOAPService is the ultimate location for the testRemoteSoap 
+        It's redirected from https://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService by the HTTPD frontend installed by Puppet in the demo server, ie ofbiz-vm2.apache.org
+        We could use also http://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService but HSTS would sent it to https anyway
         So this can be used only against trunk demo and is not in the tests set to avoid a dependency on Internet -->
     <service name="testRemoteSoap" engine="soap" export="true" 
-        location="http://ofbiz-vm.apache.org:8080/webtools/control/SOAPService"
+        location="https://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService"
         invoke="testSoapSimple">
         <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
