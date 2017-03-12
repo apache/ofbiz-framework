@@ -264,9 +264,20 @@ under the License.
 <p><code>gradlew pullPlugin -PrepoUrl=&quot;http://www.example.com/custom-maven&quot; -PdependencyId=&quot;org.apache.ofbiz.plugin:myplugin:0.1.0&quot;</code></p>
 <p>If you need username and password to access the custom repository:</p>
 <p><code>gradlew pullPlugin -PrepoUrl=&quot;http://www.example.com/custom-maven&quot; -PrepoUser=myuser -PrepoPassword=mypassword -PdependencyId=&quot;org.apache.ofbiz.plugin:myplugin:0.1.0&quot;</code></p>
-<h3 id="pull-a-source-plugin">Pull a source plugin</h3>
-<p>Download a plugin from source control (currently subversion) and place it in the plugins directory. This is mostly useful when working on the trunk branch as it requires the latest version of a plugin</p>
+<h3 id="pull-an-official-plugin-from-source-control">Pull an official plugin from source control</h3>
+<p>Download an official plugin from source control (currently subversion) and place it in the plugins directory. In addition, this task also executes the &quot;install&quot; task if it is defined for the plugin being downloaded.</p>
+<p>This task is mostly useful when working on the trunk branch as it pulls in the latest version of a plugin.</p>
 <p><code>gradlew pullPluginSource -PpluginId=ecommerce</code></p>
+<blockquote>
+<p><em>Note</em>: This plugin will have its own .svn directory placed inside the plugin directory.</p>
+</blockquote>
+<h3 id="pull-all-official-plugins-from-source-control">Pull all official plugins from source control</h3>
+<p>Download all officially supported plugins from source control (currently subversion) and place them inclusive of their &quot;.svn&quot; directory in /plugins. WARNING! This task deletes the /plugins directory and replaces it with the official plugins.</p>
+<p><code>gradlew pullAllPluginsSource</code></p>
+<p>This task makes it easy to download and develop officially supported plugins. It is mostly used by developers or individuals working on the trunk branch. We do not recommend using this task on releases of OFBiz, instead consider using the &quot;pullPlugin&quot; task to get the correct version of a plugin compatible with your release.</p>
+<blockquote>
+<p><em>Note</em>: All the plugins will share a .svn directory placed in the plugins directory.</p>
+</blockquote>
 <h3 id="install-a-plugin">Install a plugin</h3>
 <p>If you have a plugin called mycustomplugin and want to install it in OFBiz follow the below instructions:</p>
 <ul>
