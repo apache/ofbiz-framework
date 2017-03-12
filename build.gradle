@@ -605,7 +605,7 @@ task installPlugin(group: ofbizPlugin, description: 'executes plugin install tas
                         dependsOn ":plugins:${pluginId}:install"
                         doLast { println "installed plugin ${pluginId}" }
                     } else {
-                        doLast { println "No install task defined for plugin ${pluginId}" }
+                        doLast { println "No install task defined for plugin ${pluginId}. Nothing to do and worry about, see the documentation for more." }
                     }
                 }
             }
