@@ -524,9 +524,9 @@ task if it is defined for the plugin being downloaded.
 This task is mostly useful when working on the trunk branch
 as it pulls in the latest version of a plugin.
 
->_Note_: This plugin will have its own .svn directory placed inside the plugin directory.
-
 `gradlew pullPluginSource -PpluginId=ecommerce`
+
+>_Note_: This plugin will have its own .svn directory placed inside the plugin directory.
 
 ### Pull all official plugins from source control
 
