@@ -522,7 +522,9 @@ it in the plugins directory. In addition, this task also executes the "install"
 task if it is defined for the plugin being downloaded.
 
 This task is mostly useful when working on the trunk branch
-as it pulls in the latest version of a plugin
+as it pulls in the latest version of a plugin.
+
+>_Note_: This plugin will have its own .svn directory placed inside the plugin directory.
 
 `gradlew pullPluginSource -PpluginId=ecommerce`
 
@@ -538,6 +540,8 @@ This task makes it easy to download and develop officially supported plugins. It
 mostly used by developers or individuals working on the trunk branch. We do not
 recommend using this task on releases of OFBiz, instead consider using the "pullPlugin"
 task to get the correct version of a plugin compatible with your release.
+
+>_Note_: All the plugins will share a .svn directory placed in the plugins directory.
 
 ### Install a plugin
 
