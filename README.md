@@ -515,13 +515,29 @@ If you need username and password to access the custom repository:
 
 `gradlew pullPlugin -PrepoUrl="http://www.example.com/custom-maven" -PrepoUser=myuser -PrepoPassword=mypassword -PdependencyId="org.apache.ofbiz.plugin:myplugin:0.1.0"`
 
-### Pull a source plugin
+### Pull an official plugin from source control
 
-Download a plugin from source control (currently subversion) and place it in
-the plugins directory. This is mostly useful when working on the trunk branch
-as it requires the latest version of a plugin
+Download an official plugin from source control (currently subversion) and place
+it in the plugins directory. In addition, this task also executes the "install"
+task if it is defined for the plugin being downloaded.
+
+This task is mostly useful when working on the trunk branch
+as it pulls in the latest version of a plugin
 
 `gradlew pullPluginSource -PpluginId=ecommerce`
+
+### Pull all official plugins from source control
+
+Download all officially supported plugins from source control (currently subversion)
+and place them inclusive of their ".svn" directory in /plugins. WARNING! This task
+deletes the /plugins directory and replaces it with the official plugins.
+
+`gradlew pullAllPluginsSource`
+
+This task makes it easy to download and develop officially supported plugins. It is
+mostly used by developers or individuals working on the trunk branch. We do not
+recommend using this task on releases of OFBiz, instead consider using the "pullPlugin"
+task to get the correct version of a plugin compatible with your release.
 
 ### Install a plugin
 
