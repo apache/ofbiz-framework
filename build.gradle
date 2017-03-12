@@ -513,14 +513,14 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         if (!project.hasProperty('basePermission')) {
             ext.basePermission = pluginId.toUpperCase()
         }
-    
+
         def filterTokens = ['component-name': pluginId,
             'component-resource-name': pluginResourceName,
             'webapp-name': webappName,
             'base-permission': basePermission]
         def templateDir = "${rootDir}/framework/resources/templates"
         def pluginDir = "${pluginsDir}/${pluginId}"
-    
+
         mkdir pluginDir
         mkdir pluginDir+"/config"
         mkdir pluginDir+"/data"
@@ -543,7 +543,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         mkdir pluginDir+"/webapp/${webappName}/WEB-INF"
         mkdir pluginDir+"/webapp/${webappName}/WEB-INF/actions"
         mkdir pluginDir+"/widget/"
-    
+
         generateFileFromTemplate(templateDir+"/ofbiz-component.xml", pluginDir,
             filterTokens, "ofbiz-component.xml")
         generateFileFromTemplate(templateDir+"/TypeData.xml", pluginDir+"/data",
@@ -584,12 +584,12 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
             filterTokens, "${pluginResourceName}Forms.xml")
         generateFileFromTemplate(templateDir+"/build.gradle", pluginDir,
             filterTokens, "build.gradle")
-    
+
         println "plugin successfully created in directory ${pluginsDir}/${pluginId}."
     }
 }
 
-task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run its install task if it exists') {
+task installPlugin(group: ofbizPlugin, description: 'executes plugin install task if it exists') {
 
     doFirst {
         if (!project.hasProperty('pluginId')) {
@@ -598,22 +598,22 @@ task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run i
     }
 
     if (project.hasProperty('pluginId')) {
-        if (subprojectExists(":plugins:${pluginId}")) {
-            if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
-                dependsOn ":plugins:${pluginId}:install"
-                doLast { println "installed plugin ${pluginId}" }
-            } else {
-                doLast { println "No install task defined for plugin ${pluginId}" }
-            }
-        } else {
-            doLast {
-                installPlugin pluginId
+        iterateOverActiveComponents { component ->
+            if (component.name == pluginId) {
+                if (subprojectExists(":plugins:${pluginId}")) {
+                    if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
+                        dependsOn ":plugins:${pluginId}:install"
+                        doLast { println "installed plugin ${pluginId}" }
+                    } else {
+                        doLast { println "No install task defined for plugin ${pluginId}" }
+                    }
+                }
             }
         }
     }
 }
 
-task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if exists for a plugin and deactivate it') {
+task uninstallPlugin(group: ofbizPlugin, description: 'executes plugin uninstall task if it exists') {
 
     doFirst {
         if (!project.hasProperty('pluginId')) {
@@ -626,6 +626,9 @@ task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if
 
     if (project.hasProperty('pluginId') && taskExistsInproject(":plugins:${pluginId}", 'uninstall')) {
         dependsOn ":plugins:${pluginId}:uninstall"
+        doLast { println "uninstalled plugin ${pluginId}" }
+    } else {
+        doLast { println "No uninstall task defined for plugin ${pluginId}" }
     }
 }
 
@@ -689,7 +692,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
         if (!project.hasProperty('dependencyId')) {
             throw new GradleException('You must pass the dependencyId of the plugin')
         }
-    
+
         // Connect to a remote maven repository if defined
         if (project.hasProperty('repoUrl')) {
             repositories {
@@ -704,12 +707,12 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
                 }
             }
         }
-    
+
         // download plugin and dependencies
         dependencies {
             ofbizPlugins dependencyId
         }
-    
+
         // reverse the order of dependencies to install them before the plugin
         def ofbizPluginArchives = new ArrayList(configurations.ofbizPlugins.files)
         Collections.reverse(ofbizPluginArchives)
@@ -722,7 +725,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
                 from zipTree(pluginArchive)
                 into "${pluginsDir}/${pluginId}"
             }
-            installPlugin pluginId
+            gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
         }
     }
 }
@@ -737,7 +740,41 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
         dependsOn pullPluginFromSvn
     }
     doLast {
-        installPlugin pluginId
+        gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
+    }
+}
+
+task pullAllPluginsSource(group: ofbizPlugin, 
+        description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
+
+    task pullPluginsFromSvn(type: SvnCheckout) {
+        svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk"
+        workspaceDir = "${rootDir}/temp"
+        doLast{
+            delete "${rootDir}/plugins"
+            ant.move(file: "${rootDir}/temp", toFile: "${rootDir}/plugins")
+        }
+    }
+    dependsOn pullPluginsFromSvn
+
+    task installAllPlugins {
+        file("${rootDir}/plugins").eachDir { plugin ->
+            iterateOverActiveComponents { component ->
+                if (component.name == plugin.name) {
+                    if (subprojectExists(":plugins:${plugin.name}")) {
+                        if (taskExistsInproject(":plugins:${plugin.name}", 'install')) {
+                            dependsOn ":plugins:${pluginId}:install"
+                            doLast { println "installed plugin ${plugin.name}" }
+                        } else {
+                            doLast { println "No install task defined for plugin ${plugin.name}" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    doLast {
+        gradlewSubprocess(['installAllPlugins'])
     }
 }
 
@@ -1016,7 +1053,9 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
     return taskExists
 }
 
-def installPlugin(pluginId) {
+def gradlewSubprocess(commandList) {
     def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
-    exec { commandLine gradleRunner, '--no-daemon', 'installPlugin', "-PpluginId=${pluginId}" }
+    def fullCommand = [gradleRunner, "--no-daemon"]
+    fullCommand.addAll(commandList)
+    exec { commandLine fullCommand }
 }
