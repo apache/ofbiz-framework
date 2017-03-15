@@ -40,7 +40,7 @@ under the License.
                         <screenlet id="AccountingCostComponentCalcPanel" title="${uiLabelMap.AccountingCreateCostComponentCalc}" collapsible="true">
                             <include-form name="AddCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
+                        <include-form name="ListCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
