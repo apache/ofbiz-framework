@@ -114,11 +114,6 @@ public class LabelManagerFactory {
             if (UtilValidate.isNotEmpty(fileName) && !fileName.equals(fileInfo.getFileName())) {
                 continue;
             }
-            if ("ExampleEntityLabels.xml".equals(fileInfo.getFileName())
-                    || "ProductPromoUiLabels.xml".equals(fileInfo.getFileName())
-                    ) {
-                continue;
-            }
             if (Debug.infoOn()) {
                 Debug.logInfo("Current file : " + fileInfo.getFileName(), module);
             }
@@ -157,11 +152,12 @@ public class LabelManagerFactory {
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                         if (valueNode instanceof Element) {
                             Element valueElem = (Element) valueNode;
-                            // Support old way of specifying xml:lang value.
+                            // No longer supporting old way of specifying xml:lang value.
                             // Old way: en_AU, new way: en-AU
                             String localeName = valueElem.getAttribute("xml:lang");
                             if( localeName.contains("_")) {
-                                localeName = localeName.replace('_', '-');
+                                GeneralException e = new GeneralException("Confusion in labels with the separator used between languages and countries. Please use a dash instead of an underscore.");
+                                throw e;  
                             }
                             String labelValue = UtilCodec.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
                             LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());
