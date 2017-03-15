@@ -123,7 +123,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                            <include-grid name="ListTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -193,7 +193,7 @@ under the License.
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}">
-                            <include-form name="ListTrackingCodeOrders" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                            <include-grid name="ListTrackingCodeOrders" location="component://marketing/widget/TrackingCodeForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -246,6 +246,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="ListTrackingCodeVisits">
         <section>
             <actions>
@@ -310,7 +311,7 @@ under the License.
                         <include-form name="LookupVisit" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupVisit" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                        <include-grid name="ListLookupVisit" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -331,7 +332,7 @@ under the License.
                         <include-form name="LookupTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                        <include-grid name="ListLookupTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -397,7 +398,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                            <include-grid name="ListTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -419,7 +420,7 @@ under the License.
                         <include-form name="LookupTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
+                        <include-grid name="ListLookupTrackingCodeType" location="component://marketing/widget/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
