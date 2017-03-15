@@ -88,7 +88,7 @@ public class SaveLabelsToXmlFile {
                 } else if (UtilValidate.isNotEmpty(confirm)) {
                     LabelInfo label = labels.get(key + LabelManagerFactory.keySeparator + fileName);
                     // Update a Label
-                    if (update_label.equalsIgnoreCase("Y")) {
+                    if (updateLabel.equalsIgnoreCase("Y")) {
                         if (UtilValidate.isNotEmpty(label)) {
                             factory.updateLabelValue(localeNames, localeValues, localeComments, label, key, keyComment, fileName);
                         }
