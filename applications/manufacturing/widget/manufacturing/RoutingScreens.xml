@@ -37,6 +37,9 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                        <container style="button-bar">
+                                            <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
+                                        </container>
                                     </widgets>
                                 </section>
                                 <container>
@@ -138,9 +141,6 @@ under the License.
                 <decorator-screen name="CommonRoutingDecorator">
                     <decorator-section name="body">
                         <screenlet title="${groovy: workEffortId ? uiLabelMap.PageTitleEditRouting : uiLabelMap.ManufacturingNewRouting}">
-                            <container style="button-bar">
-                                <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
-                            </container>
                             <include-form name="EditRouting" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
