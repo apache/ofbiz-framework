@@ -55,7 +55,7 @@ public class SaveLabelsToXmlFile {
         }
         String key = (String) context.get("key");
         String keyComment = (String) context.get("keyComment");
-        String update_label = (String) context.get("update_label");
+        String updateLabel = (String) context.get("update_label");
         String confirm = (String) context.get("confirm");
         String removeLabel = (String) context.get("removeLabel");
         List<String> localeNames = UtilGenerics.cast(context.get("localeNames"));
