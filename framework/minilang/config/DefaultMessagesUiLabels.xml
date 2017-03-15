@@ -26,7 +26,7 @@
         <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>
         <value xml:lang="zh">错误：</value>
-        <value xml:lang="zh_TW">錯誤:</value>
+        <value xml:lang="zh-TW">錯誤:</value>
     </property>
     <property key="check.error.suffix">
         <value xml:lang="en"> </value>
@@ -49,7 +49,7 @@
         <value xml:lang="ru">Действие выполнено успешно.</value>
         <value xml:lang="th">การปฏิบัติหน้าที่เสร็จสมบูรณ์แล้ว</value>
         <value xml:lang="zh">已成功执行本操作。</value>
-        <value xml:lang="zh_TW">已成功執行本操作.</value>
+        <value xml:lang="zh-TW">已成功執行本操作.</value>
     </property>
     <property key="service.error.prefix">
         <value xml:lang="de">Fehler: </value>
@@ -59,7 +59,7 @@
         <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>
         <value xml:lang="zh">错误：</value>
-        <value xml:lang="zh_TW">錯誤:</value>
+        <value xml:lang="zh-TW">錯誤:</value>
     </property>
     <property key="service.error.suffix">
         <value xml:lang="en"> </value>
