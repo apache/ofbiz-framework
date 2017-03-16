@@ -747,13 +747,12 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
 task pullAllPluginsSource(group: ofbizPlugin, 
         description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
 
-    task pullPluginsFromSvn(type: SvnCheckout) {
+    task cleanupBeforePulling {
+        doLast { delete "${rootDir}/plugins" }
+    }
+    task pullPluginsFromSvn(type: SvnCheckout, dependsOn: cleanupBeforePulling) {
         svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk"
-        workspaceDir = "${rootDir}/temp"
-        doLast{
-            delete "${rootDir}/plugins"
-            ant.move(file: "${rootDir}/temp", toFile: "${rootDir}/plugins")
-        }
+        workspaceDir = "${rootDir}/plugins"
     }
     dependsOn pullPluginsFromSvn
 

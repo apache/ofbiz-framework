@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+mkdir "${rootDir}/plugins"
+
 def iterateOverActiveComponents(applyFunction) {
 
     // Start is not a real component, therefore loading it manually
