@@ -41,7 +41,7 @@ under the License.
                                 <screenlet id="AddPartyContactListPanel" title="${uiLabelMap.PartyContactListPartyCreate}" collapsible="true">
                                     <include-form name="AddPartyContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                                 </screenlet>
-                                <include-form name="ListPartyContactLists" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
+                                <include-grid name="ListPartyContactLists" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -68,7 +68,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
+                        <include-grid name="ListLookupContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
