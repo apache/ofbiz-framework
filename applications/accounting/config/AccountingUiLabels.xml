@@ -127,24 +127,6 @@
         <value xml:lang="zh">缺少账户编号</value>
         <value xml:lang="zh-TW">沒有科目號碼</value>
     </property>
-    <property key="AccountingAccounts">
-        <value xml:lang="ar">حسابات</value>
-        <value xml:lang="de">Konten</value>
-        <value xml:lang="en">Accounts</value>
-        <value xml:lang="es">cuentas</value>
-        <value xml:lang="fr">Comptes</value>
-        <value xml:lang="hi-IN">लेखा</value>
-        <value xml:lang="it">Conti</value>
-        <value xml:lang="ja">アカウント</value>
-        <value xml:lang="nl">Rekeningen</value>
-        <value xml:lang="pt">Contas</value>
-        <value xml:lang="ro">Conturi</value>
-        <value xml:lang="ru">Счета</value>
-        <value xml:lang="th">บัญชี</value>
-        <value xml:lang="vi">Tài khoản</value>
-        <value xml:lang="zh">账户</value>
-        <value xml:lang="zh-TW">科目</value>
-    </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="ar">دليل العملية الحسابية</value>
         <value xml:lang="cs">ID transakčního účtu</value>
@@ -322,21 +304,6 @@
         <value xml:lang="vi">Thêm Ứng dụng Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加协议人工服务用途</value>
         <value xml:lang="zh-TW">增加合約工作投入用途</value>
-    </property>
-    <property key="AccountingAddCategoryGlAccount">
-        <value xml:lang="ar">إضافة فئة حساب GL</value>
-        <value xml:lang="de">Hauptkonten-Kategorie hinzufügen</value>
-        <value xml:lang="en">Add Category GL Account</value>
-        <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
-        <value xml:lang="hi-IN">श्रेणी सामान्य बही खाता जोड़ें</value>
-        <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
-        <value xml:lang="ja">カテゴリGL勘定を追加</value>
-        <value xml:lang="nl">Voeg categorie van Gb-rekening toe</value>
-        <value xml:lang="pt">Adicionar Categoria de Conta da contabilidade</value>
-        <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
-        <value xml:lang="vi">Thêm chuyên mục tài khoản Sổ cái</value>
-        <value xml:lang="zh">添加分类总账账户</value>
-        <value xml:lang="zh-TW">增加總帳科目分類</value>
     </property>
     <property key="AccountingAddCheckAccount">
         <value xml:lang="en">Add Check Account</value>
@@ -630,24 +597,6 @@
         <value xml:lang="zh">用于运输的附加运费</value>
         <value xml:lang="zh-TW">用於運輸的附加運費</value>
     </property>
-    <property key="AccountingAdmin">
-        <value xml:lang="ar">إدارة</value>
-        <value xml:lang="de">Administrator</value>
-        <value xml:lang="en">Admin</value>
-        <value xml:lang="es">Admin</value>
-        <value xml:lang="fr">Admin</value>
-        <value xml:lang="hi-IN">व्यवस्थापक</value>
-        <value xml:lang="it">Amministra</value>
-        <value xml:lang="ja">管理者</value>
-        <value xml:lang="nl">Beheerder</value>
-        <value xml:lang="pt">Admin</value>
-        <value xml:lang="ro">Administreaza</value>
-        <value xml:lang="ru">Администрирование</value>
-        <value xml:lang="th">ผู้ดูแลระบบ</value>
-        <value xml:lang="vi">Quản trị</value>
-        <value xml:lang="zh">管理员</value>
-        <value xml:lang="zh-TW">管理者</value>
-    </property>
     <property key="AccountingAgreement">
         <value xml:lang="ar">إتفاقية</value>
         <value xml:lang="de">Vereinbarung</value>
@@ -784,12 +733,6 @@
         <value xml:lang="vi">Sản phẩm để Báo cáo</value>
         <value xml:lang="zh">用于报表的合同条款产品</value>
         <value xml:lang="zh-TW">用於報表的合約條款產品</value>
-    </property>
-    <property key="AccountingAgreementItemFacilitiesForReport">
-        <value xml:lang="de">Vereinbarungsposition Anlage für Bericht</value>
-        <value xml:lang="en">Agreement Item Facilities For Report</value>
-        <value xml:lang="zh">合同条款场所报表</value>
-        <value xml:lang="zh-TW">合約條款場所報表</value>
     </property>
     <property key="AccountingAgreementItemSeqId">
         <value xml:lang="ar">دليل التسلسل لبند الإتفاقية</value>
@@ -963,20 +906,6 @@
         <value xml:lang="zh">合同类型标识</value>
         <value xml:lang="zh-TW">合約類型識別</value>
     </property>
-    <property key="AccountingAgreementWorkEffortApplicAlreadyExists">
-        <value xml:lang="ar">مجهود العمل للإتفاقية موجود مسبقا</value>
-        <value xml:lang="de">Vereinbarung zu Arbeitseinsatz schon vorhanden</value>
-        <value xml:lang="en">Agreement Work Effort Applic Already Exists</value>
-        <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
-        <value xml:lang="hi-IN">अनुबंध - काम प्रयास का अनुप्रयोग पहले से ही मौजूद है</value>
-        <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
-        <value xml:lang="ja">契約作業成果適用はすでに存在します</value>
-        <value xml:lang="nl">Overeenkomst Work Effort Applic bestaat al</value>
-        <value xml:lang="pt">Aplicação do Acordo de esforço de trabalho já existe</value>
-        <value xml:lang="vi">Ứng dụng Lượng giá nguồn lực đã tồn tại</value>
-        <value xml:lang="zh">合同人工服务用途已存在</value>
-        <value xml:lang="zh-TW">合約工作投入用途已存在</value>
-    </property>
     <property key="AccountingAgreementWorkEffortApplics">
         <value xml:lang="ar">مجهود العمل للإتفاقية</value>
         <value xml:lang="de">Vereinbarung zu Arbeitseinsatz</value>
@@ -1048,24 +977,6 @@
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh-TW">金額</value>
     </property>
-    <property key="AccountingAmountApplied">
-        <value xml:lang="ar">مبلغ مطبق</value>
-        <value xml:lang="de">Angewandter Betrag</value>
-        <value xml:lang="en">Amount Applied </value>
-        <value xml:lang="es">Cantidad aplicada</value>
-        <value xml:lang="fr">Montant alloué</value>
-        <value xml:lang="hi-IN">राशि लागू है</value>
-        <value xml:lang="it">Importo Applicato</value>
-        <value xml:lang="ja">消込済金額</value>
-        <value xml:lang="nl">Toe te wijzen bedrag</value>
-        <value xml:lang="pt">Valor aplicado</value>
-        <value xml:lang="ro">Valoare Aplicata</value>
-        <value xml:lang="ru">Примененная сумма </value>
-        <value xml:lang="th">จำนวนที่ประยุกต์ได้</value>
-        <value xml:lang="vi">Số lượng đã đặt</value>
-        <value xml:lang="zh">已付金额 </value>
-        <value xml:lang="zh-TW">已付金額 </value>
-    </property>
     <property key="AccountingAmountNotApplied">
         <value xml:lang="ar">مبلغ لم يطبق بعد</value>
         <value xml:lang="de">Noch nicht angewandter Betrag</value>
@@ -1101,76 +1012,6 @@
         <value xml:lang="vi">Số lượng để sử dụng</value>
         <value xml:lang="zh">要使用的金额</value>
         <value xml:lang="zh-TW">要使用的金額</value>
-    </property>
-    <property key="AccountingAnyInvoiceStatus">
-        <value xml:lang="ar">أي حالة للفاتورة</value>
-        <value xml:lang="cs">Libovolný stav faktury</value>
-        <value xml:lang="de">Beliebiger Rechnungstatus</value>
-        <value xml:lang="en">Any Invoice Status</value>
-        <value xml:lang="es">Cualquier status de factura</value>
-        <value xml:lang="fr">Tous statuts de facture</value>
-        <value xml:lang="hi-IN">किसी चालान की अवस्था</value>
-        <value xml:lang="it">Qualsiasi Stato Fattura</value>
-        <value xml:lang="ja">任意の請求ステータス</value>
-        <value xml:lang="nl">Elke factuurstatus</value>
-        <value xml:lang="pt-BR">Estado de qualquer fatura</value>
-        <value xml:lang="pt-PT">&gt;Estado das FacturasInformação sobre facturação</value>
-        <value xml:lang="ro">Orice Stadiu de Factura</value>
-        <value xml:lang="ru">Любой статус накладной</value>
-        <value xml:lang="th">สถานะของใบกำกับสินค้าอื่น ๆ</value>
-        <value xml:lang="vi">Bất kỳ trạng thái hóa đơn nào</value>
-        <value xml:lang="zh">任一发票状态</value>
-        <value xml:lang="zh-TW">任一發票狀態</value>
-    </property>
-    <property key="AccountingAnyPaymentMethod">
-        <value xml:lang="ar">أي طريقة تسديد</value>
-        <value xml:lang="de">Beliebige Zahlungsart</value>
-        <value xml:lang="en">Any Payment Method</value>
-        <value xml:lang="es">Cualquier método de pago</value>
-        <value xml:lang="fr">Toutes méthode de paiement</value>
-        <value xml:lang="hi-IN">कोई भुगतान का तरीका</value>
-        <value xml:lang="it">Qualsiasi Metodo Pagamento</value>
-        <value xml:lang="ja">任意の支払方法</value>
-        <value xml:lang="nl">Elke betaalmethode</value>
-        <value xml:lang="pt">Qualquer método de pagamento</value>
-        <value xml:lang="ro">Orice Metoda de Plata</value>
-        <value xml:lang="ru">Любой способ платежа</value>
-        <value xml:lang="th">วิธีการชำระเงินอื่น ๆ</value>
-        <value xml:lang="vi">Bất kỳ phương thức thanh toán nào</value>
-        <value xml:lang="zh">任一支付方法</value>
-        <value xml:lang="zh-TW">任一支付方法</value>
-    </property>
-    <property key="AccountingAnyPaymentStatus">
-        <value xml:lang="ar">إي حالة للدفعة</value>
-        <value xml:lang="de">Beliebiger Zahlungs-Status</value>
-        <value xml:lang="en">Any Payment Status</value>
-        <value xml:lang="es">Cualquier status de pago</value>
-        <value xml:lang="fr">Tous statuts de paiement</value>
-        <value xml:lang="hi-IN">किसी भुगतान की अवस्था</value>
-        <value xml:lang="it">Qualsiasi Stato Pagamento</value>
-        <value xml:lang="ja">任意の支払ステータス</value>
-        <value xml:lang="nl">Elke betaalstatus</value>
-        <value xml:lang="pt">Qualquer estado de pagamento</value>
-        <value xml:lang="ro">Orice Stadiu de Plata</value>
-        <value xml:lang="ru">Любой статус платежа</value>
-        <value xml:lang="th">สถานะการชำระเงินอื่น ๆ</value>
-        <value xml:lang="vi">Bất kỳ trạng thái thanh toán nào</value>
-        <value xml:lang="zh">任一支付状态</value>
-        <value xml:lang="zh-TW">任一支付狀態</value>
-    </property>
-    <property key="AccountingAp">
-        <value xml:lang="ar">الصفحة الرئيسية للذمم الدائنة</value>
-        <value xml:lang="de">Hauptseite Kreditorenbuchhaltung</value>
-        <value xml:lang="en">Main Page Account Payable</value>
-        <value xml:lang="fr">Compte fournisseur</value>
-        <value xml:lang="hi-IN">देय खाता का मुख्य पृष्ठ</value>
-        <value xml:lang="it">Pagina principale conto debitori</value>
-        <value xml:lang="ja">買掛管理メインページ</value>
-        <value xml:lang="nl">Crediteuren</value>
-        <value xml:lang="pt">Página principal do Contas a Pagar</value>
-        <value xml:lang="vi">Trang chủ Phải Trả (AP)</value>
-        <value xml:lang="zh">应付账户首页</value>
-        <value xml:lang="zh-TW">應付帳款首頁</value>
     </property>
     <property key="AccountingApCompanyName">
         <value xml:lang="ar">أوفبيز: مدير ذمم دائنة</value>
@@ -1228,20 +1069,6 @@
         <value xml:lang="zh">编辑供应商</value>
         <value xml:lang="zh-TW">編輯供應商</value>
     </property>
-    <property key="AccountingApPageTitleFindVendorResults">
-        <value xml:lang="ar">إيجاد نتائج المورد</value>
-        <value xml:lang="de">Ergebnis der Verkäufersuche</value>
-        <value xml:lang="en">Find Vendor Results</value>
-        <value xml:lang="fr">Chercher des résultats de vendeurs</value>
-        <value xml:lang="hi-IN">विक्रेता के परिणाम खोजें</value>
-        <value xml:lang="it">Risultati ricerce fornitori</value>
-        <value xml:lang="ja">ベンダ検索結果</value>
-        <value xml:lang="nl">Vind resultaten verkopende relaties</value>
-        <value xml:lang="pt">Pesquisar resultados do fornecedor</value>
-        <value xml:lang="vi">Kết quả tìm kiếm Nhà cung cấp</value>
-        <value xml:lang="zh">查找供应商结果</value>
-        <value xml:lang="zh-TW">尋找供應商結果</value>
-    </property>
     <property key="AccountingApPageTitleFindVendors">
         <value xml:lang="ar">إيجاد الموردين</value>
         <value xml:lang="de">Verkäufer suchen</value>
@@ -1255,20 +1082,6 @@
         <value xml:lang="vi">Tìm kiếm Nhà cung cấp</value>
         <value xml:lang="zh">查找供应商</value>
         <value xml:lang="zh-TW">尋找供應商</value>
-    </property>
-    <property key="AccountingApPageTitleListVendors">
-        <value xml:lang="ar">سرد الموردين</value>
-        <value xml:lang="de">Verkäufer auflisten</value>
-        <value xml:lang="en">List Vendors</value>
-        <value xml:lang="fr">Liste des vendeurs</value>
-        <value xml:lang="hi-IN">विक्रेताओं की सूची</value>
-        <value xml:lang="it">Lista fornitori</value>
-        <value xml:lang="ja">ベンダ一覧</value>
-        <value xml:lang="nl">Toon verkopende relaties</value>
-        <value xml:lang="pt">Listar Fornecedores</value>
-        <value xml:lang="vi">Danh sách Nhà cung cấp</value>
-        <value xml:lang="zh">供应商列表</value>
-        <value xml:lang="zh-TW">供應商清單</value>
     </property>
     <property key="AccountingApPaymentGroupMenu">
         <value xml:lang="ar">مجموعات الدفعة للذمم الدائنة</value>
@@ -1299,24 +1112,6 @@
         <value xml:lang="vi">Đang khớp lệnh ${amountApplied?currency(${isoCode})} từ thanh toán [${paymentId}] to ${toMessage}</value>
         <value xml:lang="zh">正在应用${amountApplied?currency(${isoCode})}，从支付[${paymentId}]到${toMessage}</value>
         <value xml:lang="zh-TW">正在應用${amountApplied?currency(${isoCode})},從支付[${paymentId}]到${toMessage}</value>
-    </property>
-    <property key="AccountingApplicationToBillingAccount">
-        <value xml:lang="ar">إلى حساب الفوترة [${billingAccountId}]</value>
-        <value xml:lang="de">zu Rechnungskonto [${billingAccountId}]</value>
-        <value xml:lang="en">to billing account [${billingAccountId}]</value>
-        <value xml:lang="es">a cuenta de facturación [${billingAccountId}]</value>
-        <value xml:lang="fr">au compte de facturation [${billingAccountId}]</value>
-        <value xml:lang="hi-IN">देयकांकन खाते में  [${billingAccountId}]</value>
-        <value xml:lang="it">al conto fatturazione [${billingAccountId}]</value>
-        <value xml:lang="ja">請求先アカウント [${billingAccountId}] に</value>
-        <value xml:lang="nl">aan factuurrekening [${billingAccountId}]</value>
-        <value xml:lang="pt">a conta de cobrança [${billingAccountId}]</value>
-        <value xml:lang="ro">la Cont Facturare [${billingAccountId}]</value>
-        <value xml:lang="ru">на кредитный счет [${billingAccountId}]</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}]</value>
-        <value xml:lang="vi">tới tài khoản thanh toán [${billingAccountId}]</value>
-        <value xml:lang="zh">到账单账户[${billingAccountId}]</value>
-        <value xml:lang="zh-TW">到帳單帳戶[${billingAccountId}]</value>
     </property>
     <property key="AccountingApplicationToInvoice">
         <value xml:lang="ar">إلى الفاتورة [${invoiceId}]</value>
@@ -1460,24 +1255,6 @@
         <value xml:lang="zh">服务贷方用途</value>
         <value xml:lang="zh-TW">服務貸方用途</value>
     </property>
-    <property key="AccountingApplyToInvoiceItems">
-        <value xml:lang="ar">تطبيق على بنود الفاتورة</value>
-        <value xml:lang="de">Rechnungspositionen zuweisen</value>
-        <value xml:lang="en">Apply to Invoice Items</value>
-        <value xml:lang="es">Aplicar para facturar elementos</value>
-        <value xml:lang="fr">Allouer à des lignes de facturation</value>
-        <value xml:lang="hi-IN">लागू करने के लिए मद चालान</value>
-        <value xml:lang="it">Applica alle Righe Fattura</value>
-        <value xml:lang="ja">請求アイテムに消込</value>
-        <value xml:lang="nl">Wijs aan factuuritems toe</value>
-        <value xml:lang="pt">Aplicar aos itens da fatura</value>
-        <value xml:lang="ro">Aplica la liniile Facturii</value>
-        <value xml:lang="ru">Применить на позиции накладной</value>
-        <value xml:lang="th">นำรายการใบกำกับสินค้าไปใช้</value>
-        <value xml:lang="vi">Hạng mục hóa đơn (khớp lệnh tới)</value>
-        <value xml:lang="zh">支付的发票明细</value>
-        <value xml:lang="zh-TW">支付的發票細項</value>
-    </property>
     <property key="AccountingApprovedGrandTotal">
         <value xml:lang="ar">الإجمالي الكلي الموافق عليه</value>
         <value xml:lang="de">Genehmigte Gesamtsumme</value>
@@ -1490,20 +1267,6 @@
         <value xml:lang="vi">Đã duyệt Tổng chung</value>
         <value xml:lang="zh">已批准的合计</value>
         <value xml:lang="zh-TW">已核准的合計</value>
-    </property>
-    <property key="AccountingAr">
-        <value xml:lang="ar">الصفحة الرئيسية للذمم المدينة</value>
-        <value xml:lang="de">Hauptseite Debitorenbuchhaltung</value>
-        <value xml:lang="en">Main Page Account Receivable</value>
-        <value xml:lang="fr">Page d'accueil de la comptabilité client</value>
-        <value xml:lang="hi-IN">मुख्य पृष्ठ प्राप्य खाता</value>
-        <value xml:lang="it">Pagina principale conto creditori</value>
-        <value xml:lang="ja">売掛管理メインページ</value>
-        <value xml:lang="nl">Hoofdpagina Debiteuren</value>
-        <value xml:lang="pt">Página principal do contas a receber</value>
-        <value xml:lang="vi">Trang chủ Phải Thu (AR)</value>
-        <value xml:lang="zh">应收账户首页</value>
-        <value xml:lang="zh-TW">應收帳款首頁</value>
     </property>
     <property key="AccountingArCompanyName">
         <value xml:lang="ar">أوفبيز: مدير الذمم المدينة</value>
