@@ -167,6 +167,7 @@ public class ShoppingCartServices {
         Locale locale = (Locale) context.get("locale");
         //FIXME: deepak:Personally I don't like the idea of passing flag but for orderItem quantity calculation we need this flag.
         String createAsNewOrder = (String) context.get("createAsNewOrder");
+        List<GenericValue>orderTerms = null;
 
         if (UtilValidate.isEmpty(skipInventoryChecks)) {
             skipInventoryChecks = Boolean.FALSE;
@@ -179,6 +180,7 @@ public class ShoppingCartServices {
         GenericValue orderHeader = null;
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
+            orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -303,6 +305,21 @@ public class ShoppingCartServices {
             }
         } else {
             Debug.logInfo("No payment preferences found for order #" + orderId, module);
+        }
+        // set the order term
+        if (UtilValidate.isNotEmpty(orderTerms)) {
+            for (GenericValue orderTerm : orderTerms) {
+                BigDecimal termValue = BigDecimal.ZERO;
+                if (UtilValidate.isNotEmpty(orderTerm.getString("termValue"))){
+                    termValue = new BigDecimal(orderTerm.getString("termValue"));
+                }
+                long termDays = 0;
+                if (UtilValidate.isNotEmpty(orderTerm.getString("termDays"))) {
+                    termDays = Long.parseLong(orderTerm.getString("termDays").trim());
+                }
+                String orderItemSeqId = orderTerm.getString("orderItemSeqId");
+                cart.addOrderTerm(orderTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, orderTerm.getString("textValue"), orderTerm.getString("description"));
+            }
         }
 
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
