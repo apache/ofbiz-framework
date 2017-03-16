@@ -1313,6 +1313,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingInventoryValuation"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="InventoryValuation"/>
+                <set field="parameters.thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
