@@ -52,6 +52,8 @@ Of course you need to make sure the connector is compatible with _your_ version 
 
 Quick start
 -----------
+>_Note_: since the trunk was splitted, into ofbiz-framework and ofbiz-plugins; there are no longer a specialpurpose directory and a hot-deploy. All must be checked out in a created on the fly plugins directory.</br> 
+To get a component in the plugins directory: use the pullPluginSource Gradle task, to get all components use pullAllPluginsSource.
 
 To quickly install and fire-up OFBiz, please follow the below instructions
 from the command line at the OFBiz top level directory (folder)
