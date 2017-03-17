@@ -117,7 +117,7 @@ under the License.
                                         <include-form name="FindRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                                        <include-grid name="ListRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -173,7 +173,7 @@ under the License.
                                         <include-form name="FindRoutingTasks" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListRoutingTasks" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                                        <include-grid name="ListRoutingTasks" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -226,7 +226,7 @@ under the License.
                         <screenlet id="AddRoutingTaskCostPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTaskCosts}" collapsible="true">
                             <include-form name="AddRoutingTaskCost" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingTaskCosts" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        <include-grid name="ListRoutingTaskCosts" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -249,7 +249,7 @@ under the License.
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListRoutingTaskRoutings}">
-                            <include-form name="ListRoutingTaskRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                            <include-grid name="ListRoutingTaskRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -277,7 +277,7 @@ under the License.
                             <link target="EditRoutingTaskProduct" text="${uiLabelMap.ManufacturingNewRoutingTaskProduct}" style="buttontext">
                                 <parameter param-name="workEffortId"/>
                             </link>
-                            <include-form name="ListRoutingTaskProducts" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                            <include-grid name="ListRoutingTaskProducts" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -334,7 +334,7 @@ under the License.
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListRoutingTaskAssoc}">
-                            <include-form name="ListRoutingTaskAssoc" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                            <include-grid name="ListRoutingTaskAssoc" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -365,7 +365,7 @@ under the License.
                         <screenlet id="EditRoutingProductLinkPanel" title="${uiLabelMap.PageTitleEditRoutingProductLink}" collapsible="true">
                             <include-form name="EditRoutingProductLink" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingProductLink" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        <include-grid name="ListRoutingProductLink" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -388,7 +388,7 @@ under the License.
                         <screenlet id="EditRoutingTaskFixedAssetPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTasks} ${uiLabelMap.ManufacturingRoutingTaskFixedAssets}" collapsible="true">
                             <include-form name="EditRoutingTaskFixedAsset" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingTaskFixedAssets" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        <include-grid name="ListRoutingTaskFixedAssets" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -409,7 +409,7 @@ under the License.
                         <screenlet title="${uiLabelMap.AddParty}">
                             <include-form name="AddRoutingTaskParty" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingTaskParties" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        <include-grid name="ListRoutingTaskParties" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -429,7 +429,7 @@ under the License.
                         <screenlet title="Add Skill">
                             <include-form name="AddRoutingTaskSkill" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingTaskSkills" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        <include-grid name="ListRoutingTaskSkills" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

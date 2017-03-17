@@ -42,7 +42,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListRunningMrpJobs" list-name="mrpActiveJobs" title="" type="list"
+    <grid name="ListRunningMrpJobs" list-name="mrpActiveJobs" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
@@ -60,8 +60,9 @@ under the License.
         <field name="startDateTime"><hidden/></field>
         <field name="finishDateTime"><hidden/></field>
         <field name="cancelDateTime"><hidden/></field>
-    </form>
-    <form name="ListFinishedMrpJobs" list-name="lastFinishedJobs" title="" type="list"
+    </grid>
+    
+    <grid name="ListFinishedMrpJobs" list-name="lastFinishedJobs" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
@@ -76,5 +77,5 @@ under the License.
         <field name="runtimeDataId"><hidden/></field>
         <field name="recurrenceInfoId"><hidden/></field>
         <field name="serviceName"><hidden/></field>
-    </form>
+    </grid>
 </forms>
