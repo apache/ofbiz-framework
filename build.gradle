@@ -269,7 +269,6 @@ eclipse.classpath.file.whenMerged { classpath ->
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
             entry.path ==~ /(\/+themes)$/ ||
-            entry.path ==~ /(\/+hot-deploy)$/ ||
             entry.path ==~ eclipseEntry + '/config' ||
             entry.path ==~ eclipseEntry + '/dtd'
         }
