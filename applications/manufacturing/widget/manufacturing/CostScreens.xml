@@ -42,7 +42,7 @@ under the License.
                         <screenlet id="ManufacturingCostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
                             <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                         </screenlet>
-                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                        <include-grid name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
