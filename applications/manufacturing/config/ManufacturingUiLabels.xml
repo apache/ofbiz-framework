@@ -813,7 +813,7 @@
     </property>
     <property key="ManufacturingAddProdCompInCompCanStatusError">
         <value xml:lang="en">Can't Add Component in Cancelled/Closed Production Run.</value>
-    </property>s
+    </property>
     <property key="ManufacturingAddProductionRunProductComponent">
         <value xml:lang="de">Komponente zu Produktionsauftrag hinzufügen</value>
         <value xml:lang="en">Add ProductComponent to ProductionRun</value>
