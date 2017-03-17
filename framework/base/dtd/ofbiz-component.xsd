@@ -46,7 +46,7 @@ under the License.
                         This is yet unimplemented. It's not a trivial implementation because at the moment components are loaded
                         in the order they are found (i.e. alphabetic or creation date).
                         While this feature would require them all to be located first and then reordered and loaded.
-                        So, for now, simply follow the README file in hot-deploy root folder.
+                        So, for now, simply follow the README file in plugins(?) root folder.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attributeGroup>

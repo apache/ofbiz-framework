@@ -2,7 +2,6 @@ bin/
 build/
 applications/*/build
 framework/*/build
-hot-deploy/*/build
 plugins/*/build
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
