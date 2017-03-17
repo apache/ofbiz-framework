@@ -30,6 +30,14 @@ For more details about OFBiz please visit the OFBiz Documentation page:
 
 [OFBiz License](http://www.apache.org/licenses/LICENSE-2.0)
 
+>_Note_: since the trunk was split into **ofbiz-framework** and **ofbiz-plugins**, 
+the specialpurpose and hot-deploy directories have disappeared. 
+New components must be put in a plugins directory which works as was the hot-deploy directory.
+For OFBiz existing components, check them out using the Gradle tasks below.</br></br>
+To check out a component, in a created on the fly plugins directory, use the **pullPluginSource** Gradle task.</br>
+To get all components use **pullAllPluginsSource**. Beware this deletes a previously existing plugins directory.
+
+
 System requirements
 -------------------
 
@@ -52,15 +60,6 @@ Of course you need to make sure the connector is compatible with _your_ version 
 
 Quick start
 -----------
->_Note_: since the trunk was split into **ofbiz-framework** and **ofbiz-plugins**, 
-the specialpurpose and hot-deploy directories have disappeared. 
-New components must be put in a plugins directory which works as was the hot-deploy directory.
-For OFBiz existing components, check them out using the Gradle tasks below.</br></br>
-To check out a component, in a created on the fly plugins directory, use the **pullPluginSource** Gradle task.</br>
-To get all components use **pullAllPluginsSource**. Beware this deletes a previously existing plugins directory.
-
- 
-
 To quickly install and fire-up OFBiz, please follow the below instructions
 from the command line at the OFBiz top level directory (folder)
 
