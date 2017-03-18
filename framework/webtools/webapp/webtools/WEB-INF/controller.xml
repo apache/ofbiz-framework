@@ -584,18 +584,18 @@ under the License.
     <view-map name="ViewRelations" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewRelations"/>
 
     <!-- these are NOT regions because they generate text output that should never be decorated -->
-    <view-map name="tablesMySql" page="/entity/tablesMySql.jsp"/>
-    <view-map name="droptablesMySql" page="/entity/droptablesMySql.jsp"/>
-    <view-map name="droptablesplain" page="/entity/droptablesplain.jsp"/>
-    <view-map name="dataMySql" page="/entity/dataMySql.jsp"/>
-    <view-map name="ModelWriter" page="/entity/ModelWriter.jsp"/>
-    <view-map name="ModelGroupWriter" page="/entity/ModelGroupWriter.jsp"/>
-    <view-map name="ModelInduceFromDb" page="/entity/ModelInduceFromDb.jsp"/>
+    <view-map name="tablesMySql" page="template/entity/tablesMySql.jsp"/>
+    <view-map name="droptablesMySql" page="template/entity/droptablesMySql.jsp"/>
+    <view-map name="droptablesplain" page="template/entity/droptablesplain.jsp"/>
+    <view-map name="dataMySql" page="template/entity/dataMySql.jsp"/>
+    <view-map name="ModelWriter" page="template/entity/ModelWriter.jsp"/>
+    <view-map name="ModelGroupWriter" page="template/entity/ModelGroupWriter.jsp"/>
+    <view-map name="ModelInduceFromDb" page="template/entity/ModelInduceFromDb.jsp"/>
     <view-map name="EntityEoModelBundle" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityEoModelBundle"/>
 
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
-    <view-map name="xmldsrawdump" page="/entity/xmldsrawdump.jsp"/>
+    <view-map name="xmldsrawdump" page="template/entity/xmldsrawdump.jsp"/>
 
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>
