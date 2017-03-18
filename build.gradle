@@ -734,7 +734,7 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
     if (project.hasProperty('pluginId')) {
         task pullPluginFromSvn(type: SvnCheckout) {
             svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk/${pluginId}"
-            workspaceDir = "${rootDir}/plugins/${pluginId}"
+            workspaceDir = "${pluginsDir}/${pluginId}"
         }
         dependsOn pullPluginFromSvn
     }
@@ -747,16 +747,16 @@ task pullAllPluginsSource(group: ofbizPlugin,
         description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
 
     task deleteBeforePulling {
-        doLast { delete "${rootDir}/plugins" }
+        doLast { delete "${pluginsDir}" }
     }
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
         svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk"
-        workspaceDir = "${rootDir}/plugins"
+        workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
 
     task installAllPlugins {
-        file("${rootDir}/plugins").eachDir { plugin ->
+        file("${pluginsDir}").eachDir { plugin ->
             iterateOverActiveComponents { component ->
                 if (component.name == plugin.name) {
                     if (subprojectExists(":plugins:${plugin.name}")) {
