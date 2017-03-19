@@ -56,7 +56,7 @@ public final class Config {
         adminAddress = getAdminAddress(getProperty(props, "ofbiz.admin.host", "127.0.0.1"));
         adminKey = getProperty(props, "ofbiz.admin.key", "so3du5kasd5dn");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
-        adminPort = getAdminPort(props, 10523, portOffset); // see INFRA-6790
+        adminPort = getAdminPort(props, 0, portOffset); // see INFRA-6790
         containerConfig = getAbsolutePath(props, "ofbiz.container.config",
                 "framework/base/config/ofbiz-containers.xml", ofbizHome);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
