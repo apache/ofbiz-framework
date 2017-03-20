@@ -1230,17 +1230,6 @@ under the License.
     </simple-method>
 
     <!-- shipment method type services -->
-    <simple-method method-name="createCarrierShipmentMethod" short-description="Creates a CarrierShipmentMethod">
-        <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
-        <set-pk-fields map="parameters" value-field="carrierShipmentMethod"/>
-        <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
-        <create-value value-field="carrierShipmentMethod"/>
-    </simple-method>
-    <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
-        <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
-        <remove-value value-field="carrierShipmentMethod"/>
-    </simple-method>
-
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
         <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
         <set-pk-fields map="parameters" value-field="shipmentMethodType"/>
