@@ -75,11 +75,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditContactList}">
-                                    <container style="button-bar">
-                                        <link  text="${uiLabelMap.MarketingContactListCreate}" target="EditContactList" style="buttontext create">
-                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                        </link>
-                                    </container>
                                     <include-form name="EditContactList" location="component://marketing/widget/ContactListForms.xml"/>
                                 </screenlet>
                             </widgets>
