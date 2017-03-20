@@ -82,6 +82,11 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="contactListId"/></not></condition>
                                     <widgets>
+                                        <container style="button-bar">
+                                            <link  text="${uiLabelMap.MarketingContactListCreate}" target="EditContactList" style="buttontext create">
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                            </link>
+                                        </container>
                                         <container>
                                             <label style="h1">${uiLabelMap.MarketingContactList} ${contactList.contactListName} [${contactListId}]</label>
                                         </container>
