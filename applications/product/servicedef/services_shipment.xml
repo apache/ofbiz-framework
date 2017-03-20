@@ -25,8 +25,7 @@ under the License.
     <version>1.0</version>
 
     <!-- Shipment Services -->
-    <service name="createCarrierShipmentMethod" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createCarrierShipmentMethod" auth="true">
+    <service name="createCarrierShipmentMethod" engine="entity-auto" invoke="create" auth="true"> 
         <description>Creates A CarrierShipmentMethod</description>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
@@ -36,8 +35,7 @@ under the License.
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteCarrierShipmentMethod" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteCarrierShipmentMethod" auth="true">
+    <service name="deleteCarrierShipmentMethod" engine="entity-auto" invoke="delete" auth="true">
         <description>Deletes A CarrierShipmentMethod</description>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
     </service>
