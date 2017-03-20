@@ -1103,14 +1103,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteTerm">
+    <service name="createQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="create">
         <description>
             Create a new Quate term.
         </description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="quoteItemSeqId" type="String" mode="IN" optional="true"/>
+        <override name="quoteItemSeqId" type="String" mode="IN" default-value="_NA_"/>
     </service>
     <service name="updateQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="update">
         <description>
@@ -1119,8 +1118,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/minilang/quote/QuoteServices.xml" invoke="deleteQuoteTerm">
+    <service name="deleteQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="delete">
         <description>
             delete the Quate term.
         </description>

@@ -982,20 +982,6 @@ under the License.
             <remove-value value-field="quoteWorkEffort"/>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="createQuoteTerm" short-description="Create a QuoteTerm">
-        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
-        <if-empty field="parameters.quoteItemSeqId">
-            <set field="parameters.quoteItemSeqId" value="_NA_"/>
-        </if-empty>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteQuoteTerm" short-description="Delete a QuoteTerm">
-        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <remove-value value-field="newEntity"/>
-    </simple-method>
     <simple-method method-name="createQuoteNote" short-description="Create a new Note associated with a Quote">
         <set-service-fields service-name="createNote" map="parameters" to-map="createNoteMap"/>
         <!-- passed in field will be noteInfo, which matches entity, but service expects field called note -->
