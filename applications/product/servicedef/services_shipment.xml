@@ -39,22 +39,19 @@ under the License.
         <description>Deletes A CarrierShipmentMethod</description>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createShipmentMethodType" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentMethodType" auth="true">
+    <service name="createShipmentMethodType" engine="entity-auto" default-entity-name="ShipmentMethodType" invoke="create" auth="true">
         <description>Creates A ShipmentMethodType</description>
-        <auto-attributes entity-name="ShipmentMethodType" mode="IN" optional="false"/>
-        <override name="sequenceNum" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateShipmentMethodType" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentMethodType" auth="true">
+    <service name="updateShipmentMethodType" engine="entity-auto" default-entity-name="ShipmentMethodType" invoke="update" auth="true">
         <description>Updates A ShipmentMethodType</description>
-        <auto-attributes entity-name="ShipmentMethodType" mode="IN" optional="false"/>
-        <override name="sequenceNum" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteShipmentMethodType" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentMethodType" auth="true">
+    <service name="deleteShipmentMethodType" engine="entity-auto" default-entity-name="ShipmentMethodType" invoke="delete" auth="true">
         <description>Deletes A ShipmentMethodType</description>
-        <auto-attributes entity-name="ShipmentMethodType" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createOrderShipmentPlan" engine="simple"
