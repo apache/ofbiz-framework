@@ -516,6 +516,7 @@ public class ShoppingCartHelper {
                 try {
                     requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
                 } catch (GenericEntityException gee) {
+                    Debug.logError(gee, module);
                 }
                 if (requirement == null) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, 
