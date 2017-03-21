@@ -1581,17 +1581,9 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            EntityListIterator eli = null;
             List<GenericValue> list = null;
-            try {
-                eli = this.find(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions);
+            try (EntityListIterator eli = this.find(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions)) {
                 list = eli.getCompleteList();
-            } finally {
-                if (eli != null) {
-                    try {
-                        eli.close();
-                    } catch (Exception exc) {}
-                }
             }
 
             if (useCache) {

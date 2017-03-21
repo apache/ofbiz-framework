@@ -1503,43 +1503,36 @@ public class OrderServices {
             cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
         }
 
-        EntityListIterator eli = null;
-        try {
-            eli = EntityQuery.use(delegator).select("orderId").from("OrderHeader").where(cond).queryIterator();
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .select("orderId")
+                .from("OrderHeader")
+                .where(cond)
+                .queryIterator()) {
+            
+            if (eli != null) {
+                // reset each order
+                GenericValue orderHeader = null;
+                while ((orderHeader = eli.next()) != null) {
+                    String orderId = orderHeader.getString("orderId");
+                    Map<String, Object> resetResult = null;
+                    try {
+                        resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "ERROR: Cannot reset order totals - " + orderId, module);
+                    }
+
+                    if (resetResult != null && ServiceUtil.isError(resetResult)) {
+                        Debug.logWarning(UtilProperties.getMessage(resource_error,
+                                "OrderErrorCannotResetOrderTotals", 
+                                UtilMisc.toMap("orderId",orderId,"resetResult",ServiceUtil.getErrorMessage(resetResult)), locale), module);
+                    } else {
+                        Debug.logInfo("No orders found for reset processing", module);
+                    }
+                } 
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
         }
-
-        if (eli != null) {
-            // reset each order
-            GenericValue orderHeader = null;
-            while ((orderHeader = eli.next()) != null) {
-                String orderId = orderHeader.getString("orderId");
-                Map<String, Object> resetResult = null;
-                try {
-                    resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, "ERROR: Cannot reset order totals - " + orderId, module);
-                }
-
-                if (resetResult != null && ServiceUtil.isError(resetResult)) {
-                    Debug.logWarning(UtilProperties.getMessage(resource_error,
-                            "OrderErrorCannotResetOrderTotals", 
-                            UtilMisc.toMap("orderId",orderId,"resetResult",ServiceUtil.getErrorMessage(resetResult)), locale), module);
-                }
-            }
-
-            // close the ELI
-            try {
-                eli.close();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-        } else {
-            Debug.logInfo("No orders found for reset processing", module);
-        }
-
         return ServiceUtil.returnSuccess();
     }
 
@@ -1955,7 +1948,7 @@ public class OrderServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                    	 String errMsg = UtilProperties.getMessage(resource_error, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved", UtilMisc.toMap("errorString", e.toString()), locale);
+                         String errMsg = UtilProperties.getMessage(resource_error, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved", UtilMisc.toMap("errorString", e.toString()), locale);
                         Debug.logError(e, errMsg, module);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -2014,11 +2007,11 @@ public class OrderServices {
         Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
         Map<String, String> itemQuantityMap = UtilGenerics.checkMap(context.get("itemQtyMap"));
         if ((cancelQuantity == null) && UtilValidate.isNotEmpty(itemQuantityMap)) {
-        	String key = orderItemSeqId+":"+shipGroupSeqId;
-        	if (UtilValidate.isNotEmpty(itemQuantityMap.get(key))) {
-        		cancelQuantity = new BigDecimal(itemQuantityMap.get(key));	
-        	}
-        	
+            String key = orderItemSeqId+":"+shipGroupSeqId;
+            if (UtilValidate.isNotEmpty(itemQuantityMap.get(key))) {
+                cancelQuantity = new BigDecimal(itemQuantityMap.get(key));    
+            }
+            
         }
         // debugging message info
         String itemMsgInfo = orderId + " / " + orderItemSeqId + " / " + shipGroupSeqId;
@@ -2119,7 +2112,7 @@ public class OrderServices {
                             "orderItemSeqId", orderItem.getString("orderItemSeqId"),
                             "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
                     if (availableQuantity.compareTo(thisCancelQty) == 0) {
-                    	try {
+                        try {
                             dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
@@ -5569,15 +5562,15 @@ public class OrderServices {
         Map<String, Object> result = null;
 
         boolean beganTransaction = false;
-        try {
+        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "Y"),
+                EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null));
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("Subscription")
+                .where(exprs)
+                .queryIterator()) {
+            
             beganTransaction = TransactionUtil.begin();
-
-            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "Y"),
-                    EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null),
-                    EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null));
-            EntityListIterator eli = null;
-            eli = EntityQuery.use(delegator).from("Subscription").where(exprs).queryIterator();
-
             if (eli != null) {
                 GenericValue subscription;
                 while (((subscription = eli.next()) != null)) {
@@ -5655,7 +5648,6 @@ public class OrderServices {
                         count++;
                     }
                 }
-                eli.close();
             }
 
         } catch (GenericServiceException e) {
@@ -6202,16 +6194,16 @@ public class OrderServices {
                 @Override
                 public List<String> call() throws Exception {
                     List<String> orderIds = new LinkedList<String>();
-                    EntityListIterator eli = null;
-                    try {
-                        eli = EntityQuery.use(delegator).select("orderId").from("OrderHeader").where(cond).orderBy("entryDate ASC").queryIterator();
+                    try (EntityListIterator eli = EntityQuery.use(delegator)
+                            .select("orderId")
+                            .from("OrderHeader")
+                            .where(cond)
+                            .orderBy("entryDate ASC")
+                            .queryIterator()){
+                        
                         GenericValue orderHeader;
                         while ((orderHeader = eli.next()) != null) {
                             orderIds.add(orderHeader.getString("orderId"));
-                        }
-                    } finally {
-                        if (eli != null) {
-                            eli.close();
                         }
                     }
                     return orderIds;

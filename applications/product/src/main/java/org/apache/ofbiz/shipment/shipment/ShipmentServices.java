@@ -670,9 +670,11 @@ public class ShipmentServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, String> shipmentMap = new HashMap<String, String>();
 
-        EntityListIterator eli = null;
-        try {
-            eli = EntityQuery.use(delegator).from("OdbcPackageIn").orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator").queryIterator();
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("OdbcPackageIn")
+                .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator")
+                .queryIterator()) {
+            
             GenericValue pkgInfo;
             while ((pkgInfo = eli.next()) != null) {
                 String packageSeqId = pkgInfo.getString("shipmentPackageSeqId");
@@ -779,14 +781,6 @@ public class ShipmentServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
-        } finally {
-            if (eli != null) {
-                try {
-                    eli.close();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-            }
         }
 
         // update the status of each shipment
