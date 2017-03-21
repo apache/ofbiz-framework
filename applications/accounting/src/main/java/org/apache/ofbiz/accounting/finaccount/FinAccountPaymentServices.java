@@ -273,7 +273,7 @@ public class FinAccountPaymentServices {
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
         } catch (GenericServiceException ex) {
             Debug.logError(ex, "Cannot authorize financial account", module);
-         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingFinAccountCannotBeAuthorized", 
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
         }
