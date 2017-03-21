@@ -294,94 +294,71 @@ public class ShipmentServices {
         List<GenericValue> estimateList = new LinkedList<GenericValue>();
 
         for (GenericValue thisEstimate: estimates) {
-            String toGeo = thisEstimate.getString("geoIdTo");
-            if (UtilValidate.isNotEmpty(toGeo) && shipAddress ==null) {
-                // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
-                continue;
-            }
-            List<GenericValue> toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
-            // Make sure we have a valid GEOID.
-            if (UtilValidate.isEmpty(toGeoList) ||
-                    GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
-                    GeoWorker.containsGeo(toGeoList, shipAddress.getString("stateProvinceGeoId"), delegator) ||
-                    GeoWorker.containsGeo(toGeoList, shipAddress.getString("postalCodeGeoId"), delegator)) {
-
-                GenericValue wv = null;
-                GenericValue qv = null;
-                GenericValue pv = null;
-
-                try {
-                    wv = thisEstimate.getRelatedOne("WeightQuantityBreak", false);
-                } catch (GenericEntityException e) {
+            try {
+                String toGeo = thisEstimate.getString("geoIdTo");
+                if (UtilValidate.isNotEmpty(toGeo) && shipAddress ==null) {
+                    // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
+                    continue;
                 }
-                try {
-                    qv = thisEstimate.getRelatedOne("QuantityQuantityBreak", false);
-                } catch (GenericEntityException e) {
-                }
-                try {
-                    pv = thisEstimate.getRelatedOne("PriceQuantityBreak", false);
-                } catch (GenericEntityException e) {
-                }
-                if (wv == null && qv == null && pv == null) {
-                    estimateList.add(thisEstimate);
-                } else {
-                    // Do some testing.
-                    boolean useWeight = false;
-                    boolean weightValid = false;
-                    boolean useQty = false;
-                    boolean qtyValid = false;
-                    boolean usePrice = false;
-                    boolean priceValid = false;
+                List<GenericValue> toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
+                // Make sure we have a valid GEOID.
+                if (UtilValidate.isEmpty(toGeoList) ||
+                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
+                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("stateProvinceGeoId"), delegator) ||
+                        GeoWorker.containsGeo(toGeoList, shipAddress.getString("postalCodeGeoId"), delegator)) {
+                    GenericValue wv = thisEstimate.getRelatedOne("WeightQuantityBreak", false);
+                    GenericValue qv = thisEstimate.getRelatedOne("QuantityQuantityBreak", false);
+                    GenericValue pv = thisEstimate.getRelatedOne("PriceQuantityBreak", false);
+                    if (wv == null && qv == null && pv == null) {
+                        estimateList.add(thisEstimate);
+                    } else {
+                        // Do some testing.
+                        boolean useWeight = false;
+                        boolean weightValid = false;
+                        boolean useQty = false;
+                        boolean qtyValid = false;
+                        boolean usePrice = false;
+                        boolean priceValid = false;
 
-                    if (wv != null) {
-                        useWeight = true;
-                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
-                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
-
-                        try {
+                        if (wv != null) {
+                            useWeight = true;
+                            BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                            BigDecimal max = BigDecimal.ONE.movePointLeft(4);
                             min = wv.getBigDecimal("fromQuantity");
                             max = wv.getBigDecimal("thruQuantity");
-                        } catch (Exception e) {
+                            if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0)) {
+                                weightValid = true;
+                            }
                         }
-                        if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0)) {
-                            weightValid = true;
-                        }
-                    }
-                    if (qv != null) {
-                        useQty = true;
-                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
-                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
-
-                        try {
+                        if (qv != null) {
+                            useQty = true;
+                            BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                            BigDecimal max = BigDecimal.ONE.movePointLeft(4);
                             min = qv.getBigDecimal("fromQuantity");
                             max = qv.getBigDecimal("thruQuantity");
-                        } catch (Exception e) {
+                            if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0)) {
+                                qtyValid = true;
+                            }
                         }
-                        if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0)) {
-                            qtyValid = true;
-                        }
-                    }
-                    if (pv != null) {
-                        usePrice = true;
-                        BigDecimal min = BigDecimal.ONE.movePointLeft(4);
-                        BigDecimal max = BigDecimal.ONE.movePointLeft(4);
-
-                        try {
+                        if (pv != null) {
+                            usePrice = true;
+                            BigDecimal min = BigDecimal.ONE.movePointLeft(4);
+                            BigDecimal max = BigDecimal.ONE.movePointLeft(4);
                             min = pv.getBigDecimal("fromQuantity");
                             max = pv.getBigDecimal("thruQuantity");
-                        } catch (Exception e) {
+                            if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0)) {
+                                priceValid = true;
+                            }
                         }
-                        if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0)) {
-                            priceValid = true;
+                        // Now check the tests.
+                        if ((useWeight && weightValid) || (useQty && qtyValid) || (usePrice && priceValid)) {
+                            estimateList.add(thisEstimate);
                         }
-                    }
-                    // Now check the tests.
-                    if ((useWeight && weightValid) || (useQty && qtyValid) || (usePrice && priceValid)) {
-                        estimateList.add(thisEstimate);
                     }
                 }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, e.getLocalizedMessage(), module);
             }
-
         }
 
         if (estimateList.size() < 1) {
