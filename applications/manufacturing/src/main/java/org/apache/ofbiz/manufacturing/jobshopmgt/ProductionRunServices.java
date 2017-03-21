@@ -2214,10 +2214,10 @@ public class ProductionRunServices {
                             }
                        }
                     }
-                } catch (GenericEntityException gee) {
-
-                } catch (GenericServiceException gee) {
-
+                } catch (GenericEntityException | GenericServiceException e) {
+                    String errMsg = "Problem calling the updateProductionRunTaskStatus service";
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
             }
         }
@@ -2264,7 +2264,10 @@ public class ProductionRunServices {
         GenericValue requirement = null;
         try {
             requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
-        } catch (GenericEntityException gee) {
+        } catch (GenericEntityException e) {
+            String errMsg = "Problem calling the approveRequirement service";
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
 
         if (requirement == null) {
@@ -2295,7 +2298,10 @@ public class ProductionRunServices {
         GenericValue requirement = null;
         try {
             requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
-        } catch (GenericEntityException gee) {
+        } catch (GenericEntityException e) {
+            String errMsg = "Problem calling the createProductionRunFromRequirement service";
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
         if (requirement == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotExists", locale));
