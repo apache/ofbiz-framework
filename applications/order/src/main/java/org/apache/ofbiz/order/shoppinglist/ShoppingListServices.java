@@ -125,12 +125,13 @@ public class ShoppingListServices {
         Locale locale = (Locale) context.get("locale");
 
         boolean beganTransaction = false;
-        try {
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("ShoppingList")
+                .where("shoppingListTypeId", "SLT_AUTO_REODR", "isActive", "Y")
+                .orderBy("-lastOrderedDate")
+                .queryIterator()) {
+
             beganTransaction = TransactionUtil.begin();
-
-            EntityListIterator eli = null;
-            eli = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListTypeId", "SLT_AUTO_REODR", "isActive", "Y").orderBy("-lastOrderedDate").queryIterator();
-
             if (eli != null) {
                 GenericValue shoppingList;
                 while (((shoppingList = eli.next()) != null)) {
@@ -197,8 +198,6 @@ public class ShoppingListServices {
                         recurrence.incrementCurrentCount();
                     }
                 }
-
-                eli.close();
             }
 
             return ServiceUtil.returnSuccess();
