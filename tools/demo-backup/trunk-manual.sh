@@ -2,6 +2,7 @@
 
 cd /home/ofbizDemo/trunk
 svn up
+./gradlew pullAllPluginsSource
 ./gradlew terminateOfbiz
 ./gradlew cleanAll
 ./gradlew loadDefault
