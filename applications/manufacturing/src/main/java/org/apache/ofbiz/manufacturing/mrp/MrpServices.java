@@ -257,55 +257,46 @@ public class MrpServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
         for (GenericValue genericResult : resultList) {
-            String newOrderId =  genericResult.getString("orderId");
-            if (!newOrderId.equals(orderId)) {
-                orderDeliverySchedule = null;
-                orderId = newOrderId;
-                try {
+            try {
+                String newOrderId =  genericResult.getString("orderId");
+                if (!newOrderId.equals(orderId)) {
+                    orderDeliverySchedule = null;
+                    orderId = newOrderId;
                     orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
-                } catch (GenericEntityException e) {
                 }
-            }
-            String productId =  genericResult.getString("productId");
-
-            BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
-            BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
-            if (UtilValidate.isEmpty(shipGroupQuantity)) {
-                shipGroupQuantity = BigDecimal.ZERO;
-            }
-            if (UtilValidate.isNotEmpty(cancelledQuantity)) {
-                shipGroupQuantity = shipGroupQuantity.subtract(cancelledQuantity);
-            }
-
-            OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
-            BigDecimal shippedQuantity = null;
-            try {
+                String productId =  genericResult.getString("productId");
+    
+                BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
+                BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
+                if (UtilValidate.isEmpty(shipGroupQuantity)) {
+                    shipGroupQuantity = BigDecimal.ZERO;
+                }
+                if (UtilValidate.isNotEmpty(cancelledQuantity)) {
+                    shipGroupQuantity = shipGroupQuantity.subtract(cancelledQuantity);
+                }
+    
+                OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+                BigDecimal shippedQuantity = null;
                 shippedQuantity = orh.getItemShippedQuantity(genericResult.getRelatedOne("OrderItem", false));
-            } catch (GenericEntityException e) {
-            }
-            if (UtilValidate.isNotEmpty(shippedQuantity)) {
-                shipGroupQuantity = shipGroupQuantity.subtract(shippedQuantity);
-            }
-
-            GenericValue orderItemDeliverySchedule = null;
-            try {
+                if (UtilValidate.isNotEmpty(shippedQuantity)) {
+                    shipGroupQuantity = shipGroupQuantity.subtract(shippedQuantity);
+                }
+    
+                GenericValue orderItemDeliverySchedule = null;
                 orderItemDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryOne();
-            } catch (GenericEntityException e) {
-            }
-            Timestamp estimatedShipDate = null;
-            if (orderItemDeliverySchedule != null && orderItemDeliverySchedule.get("estimatedReadyDate") != null) {
-                estimatedShipDate = orderItemDeliverySchedule.getTimestamp("estimatedReadyDate");
-            } else if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
-                estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
-            } else {
-                estimatedShipDate = genericResult.getTimestamp("oiEstimatedDeliveryDate");
-            }
-            if (estimatedShipDate == null) {
-                estimatedShipDate = now;
-            }
-
-            parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
-            try {
+                Timestamp estimatedShipDate = null;
+                if (orderItemDeliverySchedule != null && orderItemDeliverySchedule.get("estimatedReadyDate") != null) {
+                    estimatedShipDate = orderItemDeliverySchedule.getTimestamp("estimatedReadyDate");
+                } else if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
+                    estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
+                } else {
+                    estimatedShipDate = genericResult.getTimestamp("oiEstimatedDeliveryDate");
+                }
+                if (estimatedShipDate == null) {
+                    estimatedShipDate = now;
+                }
+    
+                parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "PUR_ORDER_RECP"), locale));
