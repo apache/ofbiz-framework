@@ -1851,8 +1851,10 @@ public class OrderReturnServices {
                                         GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", quantity));
                                         orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
                                     }
-                                } catch (GenericEntityException gee) {
-                                    Debug.logError(gee, module);
+                                } catch (GenericEntityException e) {
+                                    String errMsg = "Problem calling the approveRequirement service";
+                                    Debug.logError(e, errMsg, module);
+                                    return ServiceUtil.returnError(errMsg);
                                 }
                                 // Create an association between the replacement order item and the order item of the original order
                                 GenericValue newOrderItemAssoc = delegator.makeValue("OrderItemAssoc", UtilMisc.toMap("orderId", orderHeader.getString("orderId"),
