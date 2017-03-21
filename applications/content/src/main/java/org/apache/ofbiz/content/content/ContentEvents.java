@@ -30,12 +30,10 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-
+import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.content.content.ContentKeywordIndex;
 import org.apache.ofbiz.security.Security;
 
 
@@ -75,6 +73,7 @@ public class ContentEvents {
         int numConts = 0;
         int errConts = 0;
 
+        // TODO refactor I don't like much how this is written but it's not simple to refactor
         boolean beganTx = false;
         try {
             // begin the transaction
