@@ -269,6 +269,7 @@ public final class ContentManagementWorker {
             try {
                 currentValue = EntityQuery.use(delegator).from(currentPK.getEntityName()).where(currentPK).queryOne();
             } catch (GenericEntityException e) {
+                Debug.logError(e.getMessage(), module);
             }
             request.setAttribute("currentValue", currentValue);
         }
@@ -543,8 +544,8 @@ public final class ContentManagementWorker {
                 authorContent.setPKFields(value);
                 authorContent.setNonPKFields(value);
             }
-        } catch (GenericEntityException e) {
-        } catch (MiniLangException e2) {
+        } catch (GenericEntityException | MiniLangException e) {
+            Debug.logError(e.getMessage(), module);
         }
 
         return authorContent;
