@@ -1251,6 +1251,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         try {
             getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
         } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
         }
         context.put("typeAncestry", contentTypeAncestry);
         boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
