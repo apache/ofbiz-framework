@@ -2688,10 +2688,13 @@ public class PaymentGatewayServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-        try (EntityListIterator eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
-                    .where(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("OrderPaymentPreference")
+                .where(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
                             EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0)))
-                    .orderBy("orderId").queryIterator()) {
+                .orderBy("orderId")
+                .queryIterator()) {
+            
             List<String> processList = new LinkedList<String>();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
@@ -2728,7 +2731,8 @@ public class PaymentGatewayServices {
         Timestamp oneWeekAgo = new Timestamp(calcCal.getTimeInMillis());
 
 
-        try (EntityListIterator eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("OrderPaymentPreference")
                 .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
                         EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo))
                 .orderBy("orderId").queryIterator()) {

@@ -3529,18 +3529,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     return null;
                 }
             }
-
-        } catch (GenericEntityException gse) {
-            Debug.logError(gse, module);
-            return null;
-        } catch (GenericServiceException gse) {
-            Debug.logError(gse, module);
-            return null;
+        } catch (GenericEntityException | GenericServiceException e) {
+            Debug.logError(e, module);
         } catch (Exception e) {
             Debug.logError(e, module);
             return null;
         }
-
         return newProductId;
     }
 
