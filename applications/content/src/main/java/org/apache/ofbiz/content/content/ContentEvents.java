@@ -73,7 +73,6 @@ public class ContentEvents {
         int numConts = 0;
         int errConts = 0;
 
-        // TODO refactor I don't like much how this is written but it's not simple to refactor
         boolean beganTx = false;
         try {
             // begin the transaction
