@@ -670,11 +670,11 @@ public class ShipmentServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, String> shipmentMap = new HashMap<String, String>();
 
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .from("OdbcPackageIn")
-                .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator")
-                .queryIterator()) {
-            
+                .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator");
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue pkgInfo;
             while ((pkgInfo = eli.next()) != null) {
                 String packageSeqId = pkgInfo.getString("shipmentPackageSeqId");

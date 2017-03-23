@@ -2687,14 +2687,13 @@ public class PaymentGatewayServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .from("OrderPaymentPreference")
                 .where(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
-                            EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0)))
-                .orderBy("orderId")
-                .queryIterator()) {
-            
+                        EntityCondition.makeCondition("processAttempt",EntityOperator.GREATER_THAN, Long.valueOf(0)))
+                .orderBy("orderId");
+
+        try (EntityListIterator eli = eq.queryIterator()) {
             List<String> processList = new LinkedList<String>();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
@@ -2730,13 +2729,13 @@ public class PaymentGatewayServices {
         calcCal.add(Calendar.WEEK_OF_YEAR, -1);
         Timestamp oneWeekAgo = new Timestamp(calcCal.getTimeInMillis());
 
-
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .from("OrderPaymentPreference")
                 .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
                         EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo))
-                .orderBy("orderId").queryIterator()) {
-
+                .orderBy("orderId");
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
             List<String> processList = new LinkedList<String>();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
