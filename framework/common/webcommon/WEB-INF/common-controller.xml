@@ -257,33 +257,41 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
+
     <request-map uri="getServerTimestamp">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimestamp"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
+
     <request-map uri="getServerTimeZone">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimeZone"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
+
     <request-map uri="getServerTimestampAsLong">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimestampAsLong"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
+
     <request-map uri="qrcode">
         <security auth="true" https="false" />
         <event type="java" path="org.apache.ofbiz.common.qrcode.QRCodeEvents" invoke="serveQRCodeImage"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
+    </request-map>
+
+    <!-- Set local from user's browser -->
+    <request-map uri="setLocaleFromBrowser">
+        <security https="false" auth="false"/>
+        <event type="service" invoke="setLocaleFromBrowser"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!--========================== AJAX events =====================-->
