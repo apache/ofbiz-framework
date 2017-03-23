@@ -1230,14 +1230,14 @@ public class ProductSearchSession {
         entityConditionList.add(EntityCondition.makeCondition("pfcProductFeatureTypeId", EntityOperator.EQUALS, productFeatureTypeId));
 
         List<Map<String, String>> featureCountList = null;
-        try (EntityListIterator eli = EntityQuery.use(delegator)
-                    .select(UtilMisc.toSet("pfacProductFeatureId", "featureCount", "pfcDescription", "pfcProductFeatureTypeId"))
-                    .from(dynamicViewEntity)
-                    .where(entityConditionList)
-                    .orderBy(productSearchContext.orderByList)
-                    .cursorScrollInsensitive()
-                    .queryIterator()) {
-
+        EntityQuery eq = EntityQuery.use(delegator)
+                .select(UtilMisc.toSet("pfacProductFeatureId", "featureCount", "pfcDescription", "pfcProductFeatureTypeId"))
+                .from(dynamicViewEntity)
+                .where(entityConditionList)
+                .orderBy(productSearchContext.orderByList)
+                .cursorScrollInsensitive();
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
             featureCountList = new LinkedList<Map<String,String>>();
             GenericValue searchResult = null;
             while ((searchResult = eli.next()) != null) {
@@ -1302,14 +1302,14 @@ public class ProductSearchSession {
         entityConditionList.add(EntityCondition.makeCondition("ppcProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
 
         Long priceRangeCount = Long.valueOf(0);
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .select(UtilMisc.toSet(fieldsToSelect))
                 .from(dynamicViewEntity)
                 .where(entityConditionList)
                 .orderBy(productSearchContext.orderByList)
-                .cursorScrollInsensitive()
-                .queryIterator()) {
+                .cursorScrollInsensitive();
 
+        try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue searchResult = null;
             while ((searchResult = eli.next()) != null) {
                 priceRangeCount = searchResult.getLong("priceRangeCount");
@@ -1358,14 +1358,14 @@ public class ProductSearchSession {
         entityConditionList.add(EntityCondition.makeCondition("pcmcProductCategoryId", EntityOperator.IN, productCategoryIdSet));
 
         Long categoryCount = Long.valueOf(0);
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .select(UtilMisc.toSet(fieldsToSelect))
                 .from(dynamicViewEntity)
                 .where(entityConditionList)
                 .orderBy(productSearchContext.orderByList)
-                .cursorScrollInsensitive()
-                .queryIterator()) {
-            
+                .cursorScrollInsensitive();
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue searchResult = null;
             while ((searchResult = eli.next()) != null) {
                 categoryCount = searchResult.getLong("categoryCount");

@@ -422,6 +422,7 @@ public class EntityDataServices {
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");
         Locale locale = (Locale) context.get("locale");
+        
         try (EntityListIterator eli = EntityQuery.use(delegator)
                 .from(entityName)
                 .queryIterator()) {

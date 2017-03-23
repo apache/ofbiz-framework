@@ -1503,12 +1503,7 @@ public class OrderServices {
             cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
         }
 
-        try (EntityListIterator eli = EntityQuery.use(delegator)
-                .select("orderId")
-                .from("OrderHeader")
-                .where(cond)
-                .queryIterator()) {
-            
+        try (EntityListIterator eli = EntityQuery.use(delegator).select("orderId").from("OrderHeader").where(cond).queryIterator()) {
             if (eli != null) {
                 // reset each order
                 GenericValue orderHeader = null;
@@ -5565,10 +5560,8 @@ public class OrderServices {
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "Y"),
                 EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null),
                 EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null));
-        try (EntityListIterator eli = EntityQuery.use(delegator)
-                .from("Subscription")
-                .where(exprs)
-                .queryIterator()) {
+        
+        try (EntityListIterator eli = EntityQuery.use(delegator).from("Subscription").where(exprs).queryIterator()) {
             
             beganTransaction = TransactionUtil.begin();
             if (eli != null) {
@@ -6194,13 +6187,14 @@ public class OrderServices {
                 @Override
                 public List<String> call() throws Exception {
                     List<String> orderIds = new LinkedList<String>();
-                    try (EntityListIterator eli = EntityQuery.use(delegator)
+                    
+                    EntityQuery eq = EntityQuery.use(delegator)
                             .select("orderId")
                             .from("OrderHeader")
                             .where(cond)
-                            .orderBy("entryDate ASC")
-                            .queryIterator()){
-                        
+                            .orderBy("entryDate ASC");
+
+                    try (EntityListIterator eli = eq.queryIterator()){
                         GenericValue orderHeader;
                         while ((orderHeader = eli.next()) != null) {
                             orderIds.add(orderHeader.getString("orderId"));

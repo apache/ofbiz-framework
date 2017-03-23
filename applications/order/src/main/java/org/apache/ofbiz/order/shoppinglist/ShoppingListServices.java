@@ -123,14 +123,14 @@ public class ShoppingListServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-
+        
         boolean beganTransaction = false;
-        try (EntityListIterator eli = EntityQuery.use(delegator)
+        EntityQuery eq = EntityQuery.use(delegator)
                 .from("ShoppingList")
                 .where("shoppingListTypeId", "SLT_AUTO_REODR", "isActive", "Y")
-                .orderBy("-lastOrderedDate")
-                .queryIterator()) {
-
+                .orderBy("-lastOrderedDate");
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
             beganTransaction = TransactionUtil.begin();
             if (eli != null) {
                 GenericValue shoppingList;
