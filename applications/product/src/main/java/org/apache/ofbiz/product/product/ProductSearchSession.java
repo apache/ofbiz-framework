@@ -1248,7 +1248,6 @@ public class ProductSearchSession {
             return null;
         }
 
-
         return featureCountList;
     }
 
