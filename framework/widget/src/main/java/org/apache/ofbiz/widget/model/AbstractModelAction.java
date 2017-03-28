@@ -715,7 +715,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                             String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
                         } catch (PatternSyntaxException e) {
-
+                         // obviously a PatternSyntaxException should not occur here
                         }
                     }
                 } else {
