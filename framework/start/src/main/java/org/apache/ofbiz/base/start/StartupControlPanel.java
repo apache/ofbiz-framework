@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
+import org.apache.ofbiz.base.util.Debug;
 
 /**
  * The StartupControlPanel controls OFBiz by executing high level
@@ -33,6 +34,8 @@ import org.apache.ofbiz.base.start.Start.ServerState;
  * of the startup sequence logic resides in this class.
  */
 final class StartupControlPanel {
+
+    public static final String module = StartupControlPanel.class.getName();
 
     /**
      * Initialize OFBiz by:
@@ -67,7 +70,24 @@ final class StartupControlPanel {
         createLogDirectoryIfMissing(config);
         createRuntimeShutdownHook(config, loaders, serverState);
         loadStartupLoaders(config, loaders, ofbizCommands, serverState);
+        printStartupMessage(config);
         executeShutdownAfterLoadIfConfigured(config, loaders, serverState, adminServer);
+    }
+
+    /**
+     * Print OFBiz startup message only if the OFBiz server is not scheduled for shutdown.
+     * @param config: contains parameters for system startup
+     */
+    private static void printStartupMessage(Config config) {
+        if (!config.shutdownAfterLoad) {
+            String lineSeparator = System.lineSeparator();
+            Debug.logInfo(  lineSeparator + "   ____  __________  _" +
+                            lineSeparator + "  / __ \\/ ____/ __ )(_)___" +
+                            lineSeparator + " / / / / /_  / __  / /_  /" +
+                            lineSeparator + "/ /_/ / __/ / /_/ / / / /_" +
+                            lineSeparator + "\\____/_/   /_____/_/ /___/  is started and ready." +
+                            lineSeparator, module);
+        }
     }
 
     /**
