@@ -69,7 +69,8 @@ context.curFindString = curFindString
 try {
     viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue()
 } catch (NumberFormatException nfe) {
-    
+    Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "GetContentLookupList.groovy")
+    errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
 }
 
 context.viewSize = viewSize
