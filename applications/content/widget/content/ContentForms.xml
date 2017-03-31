@@ -103,10 +103,11 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="ownerContentId" sort-field="true">
+        <field name="ownerContentId" use-when="ownerContentId==null" sort-field="true"><display/></field>
+        <field name="ownerContentId" use-when="ownerContentId!=null" sort-field="true">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
-                <sub-hyperlink target="editContent" description="[${contentId}]" link-style="buttontext">
-                    <parameter param-name="contentId"/>
+                <sub-hyperlink target="editContent" description="[${ownerContentId}]" link-style="buttontext">
+                    <parameter param-name="contentId" value="${ownerContentId}"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -122,11 +123,17 @@ under the License.
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="contentId"/>
             <call-parent-actions/>
         </actions>
-        <field name="contentId">
+        <field name="contentId" widget-style="smallSubmit">
             <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="mimeTypeId"><display/></field>
+        <field name="dataResourceId" use-when="dataResourceId!=null" title="${uiLabelMap.ContentDataResourceId}" sort-field="true">
+            <display-entity entity-name="DataResource" key-field-name="dataResourceId" description="${dataResourceName}"/>
+         </field>
+        <field name="ownerContentId" use-when="ownerContentId!=null" title="${uiLabelMap.FormFieldTitle_ownerContentId}" sort-field="true">
+            <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}"/>
+        </field>
         <field name="createdByUserLogin"><ignored/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target=""/>
     </form>
