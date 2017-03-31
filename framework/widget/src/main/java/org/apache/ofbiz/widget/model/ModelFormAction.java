@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.regex.PatternSyntaxException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -208,22 +207,7 @@ public abstract class ModelFormAction {
                 } else {
                     result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 }
-                if (!this.resultMapNameAcsr.isEmpty()) {
-                    this.resultMapNameAcsr.put(context, result);
-                    String queryString = (String) result.get("queryString");
-                    context.put("queryString", queryString);
-                    context.put("queryStringMap", result.get("queryStringMap"));
-                    if (UtilValidate.isNotEmpty(queryString)) {
-                        try {
-                            String queryStringEncoded = queryString.replaceAll("&", "%26");
-                            context.put("queryStringEncoded", queryStringEncoded);
-                        } catch (PatternSyntaxException e) {
-                         // obviously a PatternSyntaxException should not occur here
-                        }
-                    }
-                } else {
-                    context.putAll(result);
-                }
+                ModelActionUtil.contextPutQueryStringOrAllResult(context, result, this.resultMapNameAcsr);
                 String listName = resultMapListNameExdr.expandString(context);
                 Object listObj = result.get(listName);
                 if (listObj != null) {
