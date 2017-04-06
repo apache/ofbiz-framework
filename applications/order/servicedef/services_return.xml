@@ -92,9 +92,9 @@ under the License.
         <permission-service service-name="returnPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createReturnItemResponse" engine="entity-auto" invoke="create">
+    <service name="createReturnItemResponse" engine="entity-auto" invoke="create" default-entity-name="ReturnItemResponse">
             <description>Creates a ReturnItemResponse record.</description>
-        <auto-attributes entity-name="ReturnItemResponse" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="returnItemResponseId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createPaymentApplicationsFromReturnItemResponse" engine="java"
