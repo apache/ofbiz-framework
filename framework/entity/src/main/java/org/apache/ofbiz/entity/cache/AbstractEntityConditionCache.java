@@ -157,13 +157,9 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         storeHook(true, oldPK, newEntity);
     }
 
-    protected List<? extends Map<String, Object>> convert(boolean isPK, String targetEntityName, GenericEntity entity) {
+    protected List<? extends Map<String, Object>> convert(String targetEntityName, GenericEntity entity) {
         if (isNull(entity)) return null;
-        if (isPK) {
-            return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
-        } else {
-            return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
-        }
+        return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
     }
 
     public void storeHook(boolean isPK, GenericEntity oldEntity, GenericEntity newEntity) {
@@ -177,7 +173,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         Iterator<String> it = model.getViewConvertorsIterator();
         while (it.hasNext()) {
             String targetEntityName = it.next();
-            storeHook(targetEntityName, isPK, convert(isPK, targetEntityName, oldEntity), convert(false, targetEntityName, newEntity));
+            storeHook(targetEntityName, isPK, convert(targetEntityName, oldEntity), convert(targetEntityName, newEntity));
         }
     }
 
