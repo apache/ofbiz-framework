@@ -17,6 +17,7 @@
  * under the License.
  */
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
+import at.bxm.gradleplugins.svntools.tasks.SvnUpdate
 import org.apache.tools.ant.filters.ReplaceTokens
 
 /* ========================================================
@@ -125,14 +126,14 @@ dependencies {
     compile 'org.apache.shiro:shiro-core:1.3.0'
     compile 'org.apache.tika:tika-core:1.12'
     compile 'org.apache.tika:tika-parsers:1.12'
-    compile 'org.apache.tomcat:tomcat-catalina-ha:8.0.39'
-    compile 'org.apache.tomcat:tomcat-catalina:8.0.39'
-    compile 'org.apache.tomcat:tomcat-jasper:8.0.39'
-    compile 'org.apache.tomcat:tomcat-tribes:8.0.39'
+    compile 'org.apache.tomcat:tomcat-catalina-ha:8.0.42'
+    compile 'org.apache.tomcat:tomcat-catalina:8.0.42'
+    compile 'org.apache.tomcat:tomcat-jasper:8.0.42'
+    compile 'org.apache.tomcat:tomcat-tribes:8.0.42'
     compile 'org.apache.xmlgraphics:fop:2.1'
     compile 'org.apache.xmlrpc:xmlrpc-client:3.1.2'
     compile 'org.apache.xmlrpc:xmlrpc-server:3.1.2'
-    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    compile 'org.codehaus.groovy:groovy-all:2.4.10'
     compile 'org.freemarker:freemarker:2.3.25-incubating' // Remember to change the version number in FreeMarkerWorker class when upgrading
     compile 'org.hamcrest:hamcrest-all:1.3'
     compile 'org.owasp.esapi:esapi:2.1.0'
@@ -750,7 +751,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
         doLast { delete "${pluginsDir}" }
     }
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
-        svnUrl = "https://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk"
+        svnUrl = "http://svn.apache.org/repos/asf/ofbiz/ofbiz-plugins/trunk"
         workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
@@ -771,6 +772,14 @@ task pullAllPluginsSource(group: ofbizPlugin,
     }
     doLast {
         gradlewSubprocess(['installAllPlugins'])
+    }
+}
+
+task updateAllPluginsSource(group: ofbizPlugin, 
+        description: 'Update all plugins from source control.') {
+
+    task updatePluginsFromSvn(type: SvnUpdate) {
+        workspaceDir = "${pluginsDir}"
     }
 }
 
