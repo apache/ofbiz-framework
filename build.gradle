@@ -761,7 +761,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
                 if (component.name == plugin.name) {
                     if (subprojectExists(":plugins:${plugin.name}")) {
                         if (taskExistsInproject(":plugins:${plugin.name}", 'install')) {
-                            dependsOn ":plugins:${pluginId}:install"
+                            dependsOn ":plugins:${plugin.name}:install"
                             doLast { println "installed plugin ${plugin.name}" }
                         }
                     }
