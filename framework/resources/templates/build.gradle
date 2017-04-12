@@ -1,3 +1,4 @@
+/*
 dependencies {
     //Examples of compile-time and runtime dependencies
 
@@ -16,3 +17,4 @@ task uninstall {
         // uninstall logic for this plugin
     }
 }
+*/
