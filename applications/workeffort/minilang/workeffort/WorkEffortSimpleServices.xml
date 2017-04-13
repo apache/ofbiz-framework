@@ -346,6 +346,9 @@ under the License.
         </if-not-empty>
         <check-errors/>
 
+        <set field="ensurePartyRoleCtx.partyId" from-field="parameters.partyId"/>
+        <set field="ensurePartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
+        <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRoleCtx"/>
         <make-value value-field="newEntity" entity-name="WorkEffortPartyAssignment"/>
 
         <set-pk-fields map="parameters" value-field="newEntity"/>
