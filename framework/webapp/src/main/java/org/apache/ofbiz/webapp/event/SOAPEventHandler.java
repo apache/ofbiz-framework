@@ -199,6 +199,7 @@ public class SOAPEventHandler implements EventHandler {
                 createAndSendSOAPResponse(serviceResults, serviceName, response);
 
             } catch (GenericServiceException e) {
+                Debug.logError(e, module);
                 if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
                     sendError(response, "Problem processing the service, check your parameters.", serviceName);
                 } else {
@@ -207,7 +208,6 @@ public class SOAPEventHandler implements EventHandler {
                     } else {
                         sendError(response, e.getMessageList(), serviceName);
                     }
-                    Debug.logError(e, module);
                     return null;
                 }
             }
