@@ -321,6 +321,19 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 time-between-eviction-runs-millis="600000"/>
     </datasource>
 
+    <!-- Also consider:
+    mysql.conf
+    [client]
+    default-character-set=utf8
+    [mysql]
+    default-character-set=utf8
+    [mysqld]
+    collation-server = utf8_unicode_ci
+    init-connect='SET NAMES utf8'
+    character-set-server = utf8
+    
+    Mysql Version: > 5.6.4 (supports datetime milliseconds)
+     -->
     <datasource name="localmysql"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
             field-type-name="mysql"
@@ -332,8 +345,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -343,7 +356,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz?autoReconnect=true ;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -365,8 +378,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -376,7 +389,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbizolap?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbizolap?autoReconnect=true ;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -398,8 +411,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -409,7 +422,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiztenant?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiztenant?autoReconnect=true ;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -431,13 +444,13 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz_odbc?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz_odbc?autoReconnect=true ;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
