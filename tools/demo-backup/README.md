@@ -9,6 +9,7 @@ The root of https://ofbiz-vm2.apache.org is the so called bigfiles directory
 which is actually at /home/ofbizDemo/big-files
 
 We own 3 Apache sub domains
+
 * https://demo-trunk.ofbiz.apache.org
 * https://demo-stable.ofbiz.apache.org
 * https://demo-old.ofbiz.apache.org
@@ -20,7 +21,7 @@ The Puppet configuration is at
 https://github.com/apache/infrastructure-puppet/blob/deployment/data/nodes/ofbiz-vm2.apache.org.yaml
 
 
->_Note_: Only run the ofbiz demos using the 'ofbizDemo' user, never run as root. 
+>_Note_: **Only run the ofbiz demos using the 'ofbizDemo' user, never run as root.** 
     
     To do this sudo to the ofbizDemo user:
 
