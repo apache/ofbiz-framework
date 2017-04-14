@@ -158,7 +158,7 @@ public final class UtilHttp {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
-            Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
+            //Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module); see OFBIZ-9310
         }
 
         return canonicalizeParameterMap(paramMap);
