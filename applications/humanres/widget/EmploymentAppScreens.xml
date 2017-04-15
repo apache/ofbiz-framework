@@ -59,7 +59,7 @@
                 <set field="headerItem" value="Employee"/>
                 <set field="tabButtonItem" value="EditEmploymentApps"/>
                 <set field="referredByPartyId" from-field="parameters.partyId"/>
-                <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/>
+                <set field="employmentAppCtx.referredByPartyId" from-field="referredByPartyId"/>
                 <set field="parameters.insideEmployee" value="true"/>
             </actions>
             <widgets>

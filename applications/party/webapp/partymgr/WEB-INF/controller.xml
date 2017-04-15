@@ -1041,7 +1041,9 @@ under the License.
     <request-map uri="createEmploymentAppExt">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmploymentApp"/>
-        <response name="success" type="request" value="EditEmploymentApps"/>
+        <response name="success" type="request-redirect" value="EditEmploymentApps">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
     <request-map uri="updateEmploymentAppExt">
         <security https="true" auth="true"/>
@@ -1051,7 +1053,9 @@ under the License.
     <request-map uri="deleteEmploymentApp">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmploymentApp"/>
-        <response name="success" type="request" value="EditEmploymentApps"/>
+        <response name="success" type="request-redirect" value="EditEmploymentApps">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <!-- Ajax Requests -->

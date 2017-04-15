@@ -123,7 +123,6 @@
         <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmploymentApps">
                 <parameter param-name="partyId"/>
-                <parameter param-name="referredByPartyId" from-field="partyId"/>
             </link>
         </menu-item>
         <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
