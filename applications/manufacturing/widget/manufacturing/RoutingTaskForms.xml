@@ -68,7 +68,7 @@ under the License.
         <alt-target use-when="routing==null" target="CreateRouting"/>
         <field name="workEffortTypeId" use-when="routing==null"><hidden value="ROUTING"/></field>
         <field name="workEffortId" use-when="routing!=null"><hidden/></field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}"><text/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}" required-field="true"><text/></field>
         <field name="description"><text/></field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}"><text/></field>
         <field name="currentStatusId">
