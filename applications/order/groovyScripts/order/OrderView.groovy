@@ -71,9 +71,11 @@ if (orderHeader) {
     orderAdjustments = orderReadHelper.getAdjustments()
     orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments()
     orderSubTotal = orderReadHelper.getOrderItemsSubTotal()
+    backorderQuantity = orderReadHelper.getOrderBackorderQuantity()
     orderTerms = orderHeader.getRelated("OrderTerm", null, null, false)
 
     context.orderHeader = orderHeader
+    context.backorderQuantity = backorderQuantity
     context.comments = comments
     context.orderReadHelper = orderReadHelper
     context.orderItems = orderItems
