@@ -255,9 +255,6 @@ under the License.
                 <parameter param-name="emailType" value="PRDS_QUO_CONFIRM"/>
             </link>
         </menu-item>
-        <menu-item name="editQuote" title="${uiLabelMap.OrderCreateOrderQuote}">
-            <link target="EditQuote"/>
-        </menu-item>
         <menu-item name="createOrder" title="${uiLabelMap.OrderCreateOrder}">
             <condition disabled-style="disabled">
                 <and>
