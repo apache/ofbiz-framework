@@ -46,7 +46,7 @@ under the License.
     </tr>
   </#if>
     <#if temporalExpression.tempExprTypeId == "DATE_RANGE">
-      <@DateRange formName="updateExpression" fromDate=temporalExpression.date1 toDate=temporalExpression.date2/>
+      <@DateRange formName="updateExpression" fromDate=temporalExpression.dateRange1 toDate=temporalExpression.dateRange2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_IN_MONTH">
       <@DayInMonth occurrence=temporalExpression.integer2 day=temporalExpression.integer1/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_OF_MONTH_RANGE">
@@ -54,7 +54,7 @@ under the License.
     <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">
       <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "FREQUENCY">
-      <@Frequency formName="updateExpression" fromDate=temporalExpression.date1 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
+      <@Frequency formName="updateExpression" fromDate=temporalExpression.dateFreq1 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">
       <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "HOUR_RANGE">
