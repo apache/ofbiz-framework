@@ -22,29 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Order Services</description>
     <vendor>OFBiz</vendor>
-
-    <service name="migrateOrderItemAssociation" engine="simple"
-            location="component://order/minilang/UpgradeServices.xml" invoke="migrateOrderItemAssociation">
-        <description>
-            Migrate data from OldOrderItemAssociation to OrderItemAssoc.
-            Since revision 485144 (2006-12-10) the entity OrderItemAssociation has been deprecated.
-            This service can be used to upgrade existing data from the OrderItemAssociation entity to the new
-            OrderItemAssoc entity.
-            Before running this service, load the seed data for the OrderItemAssocType entity from the file:
-            order/data/OrderTypeData.xml
-        </description>
-    </service>
-    <service name="migrateCustRequestRole" engine="simple"
-            location="component://order/minilang/UpgradeServices.xml" invoke="migrateCustRequestRole">
-        <description>
-            Migrate data from OldCustRequestRole to CustRequestParty.
-            Since revision 684647 (2008-08-11) the entity CustRequestRole has been deprecated.
-            This service can be used to upgrade existing data from the OldCustRequestRole entity to the new
-            CustRequestParty entity.
-            Before running this service, load the seed data for the RoleType entity from the file:
-            party/data/PartyTypeData.xml
-        </description>
-    </service>
     <service name="migrateOrderShipment" engine="simple"
             location="component://order/minilang/UpgradeServices.xml" invoke="migrateOrderShipment">
         <description>

@@ -2720,26 +2720,6 @@ under the License.
           <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
-    <entity entity-name="OldPartyTaxInfo" table-name="PARTY_TAX_INFO"
-            package-name="org.apache.ofbiz.party.party"
-            title="Party Tax Information Entity">
-      <description>NOTE: this entity is deprecated by PartyTaxAuthInfo</description>
-      <field name="partyId" type="id-ne"></field>
-      <field name="geoId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <field name="partyTaxId" type="id-long-ne"></field>
-      <field name="isExempt" type="indicator"></field>
-      <prim-key field="partyId"/>
-      <prim-key field="geoId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="PARTY_TXI_PTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PARTY_TXI_GEO" rel-entity-name="Geo">
-        <key-map field-name="geoId"/>
-      </relation>
-    </entity>
     <entity entity-name="PartyType"
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
