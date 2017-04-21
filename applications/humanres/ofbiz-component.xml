@@ -34,7 +34,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_ability.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_employment.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_position.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
 
     <webapp name="humanres"
         title="HR"

@@ -22,34 +22,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Services</description>
     <vendor>OFBiz</vendor>
-
-    <service name="migrateFacilityRole" engine="simple"
-            location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateFacilityRole">
-        <description>
-            Migrate data from OldFacilityRole to FacilityParty.
-            Since revision 698159 (2008-09-23) the entity FacilityRole has been deprecated.
-            This service can be used to upgrade existing data from the FacilityRole entity to the new
-            FacilityParty entity.
-            Before running this service, load the seed data for the RoleType entity from the file:
-            party/data/PartyTypeData.xml
-        </description>
-    </service>
     <service name="migrateFacilitySquareFootage" engine="simple"
             location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateFacilitySquareFootage">
         <description>
             Migrate data from Facility.oldSquareFootage to Facility.facilitySize.
             The field Facility.squareFootageSince has been deprecated since revision 929912 (2010-04-01)
-        </description>
-    </service>
-    <service name="migrateProductKeyword" engine="simple"
-            location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateProductKeyword">
-        <description>
-            Migrate data from oldProductKeyword to ProductKeyword.
-            The entity oldProductKeyword has been deprecated.
-            This service can be used to upgrade existing data from the oldProductKeyword entity to the new
-            ProductKeyword entity.
-            Before running this service, load the seed data for the KeywordType entity from the file:
-            common/data/CommonTypeData.xml
         </description>
     </service>
 

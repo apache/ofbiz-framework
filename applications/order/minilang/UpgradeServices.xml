@@ -21,34 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="migrateOrderItemAssociation" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
-        <entity-condition entity-name="OldOrderItemAssociation" list="oldOrderItemAssociations"/>
-        <iterate list="oldOrderItemAssociations" entry="oldOrderItemAssociation">
-            <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
-            <set field="orderItemAssoc.orderId" from-field="oldOrderItemAssociation.salesOrderId"/>
-            <set field="orderItemAssoc.orderItemSeqId" from-field="oldOrderItemAssociation.soItemSeqId"/>
-            <set field="orderItemAssoc.toOrderId" from-field="oldOrderItemAssociation.purchaseOrderId"/>
-            <set field="orderItemAssoc.toOrderItemSeqId" from-field="oldOrderItemAssociation.poItemSeqId"/>
-            <set field="orderItemAssoc.shipGroupSeqId" value="_NA_"/>
-            <set field="orderItemAssoc.toShipGroupSeqId" value="_NA_"/>
-            <set field="orderItemAssoc.orderItemAssocTypeId" value="PURCHASE_ORDER"/>
-            <create-value value-field="orderItemAssoc"/>
-        </iterate>
-    </simple-method>
-
-    <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
-        <entity-condition entity-name="OldCustRequestRole" list="oldCustRequestRoles"/>
-        <now-timestamp field="fromDate"/>
-        <iterate list="oldCustRequestRoles" entry="oldCustRequestRole">
-            <make-value entity-name="CustRequestParty" value-field="custRequestParty"/>
-            <set field="custRequestParty.custRequestId" from-field="oldCustRequestRole.custRequestId"/>
-            <set field="custRequestParty.partyId" from-field="oldCustRequestRole.partyId"/>
-            <set field="custRequestParty.roleTypeId" from-field="oldCustRequestRole.roleTypeId"/>
-            <set field="custRequestParty.fromDate" from-field="fromDate"/>
-            <create-value value-field="custRequestParty"/>
-        </iterate>
-    </simple-method>
-
     <simple-method method-name="migrateOrderShipment" short-description="Migrate data from ItemIssuances to OrderShipments when the records are not used to record item issuances but only an order to shipment association.">
         <entity-condition entity-name="ItemIssuance" list="itemIssuances">
             <condition-list combine="and">

@@ -112,17 +112,6 @@ under the License.
         </relation>
     </entity>
   <!-- =========================================================
-     An entity for testing the BLOB data type
-   ========================================================== -->
-    <entity entity-name="TestBlob"
-        package-name="org.apache.ofbiz.entity.test"
-        title="Entity for testing the blob type (Deprecated)">
-        <description>Deprecated - use TestFieldType instead</description>
-        <field name="testBlobId" type="id-ne"/>
-        <field name="testBlobField" type="blob"/>
-         <prim-key field="testBlobId"/>
-    </entity>
-  <!-- =========================================================
      An entity for testing the field data types
    ========================================================== -->
     <entity entity-name="TestFieldType"
