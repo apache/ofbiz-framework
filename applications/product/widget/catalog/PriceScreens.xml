@@ -68,26 +68,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Old screen kept for now, in case some would prefer the old way. Another option is to use an input field with Id instead of a drop-down in the new screen below (see also setPriceRulesCondEventJs.ftl and top of getAssociatedPriceRulesConds service) -->
-    <!--screen name="EditProductPriceRules">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
-                <set field="headerItem" value="pricerules"/>
-
-                <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules_old.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPriceDecorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/template/price/EditProductPriceRules.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen-->
     <screen name="EditProductPriceRules">
         <section>
             <actions>
