@@ -158,12 +158,14 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListQuoteRoles" target="" title="" type="list" list-name="quoteRoles"
+    <form name="ListQuoteRoles" target="updateQuoteRole" title="" type="list" list-name="quoteRoles"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteRoles">
         <auto-fields-entity entity-name="QuoteRole" default-field-type="display"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity also-hidden="false" entity-name="RoleType"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity entity-name="RoleType"/></field>
+        <field name="thruDate" red-when="before-now"><date-time/></field>
         <field name="quoteId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeQuoteRole" also-hidden="false">
                 <parameter param-name="partyId"/>
