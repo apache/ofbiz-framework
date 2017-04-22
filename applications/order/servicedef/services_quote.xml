@@ -69,16 +69,37 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- QuoteRole  -->
-    <service name="createQuoteRole" default-entity-name="QuoteRole" engine="simple"
-                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteRole" auth="true">
+    <service name="createQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a QuoteRole</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" />
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <!-- make fromDate as optional for backward compatibility, EntityAuto engine automatically set the fromDate to nowTimestamp if its not missing-->
+        <override name="fromDate" mode="IN" optional="true"/>
     </service>
-    <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="simple"
-                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteRole" auth="true">
+    <service name="updateQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" />
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a QuoteRole</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- QuoteItem  -->
     <service name="createQuoteItem" default-entity-name="QuoteItem" engine="simple"

@@ -281,47 +281,6 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <!-- create a new QuoteRole -->
-    <simple-method method-name="createQuoteRole" short-description="Create a QuoteRole">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
-        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
-        <if-empty field="partyRole.partyId">
-            <check-permission permission="PARTYMGR" action="_CREATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-permission permission="PARTYMGR" action="_UPDATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-errors/>
-            <make-value value-field="partyRole" entity-name="PartyRole"/>
-            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-field="partyRole"/>
-        </if-empty>
-        <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="QuoteRole"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <property-to-field resource="OrderUiLabels" property="OrderOrderQuoteRoleAddedSuccessfully" field="successMessage"/>
-        <check-errors/>
-    </simple-method>
-
-    <!-- remove an existing QuoteRole -->
-    <simple-method method-name="removeQuoteRole" short-description="Remove an existing QuoteRole">
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderErrorDeletePermissionError"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="QuoteRole" value-field="quoteRole" auto-field-map="true"/>
-        <check-errors/>
-        <remove-value value-field="quoteRole"/>
-        <check-errors/>
-    </simple-method>
-
     <!-- create a new QuoteItem -->
     <simple-method method-name="createQuoteItem" short-description="Create a QuoteItem">
         <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
