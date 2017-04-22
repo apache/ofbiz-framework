@@ -94,7 +94,7 @@ under the License.
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="expire" auth="true">
+    <service name="expireQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire a QuoteRole</description>
         <required-permissions join-type="AND">
             <check-permission permission="ORDERMGR" action="_UPDATE"/>
