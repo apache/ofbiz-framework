@@ -1465,9 +1465,17 @@ under the License.
         </response>
         <response name="error" type="view" value="EditQuoteRole"/>
     </request-map>
+    <request-map uri="updateQuoteRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateQuoteRole"/>
+        <response name="success" type="request-redirect" value="ListQuoteRoles">
+            <redirect-parameter name="quoteId"/>
+        </response>
+        <response name="error" type="view" value="EditQuoteRole"/>
+    </request-map>
     <request-map uri="removeQuoteRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeQuoteRole"/>
+        <event type="service" invoke="removeQuoteRole"/>
         <response name="success" type="view" value="ListQuoteRoles"/>
         <response name="error" type="view" value="ListQuoteRoles"/>
     </request-map>
