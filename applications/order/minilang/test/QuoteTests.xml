@@ -241,22 +241,6 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreateQuoteRole" short-description="Create Quote Role" login-required="false">
-        <entity-one entity-name="UserLogin" value-field="userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="serviceCtx.partyId" value="DemoCustomer-1"/>
-        <set field="serviceCtx.quoteId" value="CQ0001"/>
-        <set field="serviceCtx.roleTypeId" value="OWNER"/>
-        <call-service service-name="createQuoteRole" in-map-name="serviceCtx">
-            <results-to-map map-name="serviceResult"/>
-        </call-service>
-        <assert>
-            <not><if-empty field="serviceResult"/></not>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="testCreateQuoteCoefficient" short-description="Create Quote Coefficient" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
