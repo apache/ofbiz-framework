@@ -390,6 +390,10 @@ under the License.
         <condition field-name="workEffortId" operator="is-empty"/>
         <action service="createWorkEffort" mode="sync"/>
     </eca>
+    <!-- Ensure Quote Role -->
+    <eca service="createQuoteRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync"/>
+    </eca>
 
     <!-- customer request notifications -->
     <!-- notification of a customer request received and accepted -->
