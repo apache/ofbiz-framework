@@ -562,6 +562,7 @@ under the License.
         <set from-field="parameters.physicalInventoryId" field="createDetailMap.physicalInventoryId"/>
         <set from-field="parameters.availableToPromiseVar" field="createDetailMap.availableToPromiseDiff"/>
         <set from-field="parameters.quantityOnHandVar" field="createDetailMap.quantityOnHandDiff"/>
+        <set from-field="parameters.quantityOnHandVar" field="createDetailMap.accountingQuantityDiff"/>
         <set from-field="parameters.varianceReasonId" field="createDetailMap.reasonEnumId"/>
         <set from-field="parameters.comments" field="createDetailMap.description"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
