@@ -50,7 +50,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_requirement.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_reservations.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_return.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_checkout.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>

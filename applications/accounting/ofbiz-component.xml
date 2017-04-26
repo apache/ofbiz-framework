@@ -77,9 +77,6 @@ under the License.
     <!-- Accounting Permission Services -->
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
 
-    <!-- Accounting Migration Service Definition -->
-    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
-
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_payment.xml"/>
