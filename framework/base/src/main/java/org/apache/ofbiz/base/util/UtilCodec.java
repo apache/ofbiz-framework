@@ -132,15 +132,15 @@ public class UtilCodec {
                 .toFactory();
     }
 
-        public static class XmlEncoder implements SimpleEncoder {
-            private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
-            private XMLEntityCodec xmlCodec = new XMLEntityCodec();
-            public String encode(String original) {
-                if (original == null) {
-                    return null;
-                }
-                return xmlCodec.encode(IMMUNE_XML, original);
+    public static class XmlEncoder implements SimpleEncoder {
+        private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
+        private XMLEntityCodec xmlCodec = new XMLEntityCodec();
+        public String encode(String original) {
+            if (original == null) {
+                return null;
             }
+            return xmlCodec.encode(IMMUNE_XML, original);
+        }
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
