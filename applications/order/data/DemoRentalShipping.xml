@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
+
+    <PartyGroup partyId="USPS" groupName="USPS"/>
+    <PartyGroup partyId="UPS" groupName="UPS"/>
+
+    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
+    <PartyRole partyId="Company" roleTypeId="CARRIER"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+
+    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
+    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
+    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+    <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
+
+    <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
+    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Priority"/>
+    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
+
+    <ProductStoreShipmentMeth productStoreShipMethId="9017" productStoreId="RentalStore" partyId="_NA_" includeNoChargeItems="Y" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="6"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9018" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9019" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9020" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9021" productStoreId="RentalStore" partyId="USPS" includeNoChargeItems="N" allowUspsAddr="Y" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" serviceName="uspsRateInquire" sequenceNumber="5"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9022" productStoreId="RentalStore" partyId="USPS" includeNoChargeItems="N" allowUspsAddr="Y" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" serviceName="uspsRateInquire" sequenceNumber="4"/>
+
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="RentalStore" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9003" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+    <QuantityBreak fromQuantity="0.0" quantityBreakId="9009" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+
+    <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="5.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="RentalStore" shipmentMethodTypeId="AIR" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="RentalStore" weightUnitPrice="0.2"/>
+    <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="3.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9001" shipmentMethodTypeId="GROUND" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="9003" weightUnitPrice="0.1"/>
+    <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="5.0" orderItemFlatPrice="0.0" carrierPartyId="Company" carrierRoleTypeId="CARRIER" orderPricePercent="0.0" shipmentCostEstimateId="9002" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+    <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="10.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9003" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="9009" weightUnitPrice="0.35"/>
+    <ShipmentCostEstimate productStoreId="RentalStore" shipmentCostEstimateId="9004" shipmentMethodTypeId="STANDARD" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" orderFlatPrice="0.0" orderPricePercent="20.0" orderItemFlatPrice="0.0"/>
+    <ShipmentCostEstimate productStoreId="RentalStore" shipmentCostEstimateId="9005" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" orderFlatPrice="0.0" orderPricePercent="0.0" orderItemFlatPrice="0.0"/>
+</entity-engine-xml>

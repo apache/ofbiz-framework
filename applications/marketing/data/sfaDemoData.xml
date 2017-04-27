@@ -36,9 +36,6 @@
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa100" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa101" contactMechPurposeTypeId="PRIMARY_PHONE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa102" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
-    <Party partyId="DemoCustCompany" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
-    <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1" statusId="PARTY_ENABLED"/>
