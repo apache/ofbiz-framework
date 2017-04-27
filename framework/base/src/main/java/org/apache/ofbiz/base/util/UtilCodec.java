@@ -92,21 +92,22 @@ public class UtilCodec {
             }
             PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.STYLES);
 
-            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {// TODO to be improved to use a (or several) contentTypeId/s if possible 
+            // TODO to be improved to use a (or several) contentTypeId/s when necessary. Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
+            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) { 
                 sanitizer = sanitizer.and(PERMISSIVE_POLICY);
             }
-            if ("REPORT_MASTER".equals(contentTypeId)) {
-                sanitizer = sanitizer.and(BIRT_REPORT_BUILDER_GENERATION_POLICY);
-            }
-            if ("REPORT".equals(contentTypeId)) {
-                sanitizer = sanitizer.and(BIRT_REPORT_BUILDER_USAGE_POLICY);
+            if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
+                sanitizer = sanitizer.and(BIRT_FLEXIBLE_REPORT_POLICY);
             }
             return sanitizer.sanitize(original);
         }
+        
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true. 
         // Note that I was unable to render </html> and </body>. I guess because <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
         // You might even want to adapt the PERMISSIVE_POLICY to your needs... Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
+        // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
+        // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
@@ -114,47 +115,32 @@ public class UtilCodec {
                 .allowWithoutAttributes("html", "body", "div", "span", "table", "td")
                 .allowAttributes("width").onElements("table")
                 .toFactory();
-        // This is the PolicyFactory used for the Birt Report Builder generation feature ("REPORT_MASTER" contentTypeId)
-        // It allows to create the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs but normally you should not
-        // In any case be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before changing things here...
-        public static final PolicyFactory BIRT_REPORT_BUILDER_GENERATION_POLICY = new HtmlPolicyBuilder()
+        
+        // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
+        // It allows to use the OOTB Birt Report Builder example.
+        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. See PERMISSIVE_POLICY above for documentation and examples
+        public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
-                .allowElements("div", "span", "table", "tr", "td")
-                .allowElements("form", "input", "textarea", "label", "select", "option")
+                .allowElements("form", "div", "span", "table", "tr", "td", "input", "textarea", "label", "select", "option")
                 .allowAttributes("id", "class", "name", "value", "onclick").globally()
                 .allowAttributes("width", "cellspacing").onElements("table")
                 .allowAttributes("type", "size", "maxlength").onElements("input")
                 .allowAttributes("cols", "rows").onElements("textarea")
                 .allowAttributes("class").onElements("td")
                 .allowAttributes("method").onElements("form")
-                .toFactory();
-        // This is the PolicyFactory used for the Birt Report Builder usage feature.  ("FLEXIBLE_REPORT" contentTypeId)
-        // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs but normally you should not
-        // In any case be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before changing things here...
-        public static final PolicyFactory BIRT_REPORT_BUILDER_USAGE_POLICY = new HtmlPolicyBuilder()
-                .allowWithoutAttributes("html", "body")
-                .allowElements("div", "span", "table", "tr", "td", "script")
-                .allowElements("form", "input", "textarea", "label", "select", "option")
-                .allowAttributes("id", "class", "name", "value", "onclick").globally()
-                .allowAttributes("width", "cellspacing").onElements("table")
-                .allowAttributes("type", "size", "maxlength").onElements("input")
-                .allowAttributes("cols", "rows").onElements("textarea")
-                .allowAttributes("class").onElements("td")
-                .allowAttributes("method", "onsubmit").onElements("form")
+                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
 
-    public static class XmlEncoder implements SimpleEncoder {
-        private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
-        private XMLEntityCodec xmlCodec = new XMLEntityCodec();
-        public String encode(String original) {
-            if (original == null) {
-                   return null;
-               }
-               return xmlCodec.encode(IMMUNE_XML, original);
-        }
+        public static class XmlEncoder implements SimpleEncoder {
+            private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
+            private XMLEntityCodec xmlCodec = new XMLEntityCodec();
+            public String encode(String original) {
+                if (original == null) {
+                    return null;
+                }
+                return xmlCodec.encode(IMMUNE_XML, original);
+            }
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
