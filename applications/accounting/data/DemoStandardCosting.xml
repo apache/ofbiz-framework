@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- ################################# -->
+    <!-- This is an example of a fixed asset (a machine or a workcenter) with standard costing information -->
+    <FixedAsset fixedAssetId="WORKCENTER_COST" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Workcenter with Standard Costs information"/>
+    <!-- Deprecated: in the future cost information will be stored in the CostComponentCalc entity;
+         these entries can then be associated to a work effort thru the WorkEffortCostCalc entity. -->
+    <!-- This is the standard cost per hour needed to setup the fixed asset for the task -->
+    <FixedAssetStdCost fixedAssetId="WORKCENTER_COST" fixedAssetStdCostTypeId="SETUP_COST" fromDate="2005-12-31 00:01:00.0" amountUomId="USD" amount="20"/>
+    <!-- This is the standard cost per hour for the usage of the fixed asset to perform a given task -->
+    <FixedAssetStdCost fixedAssetId="WORKCENTER_COST" fixedAssetStdCostTypeId="USAGE_COST" fromDate="2005-12-31 00:01:00.0" amountUomId="USD" amount="80"/>
+
+    <!-- ################################# -->
+    <!-- ################################# -->
+    <!-- This is a finished good, PROD_COST, manufactured using 2 units of the raw material MAT_A_COST and 3 units of raw material MAT_B_COST -->
+    <!-- Finished good and raw materials definitions: -->
+    <Product productId="PROD_MANUF" productTypeId="FINISHED_GOOD" internalName="Demo Product for Costing" productName="Demo Product for Costing" description="Demo Product for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="0"/>
+    <Product productId="MAT_A_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material A for Costing" description="Demo Material A for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
+    <Product productId="MAT_B_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material B for Costing" description="Demo Material B for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
+    <ProductPrice productId="PROD_MANUF" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="455.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="MAT_A_COST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="40.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="MAT_B_COST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+
+    <!-- Cost information for the raw materials only (the ones for the finished good will be automatically computed by the costing algorithm): -->
+    <CostComponent costComponentId="6000" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_A_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="9"/>
+    <CostComponent costComponentId="6001" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_B_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="7"/>
+
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="MAT_A" supplierProductName="Material A" availableFromDate="2005-01-01 00:00:00.000"/>
+    <SupplierProduct partyId="DemoSupplier" supplierPrefOrderId="10_MAIN_SUPPL" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="MAT_B" supplierProductName="Material B" availableFromDate="2005-01-01 00:00:00.000"/>
+
+    <ProductFacility productId="PROD_MANUF" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="1" daysToShip="1"/>
+    <ProductFacility productId="MAT_A_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
+    <ProductFacility productId="MAT_B_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
+
+
+    <!-- ################################# -->
+    <!-- Bill of materials definition: -->
+    <ProductAssoc productId="PROD_MANUF" productIdTo="MAT_A_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2005-12-31 00:01:00.0" sequenceNum="10" quantity="2.0"/>
+    <ProductAssoc productId="PROD_MANUF" productIdTo="MAT_B_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2005-12-31 00:01:00.0" sequenceNum="20" quantity="3.0"/>
+    <!-- ################################# -->
+    <!-- Product Routing definition: -->
+    <!-- this routing is composed of one task -->
+    <!-- the task is executed in the fixed asset WORKCENTER_COST; the setup time is 10 minutes (600000 milliseconds); the unit task time is 5 minutes (300000 milliseconds) -->
+    <WorkEffort workEffortId="ROUTING_COST" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Demo Routing for Costing" description="Demo Routing for Costing" revisionNumber="1" quantityToProduce="0"/>
+    <WorkEffort workEffortId="TASK_COST" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Demo Routing Task for Costing" description="Demo Routing Task for Costing" revisionNumber="1" fixedAssetId="WORKCENTER_COST" estimatedMilliSeconds="300000" estimatedSetupMillis="600000"/>
+    <WorkEffortAssoc workEffortIdFrom="ROUTING_COST" workEffortIdTo="TASK_COST" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2005-12-31 00:01:00.0"/>
+    <WorkEffortGoodStandard workEffortId="ROUTING_COST" productId="PROD_MANUF" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2005-12-31 00:01:00.0"/>
+    <!-- Cost information for the task -->
+    <!-- This is the cost derived from fixed assets' usage; variableCost is per minute (perMilliSeconds=60000) -->
+    <CostComponentCalc costComponentCalcId="TASK_COST_CALC" description="Indirect cost (power supply)" currencyUomId="USD" fixedCost="1" variableCost="2" perMilliSecond="60000"/>
+    <WorkEffortCostCalc workEffortId="TASK_COST" costComponentTypeId="OTHER_COST" costComponentCalcId="TASK_COST_CALC" fromDate="2005-12-31 00:01:00.0"/>
+
+    <!-- General Cost for the finished product -->
+    <CostComponentCalc costComponentCalcId="GEN_COST_CALC" description="Overhead cost (5 percent of total cost) for general costs" currencyUomId="USD" fixedCost="0.05" costCustomMethodId="PROD_PERC_FORMULA"/>
+    <ProductCostComponentCalc productId="PROD_MANUF" costComponentTypeId="GEN_COST" costComponentCalcId="GEN_COST_CALC" fromDate="2005-12-31 00:01:00.0"/>
+
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+        inventoryItemId="9029" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_A_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="9.0"/>
+    <InventoryItemDetail inventoryItemId="9029" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+        inventoryItemId="9030" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7.0"/>
+    <InventoryItemDetail inventoryItemId="9030" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
+
+</entity-engine-xml>

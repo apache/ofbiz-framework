@@ -44,6 +44,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAccountingUserData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAssetMaintData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBudgetData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStandardCosting.xml"/>
 
     <!-- General Payment Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
