@@ -40,6 +40,7 @@
     <Party partyId="DemoSupplier" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
     <PartyStatus partyId="DemoSupplier" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyIdentificationType partyIdentificationTypeId="CARD_ID" description="Person card identification number"/>
     <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
 
