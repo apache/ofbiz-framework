@@ -44,11 +44,10 @@ if (modelEntity) {
     ModelReader entityModelReader = delegator.getModelReader()
     //create the search form with auto-fields-entity
     String dynamicAutoEntityFieldSearchForm = '<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">' +
-            '<form name="FindGeneric" type="single" target="FindGeneric">' +
+            '<form name="FindGeneric" type="single" target="FindGeneric?entityName='+ entityName +'">' +
             '<auto-fields-entity entity-name="' + entityName + '" default-field-type="find"/>' +
             '<field name="noConditionFind"><hidden value="Y"/></field>' +
             '<field name="searchOptions_collapsed" ><hidden value="true"/></field>' +
-            '<field name="entityName"><hidden value="' + entityName + '"/></field>' +
             '<field name="searchButton" title="' + UtilProperties.getMessage("CommonUiLabels", "FormFieldTitle_searchButton", locale) + '"><submit/></field>'
 
     //call modelEntity to complete information on the field type
