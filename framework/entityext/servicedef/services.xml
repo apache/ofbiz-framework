@@ -461,4 +461,11 @@ under the License.
         <description>Entity sync permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="generateMySqlFileWithAlterTableForTimestamps" engine="java" auth="true" transaction-timeout="14400"
+            location="org.apache.ofbiz.entityext.data.UpgradeServices" invoke="generateMySqlFileWithAlterTableForTimestamps">
+        <description>mysql timestamp Field migration service,
+            it will generate sql file with alter query statement to update the datatype of timestamp field to support Fractional Seconds in Time Values
+            mySql 5.6.4 added support for Fractional Seconds in Time Values. </description>
+        <attribute name="groupName" type="String" mode="IN" optional="true" default-value="org.apache.ofbiz"/>
+    </service>
 </services>
