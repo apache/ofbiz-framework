@@ -356,7 +356,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz?autoReconnect=true ;characterEncoding=UTF-8"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz?autoReconnect=true&amp;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -389,7 +389,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbizolap?autoReconnect=true ;characterEncoding=UTF-8"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbizolap?autoReconnect=true&amp;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -422,7 +422,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiztenant?autoReconnect=true ;characterEncoding=UTF-8"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiztenant?autoReconnect=true&amp;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -450,7 +450,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="seed"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz_odbc?autoReconnect=true ;characterEncoding=UTF-8"
+                jdbc-uri="jdbc:mysql://127.0.0.1/ofbiz_odbc?autoReconnect=true&amp;characterEncoding=UTF-8"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
