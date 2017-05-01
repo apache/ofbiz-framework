@@ -26,9 +26,9 @@ under the License.
     <field-type-def type="byte-array" sql-type="LONGBLOB" java-type="byte[]"/>
     <field-type-def type="object" sql-type="LONGBLOB" java-type="Object"/>
 
-    <field-type-def type="date-time" sql-type="DATETIME" java-type="java.sql.Timestamp"/>
+    <field-type-def type="date-time" sql-type="DATETIME(3)" java-type="java.sql.Timestamp"/>
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"/>
-    <field-type-def type="time" sql-type="TIME" java-type="java.sql.Time"/>
+    <field-type-def type="time" sql-type="TIME(3)" java-type="java.sql.Time"/>
 
     <field-type-def type="currency-amount" sql-type="DECIMAL(18,2)" java-type="java.math.BigDecimal"/>
     <field-type-def type="currency-precise" sql-type="DECIMAL(18,3)" java-type="java.math.BigDecimal"/>
