@@ -64,7 +64,6 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
-    <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
