@@ -46,7 +46,18 @@ under the License.
                         This is yet unimplemented. It's not a trivial implementation because at the moment components are loaded
                         in the order they are found (i.e. alphabetic or creation date).
                         While this feature would require them all to be located first and then reordered and loaded.
-                        So, for now, simply follow the README file in plugins(?) root folder.
+                        So, for now, simply follow below guidelines.
+                        
+                        For the plugins, all components will be loaded after the OFBiz components, including, in this order, those in:
+                        framework
+                        themes
+                        applications
+                        
+                        The plugins Auto-Loading feature loads all components in the order they are found (i.e. alphabetic or creation date).
+                        
+                        If you need a specific loading order of these components then you need to disable the Auto-Loading feature 
+                        by creating a component-load.xml file in the plugins  directory and use the load-component tag to load 
+                        your components in the order you want (just use the component-load.xml file in the application folder as a template).
                     </xs:documentation>
                 </xs:annotation>
             </xs:attributeGroup>
