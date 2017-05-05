@@ -63,9 +63,6 @@ under the License.
     <OrderItem orderId="DEMO10091" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="5.0" selectedAmount="0.0" unitPrice="21.6" unitListPrice="0.0" isModifiedPrice="N" itemDescription="GZ-2644-5 Round Gizmo" statusId="ITEM_CREATED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="10001" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:5.0, lastPrice: 21.6]"/>
     <OrderItemPriceInfo orderItemPriceInfoId="10002" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.0, lastPrice: 24.0]"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
     <OrderRole orderId="DEMO10091" partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
     <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
@@ -88,9 +85,6 @@ under the License.
     <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" webSiteId="OrderEntry" remainingSubTotal="48.00" grandTotal="48.00"/>
     <OrderItem orderId="Demo1001" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="24.00" unitListPrice="0.00" isModifiedPrice="N" itemDescription="GZ-2644-0 Round Gizmo" statusId="ITEM_COMPLETED" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9001" orderId="Demo1001" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.000000, lastPrice: 24.000]"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
-    <PartyRole partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
     <OrderRole orderId="Demo1001" partyId="Company" roleTypeId="BILL_TO_CUSTOMER" />
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
