@@ -1731,7 +1731,7 @@ under the License.
       <relation type="one" fk-name="PARTY_ID_TYPE" rel-entity-name="PartyIdentificationType">
         <key-map field-name="partyIdentificationTypeId"/>
       </relation>
-      <relation type="one" fk-name="PARTY_ID_PRODICT" rel-entity-name="Party">
+      <relation type="one" fk-name="PARTY_ID_PRODUCT" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
       <index name="PARTY_ID_VALIDX" unique="false">
