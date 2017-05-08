@@ -11484,18 +11484,6 @@
         <value xml:lang="zh">承租人代號</value>
         <value xml:lang="zh-TW">承租人識別</value>
     </property>
-    <property key="CommonTerm">
-        <value xml:lang="ar">شرط</value>
-        <value xml:lang="en">Term</value>
-        <value xml:lang="nl">Conditie</value>
-        <value xml:lang="zh">期</value>
-    </property>
-    <property key="CommonTerms">
-        <value xml:lang="ar">شروط</value>
-        <value xml:lang="en">Terms</value>
-        <value xml:lang="nl">Condities</value>
-        <value xml:lang="zh">期</value>
-    </property>
     <property key="CommonTest">
         <value xml:lang="ar">إختبار</value>
         <value xml:lang="cs">Test</value>
