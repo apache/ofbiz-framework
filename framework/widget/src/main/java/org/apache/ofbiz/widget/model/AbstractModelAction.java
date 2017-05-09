@@ -739,6 +739,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         private final String toScope;
         private final String type;
         private final FlexibleStringExpander valueExdr;
+        private final boolean setIfNull;
+        private final boolean setIfEmpty;
 
         public SetField(ModelWidget modelWidget, Element setElement) {
             super(modelWidget, setElement);
@@ -750,6 +752,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
+            this.setIfNull = !"false".equals(setElement.getAttribute("set-if-null")); //default to true
+            this.setIfEmpty = !"false".equals(setElement.getAttribute("set-if-empty")); //default to true
             if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field")
                         + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a widget");
@@ -845,6 +849,16 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                         throw new IllegalArgumentException(errMsg);
                     }
                 }
+            }
+            if (!setIfNull && newValue == null){
+                if (Debug.warningOn())
+                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                return;
+            }
+            if (!setIfEmpty && ObjectType.isEmpty(newValue)){
+                if (Debug.warningOn())
+                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                return;
             }
             if (this.toScope != null && this.toScope.equals("user")) {
                 String originalName = this.field.getOriginalName();

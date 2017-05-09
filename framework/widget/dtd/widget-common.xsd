@@ -294,6 +294,24 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute name="set-if-empty" type="xs:boolean" default="true">
+                <xs:annotation>
+                    <xs:documentation>
+                        Controls if the target field can be set to an empty value. The meaning of "empty" depends on the Java data type.
+                        Defaults to "true".
+                        Optional.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="set-if-null" type="xs:boolean" default="true">
+                <xs:annotation>
+                    <xs:documentation>
+                        Controls if the target field can be set to null when the from attribute evaluates to null.
+                        Defaults to "true".
+                        Optional.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="property-map" substitutionGroup="AllActions">
