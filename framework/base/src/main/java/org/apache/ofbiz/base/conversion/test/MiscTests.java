@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,27 +76,20 @@ public class MiscTests extends GenericTestCaseBase {
         List<String> baseList = UtilMisc.toList("a", "1", "b", "2", "c", "3");
         List<String> arrayList = new ArrayList<String>();
         arrayList.addAll(baseList);
-        List<String> fastList = new LinkedList<String>();
-        fastList.addAll(baseList);
         Map<String, String> baseMap = UtilMisc.toMap("a", "1", "b", "2", "c", "3");
         Map<String, String> hashMap = new HashMap<String, String>();
         hashMap.putAll(baseMap);
-        Map<String, String> fastMap = new HashMap<String, String>();
-        fastMap.putAll(baseMap);
         Object[] testObjects = new Object[] {
             string,
             bigDecimal,
             url,
             arrayList,
-            fastList,
-            hashMap,
-            fastMap,
+            hashMap
         };
         for (Object testObject: testObjects) {
             assertPassThru(testObject, testObject.getClass());
         }
-        assertPassThru(fastList, fastList.getClass(), List.class);
-        assertPassThru(fastMap, fastMap.getClass(), Map.class);
+        assertPassThru(arrayList, arrayList.getClass(), List.class);
         assertPassThru(hashMap, hashMap.getClass(), Map.class);
     }
 }
