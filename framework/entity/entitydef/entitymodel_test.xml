@@ -48,7 +48,7 @@ under the License.
     <entity entity-name="Testing"
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Entity">
-        <field name="testingId" type="id-ne"/>
+        <field name="testingId" type="id"/>
         <field name="testingTypeId" type="id-ne"/>
         <field name="testingName" type="name" enable-audit-log="true"/>
         <field name="description" type="description"/>
@@ -66,7 +66,7 @@ under the License.
     <entity entity-name="TestingType"
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Entity Type">
-        <field name="testingTypeId" type="id-ne"/>
+        <field name="testingTypeId" type="id"/>
         <field name="description" type="description"/>
         <prim-key field="testingTypeId"/>
     </entity>
@@ -75,7 +75,7 @@ under the License.
     This simulates the Party->PartyGroup and Party->Person entity relationships.
   ========================================================= -->
     <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype Entity">
-        <field name="testingTypeId" type="id-ne" />
+        <field name="testingTypeId" type="id" />
         <field name="subtypeDescription" type="description" />
         <prim-key field="testingTypeId" />
     </entity>
@@ -98,7 +98,7 @@ under the License.
             package-name="org.apache.ofbiz.entity.test"
             title="Entity for testing EntityStatus concept">
         <description>An entity for testing EntityStatus concept</description>
-        <field name="testingStatusId" type="id-ne"/>
+        <field name="testingStatusId" type="id"/>
         <field name="testingId" type="id-ne" />
         <field name="statusId" type="id-ne"/>
         <field name="statusDate" type="date-time"/>
@@ -118,7 +118,7 @@ under the License.
         package-name="org.apache.ofbiz.entity.test"
         title="Entity for testing the field data types">
         <description>An entity for testing the field data types</description>
-        <field name="testFieldTypeId" type="id-ne"/>
+        <field name="testFieldTypeId" type="id"/>
         <field name="blobField" type="blob"/>
         <field name="byteArrayField" type="byte-array"/>
         <field name="objectField" type="object"/>
@@ -137,8 +137,8 @@ under the License.
     <entity entity-name="TestingItem"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Item">
-        <field name="testingId" type="id-ne"/>
-        <field name="testingSeqId" type="id-ne"/>
+        <field name="testingId" type="id"/>
+        <field name="testingSeqId" type="id"/>
         <field name="testingHistory" type="very-long"/>
         <prim-key field="testingId"/>
         <prim-key field="testingSeqId"/>
@@ -153,7 +153,7 @@ under the License.
     <entity entity-name="TestingNode"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Node">
-        <field name="testingNodeId" type="id-ne"></field>
+        <field name="testingNodeId" type="id"></field>
         <field name="primaryParentNodeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="testingNodeId"/>
@@ -171,8 +171,8 @@ under the License.
     <entity entity-name="TestingNodeMember"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Node Member">
-      <field name="testingNodeId" type="id-ne"/>
-      <field name="testingId" type="id-ne"/>
+      <field name="testingNodeId" type="id"/>
+      <field name="testingId" type="id"/>
       <field name="fromDate" type="date-time"/>
       <field name="thruDate" type="date-time"/>
       <field name="extendFromDate" type="date-time"/><!--use to test filterDate -->
@@ -219,7 +219,7 @@ under the License.
     <entity entity-name="TestingCrypto"
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Crypto Entity">
-        <field name="testingCryptoId" type="id-ne"/>
+        <field name="testingCryptoId" type="id"/>
         <field name="testingCryptoTypeId" type="id-ne"/>
         <field name="unencryptedValue" type="description"/>
         <field name="encryptedValue" type="description" encrypt="true"/>
@@ -245,7 +245,7 @@ under the License.
     <entity entity-name="TestingRemoveAll"
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Entity">
-        <field name="testingRemoveAllId" type="id-ne"/>
+        <field name="testingRemoveAllId" type="id"/>
         <field name="description" type="description"/>
         <prim-key field="testingRemoveAllId"/>
     </entity>
