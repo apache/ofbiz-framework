@@ -1,2 +1,0 @@
-This is only given as an example. It uses the Gradle dependency check gradle plugin. https://plugins.gradle.org/plugin/dependency.check
-In any cases be sure to check https://cwiki.apache.org/confluence/display/OFBIZ/About+OWASP+Dependency+Check
