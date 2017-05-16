@@ -92,7 +92,7 @@ if (purchaseOrder && !shipmentId) {
 }
 
 shipment = null
-if (shipmentId && !shipmentId.equals("_NA_")) {
+if (shipmentId && !"_NA_".equals(shipmentId)) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 }
 

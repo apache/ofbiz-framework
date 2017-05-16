@@ -294,13 +294,13 @@ if (orderHeader) {
             supplierContactMechValueMaps.each { supplierContactMechValueMap ->
                 contactMechPurposes = supplierContactMechValueMap.partyContactMechPurposes
                 contactMechPurposes.each { contactMechPurpose ->
-                    if (contactMechPurpose.contactMechPurposeTypeId.equals("GENERAL_LOCATION")) {
+                    if ("GENERAL_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
                         context.supplierGeneralContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("SHIPPING_LOCATION")) {
+                    } else if ("SHIPPING_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
                         context.supplierShippingContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("BILLING_LOCATION")) {
+                    } else if ("BILLING_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
                         context.supplierBillingContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("PAYMENT_LOCATION")) {
+                    } else if ("PAYMENT_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
                         context.supplierPaymentContactMechValueMap = supplierContactMechValueMap
                     }
                 }
@@ -493,7 +493,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
         workEffortStatus = workEffort.currentStatusId
         if (workEffortStatus) {
             context.workEffortStatus = workEffortStatus
-            if (workEffortStatus.equals("WF_RUNNING") || workEffortStatus.equals("WF_SUSPENDED"))
+            if ("WF_RUNNING".equals(workEffortStatus) || "WF_SUSPENDED".equals(workEffortStatus))
                 context.inProcess = true
         }
 
@@ -550,7 +550,7 @@ if (shipments) {
 // get orderAdjustmentId for SHIPPING_CHARGES
 orderAdjustmentId = null
 orderAdjustments.each { orderAdjustment ->
-    if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
+    if("SHIPPING_CHARGES".equals(orderAdjustment.orderAdjustmentTypeId)) {
         orderAdjustmentId = orderAdjustment.orderAdjustmentId
     }
 }

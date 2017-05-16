@@ -120,9 +120,9 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + ".")) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf(".")+1)) && !fileType.equals("original")) {
+                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf(".")+1)) && !"original".equals(fileType)) {
                             file.delete()
-                        } else if(file.isFile() && fileType.equals("original") && !file.getName().equals(defaultFileName)) {
+                        } else if(file.isFile() && "original".equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
                     } 
@@ -146,11 +146,11 @@ if (fileType) {
             product.set(fileType + "ImageUrl", imageUrl)
 
             // call scaleImageInAllSize
-            if (fileType.equals("original")) {
+            if ("original".equals(fileType)) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
 
-                if (result.containsKey("responseMessage") && result.get("responseMessage").equals("success")) {
+                if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
                     imgMap = result.get("imageUrlMap")
                     imgMap.each() { key, value ->
                         product.set(key + "ImageUrl", value)
