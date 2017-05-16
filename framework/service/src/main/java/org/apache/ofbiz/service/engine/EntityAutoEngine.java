@@ -112,22 +112,22 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             switch (modelService.invoke) {
             case "create":
                 result = invokeCreate(dctx, parameters, modelService, modelEntity, allPksInOnly, pkFieldNameOutOnly);
-                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "update":
                 result = invokeUpdate(dctx, parameters, modelService, modelEntity, allPksInOnly);
-                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "delete":
                 result = invokeDelete(dctx, parameters, modelService, modelEntity, allPksInOnly);
-                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "expire":
                 result = invokeExpire(dctx, parameters, modelService, modelEntity, allPksInOnly);
                 if (ServiceUtil.isSuccess(result)) {
                     result = invokeUpdate(dctx, parameters, modelService, modelEntity, allPksInOnly);
                 }
-                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             default:
                 break;

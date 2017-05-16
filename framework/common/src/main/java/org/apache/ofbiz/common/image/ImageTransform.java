@@ -36,6 +36,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.service.ModelService;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -78,12 +79,12 @@ public class ImageTransform {
         } catch (IllegalArgumentException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         } catch (IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
 
@@ -127,7 +128,7 @@ public class ImageTransform {
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
 
@@ -138,7 +139,7 @@ public class ImageTransform {
             if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
         } else if (defaultWidth == -1) {
@@ -146,7 +147,7 @@ public class ImageTransform {
             if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
         } else if (imgHeight > imgWidth) {
@@ -154,7 +155,7 @@ public class ImageTransform {
             if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
             // get scaleFactor from the smallest width
@@ -166,7 +167,7 @@ public class ImageTransform {
             if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
             // get scaleFactor from the smallest height
@@ -178,7 +179,7 @@ public class ImageTransform {
         if (scaleFactor == 0.0) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.final_scale_factor_is_null", locale) + " = " + scaleFactor;
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
         int bufImgType;
@@ -226,17 +227,17 @@ public class ImageTransform {
         } catch (ParserConfigurationException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", "error");
+            result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         } catch (SAXException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", "error");
+            result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         } catch (IOException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", "error");
+            result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         }
         // set Root Element
@@ -245,7 +246,7 @@ public class ImageTransform {
         } catch (IllegalStateException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.root_element_has_not_been_set", locale) + e.toString();
             Debug.logError(errMsg, module);
-            result.put("errorMessage", "error");
+            result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         }
 
