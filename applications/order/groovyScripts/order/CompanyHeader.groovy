@@ -88,7 +88,7 @@ if (orderHeader) {
             partyId = orh.getBillFromParty().partyId
         } else {
             productStore = orderHeader.getRelatedOne("ProductStore", false)
-            if (orderHeader.orderTypeId.equals("SALES_ORDER") && productStore?.payToPartyId) {
+            if ("SALES_ORDER".equals(orderHeader.orderTypeId) && productStore?.payToPartyId) {
                 partyId = productStore.payToPartyId
             }
         }

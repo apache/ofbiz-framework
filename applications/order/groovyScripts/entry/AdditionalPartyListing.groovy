@@ -35,7 +35,7 @@ additionalPartyRole.each { roleTypeId, partyList ->
         partyMap = [:]
         partyMap.partyId = partyId
         party = from("Party").where("partyId", partyId).cache(true).queryOne()
-        if (party.partyTypeId.equals("PERSON")) {
+        if ("PERSON".equals(party.partyTypeId)) {
             party = party.getRelatedOne("Person", true)
             partyMap.type = "person"
             partyMap.firstName = party.firstName

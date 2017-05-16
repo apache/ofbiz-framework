@@ -104,11 +104,11 @@ listIt.each { listValue ->
     listPrice = 0.0
 
     productPrices.each { productPriceMap ->
-        if (productPriceMap.productPriceTypeId.equals("AVERAGE_COST")) {
+        if ("AVERAGE_COST".equals(productPriceMap.productPriceTypeId)) {
             costPrice = productPriceMap.price
-        } else if (productPriceMap.productPriceTypeId.equals("DEFAULT_PRICE")) {
+        } else if ("DEFAULT_PRICE".equals(productPriceMap.productPriceTypeId)) {
             retailPrice = productPriceMap.price
-        } else if (productPriceMap.productPriceTypeId.equals("LIST_PRICE")) {
+        } else if ("LIST_PRICE".equals(productPriceMap.productPriceTypeId)) {
             listPrice = productPriceMap.price
         }
     }

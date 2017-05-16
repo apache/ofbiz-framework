@@ -51,7 +51,7 @@ isLastStep = "N"
 enabled = "Y"
 checkoutSteps.eachWithIndex { checkoutStep, i ->
     checkoutStep.put("enabled", enabled)
-    if (enabled.equals("Y")) {
+    if ("Y".equals(enabled)) {
         if (i == (checkoutSteps.size() - 1)) {
             isLastStep = "Y"
         }

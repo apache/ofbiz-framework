@@ -40,7 +40,7 @@ if (newPaymentMethodId) {
     context.checkOutPaymentId = newPaymentMethodId
 }
 
-if (orderPartyId && !orderPartyId.equals("_NA_")) {
+if (orderPartyId && !"_NA_".equals(orderPartyId)) {
     orderParty = from("Party").where("partyId", orderPartyId).queryOne()
     orderPerson = orderParty.getRelatedOne("Person", false)
     context.orderParty = orderParty
