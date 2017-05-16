@@ -5976,7 +5976,7 @@ public class OrderServices {
                 }
                 result.put("totalQuantity", totalQuantity);
                 if (UtilValidate.isNotEmpty(message)) {
-                    result.put("successMessage", message);
+                    result.put(ModelService.SUCCESS_MESSAGE, message);
                 }
                 return result;
            }
@@ -6039,7 +6039,7 @@ public class OrderServices {
                     }
                 }
                 if (UtilValidate.isNotEmpty(message)) {
-                    result.put("successMessage", message);
+                    result.put(ModelService.SUCCESS_MESSAGE, message);
                 }
             }
         } else {

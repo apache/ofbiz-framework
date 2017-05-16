@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.common.image.ImageTransform;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -96,7 +97,7 @@ public class ScaleImage {
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
 
@@ -152,7 +153,7 @@ public class ScaleImage {
             if (imgHeight == 0.0 || imgWidth == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
 
@@ -215,12 +216,12 @@ public class ScaleImage {
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
-                        result.put("errorMessage", errMsg);
+                        result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, module);
-                        result.put("errorMessage", errMsg);
+                        result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     }
 
@@ -241,7 +242,7 @@ public class ScaleImage {
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return ServiceUtil.returnError(errMsg);
         }
     }
@@ -276,7 +277,7 @@ public class ScaleImage {
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         }
 
@@ -330,7 +331,7 @@ public class ScaleImage {
             if (imgHeight == 0.0 || imgWidth == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, module);
-                result.put("errorMessage", errMsg);
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
             }
 
@@ -377,12 +378,12 @@ public class ScaleImage {
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
-                        result.put("errorMessage", errMsg);
+                        result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, module);
-                        result.put("errorMessage", errMsg);
+                        result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     }
 
@@ -401,7 +402,7 @@ public class ScaleImage {
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
-            result.put("errorMessage", errMsg);
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return ServiceUtil.returnError(errMsg);
         }
     }
