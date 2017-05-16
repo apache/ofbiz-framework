@@ -381,7 +381,7 @@ if (selectedService) {
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
 
-        if (permissionGroups && !permissionGroups.equals("NA")) {
+        if (permissionGroups && !"NA".equals(permissionGroups)) {
             permList = new ArrayList(permissionGroups.size())
             permissionGroups.each { curPerm ->  //This is a ModelPermGroup
                 curPerm.permissions.each { curPermObj ->
@@ -475,7 +475,7 @@ if (selectedService) {
 
     showWsdl = parameters.show_wsdl
 
-    if (showWsdl?.equals("true")) {
+    if ("true".equals(showWsdl)) {
         try {
             wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator)}${parameters._CONTROL_PATH_}/SOAPService")
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl)
@@ -517,34 +517,34 @@ if (!selectedService) {
             constraintName = consArr[0]
             constraintVal = consArr[1]
 
-            if (constraintName.equals("engine_name")) {
+            if ("engine_name".equals(constraintName)) {
                 canIncludeService = curServiceModel.engineName.equals(constraintVal)
-                if (constraintVal.equals("NA")) {
+                if ("NA".equals(constraintVal)) {
                     canIncludeService = curServiceModel.engineName ? false : true
                 }
             }
 
-            if (canIncludeService && constraintName.equals("default_entity_name")) {
+            if (canIncludeService && "default_entity_name".equals(constraintName)) {
                 canIncludeService = curServiceModel.defaultEntityName.equals(constraintVal)
-                if (constraintVal.equals("NA")) {
+                if ("NA".equals(constraintVal)) {
                     canIncludeService = curServiceModel.defaultEntityName ? false : true
                 }
             }
 
-            if (canIncludeService && constraintName.equals("location")) {
+            if (canIncludeService && "location".equals(constraintName)) {
                 canIncludeService = curServiceModel.location.equals(constraintVal)
-                if (constraintVal.equals("NA")) {
+                if ("NA".equals(constraintVal)) {
                     canIncludeService = curServiceModel.location ? false : true
                 }
             }
 
-            if (canIncludeService && constraintName.equals("definitionLocation")) {
+            if (canIncludeService && "definitionLocation".equals(constraintName)) {
                 canIncludeService = curServiceModel.definitionLocation.equals(constraintVal)
             }
 
-            if (canIncludeService && constraintName.equals("alpha")) {
+            if (canIncludeService && "alpha".equals(constraintName)) {
                 canIncludeService = (serviceName[0]).equals(constraintVal)
-                if (constraintVal.equals("NA")) {
+                if ("NA".equals(constraintVal)) {
                     canIncludeService = true
                 }
             }

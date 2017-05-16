@@ -25,7 +25,7 @@ public Map setLocaleFromBrowser() {
     Map results = ServiceUtil.returnSuccess()
     userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
     if (userLogin) {
-        if (!userLogin.lastTimeZone || userLogin.lastTimeZone.equals("null")) {
+        if (!userLogin.lastTimeZone || "null".equals(userLogin.lastTimeZone)) {
             userLogin.lastTimeZone = parameters.localeName
             userLogin.store()
         }
