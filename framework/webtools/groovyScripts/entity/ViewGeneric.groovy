@@ -99,13 +99,13 @@ if (value != null) {
         ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
 
         String fieldValue = ""
-        if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
+        if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
             Timestamp dtVal = value.getTimestamp(field.getName())
             fieldValue = (dtVal == null) ? "" : dtVal.toString()
-        } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
+        } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
             Date dateVal = value.getDate(field.getName())
             fieldValue = (dateVal == null) ? "" : dateVal.toString()
-        } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
+        } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
             Time timeVal = value.getTime(field.getName())
             fieldValue = (timeVal == null) ? "" : timeVal.toString()
         } else if (type.getJavaType().indexOf("Integer") >= 0) {
@@ -138,7 +138,7 @@ context.put("pkNotFound", pkNotFound)
 
 String lastUpdateMode = parameters.get("UPDATE_MODE")
 if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
-    lastUpdateMode != null && !lastUpdateMode.equals("DELETE")) {
+    lastUpdateMode != null && !"DELETE".equals(lastUpdateMode)) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value
     useValue = false
 }
@@ -155,7 +155,7 @@ while (pkIterator.hasNext()) {
     String fieldValue = ""
     String fieldType = ""
     String stringLength = ""
-    if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
+    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
         String dateTimeString = null
         if (findByPK != null && useValue) {
             Timestamp dtVal = findByPK.getTimestamp(field.getName())
@@ -167,7 +167,7 @@ while (pkIterator.hasNext()) {
         }
         fieldValue = UtilFormatOut.checkNull(dateTimeString)
         fieldType = "DateTime"
-    } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
+    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
         String dateString = null
         if (findByPK != null && useValue) {
             Date dateVal = findByPK.getDate(field.getName())
@@ -177,7 +177,7 @@ while (pkIterator.hasNext()) {
         }
         fieldValue = UtilFormatOut.checkNull(dateString)
         fieldType = "Date"
-    } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
+    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
         String timeString = null
         if (findByPK != null && useValue) {
             Time timeVal = findByPK.getTime(field.getName())
@@ -232,7 +232,7 @@ while (noPkIterator.hasNext()) {
     String fieldValue = ""
     String fieldType = ""
     String stringLength = ""
-    if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
+    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
         String dateTimeString = null
         if (value != null && useValue) {
             Timestamp dtVal = value.getTimestamp(field.getName())
@@ -244,7 +244,7 @@ while (noPkIterator.hasNext()) {
         }
         fieldValue = UtilFormatOut.checkNull(dateTimeString)
         fieldType = "DateTime"
-    } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
+    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
         String dateString = null
         if (value != null && useValue) {
             Date dateVal = value.getDate(field.getName())
@@ -254,7 +254,7 @@ while (noPkIterator.hasNext()) {
         }
         fieldValue = UtilFormatOut.checkNull(dateString)
         fieldType = "Date"
-    } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
+    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
         String timeString = null
         if (value != null && useValue) {
             Time timeVal = value.getTime(field.getName())
@@ -338,21 +338,21 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
 
                     String fieldValue = ""
                     String fieldType = ""
-                    if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
+                    if ("Timestamp".equals(type.getJavaType()) || "java.sql.Timestamp".equals(type.getJavaType())) {
                         Timestamp dtVal = null
                         if (valueRelated != null) {
                             dtVal = valueRelated.getTimestamp(field.getName())
                         }
                         fieldValue = (dtVal == null) ? "" : dtVal.toString()
                         fieldType = "DateTime"
-                    } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
+                    } else if ("Date".equals(type.getJavaType()) || "java.sql.Date".equals(type.getJavaType())) {
                         Date dateVal = null
                         if (valueRelated != null) {
                             dateVal = valueRelated.getDate(field.getName())
                         }
                         fieldValue = (dateVal == null) ? "" : dateVal.toString()
                         fieldType = "Date"
-                    } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
+                    } else if ("Time".equals(type.getJavaType()) || "java.sql.Time".equals(type.getJavaType())) {
                         Time timeVal = null
                         if (valueRelated != null) {
                             timeVal = valueRelated.getTime(field.getName())
