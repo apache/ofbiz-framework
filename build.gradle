@@ -307,7 +307,6 @@ def cleanupGroup = 'Cleaning'
 def ofbizServer = 'OFBiz Server'
 def ofbizPlugin = 'OFBiz Plugin'
 def sysadminGroup = 'System Administration'
-def committerGroup = 'OFBiz committers'
 
 // ========== OFBiz Server tasks ==========
 
@@ -497,6 +496,64 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
     if (task.name ==~ /^ofbiz.*--test.*/
         || task.name ==~ /^ofbiz.*-t.*/) {
         tasks.createTestReports.execute()
+    }
+}
+
+task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
+    doLast {
+        def branch
+        def revision
+        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
+        def gitFolder = new File('.git')
+
+        if (!gitFolder.exists()) {
+          println ("Git is not used")
+          return
+        }
+
+        def branchOutput = new ByteArrayOutputStream()
+        exec{
+            commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+            standardOutput = branchOutput
+        }
+        branch = branchOutput.toString()
+        def revisionOutput = new ByteArrayOutputStream()
+        exec{
+            commandLine 'git', 'rev-parse', 'HEAD'
+            standardOutput = revisionOutput
+        }
+        revision = revisionOutput.toString()
+        gitFooterFile.delete()
+        gitFooterFile.createNewFile()
+        gitFooterFile << '${uiLabelMap.CommonBranch} : ' + "${branch}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    }
+}
+
+task svnInfoFooter(group: sysadminGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') {
+    doLast {
+        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
+        def svnOutput = new ByteArrayOutputStream()
+        def svnFolder = new File('.svn')
+
+        if (!svnFolder.exists()) {
+          println ("Subversion is not used")
+          return
+        }
+
+        exec{
+            commandLine 'svn', 'info', '--xml'
+            standardOutput = svnOutput
+        }
+        def info = new XmlParser().parseText(svnOutput.toString())
+        svnFooterFile.delete()
+        svnFooterFile.createNewFile()
+        svnFooterFile << '${uiLabelMap.CommonBranch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
+        svnFooterFile << '${uiLabelMap.CommonRevision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
+        svnFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+        svnFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
     }
 }
 
@@ -826,83 +883,6 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
-}
-
-// ========== Tasks for OFBiz committers ==========
-def websiteDir = "${rootDir}/../site"
-task copyDtds(group: committerGroup, description: 'Copy all DTDs from OFBiz instance to website') {
-    doLast {
-        mkdir websiteDir+'/dtds'
-        copy {
-            from (fileTree("${rootDir}").files) {
-                include '**/*.xsd'
-                exclude '**/002*.xsd'
-                exclude '**/068*.xsd'
-                exclude '**/161*.xsd'
-                exclude '**/196*.xsd'
-                exclude '**/197*.xsd'
-            }
-            into websiteDir+'/dtds'
-        }
-    }
-}
-
-task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
-    doLast {
-        def branch
-        def revision
-        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-        def gitFolder = new File('.git')
-    
-        if (!gitFolder.exists()) {
-          println ("Git is not used")
-          return
-        }
-    
-        def branchOutput = new ByteArrayOutputStream()
-        exec{
-            commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
-            standardOutput = branchOutput
-        }
-        branch = branchOutput.toString()
-        def revisionOutput = new ByteArrayOutputStream()
-        exec{
-            commandLine 'git', 'rev-parse', 'HEAD'
-            standardOutput = revisionOutput
-        }
-        revision = revisionOutput.toString()
-        gitFooterFile.delete()
-        gitFooterFile.createNewFile()
-        gitFooterFile << '${uiLabelMap.CommonBranch} : ' + "${branch}" + System.lineSeparator()
-        gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
-        gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
-        gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
-    }
-}
-
-task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') {
-    doLast {
-        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-        def svnOutput = new ByteArrayOutputStream()
-        def svnFolder = new File('.svn')
-    
-        if (!svnFolder.exists()) {
-          println ("Subversion is not used")
-          return
-        }
-    
-        exec{
-            commandLine 'svn', 'info', '--xml'
-            standardOutput = svnOutput
-        }
-        def info = new XmlParser().parseText(svnOutput.toString())
-        svnFooterFile.delete()
-        svnFooterFile.createNewFile()
-        svnFooterFile << '${uiLabelMap.CommonBranch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonRevision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
-    }
 }
 
 /* ========================================================
