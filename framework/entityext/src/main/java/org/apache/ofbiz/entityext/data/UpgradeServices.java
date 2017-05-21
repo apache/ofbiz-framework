@@ -1,5 +1,12 @@
 package org.apache.ofbiz.entityext.data;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -16,14 +23,6 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
 /**
  * Entity Data Upgrade Services
  *
@@ -39,13 +38,13 @@ public class UpgradeServices {
      * mySql added support in 5.6 to support microseconds for datetime field.
      * https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html
      * <ul>
-     * <li>Service will take groupName as in param,</li>
+     * <li>Service will take [groupName] as in param,</li>
      * <li>iterate all the entity and check for datetime and time field</li>
      * <li>it will generate alter table sql statement to update the field data type</li>
      * <li>datetime will be altered with DATETIME(3)</li>
      * <li>time will be altered with TIME(3)</li>
      * <li>sql fiel will be created at following location</li>
-     * <li>${ofbiz.home}/runtime/tempfiles/<groupName>.sql</></li>
+     * <li>${ofbiz.home}/runtime/tempfiles/[groupName].sql</li>
      * </ul>
      * @param dctx
      * @param context
