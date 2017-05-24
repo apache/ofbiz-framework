@@ -710,8 +710,8 @@ public class TemporalExpressions implements Serializable {
             } else {
                 return skip;
             }
-            float units = deltaMillis / divisor;
-            units = (units / this.freqCount) * this.freqCount;
+            long units = deltaMillis / divisor;
+            units -= units % this.freqCount;
             skip.add(this.freqType, (int)units);
             while (skip.after(cal)) {
                 skip.add(this.freqType, -this.freqCount);
