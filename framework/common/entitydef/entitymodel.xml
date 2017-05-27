@@ -53,7 +53,7 @@ under the License.
             package-name="org.apache.ofbiz.common.datasource"
             default-resource-name="CommonEntityLabels"
             title="Data Source Entity">
-      <field name="dataSourceId" type="id-ne"></field>
+      <field name="dataSourceId" type="id"></field>
       <field name="dataSourceTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="dataSourceId"/>
@@ -74,7 +74,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity entity-name="EmailTemplateSetting" package-name="org.apache.ofbiz.common.email" title="Email Template Setting Entity">
-        <field name="emailTemplateSettingId" type="id-ne"></field>
+        <field name="emailTemplateSettingId" type="id"></field>
         <field name="emailType" type="id-ne"></field>
         <field name="description" type="description"></field>
         <field name="bodyScreenLocation" type="long-varchar"><description>if empty defaults to a screen based on the emailType</description></field>
@@ -98,7 +98,7 @@ under the License.
             package-name="org.apache.ofbiz.common.enum"
             default-resource-name="CommonEntityLabels"
             title="Enumeration Entity">
-      <field name="enumId" type="id-ne"></field>
+      <field name="enumId" type="id"></field>
       <field name="enumTypeId" type="id-ne"></field>
       <field name="enumCode" type="short-varchar"></field>
       <field name="sequenceId" type="id"></field>
@@ -112,7 +112,7 @@ under the License.
             package-name="org.apache.ofbiz.common.enum"
             default-resource-name="CommonEntityLabels"
             title="Enumeration Type Entity">
-      <field name="enumTypeId" type="id-ne"></field>
+      <field name="enumTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -148,7 +148,7 @@ under the License.
             package-name="org.apache.ofbiz.common.geo"
             dependent-on="CountryCode"
             title="Country Capital Entity">
-      <field name="countryCode" type="id-ne"></field>
+      <field name="countryCode" type="id"></field>
       <field name="countryCapital" type="description"></field>
       <prim-key field="countryCode"/>
       <relation type="one" fk-name="CNTRY_CAP_TO_CODE" rel-entity-name="CountryCode">
@@ -158,7 +158,7 @@ under the License.
     <entity entity-name="CountryCode"
             package-name="org.apache.ofbiz.common.geo"
             title="ISO Country Code Entity">
-      <field name="countryCode" type="id-ne"></field>
+      <field name="countryCode" type="id"></field>
       <field name="countryAbbr" type="short-varchar"></field>
       <field name="countryNumber" type="short-varchar"></field>
       <field name="countryName" type="description"></field>
@@ -168,7 +168,7 @@ under the License.
             package-name="org.apache.ofbiz.common.geo"
             dependent-on="CountryCode"
             title="Telephone Country Code Entity">
-      <field name="countryCode" type="id-ne"></field>
+      <field name="countryCode" type="id"></field>
       <field name="teleCode" type="short-varchar"></field>
       <prim-key field="countryCode"/>
       <relation type="one" fk-name="CNTRY_TELE_TO_CODE" rel-entity-name="CountryCode">
@@ -188,7 +188,7 @@ under the License.
     </view-entity>
     <entity entity-name="CountryAddressFormat" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="">
-        <field name="geoId" type="id-ne"></field>
+        <field name="geoId" type="id"></field>
         <field name="geoAssocTypeId" type="id"></field>
         <field name="requireStateProvinceId" type="id"></field>
         <field name="requirePostalCode" type="indicator"></field>
@@ -207,7 +207,7 @@ under the License.
     <entity entity-name="Geo" package-name="org.apache.ofbiz.common.geo"
             default-resource-name="CommonEntityLabels"
             title="Geographic Boundary Entity">
-        <field name="geoId" type="id-ne"></field>
+        <field name="geoId" type="id"></field>
         <field name="geoTypeId" type="id"></field>
         <field name="geoName" type="name"></field>
         <field name="geoCode" type="short-varchar"></field>
@@ -221,10 +221,10 @@ under the License.
     </entity>
     <entity entity-name="GeoAssoc" package-name="org.apache.ofbiz.common.geo"
             title="Geographic Boundary Association Entity">
-        <field name="geoId" type="id-ne">
+        <field name="geoId" type="id">
             <description>The enclosed geo</description>
         </field>
-        <field name="geoIdTo" type="id-ne">
+        <field name="geoIdTo" type="id">
             <description>The enclosing geo</description>
         </field>
         <field name="geoAssocTypeId" type="id"></field>
@@ -276,13 +276,13 @@ under the License.
     </view-entity>
     <entity entity-name="GeoAssocType" package-name="org.apache.ofbiz.common.geo"
         title="Geographic Boundary Association Entity" default-resource-name="CommonEntityLabels">
-      <field name="geoAssocTypeId" type="id-ne"></field>
+      <field name="geoAssocTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="geoAssocTypeId"/>
     </entity>
     <entity entity-name="GeoPoint" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Location">
-        <field name="geoPointId" type="id-ne"></field>
+        <field name="geoPointId" type="id"></field>
         <field name="geoPointTypeEnumId" type="id"/>
         <field name="description" type="description"></field>
         <field name="dataSourceId" type="id"></field>
@@ -304,8 +304,8 @@ under the License.
     </entity>
     <entity entity-name="GeoType" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Boundary Type Entity">
-      <field name="geoTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="geoTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="geoTypeId"/>
@@ -340,7 +340,7 @@ under the License.
 
     <entity entity-name="StandardLanguage"
             package-name="org.apache.ofbiz.common.language">
-      <field name="standardLanguageId" type="id-ne"></field>
+      <field name="standardLanguageId" type="id"></field>
       <field name="langCode3t" type="very-short"></field>
       <field name="langCode3b" type="very-short"></field>
       <field name="langCode2" type="very-short"></field>
@@ -358,7 +358,7 @@ under the License.
         package-name="org.apache.ofbiz.common.method"
         default-resource-name="CommonEntityLabels"
         title="Custom Method Entity">
-        <field name="customMethodId" type="id-ne"></field>
+        <field name="customMethodId" type="id"></field>
         <field name="customMethodTypeId" type="id"></field>
         <field name="customMethodName" type="long-varchar"></field>
         <field name="description" type="description"></field>
@@ -370,8 +370,8 @@ under the License.
     <entity entity-name="CustomMethodType"
         package-name="org.apache.ofbiz.common.method"
         title="Custom Method Type Entity">
-        <field name="customMethodTypeId" type="id-ne"></field>
-        <field name="parentTypeId" type="id-ne"></field>
+        <field name="customMethodTypeId" type="id"></field>
+        <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
         <prim-key field="customMethodTypeId"/>
@@ -387,7 +387,7 @@ under the License.
     <entity entity-name="NoteData"
             package-name="org.apache.ofbiz.common.note"
             title="Note Data Entity">
-      <field name="noteId" type="id-ne"></field>
+      <field name="noteId" type="id"></field>
       <field name="noteName" type="name"></field>
       <field name="noteInfo" type="very-long"></field>
       <field name="noteDateTime" type="date-time"></field>
@@ -401,7 +401,7 @@ under the License.
     <entity entity-name="CustomTimePeriod"
             package-name="org.apache.ofbiz.common.period"
             title="Custom Time Period Entity">
-      <field name="customTimePeriodId" type="id-ne"></field>
+      <field name="customTimePeriodId" type="id"></field>
       <field name="parentPeriodId" type="id"></field>
       <field name="periodTypeId" type="id"></field>
       <field name="periodNum" type="numeric"></field>
@@ -420,7 +420,7 @@ under the License.
     <entity entity-name="PeriodType"
             package-name="org.apache.ofbiz.common.period"
             title="Period Type Entity">
-      <field name="periodTypeId" type="id-ne"></field>
+      <field name="periodTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="periodLength" type="numeric"></field>
       <field name="uomId" type="id"></field>
@@ -438,7 +438,7 @@ under the License.
             package-name="org.apache.ofbiz.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status Entity">
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="statusTypeId" type="id-ne"></field>
       <field name="statusCode" type="short-varchar"></field>
       <field name="sequenceId" type="id"></field>
@@ -452,7 +452,7 @@ under the License.
             package-name="org.apache.ofbiz.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status Type Entity">
-      <field name="statusTypeId" type="id-ne"></field>
+      <field name="statusTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -465,8 +465,8 @@ under the License.
             package-name="org.apache.ofbiz.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status Valid Change Entity">
-      <field name="statusId" type="id-ne"></field>
-      <field name="statusIdTo" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
+      <field name="statusIdTo" type="id"></field>
       <field name="conditionExpression" type="long-varchar"></field>
       <field name="transitionName" type="name"></field>
       <prim-key field="statusId"/>
@@ -508,7 +508,7 @@ under the License.
             package-name="org.apache.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Entity">
-      <field name="uomId" type="id-ne"></field>
+      <field name="uomId" type="id"></field>
       <field name="uomTypeId" type="id"></field>
       <field name="abbreviation" type="short-varchar"></field>
       <field name="description" type="description"></field>
@@ -547,8 +547,8 @@ under the License.
     <entity entity-name="UomConversion"
             package-name="org.apache.ofbiz.common.uom"
             title="Unit Of Measure Conversion Type Entity">
-      <field name="uomId" type="id-ne"></field>
-      <field name="uomIdTo" type="id-ne"></field>
+      <field name="uomId" type="id"></field>
+      <field name="uomIdTo" type="id"></field>
       <field name="conversionFactor" type="floating-point"></field>
       <field name="customMethodId" type="id-ne"></field>
       <field name="decimalScale" type="numeric"></field>
@@ -568,8 +568,8 @@ under the License.
     <entity entity-name="UomConversionDated"
             package-name="org.apache.ofbiz.common.uom"
             title="Unit Of Measure Conversion Entity for those Units of Measure whose conversion values change over time (ie, currencies)">
-      <field name="uomId" type="id-ne"></field>
-      <field name="uomIdTo" type="id-ne"></field>
+      <field name="uomId" type="id"></field>
+      <field name="uomIdTo" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="conversionFactor" type="floating-point"></field>
@@ -597,8 +597,8 @@ under the License.
             package-name="org.apache.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Group Entity">
-      <field name="uomGroupId" type="id-ne"></field>
-      <field name="uomId" type="id-ne"></field>
+      <field name="uomGroupId" type="id"></field>
+      <field name="uomId" type="id"></field>
       <prim-key field="uomGroupId"/>
       <prim-key field="uomId"/>
       <relation type="one" fk-name="UOM_GROUP_UOM" rel-entity-name="Uom">
@@ -609,8 +609,8 @@ under the License.
             package-name="org.apache.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Type Entity">
-      <field name="uomTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="uomTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="uomTypeId"/>
@@ -631,8 +631,8 @@ under the License.
           All values are stored as strings. Value strings can be converted to
           other data types by specifying a java data type in the userPrefDataType field.
       </description>
-      <field name="userLoginId" type="id-vlong-ne"></field>
-      <field name="userPrefTypeId" type="id-long-ne"><description>A unique identifier for this preference</description></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="userPrefTypeId" type="id-long"><description>A unique identifier for this preference</description></field>
       <field name="userPrefGroupTypeId" type="id-long"><description>Used to assemble groups of preferences</description></field>
       <field name="userPrefValue" type="value"><description>Contains the value of this preference</description></field>
       <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
@@ -646,7 +646,7 @@ under the License.
       <description>The UserPrefGroupType entity contains one entry per preference
           group type.
       </description>
-      <field name="userPrefGroupTypeId" type="id-long-ne"></field>
+      <field name="userPrefGroupTypeId" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="userPrefGroupTypeId"/>
     </entity>
@@ -659,7 +659,7 @@ under the License.
             package-name="org.apache.ofbiz.common.theme"
             title="Defines a set of Visual Themes">
       <description>Groups toghether Visual Themes that can be used for one (or a set of) application.</description>
-      <field name="visualThemeSetId" type="id-ne"></field>
+      <field name="visualThemeSetId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="visualThemeSetId"/>
     </entity>
@@ -669,7 +669,7 @@ under the License.
             default-resource-name="CommonEntityLabels"
             title="Defines a Visual Theme">
       <description>The VisualTheme entity contains one entry per visual theme.</description>
-      <field name="visualThemeId" type="id-ne"></field>
+      <field name="visualThemeId" type="id"></field>
       <field name="visualThemeSetId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="visualThemeId"/>
@@ -683,9 +683,9 @@ under the License.
             title="Contains All Visual Theme Resources">
       <description>The VisualThemeResource entity contains visual theme
           resources. Each visual theme can have any number of resources.</description>
-      <field name="visualThemeId" type="id-ne"></field>
-      <field name="resourceTypeEnumId" type="id-ne"></field>
-      <field name="sequenceId" type="id-ne"><description>Controls the loading order of duplicate resource types</description></field>
+      <field name="visualThemeId" type="id"></field>
+      <field name="resourceTypeEnumId" type="id"></field>
+      <field name="sequenceId" type="id"><description>Controls the loading order of duplicate resource types</description></field>
       <field name="resourceValue" type="value"><description>Contains the resource value</description></field>
       <prim-key field="visualThemeId"/>
       <prim-key field="resourceTypeEnumId"/>
@@ -703,7 +703,7 @@ under the License.
     <!-- ============================ -->
 
     <entity entity-name="PortalPortlet" package-name="org.apache.ofbiz.common.portal" title="Defines a Portlet to be used in Portals">
-        <field name="portalPortletId" type="id-ne"></field>
+        <field name="portalPortletId" type="id"></field>
         <field name="portletName" type="name"></field>
         <field name="screenName" type="long-varchar"></field>
         <field name="screenLocation" type="long-varchar"></field>
@@ -716,13 +716,13 @@ under the License.
         <prim-key field="portalPortletId"/>
     </entity>
     <entity entity-name="PortletCategory" package-name="org.apache.ofbiz.common.portal" title="Portlet Category Entity">
-      <field name="portletCategoryId" type="id-ne"/>
+      <field name="portletCategoryId" type="id"/>
       <field name="description" type="description"/>
       <prim-key field="portletCategoryId"/>
     </entity>
     <entity entity-name="PortletPortletCategory" package-name="org.apache.ofbiz.common.portal" title="Defines Portlets included into Categories">
-      <field name="portalPortletId" type="id-ne"/>
-      <field name="portletCategoryId" type="id-ne"/>
+      <field name="portalPortletId" type="id"/>
+      <field name="portletCategoryId" type="id"/>
       <prim-key field="portalPortletId"/>
       <prim-key field="portletCategoryId"/>
       <relation type="one" fk-name="PPTLTCAT_PTPL" rel-entity-name="PortalPortlet">
@@ -734,7 +734,7 @@ under the License.
     </entity>
     <entity entity-name="PortalPage" package-name="org.apache.ofbiz.common.portal" title="Defines a Portal Page"
         default-resource-name="CommonPortalEntityLabels">
-        <field name="portalPageId" type="id-ne"></field>
+        <field name="portalPageId" type="id"></field>
         <field name="portalPageName" type="name"></field>
         <field name="description" type="description"></field>
         <!-- defined in an extend in content component to avoid dependencies between common and content
@@ -773,8 +773,8 @@ under the License.
     </view-link>
   </view-entity>
   <entity entity-name="PortalPageColumn" package-name="org.apache.ofbiz.common.portal" title="Defines a Portal Page">
-        <field name="portalPageId" type="id-ne"></field>
-        <field name="columnSeqId" type="id-ne"></field>
+        <field name="portalPageId" type="id"></field>
+        <field name="columnSeqId" type="id"></field>
         <field name="columnWidthPixels" type="numeric"></field>
         <field name="columnWidthPercentage" type="numeric"></field>
         <prim-key field="portalPageId"/>
@@ -784,9 +784,9 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PortalPagePortlet" package-name="org.apache.ofbiz.common.portal" title="Defines Portlets included into Portal Pages">
-        <field name="portalPageId" type="id-ne"></field>
-        <field name="portalPortletId" type="id-ne"></field>
-        <field name="portletSeqId" type="id-ne"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
+        <field name="portalPageId" type="id"></field>
+        <field name="portalPortletId" type="id"></field>
+        <field name="portletSeqId" type="id"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
         <field name="columnSeqId" type="id-ne"></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="portalPageId"/>
@@ -813,10 +813,10 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="PortletAttribute" package-name="org.apache.ofbiz.common.portal" title="Allows to set different attribute values for each instance of the same portlet">
-        <field name="portalPageId" type="id-ne"></field>
-        <field name="portalPortletId" type="id-ne"></field>
-        <field name="portletSeqId" type="id-ne"></field>
-        <field name="attrName" type="id-long-ne"></field>
+        <field name="portalPageId" type="id"></field>
+        <field name="portalPortletId" type="id"></field>
+        <field name="portletSeqId" type="id"></field>
+        <field name="attrName" type="id-long"></field>
         <field name="attrValue" type="value"></field>
         <field name="attrDescription" type="description"></field>
         <field name="attrType" type="value"></field>
@@ -847,8 +847,8 @@ under the License.
     <!-- ============================ -->
     
     <entity entity-name="SystemProperty" package-name="org.apache.ofbiz.common.property" title="Defines a System Property">
-        <field name="systemResourceId" type="id-long-ne"></field>
-        <field name="systemPropertyId" type="id-long-ne"></field>
+        <field name="systemResourceId" type="id-long"></field>
+        <field name="systemPropertyId" type="id-long"></field>
         <field name="systemPropertyValue" type="value"></field>
         <field name="description" type="description"></field>
         <prim-key field="systemResourceId"/>

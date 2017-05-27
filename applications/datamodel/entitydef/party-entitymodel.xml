@@ -45,7 +45,7 @@ under the License.
     <entity entity-name="Addendum"
             package-name="org.apache.ofbiz.party.agreement"
             title="Addendum Entity">
-      <field name="addendumId" type="id-ne"></field>
+      <field name="addendumId" type="id"></field>
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
       <field name="addendumCreationDate" type="date-time"></field>
@@ -63,7 +63,7 @@ under the License.
     <entity entity-name="Agreement"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Entity">
-      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="partyIdFrom" type="id"></field>
       <field name="partyIdTo" type="id"></field>
@@ -115,8 +115,8 @@ under the License.
     <entity entity-name="AgreementAttribute"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Attribute Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="agreementId"/>
@@ -131,9 +131,9 @@ under the License.
     <entity entity-name="AgreementGeographicalApplic"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Geographical Applicability Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="geoId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="geoId" type="id"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <prim-key field="geoId"/>
@@ -151,8 +151,8 @@ under the License.
     <entity entity-name="AgreementItem"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Item Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
       <field name="agreementItemTypeId" type="id"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="agreementText" type="very-long"></field>
@@ -172,9 +172,9 @@ under the License.
     <entity entity-name="AgreementItemAttribute"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Item Attribute Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="agreementId"/>
@@ -192,8 +192,8 @@ under the License.
             package-name="org.apache.ofbiz.party.agreement"
             default-resource-name="PartyEntityLabels"
             title="Agreement Item Type Entity">
-      <field name="agreementItemTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="agreementItemTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="agreementItemTypeId"/>
@@ -204,8 +204,8 @@ under the License.
     <entity entity-name="AgreementItemTypeAttr"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Item Type Attribute Entity">
-      <field name="agreementItemTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="agreementItemTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="agreementItemTypeId"/>
       <prim-key field="attrName"/>
@@ -222,10 +222,10 @@ under the License.
     <entity entity-name="AgreementContent" 
             package-name="org.apache.ofbiz.party.agreement" 
             title="Agreement Content Entity">
-        <field name="agreementId" type="id-ne"></field>
-        <field name="agreementItemSeqId" type="id-ne"></field>
-        <field name="agreementContentTypeId" type="id-ne"></field>
-        <field name="contentId" type="id-ne"></field>
+        <field name="agreementId" type="id"></field>
+        <field name="agreementItemSeqId" type="id"></field>
+        <field name="agreementContentTypeId" type="id"></field>
+        <field name="contentId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="contentId"/>
@@ -246,8 +246,8 @@ under the License.
     <entity entity-name="AgreementContentType" 
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Content Type Entity">
-        <field name="agreementContentTypeId" type="id-ne"></field>
-        <field name="parentTypeId" type="id-ne"></field>
+        <field name="agreementContentTypeId" type="id"></field>
+        <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
         <prim-key field="agreementContentTypeId"/>
@@ -258,9 +258,9 @@ under the License.
     <entity entity-name="AgreementPartyApplic"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Party Application Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="partyId" type="id"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <prim-key field="partyId"/>
@@ -278,9 +278,9 @@ under the License.
     <entity entity-name="AgreementProductAppl"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Product Application Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="productId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="productId" type="id"></field>
       <field name="price" type="currency-precise"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
@@ -299,9 +299,9 @@ under the License.
     <entity entity-name="AgreementPromoAppl"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Promo Applicability Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="productPromoId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="productPromoId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="sequenceNum" type="numeric"></field>
@@ -323,9 +323,9 @@ under the License.
     <entity entity-name="AgreementFacilityAppl"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Facility Application Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="agreementItemSeqId" type="id-ne"></field>
-      <field name="facilityId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="facilityId" type="id"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <prim-key field="facilityId"/>
@@ -343,9 +343,9 @@ under the License.
     <entity entity-name="AgreementRole"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Role Entity">
-      <field name="agreementId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <prim-key field="agreementId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -366,7 +366,7 @@ under the License.
     <entity entity-name="AgreementTerm"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Term Entity">
-      <field name="agreementTermId" type="id-ne"></field>
+      <field name="agreementTermId" type="id"></field>
       <field name="termTypeId" type="id"></field>
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -397,8 +397,8 @@ under the License.
     <entity entity-name="AgreementTermAttribute"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Term Attribute Entity">
-      <field name="agreementTermId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="agreementTermId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="agreementTermId"/>
@@ -411,8 +411,8 @@ under the License.
             package-name="org.apache.ofbiz.party.agreement"
             default-resource-name="PartyEntityLabels"
             title="Agreement Type Entity">
-      <field name="agreementTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="agreementTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="agreementTypeId"/>
@@ -423,8 +423,8 @@ under the License.
     <entity entity-name="AgreementTypeAttr"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Type Attribute Entity">
-      <field name="agreementTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="agreementTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="agreementTypeId"/>
       <prim-key field="attrName"/>
@@ -441,9 +441,9 @@ under the License.
     <entity entity-name="AgreementWorkEffortApplic" 
             package-name="org.apache.ofbiz.party.agreement" 
             title="Agreement WorkEffort Application Entity">
-        <field name="agreementId" type="id-ne"></field>
-        <field name="agreementItemSeqId" type="id-ne"></field>
-        <field name="workEffortId" type="id-ne"></field>
+        <field name="agreementId" type="id"></field>
+        <field name="agreementItemSeqId" type="id"></field>
+        <field name="workEffortId" type="id"></field>
         <prim-key field="agreementId"/>
         <prim-key field="agreementItemSeqId"/>
         <prim-key field="workEffortId"/>
@@ -461,8 +461,8 @@ under the License.
     <entity entity-name="TermType"
             package-name="org.apache.ofbiz.party.agreement"
             title="Term Type Entity" default-resource-name="PartyEntityLabels">
-      <field name="termTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="termTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="termTypeId"/>
@@ -473,8 +473,8 @@ under the License.
     <entity entity-name="TermTypeAttr"
             package-name="org.apache.ofbiz.party.agreement"
             title="Term Type Attribute Entity">
-      <field name="termTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="termTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="termTypeId"/>
       <prim-key field="attrName"/>
@@ -509,12 +509,12 @@ under the License.
     <entity entity-name="AgreementEmploymentAppl"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Employment Application Entity">
-        <field name="agreementId" type="id-ne"></field>
-        <field name="agreementItemSeqId" type="id-ne"></field>
-        <field name="partyIdFrom" type="id-ne"></field>
-        <field name="partyIdTo" type="id-ne"></field>
-        <field name="roleTypeIdFrom" type="id-ne"></field>
-        <field name="roleTypeIdTo" type="id-ne"></field>
+        <field name="agreementId" type="id"></field>
+        <field name="agreementItemSeqId" type="id"></field>
+        <field name="partyIdFrom" type="id"></field>
+        <field name="partyIdTo" type="id"></field>
+        <field name="roleTypeIdFrom" type="id"></field>
+        <field name="roleTypeIdTo" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="agreementDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
@@ -639,13 +639,13 @@ under the License.
   <!-- ========================================================= -->
 
     <entity entity-name="CommContentAssocType" package-name="org.apache.ofbiz.party.communication" title="CommunicationEvent Content Association Type Entity">
-        <field name="commContentAssocTypeId" type="id-ne"></field>
+        <field name="commContentAssocTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="commContentAssocTypeId"/>
     </entity>
     <entity entity-name="CommEventContentAssoc" package-name="org.apache.ofbiz.party.communication" title="CommunicationEvent Content Association Entity">
-        <field name="contentId" type="id-ne"></field>
-        <field name="communicationEventId" type="id-ne"></field>
+        <field name="contentId" type="id"></field>
+        <field name="communicationEventId" type="id"></field>
         <field name="commContentAssocTypeId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
@@ -708,7 +708,7 @@ under the License.
         </relation>
     </view-entity>
     <entity entity-name="CommunicationEvent" package-name="org.apache.ofbiz.party.communication" title="Communication Event Entity">
-        <field name="communicationEventId" type="id-ne"></field>
+        <field name="communicationEventId" type="id"></field>
         <field name="communicationEventTypeId" type="id"></field>
         <field name="origCommEventId" type="id"></field>
         <field name="parentCommEventId" type="id"></field>
@@ -868,8 +868,8 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="CommunicationEventProduct" package-name="org.apache.ofbiz.party.communication" title="Communication Event Product Entity">
-        <field name="productId" type="id-ne"></field>
-        <field name="communicationEventId" type="id-ne"></field>
+        <field name="productId" type="id"></field>
+        <field name="communicationEventId" type="id"></field>
         <prim-key field="productId"/>
         <prim-key field="communicationEventId"/>
         <relation type="one" fk-name="COMEV_PROD_PROD" rel-entity-name="Product">
@@ -883,8 +883,8 @@ under the License.
             package-name="org.apache.ofbiz.party.communication"
             default-resource-name="PartyEntityLabels"
             title="Communication Event Purpose Type Entity">
-      <field name="communicationEventPrpTypId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="communicationEventPrpTypId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="communicationEventPrpTypId"/>
@@ -895,8 +895,8 @@ under the License.
     <entity entity-name="CommunicationEventPurpose"
             package-name="org.apache.ofbiz.party.communication"
             title="Communication Event Purpose Entity">
-      <field name="communicationEventPrpTypId" type="id-ne"></field>
-      <field name="communicationEventId" type="id-ne"></field>
+      <field name="communicationEventPrpTypId" type="id"></field>
+      <field name="communicationEventId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="communicationEventPrpTypId"/>
       <prim-key field="communicationEventId"/>
@@ -910,9 +910,9 @@ under the License.
     <entity entity-name="CommunicationEventRole"
             package-name="org.apache.ofbiz.party.communication"
             title="Communication Event Role Entity showing all participants of the communication event.">
-      <field name="communicationEventId" type="id-ne"></field>
-        <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="communicationEventId" type="id"></field>
+        <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="contactMechId" type="id"><description>For communication event participants this represents the contactMechId of the ContactMech used.</description></field>
       <field name="statusId" type="id"></field>
       <prim-key field="communicationEventId"/>
@@ -941,8 +941,8 @@ under the License.
     <entity entity-name="CommunicationEventType"
             package-name="org.apache.ofbiz.party.communication"
             title="Communication Event Type Entity" default-resource-name="PartyEntityLabels">
-      <field name="communicationEventTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="communicationEventTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <field name="contactMechTypeId" type="id"></field>
@@ -970,7 +970,7 @@ under the License.
     <entity entity-name="ContactMech"
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Entity">
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="contactMechTypeId" type="id"></field>
       <field name="infoString" type="long-varchar"></field>
       <prim-key field="contactMechId"/>
@@ -987,8 +987,8 @@ under the License.
     <entity entity-name="ContactMechAttribute"
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Attribute Entity">
-      <field name="contactMechId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="contactMechId"/>
@@ -1003,8 +1003,8 @@ under the License.
     <entity entity-name="ContactMechLink"
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Link Entity">
-      <field name="contactMechIdFrom" type="id-ne"></field>
-      <field name="contactMechIdTo" type="id-ne"></field>
+      <field name="contactMechIdFrom" type="id"></field>
+      <field name="contactMechIdTo" type="id"></field>
       <prim-key field="contactMechIdFrom"/>
       <prim-key field="contactMechIdTo"/>
       <relation type="one" fk-name="CONT_MECH_FCMECH" title="From" rel-entity-name="ContactMech">
@@ -1018,15 +1018,15 @@ under the License.
             package-name="org.apache.ofbiz.party.contact"
             default-resource-name="PartyEntityLabels"
             title="Contact Mechanism Purpose Type Entity">
-      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="contactMechPurposeTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="contactMechPurposeTypeId"/>
     </entity>
     <entity entity-name="ContactMechType"
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Type Entity" default-resource-name="PartyEntityLabels">
-      <field name="contactMechTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
+      <field name="contactMechTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="contactMechTypeId"/>
@@ -1037,8 +1037,8 @@ under the License.
     <entity entity-name="ContactMechTypeAttr"
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Type Attribute Entity">
-      <field name="contactMechTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="contactMechTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="contactMechTypeId"/>
       <prim-key field="attrName"/>
@@ -1056,8 +1056,8 @@ under the License.
             package-name="org.apache.ofbiz.party.contact"
             title="Contact Mechanism Type Purpose Entity">
       <description>Defines which ContactMechPurposeType entites apply to which ContactMechType</description>
-      <field name="contactMechTypeId" type="id-ne"></field>
-      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="contactMechTypeId" type="id"></field>
+      <field name="contactMechPurposeTypeId" type="id"></field>
       <prim-key field="contactMechTypeId"/>
       <prim-key field="contactMechPurposeTypeId"/>
       <relation type="one" fk-name="CONT_MECH_TP_TYPE" rel-entity-name="ContactMechType">
@@ -1071,7 +1071,7 @@ under the License.
             package-name="org.apache.ofbiz.party.contact"
             title="Email Address Verification Entity">
         <description>Holds hashes for email address verification</description>
-        <field name="emailAddress" type="id-vlong-ne"></field>
+        <field name="emailAddress" type="id-vlong"></field>
         <field name="verifyHash" type="value"></field>
         <field name="expireDate" type="date-time"></field>
         <prim-key field="emailAddress"/>
@@ -1127,8 +1127,8 @@ under the License.
     <entity entity-name="PartyContactMech"
             package-name="org.apache.ofbiz.party.contact"
             title="Party Contact Mechanism Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="roleTypeId" type="id"></field>
@@ -1174,9 +1174,9 @@ under the License.
     <entity entity-name="PartyContactMechPurpose"
             package-name="org.apache.ofbiz.party.contact"
             title="Party Contact Mechanism Purpose Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="contactMechId" type="id-ne"></field>
-      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="contactMechPurposeTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="partyId"/>
@@ -1212,7 +1212,7 @@ under the License.
     <entity entity-name="PostalAddress"
             package-name="org.apache.ofbiz.party.contact"
             title="Postal Address Entity">
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="toName" type="name"></field>
       <field name="attnName" type="name"></field>
       <field name="address1" type="long-varchar"></field>
@@ -1271,8 +1271,8 @@ under the License.
     <entity entity-name="PostalAddressBoundary"
             package-name="org.apache.ofbiz.party.contact"
             title="Postal Address Boundary Entity">
-      <field name="contactMechId" type="id-ne"></field>
-      <field name="geoId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="geoId" type="id"></field>
       <prim-key field="contactMechId"/>
       <prim-key field="geoId"/>
       <relation type="one" fk-name="POST_ADDR_BNDRY" rel-entity-name="PostalAddress">
@@ -1285,7 +1285,7 @@ under the License.
     <entity entity-name="TelecomNumber"
             package-name="org.apache.ofbiz.party.contact"
             title="Telecommunications Number Entity">
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="countryCode" type="very-short"></field>
       <field name="areaCode" type="very-short"></field>
       <field name="contactNumber" type="short-varchar"></field>
@@ -1307,8 +1307,8 @@ under the License.
     <entity entity-name="ValidContactMechRole"
             package-name="org.apache.ofbiz.party.contact"
             title="Valid Contact Mechanism Role Entity">
-      <field name="roleTypeId" type="id-ne"></field>
-      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="contactMechTypeId" type="id"></field>
       <prim-key field="roleTypeId"/>
       <prim-key field="contactMechTypeId"/>
       <relation type="one" fk-name="VAL_CMRLE_ROLE" rel-entity-name="RoleType">
@@ -1467,16 +1467,16 @@ under the License.
     <entity entity-name="NeedType"
             package-name="org.apache.ofbiz.party.need"
             title="Need Type Entity">
-      <field name="needTypeId" type="id-ne"></field>
+      <field name="needTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="needTypeId"/>
     </entity>
     <entity entity-name="PartyNeed"
             package-name="org.apache.ofbiz.party.need"
             title="Party Need Entity">
-      <field name="partyNeedId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="partyNeedId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="partyTypeId" type="id"></field>
       <field name="needTypeId" type="id"></field>
       <field name="communicationEventId" type="id"></field>
@@ -1531,7 +1531,7 @@ under the License.
     <entity entity-name="Affiliate"
             package-name="org.apache.ofbiz.party.party"
             title="Affiliate Party Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="affiliateName" type="name"></field>
       <field name="affiliateDescription" type="description"></field>
       <field name="yearEstablished" type="very-short"></field>
@@ -1551,7 +1551,7 @@ under the License.
     <entity entity-name="Party"
             package-name="org.apache.ofbiz.party.party"
             title="Party Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="partyTypeId" type="id-ne"></field>
       <field name="externalId" type="id"></field>
       <field name="preferredCurrencyUomId" type="id-ne"></field>
@@ -1723,8 +1723,8 @@ under the License.
      <entity entity-name="PartyIdentification"
             package-name="org.apache.ofbiz.party.party"
             title="Party Identification Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="partyIdentificationTypeId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="partyIdentificationTypeId" type="id"></field>
       <field name="idValue" type="id-long"></field>
       <prim-key field="partyId"/>
       <prim-key field="partyIdentificationTypeId"/>
@@ -1758,7 +1758,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Identification Type Entity">
-      <field name="partyIdentificationTypeId" type="id-ne"></field>
+      <field name="partyIdentificationTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -1771,8 +1771,8 @@ under the License.
     <entity entity-name="PartyGeoPoint"
         package-name="org.apache.ofbiz.party.party"
         title="Party Geo Location with history">
-        <field name="partyId" type="id-ne"></field>
-        <field name="geoPointId" type="id-ne"></field>
+        <field name="partyId" type="id"></field>
+        <field name="geoPointId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="partyId"/>
@@ -1852,8 +1852,8 @@ under the License.
     <entity entity-name="PartyAttribute"
             package-name="org.apache.ofbiz.party.party"
             title="Party Attribute Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="partyId"/>
@@ -1868,8 +1868,8 @@ under the License.
     <entity entity-name="PartyCarrierAccount"
         package-name="org.apache.ofbiz.party.party"
         title="Party Carrier Account Entity">
-        <field name="partyId" type="id-ne"></field>
-        <field name="carrierPartyId" type="id-ne"></field>
+        <field name="partyId" type="id"></field>
+        <field name="carrierPartyId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <field name="accountNumber" type="id-ne"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
@@ -1886,8 +1886,8 @@ under the License.
     <entity entity-name="PartyClassification"
             package-name="org.apache.ofbiz.party.party"
             title="Party Classification Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="partyClassificationGroupId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="partyClassificationGroupId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="partyId"/>
@@ -1903,7 +1903,7 @@ under the License.
     <entity entity-name="PartyClassificationGroup"
             package-name="org.apache.ofbiz.party.party"
             title="Party Classification Group Entity">
-      <field name="partyClassificationGroupId" type="id-ne"></field>
+      <field name="partyClassificationGroupId" type="id"></field>
       <field name="partyClassificationTypeId" type="id"></field>
       <field name="parentGroupId" type="id"></field>
       <field name="description" type="description"></field>
@@ -1919,7 +1919,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Classification Type Entity">
-      <field name="partyClassificationTypeId" type="id-ne"></field>
+      <field name="partyClassificationTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -1978,9 +1978,9 @@ under the License.
     <entity entity-name="PartyContent"
             package-name="org.apache.ofbiz.party.party"
             title="Party Data Object Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="contentId" type="id-ne"></field>
-      <field name="partyContentTypeId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="contentId" type="id"></field>
+      <field name="partyContentTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="partyId"/>
@@ -2016,7 +2016,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Content Type Entity">
-        <field name="partyContentTypeId" type="id-ne"></field>
+        <field name="partyContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="partyContentTypeId"/>
@@ -2027,7 +2027,7 @@ under the License.
     <entity entity-name="PartyDataSource"
             package-name="org.apache.ofbiz.party.party"
             title="Party Data Source Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="dataSourceId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="visitId" type="id"></field>
@@ -2046,7 +2046,7 @@ under the License.
     <entity entity-name="PartyGroup"
             package-name="org.apache.ofbiz.party.party"
             title="Party Group Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="groupName" type="name"></field>
       <field name="groupNameLocal" type="name"></field>
       <field name="officeSiteName" type="name"></field>
@@ -2066,7 +2066,7 @@ under the License.
     <entity entity-name="PartyIcsAvsOverride"
             package-name="org.apache.ofbiz.party.party"
             title="Party ICS AVS Override Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="avsDeclineString" type="long-varchar"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PARTY_ICSAVS_PARTY" rel-entity-name="Party">
@@ -2076,7 +2076,7 @@ under the License.
     <entity entity-name="PartyInvitation"
             package-name="org.apache.ofbiz.party.party"
             title="Party Invitation Entity">
-        <field name="partyInvitationId" type="id-ne"></field>
+        <field name="partyInvitationId" type="id"></field>
         <field name="partyIdFrom" type="id-ne"></field>
         <field name="partyId" type="id"></field>
         <field name="toName" type="name"></field>
@@ -2094,8 +2094,8 @@ under the License.
     <entity entity-name="PartyInvitationGroupAssoc"
             package-name="org.apache.ofbiz.party.party"
             title="Party Invitation Group Assoc Entity">
-        <field name="partyInvitationId" type="id-ne"></field>
-        <field name="partyIdTo" type="id-ne"></field>
+        <field name="partyInvitationId" type="id"></field>
+        <field name="partyIdTo" type="id"></field>
         <prim-key field="partyInvitationId"/>
         <prim-key field="partyIdTo"/>
         <relation type="one" fk-name="PTYINVGA_PTYGRP" title="To" rel-entity-name="PartyGroup">
@@ -2111,8 +2111,8 @@ under the License.
     <entity entity-name="PartyInvitationRoleAssoc"
             package-name="org.apache.ofbiz.party.party"
             title="Party Invitation Role Assoc Entity">
-        <field name="partyInvitationId" type="id-ne"></field>
-        <field name="roleTypeId" type="id-ne"></field>
+        <field name="partyInvitationId" type="id"></field>
+        <field name="roleTypeId" type="id"></field>
         <prim-key field="partyInvitationId"/>
         <prim-key field="roleTypeId"/>
         <relation type="one" fk-name="PTYINVROLE_ROLET" rel-entity-name="RoleType">
@@ -2166,7 +2166,7 @@ under the License.
   <entity entity-name="PartyNameHistory"
         package-name="org.apache.ofbiz.party.party"
         title="Party Name History Entity">
-        <field name="partyId" type="id-ne"></field>
+        <field name="partyId" type="id"></field>
         <field name="changeDate" type="date-time"></field>
         <field name="groupName" type="name"><description>For Party Groups only</description></field>
         <field name="firstName" type="name"></field>
@@ -2212,8 +2212,8 @@ under the License.
   <entity entity-name="PartyNote"
             package-name="org.apache.ofbiz.party.party"
             title="Party Note Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="noteId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="noteId" type="id"></field>
       <prim-key field="partyId"/>
       <prim-key field="noteId"/>
       <relation type="one" fk-name="PARTY_NOTE_PARTY" rel-entity-name="Party">
@@ -2241,8 +2241,8 @@ under the License.
     <entity entity-name="PartyProfileDefault"
             package-name="org.apache.ofbiz.party.party"
             title="Party Profile Defaults">
-      <field name="partyId" type="id-ne"></field>
-      <field name="productStoreId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="productStoreId" type="id"></field>
       <field name="defaultShipAddr" type="id"></field>
       <field name="defaultBillAddr" type="id"></field>
       <field name="defaultPayMeth" type="id"></field>
@@ -2259,10 +2259,10 @@ under the License.
     <entity entity-name="PartyRelationship"
             package-name="org.apache.ofbiz.party.party"
             title="Party Relationship Entity">
-      <field name="partyIdFrom" type="id-ne"></field>
-      <field name="partyIdTo" type="id-ne"></field>
-      <field name="roleTypeIdFrom" type="id-ne"></field>
-      <field name="roleTypeIdTo" type="id-ne"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
+      <field name="roleTypeIdFrom" type="id"></field>
+      <field name="roleTypeIdTo" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="statusId" type="id"></field>
@@ -2330,7 +2330,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Relationship Type Entity">
-      <field name="partyRelationshipTypeId" type="id-ne"></field>
+      <field name="partyRelationshipTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="partyRelationshipName" type="name"></field>
@@ -2518,8 +2518,8 @@ under the License.
     <entity entity-name="PartyRole"
             package-name="org.apache.ofbiz.party.party"
             title="Party Role Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
       <relation type="one" fk-name="PARTY_RLE_PARTY" rel-entity-name="Party">
@@ -2703,8 +2703,8 @@ under the License.
     <entity entity-name="PartyStatus"
             package-name="org.apache.ofbiz.party.party"
             title="Tracks a history of the status of a Party">
-      <field name="statusId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
+      <field name="partyId" type="id"></field>
       <field name="statusDate" type="date-time"></field>
       <field name="changeByUserLoginId" type="id-vlong"></field>
       <prim-key field="statusId"/>
@@ -2724,7 +2724,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Type Entity">
-      <field name="partyTypeId" type="id-ne"></field>
+      <field name="partyTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -2739,8 +2739,8 @@ under the License.
     <entity entity-name="PartyTypeAttr"
             package-name="org.apache.ofbiz.party.party"
             title="Party Type Attribute Entity">
-      <field name="partyTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="partyTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="partyTypeId"/>
       <prim-key field="attrName"/>
@@ -2757,7 +2757,7 @@ under the License.
     <entity entity-name="Person"
             package-name="org.apache.ofbiz.party.party"
             title="Person Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="salutation" type="name"></field>
       <field name="firstName" type="name"></field>
       <field name="middleName" type="name"></field>
@@ -2812,7 +2812,7 @@ under the License.
     <entity entity-name="PriorityType"
             package-name="org.apache.ofbiz.party.party"
             title="Priority Type Entity">
-      <field name="priorityTypeId" type="id-ne"></field>
+      <field name="priorityTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="priorityTypeId"/>
     </entity>
@@ -2820,7 +2820,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
             title="Role Type Entity">
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
@@ -2863,8 +2863,8 @@ under the License.
     <entity entity-name="RoleTypeAttr"
             package-name="org.apache.ofbiz.party.party"
             title="Role Type Attribute Entity">
-      <field name="roleTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="roleTypeId"/>
       <prim-key field="attrName"/>
@@ -2887,7 +2887,7 @@ under the License.
     <entity entity-name="Vendor"
             package-name="org.apache.ofbiz.party.party"
             title="Vendor Entity">
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="manifestCompanyName" type="name"></field>
       <field name="manifestCompanyTitle" type="name"></field>
       <field name="manifestLogoUrl" type="url"></field>
