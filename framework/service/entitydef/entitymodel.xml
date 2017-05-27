@@ -41,7 +41,7 @@ under the License.
 
     <entity entity-name="JobSandbox" package-name="org.apache.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
             sequence-bank-size="100" never-cache="true">
-        <field name="jobId" type="id-ne"></field>
+        <field name="jobId" type="id"></field>
         <field name="jobName" type="name"></field>
         <field name="runTime" type="date-time"></field>
         <field name="poolId" type="name"></field>
@@ -91,7 +91,7 @@ under the License.
     <entity entity-name="RecurrenceInfo"
             package-name="org.apache.ofbiz.service.schedule"
             title="Recurrence Info Entity">
-      <field name="recurrenceInfoId" type="id-ne"></field>
+      <field name="recurrenceInfoId" type="id"></field>
       <field name="startDateTime" type="date-time"></field>
       <field name="exceptionDateTimes" type="very-long"></field>
       <field name="recurrenceDateTimes" type="very-long"></field>
@@ -109,7 +109,7 @@ under the License.
     <entity entity-name="RecurrenceRule"
             package-name="org.apache.ofbiz.service.schedule"
             title="Recurrence Rule Entity">
-      <field name="recurrenceRuleId" type="id-ne"></field>
+      <field name="recurrenceRuleId" type="id"></field>
       <field name="frequency" type="short-varchar"></field>
       <field name="untilDateTime" type="date-time"></field>
       <field name="countNumber" type="numeric"></field>
@@ -129,7 +129,7 @@ under the License.
     </entity>
     <entity entity-name="RuntimeData" package-name="org.apache.ofbiz.service.schedule" title="Runtime Data Entity"
             sequence-bank-size="100">
-        <field name="runtimeDataId" type="id-ne"></field>
+        <field name="runtimeDataId" type="id"></field>
         <field name="runtimeInfo" type="very-long"></field>
         <prim-key field="runtimeDataId"/>
     </entity>
@@ -140,7 +140,7 @@ under the License.
     <entity entity-name="TemporalExpression"
             package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression">
-      <field name="tempExprId" type="id-ne"></field>
+      <field name="tempExprId" type="id"></field>
       <field name="tempExprTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <field name="date1" type="date-time"></field>
@@ -155,8 +155,8 @@ under the License.
     <entity entity-name="TemporalExpressionAssoc"
             package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression Association">
-      <field name="fromTempExprId" type="id-ne"><description>The "parent" expression</description></field>
-      <field name="toTempExprId" type="id-ne"><description>The "child" expression</description></field>
+      <field name="fromTempExprId" type="id"><description>The "parent" expression</description></field>
+      <field name="toTempExprId" type="id"><description>The "child" expression</description></field>
       <field name="exprAssocType" type="id"><description>Expression association type.
          When applied to DIFFERENCE expression types, valid values are INCLUDE or EXCLUDE.
          When applied to SUBSTITUTION expression types, valid values are INCLUDE, EXCLUDE, or SUBSTITUTE.

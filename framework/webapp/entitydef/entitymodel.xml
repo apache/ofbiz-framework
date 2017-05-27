@@ -42,7 +42,7 @@ under the License.
     <entity entity-name="BrowserType"
             package-name="org.apache.ofbiz.webapp.visit"
             title="Browser Type Entity">
-      <field name="browserTypeId" type="id-ne"></field>
+      <field name="browserTypeId" type="id"></field>
       <field name="browserName" type="name"></field>
       <field name="browserVersion" type="very-short"></field>
       <prim-key field="browserTypeId"/>
@@ -50,7 +50,7 @@ under the License.
     <entity entity-name="PlatformType"
             package-name="org.apache.ofbiz.webapp.visit"
             title="Platform Type Entity">
-      <field name="platformTypeId" type="id-ne"></field>
+      <field name="platformTypeId" type="id"></field>
       <field name="platformName" type="name"></field>
       <field name="platformVersion" type="very-short"></field>
       <prim-key field="platformTypeId"/>
@@ -58,7 +58,7 @@ under the License.
     <entity entity-name="ProtocolType"
             package-name="org.apache.ofbiz.webapp.visit"
             title="Protocol Type Entity">
-      <field name="protocolTypeId" type="id-ne"></field>
+      <field name="protocolTypeId" type="id"></field>
       <field name="protocolName" type="name"></field>
       <prim-key field="protocolTypeId"/>
     </entity>
@@ -66,10 +66,10 @@ under the License.
             package-name="org.apache.ofbiz.webapp.visit"
             never-cache="true"
             title="Server Hit Entity">
-      <field name="visitId" type="id-ne"></field>
-      <field name="contentId" type="id-vlong-ne"><!-- This is called contentId but has nothing to do with the Content entity in many cases. The value can vary. For example for the ControlServlet request it is "${webapp-name}.${request-map-name}" --></field>
+      <field name="visitId" type="id"></field>
+      <field name="contentId" type="id-vlong"><!-- This is called contentId but has nothing to do with the Content entity in many cases. The value can vary. For example for the ControlServlet request it is "${webapp-name}.${request-map-name}" --></field>
       <field name="hitStartDateTime" type="date-time"></field>
-      <field name="hitTypeId" type="id-ne"></field>
+      <field name="hitTypeId" type="id"></field>
       <field name="numOfBytes" type="numeric"></field>
       <field name="runningTimeMillis" type="numeric"></field>
       <field name="userLoginId" type="id-vlong"></field>
@@ -90,7 +90,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ServerHitBin" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin Entity">
-      <field name="serverHitBinId" type="id-ne"></field>
+      <field name="serverHitBinId" type="id"></field>
       <field name="contentId" type="id-vlong-ne"></field>
       <field name="hitTypeId" type="id-ne"></field>
       <field name="serverIpAddress" type="id"></field>
@@ -117,7 +117,7 @@ under the License.
     <entity entity-name="UserAgent"
             package-name="org.apache.ofbiz.webapp.visit"
             title="User Agent Entity">
-      <field name="userAgentId" type="id-ne"></field>
+      <field name="userAgentId" type="id"></field>
       <field name="browserTypeId" type="id"></field>
       <field name="platformTypeId" type="id"></field>
       <field name="protocolTypeId" type="id"></field>
@@ -143,20 +143,20 @@ under the License.
     <entity entity-name="UserAgentMethodType"
             package-name="org.apache.ofbiz.webapp.visit"
             title="User Agent Method Type Entity">
-      <field name="userAgentMethodTypeId" type="id-ne"></field>
+      <field name="userAgentMethodTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="userAgentMethodTypeId"/>
     </entity>
     <entity entity-name="UserAgentType"
             package-name="org.apache.ofbiz.webapp.visit"
             title="User Agent Type Entity">
-      <field name="userAgentTypeId" type="id-ne"></field>
+      <field name="userAgentTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="userAgentTypeId"/>
     </entity>
     <entity entity-name="Visit" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Visit Entity"
         sequence-bank-size="100">
-        <field name="visitId" type="id-ne"></field>
+        <field name="visitId" type="id"></field>
         <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
         <field name="userCreated" type="indicator"></field>
@@ -190,7 +190,7 @@ under the License.
     </entity>
     <entity entity-name="Visitor" package-name="org.apache.ofbiz.webapp.visit" title="Visitor Entity"
         sequence-bank-size="100">
-        <field name="visitorId" type="id-ne"></field>
+        <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
         <prim-key field="visitorId"/>
         <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
@@ -205,7 +205,7 @@ under the License.
     <entity entity-name="WebPage"
             package-name="org.apache.ofbiz.webapp.website"
             title="Web Page Entity">
-      <field name="webPageId" type="id-ne"></field>
+      <field name="webPageId" type="id"></field>
       <field name="pageName" type="name"></field>
       <field name="webSiteId" type="id"></field>
       <prim-key field="webPageId"/>
@@ -216,7 +216,7 @@ under the License.
     <entity entity-name="WebSite"
             package-name="org.apache.ofbiz.webapp.website"
             title="Web Site Entity">
-      <field name="webSiteId" type="id-ne"></field>
+      <field name="webSiteId" type="id"></field>
       <field name="siteName" type="name"></field>
       <field name="httpHost" type="long-varchar"></field>
       <field name="httpPort" type="very-short"></field>
