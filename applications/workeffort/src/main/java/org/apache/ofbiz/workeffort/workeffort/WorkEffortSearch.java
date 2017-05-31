@@ -188,23 +188,18 @@ public class WorkEffortSearch {
             long startMillis = System.currentTimeMillis();
 
             // do the query
-            EntityListIterator eli = this.doQuery(delegator);
-            ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
-            if (eli != null) {
-                try {
-                    eli.close();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error closing WorkEffortSearch EntityListIterator");
-                }
+            try (EntityListIterator eli = this.doQuery(delegator)) {
+                ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
+                long endMillis = System.currentTimeMillis();
+                double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+
+                // store info about results in the database, attached to the user's visitId, if specified
+                this.saveSearchResultInfo(Long.valueOf(workEffortIds.size()), Double.valueOf(totalSeconds));
+                return workEffortIds;
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return null;
             }
-
-            long endMillis = System.currentTimeMillis();
-            double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
-
-            // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo(Long.valueOf(workEffortIds.size()), Double.valueOf(totalSeconds));
-
-            return workEffortIds;
         }
 
         public void finishKeywordConstraints() {
