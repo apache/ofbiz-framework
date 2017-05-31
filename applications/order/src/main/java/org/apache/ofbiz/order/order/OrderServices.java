@@ -3738,7 +3738,6 @@ public class OrderServices {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
-                        price = price.setScale(orderDecimals, orderRounding);
                         cartItem.setBasePrice(price);
                         cartItem.setIsModifiedPrice(true);
                         Debug.logInfo("Set item price: [" + itemSeqId + "] " + price, module);
@@ -6198,7 +6197,7 @@ public class OrderServices {
                             .where(cond)
                             .orderBy("entryDate ASC");
 
-                    try (EntityListIterator eli = eq.queryIterator()){
+                    try (EntityListIterator eli = eq.queryIterator()) {
                         GenericValue orderHeader;
                         while ((orderHeader = eli.next()) != null) {
                             orderIds.add(orderHeader.getString("orderId"));
