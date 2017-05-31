@@ -924,16 +924,16 @@ public class ProductSearchSession {
                 addOnTopProdCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, now)));
                 addOnTopProdCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, now));
                 addOnTopProdCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, addOnTopProdCategoryId));
-                EntityListIterator pli = null;
-                try {
-                    pli = EntityQuery.use(delegator).select(UtilMisc.toSet("productId", "sequenceNum"))
-                            .from("ProductCategoryMember")
-                            .where(addOnTopProdCondList)
-                            .orderBy("sequenceNum")
-                            .cursorScrollInsensitive()
-                            .distinct()
-                            .maxRows(highIndex)
-                            .queryIterator();
+                EntityQuery eq = EntityQuery.use(delegator)
+                        .select(UtilMisc.toSet("productId", "sequenceNum"))
+                        .from("ProductCategoryMember")
+                        .where(addOnTopProdCondList)
+                        .orderBy("sequenceNum")
+                        .cursorScrollInsensitive()
+                        .distinct()
+                        .maxRows(highIndex);
+                
+                try (EntityListIterator pli = eq.queryIterator()) {
                     addOnTopProductCategoryMembers = pli.getPartialList(lowIndex, viewSize);
                     addOnTopListSize = addOnTopProductCategoryMembers.size();
                     for (GenericValue alwaysAddProductCategoryMember: addOnTopProductCategoryMembers) {
@@ -943,14 +943,6 @@ public class ProductSearchSession {
                     listSize = listSize + addOnTopTotalListSize;
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
-                } finally {
-                    if (pli != null) {
-                        try {
-                            pli.close();
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                        }
-                    }
                 }
             }
 

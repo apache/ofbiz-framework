@@ -207,12 +207,10 @@ public abstract class ListFinder extends Finder {
                     options.setMaxRows(size * (index + 1));
                 }
                 boolean beganTransaction = false;
-                try {
+                try (EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options)) {
                     if (useTransaction) {
                         beganTransaction = TransactionUtil.begin();
                     }
-
-                    EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options);
                     this.outputHandler.handleOutput(eli, context, listAcsr);
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";
