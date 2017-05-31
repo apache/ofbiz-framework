@@ -397,18 +397,14 @@ public class SurveyWrapper {
     public List<GenericValue> getQuestionResponses(GenericValue question, int startIndex, int number) throws SurveyWrapperException {
         List<GenericValue> resp = null;
         boolean beganTransaction = false;
-        try {
+        int maxRows = startIndex + number;
+        try (EntityListIterator eli = this.getEli(question, maxRows)) {
             beganTransaction = TransactionUtil.begin();
-
-            int maxRows = startIndex + number;
-            EntityListIterator eli = this.getEli(question, maxRows);
             if (startIndex > 0 && number > 0) {
                 resp = eli.getPartialList(startIndex, number);
             } else {
                 resp = eli.getCompleteList();
             }
-
-            eli.close();
         } catch (GenericEntityException e) {
             try {
                 // only rollback the transaction if we started one...
@@ -671,10 +667,8 @@ public class SurveyWrapper {
         long total = 0;
 
         boolean beganTransaction = false;
-        try {
+        try (EntityListIterator eli = this.getEli(question, -1)) {
             beganTransaction = TransactionUtil.begin();
-
-            EntityListIterator eli = this.getEli(question, -1);
             if (eli != null) {
                 GenericValue value;
                 while (((value = eli.next()) != null)) {
@@ -690,8 +684,6 @@ public class SurveyWrapper {
                         total++; // increment the count
                     }
                 }
-
-                eli.close();
             }
         } catch (GenericEntityException e) {
             try {
