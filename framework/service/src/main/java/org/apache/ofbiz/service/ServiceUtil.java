@@ -49,6 +49,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.config.model.ServiceEngine;
 
 import com.ibm.icu.util.Calendar;
 
@@ -372,7 +373,7 @@ public final class ServiceUtil {
     }
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
-    	 Locale locale = (Locale)context.get("locale");
+         Locale locale = (Locale)context.get("locale");
         Debug.logWarning("purgeOldJobs service invoked. This service is obsolete - the Job Scheduler will purge old jobs automatically.", module);
         String sendPool = null;
         Calendar cal = Calendar.getInstance();
@@ -419,22 +420,17 @@ public final class ServiceUtil {
                 try {
                     // begin this transaction
                     beganTx1 = TransactionUtil.begin();
+                    EntityQuery eq = EntityQuery.use(delegator)
+                            .select("jobId")
+                            .from("JobSandbox")
+                            .where(EntityCondition.makeCondition(UtilMisc.toList(doneCond, pool)))
+                            .cursorScrollInsensitive()
+                            .maxRows(1000); 
 
-                    EntityListIterator foundJobs = null;
-                    try {
-                        foundJobs = EntityQuery.use(delegator)
-                                               .select("jobId")
-                                               .from("JobSandbox")
-                                               .where(EntityCondition.makeCondition(UtilMisc.toList(doneCond, pool)))
-                                               .cursorScrollInsensitive()
-                                               .maxRows(1000)
-                                               .queryIterator();
+                    try (EntityListIterator foundJobs = eq.queryIterator()) {
                         curList = foundJobs.getPartialList(1, 1000);
-                    } finally {
-                        if (foundJobs != null) {
-                            foundJobs.close();
-                         }
                     }
+
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot obtain job data from datasource", module);
                     try {
@@ -481,15 +477,14 @@ public final class ServiceUtil {
             // Now JobSandbox data is cleaned up. Now process Runtime data and remove the whole data in single shot that is of no need.
             boolean beganTx3 = false;
             GenericValue runtimeData = null;
-            EntityListIterator runTimeDataIt = null;
             List<GenericValue> runtimeDataToDelete = new LinkedList<GenericValue>();
             long jobsandBoxCount = 0;
             try {
                 // begin this transaction
                 beganTx3 = TransactionUtil.begin();
 
-                runTimeDataIt = EntityQuery.use(delegator).select("runtimeDataId").from("RuntimeData").queryIterator();
-                try {
+                EntityQuery eq =EntityQuery.use(delegator).select("runtimeDataId").from("RuntimeData");
+                try (EntityListIterator  runTimeDataIt = eq.queryIterator()) {
                     while ((runtimeData = runTimeDataIt.next()) != null) {
                         EntityCondition whereCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runtimeDataId", EntityOperator.NOT_EQUAL, null),
                                 EntityCondition.makeCondition("runtimeDataId", EntityOperator.EQUALS, runtimeData.getString("runtimeDataId"))), EntityOperator.AND);
@@ -498,8 +493,6 @@ public final class ServiceUtil {
                             runtimeDataToDelete.add(runtimeData);
                         }
                     }
-                } finally {
-                    runTimeDataIt.close();
                 }
                 // Now we are ready to delete runtimeData, we can safely delete complete list that we have recently fetched i.e runtimeDataToDelete.
                 delegator.removeAll(runtimeDataToDelete);

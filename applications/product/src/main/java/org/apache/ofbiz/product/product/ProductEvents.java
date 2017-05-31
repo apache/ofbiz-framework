@@ -109,12 +109,11 @@ public class ProductEvents {
         }
 
 
-        EntityListIterator entityListIterator = null;
         int numProds = 0;
         int errProds = 0;
 
         boolean beganTx = false;
-        try {
+        try (EntityListIterator  entityListIterator = EntityQuery.use(delegator).from("Product").where(condition).queryIterator()) {
             // begin the transaction
             beganTx = TransactionUtil.begin(7200);
             try {
@@ -122,7 +121,6 @@ public class ProductEvents {
                     long count = EntityQuery.use(delegator).from("Product").where(condition).queryCount();
                     Debug.logInfo("========== Found " + count + " products to index ==========", module);
                 }
-                entityListIterator = EntityQuery.use(delegator).from("Product").where(condition).queryIterator();
             } catch (GenericEntityException gee) {
                 Debug.logWarning(gee, gee.getMessage(), module);
                 Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
@@ -160,21 +158,12 @@ public class ProductEvents {
                 Debug.logError(e2, module);
             }
             return "error";
-        } finally {
-            if (entityListIterator != null) {
-                try {
-                    entityListIterator.close();
-                } catch (GenericEntityException gee) {
-                    Debug.logError(gee, "Error closing EntityListIterator when indexing product keywords.", module);
-                }
-            }
-
-            // commit the transaction
-            try {
-                TransactionUtil.commit(beganTx);
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
-            }
+        }
+        // commit the transaction
+        try {
+            TransactionUtil.commit(beganTx);
+        } catch (GenericTransactionException e) {
+            Debug.logError(e, module);
         }
 
         if (errProds == 0) {
