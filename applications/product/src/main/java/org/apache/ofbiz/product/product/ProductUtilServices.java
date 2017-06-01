@@ -742,13 +742,5 @@ public final class ProductUtilServices {
             }
         }
     }
-
-    public static Map<String, Object> removeAllFeatureGroupsForCategory(DispatchContext dctx, Map<String, ? extends Object> context) {
-        return ServiceUtil.returnSuccess();
-    }
-
-    public static void getFeatureGroupsForCategory(String productCategoryId, Set<String> productFeatureGroupIdsToRemove, Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
-
-    }
 }
 
