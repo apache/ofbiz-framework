@@ -150,7 +150,7 @@ public class LoginServices {
 
                     // check the user login object again
                     try {
-                    	userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
+                        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e, "", module);
                     }
@@ -434,29 +434,29 @@ public class LoginServices {
             // Not saving password history, so return from here.
             return;
         }
-
-        EntityListIterator eli = EntityQuery.use(delegator)
-                                            .from("UserLoginPasswordHistory")
-                                            .where("userLoginId", userLoginId)
-                                            .orderBy("-fromDate")
-                                            .cursorScrollInsensitive()
-                                            .queryIterator();
+        EntityQuery eq = EntityQuery.use(delegator)
+                .from("UserLoginPasswordHistory")
+                .where("userLoginId", userLoginId)
+                .orderBy("-fromDate")
+                .cursorScrollInsensitive();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        GenericValue pwdHist;
-        if ((pwdHist = eli.next()) != null) {
-            // updating password so set end date on previous password in history
-            pwdHist.set("thruDate", nowTimestamp);
-            pwdHist.store();
-            // check if we have hit the limit on number of password changes to be saved. If we did then delete the oldest password from history.
-            eli.last();
-            int rowIndex = eli.currentIndex();
-            if (rowIndex==passwordChangeHistoryLimit) {
-                eli.afterLast();
-                pwdHist = eli.previous();
-                pwdHist.remove();
+        
+        try (EntityListIterator eli = eq.queryIterator()) {
+            GenericValue pwdHist;
+            if ((pwdHist = eli.next()) != null) {
+                // updating password so set end date on previous password in history
+                pwdHist.set("thruDate", nowTimestamp);
+                pwdHist.store();
+                // check if we have hit the limit on number of password changes to be saved. If we did then delete the oldest password from history.
+                eli.last();
+                int rowIndex = eli.currentIndex();
+                if (rowIndex==passwordChangeHistoryLimit) {
+                    eli.afterLast();
+                    pwdHist = eli.previous();
+                    pwdHist.remove();
+                }
             }
         }
-        eli.close();
 
         // save this password in history
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
@@ -904,7 +904,7 @@ public class LoginServices {
 
     public static void checkNewPassword(GenericValue userLogin, String currentPassword, String newPassword, String newPasswordVerify, String passwordHint, List<String> errorMessageList, boolean ignoreCurrentPassword, Locale locale) {
         Delegator delegator = userLogin.getDelegator();
-    	boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
+        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
 
         String errMsg = null;
 

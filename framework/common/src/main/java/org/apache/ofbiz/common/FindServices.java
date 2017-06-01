@@ -438,11 +438,9 @@ public class FindServices {
         int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = 0;
-        try {
-            EntityListIterator it = (EntityListIterator) result.get("listIt");
+        try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
             list = it.getPartialList(start+1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
-            it.close();
         } catch (Exception e) {
             Debug.logInfo("Problem getting partial list" + e,module);
         }
@@ -752,13 +750,11 @@ public class FindServices {
 
         List<GenericValue> list = null;
         GenericValue item= null;
-        try {
-            EntityListIterator it = (EntityListIterator) result.get("listIt");
+        try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
             list = it.getPartialList(1, 1); // list starts at '1'
             if (UtilValidate.isNotEmpty(list)) {
                 item = list.get(0);
             }
-            it.close();
         } catch (Exception e) {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
