@@ -18,8 +18,6 @@
  *******************************************************************************/
 
 package org.apache.ofbiz.party.communication;
-import org.apache.ofbiz.base.util.GeneralException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -47,6 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -1144,7 +1143,6 @@ public class CommunicationEventServices {
             for (Address addr: addresses) {
                 if (addr instanceof InternetAddress) {
                     emailAddress = (InternetAddress)addr;
-
                     if (emailAddress != null) {
                         Map<String, String> inputFields = new HashMap<String, String>();
                         inputFields.put("infoString", emailAddress.getAddress());
@@ -1157,6 +1155,7 @@ public class CommunicationEventServices {
                             tempResults.addAll(filteredList);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
+                        }
                     }
                 }
             }
