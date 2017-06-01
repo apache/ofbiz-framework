@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -917,7 +918,7 @@ public class InventoryServices {
 
         DynamicViewEntity salesUsageViewEntity = new DynamicViewEntity();
         DynamicViewEntity productionUsageViewEntity = new DynamicViewEntity();
-        if (! UtilValidate.isEmpty(checkTime)) {
+        if (!UtilValidate.isEmpty(checkTime)) {
 
             // Construct a dynamic view entity to search against for sales usage quantities
             salesUsageViewEntity.addMemberEntity("OI", "OrderItem");
@@ -946,81 +947,57 @@ public class InventoryServices {
             productionUsageViewEntity.addAlias("WE", "workEffortTypeId");
             productionUsageViewEntity.addAlias("II", "facilityId");
             productionUsageViewEntity.addAlias("II", "productId");
-
-        }
-        if (! UtilValidate.isEmpty(checkTime)) {
-
+        
             // Make a query against the sales usage view entity
-            EntityListIterator salesUsageIt = null;
-            try {
-                EntityCondition cond = EntityCondition.makeCondition(
-                        UtilMisc.toList(
-                            EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                            EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
-                            EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                            EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                       ),
-                    EntityOperator.AND);
-                salesUsageIt = EntityQuery.use(delegator).from(salesUsageViewEntity).where(cond).queryIterator();
-            } catch (GenericEntityException e2) {
-                e2.printStackTrace();
-            }
-
-            // Sum the sales usage quantities found
-            BigDecimal salesUsageQuantity = BigDecimal.ZERO;
-            GenericValue salesUsageItem = null;
-            while ((salesUsageItem = salesUsageIt.next()) != null) {
-                if (salesUsageItem.get("quantity") != null) {
-                    try {
+            EntityCondition cond = EntityCondition.makeCondition(
+                    UtilMisc.toList(
+                        EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                        EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                   ),
+                EntityOperator.AND);
+            
+            try (EntityListIterator salesUsageIt = EntityQuery.use(delegator).from(salesUsageViewEntity).where(cond).queryIterator()) {
+                
+                // Sum the sales usage quantities found
+                BigDecimal salesUsageQuantity = BigDecimal.ZERO;
+                GenericValue salesUsageItem = null;
+                while ((salesUsageItem = salesUsageIt.next()) != null) {
+                    if (salesUsageItem.get("quantity") != null) {
                         salesUsageQuantity = salesUsageQuantity.add(salesUsageItem.getBigDecimal("quantity"));
-                    } catch (Exception e) {
-                        // Ignore
                     }
                 }
-            }
-            try {
-                salesUsageIt.close();
-            } catch (GenericEntityException e2) {
-                e2.printStackTrace();
-            }
-
-            // Make a query against the production usage view entity
-            EntityListIterator productionUsageIt = null;
-            try {
+                // Make a query against the production usage view entity
                 EntityCondition conditions = EntityCondition.makeCondition(
-                            UtilMisc.toList(
+                        UtilMisc.toList(
                                 EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                                 EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                           ),
+                                ),
                         EntityOperator.AND);
-                productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity).where(conditions).queryIterator();
-            } catch (GenericEntityException e1) {
-                e1.printStackTrace();
-            }
 
-            // Sum the production usage quantities found
-            BigDecimal productionUsageQuantity = BigDecimal.ZERO;
-            GenericValue productionUsageItem = null;
-            while ((productionUsageItem = productionUsageIt.next()) != null) {
-                if (productionUsageItem.get("quantity") != null) {
-                    try {
-                        productionUsageQuantity = productionUsageQuantity.add(productionUsageItem.getBigDecimal("quantity"));
-                    } catch (Exception e) {
-                        // Ignore
+                try (EntityListIterator productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity).where(conditions).queryIterator()) {
+
+                    // Sum the production usage quantities found
+                    BigDecimal productionUsageQuantity = BigDecimal.ZERO;
+                    GenericValue productionUsageItem = null;
+                    while ((productionUsageItem = productionUsageIt.next()) != null) {
+                        if (productionUsageItem.get("quantity") != null) {
+                            productionUsageQuantity = productionUsageQuantity.add(productionUsageItem.getBigDecimal("quantity"));
+                        }
                     }
+                    result.put("usageQuantity", salesUsageQuantity.add(productionUsageQuantity));
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
                 }
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
             }
-            try {
-                productionUsageIt.close();
-            } catch (GenericEntityException e) {
-                e.printStackTrace();
-            }
-
-            result.put("usageQuantity", salesUsageQuantity.add(productionUsageQuantity));
-
         }
         return result;
     }
