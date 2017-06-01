@@ -138,15 +138,13 @@ public class PromoServices {
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.NOT_EQUAL, null));
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, nowTimestamp));
 
-        try {
-            EntityListIterator eli = EntityQuery.use(delegator).from("ProductStorePromoAndAppl").where(condList).queryIterator();
+        try (EntityListIterator eli = EntityQuery.use(delegator).from("ProductStorePromoAndAppl").where(condList).queryIterator()) {
             GenericValue productStorePromoAndAppl = null;
             while ((productStorePromoAndAppl = eli.next()) != null) {
                 GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl");
                 productStorePromo.setAllFields(productStorePromoAndAppl, true, null, null);
                 productStorePromo.remove();
             }
-            eli.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
