@@ -1151,21 +1151,12 @@ public class CommunicationEventServices {
                         inputFields.put("infoString_ic", caseInsensitiveEmail);
                         result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName", "WorkEffortContactMechView"
                                 ,"inputFields", inputFields, "userLogin", userLogin));
-                        EntityListIterator listIt = (EntityListIterator) result.get("listIt");
-
-                        try {
+                        try (EntityListIterator listIt = (EntityListIterator) result.get("listIt")) {
                             List<GenericValue> list = listIt.getCompleteList();
                             List<GenericValue> filteredList = EntityUtil.filterByDate(list);
                             tempResults.addAll(filteredList);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
-                        } finally {
-                            try {
-                                listIt.close();
-                            } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
-                            }
-                        }
                     }
                 }
             }
