@@ -148,7 +148,9 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     public void close() throws GenericEntityException {
         if (closed) {
             //maybe not the best way: throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
-            Debug.logWarning("This EntityListIterator for Entity [" + modelEntity==null?"":modelEntity.getEntityName() + "] has already been closed, not closing again.", module);
+            Debug.logWarning("This EntityListIterator for Entity [" + 
+                    modelEntity == null ? "" : modelEntity.getEntityName() + 
+                            "] has already been closed, not closing again.", module);
         } else {
             if (sqlp != null) {
                 sqlp.close();
