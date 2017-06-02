@@ -21,6 +21,7 @@ import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.base.util.*
 
+module = "EditSurveyQuestions.groovy"
 surveyQuestionId = parameters.surveyQuestionId
 context.surveyQuestionId = surveyQuestionId
 
@@ -40,18 +41,28 @@ context.viewSize = viewSize
 context.lowIndex = lowIndex
 int listSize = 0
 
-listIt = from("SurveyQuestionAndAppl").where("surveyId", surveyId).orderBy("sequenceNum").cursorScrollInsensitive().cache(true).queryIterator()
-surveyQuestionAndApplList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
-
-listSize = listIt.getResultsSizeAfterPartialList()
-if (listSize < highIndex) {
-    highIndex = listSize
+try {
+    listIt = from("SurveyQuestionAndAppl")
+                .where("surveyId", surveyId)
+                .orderBy("sequenceNum")
+                .cursorScrollInsensitive()
+                .cache(true)
+                .queryIterator()
+    surveyQuestionAndApplList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
+    
+    listSize = listIt.getResultsSizeAfterPartialList()
+    if (listSize < highIndex) {
+        highIndex = listSize
+    }
+    
+    context.viewIndexLast = (int) (listSize / viewSize)
+    context.highIndex = highIndex
+    context.listSize = listSize
+} catch (GenericEntityException e) {
+    Debug.logError(e, "Failure in " + module)
+} finally {
+    listIt.close()
 }
-
-context.viewIndexLast = (int) (listSize / viewSize)
-context.highIndex = highIndex
-context.listSize = listSize
-listIt.close()
 
 surveyPageList = from("SurveyPage").where("surveyId", surveyId).orderBy("sequenceNum").queryList()
 surveyMultiRespList = from("SurveyMultiResp").where("surveyId", surveyId).orderBy("multiRespTitle").queryList()

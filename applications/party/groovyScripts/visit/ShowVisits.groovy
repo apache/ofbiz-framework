@@ -70,7 +70,6 @@ try {
     }
     context.visitSize = visitListSize
 
-    visitListIt.close()
 } catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction"
     Debug.logError(e, errMsg, module)
@@ -84,7 +83,9 @@ try {
     throw e
 } finally {
     // only commit the transaction if we started one... this will throw an exception if it fails
+    visitListIt.close()
     TransactionUtil.commit(beganTransaction)
+    }
 }
 
 context.visitList = visitList
