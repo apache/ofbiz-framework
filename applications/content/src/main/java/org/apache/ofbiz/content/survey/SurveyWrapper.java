@@ -534,22 +534,19 @@ public class SurveyWrapper {
             // index 1 = total yes
             // index 2 = total no
 
-            EntityListIterator eli = this.getEli(question, -1);
-
-            if (eli != null) {
-                GenericValue value;
-                while (((value = eli.next()) != null)) {
-                    if ("Y".equalsIgnoreCase(value.getString("booleanResponse"))) {
-                        result[1]++;
-                    } else {
-                        result[2]++;
+            try (EntityListIterator eli = this.getEli(question, -1)) {
+                if (eli != null) {
+                    GenericValue value;
+                    while (((value = eli.next()) != null)) {
+                        if ("Y".equalsIgnoreCase(value.getString("booleanResponse"))) {
+                            result[1]++;
+                        } else {
+                            result[2]++;
+                        }
+                        result[0]++; // increment the count
                     }
-                    result[0]++; // increment the count
                 }
-
-                eli.close();
             }
-
             return result;
         } catch (GenericEntityException e) {
             try {
@@ -577,10 +574,8 @@ public class SurveyWrapper {
         // index 2 = average
 
         boolean beganTransaction = false;
-        try {
+        try (EntityListIterator eli = this.getEli(question, -1)) {
             beganTransaction = TransactionUtil.begin();
-
-            EntityListIterator eli = this.getEli(question, -1);
 
             if (eli != null) {
                 GenericValue value;
@@ -607,8 +602,6 @@ public class SurveyWrapper {
                     }
                     result[0]++; // increment the count
                 }
-
-                eli.close();
             }
         } catch (GenericEntityException e) {
             try {
