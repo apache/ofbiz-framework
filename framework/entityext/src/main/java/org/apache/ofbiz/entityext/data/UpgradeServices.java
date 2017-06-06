@@ -65,11 +65,9 @@ public class UpgradeServices {
         String groupName = (String) context.get("groupName");
 
         Map<String, ModelEntity> modelEntities;
-        PrintWriter dataWriter = null;
-        try {
+        try (PrintWriter dataWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/" + groupName + ".sql")), "UTF-8")))) {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
-            dataWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/" + groupName + ".sql")), "UTF-8")));
 
             /* TODO:
             1) fetch the meta data of the "date-time" field using the JDBC connection and JDBC meta data;
@@ -91,16 +89,12 @@ public class UpgradeServices {
                 }
             }
             dataWriter.println("SET FOREIGN_KEY_CHECKS=1;");
-            dataWriter.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             Debug.logError(e, e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
-        } finally {
-            if (dataWriter != null)
-                dataWriter.close();
         }
 
         return ServiceUtil.returnSuccess();

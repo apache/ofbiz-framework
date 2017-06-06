@@ -472,10 +472,9 @@ public class CommonServices {
         OutputStream out = (OutputStream) context.get("outputStream");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        Writer writer = new OutputStreamWriter(out);
         String line;
 
-        try {
+        try (Writer writer = new OutputStreamWriter(out)) {
             while ((line = reader.readLine()) != null) {
                 Debug.logInfo("Read line: " + line, module);
                 writer.write(line);
@@ -483,12 +482,6 @@ public class CommonServices {
         } catch (IOException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
-        } finally {
-            try {
-                writer.close();
-            } catch (Exception e) {
-                Debug.logError(e, module);
-            }
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
