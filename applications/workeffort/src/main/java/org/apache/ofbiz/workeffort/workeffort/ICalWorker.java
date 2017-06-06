@@ -208,11 +208,8 @@ public final class ICalWorker {
                     Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
-                Writer writer = response.getWriter();
-                try {
+                try (Writer writer = response.getWriter()) {
                     helper.writeResponse(response, writer);
-                } finally {
-                    writer.close();
                 }
                 return;
             }
@@ -319,11 +316,8 @@ public final class ICalWorker {
         }
         if (responseProps.statusMessage != null) {
             response.setContentLength(responseProps.statusMessage.length());
-            Writer writer = response.getWriter();
-            try {
+            try (Writer writer = response.getWriter()) {
                 writer.write(responseProps.statusMessage);
-            } finally {
-                writer.close();
             }
         }
     }

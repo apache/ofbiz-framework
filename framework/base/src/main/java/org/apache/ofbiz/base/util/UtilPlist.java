@@ -18,6 +18,9 @@
  */
 package org.apache.ofbiz.base.util;
 
+import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
+import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,9 +31,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 /**
  * File Utilities
@@ -157,16 +157,16 @@ public final class UtilPlist {
      * @throws UnsupportedEncodingException
      */
     public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename, boolean useXml) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, filename)), "UTF-8")));
-        if (useXml) {
-            plistWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            plistWriter.println("<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">");
-            plistWriter.println("<plist version=\"1.0\">");
-            writePlistPropertyMapXml(eoModelMap, 0, plistWriter);
-            plistWriter.println("</plist>");
-        } else {
-            writePlistPropertyMap(eoModelMap, 0, plistWriter, false);
+        try (PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, filename)), "UTF-8")))) {
+            if (useXml) {
+                plistWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                plistWriter.println("<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">");
+                plistWriter.println("<plist version=\"1.0\">");
+                writePlistPropertyMapXml(eoModelMap, 0, plistWriter);
+                plistWriter.println("</plist>");
+            } else {
+                writePlistPropertyMap(eoModelMap, 0, plistWriter, false);
+            }
         }
-        plistWriter.close();
     }
 }
