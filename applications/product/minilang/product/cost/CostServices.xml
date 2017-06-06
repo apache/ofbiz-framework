@@ -109,7 +109,6 @@ under the License.
             <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
                 <clear-field field="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
-                <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
                 <find-by-and entity-name="SupplierProduct" map="costsAndMap" list="priceCosts" order-by-list="orderByList"/>
                 <filter-list-by-date list="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list="priceCosts" entry="priceCost"/>
@@ -119,7 +118,7 @@ under the License.
                     <set from-field="priceCost.lastPrice" field="inputMap.originalValue"/>
                     <set from-field="priceCost.currencyUomId" field="inputMap.uomId"/>
                     <set from-field="parameters.currencyUomId" field="inputMap.uomIdTo"/>
-                    
+
                     <call-service service-name="convertUom" in-map-name="inputMap" require-new-transaction="true" break-on-error="false">
                         <result-to-field result-name="convertedValue" field="productCost"/>
                     </call-service>
