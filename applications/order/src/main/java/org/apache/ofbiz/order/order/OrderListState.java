@@ -257,18 +257,18 @@ public class OrderListState implements Serializable {
             allConditions.add(typeConditionsList);
         }
 
-        EntityListIterator iterator = EntityQuery.use(delegator).from("OrderHeader")
+        EntityQuery eq = EntityQuery.use(delegator).from("OrderHeader")
                 .where(allConditions)
                 .orderBy("orderDate DESC")
                 .maxRows(viewSize * (viewIndex + 1))
-                .cursorScrollInsensitive()
-                .queryIterator();
-
-        // get subset corresponding to pagination state
-        List<GenericValue> orders = iterator.getPartialList(viewSize * viewIndex, viewSize);
-        orderListSize = iterator.getResultsSizeAfterPartialList();
-        iterator.close();
-        return orders;
+                .cursorScrollInsensitive();
+        
+        try (EntityListIterator iterator = eq.queryIterator()) {
+            // get subset corresponding to pagination state
+            List<GenericValue> orders = iterator.getPartialList(viewSize * viewIndex, viewSize);
+            orderListSize = iterator.getResultsSizeAfterPartialList();
+            return orders;
+        }
     }
 
     @Override
