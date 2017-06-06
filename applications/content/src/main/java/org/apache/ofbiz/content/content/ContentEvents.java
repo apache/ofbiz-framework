@@ -69,73 +69,52 @@ public class ContentEvents {
             return "error";
         }
 
-        EntityListIterator entityListIterator = null;
         int numConts = 0;
         int errConts = 0;
 
         boolean beganTx = false;
+        EntityQuery contentQuery = EntityQuery.use(delegator).from("Content");
+        
         try {
             // begin the transaction
             beganTx = TransactionUtil.begin(7200);
-            try {
-                EntityQuery contentQuery = EntityQuery.use(delegator).from("Content");
-                if (Debug.infoOn()) {
-                    long count = contentQuery.queryCount();
-                    Debug.logInfo("========== Found " + count + " contents to index ==========", module);
-                }
-                entityListIterator = contentQuery.queryIterator();
-            } catch (GenericEntityException gee) {
-                Debug.logWarning(gee, gee.getMessage(), module);
-                Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
-                errMsg = UtilProperties.getMessage(resource,"contentevents.error_getting_content_list", messageMap, UtilHttp.getLocale(request));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                throw gee;
+            if (Debug.infoOn()) {
+                long count = contentQuery.queryCount();
+                Debug.logInfo("========== Found " + count + " contents to index ==========", module);
             }
-
             GenericValue content;
-            while ((content = entityListIterator.next()) != null) {
-                try {
+            try (EntityListIterator entityListIterator = contentQuery.queryIterator()) {
+                while ((content = entityListIterator.next()) != null) {
                     ContentKeywordIndex.indexKeywords(content, "Y".equals(doAll));
-                } catch (GenericEntityException e) {
-                    Debug.logWarning("[ContentEvents.updateAllContentKeywords] Could not create content-keyword (write error); message: " + e.getMessage(), module);
-                    errConts++;
+                    numConts++;
+                    if (numConts % 500 == 0) {
+                        Debug.logInfo("Keywords indexed for " + numConts + " so far", module);
+                    }
                 }
-                numConts++;
-                if (numConts % 500 == 0) {
-                    Debug.logInfo("Keywords indexed for " + numConts + " so far", module);
-                }
+            } catch (GenericEntityException e) {
+                errMsg = "[ContentEvents.updateAllContentKeywords] Could not create content-keyword (write error); message: " + e.getMessage();
+                Debug.logWarning(errMsg, module);
+                errConts++;
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
             }
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException gee) {
+            Debug.logWarning(gee, gee.getMessage(), module);
+            Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
+            errMsg = UtilProperties.getMessage(resource,"contentevents.error_getting_content_list", messageMap, UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             try {
-                TransactionUtil.rollback(beganTx, e.getMessage(), e);
+                TransactionUtil.rollback(beganTx, gee.getMessage(), gee);
             } catch (GenericTransactionException e1) {
                 Debug.logError(e1, module);
             }
             return "error";
-        } catch (Throwable t) {
-            Debug.logError(t, module);
-            request.setAttribute("_ERROR_MESSAGE_", t.getMessage());
-            try {
-                TransactionUtil.rollback(beganTx, t.getMessage(), t);
-            } catch (GenericTransactionException e2) {
-                Debug.logError(e2, module);
-            }
-            return "error";
-        } finally {
-            if (entityListIterator != null) {
-                try {
-                    entityListIterator.close();
-                } catch (GenericEntityException gee) {
-                    Debug.logError(gee, "Error closing EntityListIterator when indexing content keywords.", module);
-                }
-            }
 
-            // commit the transaction
-            try {
-                TransactionUtil.commit(beganTx);
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
-            }
+        }
+        // commit the transaction
+        try {
+            TransactionUtil.commit(beganTx);
+        } catch (GenericTransactionException e) {
+            Debug.logError(e, module);
         }
 
         if (errConts == 0) {
