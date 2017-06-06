@@ -76,6 +76,7 @@ import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.model.ModelViewEntity;
+import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityDataAssert;
 import org.apache.ofbiz.entity.util.EntityDataLoader;
@@ -85,8 +86,8 @@ import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.apache.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
@@ -492,63 +493,53 @@ public class WebToolsServices {
 
                 for (String curEntityName: passedEntityNames) {
                     long numberWritten = 0;
-                    EntityListIterator values = null;
+                    ModelEntity me = delegator.getModelEntity(curEntityName);
+                    if (me instanceof ModelViewEntity) {
+                        results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
+                        continue;
+                    }
+                    List<EntityCondition> conds = new LinkedList<EntityCondition>();
+                    if (UtilValidate.isNotEmpty(fromDate)) {
+                        conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                    }
+                    EntityQuery eq = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames());
 
                     try {
-                        ModelEntity me = delegator.getModelEntity(curEntityName);
-                        if (me instanceof ModelViewEntity) {
-                            results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
-                            continue;
-                        }
-
                         boolean beganTx = TransactionUtil.begin();
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
-                        try {
-                            List<EntityCondition> conds = new LinkedList<EntityCondition>();
-                            if (UtilValidate.isNotEmpty(fromDate)) {
-                                conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                        //Don't bother writing the file if there's nothing to put into it
+                        try (EntityListIterator values = eq.queryIterator()) {
+                            GenericValue value = values.next();
+                            if (value != null) {
+                                try (PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")))) {
+                                    writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                                    writer.println("<entity-engine-xml>");
+                                    do {
+                                        value.writeXmlText(writer, "");
+                                        numberWritten++;
+                                        if (numberWritten % 500 == 0) {
+                                            TransactionUtil.commit(beganTx);
+                                            beganTx = TransactionUtil.begin();
+                                        }
+                                    } while ((value = values.next()) != null);
+                                    writer.println("</entity-engine-xml>");
+                                } catch (UnsupportedEncodingException | FileNotFoundException e) {
+                                    results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + e);
+                                }
+                                results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
+                            } else {
+                                results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
                             }
-                            values = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames()).queryIterator();
-                        } catch (Exception entityEx) {
+                            TransactionUtil.commit(beganTx);
+                        } catch (GenericEntityException entityEx) {
                             results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
                         }
-
-                        //Don't bother writing the file if there's nothing
-                        //to put into it
-                        GenericValue value = values.next();
-                        if (value != null) {
-                            PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")));
-                            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                            writer.println("<entity-engine-xml>");
-
-                            do {
-                                value.writeXmlText(writer, "");
-                                numberWritten++;
-                                if (numberWritten % 500 == 0) {
-                                    TransactionUtil.commit(beganTx);
-                                    beganTx = TransactionUtil.begin();
-                                }
-                            } while ((value = values.next()) != null);
-                            writer.println("</entity-engine-xml>");
-                            writer.close();
-                            results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
-                        } else {
-                            results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
-                        }
-                        values.close();
-                        TransactionUtil.commit(beganTx);
-                    } catch (Exception ex) {
-                        if (values != null) {
-                            try {
-                                values.close();
-                            } catch (Exception exc) {
-                                //Debug.warning();
-                            }
-                        }
-                        results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + ex);
+                        fileNumber++;
+                    } catch (GenericTransactionException e) {
+                        Debug.logError(e, module);
+                        results.add(e.getLocalizedMessage());
                     }
-                    fileNumber++;
                 }
             } else {
                 results.add("Path not found or no write access.");
