@@ -299,22 +299,23 @@ public final class UtilIO {
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write
+     * @throws IOException 
      */
     public static void writeString(OutputStream out, Charset charset, String value) throws IOException {
-        Writer writer = new OutputStreamWriter(out, charset);
-        String nl = System.getProperty("line.separator");
-        int r = 0;
-        while (r < value.length()) {
-            int i = value.indexOf("\n", r);
-            if (i == -1) {
-                break;
+        try (Writer writer = new OutputStreamWriter(out, charset)) {
+            String nl = System.getProperty("line.separator");
+            int r = 0;
+            while (r < value.length()) {
+                int i = value.indexOf("\n", r);
+                if (i == -1) {
+                    break;
+                }
+                writer.write(value.substring(r, i));
+                writer.write(nl);
+                r = i + 1;
             }
-            writer.write(value.substring(r, i));
-            writer.write(nl);
-            r = i + 1;
+            writer.write(value.substring(r));
         }
-        writer.write(value.substring(r));
-        writer.close();
     }
 
     public static Charset getUtf8() {

@@ -275,10 +275,8 @@ public class PayPalServices {
                 Debug.logError(e, module);
             }
 
-            try {
-                Writer writer = response.getWriter();
+            try (Writer writer = response.getWriter()) {
                 writer.write(responseMsg);
-                writer.close();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
