@@ -44,7 +44,9 @@ public class PerformFindTests extends OFBizTestCase {
     private List<GenericValue> getCompleteList(Map<String, Object> context) {
         List<GenericValue> foundElements = new LinkedList<GenericValue>();
             try (EntityListIterator listIt = (EntityListIterator) context.get("listIt")) {
-                foundElements = listIt.getCompleteList();
+                if (listIt != null) {
+                    foundElements = listIt.getCompleteList();
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(" Failed to extract values from EntityListIterator after a performFind service", module);
         }
