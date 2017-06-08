@@ -525,7 +525,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
         try {
             if (!closed) {
                 this.close();
-                Debug.logError("\n====================================================================\n EntityListIterator Not Closed for Entity [" + (modelEntity==null ? "" : modelEntity.getEntityName()) + "], caught in Finalize\n ====================================================================\n", module);
+                Debug.logError("\n==============================================================================\n EntityListIterator Not Closed for Entity [" + (modelEntity==null ? "" : modelEntity.getEntityName()) 
+                        + "], caught in Finalize\n Please report by creating an OFBIZ-9297 subtask with the stack trace, thanks\n==============================================================================\n", module);
             }
         } catch (Exception e) {
             Debug.logError(e, "Error closing the SQLProcessor in finalize EntityListIterator", module);
