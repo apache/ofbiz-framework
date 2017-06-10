@@ -282,7 +282,6 @@ public class CommunicationEventServices {
         String communicationEventId = (String) context.get("communicationEventId");
 
         // Any exceptions thrown in this block will cause the service to return error
-        EntityListIterator eli = null;
         try {
 
             GenericValue communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
