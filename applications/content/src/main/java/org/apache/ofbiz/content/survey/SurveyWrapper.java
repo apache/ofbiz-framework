@@ -43,6 +43,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
@@ -398,8 +399,12 @@ public class SurveyWrapper {
         List<GenericValue> resp = null;
         boolean beganTransaction = false;
         int maxRows = startIndex + number;
-        try (EntityListIterator eli = this.getEli(question, maxRows)) {
+        try {
             beganTransaction = TransactionUtil.begin();
+        } catch (GenericTransactionException gte) {
+            Debug.logError(gte, "Unable to begin transaction", module);
+        }
+        try (EntityListIterator eli = this.getEli(question, maxRows)) {
             if (startIndex > 0 && number > 0) {
                 resp = eli.getPartialList(startIndex, number);
             } else {
@@ -574,9 +579,13 @@ public class SurveyWrapper {
         // index 2 = average
 
         boolean beganTransaction = false;
-        try (EntityListIterator eli = this.getEli(question, -1)) {
+        try {
             beganTransaction = TransactionUtil.begin();
-
+        } catch (GenericTransactionException gte) {
+            Debug.logError(gte, "Unable to begin transaction", module);
+        }
+        
+        try (EntityListIterator eli = this.getEli(question, -1)) {
             if (eli != null) {
                 GenericValue value;
                 while (((value = eli.next()) != null)) {
@@ -660,8 +669,13 @@ public class SurveyWrapper {
         long total = 0;
 
         boolean beganTransaction = false;
-        try (EntityListIterator eli = this.getEli(question, -1)) {
+        try {
             beganTransaction = TransactionUtil.begin();
+        } catch (GenericTransactionException gte) {
+            Debug.logError(gte, "Unable to begin transaction", module);
+        }
+
+        try (EntityListIterator eli = this.getEli(question, -1)) {
             if (eli != null) {
                 GenericValue value;
                 while (((value = eli.next()) != null)) {
