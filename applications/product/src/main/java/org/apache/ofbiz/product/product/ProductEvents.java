@@ -113,9 +113,13 @@ public class ProductEvents {
         int errProds = 0;
 
         boolean beganTx = false;
-        try (EntityListIterator  entityListIterator = EntityQuery.use(delegator).from("Product").where(condition).queryIterator()) {
+        try {
             // begin the transaction
             beganTx = TransactionUtil.begin(7200);
+        } catch (GenericTransactionException gte) {
+            Debug.logError(gte, "Unable to begin transaction", module);
+        }
+        try (EntityListIterator  entityListIterator = EntityQuery.use(delegator).from("Product").where(condition).queryIterator()) {
             try {
                 if (Debug.infoOn()) {
                     long count = EntityQuery.use(delegator).from("Product").where(condition).queryCount();
@@ -126,7 +130,7 @@ public class ProductEvents {
                 Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
                 errMsg = UtilProperties.getMessage(resource,"productevents.error_getting_product_list", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                throw gee;
+                return "error";
             }
 
             GenericValue product;
