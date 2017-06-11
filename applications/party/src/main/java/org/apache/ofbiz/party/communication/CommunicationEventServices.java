@@ -283,7 +283,6 @@ public class CommunicationEventServices {
 
         // Any exceptions thrown in this block will cause the service to return error
         try {
-
             GenericValue communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
             GenericValue contactList = EntityQuery.use(delegator).from("ContactList").where("contactListId", contactListId).queryOne();
 
@@ -301,195 +300,191 @@ public class CommunicationEventServices {
                         EntityCondition.makeCondition("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                         EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"));
 
-            eli = EntityQuery.use(delegator).select("partyId", "preferredContactMechId", "fromDate", "infoString")
+            EntityQuery eq = EntityQuery.use(delegator).select("partyId", "preferredContactMechId", "fromDate", "infoString")
                     .from("ContactListPartyAndContactMech")
                     .where(EntityCondition.makeCondition(conditionList, EntityOperator.AND))
                     .cursorScrollInsensitive()
-                    .distinct()
-                    .queryIterator();
+                    .distinct();
+                    
 
-            // Send an email to each contact list member
-            // loop through the list iterator
-            for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
-                Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
-                // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
-                //  only be logged and not cause the service to return an error
-                try {
+            try (EntityListIterator eli = eq.queryIterator()) {
+                // Send an email to each contact list member
+                // loop through the list iterator
+                for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
+                    Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
+                    // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
+                    //  only be logged and not cause the service to return an error
+                    try {
 
-                    String emailAddress = contactListPartyAndContactMech.getString("infoString");
-                    if (UtilValidate.isEmpty(emailAddress)) continue;
-                    emailAddress = emailAddress.trim();
+                        String emailAddress = contactListPartyAndContactMech.getString("infoString");
+                        if (UtilValidate.isEmpty(emailAddress)) continue;
+                        emailAddress = emailAddress.trim();
 
-                    if (! UtilValidate.isEmail(emailAddress)) {
+                        if (! UtilValidate.isEmail(emailAddress)) {
 
-                        // If validation fails, just log and skip the email address
-                        Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, module);
-                        errorMessages.add(skippingInvalidEmailAddress + ": " + emailAddress);
-                        continue;
-                    }
+                            // If validation fails, just log and skip the email address
+                            Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, module);
+                            errorMessages.add(skippingInvalidEmailAddress + ": " + emailAddress);
+                            continue;
+                        }
 
-                    // Because we're retrieving infoString only above (so as not to pollute the distinctness), we
-                    //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
-                    //      only the most recent valid one via ContactListPartyAndContactMech.
-                    List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
-                    clpConditionList.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, emailAddress));
+                        // Because we're retrieving infoString only above (so as not to pollute the distinctness), we
+                        //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
+                        //      only the most recent valid one via ContactListPartyAndContactMech.
+                        List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
+                        clpConditionList.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, emailAddress));
 
-                    GenericValue lastContactListPartyACM = EntityQuery.use(delegator).from("ContactListPartyAndContactMech")
-                            .where(EntityCondition.makeCondition(clpConditionList, EntityOperator.AND))
-                            .orderBy("-fromDate")
-                            .cache(true)
-                            .queryFirst();
-                    if (lastContactListPartyACM == null) continue;
+                        GenericValue lastContactListPartyACM = EntityQuery.use(delegator).from("ContactListPartyAndContactMech")
+                                .where(EntityCondition.makeCondition(clpConditionList, EntityOperator.AND))
+                                .orderBy("-fromDate")
+                                .cache(true)
+                                .queryFirst();
+                        if (lastContactListPartyACM == null) continue;
 
-                    String partyId = lastContactListPartyACM.getString("partyId");
+                        String partyId = lastContactListPartyACM.getString("partyId");
 
-                    sendMailParams.put("sendTo", emailAddress);
-                    sendMailParams.put("partyId", partyId);
+                        sendMailParams.put("sendTo", emailAddress);
+                        sendMailParams.put("partyId", partyId);
 
-                    // Retrieve a record for this contactMechId from ContactListCommStatus
-                    Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId"));
-                    GenericValue contactListCommStatusRecord = EntityQuery.use(delegator).from("ContactListCommStatus")
-                            .where(contactListCommStatusRecordMap)
-                            .queryOne();
-                    if (contactListCommStatusRecord == null) {
+                        // Retrieve a record for this contactMechId from ContactListCommStatus
+                        Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId"));
+                        GenericValue contactListCommStatusRecord = EntityQuery.use(delegator).from("ContactListCommStatus")
+                                .where(contactListCommStatusRecordMap)
+                                .queryOne();
+                        if (contactListCommStatusRecord == null) {
 
-                        // No attempt has been made previously to send to this address, so create a record to reflect
-                        //  the beginning of the current attempt
-                        Map<String, String> newContactListCommStatusRecordMap = UtilMisc.makeMapWritable(contactListCommStatusRecordMap);
-                        newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
-                        newContactListCommStatusRecordMap.put("partyId", partyId);
-                        contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
-                    } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
+                            // No attempt has been made previously to send to this address, so create a record to reflect
+                            //  the beginning of the current attempt
+                            Map<String, String> newContactListCommStatusRecordMap = UtilMisc.makeMapWritable(contactListCommStatusRecordMap);
+                            newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
+                            newContactListCommStatusRecordMap.put("partyId", partyId);
+                            contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
+                        } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
 
-                        // There was a successful earlier attempt, so skip this address
-                        continue;
-                    }
+                            // There was a successful earlier attempt, so skip this address
+                            continue;
+                        }
 
-                    // Send e-mail
-                    Debug.logInfo("Sending email to contact list [" + contactListId + "] party [" + partyId + "] : " + emailAddress, module);
-                    // Make the attempt to send the email to the address
+                        // Send e-mail
+                        Debug.logInfo("Sending email to contact list [" + contactListId + "] party [" + partyId + "] : " + emailAddress, module);
+                        // Make the attempt to send the email to the address
 
-                    Map<String, Object> tmpResult = null;
+                        Map<String, Object> tmpResult = null;
 
-                    // Retrieve a contact list party status
-                    GenericValue contactListPartyStatus = EntityQuery.use(delegator).from("ContactListPartyStatus")
-                            .where("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED")
-                            .queryFirst();
-                    if (contactListPartyStatus != null) {
-                        // prepare body parameters
-                        Map<String, Object> bodyParameters = new HashMap<String, Object>();
-                        bodyParameters.put("contactListId", contactListId);
-                        bodyParameters.put("partyId", contactListPartyAndContactMech.getString("partyId"));
-                        bodyParameters.put("preferredContactMechId", contactListPartyAndContactMech.getString("preferredContactMechId"));
-                        bodyParameters.put("emailAddress", emailAddress);
-                        bodyParameters.put("fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"));
-                        bodyParameters.put("optInVerifyCode", contactListPartyStatus.getString("optInVerifyCode"));
-                        bodyParameters.put("content", communicationEvent.getString("content"));
-                        NotificationServices.setBaseUrl(delegator, contactList.getString("verifyEmailWebSiteId"), bodyParameters);
+                        // Retrieve a contact list party status
+                        GenericValue contactListPartyStatus = EntityQuery.use(delegator).from("ContactListPartyStatus")
+                                .where("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED")
+                                .queryFirst();
+                        if (contactListPartyStatus != null) {
+                            // prepare body parameters
+                            Map<String, Object> bodyParameters = new HashMap<String, Object>();
+                            bodyParameters.put("contactListId", contactListId);
+                            bodyParameters.put("partyId", contactListPartyAndContactMech.getString("partyId"));
+                            bodyParameters.put("preferredContactMechId", contactListPartyAndContactMech.getString("preferredContactMechId"));
+                            bodyParameters.put("emailAddress", emailAddress);
+                            bodyParameters.put("fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"));
+                            bodyParameters.put("optInVerifyCode", contactListPartyStatus.getString("optInVerifyCode"));
+                            bodyParameters.put("content", communicationEvent.getString("content"));
+                            NotificationServices.setBaseUrl(delegator, contactList.getString("verifyEmailWebSiteId"), bodyParameters);
 
-                        GenericValue webSite = EntityQuery.use(delegator).from("WebSite").where("webSiteId", contactList.getString("verifyEmailWebSiteId")).queryOne();
-                        if (webSite != null) {
-                            GenericValue productStore = webSite.getRelatedOne("ProductStore", false);
-                            if (productStore != null) {
-                                List<GenericValue> productStoreEmailSettings = productStore.getRelated("ProductStoreEmailSetting", UtilMisc.toMap("emailType", "CONT_EMAIL_TEMPLATE"), null, false);
-                                GenericValue productStoreEmailSetting = EntityUtil.getFirst(productStoreEmailSettings);
-                                if (productStoreEmailSetting != null) {
-                                    // send e-mail using screen template
-                                    sendMailParams.put("bodyScreenUri", productStoreEmailSetting.getString("bodyScreenLocation"));
-                                    sendMailParams.put("bodyParameters", bodyParameters);
-                                    sendMailParams.remove("body");
-                                    tmpResult = dispatcher.runSync("sendMailFromScreen", sendMailParams, 360, true);
+                            GenericValue webSite = EntityQuery.use(delegator).from("WebSite").where("webSiteId", contactList.getString("verifyEmailWebSiteId")).queryOne();
+                            if (webSite != null) {
+                                GenericValue productStore = webSite.getRelatedOne("ProductStore", false);
+                                if (productStore != null) {
+                                    List<GenericValue> productStoreEmailSettings = productStore.getRelated("ProductStoreEmailSetting", UtilMisc.toMap("emailType", "CONT_EMAIL_TEMPLATE"), null, false);
+                                    GenericValue productStoreEmailSetting = EntityUtil.getFirst(productStoreEmailSettings);
+                                    if (productStoreEmailSetting != null) {
+                                        // send e-mail using screen template
+                                        sendMailParams.put("bodyScreenUri", productStoreEmailSetting.getString("bodyScreenLocation"));
+                                        sendMailParams.put("bodyParameters", bodyParameters);
+                                        sendMailParams.remove("body");
+                                        tmpResult = dispatcher.runSync("sendMailFromScreen", sendMailParams, 360, true);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    // If the e-mail does not be sent then send normal e-mail
-                    if (UtilValidate.isEmpty(tmpResult)) {
-                        sendMailParams.put("body", communicationEvent.getString("content"));
-                        tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
-                    }
+                        // If the e-mail does not be sent then send normal e-mail
+                        if (UtilValidate.isEmpty(tmpResult)) {
+                            sendMailParams.put("body", communicationEvent.getString("content"));
+                            tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
+                        }
 
-                    if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
-                        if (ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
-                            // address error; mark the communication event as BOUNCED
-                            contactListCommStatusRecord.set("statusId", "COM_BOUNCED");
-                            try {
-                                contactListCommStatusRecord.store();
-                            } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
-                                errorMessages.add(e.getMessage());
-                            }
-                            // deactivate from the contact list
-                            try {
-                                GenericValue contactListParty = contactListPartyAndContactMech.getRelatedOne("ContactListParty", false);
-                                if (contactListParty != null) {
-                                    contactListParty.set("statusId", "CLPT_INVALID");
-                                    contactListParty.store();
+                        if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
+                            if (ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
+                                // address error; mark the communication event as BOUNCED
+                                contactListCommStatusRecord.set("statusId", "COM_BOUNCED");
+                                try {
+                                    contactListCommStatusRecord.store();
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, module);
+                                    errorMessages.add(e.getMessage());
                                 }
-                            } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
-                                errorMessages.add(e.getMessage());
+                                // deactivate from the contact list
+                                try {
+                                    GenericValue contactListParty = contactListPartyAndContactMech.getRelatedOne("ContactListParty", false);
+                                    if (contactListParty != null) {
+                                        contactListParty.set("statusId", "CLPT_INVALID");
+                                        contactListParty.store();
+                                    }
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, module);
+                                    errorMessages.add(e.getMessage());
+                                }
+                                continue;
+                            } else {
+                                // If the send attempt fails, just log and skip the email address
+                                Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                                errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                                continue;
                             }
-                            continue;
                         } else {
-                            // If the send attempt fails, just log and skip the email address
-                            Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
-                            errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
-                            continue;
+                            // attach the parent communication event to the new event created when sending the mail
+                            String thisCommEventId = (String) tmpResult.get("communicationEventId");
+                            GenericValue thisCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", thisCommEventId).queryOne();
+                            if (thisCommEvent != null) {
+                                thisCommEvent.set("contactListId", contactListId);
+                                thisCommEvent.set("parentCommEventId", communicationEventId);
+                                thisCommEvent.store();
+                            }
+                            String messageId = (String) tmpResult.get("messageId");
+                            contactListCommStatusRecord.set("messageId", messageId);
                         }
-                    } else {
-                        // attach the parent communication event to the new event created when sending the mail
-                        String thisCommEventId = (String) tmpResult.get("communicationEventId");
-                        GenericValue thisCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId", thisCommEventId).queryOne();
-                        if (thisCommEvent != null) {
-                            thisCommEvent.set("contactListId", contactListId);
-                            thisCommEvent.set("parentCommEventId", communicationEventId);
-                            thisCommEvent.store();
+
+                        if ("Y".equals(contactList.get("singleUse"))) {
+
+                            // Expire the ContactListParty if the list is single use and sendEmail finishes successfully
+                            tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", lastContactListPartyACM.get("contactListId"),
+                                    "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
+                                    "thruDate", UtilDateTime.nowTimestamp(), "userLogin", userLogin));
+                            if (ServiceUtil.isError(tmpResult)) {
+
+                                // If the expiry fails, just log and skip the email address
+                                Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                                errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                                continue;
+                            }
                         }
-                        String messageId = (String) tmpResult.get("messageId");
-                        contactListCommStatusRecord.set("messageId", messageId);
+
+                        // All is successful, so update the ContactListCommStatus record
+                        contactListCommStatusRecord.set("statusId", "COM_COMPLETE");
+                        delegator.store(contactListCommStatusRecord);
+
+                        // Don't return a service error just because of failure for one address - just log the error and continue
+                    } catch (GenericEntityException nonFatalGEE) {
+                        Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, module);
+                        errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGEE.getMessage());
+                    } catch (GenericServiceException nonFatalGSE) {
+                        Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, module);
+                        errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGSE.getMessage());
                     }
-
-                    if ("Y".equals(contactList.get("singleUse"))) {
-
-                        // Expire the ContactListParty if the list is single use and sendEmail finishes successfully
-                        tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", lastContactListPartyACM.get("contactListId"),
-                                                                                                "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
-                                                                                                "thruDate", UtilDateTime.nowTimestamp(), "userLogin", userLogin));
-                        if (ServiceUtil.isError(tmpResult)) {
-
-                            // If the expiry fails, just log and skip the email address
-                            Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
-                            errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
-                            continue;
-                        }
-                    }
-
-                    // All is successful, so update the ContactListCommStatus record
-                    contactListCommStatusRecord.set("statusId", "COM_COMPLETE");
-                    delegator.store(contactListCommStatusRecord);
-
-                // Don't return a service error just because of failure for one address - just log the error and continue
-                } catch (GenericEntityException nonFatalGEE) {
-                    Debug.logError(nonFatalGEE, errorInSendEmailToContactListService, module);
-                    errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGEE.getMessage());
-                } catch (GenericServiceException nonFatalGSE) {
-                    Debug.logError(nonFatalGSE, errorInSendEmailToContactListService, module);
-                    errorMessages.add(errorInSendEmailToContactListService + ": " + nonFatalGSE.getMessage());
                 }
+            } catch (GenericEntityException fatalGEE) {
+                return ServiceUtil.returnError(fatalGEE.getMessage());
             }
 
         } catch (GenericEntityException fatalGEE) {
             return ServiceUtil.returnError(fatalGEE.getMessage());
-        } finally {
-            if (eli != null) {
-                try {
-                    eli.close();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-            }
         }
 
         return errorMessages.size() == 0 ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
