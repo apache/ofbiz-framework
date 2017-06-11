@@ -1053,9 +1053,8 @@ public class WorkEffortServices {
 
     public static Map<String, Object> removeDuplicateWorkEfforts(DispatchContext ctx, Map<String, ? extends Object> context) {
         List<GenericValue> resultList = null;
-        EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator");
-        if (eli != null) {
-            try {
+        try (EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator")) {
+            if (eli != null) {
                 Set<String> keys = new HashSet<String>();
                 resultList = new LinkedList<GenericValue>();
                 GenericValue workEffort = eli.next();
@@ -1067,20 +1066,14 @@ public class WorkEffortServices {
                     }
                     workEffort = eli.next();
                 }
-            } catch (Exception e) {
-                Debug.logError(e, module);
-            } finally {
-                try {
-                    eli.close();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error while closing EntityListIterator: ", module);
+            } else {
+                List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts"));
+                if (workEfforts != null) {
+                    resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
                 }
             }
-        } else {
-            List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts"));
-            if (workEfforts != null) {
-                resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
-            }
+        } catch (Exception e) {
+            Debug.logError(e, module);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("workEfforts", resultList);
