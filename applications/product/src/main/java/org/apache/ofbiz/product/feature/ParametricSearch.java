@@ -123,9 +123,8 @@ public class ParametricSearch {
     }
     public static Map<String, List<GenericValue>> getAllFeaturesByType(Delegator delegator, int perTypeMaxSize) {
         Map<String, List<GenericValue>> productFeaturesByTypeMap = new HashMap<String, List<GenericValue>>();
-        try {
-            Set<String> typesWithOverflowMessages = new HashSet<String>();
-            EntityListIterator productFeatureEli = EntityQuery.use(delegator).from("ProductFeature").orderBy("description").queryIterator();
+        Set<String> typesWithOverflowMessages = new HashSet<String>();
+        try (EntityListIterator productFeatureEli = EntityQuery.use(delegator).from("ProductFeature").orderBy("description").queryIterator()) {
             GenericValue productFeature = null;
             while ((productFeature = productFeatureEli.next()) != null) {
                 String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
@@ -143,7 +142,6 @@ public class ParametricSearch {
                     featuresByType.add(productFeature);
                 }
             }
-            productFeatureEli.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting all features", module);
         }

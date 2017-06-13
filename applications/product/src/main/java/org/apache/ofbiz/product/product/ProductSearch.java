@@ -222,14 +222,12 @@ public class ProductSearch {
             long startMillis = System.currentTimeMillis();
 
             // do the query
-            EntityListIterator eli = this.doQuery(delegator);
-            ArrayList<String> productIds = this.makeProductIdList(eli);
-            if (eli != null) {
-                try {
-                    eli.close();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error closing ProductSearch EntityListIterator");
-                }
+            ArrayList<String> productIds = null;
+            try (EntityListIterator eli = this.doQuery(delegator)) {
+                productIds = this.makeProductIdList(eli);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return null;
             }
 
             long endMillis = System.currentTimeMillis();
@@ -649,6 +647,12 @@ public class ProductSearch {
             if (Debug.infoOn()) Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
         }
 
+        /**
+         * @param delegator the delegator
+         * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
+         *      DONE WITH IT (preferably in a finally block), 
+         *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
+         */
         public EntityListIterator doQuery(Delegator delegator) {
             // handle the now assembled or and and keyword fixed lists
             this.finishKeywordConstraints();

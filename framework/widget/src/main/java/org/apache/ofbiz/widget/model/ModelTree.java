@@ -396,14 +396,12 @@ public class ModelTree extends ModelWidget {
                 // List dataFound = (List)context.get("dataFound");
                 Iterator<? extends Map<String, ? extends Object>> dataIter = subNode.getListIterator(context);
                 if (dataIter instanceof EntityListIterator) {
-                    EntityListIterator eli = (EntityListIterator) dataIter;
-                    Map<String, Object> val = null;
-                    while ((val = eli.next()) != null) {
-                        Object[] arr = { node, val };
-                        subNodeValues.add(arr);
-                    }
-                    try {
-                        eli.close();
+                    try (EntityListIterator eli = (EntityListIterator) dataIter) {
+                        Map<String, Object> val = null;
+                        while ((val = eli.next()) != null) {
+                            Object[] arr = { node, val };
+                            subNodeValues.add(arr);
+                        }
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         throw new RuntimeException(e.getMessage());
