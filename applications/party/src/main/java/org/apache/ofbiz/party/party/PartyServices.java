@@ -954,7 +954,7 @@ public class PartyServices {
         Locale locale = (Locale) context.get("locale");
 
         try {
-        	parties = EntityQuery.use(delegator).from("Party")
+            parties = EntityQuery.use(delegator).from("Party")
                     .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("externalId"), EntityOperator.EQUALS, EntityFunction.UPPER(externalId)))
                     .orderBy("externalId", "partyId")
                     .queryList();
@@ -1502,21 +1502,19 @@ public class PartyServices {
             
             // do the lookup
             if (mainCond != null || "Y".equals(showAll)) {
-                try {
-                    // get the indexes for the partial list
-                    lowIndex = viewIndex * viewSize + 1;
-                    highIndex = (viewIndex + 1) * viewSize;
+                lowIndex = viewIndex * viewSize + 1;
+                highIndex = (viewIndex + 1) * viewSize;
 
-                    // set distinct on so we only get one row per order
-                    // using list iterator
-                    EntityListIterator pli = EntityQuery.use(delegator).select(UtilMisc.toSet(fieldsToSelect))
-                            .from(dynamicView)
-                            .where(mainCond)
-                            .orderBy(orderBy)
-                            .cursorScrollInsensitive()
-                            .fetchSize(highIndex)
-                            .distinct()
-                            .queryIterator();
+                // set distinct on so we only get one row per order
+                // using list iterator
+                EntityQuery eq = EntityQuery.use(delegator).select(UtilMisc.toSet(fieldsToSelect))
+                        .from(dynamicView)
+                        .where(mainCond)
+                        .orderBy(orderBy)
+                        .cursorScrollInsensitive()
+                        .fetchSize(highIndex)
+                        .distinct();
+                try (EntityListIterator pli = eq.queryIterator()) {
 
                     // get the partial list for this page
                     partyList = pli.getPartialList(lowIndex, viewSize);
@@ -1527,8 +1525,6 @@ public class PartyServices {
                         highIndex = partyListSize;
                     }
 
-                    // close the list iterator
-                    pli.close();
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in party find operation, rolling back transaction: " + e.toString();
                     Debug.logError(e, errMsg, module);

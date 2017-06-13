@@ -345,35 +345,39 @@ public class EntitySyncContext {
             }
 
             try {
-                // get the values created within the current time range
                 EntityCondition findValCondition = EntityCondition.makeCondition(
                         EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime),
                         EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
-                EntityListIterator eli = EntityQuery.use(delegator)
-                                                    .from(modelEntity.getEntityName())
-                                                    .where(findValCondition)
-                                                    .orderBy(ModelEntity.CREATE_STAMP_TX_FIELD, ModelEntity.CREATE_STAMP_FIELD)
-                                                    .queryIterator();
-                GenericValue nextValue = null;
-                long valuesPerEntity = 0;
-                while ((nextValue = eli.next()) != null) {
-                    // sort by the tx stamp and then the record stamp
-                    // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
-                    while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
-                        insertBefore++;
-                    }
-                    while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_FIELD))) {
-                        insertBefore++;
-                    }
-                    valuesToCreate.add(insertBefore, nextValue);
-                    valuesPerEntity++;
-                }
-                eli.close();
+                EntityQuery eq = EntityQuery.use(delegator)
+                        .from(modelEntity.getEntityName())
+                        .where(findValCondition)
+                        .orderBy(ModelEntity.CREATE_STAMP_TX_FIELD, ModelEntity.CREATE_STAMP_FIELD);
 
-                // definately remove this message and related data gathering
-                //long preCount = delegator.findCountByCondition(modelEntity.getEntityName(), findValCondition, null);
-                //long entityTotalCount = delegator.findCountByCondition(modelEntity.getEntityName(), null, null);
-                //if (entityTotalCount > 0 || preCount > 0 || valuesPerEntity > 0) Debug.logInfo("Got " + valuesPerEntity + "/" + preCount + "/" + entityTotalCount + " values for entity " + modelEntity.getEntityName(), module);
+                long valuesPerEntity = 0;
+                try (EntityListIterator eli = eq.queryIterator()) {
+                    // get the values created within the current time range
+                    GenericValue nextValue = null;
+
+                    while ((nextValue = eli.next()) != null) {
+                        // sort by the tx stamp and then the record stamp
+                        // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
+                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
+                            insertBefore++;
+                        }
+                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_FIELD))) {
+                            insertBefore++;
+                        }
+                        valuesToCreate.add(insertBefore, nextValue);
+                        valuesPerEntity++;
+                    }
+                } catch (GenericEntityException e) {
+                    try {
+                        TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToCreate", e);
+                    } catch (GenericTransactionException e2) {
+                        Debug.logWarning(e2, "Unable to call rollback()", module);
+                    }
+                    throw new SyncDataErrorException("Error getting values to create from the datasource", e);
+                }
 
                 // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
                 if (valuesPerEntity == 0) {
@@ -382,14 +386,24 @@ public class EntitySyncContext {
                     EntityCondition findNextCondition = EntityCondition.makeCondition(
                             EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
                             EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime));
-                    EntityListIterator eliNext = EntityQuery.use(delegator)
-                                                            .from(modelEntity.getEntityName())
-                                                            .where(findNextCondition)
-                                                            .orderBy(ModelEntity.CREATE_STAMP_TX_FIELD)
-                                                            .queryIterator();
-                    // get the first element and it's tx time value...
-                    GenericValue firstVal = eliNext.next();
-                    eliNext.close();
+                    eq = EntityQuery.use(delegator)
+                            .from(modelEntity.getEntityName())
+                            .where(findNextCondition)
+                            .orderBy(ModelEntity.CREATE_STAMP_TX_FIELD);
+
+                    GenericValue firstVal = null;
+                    try (EntityListIterator eliNext = eq.queryIterator()) {
+                        // get the first element and it's tx time value...
+                        firstVal = eliNext.next();
+                    } catch (GenericEntityException e) {
+                        try {
+                            TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToCreate", e);
+                        } catch (GenericTransactionException e2) {
+                            Debug.logWarning(e2, "Unable to call rollback()", module);
+                        }
+                        throw new SyncDataErrorException("Error getting values to create from the datasource", e);
+                    }
+                    
                     Timestamp nextTxTime;
                     if (firstVal != null) {
                         nextTxTime = firstVal.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD);
@@ -401,20 +415,13 @@ public class EntitySyncContext {
                         this.nextCreateTxTime = nextTxTime;
                         Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", module);
                     }
+                    
                     Timestamp curEntityNextTxTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityCreateTxTime.put(modelEntity.getEntityName(), nextTxTime);
                         Debug.logInfo("EntitySync: Set nextEntityCreateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", module);
                     }
                 }
-            } catch (GenericEntityException e) {
-                try {
-                    TransactionUtil.rollback(beganTransaction, "Entity Engine error in assembleValuesToCreate", e);
-
-                } catch (GenericTransactionException e2) {
-                    Debug.logWarning(e2, "Unable to call rollback()", module);
-                }
-                throw new SyncDataErrorException("Error getting values to create from the datasource", e);
             } catch (Throwable t) {
                 try {
                     TransactionUtil.rollback(beganTransaction, "Throwable error in assembleValuesToCreate", t);
@@ -423,7 +430,7 @@ public class EntitySyncContext {
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to create", t);
             }
-
+            
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
@@ -449,13 +456,13 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toCreateInfo.toString(), module);
         }
-        
+
         // As the this.nextCreateTxTime calculation is only based on entities without values to create, if there at least one value to create returned
         // this calculation is false, so it needs to be nullified
         if (valuesToCreate.size() > 0) {
             this.nextCreateTxTime = null;
         }
-        
+
         return valuesToCreate;
     }
 
