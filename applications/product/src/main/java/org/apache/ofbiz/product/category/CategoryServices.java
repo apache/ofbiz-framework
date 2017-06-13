@@ -285,7 +285,6 @@ public class CategoryServices {
 
         List<GenericValue> productCategoryMembers = null;
         if (productCategory != null) {
-            EntityListIterator pli = null;
             try {
                 if (useCacheForMembers) {
                     productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", productCategoryId).orderBy(orderByFields).cache(true).queryList();
@@ -354,45 +353,50 @@ public class CategoryServices {
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 
-                    // set distinct on
-                    // using list iterator
-                    pli = EntityQuery.use(delegator).from(entityName).where(mainCond).orderBy(orderByFields).cursorScrollInsensitive().maxRows(highIndex).queryIterator();
-
-                    // get the partial list for this page
-                    if (limitView) {
-                        if (viewProductCategoryId != null) {
-                            // do manual checking to filter view allow
-                            productCategoryMembers = new LinkedList<GenericValue>();
-                            GenericValue nextValue;
-                            int chunkSize = 0;
-                            listSize = 0;
-
-                            while ((nextValue = pli.next()) != null) {
-                                String productId = nextValue.getString("productId");
-                                if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
-                                    if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
-                                        productCategoryMembers.add(nextValue);
-                                        chunkSize++;
+                    // set distinct on using list iterator
+                    EntityQuery eq = EntityQuery.use(delegator)
+                            .from(entityName)
+                            .where(mainCond)
+                            .orderBy(orderByFields)
+                            .cursorScrollInsensitive()
+                            .maxRows(highIndex);
+                    
+                    try (EntityListIterator pli = eq.queryIterator()) {
+                        // get the partial list for this page
+                        if (limitView) {
+                            if (viewProductCategoryId != null) {
+                                // do manual checking to filter view allow
+                                productCategoryMembers = new LinkedList<GenericValue>();
+                                GenericValue nextValue;
+                                int chunkSize = 0;
+                                listSize = 0;
+    
+                                while ((nextValue = pli.next()) != null) {
+                                    String productId = nextValue.getString("productId");
+                                    if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
+                                        if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
+                                            productCategoryMembers.add(nextValue);
+                                            chunkSize++;
+                                        }
+                                        listSize++;
                                     }
-                                    listSize++;
                                 }
+                            } else {
+                                productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
+                                listSize = pli.getResultsSizeAfterPartialList();
                             }
                         } else {
-                            productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
-                            listSize = pli.getResultsSizeAfterPartialList();
+                            productCategoryMembers = pli.getCompleteList();
+                            if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
+                                // filter out the view allow
+                                productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                            }
+    
+                            listSize = productCategoryMembers.size();
+                            lowIndex = 1;
+                            highIndex = listSize;
                         }
-                    } else {
-                        productCategoryMembers = pli.getCompleteList();
-                        if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-                            // filter out the view allow
-                            productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
-                        }
-
-                        listSize = productCategoryMembers.size();
-                        lowIndex = 1;
-                        highIndex = listSize;
                     }
-
                     // filter out of stock products
                     if (filterOutOfStock) {
                         try {
@@ -414,16 +418,6 @@ public class CategoryServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-            }
-            finally {
-                // close the list iterator, if used
-                if (pli != null) {
-                    try {
-                        pli.close();
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
-                    }
-                }
             }
         }
 
