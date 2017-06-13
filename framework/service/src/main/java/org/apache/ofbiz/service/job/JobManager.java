@@ -206,7 +206,6 @@ public final class JobManager {
         EntityCondition baseCondition = EntityCondition.makeCondition(expressions);
         EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(baseCondition, poolCondition));
-        EntityListIterator jobsIterator = null;
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
@@ -214,19 +213,22 @@ public final class JobManager {
                 Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                 return poll;
             }
-            jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("runTime").queryIterator();
-            GenericValue jobValue = jobsIterator.next();
-            while (jobValue != null) {
-                // Claim ownership of this value. Using storeByCondition to avoid a race condition.
-                List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
-                int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
-                if (rowsUpdated == 1) {
-                    poll.add(new PersistedServiceJob(dctx, jobValue, null));
-                    if (poll.size() == limit) {
-                        break;
+            try (EntityListIterator jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("runTime").queryIterator()) {
+                GenericValue jobValue = jobsIterator.next();
+                while (jobValue != null) {
+                    // Claim ownership of this value. Using storeByCondition to avoid a race condition.
+                    List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
+                    int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
+                    if (rowsUpdated == 1) {
+                        poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                        if (poll.size() == limit) {
+                            break;
+                        }
                     }
+                    jobValue = jobsIterator.next();
                 }
-                jobValue = jobsIterator.next();
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
             }
             TransactionUtil.commit(beganTransaction);
         } catch (Throwable t) {
@@ -238,14 +240,6 @@ public final class JobManager {
             }
             Debug.logWarning(t, errMsg, module);
             return Collections.emptyList();
-        } finally {
-            if (jobsIterator != null) {
-                try {
-                    jobsIterator.close();
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
-                }
-            }
         }
         if (poll.isEmpty()) {
             // No jobs to run, see if there are any jobs to purge
@@ -263,21 +257,23 @@ public final class JobManager {
             EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition(canExp), EntityCondition.makeCondition(finExp)), EntityOperator.OR);
             mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), doneCond));
             beganTransaction = false;
-            jobsIterator = null;
             try {
                 beganTransaction = TransactionUtil.begin();
                 if (!beganTransaction) {
                     Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                     return Collections.emptyList();
                 }
-                jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("jobId").queryIterator();
-                GenericValue jobValue = jobsIterator.next();
-                while (jobValue != null) {
-                    poll.add(new PurgeJob(jobValue));
-                    if (poll.size() == limit) {
-                        break;
+                try (EntityListIterator jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("jobId").queryIterator()) {
+                    GenericValue jobValue = jobsIterator.next();
+                    while (jobValue != null) {
+                        poll.add(new PurgeJob(jobValue));
+                        if (poll.size() == limit) {
+                            break;
+                        }
+                        jobValue = jobsIterator.next();
                     }
-                    jobValue = jobsIterator.next();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
                 }
                 TransactionUtil.commit(beganTransaction);
             } catch (Throwable t) {
@@ -289,14 +285,6 @@ public final class JobManager {
                 }
                 Debug.logWarning(t, errMsg, module);
                 return Collections.emptyList();
-            } finally {
-                if (jobsIterator != null) {
-                    try {
-                        jobsIterator.close();
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning(e, module);
-                    }
-                }
             }
         }
         return poll;
