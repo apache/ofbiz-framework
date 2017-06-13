@@ -52,6 +52,7 @@ public final class Paginator {
         return value != null ? value.intValue() : 0;
     }
 
+    // entryList might be an  EntityListIterator. It will then be closed at the end of FormRenderer.renderItemRows() 
     public static void getListLimits(ModelForm modelForm, Map<String, Object> context, Object entryList) {
         int viewIndex = 0;
         int viewSize = 0;
@@ -233,6 +234,8 @@ public final class Paginator {
         context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
 
         if (iter instanceof EntityListIterator) {
+            // The EntityListIterator will be closed at the end of FormRenderer.renderItemRows()
+            // Note: it's also used in MacroScreenRenderer.renderScreenletPaginateMenu() but I could not find where it's then closed, nor issues...
             try {
                 ((EntityListIterator) iter).beforeFirst();
             } catch (GenericEntityException e) {
