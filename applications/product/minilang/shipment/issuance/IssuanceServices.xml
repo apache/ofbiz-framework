@@ -105,6 +105,7 @@ under the License.
     <simple-method method-name="issueOrderItemToShipment" short-description="Issue OrderItem to Shipment">
         <set value="Issue OrderItem to Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/minilang/shipment/shipment/ShipmentServices.xml"/>
+        <check-errors/>
 
         <!-- get orderHeader -->
         <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
@@ -133,6 +134,7 @@ under the License.
     <simple-method method-name="issueOrderItemShipGrpInvResToShipment" short-description="Issue OrderItemShipGrpInvRes to Shipment">
         <set value="Issue OrderItemShipGrpInvRes to Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/minilang/shipment/shipment/ShipmentServices.xml"/>
+        <check-errors/>
 
         <!-- get orderItemShipGrpInvRes -->
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="OrderItemShipGrpInvResLookupPk"/>
