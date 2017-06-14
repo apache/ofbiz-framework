@@ -114,6 +114,7 @@ under the License.
     <simple-method method-name="updateShipment" short-description="Update Shipment">
         <set value="Update Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
+        <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="Shipment"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
