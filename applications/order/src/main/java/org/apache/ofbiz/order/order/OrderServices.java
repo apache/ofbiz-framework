@@ -398,7 +398,7 @@ public class OrderServices {
 
                         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
                             Iterator<GenericValue> firstOne = selFixedAssetProduct.iterator();
-                            if (firstOne.hasNext())        {
+                            if (firstOne.hasNext()) {
                                 GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct");
                                 fixedAssetProduct = firstOne.next();
                                 workEffort.set("fixedAssetId",fixedAssetProduct.get("fixedAssetId"));
