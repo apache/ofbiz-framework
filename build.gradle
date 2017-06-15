@@ -310,14 +310,14 @@ def sysadminGroup = 'System Administration'
 
 // ========== OFBiz Server tasks ==========
 
-task loadDefault(group: ofbizServer) {
+task loadAll(group: ofbizServer) {
     dependsOn 'ofbiz --load-data'
     description 'Load default data; meant for OFBiz development, testing, and demo purposes'
 }
 
 task testIntegration(group: ofbizServer) {
     dependsOn 'ofbiz --test'
-    description 'Run OFBiz integration tests; You must run loadDefault before running this task'
+    description 'Run OFBiz integration tests; You must run loadAll before running this task'
 }
 
 task terminateOfbiz(group: ofbizServer,

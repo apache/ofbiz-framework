@@ -71,10 +71,10 @@ time for this step to complete if you are using OFBiz for the first time
 as it needs to download all dependencies. So please be patient!
 
 MS Windows:
-`gradlew cleanAll loadDefault`
+`gradlew cleanAll loadAll`
 
 Unix-like OS:
-`./gradlew cleanAll loadDefault`
+`./gradlew cleanAll loadAll`
 
 ### Start OFBiz:
 
@@ -160,7 +160,7 @@ Tips:
 
 `gradlew build`
 
-`gradlew cleanAll loadDefault testIntegration`
+`gradlew cleanAll loadAll testIntegration`
 
 #### Example OFBiz server tasks
 
@@ -176,7 +176,7 @@ Tips:
 
 #### Example mixed tasks (standard and OFBiz server)
 
-`gradlew cleanAll loadDefault "ofbiz --start"`
+`gradlew cleanAll loadAll "ofbiz --start"`
 
 * * * * * * * * * * * *
 
@@ -316,7 +316,7 @@ The default data set is defined by datasource using the read-data attribute,
 followed by the name of the data set, into the datasource element of the 'entityengine.xml' file.
 
 
-`gradlew loadDefault`
+`gradlew loadAll`
 
 OR
 
@@ -446,7 +446,7 @@ in a list of favorites for frequent reuse.
 
 #### Run all tests on a clean system
 
-`gradlew cleanAll loadDefault testIntegration`
+`gradlew cleanAll loadAll testIntegration`
 
 #### Clean all generated artifacts
 
