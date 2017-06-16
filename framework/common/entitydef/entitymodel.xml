@@ -511,6 +511,7 @@ under the License.
       <field name="uomId" type="id"></field>
       <field name="uomTypeId" type="id"></field>
       <field name="abbreviation" type="short-varchar"></field>
+      <field name="numericCode" type="numeric"></field>
       <field name="description" type="description"></field>
       <prim-key field="uomId"/>
       <relation type="one" fk-name="UOM_TO_TYPE" rel-entity-name="UomType">
