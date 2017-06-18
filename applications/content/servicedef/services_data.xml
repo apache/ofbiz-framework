@@ -104,7 +104,7 @@
         <description>Create a ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
         <override name="textData" allow-html="any"/>
