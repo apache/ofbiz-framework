@@ -44,9 +44,9 @@ under the License.
     <screen name="WebtoolsLayoutDemo">
         <!-- Demonstrates UI layout best practices and serves as a visual theme test jig.
         For more information:
-        https://cwiki.apache.org/OFBADMIN/user-interface-layout-best-practices.html
-        https://cwiki.apache.org/OFBADMIN/html-and-css-best-practices.html
-        https://cwiki.apache.org/apache/ofbiz/ofbiz-maincsscss-html-element-collection-styles.html
+        https://cwiki.apache.org/confluence/display/OFBIZ/User+Interface+Layout+Best+Practices
+        https://cwiki.apache.org/confluence/display/OFBIZ/HTML+and+CSS+Best+Practices
+        https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+maincss.css+HTML+Element+Collection+Styles?src=search
         -->
         <section>
             <actions>

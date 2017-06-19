@@ -407,7 +407,7 @@ public class ServiceEventHandler implements EventHandler {
                     + "(a form field) instead of the request URL."
                     + " Moreover it would be kind if you could create a Jira sub-task of https://issues.apache.org/jira/browse/OFBIZ-2330 "
                     + "(check before if a sub-task for this error does not exist)."
-                    + " If you are not sure how to create a Jira issue please have a look before at http://cwiki.apache.org/confluence/x/JIB2"
+                    + " If you are not sure how to create a Jira issue please have a look before at https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Contributors+Best+Practices"
                     + " Thank you in advance for your help.";
                 Debug.logError("=============== " + errMsg + "; In session [" + ControlActivationEventListener.showSessionId(session) + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
 

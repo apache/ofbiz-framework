@@ -5,7 +5,7 @@ This OFBiz component enables organisations use a fully utilised financial accoun
 
 ## more information
 For more information about this component visit the product page in the OFBiz WIKI, 
-which can be found at https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65143347
+which can be found at https://cwiki.apache.org/confluence/display/OFBENDUSER/Financial+Accounting+and+Reporting
 
 ## issues
 JIRA issues related to this component can be found at https://issues.apache.org/jira/browse/OFBIZ/component/12311146
