@@ -38,16 +38,6 @@ import com.ibm.icu.util.Calendar;
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
  */
 public final class UtilDateTime {
-    private static final String[] months = {// // to be translated over CommonMonthName, see example in accounting
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November",
-        "December"
-    };
-
-    private static final String[] days = {// to be translated over CommonDayName, see example in accounting
-        "Monday", "Tuesday", "Wednesday",
-        "Thursday", "Friday", "Saturday", "Sunday"
-    };
 
     private static final String[][] timevals = {
         {"1000", "millisecond"},
