@@ -49,8 +49,8 @@ def updateRateAmount() {
     if (rateAmountLookedUpValue) {
         updating = (rateAmountLookedUpValue.fromDate.compareTo(newEntity.fromDate) == 0)
         if (rateAmountLookedUpValue.rateAmount != rateAmount) {
-            Map deleteRateAmountMap = dispatcher.getDispatchContext().makeValidContext('deleteRateAmount', 'IN', rateAmountLookedUpValue)
-            result = run service: 'deleteRateAmount', with: deleteRateAmountMap
+            Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', 'IN', rateAmountLookedUpValue)
+            result = run service: 'expireRateAmount', with: expireRateAmountMap
             if (ServiceUtil.isError(result)) return result
         } else {
             return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
@@ -64,7 +64,7 @@ def updateRateAmount() {
 /**
  * Service to expire a rate amount value
  */
-def deleteRateAmount() {
+def expireRateAmount() {
     GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
     if (!lookedUpValue.rateCurrencyUomId) {
         lookedUpValue.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
@@ -78,6 +78,13 @@ def deleteRateAmount() {
         return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingDeleteRateAmount', locale))
     }
     return success()
+}
+/**
+ * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
+ * @return
+ */
+def deleteRateAmount() {
+    return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
 }
 
 def updatePartyRate() {
@@ -105,16 +112,18 @@ def updatePartyRate() {
     }
     return success()
 }
-
 def deletePartyRate() {
+    return error('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
+}
+def expirePartyRate() {
     GenericValue lookedUpValue = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId, fromDate: fromDate]).queryOne()
     if (lookedUpValue) {
         lookedUpValue.thruDate = UtilDateTime.nowTimestamp()
         lookedUpValue.store()
 
         //expire related rate amount
-        Map deleteRateAmountMap = dispatcher.getDispatchContext().makeValidContext('deleteRateAmount', 'IN', parameters)
-        result = run service: 'deleteRateAmount', with: deleteRateAmountMap
+        Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', 'IN', parameters)
+        result = run service: 'expireRateAmount', with: expireRateAmountMap
         if (ServiceUtil.isError(result)) return result
     }
     return success()

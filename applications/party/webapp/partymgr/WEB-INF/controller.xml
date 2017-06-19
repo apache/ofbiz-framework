@@ -505,9 +505,9 @@ under the License.
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
-    <request-map uri="deletePartyRate">
+    <request-map uri="expirePartyRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deletePartyRate"/>
+        <event type="service" invoke="expirePartyRate"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
