@@ -213,12 +213,12 @@
     <PartyRole partyId="ITA_ADE" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="ITA_ADE" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ITA" taxIdFormatPattern="^(IT-?)?{0,1}[0-9]{11}$"/>
 
-    <Party partyId="LVA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="LVL" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <Party partyId="LVA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="LVA_TA" groupName="Tax Authority of Lativa"/>
     <PartyRole partyId="LVA_TA" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="LVA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LVA" taxIdFormatPattern="^(LV-?)?{0,1}[0-9]{11}$"/>
 
-    <Party partyId="LTU_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="LTL" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <Party partyId="LTU_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="LTU_TA" groupName="Tax Authority of Lithuania"/>
     <PartyRole partyId="LTU_TA" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="LTU_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LTU" taxIdFormatPattern="^(LT-?)?([0-9]{9}|[0-9]{12})$"/>
@@ -248,7 +248,7 @@
     <PartyRole partyId="PRT_AT" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="PRT_AT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="PRT" taxIdFormatPattern="^(PT-?)?{0,1}[0-9]{9}$"/>
 
-    <Party partyId="ROM_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="ROL" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <Party partyId="ROM_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="RON" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="ROM_TA" groupName="Tax Authority of Romania"/>
     <PartyRole partyId="ROM_TA" roleTypeId="TAX_AUTHORITY"/>
     <TaxAuthority taxAuthPartyId="ROM_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ROU" taxIdFormatPattern=""/>
