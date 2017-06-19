@@ -1675,9 +1675,9 @@ under the License.
         <response name="error" type="view" value="ViewRateAmounts"/>
     </request-map>
 
-    <request-map uri="deleteRateAmount">
+    <request-map uri="expireRateAmount">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteRateAmount"/>
+        <event type="service" invoke="expireRateAmount"/>
         <response name="success" type="view" value="ViewRateAmounts"/>
         <response name="error" type="view" value="ViewRateAmounts"/>
     </request-map>
