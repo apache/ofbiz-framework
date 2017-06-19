@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;if-compare-field&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CompareFieldCondition extends MethodOperation implements Conditional {
 
