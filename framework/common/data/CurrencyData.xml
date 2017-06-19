@@ -24,14 +24,12 @@ under the License.
     <Uom abbreviation="CNY" description="China" uomId="CNY" numericCode="156" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CLP" description="Chilean Peso" uomId="CLP" numericCode="152" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CHF" description="Swiss Franc" uomId="CHF" numericCode="756" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="CDP" description="Santo Domiongo" uomId="CDP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CAD" description="Canadian Dollar" uomId="CAD" numericCode="124" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BZD" description="Belize Dollar" uomId="BZD" numericCode="084" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BYR" description="Belorussian Ruble" uomId="BYR" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="BYN" description="Belorussian Ruble" uomId="BYN" numericCode="933" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BWP" description="Botswana Pula" uomId="BWP" numericCode="072" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BSD" description="Bahaman Dollar" uomId="BSD" numericCode="044" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BRR" description="Brazil" uomId="BRR" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BRL" description="Brazilian Real" uomId="BRL" numericCode="968" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="BRL" description="Brazilian Real" uomId="BRL" numericCode="986" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BOB" description="Bolivian Boliviano" uomId="BOB" numericCode="068" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BND" description="Brunei Dollar" uomId="BND" numericCode="096" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BMD" description="Bermudan Dollar" uomId="BMD" numericCode="060" uomTypeId="CURRENCY_MEASURE"/>
@@ -40,43 +38,38 @@ under the License.
     <Uom abbreviation="BGN" description="Bulgarian Lev" uomId="BGN" numericCode="975" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BDT" description="Bangladesh Taka" uomId="BDT" numericCode="050" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BBD" description="Barbados Dollar" uomId="BBD" numericCode="052" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BAD" description="Bosnia-Herzogovinian Dinar" uomId="BAD" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="AZM" description="Azerbaijan Manat" uomId="AZM" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <!--https://www.currency-iso.org/dam/isocy/downloads/dl_currency_iso_amendment_96.pdf
+    This amendment changes the currency for BOSNIA AND HERZEGOVINA from the Dinar to the Convertible Marks-->
+    <Uom abbreviation="BAM" description="Convertible Marks" uomId="BAM" numericCode="977" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="AZN" description="Azerbaijan Manat" uomId="AZN" numericCode="944" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AWG" description="Aruban Guilder" uomId="AWG" numericCode="533" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AUD" description="Australian Dollar" uomId="AUD" numericCode="036" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ARS" description="Argentina Peso" uomId="ARS" numericCode="032" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ARA" description="Argentinian Austral" uomId="ARA" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="AOK" description="Angolan Kwanza" uomId="AOK" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="AOA" description="Angolan Kwanza" uomId="AOA" numericCode="973" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ANG" description="West Indian Guilder" uomId="ANG" numericCode="532" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AMD" description="Armenian Dram" uomId="AMD" numericCode="051" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ALL" description="Albanian Lek" uomId="ALL" numericCode="008" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="AFA" description="Afghani" uomId="AFA" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="AFN" description="Afghani" uomId="AFN" numericCode="971" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AED" description="United Arab Emirates Dirham" uomId="AED" numericCode="784" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ADP" description="Andoran peseta" uomId="ADP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CUP" description="Cuban Peso" uomId="CUP" numericCode="192" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CVE" description="Cape Verde Escudo" uomId="CVE" numericCode="132" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="CYP" description="Cyprus Pound" uomId="CYP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CZK" description="Czech Koruna" uomId="CZK" numericCode="203" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DJF" description="Djibouti Franc" uomId="DJF" numericCode="262" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DKK" description="Danish Krone" uomId="DKK" numericCode="208" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DOP" description="Dominican Peso" uomId="DOP" numericCode="214" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="DRP" description="Dominican Republic Peso" uomId="DRP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DZD" description="Algerian Dinar" uomId="DZD" numericCode="012" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ECS" description="Ecuador Sucre" uomId="ECS" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="EEK" description="Estonian Krone" uomId="EEK" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="EGP" description="Egyptian Pound" uomId="EGP" numericCode="818" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ETB" description="Ethiopian Birr" uomId="ETB" numericCode="230" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="EUR" description="Euro" uomId="EUR" numericCode="978" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="FJD" description="Fiji Dollar" uomId="FJD" numericCode="242" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="FKP" description="Falkland Pound" uomId="FKP" numericCode="238" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GBP" description="British Pound" uomId="GBP" numericCode="826" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="GEK" description="Georgian Kupon" uomId="GEK" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="GHC" description="Ghanian Cedi" uomId="GHC" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="GEL" description="Lari" uomId="GEL" numericCode="981" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="GHS" description="Ghanian Cedi" uomId="GHS" numericCode="936" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GIP" description="Gibraltar Pound" uomId="GIP" numericCode="292" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GMD" description="Gambian Dalasi" uomId="GMD" numericCode="270" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GNF" description="Guinea Franc" uomId="GNF" numericCode="324" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GTQ" description="Guatemalan Quedzal" uomId="GTQ" numericCode="320" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="GWP" description="Guinea Peso" uomId="GWP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GYD" description="Guyanese Dollar" uomId="GYD" numericCode="328" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HKD" description="Hong Kong Dollar" uomId="HKD" numericCode="344" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HNL" description="Honduran Lempira" uomId="HNL" numericCode="340" uomTypeId="CURRENCY_MEASURE"/>
@@ -93,7 +86,7 @@ under the License.
     <Uom abbreviation="JPY" description="Japanese Yen" uomId="JPY" numericCode="392" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="KES" description="Kenyan Shilling" uomId="KES" numericCode="404" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="KHR" description="Cambodian Riel" uomId="KHR" numericCode="116" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="KIS" description="Kirghizstan Som" uomId="KIS" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="KGS" description="Kyrgyzstan Som" uomId="KGS" numericCode="417" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="KMF" description="Comoros Franc" uomId="KMF" numericCode="174" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="KPW" description="North Korean Won" uomId="KPW" numericCode="408" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="KRW" description="South Korean Won" uomId="KRW" numericCode="410" uomTypeId="CURRENCY_MEASURE"/>
@@ -105,78 +98,67 @@ under the License.
     <Uom abbreviation="LKR" description="Sri Lankan Rupee" uomId="LKR" numericCode="144" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LRD" description="Liberian Dollar" uomId="LRD" numericCode="430" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LSL" description="Lesotho Loti" uomId="LSL" numericCode="426" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="LTL" description="Lithuanian Lita" uomId="LTL" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="LVL" description="Latvian Lat" uomId="LVL" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LYD" description="Libyan Dinar" uomId="LYD" numericCode="434" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MAD" description="Moroccan Dirham" uomId="MAD" numericCode="504" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MDL" description="Moldavian Lei" uomId="MDL" numericCode="498" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MGF" description="Madagascan Franc" uomId="MGF" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="MGA" description="Malagascy Ariary" uomId="MGA" numericCode="969" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MNT" description="Mongolian Tugrik" uomId="MNT" numericCode="496" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MOP" description="Macao Pataca" uomId="MOP" numericCode="446" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MRO" description="Mauritanian Ouguiya" uomId="MRO" numericCode="478" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MTL" description="Maltese Lira" uomId="MTL" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MUR" description="Mauritius Rupee" uomId="MUR" numericCode="480" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MVR" description="Maldive Rufiyaa" uomId="MVR" numericCode="462" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MWK" description="Malawi Kwacha" uomId="MWK" numericCode="454" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MXN" description="Mexican Peso (new)" uomId="MXN" numericCode="484" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MXP" description="Mexican Peso (old)" uomId="MXP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="MXN" description="Mexican Peso" uomId="MXN" numericCode="484" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MYR" description="Malaysian Ringgit" uomId="MYR" numericCode="458" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MZM" description="Mozambique Metical" uomId="MZM" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="MZN" description="Mozambique Metical" uomId="MZN" numericCode="943" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NGN" description="Nigerian Naira" uomId="NGN" numericCode="566" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="NIC" description="Nicaragua" uomId="NIC" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="NIO" description="Nicaraguan Cordoba" uomId="NIO" numericCode="558" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="NIS" description="New Israeli Shekel" uomId="NIS" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="NIO" description="Nicaraguan Cordoba Oro" uomId="NIO" numericCode="558" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="ILS" description="New Israeli Shekel" uomId="ILS" numericCode="376" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NOK" description="Norwegian Krone" uomId="NOK" numericCode="578" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NPR" description="Nepalese Rupee" uomId="NPR" numericCode="524" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NZD" description="New Zealand Dollar" uomId="NZD" numericCode="554" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="OMR" description="Omani Rial" uomId="OMR" numericCode="512" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PAB" description="Panamanian Balboa" uomId="PAB" numericCode="590" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PEI" description="Peruvian Inti" uomId="PEI" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PEN" description="Peruvian Sol - New" uomId="PEN" numericCode="604" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PES" description="Peruvian Sol" uomId="PES" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="PEN" description="Peruvian Sol" uomId="PEN" numericCode="604" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PGK" description="Papua New Guinea Kina" uomId="PGK" numericCode="598" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PHP" description="Philippino Peso" uomId="PHP" numericCode="608" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PKR" description="Pakistan Rupee" uomId="PKR" numericCode="586" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PLN" description="Polish Zloty" uomId="PLN" numericCode="985" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PLZ" description="Poland" uomId="PLZ" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="PLN" description="Poland Zloty" uomId="PLN" numericCode="985" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PYG" description="Paraguayan Guarani" uomId="PYG" numericCode="600" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="QAR" description="Qatar Riyal" uomId="QAR" numericCode="634" uomTypeId="CURRENCY_MEASURE"/>
-    <!--Uom abbreviation="RMB" description="Chinese Renminbi Yuan" uomId="RMB" numericCode="" uomTypeId="CURRENCY_MEASURE"/--><!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 -->
-    <Uom abbreviation="ROL" description="Romanian Leu" uomId="ROL" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="RUR" description="Russian Rouble" uomId="RUR" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="RON" description="Romanian Leu" uomId="RON" numericCode="946" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="RUB" description="Russian Rouble" uomId="RUB" numericCode="643" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="RWF" description="Rwanda Franc" uomId="RWF" numericCode="646" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SAR" description="Saudi Riyal" uomId="SAR" numericCode="682" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SBD" description="Solomon Islands Dollar" uomId="SBD" numericCode="090" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SCR" description="Seychelles Rupee" uomId="SCR" numericCode="690" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SDP" description="Sudanese Pound" uomId="SDP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="SDG" description="Sudanese Pound" uomId="SDG" numericCode="938" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="SSP" description="South Sudanese Pound" uomId="SSP" numericCode="728" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SEK" description="Swedish Krona" uomId="SEK" numericCode="752" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SGD" description="Singapore Dollar" uomId="SGD" numericCode="702" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SHP" description="St.Helena Pound" uomId="SHP" numericCode="654" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SLL" description="Leone" uomId="SLL" numericCode="694" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SOL" description="Peru" uomId="SOL" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SOS" description="Somalian Shilling" uomId="SOS" numericCode="706" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SRG" description="Surinam Guilder" uomId="SRG" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="SRD" description="Surinam Dollar" uomId="SRD" numericCode="968" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="STD" description="Sao Tome / Principe Dobra" uomId="STD" numericCode="678" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SUR" description="Russian Ruble (old)" uomId="SUR" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SVC" description="El Salvador Colon" uomId="SVC" numericCode="222" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SYP" description="Syrian Pound" uomId="SYP" numericCode="760" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SZL" description="Swaziland Lilangeni" uomId="SZL" numericCode="748" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="THB" description="Thailand Baht" uomId="THB" numericCode="764" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="TJR" description="Tadzhikistani Ruble" uomId="TJR" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="TMM" description="Turkmenistani Manat" uomId="TMM" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="TJS" description="Tadzhikistani Somoni" uomId="TJS" numericCode="972" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="TMT" description="Turkmenistani Manat" uomId="TMT" numericCode="934" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TND" description="Tunisian Dinar" uomId="TND" numericCode="788" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TOP" description="Tongan Pa&apos;anga" uomId="TOP" numericCode="776" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="TPE" description="Timor Escudo" uomId="TPE" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TRY" description="Turkish Lira" uomId="TRY" numericCode="949" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TTD" description="Trinidad and Tobago Dollar" uomId="TTD" numericCode="780" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TWD" description="New Taiwan Dollar" uomId="TWD" numericCode="901" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TZS" description="Tanzanian Shilling" uomId="TZS" numericCode="834" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UAH" description="Ukrainian Hryvnia" uomId="UAH" numericCode="980" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="UGS" description="Ugandan Shilling" uomId="UGS" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="UGX" description="Ugandan Shilling" uomId="UGX" numericCode="800" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="USD" description="United States Dollar" uomId="USD" numericCode="840" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="UYP" description="Uruguayan New Peso" uomId="UYP" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="UYU" description="Uruguay" uomId="UYU" numericCode="858" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="VEB" description="Venezuelan Bolivar" uomId="VEB" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="UYU" description="Uruguay Peso" uomId="UYU" numericCode="858" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="UYI" description="Uruguay Peso en Unidades Indexadas (UI)" uomId="UYI" numericCode="940" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="VEF" description="Venezuelan Bolívar" uomId="VEF" numericCode="937" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="VND" description="Vietnamese Dong" uomId="VND" numericCode="704" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="VUV" description="Vanuatu Vatu" uomId="VUV" numericCode="548" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="WST" description="Samoan Tala" uomId="WST" numericCode="882" uomTypeId="CURRENCY_MEASURE"/>
@@ -185,7 +167,7 @@ under the License.
     <Uom abbreviation="XOF" description="Benin C.f.A. Franc" uomId="XOF" numericCode="952" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="YER" description="Yemeni Ryal" uomId="YER" numericCode="886" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ZAR" description="South African Rand" uomId="ZAR" numericCode="710" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ZMK" description="Zambian Kwacha" uomId="ZMK" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ZRZ" description="Zaire" uomId="ZRZ" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ZWD" description="Zimbabwean Dollar" uomId="ZWD" numericCode="" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="ZMW" description="Zambian Kwacha" uomId="ZMW" numericCode="967" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="ZRN" description="New Zaire" uomId="ZRN" numericCode="180" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="ZWL" description="Zimbabwe Dollar" uomId="ZWL" numericCode="932" uomTypeId="CURRENCY_MEASURE"/>
 </entity-engine-xml>
