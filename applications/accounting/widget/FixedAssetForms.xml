@@ -122,7 +122,8 @@ under the License.
         <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>
         <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="fixedAssetId!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="fixedAssetId==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
     <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
