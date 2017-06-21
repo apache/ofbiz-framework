@@ -18,15 +18,32 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.util;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class EntitySaxReaderTests {
+    private boolean logVerboseOn;
+
+    @Before
+    public void initialize() {
+        logVerboseOn = Debug.isOn(Debug.VERBOSE); // save the current setting (to be restored after the tests)
+        Debug.set(Debug.VERBOSE, false); // disable verbose logging: this is necessary to avoid a test error in the "parse" unit test
+    }
+
+    @After
+    public void restore() {
+        Debug.set(Debug.VERBOSE, logVerboseOn); // restore the verbose log setting
+    }
+
+
     @Test
     public void constructorWithDefaultTimeout() {
         Delegator delegator = mock(Delegator.class);
