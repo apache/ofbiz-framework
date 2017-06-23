@@ -155,11 +155,7 @@ public class ContainerConfig {
         Document containerDocument = null;
         try {
             containerDocument = UtilXml.readXmlDocument(xmlUrl, true);
-        } catch (SAXException e) {
-            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
-        } catch (ParserConfigurationException e) {
-            throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
-        } catch (IOException e) {
+        } catch (SAXException | ParserConfigurationException | IOException e) {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
         }
         Element root = containerDocument.getDocumentElement();
