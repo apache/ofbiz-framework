@@ -110,6 +110,7 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeWebSitePathAlias" also-hidden="false">
               <parameter param-name="webSiteId"/>
               <parameter param-name="pathAlias"/>
+              <parameter param-name="fromDate"/>
             </hyperlink>
         </field>        
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="WebSiteAliasesSearchResults"/>
