@@ -332,8 +332,13 @@ task terminateOfbiz(group: ofbizServer,
                 standardOutput = processOutput
             }
             processOutput.toString().split(System.lineSeparator()).each { line ->
+                // Try to terminate cleanly
                 if (line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*/) {
-                    exec { commandLine 'kill', '-9', line.tokenize().first() }
+                    exec { commandLine 'kill', '-TERM', line.tokenize().first() }
+                }
+                // Only kill if needed
+                if (line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*/) {
+                    exec { commandLine 'kill', '-KILL', line.tokenize().first() }
                 }
             }
         }
