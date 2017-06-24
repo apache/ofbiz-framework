@@ -81,10 +81,10 @@ under the License.
                         <if-compare field="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
                     </or>
                 </condition>
-                <then><set field="shipWorkEffortMap.workEffortTypeId" value="SHIPMENT_INBOUND"/></then>
+                <then><set field="arrivalWorkEffortMap.workEffortTypeId" value="SHIPMENT_INBOUND"/></then>
             </if>
-            <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
-            <set value="WEPT_WAREHOUSING" field="shipWorkEffortMap.workEffortPurposeTypeId"/>
+            <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
+            <set value="WEPT_WAREHOUSING" field="arrivalWorkEffortMap.workEffortPurposeTypeId"/>
             <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
             <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedCompletionDate"/>
             <set from-field="parameters.destinationFacilityId" field="arrivalWorkEffortMap.facilityId"/>
