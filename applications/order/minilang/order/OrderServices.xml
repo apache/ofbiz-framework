@@ -39,10 +39,10 @@ under the License.
             <now-timestamp field="nowTimestamp"/>
             <!-- TODO: Change this to use the <set-calendar> operation -->
             <script>groovy:
-                calendar = com.ibm.icu.util.Calendar.getInstance();
-                calendar.setTimeInMillis(nowTimestamp.getTime());
-                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue());
-                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()));
+                calendar = com.ibm.icu.util.Calendar.getInstance()
+                calendar.setTimeInMillis(nowTimestamp.getTime())
+                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue())
+                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()))
             </script>
             <set from-field="nowTimestamp" field="parameters.thruDate"/>
         </if-not-empty>
@@ -729,12 +729,12 @@ under the License.
              into "shipmentMethodTypeId", "carrierPartyId" and "carrierRoleTypeId".
         -->
         <script>groovy:
-            shipmentMethod = parameters.get("shipmentMethod");
-            if(shipmentMethod != null){
-               arr = shipmentMethod.split( "@" );
-               parameters.put("shipmentMethodTypeId", arr[0]);
-               parameters.put("carrierPartyId", arr[1]);
-               parameters.put("carrierRoleTypeId", arr[2]);
+            shipmentMethod = parameters.get("shipmentMethod")
+            if (shipmentMethod != null) {
+               arr = shipmentMethod.split( "@" )
+               parameters.put("shipmentMethodTypeId", arr[0])
+               parameters.put("carrierPartyId", arr[1])
+               parameters.put("carrierRoleTypeId", arr[2])
             }
         </script>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1275,11 +1275,11 @@ under the License.
         -->
 
         <script>groovy:
-            shipmentMethodAndAmount = parameters.get("shipmentMethodAndAmount");
+            shipmentMethodAndAmount = parameters.get("shipmentMethodAndAmount")
             if (shipmentMethodAndAmount != null) {
-               parameters.put("shipmentMethod", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("*")));
-               parameters.put("amount", shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf("*")+1));
-               parameters.put("shipmentMethodTypeId", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("@")));
+               parameters.put("shipmentMethod", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("*")))
+               parameters.put("amount", shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf("*")+1))
+               parameters.put("shipmentMethodTypeId", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("@")))
             }
         </script>
         <set field="newAmount" from-field="parameters.amount" type="BigDecimal"/>
