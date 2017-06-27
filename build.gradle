@@ -577,69 +577,37 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def templateDir = "${rootDir}/framework/resources/templates"
         def pluginDir = "${pluginsDir}/${pluginId}"
 
-        mkdir pluginDir
-        mkdir pluginDir+"/config"
-        mkdir pluginDir+"/data"
-        mkdir pluginDir+"/data/helpdata"
-        mkdir pluginDir+"/dtd"
-        mkdir pluginDir+"/documents"
-        mkdir pluginDir+"/entitydef"
-        mkdir pluginDir+"/lib"
-        mkdir pluginDir+"/patches"
-        mkdir pluginDir+"/patches/test"
-        mkdir pluginDir+"/patches/qa"
-        mkdir pluginDir+"/patches/production"
-        mkdir pluginDir+"/script"
-        mkdir pluginDir+"/servicedef"
-        mkdir pluginDir+"/src"
-        mkdir pluginDir+"/testdef"
-        mkdir pluginDir+"/webapp"
-        mkdir pluginDir+"/webapp/${webappName}"
-        mkdir pluginDir+"/webapp/${webappName}/error"
-        mkdir pluginDir+"/webapp/${webappName}/WEB-INF"
-        mkdir pluginDir+"/webapp/${webappName}/WEB-INF/actions"
-        mkdir pluginDir+"/widget/"
+        ['config', 'data/helpdata', 'dtd', 'documents', 'entitydef', 'lib', 'patches/test', 'patches/qa',
+                'patches/production', 'script', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF",
+                "webapp/${webappName}/WEB-INF/actions"].each { 
+            mkdir pluginDir+'/'+it
+        }
 
-        generateFileFromTemplate(templateDir+"/ofbiz-component.xml", pluginDir,
-            filterTokens, "ofbiz-component.xml")
-        generateFileFromTemplate(templateDir+"/TypeData.xml", pluginDir+"/data",
-            filterTokens, "${pluginResourceName}TypeData.xml")
-        generateFileFromTemplate(templateDir+"/SecurityPermissionSeedData.xml", pluginDir+"/data",
-            filterTokens, "${pluginResourceName}SecurityPermissionSeedData.xml")
-        generateFileFromTemplate(templateDir+"/SecurityGroupDemoData.xml", pluginDir+"/data",
-            filterTokens, "${pluginResourceName}SecurityGroupDemoData.xml")
-        generateFileFromTemplate(templateDir+"/DemoData.xml", pluginDir+"/data",
-            filterTokens, "${pluginResourceName}DemoData.xml")
-        generateFileFromTemplate(templateDir+"/HELP.xml", pluginDir+"/data/helpdata",
-            filterTokens, "HELP_${pluginResourceName}.xml")
-        generateFileFromTemplate(templateDir+"/document.xml", pluginDir+"/documents",
-            filterTokens, "${pluginResourceName}.xml")
-        generateFileFromTemplate(templateDir+"/entitymodel.xml", pluginDir+"/entitydef",
-            filterTokens, "entitymodel.xml")
-        generateFileFromTemplate(templateDir+"/services.xml", pluginDir+"/servicedef",
-            filterTokens, "services.xml")
-        generateFileFromTemplate(templateDir+"/Tests.xml", pluginDir+"/testdef",
-            filterTokens, "${pluginResourceName}Tests.xml")
-        generateFileFromTemplate(templateDir+"/UiLabels.xml", pluginDir+"/config",
-            filterTokens, "${pluginResourceName}UiLabels.xml")
-        generateFileFromTemplate(templateDir+"/index.jsp", pluginDir+"/webapp/${webappName}",
-            filterTokens, "index.jsp")
-        generateFileFromTemplate(templateDir+"/error.jsp", pluginDir+"/webapp/${webappName}/error",
-            filterTokens, "error.jsp")
-        generateFileFromTemplate(templateDir+"/controller.xml", pluginDir+"/webapp/${webappName}/WEB-INF",
-            filterTokens, "controller.xml")
-        generateFileFromTemplate(templateDir+"/web.xml", pluginDir+"/webapp/${webappName}/WEB-INF",
-            filterTokens, "web.xml")
-        generateFileFromTemplate(templateDir+"/CommonScreens.xml", pluginDir+"/widget",
-            filterTokens, "CommonScreens.xml")
-        generateFileFromTemplate(templateDir+"/Screens.xml", pluginDir+"/widget",
-            filterTokens, "${pluginResourceName}Screens.xml")
-        generateFileFromTemplate(templateDir+"/Menus.xml", pluginDir+"/widget",
-            filterTokens, "${pluginResourceName}Menus.xml")
-        generateFileFromTemplate(templateDir+"/Forms.xml", pluginDir+"/widget",
-            filterTokens, "${pluginResourceName}Forms.xml")
-        generateFileFromTemplate(templateDir+"/build.gradle", pluginDir,
-            filterTokens, "build.gradle")
+        [   [tempName:'ofbiz-component.xml', newName:'ofbiz-component.xml', location:''],
+            [tempName:'build.gradle', newName:'build.gradle', location:''],
+            [tempName:'TypeData.xml', newName:"${pluginResourceName}TypeData.xml", location:'data'],
+            [tempName:'SecurityPermissionSeedData.xml', newName:"${pluginResourceName}SecurityPermissionSeedData.xml", location:'data'],
+            [tempName:'SecurityGroupDemoData.xml', newName:"${pluginResourceName}SecurityGroupDemoData.xml", location:'data'],
+            [tempName:'DemoData.xml', newName:"${pluginResourceName}DemoData.xml", location:'data'],
+            [tempName:'HELP.xml', newName:"HELP_${pluginResourceName}.xml", location:'data/helpdata'],
+            [tempName:'document.xml', newName:"${pluginResourceName}.xml", location:'documents'],
+            [tempName:'entitymodel.xml', newName:'entitymodel.xml', location:'entitydef'],
+            [tempName:'services.xml', newName:'services.xml', location:'servicedef'],
+            [tempName:'Tests.xml', newName:"${pluginResourceName}Tests.xml", location:'testdef'],
+            [tempName:'UiLabels.xml', newName:"${pluginResourceName}UiLabels.xml", location:'config'],
+            [tempName:'index.jsp', newName:'index.jsp', location:"webapp/${webappName}"],
+            [tempName:'error.jsp', newName:'error.jsp', location:"webapp/${webappName}/error"],
+            [tempName:'controller.xml', newName:'controller.xml', location:"webapp/${webappName}/WEB-INF"],
+            [tempName:'web.xml', newName:'web.xml', location:"webapp/${webappName}/WEB-INF"],
+            [tempName:'CommonScreens.xml', newName:'CommonScreens.xml', location:'widget'],
+            [tempName:'Screens.xml', newName:"${pluginResourceName}Screens.xml", location:'widget'],
+            [tempName:'Menus.xml', newName:"${pluginResourceName}Menus.xml", location:'widget'],
+            [tempName:'Forms.xml', newName:"${pluginResourceName}Forms.xml", location:'widget']
+        ].each { tmpl ->
+            generateFileFromTemplate(templateDir + '/' + tmpl.tempName, 
+                pluginDir + '/' + tmpl.location, filterTokens, tmpl.newName)
+        }
 
         println "plugin successfully created in directory ${pluginsDir}/${pluginId}."
     }
