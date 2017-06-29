@@ -34,17 +34,17 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingPortletData.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/PaymentGatewayConfData.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/AccountingScheduledServiceData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGeneralChartOfAccounts.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrganizationData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGlSetupData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoFinAccountData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTaxAuthority.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAcctgTransactionData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPaymentsInvoices.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAccountingUserData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAssetMaintData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBudgetData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStandardCosting.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/GeneralChartOfAccountsDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrganizationDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/GlSetupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/FinAccountDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/TaxAuthorityDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/AcctgTransactionDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/InvoicePaymentsDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/AccountingUserDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/AssetMaintDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/BudgetDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/StandardCostingDemoData.xml"/>
 
     <!-- General Payment Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
