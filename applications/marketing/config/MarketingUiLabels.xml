@@ -2767,7 +2767,7 @@
     </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="de">Hinzufügen von Verkaufsprognosen-Details</value>
-        <value xml:lang="en">Add Sales Forcast Detail</value>
+        <value xml:lang="en">Add Sales Forecast Detail</value>
         <value xml:lang="fr">Ajouter le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
         <value xml:lang="ja">販売予測詳細を追加</value>
