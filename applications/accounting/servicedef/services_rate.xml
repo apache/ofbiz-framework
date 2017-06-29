@@ -56,8 +56,8 @@ under the License.
         <override name="rateTypeId" optional="false"/>
         <override name="fromDate" optional="false"/>
     </service>
-    <service name="getRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
-        location="component://accounting/minilang/rate/RateServices.xml" invoke="getRateAmount">
+    <service name="getRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
+        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRateAmount">
         <description>Get Rate Amount</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -68,41 +68,38 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <override name="rateTypeId" optional="false"/>
     </service>
-    <service name="getRatesAmountsFromWorkEffortId" default-entity-name="RateAmount" engine="simple" auth="true"
-             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromWorkEffortId">
+    <service name="getRatesAmountsFromWorkEffortId" default-entity-name="RateAmount" engine="groovy" auth="true"
+        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromWorkEffortId">
         <description>Get all Rates Amounts for a given workEffortId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
         <override name="workEffortId" optional="false"/>
     </service>
-    <service name="getRatesAmountsFromPartyId" default-entity-name="RateAmount" engine="simple" auth="true"
-             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromPartyId">
+    <service name="getRatesAmountsFromPartyId" default-entity-name="RateAmount" engine="groovy" auth="true"
+             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromPartyId">
         <description>Get all Rates Amounts for a given partyId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
         <override name="partyId" optional="false"/>
     </service>
-    <service name="getRatesAmountsFromEmplPositionTypeId" default-entity-name="RateAmount" engine="simple" auth="true"
-             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromEmplPositionTypeId">
+    <service name="getRatesAmountsFromEmplPositionTypeId" default-entity-name="RateAmount" engine="groovy" auth="true"
+             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromEmplPositionTypeId">
         <description>Get all Rates Amounts for a given emplPositionTypeId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
         <override name="emplPositionTypeId" optional="false"/>
     </service>
-    <service name="filterRateAmountList" default-entity-name="RateAmount" engine="simple" auth="true"
-             location="component://accounting/minilang/rate/RateServices.xml" invoke="filterRateAmountList">
+    <service name="filterRateAmountList" default-entity-name="RateAmount" engine="groovy" auth="true"
+             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="filterRateAmountList">
         <description>Get the most specific non-empty Rate Amount list from a list of Rate Amount, given the input parameters :
         workEffortId, partyId, emplPositionTypeId and rateTypeId</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>

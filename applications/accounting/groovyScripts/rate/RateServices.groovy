@@ -128,3 +128,142 @@ def expirePartyRate() {
     }
     return success()
 }
+
+// Get the applicable rate amount value
+def getRateAmount() {
+    /* Search for the applicable rate from most specific to most general in the RateAmount entity
+    Defaults for periodTypeId is per hour and default currency is the currency in general.properties
+    The order is:
+    1. for specific rateTypeId, workEffortId (workEffort)
+    2. for specific rateTypeId, partyId (party)
+    3. for specific rateTypeId, emplPositionTypeId (emplPositionType)
+    4. for specific rateTypeId (rateType)
+
+    Then, the results are filtered to improve the result. If you pass a workEffortId and a partyId,
+    the service will first search the list of all the rateAmount with the specified workEffortId. Then, if
+    there is at least one rateAmount with same partyId than the one in the parameter in the list, the list will
+    be reduced to those entries.
+    At the end, the first record of the list is chosen.
+
+    For a easier debugging time, there is a log triggered when no records are found for the input. This log
+    shows up when there are rateAmounts corresponding to the input parameters without the rateCurrencyUomId and
+    the periodTypeId.*/
+    if (!parameters.rateCurrencyUomId) {
+        parameters.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
+    }
+    if (!parameters.periodTypeId) {
+        parameters.periodTypeId = 'RATE_HOUR'
+    }
+    String serviceName = null;
+    if (parameters.workEffortId && parameters.workEffortId != '_NA_') {
+        // workeffort level
+        level = 'workEffort'
+        serviceName = 'getRatesAmountsFromWorkEffortId'
+    } else if (parameters.partyId && parameters.partyId != '_NA_') {
+        // party level
+        level='partyId'
+        serviceName = 'getRatesAmountsFromPartyId'
+    } else if (parameters.emplPositionTypeId && parameters.emplPositionTypeId != '_NA_') {
+        // party level
+        level = 'emplPositionTypeId'
+        serviceName = 'getRatesAmountsFromEmplPositionTypeId'
+    }
+    if (serviceName) {
+        logError(parameters.toString() + " " + serviceName.toString())
+        Map result = run service: serviceName, with: parameters
+        parameters.ratesList = result.ratesList
+        logError(parameters.ratesList.toString())
+        result = run service: 'filterRateAmountList', with: parameters
+        parameters.ratesList = result.filteredRatesList
+    }
+
+    if (UtilValidate.isEmpty(parameters.ratesList)) {
+        parameters.ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
+        Map result = run service: 'filterRateAmountList', with: parameters
+        parameters.ratesList = EntityUtil.filterByDate(result.filteredRatesList)
+    }
+
+    if (UtilValidate.isEmpty(parameters.ratesList)) {
+        rateType = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryOne()
+        logError('A valid rate amount could not be found for rateType: ' + rateType.description)
+    }
+
+    // We narrowed as much as we could the result, now returning the first record of the list
+    Map result = success()
+    if (UtilValidate.isNotEmpty(parameters.ratesList)) {
+        rateAmount = parameters.ratesList[0]
+        if (! rateAmount.rateAmount) rateAmount.rateAmount = BigDecimal.ZERO
+        result.rateAmount = rateAmount.rateAmount
+        result.periodTypeId = rateAmount.periodTypeId
+        result.rateCurrencyUomId = rateAmount.rateCurrencyUomId
+        result.level = level
+        result.fromDate = rateAmount.fromDate
+    }
+    return result
+}
+
+//Generic fonction to resolve a rate amount from a pk field
+def getRatesAmountsFrom(String field) {
+    String entityName = null
+    if (field == 'workEffortId') entityName = 'WorkEffort'
+    if (field == 'partyId') entityName = 'Party'
+    if (field == 'emplPositionTypeId') entityName = 'EmplPositionType'
+
+    Map condition = [rateTypeId: parameters.rateTypeId,
+                     periodTypeId: parameters.periodTypeId,
+                     rateCurrencyUomId: parameters.rateCurrencyUomId]
+    condition.put(field, parameters.get(field))
+    List ratesList = from('RateAmount').where(condition).filterByDate().queryList()
+    if (UtilValidate.isEmpty(ratesList)) {
+        GenericValue periodType = from('PeriodType').where([periodTypeId: parameters.periodTypeId]).queryOne()
+        GenericValue rateType = from('RateType').where([rateTypeId: parameters.rateTypeId]).queryOne()
+        GenericValue partyNameView = from('PartyNameView').where([partyId: parameters.partyId]).queryOne()
+        logError('A valid rate entry could be found for rateType:' + rateType.description + ', ' + entityName + ':' + parameters.get(field)
+                + ', party: ' + partyNameView.lastName + partyNameView.middleName + partyNameView.firstName + partyNameView.groupName
+                + ' However.....not for the period:' + periodType.description + ' and currency:' + parameters.rateCurrencyUomId)
+    }
+    Map result = success()
+    result.ratesList = ratesList
+    return result
+}
+// Get all the rateAmount for a given workEffortId
+def getRatesAmountsFromWorkEffortId() {
+    return getRatesAmountsFrom('workEffortId')
+}
+// Get all the rateAmount for a given partyId
+def getRatesAmountsFromPartyId() {
+    return getRatesAmountsFrom('partyId')
+}
+// Get all the rateAmount for a given emplPositionTypeId
+def getRatesAmountsFromEmplPositionTypeId() {
+    return getRatesAmountsFrom('emplPositionTypeId')
+}
+
+//Filter a list of rateAmount. The result is the most heavily-filtered non-empty list
+def filterRateAmountList() {
+    if (UtilValidate.isEmpty(parameters.ratesList)) {
+        logWarning('The list parameters.ratesList was empty, not processing any further')
+        return success()
+    }
+    //Check if there is a more specific rate
+    Map filterMap = [:]
+    if (parameters.workEffortId) {
+        filterMap.workEffortId = parameters.workEffortId
+    }
+    if (parameters.partyId) {
+        filterMap.partyId = parameters.partyId
+    }
+    if (parameters.emplPositionTypeId) {
+        filterMap.emplPositionTypeId = parameters.emplPositionTypeId
+    }
+    if (parameters.rateTypeId) {
+        filterMap.rateTypeId = parameters.rateTypeId
+    }
+    List tempRatesFilteredList = EntityUtil.filterByAnd(parameters.ratesList, filterMap)
+    if (UtilValidate.isNotEmpty(tempRatesFilteredList)) {
+        parameters.ratesList = tempRatesFilteredList
+    }
+    Map result = success()
+    result.filteredRatesList = parameters.ratesList
+    return result
+}
