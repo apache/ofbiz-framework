@@ -54,9 +54,9 @@ public final class Config {
         // set this class fields
         ofbizHome = getOfbizHome(getProperty(props, "ofbiz.home", "."));
         adminAddress = getAdminAddress(getProperty(props, "ofbiz.admin.host", "127.0.0.1"));
-        adminKey = getProperty(props, "ofbiz.admin.key", "so3du5kasd5dn");
+        adminKey = getProperty(props, "ofbiz.admin.key", "NA");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
-        adminPort = getAdminPort(props, 0, portOffset); // see INFRA-6790
+        adminPort = getAdminPort(props, 0, portOffset);
         containerConfig = getAbsolutePath(props, "ofbiz.container.config",
                 "framework/base/config/ofbiz-containers.xml", ofbizHome);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
@@ -71,12 +71,9 @@ public final class Config {
         System.setProperty("java.awt.headless", getProperty(props, "java.awt.headless", "true"));
         System.setProperty("derby.system.home", getProperty(props, "derby.system.home", "runtime/data/derby"));
 
-        // set the default locale
-        setDefaultLocale(getProperty(props, "ofbiz.locale.default", ""));
-
-        // set the default timezone
-        String tzString = props.getProperty("ofbiz.timeZone.default", TimeZone.getDefault().getID());
-        TimeZone.setDefault(TimeZone.getTimeZone(tzString));
+        // set default locale and timezone
+        Locale.setDefault(getDefaultLocale(props, "en"));
+        TimeZone.setDefault(getDefaultTimeZone(props));
     }
 
     private String getProperty(Properties props, String key, String defaultValue) {
@@ -88,8 +85,8 @@ public final class Config {
         return homeProp.equals(".") ? System.getProperty("user.dir").replace('\\', '/') : homeProp;
     }
 
-    private String getAbsolutePath(Properties props, String key, String def, String ofbizHome) {
-        return getProperty(props, key, ofbizHome + "/" + props.getProperty(key, def));
+    private String getAbsolutePath(Properties props, String key, String defaultValue, String ofbizHome) {
+        return getProperty(props, key, ofbizHome + "/" + props.getProperty(key, defaultValue));
     }
 
     private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws StartupException {
@@ -108,23 +105,15 @@ public final class Config {
     }
 
     private String determineOfbizPropertiesFileName(List<StartupCommand> ofbizCommands) {
-        String fileName = null;
-        if (ofbizCommands.stream().anyMatch(command ->
-                command.getName().equals(StartupCommandUtil.StartupOption.START.getName())
-                || command.getName().equals(StartupCommandUtil.StartupOption.SHUTDOWN.getName())
-                || command.getName().equals(StartupCommandUtil.StartupOption.STATUS.getName()))
-            || ofbizCommands.isEmpty()
-            || ofbizCommands.stream().allMatch(command -> 
-                command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))) {
-            fileName = "start.properties";
-        } else if(ofbizCommands.stream().anyMatch(
+        if(ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))) {
-            fileName = "load-data.properties";
+            return "load-data.properties";
         } else if(ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))) {
-            fileName = "test.properties";
+            return "test.properties";
+        } else {
+            return "start.properties";
         }
-        return fileName;
     }
 
     private int getPortOffsetValue(List<StartupCommand> ofbizCommands, String defaultOffset) throws StartupException {
@@ -158,18 +147,27 @@ public final class Config {
         }
     }
 
-    private void setDefaultLocale(String localeString) {
+    private Locale getDefaultLocale(Properties props, String defaultLocale) {
+        String localeString = getProperty(props, "ofbiz.locale.default", defaultLocale);
         String locales[] = localeString.split("_");
+        Locale locale = null;
         switch (locales.length) {
         case 1:
-            Locale.setDefault(new Locale(locales[0]));
+            locale = new Locale(locales[0]);
             break;
         case 2:
-            Locale.setDefault(new Locale(locales[0], locales[1]));
+            locale = new Locale(locales[0], locales[1]);
             break;
         case 3:
-            Locale.setDefault(new Locale(locales[0], locales[1], locales[2]));
+            locale = new Locale(locales[0], locales[1], locales[2]);
+            break;
         }
         System.setProperty("user.language", localeString);
+        return locale;
+    }
+
+    private TimeZone getDefaultTimeZone(Properties props) {
+        String defaultTimezone = getProperty(props, "ofbiz.timeZone.default", TimeZone.getDefault().getID());
+        return TimeZone.getTimeZone(defaultTimezone);
     }
 }
