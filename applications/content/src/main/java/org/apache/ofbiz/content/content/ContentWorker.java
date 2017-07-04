@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.content.ContentManagementWorker;
@@ -399,9 +400,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static GenericValue findAlternateLocaleContent(Delegator delegator, GenericValue view, Locale locale) {
-        GenericValue contentAssocDataResourceViewFrom = view;
+        GenericValue contentAssocDataResourceViewFrom = null;
         if (locale == null) {
-            return contentAssocDataResourceViewFrom;
+            return view;
         }
 
         String localeStr = locale.toString();
@@ -412,8 +413,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding alternate locale content: " + e.toString(), module);
-            return contentAssocDataResourceViewFrom;
+            return view;
         }
+
+        // also check the given view for a matching locale
+        alternateViews.add(0, view);
 
         alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
         for (GenericValue thisView : alternateViews) {
@@ -452,6 +456,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     }
                 }
             }
+        }
+
+        if (contentAssocDataResourceViewFrom == null) {
+            // no content matching the given locale found.
+            Locale fallbackLocale = UtilProperties.getFallbackLocale();
+            contentAssocDataResourceViewFrom = locale.equals(fallbackLocale) ? view
+                    // only search for a content with the fallbackLocale if it is different to the given locale
+                    : findAlternateLocaleContent(delegator, view, fallbackLocale);
         }
 
         return contentAssocDataResourceViewFrom;
