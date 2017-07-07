@@ -301,12 +301,14 @@ public class PaymentMethodServices {
         if (updatedCardNumber.startsWith("*")) {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
-            String origMaskedNumber = "";
             int cardLength = origCardNumber.length() - 4;
+            
+            // use builder for better performance 
+            StringBuilder builder = new StringBuilder();
             for (int i = 0; i < cardLength; i++) {
-                origMaskedNumber = origMaskedNumber + "*";
+                builder.append("*");
             }
-            origMaskedNumber = origMaskedNumber + origCardNumber.substring(cardLength);
+            String origMaskedNumber = builder.append(origCardNumber.substring(cardLength)).toString();
 
             // compare the two masked numbers
             if (updatedCardNumber.equals(origMaskedNumber)) {
@@ -1117,8 +1119,8 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource,
-                    "AccountingCheckAccountCannotBeUpdated", locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilProperties.getMessage(resource, "AccountingCheckAccountCannotBeUpdated", locale));
 
             return result;
         }
