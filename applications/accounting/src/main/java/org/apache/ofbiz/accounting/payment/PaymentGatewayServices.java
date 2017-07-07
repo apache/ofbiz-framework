@@ -1473,7 +1473,7 @@ public class PaymentGatewayServices {
                         Debug.logError("Authorization failed : " + newPref + " : " + processorResult, module);
                     }
                 } else {
-                    Debug.logError("Payment not authorized : " + newPref + " : " + processorResult, module);
+                    Debug.logError("Payment not authorized : " + newPref + " (no process result)", module);
                 }
             }
         } catch (GenericEntityException e) {
@@ -1693,7 +1693,7 @@ public class PaymentGatewayServices {
                         Debug.logError(e, "Trouble processing the re-auth result : " + paymentPref + " : " + processorResult, module);
                     }
                 } else {
-                    Debug.logError("Payment not re-authorized : " + paymentPref + " : " + processorResult, module);
+                    Debug.logError("Payment not re-authorized : " + paymentPref + " (no process result)", module);
                 }
 
                 if (!authResult) {
@@ -1885,6 +1885,10 @@ public class PaymentGatewayServices {
         String currencyUomId = (String) context.get("currencyUomId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
+        
+        if(authResult == null) {
+            
+        }
 
         // refresh the payment preference
         try {
@@ -1962,12 +1966,12 @@ public class PaymentGatewayServices {
             }
 
             // set the status of the OrderPaymentPreference
-            if (authResult.booleanValue()) {
+            boolean authResultOk = authResult.booleanValue();
+            
+            if (authResultOk) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
-            } else if (!authResult.booleanValue()) {
-                orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             } else {
-                orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
+                orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             }
 
             // remove sensitive credit card data regardless of outcome
@@ -1984,7 +1988,7 @@ public class PaymentGatewayServices {
             orderPaymentPreference.store();
 
             // if the payment was declined and this is a CreditCard, save that information on the CreditCard entity
-            if (!authResult.booleanValue()) {
+            if (!authResultOk) {
                 if (creditCard != null) {
                     Long consecutiveFailedAuths = creditCard.getLong("consecutiveFailedAuths");
                     if (consecutiveFailedAuths == null) {
@@ -2008,7 +2012,7 @@ public class PaymentGatewayServices {
             }
 
             // auth was successful, to clear out any failed auth or nsf info
-            if (authResult.booleanValue()) {
+            if (authResultOk) {
                 if ((creditCard != null) && (creditCard.get("lastFailedAuthDate") != null)) {
                     creditCard.set("consecutiveFailedAuths", Long.valueOf(0));
                     creditCard.set("lastFailedAuthDate", null);
