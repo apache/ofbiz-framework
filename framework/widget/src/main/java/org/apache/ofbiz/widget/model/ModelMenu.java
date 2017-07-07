@@ -228,7 +228,7 @@ public class ModelMenu extends ModelWidget {
         if (!menuElement.getAttribute("default-cell-width").isEmpty())
             defaultCellWidth = menuElement.getAttribute("default-cell-width");
         if (!menuElement.getAttribute("default-hide-if-selected").isEmpty())
-            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected").isEmpty());
+            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected"));
         if (!menuElement.getAttribute("default-disabled-title-style").isEmpty())
             defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
         if (!menuElement.getAttribute("selected-menuitem-context-field-name").isEmpty())
