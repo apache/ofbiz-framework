@@ -56,7 +56,7 @@ public class GiftCertificateServices {
     public static final int CARD_NUMBER_LENGTH = 14;
     public static final int PIN_NUMBER_LENGTH = 6;
 
-    public static BigDecimal ZERO = BigDecimal.ZERO;
+    public static final BigDecimal ZERO = BigDecimal.ZERO;
 
     // Base Gift Certificate Services
     public static Map<String, Object> createGiftCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -1238,18 +1238,14 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToCreateReturnHeader", locale));
             }
 
-            if (returnHeaderResp != null) {
-                String errorMessage = ServiceUtil.getErrorMessage(returnHeaderResp);
-                if (errorMessage != null) {
-                    return ServiceUtil.returnError(errorMessage);
-                }
+            String errorMessage = ServiceUtil.getErrorMessage(returnHeaderResp);
+            if (errorMessage != null) {
+                return ServiceUtil.returnError(errorMessage);
             }
+            
+            String returnId = (String) returnHeaderResp.get("returnId");
 
-            String returnId = null;
-            if (returnHeaderResp != null) {
-                returnId = (String) returnHeaderResp.get("returnId");
-            }
-
+            
             if (returnId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorCreateReturnHeaderWithoutId", locale));
@@ -1276,17 +1272,12 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToCreateReturnItem", locale));
             }
 
-            if (returnItemResp != null) {
-                String errorMessage = ServiceUtil.getErrorMessage(returnItemResp);
-                if (errorMessage != null) {
-                    return ServiceUtil.returnError(errorMessage);
-                }
+            errorMessage = ServiceUtil.getErrorMessage(returnItemResp);
+            if (errorMessage != null) {
+                return ServiceUtil.returnError(errorMessage);
             }
 
-            String returnItemSeqId = null;
-            if (returnItemResp != null) {
-                returnItemSeqId = (String) returnItemResp.get("returnItemSeqId");
-            }
+            String returnItemSeqId = (String) returnItemResp.get("returnItemSeqId");
 
             if (returnItemSeqId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
@@ -1320,11 +1311,9 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToUpdateReturnHeaderStatus", locale));
             }
 
-            if (updateReturnResp != null) {
-                String errorMessage = ServiceUtil.getErrorMessage(updateReturnResp);
-                if (errorMessage != null) {
-                    return ServiceUtil.returnError(errorMessage);
-                }
+            errorMessage = ServiceUtil.getErrorMessage(updateReturnResp);
+            if (errorMessage != null) {
+                return ServiceUtil.returnError(errorMessage);
             }
         }
 
