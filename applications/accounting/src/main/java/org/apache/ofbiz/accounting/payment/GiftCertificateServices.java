@@ -1238,15 +1238,13 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToCreateReturnHeader", locale));
             }
 
-            String errorMessage = ServiceUtil.getErrorMessage(returnHeaderResp);
-            if (errorMessage != null) {
-                return ServiceUtil.returnError(errorMessage);
+            if (ServiceUtil.isError(returnHeaderResp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(returnHeaderResp));
             }
             
             String returnId = (String) returnHeaderResp.get("returnId");
-
             
-            if (returnId == null) {
+            if (UtilValidate.isEmpty(returnId)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorCreateReturnHeaderWithoutId", locale));
             }
@@ -1272,9 +1270,8 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToCreateReturnItem", locale));
             }
 
-            errorMessage = ServiceUtil.getErrorMessage(returnItemResp);
-            if (errorMessage != null) {
-                return ServiceUtil.returnError(errorMessage);
+            if (ServiceUtil.isError(returnItemResp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(returnItemResp));
             }
 
             String returnItemSeqId = (String) returnItemResp.get("returnItemSeqId");
@@ -1311,9 +1308,8 @@ public class GiftCertificateServices {
                         "OrderErrorUnableToUpdateReturnHeaderStatus", locale));
             }
 
-            errorMessage = ServiceUtil.getErrorMessage(updateReturnResp);
-            if (errorMessage != null) {
-                return ServiceUtil.returnError(errorMessage);
+            if (ServiceUtil.isError(updateReturnResp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(updateReturnResp));
             }
         }
 
