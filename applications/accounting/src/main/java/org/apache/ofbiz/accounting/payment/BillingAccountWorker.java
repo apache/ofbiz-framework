@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.accounting.payment;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
@@ -212,8 +213,9 @@ public class BillingAccountWorker {
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }
     }
-
-    protected static class BillingAccountComparator implements Comparator<Map<String, Object>> {
+    
+    @SuppressWarnings("serial")
+    protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable{
         public int compare(Map<String, Object> billingAccount1, Map<String, Object> billingAccount2) {
             return ((BigDecimal)billingAccount1.get("accountBalance")).compareTo((BigDecimal)billingAccount2.get("accountBalance"));
         }
