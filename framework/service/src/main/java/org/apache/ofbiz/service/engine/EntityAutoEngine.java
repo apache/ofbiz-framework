@@ -141,7 +141,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
         }
-        result.put(ModelService.SUCCESS_MESSAGE, result.get("successMessage"));
+        result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
         return result;
     }
 
