@@ -716,7 +716,7 @@ public final class ServiceUtil {
             Debug.logError(e, errMsg, module);
             throw new GeneralServiceException(e);
         }
-        outMap.putAll(modelService.makeValid(fromMap, "IN", true, null, timeZone, locale));
+        outMap.putAll(modelService.makeValid(fromMap, ModelService.IN_PARAM, true, null, timeZone, locale));
 
         if (userLogin != null && modelService.auth) {
             outMap.put("userLogin", userLogin);

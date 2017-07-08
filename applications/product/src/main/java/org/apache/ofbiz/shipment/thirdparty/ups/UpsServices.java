@@ -507,7 +507,7 @@ public class UpsServices {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
                         // I guess we'll default to inches...
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, shipmentConfirmRequestDoc);
                     }
                     BigDecimal boxLength = shipmentBoxType.getBigDecimal("boxLength");
                     BigDecimal boxWidth = shipmentBoxType.getBigDecimal("boxWidth");
@@ -524,7 +524,7 @@ public class UpsServices {
                     if (dimensionUom != null) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, shipmentConfirmRequestDoc);
                     }
                     UtilXml.addChildElementValue(dimensionsElement, "Length", ""+shipmentPackage.getBigDecimal("boxLength").intValue(), shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(dimensionsElement, "Width", ""+shipmentPackage.getBigDecimal("boxWidth").intValue(), shipmentConfirmRequestDoc);
@@ -2902,7 +2902,7 @@ public class UpsServices {
                     if (dimensionUom != null) {
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), rateRequestDoc);
                     } else {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", rateRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, rateRequestDoc);
                     }
                     BigDecimal boxLength = shipmentBoxType.getBigDecimal("boxLength");
                     BigDecimal boxWidth = shipmentBoxType.getBigDecimal("boxWidth");
@@ -2916,7 +2916,7 @@ public class UpsServices {
                             UtilValidate.isNotEmpty(shipmentPackage.get("boxHeight"))) {
                         Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", rateRequestDoc);
                         Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", rateRequestDoc);
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", rateRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, rateRequestDoc);
                         BigDecimal length = (BigDecimal) shipmentPackage.get("boxLength");
                         BigDecimal width = (BigDecimal) shipmentPackage.get("boxWidth");
                         BigDecimal height = (BigDecimal) shipmentPackage.get("boxHeight");

@@ -107,7 +107,7 @@ public class PromoServices {
                 }
             }
             try {
-                Map<String, Object> newContext = dctx.makeValidContext("createProductPromoCode", "IN", context);
+                Map<String, Object> newContext = dctx.makeValidContext("createProductPromoCode", ModelService.IN_PARAM, context);
                 newContext.put("productPromoCodeId", newPromoCodeId);
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", newContext);
             } catch (GenericServiceException err) {

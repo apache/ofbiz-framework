@@ -440,7 +440,7 @@ public class OrderServices {
             }
             if (UtilValidate.isEmpty(orderId)) {
                 try {
-                    getNextOrderIdContext = ctx.makeValidContext("getNextOrderId", "IN", getNextOrderIdContext);
+                    getNextOrderIdContext = ctx.makeValidContext("getNextOrderId", ModelService.IN_PARAM, getNextOrderIdContext);
                     Map<String, Object> getNextOrderIdResult = dispatcher.runSync("getNextOrderId", getNextOrderIdContext);
                     if (ServiceUtil.isError(getNextOrderIdResult)) {
                         String errMsg = UtilProperties.getMessage(resource_error, 
@@ -5690,7 +5690,7 @@ public class OrderServices {
         String mainErrorMessage = UtilProperties.getMessage(resource_error, "OrderUnableToAddOISGToOrder", locale);
         Map<String, Object> createOrderItemShipGroupMap = null;
         try {
-            createOrderItemShipGroupMap = dctx.makeValidContext("createOrderItemShipGroup", "IN", context);
+            createOrderItemShipGroupMap = dctx.makeValidContext("createOrderItemShipGroup", ModelService.IN_PARAM, context);
         } catch (GenericServiceException gse) {
             String errMsg = mainErrorMessage + gse.toString();
             return ServiceUtil.returnError(errMsg);
@@ -5828,7 +5828,7 @@ public class OrderServices {
             //by default create a new orderItemShipGroup if null with default carrier and contact from the first OISG
             if ("new".equals(shipGroupSeqId)) {
                 try {
-                    Map<String, Object> addOrderItemShipGroupMap = dctx.makeValidContext("addOrderItemShipGroup", "IN", context);
+                    Map<String, Object> addOrderItemShipGroupMap = dctx.makeValidContext("addOrderItemShipGroup", ModelService.IN_PARAM, context);
                     addOrderItemShipGroupMap.remove("shipGroupSeqId");
                     //get default OrderItemShipGroup value for carrier and contact data  
                     List<GenericValue> oisgas = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false);
@@ -5949,10 +5949,10 @@ public class OrderServices {
                     return ServiceUtil.returnError(errMsg);
                 }
                 try {
-                    Map<String, Object> cancelOrderInventoryReservationMap = dctx.makeValidContext("cancelOrderInventoryReservation", "IN", context);
+                    Map<String, Object> cancelOrderInventoryReservationMap = dctx.makeValidContext("cancelOrderInventoryReservation", ModelService.IN_PARAM, context);
                     Map<String, Object> localResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelOrderInventoryReservationMap);
                     if (ServiceUtil.isError(localResult)) return localResult;
-                    Map<String, Object> deleteOrderItemShipGroupAssocMap = dctx.makeValidContext("deleteOrderItemShipGroupAssoc", "IN", context);
+                    Map<String, Object> deleteOrderItemShipGroupAssocMap = dctx.makeValidContext("deleteOrderItemShipGroupAssoc", ModelService.IN_PARAM, context);
                     localResult = dispatcher.runSync("deleteOrderItemShipGroupAssoc", deleteOrderItemShipGroupAssocMap);
                     if (ServiceUtil.isError(localResult)) return localResult;
                 } catch (GenericServiceException e) {
