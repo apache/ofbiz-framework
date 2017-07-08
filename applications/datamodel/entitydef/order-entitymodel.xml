@@ -432,12 +432,6 @@ under the License.
       <relation type="one" fk-name="ORDER_HDR_CUOM" rel-entity-name="Uom">
         <key-map field-name="currencyUom" rel-field-name="uomId"/>
       </relation>
-      <relation type="many" rel-entity-name="OrderHeaderNoteView">
-        <key-map field-name="orderId"/>
-      </relation>
-      <relation type="many" rel-entity-name="OrderItemAndShipGroupAssoc">
-        <key-map field-name="orderId"/>
-      </relation>
       <index name="ORDEREXT_ID_IDX">
         <index-field name="externalId"/>
       </index>
