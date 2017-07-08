@@ -138,7 +138,7 @@ under the License.
         <field name="workEffortTypeId" use-when="routingTask==null"><hidden value="ROU_TASK"/></field>
         <field name="currentStatusId" use-when="routingTask==null"><hidden value="ROU_ACTIVE"/></field>
         <field name="workEffortId" use-when="routingTask!=null"><hidden/></field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><text/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}" required-field="true"><text/></field>
         <field name="workEffortPurposeTypeId" title="${uiLabelMap.ManufacturingTaskPurpose}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffortPurposeType">
