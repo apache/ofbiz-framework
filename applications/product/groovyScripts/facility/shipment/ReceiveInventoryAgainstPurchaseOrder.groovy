@@ -107,16 +107,12 @@ if (!itemQuantitiesToReceive) {
     itemQuantitiesToReceive = [_shipmentId : shipmentId, _orderId : orderId]
 }
 
-oiasgaLimitMap = null
-if (shipGroupSeqId) {
-    oiasgaLimitMap = [shipGroupSeqId : shipGroupSeqId]
-}
 
 orderItemDatas = [:] as TreeMap
 totalAvailableToReceive = 0
 
 // Populate the order item data for the FTL
-orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId'], false)
+orderItems = from("OrderItemAndShipGroupAssoc").where("shipGroupSeqId", shipGroupSeqId, "orderId", orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
 orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false)
 
