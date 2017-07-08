@@ -1255,6 +1255,9 @@
         <value xml:lang="zh">服务贷方用途</value>
         <value xml:lang="zh-TW">服務貸方用途</value>
     </property>
+    <property key="AccountingApprovedBy">
+        <value xml:lang="en">Approved by</value>
+    </property>
     <property key="AccountingApprovedGrandTotal">
         <value xml:lang="ar">الإجمالي الكلي الموافق عليه</value>
         <value xml:lang="de">Genehmigte Gesamtsumme</value>
@@ -4404,6 +4407,9 @@
         <value xml:lang="zh">借记</value>
         <value xml:lang="zh-TW">借記</value>
     </property>
+    <property key="AccountingDebitNotEqualCredit">
+        <value xml:lang="en">Debit not equal to credit</value>
+    </property>
     <property key="AccountingDebitOrCreditOfBalance">
         <value xml:lang="ar">المدين أو الدائن للحساب</value>
         <value xml:lang="de">Soll oder Haben der Bilanz</value>
@@ -5225,6 +5231,9 @@
         <value xml:lang="vi">Lỗi xảy ra khi tạo Thanh toán theo hạng mục từ Đặt hàng</value>
         <value xml:lang="zh">从定单创建定单明细账单时出错</value>
         <value xml:lang="zh-TW">從訂單新建細項帳單時出錯</value>
+    </property>
+    <property key="AccountingExchangeRate">
+        <value xml:lang="en">Exchange Rate</value>
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="ar">الحقل نهاية الحياة المتوقعة فارغ في بيانات الأصل الثابت</value>
@@ -10948,6 +10957,9 @@
         <value xml:lang="zh">会员必须是一个内部团体(在会员角色中设置)</value>
         <value xml:lang="zh-TW">團體必須是一個單位組織(在團體角色中設置)</value>
     </property>
+    <property key="AccountingPartyName">
+        <value xml:lang="en">Party Name</value>
+    </property>
     <property key="AccountingPartyRoleAdd">
         <value xml:lang="ar">إضافة دور طرف جديد</value>
         <value xml:lang="de">Neue Akteurs-Rolle hinzufügen</value>
@@ -13188,6 +13200,9 @@
         <value xml:lang="zh">卡上前缀</value>
         <value xml:lang="zh-TW">卡上字首</value>
     </property>
+    <property key="AccountingPreparedBy">
+        <value xml:lang="en">Prepared by</value>
+    </property>
     <property key="AccountingPreviousBankReconciliation">
         <value xml:lang="ar">التسوية البنكية السابقة</value>
         <value xml:lang="de">vorherige Kontenabstimmung</value>
@@ -13577,6 +13592,9 @@
         <value xml:lang="vi">Tỷ lệ điều chỉnh</value>
         <value xml:lang="zh">税率</value>
         <value xml:lang="zh-TW">稅率</value>
+    </property>
+    <property key="AccountingReceivedBy">
+        <value xml:lang="en">Received by</value>
     </property>
     <property key="AccountingReceivePayment">
         <value xml:lang="ar">استلام دفعة</value>
