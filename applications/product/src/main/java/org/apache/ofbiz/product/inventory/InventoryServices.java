@@ -134,9 +134,9 @@ public class InventoryServices {
                     results.put("inventoryItemId", newItem.get("inventoryItemId"));
 
                     // TODO: how do we get this here: "inventoryTransferId", inventoryTransferId
-                    Map<String, Object> createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty,
+                    Map<String, Object> createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty, "accountingQuantityDiff", xferQty,
                             "inventoryItemId", newItem.get("inventoryItemId"), "userLogin", userLogin);
-                    Map<String, Object> createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff", negXferQty,
+                    Map<String, Object> createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff", negXferQty, "accountingQuantityDiff", negXferQty,
                             "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
 
                     try {
