@@ -90,7 +90,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
                 return cast(resultObj);
             }
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), "OUT"));
+            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), ModelService.OUT_PARAM));
             return result;
         } catch (ScriptException se) {
             return ServiceUtil.returnError(se.getMessage());
