@@ -364,6 +364,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintChecks"/>
     </request-map>
+    
+    <request-map uri="InvoiceAcctgTransEntriesPdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InvoiceAcctgTransEntriesPdf"/>
+    </request-map>
 
     <request-map uri="quickSendPayment">
         <security https="true" auth="true"/>
@@ -2621,6 +2626,7 @@ under the License.
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>
     <view-map name="ManualTransaction" type="screen" page="component://accounting/widget/PaymentScreens.xml#ManualTransaction"/>
     <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
+    <view-map name="InvoiceAcctgTransEntriesPdf" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#InvoiceAcctgTransEntry" content-type="application/pdf" encoding="none"/>
     <view-map name="FindSalesInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindSalesInvoicesByDueDate"/>
     <view-map name="FindPurchaseInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPurchaseInvoicesByDueDate"/>
 
