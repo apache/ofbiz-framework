@@ -879,7 +879,6 @@ public class ShoppingCartHelper {
                                 if (item != null) {
                                     item.setBasePrice(quantity); // this is quantity because the parsed number variable is the same as quantity
                                     item.setDisplayPrice(quantity); // or the amount shown the cart items page won't be right
-                                    item.setIsModifiedPrice(true); // flag as a modified price
                                 }
                             }
                         }
