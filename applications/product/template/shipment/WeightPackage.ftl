@@ -114,10 +114,10 @@ under the License.
               <table class="basic-table" cellpadding="2" cellspacing='0'>
                 <tr>
                   <th>
-                    ${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
+                    ${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
                   </th>
                   <th>
-                    ${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):
+                    ${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:
                   </th>
                   <th>
                     ${uiLabelMap.ProductPackageInputBox}:
@@ -189,14 +189,14 @@ under the License.
                 </#if>
                 <tr>
                   <td>
-                    <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
+                    <span class="label">${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
                       <br />
                       ${uiLabelMap.ProductPackage}
                       <input type="text" size="7" name="packageWeight" value=""/>
                     </span>
                   </td>
                   <td>
-                    <span class="label">${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):</span>
+                    <span class="label">${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:</span>
                     <br />
                     <span class="label">${uiLabelMap.CommonLength}<input type="text" name="packageLength" value="" size="5"/></span>
                     <span class="label">${uiLabelMap.ProductWidth}<input type="text" name="packageWidth" value="" size="5"/></span>
@@ -223,10 +223,10 @@ under the License.
             <table class="basic-table" cellpadding="2" cellspacing='0'> 
              <tr>
                 <th>
-                 ${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
+                 ${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
                 </th>
                  <th>
-                  ${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):
+                  ${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:
                 </th>
                 <th>
                   ${uiLabelMap.ProductPackageInputBox}:

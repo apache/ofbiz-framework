@@ -17258,6 +17258,36 @@
         <value xml:lang="zh">取消暂停</value>
         <value xml:lang="zh-TW">取消暫停</value>
     </property>
+    <property key="Uom.abbreviation.LEN_in">
+        <value xml:lang="en">in</value>
+        <value xml:lang="it">in</value>
+        <value xml:lang="ja">インチ</value>
+        <value xml:lang="vi">trong</value>
+        <value xml:lang="zh">英寸</value>
+        <value xml:lang="zh-TW">英寸</value>
+    </property>
+    <property key="Uom.abbreviation.WT_g">
+        <value xml:lang="en">g</value>
+    </property>
+    <property key="Uom.abbreviation.WT_kg">
+        <value xml:lang="en">kg</value>
+        <value xml:lang="ru">кг</value>
+        <value xml:lang="th">กิโลกรัม</value>
+        <value xml:lang="vi">cân</value>
+        <value xml:lang="zh">公斤</value>
+        <value xml:lang="zh-TW">公斤</value>
+    </property>
+    <property key="Uom.abbreviation.WT_lb">
+        <value xml:lang="de">Pfund (Gewicht)</value>
+        <value xml:lang="en">lbs</value>
+        <value xml:lang="es">libras</value>
+        <value xml:lang="fr">livres</value>
+        <value xml:lang="it">libre</value>
+        <value xml:lang="ja">ポンド</value>
+        <value xml:lang="ru">фнт</value>
+        <value xml:lang="zh">磅</value>
+        <value xml:lang="zh-TW">磅</value>
+        </property>
     <property key="Uom.description.AED">
         <value xml:lang="ar">درهم أماراتي</value>
         <value xml:lang="cs">Emirátský dirham</value>

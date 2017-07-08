@@ -131,7 +131,6 @@ public class LabelManagerFactory {
                                     || labelKey.contains(".geoName.")
                                     || labelKey.contains(".categoryName.")
                                     || labelKey.contains("FieldDescription.")
-                                    || labelKey.contains("ProductShipmentUomAbbreviation_")
                                     || labelKey.contains("TemporalExpression_")
                                     || labelKey.contains(".portalPageName.")
                                     || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
