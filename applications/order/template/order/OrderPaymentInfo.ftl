@@ -155,7 +155,7 @@ under the License.
                         </table>
                     </td>
                     <td width="10%">
-                        <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                        <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                             <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                               <div>
                                 <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -224,7 +224,7 @@ under the License.
                     </#if>
                   </td>
                   <td width="10%">
-                    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                    <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                      <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                         <div>
                           <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -280,7 +280,7 @@ under the License.
                   </td>
                 </#if>
                   <td width="10%">
-                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                   <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <div>
                         <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -380,7 +380,7 @@ under the License.
                   </#if>
                 </td>
                 <td width="10%">
-                  <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                  <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
@@ -420,7 +420,7 @@ under the License.
                   </div>
                 </td>
                 <td width="10%">
-                  <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                  <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
@@ -479,7 +479,7 @@ under the License.
                   </div>
                 </td>
                 <td width="10%">
-                  <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                  <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
@@ -575,7 +575,7 @@ under the License.
      <td colspan="4" align="center">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
     </tr>
    </#if>
-   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
+   <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId) && (paymentMethodValueMaps?has_content)>
    <tr><td colspan="4"><hr /></td></tr>
    <tr><td colspan="4">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">

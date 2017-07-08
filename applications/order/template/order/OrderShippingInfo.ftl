@@ -652,7 +652,7 @@ under the License.
             </td>
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
-              <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+              <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
                 <form id="updateShippingInstructionsForm_${shipGroup.shipGroupSeqId}" name="updateShippingInstructionsForm" method="post" action="<@ofbizUrl>setShippingInstructions</@ofbizUrl>">
                   <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
                   <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>

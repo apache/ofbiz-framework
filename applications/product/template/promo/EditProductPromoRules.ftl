@@ -309,7 +309,7 @@ under the License.
                     <select name="useCartQuantity">
       <#if (productPromoAction.useCartQuantity)??>
         <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
-                      <option value="${(productPromoAction.useCartQuantity)!}"><#if (productPromoAction.useCartQuantity.equals("Y"))>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
+                      <option value="${(productPromoAction.useCartQuantity)!}"><#if ("Y" == productPromoAction.useCartQuantity)>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                       <option value="${(productPromoAction.useCartQuantity)!}">&nbsp;</option>
       <#else>
                       <option value="">&nbsp;</option>
