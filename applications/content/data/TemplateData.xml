@@ -110,7 +110,7 @@ under the License.
                         <td align='left'><span>Password: </span></td>
                        </tr>
                        <tr>
-                         <td align='left'><input type="password" class='inputBox' name="PASSWORD" value="" size="20"></td>
+                         <td align='left'><input type="password" class='inputBox' name="PASSWORD" autocomplete="off" value="" size="20"></td>
                       </tr>
                       <tr>
                         <td colspan="2" align="center"><input type="submit" value="Login"></td>

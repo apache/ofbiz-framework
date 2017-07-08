@@ -45,16 +45,16 @@ under the License.
         <#else>
           <tr>
             <td class="label">${uiLabelMap.CommonCurrentPassword}</td>
-            <td><input type="password" name="PASSWORD" value="" size="20" /></td>
+            <td><input type="password" name="PASSWORD" autocomplete="off" value="" size="20" /></td>
           </tr>
         </#if>
         <tr>
           <td class="label">${uiLabelMap.CommonNewPassword}</td>
-          <td><input type="password" name="newPassword" value="" size="20"/></td>
+          <td><input type="password" name="newPassword" autocomplete="off" value="" size="20"/></td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.CommonNewPasswordVerify}</td>
-          <td><input type="password" name="newPasswordVerify" value="" size="20"/></td>
+          <td><input type="password" name="newPasswordVerify" autocomplete="off" value="" size="20"/></td>
         </tr>
         <#if securityQuestion?has_content>
           <tr>

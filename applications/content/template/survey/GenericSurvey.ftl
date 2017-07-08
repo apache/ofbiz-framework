@@ -65,7 +65,7 @@ under the License.
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_LONG"/>
     <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.numericResponse?default(defValue)?string("#"))!}" />
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "PASSWORD"/>
-    <input type="password" size="30" class="textBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue!)}" />
+    <input type="password" size="30" class="textBox" name="${questionFieldName}" autocomplete="off" value="${(answer.textResponse)?default(defValue!)}" />
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT"/>
      <#if (answer.contentId)?has_content>
       <#assign content = answer.getRelatedOne("Content", false)>
