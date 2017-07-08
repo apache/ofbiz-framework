@@ -289,6 +289,11 @@ public class CheckOutEvents {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<String, Map<String, Object>>();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
+        
+        String checkOutPaymentId = (String) request.getAttribute("checkOutPaymentId");
+        if ((paymentMethods == null || paymentMethods.length <= 0) && UtilValidate.isNotEmpty(checkOutPaymentId)) {
+            paymentMethods = new String[] {checkOutPaymentId};
+        }
 
         if (UtilValidate.isNotEmpty(request.getParameter("issuerId"))) {
             request.setAttribute("issuerId", request.getParameter("issuerId"));
