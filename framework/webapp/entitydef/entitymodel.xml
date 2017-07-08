@@ -65,7 +65,7 @@ under the License.
     <entity entity-name="ServerHit"
             package-name="org.apache.ofbiz.webapp.visit"
             never-cache="true"
-            title="Server Hit Entity">
+            title="Server Hit Entity" no-auto-stamp="true">
       <field name="visitId" type="id"></field>
       <field name="contentId" type="id-vlong"><!-- This is called contentId but has nothing to do with the Content entity in many cases. The value can vary. For example for the ControlServlet request it is "${webapp-name}.${request-map-name}" --></field>
       <field name="hitStartDateTime" type="date-time"></field>
@@ -89,7 +89,7 @@ under the License.
         <key-map field-name="visitId"/>
       </relation>
     </entity>
-    <entity entity-name="ServerHitBin" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin Entity">
+    <entity entity-name="ServerHitBin" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin Entity" no-auto-stamp="true">
       <field name="serverHitBinId" type="id"></field>
       <field name="contentId" type="id-vlong-ne"></field>
       <field name="hitTypeId" type="id-ne"></field>
@@ -155,7 +155,7 @@ under the License.
       <prim-key field="userAgentTypeId"/>
     </entity>
     <entity entity-name="Visit" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Visit Entity"
-        sequence-bank-size="100">
+        sequence-bank-size="100" no-auto-stamp="true">
         <field name="visitId" type="id"></field>
         <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
