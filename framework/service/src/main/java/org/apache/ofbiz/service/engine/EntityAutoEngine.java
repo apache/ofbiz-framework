@@ -135,7 +135,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             GenericValue crudValue = (GenericValue) result.get("crudValue");
             if (crudValue != null) {
                 result.remove("crudValue");
-                result.putAll(modelService.makeValid(crudValue, "OUT"));
+                result.putAll(modelService.makeValid(crudValue, ModelService.OUT_PARAM));
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), module);

@@ -294,7 +294,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 // more than one parameter; use list notation based on service def order
                 if (parameterCount > 1) {
                     int x = 0;
-                    for (String name: model.getParameterNames("IN", true, true)) {
+                    for (String name: model.getParameterNames(ModelService.IN_PARAM, true, true)) {
                         context.put(name, xmlRpcReq.getParameter(x));
                         x++;
 

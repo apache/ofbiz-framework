@@ -543,7 +543,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = ModelService.RESPONSE_MESSAGE;
         def.type = "String";
-        def.mode = "OUT";
+        def.mode = ModelService.OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -551,7 +551,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = ModelService.ERROR_MESSAGE;
         def.type = "String";
-        def.mode = "OUT";
+        def.mode = ModelService.OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -559,7 +559,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = ModelService.ERROR_MESSAGE_LIST;
         def.type = "java.util.List";
-        def.mode = "OUT";
+        def.mode = ModelService.OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -567,7 +567,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = ModelService.SUCCESS_MESSAGE;
         def.type = "String";
-        def.mode = "OUT";
+        def.mode = ModelService.OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -575,7 +575,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = ModelService.SUCCESS_MESSAGE_LIST;
         def.type = "java.util.List";
-        def.mode = "OUT";
+        def.mode = ModelService.OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -583,7 +583,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = "userLogin";
         def.type = "org.apache.ofbiz.entity.GenericValue";
-        def.mode = "INOUT";
+        def.mode = ModelService.IN_OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -591,7 +591,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = "login.username";
         def.type = "String";
-        def.mode = "IN";
+        def.mode = ModelService.IN_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -599,7 +599,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = "login.password";
         def.type = "String";
-        def.mode = "IN";
+        def.mode = ModelService.IN_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -607,7 +607,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = "locale";
         def.type = "java.util.Locale";
-        def.mode = "INOUT";
+        def.mode = ModelService.IN_OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);
@@ -615,7 +615,7 @@ public class ModelServiceReader implements Serializable {
         def = new ModelParam();
         def.name = "timeZone";
         def.type = "java.util.TimeZone";
-        def.mode = "INOUT";
+        def.mode = ModelService.IN_OUT_PARAM;
         def.optional = true;
         def.internal = true;
         service.addParam(def);

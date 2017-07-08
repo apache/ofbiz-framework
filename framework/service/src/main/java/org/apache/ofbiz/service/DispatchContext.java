@@ -175,9 +175,9 @@ public class DispatchContext implements Serializable {
         Map<String, Object> newContext;
 
         int modeInt = 0;
-        if (mode.equalsIgnoreCase("in")) {
+        if (mode.equalsIgnoreCase(ModelService.IN_PARAM)) {
             modeInt = 1;
-        } else if (mode.equalsIgnoreCase("out")) {
+        } else if (mode.equalsIgnoreCase(ModelService.OUT_PARAM)) {
             modeInt = 2;
         }
 

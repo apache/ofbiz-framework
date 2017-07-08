@@ -130,7 +130,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         Map<String, Object> params = new HashMap<String, Object>();
         for (ModelParam modelParam: modelService.getModelParamList()) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if ("OUT".equals(modelParam.mode) || modelParam.internal) continue;
+            if (ModelService.OUT_PARAM.equals(modelParam.mode) || modelParam.internal) continue;
 
             Object paramValue = context.get(modelParam.name);
             if (paramValue != null) {

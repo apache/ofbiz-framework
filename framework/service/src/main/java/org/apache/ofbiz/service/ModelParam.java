@@ -166,11 +166,11 @@ public class ModelParam implements Serializable {
     }
 
     public boolean isIn() {
-        return "IN".equals(this.mode) || "INOUT".equals(this.mode);
+        return ModelService.IN_PARAM.equals(this.mode) || ModelService.IN_OUT_PARAM.equals(this.mode);
     }
 
     public boolean isOut() {
-        return "OUT".equals(this.mode) || "INOUT".equals(this.mode);
+        return ModelService.OUT_PARAM.equals(this.mode) || ModelService.IN_OUT_PARAM.equals(this.mode);
     }
 
     public boolean isOptional() {
