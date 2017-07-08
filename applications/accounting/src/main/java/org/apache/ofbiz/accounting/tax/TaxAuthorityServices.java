@@ -57,9 +57,9 @@ public class TaxAuthorityServices {
     public static final BigDecimal ZERO_BASE = BigDecimal.ZERO;
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
-    public static int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static int salestaxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    public static final int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    public static final int salestaxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final String resource = "AccountingUiLabels";
 
     public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -165,7 +165,7 @@ public class TaxAuthorityServices {
         }
 
         if (productStore == null && payToPartyId == null) {
-            throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
+            throw new IllegalArgumentException("Could not find payToPartyId or ProductStore for tax calculation");
         }
         
         if (shippingAddress == null && facility != null) {
@@ -209,10 +209,9 @@ public class TaxAuthorityServices {
             BigDecimal itemPrice = itemPriceList.get(i);
             BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
             BigDecimal shippingAmount = itemShippingList != null ? itemShippingList.get(i) : null;
-            List<GenericValue> taxList = null;
-            if (shippingAddress != null) {
-                taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
-            }
+            
+            List<GenericValue> taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
+            
             // this is an add and not an addAll because we want a List of Lists of GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
         }
@@ -391,10 +390,10 @@ public class TaxAuthorityServices {
                 if (product != null && (product.get("taxable") == null || (product.get("taxable") != null && product.getBoolean("taxable").booleanValue()))) {
                     taxable = taxable.add(itemAmount);
                 }
-                if (shippingAmount != null && taxAuthorityRateProduct != null && (taxAuthorityRateProduct.get("taxShipping") == null || (taxAuthorityRateProduct.get("taxShipping") != null && taxAuthorityRateProduct.getBoolean("taxShipping").booleanValue()))) {
+                if (shippingAmount != null && (taxAuthorityRateProduct.get("taxShipping") == null || (taxAuthorityRateProduct.get("taxShipping") != null && taxAuthorityRateProduct.getBoolean("taxShipping").booleanValue()))) {
                     taxable = taxable.add(shippingAmount);
                 }
-                if (orderPromotionsAmount != null && taxAuthorityRateProduct != null && (taxAuthorityRateProduct.get("taxPromotions") == null || (taxAuthorityRateProduct.get("taxPromotions") != null && taxAuthorityRateProduct.getBoolean("taxPromotions").booleanValue()))) {
+                if (orderPromotionsAmount != null && (taxAuthorityRateProduct.get("taxPromotions") == null || (taxAuthorityRateProduct.get("taxPromotions") != null && taxAuthorityRateProduct.getBoolean("taxPromotions").booleanValue()))) {
                     taxable = taxable.add(orderPromotionsAmount);
                 }
 
