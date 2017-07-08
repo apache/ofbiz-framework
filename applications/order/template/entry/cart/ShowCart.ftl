@@ -89,7 +89,7 @@ under the License.
                       <#else>
                         <#assign fieldFormName="LookupProduct">
                       </#if>
-                      <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}"/>
+                      <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}" value="${parameters.productId!}"/>
                       <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                         <#if "SALES_ORDER" == shoppingCart.getOrderType()>
                       <a href="javascript:quicklookupGiftCertificate()" class="buttontext">${uiLabelMap.OrderAddGiftCertificate}</a>
