@@ -48,8 +48,8 @@ under the License.
         </div>
       <#else>
         <#if parameters.availabalityList?has_content>
-          <table>
-            <tr>
+          <table class="basic-table"  cellspacing="0">
+            <tr class="header-row">
               <td>${uiLabelMap.Facility}</td>
               <td>${uiLabelMap.ProductQuantityOnHand}</td>
               <td>${uiLabelMap.ProductAvailableToPromise}</td>
