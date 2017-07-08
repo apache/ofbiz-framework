@@ -265,7 +265,7 @@ under the License.
                       <td align="right">${uiLabelMap.ProductPackedQty}</td>
                       <td>&nbsp;</td>
                       <td align="center">${uiLabelMap.ProductPackQty}</td>
-                      <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
+                      <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if></td>
                       <td align="center">${uiLabelMap.ProductPackage}</td>
                       <td align="right">&nbsp;<b>*</b>&nbsp;${uiLabelMap.ProductPackages}</td>
                     </tr>
@@ -358,7 +358,7 @@ under the License.
                         <#assign packageSeqIds = packingSession.getPackageSeqIds()/>
                         <#if packageSeqIds?has_content>
                             <td>
-                                <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):</span>
+                                <span class="label">${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:</span>
                                 <br />
                                 <#list packageSeqIds as packageSeqId>
                                     ${uiLabelMap.ProductPackage} ${packageSeqId}
@@ -448,7 +448,7 @@ under the License.
                     <td>${uiLabelMap.ProductProductDescription}</td>
                     <td>${uiLabelMap.ProductInventoryItem} ${uiLabelMap.CommonNbr}</td>
                     <td align="right">${uiLabelMap.ProductPackedQty}</td>
-                    <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
+                    <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>&nbsp;(${uiLabelMap.ProductPackage})</td>
                     <td align="right">${uiLabelMap.ProductPackage} ${uiLabelMap.CommonNbr}</td>
                     <td>&nbsp;</td>
                   </tr>
@@ -492,7 +492,7 @@ under the License.
                   <td>${uiLabelMap.ProductProductDescription}</td>
                   <td>${uiLabelMap.ProductInventoryItem} ${uiLabelMap.CommonNbr}</td>
                   <td align="right">${uiLabelMap.ProductPackedQty}</td>
-                  <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
+                  <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>&nbsp;(${uiLabelMap.ProductPackage})</td>
                   <td align="right">${uiLabelMap.ProductPackage} ${uiLabelMap.CommonNbr}</td>
                   <td>&nbsp;</td>
               </tr>
