@@ -40,7 +40,7 @@ under the License.
           </tr>
           <tr>
             <td class="label">${uiLabelMap.CommonPassword}</td>
-            <td><input type="password" name="PASSWORD" value="" size="20"/></td>
+            <td><input type="password" name="PASSWORD" autocomplete="off" value="" size="20"/></td>
           </tr>
           <#if ("Y" == useMultitenant) >
             <#if !requestAttributes.userTenantId??>
