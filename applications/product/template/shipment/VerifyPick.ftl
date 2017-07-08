@@ -140,14 +140,14 @@ under the License.
               <td valign="top">
                 <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
                 <br />
-                <#if carrier == "USPS">
+                <#if "USPS" == carrier>
                   <#assign color = "red">
-                <#elseif carrier == "UPS">
+                <#elseif "UPS" == carrier>
                   <#assign color = "green">
                 <#else>
                   <#assign color = "black">
                 </#if>
-                <#if carrier != "_NA_">
+                <#if "_NA_" != carrier>
                   <font color="${color}">${carrier}</font>
                   &nbsp;
                 </#if>
@@ -302,7 +302,7 @@ under the License.
             </tr>
             <tr>
               <td colspan="12" align="right">
-                <#if isShowVerifyItemButton == "true">
+                <#if "true" == isShowVerifyItemButton>
                   <input type="submit" value="${uiLabelMap.ProductVerify}&nbsp;${uiLabelMap.OrderItems}"/>
                 </#if>
                 &nbsp;

@@ -36,7 +36,7 @@ under the License.
       <#if productPromoRule_index != 0>
         <tr><td colspan="3"><hr /></td></tr>
       </#if>
-      <tr valign="middle" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
+      <tr valign="middle" class="row-level-one<#if "1" == ruleClass> alternate-row</#if>">
         <td class="label"><b> ${uiLabelMap.ProductRule} ${(productPromoRule.productPromoRuleId)!}</b></td>
         <td>
           <form method="post" action="<@ofbizUrl>updateProductPromoRule</@ofbizUrl>">
@@ -57,14 +57,14 @@ under the License.
         </td>
       </tr>
       <tr><td><hr /></td><td colspan="2"></td></tr>
-      <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
+      <tr valign="top" class="row-level-one<#if "1" == ruleClass> alternate-row</#if>">
         <td align="right" class="label">${uiLabelMap.ProductConditionsForRule} ${(productPromoRule.productPromoRuleId)!} :</td>
         <td colspan="2">
           <table cellspacing="0" class="basic-table">
     <#assign maxCondSeqId = 1>
     <#assign condClass = "2">
     <#list productPromoConds as productPromoCond>
-            <tr class="row-level-two<#if condClass == "1"> alternate-row</#if>">
+            <tr class="row-level-two<#if "1" == condClass> alternate-row</#if>">
               <!-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
       <#if (productPromoCond.productPromoCondSeqId)??>
         <#assign curCondSeqId = Static["java.lang.Integer"].valueOf(productPromoCond.getString("productPromoCondSeqId"))>
@@ -228,7 +228,7 @@ under the License.
               <td></td>
             </tr>
       <#-- toggle the row color -->
-      <#if condClass == "2">
+      <#if "1" == condClass>
         <#assign condClass = "1">
       <#else>
         <#assign condClass = "2">
@@ -269,13 +269,13 @@ under the License.
         </td>
       </tr>
       <tr><td><hr /></td><td colspan="2"></td></tr>
-      <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
+      <tr valign="top" class="row-level-one<#if "1" == ruleClass> alternate-row</#if>">
         <td align="right" class="label">${uiLabelMap.ProductActionForRule} ${(productPromoRule.productPromoRuleId)!} :</td>
         <td colspan="2">
           <table cellspacing="0" class="basic-table">
     <#assign actionClass = "2">
     <#list productPromoActions as productPromoAction>
-            <tr class="row-level-two<#if actionClass == "1"> alternate-row</#if>">
+            <tr class="row-level-two<#if "1" == actionClass> alternate-row</#if>">
               <td></td>
               <td>
                 <div>
@@ -415,7 +415,7 @@ under the License.
               <td></td>
             </tr>
       <#-- toggle the row color -->
-      <#if actionClass == "2">
+      <#if "2" == actionClass>
         <#assign actionClass = "1">
       <#else>
         <#assign actionClass = "2">
@@ -456,7 +456,7 @@ under the License.
         </td>
       </tr>
     <#-- toggle the row color -->
-    <#if ruleClass == "2">
+    <#if "2" == ruleClass>
       <#assign ruleClass = "1">
     <#else>
       <#assign ruleClass = "2">

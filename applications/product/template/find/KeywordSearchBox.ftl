@@ -44,11 +44,11 @@ under the License.
     </div>
     <div>
       <label for="keywordSearchCointains">${uiLabelMap.CommonNoContains}</label>
-      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if requestParameters.SEARCH_CONTAINS! == "N">checked="checked"</#if> />
+      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if "N" == requestParameters.SEARCH_CONTAINS!>checked="checked"</#if> />
       <label for="keywordSearchOperatorOr">${uiLabelMap.CommonAny}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if requestParameters.SEARCH_OPERATOR! != "AND">checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if "AND" != requestParameters.SEARCH_OPERATOR!>checked="checked"</#if> />
       <label for="keywordSearchOperatorAnd">${uiLabelMap.CommonAll}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if requestParameters.SEARCH_OPERATOR! == "AND">checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if "AND" == requestParameters.SEARCH_OPERATOR!>checked="checked"</#if> />
     </div>
     <div>
       <input type="submit" name="find" value="${uiLabelMap.CommonFind}" class="buttontext" />

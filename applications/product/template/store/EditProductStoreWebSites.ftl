@@ -32,7 +32,7 @@ under the License.
             <#if storeWebSites?has_content>
               <#assign rowClass = "2">
               <#list storeWebSites as webSite>
-                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                   <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName!} [${webSite.webSiteId}]</a></td>
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
@@ -46,7 +46,7 @@ under the License.
                   </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if rowClass == "2">
+                <#if "2" == rowClass>
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

@@ -80,7 +80,7 @@ under the License.
                     /
                     <input type="text" name="shipGroupSeqId" size="6" maxlength="6" value="${shipGroupSeqId?default("00001")}"/>
                   </td>
-                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if> /></label></td>
+                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if ("Y" == hideGrid)>checked=""</#if> /></label></td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -105,7 +105,7 @@ under the License.
                   <td width="25%">
                     <input type="text" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId!}"/>
                   </td>
-                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if> /></label></td>
+                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if ("Y" == hideGrid)>checked=""</#if> /></label></td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -182,14 +182,14 @@ under the License.
                     <td valign="top">
                       <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
                       <br />
-                      <#if carrier == "USPS">
+                      <#if "USPS" == carrier>
                         <#assign color = "red">
-                      <#elseif carrier == "UPS">
+                      <#elseif "UPS" == carrier>
                         <#assign color = "green">
                       <#else>
                         <#assign color = "black">
                       </#if>
-                      <#if carrier != "_NA_">
+                      <#if "_NA_" != carrier>
                         <font color="${color}">${carrier}</font>
                         &nbsp;
                       </#if>
@@ -407,7 +407,7 @@ under the License.
                       <td align="right">
                         <div>
                           <#assign buttonName = "${uiLabelMap.ProductComplete}">
-                          <#if forceComplete?default("false") == "true">
+                          <#if "true" == forceComplete?default("false")>
                             <#assign buttonName = "${uiLabelMap.ProductCompleteForce}">
                           </#if>
                           <input type="button" value="${buttonName}" onclick="javascript:document.completePackForm.submit();"/>

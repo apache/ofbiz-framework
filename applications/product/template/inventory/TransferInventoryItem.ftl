@@ -177,7 +177,7 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductQuantityToTransfer}</span></td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                <#if inventoryItem?? && "SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId>
+                <#if inventoryItem?? && "NON_SERIAL_INV_ITEM" == inventoryItem.inventoryItemTypeId>
                     <input type="text" size="5" name="xferQty" value="${(inventoryItem.availableToPromiseTotal)!}" />
                 <#elseif inventoryItem?? && "SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId>
                     <input type="hidden" name="xferQty" value="1" />

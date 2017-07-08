@@ -40,7 +40,7 @@ under the License.
                 <#list productFeatureCatGrpAppls as productFeatureCatGrpAppl>
                 <#assign line = line + 1>
                 <#assign productFeatureGroup = (productFeatureCatGrpAppl.getRelatedOne("ProductFeatureGroup", false))?default(null)>
-                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${(productFeatureCatGrpAppl.productFeatureGroupId)!}</@ofbizUrl>" class="buttontext"><#if productFeatureGroup??>${(productFeatureGroup.description)!}</#if> [${(productFeatureCatGrpAppl.productFeatureGroupId)!}]</a></td>
                     <#assign hasntStarted = false>
                     <#if (productFeatureCatGrpAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productFeatureCatGrpAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
@@ -67,7 +67,7 @@ under the License.
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if rowClass == "2">
+                <#if "2" == rowClass>
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
@@ -119,7 +119,7 @@ under the License.
                 <#list productFeatureCategoryAppls as productFeatureCategoryAppl>
                 <#assign line = line + 1>
                 <#assign productFeatureCategory = (productFeatureCategoryAppl.getRelatedOne("ProductFeatureCategory", false))?default(null)>
-                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${(productFeatureCategoryAppl.productFeatureCategoryId)!}</@ofbizUrl>" class="buttontext"><#if productFeatureCategory??>${(productFeatureCategory.description)!}</#if> [${(productFeatureCategoryAppl.productFeatureCategoryId)!}]</a></td>
                     <#assign hasntStarted = false>
                     <#if (productFeatureCategoryAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productFeatureCategoryAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
@@ -146,7 +146,7 @@ under the License.
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if rowClass == "2">
+                <#if "2" == rowClass>
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
