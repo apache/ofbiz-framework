@@ -66,13 +66,13 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
+    <#if layoutSettings.rtlStyleSheets?has_content && "rtl" == langDir>
         <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
         <#list layoutSettings.rtlStyleSheets as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && "rtl" == langDir>
         <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
@@ -107,7 +107,7 @@ under the License.
         ${uiLabelMap.CommonSkipNavigation}
       </a>
     </div>
-    <#if (userPreferences.COMPACT_HEADER)?default("N") == "N">
+    <#if "N" == (userPreferences.COMPACT_HEADER)?default("N")>
       <div id="masthead">
         <ul>
           <#if layoutSettings.headerImageUrl??>

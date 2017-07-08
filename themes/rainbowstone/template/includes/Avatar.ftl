@@ -26,10 +26,10 @@
             <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">
             <#assign userLang = locale.toString()>
             <#assign flagLang = locale.toString()?keep_after_last("_")>
-            <#if userLang == "en"><#assign flagLang = "GB"></#if>
-            <#if userLang == "fr"><#assign flagLang = "FR"></#if>
-            <#if userLang == "zh"><#assign flagLang = "SG"></#if>
-            <#if userLang == "th"><#assign flagLang = "TH"></#if>
+            <#if "en" == userLang><#assign flagLang = "GB"></#if>
+            <#if "fr" == userLang><#assign flagLang = "FR"></#if>
+            <#if "zh" == userLang><#assign flagLang = "SG"></#if>
+            <#if "th" == userLang><#assign flagLang = "TH"></#if>
                 <span class="flag-icon flag-icon-<#if userLang?size <= 2>${userLang}<#else>${flagLang?lower_case}</#if>"><#if userLang?size <= 2>${userLang}<#else>${flagLang}</#if></span>
             </a>
         </div>

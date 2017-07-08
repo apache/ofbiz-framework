@@ -65,13 +65,13 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
+    <#if layoutSettings.rtlStyleSheets?has_content && "rtl" == langDir>
         <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
         <#list layoutSettings.rtlStyleSheets as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && "rtl" == langDir>
         <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
@@ -124,7 +124,7 @@ under the License.
     </div>
     <div id="masthead">
       <ul>
-        <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+        <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>
             <#if shortcutIcon?has_content>
                 <#if organizationLogoLinkURL?has_content>
                     <li><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>" height="16px" width="16px"></a></li>
@@ -192,7 +192,7 @@ under the License.
               <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
             </#if>
             <#if userLogin??>
-              <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+              <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>
                 <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a>
                 <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
                     <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
