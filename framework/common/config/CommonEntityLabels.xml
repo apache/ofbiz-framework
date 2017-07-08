@@ -18862,21 +18862,6 @@
         <value xml:lang="zh">爱尔兰镑</value>
         <value xml:lang="zh-TW">愛爾蘭鎊</value>
     </property>
-    <property key="Uom.description.ILS">
-        <value xml:lang="ar">شكيل إسرائيلي</value>
-        <value xml:lang="de">Scheckel Israel</value>
-        <value xml:lang="en">Israeli Scheckel</value>
-        <value xml:lang="fr">Scheckel israélien</value>
-        <value xml:lang="it">Scheckel Israeliano</value>
-        <value xml:lang="ja">イスラエル・シェケル</value>
-        <value xml:lang="pt">Israeli Scheckel</value>
-        <value xml:lang="pt-BR">Israel Scheckel</value>
-        <value xml:lang="ro">Scheckel Israelian</value>
-        <value xml:lang="ru">Израильский шекель</value>
-        <value xml:lang="th">เชคเกิล อิสราเอล</value>
-        <value xml:lang="zh">以色列谢克尔</value>
-        <value xml:lang="zh-TW">以色列謝克爾</value>
-    </property>
     <property key="Uom.description.INR">
         <value xml:lang="ar">روبية هندية</value>
         <value xml:lang="de">Rupie Indien</value>
@@ -19890,7 +19875,7 @@
         <value xml:lang="ar">الشيكل الإسرائيلي الجديد</value>
         <value xml:lang="en">New Israeli Shekel</value>
         <value xml:lang="fr">Shekel du nouvel Israël</value>
-        <value xml:lang="it">Shekel Nuovo Israele</value>
+        <value xml:lang="fr">Nouveau shekel</value>
         <value xml:lang="ja">イスラエル・新シェケル</value>
         <value xml:lang="pt">New Israeli Shekel</value>
         <value xml:lang="pt-BR">Novo Shekel israelita</value>
