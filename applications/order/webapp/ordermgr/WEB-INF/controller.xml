@@ -1024,13 +1024,17 @@ under the License.
     <request-map uri="clearpocart">
         <security https="true" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
-        <response name="success" type="view" value="ordercomplete"/>
+        <response name="success" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="emailorder">
         <security https="true" direct-request="false"/>
         <event type="service" path="async" invoke="sendOrderConfirmation"/>
-        <response name="success" type="view" value="ordercomplete"/>
+        <response name="success" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
         <response name="error" type="view" value="ordercomplete"/>
     </request-map>
     <request-map uri="setOrderTerm">
