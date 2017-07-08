@@ -85,7 +85,7 @@ under the License.
             <img id="homeGlyph" src="/rainbowstone/images/home.svg" alt="Home">
             <span id="homePageTitle">Home Page</span>
             <label class="main-bar-label">${uiLabelMap.EmbiHomeMenuDisplayAllMenu}</label>
-            <input id="showHideBtn" type="checkbox" class="nrd-chkbox" <#if displayFavorites == "true">checked</#if> onchange="showHideFavorites()">
+            <input id="showHideBtn" type="checkbox" class="nrd-chkbox" <#if "true" == displayFavorites>checked</#if> onchange="showHideFavorites()">
             <label for="showHideBtn"></label>
             <label class="main-bar-label">${uiLabelMap.EmbiHomeMenuDisplayFavorites}</label>
         </div> <!-- main-nav-bar-left -->
@@ -107,7 +107,7 @@ under the License.
                     <#assign tileNumber = tileNumber+1>
                     <#assign isComponentEmpty=false>
                     <#assign menuTitle = Static["org.apache.ofbiz.base.util.string.FlexibleStringExpander"].expandString(itemMenu.menuTitle, context)/>
-                    <li  id="Tile${tileNumber}" class="hp-menu-item <#if itemMenu.favorite == "white">normalItem<#else>favoriteItem</#if>">
+                    <li  id="Tile${tileNumber}" class="hp-menu-item <#if "white" == itemMenu.favorite>normalItem<#else>favoriteItem</#if>">
                         <a href="${itemMenu.urlLink}" class="menu-link" title="${itemMenu.menuTitle}">${menuTitle}</a>
                         <a href="javascript:addToFavorite('Tile${tileNumber}', '${itemMenu.urlLink}')" title="${uiLabelMap.ClicToAddInFavorite}">
                             <img id='imgTile${tileNumber}' class="star-link" src="/rainbowstone/images/star-${itemMenu.favorite}.svg">

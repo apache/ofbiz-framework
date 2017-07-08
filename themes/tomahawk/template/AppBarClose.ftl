@@ -53,7 +53,7 @@ under the License.
 <div id="control-area">
   <ul id="preferences-menu">
     <#if userLogin??>
-      <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+      <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>
         <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
           <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
             <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
