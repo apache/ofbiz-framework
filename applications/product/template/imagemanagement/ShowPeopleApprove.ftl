@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
                 </table>
             </td>
         </#list>
-        <#if userMap.checkUser == "REJECTED">
+        <#if "REJECTED" == userMap.checkUser>
             <td>
                 <div><b>Rejected</b></div>
             </td>

@@ -71,7 +71,7 @@ function clickAll(e) {
             <#assign curProductFeatureAndAppls = featureCombinationInfo.curProductFeatureAndAppls>
             <#assign existingVariantProductIds = featureCombinationInfo.existingVariantProductIds>
             <#assign defaultVariantProductId = featureCombinationInfo.defaultVariantProductId>
-            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                 <#assign productFeatureIds = "">
                 <#list curProductFeatureAndAppls as productFeatureAndAppl>
                 <td>
@@ -100,7 +100,7 @@ function clickAll(e) {
             <#assign defaultSequenceNum = defaultSequenceNum + 10>
             <#assign rowCount = rowCount + 1>
             <#-- toggle the row color -->
-            <#if rowClass == "2">
+            <#if "2" == rowClass>
                 <#assign rowClass = "1">
             <#else>
                 <#assign rowClass = "2">

@@ -157,7 +157,7 @@ under the License.
       ${pages.get("/shipment/ViewShipmentInfo.ftl")}
       <br />${pages.get("/shipment/ViewShipmentItemInfo.ftl")}
       <br />${pages.get("/shipment/ViewShipmentPackageInfo.ftl")}
-      <#if allDone?default("no") == "yes">
+      <#if "yes" == allDone?default("no")>
         <br />${pages.get("/shipment/ViewShipmentRouteInfo.ftl")}
       </#if>
     </#if>

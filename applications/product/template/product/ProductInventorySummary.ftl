@@ -32,7 +32,7 @@ under the License.
                 <td><b>${uiLabelMap.ProductFacility}</b></td>
                 <td><b>${uiLabelMap.ProductAtp}</b></td>
                 <td><b>${uiLabelMap.ProductQoh}</b></td>
-                <#if isMarketingPackage == "true">
+                <#if "true" == isMarketingPackage>
                 <td><b>${uiLabelMap.ProductMarketingPackageATP}</b></td>
                 <td><b>${uiLabelMap.ProductMarketingPackageQOH}</b></td>
                 </#if>
@@ -56,12 +56,12 @@ under the License.
                     <#assign incomingQuantityTotal = manufacturingInQuantitySummary.estimatedQuantityTotal!>
                     <#assign outgoingProductionRunList = manufacturingOutQuantitySummary.outgoingProductionRunList!>
                     <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal!>
-                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                    <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                         <td>${(facility.facilityName)!} [${facilityId?default("[No Facility]")}]
                         <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&amp;productId=${productId}&amp;externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></td>
                         <td><#if totalAvailableToPromise??>${totalAvailableToPromise}<#else>&nbsp;</#if></td>
                         <td><#if totalQuantityOnHand??>${totalQuantityOnHand}<#else>&nbsp;</#if></td>
-                        <#if isMarketingPackage == "true">
+                        <#if "true" == isMarketingPackage>
                         <td><#if mktgPkgATP??>${mktgPkgATP}<#else>&nbsp;</#if></td>
                         <td><#if mktgPkgQOH??>${mktgPkgQOH}<#else>&nbsp;</#if></td>
                         </#if>
@@ -98,7 +98,7 @@ under the License.
 
                 </#if>
                 <#-- toggle the row color -->
-                <#if rowClass == "2">
+                <#if "2" == rowClass>
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

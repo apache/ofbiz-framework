@@ -191,7 +191,7 @@ under the License.
                                                 <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
                                             </#if>
-                                            <#if product.productTypeId == "MARKETING_PKG_AUTO">
+                                            <#if "MARKETING_PKG_AUTO" == product.productTypeId>
                                                 <fo:table-row background-color="${rowColor}">
                                                     <fo:table-cell  number-columns-spanned="6">
                                                         <fo:block text-align="left" font-weight="bold">
@@ -250,7 +250,7 @@ under the License.
                                                     </#if>
                                                 </#if>
                                             </#if>
-                                            <#if rowColor == "#D4D0C8">
+                                            <#if "#D4D0C8" == rowColor>
                                                  <#assign rowColor = "white"/>
                                             <#else>
                                                 <#assign rowColor = "#D4D0C8"/>  

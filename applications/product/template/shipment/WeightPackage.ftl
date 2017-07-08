@@ -145,7 +145,7 @@ under the License.
                           <#if shipmentBoxTypes?has_content>
                             <#assign shipmentBoxTypeId = "${(packedLine.getShipmentBoxTypeId())!}"/>
                             <#list shipmentBoxTypes as shipmentBoxType>
-                              <#if shipmentBoxTypeId == "${shipmentBoxType.shipmentBoxTypeId}">
+                              <#if "${shipmentBoxType.shipmentBoxTypeId}" == shipmentBoxTypeId>
                                 <option value="${shipmentBoxType.shipmentBoxTypeId}">${shipmentBoxType.description}</option>
                               </#if>
                             </#list>
