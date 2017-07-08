@@ -790,11 +790,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="mimeTypeId" >
-            <drop-down allow-empty="false">
-                <entity-options entity-name="MimeType"/>
-            </drop-down>
-        </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
         <field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
