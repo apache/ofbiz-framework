@@ -940,12 +940,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="supplierProductId" title="${uiLabelMap.FormFieldTitle_supplierProductId}" required-field="true"></field>
         <field name="canDropShip" title="${uiLabelMap.ProductSupplierCanDropShip}">
             <drop-down allow-empty="false" no-current-selected-key="N">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
+        <field name="lastPrice" title="${uiLabelMap.FormFieldTitle_lastPrice}" required-field="true"></field>
         <field use-when="supplierProduct == null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field use-when="supplierProduct != null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
