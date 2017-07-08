@@ -869,14 +869,38 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar">
+                            <link target="CreatePartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                                <parameter param-name="partyId"/>
+                            </link>
+                        </container>
                         <screenlet title="${uiLabelMap.PageTitleListContent}">
-                            <container>
-                                <link target="EditPartyContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
-                                    <parameter param-name="partyId"/>
-                                </link>
-                            </container>
                             <include-form name="ListPartyContents" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleAddPartyContent}">
+                            <include-form name="AddPartyContent" location="component://party/widget/partymgr/PartyForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreatePartyContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListContent"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="PartyContents"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="button-bar">
+                            <link target="CreatePartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                                <parameter param-name="partyId"/>
+                            </link>
+                        </container>
                         <screenlet title="${uiLabelMap.PageTitleAddPartyContent}">
                             <include-form name="AddPartyContent" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
