@@ -280,7 +280,7 @@ public class ContentManagementServices {
             if (contentExists) {
                 Map<String, Object> contentContext = new HashMap<String, Object>();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("updateContent");
-                contentContext.putAll(contentModel.makeValid(content, "IN"));
+                contentContext.putAll(contentModel.makeValid(content, ModelService.IN_PARAM));
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -292,7 +292,7 @@ public class ContentManagementServices {
             } else {
                 Map<String, Object> contentContext = new HashMap<String, Object>();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("createContent");
-                contentContext.putAll(contentModel.makeValid(content, "IN"));
+                contentContext.putAll(contentModel.makeValid(content, ModelService.IN_PARAM));
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -358,7 +358,7 @@ public class ContentManagementServices {
                 GenericValue contentAssocExisting = EntityQuery.use(delegator).from("ContentAssoc").where(contentAssoc.getPrimaryKey()).queryOne();
                 if (contentAssocExisting == null) {
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("createContentAssoc");
-                    Map<String, Object> ctx = contentAssocModel.makeValid(contentAssoc, "IN");
+                    Map<String, Object> ctx = contentAssocModel.makeValid(contentAssoc, ModelService.IN_PARAM);
                     contentAssocContext.putAll(ctx);
                     thisResult = dispatcher.runSync("createContentAssoc", contentAssocContext);
                     String errMsg = ServiceUtil.getErrorMessage(thisResult);
@@ -378,7 +378,7 @@ public class ContentManagementServices {
                         contentAssocExisting.put("thruDate", (Timestamp)context.get("thruDate"));
                     }
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("updateContentAssoc");
-                    Map<String, Object> ctx = contentAssocModel.makeValid(contentAssocExisting, "IN");
+                    Map<String, Object> ctx = contentAssocModel.makeValid(contentAssocExisting, ModelService.IN_PARAM);
                     contentAssocContext.putAll(ctx);
                     thisResult = dispatcher.runSync("updateContentAssoc", contentAssocContext);
                     String errMsg = ServiceUtil.getErrorMessage(thisResult);
@@ -505,7 +505,7 @@ public class ContentManagementServices {
       Map<String, Object> result = new HashMap<String, Object>();
       try {
           ModelService checkPermModel = dispatcher.getDispatchContext().getModelService("checkContentPermission");
-          Map<String, Object> ctx = checkPermModel.makeValid(context, "IN");
+          Map<String, Object> ctx = checkPermModel.makeValid(context, ModelService.IN_PARAM);
           Map<String, Object> thisResult = dispatcher.runSync("checkContentPermission", ctx);
           String permissionStatus = (String)thisResult.get("permissionStatus");
           if (UtilValidate.isNotEmpty(permissionStatus) && permissionStatus.equalsIgnoreCase("granted")) {
@@ -570,7 +570,7 @@ public class ContentManagementServices {
       }
       GenericValue userLogin = (GenericValue) context.get("userLogin");
       ModelService dataResourceModel = dispatcher.getDispatchContext().getModelService("updateDataResource");
-      Map<String, Object> ctx = dataResourceModel.makeValid(dataResource, "IN");
+      Map<String, Object> ctx = dataResourceModel.makeValid(dataResource, ModelService.IN_PARAM);
       newDrContext.putAll(ctx);
       newDrContext.put("userLogin", userLogin);
       newDrContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -922,7 +922,7 @@ public class ContentManagementServices {
 
                 contentClone.set("contentId", null);
                 ModelService modelService = dctx.getModelService("persistContentAndAssoc");
-                Map<String, Object> serviceIn = modelService.makeValid(contentClone, "IN");
+                Map<String, Object> serviceIn = modelService.makeValid(contentClone, ModelService.IN_PARAM);
                 serviceIn.put("userLogin", userLogin);
                 serviceIn.put("contentIdTo", contentId);
                 serviceIn.put("contentAssocTypeId", "SUB_CONTENT");
@@ -1406,7 +1406,7 @@ public class ContentManagementServices {
         context.put("useRoleTypeId", productContent.get("useRoleTypeId"));
         context.put("contentId", productContent.get("contentId"));
         ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscription");
-        Map<String, Object> ctx = subscriptionModel.makeValid(context, "IN");
+        Map<String, Object> ctx = subscriptionModel.makeValid(context, ModelService.IN_PARAM);
         result = dispatcher.runSync("updateContentSubscription", ctx);
         return result;
     }
@@ -1452,7 +1452,7 @@ public class ContentManagementServices {
                 if (productContentCount > 0) {
                     context.put("productId", productId);
                     context.put("quantity", Integer.valueOf(qty.intValue()));
-                    Map<String, Object> ctx = subscriptionModel.makeValid(context, "IN");
+                    Map<String, Object> ctx = subscriptionModel.makeValid(context, ModelService.IN_PARAM);
                     dispatcher.runSync("updateContentSubscriptionByProduct", ctx);
                 }
             }
@@ -1545,7 +1545,7 @@ public class ContentManagementServices {
 
       try {
           ModelService persistContentAndAssocModel = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
-          Map<String, Object> ctx = persistContentAndAssocModel.makeValid(context, "IN");
+          Map<String, Object> ctx = persistContentAndAssocModel.makeValid(context, ModelService.IN_PARAM);
           if (dataResource != null) {
               ctx.remove("dataResourceId");
               ctx.remove("drDataResourceId");

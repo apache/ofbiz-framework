@@ -543,7 +543,7 @@ public class PdfSurveyServices {
 
         try {
             ModelService modelService = dispatcher.getDispatchContext().getModelService("setAcroFields");
-            Map<String, Object> ctx = modelService.makeValid(context, "IN");
+            Map<String, Object> ctx = modelService.makeValid(context, ModelService.IN_PARAM);
             ctx.put("acroFieldMap", acroFieldMap);
             ctx.put("contentId", acroFormContentId);
             Map<String, Object> map = dispatcher.runSync("setAcroFields", ctx);

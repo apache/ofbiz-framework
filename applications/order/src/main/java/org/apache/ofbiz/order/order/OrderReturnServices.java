@@ -2507,7 +2507,7 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isNotEmpty(orderItemSeqId) ? "createReturnItem" : "createReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            Map<String, Object> inMap = dctx.makeValidContext(serviceName, "IN", context);
+            Map<String, Object> inMap = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, context);
             if ("createReturnItem".equals(serviceName)) {
                 // we don't want to automatically include the adjustments
                 // when the return item is created because they are selectable by the user
@@ -2530,7 +2530,7 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isEmpty(returnAdjustmentId) ? "updateReturnItem" : "updateReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            return dispatcher.runSync(serviceName, dctx.makeValidContext(serviceName, "IN", context));
+            return dispatcher.runSync(serviceName, dctx.makeValidContext(serviceName, ModelService.IN_PARAM, context));
         } catch (org.apache.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -2586,7 +2586,7 @@ public class OrderReturnServices {
      */
     @Deprecated
     public static Map<String, Object> filterServiceContext(DispatchContext dctx, String serviceName, Map<String, ? extends Object> context) throws GenericServiceException {
-        return dctx.makeValidContext(serviceName, "IN", context);
+        return dctx.makeValidContext(serviceName, ModelService.IN_PARAM, context);
     }
 
     /**

@@ -50,6 +50,7 @@ import org.apache.ofbiz.party.party.PartyWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 import ezvcard.Ezvcard;
@@ -211,7 +212,7 @@ public class VCard {
 
                 if (formattedName != null) {
                     //store the origin creation
-                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification", "IN", context);
+                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification", ModelService.IN_PARAM, context);
                     createPartyIdentificationMap.put("partyId", resp.get("partyId"));
                     createPartyIdentificationMap.put("partyIdentificationTypeId", "VCARD_FN_ORIGIN");
                     createPartyIdentificationMap.put("idValue", formattedName.getValue());
