@@ -147,7 +147,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             List<String> keys = StringUtil.split(disableIfEmpty, "|");
             for (String key : keys) {
                 Object obj = context.get(key);
-                if (obj == null) {
+                if (UtilValidate.isEmpty(obj)) {
                     disabled = true;
                     break;
                 }
