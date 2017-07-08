@@ -374,7 +374,7 @@ public class SubscriptionServices {
                             }
 
                             if (result != null && subscriptionId != null) {
-                                Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + result.get("successMessage"), module);
+                                Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + ServiceUtil.makeSuccessMessage(result, "", "", "", ""), module);
                             } else if (result == null && subscriptionId != null) {
                                 Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, module);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductSubscriptionCouldntBeExpired", UtilMisc.toMap("subscriptionId", subscriptionId), locale));

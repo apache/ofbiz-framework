@@ -135,7 +135,7 @@ public class OrderEvents {
                             resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
 
                             if (ServiceUtil.isError(resultMap)) {
-                                String errorMessage = (String) resultMap.get("errorMessage");
+                                String errorMessage = ServiceUtil.getErrorMessage(resultMap);
                                 Debug.logError(errorMessage, module);
                                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                                 return "error";

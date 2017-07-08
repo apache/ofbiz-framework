@@ -5760,7 +5760,7 @@ public class OrderServices {
         }
 
         if (ServiceUtil.isError(result)) {
-            String errMsg = UtilProperties.getMessage(resource, mainErrorMessage + result.get("errorMessage"), locale);
+            String errMsg = UtilProperties.getMessage(resource, mainErrorMessage + ServiceUtil.getErrorMessage(result), locale);
             return ServiceUtil.returnError(errMsg);
         }
         return result;
