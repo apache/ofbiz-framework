@@ -341,7 +341,7 @@ under the License.
                 <td>&nbsp;</td>
               </tr>
               <#list pickRows as pickRow>
-                <#if (pickRow.getOrderId()!).equals(orderId)>
+                <#if (pickRow.getOrderId()! == orderId)>
                   <tr>
                     <td>${pickRow.getOrderItemSeqId()!}</td>
                     <td>${pickRow.getProductId()!}</td>
