@@ -380,7 +380,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewCommunication"/>
                 <set field="tabButtonItem" value="OverView"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <service service-name="setCommEventRoleToRead"></service>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
             </actions>
@@ -863,7 +862,6 @@ under the License.
                             <if-compare field="parameters.form" operator="equals" value="view"/>
                         </condition>
                         <actions>
-                            <service service-name="setCommEventRoleToRead"/>
                             <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
                             <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                         </actions>
