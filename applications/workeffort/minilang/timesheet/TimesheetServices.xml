@@ -297,6 +297,9 @@ under the License.
 
     <!-- TimesheetRole Services -->
     <simple-method method-name="createTimesheetRole" short-description="Create TimesheetRole">
+        <set field="ensurePartyRoleCtx.partyId" from-field="parameters.partyId"/>
+        <set field="ensurePartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
+        <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRoleCtx"/>
         <make-value value-field="newEntity" entity-name="TimesheetRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
