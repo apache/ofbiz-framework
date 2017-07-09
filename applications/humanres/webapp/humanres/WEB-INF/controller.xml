@@ -243,6 +243,11 @@ under the License.
         <event type="service" invoke="deletePayHistory"/>
         <response name="success" type="view" value="ListPayHistories"/>
     </request-map>
+    <request-map uri="expirePayHistory">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="expirePayHistory"/>
+        <response name="success" type="view" value="ListPayHistories"/>
+    </request-map>
     <request-map uri="findPartyBenefits">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyBenefits"/>
