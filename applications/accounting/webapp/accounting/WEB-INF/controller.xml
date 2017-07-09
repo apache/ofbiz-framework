@@ -1144,7 +1144,7 @@ under the License.
     <request-map uri="FindAgreement"><security https="true" auth="true"/><response name="success" type="view" value="FindAgreement"/></request-map>
     <request-map uri="cancelAgreement">
         <security https="true" auth="true"/>
-        <event type="service" invoke="cancelAgreement"/>
+        <event type="service" invoke="expireAgreement"/>
         <response name="success" type="view" value="FindAgreement"/>
         <response name="error" type="view" value="FindAgreement"/>
     </request-map>
