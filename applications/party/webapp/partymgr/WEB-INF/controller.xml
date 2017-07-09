@@ -455,7 +455,7 @@ under the License.
     <request-map uri="createPartyNote">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyNote"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="backHome"/>
         <response name="error" type="view" value="AddPartyNote"/>
     </request-map>
 
