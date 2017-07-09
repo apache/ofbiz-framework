@@ -30,6 +30,7 @@
  * under the License.
  */
 
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -40,44 +41,44 @@ def copyAgreement() {
     agreement = from('Agreement').where('agreementId', parameters.agreementId).queryOne();
     serviceResult = success()
     if (agreement) {
-        Map createAgreementInMap = dispatcher.getDispatchContext().makeValidContext('createAgreement', 'IN', agreement)
+        Map createAgreementInMap = dispatcher.getDispatchContext().makeValidContext('createAgreement', ModelService.IN_PARAM, agreement)
         result = run service: 'createAgreement', with: createAgreementInMap
         if (ServiceUtil.isError(result)) return result
         agreementIdTo = result.agreementId
         agreementItems = agreement.getRelated('AgreementItem', null, null, false)
         agreementItems.each { agreementItem ->
-            Map createAgreementItemInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementItem', 'IN', agreementItem)
+            Map createAgreementItemInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementItem', ModelService.IN_PARAM, agreementItem)
             createAgreementItemInMap.agreementId = agreementIdTo
             result = run service: 'createAgreementItem', with: createAgreementItemInMap
         }
-        if (parameters.copyAgreementTerms && parameters.copyAgreementTerms == 'Y') {
+        if ('Y' == parameters.copyAgreementTerms) {
             agreementTerms = agreement.getRelated('AgreementTerm', null, null, false)
             agreementTerms.each { agreementTerm ->
-                Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm', 'IN', agreementTerm)
+                Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm', ModelService.IN_PARAM, agreementTerm)
                 createAgreementTermInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementTerm', with: d
             }
         }
-        if (parameters.copyAgreementProducts && parameters.copyAgreementProducts == 'Y') {
+        if ('Y' == parameters.copyAgreementProducts) {
             agreementProductAppls = agreement.getRelated('AgreementProductAppl', null, null, false)
             agreementProductAppls.each { agreementProductAppl ->
-                Map createAgreementProductApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementProductAppl', 'IN', agreementProductAppl)
+                Map createAgreementProductApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementProductAppl', ModelService.IN_PARAM, agreementProductAppl)
                 createAgreementProductApplInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementProductAppl', with: createAgreementProductApplInMap
             }
         }
-        if (parameters.copyAgreementFacilities && parameters.copyAgreementFacilities == 'Y') {
+        if ('Y' == parameters.copyAgreementFacilities) {
             agreementFacilityAppls = agreement.getRelated('AgreementFacilityAppl', null, null, false)
             agreementFacilityAppls.each { agreementFacilityAppl ->
-                Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl', 'IN', agreementFacilityAppl)
+                Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl', ModelService.IN_PARAM, agreementFacilityAppl)
                 createAgreementFacilityApplInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementFacilityAppl', with: createAgreementFacilityApplInMap
             }
         }
-        if (parameters.copyAgreementParties && parameters.copyAgreementParties == 'Y') {
+        if ('Y' == parameters.copyAgreementParties) {
             agreementPartyApplics = agreement.getRelated('AgreementPartyApplic', null, null, false)
             agreementPartyApplics.each { agreementPartyApplic ->
-                Map createAgreementPartyApplicInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementPartyApplic', 'IN', agreementPartyApplic)
+                Map createAgreementPartyApplicInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementPartyApplic', ModelService.IN_PARAM, agreementPartyApplic)
                 createAgreementPartyApplicInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementPartyApplic', with: createAgreementPartyApplicInMap
             }
