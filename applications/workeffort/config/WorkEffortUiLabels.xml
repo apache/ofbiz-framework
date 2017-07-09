@@ -5433,4 +5433,7 @@
     <property key="WorkEffortRequiredFieldMissingWorkEffortTypeId">
         <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
     </property>
+    <property key="WorkEffortRequiredFieldMissingContactMechIdOrContactMechTypeId">
+        <value xml:lang="en">Required Field Missing : At least one field is required from Contact Mech Id  or Contact Mech Type Id.</value>
+    </property>
 </resource>
