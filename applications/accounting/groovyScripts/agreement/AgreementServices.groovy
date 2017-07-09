@@ -30,21 +30,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.service.ServiceUtil
-
-/**
- * Cancel an existing Agreement
- */
-
-def cancelAgreement() {
-    agreement = from('Agreement').where('agreementId', parameters.agreementId).queryOne();
-    if (agreement) {
-        agreement.thruDate = UtilDateTime.nowTimestamp();
-        agreement.store();
-    }
-    return success()
-}
 
 /**
  * Copy an existing Agreement
@@ -69,7 +55,7 @@ def copyAgreement() {
             agreementTerms.each { agreementTerm ->
                 Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm', 'IN', agreementTerm)
                 createAgreementTermInMap.agreementId = agreementIdTo
-                result = run service: 'createAgreementTerm', with: createAgreementTermInMap
+                result = run service: 'createAgreementTerm', with: d
             }
         }
         if (parameters.copyAgreementProducts && parameters.copyAgreementProducts == 'Y') {
