@@ -401,6 +401,13 @@ under the License.
     <simple-method method-name="createWorkEffortContactMech" short-description="Create a WorkEffortContactMech">
         <make-value value-field="newValue" entity-name="WorkEffortContactMech"/>
         <if-empty field="parameters.contactMechId">
+            <if-empty field="parameters.contactMechTypeId">
+                <add-error>
+                    <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContactMechIdOrContactMechTypeId"/>
+                </add-error>
+            </if-empty>
+            <check-errors/>
+
             <if-not-empty field="parameters.partyId">
                 <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="context"/>
                 <call-service service-name="createPartyContactMech" in-map-name="context">

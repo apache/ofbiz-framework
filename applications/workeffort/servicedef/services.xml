@@ -762,11 +762,7 @@ under the License.
         <auto-attributes entity-name="WorkEffortContactMech" mode="IN" include="nonpk" optional="true"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="workEffortId" mode="IN" type="String" optional="false"></attribute>
-        <attribute name="contactMechTypeId" mode="IN" type="String" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContactMechTypeId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contactMechTypeId" mode="IN" type="String" optional="true"/>
         <attribute name="infoString" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>

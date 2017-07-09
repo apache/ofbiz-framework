@@ -1186,6 +1186,12 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="contactMechId"><lookup target-form-name="LookupContactMech"/></field>
+        <field name="contactMechTypeId" event="onchange" action="javascript:ajaxUpdateAreas('contactMechContainer,ContactMechTypeOnly,contactMechTypeId=' + this.value);">
+            <drop-down>
+                <option key="" description="${uiLabelMap.CommonNone}"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+            </drop-down>
+        </field>
         <field name="comments"><text size="50"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
