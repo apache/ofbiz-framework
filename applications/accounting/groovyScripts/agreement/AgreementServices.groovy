@@ -81,7 +81,7 @@ def copyAgreement() {
             }
         }
         if (parameters.copyAgreementFacilities && parameters.copyAgreementFacilities == 'Y') {
-            agreementTerms = agreement.getRelated('AgreementFacilityAppl', null, null, false)
+            agreementFacilityAppls = agreement.getRelated('AgreementFacilityAppl', null, null, false)
             agreementFacilityAppls.each { agreementFacilityAppl ->
                 Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl', 'IN', agreementFacilityAppl)
                 createAgreementFacilityApplInMap.agreementId = agreementIdTo
