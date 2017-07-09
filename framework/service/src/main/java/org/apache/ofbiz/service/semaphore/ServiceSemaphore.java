@@ -106,7 +106,6 @@ public class ServiceSemaphore {
             if (timedOut) {
                 double waitTimeSec = ((System.currentTimeMillis() - lockTime.getTime()) / 1000.0);
                 String errMsg = "Service [" + model.name + "] with wait semaphore exceeded wait timeout, waited [" + waitTimeSec + "], wait started at " + lockTime;
-                Debug.logWarning(errMsg, module);
                 throw new SemaphoreWaitException(errMsg);
             }
         } else if (SEMAPHORE_MODE_NONE == mode) {
