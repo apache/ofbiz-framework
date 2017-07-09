@@ -62,7 +62,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <script location="component://accounting/webapp/accounting/WEB-INF/actions/agreement/GetPartyNameForDate.groovy"/>
+            <script location="component://accounting/groovyScripts/agreement/GetPartyNameForDate.groovy"/>
         </row-actions>         
         <auto-fields-entity entity-name="Agreement" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" sort-field="true">
