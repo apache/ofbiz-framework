@@ -96,7 +96,7 @@ public class EwayServices {
         Boolean authResult = reply.getTrxnStatus();
         
         // auth fields
-        result.put("authResult", new Boolean(authResult.booleanValue()));
+        result.put("authResult", Boolean.valueOf(authResult.booleanValue()));
         result.put("authMessage", reply.getTrxnError());
         result.put("authCode", reply.getAuthCode());
         result.put("authRefNum", reply.getTrxnNumber());
@@ -163,7 +163,7 @@ public class EwayServices {
         // process the result
         Map<String, Object> result = ServiceUtil.returnSuccess();  
         Boolean refundResult = reply.getTrxnStatus();        
-        result.put("refundResult", new Boolean(refundResult.booleanValue()));
+        result.put("refundResult", Boolean.valueOf(refundResult.booleanValue()));
         result.put("refundMessage", reply.getTrxnError());
         result.put("refundCode", reply.getAuthCode());
         result.put("refundRefNum", reply.getTrxnNumber());
@@ -228,7 +228,7 @@ public class EwayServices {
         // process the result
         Map<String, Object> result = ServiceUtil.returnSuccess();  
         Boolean refundResult = reply.getTrxnStatus();        
-        result.put("releaseResult", new Boolean(refundResult.booleanValue()));
+        result.put("releaseResult", Boolean.valueOf(refundResult.booleanValue()));
         result.put("releaseMessage", reply.getTrxnError());
         result.put("releaseCode", reply.getAuthCode());
         result.put("releaseRefNum", reply.getTrxnNumber());
