@@ -773,7 +773,7 @@ under the License.
             <string-append string=" for Primary Order ${shipment.primaryOrderId}" field="sendEmailMap.subject"/>
         </if-not-empty>
         <set value="text/html" field="sendEmailMap.contentType"/>
-        <set value="org/apache/ofbiz/shipment/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
+        <set value="component://product/template/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
         <set from-field="shipment" field="sendEmailMap.templateData.shipment"/>
 
         <!-- call sendGenericNotificationEmail service, if enough information was found -->
