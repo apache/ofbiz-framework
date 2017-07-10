@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#macro updateOrderContactMech orderHeader contactMechTypeId contactMechList contactMechPurposeTypeId contactMechAddress>
-  <#if (!"ORDER_COMPLETED" == orderHeader.statusId) && !("ORDER_REJECTED" == orderHeader.statusId) && !("ORDER_CANCELLED" == orderHeader.statusId)>
+  <#if ("ORDER_COMPLETED" != orderHeader.statusId) && ("ORDER_REJECTED" != orderHeader.statusId) && ("ORDER_CANCELLED" != orderHeader.statusId)>
     <form name="updateOrderContactMech" method="post" action="<@ofbizUrl>updateOrderContactMech</@ofbizUrl>">
       <input type="hidden" name="orderId" value="${orderId!}" />
       <input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurpose.contactMechPurposeTypeId!}" />
