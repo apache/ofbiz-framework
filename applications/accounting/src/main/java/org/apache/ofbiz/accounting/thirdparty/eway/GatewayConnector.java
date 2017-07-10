@@ -93,7 +93,7 @@ public class GatewayConnector {
             connection.setConnectTimeout(timeout*1000);            
             
             OutputStream out = connection.getOutputStream();
-            Writer wout = new OutputStreamWriter(out);
+            Writer wout = new OutputStreamWriter(out, "UTF-8");
             wout.write(request.toXml());
             wout.flush();
             wout.close();
