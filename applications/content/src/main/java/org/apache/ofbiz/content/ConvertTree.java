@@ -117,7 +117,6 @@ In order ta make this service active add the following to the service definition
                         contentAssoc.put("contentIdTo", "ROOT");
                         contentAssoc.put("userLogin", userLogin);
                         dispatcher.runSync("createContentAssoc", contentAssoc);
-                        int recordCount = 0;
                         while ((line = input.readLine()) != null) {//start line
                              boolean hasFolder = true;
                              String rootContent = null, contentId = null; counterLine++;
@@ -220,7 +219,6 @@ In order ta make this service active add the following to the service definition
                                         }
                                     }
                                 }//end character in line
-                                recordCount++;
                             }
                         }//end line
                         sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful", UtilMisc.toMap("counterLine", counterLine), locale);

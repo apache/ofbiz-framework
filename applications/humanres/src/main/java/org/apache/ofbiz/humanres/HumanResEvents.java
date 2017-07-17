@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -165,7 +166,7 @@ public class HumanResEvents {
         String hrefString = (String) params.get("hrefString");
         String hrefString2 = (String) params.get("hrefString2");
 
-        Map<String , Object> partyGroup = (Map<String, Object>) params.get("partyGroup");
+        Map<String , Object> partyGroup = UtilGenerics.checkMap(params.get("partyGroup"));
         List<Map<String, Object>> resultList = new ArrayList<Map<String,Object>>();
         List<GenericValue> childOfComs = null;
 

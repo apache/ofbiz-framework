@@ -70,7 +70,6 @@ public final class SeoConfigUtil {
     private static Map<String, String> specialProductIds = null;
     private static final String ELEMENT_REGEXPIFMATCH = "regexpifmatch";
     private static final String ELEMENT_URL_CONFIG = "url-config";
-    private static final String ELEMENT_DESCRIPTION = "description";
     private static final String ELEMENT_FORWARD = "forward";
     private static final String ELEMENT_SEO = "seo";
     private static final String ELEMENT_URLPATTERN = "url-pattern";
@@ -81,7 +80,6 @@ public final class SeoConfigUtil {
     private static final String ELEMENT_VALUE = "value";
     private static final String ELEMENT_USER = "user";
     private static final String ELEMENT_EXCEPTIONS = "exceptions";
-    private static final String ELEMENT_CHAR_FILTERS = "char-filters";
     private static final String ELEMENT_CHAR_FILTER = "char-filter";
     private static final String ELEMENT_CHARACTER_PATTERN = "character-pattern";
     private static final String ELEMENT_CATEGORY_URL = "category-url";

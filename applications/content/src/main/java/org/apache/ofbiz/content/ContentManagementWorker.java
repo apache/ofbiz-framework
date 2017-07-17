@@ -371,7 +371,6 @@ public final class ContentManagementWorker {
         }
 
         List<Map<String, Object>> staticValueList = new LinkedList<Map<String,Object>>();
-        int counter = 0;
         for (GenericValue content : assocValueList) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
@@ -394,7 +393,6 @@ public final class ContentManagementWorker {
                 }
             }
             staticValueList.add(map);
-            counter++;
         }
         return staticValueList;
     }
