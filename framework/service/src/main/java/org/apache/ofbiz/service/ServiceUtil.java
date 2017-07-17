@@ -49,7 +49,6 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
-import org.apache.ofbiz.service.config.model.ServiceEngine;
 
 import com.ibm.icu.util.Calendar;
 

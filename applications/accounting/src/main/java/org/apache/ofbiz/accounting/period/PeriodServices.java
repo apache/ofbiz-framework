@@ -19,7 +19,6 @@
 
 package org.apache.ofbiz.accounting.period;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;

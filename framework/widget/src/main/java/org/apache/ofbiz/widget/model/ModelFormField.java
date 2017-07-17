@@ -3461,8 +3461,7 @@ public class ModelFormField {
             try {
                 ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
                 if (renderer != null) {
-                    @SuppressWarnings("unchecked")
-                    MapStack<String> mapStack = (MapStack)UtilGenerics.cast(context);
+                    MapStack<String> mapStack = UtilGenerics.cast(context);
                     ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());
                     writer.append(subRenderer.render(location, name));
                 }
@@ -3695,7 +3694,6 @@ public class ModelFormField {
             if (UtilValidate.isNotEmpty(useWhen)) {
                 try {
                     Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
-                    boolean condTrue = false;
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
@@ -3722,7 +3720,6 @@ public class ModelFormField {
 
         try {
             Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
-            boolean condTrue = false;
 
             if (retVal instanceof Boolean) {
                 shouldIgnore =(Boolean) retVal;

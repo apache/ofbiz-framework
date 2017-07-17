@@ -467,7 +467,6 @@ public class DataServices {
 
     public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
         Map<String, Object> results = new HashMap<String, Object>();
-        Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
         Map<String, Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));

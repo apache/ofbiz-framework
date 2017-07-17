@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,7 +58,6 @@ public class ContentManagementEvents {
         HttpSession session = request.getSession();
         Security security = (Security)request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        ServletContext servletContext = session.getServletContext();
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
@@ -136,7 +134,6 @@ public class ContentManagementEvents {
         HttpSession session = request.getSession();
         Security security = (Security)request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        ServletContext servletContext = session.getServletContext();
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");

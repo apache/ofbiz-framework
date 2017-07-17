@@ -189,7 +189,6 @@ public class ScreenRenderer {
         populateContextForRequest(context, this, request, response, servletContext);
     }
 
-    @SuppressWarnings("rawtypes")
     public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 

@@ -135,7 +135,6 @@ public class CompDocServices {
 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
             List<EntityCondition> exprList = new LinkedList<EntityCondition>();
@@ -157,7 +156,6 @@ public class CompDocServices {
             document.setPageSize(PageSize.LETTER);
             PdfCopy writer = new PdfCopy(document, baos);
             document.open();
-            int pgCnt = 0;
             for (GenericValue contentAssocRevisionItemView : compDocParts) {
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");
                 GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", thisDataResourceId).queryOne();
@@ -228,7 +226,6 @@ public class CompDocServices {
                     for (int i=0; i < n; i++) {
                         PdfImportedPage pg = writer.getImportedPage(reader, i + 1);
                         writer.addPage(pg);
-                        pgCnt++;
                     }
                 }
             }
@@ -263,7 +260,6 @@ public class CompDocServices {
 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
             Document document = new Document();
