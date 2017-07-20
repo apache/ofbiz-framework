@@ -188,6 +188,7 @@ under the License.
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
+                <parameter param-name="roleTypeId" from-field="parameters.roleTypeId"/>
             </link>
         </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
