@@ -36,111 +36,6 @@ under the License.
     <!-- Agreement content type-->
     <AgreementContentType agreementContentTypeId="CONTRACT" description="Contract" hasTable="N" parentTypeId=""/>
 
-    <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION" description="Shipping Destination Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION" description="Shipping Origin Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION" description="Billing (AP) Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_LOCATION" description="Payment (AR) Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="GENERAL_LOCATION" description="General Correspondence Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PUR_RET_LOCATION" description="Purchase Return Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_LOCATION" description="Primary Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PREVIOUS_LOCATION" description="Previous Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIPPING" description="Shipping Destination Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIP_ORIG" description="Shipping Origin Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_BILLING" description="Billing (AP) Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_DID" description="Direct Inward Dialing Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_PAYMENT" description="Payment (AR) Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_HOME" description="Main Home Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK" description="Main Work Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK_SEC" description="Secondary Work Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER" description="Main Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER_SEC" description="Secondary Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_SHIPPING" description="Shipping Destination Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_BILLING" description="Billing Destination Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_MOBILE" description="Main Mobile Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_ASSISTANT" description="Assistant's Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_QUICK" description="Quick Calls Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="MARKETING_EMAIL" description="Primary Marketing Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_EMAIL" description="Billing (AP) Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_EMAIL" description="Payment (AR) Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="OTHER_EMAIL" description="Other Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="SUPPORT_EMAIL" description="Support Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="ORDER_EMAIL" description="Order Notification Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_WEB_URL" description="Primary Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="TWITTER_URL" description="Twitter Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FACEBOOK_URL" description="Facebook Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="LINKEDIN_URL" description="LinkedIn Website URL"/>
-
-    <ContactMechType contactMechTypeId="ELECTRONIC_ADDRESS" description="Electronic Address" hasTable="N" parentTypeId=""/>
-    <ContactMechType contactMechTypeId="POSTAL_ADDRESS" description="Postal Address" hasTable="Y" parentTypeId=""/>
-    <ContactMechType contactMechTypeId="TELECOM_NUMBER" description="Phone Number" hasTable="Y" parentTypeId=""/>
-    <ContactMechType contactMechTypeId="EMAIL_ADDRESS" description="Email Address" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
-    <ContactMechType contactMechTypeId="IP_ADDRESS" description="Internet IP Address" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
-    <ContactMechType contactMechTypeId="DOMAIN_NAME" description="Internet Domain Name" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
-    <ContactMechType contactMechTypeId="WEB_ADDRESS" description="Web URL/Address" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
-    <ContactMechType contactMechTypeId="INTERNAL_PARTYID" description="Internal Note via partyId" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
-
-    <ContactMechTypePurpose contactMechPurposeTypeId="BILLING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="MARKETING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PAYMENT_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="ORDER_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="OTHER_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="SHIP_ORIG_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="BILLING_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PAYMENT_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="GENERAL_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PUR_RET_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PREVIOUS_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER_SEC" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_DID" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_HOME" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_MOBILE" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_WORK" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_WORK_SEC" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_SHIPPING" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_SHIP_ORIG" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_BILLING" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_PAYMENT" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_QUICK" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_SHIPPING" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_BILLING" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_ASSISTANT" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" contactMechTypeId="WEB_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="TWITTER_URL" contactMechTypeId="WEB_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="FACEBOOK_URL" contactMechTypeId="WEB_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="LINKEDIN_URL" contactMechTypeId="WEB_ADDRESS"/>
-    
-    <!-- communication events -->
-    <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="CONFERENCE" description="Conference" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="CUSTOMER_SERVICE_CAL" description="Customer Service Call" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="INQUIRY" description="Inquiry" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="MEETING" description="Meeting" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="SALES_FOLLOW_UP" description="Sales Follow Up" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="SEMINAR" description="Seminar" hasTable="N" parentTypeId=""/>
-    <CommunicationEventPrpTyp communicationEventPrpTypId="SUPPORT_CALL" description="Support Call" hasTable="N" parentTypeId=""/>
-    
-    <CommunicationEventType communicationEventTypeId="EMAIL_COMMUNICATION" description="Email" hasTable="N" parentTypeId="" contactMechTypeId="EMAIL_ADDRESS"/>
-    <CommunicationEventType communicationEventTypeId="FACE_TO_FACE_COMMUNI" description="Face-To-Face" hasTable="N" parentTypeId=""/>
-    <CommunicationEventType communicationEventTypeId="FAX_COMMUNICATION" description="Fax" hasTable="N" parentTypeId="" contactMechTypeId="TELECOM_NUMBER"/>
-    <CommunicationEventType communicationEventTypeId="LETTER_CORRESPONDENC" description="Letter" hasTable="N" parentTypeId="" contactMechTypeId="POSTAL_ADDRESS"/>
-    <CommunicationEventType communicationEventTypeId="PHONE_COMMUNICATION" description="Phone" hasTable="N" parentTypeId="" contactMechTypeId="TELECOM_NUMBER"/>
-    <CommunicationEventType communicationEventTypeId="WEB_SITE_COMMUNICATI" description="Web Site" hasTable="N" parentTypeId="" contactMechTypeId="WEB_ADDRESS"/>
-    <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" parentTypeId="" contactMechTypeId="INTERNAL_PARTYID"/>
-    <CommunicationEventType communicationEventTypeId="AUTO_EMAIL_COMM" description="Auto Email" hasTable="N" parentTypeId="" contactMechTypeId="EMAIL_ADDRESS"/>
-    
-    <!-- party content types -->
-    <PartyContentType description="Internal Content" parentTypeId="" partyContentTypeId="INTERNAL"/>
-    <PartyContentType description="User Defined Content"  parentTypeId="" partyContentTypeId="USERDEF"/>
-    <PartyContentType description="Logo Image URL"  parentTypeId="" partyContentTypeId="LGOIMGURL"/>
-    <PartyContentType description="Vendor Shipping Info"  parentTypeId="" partyContentTypeId="VNDSHPINF"/>
-
     <EnumerationType description="Employment Status" enumTypeId="EMPLOY_STTS" hasTable="N" parentTypeId=""/>
     <Enumeration description="Full-time Employed" enumCode="FULLTIME" enumId="EMPS_FULLTIME" sequenceId="01" enumTypeId="EMPLOY_STTS"/>
     <Enumeration description="Part-time Employed" enumCode="PARTTIME" enumId="EMPS_PARTTIME" sequenceId="02" enumTypeId="EMPLOY_STTS"/>
@@ -448,5 +343,4 @@ under the License.
     <Enumeration description="Visual Theme" enumCode="" enumId="VISUAL_THEME" sequenceId="02" enumTypeId="GLOBAL_PREFERENCES"/>
 
     <PartyIdentificationType partyIdentificationTypeId="PARTY_IMPORT" description="Original ID in the system where this record was imported from"/>
-
 </entity-engine-xml>

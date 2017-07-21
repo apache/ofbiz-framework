@@ -33,5 +33,6 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/product-entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/shipment-entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/workeffort-entitymodel.xml"/>
-    
+
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/PartySeedData.xml"/>
 </ofbiz-component>
