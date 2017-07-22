@@ -68,7 +68,7 @@ def expireRateAmount() {
     if (!lookedUpValue.rateCurrencyUomId) {
         lookedUpValue.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     }
-    lookedUpValue = from('RateAmount').where(lookedUpValue.getFields(lookedUpValue.getModelEntity().getPkFieldNames())).queryOne()
+    lookedUpValue = from('RateAmount').where(lookedUpValue).queryOne()
     if (lookedUpValue) {
         Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
         lookedUpValue.thruDate = UtilDateTime.getDayEnd(previousDay)
@@ -115,7 +115,7 @@ def deletePartyRate() {
     return error('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
 }
 def expirePartyRate() {
-    GenericValue lookedUpValue = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId, fromDate: fromDate]).queryOne()
+    GenericValue lookedUpValue = from('PartyRate').where(parameters).queryOne()
     if (lookedUpValue) {
         lookedUpValue.thruDate = UtilDateTime.nowTimestamp()
         lookedUpValue.store()
@@ -213,9 +213,9 @@ def getRatesAmountsFrom(String field) {
     condition.put(field, parameters.get(field))
     List ratesList = from('RateAmount').where(condition).filterByDate().queryList()
     if (!ratesList) {
-        GenericValue periodType = from('PeriodType').where([periodTypeId: parameters.periodTypeId]).queryOne()
-        GenericValue rateType = from('RateType').where([rateTypeId: parameters.rateTypeId]).queryOne()
-        GenericValue partyNameView = from('PartyNameView').where([partyId: parameters.partyId]).queryOne()
+        GenericValue periodType = from('PeriodType').where(parameters).queryOne()
+        GenericValue rateType = from('RateType').where(parameters).queryOne()
+        GenericValue partyNameView = from('PartyNameView').where(parameters).queryOne()
         logError('A valid rate entry could be found for rateType:' + rateType.description + ', ' + entityName + ':' + parameters.get(field)
                 + ', party: ' + partyNameView.lastName + partyNameView.middleName + partyNameView.firstName + partyNameView.groupName
                 + ' However.....not for the period:' + periodType.description + ' and currency:' + parameters.rateCurrencyUomId)
