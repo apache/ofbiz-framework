@@ -63,7 +63,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="level" type="String" mode="OUT" optional="true"/><!-- the level the amount was retrieved from(specific -> general): workEffort, party, emplPositionType, rateType or 'null' if not found-->
         <attribute name="rateAmount" type="BigDecimal" mode="OUT" optional="true"/>
-        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true" default-value="RATE_HOUR"/>
         <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <override name="rateTypeId" optional="false"/>
