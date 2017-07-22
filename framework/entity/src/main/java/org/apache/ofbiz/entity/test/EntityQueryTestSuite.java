@@ -21,6 +21,7 @@ package org.apache.ofbiz.entity.test;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.Map;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -135,6 +136,29 @@ public class EntityQueryTestSuite extends EntityTestCase {
 
         assertEquals("queryOne(): Record matched = testingTypeId", findOneByEntityEngine.getString("testingTypeId"), queryOneByEntityQuery.getString("testingTypeId"));
         assertEquals("queryOne(): Record matched = description", findOneByEntityEngine.getString("description"), queryOneByEntityQuery.getString("description"));
+    }
+
+    /*
+     * queryOne(): This method returns only one record based on the conditions given, resolve from a context Map.
+     * assert 1: Check the TestingType entity queryOneMap-2 has been resolve
+     * assert 2: Check the TestingType entity queryOneMap-3 has been resolve with the parameters map present in context
+     */
+    public void testQueryOneWithContext() throws GenericEntityException {
+        List<GenericValue> testingTypes = new LinkedList<GenericValue>();
+        testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOneMap-1", "description", "query one by map"));
+        testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOneMap-2", "description", "query two by map"));
+        testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOneMap-3", "description", "query three by map"));
+        delegator.storeAll(testingTypes);
+
+        Map<String, Object> context = UtilMisc.toMap("testingTypeId", "queryOneMap-2", "description", "query two by map", "otherField", "otherValue");
+        GenericValue queryOneByEntityQueryAndContext = EntityQuery.use(delegator).from("TestingType").where(context).queryOne();
+        assertNotNull("queryOne() with context: Record found", queryOneByEntityQueryAndContext);
+
+        context = UtilMisc.toMap("description", "query two by map", "otherField", "otherValue",
+                "parameters", UtilMisc.toMap("testingTypeId", "queryOneMap-3", "description", "query three by map", "otherField", "otherValue"));
+        GenericValue queryOneByEntityQueryAndParameters = EntityQuery.use(delegator).from("TestingType").where(context).queryOne();
+        assertNotNull("queryOne() with parameters: Record found", queryOneByEntityQueryAndParameters);
+        assertEquals("queryOne() with parameters: Record is queryOneMap-3 ", "queryOneMap-3", queryOneByEntityQueryAndParameters.getString("testingTypeId"));
     }
 
     /*

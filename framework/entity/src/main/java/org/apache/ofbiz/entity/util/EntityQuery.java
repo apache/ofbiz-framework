@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +39,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
+import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
  * Used to setup various options for and subsequently execute entity queries.
@@ -67,6 +69,8 @@ public class EntityQuery {
     private boolean filterByDate = false;
     private Timestamp filterByDateMoment;
     private List<String> filterByFieldNames = null;
+    private boolean searchPkOnly = false;
+    private Map<String, Object> fieldMap = null;
 
 
 
@@ -148,7 +152,7 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery where(Map<String, Object> fieldMap) {
-        this.whereEntityCondition = EntityCondition.makeCondition(fieldMap);
+        this.fieldMap = fieldMap;
         return this;
     }
 
@@ -416,6 +420,7 @@ public class EntityQuery {
      * @return GenericValue representing the only result record from the query
      */
     public GenericValue queryOne() throws GenericEntityException {
+        this.searchPkOnly = true;
         GenericValue result =  EntityUtil.getOnly(queryList());
         return result;
     }
@@ -474,6 +479,25 @@ public class EntityQuery {
     }
 
     private EntityCondition makeWhereCondition(boolean usingCache) {
+        if (whereEntityCondition == null && fieldMap != null) {
+            if (this.searchPkOnly) {
+                //Resolve if the map contains a sub map parameters, use a containsKeys to avoid error when a GenericValue is given as map
+                Map<String, Object> parameters = fieldMap.containsKey("parameters") ? (Map<String, Object>) fieldMap.get("parameters") : null;
+                Map<String, Object> resolveFieldMap = new HashMap<>();
+                ModelEntity modelEntity = delegator.getModelEntity(entityName);
+                List<String> fieldNames = modelEntity.getPkFieldNames();
+                for (String fieldName : fieldNames) {
+                    if (fieldMap.containsKey(fieldName)) {
+                        resolveFieldMap.put(fieldName, fieldMap.get(fieldName));
+                    } else if (parameters != null && parameters.containsKey(fieldName)) {
+                        resolveFieldMap.put(fieldName, parameters.get(fieldName));
+                    }
+                }
+                this.whereEntityCondition = EntityCondition.makeCondition(resolveFieldMap);
+            } else {
+                this.whereEntityCondition = EntityCondition.makeCondition(fieldMap);
+            }
+        }
         // we don't use the useCache field here because not all queries will actually use the cache, e.g. findCountByCondition never uses the cache
         if (filterByDate && !usingCache) {
             if (whereEntityCondition != null) {
