@@ -1643,26 +1643,33 @@ public class ProductionRunServices {
         }
 
         if (lotId == null && autoCreateLot.booleanValue()) {
-            lotId = delegator.getNextSeqId("Lot");
             createLotIfNeeded = Boolean.TRUE;
         }
-        if (UtilValidate.isNotEmpty(lotId)) {
             try {
                 // Find the lot
                 GenericValue lot = EntityQuery.use(delegator).from("Lot").where("lotId", lotId).queryOne();
                 if (lot == null) {
                     if (createLotIfNeeded.booleanValue()) {
-                        lot = delegator.makeValue("Lot", UtilMisc.toMap("lotId", lotId, "creationDate", UtilDateTime.nowTimestamp()));
-                        lot.create();
-                    } else {
+                        Map<String, Object> createLotCtx = new HashMap<>();
+                        createLotCtx.put("creationDate", UtilDateTime.nowTimestamp());
+                        createLotCtx.put("userLogin", userLogin);
+                        Map<String, Object> serviceResults = dispatcher.runSync("createLot", createLotCtx);
+                        if (!ServiceUtil.isSuccess(serviceResults)) {
+                            Debug.logError(ServiceUtil.getErrorMessage(serviceResults), module);
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
+                        }
+                        lotId = (String) serviceResults.get("lotId");
+                    } else if (UtilValidate.isNotEmpty(lotId)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingLotNotExists", locale));
                     }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 return ServiceUtil.returnError(e.getMessage());
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e.getMessage(), module);
+                return ServiceUtil.returnError(e.getMessage());
             }
-        }
 
         GenericValue orderItem = null;
         try {
