@@ -1368,6 +1368,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         Shows the lookup as moveable and resizable layer or popup window. 
+                        if set to none only autocompletion is active (no lookup form would be call)
                         Default to layer.
                     </xs:documentation>
                 </xs:annotation>
@@ -1375,6 +1376,7 @@ under the License.
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="layer" />
                         <xs:enumeration value="window" />
+                        <xs:enumeration value="none" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
