@@ -603,6 +603,8 @@ public class ProductConfigWrapper implements Serializable {
             for (GenericValue component: co.componentList) {
                 componentList.add(GenericValue.create(component));
             }
+            parentConfigItem = co.parentConfigItem;
+            componentOptions = co.componentOptions;
             optionListPrice = co.optionListPrice;
             optionPrice = co.optionPrice;
             available = co.available;

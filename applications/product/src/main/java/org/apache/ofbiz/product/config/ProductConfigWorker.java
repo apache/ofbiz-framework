@@ -89,8 +89,16 @@ public final class ProductConfigWorker {
 
     public static void fillProductConfigWrapper(ProductConfigWrapper configWrapper, HttpServletRequest request) {
         int numOfQuestions = configWrapper.getQuestions().size();
+        Map<String, Object> combinedMap = UtilHttp.getCombinedMap(request);
         for (int k = 0; k < numOfQuestions; k++) {
-            String[] opts = request.getParameterValues(Integer.toString(k));
+            String[] opts = new String[0];
+            Object o = combinedMap.get(Integer.toString(k));;
+            if (o instanceof String) {
+                opts = new String[]{(String)o};
+            } else if(o instanceof List) {
+                List list = (List)o;
+                opts = (String[])((String[])list.toArray(new String[list.size()]));
+            }
             if (opts == null) {
 
                 //  check for standard item comments
@@ -98,7 +106,7 @@ public final class ProductConfigWorker {
                 if (question.isStandard()) {
                     int i = 0;
                     while (i <= (question.getOptions().size() -1)) {
-                        String comments = request.getParameter("comments_" + k + "_" + i);
+                        String comments = (String) combinedMap.get("comments_" + k + "_" + i);
                         if (UtilValidate.isNotEmpty(comments)) {
                             try {
                                 configWrapper.setSelected(k, i, comments);
@@ -118,9 +126,9 @@ public final class ProductConfigWorker {
                     String comments = null;
                     ProductConfigWrapper.ConfigItem question = configWrapper.getQuestions().get(k);
                     if (question.isSingleChoice()) {
-                        comments = request.getParameter("comments_" + k + "_" + "0");
+                        comments = (String) combinedMap.get("comments_" + k + "_" + "0");
                     } else {
-                        comments = request.getParameter("comments_" + k + "_" + cnt);
+                        comments = (String) combinedMap.get("comments_" + k + "_" + cnt);
                     }
 
                     configWrapper.setSelected(k, cnt, comments);
@@ -134,7 +142,7 @@ public final class ProductConfigWorker {
                             GenericValue component = components.get(i);
                             if (option.isVirtualComponent(component)) {
                                 String productParamName = "add_product_id" + k + "_" + cnt + "_" + variantIndex;
-                                String selectedProductId = request.getParameter(productParamName);
+                                String selectedProductId = (String) combinedMap.get(productParamName);
                                 if (UtilValidate.isEmpty(selectedProductId)) {
                                     Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", module);
                                 } else {
@@ -264,7 +272,10 @@ public final class ProductConfigWorker {
                                             if (anOption.isVirtualComponent(aComponent)) {
                                                 Map<String, String> componentOptions = anOption.getComponentOptions();
                                                 String optionProductId = aComponent.getString("productId");
-                                                String optionProductOptionId = componentOptions.get(optionProductId);
+                                                String optionProductOptionId = null;
+                                                if(UtilValidate.isNotEmpty(componentOptions)) {
+                                                    optionProductOptionId = componentOptions.get(optionProductId);
+                                                }
                                                 String configOptionId = anOption.configOption.getString("configOptionId");
                                                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                                                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
