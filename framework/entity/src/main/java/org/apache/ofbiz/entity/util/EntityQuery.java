@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.PagedList;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
@@ -483,17 +484,10 @@ public class EntityQuery {
             if (this.searchPkOnly) {
                 //Resolve if the map contains a sub map parameters, use a containsKeys to avoid error when a GenericValue is given as map
                 Map<String, Object> parameters = fieldMap.containsKey("parameters") ? (Map<String, Object>) fieldMap.get("parameters") : null;
-                Map<String, Object> resolveFieldMap = new HashMap<>();
-                ModelEntity modelEntity = delegator.getModelEntity(entityName);
-                List<String> fieldNames = modelEntity.getPkFieldNames();
-                for (String fieldName : fieldNames) {
-                    if (fieldMap.containsKey(fieldName)) {
-                        resolveFieldMap.put(fieldName, fieldMap.get(fieldName));
-                    } else if (parameters != null && parameters.containsKey(fieldName)) {
-                        resolveFieldMap.put(fieldName, parameters.get(fieldName));
-                    }
-                }
-                this.whereEntityCondition = EntityCondition.makeCondition(resolveFieldMap);
+                GenericPK pk = GenericPK.create(delegator.getModelEntity(entityName));
+                pk.setPKFields(parameters);
+                pk.setPKFields(fieldMap);
+                this.whereEntityCondition = EntityCondition.makeCondition(pk.getPrimaryKey());
             } else {
                 this.whereEntityCondition = EntityCondition.makeCondition(fieldMap);
             }
