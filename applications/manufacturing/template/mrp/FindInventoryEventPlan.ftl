@@ -150,7 +150,7 @@ document.lookupinventory.productId.focus();
             <#assign product = inven.getRelatedOne("Product", false)>
             <#if facilityId?has_content>
             </#if>
-            <#if !product == productTmp>
+            <#if !(product == productTmp)>
                 <#assign quantityAvailableAtDate = 0>
                 <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId), null, false)>
                 <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId), null, false)>

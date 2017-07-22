@@ -81,7 +81,7 @@ under the License.
         <#list records as record>
           <#assign modelRecord = record.getModelRecord()>
           <#-- if record is different than the last displayed, make a new table and header row -->
-          <#if !modelRecord.name == lastRecordName>
+          <#if !(modelRecord.name == lastRecordName)>
             <#if lastRecordName??>
               </table><br />
             </#if>
