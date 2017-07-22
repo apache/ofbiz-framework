@@ -510,10 +510,13 @@ public class InvoiceServices {
                     if (UtilValidate.isEmpty(shipmentItemBillings)) {
 
                         // create the ShipmentItemBilling record
-                        GenericValue shipmentItemBilling = delegator.makeValue("ShipmentItemBilling", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId));
-                        shipmentItemBilling.put("shipmentId", currentValue.get("shipmentId"));
-                        shipmentItemBilling.put("shipmentItemSeqId", currentValue.get("shipmentItemSeqId"));
-                        shipmentItemBilling.create();
+                        Map<String, Object> shipmentItemBillingCtx = new HashMap<>();
+                        shipmentItemBillingCtx.put("invoiceId", invoiceId);
+                        shipmentItemBillingCtx.put("invoiceItemSeqId", invoiceItemSeqId);
+                        shipmentItemBillingCtx.put("shipmentId", currentValue.get("shipmentId"));
+                        shipmentItemBillingCtx.put("shipmentItemSeqId", currentValue.get("shipmentItemSeqId"));
+                        shipmentItemBillingCtx.put("userLogin", userLogin);
+                        dispatcher.runSync("createShipmentItemBilling", shipmentItemBillingCtx);
                     }
                 }
 
