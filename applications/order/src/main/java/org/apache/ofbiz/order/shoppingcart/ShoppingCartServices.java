@@ -167,7 +167,8 @@ public class ShoppingCartServices {
         Locale locale = (Locale) context.get("locale");
         //FIXME: deepak:Personally I don't like the idea of passing flag but for orderItem quantity calculation we need this flag.
         String createAsNewOrder = (String) context.get("createAsNewOrder");
-        List<GenericValue>orderTerms = null;
+        List<GenericValue> orderTerms = null;
+        List<GenericValue> orderContactMechs = null;
 
         if (UtilValidate.isEmpty(skipInventoryChecks)) {
             skipInventoryChecks = Boolean.FALSE;
@@ -181,6 +182,7 @@ public class ShoppingCartServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
+            orderContactMechs = orderHeader.getRelated("OrderContactMech", null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -321,7 +323,11 @@ public class ShoppingCartServices {
                 cart.addOrderTerm(orderTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, orderTerm.getString("textValue"), orderTerm.getString("description"));
             }
         }
-
+        if (UtilValidate.isNotEmpty(orderContactMechs)) {
+            for (GenericValue orderContactMech : orderContactMechs) {
+                cart.addContactMech(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
+            }
+        }
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
             // should be sorted by shipGroupSeqId
