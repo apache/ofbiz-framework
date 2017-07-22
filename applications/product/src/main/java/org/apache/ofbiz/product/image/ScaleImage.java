@@ -29,6 +29,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.jdom.JDOMException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -90,7 +91,8 @@ public class ScaleImage {
         Map<String, Object> result = new HashMap<String, Object>();
 
         /* ImageProperties.xml */
-        String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
+        String fileName = "component://product/config/ImageProperties.xml";
+        String imgPropertyFullPath = FlexibleLocation.resolveLocation(fileName).getFile();
         resultXMLMap.putAll(ImageTransform.getXMLValue(imgPropertyFullPath, locale));
         if (resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll(UtilGenerics.<Map<String, Map<String, String>>>cast(resultXMLMap.get("xml")));
@@ -270,7 +272,8 @@ public class ScaleImage {
         Map<String, Object> result = new HashMap<String, Object>();
 
         /* ImageProperties.xml */
-        String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
+        String fileName = "component://product/config/ImageProperties.xml";
+        String imgPropertyFullPath = FlexibleLocation.resolveLocation(fileName).getFile();
         resultXMLMap.putAll(ImageTransform.getXMLValue(imgPropertyFullPath, locale));
         if (resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll(UtilGenerics.<Map<String, Map<String, String>>>cast(resultXMLMap.get("xml")));
