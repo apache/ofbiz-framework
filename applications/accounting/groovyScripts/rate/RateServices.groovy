@@ -150,9 +150,6 @@ def getRateAmount() {
     if (!parameters.rateCurrencyUomId) {
         parameters.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
     }
-    if (!parameters.periodTypeId) {
-        parameters.periodTypeId = 'RATE_HOUR'
-    }
     String serviceName = null;
     if (parameters.workEffortId && parameters.workEffortId != '_NA_') {
         // workeffort level
