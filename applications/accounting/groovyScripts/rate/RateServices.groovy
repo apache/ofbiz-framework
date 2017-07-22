@@ -147,9 +147,6 @@ def getRateAmount() {
     For a easier debugging time, there is a log triggered when no records are found for the input. This log
     shows up when there are rateAmounts corresponding to the input parameters without the rateCurrencyUomId and
     the periodTypeId.*/
-    if (!parameters.rateCurrencyUomId) {
-        parameters.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
-    }
     String serviceName = null;
     if (parameters.workEffortId && parameters.workEffortId != '_NA_') {
         // workeffort level
@@ -165,29 +162,33 @@ def getRateAmount() {
         serviceName = 'getRatesAmountsFromEmplPositionTypeId'
     }
     if (serviceName) {
-        logError(parameters.toString() + " " + serviceName.toString())
-        Map result = run service: serviceName, with: parameters
-        parameters.ratesList = result.ratesList
-        logError(parameters.ratesList.toString())
-        result = run service: 'filterRateAmountList', with: parameters
-        parameters.ratesList = result.filteredRatesList
+        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext(serviceName, "IN", parameters)
+        if (!parameters.rateCurrencyUomId) {
+            serviceContextMap.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
+        }
+        Map result = run service: serviceName, with: serviceContextMap
+        serviceContextMap.ratesList = result.ratesList
+        result = run service: 'filterRateAmountList', with: serviceContextMap
+        ratesList = result.filteredRatesList
     }
 
-    if (!parameters.ratesList) {
-        parameters.ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
-        Map result = run service: 'filterRateAmountList', with: parameters
-        parameters.ratesList = EntityUtil.filterByDate(result.filteredRatesList)
+    if (!ratesList) {
+        ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
+        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext("filteredRatesList", "IN", parameters)
+        serviceContextMap.ratesList = ratesList
+        Map result = run service: 'filterRateAmountList', with: serviceContextMap
+        ratesList = EntityUtil.filterByDate(result.filteredRatesList)
     }
 
-    if (!parameters.ratesList) {
-        rateType = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryOne()
+    if (!ratesList) {
+        rateType = from('RateAmount').where(parameters).queryOne()
         logError('A valid rate amount could not be found for rateType: ' + rateType.description)
     }
 
     // We narrowed as much as we could the result, now returning the first record of the list
     Map result = success()
-    if (parameters.ratesList) {
-        rateAmount = parameters.ratesList[0]
+    if (ratesList) {
+        rateAmount = ratesList[0]
         if (! rateAmount.rateAmount) rateAmount.rateAmount = BigDecimal.ZERO
         result.rateAmount = rateAmount.rateAmount
         result.periodTypeId = rateAmount.periodTypeId
@@ -256,10 +257,11 @@ def filterRateAmountList() {
         filterMap.rateTypeId = parameters.rateTypeId
     }
     List tempRatesFilteredList = EntityUtil.filterByAnd(parameters.ratesList, filterMap)
+    List ratesList = []
     if (tempRatesFilteredList) {
-        parameters.ratesList = tempRatesFilteredList
+        ratesList = tempRatesFilteredList
     }
     Map result = success()
-    result.filteredRatesList = parameters.ratesList
+    result.filteredRatesList = ratesList
     return result
 }
