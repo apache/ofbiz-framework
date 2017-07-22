@@ -27,6 +27,15 @@ import org.apache.ofbiz.base.lang.IsEmpty;
 
 import com.ibm.icu.util.Calendar;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityQuery;
+
 /**
  * General input/data validation methods
  * Utility methods for validating data, especially input.
@@ -596,7 +605,10 @@ public final class UtilValidate {
         return (isInteger(normalizedSSN) && normalizedSSN.length() == digitsInSocialSecurityNumber);
     }
 
-    /** isUSPhoneNumber returns true if string s is a valid U.S. Phone Number.  Must be 10 digits. */
+    /** isUSPhoneNumber returns true if string s is a valid U.S. Phone Number.  Must be 10 digits.
+     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
+     **/
+    @Deprecated
     public static boolean isUSPhoneNumber(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -604,7 +616,10 @@ public final class UtilValidate {
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneNumber);
     }
 
-    /** isUSPhoneAreaCode returns true if string s is a valid U.S. Phone Area Code.  Must be 3 digits. */
+    /** isUSPhoneAreaCode returns true if string s is a valid U.S. Phone Area Code.  Must be 3 digits.
+     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
+     * */
+    @Deprecated
     public static boolean isUSPhoneAreaCode(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -612,7 +627,10 @@ public final class UtilValidate {
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneAreaCode);
     }
 
-    /** isUSPhoneMainNumber returns true if string s is a valid U.S. Phone Main Number.  Must be 7 digits. */
+    /** isUSPhoneMainNumber returns true if string s is a valid U.S. Phone Main Number.  Must be 7 digits.
+     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
+     * */
+    @Deprecated
     public static boolean isUSPhoneMainNumber(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -623,7 +641,9 @@ public final class UtilValidate {
     /** isInternationalPhoneNumber returns true if string s is a valid
      *  international phone number.  Must be digits only; any length OK.
      *  May be prefixed by + character.
+     *  @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
      */
+    @Deprecated
     public static boolean isInternationalPhoneNumber(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
 
@@ -1353,6 +1373,23 @@ public final class UtilValidate {
         if (checkMessage != null) {
             isValid = false;
             errorDetails.append(checkMessage);
+        }
+        return isValid;
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber, Delegator delegator) {
+        boolean isValid = false;
+        try {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+            String defaultCountry = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
+            GenericValue defaultGeo = EntityQuery.use(delegator).from("Geo").where("geoId", defaultCountry).cache().queryOne();
+            String defaultGeoCode = defaultGeo != null ? defaultGeo.getString("geoCode") : "US";
+            PhoneNumber phNumber = phoneUtil.parse(phoneNumber, defaultGeoCode);
+            if (phoneUtil.isValidNumber(phNumber) || phoneUtil.isPossibleNumber(phNumber)) {
+                isValid = true;
+            }
+        } catch (GenericEntityException | NumberParseException ex) {
+            Debug.logError(ex, module);
         }
         return isValid;
     }
