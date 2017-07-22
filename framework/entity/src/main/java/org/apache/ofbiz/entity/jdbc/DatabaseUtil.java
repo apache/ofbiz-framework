@@ -292,6 +292,7 @@ public class DatabaseUtil {
 
                                     if (openParen > 0 && closeParen > 0 && closeParen > openParen) {
                                         typeName = fullTypeStr.substring(0, openParen);
+                                        if (!("DATETIME".equals(typeName) || !"TIME".equals(typeName))) { // for DATETIME and TIME fields the number within the parenthesis doesn't represent the column size
                                         if (comma > 0 && comma > openParen && comma < closeParen) {
                                             String csStr = fullTypeStr.substring(openParen + 1, comma);
                                             try {
@@ -306,13 +307,14 @@ public class DatabaseUtil {
                                             } catch (NumberFormatException e) {
                                                 Debug.logError(e, module);
                                             }
-                                        } else {
+                                        } else if (openParen + 1 < closeParen) {
                                             String csStr = fullTypeStr.substring(openParen + 1, closeParen);
                                             try {
                                                 columnSize = Integer.parseInt(csStr);
                                             } catch (NumberFormatException e) {
                                                 Debug.logError(e, module);
                                             }
+                                        }
                                         }
                                     } else {
                                         typeName = fullTypeStr;
