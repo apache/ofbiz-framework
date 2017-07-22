@@ -228,20 +228,22 @@ var Lookup = function(options) {
         _inputBox = document.getElementById(options.inputFieldId);
         _newInputBoxId = _lookupId + "_" + options.inputFieldId;
         _inputBox.id = _newInputBoxId;
-        var parent = _inputBox.parentNode;
+        if (options.presentation != "none") {
+            var parent = _inputBox.parentNode;
 
-        var link = document.createElement('A');
-        link.href = "javascript:void(0);";
-        link.id = _lookupId + "_button";
+            var link = document.createElement('A');
+            link.href = "javascript:void(0);";
+            link.id = _lookupId + "_button";
 
-        parent.appendChild(link);
+            parent.appendChild(link);
 
-        var hiddenDiv = document.createElement("DIV");
-        hiddenDiv.id = _lookupId;
-        hiddenDiv.css = "{display: none;}";
-        hiddenDiv.title = "";
+            var hiddenDiv = document.createElement("DIV");
+            hiddenDiv.id = _lookupId;
+            hiddenDiv.css = "{display: none;}";
+            hiddenDiv.title = "";
 
-        parent.appendChild(hiddenDiv);
+            parent.appendChild(hiddenDiv);
+        }
     }
 
     function _createAjaxAutoComplete() {
