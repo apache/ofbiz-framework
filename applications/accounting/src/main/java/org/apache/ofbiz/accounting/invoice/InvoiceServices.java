@@ -510,7 +510,7 @@ public class InvoiceServices {
                     if (UtilValidate.isEmpty(shipmentItemBillings)) {
 
                         // create the ShipmentItemBilling record
-                        Map<String, Object> shipmentItemBillingCtx = new HashMap<>();
+                        Map<String, Object> shipmentItemBillingCtx = new HashMap<String, Object>();
                         shipmentItemBillingCtx.put("invoiceId", invoiceId);
                         shipmentItemBillingCtx.put("invoiceItemSeqId", invoiceItemSeqId);
                         shipmentItemBillingCtx.put("shipmentId", currentValue.get("shipmentId"));
