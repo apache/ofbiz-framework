@@ -763,6 +763,10 @@
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
         <value xml:lang="zh-TW">獲取稅務設定時資料錯誤:${errorString}</value>
     </property>
+    <property key="AccountingUpdateRateAmountAlreadyExist">
+        <value xml:lang="en">The Rate amount already exist</value>
+        <value xml:lang="fr">Le taux est déjà existant</value>
+    </property>
     <property key="AccountingUploadedFileDataNotFound">
         <value xml:lang="en">Uploaded file data not found</value>
     </property>
