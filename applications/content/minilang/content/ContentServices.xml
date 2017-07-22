@@ -567,33 +567,6 @@
         <field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
     </simple-method>
 
-    <!-- This service would primarily be used to update the thruDate field.
-        -->
-    <simple-method method-name="updateCommEventContentAssoc" short-description="Update CommEventContentAssoc">
-        <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
-        <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
-        <find-by-primary-key entity-name="CommEventContentAssoc" map="pkCommEventContentAssoc" value-field="commEventContentAssoc"/>
-        <if-empty field="commEventContentAssoc">
-            <add-error>
-                <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForUpdate"/>
-            </add-error>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc"/>
-        <store-value value-field="commEventContentAssoc"/>
-    </simple-method>
-
-    <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
-        <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
-        <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
-        <find-by-primary-key entity-name="CommEventContentAssoc" map="pkCommEventContentAssoc" value-field="commEventContentAssoc"/>
-        <if-empty field="commEventContentAssoc">
-            <add-error>
-                <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForDelete"/>
-            </add-error>
-        </if-empty>
-        <remove-value value-field="commEventContentAssoc"/>
-    </simple-method>
-
     <!-- simply use createContent and the accoc will be created too" the service below +aca will create 2 contentAssocs-->
     <!--simple-method method-name="createContentAndAssoc" short-description="Create content and associate with other content">
         <set-service-fields service-name="createContent" map="parameters" to-map="contentData"/>

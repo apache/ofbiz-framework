@@ -66,8 +66,7 @@ under the License.
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="updateCommEventContentAssoc" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
+    <service name="updateCommEventContentAssoc" default-entity-name="CommEventContentAssoc" engine="entity-auto" invoke="update" auth="true">
         <description>Update CommEventContentAssoc</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -76,12 +75,9 @@ under the License.
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="removeCommEventContentAssoc" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
+    <service name="removeCommEventContentAssoc" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove CommEventContentAssoc</description>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
     <service name="createCommContentAssocType" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="create" auth="true">
