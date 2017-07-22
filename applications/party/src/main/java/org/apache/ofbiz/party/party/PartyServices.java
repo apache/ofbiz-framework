@@ -1010,46 +1010,6 @@ public class PartyServices {
         return result;
     }
 
-    public static Map<String, Object> createPartyDataSource(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Delegator delegator = ctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
-        
-        // input data
-        String partyId = (String) context.get("partyId");
-        String dataSourceId = (String) context.get("dataSourceId");
-        Timestamp fromDate = (Timestamp) context.get("fromDate");
-        if (fromDate == null) fromDate = UtilDateTime.nowTimestamp();
-
-        try {
-            // validate the existance of party and dataSource
-            GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
-            GenericValue dataSource = EntityQuery.use(delegator).from("DataSource").where("dataSourceId", dataSourceId).queryOne();
-            if (party == null || dataSource == null) {
-                List<String> errorList = UtilMisc.toList(UtilProperties.getMessage(resource, 
-                        "PartyCannotCreatePartyDataSource", locale));
-                if (party == null) {
-                    errorList.add(UtilProperties.getMessage(resource, 
-                            "PartyNoPartyFoundWithPartyId", locale) + partyId);
-                }
-                if (dataSource == null) {
-                    errorList.add(UtilProperties.getMessage(resource, 
-                            "PartyNoPartyWithDataSourceId",
-                            UtilMisc.toMap("dataSourceId", dataSourceId), locale));
-                }
-                return ServiceUtil.returnError(errorList);
-            }
-
-            // create the PartyDataSource
-            GenericValue partyDataSource = delegator.makeValue("PartyDataSource", UtilMisc.toMap("partyId", partyId, "dataSourceId", dataSourceId, "fromDate", fromDate));
-            partyDataSource.create();
-
-        } catch (GenericEntityException e) {
-            Debug.logError(e, e.getMessage(), module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        return ServiceUtil.returnSuccess();
-    }
-
     @Deprecated // migration from ftl to widget in process.
     public static Map<String, Object> findParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();

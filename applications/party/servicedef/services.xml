@@ -713,13 +713,12 @@ under the License.
     </service>
 
     <!-- PartyDataSource services -->
-    <service name="createPartyDataSource" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
+    <service name="createPartyDataSource" engine="entity-auto" default-entity-name="PartyDataSource" invoke="create" auth="true">
         <description>Creates a relation between a Party and a DataSource using PartyDataSource. The userLogin must have PARTYMGR_SRC_CREATE permission.</description>
         <permission-service service-name="partyDatasourcePermissionCheck" main-action="CREATE"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
 
     <!-- Communication Event Services -->
