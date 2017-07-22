@@ -19,7 +19,6 @@
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
@@ -89,7 +88,7 @@ def deleteRateAmount() {
 
 def updatePartyRate() {
     List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).queryList()
-    if (UtilValidate.isNotEmpty(partyRates)) {
+    if (partyRates) {
         GenericValue partyRate = EntityUtil.getFirst(partyRates)
         partyRate.thruDate = UtilDateTime.nowTimestamp()
     }
@@ -177,20 +176,20 @@ def getRateAmount() {
         parameters.ratesList = result.filteredRatesList
     }
 
-    if (UtilValidate.isEmpty(parameters.ratesList)) {
+    if (!parameters.ratesList) {
         parameters.ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
         Map result = run service: 'filterRateAmountList', with: parameters
         parameters.ratesList = EntityUtil.filterByDate(result.filteredRatesList)
     }
 
-    if (UtilValidate.isEmpty(parameters.ratesList)) {
+    if (!parameters.ratesList) {
         rateType = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryOne()
         logError('A valid rate amount could not be found for rateType: ' + rateType.description)
     }
 
     // We narrowed as much as we could the result, now returning the first record of the list
     Map result = success()
-    if (UtilValidate.isNotEmpty(parameters.ratesList)) {
+    if (parameters.ratesList) {
         rateAmount = parameters.ratesList[0]
         if (! rateAmount.rateAmount) rateAmount.rateAmount = BigDecimal.ZERO
         result.rateAmount = rateAmount.rateAmount
@@ -214,7 +213,7 @@ def getRatesAmountsFrom(String field) {
                      rateCurrencyUomId: parameters.rateCurrencyUomId]
     condition.put(field, parameters.get(field))
     List ratesList = from('RateAmount').where(condition).filterByDate().queryList()
-    if (UtilValidate.isEmpty(ratesList)) {
+    if (!ratesList) {
         GenericValue periodType = from('PeriodType').where([periodTypeId: parameters.periodTypeId]).queryOne()
         GenericValue rateType = from('RateType').where([rateTypeId: parameters.rateTypeId]).queryOne()
         GenericValue partyNameView = from('PartyNameView').where([partyId: parameters.partyId]).queryOne()
@@ -241,7 +240,7 @@ def getRatesAmountsFromEmplPositionTypeId() {
 
 //Filter a list of rateAmount. The result is the most heavily-filtered non-empty list
 def filterRateAmountList() {
-    if (UtilValidate.isEmpty(parameters.ratesList)) {
+    if (!parameters.ratesList) {
         logWarning('The list parameters.ratesList was empty, not processing any further')
         return success()
     }
@@ -260,7 +259,7 @@ def filterRateAmountList() {
         filterMap.rateTypeId = parameters.rateTypeId
     }
     List tempRatesFilteredList = EntityUtil.filterByAnd(parameters.ratesList, filterMap)
-    if (UtilValidate.isNotEmpty(tempRatesFilteredList)) {
+    if (tempRatesFilteredList) {
         parameters.ratesList = tempRatesFilteredList
     }
     Map result = success()
