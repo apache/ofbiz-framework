@@ -21,7 +21,9 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
+
 
 import java.sql.Timestamp
 
@@ -48,7 +50,7 @@ def updateRateAmount() {
     if (rateAmountLookedUpValue) {
         updating = (rateAmountLookedUpValue.fromDate.compareTo(newEntity.fromDate) == 0)
         if (rateAmountLookedUpValue.rateAmount != rateAmount) {
-            Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', 'IN', rateAmountLookedUpValue)
+            Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', ModelService.IN_PARAM, rateAmountLookedUpValue)
             result = run service: 'expireRateAmount', with: expireRateAmountMap
             if (ServiceUtil.isError(result)) return result
         } else {
@@ -105,7 +107,7 @@ def updatePartyRate() {
         }
     }
     if (parameters.rateAmount) {
-        Map createRateAmountMap = dispatcher.getDispatchContext().makeValidContext('updateRateAmount', 'IN', parameters)
+        Map createRateAmountMap = dispatcher.getDispatchContext().makeValidContext('updateRateAmount', ModelService.IN_PARAM, parameters)
         result = run service: 'updateRateAmount', with: createRateAmountMap
         if (ServiceUtil.isError(result)) return result
     }
@@ -121,7 +123,7 @@ def expirePartyRate() {
         lookedUpValue.store()
 
         //expire related rate amount
-        Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', 'IN', parameters)
+        Map expireRateAmountMap = dispatcher.getDispatchContext().makeValidContext('expireRateAmount', ModelService.IN_PARAM, parameters)
         result = run service: 'expireRateAmount', with: expireRateAmountMap
         if (ServiceUtil.isError(result)) return result
     }
@@ -163,7 +165,7 @@ def getRateAmount() {
         serviceName = 'getRatesAmountsFromEmplPositionTypeId'
     }
     if (serviceName) {
-        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext(serviceName, "IN", parameters)
+        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext(serviceName, ModelService.IN_PARAM, parameters)
         if (!parameters.rateCurrencyUomId) {
             serviceContextMap.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
         }
@@ -175,7 +177,7 @@ def getRateAmount() {
 
     if (!ratesList) {
         ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
-        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext("filterRateAmountList", "IN", parameters)
+        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext("filterRateAmountList", ModelService.IN_PARAM, parameters)
         serviceContextMap.ratesList = ratesList
         Map result = run service: 'filterRateAmountList', with: serviceContextMap
         ratesList = EntityUtil.filterByDate(result.filteredRatesList)

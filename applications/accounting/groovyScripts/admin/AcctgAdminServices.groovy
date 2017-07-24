@@ -23,6 +23,8 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.service.ModelService
+
 
 def createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
@@ -120,7 +122,7 @@ def updateFXConversion() {
     delegator.storeAll(uomConversions)
 
     //now create a new conversion relationship
-    Map createParams = dispatcher.getDispatchContext().makeValidContext("createUomConversionDated", "IN", parameters)
+    Map createParams = dispatcher.getDispatchContext().makeValidContext("createUomConversionDated", ModelService.IN_PARAM, parameters)
     if (!parameters.fromDate) {
         createParams.put("fromDate", nowTimestamp)
     }
