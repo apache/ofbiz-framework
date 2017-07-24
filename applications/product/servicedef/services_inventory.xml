@@ -71,7 +71,7 @@ under the License.
 
     <service name="createLot" default-entity-name="Lot" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Lot</description>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateLot" default-entity-name="Lot" engine="entity-auto" invoke="update" auth="true">

@@ -1650,9 +1650,8 @@ public class ProductionRunServices {
                 GenericValue lot = EntityQuery.use(delegator).from("Lot").where("lotId", lotId).queryOne();
                 if (lot == null) {
                     if (createLotIfNeeded.booleanValue()) {
-                        Map<String, Object> createLotCtx = new HashMap<>();
+                        Map<String, Object> createLotCtx = ctx.makeValidContext("createLot", ModelService.IN_PARAM, context);
                         createLotCtx.put("creationDate", UtilDateTime.nowTimestamp());
-                        createLotCtx.put("userLogin", userLogin);
                         Map<String, Object> serviceResults = dispatcher.runSync("createLot", createLotCtx);
                         if (!ServiceUtil.isSuccess(serviceResults)) {
                             Debug.logError(ServiceUtil.getErrorMessage(serviceResults), module);
