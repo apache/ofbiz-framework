@@ -688,8 +688,12 @@ public class MrpServices {
                 bomLevelWithNoEvent = 0;
 
                 oldProductId = "";
+                int eventCount = 0;
                 for (GenericValue inventoryEventForMRP : listInventoryEventForMRP) {
+                    eventCount++;
+
                     productId = inventoryEventForMRP.getString("productId");
+                    boolean isLastEvent = (eventCount == listInventoryEventForMRP.size() || !productId.equals(listInventoryEventForMRP.get(eventCount).getString("productId")));
                     eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
 
                     if (!productId.equals(oldProductId)) {
@@ -746,7 +750,7 @@ public class MrpServices {
                     }
 
                     stockTmp = stockTmp.add(eventQuantity);
-                    if (stockTmp.compareTo(minimumStock) < 0) {
+                    if (stockTmp.compareTo(minimumStock) < 0 && (eventQuantity.compareTo(BigDecimal.ZERO) < 0 || isLastEvent)) { // No need to create a supply event/requirement if the current event is not a demand and there are other events to process
                         BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
                         //need to buy or build the product as we have not enough stock
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");
