@@ -175,7 +175,7 @@ def getRateAmount() {
 
     if (!ratesList) {
         ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
-        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext("filteredRatesList", "IN", parameters)
+        Map serviceContextMap = dispatcher.getDispatchContext().makeValidContext("filterRateAmountList", "IN", parameters)
         serviceContextMap.ratesList = ratesList
         Map result = run service: 'filterRateAmountList', with: serviceContextMap
         ratesList = EntityUtil.filterByDate(result.filteredRatesList)
