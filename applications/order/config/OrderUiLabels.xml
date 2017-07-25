@@ -8929,6 +8929,9 @@
         <value xml:lang="zh-CN">报价单位标识</value>
         <value xml:lang="zh-TW">報價度量單位識別</value>
     </property>
+    <property key="OrderOrderQuoteUpdatedSuccessfully">
+        <value xml:lang="en">Quote updated successfully.</value>
+    </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="ar">مشاهدة ربحية عرض السعر</value>
         <value xml:lang="de">Angebotsgewinn anzeigen</value>
