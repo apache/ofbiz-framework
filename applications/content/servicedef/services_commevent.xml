@@ -99,7 +99,7 @@ under the License.
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="expireCommEventContentAssoc" default-entity-name="CommContentAssoc" engine="entity-auto" invoke="delete" auth="true">
+    <service name="expireCommEventContentAssoc" default-entity-name="CommEventContentAssoc" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire CommEventContentAssoc</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
