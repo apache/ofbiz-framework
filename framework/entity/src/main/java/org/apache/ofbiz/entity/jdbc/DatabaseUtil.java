@@ -292,7 +292,7 @@ public class DatabaseUtil {
 
                                     if (openParen > 0 && closeParen > 0 && closeParen > openParen) {
                                         typeName = fullTypeStr.substring(0, openParen);
-                                        if (!("DATETIME".equals(typeName) || !"TIME".equals(typeName))) { // for DATETIME and TIME fields the number within the parenthesis doesn't represent the column size
+                                        if (!("DATETIME".equals(typeName) || "TIME".equals(typeName))) { // for DATETIME and TIME fields the number within the parenthesis doesn't represent the column size
                                         if (comma > 0 && comma > openParen && comma < closeParen) {
                                             String csStr = fullTypeStr.substring(openParen + 1, comma);
                                             try {
