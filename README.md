@@ -423,13 +423,13 @@ listens on port __5005__
 
 #### Execute an integration test suite
 
-`gradlew "ofbiz --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"`
+`gradlew "ofbiz --test component=widget --test suitename=widgettests"`
 
 #### Execute an integration test suite in debug mode
 
 listens on port __5005__
 
-`gradlew "ofbizDebug --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"`
+`gradlew "ofbizDebug --test component=widget --test suitename=widgettests"`
 
 * * * * * * * * * * * *
 
