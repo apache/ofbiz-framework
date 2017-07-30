@@ -180,7 +180,7 @@ def getRateAmount() {
 
     if (!ratesList) {
         rateType = from('RateAmount').where(parameters).queryOne()
-        logError('A valid rate amount could not be found for rateType: ' + rateType.description)
+        logError('A valid rate amount could not be found for rateType: ' + rateType?.description)
     }
 
     // We narrowed as much as we could the result, now returning the first record of the list
