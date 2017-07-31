@@ -582,7 +582,7 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
                 <set field="addUserLoginSecurityGroupURI" value="ProfileAddUserLoginToSecurityGroup"/>
-                <set field="removeUserLoginSecurityGroupURI" value="ProfileRemoveUserLoginFromSecurityGroup"/>
+                <set field="expireUserLoginSecurityGroupURI" value="ProfileExpireUserLoginFromSecurityGroup"/>
                 <set field="updateUserLoginSecurityGroupURI" value="ProfileUpdateUserLoginToSecurityGroup"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
                 <entity-one entity-name="UserLogin" value-field="editUserLogin"/>

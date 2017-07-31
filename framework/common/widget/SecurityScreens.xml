@@ -195,7 +195,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
                 <set field="tabButtonItem" value="EditUserLoginSecurityGroups"/>
                 <set field="addUserLoginSecurityGroupURI" value="userLogin_addUserLoginToSecurityGroup"/>
-                <set field="removeUserLoginSecurityGroupURI" value="userLogin_removeUserLoginFromSecurityGroup"/>
+                <set field="expireUserLoginSecurityGroupURI" value="userLogin_expireUserLoginFromSecurityGroup"/>
                 <set field="updateUserLoginSecurityGroupURI" value="userLogin_updateUserLoginToSecurityGroup"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
                 <entity-one entity-name="UserLogin" value-field="editUserLogin"/>

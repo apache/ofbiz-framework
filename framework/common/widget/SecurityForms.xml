@@ -198,8 +198,8 @@ under the License.
             </entity-condition>
         </actions>
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" sort-field="true">
-            <hyperlink description="${userLoginId}" target="editlogin" also-hidden="false">
+        <field name="userLoginId" sort-field="true" widget-style="buttontext">
+            <hyperlink description="${userLoginId}" target="editlogin">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
@@ -207,11 +207,10 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonExpire}" target="expireUserLoginFromSecurityGroup" also-hidden="false">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
-                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
@@ -257,12 +256,11 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" red-when="before-now"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="${removeUserLoginSecurityGroupURI}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonExpire}" target="${expireUserLoginSecurityGroupURI}" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
-                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
