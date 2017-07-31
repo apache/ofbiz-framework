@@ -24,6 +24,7 @@ under the License.
     <screen name="CommonGlSetupDecorator">
         <section>
             <actions>
+                <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <set field="tabButtonItemTop" value="Admin"/>
                 <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
                     <field-map field-name="partyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -205,7 +206,8 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingPreference}"/>
                 <set field="tabButtonItem" value="PartyAcctgPreference"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <set field="partyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <set field="partyId" from-field="organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
             </actions>
             <widgets>
