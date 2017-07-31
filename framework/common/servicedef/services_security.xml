@@ -83,6 +83,11 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
+    <service name="expireUserLoginSecurityGroup" engine="entity-auto" invoke="expire" default-entity-name="UserLoginSecurityGroup" auth="true">
+        <description>Expire UserLoginSecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     <service name="removeUserLoginToSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="UserLoginSecurityGroup" auth="true">
         <description>Remove a UserLogin to SecurityGroup Appl</description>
         <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
