@@ -95,8 +95,8 @@ under the License.
       <field name="startDateTime" type="date-time"></field>
       <field name="exceptionDateTimes" type="very-long"></field>
       <field name="recurrenceDateTimes" type="very-long"></field>
-      <field name="exceptionRuleId" type="id-ne"></field>
-      <field name="recurrenceRuleId" type="id-ne"></field>
+      <field name="exceptionRuleId" type="id"></field>
+      <field name="recurrenceRuleId" type="id"></field>
       <field name="recurrenceCount" type="numeric"><description>Not recommended - more than one process could be using this RecurrenceInfo</description></field>
       <prim-key field="recurrenceInfoId"/>
       <relation type="one" fk-name="REC_INFO_RCRLE" rel-entity-name="RecurrenceRule">
@@ -141,7 +141,7 @@ under the License.
             package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression">
       <field name="tempExprId" type="id"></field>
-      <field name="tempExprTypeId" type="id-ne"></field>
+      <field name="tempExprTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="date1" type="date-time"></field>
       <field name="date2" type="date-time"></field>

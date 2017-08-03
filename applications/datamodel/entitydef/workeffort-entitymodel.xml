@@ -131,9 +131,9 @@ under the License.
             package-name="org.apache.ofbiz.workeffort.workeffort"
             title="WorkEffort Application Sandbox Entity">
       <field name="applicationId" type="id"></field>
-      <field name="workEffortId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="workEffortId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="runtimeDataId" type="id"></field>
       <prim-key field="applicationId"/>
@@ -505,7 +505,7 @@ under the License.
             title="Work Effort Fixed Asset Assignment Entity">
       <field name="workEffortId" type="id"></field>
       <field name="fixedAssetId" type="id"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="availabilityStatusId" type="id"><description>Points to StatusItem value with statusTypeId="WEFA_AVAILABILITY"</description></field>
@@ -550,7 +550,7 @@ under the License.
         <field name="workEffortGoodStdTypeId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="statusId" type="id-ne"></field>
+        <field name="statusId" type="id"></field>
         <field name="estimatedQuantity" type="floating-point"></field>
         <field name="estimatedCost" type="currency-amount"></field>
         <prim-key field="workEffortId"/>
@@ -599,7 +599,7 @@ under the License.
             title="Work Effort Inventory Assignment Entity">
       <field name="workEffortId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="quantity" type="floating-point"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="inventoryItemId"/>
@@ -633,7 +633,7 @@ under the License.
             title="Work Effort Cost Calculation Entity">
         <field name="workEffortId" type="id"></field>
         <field name="costComponentTypeId" type="id"></field>
-        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="workEffortId"/>

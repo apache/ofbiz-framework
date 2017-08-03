@@ -84,7 +84,7 @@ under the License.
             package-name="org.apache.ofbiz.humanres.ability"
             title="Resume Entity">
       <field name="resumeId" type="id"></field>
-      <field name="partyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
       <field name="contentId" type="id"></field>
       <field name="resumeDate" type="date-time"></field>
       <field name="resumeText" type="long-varchar"></field>
@@ -232,12 +232,12 @@ under the License.
             package-name="org.apache.ofbiz.humanres.ability"
             title="Person Training Entity">
       <field name="partyId" type="id"></field>
-      <field name="trainingRequestId" type="id-ne"></field>
+      <field name="trainingRequestId" type="id"></field>
       <field name="trainingClassTypeId" type="id"></field>
-      <field name="workEffortId" type="id-ne"></field> 
+      <field name="workEffortId" type="id"></field> 
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="approverId" type="id-ne"></field>
+      <field name="approverId" type="id"></field>
       <field name="approvalStatus" type="short-varchar"></field>
       <field name="reason" type="description"></field>
       <prim-key field="partyId"/>
@@ -432,11 +432,11 @@ under the License.
             title="Employee Leave Entity">
         <field name="partyId" type="id"/>
         <field name="leaveTypeId" type="id"/>
-        <field name="emplLeaveReasonTypeId" type="id-ne"/>
+        <field name="emplLeaveReasonTypeId" type="id"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
-        <field name="approverPartyId" type="id-ne"/>
-        <field name="leaveStatus" type="id-ne"/>
+        <field name="approverPartyId" type="id"/>
+        <field name="leaveStatus" type="id"/>
         <field name="description" type="description"/>
         <prim-key field="partyId"/>
         <prim-key field="leaveTypeId"/>
@@ -563,7 +563,7 @@ under the License.
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
       <field name="payrollPreferenceSeqId" type="id"></field>
-      <field name="deductionTypeId" type="id-ne"></field>
+      <field name="deductionTypeId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="periodTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>

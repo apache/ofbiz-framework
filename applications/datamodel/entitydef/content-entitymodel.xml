@@ -251,11 +251,11 @@ under the License.
         package-name="org.apache.ofbiz.content.content"
         title="Content Approval Entity">
         <field name="contentApprovalId" type="id"></field>
-        <field name="contentId" type="id-ne"></field>
-        <field name="contentRevisionSeqId" type="id-ne"></field>
-        <field name="partyId" type="id-ne"></field>
-        <field name="roleTypeId" type="id-ne"></field>
-        <field name="approvalStatusId" type="id-ne"></field>
+        <field name="contentId" type="id"></field>
+        <field name="contentRevisionSeqId" type="id"></field>
+        <field name="partyId" type="id"></field>
+        <field name="roleTypeId" type="id"></field>
+        <field name="approvalStatusId" type="id"></field>
         <field name="approvalDate" type="date-time"></field>
         <field name="sequenceNum" type="numeric"></field>
         <field name="comments" type="comment"></field>
@@ -595,7 +595,7 @@ under the License.
         title="Content Revision Entity">
         <field name="contentId" type="id"></field>
         <field name="contentRevisionSeqId" type="id"></field>
-        <field name="committedByPartyId" type="id-ne"></field>
+        <field name="committedByPartyId" type="id"></field>
         <field name="comments" type="comment"></field>
         <prim-key field="contentId"/>
         <prim-key field="contentRevisionSeqId"/>
@@ -612,8 +612,8 @@ under the License.
         <field name="contentId" type="id"></field>
         <field name="contentRevisionSeqId" type="id"></field>
         <field name="itemContentId" type="id"></field>
-        <field name="oldDataResourceId" type="id-ne"></field>
-        <field name="newDataResourceId" type="id-ne"></field>
+        <field name="oldDataResourceId" type="id"></field>
+        <field name="newDataResourceId" type="id"></field>
         <prim-key field="contentId"/>
         <prim-key field="contentRevisionSeqId"/>
         <prim-key field="itemContentId"/>
@@ -764,7 +764,7 @@ under the License.
       <field name="dataResourceId" type="id"></field>
       <field name="dataResourceTypeId" type="id"></field>
       <field name="dataTemplateTypeId" type="id"></field>
-      <field name="dataCategoryId" type="id-ne"></field>
+      <field name="dataCategoryId" type="id"></field>
       <field name="dataSourceId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="dataResourceName" type="value"></field>
@@ -995,7 +995,7 @@ under the License.
             package-name="org.apache.ofbiz.content.data"
             title="File Extension Entity">
       <field name="fileExtensionId" type="id-long"></field>
-      <field name="mimeTypeId" type="id-vlong-ne"></field>
+      <field name="mimeTypeId" type="id-vlong"></field>
       <prim-key field="fileExtensionId"/>
       <relation type="one" fk-name="FILEEXT_MMTYP" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
@@ -1179,7 +1179,7 @@ under the License.
       <field name="isAnonymous" type="indicator"><description>Allow response to the survey without login?</description></field>
       <field name="allowMultiple" type="indicator"><description>Allow multiple responses to this survey (if Y), or just a single answer (if N)?</description></field>
       <field name="allowUpdate" type="indicator"><description>Allow change to responses?</description></field>
-      <field name="acroFormContentId" type="id-ne"><description>Points to PDF with AcroForm</description></field>
+      <field name="acroFormContentId" type="id"><description>Points to PDF with AcroForm</description></field>
       <prim-key field="surveyId"/>
     </entity>
     <entity entity-name="SurveyApplType"
@@ -1235,8 +1235,8 @@ under the License.
             package-name="org.apache.ofbiz.content.survey"
             title="Survey Question Entity">
       <field name="surveyQuestionId" type="id"/>
-      <field name="surveyQuestionCategoryId" type="id-ne"/>
-      <field name="surveyQuestionTypeId" type="id-ne"/>
+      <field name="surveyQuestionCategoryId" type="id"/>
+      <field name="surveyQuestionTypeId" type="id"/>
       <field name="description" type="description"/>
       <field name="question" type="very-long"/>
       <field name="hint" type="very-long"/>
@@ -1307,8 +1307,8 @@ under the License.
       <field name="surveyQuestionId" type="id"/>
       <field name="fromDate" type="date-time"/>
       <field name="thruDate" type="date-time"/>
-      <field name="surveyPageSeqId" type="id-ne"/>
-      <field name="surveyMultiRespId" type="id-ne"/>
+      <field name="surveyPageSeqId" type="id"/>
+      <field name="surveyMultiRespId" type="id"/>
       <field name="surveyMultiRespColId" type="id"><description>Used to optionally associate this question to a specific column in the Multi-Response set; with this you can associate a single question to each cell in the question/column grid; this is useful for AcroForm round trips where the target PDF needs a question associated with each cell, or even the same question applied with different externalFieldRef values.</description></field>
       <field name="requiredField" type="indicator"/>
       <field name="sequenceNum" type="numeric"/>
@@ -1385,7 +1385,7 @@ under the License.
             package-name="org.apache.ofbiz.content.survey"
             title="Survey Response Entity">
       <field name="surveyResponseId" type="id"></field>
-      <field name="surveyId" type="id-ne"></field>
+      <field name="surveyId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="responseDate" type="date-time"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1450,7 +1450,7 @@ under the License.
       <field name="surveyResponseId" type="id"></field>
       <field name="surveyQuestionId" type="id"></field>
       <field name="surveyMultiRespColId" type="id"><description>This is needed to support multiple responses for different MultiResp Columns; if not part of a MultiResp will be _NA_</description></field>
-      <field name="surveyMultiRespId" type="id-ne"><description>This is not part of the primary key, but should be populated so that the SurveyMultiRespColumn can be more easily looked up.</description></field>
+      <field name="surveyMultiRespId" type="id"><description>This is not part of the primary key, but should be populated so that the SurveyMultiRespColumn can be more easily looked up.</description></field>
       <field name="booleanResponse" type="indicator"></field>
       <field name="currencyResponse" type="currency-amount"></field>
       <field name="floatResponse" type="floating-point"></field>
@@ -1505,7 +1505,7 @@ under the License.
   <!-- ========================================================= -->
 
     <extend-entity entity-name="WebPage">
-        <field name="contentId" type="id-ne"></field>
+        <field name="contentId" type="id"></field>
         <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
             <key-map field-name="contentId"/>
         </relation>

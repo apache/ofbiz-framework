@@ -45,9 +45,9 @@ under the License.
             package-name="org.apache.ofbiz.shipment.issuance"
             title="Item Issuance Entity">
       <field name="itemIssuanceId" type="id"></field>
-      <field name="orderId" type="id-ne"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
-      <field name="shipGroupSeqId" type="id-ne"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
+      <field name="shipGroupSeqId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
       <field name="shipmentId" type="id"></field>
       <field name="shipmentItemSeqId" type="id"></field>
@@ -155,9 +155,9 @@ under the License.
             title="Picklist Entity">
       <field name="picklistId" type="id"></field>
       <field name="description" type="description"></field>
-      <field name="facilityId" type="id-ne"></field>
-      <field name="shipmentMethodTypeId" type="id-ne"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="facilityId" type="id"></field>
+      <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="statusId" type="id"></field>
       <field name="picklistDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
@@ -196,7 +196,7 @@ under the License.
             title="Picklist Entity">
       <!-- The PicklistBin has its own ID to make it easy to put on the pack sheet of the picklist as a barcode, also so it can be moved to another picklist or bin location if necessary -->
       <field name="picklistBinId" type="id"></field>
-      <field name="picklistId" type="id-ne"></field>
+      <field name="picklistId" type="id"></field>
       <field name="binLocationNumber" type="numeric"></field>
       <field name="primaryOrderId" type="id"></field>
       <field name="primaryShipGroupSeqId" type="id"></field>
@@ -220,7 +220,7 @@ under the License.
       <field name="orderItemSeqId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
-      <field name="itemStatusId" type="id-ne"></field>
+      <field name="itemStatusId" type="id"></field>
       <field name="quantity" type="fixed-point"></field>
       <prim-key field="picklistBinId"/>
       <prim-key field="orderId"/>
@@ -315,8 +315,8 @@ under the License.
       <field name="picklistId" type="id"></field>
       <field name="changeDate" type="date-time"></field>
       <field name="changeUserLoginId" type="id-vlong"></field>
-      <field name="statusId" type="id-ne"></field>
-      <field name="statusIdTo" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
+      <field name="statusIdTo" type="id"></field>
       <prim-key field="picklistId"/>
       <prim-key field="changeDate"/>
       <relation type="one" fk-name="PCKLST_STHST_PKLT" rel-entity-name="Picklist">
@@ -557,7 +557,7 @@ under the License.
             title="Shipment Entity">
       <field name="shipmentId" type="id"></field>
       <field name="shipmentTypeId" type="id"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="primaryOrderId" type="id"></field>
       <field name="primaryReturnId" type="id"></field>
       <field name="primaryShipGroupSeqId" type="id"></field>
@@ -739,7 +739,7 @@ under the License.
             title="Shipment Contact Mechanism Entity">
       <field name="shipmentId" type="id"></field>
       <field name="shipmentContactMechTypeId" type="id"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentContactMechTypeId"/>
       <relation type="one" fk-name="SHPMT_CMECH" rel-entity-name="Shipment">
@@ -853,7 +853,7 @@ under the License.
             package-name="org.apache.ofbiz.shipment.shipment"
             title="Shipment Gateway Config">
       <field name="shipmentGatewayConfigId" type="id"></field>
-      <field name="shipmentGatewayConfTypeId" type="id-ne"></field>
+      <field name="shipmentGatewayConfTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="shipmentGatewayConfigId"/>
       <relation type="one" fk-name="SGC_SGCT" rel-entity-name="ShipmentGatewayConfigType">

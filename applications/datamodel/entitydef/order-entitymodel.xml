@@ -65,7 +65,7 @@ under the License.
       <field name="productPromoActionSeqId" type="id"></field>
       <field name="productFeatureId" type="id"></field>
       <field name="correspondingProductId" type="id"></field>
-      <field name="taxAuthorityRateSeqId" type="id-ne"></field>
+      <field name="taxAuthorityRateSeqId" type="id"></field>
       <field name="sourceReferenceId" type="id-long"></field>
       <field name="sourcePercentage" type="fixed-point">
           <description>for tax entries this is the tax percentage</description>
@@ -473,8 +473,8 @@ under the License.
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="externalId" type="id"></field>
-      <field name="orderItemTypeId" type="id-ne"></field>
-      <field name="orderItemGroupSeqId" type="id-ne"></field>
+      <field name="orderItemTypeId" type="id"></field>
+      <field name="orderItemGroupSeqId" type="id"></field>
       <field name="isItemGroupPrimary" type="indicator"></field>
       <field name="fromInventoryItemId" type="id"></field>
       <field name="budgetId" type="id"></field>
@@ -514,7 +514,7 @@ under the License.
       <field name="shipAfterDate" type="date-time"></field>
       <field name="cancelBackOrderDate" type="date-time"><description>Used to cancel all orders from suppliers when its in past</description></field>
       <field name="overrideGlAccountId" type="id"><description>Used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc.</description></field>
-      <field name="salesOpportunityId" type="id-ne"></field>
+      <field name="salesOpportunityId" type="id"></field>
       <field name="changeByUserLoginId" type="id-vlong" enable-audit-log="true"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
@@ -701,8 +701,8 @@ under the License.
             never-cache="true"
             title="Order Item Change Entity">
       <field name="orderItemChangeId" type="id"></field>
-      <field name="orderId" type="id-ne"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
       <field name="changeTypeEnumId" type="id"></field>
       <field name="changeDatetime" type="date-time"></field>
       <field name="changeUserLogin" type="id-vlong"></field>
@@ -737,7 +737,7 @@ under the License.
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="contactMechPurposeTypeId" type="id"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="contactMechPurposeTypeId"/>
@@ -792,8 +792,8 @@ under the License.
             never-cache="true"
             title="Order Item Price Info Entity">
       <field name="orderItemPriceInfoId" type="id"></field>
-      <field name="orderId" type="id-ne"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
       <field name="productPriceRuleId" type="id"></field>
       <field name="productPriceActionSeqId" type="id"></field>
       <field name="modifyAmount" type="currency-precise"></field>
@@ -940,7 +940,7 @@ under the License.
       <field name="shipGroupSeqId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
-      <field name="reserveOrderEnumId" type="id-ne"></field>
+      <field name="reserveOrderEnumId" type="id"></field>
       <field name="quantity" type="fixed-point"></field>
       <field name="quantityNotAvailable" type="fixed-point"></field>
       <field name="reservedDatetime" type="date-time"></field>
@@ -1010,8 +1010,8 @@ under the License.
             never-cache="true"
             title="Order Notification Entity">
       <field name="orderNotificationId" type="id"></field>
-      <field name="orderId" type="id-ne"></field>
-      <field name="emailType" type="id-ne"></field>
+      <field name="orderId" type="id"></field>
+      <field name="emailType" type="id"></field>
       <field name="comments" type="comment"></field>
       <field name="notificationDate" type="date-time"></field>
       <prim-key field="orderNotificationId"/>
@@ -1374,7 +1374,7 @@ under the License.
             package-name="org.apache.ofbiz.order.quote"
             title="Quote Entity">
       <field name="quoteId" type="id"></field>
-      <field name="quoteTypeId" type="id-ne"></field>
+      <field name="quoteTypeId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="issueDate" type="date-time"></field>
       <field name="statusId" type="id"></field>
@@ -2001,7 +2001,7 @@ under the License.
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
-      <field name="partyId" type="id-ne"><description>party or party group(via partyRelationShip entity) responsible for responding to the communication request of this particular type</description></field>
+      <field name="partyId" type="id"><description>party or party group(via partyRelationShip entity) responsible for responding to the communication request of this particular type</description></field>
       <prim-key field="custRequestTypeId"/>
       <relation type="one" fk-name="CUST_REQ_TYPE_PAR" title="Parent" rel-entity-name="CustRequestType">
         <key-map field-name="parentTypeId" rel-field-name="custRequestTypeId"/>
@@ -2295,7 +2295,7 @@ under the License.
             title="Work Requirement Fulfillment Entity">
       <field name="requirementId" type="id"></field>
       <field name="workEffortId" type="id"></field>
-      <field name="workReqFulfTypeId" type="id-ne"></field>
+      <field name="workReqFulfTypeId" type="id"></field>
       <prim-key field="requirementId"/>
       <prim-key field="workEffortId"/>
       <relation type="one" fk-name="WORK_REQFL_REQ" rel-entity-name="Requirement">
@@ -2336,7 +2336,7 @@ under the License.
       <field name="productPromoActionSeqId" type="id"></field>
       <field name="productFeatureId" type="id"></field>
       <field name="correspondingProductId" type="id"></field>
-      <field name="taxAuthorityRateSeqId" type="id-ne"></field>
+      <field name="taxAuthorityRateSeqId" type="id"></field>
       <field name="sourceReferenceId" type="id-long"></field>
       <field name="sourcePercentage" type="fixed-point">
           <description>for tax entries this is the tax percentage</description>
@@ -2432,7 +2432,7 @@ under the License.
             package-name="org.apache.ofbiz.order.return"
             title="Return Entity">
         <field name="returnId" type="id"></field>
-        <field name="returnHeaderTypeId" type="id-ne"></field>
+        <field name="returnHeaderTypeId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="createdBy" type="id-vlong"></field>
         <field name="fromPartyId" type="id"></field>
@@ -2444,7 +2444,7 @@ under the License.
         <field name="originContactMechId" type="id"></field>
         <field name="destinationFacilityId" type="id"></field>
         <field name="needsInventoryReceive" type="indicator"></field>
-        <field name="currencyUomId" type="id-ne"></field>
+        <field name="currencyUomId" type="id"></field>
         <field name="supplierRmaId" type="id"></field>
         <prim-key field="returnId"/>
         <relation type="one" fk-name="RTN_HEAD_TYPE" rel-entity-name="ReturnHeaderType">
@@ -2513,7 +2513,7 @@ under the License.
             <description>we need this field to be able to figure out net sales of a product</description>
         </field>
         <field name="description" type="description"></field>
-        <field name="orderId" type="id-ne"></field>
+        <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="expectedItemStatus" type="id"></field>
@@ -2612,7 +2612,7 @@ under the License.
           order items, or orderAdjustmentTypeId and returnAdjustmentTypeId.  Separate mappings for different types of returns (customer vs. vendor)</description>
       <field name="returnItemMapKey" type="id"></field>
       <field name="returnHeaderTypeId" type="id"></field>
-      <field name="returnItemTypeId" type="id-ne"></field>
+      <field name="returnItemTypeId" type="id"></field>
       <prim-key field="returnItemMapKey"/>
       <prim-key field="returnHeaderTypeId"/>
       <relation type="one-nofk" rel-entity-name="ReturnItemType">
@@ -2759,8 +2759,8 @@ under the License.
             title="Order Abandoned Line Entity">
       <field name="visitId" type="id"></field>
       <field name="cartAbandonedLineSeqId" type="id"></field>
-      <field name="productId" type="id-ne"></field>
-      <field name="prodCatalogId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
+      <field name="prodCatalogId" type="id"></field>
       <field name="quantity" type="fixed-point"></field>
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="fixed-point"></field>
