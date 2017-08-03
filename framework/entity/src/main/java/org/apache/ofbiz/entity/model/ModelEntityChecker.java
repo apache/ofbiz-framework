@@ -270,7 +270,7 @@ public class ModelEntityChecker {
                                 // &&
                                 // !rfield.getType().startsWith(field.getType()))
                                 // {
-                                if (!field.getType().equals(rfield.getType()) && !field.getType().equals(rfield.getType() + "-ne") && !rfield.getType().equals(field.getType() + "-ne")) {
+                                if (!field.getType().equals(rfield.getType())) {
                                     warningList.add("[RelationFieldTypesDifferent] The field type ("+ field.getType()
                                                     + ") of " + field.getName() + " of entity " + entity.getEntityName()
                                                     + " is not the same as field type (" + rfield.getType() + ") of "

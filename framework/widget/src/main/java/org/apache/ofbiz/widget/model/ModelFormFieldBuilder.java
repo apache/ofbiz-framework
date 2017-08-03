@@ -506,15 +506,15 @@ public class ModelFormFieldBuilder {
         this.entityName = modelEntity.getEntityName();
         this.fieldName = modelField.getName();
         if ("find".equals(defaultFieldType)) {
-            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
+            if ("id".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
                         Integer.valueOf(20), null);
                 this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
+            } else if ("id-long".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
                         Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
+            } else if ("id-vlong".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
                         Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
@@ -555,15 +555,15 @@ public class ModelFormFieldBuilder {
             ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
             this.setFieldInfo(hiddenField);
         } else {
-            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
+            if ("id".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
                         Integer.valueOf(20), null);
                 this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
+            } else if ("id-long".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
                         Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
+            } else if ("id-vlong".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
                         Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
