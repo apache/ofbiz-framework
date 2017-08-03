@@ -343,7 +343,7 @@ under the License.
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
         <field name="finAccountPin" type="long-varchar" encrypt="true"></field>
-        <field name="currencyUomId" type="id-ne"/>
+        <field name="currencyUomId" type="id"/>
         <field name="organizationPartyId" type="id"><description>The internal organization Party that owns (or rather, is liable for) the account.</description></field>
         <field name="ownerPartyId" type="id"><description>The customer or third party that owns the account.</description></field>
         <field name="postToGlAccountId" type="id"></field>
@@ -407,7 +407,7 @@ under the License.
         <field name="finAccountAuthId" type="id"/>
         <field name="finAccountId" type="id"/>
         <field name="amount" type="currency-amount"/>
-        <field name="currencyUomId" type="id-ne"/>
+        <field name="currencyUomId" type="id"/>
         <field name="authorizationDate" type="date-time"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
@@ -461,14 +461,14 @@ under the License.
     </entity>
     <entity entity-name="FinAccountTrans" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Entity">
         <field name="finAccountTransId" type="id"></field>
-        <field name="finAccountTransTypeId" type="id-ne"></field>
+        <field name="finAccountTransTypeId" type="id"></field>
         <field name="finAccountId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="glReconciliationId" type="id"></field>
         <field name="transactionDate" type="date-time"></field>
         <field name="entryDate" type="date-time"></field>
         <field name="amount" type="currency-amount"></field>
-        <field name="paymentId" type="id-ne"></field>
+        <field name="paymentId" type="id"></field>
         <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"><description>To be used along with orderId to point to an OrderItem that represents the purchase of a product to add money to the account.</description></field>
         <field name="performedByPartyId" type="id"></field>
@@ -557,7 +557,7 @@ under the License.
             title="Financial Account Type Entity">
         <field name="finAccountTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
-        <field name="replenishEnumId" type="id-ne"></field>
+        <field name="replenishEnumId" type="id"></field>
         <field name="isRefundable" type="indicator"></field>
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
@@ -645,7 +645,7 @@ under the License.
         <field name="actualEndOfLife" type="date"></field>
         <field name="productionCapacity" type="fixed-point"></field>
         <field name="uomId" type="id"></field>
-        <field name="calendarId" type="id-ne"></field>
+        <field name="calendarId" type="id"></field>
         <field name="serialNumber" type="long-varchar"></field>
         <field name="locatedAtFacilityId" type="id"></field>
         <field name="locatedAtLocationSeqId" type="id"></field>
@@ -803,7 +803,7 @@ under the License.
         <field name="fixedAssetId" type="id"></field>
         <field name="maintHistSeqId" type="id"></field>
         <field name="statusId" type="id"></field>
-        <field name="productMaintTypeId" type="id-ne"><description>If productMaintSeqId is known can lookup using that and the FixedAsset.productId; for un-scheduled maintenance is filled in directly</description></field>
+        <field name="productMaintTypeId" type="id"><description>If productMaintSeqId is known can lookup using that and the FixedAsset.productId; for un-scheduled maintenance is filled in directly</description></field>
         <field name="productMaintSeqId" type="id"><description>Optional, though should be filled in to determine upcoming maintenance for all scheduled maintenance</description></field>
         <field name="scheduleWorkEffortId" type="id"><description>Has field for estimated/actual start and finish dates, etc</description></field>
         <field name="intervalQuantity" type="fixed-point"></field>
@@ -938,7 +938,7 @@ under the License.
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <field name="registrationDate" type="date-time"></field>
-        <field name="govAgencyPartyId" type="id-ne"></field>
+        <field name="govAgencyPartyId" type="id"></field>
         <field name="registrationNumber" type="long-varchar"></field>
         <field name="licenseNumber" type="long-varchar"></field>
         <prim-key field="fixedAssetId"/>
@@ -1023,7 +1023,7 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="allocatedDate" type="date-time"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -1111,7 +1111,7 @@ under the License.
     package-name="org.apache.ofbiz.accounting.fixedasset"
     title="Accommodation Map">
     <field name="accommodationMapId" type="id"></field>
-    <field name="accommodationClassId" type="id-ne"></field>
+    <field name="accommodationClassId" type="id"></field>
     <field name="fixedAssetId" type="id"></field>
     <field name="accommodationMapTypeId" type="id"></field>
     <field name="numberOfSpaces" type="numeric"></field>
@@ -1299,10 +1299,10 @@ under the License.
       <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="currency-precise"></field>
       <field name="description" type="description"></field>
-      <field name="taxAuthPartyId" type="id-ne"/>
-      <field name="taxAuthGeoId" type="id-ne"/>
-      <field name="taxAuthorityRateSeqId" type="id-ne"></field>
-      <field name="salesOpportunityId" type="id-ne"></field>
+      <field name="taxAuthPartyId" type="id"/>
+      <field name="taxAuthGeoId" type="id"/>
+      <field name="taxAuthorityRateSeqId" type="id"></field>
+      <field name="salesOpportunityId" type="id"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="invoiceItemSeqId"/>
       <relation type="one" fk-name="INVOICE_ITMITYP" rel-entity-name="InvoiceItemType">
@@ -1482,7 +1482,7 @@ under the License.
             title="Invoice Item Type Map Entity">
       <field name="invoiceItemMapKey" type="id"></field>
       <field name="invoiceTypeId" type="id"></field>
-      <field name="invoiceItemTypeId" type="id-ne"></field>
+      <field name="invoiceItemTypeId" type="id"></field>
       <prim-key field="invoiceItemMapKey"/>
       <prim-key field="invoiceTypeId"/>
       <relation type="one" fk-name="INVOICE_ITEM_MAP" rel-entity-name="InvoiceItemType">
@@ -1853,7 +1853,7 @@ under the License.
             title="Transaction Entry Entity">
       <field name="acctgTransId" type="id"></field>
       <field name="acctgTransEntrySeqId" type="id"></field>
-      <field name="acctgTransEntryTypeId" type="id-ne"></field>
+      <field name="acctgTransEntryTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="voucherRef" type="short-varchar"></field>
       <field name="partyId" type="id"></field>
@@ -1863,8 +1863,8 @@ under the License.
       <field name="theirProductId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
       <field name="glAccountTypeId" type="id"></field>
-      <field name="glAccountId" type="id-ne"></field>
-      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
+      <field name="organizationPartyId" type="id"></field>
       <field name="amount" type="currency-amount"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="origAmount" type="currency-amount"></field>
@@ -2113,7 +2113,7 @@ under the License.
             package-name="org.apache.ofbiz.accounting.ledger"
             title="General Ledger Account Group Entity">
       <field name="glAccountGroupId" type="id"></field>
-      <field name="glAccountGroupTypeId" type="id-ne"></field>
+      <field name="glAccountGroupTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glAccountGroupId"/>
       <relation type="one" fk-name="GLACT_GRP_TP" rel-entity-name="GlAccountGroupType">
@@ -2125,7 +2125,7 @@ under the License.
             title="General Ledger Account Group Member Entity">
       <field name="glAccountId" type="id"></field>
       <field name="glAccountGroupTypeId" type="id"></field>
-      <field name="glAccountGroupId" type="id-ne"></field>
+      <field name="glAccountGroupId" type="id"></field>
       <prim-key field="glAccountId"/>
       <prim-key field="glAccountGroupTypeId"/>
       <relation type="one" fk-name="GLACT_GPMBR_AC" rel-entity-name="GlAccount">
@@ -2222,7 +2222,7 @@ under the License.
             title="GL Account Organization Entity">
       <field name="glAccountId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="glAccountId"/>
@@ -2303,7 +2303,7 @@ under the License.
             title="GL Account Organization Entity">
       <field name="glAccountTypeId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
-      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
       <prim-key field="glAccountTypeId"/>
       <prim-key field="organizationPartyId"/>
       <relation type="one" fk-name="GLACCT_TPDF_GLAT" rel-entity-name="GlAccountType">
@@ -2347,7 +2347,7 @@ under the License.
             title="General Ledger Journal Entity">
       <field name="glJournalId" type="id"></field>
       <field name="glJournalName" type="name"></field>
-      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id"></field>
       <field name="isPosted" type="indicator"></field>
       <field name="postedDate" type="date-time"></field>
       <prim-key field="glJournalId"/>
@@ -2365,9 +2365,9 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
-      <field name="glAccountId" type="id-ne"></field>
-      <field name="statusId" type="id-ne"></field>
-      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="organizationPartyId" type="id"></field>
       <field name="reconciledBalance" type="currency-amount"></field>
       <field name="openingBalance" type="currency-amount"></field>
       <field name="reconciledDate" type="date-time"></field>
@@ -2424,18 +2424,18 @@ under the License.
         <field name="partyId" type="id"/>
         <field name="fiscalYearStartMonth" type="numeric"/>
         <field name="fiscalYearStartDay" type="numeric"/>
-        <field name="taxFormId" type="id-ne"/>
-        <field name="cogsMethodId" type="id-ne"/>
-        <field name="baseCurrencyUomId" type="id-ne"/>
-        <field name="invoiceSeqCustMethId" type="id-ne"/>
+        <field name="taxFormId" type="id"/>
+        <field name="cogsMethodId" type="id"/>
+        <field name="baseCurrencyUomId" type="id"/>
+        <field name="invoiceSeqCustMethId" type="id"/>
         <field name="invoiceIdPrefix" type="very-short"/>
         <field name="lastInvoiceNumber" type="numeric"/>
         <field name="lastInvoiceRestartDate" type="date-time"/>
         <field name="useInvoiceIdForReturns" type="indicator"/>
-        <field name="quoteSeqCustMethId" type="id-ne"/>
+        <field name="quoteSeqCustMethId" type="id"/>
         <field name="quoteIdPrefix" type="very-short"/>
         <field name="lastQuoteNumber" type="numeric"/>
-        <field name="orderSeqCustMethId" type="id-ne"/>
+        <field name="orderSeqCustMethId" type="id"/>
         <field name="orderIdPrefix" type="very-short"/>
         <field name="lastOrderNumber" type="numeric"/>
         <field name="refundPaymentMethodId" type="id"/>
@@ -2446,9 +2446,9 @@ under the License.
             </description>
         </field>
         <!-- Deprecated Field-->
-        <field name="oldInvoiceSequenceEnumId" col-name="INVOICE_SEQUENCE_ENUM_ID" type="id-ne"/>
-        <field name="oldOrderSequenceEnumId" col-name="ORDER_SEQUENCE_ENUM_ID" type="id-ne"/>
-        <field name="oldQuoteSequenceEnumId" col-name="QUOTE_SEQUENCE_ENUM_ID" type="id-ne"/>
+        <field name="oldInvoiceSequenceEnumId" col-name="INVOICE_SEQUENCE_ENUM_ID" type="id"/>
+        <field name="oldOrderSequenceEnumId" col-name="ORDER_SEQUENCE_ENUM_ID" type="id"/>
+        <field name="oldQuoteSequenceEnumId" col-name="QUOTE_SEQUENCE_ENUM_ID" type="id"/>
         <prim-key field="partyId"/>
         <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
             <key-map field-name="partyId"/>
@@ -2543,7 +2543,7 @@ under the License.
             title="Defines GL Accounts for Inventory Variance Reasons">
       <field name="varianceReasonId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
-      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
       <prim-key field="varianceReasonId"/>
       <prim-key field="organizationPartyId"/>
       <relation type="one" fk-name="VRGL_VREAS" rel-entity-name="VarianceReason">
@@ -2678,7 +2678,7 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Billing Account Term Entity">
       <field name="billingAccountTermId" type="id"></field>
-      <field name="billingAccountId" type="id-ne"></field>
+      <field name="billingAccountId" type="id"></field>
       <field name="termTypeId" type="id"></field>
       <field name="termValue" type="currency-amount"></field>
       <field name="termDays" type="numeric"></field>
@@ -2724,7 +2724,7 @@ under the License.
       <field name="middleNameOnCard" type="name"></field>
       <field name="lastNameOnCard" type="name"></field>
       <field name="suffixOnCard" type="name"></field>
-      <field name="contactMechId" type="id-ne"><description>The Billing PostalAddress</description></field>
+      <field name="contactMechId" type="id"><description>The Billing PostalAddress</description></field>
       <field name="consecutiveFailedAuths" type="numeric"></field>
       <field name="lastFailedAuthDate" type="date-time"></field>
       <field name="consecutiveFailedNsf" type="numeric"></field>
@@ -2745,7 +2745,7 @@ under the License.
             title="Credit Card Type GL Account Entity">
       <field name="cardType" type="short-varchar"></field>
       <field name="organizationPartyId" type="id"></field>
-      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
       <prim-key field="cardType"/>
       <prim-key field="organizationPartyId"/>
     </entity>
@@ -2786,7 +2786,7 @@ under the License.
       <field name="accountNumber" type="long-varchar"></field>
       <field name="nameOnAccount" type="name"></field>
       <field name="companyNameOnAccount" type="name"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="yearsAtBank" type="numeric"></field>
       <prim-key field="paymentMethodId"/>
       <relation type="one" fk-name="EFTACCT_PMETH" rel-entity-name="PaymentMethod">
@@ -2810,7 +2810,7 @@ under the License.
       <field name="accountNumber" type="long-varchar"></field>
       <field name="nameOnAccount" type="name"></field>
       <field name="companyNameOnAccount" type="name"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="branchCode" type="short-varchar"></field>
       <prim-key field="paymentMethodId"/>
       <relation type="one" fk-name="CACCT_PMETH" rel-entity-name="PaymentMethod">
@@ -2831,7 +2831,7 @@ under the License.
       <field name="cardNumber" type="long-varchar" encrypt="true"></field>
       <field name="pinNumber" type="long-varchar" encrypt="true"></field>
       <field name="expireDate" type="credit-card-date"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <prim-key field="paymentMethodId"/>
       <relation type="one" fk-name="GIFTCARD_PMNTMETH" rel-entity-name="PaymentMethod">
         <key-map field-name="paymentMethodId"/>
@@ -2847,12 +2847,12 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Gift Card Fulfillment History">
       <field name="fulfillmentId" type="id"></field>
-      <field name="typeEnumId" type="id-ne"></field>
-      <field name="merchantId" type="id-vlong-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="orderId" type="id-ne"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
-      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="typeEnumId" type="id"></field>
+      <field name="merchantId" type="id-vlong"></field>
+      <field name="partyId" type="id"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
+      <field name="surveyResponseId" type="id"></field>
       <field name="cardNumber" type="long-varchar" encrypt="true"></field>
       <field name="pinNumber" type="long-varchar" encrypt="true"></field>
       <field name="amount" type="currency-amount"></field>
@@ -2883,14 +2883,14 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Payment Entity">
       <field name="paymentId" type="id"></field>
-      <field name="paymentTypeId" type="id-ne"></field>
-      <field name="paymentMethodTypeId" type="id-ne"></field>
+      <field name="paymentTypeId" type="id"></field>
+      <field name="paymentMethodTypeId" type="id"></field>
       <field name="paymentMethodId" type="id"></field>
       <field name="paymentGatewayResponseId" type="id"></field>
       <field name="paymentPreferenceId" type="id"></field>
-      <field name="partyIdFrom" type="id-ne"></field>
-      <field name="partyIdTo" type="id-ne"></field>
-      <field name="roleTypeIdTo" type="id-ne"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
+      <field name="roleTypeIdTo" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="effectiveDate" type="date-time"></field>
       <field name="paymentRefNum" type="short-varchar"></field>
@@ -3211,9 +3211,9 @@ under the License.
             title="Payment Method Entity">
       <field name="paymentMethodId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="glAccountId" type="id-ne"></field>
-      <field name="finAccountId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="glAccountId" type="id"></field>
+      <field name="finAccountId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -3402,7 +3402,7 @@ under the License.
             title="Maps PaymentTypes to GlAccountTypes, allowing user to configure payments and gl accounts">
       <field name="paymentTypeId" type="id"></field>
       <field name="organizationPartyId" type="id"/>
-      <field name="glAccountTypeId" type="id-ne"/>
+      <field name="glAccountTypeId" type="id"/>
       <prim-key field="paymentTypeId"/>
       <prim-key field="organizationPartyId"/>
       <relation type="one" fk-name="PMTGLACCT_PMTTYPE" rel-entity-name="PaymentType">
@@ -3434,7 +3434,7 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id"></field>
-      <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
+      <field name="paymentGatewayConfigTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="paymentGatewayConfigId"/>
       <relation type="one" fk-name="PGC_PGCT" rel-entity-name="PaymentGatewayConfigType">
@@ -3685,7 +3685,7 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Payment Gateway Response Message">
         <field name="paymentGatewayRespMsgId" type="id"></field>
-        <field name="paymentGatewayResponseId" type="id-ne"></field>
+        <field name="paymentGatewayResponseId" type="id"></field>
         <field name="pgrMessage" type="very-long"></field>
         <prim-key field="paymentGatewayRespMsgId"/>
         <relation type="one" fk-name="PAYGATRM_PAYGR" rel-entity-name="PaymentGatewayResponse">
@@ -3696,7 +3696,7 @@ under the License.
             package-name="org.apache.ofbiz.accounting.payment"
             title="Payment Gateway Response">
       <field name="paymentGatewayResponseId" type="id"></field>
-      <field name="paymentServiceTypeEnumId" type="id-ne"></field>
+      <field name="paymentServiceTypeEnumId" type="id"></field>
       <field name="orderPaymentPreferenceId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="paymentMethodId" type="id"></field>
@@ -3743,7 +3743,7 @@ under the License.
             title="Payment Group Entity">
       <description>Payment Group</description>
       <field name="paymentGroupId" type="id"></field>
-      <field name="paymentGroupTypeId" type="id-ne"></field>
+      <field name="paymentGroupTypeId" type="id"></field>
       <field name="paymentGroupName" type="name"></field>
       <prim-key field="paymentGroupId"/>
       <relation type="one" fk-name="PAYMNTGP_PGTYPE" rel-entity-name="PaymentGroupType">
@@ -3793,7 +3793,7 @@ under the License.
       <field name="avsAddr" type="indicator"></field>
       <field name="avsZip" type="indicator"></field>
       <field name="correlationId" type="id"></field>
-      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
       <field name="transactionId" type="short-varchar"></field>
       <prim-key field="paymentMethodId"/>
       <relation type="one" fk-name="PAYPAL_PMNTMETH" rel-entity-name="PaymentMethod">
@@ -3836,7 +3836,7 @@ under the License.
         <field name="taxAuthPartyId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="partyTaxId" type="id-long-ne"></field>
+        <field name="partyTaxId" type="id-long"></field>
         <field name="isExempt" type="indicator"></field>
         <field name="isNexus" type="indicator"><!-- default N; if Y it means that this Party has a sufficient presence in the area to warrant having to charge tax --></field>
         <prim-key field="partyId"/>
@@ -3901,7 +3901,7 @@ under the License.
         <field name="toTaxAuthPartyId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="taxAuthorityAssocTypeId" type="id-ne"></field>
+        <field name="taxAuthorityAssocTypeId" type="id"></field>
         <prim-key field="taxAuthGeoId"/>
         <prim-key field="taxAuthPartyId"/>
         <prim-key field="toTaxAuthGeoId"/>
@@ -3955,7 +3955,7 @@ under the License.
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
         <field name="organizationPartyId" type="id"></field>
-        <field name="glAccountId" type="id-ne"></field>
+        <field name="glAccountId" type="id"></field>
         <prim-key field="taxAuthGeoId"/>
         <prim-key field="taxAuthPartyId"/>
         <prim-key field="organizationPartyId"/>
@@ -3989,12 +3989,12 @@ under the License.
     </view-entity>
     <entity entity-name="TaxAuthorityRateProduct" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Rate Entity">
         <field name="taxAuthorityRateSeqId" type="id"></field>
-        <field name="taxAuthGeoId" type="id-ne"></field>
-        <field name="taxAuthPartyId" type="id-ne"></field>
-        <field name="taxAuthorityRateTypeId" type="id-ne"></field>
-        <field name="productStoreId" type="id-ne"></field>
-        <field name="productCategoryId" type="id-ne"></field>
-        <field name="titleTransferEnumId" type="id-ne"></field>
+        <field name="taxAuthGeoId" type="id"></field>
+        <field name="taxAuthPartyId" type="id"></field>
+        <field name="taxAuthorityRateTypeId" type="id"></field>
+        <field name="productStoreId" type="id"></field>
+        <field name="productCategoryId" type="id"></field>
+        <field name="titleTransferEnumId" type="id"></field>
         <field name="minItemPrice" type="currency-amount"></field>
         <field name="minPurchase" type="currency-amount"></field>
         <field name="taxShipping" type="indicator"></field>
@@ -4074,7 +4074,7 @@ under the License.
         <field name="partyId" type="id"/>
         <field name="roleTypeId" type="id"/>
         <field name="glAccountTypeId" type="id"/>
-        <field name="glAccountId" type="id-ne"/>
+        <field name="glAccountId" type="id"/>
         <prim-key field="organizationPartyId"/>
         <prim-key field="partyId"/>
         <prim-key field="roleTypeId"/>
@@ -4224,7 +4224,7 @@ under the License.
           package-name="org.apache.ofbiz.accounting.ledger"
           title="General Ledger Account Category Entity">
       <field name="glAccountCategoryId" type="id"></field>
-      <field name="glAccountCategoryTypeId" type="id-ne"></field>
+      <field name="glAccountCategoryTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glAccountCategoryId"/>
       <relation type="one" fk-name="GLACT_CAT_TP" rel-entity-name="GlAccountCategoryType">

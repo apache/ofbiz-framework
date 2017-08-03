@@ -1552,11 +1552,11 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             title="Party Entity">
       <field name="partyId" type="id"></field>
-      <field name="partyTypeId" type="id-ne"></field>
+      <field name="partyTypeId" type="id"></field>
       <field name="externalId" type="id"></field>
-      <field name="preferredCurrencyUomId" type="id-ne"></field>
+      <field name="preferredCurrencyUomId" type="id"></field>
       <field name="description" type="very-long"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1872,7 +1872,7 @@ under the License.
         <field name="carrierPartyId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="accountNumber" type="id-ne"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
+        <field name="accountNumber" type="id"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
         <prim-key field="partyId"/>
         <prim-key field="carrierPartyId"/>
         <prim-key field="fromDate"/>
@@ -2077,7 +2077,7 @@ under the License.
             package-name="org.apache.ofbiz.party.party"
             title="Party Invitation Entity">
         <field name="partyInvitationId" type="id"></field>
-        <field name="partyIdFrom" type="id-ne"></field>
+        <field name="partyIdFrom" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="toName" type="name"></field>
         <field name="emailAddress" type="long-varchar"></field>
@@ -2269,10 +2269,10 @@ under the License.
       <field name="relationshipName" type="name">
           <description>Official name of relationship, such as title in a company</description>
       </field>
-      <field name="securityGroupId" type="id-ne"></field>
+      <field name="securityGroupId" type="id"></field>
       <field name="priorityTypeId" type="id"></field>
       <field name="partyRelationshipTypeId" type="id"></field>
-      <field name="permissionsEnumId" type="id-ne"></field>
+      <field name="permissionsEnumId" type="id"></field>
       <field name="positionTitle" type="name"><description>The exact word used within the company</description></field>
       <field name="comments" type="comment"></field>
       <prim-key field="partyIdFrom"/>

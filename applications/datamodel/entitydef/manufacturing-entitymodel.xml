@@ -46,7 +46,7 @@ under the License.
       <field name="ruleId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="productIdFor" type="id"></field>
-      <field name="productIdIn" type="id-ne"></field>
+      <field name="productIdIn" type="id"></field>
       <field name="ruleSeqId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="productIdInSubst" type="id"></field>
@@ -86,7 +86,7 @@ under the License.
       </description>
       <field name="calendarId" type="id"></field>
       <field name="description" type="description"></field>
-      <field name="calendarWeekId" type="id-ne"></field>
+      <field name="calendarWeekId" type="id"></field>
       <prim-key field="calendarId"/>
       <relation type="one" fk-name="CALENDAR_WEEK" rel-entity-name="TechDataCalendarWeek">
         <key-map field-name="calendarWeekId"/>
@@ -114,7 +114,7 @@ under the License.
       <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
       <field name="calendarId" type="id"></field>
       <field name="exceptionDateStart" type="date"></field>
-      <field name="calendarWeekId" type="id-ne"></field>
+      <field name="calendarWeekId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="calendarId"/>
       <prim-key field="exceptionDateStart"/>

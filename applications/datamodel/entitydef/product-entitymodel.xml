@@ -322,7 +322,7 @@ under the License.
         <field name="productCategoryId" type="id"></field>
         <field name="organizationPartyId" type="id"></field>
         <field name="glAccountTypeId" type="id"></field>
-        <field name="glAccountId" type="id-ne"></field>
+        <field name="glAccountId" type="id"></field>
         <prim-key field="productCategoryId"/>
         <prim-key field="organizationPartyId"/>
         <prim-key field="glAccountTypeId"/>
@@ -759,7 +759,7 @@ under the License.
         <field name="sequenceNum" type="numeric"></field>
         <field name="configOptionId" type="id"></field>
         <field name="productId" type="id"></field>
-        <field name="productOptionId" type="id-ne"></field>
+        <field name="productOptionId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="configId"/>
         <prim-key field="configItemId"/>
@@ -910,7 +910,7 @@ under the License.
             title="Product Cost Calculation Entity">
         <field name="productId" type="id"></field>
         <field name="costComponentTypeId" type="id"></field>
-        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="sequenceNum" type="numeric"></field>
         <field name="thruDate" type="date-time"></field>
@@ -995,7 +995,7 @@ under the License.
         <field name="facilityId" type="id"></field>
         <field name="facilityTypeId" type="id"></field>
         <field name="parentFacilityId" type="id"></field>
-        <field name="ownerPartyId" type="id-ne"/>
+        <field name="ownerPartyId" type="id"/>
         <field name="defaultInventoryItemTypeId" type="id"></field>
         <field name="facilityName" type="name"></field>
         <field name="primaryFacilityGroupId" type="id"></field>
@@ -1231,7 +1231,7 @@ under the License.
     <entity entity-name="FacilityLocation" package-name="org.apache.ofbiz.product.facility" title="Facility Location Entity">
         <field name="facilityId" type="id"></field>
         <field name="locationSeqId" type="id"></field>
-        <field name="locationTypeEnumId" type="id-ne"></field>
+        <field name="locationTypeEnumId" type="id"></field>
         <field name="areaId" type="id"></field>
         <field name="aisleId" type="id"></field>
         <field name="sectionId" type="id"></field>
@@ -1503,7 +1503,7 @@ under the License.
             default-resource-name="ProductEntityLabels"
             title="Product Feature Entity">
       <field name="productFeatureId" type="id"></field>
-      <field name="productFeatureTypeId" type="id-ne"></field>
+      <field name="productFeatureTypeId" type="id"></field>
       <field name="productFeatureCategoryId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="uomId" type="id"></field>
@@ -2246,7 +2246,7 @@ under the License.
             package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Label Entity">
       <field name="inventoryItemLabelId" type="id"></field>
-      <field name="inventoryItemLabelTypeId" type="id-ne"></field>
+      <field name="inventoryItemLabelTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="inventoryItemLabelId"/>
       <relation type="one" fk-name="INV_ITLA_TYPE" rel-entity-name="InventoryItemLabelType">
@@ -2258,7 +2258,7 @@ under the License.
             title="Inventory Item Label Applicability Entity">
       <field name="inventoryItemId" type="id"></field>
       <field name="inventoryItemLabelTypeId" type="id"></field>
-      <field name="inventoryItemLabelId" type="id-ne"></field>
+      <field name="inventoryItemLabelId" type="id"></field>
       <field name="sequenceNum" type="numeric"></field>
       <prim-key field="inventoryItemId"/>
       <prim-key field="inventoryItemLabelTypeId"/>
@@ -2276,8 +2276,8 @@ under the License.
             package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Transfer Entity">
       <field name="inventoryTransferId" type="id"></field>
-      <field name="statusId" type="id-ne"></field>
-      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
+      <field name="inventoryItemId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="locationSeqId" type="id"></field>
       <field name="containerId" type="id"></field>
@@ -2423,8 +2423,8 @@ under the License.
       <field name="priceWithTax" type="currency-precise"><description>Always with tax if populated, regardless of if price does or does not include tax.</description></field>
       <field name="taxAmount" type="currency-precise"/>
       <field name="taxPercentage" type="fixed-point"/>
-      <field name="taxAuthPartyId" type="id-ne"/>
-      <field name="taxAuthGeoId" type="id-ne"/>
+      <field name="taxAuthPartyId" type="id"/>
+      <field name="taxAuthGeoId" type="id"/>
       <field name="taxInPrice" type="indicator"><description>If Y the price field has tax included for the given taxAuthPartyId/taxAuthGeoId at the taxPercentage.</description></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
@@ -2481,7 +2481,7 @@ under the License.
             title="Product Price Action Entity">
       <field name="productPriceRuleId" type="id"></field>
       <field name="productPriceActionSeqId" type="id"></field>
-      <field name="productPriceActionTypeId" type="id-ne"></field>
+      <field name="productPriceActionTypeId" type="id"></field>
       <field name="amount" type="fixed-point"></field>
       <field name="rateCode" type="short-varchar"></field>
       <prim-key field="productPriceRuleId"/>
@@ -2515,9 +2515,9 @@ under the License.
             package-name="org.apache.ofbiz.product.price"
             title="Product Price Change History Entity">
       <field name="productPriceChangeId" type="id"></field>
-      <field name="productId" type="id-ne"></field>
-      <field name="productPriceTypeId" type="id-ne"></field>
-      <field name="productPricePurposeId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
+      <field name="productPriceTypeId" type="id"></field>
+      <field name="productPricePurposeId" type="id"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="productStoreGroupId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -3071,7 +3071,7 @@ under the License.
       <field name="productId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="glAccountTypeId" type="id"></field>
-      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
       <prim-key field="productId"/>
       <prim-key field="organizationPartyId"/>
       <prim-key field="glAccountTypeId"/>
@@ -3112,7 +3112,7 @@ under the License.
       <field name="keyword" type="short-varchar"></field>
       <field name="keywordTypeId" type="id"></field>
       <field name="relevancyWeight" type="numeric"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <prim-key field="productId"/>
       <prim-key field="keyword"/>
       <prim-key field="keywordTypeId"/>
@@ -3209,9 +3209,9 @@ under the License.
             package-name="org.apache.ofbiz.product.product"
             title="Product Review Entity">
         <field name="productReviewId" type="id"></field>
-        <field name="productStoreId" type="id-ne"></field>
-        <field name="productId" type="id-ne"></field>
-        <field name="userLoginId" type="id-vlong-ne"></field>
+        <field name="productStoreId" type="id"></field>
+        <field name="productId" type="id"></field>
+        <field name="userLoginId" type="id-vlong"></field>
         <field name="statusId" type="id"></field>
         <field name="postedAnonymous" type="indicator"></field>
         <field name="postedDateTime" type="date-time"></field>
@@ -3453,7 +3453,7 @@ under the License.
       <field name="productPromoId" type="id"></field>
       <field name="productPromoRuleId" type="id"></field>
       <field name="productPromoActionSeqId" type="id"></field>
-      <field name="productPromoActionEnumId" type="id-ne"></field>
+      <field name="productPromoActionEnumId" type="id"></field>
       <field name="orderAdjustmentTypeId" type="id"></field>
       <field name="serviceName" type="long-varchar"></field>
       <field name="quantity" type="fixed-point"></field>
@@ -3497,7 +3497,7 @@ under the License.
       <field name="productPromoCondSeqId" type="id"></field>
       <field name="productCategoryId" type="id"></field>
       <field name="andGroupId" type="id"></field>
-      <field name="productPromoApplEnumId" type="id-ne"></field>
+      <field name="productPromoApplEnumId" type="id"></field>
       <field name="includeSubCategories" type="indicator"></field>
       <prim-key field="productPromoId"/>
       <prim-key field="productPromoRuleId"/>
@@ -3519,7 +3519,7 @@ under the License.
             package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Entity">
       <field name="productPromoCodeId" type="id"></field>
-      <field name="productPromoId" type="id-ne"></field>
+      <field name="productPromoId" type="id"></field>
       <field name="userEntered" type="indicator"></field>
       <field name="requireEmailOrParty" type="indicator"></field>
       <field name="useLimitPerCode" type="numeric"></field>
@@ -3629,7 +3629,7 @@ under the License.
       <field name="productPromoActionSeqId" type="id"></field>
       <field name="productPromoCondSeqId" type="id"></field>
       <field name="productId" type="id"></field>
-      <field name="productPromoApplEnumId" type="id-ne"></field>
+      <field name="productPromoApplEnumId" type="id"></field>
       <prim-key field="productPromoId"/>
       <prim-key field="productPromoRuleId"/>
       <prim-key field="productPromoActionSeqId"/>
@@ -3662,9 +3662,9 @@ under the License.
             title="Product Promotion Use Entity">
       <field name="orderId" type="id"></field>
       <field name="promoSequenceId" type="id"></field>
-      <field name="productPromoId" type="id-ne"></field>
-      <field name="productPromoCodeId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
+      <field name="productPromoId" type="id"></field>
+      <field name="productPromoCodeId" type="id"></field>
+      <field name="partyId" type="id"></field>
       <field name="totalDiscountAmount" type="currency-amount"></field>
       <field name="quantityLeftInActions" type="fixed-point"></field>
       <prim-key field="orderId"/>
@@ -4206,10 +4206,10 @@ under the License.
             package-name="org.apache.ofbiz.product.store"
             title="Product Store Carrier Shipment Method Entity">
       <field name="productStoreShipMethId" type="id"></field>
-      <field name="productStoreId" type="id-ne"></field>
-      <field name="shipmentMethodTypeId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="productStoreId" type="id"></field>
+      <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
       <field name="companyPartyId" type="id"></field>
       <field name="minWeight" type="fixed-point"></field>
       <field name="maxWeight" type="fixed-point"></field>
@@ -4309,10 +4309,10 @@ under the License.
             package-name="org.apache.ofbiz.product.store"
             title="Product Store Survey Application Entity">
       <field name="productStoreSurveyId" type="id"></field>
-      <field name="productStoreId" type="id-ne"></field>
-      <field name="surveyApplTypeId" type="id-ne"></field>
+      <field name="productStoreId" type="id"></field>
+      <field name="surveyApplTypeId" type="id"></field>
       <field name="groupName" type="name"></field>
-      <field name="surveyId" type="id-ne"></field>
+      <field name="surveyId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="productCategoryId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -4699,7 +4699,7 @@ under the License.
             package-name="org.apache.ofbiz.product.supplier"
             title="Reorder Guideline Entity">
       <field name="reorderGuidelineId" type="id"></field>
-      <field name="productId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
       <field name="facilityId" type="id"></field>
@@ -4851,13 +4851,13 @@ under the License.
             package-name="org.apache.ofbiz.product.product"
             title="Product Group Order Entity">
       <field name="groupOrderId" type="id"></field>
-      <field name="productId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="reqOrderQty" type="fixed-point"></field>
       <field name="soldOrderQty" type="fixed-point"></field>
-      <field name="jobId" type="id-ne"></field>
+      <field name="jobId" type="id"></field>
       <prim-key field="groupOrderId"/>
       <relation type="one" fk-name="PROD_GROUP_ORDER" rel-entity-name="Product">
         <key-map field-name="productId"/>

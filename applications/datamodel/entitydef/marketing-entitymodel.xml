@@ -53,11 +53,11 @@ under the License.
       <field name="budgetedCost" type="currency-amount"></field>
       <field name="actualCost" type="currency-amount"></field>
       <field name="estimatedCost" type="currency-amount"></field>
-      <field name="currencyUomId" type="id-ne"></field>
+      <field name="currencyUomId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="isActive" type="indicator"></field>
-      <field name="convertedLeads" type="id-ne"></field>
+      <field name="convertedLeads" type="id"></field>
       <field name="expectedResponsePercent" type="floating-point"></field>
       <field name="expectedRevenue" type="currency-amount"></field>
       <field name="numSent" type="numeric"></field>
@@ -149,8 +149,8 @@ under the License.
             package-name="org.apache.ofbiz.marketing.contact"
             title="Contact List Entity">
       <field name="contactListId" type="id"></field>
-      <field name="contactListTypeId" type="id-ne"></field>
-      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="contactListTypeId" type="id"></field>
+      <field name="contactMechTypeId" type="id"></field>
       <field name="marketingCampaignId" type="id"></field>
       <field name="contactListName" type="name"></field>
       <field name="description" type="description"></field>
@@ -210,7 +210,7 @@ under the License.
       <field name="contactMechId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="messageId" type="value"></field>
-      <field name="statusId" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
       <field name="changeByUserLoginId" type="id-vlong"></field>
       <prim-key field="contactListId"/>
       <prim-key field="communicationEventId"/>
@@ -309,7 +309,7 @@ under the License.
             package-name="org.apache.ofbiz.marketing.segment"
             title="Segment Group Entity">
         <field name="segmentGroupId" type="id"></field>
-        <field name="segmentGroupTypeId" type="id-ne"></field>
+        <field name="segmentGroupTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <field name="productStoreId" type="id"></field>
         <prim-key field="segmentGroupId"/>
@@ -439,7 +439,7 @@ under the License.
             package-name="org.apache.ofbiz.marketing.tracking"
             title="Tracking Code Entity">
       <field name="trackingCodeId" type="id"></field>
-      <field name="trackingCodeTypeId" type="id-ne"></field>
+      <field name="trackingCodeTypeId" type="id"></field>
       <field name="marketingCampaignId" type="id"></field>
       <field name="redirectUrl" type="url"></field>
       <field name="overrideLogo" type="url"></field>
@@ -470,7 +470,7 @@ under the License.
             title="Tracking Code Visit Entity">
       <field name="orderId" type="id"></field>
       <field name="trackingCodeTypeId" type="id"></field>
-      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="trackingCodeId" type="id"></field>
       <field name="isBillable" type="indicator"></field>
       <field name="siteId" type="long-varchar"></field>
       <field name="hasExported" type="indicator"></field>
@@ -492,9 +492,9 @@ under the License.
             title="Tracking Code And Order Return">
       <field name="returnId" type="id"></field>
       <field name="orderId" type="id"></field>
-      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id"></field>
       <field name="trackingCodeTypeId" type="id"></field>
-      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="trackingCodeId" type="id"></field>
       <field name="isBillable" type="indicator"></field>
       <field name="siteId" type="long-varchar"></field>
       <field name="hasExported" type="indicator"></field>
@@ -659,12 +659,12 @@ under the License.
         <field name="nextStepDate" type="date-time"/>
         <field name="estimatedAmount" type="currency-amount"/>
         <field name="estimatedProbability" type="fixed-point"/>
-        <field name="currencyUomId" type="id-ne"/>
-        <field name="marketingCampaignId" type="id-ne"/>
-        <field name="dataSourceId" type="id-ne"/>
+        <field name="currencyUomId" type="id"/>
+        <field name="marketingCampaignId" type="id"/>
+        <field name="dataSourceId" type="id"/>
         <field name="estimatedCloseDate" type="date-time"/>
-        <field name="opportunityStageId" type="id-ne"/>
-        <field name="typeEnumId" type="id-ne"/>
+        <field name="opportunityStageId" type="id"/>
+        <field name="typeEnumId" type="id"/>
         <field name="createdByUserLogin" type="id-vlong"/>
         <prim-key field="salesOpportunityId"/>
         <relation fk-name="SLSOPP_CRNCY_UOM" rel-entity-name="Uom" type="one">
@@ -688,14 +688,14 @@ under the License.
             package-name="org.apache.ofbiz.marketing.opportunity"
             title="Tracks a history of sales opportunity information">
         <field name="salesOpportunityHistoryId" type="id"></field>
-        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="salesOpportunityId" type="id"></field>
         <field name="description" type="very-long"/>
         <field name="nextStep" type="very-long"/>
         <field name="estimatedAmount" type="currency-amount"/>
         <field name="estimatedProbability" type="fixed-point"/>
-        <field name="currencyUomId" type="id-ne"/>
+        <field name="currencyUomId" type="id"/>
         <field name="estimatedCloseDate" type="date-time"/>
-        <field name="opportunityStageId" type="id-ne"/>
+        <field name="opportunityStageId" type="id"/>
         <field name="changeNote" type="very-long">
             <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->
         </field>
@@ -864,7 +864,7 @@ under the License.
             package-name="org.apache.ofbiz.marketing.opportunity"
             title="Keeps a record of changes to a sales forecast.">
         <field name="salesForecastHistoryId" type="id"></field>
-        <field name="salesForecastId" type="id-ne"></field>
+        <field name="salesForecastId" type="id"></field>
         <field name="parentSalesForecastId" type="id"></field>
         <field name="organizationPartyId" type="id"></field>
         <field name="internalPartyId" type="id"></field>
@@ -906,7 +906,7 @@ under the License.
             title="Sales opportunity competitors record">
         <field name="salesOpportunityId" type="id"></field>
         <field name="competitorPartyId" type="id"></field>
-        <field name="positionEnumId" type="id-ne"></field>
+        <field name="positionEnumId" type="id"></field>
         <field name="strengths" type="very-long"></field>
         <field name="weaknesses" type="very-long"></field>
         <prim-key field="salesOpportunityId"/>

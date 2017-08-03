@@ -49,7 +49,7 @@ under the License.
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Entity">
         <field name="testingId" type="id"/>
-        <field name="testingTypeId" type="id-ne"/>
+        <field name="testingTypeId" type="id"/>
         <field name="testingName" type="name" enable-audit-log="true"/>
         <field name="description" type="description"/>
         <field name="comments" type="comment"/>
@@ -99,8 +99,8 @@ under the License.
             title="Entity for testing EntityStatus concept">
         <description>An entity for testing EntityStatus concept</description>
         <field name="testingStatusId" type="id"/>
-        <field name="testingId" type="id-ne" />
-        <field name="statusId" type="id-ne"/>
+        <field name="testingId" type="id" />
+        <field name="statusId" type="id"/>
         <field name="statusDate" type="date-time"/>
         <field name="changeByUserLoginId" type="id-vlong"/>
         <prim-key field="testingStatusId"/>
@@ -220,7 +220,7 @@ under the License.
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Crypto Entity">
         <field name="testingCryptoId" type="id"/>
-        <field name="testingCryptoTypeId" type="id-ne"/>
+        <field name="testingCryptoTypeId" type="id"/>
         <field name="unencryptedValue" type="description"/>
         <field name="encryptedValue" type="description" encrypt="true"/>
         <field name="saltedEncryptedValue" type="description" encrypt="salt"/>

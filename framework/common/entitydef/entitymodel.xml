@@ -75,7 +75,7 @@ under the License.
 
     <entity entity-name="EmailTemplateSetting" package-name="org.apache.ofbiz.common.email" title="Email Template Setting Entity">
         <field name="emailTemplateSettingId" type="id"></field>
-        <field name="emailType" type="id-ne"></field>
+        <field name="emailType" type="id"></field>
         <field name="description" type="description"></field>
         <field name="bodyScreenLocation" type="long-varchar"><description>if empty defaults to a screen based on the emailType</description></field>
         <field name="xslfoAttachScreenLocation" type="long-varchar"><description>if specified is used to generate XSL:FO that is transformed to a PDF via Apache FOP and attached to the email</description></field>
@@ -99,7 +99,7 @@ under the License.
             default-resource-name="CommonEntityLabels"
             title="Enumeration Entity">
       <field name="enumId" type="id"></field>
-      <field name="enumTypeId" type="id-ne"></field>
+      <field name="enumTypeId" type="id"></field>
       <field name="enumCode" type="short-varchar"></field>
       <field name="sequenceId" type="id"></field>
       <field name="description" type="description"></field>
@@ -439,7 +439,7 @@ under the License.
             default-resource-name="CommonEntityLabels"
             title="Status Entity">
       <field name="statusId" type="id"></field>
-      <field name="statusTypeId" type="id-ne"></field>
+      <field name="statusTypeId" type="id"></field>
       <field name="statusCode" type="short-varchar"></field>
       <field name="sequenceId" type="id"></field>
       <field name="description" type="description"></field>
@@ -551,7 +551,7 @@ under the License.
       <field name="uomId" type="id"></field>
       <field name="uomIdTo" type="id"></field>
       <field name="conversionFactor" type="floating-point"></field>
-      <field name="customMethodId" type="id-ne"></field>
+      <field name="customMethodId" type="id"></field>
       <field name="decimalScale" type="numeric"></field>
       <field name="roundingMode" type="id"></field>
       <prim-key field="uomId"/>
@@ -574,7 +574,7 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="conversionFactor" type="floating-point"></field>
-      <field name="customMethodId" type="id-ne"></field>
+      <field name="customMethodId" type="id"></field>
       <field name="decimalScale" type="numeric"></field>
       <field name="roundingMode" type="id"></field>
       <field name="purposeEnumId" type="id"></field>
@@ -741,7 +741,7 @@ under the License.
         <!-- defined in an extend in content component to avoid dependencies between common and content
         <field name="helpContentId" type="id"><description>Used to give contentId which will be shown when help on this page will be called</description></field>
          -->
-        <field name="ownerUserLoginId" type="id-vlong-ne"></field>
+        <field name="ownerUserLoginId" type="id-vlong"></field>
         <field name="originalPortalPageId" type="id"><description>The system portal page this page is derived from</description></field>
         <field name="parentPortalPageId" type="id"><description>the parent this page is belonging to, normally the startpage of the portal page group</description></field>
         <field name="sequenceNum" type="numeric"></field>
@@ -788,7 +788,7 @@ under the License.
         <field name="portalPageId" type="id"></field>
         <field name="portalPortletId" type="id"></field>
         <field name="portletSeqId" type="id"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
-        <field name="columnSeqId" type="id-ne"></field>
+        <field name="columnSeqId" type="id"></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="portalPageId"/>
         <prim-key field="portalPortletId"/>

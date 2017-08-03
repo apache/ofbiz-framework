@@ -91,8 +91,8 @@ under the License.
     </entity>
     <entity entity-name="ServerHitBin" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin Entity" no-auto-stamp="true">
       <field name="serverHitBinId" type="id"></field>
-      <field name="contentId" type="id-vlong-ne"></field>
-      <field name="hitTypeId" type="id-ne"></field>
+      <field name="contentId" type="id-vlong"></field>
+      <field name="hitTypeId" type="id"></field>
       <field name="serverIpAddress" type="id"></field>
       <field name="serverHostName" type="long-varchar"></field>
       <field name="binStartDateTime" type="date-time"></field>
