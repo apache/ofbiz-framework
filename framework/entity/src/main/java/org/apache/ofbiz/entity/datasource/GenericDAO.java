@@ -1024,6 +1024,7 @@ public class GenericDAO {
         }
 
         boolean isGroupBy = false;
+        boolean isCountGroup = false;
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -1054,11 +1055,20 @@ public class GenericDAO {
                     // if the field has a function already we don't want to count just it, would be meaningless
                     sqlBuffer.append("COUNT(DISTINCT *) ");
                 } else {
-                    sqlBuffer.append("COUNT(DISTINCT ");
-                    // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
-                    sqlBuffer.append(firstSelectField.getColValue());
-                    // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasource.aliasViews));
-                    sqlBuffer.append(")");
+                    isCountGroup = true;
+                    StringBuilder sqlBufferTMP = new StringBuilder("SELECT COUNT(*) FROM(");
+                    sqlBuffer.append("DISTINCT ");
+                    for (int i = 0; i < selectFields.size() - 1; i++) {
+                        ModelViewEntity.ModelAlias tmpMA = modelViewEntity != null ? modelViewEntity.getAlias(selectFields.get(i).getName()) : null;
+                        if (tmpMA != null && !tmpMA.getColAlias().isEmpty()) {
+                            sqlBuffer.append(selectFields.get(i).getColValue() + " as " + tmpMA.getColAlias() + ",");
+                        } else {
+                            sqlBuffer.append(selectFields.get(i).getColValue() + ",");
+                        }
+                    }
+                    sqlBuffer.append(selectFields.get(selectFields.size() - 1).getColValue());
+                    sqlBufferTMP.append(sqlBuffer);
+                    sqlBuffer = sqlBufferTMP;
                 }
             } else {
                 sqlBuffer.append("COUNT(DISTINCT *) ");
@@ -1097,6 +1107,9 @@ public class GenericDAO {
 
         if (isGroupBy) {
             sqlBuffer.append(") TEMP_NAME");
+        }
+        if (isCountGroup) {
+            sqlBuffer.append(") TEMP_COUNT_NAME");
         }
 
         String sql = sqlBuffer.toString();
