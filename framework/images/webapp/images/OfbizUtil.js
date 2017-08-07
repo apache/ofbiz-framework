@@ -253,7 +253,7 @@ function changeObjectVisibility(objectId, newVisibility) {
     }
 }
 
-// To use this in a link use a URL like this: javascript:confirmActionLink('You want to delete this party?', 'deleteParty?partyId=${partyId}')
+// To use this in a link use a URL like this: javascript:confirmActionLink('You want to delete this example?', 'deleteExample?exampleId=${exampleId}')
 function confirmActionLink(msg, newLocation) {
     if (msg == null) {
         msg = "Are you sure you want to do this?";
@@ -264,7 +264,7 @@ function confirmActionLink(msg, newLocation) {
     }
 }
 
-// To use this in a link use a URL like this: javascript:confirmActionFormLink('You want to update this party?', 'updateParty')
+// To use this in a link use a URL like this: javascript:confirmActionFormLink('You want to update this example?', 'updateExample')
 function confirmActionFormLink(msg, formName) {
     if (msg == null) {
         msg = "Are you sure you want to do this?";

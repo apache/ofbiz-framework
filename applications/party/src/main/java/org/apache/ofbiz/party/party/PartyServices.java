@@ -72,34 +72,6 @@ public class PartyServices {
     public static final String resourceError = "PartyErrorUiLabels";
 
     /**
-     * Deletes a Party.
-     * @param ctx The DispatchContext that this service is operating in.
-     * @param context Map containing the input parameters.
-     * @return Map with the result of the service, the output parameters.
-     */
-    public static Map<String, Object> deleteParty(DispatchContext ctx, Map<String, ? extends Object> context) {
-
-        Locale locale = (Locale) context.get("locale");
-
-        /*
-         * pretty serious operation, would delete:
-         * - Party
-         * - PartyRole
-         * - PartyRelationship: from and to
-         * - PartyDataObject
-         * - Person or PartyGroup
-         * - PartyContactMech, but not ContactMech itself
-         * - PartyContactMechPurpose
-         * - Order?
-         *
-         * We may want to not allow this, but rather have some sort of delete flag for it if it's REALLY that big of a deal...
-         */
-
-        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                "partyservices.cannot_delete_party_not_implemented", locale));
-    }
-
-    /**
      * Creates a Person.
      * If no partyId is specified a numeric partyId is retrieved from the Party sequence.
      * @param ctx The DispatchContext that this service is operating in.
