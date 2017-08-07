@@ -52,11 +52,6 @@ under the License.
     </service>
 
     <!-- Party services -->
-    <service name="deleteParty" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
-        <description>Delete a Party</description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-    </service>
     <service name="setPartyStatus" engine="java"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
         <description>Set the party status. Requires PARTYMGR_UPDATE or PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
