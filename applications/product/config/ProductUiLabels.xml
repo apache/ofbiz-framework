@@ -23193,20 +23193,6 @@
         <value xml:lang="zh">因这些产品而过时：</value>
         <value xml:lang="zh-TW">因這些產品而過時:</value>
     </property>
-    <property key="ProductOemPartyId">
-        <value xml:lang="de">OEM Akteur ID</value>
-        <value xml:lang="en">OEM Party ID</value>
-        <value xml:lang="es">Código de proveedor OEM</value>
-        <value xml:lang="fr">Réf. fournisseur OEM</value>
-        <value xml:lang="it">OEM Codice Soggetto</value>
-        <value xml:lang="ja">OEM取引先ID</value>
-        <value xml:lang="ro">OEM Cod Soggetto</value>
-        <value xml:lang="ru">OEM производитель</value>
-        <value xml:lang="th">OEM รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Công ty chế tác (OEM)</value>
-        <value xml:lang="zh">OEM会员标识</value>
-        <value xml:lang="zh-TW">OEM團體識別</value>
-    </property>
     <property key="ProductOemPartyName">
         <value xml:lang="de">Produkt OEM Namen</value>
         <value xml:lang="en">Product OEM Name</value>

@@ -2655,9 +2655,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="Facility">
         <key-map field-name="facilityId"/>
       </relation>
-      <relation type="one-nofk" title="Manufacturer" rel-entity-name="Party">
-        <key-map field-name="manufacturerPartyId" rel-field-name="partyId"/>
-      </relation>
       <relation type="one-nofk" title="Quantity" rel-entity-name="Uom">
         <key-map field-name="quantityUomId" rel-field-name="uomId"/>
       </relation>
@@ -2708,7 +2705,6 @@ under the License.
       <field name="productId" type="id"></field>
       <field name="productTypeId" type="id"></field>
       <field name="primaryProductCategoryId" type="id"><description>The primary category ; it should be one of the productCategoryId already setup in ProductCategoryMember</description></field>
-      <field name="manufacturerPartyId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="introductionDate" type="date-time"></field>
       <field name="releaseDate" type="date-time"></field>
@@ -2788,9 +2784,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="PROD_FACILITY" rel-entity-name="Facility">
         <key-map field-name="facilityId"/>
-      </relation>
-      <relation type="one" fk-name="PROD_MFG_PARTY" title="Manufacturer" rel-entity-name="Party">
-        <key-map field-name="manufacturerPartyId" rel-field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="PROD_QUANT_UOM" title="Quantity" rel-entity-name="Uom">
         <key-map field-name="quantityUomId" rel-field-name="uomId"/>
