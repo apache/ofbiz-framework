@@ -186,9 +186,6 @@ under the License.
         <field name="inventoryItemId"><text-find/></field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>
-        <field name="manufacturerPartyId">
-            <lookup target-form-name="LookupPartyName"/>
-        </field>
         <field name="orderId">
             <lookup target-form-name="LookupOrderHeader"/>
         </field>
