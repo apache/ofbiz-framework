@@ -52,7 +52,7 @@ public final class Start {
      * main is the entry point to execute high level OFBiz commands 
      * such as starting, stopping or checking the status of the server.
      * 
-     * @param args: The commands for OFBiz
+     * @param args The commands for OFBiz
      */
     public static void main(String[] args) {
         List<StartupCommand> ofbizCommands = null;

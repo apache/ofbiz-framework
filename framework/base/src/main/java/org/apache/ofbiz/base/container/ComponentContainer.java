@@ -85,7 +85,7 @@ public class ComponentContainer implements Container {
      * Iterate over all the components and load their classpath URLs into the classloader
      * and set the classloader as the context classloader
      *
-     * @param componentsClassPath: a list of classpaths for all components
+     * @param componentsClassPath a list of classpaths for all components
      * @throws ContainerException
      */
     private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) throws ContainerException {
@@ -107,8 +107,8 @@ public class ComponentContainer implements Container {
      * Checks if <code>ComponentDef.type</code> is a directory or a single component.
      * If it is a directory, load the directory, otherwise load a single component
      *
-     * @param parentPath: the parent path of what is being loaded
-     * @param def: the component or directory loader definition
+     * @param parentPath the parent path of what is being loaded
+     * @param def the component or directory loader definition
      * @throws IOException
      */
     private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException {
@@ -128,7 +128,7 @@ public class ComponentContainer implements Container {
      * Checks to see if the directory contains a load file (component-load.xml) and
      * then delegates loading to the appropriate method
      *
-     * @param directoryName: the name of component directory to load
+     * @param directoryName the name of component directory to load
      * @throws IOException
      */
     private void loadComponentDirectory(String directoryName) throws IOException {
@@ -153,8 +153,8 @@ public class ComponentContainer implements Container {
      * load file (component-load.xml) and they are sorted in order from top to bottom
      * in the load file
      *
-     * @param directoryPath: the absolute path of the directory
-     * @param componentLoadFile: the name of the load file (i.e. component-load.xml)
+     * @param directoryPath the absolute path of the directory
+     * @param componentLoadFile the name of the load file (i.e. component-load.xml)
      * @throws IOException
      */
     private void loadComponentsInDirectoryUsingLoadFile(File directoryPath, File componentLoadFile) throws IOException {
@@ -179,7 +179,7 @@ public class ComponentContainer implements Container {
      * a load-components.xml file. The components are sorted alphabetically
      * for loading purposes
      *
-     * @param directoryPath: the absolute path of the directory
+     * @param directoryPath the absolute path of the directory
      * @throws IOException
      */
     private void loadComponentsInDirectory(File directoryPath) throws IOException {
@@ -203,8 +203,8 @@ public class ComponentContainer implements Container {
     /**
      * Fetch the <code>ComponentConfig</code> for a certain component
      *
-     * @param name: component name
-     * @param location: directory location of the component
+     * @param name component name
+     * @param location directory location of the component
      * @return The component configuration
      */
     private ComponentConfig retrieveComponentConfig(String name, String location) {
@@ -224,7 +224,7 @@ public class ComponentContainer implements Container {
      * Load a single component by adding all its classpath entries to
      * the list of classpaths to be loaded
      *
-     * @param config: the component configuration
+     * @param config the component configuration
      * @throws IOException
      */
     private void loadComponent(ComponentConfig config) throws IOException {
@@ -241,7 +241,7 @@ public class ComponentContainer implements Container {
      * Construct a <code>Classpath</code> object for a certain component based
      * on its configuration defined in <code>ComponentConfig</code>
      *
-     * @param config: the component configuration
+     * @param config the component configuration
      * @return the constructed classpath
      * @throws IOException
      */
