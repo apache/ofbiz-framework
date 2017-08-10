@@ -53,7 +53,7 @@ public class ComponentContainer implements Container {
 
     private String name;
     private final AtomicBoolean loaded = new AtomicBoolean(false);
-    private final List<Classpath> componentsClassPath = new ArrayList<Classpath>();
+    private final List<Classpath> componentsClassPath = new ArrayList<>();
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -89,7 +89,7 @@ public class ComponentContainer implements Container {
      * @throws ContainerException
      */
     private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) throws ContainerException {
-        List<URL> allComponentUrls = new ArrayList<URL>();
+        List<URL> allComponentUrls = new ArrayList<>();
         for(Classpath classPath : componentsClassPath) {
             try {
                 allComponentUrls.addAll(Arrays.asList(classPath.getUrls()));
@@ -137,7 +137,7 @@ public class ComponentContainer implements Container {
         File directoryPath = FileUtil.getFile(directoryName);
         if (directoryPath.exists() && directoryPath.isDirectory()) {
             File componentLoadFile = new File(directoryPath, ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
-            if (componentLoadFile != null && componentLoadFile.exists()) {
+            if (componentLoadFile.exists()) {
                 loadComponentsInDirectoryUsingLoadFile(directoryPath, componentLoadFile);
             } else {
                 loadComponentsInDirectory(directoryPath);
@@ -162,10 +162,8 @@ public class ComponentContainer implements Container {
         try {
             configUrl = componentLoadFile.toURI().toURL();
             List<ComponentLoaderConfig.ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
-            if (componentsToLoad != null) {
-                for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
-                    loadComponentFromConfig(directoryPath.toString(), def);
-                }
+            for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
+                loadComponentFromConfig(directoryPath.toString(), def);
             }
         } catch (MalformedURLException e) {
             Debug.logError(e, "Unable to locate URL for component loading file: " + componentLoadFile.getAbsolutePath(), module);
@@ -184,6 +182,9 @@ public class ComponentContainer implements Container {
      */
     private void loadComponentsInDirectory(File directoryPath) throws IOException {
         String[] sortedComponentNames = directoryPath.list();
+        if (sortedComponentNames == null) {
+            throw new IllegalArgumentException("sortedComponentNames is null, directory path is invalid " + directoryPath.getPath());
+        }
         Arrays.sort(sortedComponentNames);
 
         for (String componentName: sortedComponentNames) {
