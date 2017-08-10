@@ -35,9 +35,9 @@ import org.w3c.dom.Element;
 public final class MainResourceHandler implements ResourceHandler {
 
     public static final String module = MainResourceHandler.class.getName();
-    protected final String xmlFilename;
-    protected final String loaderName;
-    protected final String location;
+    private final String xmlFilename;
+    private final String loaderName;
+    private final String location;
 
     public MainResourceHandler(String xmlFilename, Element element) {
         this.xmlFilename = xmlFilename;
@@ -63,11 +63,7 @@ public final class MainResourceHandler implements ResourceHandler {
     public Document getDocument() throws GenericConfigException {
         try {
             return UtilXml.readXmlDocument(this.getStream(), this.xmlFilename, true);
-        } catch (org.xml.sax.SAXException e) {
-            throw new GenericConfigException("Error reading " + this.toString(), e);
-        } catch (javax.xml.parsers.ParserConfigurationException e) {
-            throw new GenericConfigException("Error reading " + this.toString(), e);
-        } catch (java.io.IOException e) {
+        } catch (org.xml.sax.SAXException | javax.xml.parsers.ParserConfigurationException | java.io.IOException e) {
             throw new GenericConfigException("Error reading " + this.toString(), e);
         }
     }
@@ -83,11 +79,7 @@ public final class MainResourceHandler implements ResourceHandler {
     public boolean isFileResource() throws GenericConfigException {
         ResourceLoader loader = ResourceLoader.getLoader(this.xmlFilename, this.loaderName);
 
-        if (loader instanceof FileLoader) {
-            return true;
-        } else {
-            return false;
-        }
+        return loader instanceof FileLoader;
     }
 
     public String getFullLocation() throws GenericConfigException {
@@ -98,16 +90,14 @@ public final class MainResourceHandler implements ResourceHandler {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof MainResourceHandler) {
-            MainResourceHandler other = (MainResourceHandler) obj;
-
-            if (this.loaderName.equals(other.loaderName) &&
-                this.xmlFilename.equals(other.xmlFilename) &&
-                this.location.equals(other.location)) {
-                return true;
-            }
+        if (!(obj instanceof MainResourceHandler)) {
+            return false;
         }
-        return false;
+
+        MainResourceHandler other = (MainResourceHandler) obj;
+        return this.loaderName.equals(other.loaderName) &&
+            this.xmlFilename.equals(other.xmlFilename) &&
+                this.location.equals(other.location);
     }
 
     @Override
