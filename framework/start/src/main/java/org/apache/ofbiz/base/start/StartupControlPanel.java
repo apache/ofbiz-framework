@@ -43,7 +43,7 @@ final class StartupControlPanel {
      * - creating a Config object holding startup configuration parameters
      *
      * @param ofbizCommands commands passed by the user to OFBiz on start
-     * @return config: OFBiz configuration
+     * @return config OFBiz configuration
      */
     static Config init(List<StartupCommand> ofbizCommands) {
         Config config = null;

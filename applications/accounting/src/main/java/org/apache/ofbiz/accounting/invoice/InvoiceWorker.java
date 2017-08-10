@@ -586,7 +586,7 @@ public final class InvoiceWorker {
     /**
      * Return a list of taxes separated by Geo and party and return the tax grand total
      * @param invoice Generic Value
-     * @return  Map: taxByTaxAuthGeoAndPartyList(List) and taxGrandTotal(BigDecimal)
+     * @return Map taxByTaxAuthGeoAndPartyList(List) and taxGrandTotal(BigDecimal)
      */
     @Deprecated
     public static Map<String, Object> getInvoiceTaxByTaxAuthGeoAndParty(GenericValue invoice) {
