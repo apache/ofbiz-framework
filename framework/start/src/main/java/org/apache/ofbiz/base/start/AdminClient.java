@@ -39,7 +39,7 @@ class AdminClient {
      * to show its status (running, stopping, ...)
      *
      * @param config OFBiz configuration
-     * @return status: OFBiz server status
+     * @return status OFBiz server status
      */
     static String requestStatus(Config config) {
         String status = null;
@@ -58,7 +58,7 @@ class AdminClient {
      * to shut itself down.
      *
      * @param config OFBiz configuration
-     * @return shutdownMessage: message from server 
+     * @return shutdownMessage message from server 
      *   on receiving shutdown request
      */
     static String requestShutdown(Config config) {
