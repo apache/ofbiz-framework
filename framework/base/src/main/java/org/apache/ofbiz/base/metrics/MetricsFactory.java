@@ -156,7 +156,7 @@ public final class MetricsFactory {
      * Returns all <code>Metric</code> instances, sorted by name.
      */
     public static Collection<Metrics> getMetrics() {
-        return new TreeSet<Metrics>(METRICS_CACHE.values());
+        return new TreeSet<>(METRICS_CACHE.values());
     }
 
     private static final class MetricsImpl implements Metrics, Comparable<Metrics> {
@@ -233,7 +233,7 @@ public final class MetricsFactory {
                 if (totalEvents == 0) {
                     totalEvents = 1;
                 }
-                double rate = totalServiceTime / totalEvents;
+                double rate = totalServiceTime / (double) totalEvents;
                 serviceRate = (rate * smoothing) + (serviceRate * (1.0 - smoothing));
                 count = 0;
                 lastTime = curTime;
