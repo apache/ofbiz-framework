@@ -47,7 +47,7 @@ public class ContainerConfig {
 
     public static final String module = ContainerConfig.class.getName();
 
-    private static Map<String, Configuration> configurations = new LinkedHashMap<String, Configuration>();
+    private static Map<String, Configuration> configurations = new LinkedHashMap<>();
 
     public static Configuration getConfiguration(String containerName, String configFile) throws ContainerException {
         Configuration configuration = configurations.get(containerName);
@@ -89,23 +89,19 @@ public class ContainerConfig {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            return prop.value;
         }
+        return prop.value;
     }
 
     public static int getPropertyValue(ContainerConfig.Configuration parentProp, String name, int defaultValue) {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            int num = defaultValue;
-            try {
-                num = Integer.parseInt(prop.value);
-            } catch (Exception e) {
-                return defaultValue;
-            }
-            return num;
+        }
+        try {
+            return Integer.parseInt(prop.value);
+        } catch (Exception e) {
+            return defaultValue;
         }
     }
 
@@ -113,32 +109,27 @@ public class ContainerConfig {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            return "true".equalsIgnoreCase(prop.value);
         }
+        return "true".equalsIgnoreCase(prop.value);
     }
 
     public static String getPropertyValue(ContainerConfig.Configuration.Property parentProp, String name, String defaultValue) {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            return prop.value;
         }
+        return prop.value;
     }
 
     public static int getPropertyValue(ContainerConfig.Configuration.Property parentProp, String name, int defaultValue) {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            int num = defaultValue;
-            try {
-                num = Integer.parseInt(prop.value);
-            } catch (Exception e) {
-                return defaultValue;
-            }
-            return num;
+        }
+        try {
+            return Integer.parseInt(prop.value);
+        } catch (Exception e) {
+            return defaultValue;
         }
     }
 
@@ -146,9 +137,8 @@ public class ContainerConfig {
         ContainerConfig.Configuration.Property prop = parentProp.getProperty(name);
         if (prop == null || UtilValidate.isEmpty(prop.value)) {
             return defaultValue;
-        } else {
-            return "true".equalsIgnoreCase(prop.value);
         }
+        return "true".equalsIgnoreCase(prop.value);
     }
 
     private static Collection<Configuration> getConfigurationPropsFromXml(URL xmlUrl) throws ContainerException {
@@ -159,7 +149,7 @@ public class ContainerConfig {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
         }
         Element root = containerDocument.getDocumentElement();
-        List<Configuration> result = new ArrayList<Configuration>();
+        List<Configuration> result = new ArrayList<>();
         for (Element curElement: UtilXml.childElementList(root, "container")) {
             result.add(new Configuration(curElement));
         }
@@ -177,7 +167,7 @@ public class ContainerConfig {
             this.className = element.getAttribute("class");
             this.loaders = StringUtil.split(element.getAttribute("loaders"), ",");
 
-            properties = new LinkedHashMap<String, Property>();
+            properties = new LinkedHashMap<>();
             for (Element curElement: UtilXml.childElementList(element, "property")) {
                 Property property = new Property(curElement);
                 properties.put(property.name, property);
@@ -189,7 +179,7 @@ public class ContainerConfig {
         }
 
         public List<Property> getPropertiesWithValue(String value) {
-            List<Property> props = new LinkedList<Property>();
+            List<Property> props = new LinkedList<>();
             if (UtilValidate.isNotEmpty(properties)) {
                 for (Property p: properties.values()) {
                     if (p != null && value.equals(p.value)) {
@@ -212,7 +202,7 @@ public class ContainerConfig {
                     this.value = UtilXml.childElementValue(element, "property-value");
                 }
 
-                properties = new LinkedHashMap<String, Property>();
+                properties = new LinkedHashMap<>();
                 for (Element curElement: UtilXml.childElementList(element, "property")) {
                     Property property = new Property(curElement);
                     properties.put(property.name, property);
@@ -224,7 +214,7 @@ public class ContainerConfig {
             }
 
             public List<Property> getPropertiesWithValue(String value) {
-                List<Property> props = new LinkedList<Property>();
+                List<Property> props = new LinkedList<>();
                 if (UtilValidate.isNotEmpty(properties)) {
                     for (Property p: properties.values()) {
                         if (p != null && value.equals(p.value)) {
