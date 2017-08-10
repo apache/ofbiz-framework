@@ -5768,7 +5768,7 @@ public class OrderServices {
     /**
      * Remove an OrderItemShipGroup record
      * @param ctx
-     * @param context: a map containing in paramaters 
+     * @param context a map containing in paramaters 
      * @return result: a map containing out parameters
      * @throws GenericEntityException 
      */

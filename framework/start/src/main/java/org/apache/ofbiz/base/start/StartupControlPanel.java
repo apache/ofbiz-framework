@@ -42,7 +42,7 @@ final class StartupControlPanel {
      * - setting high level JVM and OFBiz system properties
      * - creating a Config object holding startup configuration parameters
      *
-     * @param ofbizCommands: commands passed by the user to OFBiz on start
+     * @param ofbizCommands commands passed by the user to OFBiz on start
      * @return config: OFBiz configuration
      */
     static Config init(List<StartupCommand> ofbizCommands) {
@@ -76,7 +76,7 @@ final class StartupControlPanel {
 
     /**
      * Print OFBiz startup message only if the OFBiz server is not scheduled for shutdown.
-     * @param config: contains parameters for system startup
+     * @param config contains parameters for system startup
      */
     private static void printStartupMessage(Config config) {
         if (!config.shutdownAfterLoad) {
@@ -114,7 +114,7 @@ final class StartupControlPanel {
      * - Providing an exit code that is not 0 to signal to the build system 
      *   or user of failure to execute.
      * 
-     * @param e: The startup exception that cannot / should not be handled
+     * @param e The startup exception that cannot / should not be handled
      *   except by terminating the system
      */
     static void fullyTerminateSystem(StartupException e) {
