@@ -226,7 +226,7 @@ public class GiftCertificateServices {
         }
 
         // create the transaction
-        BigDecimal balance = ZERO;
+        BigDecimal balance;
         String refNum = null;
         try {
             refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount, productStoreId, partyId,
@@ -303,7 +303,7 @@ public class GiftCertificateServices {
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
         BigDecimal previousBalance = finAccount.get("actualBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("actualBalance");
 
-        BigDecimal balance = BigDecimal.ZERO;
+        BigDecimal balance;
         String refNum = null;
         Boolean procResult;
         if (previousBalance.compareTo(amount) >= 0) {
