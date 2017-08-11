@@ -290,6 +290,7 @@ public class ServiceDispatcher {
             eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
             engine = this.getGenericEngine(modelService.engineName);
 
+            modelService.informIfDeprecated();
 
             // set IN attributes with default-value as applicable
             modelService.updateDefaultValues(context, ModelService.IN_PARAM);

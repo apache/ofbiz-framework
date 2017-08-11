@@ -408,6 +408,9 @@ if (selectedService) {
         curServiceMap.implServices = implServices
         curServiceMap.useTrans = useTrans
         curServiceMap.maxRetry = maxRetry
+        curServiceMap.deprecatedUseInstead = curServiceModel.deprecatedUseInstead
+        curServiceMap.deprecatedSince = curServiceModel.deprecatedSince
+        curServiceMap.deprecatedReason = curServiceModel.deprecatedReason
 
         allParamsList = new ArrayList(3)
 
@@ -563,6 +566,7 @@ if (!selectedService) {
             curServiceMap.location = location
             curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "")
             curServiceMap.requireNewTransaction = requireNewTransaction
+            curServiceMap.deprecated = curServiceModel.deprecatedUseInstead
 
             servicesList.add(curServiceMap)
             servicesFoundCount++
