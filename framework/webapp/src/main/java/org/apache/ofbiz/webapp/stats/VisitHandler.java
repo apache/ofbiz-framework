@@ -254,7 +254,10 @@ public class VisitHandler {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
                                         visitor = delegator.makeValue("Visitor");
                                         visitor = delegator.createSetNextSeqId(visitor);
-                                        if (Debug.infoOn()) Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitor.getString("visitorId") + "]", module);
+                                        if (Debug.infoOn()) {
+                                            String visitorId = visitor != null ? visitor.getString("visitorId") : "empty visitor";
+                                            Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitorId + "]", module);
+                                        }
                                     }
                                 } catch (GenericEntityException e) {
                                     Debug.logError(e, "Error finding visitor with ID from cookie: " + cookieVisitorId, module);
