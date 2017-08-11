@@ -44,6 +44,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
                 <xs:element minOccurs="0" ref="metric"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="deprecated"/>
                 <xs:choice maxOccurs="1" minOccurs="0">
                     <xs:choice minOccurs="0" maxOccurs="unbounded">
                         <xs:element ref="auto-attributes"/>
@@ -446,6 +447,19 @@ under the License.
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="deprecated">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.deprecated"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.deprecated">
+        <xs:attribute name="use-instead" type="xs:string" use="required">
+            <xs:annotation><xs:documentation>Precise the service who replace now the current</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="since" type="xs:string" use="optional">
+            <xs:annotation><xs:documentation>Precise the ofbiz release when this service has been set to deprecated</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="override">

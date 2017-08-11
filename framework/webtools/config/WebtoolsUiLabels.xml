@@ -1623,6 +1623,14 @@
         <value xml:lang="zh">删除这个值</value>
         <value xml:lang="zh-TW">刪除這個值</value>
     </property>
+    <property key="WebtoolsDeprecated">
+        <value xml:lang="en">Deprecated</value>
+        <value xml:lang="fr">Périmé</value>
+    </property>
+    <property key="WebtoolsDeprecatedUseInstead">
+        <value xml:lang="en">Use instead</value>
+        <value xml:lang="fr">Utilisez en remplacement</value>
+    </property>
     <property key="WebtoolsDispatcherName">
         <value xml:lang="de">Dispatcher-Name</value>
         <value xml:lang="en">Dispatcher Name</value>

@@ -198,6 +198,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** Internal Service Group */
     public GroupModel internalGroup = null;
 
+    /**Deprecated information*/
+    public String deprecatedUseInstead = null;
+    public String deprecatedSince = null;
+    public String deprecatedReason = null;
+
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
     protected Map<String, ModelParam> contextInfo = new LinkedHashMap<String, ModelParam>();
 
@@ -1212,6 +1217,23 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
             // set the flag so we don't do this again
             this.inheritedParameters = true;
+        }
+    }
+
+    /**
+     * if the service is declare as deprecated, create a log warning with the reason
+     */
+    public void informIfDeprecated() {
+        if (this.deprecatedUseInstead != null) {
+            StringBuilder informMsg = new StringBuilder("DEPRECATED: the service ")
+                    .append(name).append( " has been deprecated and replaced by ").append(deprecatedUseInstead);
+            if (this.deprecatedSince != null) {
+                informMsg.append(", since ").append(deprecatedSince);
+            }
+            if (deprecatedReason != null) {
+                informMsg.append(" because '").append(deprecatedReason).append("'");
+            }
+            Debug.logWarning(informMsg.toString(), module);
         }
     }
 

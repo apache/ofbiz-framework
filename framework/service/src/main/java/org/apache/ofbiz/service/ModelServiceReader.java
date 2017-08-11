@@ -282,6 +282,7 @@ public class ModelServiceReader implements Serializable {
         this.createAutoAttrDefs(serviceElement, service);
         this.createAttrDefs(serviceElement, service);
         this.createOverrideDefs(serviceElement, service);
+        this.createDeprecated(serviceElement, service);
         // Get metrics.
         Element metricsElement = UtilXml.firstChildElement(serviceElement, "metric");
         if (metricsElement != null) {
@@ -683,6 +684,16 @@ public class ModelServiceReader implements Serializable {
                     service.overrideParameters.add(param);
                 }
             }
+        }
+    }
+
+    private void createDeprecated(Element baseElement, ModelService service) {
+        Element deprecated = UtilXml.firstChildElement(baseElement, "deprecated");
+        if (deprecated != null) {
+            service.deprecatedUseInstead = deprecated.getAttribute("use-instead");
+            service.deprecatedSince = deprecated.getAttribute("since");
+            service.deprecatedReason = UtilXml.elementValue(deprecated);
+            service.informIfDeprecated();
         }
     }
 

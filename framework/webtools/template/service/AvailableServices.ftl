@@ -92,6 +92,26 @@ under the License.
       </div>
     </div>
 
+    <#if selectedServiceMap.deprecatedUseInstead?has_content>
+    <div class="screenlet">
+      <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.WebtoolsWarningLogLevel?upper_case} : ${uiLabelMap.WebtoolsDeprecated}</h3>
+      </div>
+        <table class="basic-table" cellspacing='0'>
+          <tr>
+            <td class="label">${uiLabelMap.WebtoolsDeprecatedUseInstead}</td>
+            <td>${selectedServiceMap.deprecatedUseInstead}</td>
+            <td class="label">${uiLabelMap.CommonSince}</td>
+            <td>${selectedServiceMap.deprecatedSince}</td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.CommonReason}</td>
+            <td colspan="3">${selectedServiceMap.deprecatedReason}</td>
+          </tr>
+        </table>
+    </div>
+    </#if>
+
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <h3>${uiLabelMap.SecurityGroups}</h3>
@@ -360,7 +380,7 @@ under the License.
         <#assign alt_row = false>
         <#list servicesList as service>
           <tr<#if alt_row> class="alternate-row"</#if>>
-            <td><a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>'>${service.serviceName}</a></td>
+            <td><#if service.deprecated?has_content><strike></#if><a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>'>${service.serviceName}</a><#if service.deprecated?has_content></strike> @deprecated</#if></td>
             <td><a href='<@ofbizUrl>${url}?constraint=engine_name@${service.engineName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.engineName}</a></td>
             <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${service.defaultEntityName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.defaultEntityName}</a></td>
             <td>${service.invoke}</td>
