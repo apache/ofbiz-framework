@@ -838,13 +838,14 @@ public class GenericDelegator implements Delegator {
                     ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, false);
                     this.clearCacheLine(value);
                 }
+                ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             }
 
-            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             TransactionUtil.commit(beganTransaction);
             return value;
         } catch (Exception e) {
-            String errMsg = "Failure in createSetNextSeqId operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
+            String entityName = value != null ? value.getEntityName() : "invalid Generic Value";
+            String errMsg = "Failure in createSetNextSeqId operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
             throw new GenericEntityException(e);
@@ -894,13 +895,13 @@ public class GenericDelegator implements Delegator {
                     ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, false);
                     this.clearCacheLine(value);
                 }
+                ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             }
 
-            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             TransactionUtil.commit(beganTransaction);
             return value;
         } catch (Exception e) {
-            String errMsg = "Failure in create operation for entity [" + (value != null ? value.getEntityName() : "null") + "]: " + e.toString() + ". Rolling back transaction.";
+            String errMsg = "Failure in create operation for entity [" + (value != null ? value.getEntityName() : "value is null") + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
             throw new GenericEntityException(e);
@@ -930,7 +931,7 @@ public class GenericDelegator implements Delegator {
             TransactionUtil.commit(beganTransaction);
             return value;
         } catch (Exception e) {
-            String errMsg = "Failure in createOrStore operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
+            String errMsg = "Failure in createOrStore operation for entity [" + (value != null ? value.getEntityName() : "value is null") + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
             throw new GenericEntityException(e);
