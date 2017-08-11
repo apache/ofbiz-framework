@@ -773,6 +773,10 @@
     <property key="AccountingValidationFailedInvalidValues">
         <value xml:lang="en">Validation Failed - invalid values</value>
     </property>
+    <property key="AccountingProcessingAuthResultEmpty">
+        <value xml:lang="en">No authentification result available. Payment preference can't be checked.</value>
+        <value xml:lang="de">Es ist kein Authentifizierungsergebnis vorhanden. Die Zahlungsmethode kann nicht überprüft werden.</value>
+    </property>
     <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
         <value xml:lang="de">Ausführen des Service CreatePaymentFromPreference fehlgeschlagen</value>
