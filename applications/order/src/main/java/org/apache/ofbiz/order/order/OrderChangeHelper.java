@@ -72,7 +72,6 @@ public final class OrderChangeHelper {
 
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, "ITEM_CREATED", ITEM_STATUS, DIGITAL_ITEM_STATUS);
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -96,7 +95,6 @@ public final class OrderChangeHelper {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -134,7 +132,6 @@ public final class OrderChangeHelper {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -288,14 +285,5 @@ public final class OrderChangeHelper {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceRes));
             }
         }
-    }
-
-
-    public static boolean releaseInitialOrderHold(LocalDispatcher dispatcher, String orderId) {
-        return true;
-    }
-
-    public static boolean abortOrderProcessing(LocalDispatcher dispatcher, String orderId) {
-        return true;
     }
 }

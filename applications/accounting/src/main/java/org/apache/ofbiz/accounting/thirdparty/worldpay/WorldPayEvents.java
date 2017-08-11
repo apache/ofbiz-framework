@@ -388,8 +388,6 @@ public class WorldPayEvents {
             }
         }
         if (okay) {
-            // attempt to release the offline hold on the order (workflow)
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
             // call the email confirm service
             Map<String, Object> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
             try {

@@ -292,8 +292,6 @@ public class IdealEvents {
         }
         if (okay) {
             request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "IdealSuccessful", locale));
-            // attempt to release the offline hold on the order (workflow)
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
             // call the email confirm service
             Map<String, String> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
             try {
