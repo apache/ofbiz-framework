@@ -339,9 +339,6 @@ public class PayPalEvents {
 
 
         if (okay) {
-            // attempt to release the offline hold on the order (workflow)
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
-
             // call the email confirm service
             Map <String, String> emailContext = UtilMisc.toMap("orderId", orderId);
             try {
@@ -387,10 +384,6 @@ public class PayPalEvents {
                 Debug.logError(gte, "Unable to rollback transaction", module);
             }
         }
-
-        // attempt to release the offline hold on the order (workflow)
-        if (okay)
-            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
 
         request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.previousPayPalOrderHasBeenCancelled", locale));
         return "success";
