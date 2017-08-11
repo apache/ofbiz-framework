@@ -1887,7 +1887,9 @@ public class PaymentGatewayServices {
         Locale locale = (Locale) context.get("locale");
         
         if(authResult == null) {
-            
+            Debug.logError("No authentification result available. Payment preference can't be checked.", module);
+            return ServiceUtil
+                    .returnError(UtilProperties.getMessage(resource, "AccountingProcessingAuthResultEmpty", locale));
         }
 
         // refresh the payment preference
