@@ -2372,16 +2372,6 @@ public class OrderServices {
                     "OrderErrorCouldNotChangeOrderStatus",locale) + e.getMessage() + ").");
         }
 
-        // release the inital hold if we are cancelled or approved
-        if ("ORDER_CANCELLED".equals(statusId) || "ORDER_APPROVED".equals(statusId)) {
-            OrderChangeHelper.releaseInitialOrderHold(ctx.getDispatcher(), orderId);
-
-            // cancel any order processing if we are cancelled
-            if ("ORDER_CANCELLED".equals(statusId)) {
-                OrderChangeHelper.abortOrderProcessing(ctx.getDispatcher(), orderId);
-            }
-        }
-
         if ("Y".equals(context.get("setItemStatus"))) {
             String newItemStatusId = null;
             if ("ORDER_APPROVED".equals(statusId)) {
