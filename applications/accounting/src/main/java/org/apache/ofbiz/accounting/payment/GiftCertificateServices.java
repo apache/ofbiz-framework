@@ -226,7 +226,7 @@ public class GiftCertificateServices {
         }
 
         // create the transaction
-        BigDecimal balance;
+        BigDecimal balance = ZERO;
         String refNum = null;
         try {
             refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount, productStoreId, partyId,
@@ -270,7 +270,7 @@ public class GiftCertificateServices {
         }
 
         // validate the amount
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount.compareTo(ZERO) < 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingFinAccountMustBePositive", locale));
         }
@@ -301,9 +301,9 @@ public class GiftCertificateServices {
         }
 
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
-        BigDecimal previousBalance = finAccount.get("actualBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("actualBalance");
+        BigDecimal previousBalance = finAccount.get("actualBalance") == null ? ZERO : finAccount.getBigDecimal("actualBalance");
 
-        BigDecimal balance;
+        BigDecimal balance = ZERO;
         String refNum = null;
         Boolean procResult;
         if (previousBalance.compareTo(amount) >= 0) {
@@ -311,7 +311,7 @@ public class GiftCertificateServices {
                 refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount, productStoreId,
                         partyId, currencyUom, withdrawl, cardNumber, locale);
                 finAccount.refresh();
-                balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
+                balance = finAccount.get("availableBalance") == null ? ZERO : finAccount.getBigDecimal("availableBalance");
                 procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -356,7 +356,7 @@ public class GiftCertificateServices {
 
         // TODO: get the real currency from context
         // get the balance
-        BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
+        BigDecimal balance = finAccount.get("availableBalance") == null ? ZERO : finAccount.getBigDecimal("availableBalance");
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("balance", balance);
