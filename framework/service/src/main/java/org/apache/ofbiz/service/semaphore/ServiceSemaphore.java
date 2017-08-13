@@ -146,7 +146,9 @@ public class ServiceSemaphore {
 
         try {
             // prepare the suspended transaction
-            parent = TransactionUtil.suspend();
+            if (TransactionUtil.isTransactionInPlace()) {
+                parent = TransactionUtil.suspend();
+            }
             beganTx = TransactionUtil.begin();
             if (!beganTx) {
                 throw new SemaphoreFailException("Cannot obtain unique transaction for semaphore logging");
