@@ -61,9 +61,9 @@ public class HashCrypt {
     }
 
     public static boolean comparePassword(String crypted, String defaultCrypt, String password) {
-    	if (crypted.startsWith("{PBKDF2")) {
+        if (crypted.startsWith("{PBKDF2")) {
             return doComparePbkdf2(crypted, password);
-    	} else if (crypted.startsWith("{")) {
+        } else if (crypted.startsWith("{")) {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
         } else if (crypted.startsWith("$")) {
@@ -119,7 +119,7 @@ public class HashCrypt {
      */
     @Deprecated
     public static String cryptPassword(String hashType, String salt, String password) {
-    	if (hashType.startsWith("PBKDF2")) {
+        if (hashType.startsWith("PBKDF2")) {
             return password != null ? pbkdf2HashCrypt(hashType, salt, password) : null;
         }
         // FIXME: should have been getBytes("UTF-8") originally
@@ -127,14 +127,14 @@ public class HashCrypt {
     }
 
     public static String cryptUTF8(String hashType, String salt, String value) {
-    	if (hashType.startsWith("PBKDF2")) {
+        if (hashType.startsWith("PBKDF2")) {
             return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
         }
         return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
     }
 
     public static String cryptValue(String hashType, String salt, String value) {
-    	if (hashType.startsWith("PBKDF2")) {
+        if (hashType.startsWith("PBKDF2")) {
             return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
         }
         return value != null ? cryptBytes(hashType, salt, value.getBytes()) : null;
@@ -205,7 +205,7 @@ public class HashCrypt {
     
     public static boolean doComparePbkdf2(String crypted, String password){
         try {
-        	int typeEnd = crypted.indexOf("}");
+            int typeEnd = crypted.indexOf("}");
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
@@ -253,30 +253,6 @@ public class HashCrypt {
         }
     }
     
-    /**
-     * @deprecated use digestHash("SHA", null, str)
-     */
-    @Deprecated
-    public static String getDigestHash(String str) {
-        return digestHash("SHA", null, str);
-    }
-
-    /**
-     * @deprecated use digestHash(hashType, null, str))
-     */
-    @Deprecated
-    public static String getDigestHash(String str, String hashType) {
-        return digestHash(hashType, null, str);
-    }
-
-    /**
-     * @deprecated use digestHash(hashType, code, str);
-     */
-    @Deprecated
-    public static String getDigestHash(String str, String code, String hashType) {
-        return digestHash(hashType, code, str);
-    }
-
     public static String digestHash(String hashType, String code, String str) {
         if (str == null) return null;
         byte[] codeBytes;
