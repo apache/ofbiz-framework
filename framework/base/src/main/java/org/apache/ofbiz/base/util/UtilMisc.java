@@ -264,6 +264,29 @@ public final class UtilMisc {
         }
         return theSet;
     }
+    
+    /**
+     * Generates a String from given values delimited by delimiter.
+     * 
+     * @param values
+     * @param delimiter
+     * @return String
+     * @throws IOException
+     */
+    public static String collectionToString(Collection<? extends Object> values, String delimiter) {
+        if (UtilValidate.isEmpty(values)) {
+            return null;
+        }
+        if (delimiter == null) {
+            delimiter = "";
+        }
+        StringBuilder out = new StringBuilder();
+
+        for (Object val : values) {
+            out.append(UtilFormatOut.safeToString(val)).append(delimiter);
+        }
+        return out.toString();
+    }
 
     /**
      * Create a set from the passed objects.
