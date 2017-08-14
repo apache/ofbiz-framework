@@ -2096,7 +2096,7 @@ public class ModelFormField {
         }
 
         public FileField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
+            super(fieldSource, FieldInfo.FILE, modelFormField);
         }
 
         @Override
@@ -3028,7 +3028,7 @@ public class ModelFormField {
         }
 
         public LookupField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
+            super(fieldSource, FieldInfo.LOOKUP, modelFormField);
             this.descriptionFieldName = "";
             this.fadeBackground = "";
             this.formName = FlexibleStringExpander.getInstance("");
@@ -3250,7 +3250,7 @@ public class ModelFormField {
         }
 
         public PasswordField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
+            super(fieldSource, FieldInfo.PASSWORD, modelFormField);
         }
 
         private PasswordField(PasswordField original, ModelFormField modelFormField) {
