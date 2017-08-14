@@ -19,8 +19,6 @@
 
 package org.apache.ofbiz.entity.condition;
 
-import groovy.util.BuilderSupport;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +30,8 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
+
+import groovy.util.BuilderSupport;
 
 public class EntityConditionBuilder extends BuilderSupport {
     public static final String module = EntityConditionBuilder.class.getName();

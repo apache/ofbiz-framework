@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.HashMap;
@@ -192,14 +193,14 @@ public class UspsServices {
             UtilXml.addChildElementValue(packageElement, "ZipOrigination", StringUtils.substring(originationZip, 0, 5), requestDocument);
             UtilXml.addChildElementValue(packageElement, "ZipDestination", StringUtils.substring(destinationZip, 0, 5), requestDocument);
 
-            BigDecimal weightPounds = packageWeight.setScale(0, BigDecimal.ROUND_FLOOR);
+            BigDecimal weightPounds = packageWeight.setScale(0, RoundingMode.FLOOR);
             // for Parcel post, the weight must be at least 1 lb
             if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPounds.compareTo(BigDecimal.ONE) < 0)) {
                 weightPounds = BigDecimal.ONE;
                 packageWeight = BigDecimal.ZERO;
             }
             // (packageWeight % 1) * 16 (Rounded up to 0 dp)
-            BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING);
+            BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING);
             
             UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
             UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
@@ -1075,8 +1076,8 @@ public class UspsServices {
 
                 }
 
-                BigDecimal weightPounds = weight.setScale(0, BigDecimal.ROUND_FLOOR);
-                BigDecimal weightOunces = weight.multiply(new BigDecimal("16")).remainder(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING);
+                BigDecimal weightPounds = weight.setScale(0, RoundingMode.FLOOR);
+                BigDecimal weightOunces = weight.multiply(new BigDecimal("16")).remainder(new BigDecimal("16")).setScale(0, RoundingMode.CEILING);
 
                 DecimalFormat df = new DecimalFormat("#");
                 UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
@@ -1372,7 +1373,7 @@ public class UspsServices {
                 }
 
                 DecimalFormat df = new DecimalFormat("#");
-                UtilXml.addChildElementValue(requestElement, "WeightInOunces", df.format(weight.setScale(0, BigDecimal.ROUND_CEILING)), requestDocument);
+                UtilXml.addChildElementValue(requestElement, "WeightInOunces", df.format(weight.setScale(0, RoundingMode.CEILING)), requestDocument);
 
                 UtilXml.addChildElementValue(requestElement, "ServiceType", serviceType, requestDocument);
                 UtilXml.addChildElementValue(requestElement, "ImageType", "TIF", requestDocument);
@@ -1613,8 +1614,8 @@ public class UspsServices {
                 }
 
                 UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
-                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity").setScale(0, BigDecimal.ROUND_CEILING).toPlainString(), packageDocument);
-                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity").setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
+                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2, RoundingMode.HALF_UP).toPlainString();
                 UtilXml.addChildElementValue(itemDetail, "Value", packageContentValue, packageDocument);
                 BigDecimal productWeight = ProductWorker.getProductWeight(product, "WT_lbs", delegator, dispatcher);
                 Integer[] productPoundsOunces = convertPoundsToPoundsOunces(productWeight);
@@ -1754,9 +1755,9 @@ public class UspsServices {
     public static Integer[] convertPoundsToPoundsOunces(BigDecimal decimalPounds) {
         if (decimalPounds == null) return null;
         Integer[] poundsOunces = new Integer[2];
-        poundsOunces[0] = Integer.valueOf(decimalPounds.setScale(0, BigDecimal.ROUND_FLOOR).toPlainString());
+        poundsOunces[0] = Integer.valueOf(decimalPounds.setScale(0, RoundingMode.FLOOR).toPlainString());
         // (weight % 1) * 16 rounded up to nearest whole number
-        poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, BigDecimal.ROUND_CEILING).toPlainString());
+        poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING).toPlainString());
         return poundsOunces;
     }
     

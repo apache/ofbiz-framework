@@ -29,6 +29,8 @@ import java.security.KeyStore;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.client.XmlRpcClientException;
@@ -38,8 +40,6 @@ import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactoryImpl;
 import org.apache.xmlrpc.common.XmlRpcStreamRequestConfig;
 import org.apache.xmlrpc.util.HttpUtil;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.SSLUtil;
 import org.xml.sax.SAXException;
 
 /**

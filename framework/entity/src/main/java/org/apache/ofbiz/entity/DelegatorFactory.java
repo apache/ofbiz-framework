@@ -26,7 +26,6 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
-
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilObject;

@@ -21,6 +21,7 @@ package org.apache.ofbiz.shipment.thirdparty.dhl;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -680,7 +681,7 @@ public class DhlServices {
                 weight = packageWeight;
             }
             // want the rounded weight as a string, so we use the "" + int shortcut
-            String roundedWeight = weight.setScale(0, BigDecimal.ROUND_HALF_UP).toPlainString();
+            String roundedWeight = weight.setScale(0, RoundingMode.HALF_UP).toPlainString();
 
             // translate shipmentMethodTypeId to DHL service code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");

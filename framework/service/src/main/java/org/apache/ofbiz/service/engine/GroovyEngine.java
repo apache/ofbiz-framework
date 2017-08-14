@@ -19,7 +19,6 @@
 package org.apache.ofbiz.service.engine;
 
 import static org.apache.ofbiz.base.util.UtilGenerics.cast;
-import groovy.lang.Script;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,7 +28,6 @@ import java.util.Set;
 
 import javax.script.ScriptContext;
 
-import org.codehaus.groovy.runtime.InvokerHelper;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ScriptHelper;
@@ -40,6 +38,9 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.codehaus.groovy.runtime.InvokerHelper;
+
+import groovy.lang.Script;
 
 /**
  * Groovy Script Service Engine

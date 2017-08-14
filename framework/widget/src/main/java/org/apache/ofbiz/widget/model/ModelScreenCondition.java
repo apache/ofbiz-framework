@@ -22,12 +22,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.widget.model.AbstractModelCondition;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.DefaultConditionFactory;
-import org.apache.ofbiz.widget.model.ModelCondition;
-import org.apache.ofbiz.widget.model.ModelConditionFactory;
-import org.apache.ofbiz.widget.model.ModelConditionVisitor;
-import org.apache.ofbiz.widget.model.ModelWidget;
 import org.w3c.dom.Element;
 
 /**

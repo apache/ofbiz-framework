@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.template.*;
-
 import java.util.List;
 import java.util.Map;
+
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateMethodModelEx;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateNumberModel;
+import freemarker.template.TemplateScalarModel;
 
 /**
  * SetRequestAttributeMethod - Freemarker Method for setting context fields

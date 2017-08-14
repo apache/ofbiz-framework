@@ -19,14 +19,15 @@
 package org.apache.ofbiz.webapp.taglib;
 
 import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * ContentUrlTag - Creates a URL string prepending the content prefix from url.properties

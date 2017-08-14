@@ -20,8 +20,8 @@ package org.apache.ofbiz.order.test;
 
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.order.finaccount.FinAccountHelper;
+import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class FinAccountTest extends OFBizTestCase {
     public FinAccountTest(String name) {

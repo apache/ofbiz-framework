@@ -25,15 +25,34 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.property.*;
-
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionVisitor;
 import org.apache.ofbiz.service.calendar.TemporalExpressions;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.*;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Difference;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.HourRange;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Intersection;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.MinuteRange;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Null;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Substitution;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Union;
 
 import com.ibm.icu.util.Calendar;
+
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.NumberList;
+import net.fortuna.ical4j.model.Period;
+import net.fortuna.ical4j.model.PeriodList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyList;
+import net.fortuna.ical4j.model.Recur;
+import net.fortuna.ical4j.model.WeekDay;
+import net.fortuna.ical4j.model.WeekDayList;
+import net.fortuna.ical4j.model.property.DateListProperty;
+import net.fortuna.ical4j.model.property.DtStart;
+import net.fortuna.ical4j.model.property.ExDate;
+import net.fortuna.ical4j.model.property.ExRule;
+import net.fortuna.ical4j.model.property.RDate;
+import net.fortuna.ical4j.model.property.RRule;
 
 /** Temporal Expression to iCalendar recurrence converter. The conversion results
  * (or conversion success) are unpredictable since the OFBiz Temporal Expressions

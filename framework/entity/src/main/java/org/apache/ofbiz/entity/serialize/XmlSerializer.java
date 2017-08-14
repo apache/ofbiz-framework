@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -149,7 +150,7 @@ public class XmlSerializer {
         } else if (object instanceof Locale) {
             return makeElement("std-Locale", object, document);
         } else if (object instanceof BigDecimal) {
-            String stringValue = ((BigDecimal) object).setScale(10, BigDecimal.ROUND_HALF_UP).toString();            
+            String stringValue = ((BigDecimal) object).setScale(10, RoundingMode.HALF_UP).toString();            
             return makeElement("std-BigDecimal", stringValue, document);
             // - SQL Objects -
         } else if (object instanceof java.sql.Timestamp) {

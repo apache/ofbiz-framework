@@ -24,11 +24,12 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.server.RMIClientSocketFactory;
 import java.security.GeneralSecurityException;
+
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
-import org.apache.ofbiz.base.config.GenericConfigException;
 
 /**
  * RMI SSL Client Socket Factory

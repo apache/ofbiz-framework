@@ -20,9 +20,9 @@ package org.apache.ofbiz.base.util.collections;
 
 import java.io.Serializable;
 import java.util.AbstractSet;
+import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.EmptyStackException;
 
 /**
  * LifoSet - Set interface wrapper around a LinkedList

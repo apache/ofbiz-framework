@@ -37,7 +37,9 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.JNDIContextFactory;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.*;
+import org.apache.ofbiz.entity.config.model.Datasource;
+import org.apache.ofbiz.entity.config.model.EntityConfig;
+import org.apache.ofbiz.entity.config.model.JndiJdbc;
 import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
 import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 

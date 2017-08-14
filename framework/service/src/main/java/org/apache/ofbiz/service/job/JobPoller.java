@@ -37,8 +37,8 @@ import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.ServiceConfigListener;
+import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.ServiceConfig;
 import org.apache.ofbiz.service.config.model.ThreadPool;
 

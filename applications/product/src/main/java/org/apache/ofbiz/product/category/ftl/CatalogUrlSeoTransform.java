@@ -31,10 +31,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
@@ -53,6 +49,10 @@ import org.apache.ofbiz.product.category.CategoryWorker;
 import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.category.SeoUrlUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;

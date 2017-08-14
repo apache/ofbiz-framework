@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Proxy;
 

@@ -27,6 +27,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ofbiz.base.container.Container;
+import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.container.StartupCommandToArgsAdapter;
+import org.apache.ofbiz.base.start.StartupCommand;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
+
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -34,16 +44,6 @@ import junit.framework.TestFailure;
 import junit.framework.TestListener;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
-
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
-import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
-import org.apache.ofbiz.base.container.Container;
-import org.apache.ofbiz.base.container.ContainerException;
-import org.apache.ofbiz.base.container.StartupCommandToArgsAdapter;
-import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.

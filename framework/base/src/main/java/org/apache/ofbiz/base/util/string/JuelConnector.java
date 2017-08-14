@@ -28,6 +28,8 @@ import javax.el.ELException;
 import javax.el.ExpressionFactory;
 import javax.el.PropertyNotFoundException;
 
+import org.apache.ofbiz.base.util.Debug;
+
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;
@@ -44,8 +46,6 @@ import de.odysseus.el.tree.impl.ast.AstDot;
 import de.odysseus.el.tree.impl.ast.AstEval;
 import de.odysseus.el.tree.impl.ast.AstIdentifier;
 import de.odysseus.el.tree.impl.ast.AstNode;
-
-import org.apache.ofbiz.base.util.Debug;
 
 /** A facade class used to connect the OFBiz framework to the JUEL library.
  *<p>The Unified Expression Language specification doesn't allow assignment of

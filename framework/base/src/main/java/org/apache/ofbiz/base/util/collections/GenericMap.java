@@ -19,8 +19,8 @@
 package org.apache.ofbiz.base.util.collections;
 
 import java.io.Serializable;
-import java.util.ConcurrentModificationException;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;

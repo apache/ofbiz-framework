@@ -20,6 +20,7 @@ package org.apache.ofbiz.entity.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 

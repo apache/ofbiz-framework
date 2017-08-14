@@ -21,9 +21,8 @@ package org.apache.ofbiz.base.config;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.Debug;
-
+import org.apache.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

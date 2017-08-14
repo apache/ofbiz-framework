@@ -25,10 +25,10 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.lang.Appender;
 import org.apache.ofbiz.base.lang.SourceMonitored;
+import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class StringUtilTests extends GenericTestCaseBase {

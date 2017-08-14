@@ -30,7 +30,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.jdom.JDOMException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -42,6 +41,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.jdom.JDOMException;
 
 /**
  * ScaleImage Class

@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.el.PropertyNotFoundException;
 
 import org.apache.ofbiz.base.lang.IsEmpty;

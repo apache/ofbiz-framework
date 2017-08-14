@@ -21,6 +21,7 @@ package org.apache.ofbiz.entity.model;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
