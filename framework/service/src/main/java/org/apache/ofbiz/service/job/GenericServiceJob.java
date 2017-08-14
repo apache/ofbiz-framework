@@ -27,7 +27,8 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericRequester;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
-
+import org.apache.ofbiz.service.semaphore.SemaphoreFailException;
+import org.apache.ofbiz.service.semaphore.SemaphoreWaitException;
 /**
  * A generic async-service job.
  */
@@ -111,11 +112,12 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      * @param t Throwable
      */
     protected void failed(Throwable t) throws InvalidJobException {
-        if (currentState != State.RUNNING) {
-            throw new InvalidJobException("Illegal state change");
+        if (t instanceof SemaphoreWaitException || t instanceof SemaphoreFailException) {
+            Debug.logError("Async-Service failed due to " + t, module);
+        } else {
+            Debug.logError(t, "Async-Service failed.", module);
         }
         currentState = State.FAILED;
-        Debug.logError(t, "Async-Service failed.", module);
     }
 
     /**
