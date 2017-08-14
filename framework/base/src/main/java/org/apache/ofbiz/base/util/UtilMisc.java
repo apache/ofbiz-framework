@@ -271,7 +271,6 @@ public final class UtilMisc {
      * @param values
      * @param delimiter
      * @return String
-     * @throws IOException
      */
     public static String collectionToString(Collection<? extends Object> values, String delimiter) {
         if (UtilValidate.isEmpty(values)) {
@@ -291,10 +290,10 @@ public final class UtilMisc {
     /**
      * Create a set from the passed objects.
      * @param data
-     * @return
+     * @return theSet
      */
     @SafeVarargs
-    public static <T> Set<T> toSet(T... data) {        
+    public static <T> Set<T> toSet(T... data) {
         if (data == null) {
             return null;
         }
@@ -330,7 +329,7 @@ public final class UtilMisc {
     /**
      * Creates a list from passed objects.
      * @param data
-     * @return
+     * @return list
      */
     @SafeVarargs
     public static <T> List<T> toList(T... data) {
