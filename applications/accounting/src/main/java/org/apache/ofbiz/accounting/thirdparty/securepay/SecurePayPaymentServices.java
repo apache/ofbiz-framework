@@ -68,7 +68,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if (enableamountround.equals("Y")) {
-            newAmount = new BigDecimal(processAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
+            newAmount = new BigDecimal(processAmount.setScale(0, RoundingMode.HALF_UP)+".00");
         } else {
             newAmount = processAmount;
         }
@@ -163,7 +163,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if (enableamountround.equals("Y")) {
-            newAmount = new BigDecimal(captureAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
+            newAmount = new BigDecimal(captureAmount.setScale(0, RoundingMode.HALF_UP)+".00");
         } else {
             newAmount = captureAmount;
         }
@@ -242,7 +242,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if (enableamountround.equals("Y")) {
-            newAmount = new BigDecimal(releaseAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
+            newAmount = new BigDecimal(releaseAmount.setScale(0, RoundingMode.HALF_UP)+".00");
         } else {
             newAmount = releaseAmount;
         }
@@ -328,7 +328,7 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
 
         if (enableamountround.equals("Y")) {
-            newAmount = new BigDecimal(refundAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
+            newAmount = new BigDecimal(refundAmount.setScale(0, RoundingMode.HALF_UP)+".00");
         } else {
             newAmount = refundAmount;
         }
@@ -401,7 +401,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if (enableamountround.equals("Y")) {
-            newAmount = new BigDecimal(creditAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
+            newAmount = new BigDecimal(creditAmount.setScale(0, RoundingMode.HALF_UP)+".00");
         } else {
             newAmount = creditAmount;
         }

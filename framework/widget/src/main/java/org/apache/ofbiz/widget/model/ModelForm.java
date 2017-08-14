@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -52,6 +51,7 @@ import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.w3c.dom.Element;
 
 /**

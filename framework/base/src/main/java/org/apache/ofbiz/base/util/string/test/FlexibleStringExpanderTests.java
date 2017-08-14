@@ -26,14 +26,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import junit.framework.TestCase;
-
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.conversion.AbstractConverter;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.Converters;
+import org.apache.ofbiz.base.lang.SourceMonitored;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+
+import junit.framework.TestCase;
 
 @SourceMonitored
 public class FlexibleStringExpanderTests extends TestCase {

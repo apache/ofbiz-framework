@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.ftl;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import freemarker.core.Environment;

@@ -19,13 +19,14 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.io.Serializable;
-import com.ibm.icu.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.ofbiz.base.util.Debug;
+
+import com.ibm.icu.util.Calendar;
 
 /** A collection of TemporalExpression classes.
  * <p>For the most part, these classes are immutable - with the exception

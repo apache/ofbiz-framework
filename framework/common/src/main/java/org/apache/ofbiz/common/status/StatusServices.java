@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.common.status;
 
+import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
+
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,9 +29,6 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;

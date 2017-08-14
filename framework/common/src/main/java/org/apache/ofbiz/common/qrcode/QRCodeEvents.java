@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
 import java.util.Map;
-import java.lang.Integer;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;

@@ -19,10 +19,11 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.io.Serializable;
-import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
+
+import com.ibm.icu.util.Calendar;
 
 /** Temporal expression abstract class. */
 @SuppressWarnings("serial")

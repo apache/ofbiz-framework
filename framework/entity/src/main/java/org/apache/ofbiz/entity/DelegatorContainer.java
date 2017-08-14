@@ -28,8 +28,8 @@ import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 public class DelegatorContainer implements Container {
     private String name;

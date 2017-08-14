@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.net.Socket;
 import java.security.Principal;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.net.Socket;
 
 import javax.net.ssl.X509KeyManager;
 

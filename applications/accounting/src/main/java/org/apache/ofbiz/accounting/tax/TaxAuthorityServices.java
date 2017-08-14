@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.tax;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -449,15 +450,15 @@ public class TaxAuthorityServices {
                     // itemQuantity = 3;
                     // taxAmountIncludedInFullPrice = (43-(43/(1+(20/100))))*3 = 21.51
                     taxAdjValue.set("orderAdjustmentTypeId", "VAT_TAX");
-                    BigDecimal taxAmountIncludedInFullPrice = itemPrice.subtract(itemPrice.divide(BigDecimal.ONE.add(taxRate.divide(PERCENT_SCALE, 4, BigDecimal.ROUND_HALF_UP)), 2, BigDecimal.ROUND_HALF_UP)).multiply(itemQuantity);
+                    BigDecimal taxAmountIncludedInFullPrice = itemPrice.subtract(itemPrice.divide(BigDecimal.ONE.add(taxRate.divide(PERCENT_SCALE, 4, RoundingMode.HALF_UP)), 2, RoundingMode.HALF_UP)).multiply(itemQuantity);
                     // If 1 quantity has 50% discount then itemAmount = 107.5 otherwise 129 (In case of no discount)
                     // Net price for each item
                     // netItemPrice = itemAmount / quantity = 107.5 / 3 = 35.833333333
-                    BigDecimal netItemPrice = itemAmount.divide(itemQuantity, BigDecimal.ROUND_HALF_UP);
+                    BigDecimal netItemPrice = itemAmount.divide(itemQuantity, RoundingMode.HALF_UP);
                     // Calculate tax on the discounted price, be sure to round to 2 decimal places before multiplying by quantity
                     // netTax = (netItemPrice - netItemPrice / (1 + (taxRate/100))) * quantity
                     // netTax = (35.833333333-(35.833333333/(1+(20/100))))*3 = 17.92
-                    BigDecimal netTax = netItemPrice.subtract(netItemPrice.divide(BigDecimal.ONE.add(taxRate.divide(PERCENT_SCALE, 4, BigDecimal.ROUND_HALF_UP)), 2, BigDecimal.ROUND_HALF_UP)).multiply(itemQuantity);
+                    BigDecimal netTax = netItemPrice.subtract(netItemPrice.divide(BigDecimal.ONE.add(taxRate.divide(PERCENT_SCALE, 4, RoundingMode.HALF_UP)), 2, RoundingMode.HALF_UP)).multiply(itemQuantity);
                     //Subtract net tax from base tax (taxAmountIncludedFullPrice) to get the negative promotion tax adjustment amount
                     // discountedSalesTax = 17.92 - 21.51 = −3.59 (If no discounted item quantity then discountedSalesTax will be ZERO)
                     discountedSalesTax = netTax.subtract(taxAmountIncludedInFullPrice);

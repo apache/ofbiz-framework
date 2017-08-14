@@ -28,11 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.shiro.crypto.AesCipherService;
-import org.apache.shiro.crypto.OperationMode;
-import org.apache.shiro.crypto.hash.DefaultHashService;
-import org.apache.shiro.crypto.hash.HashRequest;
-import org.apache.shiro.crypto.hash.HashService;
 import org.apache.ofbiz.base.crypto.DesCrypt;
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
@@ -46,6 +41,11 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField.EncryptMethod;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.OperationMode;
+import org.apache.shiro.crypto.hash.DefaultHashService;
+import org.apache.shiro.crypto.hash.HashRequest;
+import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 

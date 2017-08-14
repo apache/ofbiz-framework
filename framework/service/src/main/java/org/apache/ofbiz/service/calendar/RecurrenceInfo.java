@@ -19,7 +19,6 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.util.ArrayList;
-import com.ibm.icu.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -28,10 +27,11 @@ import java.util.List;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Recurrence Info Object

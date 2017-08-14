@@ -20,6 +20,7 @@
 package org.apache.ofbiz.manufacturing.jobshopmgt;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -207,7 +208,7 @@ public class ProductionRun {
         for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
             GenericValue component = iter.next();
             componentQuantity = component.getBigDecimal("estimatedQuantity");
-            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity).doubleValue());
+            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, RoundingMode.HALF_UP).multiply(newQuantity).doubleValue());
         }
     }
     /**

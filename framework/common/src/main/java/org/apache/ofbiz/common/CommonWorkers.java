@@ -20,6 +20,7 @@ package org.apache.ofbiz.common;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;

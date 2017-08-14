@@ -23,7 +23,15 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -33,13 +41,6 @@ import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
-
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * OfbizCurrencyTransform - Freemarker Transform for content links

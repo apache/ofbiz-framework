@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.ftl;
 
+import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import freemarker.core.Environment;
-import freemarker.template.TemplateTransformModel;
-
 import org.apache.ofbiz.base.util.Debug;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+
+import freemarker.core.Environment;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * RenderWrappedTextTransform - Freemarker Transform for URLs (links)

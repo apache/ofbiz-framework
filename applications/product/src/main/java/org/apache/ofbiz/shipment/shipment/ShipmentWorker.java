@@ -20,6 +20,7 @@ package org.apache.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,7 +103,7 @@ public final class ShipmentWorker {
             }
         }
         // take the average value of the issuances and multiply it by the shipment package content quantity
-        value = totalValue.divide(totalIssued, 10, BigDecimal.ROUND_HALF_EVEN).multiply(quantity);
+        value = totalValue.divide(totalIssued, 10, RoundingMode.HALF_EVEN).multiply(quantity);
         return value;
     }
 

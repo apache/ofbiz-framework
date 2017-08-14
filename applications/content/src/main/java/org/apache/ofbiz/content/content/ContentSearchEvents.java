@@ -27,12 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
-import org.apache.ofbiz.content.content.ContentSearch.ResultSortOrder;
 import org.apache.ofbiz.content.content.ContentSearch.ContentSearchConstraint;
 import org.apache.ofbiz.content.content.ContentSearch.ContentSearchContext;
+import org.apache.ofbiz.content.content.ContentSearch.ResultSortOrder;
 import org.apache.ofbiz.content.content.ContentSearchSession.ContentSearchOptions;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 
 public class ContentSearchEvents {

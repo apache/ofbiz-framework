@@ -19,6 +19,7 @@
 package org.apache.ofbiz.shipment.packing;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1018,7 +1019,7 @@ public class PackingSession implements java.io.Serializable {
 
         public ItemDisplay(GenericValue v) {
             if ("PicklistItem".equals(v.getEntityName())) {
-                quantity = v.getBigDecimal("quantity").setScale(2, BigDecimal.ROUND_HALF_UP);
+                quantity = v.getBigDecimal("quantity").setScale(2, RoundingMode.HALF_UP);
                 try {
                     orderItem = v.getRelatedOne("OrderItem", false);
                     productId = v.getRelatedOne("InventoryItem", false).getString("productId");
@@ -1029,7 +1030,7 @@ public class PackingSession implements java.io.Serializable {
                 // this is an OrderItemAndShipGrpInvResAndItemSum
                 orderItem = v;
                 productId = v.getString("inventoryProductId");
-                quantity = v.getBigDecimal("totQuantityReserved").setScale(2, BigDecimal.ROUND_HALF_UP);
+                quantity = v.getBigDecimal("totQuantityReserved").setScale(2, RoundingMode.HALF_UP);
             }
             Debug.logInfo("created item display object quantity: " + quantity + " (" + productId + ")", module);
         }

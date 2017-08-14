@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.transaction;
 
-import javax.transaction.xa.Xid;
 import javax.transaction.xa.XAException;
+import javax.transaction.xa.Xid;
 
 import org.apache.ofbiz.base.util.Debug;
 

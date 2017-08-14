@@ -36,7 +36,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.jdom.JDOMException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -56,6 +55,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.jdom.JDOMException;
 
 /**
  * Product Services

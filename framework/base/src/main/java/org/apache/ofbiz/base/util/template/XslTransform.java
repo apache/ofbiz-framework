@@ -18,40 +18,38 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.template;
 
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.util.Map;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.URLConnector;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.GeneralException;
-
-import javax.xml.transform.Transformer;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.Templates;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
+import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.URLConnector;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.transform.stream.StreamResult;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 public final class XslTransform {
 

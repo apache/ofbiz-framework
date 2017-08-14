@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import java.lang.reflect.Array;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-import java.lang.Class;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;

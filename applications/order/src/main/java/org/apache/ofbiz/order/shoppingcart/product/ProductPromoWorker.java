@@ -20,6 +20,7 @@ package org.apache.ofbiz.order.shoppingcart.product;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -410,7 +411,7 @@ public final class ProductPromoWorker {
 
         // set a max limit on how many times each promo can be run, for cases where there is no use limit this will be the use limit
         //default to 2 times the number of items in the cart
-        long maxUseLimit = cart.getTotalQuantity().multiply(BigDecimal.valueOf(2)).setScale(0, BigDecimal.ROUND_CEILING).longValue();
+        long maxUseLimit = cart.getTotalQuantity().multiply(BigDecimal.valueOf(2)).setScale(0, RoundingMode.CEILING).longValue();
         maxUseLimit = Math.max(1, maxUseLimit);
 
         try {
@@ -958,7 +959,7 @@ public final class ProductPromoWorker {
 
                     BigDecimal basePrice = cartItem.getBasePrice();
                     // get a rough price, round it up to an integer
-                    BigDecimal quantityNeeded = amountNeeded.divide(basePrice, generalRounding).setScale(0, BigDecimal.ROUND_CEILING);
+                    BigDecimal quantityNeeded = amountNeeded.divide(basePrice, generalRounding).setScale(0, RoundingMode.CEILING);
 
                     // reduce amount still needed to qualify for promo (amountNeeded)
                     BigDecimal quantity = cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, false);
@@ -1315,7 +1316,7 @@ public final class ProductPromoWorker {
 
         BigDecimal basePrice = cartItem.getBasePrice();
         BigDecimal amountOff = listPrice.subtract(basePrice);
-        BigDecimal percentOff = amountOff.divide(listPrice, 2, BigDecimal.ROUND_HALF_UP).multiply(BigDecimal.valueOf(100L));
+        BigDecimal percentOff = amountOff.divide(listPrice, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100L));
 
         Integer compareBase = null;
 
@@ -1844,7 +1845,7 @@ public final class ProductPromoWorker {
                 BigDecimal ratioOfTotal = quantityUsed.multiply(cartItem.getBasePrice()).divide(totalAmount, generalRounding);
                 BigDecimal weightedAmount = ratioOfTotal.multiply(discountAmountTotal);
                 // round the weightedAmount to 3 decimal places, we don't want an exact number cents/whatever because this will be added up as part of a subtotal which will be rounded to 2 decimal places
-                weightedAmount = weightedAmount.setScale(3, BigDecimal.ROUND_HALF_UP);
+                weightedAmount = weightedAmount.setScale(3, RoundingMode.HALF_UP);
                 discountAmount = discountAmount.subtract(weightedAmount);
                 doOrderItemPromoAction(productPromoAction, cartItem, weightedAmount, "amount", delegator);
             } else {

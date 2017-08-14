@@ -21,6 +21,7 @@ package org.apache.ofbiz.shipment.thirdparty.fedex;
 
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -912,15 +913,15 @@ public class FedexServices {
                 shipRequestContext.put("DropoffType", dropoffType);
                 shipRequestContext.put("Packaging", packaging);
                 if (UtilValidate.isNotEmpty(dimensionsUomId) &&
-                    dimensionsLength != null && dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
-                    dimensionsWidth != null && dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
-                    dimensionsHeight != null && dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
+                    dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
+                    dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
+                    dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
                         shipRequestContext.put("DimensionsUnits", dimensionsUomId.equals("LEN_in") ? "IN" : "CM");
-                        shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
-                        shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
-                        shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, BigDecimal.ROUND_HALF_UP).toString());
+                        shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, RoundingMode.HALF_UP).toString());
+                        shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, RoundingMode.HALF_UP).toString());
+                        shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, RoundingMode.HALF_UP).toString());
                 }
-                shipRequestContext.put("Weight", weight.setScale(1, BigDecimal.ROUND_UP).toString());
+                shipRequestContext.put("Weight", weight.setScale(1, RoundingMode.UP).toString());
             }
 
             StringWriter outWriter = new StringWriter();

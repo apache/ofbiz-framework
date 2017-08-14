@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.common.preferences;
 
+import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -26,7 +28,6 @@ import java.util.Properties;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;

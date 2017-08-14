@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
 import org.apache.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
@@ -76,6 +75,7 @@ import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.w3c.dom.Element;
 
 /**

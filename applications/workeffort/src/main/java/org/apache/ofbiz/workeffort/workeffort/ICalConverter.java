@@ -34,6 +34,27 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.base.util.DateRange;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.TimeDuration;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelParam;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.service.calendar.TemporalExpression;
+import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
+import org.apache.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
+
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
@@ -76,27 +97,6 @@ import net.fortuna.ical4j.model.property.Summary;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.model.property.XProperty;
-
-import org.apache.ofbiz.base.util.DateRange;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.TimeDuration;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelParam;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.calendar.TemporalExpression;
-import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
-import org.apache.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library.

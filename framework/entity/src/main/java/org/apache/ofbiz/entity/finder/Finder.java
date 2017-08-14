@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.finder;
 
-import java.util.Map;
 import java.io.Serializable;
-import org.w3c.dom.Element;
+import java.util.Map;
 
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
+import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
 public abstract class Finder implements Serializable {

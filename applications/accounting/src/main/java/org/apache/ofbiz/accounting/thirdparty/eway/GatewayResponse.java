@@ -20,6 +20,7 @@ package org.apache.ofbiz.accounting.thirdparty.eway;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -94,7 +95,7 @@ public class GatewayResponse {
     public BigDecimal getTransactionAmount() {
         BigDecimal amt = new BigDecimal(getReturnAmount());
         amt = amt.divide(new BigDecimal(100));
-        return amt.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return amt.setScale(2, RoundingMode.HALF_UP);
     }
 
     public boolean getTrxnStatus() {

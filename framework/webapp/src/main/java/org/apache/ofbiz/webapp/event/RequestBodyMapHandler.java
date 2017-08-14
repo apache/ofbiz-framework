@@ -18,9 +18,10 @@
  */
 package org.apache.ofbiz.webapp.event;
 
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.ServletRequest;
 
 /** An handler that can extract a Map (typically used as a service input map) from the data in the body of a <code>ServletRequest</code>. */
 public interface RequestBodyMapHandler {

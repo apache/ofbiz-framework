@@ -18,25 +18,25 @@
  *******************************************************************************/
 package org.apache.ofbiz.webtools.print;
 
-import java.util.Map;
-import java.util.Locale;
 import java.io.IOException;
-import java.io.Writer;
 import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
