@@ -1597,7 +1597,7 @@ public class DatabaseUtil {
 
         protected int updateData(Collection<String> messages) {
             if (messages != null && UtilValidate.isNotEmpty(this.messages)) {
-                messages.addAll(messages);
+                this.messages.addAll(messages);
             }
             return count;
         }
