@@ -381,6 +381,10 @@ public class ModelFormField {
             if (simpleEncoder != null)
                 returnValue = simpleEncoder.encode(returnValue);
         }
+
+        if (returnValue != null) {
+            returnValue = returnValue.trim();
+        }
         return returnValue;
     }
 
