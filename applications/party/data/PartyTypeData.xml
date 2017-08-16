@@ -334,7 +334,6 @@ under the License.
     <TermType description="Other" hasTable="N" parentTypeId="" termTypeId="OTHER_TERM"/>
 
     <!-- User preferences data -->
-    <UserPrefGroupType userPrefGroupTypeId="GLOBAL_PREFERENCES" description="Global preferences"/>
     <UserPreference userLoginId="_NA_" userPrefTypeId="ORGANIZATION_PARTY" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="DEFAULT"/>
 
     <EnumerationType description="User preference groups" enumTypeId="USER_PREF_GROUPS" hasTable="N" parentTypeId=""/>
