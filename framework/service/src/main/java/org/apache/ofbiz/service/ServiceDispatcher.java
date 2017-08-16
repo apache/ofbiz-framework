@@ -74,7 +74,7 @@ public class ServiceDispatcher {
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
     protected static boolean enableJM = true;
-    protected static boolean enableJMS = true;
+    protected static boolean enableJMS = UtilProperties.getPropertyAsBoolean("service", "enableJMS", true);
     protected static boolean enableSvcs = true;
 
     protected Delegator delegator = null;
