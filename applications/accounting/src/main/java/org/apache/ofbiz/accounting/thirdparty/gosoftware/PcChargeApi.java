@@ -78,8 +78,8 @@ public class PcChargeApi {
     public static final String CARD_ID_CODE = "CARD_ID_CODE";
     public static final String CVV2_CODE = "CVV2_CODE";
 
-    protected static final String[] validOut = { RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
-    protected static final String[] validIn = { PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
+    private static final String[] validOut = { RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
+    private static final String[] validIn = { PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
             CUSTOMER_CODE, TAX_AMOUNT, PRINT_RECEIPTS_FLAG, PERIODIC_PAYMENT_FLAG, OFFLINE_FLAG, VOID_FLAG, ZIP_CODE,
             STREET, TICKET_NUM, CARDHOLDER, TRANS_STORE, TOTAL_AUTH, MULTI_FLAG, PRESENT_FLAG, CVV2 };
 
@@ -186,7 +186,7 @@ public class PcChargeApi {
         byte readBuffer[] = new byte[2250];
         if (mode == MODE_IN) {
             try (Socket sock = new Socket(host, port);
-                    PrintStream ps =  new PrintStream(sock.getOutputStream());
+                    PrintStream ps = new PrintStream(sock.getOutputStream(), false, "UTF-8");
                     DataInputStream dis = new DataInputStream(sock.getInputStream())) {
              
                 ps.print(this.toString());
@@ -195,7 +195,7 @@ public class PcChargeApi {
                 StringBuilder buf = new StringBuilder();
                 int size;
                 while ((size = dis.read(readBuffer)) > -1) {
-                    buf.append(new String(readBuffer, 0, size));
+                    buf.append(new String(readBuffer, 0, size, "UTF-8"));
                 }
                 Document outDoc = null;
                 try {

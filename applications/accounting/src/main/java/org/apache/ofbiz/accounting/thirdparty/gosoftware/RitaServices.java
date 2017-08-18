@@ -95,50 +95,44 @@ public class RitaServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
-            String resultCode = out.get(RitaApi.RESULT);
-            boolean passed = false;
-            if ("CAPTURED".equals(resultCode)) {
-                result.put("authResult", Boolean.TRUE);
-                result.put("captureResult", Boolean.TRUE);
-                passed = true;
-            } else if ("APPROVED".equals(resultCode)) {
-                result.put("authCode", out.get(RitaApi.AUTH_CODE));
-                result.put("authResult", Boolean.TRUE);
-                passed = true;
-            } else if ("PROCESSED".equals(resultCode)) {
-                result.put("authResult", Boolean.TRUE);
-            } else {
-                result.put("authResult", Boolean.FALSE);
-            }
-
-            result.put("authRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
-            result.put("processAmount", context.get("processAmount"));
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String resultCode = out.get(RitaApi.RESULT);
+        boolean passed = false;
+        if ("CAPTURED".equals(resultCode)) {
+            result.put("authResult", Boolean.TRUE);
+            result.put("captureResult", Boolean.TRUE);
+            passed = true;
+        } else if ("APPROVED".equals(resultCode)) {
             result.put("authCode", out.get(RitaApi.AUTH_CODE));
-            result.put("authFlag", out.get(RitaApi.REFERENCE));
-            result.put("authMessage", out.get(RitaApi.RESULT));
-            result.put("cvCode", out.get(RitaApi.CVV2_CODE));
-            result.put("avsCode", out.get(RitaApi.AVS_CODE));
-
-            if (!passed) {
-                String respMsg = out.get(RitaApi.RESULT) + " / " + out.get(RitaApi.INTRN_SEQ_NUM);
-                result.put("customerRespMsgs", UtilMisc.toList(respMsg));
-            }
-
-            if (result.get("captureResult") != null) {
-                result.put("captureCode", out.get(RitaApi.AUTH_CODE));
-                result.put("captureFlag", out.get(RitaApi.REFERENCE));
-                result.put("captureRefNum", out.get(RitaApi.INTRN_SEQ_NUM));
-                result.put("captureMessage", out.get(RitaApi.RESULT));
-            }
-
-            return result;
-
+            result.put("authResult", Boolean.TRUE);
+            passed = true;
+        } else if ("PROCESSED".equals(resultCode)) {
+            result.put("authResult", Boolean.TRUE);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingRitaResultIsNull", locale));
+            result.put("authResult", Boolean.FALSE);
         }
+
+        result.put("authRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
+        result.put("processAmount", context.get("processAmount"));
+        result.put("authCode", out.get(RitaApi.AUTH_CODE));
+        result.put("authFlag", out.get(RitaApi.REFERENCE));
+        result.put("authMessage", out.get(RitaApi.RESULT));
+        result.put("cvCode", out.get(RitaApi.CVV2_CODE));
+        result.put("avsCode", out.get(RitaApi.AVS_CODE));
+
+        if (!passed) {
+            String respMsg = out.get(RitaApi.RESULT) + " / " + out.get(RitaApi.INTRN_SEQ_NUM);
+            result.put("customerRespMsgs", UtilMisc.toList(respMsg));
+        }
+
+        if (result.get("captureResult") != null) {
+            result.put("captureCode", out.get(RitaApi.AUTH_CODE));
+            result.put("captureFlag", out.get(RitaApi.REFERENCE));
+            result.put("captureRefNum", out.get(RitaApi.INTRN_SEQ_NUM));
+            result.put("captureMessage", out.get(RitaApi.RESULT));
+        }
+
+        return result;
     }
 
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -181,25 +175,20 @@ public class RitaServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
-            String resultCode = out.get(RitaApi.RESULT);
-            if ("CAPTURED".equals(resultCode)) {
-                result.put("captureResult", Boolean.TRUE);
-            } else {
-                result.put("captureResult", Boolean.FALSE);
-            }
-            result.put("captureAmount", context.get("captureAmount"));
-            result.put("captureRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
-            result.put("captureCode", out.get(RitaApi.AUTH_CODE));
-            result.put("captureFlag", out.get(RitaApi.REFERENCE));
-            result.put("captureMessage", out.get(RitaApi.RESULT));
-
-            return result;
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String resultCode = out.get(RitaApi.RESULT);
+        if ("CAPTURED".equals(resultCode)) {
+            result.put("captureResult", Boolean.TRUE);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingRitaResultIsNull", locale));
+            result.put("captureResult", Boolean.FALSE);
         }
+        result.put("captureAmount", context.get("captureAmount"));
+        result.put("captureRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
+        result.put("captureCode", out.get(RitaApi.AUTH_CODE));
+        result.put("captureFlag", out.get(RitaApi.REFERENCE));
+        result.put("captureMessage", out.get(RitaApi.RESULT));
+
+        return result;
     }
 
     public static Map<String, Object> ccVoidRelease(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -257,25 +246,22 @@ public class RitaServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
-            String resultCode = out.get(RitaApi.RESULT);
-            if ("VOIDED".equals(resultCode)) {
-                result.put(isRefund ? "refundResult" : "releaseResult", Boolean.TRUE);
-            } else {
-                result.put(isRefund ? "refundResult" : "releaseResult", Boolean.FALSE);
-            }
-            result.put(isRefund ? "refundAmount" : "releaseAmount", context.get(isRefund ? "refundAmount" : "releaseAmount"));
-            result.put(isRefund ? "refundRefNum" : "releaseRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
-            result.put(isRefund ? "refundCode" : "releaseCode", out.get(RitaApi.AUTH_CODE));
-            result.put(isRefund ? "refundFlag" : "releaseFlag", out.get(RitaApi.REFERENCE));
-            result.put(isRefund ? "refundMessage" : "releaseMessage", out.get(RitaApi.RESULT));
-
-            return result;
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String resultCode = out.get(RitaApi.RESULT);
+        if ("VOIDED".equals(resultCode)) {
+            result.put(isRefund ? "refundResult" : "releaseResult", Boolean.TRUE);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingRitaResultIsNull", locale));
+            result.put(isRefund ? "refundResult" : "releaseResult", Boolean.FALSE);
         }
+        result.put(isRefund ? "refundAmount" : "releaseAmount",
+                context.get(isRefund ? "refundAmount" : "releaseAmount"));
+        result.put(isRefund ? "refundRefNum" : "releaseRefNum",
+                out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
+        result.put(isRefund ? "refundCode" : "releaseCode", out.get(RitaApi.AUTH_CODE));
+        result.put(isRefund ? "refundFlag" : "releaseFlag", out.get(RitaApi.REFERENCE));
+        result.put(isRefund ? "refundMessage" : "releaseMessage", out.get(RitaApi.RESULT));
+
+        return result;
     }
 
     public static Map<String, Object> ccCreditRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -326,25 +312,20 @@ public class RitaServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
-            String resultCode = out.get(RitaApi.RESULT);
-            if ("CAPTURED".equals(resultCode)) {
-                result.put("refundResult", Boolean.TRUE);
-            } else {
-                result.put("refundResult", Boolean.FALSE);
-            }
-            result.put("refundAmount", context.get("refundAmount"));
-            result.put("refundRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
-            result.put("refundCode", out.get(RitaApi.AUTH_CODE));
-            result.put("refundFlag", out.get(RitaApi.REFERENCE));
-            result.put("refundMessage", out.get(RitaApi.RESULT));
-
-            return result;
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String resultCode = out.get(RitaApi.RESULT);
+        if ("CAPTURED".equals(resultCode)) {
+            result.put("refundResult", Boolean.TRUE);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingRitaResultIsNull", locale));
+            result.put("refundResult", Boolean.FALSE);
         }
+        result.put("refundAmount", context.get("refundAmount"));
+        result.put("refundRefNum", out.get(RitaApi.INTRN_SEQ_NUM) != null ? out.get(RitaApi.INTRN_SEQ_NUM) : "");
+        result.put("refundCode", out.get(RitaApi.AUTH_CODE));
+        result.put("refundFlag", out.get(RitaApi.REFERENCE));
+        result.put("refundMessage", out.get(RitaApi.RESULT));
+
+        return result;
     }
 
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
