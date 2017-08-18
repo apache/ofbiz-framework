@@ -691,6 +691,20 @@ public final class UtilValidate {
         if (isEmpty(s)) return defaultEmptyOK;
         return EmailValidator.getInstance().isValid(s);
     }
+    
+    /** 
+     * Checks a String for a valid Email-List seperated by ",".
+     */
+    public static boolean isEmailList(String s) {
+        if (isEmpty(s)) return defaultEmptyOK;
+        String[] emails = s.split(",");
+        for (String email : emails) {
+            if (!EmailValidator.getInstance().isValid(email)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /** isUrl returns true if the string contains ://
      * @param s String to validate

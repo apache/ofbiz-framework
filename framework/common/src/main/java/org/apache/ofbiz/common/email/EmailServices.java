@@ -51,6 +51,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.ofbiz.base.util.Debug;
@@ -438,6 +439,12 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
         if (UtilValidate.isNotEmpty(attachmentNameListParam)) attachmentNameList.addAll(attachmentNameListParam);
         
+        List<String> attachmentTypeList = new LinkedList<String>();
+        String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
+        List<String> attachmentTypeListParam = UtilGenerics.checkList(serviceContext.remove("attachmentTypeList"));
+        if (UtilValidate.isNotEmpty(attachmentTypeParam)) attachmentTypeList.add(attachmentTypeParam);
+        if (UtilValidate.isNotEmpty(attachmentTypeListParam)) attachmentTypeList.addAll(attachmentTypeListParam);
+        
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.checkMap(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
@@ -504,9 +511,9 @@ public class EmailServices {
             List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String, ? extends Object>>();
             if (bodyText != null) {
                 bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", "text/html"));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
             } else {
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", "text/html"));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
             }
             
             for (int i = 0; i < xslfoAttachScreenLocationList.size(); i++) {
@@ -515,39 +522,51 @@ public class EmailServices {
                 if (UtilValidate.isNotEmpty(attachmentNameList) && attachmentNameList.size() >= i) {
                     attachmentName = attachmentNameList.get(i);
                 }
+
+                String attachmentType = MimeConstants.MIME_PDF;
+                if (UtilValidate.isNotEmpty(attachmentTypeList) && attachmentTypeList.size() >= i) {
+                    attachmentType = attachmentTypeList.get(i);
+                }
+                
                 isMultiPart = true;
                 // start processing fo pdf attachment
                 try {
                     Writer writer = new StringWriter();
-                    MapStack<String> screenContextAtt = MapStack.create();
                     // substitute the freemarker variables...
-                    ScreenStringRenderer foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
-                            EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+                    ScreenStringRenderer foScreenStringRenderer = null;
+                    if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
+                        foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screentext.name", dctx.getDelegator()),
+                                EntityUtilProperties.getPropertyValue("widget", "screentext.screenrenderer", dctx.getDelegator()));   
+                    }else{
+                        foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
+                                EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+                    } 
                     ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
-                    screenContextAtt.putAll(bodyParameters);
                     screensAtt.render(xslfoAttachScreenLocation);
-
-                    // create the input stream for the generation
-                    StreamSource src = new StreamSource(new StringReader(writer.toString()));
 
                     // create the output stream for the generation
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                    Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
-                    ApacheFopWorker.transform(src, null, fop);
+                    if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)) {
+                        baos.write(writer.toString().getBytes());
+                    } else {
+                        // create the input stream for the generation
+                        StreamSource src = new StreamSource(new StringReader(writer.toString()));
+                        Fop fop = ApacheFopWorker.createFopInstance(baos, attachmentType);
+                        ApacheFopWorker.transform(src, null, fop);
+                    }
 
-                    // and generate the PDF
+                    // and generate the attachment
                     baos.flush();
                     baos.close();
 
                     // store in the list of maps for sendmail....
-                    bodyParts.add(UtilMisc.<String, Object> toMap("content", baos.toByteArray(), "type", "application/pdf", "filename",
-                            attachmentName));
-                } catch (Exception e) {
-                    Debug.logError(e, "Error rendering PDF attachment for email: " + e.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError",
-                            UtilMisc.toMap("errorString", e.toString()), locale));
+                    bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", attachmentType, "filename", attachmentName));
+                    
+                } catch (GeneralException|IOException|SAXException|ParserConfigurationException |TemplateException ge) {
+                    Debug.logError(ge, "Error rendering PDF attachment for email: " + ge.toString(), module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ge.toString()), locale));
                 }
                 
                 serviceContext.put("bodyParts", bodyParts);
