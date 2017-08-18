@@ -60,7 +60,7 @@ public final class ComponentConfig {
      * we will need to use synchronization code because there is no concurrent implementation of LinkedHashMap.
      */
     private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
-    private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<String, List<WebappInfo>>();
+    private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<>();
 
     public static Boolean componentExists(String componentName) {
         Assert.notEmpty("componentName", componentName);
@@ -72,7 +72,7 @@ public final class ComponentConfig {
     }
 
     public static List<ClasspathInfo> getAllClasspathInfos(String componentName) {
-        List<ClasspathInfo> classpaths = new ArrayList<ClasspathInfo>();
+        List<ClasspathInfo> classpaths = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 classpaths.addAll(cc.getClasspathInfos());
@@ -90,7 +90,7 @@ public final class ComponentConfig {
     }
 
     public static List<ContainerConfig.Configuration> getAllConfigurations(String componentName) {
-        List<ContainerConfig.Configuration> configurations = new ArrayList<ContainerConfig.Configuration>();
+        List<ContainerConfig.Configuration> configurations = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 configurations.addAll(cc.getConfigurations());
@@ -104,7 +104,7 @@ public final class ComponentConfig {
     }
 
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String componentName) {
-        List<EntityResourceInfo> entityInfos = new ArrayList<EntityResourceInfo>();
+        List<EntityResourceInfo> entityInfos = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<EntityResourceInfo> ccEntityInfoList = cc.getEntityResourceInfos();
@@ -127,7 +127,7 @@ public final class ComponentConfig {
     }
 
     public static List<KeystoreInfo> getAllKeystoreInfos(String componentName) {
-        List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>();
+        List<KeystoreInfo> keystoreInfos = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 keystoreInfos.addAll(cc.getKeystoreInfos());
@@ -141,7 +141,7 @@ public final class ComponentConfig {
     }
 
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type, String componentName) {
-        List<ServiceResourceInfo> serviceInfos = new ArrayList<ServiceResourceInfo>();
+        List<ServiceResourceInfo> serviceInfos = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<ServiceResourceInfo> ccServiceInfoList = cc.getServiceResourceInfos();
@@ -164,7 +164,7 @@ public final class ComponentConfig {
     }
 
     public static List<TestSuiteInfo> getAllTestSuiteInfos(String componentName) {
-        List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>();
+        List<TestSuiteInfo> testSuiteInfos = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 testSuiteInfos.addAll(cc.getTestSuiteInfos());
@@ -178,7 +178,7 @@ public final class ComponentConfig {
     }
 
     public static List<WebappInfo> getAllWebappResourceInfos(String componentName) {
-        List<WebappInfo> webappInfos = new ArrayList<WebappInfo>();
+        List<WebappInfo> webappInfos = new ArrayList<>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 webappInfos.addAll(cc.getWebappInfos());
@@ -201,9 +201,9 @@ public final class ComponentConfig {
             Map<String, WebappInfo> tm = null;
             // use a TreeMap to sort the components alpha by title
             if (comp != null) {
-                tm = new TreeMap<String, WebappInfo>(comp);
+                tm = new TreeMap<>(comp);
             } else {
-                tm = new TreeMap<String, WebappInfo>();
+                tm = new TreeMap<>();
             }
             for (ComponentConfig cc : getAllComponents()) {
                 for (WebappInfo wInfo : cc.getWebappInfos()) {
@@ -219,7 +219,7 @@ public final class ComponentConfig {
                     }
                 }
             }
-            webInfos = new ArrayList<WebappInfo>(tm.size());
+            webInfos = new ArrayList<>(tm.size());
             webInfos.addAll(tm.values());
             webInfos = Collections.unmodifiableList(webInfos);
             synchronized (serverWebApps) {
@@ -240,7 +240,7 @@ public final class ComponentConfig {
     }
 
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
-        ComponentConfig componentConfig = null;
+        ComponentConfig componentConfig;
         if (globalName != null && !globalName.isEmpty()) {
             componentConfig = componentConfigCache.fromGlobalName(globalName);
             if (componentConfig != null) {
@@ -253,23 +253,19 @@ public final class ComponentConfig {
                 return componentConfig;
             }
         }
-        if (rootLocation != null) {
-            componentConfig = new ComponentConfig(globalName, rootLocation);
-            if (componentConfig.enabled()) {
-                componentConfigCache.put(componentConfig);
-            }
-            return componentConfig;
-        } else {
+        if (rootLocation == null) {
             // Do we really need to do this?
             throw new ComponentException("No component found named : " + globalName);
         }
+        componentConfig = new ComponentConfig(globalName, rootLocation);
+        if (componentConfig.enabled()) {
+            componentConfigCache.put(componentConfig);
+        }
+        return componentConfig;
     }
 
     public static String getFullLocation(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName, null);
-        if (cc == null) {
-            throw new ComponentException("Could not find component with name: " + componentName);
-        }
         return cc.getFullLocation(resourceLoaderName, location);
     }
 
@@ -288,25 +284,16 @@ public final class ComponentConfig {
 
     public static String getRootLocation(String componentName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
-        if (cc == null) {
-            throw new ComponentException("Could not find component with name: " + componentName);
-        }
         return cc.getRootLocation();
     }
 
     public static InputStream getStream(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
-        if (cc == null) {
-            throw new ComponentException("Could not find component with name: " + componentName);
-        }
         return cc.getStream(resourceLoaderName, location);
     }
 
     public static URL getURL(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
-        if (cc == null) {
-            throw new ComponentException("Could not find component with name: " + componentName);
-        }
         return cc.getURL(resourceLoaderName, location);
     }
 
@@ -327,9 +314,6 @@ public final class ComponentConfig {
 
     public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
-        if (cc == null) {
-            throw new ComponentException("Could not find component with name: " + componentName);
-        }
         return cc.isFileResourceLoader(resourceLoaderName);
     }
 
@@ -382,7 +366,7 @@ public final class ComponentConfig {
         // resource-loader - resourceLoaderInfos
         List<? extends Element> childElements = UtilXml.childElementList(ofbizComponentElement, "resource-loader");
         if (!childElements.isEmpty()) {
-            Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<String, ResourceLoaderInfo>();
+            Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<>();
             for (Element curElement : childElements) {
                 ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
                 resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
@@ -394,7 +378,7 @@ public final class ComponentConfig {
         // classpath - classpathInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "classpath");
         if (!childElements.isEmpty()) {
-            List<ClasspathInfo> classpathInfos = new ArrayList<ClasspathInfo>(childElements.size());
+            List<ClasspathInfo> classpathInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 ClasspathInfo classpathInfo = new ClasspathInfo(this, curElement);
                 classpathInfos.add(classpathInfo);
@@ -406,7 +390,7 @@ public final class ComponentConfig {
         // entity-resource - entityResourceInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "entity-resource");
         if (!childElements.isEmpty()) {
-            List<EntityResourceInfo> entityResourceInfos = new ArrayList<EntityResourceInfo>(childElements.size());
+            List<EntityResourceInfo> entityResourceInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 EntityResourceInfo entityResourceInfo = new EntityResourceInfo(this, curElement);
                 entityResourceInfos.add(entityResourceInfo);
@@ -418,7 +402,7 @@ public final class ComponentConfig {
         // service-resource - serviceResourceInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "service-resource");
         if (!childElements.isEmpty()) {
-            List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<ServiceResourceInfo>(childElements.size());
+            List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 ServiceResourceInfo serviceResourceInfo = new ServiceResourceInfo(this, curElement);
                 serviceResourceInfos.add(serviceResourceInfo);
@@ -430,7 +414,7 @@ public final class ComponentConfig {
         // test-suite - serviceResourceInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "test-suite");
         if (!childElements.isEmpty()) {
-            List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>(childElements.size());
+            List<TestSuiteInfo> testSuiteInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
                 testSuiteInfos.add(testSuiteInfo);
@@ -442,7 +426,7 @@ public final class ComponentConfig {
         // keystore - (cert/trust store infos)
         childElements = UtilXml.childElementList(ofbizComponentElement, "keystore");
         if (!childElements.isEmpty()) {
-            List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>(childElements.size());
+            List<KeystoreInfo> keystoreInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
                 keystoreInfos.add(keystoreInfo);
@@ -454,7 +438,7 @@ public final class ComponentConfig {
         // webapp - webappInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "webapp");
         if (!childElements.isEmpty()) {
-            List<WebappInfo> webappInfos = new ArrayList<WebappInfo>(childElements.size());
+            List<WebappInfo> webappInfos = new ArrayList<>(childElements.size());
             for (Element curElement : childElements) {
                 WebappInfo webappInfo = new WebappInfo(this, curElement);
                 webappInfos.add(webappInfo);
@@ -467,7 +451,7 @@ public final class ComponentConfig {
         try {
             Collection<Configuration> configurations = ContainerConfig.getConfigurations(xmlUrl);
             if (!configurations.isEmpty()) {
-                this.configurations = Collections.unmodifiableList(new ArrayList<ContainerConfig.Configuration>(configurations));
+                this.configurations = Collections.unmodifiableList(new ArrayList<>(configurations));
             } else {
                 this.configurations = Collections.emptyList();
             }
@@ -632,9 +616,9 @@ public final class ComponentConfig {
     // so this class encapsulates the Maps and synchronization code required to do that.
     private static final class ComponentConfigCache {
         // Key is the global name.
-        private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<String, ComponentConfig>();
+        private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<>();
         // Root location mapped to global name.
-        private final Map<String, String> componentLocations = new HashMap<String, String>();
+        private final Map<String, String> componentLocations = new HashMap<>();
         
         private synchronized ComponentConfig fromGlobalName(String globalName) {
             return componentConfigs.get(globalName);
@@ -656,7 +640,7 @@ public final class ComponentConfig {
         }
 
         private synchronized Collection<ComponentConfig> values() {
-            return Collections.unmodifiableList(new ArrayList<ComponentConfig>(componentConfigs.values()));
+            return Collections.unmodifiableList(new ArrayList<>(componentConfigs.values()));
         }
     }
 
@@ -701,12 +685,10 @@ public final class ComponentConfig {
 
         public KeyStore getKeyStore() {
             ComponentResourceHandler rh = this.createResourceHandler();
-            if (rh != null) {
-                try {
-                    return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
-                } catch (Exception e) {
-                    Debug.logWarning(e, module);
-                }
+            try {
+                return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
+            } catch (Exception e) {
+                Debug.logWarning(e, module);
             }
             return null;
         }
@@ -892,7 +874,7 @@ public final class ComponentConfig {
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
             if (!virtHostList.isEmpty()) {
-                List<String> virtualHosts = new ArrayList<String>(virtHostList.size());
+                List<String> virtualHosts = new ArrayList<>(virtHostList.size());
                 for (Element e : virtHostList) {
                     virtualHosts.add(e.getAttribute("host-name"));
                 }
@@ -903,7 +885,7 @@ public final class ComponentConfig {
             // load the init parameters
             List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
             if (!initParamList.isEmpty()) {
-                Map<String, String> initParameters = new LinkedHashMap<String, String>();
+                Map<String, String> initParameters = new LinkedHashMap<>();
                 for (Element e : initParamList) {
                     initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }
@@ -922,7 +904,7 @@ public final class ComponentConfig {
         }
 
         public String[] getBasePermission() {
-            return this.basePermission;
+            return this.basePermission.clone();
         }
 
         public String getContextRoot() {
