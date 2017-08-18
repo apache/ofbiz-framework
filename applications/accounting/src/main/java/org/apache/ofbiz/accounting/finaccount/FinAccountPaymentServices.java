@@ -68,19 +68,22 @@ public class FinAccountPaymentServices {
         String orderId = (String) context.get("orderId");
         BigDecimal amount = (BigDecimal) context.get("processAmount");
 
-        // check for an existing auth trans and cancel it
-        GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
-        if (authTrans != null) {
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTrans.get("referenceNum"));
-            try {
-                dispatcher.runSync("expireFinAccountAuth", input);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
+        if (paymentPref != null) {
+            // check for an existing auth trans and cancel it
+            GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
+            if (authTrans != null) {
+                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId",
+                        authTrans.get("referenceNum"));
+                try {
+                    dispatcher.runSync("expireFinAccountAuth", input);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             }
-        }
-        if (finAccountId == null && paymentPref != null) {
-            finAccountId = paymentPref.getString("finAccountId");
+            if (finAccountId == null) {
+                finAccountId = paymentPref.getString("finAccountId");
+            }
         }
 
         // obtain the order information
