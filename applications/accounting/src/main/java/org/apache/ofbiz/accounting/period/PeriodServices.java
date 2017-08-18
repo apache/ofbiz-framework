@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
     
-    public static String module = PeriodServices.class.getName();
+    public static final String module = PeriodServices.class.getName();
     public static final String resource = "AccountingUiLabels";
 
     /* find the date of the last closed CustomTimePeriod, or, if none available, the earliest date available of any
