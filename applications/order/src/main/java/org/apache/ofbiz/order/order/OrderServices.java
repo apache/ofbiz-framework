@@ -83,6 +83,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 import com.ibm.icu.util.Calendar;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.fop.apps.MimeConstants;
+
 /**
  * Order Processing Services
  */
@@ -2533,8 +2536,10 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String sendTo = (String) context.get("sendTo");
         String sendCc = (String) context.get("sendCc");
+        String sendBcc = (String) context.get("sendBcc");
         String note = (String) context.get("note");
         String screenUri = (String) context.get("screenUri");
         GenericValue temporaryAnonymousUserLogin = (GenericValue) context.get("temporaryAnonymousUserLogin");
@@ -2589,9 +2594,16 @@ public class OrderServices {
             String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
             // add attachmentName param to get an attachment namend "[oderId].pdf" instead of default "Details.pdf"
-            sendMap.put("attachmentName", orderId + ".pdf");
+            sendMap.put("attachmentName", (UtilValidate.isNotEmpty(shipGroupSeqId) ? orderId + "-" + StringUtils.stripStart(shipGroupSeqId, "0") : orderId) + ".pdf");
+            sendMap.put("attachmentType", MimeConstants.MIME_PDF);
         } else {
             sendMap.put("bodyScreenUri", screenUri);
+        }
+        
+        if (context.containsKey("xslfoAttachScreenLocationList")) {
+            sendMap.put("xslfoAttachScreenLocationList", context.get("xslfoAttachScreenLocationList"));
+            sendMap.put("attachmentNameList", context.get("attachmentNameList"));
+            sendMap.put("attachmentTypeList", context.get("attachmentTypeList"));
         }
 
         // website
@@ -2636,6 +2648,7 @@ public class OrderServices {
             bodyParameters.put("partyId", placingParty.get("partyId"));
         }
         bodyParameters.put("note", note);
+        bodyParameters.put("shipGroupSeqId", shipGroupSeqId);
         sendMap.put("bodyParameters", bodyParameters);
         sendMap.put("userLogin",userLogin);
 
@@ -2655,6 +2668,10 @@ public class OrderServices {
             sendMap.put("sendCc", sendCc);
         } else {
             sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
+        }
+
+        if ((sendBcc != null) && UtilValidate.isEmailList(sendBcc)) {
+            sendMap.put("sendBcc", sendBcc);
         }
 
         // send the notification
