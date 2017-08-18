@@ -302,44 +302,8 @@ public class TaxAuthorityServices {
         EntityCondition taxAuthoritiesCond = EntityCondition.makeCondition(taxAuthCondOrList, EntityOperator.OR);
 
         try {
-            EntityCondition productCategoryCond = null;
-            if (product != null) {
-                // find the tax categories associated with the product and filter by those, with an IN clause or some such
-                // if this product is variant, find the virtual product id and consider also the categories of the virtual
-                // question: get all categories, or just a special type? for now let's do all categories...
-                String virtualProductId = null;
-                if ("Y".equals(product.getString("isVariant"))) {
-                    virtualProductId = ProductWorker.getVariantVirtualId(product);
-                }
-                Set<String> productCategoryIdSet = new HashSet<String>();
-                EntityCondition productIdCond = null;
-                if (virtualProductId != null) {
-                    productIdCond = EntityCondition.makeCondition(
-                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId")),
-                            EntityOperator.OR,
-                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, virtualProductId));
-
-                } else {
-                    productIdCond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId"));
-                }
-                List<GenericValue> pcmList = EntityQuery.use(delegator).select("productCategoryId", "fromDate", "thruDate")
-                        .from("ProductCategoryMember")
-                        .where(productIdCond).cache().filterByDate().queryList();
-                for (GenericValue pcm : pcmList) {
-                    productCategoryIdSet.add(pcm.getString("productCategoryId"));
-                }
-
-                if (productCategoryIdSet.size() == 0) {
-                    productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
-                } else {
-                    productCategoryCond = EntityCondition.makeCondition(
-                            EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null),
-                            EntityOperator.OR,
-                            EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
-                }
-            } else {
-                productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
-            }
+            EntityCondition productCategoryCond;
+            productCategoryCond = setProductCategoryCond(delegator, product);
 
             // FIXME handles shipping and promo tax. Simple solution, see https://issues.apache.org/jira/browse/OFBIZ-4160 for a better one 
             if (product == null && shippingAmount != null) {
@@ -348,11 +312,7 @@ public class TaxAuthorityServices {
                             EntityOperator.OR,
                             EntityCondition.makeCondition("taxShipping", EntityOperator.EQUALS, "Y"));
 
-                if (productCategoryCond != null) {
-                    productCategoryCond = EntityCondition.makeCondition(productCategoryCond,
-                            EntityOperator.OR,
-                            taxShippingCond);
-                }
+                    productCategoryCond = EntityCondition.makeCondition(productCategoryCond, EntityOperator.OR, taxShippingCond);
             }
 
             if (product == null && orderPromotionsAmount != null) {
@@ -361,11 +321,7 @@ public class TaxAuthorityServices {
                             EntityOperator.OR,
                             EntityCondition.makeCondition("taxPromotions", EntityOperator.EQUALS, "Y"));
 
-                if (productCategoryCond != null) {
-                    productCategoryCond = EntityCondition.makeCondition(productCategoryCond,
-                            EntityOperator.OR,
-                            taxOrderPromotionsCond);
-                }
+                productCategoryCond = EntityCondition.makeCondition(productCategoryCond, EntityOperator.OR, taxOrderPromotionsCond);
             }
 
             // build the main condition clause
@@ -550,6 +506,60 @@ public class TaxAuthorityServices {
         }
 
         return adjustments;
+    }
+
+    /**
+     * Private helper method which determines, based on the state of the
+     * product, how the ProdCondition should be set for the main condition.
+     * 
+     * @param delegator
+     * @param product
+     *            which may be null
+     * @return non-null Condition
+     * @throws GenericEntityException
+     */
+    private static EntityCondition setProductCategoryCond(Delegator delegator, GenericValue product)
+            throws GenericEntityException {
+
+        if (product == null) {
+            return EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
+        }
+
+        // find the tax categories associated with the product and filter by
+        // those, with an IN clause or some such
+        // if this product is variant, find the virtual product id and consider
+        // also the categories of the virtual
+        // question: get all categories, or just a special type? for now let's
+        // do all categories...
+        String virtualProductId = null;
+        if ("Y".equals(product.getString("isVariant"))) {
+            virtualProductId = ProductWorker.getVariantVirtualId(product);
+        }
+        Set<String> productCategoryIdSet = new HashSet<String>();
+        EntityCondition productIdCond = null;
+        if (virtualProductId != null) {
+            productIdCond = EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId")),
+                    EntityOperator.OR,
+                    EntityCondition.makeCondition("productId", EntityOperator.EQUALS, virtualProductId));
+
+        } else {
+            productIdCond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS,
+                    product.getString("productId"));
+        }
+        List<GenericValue> pcmList = EntityQuery.use(delegator).select("productCategoryId", "fromDate", "thruDate")
+                .from("ProductCategoryMember").where(productIdCond).cache().filterByDate().queryList();
+        for (GenericValue pcm : pcmList) {
+            productCategoryIdSet.add(pcm.getString("productCategoryId"));
+        }
+
+        if (productCategoryIdSet.size() == 0) {
+            return EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
+        }
+        return EntityCondition.makeCondition(
+                EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null), EntityOperator.OR,
+                EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+
     }
 
     private static void handlePartyTaxExempt(GenericValue adjValue, Set<String> billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, Delegator delegator) throws GenericEntityException {
