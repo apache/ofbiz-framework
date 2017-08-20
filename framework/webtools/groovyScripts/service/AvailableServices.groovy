@@ -450,7 +450,7 @@ if (selectedService) {
             outParamsList.add(curOutParam)
         }
         outParamMap = [:]
-        outParamMap.title = uiLabelMap.get("WebtoolsOutParameters")
+        outParamMap.title = uiLabelMap.WebtoolsOutParameters)
         outParamMap.paramList = outParamsList
         allParamsList.add(outParamMap)
 
