@@ -216,12 +216,29 @@ public class LabelReferences {
             List<File> groovyFiles = FileUtil.findFiles("groovy", rootFolder + "groovyScripts", null, null);
             for (File file : groovyFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
-                findUiLabelMapInFile(inFile, file.getPath());
+                findUiLabelMapInGroovy(inFile, uiLabelMap, file.getPath());
+                findUiLabelMapInGroovy(inFile, "uiLabelMap.get(\"", file.getPath());
             }
         }
     }
-    
-
+    protected void findUiLabelMapInGroovy(String inFile, String pattern, String filePath) {
+        int pos = inFile.indexOf(pattern);
+        while (pos >= 0) {
+            String label = inFile.substring(pos + pattern.length());
+            String[] realLabel = label.split("\\P{Alpha}+");
+            String labelKey = realLabel[0];
+            int endPos = pos + labelKey.length();
+            if (endPos >= 0) {
+                if (this.labelSet.contains(labelKey)) {
+                    setLabelReference(labelKey, filePath);
+                }
+                pos = endPos;
+            } else {
+                pos = pos + pattern.length();
+            }
+            pos = inFile.indexOf(pattern, pos);
+        }
+    }
     protected void findUiLabelMapInFile(String inFile, String filePath) {
         int pos = inFile.indexOf(uiLabelMap);
         while (pos >= 0) {
