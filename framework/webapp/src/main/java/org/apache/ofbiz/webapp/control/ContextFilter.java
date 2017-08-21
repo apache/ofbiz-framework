@@ -115,19 +115,6 @@ public class ContextFilter implements Filter {
         // set the server root url
         httpRequest.setAttribute("_SERVER_ROOT_URL_", UtilHttp.getServerRootUrl(httpRequest));
 
-        // request attributes from redirect call
-        String reqAttrMapHex = (String) httpRequest.getSession().getAttribute("_REQ_ATTR_MAP_");
-        if (UtilValidate.isNotEmpty(reqAttrMapHex)) {
-            byte[] reqAttrMapBytes = StringUtil.fromHexString(reqAttrMapHex);
-            Map<String, Object> reqAttrMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
-            if (reqAttrMap != null) {
-                for (Map.Entry<String, Object> entry: reqAttrMap.entrySet()) {
-                    httpRequest.setAttribute(entry.getKey(), entry.getValue());
-                }
-            }
-            httpRequest.getSession().removeAttribute("_REQ_ATTR_MAP_");
-        }
-
         if (request.getCharacterEncoding() == null) {
             request.setCharacterEncoding(defaultCharacterEncoding);
         }
