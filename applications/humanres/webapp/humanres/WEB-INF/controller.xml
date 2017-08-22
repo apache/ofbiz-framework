@@ -680,10 +680,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTerminationTypes"/>
     </request-map>
-    <request-map uri="EditTerminationTypes">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditTerminationTypes"/>
-    </request-map>
     <request-map uri="createTerminationType">
         <security https="true" auth="true"/>
         <event type="service" invoke="createTerminationType"/>

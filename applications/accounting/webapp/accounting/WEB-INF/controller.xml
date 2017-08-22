@@ -370,13 +370,6 @@ under the License.
         <response name="success" type="view" value="InvoiceAcctgTransEntriesPdf"/>
     </request-map>
 
-    <request-map uri="quickSendPayment">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="quickSendPayment"/>
-        <response name="success" type="view" value="ListChecksToSend"/>
-        <response name="error" type="view" value="ListChecksToSend"/>
-    </request-map>
-
     <request-map uri="FindSalesInvoicesByDueDate">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindSalesInvoicesByDueDate">
@@ -854,12 +847,6 @@ under the License.
     <request-map uri="EditCustomTimePeriod">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCustomTimePeriod"/>
-    </request-map>
-    <request-map uri="createCustomTimePeriod">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCustomTimePeriod"/>
-        <response name="success" type="view" value="EditCustomTimePeriod"/>
-        <response name="error" type="view" value="EditCustomTimePeriod"/>
     </request-map>
     <request-map uri="updateCustomTimePeriod">
         <security https="true" auth="true"/>
