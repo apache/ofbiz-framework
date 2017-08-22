@@ -521,9 +521,7 @@ public class RequestHandler {
 
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
-        Map<String, Object> previousRequestAttrMap = null;
         if (preReqAttStr != null) {
-            previousRequestAttrMap = new HashMap<String, Object>();
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
@@ -533,7 +531,6 @@ public class RequestHandler {
                     if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
                             "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
-                        previousRequestAttrMap.put(key, entry.getValue());
                    }
                 }
             }
