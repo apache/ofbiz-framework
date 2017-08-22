@@ -1115,4 +1115,16 @@ under the License.
     
     <BudgetReviewResultType description="Accepted" budgetReviewResultTypeId="BGR_ACCEPTED"/>
     <BudgetReviewResultType description="Rejected" budgetReviewResultTypeId="BGR_REJECTED"/>
+
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="SAGEPAY" hasTable="N" description="SagePay Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="CYBERSOURCE" hasTable="N" description="CyberSource Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="EWAY" hasTable="N" description="eWay Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYFLOWPRO" hasTable="N" description="Payflow Pro Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="PayPal Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="CLEARCOMMERCE" hasTable="N" description="Clear Commerce Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="WORLDPAY" hasTable="N" description="RBS WorldPay Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="ORBITAL" hasTable="N" description="Orbital Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="SECUREPAY" hasTable="N" description="SecurePay Payment Gateway"/>
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="IDEAL" hasTable="N" description="iDEAL Payment Gateway"/>
 </entity-engine-xml>
