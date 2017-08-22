@@ -779,12 +779,6 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    <request-map uri="updateProductKeyword">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductKeyword"/>
-        <response name="success" type="view" value="EditProductKeyword"/>
-        <response name="error" type="view" value="EditProductKeyword"/>
-    </request-map>
     <request-map uri="createProductKeyword">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductKeyword"/>
@@ -3072,10 +3066,6 @@ under the License.
     <view-map name="FindProductById" type="screen" page="component://product/widget/catalog/FindScreens.xml#FindProductById"/>
 
     <view-map name="FindCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindCatalog"/>
-    <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
-    <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
-    <view-map name="EditProdCatalogStores" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogStores"/>
-    <view-map name="EditProdCatalogParties" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogParties"/>
 
     <view-map name="FindCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#FindCategory"/>
     <view-map name="EditCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategory"/>
@@ -3232,7 +3222,6 @@ under the License.
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupCommEvent" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCommEvent"/>
 
-    <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupSupplierProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupSupplierProduct"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
     <view-map name="LookupVirtualProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct"/>

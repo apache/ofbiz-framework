@@ -382,7 +382,6 @@ under the License.
     <request-map uri="LookupPartyClassificationGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyClassificationGroup"/></request-map>
     <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
 
-    <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
 
