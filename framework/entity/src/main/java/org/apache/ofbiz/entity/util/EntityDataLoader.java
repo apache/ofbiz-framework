@@ -228,6 +228,10 @@ public class EntityDataLoader {
     }
 
     public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
+        return loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, false, false, false, true);
+    }
+
+    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert, boolean continueOnFail) throws GenericEntityException {
         int rowsChanged = 0;
 
         if (dataUrl == null) {
@@ -254,11 +258,16 @@ public class EntityDataLoader {
             }
             reader.setCreateDummyFks(dummyFks);
             reader.setMaintainTxStamps(maintainTxs);
+            reader.setContinueOnFail(continueOnFail);
             rowsChanged += reader.parse(dataUrl);
         } catch (Exception e) {
             String xmlError = "[loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
             errorMessages.add(xmlError);
-            Debug.logError(e, xmlError, module);
+            if (continueOnFail) {
+                Debug.logError(e, xmlError, module);
+            } else {
+                throw new GenericEntityException(xmlError, e);
+            }
         }
 
         return rowsChanged;

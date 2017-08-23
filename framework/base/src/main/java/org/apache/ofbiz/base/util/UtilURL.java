@@ -130,7 +130,7 @@ public final class UtilURL {
         try {
             if (file.exists()) url = file.toURI().toURL();
         } catch (java.net.MalformedURLException e) {
-            e.printStackTrace();
+            Debug.logError(e, "unable to retrieve URL for file: " + filename, module);
             url = null;
         }
         return url;

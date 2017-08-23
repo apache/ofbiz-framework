@@ -39,21 +39,21 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * A utility class for processing OFBiz command line arguments
- * 
+ *
  * <p>
  * Defines OFBiz startup options called through main e.g. --load-data or --help
  * in addition to utility methods for parsing and handling these options
- * </p> 
+ * </p>
  */
 public final class StartupCommandUtil {
 
-    /* 
+    /*
      * Make sure of defining the same set of values in:
-     * 
+     *
      * - The StartupOptions in the StartupOption enum
      * - The commons-cli options (e.g. HELP, START, etc ...)
      * - The getOfbizStartupOptions method
-     * 
+     *
      * Keeping these items in sync means that OFBiz behaves correctly
      * while being decoupled from the commons-cli library and the only
      * place where commons-cli is used is in this class
@@ -67,7 +67,7 @@ public final class StartupCommandUtil {
         START("start"),
         STATUS("status"),
         TEST("test");
-        
+
         private String name;
         private StartupOption(String name) {
             this.name = name;
@@ -88,15 +88,35 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "-l readers=seed,demo,ext"
                     + System.lineSeparator()
-                    + "-l timeout=7200"
+                    + "-l file=/tmp/dataload1.xml,/tmp/dataload2.xml"
+                    + System.lineSeparator()
+                    + "-l dir=directory/of/files"
+                    + System.lineSeparator()
+                    + "-l component=base"
                     + System.lineSeparator()
                     + "-l delegator=default"
                     + System.lineSeparator()
                     + "-l group=org.apache.ofbiz"
                     + System.lineSeparator()
-                    + "-l dir=directory/of/files"
+                    + "-l timeout=7200"
                     + System.lineSeparator()
-                    + "-l file=/tmp/dataload.xml")
+                    + "-l create-pks"
+                    + System.lineSeparator()
+                    + "-l drop-pks"
+                    + System.lineSeparator()
+                    + "-l create-constraints"
+                    + System.lineSeparator()
+                    + "-l drop-constraints"
+                    + System.lineSeparator()
+                    + "-l create-fks"
+                    + System.lineSeparator()
+                    + "-l maintain-txs"
+                    + System.lineSeparator()
+                    + "-l try-inserts"
+                    + System.lineSeparator()
+                    + "-l repair-columns"
+                    + System.lineSeparator()
+                    + "-l continue-on-failure" )
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
@@ -127,12 +147,13 @@ public final class StartupCommandUtil {
     private static final Option TEST = Option.builder("t")
             .longOpt(StartupOption.TEST.getName())
             .desc("Runs the selected test or all if none selected e.g.: "
+                    + "--test component=entity"
                     + System.lineSeparator()
-                    + "--test component=base --test case=somecase"
+                    + "--test suitename=entitytests"
                     + System.lineSeparator()
-                    + "or"
+                    + "--test case=entity-query-tests"
                     + System.lineSeparator()
-                    + "--test component=base --test suitename=xyz")
+                    + "--test loglevel=warning")
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
@@ -195,7 +216,7 @@ public final class StartupCommandUtil {
     }
 
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
-        Set<Option> uniqueOptions = new HashSet<Option>(Arrays.asList(commandLine.getOptions())); 
+        Set<Option> uniqueOptions = new HashSet<Option>(Arrays.asList(commandLine.getOptions()));
         return uniqueOptions.stream()
                 .map(option -> new StartupCommand.Builder(option.getLongOpt())
                     .properties(populateMapFromProperties(commandLine.getOptionProperties(option.getLongOpt())))
