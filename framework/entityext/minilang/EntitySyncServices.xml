@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createEntitySync" short-description="Create a EntitySync">
-        <make-value value-field="newEntity" entity-name="EntitySync"/>
+        <make-value entity-name="EntitySync" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="EntitySync" field="entitySyncId"/>
@@ -42,7 +42,7 @@ under the License.
 
     <!-- EntitySyncHistory services -->
     <simple-method method-name="createEntitySyncHistory" short-description="Create EntitySyncHistory">
-        <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
+        <make-value entity-name="EntitySyncHistory" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp field="newEntity.startDate"/>
         <field-to-result field="newEntity.startDate" result-name="startDate"/>
@@ -55,7 +55,7 @@ under the License.
         <store-value value-field="entitySync"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
-        <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
+        <make-value entity-name="EntitySyncHistory" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -63,13 +63,13 @@ under the License.
 
     <!-- EntitySyncInclude services -->
     <simple-method method-name="createEntitySyncInclude" short-description="Create EntitySyncInclude">
-        <make-value value-field="newEntity" entity-name="EntitySyncInclude"/>
+        <make-value entity-name="EntitySyncInclude" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncInclude" short-description="Delete EntitySyncInclude">
-        <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
+        <make-value entity-name="EntitySyncInclude" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>

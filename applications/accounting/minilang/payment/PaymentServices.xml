@@ -107,8 +107,8 @@ under the License.
 
         <if-compare field="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
             <!-- check if only status change -->
-            <make-value value-field="newPayment" entity-name="Payment"/>
-            <make-value value-field="oldPayment" entity-name="Payment"/>
+            <make-value entity-name="Payment" value-field="newPayment"/>
+            <make-value entity-name="Payment" value-field="oldPayment"/>
             <set-nonpk-fields map="payment" value-field="newPayment"/>
             <set-nonpk-fields map="payment" value-field="oldPayment"/>
             <set-nonpk-fields map="parameters" value-field="newPayment"/>
@@ -1161,7 +1161,7 @@ under the License.
 
     <!-- PaymentContent -->
     <simple-method method-name="createPaymentContent" short-description="Create Content For Payment">
-        <make-value value-field="newEntity" entity-name="PaymentContent"/>
+        <make-value entity-name="PaymentContent" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1180,7 +1180,7 @@ under the License.
         <field-to-result field="newEntity.paymentContentTypeId" result-name="paymentContentTypeId"/>
     </simple-method>
     <simple-method method-name="updatePaymentContent" short-description="Update Content For Payment">
-        <make-value value-field="lookupPKMap" entity-name="PaymentContent"/>
+        <make-value entity-name="PaymentContent" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
