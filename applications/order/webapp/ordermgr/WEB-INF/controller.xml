@@ -1995,10 +1995,10 @@ under the License.
     <view-map name="ListRequirementOrders" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ListRequirementOrders"/>
     <view-map name="ListRequirementRoles" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ListRequirementRoles"/>
     <view-map name="EditRequirementRole" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#EditRequirementRole"/>
-    <view-map name="ApproveRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements" type="screen"/>
-    <view-map name="ApprovedProductRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements" type="screen"/>
+    <view-map name="ApproveRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements"/>
+    <view-map name="ApprovedProductRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements"/>
     <view-map name="ApprovedProductRequirementsReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsReport" content-type="application/pdf" encoding="none"/>
-    <view-map name="ApprovedProductRequirementsByVendor" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendor" type="screen"/>
+    <view-map name="ApprovedProductRequirementsByVendor" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendor"/>
     <view-map name="ApprovedProductRequirementsByVendorReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendorReport" content-type="application/pdf" encoding="none"/>
     <view-map name="RequirementsForSupplier" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#RequirementsForSupplier"/>
     <view-map name="FindQuoteForCart" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#FindQuoteForCart"/>
@@ -2072,9 +2072,9 @@ under the License.
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupBulkAddProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddProducts"/>
     <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
-    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
     <view-map name="LookupAssociatedProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupAssociatedProducts"/>
-    <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
+    <view-map name="LookupBillingAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount"/>
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>

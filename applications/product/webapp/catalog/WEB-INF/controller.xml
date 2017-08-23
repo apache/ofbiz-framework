@@ -3181,9 +3181,9 @@ under the License.
     <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>
     <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
-    <view-map name="ProductStoreFacilities" page="component://product/widget/catalog/CommonScreens.xml#ProductStoreFacilities" type="screen"/>
-    <view-map name="ListProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility" type="screen"/>
-    <view-map name="EditProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility" type="screen"/>
+    <view-map name="ProductStoreFacilities" type="screen" page="component://product/widget/catalog/CommonScreens.xml#ProductStoreFacilities"/>
+    <view-map name="ListProductStoreFacility" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility"/>
+    <view-map name="EditProductStoreFacility" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
     <view-map name="ListParentProductStoreGroup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListParentProductStoreGroup"/>
@@ -3216,7 +3216,7 @@ under the License.
 
     <!-- Lookup request mappings -->
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
-    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
@@ -3228,28 +3228,28 @@ under the License.
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
-    <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
+    <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupCostComponentCalc" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupCostComponentCalc"/>
-    <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
-    <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
+    <view-map name="LookupDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource"/>
+    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
     <view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
 
     <!-- Image Management request mappings -->
     <view-map name="Imagemanagement" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#Imagemanagement"/>
-    <view-map name="ImageGallery" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageGallery" type="screen"/>
-    <view-map name="ImageUpload" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageUpload" type="screen"/>
-    <view-map name="ImageApprove" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageApprove" type="screen"/>
-    <view-map name="ImageRejected" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRejected" type="screen"/>
-    <view-map name="ImageFrames" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageFrames" type="screen"/>
-    <view-map name="ImageCropping" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageCropping" type="screen"/>
-    <view-map name="ImageRotating" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRotating" type="screen"/>
-    <view-map name="ImageShare" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare" type="screen"/>
-    <view-map name="ImageReplace" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageReplace" type="screen"/>
-    <view-map name="viewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImage" type="screen"/>
-    <view-map name="viewPreviewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewPreviewImage" type="screen"/>
-    <view-map name="LookupImage" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImage" type="screen"/>
+    <view-map name="ImageGallery" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageGallery"/>
+    <view-map name="ImageUpload" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageUpload"/>
+    <view-map name="ImageApprove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageApprove"/>
+    <view-map name="ImageRejected" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRejected"/>
+    <view-map name="ImageFrames" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageFrames"/>
+    <view-map name="ImageCropping" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageCropping"/>
+    <view-map name="ImageRotating" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRotating"/>
+    <view-map name="ImageShare" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare"/>
+    <view-map name="ImageReplace" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageReplace"/>
+    <view-map name="viewImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImage"/>
+    <view-map name="viewPreviewImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewPreviewImage"/>
+    <view-map name="LookupImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImage"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="ListImageGallery" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListImageGallery"/>
     <view-map name="ImageManage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageManage"/>
