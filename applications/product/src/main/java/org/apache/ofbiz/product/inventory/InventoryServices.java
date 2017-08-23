@@ -753,7 +753,7 @@ public class InventoryServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
         String facilityId = (String) context.get("facilityId");
-        Locale locale = (Locale) context.get("");
+        Locale locale = (Locale) context.get("locale");
         Map<String, BigDecimal> atpMap = new HashMap<String, BigDecimal>();
         Map<String, BigDecimal> qohMap = new HashMap<String, BigDecimal>();
         Map<String, BigDecimal> mktgPkgAtpMap = new HashMap<String, BigDecimal>();
