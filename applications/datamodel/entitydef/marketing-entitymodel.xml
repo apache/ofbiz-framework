@@ -94,8 +94,11 @@ under the License.
             title="Marketing Campaign Price Entity">
       <field name="marketingCampaignId" type="id"></field>
       <field name="productPriceRuleId" type="id"></field>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="marketingCampaignId"/>
       <prim-key field="productPriceRuleId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="MKTGCPN_PRICE_MC" rel-entity-name="MarketingCampaign">
         <key-map field-name="marketingCampaignId"/>
       </relation>
@@ -108,8 +111,11 @@ under the License.
             title="Marketing Campaign Promo Entity">
       <field name="marketingCampaignId" type="id"></field>
       <field name="productPromoId" type="id"></field>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="marketingCampaignId"/>
       <prim-key field="productPromoId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="MKTGCPN_PROMO_MC" rel-entity-name="MarketingCampaign">
         <key-map field-name="marketingCampaignId"/>
       </relation>
@@ -123,9 +129,12 @@ under the License.
       <field name="marketingCampaignId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="marketingCampaignId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="MKTGCPN_ROLE_MC" rel-entity-name="MarketingCampaign">
         <key-map field-name="marketingCampaignId"/>
       </relation>
