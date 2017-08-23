@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -140,6 +141,7 @@ import org.w3c.dom.Node;
  * <tr><td colspan="2"><b><code>util:</code> contains miscellaneous utility functions</b></td></tr>
  * <tr><td><code>util:defaultLocale()</code></td><td>Returns the default <code>Locale</code>.</td></tr>
  * <tr><td><code>util:defaultTimeZone()</code></td><td>Returns the default <code>TimeZone</code>.</td></tr>
+ * <tr><td><code>util:label(String, String, Locale)</code></td><td>Return the label present in ressource on the given locale.</td></tr>
  * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
  * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
@@ -252,6 +254,7 @@ public class UelFunctions {
                 this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
+                this.functionMap.put("util:label", UelFunctions.class.getMethod("label", String.class, String.class, Locale.class));
                 this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
                 this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
                 this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
@@ -428,6 +431,15 @@ public class UelFunctions {
             return System.getProperty(str);
         } catch (Exception e) {}
         return null;
+    }
+
+    public static String label(String ressource, String label, Locale locale) {
+        if (locale == null) locale = Locale.getDefault();
+        try {
+            String resolveLabel = UtilProperties.getMessage(ressource, label, locale);
+            if (resolveLabel != null) return resolveLabel;
+        } catch (Exception e) {}
+        return label;
     }
 
     public static boolean urlExists(String str) {
