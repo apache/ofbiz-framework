@@ -95,6 +95,7 @@ public class EntitySaxReader extends DefaultHandler {
     private boolean maintainTxStamps = false;
     private boolean createDummyFks = false;
     private boolean checkDataOnly = false;
+    private boolean continueOnFail = false;
     private enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE};
     private List<String> actionTags = UtilMisc.toList("create", "create-update", "create-replace", "delete");
     private Action currentAction = Action.CREATE_UPDATE;
@@ -148,7 +149,11 @@ public class EntitySaxReader extends DefaultHandler {
     public void setCheckDataOnly(boolean checkDataOnly) {
         this.checkDataOnly = checkDataOnly;
     }
-    
+
+    public void setContinueOnFail(boolean continueOnFail) {
+        this.continueOnFail = continueOnFail;
+    }
+
     public void setPlaceholderValues(Map<String,Object> placeholderValues) {
         this.placeholderValues = placeholderValues;
     }
@@ -549,7 +554,11 @@ public class EntitySaxReader extends DefaultHandler {
                     currentValue.setIsFromEntitySync(true);
                 }
             } catch (Exception e) {
-                Debug.logError(e, module);
+                if (continueOnFail) {
+                    Debug.logError(e, module);
+                } else {
+                    throw new SAXException(e);
+                }
             }
 
             if (currentValue != null) {

@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 Apache OFBiz®
-============
+=============
 
 Welcome to __Apache OFBiz®__! A powerful top level Apache software project.
 OFBiz is an Enterprise Resource Planning (ERP) System written in Java and
-houses a large set of libraries, entities, services and features to run 
+houses a large set of libraries, entities, services and features to run
 all aspects of your business.
 
 For more details about OFBiz please visit the OFBiz Documentation page:
@@ -30,34 +30,24 @@ For more details about OFBiz please visit the OFBiz Documentation page:
 
 [OFBiz License](http://www.apache.org/licenses/LICENSE-2.0)
 
->_Note_: since the trunk was split into **ofbiz-framework** and **ofbiz-plugins**, 
-the specialpurpose and hot-deploy directories have disappeared. 
-New components must be put in a plugins directory which works as was the hot-deploy directory.
-If you need to load the components in a specific order put a component-load.xml file in the plugins directory.</br>
-For OFBiz existing components, check them out using the Gradle tasks below.
-To check out a component, in a created on the fly plugins directory, use the **pullPluginSource** Gradle task.
-To get all components use **pullAllPluginsSource**. **Beware** this deletes a previously existing plugins directory.
+>_Note_: If you want to use Eclipse, read the "Setup eclipse project for OFBiz"
+section to set it up.
 
+>_Note_: If you want to use an external database like MySQL or PostgreSQL, read
+the "Setup an external database" section to set it up.
+
+> Note : The directory structure and repositories have changed. For more
+information read the "Repository and directory structure" section.
 
 System requirements
 -------------------
 
-The only requirement to run OFBiz is to have the Java Development Kit (JDK) 
+The only requirement to run OFBiz is to have the Java Development Kit (JDK)
 version 8 installed on your system (not just the JRE, but the full JDK) which
-you can download from the below link.
+you can download from the below link. Make sure of setting the $JAVA_HOME
+environment variable.
 
 [JDK download](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-
->_Note_: if you are using Eclipse, make sure of running the appropriate Eclipse
-command `gradlew eclipse` before creating the project in Eclipse.
-This command will prepare OFBiz for Eclipse with the correct classpath and settings 
-by creating the.classpath and .project files.
-
->_Note_: if you want to use an external DBMS, instead of the embedded Derby, you will need a JDBC driver.
-The only thing you need to do is add a dependency in build.gradle to the MySQL/PostgreSQL/whatever JDBC driver.
-Search in Jcenter for the database driver suitable for the database installed on your production system.
-For example, under the dependencies section you can add something like this for mysql: `runtime 'mysql:mysql-connector-java:5.1.36'`
-Of course you need to make sure the connector is compatible with _your_ version of the database installed!
 
 Quick start
 -----------
@@ -84,8 +74,8 @@ MS Windows:
 Unix-like OS:
 `./gradlew ofbiz`
 
->_Note_: then ignore the % progress indicator because this task does not end as long as OFBiz is running.
-
+>_Note_: Ignore the % progress indicator because this task does not end as
+long as OFBiz is running.
 
 ### Visit OFBiz through your browser:
 
@@ -97,22 +87,15 @@ Unix-like OS:
 
 You can log in with the user __admin__ and password __ofbiz__.
 
->_Note_: the default configuration uses an embedded Java database
-(Apache Derby) and embedded application server components such as
-Apache Tomcat®, Apache Geronimo (transaction manager), etc.
-
 Security
--------------------
+--------
 
-You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, 
-and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report 
-at: security @ ofbiz.apache.org, before disclosing them in a public forum.
+If you find a security issue, please report it to: security @ ofbiz.apache.org.
+Once proper mitigations to the security issues are complete the OFBiz team will
+disclose this information to the public mailing list.
 
->_Note_: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use 
-Out Of The Box (OOTB): [The infamous Java serialization vulnerability](https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability)
-
-You can find more information about security in OFBiz at [Keeping OFBiz secure](https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure) 
-
+You can find more information about security in OFBiz at
+[Keeping OFBiz secure](https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure)
 
 * * * * * * * * * * * *
 
@@ -146,9 +129,9 @@ There are two types of tasks designed for OFBiz in Gradle:
   - __ofbizDebug__ : server commands running in remote debug mode
   - __ofbizBackground__ ; server commands running in a background forked process
 
-Tips: 
+Tips:
 
-- OFBiz __server commands__ require __"quoting"__ the 
+- OFBiz __server commands__ require __"quoting"__ the
   commands. For example: `gradlew "ofbiz --help"`
 
 - Shortcuts to task names can be used by writing the
@@ -176,7 +159,7 @@ Tips:
 
 #### Example mixed tasks (standard and OFBiz server)
 
-`gradlew cleanAll loadAll "ofbiz --start"`
+`gradlew cleanAll loadAll "ofbiz --start --portoffset 10000"`
 
 * * * * * * * * * * * *
 
@@ -185,7 +168,7 @@ Quick reference
 
 You can use the below common list of tasks as a quick reference
 for controlling the system. This document uses the windows task
-syntax, if you are on a Unix-like system, you need to add the 
+syntax, if you are on a Unix-like system, you need to add the
 `./` to gradlew i.e. `./gradlew`
 
 * * * * * * * * * * * *
@@ -290,13 +273,42 @@ OFBiz contains the following data reader types:
 
 - __seed__: OFBiz and External Seed Data - to be maintained along with source and
   updated whenever a system deployment is updated
-- __seed-initial__: OFBiz and External Seed Data - to be maintained along with 
+- __seed-initial__: OFBiz and External Seed Data - to be maintained along with
   source like other seed data, but only loaded initially and not updated
   when a system is updated except manually reviewing each line
 - __demo__: OFBiz Only Demo Data
 - __ext__: External General Data (custom)
 - __ext-test__: External Test Data (custom)
 - __ext-demo__: External Demo Data (custom)
+
+Available options for the --load-data server command are the following:
+
+- **readers=[name]**: only load data from certain readers separated by comma.
+  e.g. seed,seed-initial,ext
+- **file=[path]**: load a single file from location or several files separated
+  by commas. e.g. /my/file/1,/my/file/2
+- **dir=[path]**: load all data files found in directory
+- **component=[name]**: only load data from a specific component. e.g. base
+- **delegator=[name]**: use the defined delegator. Default is "default". If the
+  value passed is **"all-tenants"** then OFBiz will load the data for all defined
+  tenants in the system.
+- **group=[name]**: override the entity group (org.apache.ofbiz).
+  e.g. com.example.something
+- **timeout=[millis]**: timeout in milliseconds
+- **create-pks**: create primary keys
+- **drop-pks**: drop primary keys
+- **create-constraints**: create indexes and foreign keys after loading
+- **drop-constraints**: drop indexes and foreign keys before loading
+- **create-fks**: create dummy (placeholder) foreign keys
+- **maintain-txs**: maintain timestamps in data file
+- **try-inserts**: use mostly inserts
+- **repair-columns**: repair column sizes
+  (default is true w/ drop-constraints)
+- **continue-on-failure**: By default OFBiz will fail and stop if it is unable
+  to load any of the files it is attempting to load. By passing this property
+  OFBiz will ignore failures and continue loading all files
+
+#### Load specific OFBiz data
 
 you can choose which data readers to pass in the following syntax:
 
@@ -306,15 +318,12 @@ Example:
 
 `gradlew "ofbiz --load-data readers=seed,seed-initial,ext,ext-demo"`
 
-#### Load default OFBiz data
+#### Load all OFBiz data
 
-Loads default data set; meant for initial loading of generic OFBiz data. 
-Can be applied for development, testing, demonstration, etc. purposes. 
-Be aware that executing this task can result in your data being overwritten in your database of choice. 
-Use with caution in production environments. 
-The default data set is defined by datasource using the read-data attribute, 
-followed by the name of the data set, into the datasource element of the 'entityengine.xml' file.
-
+Loads all data sets; meant for initial loading of generic OFBiz data.
+Can be applied for development, testing, demonstration, etc. purposes.
+Be aware that executing this task can result in your data being overwritten
+in your database of choice. Use with caution in production environments.
 
 `gradlew loadAll`
 
@@ -356,14 +365,14 @@ Load data from an XML file holding entity data.
 #### create a new tenant
 
 Create a new tenant in your environment, create the delegator, load
-initial data with admin-user and password (needs multitenant=Y in 
+initial data with admin-user and password (needs multitenant=Y in
 general.properties). The following project parameters are passed:
 
 - tenantId: mandatory
 - tenantName: optional, default is value of tenantId
 - domainName: optional, default is org.apache.ofbiz
 - tenantReaders: optional, default value is seed,seed-initial,demo
-- dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D) 
+- dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
 - dbIp: optional, ip address of the database
 - dbUser: optional, username of the database
 - dbPassword: optional, password of the database
@@ -408,41 +417,49 @@ OR
 
 `gradlew 'ofbiz --test'`
 
+#### Execute integration tests with a different log level
+
+It is possible to start integration tests with a log level different from the
+default one. The log levels allowed are listed below from most verbose to
+least verbose:
+
+- always
+- verbose
+- timing
+- info
+- important
+- warning
+- error
+- fatal
+
+`gradlew "ofbiz --test loglevel=fatal"`
+
 #### Execute an integration test case
 
 run a test case, in this example the component is "entity" and the case
 name is "entity-tests"
 
-`gradlew "ofbiz --test component=entity --test case=entity-tests"`
+`gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests"`
 
-#### Execute an integration test case in debug mode
+#### Execute an integration test case in debug mode with verbose log
 
 listens on port __5005__
 
-`gradlew "ofbizDebug --test component=entity --test case=entity-tests"`
+`gradlew "ofbizDebug --test component=entity --test loglevel=verbose"`
 
 #### Execute an integration test suite
 
-`gradlew "ofbiz --test component=widget --test suitename=widgettests"`
+`gradlew "ofbiz --test component=entity --test suitename=entitytests"`
 
 #### Execute an integration test suite in debug mode
 
 listens on port __5005__
 
-`gradlew "ofbizDebug --test component=widget --test suitename=widgettests"`
+`gradlew "ofbizDebug --test component=entity --test suitename=entitytests"`
 
 * * * * * * * * * * * *
 
 ### Miscellaneous tasks
-
-#### Launch a graphical user interface of Gradle
-
-This is a very convenient feature of Gradle which
-allows the user to interact with Gradle through a
-swing GUI. You can save frequently used commands
-in a list of favorites for frequent reuse.
-
-`gradlew --gui`
 
 #### Run all tests on a clean system
 
@@ -476,14 +493,14 @@ The below command activates a gradle plugin (OWASP) and Identifies
 and reports known vulnerabilities (CVEs) in OFBiz library dependencies.
 This command takes a long time to execute because it needs to download
 all plugin dependencies and the CVE identification process is also
-time consuming. But it's the only way to check OFBiz does not use 
+time consuming. But it's the only way to check OFBiz does not use
 vulnerable libraries.
 
 `gradlew -PenableOwasp dependencyCheck`
 
 #### Setup eclipse project for OFBiz
 
-Setting up OFBiz on eclipse is easy by simply running the below command
+Setting up OFBiz on eclipse is done by simply running the below command
 and then importing the project to eclipse. This command will generate
 the necessary __.classpath__ and __.project__ files for eclipse and it
 will also make the source code for external libraries available in
@@ -579,7 +596,7 @@ file if it exists
 
 Calls __uninstallPlugin__ on an existing plugin and then delete it from the file-system
 
-`gradlew removePlugin -PpluginId=myplugin` 
+`gradlew removePlugin -PpluginId=myplugin`
 
 ### Create a new plugin
 
@@ -614,10 +631,51 @@ a maven repository. Currently, pushing is limited to localhost maven repository
 
 * * * * * * * * * * * *
 
-Useful Tips
------------
+Miscellaneous Documentation
+---------------------------
 
-### Gradle tab-completion on Unix-like systems:
+### Repository and directory structure
+
+OFBiz is split into two repositories:
+
+- **ofbiz-framework**: Contains the core framework and main applications in
+the system like accounting, party, order, etc
+
+- **ofbiz-plugins**: Renamed from "special-purpose" and contains optional
+components that are officially supported by the community
+
+Furthermore, the hot-deploy directory is removed as the plugins directory works
+as a replacement for both "special-purpose" and "hot-deploy".
+
+If you need to load the components in the plugins directory in a specific order
+place a component-load.xml file in the plugins directory listing the order.
+
+To check out a plugin from source control use the **pullPluginSource** Gradle task.
+To check out all plugins from source control use the **pullAllPluginsSource**.
+**Beware** this deletes a previously existing plugins directory.
+
+### Setup an external database like MySQL, PostgreSQL, etc
+
+To setup an external database instead of the default embedded Apache Derby, you
+will need to follow the following instructions:
+
+1. Find the JDBC driver suitable for your database using one of the following
+   options:
+  * Search for the JDBC driver in [jcenter](https://bintray.com/bintray/jcenter)
+    and place it in build.gradle dependencies e.g.
+    `runtime 'mysql:mysql-connector-java:5.1.36'`
+
+    OR
+
+  * Download the JDBC driver jar and place it in $OFBIZ_HOME/lib or the lib
+    sub-directory of any component
+
+2. Modify the entityengine.xml file located in $OFBIZ_HOME/framework/entity/config
+   to switch the default database to the one you selected. For more details you
+   can read the relevant section in the
+   [technical setup guide](https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Technical+Production+Setup+Guide)
+
+### Setup gradle tab-completion on Unix-like systems:
 
 To get tab completion (auto complete gradle commands by pressing tab)
 you can download the script from the below link and place it in the
@@ -627,7 +685,9 @@ appropriate location for your system.
 
 For example, on debian based systems, you can use the following command:
 
-`sudo curl -L -s https://gist.github.com/Ea87/46401a96df31cd208a87/raw/gradle-tab-completion.bash -o /etc/bash_completion.d/gradle-tab-completion.bash`
+`sudo curl -L -s https://edub.me/gradle-completion-bash -o /etc/bash_completion.d/gradle-tab-completion.bash`
+
+* * * * * * * * * * * *
 
 Crypto notice
 -------------

@@ -860,14 +860,14 @@ task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
 
 tasks.addRule('Pattern: ofbiz <Commands>: Execute OFBiz startup commands') { String taskName ->
     if (taskName ==~ /^ofbiz\s.*/ || taskName == 'ofbiz') {
-        def arguments = (taskName - 'ofbiz').toLowerCase().tokenize(' ')
+        def arguments = (taskName - 'ofbiz').tokenize(' ')
         createOfbizCommandTask(taskName, arguments, jvmArguments, false)
     }
 }
 
 tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in remote debug mode') { String taskName ->
     if (taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
-        def arguments = (taskName - 'ofbizDebug').toLowerCase().tokenize(' ')
+        def arguments = (taskName - 'ofbizDebug').tokenize(' ')
         createOfbizCommandTask(taskName, arguments, jvmArguments, true)
     }
 }
