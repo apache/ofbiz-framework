@@ -2766,16 +2766,16 @@ under the License.
     <view-map name="ExportInvoicesCsv" type="screencsv" page="component://accounting/widget/GlSetupScreens.xml#ExportInvoiceCsv" content-type="text/csv" encoding="none"/>
 
     <!-- Manual Credit Card Transaction -->
-    <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
-    <view-map name="ViewGatewayResponse" page="component://accounting/widget/TransactionScreens.xml#ViewGatewayResponse" type="screen"/>
-    <view-map name="AuthorizeTransaction" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction" type="screen"/>
-    <view-map name="CaptureTransaction" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction" type="screen"/>
+    <view-map name="FindGatewayResponses" type="screen" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses"/>
+    <view-map name="ViewGatewayResponse" type="screen" page="component://accounting/widget/TransactionScreens.xml#ViewGatewayResponse"/>
+    <view-map name="AuthorizeTransaction" type="screen" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction"/>
+    <view-map name="CaptureTransaction" type="screen" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction"/>
 
     <!-- Payment Gateway Config -->
-    <view-map name="FindPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfig" type="screen"/>
-    <view-map name="EditPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig" type="screen"/>
-    <view-map name="FindPaymentGatewayConfigTypes" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes" type="screen"/>
-    <view-map name="EditPaymentGatewayConfigType" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType" type="screen"/>
+    <view-map name="FindPaymentGatewayConfig" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfig"/>
+    <view-map name="EditPaymentGatewayConfig" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig"/>
+    <view-map name="FindPaymentGatewayConfigTypes" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes"/>
+    <view-map name="EditPaymentGatewayConfigType" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType"/>
 
     <!-- Lookup mappings -->
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
@@ -2792,9 +2792,9 @@ under the License.
 
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupGlAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupGlAccount"/>
-    <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
-    <view-map name="LookupPayment" page="component://accounting/widget/LookupScreens.xml#LookupPayment" type="screen"/>
-    <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
+    <view-map name="LookupBillingAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount"/>
+    <view-map name="LookupPayment" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupPayment"/>
+    <view-map name="LookupInvoice" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupInvoice"/>
     <view-map name="LookupCustomTimePeriod" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupCustomTimePeriod"/>
 
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
