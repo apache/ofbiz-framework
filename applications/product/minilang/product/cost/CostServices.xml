@@ -45,7 +45,7 @@ under the License.
             <store-value value-field="existingCost"/>
         </iterate>
         <!-- The new cost is created -->
-        <make-value value-field="newEntity" entity-name="CostComponent"/>
+        <make-value entity-name="CostComponent" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
         <if-empty field="newEntity.fromDate">
