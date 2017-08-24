@@ -33,7 +33,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="mimeTypeId" position="2">
+        <field name="mimeTypeId" position="2" encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
@@ -89,7 +89,7 @@ under the License.
             </display-entity>
         </field>
         <field name="dataResourceTypeId" sort-field="true"><display-entity entity-name="DataResourceType"></display-entity></field>
-        <field name="mimeTypeId" sort-field="true"><display-entity entity-name="MimeType"></display-entity></field>
+        <field name="mimeTypeId" encode-output="false" sort-field="true"><display-entity entity-name="MimeType"></display-entity></field>
         <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem"></display-entity></field>
         <field name="localeString" sort-field="true"><display-entity entity-name="CountryCode" description="${countryName}[${countryCode}]" key-field-name="countryCode"></display-entity></field>
         <field name="createdByUserLogin" sort-field="true"><display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/></field>
