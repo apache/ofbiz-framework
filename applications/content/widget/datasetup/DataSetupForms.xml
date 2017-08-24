@@ -150,7 +150,7 @@ under the License.
     <form name="AddFileExtension" target="addFileExtension" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFileExtension"/>
-        <field name="mimeTypeId" title=" ">
+        <field name="mimeTypeId" title=" " encode-output="false">
             <drop-down allow-empty="false">
                 <entity-options
                     entity-name="MimeType" key-field-name="mimeTypeId"/>
@@ -169,7 +169,7 @@ under the License.
         <field name="fileExtensionId">
             <display/>
         </field>
-        <field name="mimeTypeId" title=" ">
+        <field name="mimeTypeId" title=" " encode-output="false">
             <drop-down allow-empty="false">
                 <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
