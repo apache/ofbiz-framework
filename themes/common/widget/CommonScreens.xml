@@ -25,45 +25,36 @@ under the License.
     <screen name="states">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/States.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/States.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="countries">
         <section>
-            <actions>
-                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
-            </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/Countries.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Countries.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
 
     <screen name="cctypes">
         <section>
-            <actions>
-                <script location="component://common/groovyScripts/CcTypes.groovy"/>
-            </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/CcTypes.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/CcTypes.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="ccmonths">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/CcMonths.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/CcMonths.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="ccyears">
         <section>
-            <actions>
-                <set field="thisDate" from-field="nowTimestamp"/>
-            </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/CcYears.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/CcYears.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -89,26 +80,23 @@ under the License.
     <screen name="genericLink">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/GenericLink.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/GenericLink.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <!-- decorator used in creating a response to an ajax request -->
     <screen name="AjaxGlobalDecorator">
         <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-            </actions>
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://common/template/includes/HtmlHeaderForAjax.ftl" />
+                        <html-template location="component://common-theme/template/includes/HtmlHeaderForAjax.ftl" />
                     </html>
                 </platform-specific>
                 <decorator-section-include name="body" />
                 <platform-specific>
                     <html>
-                        <html-template location="component://common/template/includes/HtmlFooterForAjax.ftl" />
+                        <html-template location="component://common-theme/template/includes/HtmlFooterForAjax.ftl" />
                     </html>
                 </platform-specific>
             </widgets>
@@ -126,7 +114,7 @@ under the License.
                 <decorator-screen name="AjaxGlobalDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://common/template/includes/AjaxAutocompleteOptions.ftl" /></html>
+                            <html><html-template location="component://common-theme/template/includes/AjaxAutocompleteOptions.ftl" /></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -379,7 +367,7 @@ under the License.
 
                         <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
 
-                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/template/includes/Messages.ftl"/>
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common-theme/template/includes/Messages.ftl"/>
                     </actions>
                     <widgets>
                         <section>
@@ -387,7 +375,7 @@ under the License.
                                 <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
                         </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/template/includes/Lookup.ftl" /></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common-theme/template/includes/Lookup.ftl" /></html></platform-specific>
                             </widgets>
                         </section>
                         <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
@@ -416,7 +404,7 @@ under the License.
                             <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
                         </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/template/includes/LookupFooter.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common-theme/template/includes/LookupFooter.ftl"/></html></platform-specific>
                             </widgets>
                         </section>
                     </widgets>
@@ -434,7 +422,7 @@ under the License.
                             <decorator-section name="body">
                                 <platform-specific>
                                     <html>
-                                        <html-template location="component://common/template/includes/AjaxAutocompleteOptions.ftl" />
+                                        <html-template location="component://common-theme/template/includes/AjaxAutocompleteOptions.ftl" />
                                     </html>
                                 </platform-specific>
                             </decorator-section>
@@ -455,7 +443,6 @@ under the License.
                 <!-- The default (global) java scripts -->
                     <!-- jQuery part -->
                 <!-- Load available JS Language Files -->
-                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}"/>
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true"/>
@@ -488,12 +475,12 @@ under the License.
             <widgets>
                 <!-- render header -->
                 <platform-specific>
-                    <html><html-template location="component://common/template/includes/Simple.ftl"/></html>
-                    <xsl-fo><html-template location="component://common/template/includes/Simple.fo.ftl"/></xsl-fo>
-                    <xml><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></xml>
-                    <text><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></text>
-                    <csv><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></csv>
-                    <xls><html-template location="component://common/template/includes/Simple.xls.ftl"/></xls>
+                    <html><html-template location="component://common-theme/template/includes/Simple.ftl"/></html>
+                    <xsl-fo><html-template location="component://common-theme/template/includes/Simple.fo.ftl"/></xsl-fo>
+                    <xml><html-template location="component://common-theme/template/includes/MinimalDecorator.ftl"/></xml>
+                    <text><html-template location="component://common-theme/template/includes/MinimalDecorator.ftl"/></text>
+                    <csv><html-template location="component://common-theme/template/includes/MinimalDecorator.ftl"/></csv>
+                    <xls><html-template location="component://common-theme/template/includes/Simple.xls.ftl"/></xls>
                 </platform-specific>
             </widgets>
         </section>
@@ -508,7 +495,7 @@ under the License.
                 <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="NotoSans"/>
             </actions>
             <widgets>
-                <platform-specific><xsl-fo><html-template location="component://common/template/includes/ReportTemplate.fo.ftl"/></xsl-fo></platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://common-theme/template/includes/ReportTemplate.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -522,13 +509,13 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://common/template/includes/fo/Start.fo.ftl"/>
-                        <html-template location="component://common/template/includes/fo/BasicHeader.fo.ftl"/>
-                        <html-template location="component://common/template/includes/fo/BasicFooter.fo.ftl"/>
+                        <html-template location="component://common-theme/template/includes/fo/Start.fo.ftl"/>
+                        <html-template location="component://common-theme/template/includes/fo/BasicHeader.fo.ftl"/>
+                        <html-template location="component://common-theme/template/includes/fo/BasicFooter.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
                 <decorator-section-include name="body"/>
-                <platform-specific><xsl-fo><html-template location="component://common/template/includes/fo/End.fo.ftl"/></xsl-fo></platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://common-theme/template/includes/fo/End.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -537,13 +524,12 @@ under the License.
     <screen name="FoError">
         <section>
             <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="logoImageUrl" value="/images/ofbiz_logo.gif"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-<!--                <platform-specific><xsl-fo><html-template location="component://common/template/Error.fo.ftl"/></xsl-fo></platform-specific> -->
+<!--                <platform-specific><xsl-fo><html-template location="component://common-theme/template/Error.fo.ftl"/></xsl-fo></platform-specific> -->
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -560,7 +546,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common/template/Login.ftl"/>
+                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common-theme/template/Login.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -587,22 +573,12 @@ under the License.
 
     <screen name="requirePasswordChange">
         <section>
-            <actions>
-                <set field="userLoginId" from-field="parameters.USERNAME"/>
-                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
-                    <field-map field-name="userLoginId" />
-                </entity-and>
-                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
-                <entity-one entity-name="Enumeration" value-field="securityQuestion">
-                    <field-map field-name="enumId" from-field="questionEnumId" />
-                </entity-one>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common/template/ChangePassword.ftl"/>
+                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ChangePassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -622,7 +598,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/ForgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ForgotPassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -652,7 +628,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common/template/GetSecurityQuestion.ftl"/>
+                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common-theme/template/GetSecurityQuestion.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -672,7 +648,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/ForgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ForgotPassword.ftl"/>
                             </actions>
                             <widgets />
                          </section>
@@ -687,11 +663,8 @@ under the License.
 
     <screen name="EventMessages">
         <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-            </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -730,7 +703,7 @@ under the License.
     <screen name="help">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleHelp"></set>
+                <set field="titleProperty" value="PageTitleHelp"/>
                 <property-map resource="CommonHelpUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="helpText" value="${uiLabelMap[parameters.topic]}" default-value="${uiLabelMap.HelpNotFound}"/>
             </actions>
@@ -748,12 +721,12 @@ under the License.
     <screen name="viewBlocked">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleViewBlocked"></set>
+                <set field="titleProperty" value="PageTitleViewBlocked"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/template/ViewBlocked.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/ViewBlocked.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -765,7 +738,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://common/template/includes/GeoLocation.ftl"/></html>
+                    <html><html-template location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- Locales Lookup Screen -->
+    <screen name="ListLocales">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonChooseLanguage}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common-theme/template/includes/ListLocales.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Companies Lookup Screen -->
+    <screen name="ListSetCompanies">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonCompany"/>
+                <entity-condition entity-name="PartyAcctgPrefAndGroup" list="companyList" distinct="true">
+                    <condition-list>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                    </condition-list>
+                    <select-field field-name="partyId"/>
+                    <select-field field-name="groupName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common-theme/template/includes/listCompanies.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Timezones Lookup Screen -->
+    <screen name="ListTimezones">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common-theme/template/includes/ListTimezones.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Visual Themes Lookup Screen -->
+    <screen name="ListVisualThemes">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
+                <set field="parameters.presentation" value="window"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <set field="visualThemeSetId" from-field="webSite.visualThemeSetId" default-value="BACKOFFICE" />
+                <entity-condition entity-name="VisualTheme" list="visualThemes">
+                    <condition-expr field-name="visualThemeSetId" from-field="visualThemeSetId" />
+                </entity-condition>
+            </actions>
+            <widgets>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common-theme/template/includes/ListVisualThemes.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Time Duration Screen -->
+    <screen name="TimeDuration">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common-theme/template/includes/TimeDuration.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>
