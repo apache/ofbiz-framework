@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- Included Screens -->
+    <screen name="states">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="countries">
+        <section>
+            <actions>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="cctypes">
+        <section>
+            <actions>
+                <script location="component://common/groovyScripts/CcTypes.groovy"/>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ccmonths">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ccyears">
+        <section>
+            <actions>
+                <set field="thisDate" from-field="nowTimestamp"/>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <!--
+        The following screen renders a generic link (implemented by an hidden form)
+        that can be included in other screens in the following way:
+        ...
+        <section>
+            <actions>
+                <set field="genericLinkName" value="formName"/> The name of the hidden form (mandatory)
+                <set field="genericLinkText" value="Link message"/> The link text (mandatory)
+                <set field="genericLinkTarget" value="ApprovedProductRequirementsReport"/> The request name (mandatory)
+                <set field="genericLinkStyle" value="buttontext"/> The style of the link (optional)
+                <set field="genericLinkWindow" value="newWindow"/> The target window (optional): if set, a new browser window is created
+                <set field="excludeParameters" value="N"/> If not set to Y, the requestParameters are included in the form as hidden fields (optional, defaults to N)
+            </actions>
+            <widgets>
+                <include-screen name="genericLink" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+        ...
+    -->
+    <screen name="genericLink">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="genericLink" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <!-- decorator used in creating a response to an ajax request -->
+    <screen name="AjaxGlobalDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="AjaxGlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <!--
+        The following screen is used to generate Ajax list of options for autocomplete fields
+    -->
+    <screen name="ajaxAutocompleteOptions">
+        <section>
+            <actions>
+                <set field="autocompleteOptions" from-field="parameters.autocompleteOptions" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="ajaxAutocompleteOptions" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- tiny screen rendering context initialization with theme and locale, intended to be included in screen decorators. Devs - please really carefull keep this simple and generic. -->
+    <screen name="MinimalActions">
+        <section>
+            <actions>
+                <script location="component://common/groovyScripts/InitTheme.groovy"/>
+                <set field="commonDecoratorLocation" from-field="layoutSettings.VT_COMMON_DECO_LOC[0]" default-value="component://common-theme/widget/CommonScreens.xml" global="true"/>
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" global="true"/>
+            </actions>
+            <widgets />
+        </section>
+    </screen>
+
+    <!-- Global screen rendering context initialization, intended to be included in screen decorators. Devs - please keep this simple and generic. you can sucharge it on the theme-->
+    <screen name="GlobalActions">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GlobalActions" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Global decorator for General Screens/Pages -->
+    <screen name="GlobalDecorator">
+        <section>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="GlobalDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Global decorator for Lookup pop-up windows or layered CSS -->
+    <screen name="LookupDecorator">
+        <section>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="LookupDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Simple decorator (no application and menu bars); it can be used:
+         * for printer friendly html screens (no logo and no application bar, header and footer); a print button is also available at the top of the screen
+         * for simple PDF report (a simple header with the logo/date is rendered and a footer with page numbers)
+    -->
+    <screen name="SimpleDecorator">
+        <section>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="SimpleDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- fo decorator for pdf documents (invoices, sales orders, purchase orders etc...). -->
+    <screen name="FoReportDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="FoReportDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Decorator for xsl-fo rendering -->
+    <screen name="GlobalFoDecorator">
+        <section>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="GlobalFoDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Default "error" page for XSL-FO based output. -->
+    <screen name="FoError">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="FoError" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="login">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="login" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ajaxNotLoggedIn">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="ajaxNotLoggedIn" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="requirePasswordChange">
+        <section>
+            <actions>
+                <set field="userLoginId" from-field="parameters.USERNAME"/>
+                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                    <field-map field-name="userLoginId" />
+                </entity-and>
+                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                    <field-map field-name="enumId" from-field="questionEnumId" />
+                </entity-one>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="requirePasswordChange" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="forgotPassword_step1">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="forgotPassword_step1" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="forgotPassword_step2">
+        <section>
+            <actions>
+                <set field="userLoginId" from-field="parameters.USERNAME"/>
+                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                    <field-map field-name="userLoginId" />
+                </entity-and>
+                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                    <field-map field-name="enumId" from-field="questionEnumId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="forgotPassword_step2" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="forgotPassword">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="forgotPassword" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EventMessages">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="EventMessages" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindScreenDecorator">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="FindScreenDecorator" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="help">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="help" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="viewBlocked">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="viewBlocked" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="geoChart">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="geoChart" location="${commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+</screens>
