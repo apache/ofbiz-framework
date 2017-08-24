@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Widget-Theme" targetNamespace="http://ofbiz.apache.org/Widget-Theme">
+    <xs:element name="theme">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" ref="visual-themes"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="extends"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="widget-properties"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="theme-properties"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="templates"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="visual-themes">
+        <xs:annotation><xs:documentation>List all visual themes embded by this theme</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="visual-theme" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="visual-theme">
+        <xs:annotation><xs:documentation>Define a visual theme with an unique id and some meta information</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="description" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="screenshot" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="id" use="required" />
+            <xs:attribute type="xs:string" name="display-name" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description"/>
+    <xs:element name="screenshot">
+        <xs:annotation><xs:documentation>List all screenshots image with the path to use from web site (ex '/mytheme/screenshot1.jpg' for an image in ofbiz/themes/mytheme/webapp/screenshot1.jpg)</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="location" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="extends">
+        <xs:annotation><xs:documentation>Indicate the theme to extend if you when improve an existent theme like common-theme. You need to define the path to the theme definition to surcharge (ex: component://common-theme/widget/Theme.xml)</xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="location" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="widget-properties">
+        <xs:annotation><xs:documentation>
+            This element contains all properties use by the screen engine that the theme can be dedicate some values
+        </xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="default-view-size">
+                    <xs:complexType>
+                        <xs:attribute type="xs:integer" name="value" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="autocompleter">
+                    <xs:complexType>
+                        <xs:attribute type="xs:integer" name="default-view-size" />
+                        <xs:attribute type="xs:integer" name="default-min-lenght" />
+                        <xs:attribute type="xs:integer" name="default-delay" />
+                        <xs:attribute name="display-return-field">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:token">
+                                    <xs:enumeration value="true" />
+                                    <xs:enumeration value="false" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="lookup">
+                    <xs:complexType>
+                        <xs:attribute type="xs:integer" name="height" />
+                        <xs:attribute type="xs:integer" name="width" />
+                        <xs:attribute name="position">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:token">
+                                    <xs:enumeration value="top-left"/>
+                                    <xs:enumeration value="top-right"/>
+                                    <xs:enumeration value="bottom-left"/>
+                                    <xs:enumeration value="bottom-right"/>
+                                    <xs:enumeration value="center"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="layered-modal">
+                    <xs:complexType>
+                        <xs:attribute type="xs:integer" name="height" />
+                        <xs:attribute type="xs:integer" name="width" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="theme-properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="property" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+        <xs:annotation><xs:documentation>
+            This element contains all properties dedicate with the theme technology
+        </xs:documentation></xs:annotation>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required">
+                <xs:annotation><xs:documentation>
+                    this attribute support the FlexibleMapAccessor syntax
+                </xs:documentation></xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value" use="required" />
+            <xs:attribute type="xs:string" name="type" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="templates">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="template" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+        <xs:annotation><xs:documentation>
+            This element contains all ftl macro template supported by this theme
+        </xs:documentation></xs:annotation>
+    <xs:element name="template">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="4" ref="template-file" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="type" use="required"/>
+            <xs:attribute type="xs:string" name="encoding" />
+            <xs:attribute type="xs:string" name="content-type" />
+            <xs:attribute type="xs:string" name="encoder" />
+            <xs:attribute name="compress">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="template-file">
+    <xs:complexType>
+        <xs:attribute type="xs:string" name="widget" use="required" >
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="screen" />
+                    <xs:enumeration value="form" />
+                    <xs:enumeration value="tree" />
+                    <xs:enumeration value="menu" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:complexType>
+    </xs:element>
+    <xs:element name="common-screens">
+        <xs:annotation><xs:documentation>
+            List the location of each common screens that the theme implement
+        </xs:documentation></xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="root-decorator" />
+                <xs:element minOccurs="0" maxOccurs="1" ref="subtype-decorator" />
+                <xs:element minOccurs="0" maxOccurs="1" ref="generic-screen" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="root-decorator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="screen" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="default-location" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="subtype-decorator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="screen" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="default-location" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="generic-screen">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="screen" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="default-location" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="screen">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="location" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
