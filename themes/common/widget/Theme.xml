@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<theme name="common"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-theme.xsd">
+    <visual-themes><!--List of visual theme contains to this theme components-->
+        <visual-theme id="COMMON" display-name="Common Theme">
+            <description>${util:label('CommonThemeUiLabels', 'CommonThemeVisualThemeDescription', locale)}</description>
+            <screenshot location="/images/spinner.gif"/>
+        </visual-theme>
+    </visual-themes>
+    <widget-properties><!--Transversal properties relative to ofbiz widget component-->
+        <default-view-size value="20"/>
+        <autocompleter
+                default-view-size="10"
+                default-min-lenght="2"
+                default-delay="300"
+                display-return-field="true"/>
+        <lookup
+                position="topleft"
+                width="640"
+                height="500"/>
+        <layered-modal
+                width="800"
+                height="600"/>
+    </widget-properties>
+
+    <theme-properties> <!--specific properties dedicate to this theme -->
+        <property name="jgrowl.position" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
+        <property name="jgrowl.width" value="800" type="Integer"/>
+        <property name="jgrowl.height" value="" type="Integer"/>
+        <property name="jgrowl.speed" value="100" type="Integer"/>
+        <!--template location-->
+        <property name="VT_SHORTCUT_ICON" value="/images/ofbiz.ico"/>
+        <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/><!--use flatgrey to wait the new design-->
+        <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
+        <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
+        <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
+        <!--javascript lib-->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/jquery-1.11.0.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/jquery-migrate-1.2.1.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/moment-timezone-with-data.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/moment-with-locales.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OfbizUtil.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/util.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/fieldlookup.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/jeditable/jquery.jeditable.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/validate/jquery.validate.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OpenLayers-2.13.1.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.format-1.2.3-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.timezone-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/miscAjaxFunctions.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/selectMultipleRelatedValues.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/jsTree/jquery.jstree.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery.cookie-1.4.0.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/FromThruDateCheck.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/setUserLocale.js"/>
+        <!--Css style-->
+    </theme-properties>
+
+    <templates><!-- Freemarker template use by this theme to render widget model-->
+        <template name="screen" type="html" content-type="UTF-8" encoding="none" encoder="html" compress="false">
+            <template-file widget="screen" location="component://common-theme/template/macro/HtmlScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/HtmlFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/HtmlTreeMacroLibrary.ftl"/>
+            <template-file widget="menu" location="component://common-theme/template/macro/HtmlMenuMacroLibrary.ftl"/>
+        </template>
+        <template name="screenxml" type="xml" content-type="UTF-8" encoding="none" encoder="xml">
+            <template-file widget="screen" location="component://common-theme/template/macro/XmlScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/XmlFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/XmlTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screenxls" type="xls" content-type="application/vnd.ms-excel" encoding="none" encoder="html">
+            <template-file widget="screen" location="component://common-theme/template/macro/XlsScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/XlsFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/XlsTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screenfop" type="xsl-fo" content-type="application/pdf" encoding="none">
+            <template-file widget="screen" location="component://common-theme/template/macro/FoScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/FoFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/FoTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screentext" type="text" content-type="UTF-8" encoding="none">
+            <template-file widget="screen" location="component://common-theme/template/macro/TextScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/TextFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/TextTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screencsv" type="csv" content-type="UTF-8" encoding="none" encoder="xml">
+            <template-file widget="screen" location="component://common-theme/template/macro/CsvScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/CsvFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/CsvTreeMacroLibrary.ftl"/>
+        </template>
+    </templates>
+
+    <common-screens><!--list all common screen and decorator global to each application that each theme can be surcharge or not and use the screen present on common theme-->
+        <structural-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="AjaxGlobalDecorator"/>
+            <screen name="ajaxAutocompleteOptions"/>
+            <screen name="GlobalActions"/>
+            <screen name="GlobalDecorator"/>
+            <screen name="LookupDecorator"/>
+            <screen name="SimpleDecorator"/>
+            <screen name="FoReportDecorator"/>
+            <screen name="GlobalFoDecorator"/>
+            <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
+        </structural-decorator>
+        <embed-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="FindScreenDecorator"/>
+        </embed-decorator>
+        <general-screen default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="geoChart"/>
+            <screen name="EventMessages"/>
+            <screen name="countries"/>
+            <screen name="states"/>
+            <screen name="cctypes"/>
+            <screen name="ccmonths"/>
+            <screen name="ccyears"/>
+            <screen name="genericLink"/>
+            <screen name="ajaxAutocompleteOptions"/>
+            <screen name="FoError"/>
+            <screen name="login"/>
+            <screen name="ajaxNotLoggedIn"/>
+            <screen name="requirePasswordChange"/>
+            <screen name="forgotPassword_step1"/>
+            <screen name="forgotPassword_step2"/>
+            <screen name="forgotPassword"/>
+            <screen name="help"/>
+            <screen name="viewBlocked"/>
+            <screen name="TimeDuration" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListVisualThemes" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListSetCompanies" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListLocales" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListTimezones" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="showDocumentHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+            <screen name="navigateHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+            <screen name="ShowHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+        </general-screen>
+    </common-screens>
+</theme>
