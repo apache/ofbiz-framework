@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="LookupDecorator">
+    <screen name="LookupHelpDecorator">
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -49,15 +49,15 @@ under the License.
                         <container id="content-main-section" style="${MainColumnStyle}">
                             <decorator-section-include name="body"/>
                         </container>
-                    </container>                            
+                    </container>
                 </container>
                 <container style="clear"></container>
-                
+
                 <platform-specific><html><html-template location="component://common-theme/template/includes/LookupFooter.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ShowHelp">
         <section>
             <condition>
@@ -98,7 +98,7 @@ under the License.
                                 <include-screen name="navigateHelp"/>
                             </widgets>
                             <fail-widgets>
-                                <decorator-screen name="LookupDecorator">
+                                <decorator-screen name="LookupHelpDecorator">
                                     <decorator-section name="body">
                                         <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
                                             <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -107,8 +107,8 @@ under the License.
                                                 <actions>
                                                   <set field="contentId" from-field="contentAssoc.contentIdTo"/>
                                                 </actions>
-                                                <widgets>
-                                                  <include-screen name="showDocument"/>
+                                                  <widgets>
+                                                      <include-screen name="showDocumentHelp" />
                                                 </widgets>
                                               </section>
                                             </iterate-section>
@@ -130,7 +130,7 @@ under the License.
                           </entity-one>
                         </actions>
                         <widgets>
-                        <decorator-screen name="LookupDecorator">
+                        <decorator-screen name="LookupHelpDecorator">
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
                                     <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -149,7 +149,7 @@ under the License.
         </section>
     </screen>
     
-    <screen name="showDocument">
+    <screen name="showDocumentHelp">
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -189,21 +189,17 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId" default-value="HELP_ROOT"/>
             </actions>
             <widgets>
-                <decorator-screen name="LookupDecorator">
+                <decorator-screen name="LookupHelpDecorator">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
-                                    <container style="left-border">
-                                        <container id="EditDocumentTree"/>
-                                        <platform-specific><html><html-template location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
-                                    </container>
-                                    <container style="leftonly">
-                                        <include-screen name="showDocument"/>
-                                    </container>
-                                </screenlet>
-                            </widgets>
-                        </section>
+                        <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
+                            <container style="left-border">
+                                <container id="EditDocumentTree"/>
+                                <platform-specific><html><html-template location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
+                            </container>
+                            <container style="leftonly">
+                                <include-screen name="showDocumentHelp"/>
+                            </container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

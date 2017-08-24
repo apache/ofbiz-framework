@@ -20,7 +20,7 @@ under the License.
 <#--
 To use these macros in your template, insert the following line in
 your template file:
-<#include "component://common/template/includes/CommonMacros.ftl"/>
+<#include "component://common-theme/template/includes/CommonMacros.ftl"/>
 -->
 
 <#assign
