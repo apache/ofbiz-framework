@@ -36,4 +36,10 @@ under the License.
         location="webapp/common"
         mount-point="/common"
         app-bar-display="false"/>
+    <webapp name="images"
+            title="Images"
+            server="default-server"
+            location="webapp/images"
+            mount-point="/images"
+            app-bar-display="false"/>
 </ofbiz-component>
