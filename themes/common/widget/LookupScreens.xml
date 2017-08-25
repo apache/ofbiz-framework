@@ -96,9 +96,7 @@ under the License.
                 <set field="parameters.presentation" value="window"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="visualThemeSetId" from-field="webSite.visualThemeSetId" default-value="BACKOFFICE" />
-                <entity-condition entity-name="VisualTheme" list="visualThemes">
-                    <condition-expr field-name="visualThemeSetId" from-field="visualThemeSetId" />
-                </entity-condition>
+                <set field="visualThemes" value="${groovy: org.apache.ofbiz.widget.model.ThemeFactory.getAvailableThemes(delegator, visualThemeSetId)}"/>
             </actions>
             <widgets>
                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

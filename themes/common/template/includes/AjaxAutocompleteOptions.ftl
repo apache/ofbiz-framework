@@ -35,11 +35,6 @@ under the License.
 <script type="text/javascript">
     var autocomp = [
         <#if autocompleteOptions?has_content>
-          <#if !displayReturnField??>
-            <#assign displayReturnField = Static[
-                "org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue(
-                "widget", "widget.autocompleter.displayReturnField", delegator)>
-          </#if>
           <#list autocompleteOptions as autocompleteOption>
               {
                 <#assign displayString = ""/>
@@ -54,7 +49,7 @@ under the License.
                     </#if>
                   </#if>
                 </#list>
-                <#if ("Y" == displayReturnField)>
+                <#if modelTheme.getAutocompleterDisplayReturnField()>
                   <#assign displayString = displayString +  "[" + returnField + "]">
                 </#if>
                   "id": "${returnField}",

@@ -107,9 +107,6 @@ under the License.
     -->
     <screen name="ajaxAutocompleteOptions">
         <section>
-            <actions>
-                <set field="autocompleteOptions" from-field="parameters.autocompleteOptions" />
-            </actions>
             <widgets>
                 <decorator-screen name="AjaxGlobalDecorator">
                     <decorator-section name="body">
@@ -125,14 +122,6 @@ under the License.
     <screen name="GlobalActions">
         <section>
             <actions>
-                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true" />
-                <service service-name="getVisualThemeResources">
-                    <field-map field-name="visualThemeId" />
-                    <field-map field-name="themeResources" from-field="layoutSettings" />
-                </service>
-                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true" />
-
-                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true" />
@@ -141,10 +130,6 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/Readmore.js-master/readmore.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" global="true" />
-                <!-- Set default user locale from browser -->
-                <set field="layoutSettings.javaScripts[+0]" value="/images/setUserLocale.js"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/moment-timezone-with-data.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/moment-with-locales.min.js" global="true"/>
             </actions>
             <widgets />
         </section>
@@ -158,13 +143,13 @@ under the License.
                 <section>
                     <actions>
                         <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true" />
-                        <set field="iconsLocation" from-field="layoutSettings.VT_ICONS_LOC[0]" default-value="/images/icons/famfamfam" global="true" />
-                        <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" />
-                        <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" />
-                        <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" />
-                        <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]" />
-                        <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]" />
-                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" />
+                        <set field="iconsLocation" from-field="layoutSettings.VT_ICONS_LOC" default-value="/images/icons/famfamfam" global="true" />
+                        <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC" />
+                        <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC" />
+                        <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC" />
+                        <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT" />
+                        <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT" />
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" />
                         <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
                     </actions>
                     <widgets />
@@ -358,16 +343,11 @@ under the License.
                         <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
 
                         <property-map resource="general" map-name="generalProperties" global="true"/>
-                        <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
                         <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
-                        <service service-name="getVisualThemeResources">
-                            <field-map field-name="visualThemeId"/>
-                            <field-map field-name="themeResources" from-field="layoutSettings"/>
-                        </service>
 
-                        <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                        <set field="layoutSettings" from-field="modelTheme.getThemeResources()" default-value="${layoutSettings}" global="true"/>
 
-                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common-theme/template/includes/Messages.ftl"/>
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
                     </actions>
                     <widgets>
                         <section>
@@ -415,6 +395,8 @@ under the License.
                     <actions>
                         <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
+                        <set field="autocompleterViewSize" from-field="parameters.autocompleterViewSize"
+                             default-value="${groovy: theme.getModelTheme().getAutocompleterDefaultViewSize()}"/>
                         <script location="component://common/groovyScripts/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
@@ -546,7 +528,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common-theme/template/Login.ftl"/>
+                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC" default-value="component://common-theme/template/Login.ftl"/>
                             </actions>
                             <widgets />
                         </section>
