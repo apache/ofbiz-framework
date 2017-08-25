@@ -52,33 +52,31 @@ margin: 1em;
     <br class="clear"/>
   </div>
   <li class="h2" style="padding-top:1em">${uiLabelMap.CommonVisualThemeUsage}</li>
+  <#assign currentVisualThemeId = visualTheme.getVisualThemeId()/>
   <#if visualThemes?has_content>
-    <#assign orderByList = Static["org.apache.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/>
     <table cellspacing="0" class="basic-table">
       <#list visualThemes as visualTheme>
-        <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap(
-            "visualThemeId", "${visualTheme.visualThemeId}",
-            "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList, false)>
-        <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>
+        <#assign visualThemeId = visualTheme.getVisualThemeId()/>
+        <tr<#if visualThemeId == currentVisualThemeId> class="selected"</#if>>
           <td>
-            <form name="SetUserPreferences_${visualTheme.visualThemeId}" method="post"
-                action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
+            <form name="SetUserPreferences_${visualThemeId}" method="post"
+                action="<@ofbizUrl>selectTheme</@ofbizUrl>">
               <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
               <input type="hidden" name="userPrefTypeId" value="VISUAL_THEME"/>
-              <input type="hidden" name="userPrefValue" value="${visualTheme.visualThemeId}"/>
+              <input type="hidden" name="userPrefValue" value="${visualThemeId}"/>
             </form>
-            <a href="javascript:document.forms['SetUserPreferences_${visualTheme.visualThemeId}'].submit()">
-              ${visualTheme.get("description", locale)?default(visualTheme.visualThemeId)}
+            <a href="javascript:document.forms['SetUserPreferences_${visualThemeId}'].submit()">
+              ${visualTheme.getDisplayName(context)?default(visualThemeId)} ${visualTheme.getDescription(context)!}
             </a>
           </td>
           <td>
-            <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.CommonVisualThemeSelected}<#else>&nbsp;</#if>
+            <#if visualThemeId == currentVisualThemeId>${uiLabelMap.CommonVisualThemeSelected}<#else>&nbsp;</#if>
           </td>
           <td>
-            <#if screenshots?has_content>
-              <#list screenshots as screenshot>
-                <a id="single_image" href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img
-                    src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150"
+            <#if visualTheme.getScreenshots()?has_content>
+              <#list visualTheme.getScreenshots() as screenshot>
+                <a id="single_image" href="<@ofbizContentUrl>${screenshot}</@ofbizContentUrl>"><img
+                    src="<@ofbizContentUrl>${screenshot}</@ofbizContentUrl>" width="150"
                     alt=""/></a>
               </#list>
             <#else>

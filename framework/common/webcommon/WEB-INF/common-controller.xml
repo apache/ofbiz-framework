@@ -118,6 +118,20 @@ under the License.
     <!-- Common Mappings used for Set user organization -->
     <request-map uri="ListSetCompanies"><security https="true" auth="false"/><response name="success" type="view" value="ListSetCompanies" save-last-view="true"/></request-map>
 
+    <!-- Change theme-->
+    <request-map uri="selectTheme">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="request" value="setSessionTheme"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+    <request-map uri="setSessionTheme">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTheme"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+
     <!-- User preference mapping -->
     <request-map uri="setUserPreference">
         <security https="true" auth="true"/>
