@@ -20,6 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="MULTIFLEX" visualThemeSetId="ECOMMERCE" description="Alternative VisualTheme for Ecommerce"/>
+    <delete> <!--data deprecated with the theme properties-->
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/ecommerce/images/blog.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/multiflex/style.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="04"/>
@@ -28,4 +29,5 @@ under the License.
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://multiflex/template/Header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://multiflex/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/multiflex/screenshot.jpg" sequenceId="01"/>
+    </delete>
 </entity-engine-xml>
