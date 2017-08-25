@@ -26,7 +26,9 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="1" ref="widget-properties"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="theme-properties"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="templates"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="common-screens"/>
             </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required" />
         </xs:complexType>
     </xs:element>
     <xs:element name="visual-themes">
