@@ -191,30 +191,32 @@ public class ThemeFactory {
      */
     public static VisualTheme resolveVisualTheme(HttpServletRequest request) {
         String visualThemeId = null;
-        HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        //search on request only if a userLogin is present on session (otherwise this implied that the user isn't identify so wait
-        if (userLogin != null) {
-            VisualTheme visualTheme = (VisualTheme) session.getAttribute("visualTheme");
-            if (visualTheme != null) return visualTheme;
+        if (request != null) {
+            HttpSession session = request.getSession();
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            //search on request only if a userLogin is present on session (otherwise this implied that the user isn't identify so wait
+            if (userLogin != null) {
+                VisualTheme visualTheme = (VisualTheme) session.getAttribute("visualTheme");
+                if (visualTheme != null) return visualTheme;
 
-            //resolve on user pref
-            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-            if (dispatcher != null) {
-                try {
-                    Map<String, Object> userPreferencesResult = dispatcher.runSync("getUserPreference",
-                            UtilMisc.toMap("userLogin", userLogin, "userPrefTypeId", "VISUAL_THEME"));
-                    visualThemeId = (String) userPreferencesResult.get("userPrefValue");
-                } catch (GenericServiceException e) {
-                    Debug.logError("Impossible to resolve the theme from user prefrence for " + userLogin.get("userLoginId"), module);
+                //resolve on user pref
+                LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+                if (dispatcher != null) {
+                    try {
+                        Map<String, Object> userPreferencesResult = dispatcher.runSync("getUserPreference",
+                                UtilMisc.toMap("userLogin", userLogin, "userPrefTypeId", "VISUAL_THEME"));
+                        visualThemeId = (String) userPreferencesResult.get("userPrefValue");
+                    } catch (GenericServiceException e) {
+                        Debug.logError("Impossible to resolve the theme from user prefrence for " + userLogin.get("userLoginId"), module);
+                    }
                 }
             }
-        }
 
-        //resolve from webapp
-        if (visualThemeId == null) {
-            ServletContext servletContext = request.getServletContext();
-            visualThemeId = servletContext.getInitParameter("visualThemeId");
+            //resolve from webapp
+            if (visualThemeId == null) {
+                ServletContext servletContext = request.getServletContext();
+                visualThemeId = servletContext.getInitParameter("visualThemeId");
+            }
         }
 
         //resolve from general properties
