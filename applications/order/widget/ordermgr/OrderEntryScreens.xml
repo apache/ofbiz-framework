@@ -57,7 +57,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.OrderFindRequirementsForSupplier}"/>
                 <set field="entityName" value="Requirement"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
             </actions>
@@ -94,7 +94,7 @@ under the License.
             <actions>
                 <set field="title" value="${uiLabelMap.OrderFindQuotes}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="requestParameters.statusId" to-scope="screen" default-value="QUO_APPROVED"/>

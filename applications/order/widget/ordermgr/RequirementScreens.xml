@@ -86,7 +86,7 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="FindRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -112,7 +112,7 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApproveRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/groovyScripts/requirement/SelectCreatedProposed.groovy"/>
             </actions>
@@ -139,7 +139,7 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="_rowSubmit" value="Y"/>
                 <script location="component://order/groovyScripts/requirement/ApprovedProductRequirements.groovy"/>
@@ -194,7 +194,7 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleApprovedProductRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -213,7 +213,7 @@ under the License.
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/groovyScripts/requirement/ApprovedProductRequirementsByVendor.groovy"/>
             </actions>
@@ -236,7 +236,7 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>

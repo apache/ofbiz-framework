@@ -91,7 +91,7 @@ under the License.
                 <set field="tabButtonItem" value="findRouting"/>
                 <set field="headerItem" value="routing"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 
                 <set field="asm_multipleSelectForm" value="FindRoutings"/>

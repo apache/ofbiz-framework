@@ -69,7 +69,7 @@ context.paramList = paramList
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
-viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
+viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
 listSize = 0
 if (inventoryList)
     listSize = inventoryList.size()

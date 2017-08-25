@@ -67,7 +67,7 @@ under the License.
                 <set field="titleProperty" value="OrderFindQuote"/>
                 <set field="headerItem" value="quote"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -307,7 +307,7 @@ under the License.
                 <set field="tabButtonItem" value="ListQuoteItems"/>
 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
@@ -488,7 +488,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuotePrices"/>
                 <set field="tabButtonItem" value="ManageQuotePrices"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -530,7 +530,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteListAdjustments"/>
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -592,7 +592,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteViewProfit"/>
                 <set field="tabButtonItem" value="ViewQuoteProfit"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
