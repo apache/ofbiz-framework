@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -49,7 +49,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditCharacterSet"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -71,7 +71,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceTypeAttr"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -93,7 +93,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditFileExtension"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -115,7 +115,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMetaDataPredicate"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -137,7 +137,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -159,7 +159,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeTypeHtmlTemplate"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -182,7 +182,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
                 <script location="component://content/groovyScripts/datasetup/DataCategoryPrep.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>

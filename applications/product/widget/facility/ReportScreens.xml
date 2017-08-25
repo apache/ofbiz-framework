@@ -29,7 +29,7 @@ under the License.
                 <set field="headerItem" value="reports"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <!-- This is the target of the search form-->

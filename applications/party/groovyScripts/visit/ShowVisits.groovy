@@ -41,7 +41,7 @@ try {
     beganTransaction = TransactionUtil.begin()
 
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1)
-    viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
+    viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
     context.viewIndex = viewIndex
     context.viewSize = viewSize
 

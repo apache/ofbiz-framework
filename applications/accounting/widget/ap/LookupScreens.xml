@@ -31,7 +31,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.AccountingLookupInvoices}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Invoice"/>
                 <set field="searchFields" value="[invoiceId, partyIdFrom, partyId, description, currencyUomId]"/>
@@ -59,7 +59,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.AccountingLookupPayment}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Payment"/>
                 <set field="searchFields" value="[paymentId, partyIdFrom, partyIdTo, currencyUomId]"/>

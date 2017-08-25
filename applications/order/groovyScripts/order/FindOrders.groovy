@@ -146,8 +146,7 @@ context.thruDateStr = toStr
 viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1
 context.viewIndex = viewIndex
 
-viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 
-                                                                EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator)
+viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : modelTheme.getDefaultViewSize()?:20
 context.viewSize = viewSize
 
 // get the lookup flag
