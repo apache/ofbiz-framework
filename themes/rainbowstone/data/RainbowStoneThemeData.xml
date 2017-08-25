@@ -20,6 +20,10 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="RAINBOWSTONE_SAPHIR" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Saphir"/>
+    <VisualTheme visualThemeId="RAINBOWSTONE_RUBY" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Ruby"/>
+    <VisualTheme visualThemeId="RAINBOWSTONE_EMERALD" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Emerald"/>
+    <VisualTheme visualThemeId="RAINBOWSTONE_AMBER" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Amber"/>
+    <delete> <!--data deprecated with the theme properties-->
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_SAPHIR" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-saphir.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
@@ -66,7 +70,6 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
 
 
-    <VisualTheme visualThemeId="RAINBOWSTONE_RUBY" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Ruby"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_RUBY" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-ruby.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
@@ -110,7 +113,6 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
 
 
-    <VisualTheme visualThemeId="RAINBOWSTONE_EMERALD" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Emerald"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_EMERALD" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-emerald.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
@@ -153,7 +155,6 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/util.js" sequenceId="21"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
 
-    <VisualTheme visualThemeId="RAINBOWSTONE_AMBER" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Amber"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_AMBER" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-amber.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
@@ -195,4 +196,5 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectMultipleRelatedValues.js" sequenceId="20"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/util.js" sequenceId="21"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
+    </delete>
 </entity-engine-xml>
