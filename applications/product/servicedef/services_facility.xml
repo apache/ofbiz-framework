@@ -158,11 +158,7 @@ under the License.
     <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
         <description>Create a PhysicalInventory and an InventoryItemVariance</description>
-        <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemVariance"/>
-        </type-validate>
-        </auto-attributes>
+        <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PhysicalInventory" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="InventoryItemVariance" include="nonpk" mode="IN" optional="true"/>
         <override name="physicalInventoryId" mode="OUT"/>
@@ -570,10 +566,11 @@ under the License.
             <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
         </type-validate>
         </attribute>
-        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.reservedDatetime"/>
         </type-validate>
+        </attribute>
         <attribute name="requireInventory" type="String" mode="IN" optional="false">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.requireInventory"/>
@@ -677,11 +674,7 @@ under the License.
     <service name="cancelOrderItemShipGrpInvRes" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemShipGrpInvRes" auth="true">
         <description>Cancels an inventory reservation</description>
-        <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.OrderItemShipGrpInvRes"/>
-        </type-validate>
-        </auto-attributes>
+        <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
 
@@ -783,17 +776,11 @@ under the License.
             <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
         </type-validate>
         </attribute>
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
         </type-validate>
         </attribute>
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotTransferred" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
