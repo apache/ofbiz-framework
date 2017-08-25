@@ -33,10 +33,12 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ModelTree;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
@@ -333,14 +335,15 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
+        VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
+        ModelTheme modelTheme = visualTheme.getModelTheme();
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {
             if (screenStringRenderer == null) {
                 try {
-                    screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", "screen.name"), 
-                            UtilProperties.getPropertyValue("widget", "screen.screenrenderer"));
+                    screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"), modelTheme.getScreenRendererLocation("screen"));
                 } catch (TemplateException | IOException e) {
                     e.printStackTrace();
                 }

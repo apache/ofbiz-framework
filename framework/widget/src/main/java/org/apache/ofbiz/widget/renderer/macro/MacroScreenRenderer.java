@@ -79,7 +79,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private String rendererName;
     private int elementId = 999;
     protected boolean widgetCommentsEnabled = false;
-    private static final String formrenderer = UtilProperties.getPropertyValue("widget", "screen.formrenderer");
     private int screenLetsIdCounter = 1;
 
     public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
@@ -238,11 +237,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
         if (UtilValidate.isEmpty(width)) {
-            width = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.width", "800"));
+            width = String.valueOf(modelTheme.getLinkDefaultLayeredModalWidth());
         }
         String height = link.getHeight();
         if (UtilValidate.isEmpty(height)) {
-            height = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.height", "600"));
+            height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
@@ -626,8 +625,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
                 MenuStringRenderer renderer;
                 try {
-                    renderer = new MacroMenuRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.menurenderer", (Delegator) request.getAttribute("delegator")),
-                            request, response);
+                    renderer = new MacroMenuRenderer(modelTheme.getMenuRendererLocation("screen"), request, response);
                     context.put("menuStringRenderer", renderer);
                     navMenu.renderWidgetString(sb, context, this);
                     context.put("menuStringRenderer", savedRenderer);
@@ -675,7 +673,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
                 MacroFormRenderer renderer = null;
                 try {
-                    renderer = new MacroFormRenderer(formrenderer, request, response);
+                    renderer = new MacroFormRenderer(modelTheme.getFormRendererLocation("screen"), request, response);
                 } catch (TemplateException e) {
                     Debug.logError("Not rendering content, error on MacroFormRenderer creation.", module);
                 }

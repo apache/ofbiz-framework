@@ -67,63 +67,23 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
     private ScreenStringRenderer loadRenderers(HttpServletRequest request, HttpServletResponse response,
             Map<String, Object> context, Writer writer) throws GeneralException, TemplateException, IOException {
-        String screenMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer");
-        String formMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".formrenderer");
-        String treeMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".treerenderer");
-        String menuMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".menurenderer");
-        Map<String, Object> userPreferences = UtilGenerics.cast(context.get("userPreferences"));
-        if (userPreferences != null) {
-            String visualThemeId = (String) userPreferences.get("VISUAL_THEME");
-            if (visualThemeId != null) {
-                LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-                Map<String, Object> serviceCtx = dispatcher.getDispatchContext().makeValidContext("getVisualThemeResources",
-                        ModelService.IN_PARAM, context);
-                serviceCtx.put("visualThemeId", visualThemeId);
-                Map<String, Object> serviceResult = dispatcher.runSync("getVisualThemeResources", serviceCtx);
-                if (ServiceUtil.isSuccess(serviceResult)) {
-                    Map<String, List<String>> themeResources = UtilGenerics.cast(serviceResult.get("themeResources"));
-                    List<String> resourceList = UtilGenerics.cast(themeResources.get("VT_SCRN_MACRO_LIB"));
-                    if (resourceList != null && !resourceList.isEmpty()) {
-                        String macroLibraryPath = resourceList.get(0);
-                        if (macroLibraryPath != null) {
-                            screenMacroLibraryPath = macroLibraryPath;
-                        }
-                    }
-                    resourceList = UtilGenerics.cast(themeResources.get("VT_FORM_MACRO_LIB"));
-                    if (resourceList != null && !resourceList.isEmpty()) {
-                        String macroLibraryPath = resourceList.get(0);
-                        if (macroLibraryPath != null) {
-                            formMacroLibraryPath = macroLibraryPath;
-                        }
-                    }
-                    resourceList = UtilGenerics.cast(themeResources.get("VT_TREE_MACRO_LIB"));
-                    if (resourceList != null && !resourceList.isEmpty()) {
-                        String macroLibraryPath = resourceList.get(0);
-                        if (macroLibraryPath != null) {
-                            treeMacroLibraryPath = macroLibraryPath;
-                        }
-                    }
-                    resourceList = UtilGenerics.cast(themeResources.get("VT_MENU_MACRO_LIB"));
-                    if (resourceList != null && !resourceList.isEmpty()) {
-                        String macroLibraryPath = resourceList.get(0);
-                        if (macroLibraryPath != null) {
-                            menuMacroLibraryPath = macroLibraryPath;
-                        }
-                    }
-                }
-            }
-        }
-        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName()
-                + ".name"), screenMacroLibraryPath);
-        if (!formMacroLibraryPath.isEmpty()) {
+        VisualTheme visualTheme = (VisualTheme) UtilHttp.getVisualTheme(request);
+        ModelTheme modelTheme = visualTheme.getModelTheme();
+
+        String screenMacroLibraryPath = modelTheme.getScreenRendererLocation(getName());
+        String formMacroLibraryPath = modelTheme.getFormRendererLocation(getName());
+        String treeMacroLibraryPath = modelTheme.getTreeRendererLocation(getName());
+        String menuMacroLibraryPath = modelTheme.getMenuRendererLocation(getName());
+        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType(getName()), screenMacroLibraryPath);
+        if (UtilValidate.isNotEmpty(formMacroLibraryPath)) {
             FormStringRenderer formStringRenderer = new MacroFormRenderer(formMacroLibraryPath, request, response);
             context.put("formStringRenderer", formStringRenderer);
         }
-        if (!treeMacroLibraryPath.isEmpty()) {
+        if (UtilValidate.isNotEmpty(treeMacroLibraryPath)) {
             TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(treeMacroLibraryPath, writer);
             context.put("treeStringRenderer", treeStringRenderer);
         }
-        if (!menuMacroLibraryPath.isEmpty()) {
+        if (UtilValidate.isNotEmpty(menuMacroLibraryPath)) {
             MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(menuMacroLibraryPath, request, response);
             context.put("menuStringRenderer", menuStringRenderer);
         }
@@ -138,11 +98,11 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             // compress output if configured to do so
             if (UtilValidate.isEmpty(encoding)) {
-                encoding = EntityUtilProperties.getPropertyValue("widget", getName() + ".default.encoding", "none", delegator);
+                encoding = modelTheme.getEncoding(getName());
             }
             boolean compressOutput = "compressed".equals(encoding);
             if (!compressOutput) {
-                compressOutput = "true".equals(EntityUtilProperties.getPropertyValue("widget", getName() + ".compress", delegator));
+                compressOutput = "true".equals(modelTheme.getCompress(getName()));
             }
             if (!compressOutput && this.servletContext != null) {
                 compressOutput = "true".equals(this.servletContext.getAttribute("compressHTML"));
@@ -157,8 +117,8 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             ScreenStringRenderer screenStringRenderer = loadRenderers(request, response, context, writer);
             ScreenRenderer screens = new ScreenRenderer(writer, context, screenStringRenderer);
             context.put("screens", screens);
-            context.put("simpleEncoder", UtilCodec.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
-            screenStringRenderer.renderScreenBegin(writer, context);
+            context.put("simpleEncoder", UtilCodec.getEncoder(visualTheme.getModelTheme().getEncoder(getName())));
+             screenStringRenderer.renderScreenBegin(writer, context);
             screens.render(page);
             screenStringRenderer.renderScreenEnd(writer, context);
             writer.flush();
