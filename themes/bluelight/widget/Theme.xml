@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<theme name="bluelight"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-theme.xsd">
+    <visual-themes>
+        <visual-theme id="BLUELIGHT" display-name="BlueLight Theme">
+            <description>${str:label('CommonEntityLabels', 'VisualTheme.description.BLUELIGHT', locale)}</description>
+            <screenshot location="/bluelight/screenshot.jpg"/>
+        </visual-theme>
+    </visual-themes>
+    <extends location="component://common-theme/widget/Theme.xml"/>
+
+    <theme-properties>
+        <!--javascript lib-->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/bluelight/dropdown.js" sequenceId="30"/>
+        <!--Css style-->
+        <property name="VT_STYLESHEET['add']" value="/bluelight/style.css"/>
+        <property name="VT_HELPSTYLESHEET['add']" value="/bluelight/help.css"/>
+        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/bluelight/webapp/bluelight/docbook.css"/>
+        <!--template location-->
+        <property name="VT_HDR_TMPLT_LOC" value="component://bluelight/template/Header.ftl"/>
+        <property name="VT_FTR_TMPLT_LOC" value="component://bluelight/template/Footer.ftl"/>
+        <property name="VT_NAV_OPEN_TMPLT" value="component://bluelight/template/AppBarOpen.ftl"/>
+        <property name="VT_NAV_CLOSE_TMPLT" value="component://bluelight/template/AppBarClose.ftl"/>
+        <property name="VT_MSG_TMPLT_LOC" value="component://bluelight/template/Messages.ftl"/>
+    </theme-properties>
+</theme>
