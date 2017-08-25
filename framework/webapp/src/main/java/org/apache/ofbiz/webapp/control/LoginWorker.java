@@ -79,6 +79,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 
 /**
  * Common Workers
@@ -576,6 +577,10 @@ public class LoginWorker {
             Debug.logError(e, "Error getting user preference", module);
         }
         session.setAttribute("javaScriptEnabled", Boolean.valueOf("Y".equals(javaScriptEnabled)));
+
+        //init theme from user preference, clean the current visualTheme value in session and restart the resolution
+        UtilHttp.setVisualTheme(session, null);
+        UtilHttp.setVisualTheme(session, ThemeFactory.resolveVisualTheme(request));
 
         ModelEntity modelUserLogin = userLogin.getModelEntity();
         if (modelUserLogin.isField("partyId")) {

@@ -85,11 +85,14 @@ import org.apache.ofbiz.widget.model.ModelFormField.TextareaField;
 import org.apache.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
 import org.apache.ofbiz.widget.model.ModelSingleForm;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ModelWidget;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.UtilHelpText;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 
 import com.ibm.icu.util.Calendar;
 
@@ -111,6 +114,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
     private final boolean javaScriptEnabled;
+    private final VisualTheme visualTheme;
     private boolean renderPagination = true;
     private boolean widgetCommentsEnabled = false;
 
@@ -118,6 +122,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
+        this.visualTheme = ThemeFactory.resolveVisualTheme(request);
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
@@ -140,6 +145,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     private void executeMacro(Appendable writer, String macro) throws IOException {
         try {
             Environment environment = getEnvironment(writer);
+            environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
             Reader templateReader = new StringReader(macro);
             Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
@@ -3067,6 +3073,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        ModelTheme modelTheme = visualTheme.getModelTheme();
         String viewIndexField = modelForm.getMultiPaginateIndexField(context);
         String viewSizeField = modelForm.getMultiPaginateSizeField(context);
         int viewIndex = Paginator.getViewIndex(modelForm, context);

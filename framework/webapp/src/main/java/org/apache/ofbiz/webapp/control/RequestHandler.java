@@ -60,6 +60,7 @@ import org.apache.ofbiz.webapp.view.ViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import org.apache.ofbiz.webapp.website.WebSiteProperties;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 
 /**
  * RequestHandler - Request Processor Object
@@ -849,7 +850,10 @@ public class RequestHandler {
         if (UtilValidate.isNotEmpty(servletName) && servletName.length() > 1 || servletName.startsWith("/")) {
             servletName = servletName.substring(1);
         }
-        
+
+        if (UtilHttp.getVisualTheme(req) == null) {
+            UtilHttp.setVisualTheme(req.getSession(), ThemeFactory.resolveVisualTheme(req));
+        }
         if (Debug.infoOn()) Debug.logInfo("Rendering View [" + view + "]. " + showSessionId(req), module);
         if (view.startsWith(servletName + "/")) {
             view = view.substring(servletName.length() + 1);
