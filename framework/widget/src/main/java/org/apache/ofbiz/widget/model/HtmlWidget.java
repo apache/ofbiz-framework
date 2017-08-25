@@ -146,7 +146,7 @@ public class HtmlWidget extends ModelScreenWidget {
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
 
         if (UtilValidate.isEmpty(location)) {
-            throw new IllegalArgumentException("Template location is empty");
+            throw new IllegalArgumentException("Template location is empty with search string location " + locationExdr.getOriginal());
         }
 
         if (location.endsWith(".ftl")) {
