@@ -620,6 +620,14 @@ public class ModelServiceReader implements Serializable {
         def.optional = true;
         def.internal = true;
         service.addParam(def);
+        // visualTheme
+        def = new ModelParam();
+        def.name = "visualTheme";
+        def.type = "org.apache.ofbiz.widget.renderer.VisualTheme";
+        def.mode = ModelService.IN_OUT_PARAM;
+        def.optional = true;
+        def.internal = true;
+        service.addParam(def);
     }
 
     private void createOverrideDefs(Element baseElement, ModelService service) {
