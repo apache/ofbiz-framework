@@ -20,6 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="BLUELIGHT" visualThemeSetId="BACKOFFICE" description="BlueLight Theme: breadcrumbs, drop-down menus and rounded corners"/>
+    <delete>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAME" resourceValue="BLUELIGHT" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
@@ -64,5 +65,5 @@ under the License.
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://bluelight/template/AppBarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://bluelight/template/AppBarClose.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/template/Messages.ftl" sequenceId="01"/>
-    
+    </delete>
 </entity-engine-xml>

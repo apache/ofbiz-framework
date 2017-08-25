@@ -32,7 +32,7 @@ under the License.
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
     <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
-      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
+      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON   />
     </#if>
     <#if shortcutIcon?has_content>
       <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
