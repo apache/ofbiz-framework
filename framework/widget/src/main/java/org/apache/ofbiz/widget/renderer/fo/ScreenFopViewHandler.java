@@ -84,17 +84,17 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", getName() + ".name", delegator), EntityUtilProperties.getPropertyValue("widget", getName() + ".screenrenderer", delegator));
-            FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", getName() + ".formrenderer", delegator), request, response);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType(getName()), modelTheme.getScreenRendererLocation(getName()));
+            FormStringRenderer formStringRenderer = new MacroFormRenderer(modelTheme.getFormRendererLocation(getName()), request, response);
             // TODO: uncomment these lines when the renderers are implemented
-            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
-            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), writer);
+            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(modelTheme.getTreeRendererLocation(getName()), writer);
+            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(modelTheme.getMenuRendererLocation(getName()), writer);
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
 
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
-            screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(EntityUtilProperties.getPropertyValue("widget", getName() + ".encoder", delegator)));
+            screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder(getName())));
             screens.render(page);
         } catch (Exception e) {
             renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);
@@ -109,7 +109,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, module);
 
         if (UtilValidate.isEmpty(contentType)) {
-            contentType = UtilProperties.getPropertyValue("widget", getName() + ".default.contenttype");
+            contentType = modelTheme.getContentType(getName());
         }
         
         // get encryption related parameters
@@ -186,8 +186,10 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             Writer writer = new StringWriter();
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
-                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+            VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+            ModelTheme modelTheme = visualTheme.getModelTheme();
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"),
+                    modelTheme.getScreenRendererLocation("screen"));
 
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);

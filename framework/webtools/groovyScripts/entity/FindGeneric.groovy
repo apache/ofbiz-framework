@@ -28,6 +28,7 @@ import org.apache.ofbiz.entity.model.ModelReader
 import org.apache.ofbiz.widget.model.FormFactory
 import org.apache.ofbiz.widget.model.ModelForm
 import org.apache.ofbiz.widget.renderer.FormRenderer
+import org.apache.ofbiz.widget.renderer.VisualTheme
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer
 import org.w3c.dom.Document
 
@@ -70,7 +71,8 @@ if (modelEntity) {
         modelForm = entry.getValue()
     }
 
-    MacroFormRenderer renderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response)
+    String formRendererLocationTheme = context.theme.getModelTheme().getFormRendererLocation("screen")
+    MacroFormRenderer renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
     FormRenderer dynamicAutoEntitySearchFormRenderer = new FormRenderer(modelForm, renderer)
     Writer writer = new StringWriter()
     dynamicAutoEntitySearchFormRenderer.render(writer, context)
@@ -99,7 +101,7 @@ if (modelEntity) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
         modelForm = entry.getValue()
     }
-    renderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response)
+    renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
     FormRenderer dynamicAutoEntityListFormRenderer = new FormRenderer(modelForm, renderer)
     Writer writerList = new StringWriter()
     dynamicAutoEntityListFormRenderer.render(writerList, context)

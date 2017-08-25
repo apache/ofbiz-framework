@@ -80,10 +80,13 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.widget.model.FormFactory;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelScreen;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ScreenFactory;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.apache.tika.Tika;
@@ -99,7 +102,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public static final String module = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";
-    private static final String formrenderer = UtilProperties.getPropertyValue("widget", "screen.formrenderer");
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.
@@ -623,6 +625,10 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             locale = Locale.getDefault();
         }
 
+        //FIXME propage correctly the theme
+        VisualTheme visualTheme = ThemeFactory.getVisualThemeFromId("COMMON");
+        ModelTheme modelTheme = visualTheme.getModelTheme();
+
         // if the target mimeTypeId is not a text type, throw an exception
         if (!targetMimeTypeId.startsWith("text/")) {
             throw new GeneralException("The desired mime-type is not a text type, cannot render as text: " + targetMimeTypeId);
@@ -724,7 +730,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                     ScreenRenderer screens = (ScreenRenderer) context.get("screens");
                     if (screens == null) {
                      // TODO: replace "screen" to support dynamic rendering of different output
-                        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator), EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+                        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"), modelTheme.getScreenRendererLocation("screen"));
                         screens = new ScreenRenderer(out, context, screenStringRenderer);
                         screens.getContext().put("screens", screens);
                     }
@@ -756,7 +762,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 try {
                     Map<String, Object> context = UtilGenerics.checkMap(templateContext.get("globalContext"));
                     context.put("locale", locale);
-                    context.put("simpleEncoder", UtilCodec.getEncoder(UtilProperties.getPropertyValue("widget", "screen.encoder")));
+                    context.put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder("screen")));
                     HttpServletRequest request = (HttpServletRequest) context.get("request");
                     HttpServletResponse response = (HttpServletResponse) context.get("response");
                     ModelForm modelForm = null;
@@ -769,6 +775,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next(); // get first entry, only one form allowed per file
                         modelForm = entry.getValue();
                     }
+                    String formrenderer = modelTheme.getFormRendererLocation("screen");
                     MacroFormRenderer renderer = new MacroFormRenderer(formrenderer, request, response);
                     FormRenderer formRenderer = new FormRenderer(modelForm, renderer);
                     formRenderer.render(out, context);
