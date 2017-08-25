@@ -17,29 +17,22 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.widget.model.ModelTheme
+import org.apache.ofbiz.widget.model.ThemeFactory
+import org.apache.ofbiz.widget.renderer.VisualTheme
 
-def globalContext = context.globalContext;
-if (!globalContext.userPreferences) {
-    Map userPreferencesResult = run service: 'getUserPreferenceGroup', with: ['userPrefGroupTypeId': 'GLOBAL_PREFERENCES']
-    globalContext.userPreferences = userPreferencesResult.userPrefMap
-}
+VisualTheme visualTheme = ThemeFactory.resolveVisualTheme(request)
+if (visualTheme) {
+    ModelTheme modelTheme = visualTheme.getModelTheme()
+    globalContext.commonScreenLocations = modelTheme.getModelCommonScreens()
+    globalContext.visualTheme = visualTheme
+    globalContext.modelTheme = modelTheme
 
-if (!globalContext.generalProperties) {
-    globalContext.generalProperties = UtilProperties.getResourceBundleMap('general', context.locale, context)
-}
-
-if (!globalContext.visualThemeId) {
-    globalContext.visualThemeId = userPreferences.VISUAL_THEME ? userPreferences.VISUAL_THEME : generalProperties.VISUAL_THEME
-}
-
-if (!globalContext.themeResources) {
-    Map themeResourcesResult = run service: 'getVisualThemeResources', with: ['visualThemeId': globalContext.visualThemeId]
-    globalContext.themeResources = themeResourcesResult.themeResources
-    if (globalContext.layoutSettings) {
-        globalContext.layoutSettings.putAll(themeResourcesResult.themeResources)
+    if (globalContext.layoutSettings && globalContext.layoutSettings instanceof Map) {
+        globalContext.layoutSettings.putAll(modelTheme.getThemeResources())
     } else {
-        globalContext.layoutSettings = themeResourcesResult.themeResources
+        globalContext.layoutSettings = UtilMisc.makeMapWritable(modelTheme.getThemeResources())
     }
 }
 context.globalContext = globalContext
