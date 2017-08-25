@@ -19,8 +19,8 @@ under the License.
 -->
 
 <theme name="common"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-theme.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes><!--List of visual theme contains to this theme components-->
         <visual-theme id="COMMON" display-name="Common Theme">
             <description>${util:label('CommonThemeUiLabels', 'CommonThemeVisualThemeDescription', locale)}</description>
@@ -117,7 +117,7 @@ under the License.
     </templates>
 
     <common-screens><!--list all common screen and decorator global to each application that each theme can be surcharge or not and use the screen present on common theme-->
-        <structural-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+        <root-decorator default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="AjaxGlobalDecorator"/>
             <screen name="ajaxAutocompleteOptions"/>
             <screen name="GlobalActions"/>
@@ -127,11 +127,11 @@ under the License.
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>
             <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
-        </structural-decorator>
-        <embed-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+        </root-decorator>
+        <subtype-decorator default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="FindScreenDecorator"/>
-        </embed-decorator>
-        <general-screen default-location="component://common-theme/widget/CommonScreens.xml">
+        </subtype-decorator>
+        <generic-screen default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="geoChart"/>
             <screen name="EventMessages"/>
             <screen name="countries"/>
@@ -158,6 +158,6 @@ under the License.
             <screen name="showDocumentHelp" location="component://common-theme/widget/HelpScreens.xml"/>
             <screen name="navigateHelp" location="component://common-theme/widget/HelpScreens.xml"/>
             <screen name="ShowHelp" location="component://common-theme/widget/HelpScreens.xml"/>
-        </general-screen>
+        </generic-screen>
     </common-screens>
 </theme>
