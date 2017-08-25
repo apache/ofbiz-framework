@@ -28,7 +28,7 @@ under the License.
 <#if layoutSettings.shortcutIcon?has_content>
     <#assign shortcutIcon = layoutSettings.shortcutIcon/>
 <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
-    <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
+    <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON/>
 </#if>
 <#if shortcutIcon?has_content>
     <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
@@ -38,6 +38,7 @@ under the License.
         <link rel="stylesheet/less" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
     </#list>
 </#if>
+        <link rel="stylesheet/less" href="<@ofbizContentUrl>/rainbowstone/${visualTheme.visualThemeId?replace("_","-")?lower_case}.less</@ofbizContentUrl>"/>
 <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
     <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
         <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
