@@ -47,6 +47,7 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.stats.ServerHitBin;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 
 import freemarker.ext.servlet.ServletContextHashModel;
 
@@ -178,6 +179,10 @@ public class ControlServlet extends HttpServlet {
         }
         request.setAttribute("security", security);
 
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        if (visualTheme != null) {
+            UtilHttp.setVisualTheme(request, visualTheme);
+        }
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
         
         ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, FreeMarkerWorker.getDefaultOfbizWrapper());

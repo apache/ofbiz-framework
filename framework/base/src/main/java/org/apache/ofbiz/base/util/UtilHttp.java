@@ -56,6 +56,7 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
@@ -78,6 +79,7 @@ public final class UtilHttp {
     private static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
 
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
+    private static final String SESSION_KEY_THEME = "visualTheme";
 
     private UtilHttp () {}
 
@@ -723,6 +725,21 @@ public final class UtilHttp {
         }
 
         return timeZone;
+    }
+
+    /**
+     * Return the VisualTheme object from the user session
+     * @param request
+     * @return
+     */
+    public static VisualTheme getVisualTheme(HttpServletRequest request) {
+        return (VisualTheme) request.getSession().getAttribute(SESSION_KEY_THEME);
+    }
+    public static void setVisualTheme(HttpServletRequest request, VisualTheme visualTheme) {
+        setVisualTheme(request.getSession(), visualTheme);
+    }
+    public static void setVisualTheme(HttpSession session, VisualTheme visualTheme) {
+        session.setAttribute(SESSION_KEY_THEME, visualTheme);
     }
 
     /**

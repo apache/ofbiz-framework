@@ -59,6 +59,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
         newSet.add("dctx");
         newSet.add("dispatcher");
         newSet.add("delegator");
+        newSet.add("visualTheme");
         return Collections.unmodifiableSet(newSet);
     }
 

@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
@@ -42,11 +43,13 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
@@ -130,6 +133,8 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         try {
             Writer writer = response.getWriter();
+            VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+            ModelTheme modelTheme = visualTheme.getModelTheme();
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             // compress output if configured to do so
             if (UtilValidate.isEmpty(encoding)) {

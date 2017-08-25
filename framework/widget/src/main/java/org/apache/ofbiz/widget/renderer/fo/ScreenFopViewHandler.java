@@ -37,6 +37,7 @@ import org.apache.fop.pdf.PDFEncryptionParams;
 import org.apache.fop.render.pdf.PDFEncryptionOption;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -44,9 +45,11 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ApacheFopWorker;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
@@ -75,6 +78,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        ModelTheme modelTheme = visualTheme.getModelTheme();
+
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {

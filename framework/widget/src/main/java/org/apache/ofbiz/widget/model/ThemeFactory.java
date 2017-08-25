@@ -74,32 +74,6 @@ public class ThemeFactory {
     }
 
     /**
-     * From a visualThemeId return the VisualTheme object corresponding in cache
-     * If it's empty, reload the cache from all Theme definition
-     * @param visualThemeId
-     * @return
-     */
-    private static VisualTheme getVisualThemeFromId(String visualThemeId) {
-        if (visualThemeId == null) return null;
-        VisualTheme visualTheme = themeVisualThemeIdCache.get(visualThemeId);
-        if (visualTheme == null) {
-            synchronized (ThemeFactory.class) {
-                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
-                if (visualTheme == null) {
-                    pullModelThemesFromXmlToCache();
-                }
-                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
-                if (visualTheme == null) {
-                    Debug.logError("Impossible to resolve the modelTheme for the visualThemeId " + visualThemeId + ", Common is returned", module);
-                    return themeVisualThemeIdCache.get("COMMON");
-                }
-
-            }
-        }
-        return visualTheme;
-    }
-
-    /**
      * Scann all Theme.xml definition to reload all VisualTheme oin cache
      */
     private static void pullModelThemesFromXmlToCache() {
@@ -119,6 +93,32 @@ public class ThemeFactory {
         } catch (IOException e) {
             Debug.logError("Impossible to initialize models themes in cache throw: " + e, module);
         }
+    }
+
+    /**
+     * From a visualThemeId return the VisualTheme object corresponding in cache
+     * If it's empty, reload the cache from all Theme definition
+     * @param visualThemeId
+     * @return
+     */
+    public static VisualTheme getVisualThemeFromId(String visualThemeId) {
+        if (visualThemeId == null) return null;
+        VisualTheme visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+        if (visualTheme == null) {
+            synchronized (ThemeFactory.class) {
+                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+                if (visualTheme == null) {
+                    pullModelThemesFromXmlToCache();
+                }
+                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+                if (visualTheme == null) {
+                    Debug.logError("Impossible to resolve the modelTheme for the visualThemeId " + visualThemeId + ", Common is returned", module);
+                    return themeVisualThemeIdCache.get("COMMON");
+                }
+
+            }
+        }
+        return visualTheme;
     }
 
     /**

@@ -215,6 +215,9 @@ public class ScreenRenderer {
 
         // ========== setup values that are specific to OFBiz webapps
 
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        context.put("visualTheme", visualTheme);
+        context.put("modelTheme", visualTheme.getModelTheme());
         context.put("request", request);
         context.put("response", response);
         context.put("session", session);

@@ -58,6 +58,8 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.widget.model.ThemeFactory;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 
 /**
  * Common Services
@@ -244,6 +246,18 @@ public class CommonEvents {
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
+            }
+        }
+        return "success";
+    }
+
+    /** Simple event to set the user's per-session theme setting. */
+    public static String setSessionTheme(HttpServletRequest request, HttpServletResponse response) {
+        String visualThemeId = request.getParameter("userPrefValue");
+        if (UtilValidate.isNotEmpty(visualThemeId)) {
+            VisualTheme visualTheme = ThemeFactory.getVisualThemeFromId(visualThemeId);
+            if (visualTheme != null) {
+                UtilHttp.setVisualTheme(request, visualTheme);
             }
         }
         return "success";

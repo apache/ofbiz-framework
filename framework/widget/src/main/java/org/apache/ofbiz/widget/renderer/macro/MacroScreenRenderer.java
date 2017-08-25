@@ -57,12 +57,14 @@ import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Column;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.ColumnContainer;
+import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -223,7 +225,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenLink link) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
-
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        ModelTheme modelTheme = visualTheme.getModelTheme();
         String targetWindow = link.getTargetWindow(context);
         String target = link.getTarget(context);
 
@@ -584,6 +587,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        ModelTheme modelTheme = visualTheme.getModelTheme();
         boolean javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         ModelScreenWidget.Menu tabMenu = screenlet.getTabMenu();
         if (tabMenu != null) {
@@ -662,6 +667,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
+            VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+            ModelTheme modelTheme = visualTheme.getModelTheme();
             if (request != null && response != null) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 globalCtx.put("NO_PAGINATOR", true);
