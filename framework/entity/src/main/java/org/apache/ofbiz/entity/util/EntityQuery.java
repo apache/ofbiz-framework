@@ -521,7 +521,7 @@ public class EntityQuery {
 
     public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {select(fieldName);
         try (EntityListIterator genericValueEli = queryIterator()) {
-            if (this.distinct) {
+            if (Boolean.TRUE.equals(this.distinct)) {
                 Set<T> distinctSet = new HashSet<T>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {
