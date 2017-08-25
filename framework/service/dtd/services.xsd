@@ -40,11 +40,11 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="namespace"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="deprecated"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="permission-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
                 <xs:element minOccurs="0" ref="metric"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="deprecated"/>
                 <xs:choice maxOccurs="1" minOccurs="0">
                     <xs:choice minOccurs="0" maxOccurs="unbounded">
                         <xs:element ref="auto-attributes"/>
@@ -450,7 +450,7 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="deprecated">
-        <xs:complexType>
+        <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.deprecated"/>
         </xs:complexType>
     </xs:element>
