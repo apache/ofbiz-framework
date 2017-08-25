@@ -69,7 +69,7 @@ under the License.
     require
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultMinLength", delegatorName)>
+    <#assign defaultMinLength = visualTheme.getModelTheme().getAutocompleterDefaultDelay()>
     <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultDelay", delegatorName)>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>

@@ -19,7 +19,5 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!--Currently disable
     <VisualTheme visualThemeId="COMMON" visualThemeSetId="BACKOFFICE" description="Common Theme"/>
-    -->
 </entity-engine-xml>
