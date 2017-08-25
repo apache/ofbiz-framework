@@ -71,7 +71,7 @@ if (modelEntity) {
         modelForm = entry.getValue()
     }
 
-    String formRendererLocationTheme = context.theme.getModelTheme().getFormRendererLocation("screen")
+    String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation("screen")
     MacroFormRenderer renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
     FormRenderer dynamicAutoEntitySearchFormRenderer = new FormRenderer(modelForm, renderer)
     Writer writer = new StringWriter()
