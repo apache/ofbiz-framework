@@ -35,7 +35,7 @@ under the License.
                 default-delay="300"
                 display-return-field="true"/>
         <lookup
-                position="topleft"
+                position="top-left"
                 width="640"
                 height="500"/>
         <layered-modal
