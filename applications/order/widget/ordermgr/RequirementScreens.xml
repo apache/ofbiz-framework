@@ -153,7 +153,7 @@ under the License.
                         <section>
                             <actions>
                                 <set field="genericLinkName" value="print"/>
-                                <set field="genericLinkText" value="${uiLabelMap.CommonPrint}"/>
+                                <set field="genericLinkText" from-field="uiLabelMap.CommonPrint"/>
                                 <set field="genericLinkTarget" value="ApprovedProductRequirementsReport"/>
                                 <set field="genericLinkStyle" value="buttontext"/>
                                 <set field="genericLinkWindow" value="reportWindow"/>

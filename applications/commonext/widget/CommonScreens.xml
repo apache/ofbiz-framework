@@ -57,7 +57,7 @@ under the License.
                 <section>
                     <condition><not><if-empty field="PartyAcctgPrefAndGroupList"/></not></condition><!-- produced by  ChangeOrgPartyId.groovy-->
                     <actions>
-                        <set field="defaultOrganizationPartyId" value="${userPreferences.ORGANIZATION_PARTY}" global="true"/>
+                        <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
                         <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${userPreferences.ORGANIZATION_PARTY}" global="true" to-scope="user"/>
                         <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
                         <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
