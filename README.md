@@ -681,7 +681,7 @@ To get tab completion (auto complete gradle commands by pressing tab)
 you can download the script from the below link and place it in the
 appropriate location for your system.
 
-[Gradle tab completion](https://gist.github.com/Ea87/46401a96df31cd208a87)
+[Gradle tab completion](https://edub.me/gradle-completion-bash)
 
 For example, on debian based systems, you can use the following command:
 
