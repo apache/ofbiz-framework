@@ -128,39 +128,12 @@ under the License.
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEFA_AVAILABLE" statusTypeId="WEFA_AVAILABILITY"/>
     <StatusItem description="In Use" sequenceId="02" statusCode="BUSY" statusId="WEFA_IN_USE" statusTypeId="WEFA_AVAILABILITY"/>
 
-    <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
-    <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
-    <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>
-    <WorkEffortAssocType description="Precedency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_PRECEDENCY"/>
-    <WorkEffortAssocType description="Template of" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
-    <!-- For Routing definition, (workEffort Template) -->
-    <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
-
     <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media" parentTypeId=""/>
 
     <WorkEffortPurposeType description="Project" workEffortPurposeTypeId="WEPT_PROJECT"/>
     <WorkEffortPurposeType description="Phase" workEffortPurposeTypeId="WEPT_PHASE"/>
-    <WorkEffortPurposeType description="Production Run" workEffortPurposeTypeId="WEPT_PRODUCTION_RUN"/>
-    <WorkEffortPurposeType description="Maintenance" workEffortPurposeTypeId="WEPT_MAINTENANCE"/>
-    <WorkEffortPurposeType description="Research" workEffortPurposeTypeId="WEPT_RESEARCH"/>
-    <WorkEffortPurposeType description="Meeting" workEffortPurposeTypeId="WEPT_MEETING"/>
-    <WorkEffortPurposeType description="Development" workEffortPurposeTypeId="WEPT_DEVELOPMENT"/>
-    <WorkEffortPurposeType description="Support" workEffortPurposeTypeId="WEPT_SUPPORT"/>
-    <WorkEffortPurposeType description="Deployment" workEffortPurposeTypeId="WEPT_DEPLOYMENT"/>
-    
-    <WorkEffortPurposeType description="Warehousing" workEffortPurposeTypeId="WEPT_WAREHOUSING"/>
-    
-    <WorkEffortPurposeType description="Manufacturing" workEffortPurposeTypeId="ROU_MANUFACTURING"/>
-    <WorkEffortPurposeType description="Assembling" workEffortPurposeTypeId="ROU_ASSEMBLING"/>
-    <WorkEffortPurposeType description="Sub-contracting" workEffortPurposeTypeId="ROU_SUBCONTRACTING"/>
-
-    <WorkEffortPurposeType description="Phone Call" workEffortPurposeTypeId="WEPT_TASK_PHONE_CALL"/>
-    <WorkEffortPurposeType description="Email" workEffortPurposeTypeId="WEPT_TASK_EMAIL"/>
 
     <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
     <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
@@ -172,21 +145,6 @@ under the License.
     <WorkEffortType description="Project" hasTable="N" parentTypeId="" workEffortTypeId="PROJECT"/>
     <WorkEffortType description="Project Phase" hasTable="N" parentTypeId="" workEffortTypeId="PHASE"/>
 
-    <WorkEffortType description="Routing" hasTable="N" parentTypeId="" workEffortTypeId="ROUTING"/>
-    <WorkEffortType description="Routing Task" hasTable="N" parentTypeId="" workEffortTypeId="ROU_TASK"/>
-    <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
-    <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
-    <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
-
-    <WorkEffortType description="Business Travel" hasTable="N" parentTypeId="EVENT" workEffortTypeId="BUSINESS_TRAVEL"/>
-    <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
-    <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
-    <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
-    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
-    
-    <WorkEffortType description="Inbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_INBOUND"/>
-    <WorkEffortType description="Outbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_OUTBOUND"/>
-    
     <!-- Routing status, (workEffort Template) -->
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
 
@@ -217,13 +175,6 @@ under the License.
     
     <StatusValidChange statusId="ROU_ACTIVE" statusIdTo="ROU_INACTIVE" transitionName="Inactive"/>
     <StatusValidChange statusId="ROU_INACTIVE" statusIdTo="ROU_ACTIVE" transitionName="Active"/>
-
-    <!-- ProductionRun Inventory assignement status -->
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="GENERAL_SALES" description="Product to Represent General Sales of the WorkEffort" hasTable="N" parentTypeId=""/>
 
     <!--  <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
     <StatusType description="Work Effort Good Standard Status" hasTable="N" parentTypeId="" statusTypeId="WEFG_STATUS"/>
