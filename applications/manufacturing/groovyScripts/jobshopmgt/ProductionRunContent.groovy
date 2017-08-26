@@ -18,7 +18,6 @@
  */
 
 import org.apache.ofbiz.content.content.ContentWorker
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.GenericValue
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId

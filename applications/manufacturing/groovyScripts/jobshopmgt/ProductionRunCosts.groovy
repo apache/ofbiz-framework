@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil
-
 productionRunId = parameters.productionRunId ?: parameters.workEffortId
 taskInfoList = []
 tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList()

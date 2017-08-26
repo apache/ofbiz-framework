@@ -20,8 +20,6 @@
 // PRunsComponentsByFeature
 // ReportF
 
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.product.category.CategoryWorker
 
 if (productCategoryIdPar) {
     category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
@@ -33,7 +31,6 @@ if (productFeatureTypeIdPar) {
 }
 
 allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName).orderBy("productId").queryList()
-productionRuns = []
 features = [:] // each entry is a productFeatureId|{productFeature,products}
 products = [:] // each entry is a productId|{product,quantity}
 if (!productFeatureTypeIdPar) {

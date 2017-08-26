@@ -20,7 +20,6 @@
 // PackageContentsAndOrder
 // ReportB
 
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.order.order.OrderContentWrapper
 
