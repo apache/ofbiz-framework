@@ -17,6 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet">
+<#assign test=Static["java.lang.String"].format("http://example.com/page?a=1&b=2") >
+<p>result1=${test}</p>
+<p>result2=${test?url('utf-8')}</p>
+
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.WebtoolsMainPage}</li>
