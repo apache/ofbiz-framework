@@ -29,7 +29,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/ap/ApMenus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.AccountingApManagerApplication}" global="true"/>
+                <set field="applicationTitle" from-field="uiLabelMap.AccountingApManagerApplication" global="true"/>
                 <set field="invoiceMenuLocation" value="component://accounting/widget/ap/ApInvoiceMenus.xml" global="true"/>
             </actions>
             <widgets>

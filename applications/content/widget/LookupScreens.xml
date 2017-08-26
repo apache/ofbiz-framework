@@ -27,7 +27,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupListLayout}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupListLayout"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -49,7 +49,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupSubContent}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupSubContent"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>

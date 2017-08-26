@@ -92,9 +92,9 @@ under the License.
                 <set field="titleProperty" value="PageTitlePendingCommunications"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="pending"/>
-                <set field="partyId" value="${parameters.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
@@ -543,9 +543,9 @@ under the License.
                 <set field="tabButtonItem" value="UpdateCommRoles"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" value="${parameters.partyId}"/>
-                <set field="partyIdFrom" value="${parameters.partyId}"/>
-                <set field="partyIdTo" value="${parameters.partyId}"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyId"/>
+                <set field="partyIdTo" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
@@ -576,9 +576,9 @@ under the License.
 
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" value="${parameters.partyId}"/>
-                <set field="partyIdFrom" value="${parameters.partyId}"/>
-                <set field="partyIdTo" value="${parameters.partyId}"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyId"/>
+                <set field="partyIdTo" from-field="parameters.partyId/>
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
@@ -601,9 +601,9 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCommWorkEfforts"/>
                 <set field="tabButtonItem" value="UpdateCommWorkEfforts"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <set field="partyId" value="${parameters.partyId}"/>
-                <set field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="entityName" value="CommunicationEvent"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
@@ -673,10 +673,10 @@ under the License.
                 <set field="titleProperty" value="PartyCommContent"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
-                <set field="parameters.partyId" value="${parameters.partyId}" default-value="${userLogin.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
-                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
+                <set field="parameters.partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
@@ -713,9 +713,9 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
-                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
@@ -744,10 +744,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCommEvents"/>
                 <set field="tabButtonItem" value="CommContent"/>
-                <set field="partyId" value="${parameters.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
-                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="CommEventContentDataResource" value-field="commEventContentDataResource">
                     <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                     <field-map field-name="contentId" from-field="parameters.contentId"/>

@@ -127,7 +127,7 @@
     <screen name="LookupGeo">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupGeo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -166,7 +166,7 @@
                 <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="asm_title" value="${uiLabelMap.WebtoolsGeosSelect}"/>
+                <set field="asm_title" from-field="uiLabelMap.WebtoolsGeosSelect"/>
                 <!-- selectMultipleRelatedValues parameters -->
                 <set field="asm_relatedField" value="LinkGeos_geoId"/>
                 <set field="asm_requestName" value="getRelatedGeos"/>

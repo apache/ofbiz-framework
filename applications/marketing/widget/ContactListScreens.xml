@@ -257,8 +257,8 @@ under the License.
 
                 <!-- get the contact list owner's marketing email -->
                 <script location="component://marketing/groovyScripts/marketing/contact/GetContactListMarketingEmail.groovy"/>
-                <set field="contactMechIdFrom" value="${marketingEmail.contactMechId}"/>
-                <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>               
+                <set field="contactMechIdFrom" from-field="marketingEmail.contactMechId"/>
+                <set field="partyIdFrom" from-field="contactList.ownerPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
@@ -373,7 +373,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupContactList"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleLookupContactList"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupContactList}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupContactList"/>
                 <set field="entityName" value="ContactList"/>
                 <set field="searchFields" value="[contactListId, contactListName, description]"/>
             </actions>
@@ -397,7 +397,7 @@ under the License.
                 <set field="titleProperty" value="PageTitlePreferredContactMech"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitlePreferredContactMech"/>
-                <set field="title" value="${uiLabelMap.PageTitlePreferredContactMech}"/>
+                <set field="title" from-field="uiLabelMap.PageTitlePreferredContactMech"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
                 <set field="partyId" from-field="parameters.parm0"/>
                 <set field="entityName" value="PartyAndContactMech"/>

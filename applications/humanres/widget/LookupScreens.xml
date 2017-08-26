@@ -24,7 +24,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupBudgetByName}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupBudgetByName"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -46,7 +46,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupBudgetItemByName}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupBudgetItemByName"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -68,7 +68,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupEmplPositionByName}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupEmplPositionByName"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -92,7 +92,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupTerminationReason}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupTerminationReason"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -115,7 +115,7 @@
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupSalaryStepSeqId}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupSalaryStepSeqId"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -137,7 +137,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupPayGrade}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupPayGrade"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -159,7 +159,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupPayRollPreference}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupPayRollPreference"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -181,7 +181,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupUnemploymentClaim}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupUnemploymentClaim"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -204,7 +204,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupAgreementEmploymentAppl}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupAgreementEmploymentAppl"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -226,7 +226,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupPerfReview}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupPerfReview"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -248,7 +248,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupPartyResume}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupPartyResume"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -270,7 +270,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupEmploymentApp}"/>
+                <set field="title" from-field="uiLabelMap.HumanResLookupEmploymentApp"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -292,7 +292,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.LookupJobReq}"/>
+                <set field="title" from-field="uiLabelMap.LookupJobReq"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -330,7 +330,7 @@
         <section>
             <actions>
                  <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                 <set field="title" value="${uiLabelMap.LookupTraining}"/>
+                 <set field="title" from-field="uiLabelMap.LookupTraining"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>

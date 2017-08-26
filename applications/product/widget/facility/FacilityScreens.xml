@@ -283,7 +283,7 @@ under the License.
                 <script location="component://product/groovyScripts/facility/facility/FindFacilityLocation.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleFindFacilityLocation}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleFindFacilityLocation"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -306,7 +306,7 @@ under the License.
                 <script location="component://product/groovyScripts/facility/facility/EditFacilityLocation.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleNewFacilityLocation}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleNewFacilityLocation"/>
             </actions>
             <widgets>
                 <section>
@@ -314,7 +314,7 @@ under the License.
                         <not><if-empty field="locationSeqId"/></not>
                     </condition>
                     <actions>
-                        <set field="title" value="${uiLabelMap.PageTitleEditFacilityLocation}"/>
+                        <set field="title" from-field="uiLabelMap.PageTitleEditFacilityLocation"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -337,7 +337,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityInventoryItems}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleEditFacilityInventoryItems"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -428,7 +428,7 @@ under the License.
                 <script location="component://product/groovyScripts/facility/facility/ViewFacilityInventoryByProduct.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleFindFacilityInventoryItems"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -629,7 +629,7 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/groovyScripts/facility/inventory/InventoryItemTotals.groovy"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleInventoryItemGrandTotals}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleInventoryItemGrandTotals"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -706,7 +706,7 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related value-field="facility" relation-name="FacilityGroupMember" list="facilityGroupMembers" order-by-list="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityGroups}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleEditFacilityGroups"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -737,7 +737,7 @@ under the License.
                     <order-by field-name="partyId"/>
                 </entity-and>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityParties}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleEditFacilityParties"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -763,7 +763,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleViewFacilityContactMechanism}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleViewFacilityContactMechanism"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -823,7 +823,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleNewFacilityContactMech}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleNewFacilityContactMech"/>
             </actions>
             <widgets>
                 <section>
@@ -831,7 +831,7 @@ under the License.
                         <not><if-empty field="parameters.contactMechId"/></not>
                     </condition>
                     <actions>
-                        <set field="title" value="${uiLabelMap.PageTitleEditFacilityContactMech}"/>
+                        <set field="title" from-field="uiLabelMap.PageTitleEditFacilityContactMech"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -1039,7 +1039,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleTransferInventoryItem}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleTransferInventoryItem"/>
                 
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
                 <entity-one entity-name="InventoryItemType" value-field="inventoryItemType">
@@ -1094,7 +1094,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.ProductReceiveInventory}"/>
+                <set field="title" from-field="uiLabelMap.ProductReceiveInventory"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/ordermgr-js/ConvertUom.js" global="true"/>
             </actions>
             <widgets>
@@ -1497,7 +1497,7 @@ under the License.
                 </entity-and>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityContent}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleEditFacilityContent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">

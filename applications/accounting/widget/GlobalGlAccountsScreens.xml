@@ -298,7 +298,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingRateAmounts"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingRateAmounts}"/>
+                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingRateAmounts"/>
                 <set field="tabButtonItem" value="ViewRateAmounts"/>
             </actions>
             <widgets>
@@ -319,7 +319,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingFX"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
+                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFX"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are

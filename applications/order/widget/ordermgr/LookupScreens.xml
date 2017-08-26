@@ -30,7 +30,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupOrderHeader}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupOrderHeader"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -57,7 +57,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo"/>
                 <set field="parameters.roleTypeId" to-scope="screen" default-value="SHIP_TO_CUSTOMER"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -86,7 +86,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -116,7 +116,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequest}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupCustomerRequest"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -143,7 +143,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequestItem}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupCustomerRequestItem"/>
                 <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -171,7 +171,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupQuote}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupQuote"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -198,7 +198,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupQuoteItem}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupQuoteItem"/>
                 <set field="quoteId" from-field="parameters.quoteId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -226,7 +226,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupRequirement}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupRequirement"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -253,7 +253,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupShoppingList}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupShoppingList"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
