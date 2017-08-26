@@ -54,12 +54,7 @@ under the License.
     <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
     <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
     <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
-
-    <WorkEffortType description="Business Travel" hasTable="N" parentTypeId="EVENT" workEffortTypeId="BUSINESS_TRAVEL"/>
-    <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
-    <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
-    <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
-    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
+    <WorkEffortType description="Event" hasTable="N" parentTypeId="" workEffortTypeId="EVENT"/>
 
     <WorkEffortType description="Inbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_INBOUND"/>
     <WorkEffortType description="Outbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_OUTBOUND"/>
