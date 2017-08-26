@@ -17,10 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
-
 if (content) {
     // lookup assoc content
     title = from("ContentAssoc").where("contentId", contentId, "mapKey", "title").orderBy("-fromDate").filterByDate().queryFirst()

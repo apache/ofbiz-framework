@@ -17,18 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.model.*
 import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
-import java.io.StringWriter
 import freemarker.template.WrappingTemplateModel
 
-import javax.servlet.*
-import javax.servlet.http.*
 
 Locale locale = UtilHttp.getLocale(request)
 if (currentValue) {

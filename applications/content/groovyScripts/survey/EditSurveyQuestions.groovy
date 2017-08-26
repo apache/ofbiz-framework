@@ -17,9 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.GenericEntityException
 
 module = "EditSurveyQuestions.groovy"
 surveyQuestionId = parameters.surveyQuestionId
@@ -63,7 +62,6 @@ try {
 } finally {
     listIt.close()
 }
-
 surveyPageList = from("SurveyPage").where("surveyId", surveyId).orderBy("sequenceNum").queryList()
 surveyMultiRespList = from("SurveyMultiResp").where("surveyId", surveyId).orderBy("multiRespTitle").queryList()
 

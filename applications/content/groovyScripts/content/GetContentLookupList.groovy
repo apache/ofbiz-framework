@@ -17,16 +17,15 @@
  * under the License.
  */
 
- import org.apache.ofbiz.entity.condition.*
- import org.apache.ofbiz.entity.util.*
- import org.apache.ofbiz.entity.*
- import org.apache.ofbiz.base.util.*
- import org.apache.ofbiz.entity.transaction.TransactionUtil
- import org.apache.ofbiz.entity.util.EntityListIterator
- import org.apache.ofbiz.entity.GenericEntity
- import org.apache.ofbiz.entity.model.ModelField
- import org.apache.ofbiz.entity.model.ModelEntity
- import org.apache.ofbiz.entity.model.ModelReader
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.entity.GenericEntity
+import org.apache.ofbiz.entity.model.ModelField
+import org.apache.ofbiz.entity.model.ModelEntity
+import org.apache.ofbiz.entity.model.ModelReader
 
 module = "GetContentLookupList.groovy"
 

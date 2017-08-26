@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
-
 webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").cache().filterByDate().queryFirst()
 if (webSiteContent) {
     content = webSiteContent.getRelatedOne("Content", false)
