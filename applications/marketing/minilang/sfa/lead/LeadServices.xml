@@ -120,10 +120,10 @@
             <call-service service-name="createPartyDataSource" in-map-name="partyDataSourceCtx"/>
             <check-errors/>
         </if-not-empty>
-
         <field-to-result field="leadContactPartyId" result-name="partyId" />
         <field-to-result field="partyGroupPartyId"/>
         <field-to-result field="parameters.roleTypeId" result-name="roleTypeId"/>
+        <property-to-field resource="MarketingUiLabels" property="SfaLeadCreatedSuccessfully" field="successMessage"/>
     </simple-method>
 
     <simple-method method-name="convertLeadToContact" short-description="Convert a lead person into a contact and associated lead group to an account">

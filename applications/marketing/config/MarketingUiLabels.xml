@@ -3279,6 +3279,9 @@
         <value xml:lang="zh">线索</value>
         <value xml:lang="zh-TW">線索</value>
     </property>
+    <property key="SfaLeadCreatedSuccessfully">
+        <value xml:lang="en">Lead created successfully</value>
+    </property>
     <property key="SfaLeadSource">
         <value xml:lang="de">Lead Quelle</value>
         <value xml:lang="en">Lead Source</value>
