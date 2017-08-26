@@ -20,7 +20,6 @@
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 productId = parameters.productId
 

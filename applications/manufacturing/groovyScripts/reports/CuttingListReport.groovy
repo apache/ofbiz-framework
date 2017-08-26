@@ -18,7 +18,7 @@
  */
 
 import java.awt.Dimension
-import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 

@@ -19,13 +19,9 @@
 
 // The only required parameter is "productionRunId".
 
-import java.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 
 delegator = request.getAttribute("delegator")
 
