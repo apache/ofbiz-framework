@@ -9782,6 +9782,9 @@
         <value xml:lang="zh">如果不重新创建安全组的话，不能修改这个。</value>
         <value xml:lang="zh-TW">如果不重新新建安全群組的話,不能修改這個.</value>
     </property>
+    <property key="PartyNoteCreatedSuccessfully">
+        <value xml:lang="en">Party Note created successfully.</value>
+    </property>
     <property key="PartyNotificationMailActivated">
         <value xml:lang="de">Akteur Kontoaktivierung Mailbenachrichtigung</value>
         <value xml:lang="en">Party Account Activated Notification Mail</value>
