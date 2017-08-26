@@ -1352,7 +1352,7 @@ public class CommunicationEventServices {
         // return the 1px image (spacer.gif)
         URL imageUrl;
         try {
-            imageUrl = FlexibleLocation.resolveLocation("component://images/webapp/images/spacer.gif");
+            imageUrl = FlexibleLocation.resolveLocation("component://common-theme/webapp/images/spacer.gif");
             InputStream imageStream = imageUrl.openStream();
             UtilHttp.streamContentToBrowser(response, imageStream, 43, "image/gif", null);
         } catch (MalformedURLException e) {
