@@ -690,6 +690,8 @@ public class PartyServices {
                     "partyservices.problem_associating_note_with_party", 
                     UtilMisc.toMap("errMessage", ee.getMessage()), locale));
         }
+        result.put(ModelService.SUCCESS_MESSAGE,
+                UtilProperties.getMessage(resource, "PartyNoteCreatedSuccessfully", locale));
         return result;
     }
 
