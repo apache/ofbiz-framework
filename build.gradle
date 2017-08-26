@@ -149,6 +149,7 @@ dependencies {
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
     runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtime 'net.sf.barcode4j:barcode4j:2.1'
+    runtime 'org.postgresql:postgresql:9.3-1104-jdbc41'
     runtime 'org.apache.axis2:axis2-transport-http:1.7.1'
     runtime 'org.apache.axis2:axis2-transport-local:1.7.1'
     runtime 'org.apache.derby:derby:10.11.1.1'

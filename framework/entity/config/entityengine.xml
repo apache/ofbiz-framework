@@ -52,19 +52,19 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <debug-xa-resources value="false" />  <!-- see https://issues.apache.org/jira/browse/OFBIZ-4282 for more -->
     
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
-        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
         <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
         <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
     </delegator>
     <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" entity-eca-enabled="false" distributed-cache-clear-enabled="false">
-        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
         <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
         <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
     </delegator>
 
     <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "gradlew loadAll" before running "gradlew testIntegration" -->
     <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
         <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
         <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
     </delegator>
@@ -483,9 +483,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
-                jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/plain_ofbiz_test"
+                jdbc-username="rishi"
+                jdbc-password="123456"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"

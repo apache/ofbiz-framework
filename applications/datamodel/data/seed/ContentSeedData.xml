@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <ContentAssocType contentAssocTypeId="TEMPLATE_MEMBER" description="Template Member"/>
+    <ContentAssocType contentAssocTypeId="STRUCTURE_DEF" description="Document Structure Definition"/>
+    <ContentAssocType contentAssocTypeId="TXFORM_DEF" description="Transformation Definition"/>
+    <ContentAssocType contentAssocTypeId="LIST_ENTRY" description="List Entry"/>
+    <ContentAssocType contentAssocTypeId="TREE_CHILD" description="Tree Child"/>
+    <ContentAssocType contentAssocTypeId="GRAPH_LINK" description="Graph Link"/>
+    <ContentAssocType contentAssocTypeId="ALTERNATE_LOCALE" description="Alternate Locale"/>
+    <ContentAssocType contentAssocTypeId="ALTERNATE_ROLE" description="Alternate Role"/>
+    <ContentAssocType contentAssocTypeId="RESPONSE" description="Response"/>
+    <ContentAssocType contentAssocTypeId="SUB_CONTENT" description="Sub-Content"/>
+    <ContentAssocType contentAssocTypeId="TOPIC" description="Topic"/>
+    <ContentAssocType contentAssocTypeId="DESCRIPTION" description="Description"/>
+
+    <ContentAssocType contentAssocTypeId="SUBSITE" description="SubSite"/>
+    <ContentAssocType contentAssocTypeId="DEPARTMENT" description="Department"/>
+    <ContentAssocType contentAssocTypeId="RELATED_CONTENT" description="Related content"/>
+    <ContentAssocType contentAssocTypeId="PUBLISH_LINK" description="Publish link"/>
+    <ContentAssocType contentAssocTypeId="ATTRIBUTE" description="Attribute"/>
+    <ContentAssocType contentAssocTypeId="AUTHOR" description="Author"/>
+    <ContentAssocType contentAssocTypeId="SUMMARY" description="Summary"/>
+
+    <ContentAssocType contentAssocTypeId="COMPDOC_PART" description="Composite Document Part"/>
+    <ContentAssocType contentAssocTypeId="INSTANCE" description="Instance Of"/>
+    <ContentAssocType contentAssocTypeId="ALTERNATIVE_URL" description="Alternative URL"/>
+
+    <ContentAssocPredicate contentAssocPredicateId="member-of" description="The object is a member of the subject."/>
+    <ContentAssocPredicate contentAssocPredicateId="defines" description="The object defines the subject."/>
+    <ContentAssocPredicate contentAssocPredicateId="extends" description="The object extends the subject."/>
+    <ContentAssocPredicate contentAssocPredicateId="related-to" description="The object is related to the subject."/>
+    <ContentAssocPredicate contentAssocPredicateId="references" description="The object references the subject."/>
+
+    <ContentAssocPredicate contentAssocPredicateId="topifies" description="Topifies"/>
+    <ContentAssocPredicate contentAssocPredicateId="categorizes" description="Categorizes"/>
+
+    <MetaDataPredicate metaDataPredicateId="author-name" description="Name of the author or creator of the subject."/>
+    <MetaDataPredicate metaDataPredicateId="author-email" description="eMail address of the author or creator of the subject."/>
+    <MetaDataPredicate metaDataPredicateId="event-date" description="The date and time of the event in format [yyyy-MM-dd hh:mm:ss]."/>
+    <MetaDataPredicate metaDataPredicateId="event-location" description="The location where subject event took place."/>
+    <MetaDataPredicate metaDataPredicateId="event-person-name" description="The name of a person involved in the subject event."/>
+
+    <ContentType contentTypeId="DOCUMENT" description="Document" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId="TEMPLATE"/>
+    <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId=""/>
+    <!-- NOTE DEJ20080809 The following 3 ContentTypes may not be needed, and the current practice is to just use DOCUMENT instead -->
+    <ContentType contentTypeId="OUTLINE_NODE" description="Outline Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <ContentType contentTypeId="PAGE_NODE" description="Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <ContentType contentTypeId="SUBPAGE_NODE" description="Sub Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <!-- These ContentTypes are primarily for structuring knowledge -->
+    <ContentType contentTypeId="CONTENT_LIST" description="Content List" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="TREE_ROOT" description="Tree Root" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="GRAPH_ROOT" description="Graph Root" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="STRUCTURE_NODE" description="Structure Node" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="STRUCTURE_LEAF" description="Structure Leaf" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="STRUCTURE_DEF" description="Structure Definition (like DTD)" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="TXFORM_DEF" description="Transformation Definition (like XSLT)" hasTable="N" parentTypeId=""/>
+
+    <ContentType contentTypeId="PLACEHOLDER" description="Place Holder"/>
+    <ContentType contentTypeId="WEB_SITE_PUB_PT" parentTypeId="PLACEHOLDER" hasTable="Y" description="Web Site Publish Point"/>
+    <ContentType contentTypeId="FORUM_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Forum Root"/>
+    <ContentType contentTypeId="BLOG_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Blog Root"/>
+    <ContentType contentTypeId="FAQ_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="FAQ Root"/>
+    <ContentType contentTypeId="DEPARTMENT" description="Department" parentTypeId="PLACEHOLDER"/>
+    <ContentType contentTypeId="PEOPLE" description="People" parentTypeId="PLACEHOLDER"/>
+    <ContentType contentTypeId="PERSON" description="Person" parentTypeId="PLACEHOLDER"/>
+    <ContentType contentTypeId="TOPIC" description="Topic" parentTypeId="PLACEHOLDER"/>
+
+    <ContentType contentTypeId="COMPDOC_TEMPLATE" description="Composite Document Template"/>
+    <ContentType contentTypeId="COMPDOC_INSTANCE" description="Composite Document Instance"/>
+
+    <DataResourceType dataResourceTypeId="LOCAL_FILE" description="Local File" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="OFBIZ_FILE" description="File (rel to OFBIZ_HOME)" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="CONTEXT_FILE" description="File (rel to webapp root)" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="LOCAL_FILE_BIN" description="Local Binary File" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="OFBIZ_FILE_BIN" description="Binary File (rel to OFBIZ_HOME)" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="CONTEXT_FILE_BIN" description="Binary File (rel to webapp root)" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="LINK" description="HyperLink" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="URL_RESOURCE" description="URL Resource" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="SHORT_TEXT" description="Short Text" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="ELECTRONIC_TEXT" description="Long Text" hasTable="Y" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="AUDIO_OBJECT" description="Audio" hasTable="Y" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="IMAGE_OBJECT" description="Image" hasTable="Y" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="OTHER_OBJECT" description="Other" hasTable="Y" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="VIDEO_OBJECT" description="Video" hasTable="Y" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="SURVEY" description="Survey" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="SURVEY_RESPONSE" description="Survey Response" hasTable="N" parentTypeId=""/>
+
+    <DataTemplateType dataTemplateTypeId="NONE" description="No Template" extension=""/>
+    <DataTemplateType dataTemplateTypeId="FTL" description="FreeMarker" extension="ftl"/>
+    <DataTemplateType dataTemplateTypeId="WM" description="WebMacro" extension="wm"/>
+    <DataTemplateType dataTemplateTypeId="XSLT" description="XSLT" extension="xsl"/>
+    <DataTemplateType dataTemplateTypeId="SCREEN_COMBINED" description="Screen widget" extension="xml"/>
+
+    <DocumentType description="Shipping" documentTypeId="SHIPPING_DOCUMENT" hasTable="Y" parentTypeId=""/>
+    <DocumentType description="Bill Of Lading" documentTypeId="BILL_OF_LADING" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Export" documentTypeId="EXPORT_DOCUMENTATION" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Haz Mat" documentTypeId="HAZ_MAT_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Manifest" documentTypeId="MANIFEST" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Other Shipping" documentTypeId="OTHER_SHIP_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Packing Slip" documentTypeId="PACKAGING_SLIP" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Port Charge" documentTypeId="PORT_CHARGE_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+    <DocumentType description="Tax Tariff" documentTypeId="TAX_TARIFF_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
+
+    <!-- website data -->
+    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="DEFAULT_PAGE" description="Default Page" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="FORUM_ROOT" description="Forum Root" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="ERROR_ROOT" description="Error Page Containers" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="WEB_PAGE" description="Web Page" hasTable="N" parentTypeId="" />
+    <WebSiteContentType webSiteContentTypeId="MAINTENANCE_PAGE" description="Maintenance Page" hasTable="N" parentTypeId=""/>
+</entity-engine-xml>
