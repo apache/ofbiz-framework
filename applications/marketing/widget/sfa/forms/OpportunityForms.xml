@@ -77,6 +77,7 @@ under the License.
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile" description=" [${partyId}]">
                     <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="roleTypeId" from-field="roleTypeId"/>
                 </sub-hyperlink>
             </display-entity> 
         </field>

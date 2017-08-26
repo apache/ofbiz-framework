@@ -139,6 +139,7 @@ under the License.
             </condition>
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="roleTypeId" from-field="parameters.roleTypeId"/>
             </link>
         </menu-item>
     </menu>

@@ -233,6 +233,12 @@ under the License.
                 <field-map field-name="distinct" value="Y"/>
             </service>
         </actions>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <hyperlink description="${partyName} [${partyId}]" target="viewprofile" >
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeIdTo"/>
+            </hyperlink>
+        </field>
         <field name="assignToMe"><hidden/></field>
     </form>
     <form name="AddRelatedCompany" type="single" target="createPartyRelationship">
