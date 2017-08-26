@@ -292,6 +292,8 @@ public class LabelReferences {
                 findUiLabelMapInFile(inFile, file.getPath());
                 findLabelKeyInElement(inFile, file.getPath(), "set");
                 findLabelKeyInElement(inFile, file.getPath(), "fail-property");
+                findLabelKeyInElement(inFile, file.getPath(), "property-to-field");
+                findLabelKeyInElement(inFile, file.getPath(), "default-message");
             }
         }
     }
