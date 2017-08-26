@@ -14,7 +14,7 @@
                 <set field="activeApp" value="@webapp-name@" global="true"/>
                 <set field="applicationMenuName" value="MainAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://@component-name@/widget/@component-resource-name@Menus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.@component-resource-name@Application}" global="true"/>
+                <set field="applicationTitle" from-field="uiLabelMap.@component-resource-name@Application" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

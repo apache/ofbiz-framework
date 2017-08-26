@@ -39,7 +39,7 @@ under the License.
                 <set field="activeApp" value="accounting" global="true"/>
                 <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/AccountingMenus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.AccountingManagerApplication}" global="true"/>
+                <set field="applicationTitle" from-field="uiLabelMap.AccountingManagerApplication" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
