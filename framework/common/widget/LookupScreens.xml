@@ -25,7 +25,7 @@ under the License.
     <screen name="LookupGeo">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupGeo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -62,7 +62,7 @@ under the License.
     <screen name="LookupGeoName">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupGeo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -154,7 +154,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.LookupUserLogin}"/>
+                <set field="title" from-field="uiLabelMap.LookupUserLogin"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -175,7 +175,7 @@ under the License.
     <screen name="LookupPortalPage">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.CommonPortalPage}"/>
+                <set field="title" from-field="uiLabelMap.CommonPortalPage"/>
             </actions>
             <widgets>
                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -195,7 +195,7 @@ under the License.
             <actions>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.CommonLookupLocale}"/>
+                <set field="title" from-field="uiLabelMap.CommonLookupLocale"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>

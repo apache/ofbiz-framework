@@ -37,7 +37,7 @@ under the License.
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.ContentContentManagerApplication}"/>
+                <set field="applicationTitle" from-field="uiLabelMap.ContentContentManagerApplication`"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

@@ -199,7 +199,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
-                <set field="commonDisplaying" value="${uiLabelMap.CommonDisplaying}"/>
+                <set field="commonDisplaying" from-field="uiLabelMap.CommonDisplaying"/>
                 <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>

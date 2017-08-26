@@ -25,7 +25,7 @@ under the License.
     <screen name="ListLocales">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.CommonChooseLanguage}"/>
+                <set field="title" from-field="uiLabelMap.CommonChooseLanguage"/>
                 <set field="parameters.presentation" value="window"/>
             </actions>
             <widgets>
@@ -71,7 +71,7 @@ under the License.
     <screen name="ListTimezones">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="title" from-field="uiLabelMap.CommonTime"/>
                 <set field="parameters.presentation" value="window"/>
             </actions>
             <widgets>
@@ -92,7 +92,7 @@ under the License.
     <screen name="ListVisualThemes">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
+                <set field="title" from-field="uiLabelMap.CommonVisualThemes"/>
                 <set field="parameters.presentation" value="window"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="visualThemeSetId" from-field="webSite.visualThemeSetId" default-value="BACKOFFICE" />
@@ -116,7 +116,7 @@ under the License.
     <screen name="TimeDuration">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="title" from-field="uiLabelMap.CommonTime"/>
                 <set field="parameters.presentation" value="window"/>
             </actions>
             <widgets>

@@ -42,7 +42,7 @@ under the License.
                 <set field="activeApp" value="manufacturing" global="true"/>
                 <set field="applicationMenuName" value="ManufacturingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml" global="true"/>
-                <set field="applicationTitle" value="${uiLabelMap.ManufacturingManagerApplication}" global="true"/>
+                <set field="applicationTitle" from-field="uiLabelMap.ManufacturingManagerApplication" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

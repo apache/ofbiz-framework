@@ -30,7 +30,7 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="title" value="${uiLabelMap.PageTitleLookupSegmentGroup}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupSegmentGroup"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -57,7 +57,7 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="title" value="${uiLabelMap.PageTitleLookupSalesForecast}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupSalesForecast"/>
                 <set field="queryString" from-field="result.queryString"/>
             </actions>
             <widgets>

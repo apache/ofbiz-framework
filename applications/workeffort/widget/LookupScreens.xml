@@ -27,7 +27,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupWorkEffort"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -55,7 +55,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupTimesheet}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupTimesheet"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -83,7 +83,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupWorkEffort"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>

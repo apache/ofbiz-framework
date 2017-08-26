@@ -766,7 +766,7 @@ under the License.
     <screen name="EditQuoteTerm">
         <section>
             <actions>
-                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
+                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
                 <set field="tabButtonItem" value="QuoteTerms"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>
@@ -789,7 +789,7 @@ under the License.
     <screen name="EditQuoteTermItem">
         <section>
             <actions>
-                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
+                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>
@@ -812,7 +812,7 @@ under the License.
     <screen name="ListQuoteTerms">
         <section>
             <actions>
-                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
+                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
                 <set field="tabButtonItem" value="QuoteTerms"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>
