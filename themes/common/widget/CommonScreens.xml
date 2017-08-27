@@ -396,7 +396,7 @@ under the License.
                         <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
                         <set field="autocompleterViewSize" from-field="parameters.autocompleterViewSize"
-                             default-value="${groovy: theme.getModelTheme().getAutocompleterDefaultViewSize()}"/>
+                             default-value="${groovy: modelTheme.getAutocompleterDefaultViewSize()}"/>
                         <script location="component://common/groovyScripts/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
