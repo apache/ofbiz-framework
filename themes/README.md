@@ -82,10 +82,10 @@ This block contains all properties that the screen engine can use to prepare the
 ## Theme's specific properties
 This block contains all properties specific to this theme. In general these are some propreties present on ftl template, that are initialized by the theme and can be surchaged by another theme through the extends elements.
 ```xml
-        <property name="jgrowl.position" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
-        <property name="jgrowl.width" value="800" type="Integer"/>
-        <property name="jgrowl.height" value="" type="Integer"/>
-        <property name="jgrowl.speed" value="100" type="Integer"/>
+        <property name="jgrowlPosition" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
+        <property name="jgrowlWidth" value="800" type="Integer"/>
+        <property name="jgrowlHeight" value="" type="Integer"/>
+        <property name="jgrowlSpeed" value="100" type="Integer"/>
 ```
 ## Ftl macro library
 This block defines for each technology implemented by the screen engine where it can find the macro library for each model (Screen, Form, Tree, Menu)
