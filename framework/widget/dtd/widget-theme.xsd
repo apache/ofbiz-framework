@@ -104,6 +104,14 @@ under the License.
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:attribute>
+                        <xs:attribute name="show-description">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:token">
+                                    <xs:enumeration value="Y"/>
+                                    <xs:enumeration value="N"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="layered-modal">

@@ -62,6 +62,7 @@ public class ModelTheme implements Serializable {
     private final String lookupPosition;
     private final Integer lookupWidth;
     private final Integer lookupHeight;
+    private final String lookupShowDescription;
     //Default size for layered modal windows
     private final Integer linkDefaultLayeredModalWidth;
     private final Integer linkDefaultLayeredModalHeight;
@@ -102,6 +103,7 @@ public class ModelTheme implements Serializable {
             initWidgetPropertiesMap.put("lookupPosition", originTheme.lookupPosition);
             initWidgetPropertiesMap.put("lookupWidth", originTheme.lookupWidth);
             initWidgetPropertiesMap.put("lookupHeight", originTheme.lookupHeight);
+            initWidgetPropertiesMap.put("lookupShowDescription", originTheme.lookupShowDescription);
             initWidgetPropertiesMap.put("linkDefaultLayeredModalWidth", originTheme.linkDefaultLayeredModalWidth);
             initWidgetPropertiesMap.put("linkDefaultLayeredModalHeight", originTheme.linkDefaultLayeredModalHeight);
 
@@ -172,6 +174,7 @@ public class ModelTheme implements Serializable {
         this.autocompleterDefaultMinLength = (Integer) initWidgetPropertiesMap.get("autocompleterDefaultMinLength");
         this.autocompleterDefaultDelay = (Integer) initWidgetPropertiesMap.get("autocompleterDefaultDelay");
         this.autocompleterDisplayReturnField = (Boolean) initWidgetPropertiesMap.get("autocompleterDisplayReturnField");
+        this.lookupShowDescription = (String) initWidgetPropertiesMap.get("lookupShowDescription");
         this.lookupPosition = (String) initWidgetPropertiesMap.get("lookupPosition");
         this.lookupWidth = (Integer) initWidgetPropertiesMap.get("lookupWidth");
         this.lookupHeight = (Integer) initWidgetPropertiesMap.get("lookupHeight");
@@ -227,6 +230,9 @@ public class ModelTheme implements Serializable {
     public String getLookupPosition() {
         return lookupPosition;
     }
+    public String getLookupShowDescription() {
+        return lookupShowDescription;
+    }
 
     /**
      * for a map preloaded with the origin values, surcharge them from xml definition
@@ -249,6 +255,7 @@ public class ModelTheme implements Serializable {
                     initWidgetPropertiesMap.put("lookupPosition", childElement.getAttribute("position"));
                     initWidgetPropertiesMap.put("lookupHeight", Integer.valueOf(childElement.getAttribute("height")));
                     initWidgetPropertiesMap.put("lookupWidth", Integer.valueOf(childElement.getAttribute("width")));
+                    initWidgetPropertiesMap.put("lookupShowDescription", childElement.getAttribute("show-description"));
                     break;
                 case "layered-modal":
                     initWidgetPropertiesMap.put("linkDefaultLayeredModalHeight", Integer.valueOf(childElement.getAttribute("height")));
