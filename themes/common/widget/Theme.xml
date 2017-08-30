@@ -44,10 +44,10 @@ under the License.
     </widget-properties>
 
     <theme-properties> <!--specific properties dedicate to this theme -->
-        <property name="jgrowl.position" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
-        <property name="jgrowl.width" value="800" type="Integer"/>
-        <property name="jgrowl.height" value="" type="Integer"/>
-        <property name="jgrowl.speed" value="100" type="Integer"/>
+        <property name="jgrowlPosition" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
+        <property name="jgrowlWidth" value="800" type="Integer"/>
+        <property name="jgrowlHeight" value="" type="Integer"/>
+        <property name="jgrowlSpeed" value="100" type="Integer"/>
         <!--template location-->
         <property name="VT_SHORTCUT_ICON" value="/images/ofbiz.ico"/>
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/><!--use flatgrey to wait the new design-->

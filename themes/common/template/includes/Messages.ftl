@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?html>
-<#assign modelTheme = visualTheme.getModelTheme()>
   <#if requestAttributes.errorMessageList?has_content><#assign errorMessageList=requestAttributes.errorMessageList></#if>
   <#if requestAttributes.eventMessageList?has_content><#assign eventMessageList=requestAttributes.eventMessageList></#if>
   <#if requestAttributes.serviceValidationException??><#assign serviceValidationException = requestAttributes.serviceValidationException></#if>
@@ -51,10 +50,10 @@ under the License.
       </#if>
     </div>
   </#if>
-  <#assign jGrowlPosition = modelTheme.getProperty("jgrowl.position")>
-  <#assign jGrowlWidth = modelTheme.getProperty("jgrowl.width")>
-  <#assign jGrowlHeight = modelTheme.getProperty("jgrowl.height")>
-  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowl.speed")>
+  <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
+  <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
+  <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
+  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
 
   <script>showjGrowl(
           "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
@@ -73,10 +72,10 @@ under the License.
       </#list>
     </#if>
   </div>
-  <#assign jGrowlPosition = visualTheme.getModelTheme().getProperty("jgrowl.position")>
-  <#assign jGrowlWidth = visualTheme.getModelTheme().getProperty("jgrowl.width")>
-  <#assign jGrowlHeight = visualTheme.getModelTheme().getProperty("jgrowl.height")>
-  <#assign jGrowlSpeed = visualTheme.getModelTheme().getProperty("jgrowl.speed")>
+  <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
+  <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
+  <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
+  <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
   <script>showjGrowl(
           "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
           "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
