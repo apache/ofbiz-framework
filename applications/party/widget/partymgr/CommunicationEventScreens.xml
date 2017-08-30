@@ -578,7 +578,7 @@ under the License.
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyIdFrom" from-field="parameters.partyId"/>
-                <set field="partyIdTo" from-field="parameters.partyId/>
+                <set field="partyIdTo" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
