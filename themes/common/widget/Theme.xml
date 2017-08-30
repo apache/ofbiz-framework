@@ -37,7 +37,8 @@ under the License.
         <lookup
                 position="top-left"
                 width="640"
-                height="500"/>
+                height="500"
+                show-description="Y"/>
         <layered-modal
                 width="800"
                 height="600"/>
