@@ -146,6 +146,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         try {
             Environment environment = getEnvironment(writer);
             environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
+            environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
             Reader templateReader = new StringReader(macro);
             Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();

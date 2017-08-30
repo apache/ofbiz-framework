@@ -69,8 +69,8 @@ under the License.
     require
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#assign defaultMinLength = visualTheme.getModelTheme().getAutocompleterDefaultDelay()>
-    <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultDelay", delegatorName)>
+    <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
+    <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
@@ -642,7 +642,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
   </#if>
   <#if (!showDescription?has_content)>
-    <#local showDescriptionProp = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.showDescription", "N", delegatorName)>
+    <#local showDescriptionProp = modelTheme.getLookupShowDescription()>
     <#if "Y" == showDescriptionProp>
       <#local showDescription = "true" />
     <#else>
@@ -650,13 +650,13 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     </#if>
   </#if>
   <#if (!position?has_content)>
-    <#local position = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.position", "topleft", delegatorName)>
+    <#local position = modelTheme.getLookupPosition()>
   </#if>
   <#if (!width?has_content)>
-    <#local width = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.width", "620", delegatorName)>
+    <#local width = modelTheme.getLookupWidth()>
   </#if>
   <#if (!height?has_content)>
-    <#local height = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.lookup.height", "500", delegatorName)>
+    <#local height = modelTheme.getLookupHeight()>
   </#if>
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
@@ -693,8 +693,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       );"></a><#rt>
     <#else>
       <#if ajaxEnabled?has_content && ajaxEnabled>
-        <#assign defaultMinLength = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultMinLength", delegatorName)>
-        <#assign defaultDelay = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValueFromDelegatorName("widget", "widget.autocompleter.defaultDelay", delegatorName)>
+        <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
+        <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
         <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && showDescription == "true">
