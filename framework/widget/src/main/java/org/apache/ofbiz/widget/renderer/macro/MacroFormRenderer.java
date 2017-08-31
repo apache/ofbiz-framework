@@ -2199,7 +2199,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         Boolean showDescription = lookupField.getShowDescription();
         if (showDescription == null) {
-            showDescription = "Y".equals(UtilProperties.getPropertyValue("widget", "widget.lookup.showDescription", "Y"));
+            showDescription = "Y".equals(visualTheme.getModelTheme().getLookupShowDescription());
         }
         // lastViewName, used by lookup to remember the real last view name
         String lastViewName = request.getParameter("_LAST_VIEW_NAME_"); // Try to get it from parameters firstly
@@ -3074,7 +3074,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
-        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         ModelTheme modelTheme = visualTheme.getModelTheme();
         String viewIndexField = modelForm.getMultiPaginateIndexField(context);
         String viewSizeField = modelForm.getMultiPaginateSizeField(context);
