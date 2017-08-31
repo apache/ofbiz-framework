@@ -179,7 +179,7 @@ public class JsLanguageFileMappingCreator {
         }
 
         // check the template file
-        String template = "framework/common/template/JsLanguageFilesMapping.ftl";
+        String template = "themes/common/template/JsLanguageFilesMapping.ftl";
         String output = "framework/common/src/org/apache/ofbiz/common/JsLanguageFilesMapping.java";
         Map<String, Object> mapWrapper = new HashMap<String, Object>();
         mapWrapper.put("datejs", dateJsLocaleFile);
