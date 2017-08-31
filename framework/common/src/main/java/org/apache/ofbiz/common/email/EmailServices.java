@@ -538,11 +538,9 @@ public class EmailServices {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
                     if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
-                        foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screentext.name", dctx.getDelegator()),
-                                EntityUtilProperties.getPropertyValue("widget", "screentext.screenrenderer", dctx.getDelegator()));   
+                        foScreenStringRenderer = new MacroScreenRenderer("screentext", visualTheme.getModelTheme().getScreenRendererLocation("screentext"));
                     }else{
-                        foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
-                                EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+                        foScreenStringRenderer = new MacroScreenRenderer("screenfop", visualTheme.getModelTheme().getScreenRendererLocation("screenfop"));
                     } 
                     ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
