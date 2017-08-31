@@ -59,11 +59,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/jquery-1.11.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/jquery-migrate-1.2.1.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/moment-timezone-with-data.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/moment-with-locales.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OfbizUtil.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/util.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js"/>
@@ -71,15 +66,16 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/jeditable/jquery.jeditable.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/validate/jquery.validate.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OpenLayers-2.13.1.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OfbizUtil.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.format-1.2.3-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.timezone-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/miscAjaxFunctions.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/selectMultipleRelatedValues.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/util.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/plugins/jsTree/jquery.jstree.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery.cookie-1.4.0.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/FromThruDateCheck.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/setUserLocale.js"/>
         <!--Css style-->
     </theme-properties>
 
