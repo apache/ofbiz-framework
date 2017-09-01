@@ -35,7 +35,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="mimeTypeId" position="2">
+        <field name="mimeTypeId" position="2" encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="description"/>
@@ -94,7 +94,7 @@ under the License.
         <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem"></display-entity></field>
         <field name="localeString" sort-field="true"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}[${countryCode}]"></display-entity></field>
         <field name="contentTypeId" sort-field="true"><display-entity entity-name="ContentType"></display-entity></field>
-        <field name="mimeTypeId" sort-field="true"><display-entity entity-name="MimeType"></display-entity></field>
+        <field name="mimeTypeId" sort-field="true" encode-output="false"><display-entity entity-name="MimeType"></display-entity></field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" use-when="dataResourceId==null" sort-field="true"><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" use-when="dataResourceId!=null" sort-field="true">
             <display-entity entity-name="DataResource" description="${dataResourceName}">
@@ -137,7 +137,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"></display-entity></field>
         <field name="localeString"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}[${countryCode}]"></display-entity></field>
         <field name="contentTypeId" title="${uiLabelMap.ContentType}"><display-entity entity-name="ContentType"></display-entity></field>
-        <field name="mimeTypeId" title="${uiLabelMap.ContentMimeType}"><display-entity entity-name="MimeType"></display-entity></field>
+        <field name="mimeTypeId" title="${uiLabelMap.ContentMimeType}" encode-output="false"><display-entity entity-name="MimeType"></display-entity></field>
         <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceTitle}" use-when="dataResourceId==null"><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceTitle}" use-when="dataResourceId!=null">
             <display-entity entity-name="DataResource" key-field-name="dataResourceId" description="${dataResourceName}"/>
