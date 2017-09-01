@@ -581,7 +581,7 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Send a redirect down to the browser telling it to go to the new request.
-                                Automatically redirect all current request parameters to the new request or only redirected parameters if specified.                                
+                                Automatically redirect all current request parameters to the new request or only redirected parameters if specified.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
