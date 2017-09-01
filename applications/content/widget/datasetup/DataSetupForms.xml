@@ -243,7 +243,7 @@ under the License.
     <form name="CreateMimeTypeHtmlTemplate" target="createMimeTypeHtmlTemplate" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createMimeTypeHtmlTemplate"/>
-        <field name="mimeTypeId">
+        <field name="mimeTypeId" encode-output="false">
             <drop-down allow-empty="false">
                 <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>

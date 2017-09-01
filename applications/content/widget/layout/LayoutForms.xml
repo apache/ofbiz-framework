@@ -111,21 +111,7 @@ under the License.
                 <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
             </drop-down>
         </field>
-        <field name="drMimeTypeId" >
-            <drop-down no-current-selected-key="text/html">
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
-            </drop-down>
-        </field>
-        <field name="drDataResourceTypeId" >
-            <drop-down no-current-selected-key="LOCAL_FILE">
-                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
-                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
-                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
-                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
-            </drop-down>
-        </field>
-        <field name="drMimeTypeId" >
+        <field name="drMimeTypeId" encode-output="false">
             <drop-down no-current-selected-key="text/html">
                 <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
                 <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
@@ -300,7 +286,7 @@ under the License.
         <field name="drDataResourceTypeId" >
             <display description="IMAGE_OBJECT"/>
         </field>
-        <field name="drMimeTypeId" >
+        <field name="drMimeTypeId" encode-output="false">
             <drop-down>
                 <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
                 <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
@@ -338,7 +324,7 @@ under the License.
         <field name="drDataResourceTypeIdDisplay" title="${uiLabelMap.FormFieldTitle_drDataResourceTypeId}">
             <display description="IMAGE_OBJECT"/>
         </field>
-        <field name="drMimeTypeId" >
+        <field name="drMimeTypeId" encode-output="false">
             <drop-down>
                 <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
                 <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
@@ -430,7 +416,7 @@ under the License.
                 <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
-        <field name="drMimeTypeId">
+        <field name="drMimeTypeId" encode-output="false">
             <drop-down no-current-selected-key="text/html">
                 <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
                 <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
