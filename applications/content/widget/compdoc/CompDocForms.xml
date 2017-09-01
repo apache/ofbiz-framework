@@ -395,7 +395,7 @@ under the License.
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
             <display-entity entity-name="MimeType"/>
         </field>
-        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
+        <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect" encode-output="false">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
                 <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
@@ -427,7 +427,7 @@ under the License.
         <field name="sequenceNum"><text/></field>
 
         <field name="mimeTypeId" map-name="dataResource"
-            use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)">
+            use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" encode-output="false">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
                 <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
@@ -442,7 +442,7 @@ under the License.
             </drop-down>
         </field>
         <field name="mimeTypeId" map-name="dataResource"
-            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)" encode-output="false">
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId"/>
         </field>
         <field name="mimeTypeId" map-name="dataResource"
@@ -506,7 +506,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
 
-       <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}" >
+       <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}" encode-output="false">
             <display-entity entity-name="MimeType" key-field-name="mimeTypeId"/>
         </field>
         <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">

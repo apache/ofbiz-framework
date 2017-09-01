@@ -108,7 +108,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contentMimeTypeId">
+        <field name="contentMimeTypeId" encode-output="false">
             <drop-down no-current-selected-key="text/plain" allow-empty="false">
                 <entity-options description="${mimeTypeId}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
@@ -753,7 +753,7 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
-        <field name="drMimeTypeId" widget-style="smallSelect">
+        <field name="drMimeTypeId" widget-style="smallSelect" encode-output="false">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
                 <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
@@ -786,7 +786,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
-        <field name="drMimeTypeId">
+        <field name="drMimeTypeId" encode-output="false">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="${uiLabelMap.ContentMSWord}"/>
                 <option key="application/pdf" description="${uiLabelMap.ContentPDFFile}"/>
