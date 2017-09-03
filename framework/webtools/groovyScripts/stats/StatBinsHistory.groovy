@@ -26,7 +26,10 @@ typeStr = parameters.type
 type = -1
 try {
     type = Integer.valueOf(typeStr)
-} catch (NumberFormatException e) {}
+} catch (NumberFormatException nfe) {
+    Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "StatBinsHistory.groovy")
+    errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
+}
 
 binList = null
 if (type == ServerHitBin.REQUEST) {
