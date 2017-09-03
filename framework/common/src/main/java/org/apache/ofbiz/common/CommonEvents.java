@@ -68,7 +68,7 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
-    static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ is kept
+    private static final String[] ignoreAttrs = new String[] { // Attributes removed for security reason; _ERROR_MESSAGE_ is kept
         "javax.servlet.request.key_size",
         "_CONTEXT_ROOT_",
         "_FORWARDED_FROM_SERVLET_",
@@ -82,7 +82,7 @@ public class CommonEvents {
         "thisRequestUri"
     };
 
-    static final UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
+    private static final UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
 
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -309,7 +309,7 @@ public class CommonEvents {
         return "success";
     }
 
-    static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    private static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String jsonStr = json.toString();
         if (jsonStr == null) {
             Debug.logError("JSON Object was empty; fatal error!", module);
