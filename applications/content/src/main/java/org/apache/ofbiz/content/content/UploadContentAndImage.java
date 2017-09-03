@@ -440,7 +440,18 @@ public class UploadContentAndImage {
                 Long sequenceNum = null;
                 try {
                     sequenceNum = Long.valueOf((String)objSequenceNum);
-                } catch (NumberFormatException e) {}
+                } catch (NumberFormatException e) {
+                    String msg = "Caught an exception : " + e.toString();
+                    Debug.logError(e, msg);
+                    request.setAttribute("_ERROR_MESSAGE_", msg);
+                    List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+                    if (errorMsgList == null) {
+                        errorMsgList = new LinkedList<String>();
+                        request.setAttribute("errorMessageList", errorMsgList);
+                    }
+                    errorMsgList.add(msg);
+                    return "error";
+                }
                 passedParams.put("caSequenceNum", sequenceNum);
             }
         }
