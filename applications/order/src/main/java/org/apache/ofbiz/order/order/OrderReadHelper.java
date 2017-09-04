@@ -2414,10 +2414,13 @@ public class OrderReadHelper {
                 List<GenericValue> workOrderItemFulfillments = null;
                 try {
                     workOrderItemFulfillments = orderItem.getDelegator().findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")), null, true);
-                } catch (GenericEntityException e) {}
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return result;
+                }
                 if (workOrderItemFulfillments != null) {
                     Iterator<GenericValue> iter = workOrderItemFulfillments.iterator();
-                    if (iter.hasNext())    {
+                    if (iter.hasNext()) {
                         GenericValue WorkOrderItemFulfillment = iter.next();
                         GenericValue workEffort = null;
                         try {
