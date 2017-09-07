@@ -145,7 +145,14 @@ under the License.
     <request-map uri="createLeadPartyDataSource">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyDataSource"/>
-        <response name="success" type="request" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
+        </response>
+        <response name="error" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
+        </response>
     </request-map>
     <request-map uri="AddRelatedCompany">
         <security https="true" auth="true"/>

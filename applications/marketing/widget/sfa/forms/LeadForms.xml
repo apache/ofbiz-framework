@@ -135,7 +135,8 @@ under the License.
     <form name="AddLeadPartyDataSource" type="single" target="createLeadPartyDataSource">
         <auto-fields-service service-name="createPartyDataSource"/>
         <field name="partyId"><hidden/></field>
-        <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
+        <field name="roleTypeId"><hidden/></field>
+        <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="DataSource" key-field-name="dataSourceId" description="${dataSourceId} - ${description}">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
