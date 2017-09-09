@@ -25,7 +25,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25"></text-find></field>
-        <field name="partyId" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLeads"/></field>
+        <field name="partyId" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLead"/></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SalesOpportunityStage">

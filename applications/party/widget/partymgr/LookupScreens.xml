@@ -204,6 +204,9 @@ under the License.
                 <set field="title" from-field="uiLabelMap.PartyLookupLead"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="parameters.roleTypeId" value="LEAD"/>
+                <set field="searchFields" value="[partyId, firstName, lastName, middleName, groupName]"/>
+                <set field="searchDistinct" value="true"/>
+                <set field="conditionFields.roleTypeId" value="LEAD" />
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
