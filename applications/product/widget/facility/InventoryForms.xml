@@ -79,7 +79,7 @@ under the License.
             </drop-down>
         </field>
         <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"/>
-        <field name="facilityId">
+        <field name="facilityId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
                     <entity-order-by field-name="facilityName"/>
