@@ -359,11 +359,11 @@ under the License.
     <form name="AddContentRole" target="addContentRole" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentRole"/>
-        <field name="contentId" widget-style="buttontext" >
+        <field name="contentId" widget-style="buttontext" required-field="true">
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="partyId" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
-        <field name="roleTypeId">
+        <field name="partyId" widget-style="buttontext" required-field="true"><lookup target-form-name="LookupPerson"/></field>
+        <field name="roleTypeId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
