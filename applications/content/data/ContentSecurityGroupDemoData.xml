@@ -28,7 +28,7 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CONTENTMGR_ADMIN"/>
 
     <!-- Content ROLE security -->
-    <SecurityGroup groupId="CONTENT_USER" description="Content user group; all limited content permissions."/>
+    <SecurityGroup groupId="CONTENT_USER" groupName="Content User" description="Content user group; all limited content permissions."/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>

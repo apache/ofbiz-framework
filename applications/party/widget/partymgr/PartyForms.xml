@@ -1064,7 +1064,7 @@ under the License.
         <field name="securityGroupId" title="${uiLabelMap.CommonSecurityGroupId}">
             <drop-down allow-empty="true" text-size="60">
                 <entity-options entity-name="SecurityGroup" key-field-name="groupId">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="groupName"/>
                 </entity-options>
             </drop-down>
         </field>

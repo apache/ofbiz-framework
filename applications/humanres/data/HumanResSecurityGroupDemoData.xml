@@ -28,9 +28,9 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="HUMANRES_ADMIN"/>
     
          <!-- OFBiz Recruitment security -->
-    <SecurityGroup groupId="HUMANRES_ADMIN" description="This security group is for those who have full access to the human resource component."/>
-    <SecurityGroup groupId="HUMANRES_APPROVER" description="This security group is for those who will approve the internal job posting application."/>
-    <SecurityGroup groupId="HUMANRES_EMPLOYEE" description="This security group is for all the employees who want to apply for internal Job Posting."/>
+    <SecurityGroup groupId="HUMANRES_ADMIN" description="This security group is for those who have full access to the human resource component." groupName="Humanres Admin"/>
+    <SecurityGroup groupId="HUMANRES_APPROVER" description="This security group is for those who will approve the internal job posting application." groupName="Humanres Approver"/>
+    <SecurityGroup groupId="HUMANRES_EMPLOYEE" description="This security group is for all the employees who want to apply for internal Job Posting." groupName="Humanres Employee"/>
     
     <SecurityGroupPermission groupId="HUMANRES_ADMIN" permissionId="HUMANRES_ADMIN"/>
     <SecurityGroupPermission groupId="HUMANRES_APPROVER" permissionId="HUMANRES_VIEW"/>

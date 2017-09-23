@@ -98,7 +98,7 @@ under the License.
         <field name="userLoginId"><hidden/></field>
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="SecurityGroup" description="${groupId} ${description}">
+                <entity-options entity-name="SecurityGroup" description="${groupId} ${groupName}">
                     <entity-order-by field-name="groupId"/>
                 </entity-options>
             </drop-down>
@@ -118,6 +118,7 @@ under the License.
 
     <form name="CreateSecurityGroup" type="single" target="createSecurityGroup" default-map-name="securityGroup">
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
+        <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
@@ -130,6 +131,7 @@ under the License.
     <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup">
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
+        <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 

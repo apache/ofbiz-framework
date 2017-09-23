@@ -82,7 +82,7 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_DELETE"/>
     
     <!-- Security Group to manage all Accounting operations -->
-    <SecurityGroup description="Accounting permission for all accounting functions." groupId="ACCTG_FUNCTNL_ADMIN"/>
+    <SecurityGroup description="Accounting permission for all accounting functions." groupId="ACCTG_FUNCTNL_ADMIN" groupName="Accounting Admin"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_ADMIN"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCTG_ATX_ADMIN"/>

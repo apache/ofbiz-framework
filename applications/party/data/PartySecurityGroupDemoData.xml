@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- Party Manager security -->
-    <SecurityGroup description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
+    <SecurityGroup groupName="Party Admin" description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
     <SecurityGroupPermission groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
     <SecurityGroupPermission groupId="PARTYADMIN" permissionId="OFBTOOLS_VIEW"/>
 
@@ -56,7 +56,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
 
-    <SecurityGroup description="Security Admin group, has all permissions to modify security settings in party manager." groupId="SECURITYADMIN"/>
+    <SecurityGroup groupName="Security Admin" description="Security Admin group, has all permissions to modify security settings in party manager." groupId="SECURITYADMIN"/>
     <SecurityGroupPermission groupId="SECURITYADMIN" permissionId="SECURITY_ADMIN"/>
 
 </entity-engine-xml>

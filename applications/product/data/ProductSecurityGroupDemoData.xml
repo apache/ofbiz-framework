@@ -20,14 +20,14 @@ under the License.
 
 <entity-engine-xml>
     <!-- Catalog Manager security -->
-    <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD"/>
+    <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD" groupName="Catalog Admin (Limited)"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
 
-    <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
+    <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN" groupName="Catalog Admin"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
@@ -54,16 +54,16 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
 
     <!-- Image Management security -->
-    <SecurityGroup description="Image Management Admin." groupId="IMAGEADMIN"/>
+    <SecurityGroup description="Image Management Admin." groupId="IMAGEADMIN" groupName="Image Admin"/>
     <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
     <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
     <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
     
-    <SecurityGroup description="Image Management Approve" groupId="IMAGEAPPROVE"/>
+    <SecurityGroup description="Image Management Approve" groupId="IMAGEAPPROVE" groupName="Image Approve"/>
     <SecurityGroupPermission groupId="IMAGEAPPROVE" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
     
-    <SecurityGroup description="Image Management Upload." groupId="IMAGEUPLOAD"/>
+    <SecurityGroup description="Image Management Upload." groupId="IMAGEUPLOAD" groupName="Image Load"/>
     <SecurityGroupPermission groupId="IMAGEUPLOAD" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
     
 </entity-engine-xml>

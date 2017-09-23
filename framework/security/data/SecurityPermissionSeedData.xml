@@ -31,7 +31,7 @@ under the License.
     <SecurityPermission permissionId="OFBTOOLS_VIEW" description="Permission to access the Stock OFBiz Manager Applications."/>
 
     <!-- normally only permissions in this file, however permission group SUPER is an exception -->
-    <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data"/>
+    <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data" groupName="Super"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="OFBTOOLS_VIEW"/>
 
     <!-- System UserLogin Account - see additional data in SecurityExtData -->
