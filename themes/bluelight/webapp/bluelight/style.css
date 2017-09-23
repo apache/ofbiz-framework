@@ -722,6 +722,7 @@ DIV.screenlet {
     height: auto !important;
     height: 1%;
     margin-bottom: 1em;
+    overflow: auto;
 }
 
 /* Special Screenlet Handling for locals and timezone window */
