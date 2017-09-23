@@ -200,7 +200,7 @@ under the License.
     <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteRole"/>
-        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
         <field name="roleTypeId">
             <drop-down no-current-selected-key="_NA_">
