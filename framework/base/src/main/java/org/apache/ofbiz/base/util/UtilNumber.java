@@ -257,25 +257,38 @@ public final class UtilNumber {
      * Method to format an amount using a custom rule set.
      * Current rule sets available:
      *
-     * en_US
-     * %dollars-and-cents - 1,225.25 becomes "one thousand two hundred twenty five dollars and twenty five cents" (useful for checks)
-     * %dollars-and-hundreths - 1,225.25 becomes "one thousand two hundred twenty five and 25/00" (alternate for checks)
-     *
      * @param   amount - the amount to format
-     * @param   rule - the name of the rule set to use (e.g., %dollars-and-hundredths)
      * @param   locale - the Locale
      * @return  formatted string or an empty string if there was an error
      */
-    public static String formatRuleBasedAmount(double amount, String rule, Locale locale) {
+    public static String formatRuleBasedAmount(double amount, Locale locale) {
         String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
             Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", module);
             return "";
         }
+        return formatRuleBasedAmount(amount, ruleSet, null, locale);
+    }
+
+    /**
+     * Method to format an amount using a custom rule set.
+     * Current rule sets available:
+     *
+     * en_US
+     * %dollars-and-cents - 1,225.25 becomes "one thousand two hundred twenty five dollars and twenty five cents" (useful for checks)
+     * %dollars-and-hundreths - 1,225.25 becomes "one thousand two hundred twenty five and 25/00" (alternate for checks)
+     *
+     * @param   amount - the amount to format
+     * @param   ruleSet - ruleSet to use
+     * @param   rule - the name of the rule set to use (e.g., %dollars-and-hundredths)
+     * @param   locale - the Locale
+     * @return  formatted string or an empty string if there was an error
+     */
+    public static String formatRuleBasedAmount(double amount, String ruleSet, String rule, Locale locale) {
         RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(ruleSet, locale);
         String result = "";
         try {
-            result = formatter.format(amount, rule);
+            result = formatter.format(amount, rule != null ? rule : formatter.getDefaultRuleSetName());
         } catch (Exception e) {
             Debug.logError(e, "Failed to format amount " + amount + " using rule " + rule, module);
         }
