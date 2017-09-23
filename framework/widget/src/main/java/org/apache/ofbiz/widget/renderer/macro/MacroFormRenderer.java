@@ -2902,7 +2902,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>selectall.js</code>.
+     * <code>OfbizUtil.js</code>.
      * @param updateAreas
      * @param extraParams Renderer-supplied additional target parameters
      * @param context
@@ -2944,7 +2944,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>selectall.js</code>.
+     * <code>OfbizUtil.js</code>.
      * @param updateAreas
      * @param extraParams Renderer-supplied additional target parameters
      * @param context
