@@ -87,7 +87,7 @@ var rawdata = [
              "types" : {
                  "CATEGORY" : {
                      "icon" : { 
-                         "image" : "/images/jquery/plugins/jsTree/themes/apple/d.png",
+                         "image" : "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
                          "position" : "10px40px"
                      }
                  }

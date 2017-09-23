@@ -34,7 +34,7 @@ public final class JsLanguageFilesMapping {
     public static class datejs {
 
         private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultDateJs = "/images/jquery/plugins/datejs/date-en-US.js";
+        private static String defaultDateJs = "/common/js/jquery/plugins/datejs/date-en-US.js";
 
         static {
             <#list datejs.keySet() as dateJsFiles>
@@ -54,7 +54,7 @@ public final class JsLanguageFilesMapping {
 
     public static class jquery {
         private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultDateJs = "/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateJs = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
             <#list jquery.keySet() as jqueryFiles>
@@ -74,7 +74,7 @@ public final class JsLanguageFilesMapping {
 
     public static class validation {
         private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultValidation = "/images/webapp/images/jquery/plugins/validate/localization/messages_en.js";
+        private static String defaultValidation = "/common/js/jquery/plugins/validate/localization/messages_en.js";
 
         static {
             <#list validation.keySet() as validationFiles>
@@ -93,7 +93,7 @@ public final class JsLanguageFilesMapping {
 
     public static class dateTime {
         private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultDateTime = "/images/webapp/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateTime = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
             <#list dateTime.keySet() as dateTimeFiles>

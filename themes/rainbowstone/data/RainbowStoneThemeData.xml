@@ -47,17 +47,17 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/Login.ftl" sequenceId="01"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/rainbowstone/js/less.min.js" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
 
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
 
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
@@ -93,15 +93,15 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/GetSecurityQuestion.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/Login.ftl" sequenceId="01"/>
 
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
@@ -136,15 +136,15 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/GetSecurityQuestion.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/Login.ftl" sequenceId="01"/>
 
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
@@ -178,15 +178,15 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/GetSecurityQuestion.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/Login.ftl" sequenceId="01"/>
 
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>

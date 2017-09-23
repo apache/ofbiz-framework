@@ -55,10 +55,10 @@ public class JsLanguageFileMappingCreator {
 
         // setup some variables to locate the js files
         String componentRoot = "component://common-theme/webapp";
-        String jqueryUiLocaleRelPath = "/images/jquery/ui/i18n/";
-        String dateJsLocaleRelPath = "/images/jquery/plugins/datejs/";
-        String validateRelPath = "/images/jquery/plugins/validate/localization/";
-        String dateTimePickerJsLocaleRelPath = "/images/jquery/plugins/datetimepicker/localization/";
+        String jqueryUiLocaleRelPath = "/common/js/jquery/ui/i18n/";
+        String dateJsLocaleRelPath = "/common/js/jquery/plugins/datejs/";
+        String validateRelPath = "/common/js/jquery/plugins/validate/localization/";
+        String dateTimePickerJsLocaleRelPath = "/common/js/jquery/plugins/datetimepicker/localization/";
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
