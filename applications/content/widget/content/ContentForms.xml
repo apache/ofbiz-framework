@@ -267,10 +267,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId"><display description="${contentId}"/></field>
-        <field name="contentIdTo" map-name="currentValue">
+        <field name="contentIdTo" map-name="currentValue" required-field="true">
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="contentAssocTypeId">
+        <field name="contentAssocTypeId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ContentAssocType">
                     <entity-order-by field-name="description"/>
