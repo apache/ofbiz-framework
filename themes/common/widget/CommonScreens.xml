@@ -443,8 +443,8 @@ under the License.
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
                 <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1.js" global="true" />
-                <set field="layoutSettings.javaScripts[]" value="/images/OfbizUtil.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/util/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
                 <!-- The settings below are used for xsl-fo screens -->
