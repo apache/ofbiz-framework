@@ -346,7 +346,7 @@ public class InvoiceServices {
                 if (billFromVendor != null) {
                     List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party", false).getRelated("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"), null, false);
                     if (UtilValidate.isNotEmpty(billingContactMechs)) {
-                        payToAddress = EntityUtil.getFirst(billingContactMechs);
+                        payToAddress = EntityUtil.getFirst(EntityUtil.filterByDate(billingContactMechs));
                     }
                 }
             } else {
