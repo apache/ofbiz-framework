@@ -29,6 +29,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -1391,13 +1392,17 @@ public final class UtilValidate {
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber, Delegator delegator) {
+        String geoId = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
+        return isValidPhoneNumber(phoneNumber, geoId, delegator);
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber, String geoId, Delegator delegator) {
         boolean isValid = false;
         try {
+            GenericValue geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-            String defaultCountry = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
-            GenericValue defaultGeo = EntityQuery.use(delegator).from("Geo").where("geoId", defaultCountry).cache().queryOne();
-            String defaultGeoCode = defaultGeo != null ? defaultGeo.getString("geoCode") : "US";
-            PhoneNumber phNumber = phoneUtil.parse(phoneNumber, defaultGeoCode);
+            String geoCode = geo != null ? geo.getString("geoCode") : "US";
+            PhoneNumber phNumber = phoneUtil.parse(phoneNumber, geoCode);
             if (phoneUtil.isValidNumber(phNumber) || phoneUtil.isPossibleNumber(phNumber)) {
                 isValid = true;
             }
