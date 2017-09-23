@@ -213,9 +213,9 @@ public class ExpressCheckoutEvents {
                 GenericValue paymentGatewayConfig = payPalPaymentSetting.getRelatedOne("PaymentGatewayConfig", false);
                 String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
                 if (paymentGatewayConfig != null) {
-                    if ("PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
+                    if ("PAY_GATWY_PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
                         return CheckoutType.PAYFLOW;
-                    } else if ("PAYPAL".equals(paymentGatewayConfigTypeId)) {
+                    } else if ("PAY_GATWY_PAYPAL".equals(paymentGatewayConfigTypeId)) {
                         GenericValue payPalConfig = paymentGatewayConfig.getRelatedOne("PaymentGatewayPayPal", false);
                         // TODO: Probably better off with an indicator field to indicate Express Checkout use
                         if (UtilValidate.isNotEmpty(payPalConfig.get("apiUserName"))) {
