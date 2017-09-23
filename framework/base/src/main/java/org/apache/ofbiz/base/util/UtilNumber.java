@@ -114,12 +114,64 @@ public final class UtilNumber {
         + "%%hundredths:\n"
         + "    100: <00<;\n";
 
+        // ICU4J rule sets for the en_IN locale. To add more rules, expand this string.
+        // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
+        public static final String ruleSet_en_IN =
+             /*
+             * These rules format a number in one of the two styles often used
+             * on checks. %simplified formats paise as hundredths of
+             * a rupees (23.40 comes out as "twenty three rupees and forty paise").
+             * %default formats in rupees and paise (23.40 comes out as
+             * "twenty three point four")
+             */
+            "%simplified:\n"
+            + "    x.0: << [rupees and >%%paise>];\n"
+            + "    0.x: >%%paise>;\n"
+            + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+            + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+            + "    seventeen; eighteen; nineteen;\n"
+            + "    20: twenty[ >>];\n"
+            + "    30: thirty[ >>];\n"
+            + "    40: forty[ >>];\n"
+            + "    50: fifty[ >>];\n"
+            + "    60: sixty[ >>];\n"
+            + "    70: seventy[ >>];\n"
+            + "    80: eighty[ >>];\n"
+            + "    90: ninety[ >>];\n"
+            + "    100: << hundred[ >%%and>];\n"
+            + "    1000: << thousand[ >%%and>];\n"
+            + "    1,00,000: << lakh[>%%commas>];\n"
+            + "    1,00,00,000: << crore[>%%commas>];\n"
+            + "    1,00,00,00,000: =#,##0=;\n"
+            + "%default:\n"
+            + "    -x: minus >>;\n"
+            + "    x.x: << point >>;\n"
+            + "    =%simplified=;\n"
+            + "    100: << hundred[ >%%and>];\n"
+            + "    1000: << thousand[ >%%and>];\n"
+            + "    1,00,000: << lakh[>%%commas>];\n"
+            + "    1,00,00,000: << crore[>%%commas>];\n"
+            + "    10,00,00,000: =#,##0=;\n"
+            + "%%paise:\n"
+            + "    100: <%simplified< paise;\n"
+            + "%%and:\n"
+            + "    and =%default=;\n"
+            + "    100: =%default=;\n"
+            + "%%commas:\n"
+            + "    ' and =%default=;\n"
+            + "    100: , =%default=;\n"
+            + "    1000: , <%default< thousand, >%default>;\n"
+            + "    1,00,000: , =%default=;"
+            + "%%lenient-parse:\n"
+            + "    & ' ' , ',' ;\n";
+
     // hash map to store ICU4J rule sets keyed to Locale
     private static HashMap<Locale, String> rbnfRuleSets;
     static {
         rbnfRuleSets = new HashMap<Locale, String>();
         rbnfRuleSets.put(Locale.US, ruleSet_en_US);
         rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
+        rbnfRuleSets.put(new Locale("en", "IN"), ruleSet_en_IN);
     }
 
     private UtilNumber() {}
