@@ -68,7 +68,7 @@ public final class JsLanguageFilesMapping {
             localeFiles.put("zh_TW", "/common/js/jquery/plugins/datejs/date-zh-TW.js");
             localeFiles.put("hr", "/common/js/jquery/plugins/datejs/date-hr-HR.js");
             localeFiles.put("hr_HR", "/common/js/jquery/plugins/datejs/date-hr-HR.js");
-            localeFiles.put("cs", "/common/js/jquery/plugins/datejs/date-en-US.js");
+            localeFiles.put("cs", "/common/js/jquery/plugins/datejs/date-cs-CZ.js");
             localeFiles.put("cs_CZ", "/common/js/jquery/plugins/datejs/date-cs-CZ.js");
             localeFiles.put("da", "/common/js/jquery/plugins/datejs/date-da-DA.js");
             localeFiles.put("da_DK", "/common/js/jquery/plugins/datejs/date-da-DK.js");
