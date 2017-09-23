@@ -4003,6 +4003,7 @@ under the License.
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <field name="description" type="description"></field>
+        <field name="isTaxInShippingPrice" type="indicator"></field>
         <prim-key field="taxAuthorityRateSeqId"/>
         <relation type="one" fk-name="TAXAUTHRTEP_TXA" rel-entity-name="TaxAuthority">
             <key-map field-name="taxAuthGeoId"/>
@@ -4290,15 +4291,4 @@ under the License.
             <key-map field-name="finAccountId"/>
         </view-link>
     </view-entity>
-    
-    <!-- Extend Entity Inventory Item for relation Fix Asset -->
-    <extend-entity entity-name="InventoryItem">
-        <field name="fixedAssetId" type="id"></field>
-        <relation type="one" fk-name="IYIM_FAST" title="FixedAsset" rel-entity-name="FixedAsset">
-            <key-map field-name="fixedAssetId"/>
-        </relation>
-    </extend-entity>
-    <extend-entity entity-name="TaxAuthorityRateProduct">
-        <field name="isTaxInShippingPrice" type="indicator"></field>
-    </extend-entity>
 </entitymodel>
