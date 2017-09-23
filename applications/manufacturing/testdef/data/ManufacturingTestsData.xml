@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <SecurityGroup groupId="MANUFADMIN" description="Manufacturing Admin group, has all permissions to execute manufacturing tasks."/>
+    <SecurityGroup groupId="MANUFADMIN" description="Manufacturing Admin group, has all permissions to execute manufacturing tasks." groupName="Manufacturing Admin"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_CREATE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_DELETE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="MANUFACTURING_UPDATE"/>
@@ -36,7 +36,7 @@ under the License.
     <Person partyId="TestManufAdmin" firstName="Manufacturing" lastName="Admin"/>
     <UserLogin partyId="TestManufAdmin" userLoginId="TestManufAdmin"/>
     <UserLoginSecurityGroup userLoginId="TestManufAdmin" groupId="MANUFADMIN" fromDate="2001-05-13 00:00:00"/>
-    <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks."/>
+    <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks." groupName="Supply Admin"/>
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW"/>
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>

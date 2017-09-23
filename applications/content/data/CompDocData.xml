@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions."/>
+    <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions." groupName="CompDoc Admin"/>
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>

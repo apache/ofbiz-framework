@@ -20,13 +20,13 @@ under the License.
 
 <entity-engine-xml>
     <!-- Order Manager security -->
-    <SecurityGroup description="Admin group for restricted order processing." groupId="ORDERPROC"/>
-    <SecurityGroup description="Order Entry Admin group; permissions for creating orders." groupId="ORDERENTRY"/>
-    <SecurityGroup description="Order Admin group, has all order permissions." groupId="ORDERADMIN"/>
-    <SecurityGroup description="Limited Order Admin group, has all limited order permissions." groupId="ORDERADMIN_LTD"/>
-    <SecurityGroup description="Limited Order Admin group for Supplier Agents." groupId="ORDERSUPPLIER_LTD"/>
-    <SecurityGroup description="Order entry with purchasing permissions" groupId="ORDERPURCH"/>
-    <SecurityGroup description="Order entry permission for all stores.  No special role is needed." groupId="ORDERENTRY_ALL"/>
+    <SecurityGroup description="Admin group for restricted order processing." groupId="ORDERPROC" groupName="Order Processing"/>
+    <SecurityGroup description="Order Entry Admin group; permissions for creating orders." groupId="ORDERENTRY" groupName="Order Entry"/>
+    <SecurityGroup description="Order Admin group, has all order permissions." groupId="ORDERADMIN" groupName="Order Admin"/>
+    <SecurityGroup description="Limited Order Admin group, has all limited order permissions." groupId="ORDERADMIN_LTD" groupName="Order Admin (Limited)"/>
+    <SecurityGroup description="Limited Order Admin group for Supplier Agents." groupId="ORDERSUPPLIER_LTD" groupName="Order (Supplier agents)"/>
+    <SecurityGroup description="Order entry with purchasing permissions" groupId="ORDERPURCH" groupName="Order Purchasing"/>
+    <SecurityGroup description="Order entry permission for all stores.  No special role is needed." groupId="ORDERENTRY_ALL" groupName="Order (All stores)"/>
 
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>

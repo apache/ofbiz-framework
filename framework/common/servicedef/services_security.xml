@@ -28,14 +28,14 @@ under the License.
     <service name="createSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="SecurityGroup" auth="true">
         <description>Create an SecurityGroup</description>
         <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
-        <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="SecurityGroup" auth="true">
         <description>Update a SecurityGroup</description>
         <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
-        <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- SecurityPermission services -->
