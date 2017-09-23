@@ -639,10 +639,10 @@ under the License.
       <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
       <prim-key field="userLoginId"/>
       <prim-key field="userPrefTypeId"/>
-      <relation type="one" fk-name="UP_User_Login" rel-entity-name="UserLogin">
+      <relation type="one-nofk" fk-name="UP_USER_LOGIN" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
       </relation>
-      <relation type="one" fk-name="UP_User_Group_Type" rel-entity-name="UserPrefGroupType">
+      <relation type="one" fk-name="UP_USER_GROUP_TYPE" rel-entity-name="UserPrefGroupType">
         <key-map field-name="userPrefGroupTypeId"/>
       </relation>
     </entity>
