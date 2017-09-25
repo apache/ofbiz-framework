@@ -24,7 +24,7 @@ under the License.
     <visual-themes>
         <visual-theme id="MULTIFLEX" display-name="Multiflex">
             <description>${str:label('CommonEntityLabels', 'VisualTheme.description.MULTIFLEX', locale)}</description>
-            <screenshot location="/multiflex/screenshot.jpg"/>
+            <screenshot location="/multiflex/images/screenshot.jpg"/>
         </visual-theme>
     </visual-themes>
     <extends location="component://common-theme/widget/Theme.xml"/>
