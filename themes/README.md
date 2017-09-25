@@ -132,7 +132,7 @@ Screens are separated on three type :
 This is the root theme that contains all information to ensure a good basic theme for OFBiz.
 Currently it keeps all old themes system for backward compatibility with ftl template managed by the entity **VisualThemeResource**
 # Create your own theme
-As a theme is a component, you can create a new theme like a plugin. You can see more information on this subject [on the ofbiz README](https://github.com/apache/ofbiz-framework/blame/trunk/README.md#L584)
+As a theme is a component, you can create a new theme like a plugin. You can see more information on this subject [on the ofbiz README](https://svn.apache.org/repos/asf/ofbiz/ofbiz-framework/trunk/README.md)
 After creating component, you can add the two minimal information :
 * Theme.xml file in **plugins/my-theme/widget/** with mininal trame :
 ```xml
