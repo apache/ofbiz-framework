@@ -45,7 +45,7 @@ body {
     clear: both;
     width: 900px;
     padding-bottom: 30px;
-    background: transparent url(/multiflex/bg_main_withnav.jpg) top left repeat-y;
+    background: transparent url(images/bg_main_withnav.jpg) top left repeat-y;
 }
 
 .left {
@@ -79,7 +79,7 @@ body {
     clear: both;
     width: 900px;
     padding: 1.0em 0 1.0em 0;
-    background: rgb(225, 225, 225) url(/multiflex/bg_foot.jpg) no-repeat;
+    background: rgb(225, 225, 225) url(images/bg_foot.jpg) no-repeat;
     font-size: 1.0em;
     overflow: visible !important /*Firefox*/;
     overflow: hidden /*IE6*/;
@@ -94,7 +94,7 @@ body {
 .header-top {
     width: 900px;
     height: 80px;
-    background: #F0F0F0 url(/multiflex/bg_head_top.jpg);
+    background: #F0F0F0 url(images/bg_head_top.jpg);
     overflow: visible !important /*Firefox*/;
     overflow: hidden /*IE6*/;
 }
@@ -102,7 +102,7 @@ body {
 .header-middle {
     width: 900px;
     height: 150px;
-    background: #E6E6E6 url(/multiflex/bg_head_middle.jpg);
+    background: #E6E6E6 url(images/bg_head_middle.jpg);
     overflow: visible !important /*Firefox*/;
     overflow: hidden /*IE6*/;
 }
@@ -115,7 +115,7 @@ body {
 .header-bottom {
     width: 900px;
     height: 40px;
-    background: #FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;
+    background: #FFFFFF url(images/bg_head_breadcrumbs.jpg) repeat-y;
 }
 
 .header-breadcrumbs {
@@ -123,7 +123,7 @@ body {
     width: 900px;
     height: 10px;
     padding: 1.0em 0 1.0em 0;
-    background: #FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;
+    background: #FFFFFF url(images/bg_head_breadcrumbs.jpg) repeat-y;
 }
 
 .sitelogo {
@@ -132,7 +132,7 @@ body {
     position: absolute;
     z-index: 1;
     margin: 10px 0 0 20px;
-    background: url(/multiflex/ofbizLogo.gif);
+    background: url(images/ofbizLogo.gif);
 }
 
 .sitename {
@@ -288,7 +288,7 @@ body {
     float: left;
     width: 900px;
     border: none;
-    background: #DCDCDC url(/multiflex/bg_head_bottom_nav.jpg) no-repeat;
+    background: #DCDCDC url(images/bg_head_bottom_nav.jpg) no-repeat;
     color: #4B4B4B;
     font-size: 130%;
 }
@@ -418,7 +418,7 @@ body {
 .center .breadcrumbs ul li {
     display: inline;
     padding: 0 0 0 10px;
-    background: transparent url(/multiflex/bg_bullet_arrow.gif) no-repeat 0 50%;
+    background: transparent url(images/bg_bullet_arrow.gif) no-repeat 0 50%;
     font-weight: bold;
     color: #7D7D7D;
     font-size: 100%;
@@ -495,7 +495,7 @@ body {
     w_idth: 900px;
     width: 870px;
     padding: 0 1em 0 1em;
-    background: #FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;
+    background: #FFFFFF url(images/bg_head_breadcrumbs.jpg) repeat-y;
 }
 
 /******************/
@@ -509,7 +509,7 @@ body {
     position: absolute;
     z-index: 100;
     margin: 0 0 0 190px;
-    background: url(/multiflex/bg_corner_topright.gif) no-repeat;
+    background: url(images/bg_corner_topright.gif) no-repeat;
 }
 
 /* MAIN CONTENT */
@@ -629,7 +629,7 @@ body {
     height: 10px;
     position: absolute;
     z-index: 100;
-    background: url(/multiflex/bg_corner_topleft.gif) no-repeat;
+    background: url(images/bg_corner_topleft.gif) no-repeat;
     margin-top: -1px;
     margin-left: -1px;
 }
@@ -639,7 +639,7 @@ body {
     height: 10px;
     position: absolute;
     z-index: 100;
-    background: url(/multiflex/bg_corner_topright.gif) no-repeat;
+    background: url(images/bg_corner_topright.gif) no-repeat;
     margin-top: -1px;
     margin-left: 174px;
 }
@@ -649,7 +649,7 @@ body {
     height: 10px;
     position: absolute;
     z-index: 100;
-    background: url(/multiflex/bg_corner_topleft.gif) no-repeat;
+    background: url(images/bg_corner_topleft.gif) no-repeat;
     margin-top: 0px;
     margin-left: 0px;
 }
@@ -659,7 +659,7 @@ body {
     height: 10px;
     position: absolute;
     z-index: 100;
-    background: url(/multiflex/bg_corner_topright.gif) no-repeat;
+    background: url(images/bg_corner_topright.gif) no-repeat;
     margin-top: 0px;
     margin-left: 175px;
 }
@@ -896,7 +896,7 @@ p:after {
 .nav3-bullet dt a:visited {
     line-height: 2.0em;
     padding: 0 0 0 10px;
-    background: url(/multiflex/bg_bullet_full_1.gif) no-repeat 0px 50%;
+    background: url(images/bg_bullet_full_1.gif) no-repeat 0px 50%;
     text-decoration: none;
     color: rgb(70, 122, 167);
     font-weight: bold;
@@ -908,7 +908,7 @@ p:after {
     line-height: 1.7em;
     margin: 0 0 0 15px;
     padding: 0 0 0 10px;
-    background: url(/multiflex/bg_bullet_half_1.gif) no-repeat 0px 50%;
+    background: url(images/bg_bullet_half_1.gif) no-repeat 0px 50%;
     text-decoration: none;
     color: rgb(70, 122, 167);
     font-weight: normal;
@@ -916,13 +916,13 @@ p:after {
 }
 
 .nav3-bullet dt a:hover {
-    background: url(/multiflex/bg_bullet_full_2.gif) no-repeat 0px 50%;
+    background: url(images/bg_bullet_full_2.gif) no-repeat 0px 50%;
     text-decoration: underline;
     color: rgb(42, 90, 138);
 }
 
 .nav3-bullet dd a:hover {
-    background: url(/multiflex/bg_bullet_half_2.gif) no-repeat 0px 50%;
+    background: url(images/bg_bullet_half_2.gif) no-repeat 0px 50%;
     text-decoration: underline;
     color: rgb(42, 90, 138);
 }
@@ -1057,7 +1057,7 @@ p:after {
 .left ul li {
     margin: 5px 0 0.2em 2px;
     padding: 0px 0px 0 11px;
-    background: url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.4em;
+    background: url(images/bg_bullet_full_1.gif) no-repeat 0 0.4em;
     line-height: 1.2em;
     font-size: 110%;
 }
@@ -1261,7 +1261,7 @@ p.caption {
 .center ul li {
     margin: 0 0 0.2em 2px;
     padding: 0 0 0 12px;
-    background: url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.5em;
+    background: url(images/bg_bullet_full_1.gif) no-repeat 0 0.5em;
     line-height: 1.4em;
     font-size: 120%;
 }
@@ -1444,7 +1444,7 @@ p.caption {
 .right ul li {
     margin: 5px 0 0.2em 2px;
     padding: 0 0 0 11px;
-    background: url(/multiflex/bg_bullet_full_1.gif) no-repeat 0 0.4em;
+    background: url(images/bg_bullet_full_1.gif) no-repeat 0 0.4em;
     line-height: 1.2em;
     font-size: 110%;
 }
@@ -1609,7 +1609,7 @@ img {
 #ecom-mainarea .rightonly {
     width: 670px;
     padding: 0 1em 0 1.5em;
-    background: #FFFFFF url(/multiflex/bg_head_breadcrumbs.jpg) repeat-y;
+    background: #FFFFFF url(images/bg_head_breadcrumbs.jpg) repeat-y;
 }
 
 #ecom-mainarea .leftonly {
@@ -1740,7 +1740,7 @@ A.tableheadbutton:hover {
     font-weight: bold;
     color: #467AA7;
     padding-left: 10px;
-    background: url(/multiflex/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
+    background: url(images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
 }
 
 A.browsecategorybutton {
@@ -2166,19 +2166,19 @@ a.offlnk:hover {
 }
 
 .bl {
-    background: url(/multiflex/bg_corner_topleft.gif) #AAAAAA 0 100% no-repeat;
+    background: url(images/bg_corner_topleft.gif) #AAAAAA 0 100% no-repeat;
 }
 
 .br {
-    background: url(/multiflex/bg_corner_topleft.gif) 100% 100% no-repeat;
+    background: url(images/bg_corner_topleft.gif) 100% 100% no-repeat;
 }
 
 .tl {
-    background: url(/multiflex/bg_corner_topleft.gif) 0 0 no-repeat;
+    background: url(images/bg_corner_topleft.gif) 0 0 no-repeat;
 }
 
 .tr {
-    background: url(/multiflex/bg_corner_topright.gif) 100% 0 no-repeat;
+    background: url(images/bg_corner_topright.gif) 100% 0 no-repeat;
     padding: 10px;
 }
 
