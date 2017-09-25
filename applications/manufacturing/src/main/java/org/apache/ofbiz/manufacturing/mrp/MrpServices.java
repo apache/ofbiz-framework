@@ -274,12 +274,15 @@ public class MrpServices {
                 if (UtilValidate.isNotEmpty(cancelledQuantity)) {
                     shipGroupQuantity = shipGroupQuantity.subtract(cancelledQuantity);
                 }
-    
-                OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
-                BigDecimal shippedQuantity = null;
-                shippedQuantity = orh.getItemShippedQuantity(genericResult.getRelatedOne("OrderItem", false));
-                if (UtilValidate.isNotEmpty(shippedQuantity)) {
-                    shipGroupQuantity = shipGroupQuantity.subtract(shippedQuantity);
+
+                try {
+                    List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected").from("ShipmentReceipt").where("orderId", genericResult.getString("orderId"), "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryList();
+                    for (GenericValue shipmentReceipt : shipmentReceipts) {
+                        shipGroupQuantity = shipGroupQuantity.subtract(shipmentReceipt.getBigDecimal("quantityAccepted"));
+                        shipGroupQuantity = shipGroupQuantity.subtract(shipmentReceipt.getBigDecimal("quantityRejected"));
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
                 }
     
                 GenericValue orderItemDeliverySchedule = null;
