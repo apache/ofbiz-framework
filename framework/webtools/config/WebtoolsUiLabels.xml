@@ -4741,6 +4741,10 @@
         <value xml:lang="zh">服务</value>
         <value xml:lang="zh-TW">服務</value>
     </property>
+    <property key="WebtoolsServiceLimitedTime">
+        <value xml:lang="en">Note: the duration of the service is limited to the transaction default timeout (60 seconds)</value>
+        <value xml:lang="fr">A noter : la durée du service est limitée à la valeur par défaut des transactions (60 secondes)</value>
+    </property>
     <property key="WebtoolsServiceClearPreviousParams">
         <value xml:lang="de">Vorige Parameter löschen</value>
         <value xml:lang="en">Clear previous params</value>

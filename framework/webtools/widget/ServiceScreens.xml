@@ -152,6 +152,7 @@ under the License.
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
+                            <label style="h3">${uiLabelMap.WebtoolsServiceLimitedTime}</label>
                             <include-form name="RunService" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>
