@@ -442,7 +442,7 @@ public class CatalinaContainer implements Container {
                 /* webapp is loaded already (overridden). Therefore, disable
                  * app bar display on overridden apps and do not load */
                 appInfo.setAppBarDisplay(false);
-                Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
+                Debug.logInfo("Duplicate webapp mount (overridding); not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
             }
         }
         ExecutionPool.getAllFutures(futures);
