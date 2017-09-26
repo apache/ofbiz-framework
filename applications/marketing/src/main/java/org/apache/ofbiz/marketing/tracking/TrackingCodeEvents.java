@@ -228,6 +228,8 @@ public class TrackingCodeEvents {
             if (trackableLifetime.longValue() > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
+            trackableCookie.setSecure(true);
+            trackableCookie.setHttpOnly(true);
             response.addCookie(trackableCookie);
         }
 
@@ -238,6 +240,8 @@ public class TrackingCodeEvents {
             if (billableLifetime.longValue() > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
+            billableCookie.setSecure(true);
+            billableCookie.setHttpOnly(true);
             response.addCookie(billableCookie);
         }
 
@@ -264,13 +268,17 @@ public class TrackingCodeEvents {
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
-                    response.addCookie(siteIdCookie);
+                siteIdCookie.setSecure(true);
+                siteIdCookie.setHttpOnly(true);
+                response.addCookie(siteIdCookie);
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
                 if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
-                    response.addCookie(updatedTimeStampCookie);
+                updatedTimeStampCookie.setSecure(true);
+                updatedTimeStampCookie.setHttpOnly(true);
+                response.addCookie(updatedTimeStampCookie);
             }
         }
 
