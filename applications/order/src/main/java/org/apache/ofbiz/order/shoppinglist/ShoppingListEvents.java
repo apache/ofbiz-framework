@@ -664,6 +664,8 @@ public class ShoppingListEvents {
                 Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, autoSaveListId);
                 guestShoppingListCookie.setMaxAge(cookieAge);
                 guestShoppingListCookie.setPath("/");
+                guestShoppingListCookie.setSecure(true);
+                guestShoppingListCookie.setHttpOnly(true);
                 response.addCookie(guestShoppingListCookie);
             } 
         }
@@ -687,6 +689,8 @@ public class ShoppingListEvents {
         Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, null);
         guestShoppingListCookie.setMaxAge(0);
         guestShoppingListCookie.setPath("/");
+        guestShoppingListCookie.setSecure(true);
+        guestShoppingListCookie.setHttpOnly(true);
         response.addCookie(guestShoppingListCookie);
         return "success";
     }
