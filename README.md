@@ -491,12 +491,10 @@ Xlint prints output of all warnings detected by the compiler
 
 The below command activates a gradle plugin (OWASP) and Identifies
 and reports known vulnerabilities (CVEs) in OFBiz library dependencies.
-This command takes a long time to execute because it needs to download
-all plugin dependencies and the CVE identification process is also
-time consuming. But it's the only way to check OFBiz does not use
-vulnerable libraries.
+The task takes time to complete, and once done, a report will be generated in
+$OFBIZ_HOME/build/reports/dependency-check-report.html
 
-`gradlew -PenableOwasp dependencyCheck`
+`gradlew -PenableOwasp dependencyCheckAnalyze`
 
 #### Setup eclipse project for OFBiz
 

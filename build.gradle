@@ -283,15 +283,17 @@ tasks.eclipse.dependsOn(cleanEclipse)
  * gradle will download required dependencies and
  * activate Gradle's OWASP plugin and its related tasks.
  *
- * Syntax: gradlew -PenableOwasp dependencyCheck
+ * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
  */
 buildscript {
     if (project.hasProperty('enableOwasp')) {
         repositories {
-            mavenCentral()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
         }
         dependencies {
-            classpath 'org.owasp:dependency-check-gradle:1.4.0'
+            classpath 'org.owasp:dependency-check-gradle:2.1.1'
         }
     }
 }
