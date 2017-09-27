@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -352,7 +353,8 @@ public class ModelTheme implements Serializable {
     /**
      * the ModelTemplate class, manage the complexity of macro library definition and the rendering technology
      */
-    private class ModelTemplate {
+    @SuppressWarnings("serial")
+    private class ModelTemplate implements Serializable {
         private final String name;
         private final String type;
         private final String compress;
