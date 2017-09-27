@@ -758,8 +758,6 @@ public class LoginWorker {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(0);
             autoLoginCookie.setPath("/");
-            autoLoginCookie.setSecure(true);
-            autoLoginCookie.setHttpOnly(true);
             response.addCookie(autoLoginCookie);
         }
         // remove the session attributes
