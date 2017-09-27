@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.widget.model.ModelTheme;
@@ -30,8 +32,9 @@ import org.w3c.dom.Element;
 /**
  * Widget Theme Library - VisualTheme class
  */
-public final class VisualTheme {
-
+@SuppressWarnings("serial")
+public final class VisualTheme implements Serializable {
+    
     public static final String module = VisualTheme.class.getName();
     private ModelTheme modelTheme;
     private final String visualThemeId;
