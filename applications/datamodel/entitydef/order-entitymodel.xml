@@ -562,6 +562,10 @@ under the License.
         <key-map field-name="quoteId"/>
         <key-map field-name="quoteItemSeqId"/>
       </relation>
+      <relation type="one-nofk" fk-name="ORDER_ITEM_SLI" rel-entity-name="ShoppingListItem">
+        <key-map field-name="shoppingListId"/>
+        <key-map field-name="shoppingListItemSeqId"/>
+      </relation>
       <relation type="one" fk-name="ORDER_ITEM_OGLA" title="Override" rel-entity-name="GlAccount">
         <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
       </relation>
