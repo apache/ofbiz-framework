@@ -23,8 +23,8 @@ under the License.
 
     <form name="FindSalesOpportunity" type="single" target="FindSalesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="salesOpportunityId"><hidden/></field>
-        <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25"></text-find></field>
+        <field name="salesOpportunityId" title="${uiLabelMap.SfaOpportunityId}"><text-find size="25"></text-find></field>
+        <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}"><text-find size="25"></text-find></field>
         <field name="partyId" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLead"/></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
@@ -51,7 +51,7 @@ under the License.
             <set field="opportunityStageId" from-field="parameters.opportunityStageId"/>
             <set field="parameters.opportunityStageId" value="${groovy:opportunityStageId==null?'SOSTG_CLOSED':opportunityStageId}"/>
             <set field="parameters.opportunityStageId_op" value="${groovy:opportunityStageId==null?'notEqual':'equals'}"/>
-            <set field="fieldList" value="${groovy:['partyId','salesOpportunityId','opportunityStageId','typeEnumId', 'roleTypeId']}" type="List"/>
+            <set field="fieldList" value="${groovy:['partyId','salesOpportunityId','opportunityStageId','typeEnumId', 'roleTypeId', 'opportunityName']}" type="List"/>
             <set field="sortField" from-field="parameters.sortField" default-value="salesOpportunityId"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
