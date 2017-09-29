@@ -28,12 +28,15 @@ buildscript {
     }
     dependencies {
       classpath "at.bxm.gradleplugins:gradle-svntools-plugin:latest.release"
+      classpath "org.kordamp.gradle:jdeps-gradle-plugin:0.2.0"
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
+apply plugin: 'org.kordamp.jdeps'
+apply plugin: 'codenarc'
 
 apply from: 'common.gradle'
 
@@ -103,7 +106,7 @@ dependencies {
     compile 'com.lowagie:itext:2.1.7'
     compile 'com.sun.mail:javax.mail:1.5.1'
     compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
-    compile 'com.thoughtworks.xstream:xstream:1.4.9'
+    compile 'com.thoughtworks.xstream:xstream:1.4.10'
     compile 'commons-cli:commons-cli:1.3.1'
     compile 'commons-net:commons-net:3.3'
     compile 'commons-validator:commons-validator:1.5.1'
@@ -1006,3 +1009,21 @@ def gradlewSubprocess(commandList) {
     fullCommand.addAll(commandList)
     exec { commandLine fullCommand }
 }
+
+//codenarcMain {
+//    ignoreFailures false
+//    configFile file('config/codenarc/codenarc-main.rules')
+//
+//    maxPriority1Violations 0
+//    maxPriority2Violations 10
+//    maxPriority3Violations 20
+//}
+//
+//codenarcTest {
+//    ignoreFailures true
+//    configFile file('config/codenarc/codenarc-test.rules')
+//
+//    maxPriority1Violations 0
+//    maxPriority2Violations 10
+//    maxPriority3Violations 20
+//}
