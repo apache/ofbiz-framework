@@ -28,15 +28,12 @@ buildscript {
     }
     dependencies {
       classpath "at.bxm.gradleplugins:gradle-svntools-plugin:latest.release"
-      classpath "org.kordamp.gradle:jdeps-gradle-plugin:0.2.0"
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
-apply plugin: 'org.kordamp.jdeps'
-apply plugin: 'codenarc'
 
 apply from: 'common.gradle'
 
@@ -1009,21 +1006,3 @@ def gradlewSubprocess(commandList) {
     fullCommand.addAll(commandList)
     exec { commandLine fullCommand }
 }
-
-//codenarcMain {
-//    ignoreFailures false
-//    configFile file('config/codenarc/codenarc-main.rules')
-//
-//    maxPriority1Violations 0
-//    maxPriority2Violations 10
-//    maxPriority3Violations 20
-//}
-//
-//codenarcTest {
-//    ignoreFailures true
-//    configFile file('config/codenarc/codenarc-test.rules')
-//
-//    maxPriority1Violations 0
-//    maxPriority2Violations 10
-//    maxPriority3Violations 20
-//}
