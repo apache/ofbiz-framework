@@ -280,6 +280,10 @@ OFBiz contains the following data reader types:
 - __ext__: External General Data (custom)
 - __ext-test__: External Test Data (custom)
 - __ext-demo__: External Demo Data (custom)
+- __tenant__: Data to load into the master tenants database "ofbiztenant". This
+  data is required to identify where a tenant's database is located. For more
+  information you can review the relevant
+  [tenant documentation](https://cwiki.apache.org/confluence/display/OFBIZ/Multitenancy+support)
 
 Available options for the --load-data server command are the following:
 
