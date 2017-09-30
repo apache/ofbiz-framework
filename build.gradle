@@ -438,14 +438,15 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     }
 
     // Load the tenants master database
-    createOfbizCommandTask('loadTenantOnDefaultDelegator',
-        ['--load-data', 'file=/runtime/tmp/tmpFilteredTenantData.xml'],
+    createOfbizCommandTask('loadTenantOnMasterTenantDb',
+        ['--load-data', 'file=/runtime/tmp/tmpFilteredTenantData.xml',
+         '--load-data', 'readers=tenant'],
         jvmArguments, false)
-    loadTenantOnDefaultDelegator.dependsOn(generateDatabaseTemplateFile, generateAdminUserTemplateFile)
+    loadTenantOnMasterTenantDb.dependsOn(generateDatabaseTemplateFile, generateAdminUserTemplateFile)
 
     // Load the actual tenant data
     createOfbizCommandTask('loadTenantData', [], jvmArguments, false)
-    loadTenantData.dependsOn(loadTenantOnDefaultDelegator)
+    loadTenantData.dependsOn(loadTenantOnMasterTenantDb)
 
     // Load the tenant admin user account
     createOfbizCommandTask('loadTenantAdminUserLogin', [], jvmArguments, false)
