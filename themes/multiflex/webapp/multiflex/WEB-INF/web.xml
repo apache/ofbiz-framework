@@ -22,15 +22,6 @@ under the License.
   <display-name>Apache OFBiz - multiflex Ecommerce Visual Theme</display-name>
   <description>multiflex Ecommerce Visual Theme</description>
 
-  <session-config>
-    <session-timeout>1</session-timeout>
-    <cookie-config>
-      <http-only>true</http-only>
-      <secure>true</secure>
-    </cookie-config>
-    <tracking-mode>COOKIE</tracking-mode>
-  </session-config>
-
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>main.jsp</welcome-file>
