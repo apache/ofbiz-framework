@@ -22,7 +22,12 @@ import org.apache.ofbiz.widget.model.ModelTheme
 import org.apache.ofbiz.widget.model.ThemeFactory
 import org.apache.ofbiz.widget.renderer.VisualTheme
 
-VisualTheme visualTheme = ThemeFactory.resolveVisualTheme(request)
+String visualThemeId = context.visualThemeId
+VisualTheme visualTheme
+if (!visualThemeId) visualThemeId = parameters?.visualThemeId
+if (visualThemeId) visualTheme = ThemeFactory.getVisualThemeFromId(visualThemeId)
+else visualTheme = ThemeFactory.resolveVisualTheme(context.request?:null)
+
 if (visualTheme) {
     ModelTheme modelTheme = visualTheme.getModelTheme()
     globalContext.commonScreenLocations = modelTheme.getModelCommonScreens()
