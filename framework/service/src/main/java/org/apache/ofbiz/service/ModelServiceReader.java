@@ -107,10 +107,7 @@ public class ModelServiceReader implements Serializable {
             }
         }
 
-        Map<String, ModelService> modelServices = new HashMap<String, ModelService>();
-        if (this.isFromURL) {// utilTimer.timerString("Before getDocumentElement in file " + readerURL);
-        } else {// utilTimer.timerString("Before getDocumentElement in " + handler);
-        }
+        Map<String, ModelService> modelServices = new HashMap<>();
 
         Element docElement = document.getDocumentElement();
         if (docElement == null) {
@@ -151,27 +148,21 @@ public class ModelServiceReader implements Serializable {
                     ModelService service = createModelService(curServiceElement, resourceLocation);
 
                     // utilTimer.timerString("  After createModelService -- " + i + " --");
-                    if (service != null) {
-                        modelServices.put(serviceName, service);
-                        // utilTimer.timerString("  After modelServices.put -- " + i + " --");
-                        /*
-                        int reqIn = service.getParameterNames(ModelService.IN_PARAM, false).size();
-                        int optIn = service.getParameterNames(ModelService.IN_PARAM, true).size() - reqIn;
-                        int reqOut = service.getParameterNames(ModelService.OUT_PARAM, false).size();
-                        int optOut = service.getParameterNames(ModelService.OUT_PARAM, true).size() - reqOut;
-
-                        if (Debug.verboseOn()) {
-                            String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
-                                " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
-
-                            Debug.logVerbose(msg, module);
-                        }
-                        */
-                    } else {
-                        Debug.logWarning(
-                            "-- -- SERVICE ERROR:getModelService: Could not create service for serviceName: " +
-                            serviceName, module);
+                    modelServices.put(serviceName, service);
+                    // utilTimer.timerString("  After modelServices.put -- " + i + " --");
+                    /*
+                    int reqIn = service.getParameterNames(ModelService.IN_PARAM, false).size();
+                    int optIn = service.getParameterNames(ModelService.IN_PARAM, true).size() - reqIn;
+                    int reqOut = service.getParameterNames(ModelService.OUT_PARAM, false).size();
+                    int optOut = service.getParameterNames(ModelService.OUT_PARAM, true).size() - reqOut;
+                    
+                    if (Debug.verboseOn()) {
+                        String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
+                            " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
+                    
+                        Debug.logVerbose(msg, module);
                     }
+                    */
 
                 }
             } while ((curChild = curChild.getNextSibling()) != null);
@@ -273,7 +264,7 @@ public class ModelServiceReader implements Serializable {
         service.nameSpace = getCDATADef(serviceElement, "namespace");
 
         // construct the context
-        service.contextInfo = new HashMap<String, ModelParam>();
+        service.contextInfo = new HashMap<>();
         this.createNotification(serviceElement, service);
         this.createPermission(serviceElement, service);
         this.createPermGroups(serviceElement, service);
@@ -441,51 +432,49 @@ public class ModelServiceReader implements Serializable {
         }
 
         if (delegator != null && entityName != null) {
-            Map<String, ModelParam> modelParamMap = new LinkedHashMap<String, ModelParam>();
+            Map<String, ModelParam> modelParamMap = new LinkedHashMap<>();
             try {
                 ModelEntity entity = delegator.getModelEntity(entityName);
                 if (entity == null) {
                     throw new GeneralException("Could not find entity with name [" + entityName + "]");
                 }
                 Iterator<ModelField> fieldsIter = entity.getFieldsIterator();
-                if (fieldsIter != null) {
-                    while (fieldsIter.hasNext()) {
-                        ModelField field = fieldsIter.next();
-                        if ((!field.getIsAutoCreatedInternal()) && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
-                            ModelFieldType fieldType = delegator.getEntityFieldType(entity, field.getType());
-                            if (fieldType == null) {
-                                throw new GeneralException("Null field type from delegator for entity [" + entityName + "]");
-                            }
-                            ModelParam param = new ModelParam();
-                            param.entityName = entityName;
-                            param.fieldName = field.getName();
-                            param.name = field.getName();
-                            param.type = fieldType.getJavaType();
-                            // this is a special case where we use something different in the service layer than we do in the entity/data layer
-                            if ("java.sql.Blob".equals(param.type)) {
-                                param.type = "java.nio.ByteBuffer";
-                            }
-                            param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
-                            param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
-                            param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false
-                            param.allowHtml = UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern(); // default to none
-                            modelParamMap.put(field.getName(), param);
+                while (fieldsIter.hasNext()) {
+                    ModelField field = fieldsIter.next();
+                    if ((!field.getIsAutoCreatedInternal()) && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
+                        ModelFieldType fieldType = delegator.getEntityFieldType(entity, field.getType());
+                        if (fieldType == null) {
+                            throw new GeneralException("Null field type from delegator for entity [" + entityName + "]");
                         }
-                    }
-
-                    // get the excludes list; and remove those from the map
-                    List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
-                    if (excludes != null) {
-                        for (Element exclude: excludes) {
-                            modelParamMap.remove(UtilXml.checkEmpty(exclude.getAttribute("field-name")));
+                        ModelParam param = new ModelParam();
+                        param.entityName = entityName;
+                        param.fieldName = field.getName();
+                        param.name = field.getName();
+                        param.type = fieldType.getJavaType();
+                        // this is a special case where we use something different in the service layer than we do in the entity/data layer
+                        if ("java.sql.Blob".equals(param.type)) {
+                            param.type = "java.nio.ByteBuffer";
                         }
+                        param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
+                        param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
+                        param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false
+                        param.allowHtml = UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern(); // default to none
+                        modelParamMap.put(field.getName(), param);
                     }
+                }
 
-                    // now add in all the remaining params
-                    for (ModelParam thisParam: modelParamMap.values()) {
-                        //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);
-                        service.addParam(thisParam);
+                // get the excludes list; and remove those from the map
+                List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
+                if (excludes != null) {
+                    for (Element exclude : excludes) {
+                        modelParamMap.remove(UtilXml.checkEmpty(exclude.getAttribute("field-name")));
                     }
+                }
+
+                // now add in all the remaining params
+                for (ModelParam thisParam : modelParamMap.values()) {
+                    //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);
+                    service.addParam(thisParam);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, module);
@@ -709,7 +698,7 @@ public class ModelServiceReader implements Serializable {
         List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
         if (UtilValidate.isNotEmpty(validateElements)) {
             // always clear out old ones; never append
-            param.validators = new LinkedList<ModelParamValidator>();
+            param.validators = new LinkedList<>();
 
             Element validate = validateElements.get(0);
             String methodName = validate.getAttribute("method").intern();

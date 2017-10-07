@@ -128,9 +128,8 @@ public class ModelParam implements Serializable {
     public String getPrimaryFailMessage(Locale locale) {
         if (UtilValidate.isNotEmpty(validators)) {
             return validators.get(0).getFailMessage(locale);
-        } else {
-            return null;
         }
+        return null;
     }
 
     public String getShortDisplayDescription() {
@@ -207,6 +206,13 @@ public class ModelParam implements Serializable {
 
     public boolean equals(ModelParam model) {
         return model.name.equals(this.name);
+    }
+
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ModelParam)) {
+            return false;
+        }
+        return equals((ModelParam) obj);
     }
 
     @Override
@@ -313,10 +319,9 @@ public class ModelParam implements Serializable {
         public String getFailMessage(Locale locale) {
             if (failMessage != null) {
                 return this.failMessage;
-            } else {
-                if (failResource != null && failProperty != null) {
-                    return UtilProperties.getMessage(failResource, failProperty, locale);
-                }
+            }
+            if (failResource != null && failProperty != null) {
+                return UtilProperties.getMessage(failResource, failProperty, locale);
             }
             return null;
         }

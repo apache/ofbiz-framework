@@ -56,11 +56,11 @@ public class RunningService {
     }
 
     public Timestamp getStartStamp() {
-        return this.startStamp;
+        return (Timestamp) this.startStamp.clone();
     }
 
     public Timestamp getEndStamp() {
-        return this.endStamp;
+        return (Timestamp) this.endStamp.clone();
     }
 
     public void setEndStamp() {
@@ -76,5 +76,9 @@ public class RunningService {
             }
         }
         return false;
+    }
+    
+    public int hashCode() {
+        return System.identityHashCode(this);
     }
 }
