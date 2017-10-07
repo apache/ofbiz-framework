@@ -21,6 +21,7 @@ package org.apache.ofbiz.common;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -192,7 +193,7 @@ public final class KeywordSearchUtil {
             StringTokenizer tokener = new StringTokenizer(str, separators, false);
             while (tokener.hasMoreTokens()) {
                 // make sure it is lower case before doing anything else
-                String token = tokener.nextToken().toLowerCase();
+                String token = tokener.nextToken().toLowerCase(Locale.getDefault());
 
                 if (forSearch) {
                     // these characters will only be present if it is for a search, ie not for indexing

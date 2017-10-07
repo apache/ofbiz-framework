@@ -20,8 +20,10 @@
 package org.apache.ofbiz.common;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,6 +38,8 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
+
+import freemarker.template.TemplateException;
 
 // Use the createJsLanguageFileMapping service to create or update the JsLanguageFilesMapping.java. You will still need to compile thereafter
 
@@ -93,7 +97,7 @@ public class JsLanguageFileMappingCreator {
                 fileUrl = dateJsLocaleRelPath + dateJsLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
             } else {
                 // Try to guess a language
-                String tmpLocale = strippedLocale + "-" + strippedLocale.toUpperCase();
+                String tmpLocale = strippedLocale + "-" + strippedLocale.toUpperCase(Locale.getDefault());
                 fileName = componentRoot + dateJsLocaleRelPath + dateJsLocalePrefix + tmpLocale + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
@@ -195,7 +199,7 @@ public class JsLanguageFileMappingCreator {
             File file = new File(output);
             FileUtils.writeStringToFile(file, writer.toString(), encoding);
         }
-        catch (Exception e) {
+        catch (IOException | TemplateException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale)context.get("locale")));
         }

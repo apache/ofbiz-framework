@@ -170,12 +170,6 @@ public class CommonEvents {
             String followSessionId = request.getParameter("followSid");
             Map<String, String> follow = appletSessions.get(followSessionId);
             if (follow == null) follow = new LinkedHashMap<String, String>();
-            String followerListStr = follow.get("followers");
-            if (followerListStr == null) {
-                followerListStr = followerSessionId;
-            } else {
-                followerListStr = followerListStr + "," + followerSessionId;
-            }
             appletSessions.put(followSessionId, follow);
             appletSessions.put(followerSessionId, null);
         }
@@ -303,7 +297,7 @@ public class CommonEvents {
         try {
             JSON json = JSON.from(attrMap);
             writeJSONtoResponse(json, request, response);
-        } catch (Exception e) {
+        } catch (IOException e) {
             return "error";
         }
         return "success";
@@ -311,10 +305,6 @@ public class CommonEvents {
 
     private static void writeJSONtoResponse(JSON json, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String jsonStr = json.toString();
-        if (jsonStr == null) {
-            Debug.logError("JSON Object was empty; fatal error!", module);
-            return;
-        }
         String httpMethod = request.getMethod();
 
         // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
@@ -499,7 +489,7 @@ public class CommonEvents {
                 session.setAttribute("_CAPTCHA_CODE_", captchaCodeMap);
             }
             captchaCodeMap.put(captchaCodeId, captchaCode);
-        } catch (Exception ioe) {
+        } catch (IOException | IllegalArgumentException | IllegalStateException ioe) {
             Debug.logError(ioe.getMessage(), module);
         }
         return "success";

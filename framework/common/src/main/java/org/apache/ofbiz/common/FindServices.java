@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -68,7 +69,7 @@ public class FindServices {
 
     public static final String module = FindServices.class.getName();
     public static final String resource = "CommonUiLabels";
-    public static Map<String, EntityComparisonOperator<?, ?>> entityOperators;
+    public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
         entityOperators =  new LinkedHashMap<String, EntityComparisonOperator<?, ?>>();
@@ -112,7 +113,8 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
-        for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
+        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appeas in the HTML form
+            String fieldNameRaw = entry.getKey();
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
             String fieldPair = null; // "fld0" or "fld1" - begin/end of range or just fld0 if no range.
@@ -124,19 +126,19 @@ public class FindServices {
             Map<String, Object> subMap2 = null;
             String fieldMode = null;
 
-            fieldValue = inputFields.get(fieldNameRaw);
+            fieldValue = entry.getValue();
             if (ObjectType.isEmpty(fieldValue)) {
                 continue;
             }
 
             queryStringMap.put(fieldNameRaw, fieldValue);
-            iPos = fieldNameRaw.indexOf("_"); // Look for suffix
+            iPos = fieldNameRaw.indexOf('_'); // Look for suffix
 
             // This is a hack to skip fields from "multi" forms
             // These would have the form "fieldName_o_1"
             if (iPos >= 0) {
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf("_");
+                iPos2 = suffix.indexOf('_');
                 if (iPos2 == 1) {
                     continue;
                 }
@@ -153,7 +155,7 @@ public class FindServices {
 
                 fieldNameRoot = fieldNameRaw.substring(0, iPos);
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf("_");
+                iPos2 = suffix.indexOf('_');
                 if (iPos2 < 0) {
                     if (suffix.startsWith("fld")) {
                         // If only one token and it starts with "fld"
@@ -342,7 +344,8 @@ public class FindServices {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
-            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
+            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(
+                    ((String) fieldValue).toUpperCase(Locale.getDefault())));
         } else {
             if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
                 fieldObject = null;
@@ -441,7 +444,7 @@ public class FindServices {
         try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
             list = it.getPartialList(start+1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
-        } catch (Exception e) {
+        } catch (ClassCastException | NullPointerException | GenericEntityException e) {
             Debug.logInfo("Problem getting partial list" + e,module);
         }
 
@@ -694,27 +697,28 @@ public class FindServices {
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         Map<String, Object> normalizedFields = new LinkedHashMap<String, Object>();
         //StringBuffer queryStringBuf = new StringBuffer();
-        for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
+        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appeas in the HTML form
+            String fieldNameRaw = entry.getKey();
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
             Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                                         // If it is an "op" field, it will be "equals", "greaterThan", etc.
             int iPos = -1;
             int iPos2 = -1;
-            
-            fieldValue = inputFields.get(fieldNameRaw);
+
+            fieldValue = entry.getValue();
             if (ObjectType.isEmpty(fieldValue)) {
                 continue;
             }
 
             //queryStringBuffer.append(fieldNameRaw + "=" + fieldValue);
-            iPos = fieldNameRaw.indexOf("_"); // Look for suffix
+            iPos = fieldNameRaw.indexOf('_'); // Look for suffix
 
             // This is a hack to skip fields from "multi" forms
             // These would have the form "fieldName_o_1"
             if (iPos >= 0) {
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf("_");
+                iPos2 = suffix.indexOf('_');
                 if (iPos2 == 1) {
                     continue;
                 }
@@ -755,7 +759,7 @@ public class FindServices {
             if (UtilValidate.isNotEmpty(list)) {
                 item = list.get(0);
             }
-        } catch (Exception e) {
+        } catch (ClassCastException | NullPointerException | GenericEntityException e) {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
 
@@ -763,7 +767,7 @@ public class FindServices {
             result.put("item",item);
         }
         result.remove("listIt");
-        
+
         if (result.containsKey("listSize")) {
             result.remove("listSize");
         }
