@@ -41,7 +41,7 @@ public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> imp
     }
 
     @Override
-    public void finalize() throws Throwable {
+    protected void finalize() throws Throwable {
         if (Debug.verboseOn()) {
             Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.finalize()"), "Finalize UtilCache SoftReference - " + get(), module);
         }
