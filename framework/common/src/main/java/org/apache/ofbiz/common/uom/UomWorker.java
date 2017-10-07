@@ -99,12 +99,12 @@ public class UomWorker {
         if (originalValue == null || uomId == null || uomIdTo == null) return null;
         if (uomId.equals(uomIdTo)) return originalValue;
 
-        Map<String, Object> svcInMap =  new LinkedHashMap<String, Object>();
+        Map<String, Object> svcInMap =  new LinkedHashMap<>();
         svcInMap.put("originalValue", originalValue);
         svcInMap.put("uomId", uomId);
         svcInMap.put("uomIdTo", uomIdTo);
 
-        Map<String, Object> svcOutMap =  new LinkedHashMap<String, Object>();
+        Map<String, Object> svcOutMap;
         try {
             svcOutMap = dispatcher.runSync("convertUom", svcInMap);
         } catch (GenericServiceException ex) {
