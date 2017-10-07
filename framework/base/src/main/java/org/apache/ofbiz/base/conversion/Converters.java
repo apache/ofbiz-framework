@@ -152,7 +152,7 @@ OUTER:
                         loader.loadConverters();
                     }
                 }
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            } catch (Exception e) {
                 Debug.logError(e, module);
             }
         }
