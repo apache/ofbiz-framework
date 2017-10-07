@@ -169,10 +169,9 @@ public class MiscConverters implements ConverterLoader {
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
             if (String.class == sourceClass && Enum.class.isAssignableFrom(targetClass)) {
-                return UtilGenerics.cast(new StringToEnum<E>());
-            } else {
-                return null;
+                return UtilGenerics.cast(new StringToEnum<>());
             }
+            return null;
         }
     }
 

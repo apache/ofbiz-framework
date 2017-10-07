@@ -43,10 +43,10 @@ public class CollectionConverters implements ConverterLoader {
             if (targetClass != List.class) {
                return null;
             }
-            if (!(sourceClass.getComponentType() instanceof Object)) {
+            if (sourceClass.getComponentType() == null) {
                 return null;
             }
-            return UtilGenerics.cast(new ArrayClassToList<S, T>(sourceClass, targetClass));
+            return UtilGenerics.cast(new ArrayClassToList<>(sourceClass, targetClass));
         }
     }
 
@@ -61,7 +61,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public T convert(S obj) throws ConversionException {
-            List<Object> list = new LinkedList<Object>();
+            List<Object> list = new LinkedList<>();
             int len = Array.getLength(obj);
             for (int i = 0; i < len; i++) {
                 list.add(Array.get(obj, i));
@@ -110,7 +110,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public List<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
-            List<Map<K, V>> tempList = new LinkedList<Map<K, V>>();
+            List<Map<K, V>> tempList = new LinkedList<>();
             tempList.add(obj);
             return tempList;
         }
@@ -122,7 +122,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public Set<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
-            Set<Map<K, V>> tempSet = new HashSet<Map<K, V>>();
+            Set<Map<K, V>> tempSet = new HashSet<>();
             tempSet.add(obj);
             return tempSet;
         }

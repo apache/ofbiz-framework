@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.conversion;
 
+import java.util.Locale;
 
 /** Boolean Converter classes. */
 public class BooleanConverters implements ConverterLoader {
@@ -69,7 +70,7 @@ public class BooleanConverters implements ConverterLoader {
         }
 
         public Boolean convert(String obj) throws ConversionException {
-            return "TRUE".equals(obj.trim().toUpperCase());
+            return "TRUE".equals(obj.trim().toUpperCase(Locale.getDefault()));
         }
     }
 
