@@ -169,9 +169,8 @@ public class CatalinaContainer implements Container {
         Property defaultHostProp = engineConfig.getProperty("default-host");
         if (defaultHostProp == null) {
             throw new ContainerException("default-host element of server property is required for catalina!");
-        } else {
-            tomcat.setHostname(defaultHostProp.value);
         }
+        tomcat.setHostname(defaultHostProp.value);
 
         if (ContainerConfig.getPropertyValue(cc, "use-naming", false)) {
             tomcat.enableNaming();
@@ -245,7 +244,7 @@ public class CatalinaContainer implements Container {
         Property clusterProp = null;
 
         List<Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
-        if (clusterProps != null && clusterProps.size() > 1) {
+        if (clusterProps.size() > 1) {
             throw new ContainerException("Only one cluster configuration allowed per engine");
         }
 
@@ -345,7 +344,7 @@ public class CatalinaContainer implements Container {
     }
 
     private List<Valve> prepareTomcatEngineValves(Property engineConfig) throws ContainerException {
-        List<Valve> engineValves = new ArrayList<Valve>();
+        List<Valve> engineValves = new ArrayList<>();
 
         // configure the CrossSubdomainSessionValve
         if (ContainerConfig.getPropertyValue(engineConfig, "enable-cross-subdomain-sessions", false)) {
@@ -424,12 +423,12 @@ public class CatalinaContainer implements Container {
     private void loadWebapps(Tomcat tomcat, ContainerConfig.Configuration configuration, Property clusterProp) {
         ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(module),
                 "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
-        List<Future<Context>> futures = new ArrayList<Future<Context>>();
+        List<Future<Context>> futures = new ArrayList<>();
 
         List<ComponentConfig.WebappInfo> webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
         Collections.reverse(webResourceInfos); // allow higher level webapps to override lower ones
 
-        Set<String> webappsMounts = new HashSet<String>();
+        Set<String> webappsMounts = new HashSet<>();
         webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
 
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
@@ -450,7 +449,7 @@ public class CatalinaContainer implements Container {
     }
 
     private List<String> getWebappMounts(ComponentConfig.WebappInfo webappInfo) {
-        List<String> allAppsMounts = new ArrayList<String>();
+        List<String> allAppsMounts = new ArrayList<>();
         String engineName = webappInfo.server;
         String mount = webappInfo.getContextRoot();
         List<String> virtualHosts = webappInfo.getVirtualHosts();
@@ -563,10 +562,9 @@ public class CatalinaContainer implements Container {
             if (webXmlFile.exists()) {
                 Document webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
                 return appIsDistributable && webXmlDoc.getElementsByTagName("distributable").getLength() > 0;
-            } else {
-                Debug.logInfo(webXmlFilePath + " not found.", module);
-                return appIsDistributable;
             }
+            Debug.logInfo(webXmlFilePath + " not found.", module);
+            return appIsDistributable;
         } catch (SAXException | ParserConfigurationException | IOException e) {
             throw new ContainerException(e);
         }
