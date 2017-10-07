@@ -129,7 +129,12 @@ public class ServiceSemaphore {
             semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.name, "lockedByInstanceId", JobManager.instanceId, "lockThread", threadName, "lockTime", lockTime);
 
             // use the special method below so we can reuse the unqiue tx functions
-            dbWrite(semaphore, false);
+            try {
+                dbWrite(semaphore, false);
+            } catch (SemaphoreFailException e) {
+                // can't write a new semaphore, need to wait
+                return true;
+            }
 
             // we own the lock, no waiting
             return false;
