@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -34,6 +35,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -56,6 +58,8 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * LoginEvents - Events for UserLogin and Security handling.
@@ -85,10 +89,10 @@ public class LoginEvents {
             String password = request.getParameter("PASSWORD");
 
             if ((username != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-                username = username.toLowerCase();
+                username = username.toLowerCase(Locale.getDefault());
             }
             if ((password != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator)))) {
-                password = password.toLowerCase();
+                password = password.toLowerCase(Locale.getDefault());
             }
 
             // save parameters into the session - so they can be used later, if needed
@@ -159,7 +163,7 @@ public class LoginEvents {
         String errMsg = null;
 
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-            userLoginId = userLoginId.toLowerCase();
+            userLoginId = userLoginId.toLowerCase(Locale.getDefault());
         }
 
         if (UtilValidate.isEmpty(userLoginId)) {
@@ -219,7 +223,7 @@ public class LoginEvents {
         String userLoginId = request.getParameter("USERNAME");
 
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-            userLoginId = userLoginId.toLowerCase();
+            userLoginId = userLoginId.toLowerCase(Locale.getDefault());
         }
 
         if (UtilValidate.isEmpty(userLoginId)) {
@@ -244,12 +248,12 @@ public class LoginEvents {
                 // password encrypted, can't send, generate new password and email to user
                 passwordToSend = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
                 if ("true".equals(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator))){
-                    passwordToSend=passwordToSend.toLowerCase();
+                    passwordToSend=passwordToSend.toLowerCase(Locale.getDefault());
                 }
                 autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
                 EntityCrypto entityCrypto = new EntityCrypto(delegator,null); 
                 try {
-                    passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, (Object) autoPassword);
+                    passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, autoPassword);
                 } catch (GeneralException e) {
                     Debug.logWarning(e, "Problem in encryption", module);
                 }
@@ -281,7 +285,6 @@ public class LoginEvents {
             party = supposedUserLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
-            party = null;
         }
         if (party != null) {
             Iterator<GenericValue> emailIter = UtilMisc.toIterator(ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false));
@@ -315,14 +318,14 @@ public class LoginEvents {
         }
 
         // set the needed variables in new context
-        Map<String, Object> bodyParameters = new HashMap<String, Object>();
+        Map<String, Object> bodyParameters = new HashMap<>();
         bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);
         bodyParameters.put("productStoreId", productStoreId);
 
-        Map<String, Object> serviceContext = new HashMap<String, Object>();
+        Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
         serviceContext.put("bodyParameters", bodyParameters);
         if (productStoreEmail != null) {
@@ -414,7 +417,7 @@ public class LoginEvents {
     public static String getUsername(HttpServletRequest request) {
         String cookieUsername = null;
         Cookie[] cookies = request.getCookies();
-        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
         if (cookies != null) {
             for (Cookie cookie: cookies) {
                 if (cookie.getName().equals(usernameCookieName)) {
@@ -434,7 +437,8 @@ public class LoginEvents {
         synchronized (session) {
             if (UtilValidate.isEmpty(getUsername(request))) {
                 // create the cookie and send it back
-                Cookie cookie = new Cookie(usernameCookieName, request.getParameter("USERNAME"));
+                String usernameParam = UtilCodec.getEncoder("html").encode(request.getParameter("USERNAME"));
+                Cookie cookie = new Cookie(usernameCookieName, usernameParam);
                 cookie.setMaxAge(60 * 60 * 24 * 365);
                 cookie.setPath("/");
                 cookie.setDomain(domain);
