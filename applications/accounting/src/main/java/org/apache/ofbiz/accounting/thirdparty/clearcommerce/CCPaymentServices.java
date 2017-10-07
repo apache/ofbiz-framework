@@ -75,7 +75,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(authResponseDoc) > 4) {  // 5 and higher, process error from HSBC
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("authResult", new Boolean(false));
+            result.put("authResult", Boolean.FALSE);
             result.put("processAmount", BigDecimal.ZERO);
             result.put("authRefNum", getReferenceNum(authResponseDoc));
             List<String> messages = getMessageList(authResponseDoc);
@@ -106,7 +106,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(creditResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("creditResult", new Boolean(false));
+            result.put("creditResult", Boolean.FALSE);
             result.put("creditAmount", BigDecimal.ZERO);
             result.put("creditRefNum", getReferenceNum(creditResponseDoc));
             List<String> messages = getMessageList(creditResponseDoc);
@@ -141,7 +141,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(captureResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("captureResult", new Boolean(false));
+            result.put("captureResult", Boolean.FALSE);
             result.put("captureAmount", BigDecimal.ZERO);
             result.put("captureRefNum", getReferenceNum(captureResponseDoc));
             List<String> messages = getMessageList(captureResponseDoc);
@@ -175,7 +175,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(releaseResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("releaseResult", new Boolean(false));
+            result.put("releaseResult", Boolean.FALSE);
             result.put("releaseAmount", BigDecimal.ZERO);
             result.put("releaseRefNum", getReferenceNum(releaseResponseDoc));
             List<String> messages = getMessageList(releaseResponseDoc);
@@ -198,7 +198,7 @@ public class CCPaymentServices {
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("releaseResult", Boolean.valueOf(true));
+        result.put("releaseResult", Boolean.TRUE);
         result.put("releaseCode", authTransaction.getString("gatewayCode"));
         result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
         result.put("releaseRefNum", authTransaction.getString("referenceNum"));
@@ -232,7 +232,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(refundResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("refundResult", new Boolean(false));
+            result.put("refundResult", Boolean.FALSE);
             result.put("refundAmount", BigDecimal.ZERO);
             result.put("refundRefNum", getReferenceNum(refundResponseDoc));
             List<String> messages = getMessageList(refundResponseDoc);
@@ -267,7 +267,7 @@ public class CCPaymentServices {
 
         if (getMessageListMaxSev(reauthResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("reauthResult", new Boolean(false));
+            result.put("reauthResult", Boolean.FALSE);
             result.put("reauthAmount", BigDecimal.ZERO);
             result.put("reauthRefNum", getReferenceNum(reauthResponseDoc));
             List<String> messages = getMessageList(reauthResponseDoc);
@@ -389,7 +389,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("authResult", Boolean.valueOf(true));
+            result.put("authResult", Boolean.TRUE);
             result.put("authCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -397,7 +397,7 @@ public class CCPaymentServices {
             String authAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("processAmount", new BigDecimal(authAmountStr).movePointLeft(2));
         } else {
-            result.put("authResult", Boolean.valueOf(false));
+            result.put("authResult", Boolean.FALSE);
             result.put("processAmount", BigDecimal.ZERO);
         }
 
@@ -435,7 +435,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("creditResult", Boolean.valueOf(true));
+            result.put("creditResult", Boolean.TRUE);
             result.put("creditCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -443,7 +443,7 @@ public class CCPaymentServices {
             String creditAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("creditAmount", new BigDecimal(creditAmountStr).movePointLeft(2));
         } else {
-            result.put("creditResult", Boolean.valueOf(false));
+            result.put("creditResult", Boolean.FALSE);
             result.put("creditAmount", BigDecimal.ZERO);
         }
 
@@ -469,7 +469,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("captureResult", Boolean.valueOf(true));
+            result.put("captureResult", Boolean.TRUE);
             result.put("captureCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -477,7 +477,7 @@ public class CCPaymentServices {
             String captureAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("captureAmount", new BigDecimal(captureAmountStr).movePointLeft(2));
         } else {
-            result.put("captureResult", Boolean.valueOf(false));
+            result.put("captureResult", Boolean.FALSE);
             result.put("captureAmount", BigDecimal.ZERO);
         }
 
@@ -503,7 +503,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("releaseResult", Boolean.valueOf(true));
+            result.put("releaseResult", Boolean.TRUE);
             result.put("releaseCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -511,7 +511,7 @@ public class CCPaymentServices {
             String releaseAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("releaseAmount", new BigDecimal(releaseAmountStr).movePointLeft(2));
         } else {
-            result.put("releaseResult", Boolean.valueOf(false));
+            result.put("releaseResult", Boolean.FALSE);
             result.put("releaseAmount", BigDecimal.ZERO);
         }
 
@@ -537,7 +537,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("refundResult", Boolean.valueOf(true));
+            result.put("refundResult", Boolean.TRUE);
             result.put("refundCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -545,7 +545,7 @@ public class CCPaymentServices {
             String refundAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("refundAmount", new BigDecimal(refundAmountStr).movePointLeft(2));
         } else {
-            result.put("refundResult", Boolean.valueOf(false));
+            result.put("refundResult", Boolean.FALSE);
             result.put("refundAmount", BigDecimal.ZERO);
         }
 
@@ -571,7 +571,7 @@ public class CCPaymentServices {
 
         String errorCode = UtilXml.childElementValue(procResponseElement, "CcErrCode");
         if ("1".equals(errorCode)) {
-            result.put("reauthResult", Boolean.valueOf(true));
+            result.put("reauthResult", Boolean.TRUE);
             result.put("reauthCode", UtilXml.childElementValue(transactionElement, "AuthCode"));
 
             Element currentTotalsElement = UtilXml.firstChildElement(transactionElement, "CurrentTotals");
@@ -579,7 +579,7 @@ public class CCPaymentServices {
             String reauthAmountStr = UtilXml.childElementValue(totalsElement, "Total");
             result.put("reauthAmount", new BigDecimal(reauthAmountStr).movePointLeft(2));
         } else {
-            result.put("reauthResult", Boolean.valueOf(false));
+            result.put("reauthResult", Boolean.FALSE);
             result.put("reauthAmount", BigDecimal.ZERO);
         }
 
@@ -752,6 +752,7 @@ public class CCPaymentServices {
 
     private static void appendPaymentMechNode(Element element, GenericValue creditCard, String cardSecurityCode, String localeCode) {
 
+        final int securityCodeLength = 4;
         Document document = element.getOwnerDocument();
 
         Element paymentMechElement = UtilXml.addChildElement(element, "PaymentMech", document);
@@ -766,13 +767,13 @@ public class CCPaymentServices {
         expiresElement.setAttribute("Locale", localeCode);
 
         if (UtilValidate.isNotEmpty(cardSecurityCode)) {
-            // Cvv2Val must be exactly 4 characters
-            if (cardSecurityCode.length() < 4) {
-                while (cardSecurityCode.length() < 4) {
-                    cardSecurityCode = cardSecurityCode + " ";
-                }
-            } else if (cardSecurityCode.length() > 4) {
-                cardSecurityCode = cardSecurityCode.substring(0, 4);
+            // Cvv2Val must be exactly securityCodeLength characters
+            if (cardSecurityCode.length() < securityCodeLength) {
+                // space padding on right side of cardSecurityCode
+                cardSecurityCode = String.format("%-" + securityCodeLength + "s", cardSecurityCode);
+               
+            } else if (cardSecurityCode.length() > securityCodeLength) {
+                cardSecurityCode = cardSecurityCode.substring(0, securityCodeLength);
             }
             UtilXml.addChildElementValue(creditCardElement, "Cvv2Val", cardSecurityCode, document);
             UtilXml.addChildElementValue(creditCardElement, "Cvv2Indicator", "1", document);
@@ -898,7 +899,7 @@ public class CCPaymentServices {
         } catch (TransformerException e) {
             throw new ClearCommerceException("Error serializing requestDocument: " + e.getMessage());
         }
-
+       
         String xmlString = os.toString();
 
         if (Debug.verboseOn()) {
