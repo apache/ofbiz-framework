@@ -48,6 +48,7 @@ import org.apache.ofbiz.base.metrics.MetricsFactory;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -471,10 +472,11 @@ public class CommonServices {
         InputStream in = (InputStream) context.get("inputStream");
         OutputStream out = (OutputStream) context.get("outputStream");
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
 
-        try (Writer writer = new OutputStreamWriter(out)) {
+        try (
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in, UtilIO.getUtf8()));
+                Writer writer = new OutputStreamWriter(out, UtilIO.getUtf8())) {
             while ((line = reader.readLine()) != null) {
                 Debug.logInfo("Read line: " + line, module);
                 writer.write(line);
@@ -497,7 +499,7 @@ public class CommonServices {
             message = "PONG";
         }
 
-        long count = -1;
+        long count;
         try {
             count = EntityQuery.use(delegator).from("SequenceValueItem").queryCount();
         } catch (GenericEntityException e) {
@@ -505,7 +507,7 @@ public class CommonServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceCannotConnect", locale));
         }
 
-        if (count > 0) {
+        if (count != 0L) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("message", message);
             return result;
