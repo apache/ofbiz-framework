@@ -87,7 +87,7 @@ public final class PreferenceWorker {
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
             String userLoginIdArg = (String) context.get(LOGINID_PARAMETER_NAME); // is an optional parameters which defaults to the logged on user
-            if (userLoginIdArg == null || (userLoginIdArg != null && userLoginId.equals(userLoginIdArg))) {
+            if (userLoginIdArg == null || userLoginId.equals(userLoginIdArg)) {
                 hasPermission = true; // users can copy to their own preferences
             } else {
                 Security security = ctx.getSecurity();
@@ -133,7 +133,7 @@ public final class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(GenericValue rec) throws GeneralException {
-        return addPrefToMap(rec, new LinkedHashMap<String, Object>());
+        return addPrefToMap(rec, new LinkedHashMap<>());
     }
 
     /**
@@ -143,7 +143,7 @@ public final class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(List<GenericValue> recList) throws GeneralException {
-        Map<String, Object> userPrefMap =  new LinkedHashMap<String, Object>();
+        Map<String, Object> userPrefMap =  new LinkedHashMap<>();
         if (recList != null) {
             for (GenericValue value: recList) {
                 addPrefToMap(value, userPrefMap);
