@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.common.email;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,7 +50,6 @@ import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.ofbiz.base.util.Debug;
@@ -338,7 +336,7 @@ public class EmailServices {
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", module);
-            List<SMTPAddressFailedException> failedAddresses = new LinkedList<SMTPAddressFailedException>();
+            List<SMTPAddressFailedException> failedAddresses = new LinkedList<>();
             Exception nestedException = null;
             while ((nestedException = e.getNextException()) != null && nestedException instanceof MessagingException) {
                 if (nestedException instanceof SMTPAddressFailedException) {
@@ -436,14 +434,14 @@ public class EmailServices {
         VisualTheme visualTheme = (VisualTheme) rServiceContext.get("visualTheme");
         if (visualTheme == null) visualTheme = ThemeFactory.resolveVisualTheme(null);
         
-        List<String> xslfoAttachScreenLocationList = new LinkedList<String>();
-        List<String> attachmentNameList = new LinkedList<String>();
+        List<String> xslfoAttachScreenLocationList = new LinkedList<>();
+        List<String> attachmentNameList = new LinkedList<>();
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) xslfoAttachScreenLocationList.add(xslfoAttachScreenLocationParam);
         if (UtilValidate.isNotEmpty(attachmentNameParam)) attachmentNameList.add(attachmentNameParam);
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
         if (UtilValidate.isNotEmpty(attachmentNameListParam)) attachmentNameList.addAll(attachmentNameListParam);
         
-        List<String> attachmentTypeList = new LinkedList<String>();
+        List<String> attachmentTypeList = new LinkedList<>();
         String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
         List<String> attachmentTypeListParam = UtilGenerics.checkList(serviceContext.remove("attachmentTypeList"));
         if (UtilValidate.isNotEmpty(attachmentTypeParam)) attachmentTypeList.add(attachmentTypeParam);
@@ -550,7 +548,7 @@ public class EmailServices {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                     if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)) {
-                        baos.write(writer.toString().getBytes());
+                        baos.write(writer.toString().getBytes("UTF-8"));
                     } else {
                         // create the input stream for the generation
                         StreamSource src = new StreamSource(new StringReader(writer.toString()));
@@ -609,9 +607,8 @@ public class EmailServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Map<String, Object> sendMailResult;
         Boolean hideInLog = (Boolean) serviceContext.get("hideInLog");
-        hideInLog = hideInLog == null ? false : hideInLog;
         try {
-            if (!hideInLog) {
+            if (!Boolean.TRUE.equals(hideInLog)) {
                 if (isMultiPart) {
                     sendMailResult = dispatcher.runSync("sendMailMultiPart", serviceContext);
                 } else {
@@ -660,7 +657,7 @@ public class EmailServices {
     
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> newContext = new LinkedHashMap<String, Object>();
+        Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
         newContext.put("sendFrom", context.get("sendFrom"));
@@ -677,11 +674,8 @@ public class EmailServices {
         }
         sb.append(UtilProperties.getMessage(resource, "CommonEmailDeliveryOriginalMessage", locale));
         sb.append("/n/n");
-        List<Map<String, Object>> bodyParts = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> bodyParts = new LinkedList<>();
         bodyParts.add(UtilMisc.<String, Object>toMap("content", sb.toString(), "type", "text/plain"));
-        Map<String, Object> bodyPart = new LinkedHashMap<String, Object>();
-        bodyPart.put("content", sb.toString());
-        bodyPart.put("type", "text/plain");
         try {
             bodyParts.add(UtilMisc.<String, Object>toMap("content", message.getDataHandler()));
         } catch (MessagingException e) {
@@ -732,7 +726,7 @@ public class EmailServices {
 
         public ByteArrayDataSource(byte[] content, String contentType) throws IOException {
             this.contentType = contentType;
-            this.contentArray = content;
+            this.contentArray = content.clone();
         }
 
         public String getContentType() {
