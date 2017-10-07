@@ -60,7 +60,7 @@ public class FlexibleStringExpanderTests extends TestCase {
 
     public void testParsing() {
         parserTest("visible nested replacement", "${'Hello ${var}'}!", true, "${'Hello ${var}'}!");
-        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!");
+        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!");
         parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${${throwException.value}}");
         parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
         parserTest("null", null, true, "");
@@ -146,7 +146,7 @@ public class FlexibleStringExpanderTests extends TestCase {
                 if (input != null) {
                     assertNotSame(label, expand, fse.expand(context, null, null));
                 }
-                Map<String, Object> autoUserLogin = new HashMap<String, Object>();
+                Map<String, Object> autoUserLogin = new HashMap<>();
                 autoUserLogin.put("lastLocale", locale.toString());
                 autoUserLogin.put("lastTimeZone", timeZone == null ? null : timeZone.getID());
                 context.put("autoUserLogin", autoUserLogin);
@@ -205,7 +205,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
-    public static String StaticReturnNull() {
+    public static String staticReturnNull() {
         return null;
     }
 
@@ -223,7 +223,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         Debug.set(Debug.VERBOSE, wasVerbose);
     }
 
-    public static class ThrowException {
+    public static class ThrowException extends Exception{
         public Object getValue() throws Exception {
             throw new Exception();
         }
@@ -266,7 +266,7 @@ public class FlexibleStringExpanderTests extends TestCase {
     }
 
     private void everythingTest() {
-        Map<String, Object> testMap = new HashMap<String, Object>();
+        Map<String, Object> testMap = new HashMap<>();
         testMap.put("date", new java.util.Date(1234567890));
         testMap.put("usd", "USD");
         testMap.put("amount", new BigDecimal("1234567.89"));
@@ -280,7 +280,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         testMap.put("testMap", testMap);
         testMap.put("nestedNull", "Hello ${nullVar}${var}");
         testMap.put("specialNumber", new SpecialNumber("1.00"));
-        List<String> testList = new ArrayList<String>();
+        List<String> testList = new ArrayList<>();
         testList.add("World");
         testMap.put("testList", testList);
         fseTest("null FlexibleStringExpander, null map", null, null, null, null, "", null, true);
