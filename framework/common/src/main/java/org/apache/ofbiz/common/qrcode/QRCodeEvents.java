@@ -47,7 +47,7 @@ public class QRCodeEvents {
     
     /** Streams QR Code to the output. */
     public static String serveQRCodeImage(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = ((HttpServletRequest) request).getSession();
+        HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String message = (String) parameters.get("message");
@@ -72,9 +72,7 @@ public class QRCodeEvents {
         String logoImageMaxHeight = (String) parameters.get("logoImageMaxHeight");
 
         try {
-            if (mimeType != null) {
-                response.setContentType(mimeType);
-            }
+            response.setContentType(mimeType);
             OutputStream os = response.getOutputStream();
             Map<String, Object> context = UtilMisc.<String, Object>toMap("message", message, "format", format, "userLogin", userLogin, "locale", locale);
             if (UtilValidate.isNotEmpty(width)) {

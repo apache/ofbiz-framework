@@ -71,11 +71,11 @@ public class QRCodeServices {
     
     public static final String QRCODE_DEFAULT_LOGOIMAGE = UtilProperties.getPropertyValue("qrcode", "qrcode.default.logoimage");
     
-    public static BufferedImage defaultLogoImage;
+    public static final BufferedImage defaultLogoImage;
     
-    public static final String[] FORMAT_NAMES = StringUtil.split(QRCODE_FORMAT_SUPPORTED, '|');
+    private static final String[] FORMAT_NAMES = StringUtil.split(QRCODE_FORMAT_SUPPORTED, '|');
     
-    public static final List<String> FORMATS_SUPPORTED = Arrays.asList(FORMAT_NAMES);
+    private static final List<String> FORMATS_SUPPORTED = Arrays.asList(FORMAT_NAMES);
 
     public static final int MIN_SIZE = 20;
 
@@ -87,17 +87,21 @@ public class QRCodeServices {
     
     static {
         if (UtilValidate.isNotEmpty(QRCODE_DEFAULT_LOGOIMAGE)) {
-            try {
-                Map<String, Object> logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(QRCODE_DEFAULT_LOGOIMAGE).getAbsolutePath(), Locale.getDefault());
-                defaultLogoImage = (BufferedImage) logoImageResult.get("bufferedImage");
-                if (UtilValidate.isEmpty(defaultLogoImage)) {
-                	Debug.logError("Your logo image file(" + QRCODE_DEFAULT_LOGOIMAGE + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", module);
-                }
-            } catch (IllegalArgumentException e) {
-                defaultLogoImage = null;
-            } catch (IOException e) {
-                defaultLogoImage = null;
+            defaultLogoImage = getLogoImageResult();
+        } else {
+            defaultLogoImage = null;
+        }
+    }
+
+    private static BufferedImage getLogoImageResult() {
+        try {
+            Map<String, Object> logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(QRCODE_DEFAULT_LOGOIMAGE).getAbsolutePath(), Locale.getDefault());
+            if (UtilValidate.isEmpty(logoImageResult.get("bufferedImage"))) {
+                Debug.logError("Your logo image file(" + QRCODE_DEFAULT_LOGOIMAGE + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", module);
             }
+            return (BufferedImage) logoImageResult.get("bufferedImage");
+        } catch (IllegalArgumentException | IOException e) {
+            return null;
         }
     }
 
@@ -164,10 +168,10 @@ public class QRCodeServices {
             BufferedImage newBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoBufferedImage)) {
                 if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth.intValue() || logoBufferedImage.getHeight() > logoImageMaxHeight.intValue())) {
-                	Map<String, String> typeMap = new HashMap<String, String>();
+                	Map<String, String> typeMap = new HashMap<>();
                 	typeMap.put("width", logoImageMaxWidth.toString());
                 	typeMap.put("height", logoImageMaxHeight.toString());
-                	Map<String, Map<String, String>> dimensionMap = new HashMap<String, Map<String, String>>();
+                	Map<String, Map<String, String>> dimensionMap = new HashMap<>();
                 	dimensionMap.put("QRCode", typeMap);
                     Map<String, Object> logoImageResult = ImageTransform.scaleImage(logoBufferedImage, (double) logoBufferedImage.getWidth(), (double) logoBufferedImage.getHeight(), dimensionMap, "QRCode", locale);
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
@@ -248,7 +252,7 @@ public class QRCodeServices {
         int width = matrix.getWidth();
         int height = matrix.getHeight();
         BufferedImage image = null;
-        String osName = System.getProperty("os.name").toLowerCase();
+        String osName = System.getProperty("os.name").toLowerCase(Locale.getDefault());
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         if (osName.startsWith("mac os") && format.equals("png")) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
