@@ -161,8 +161,7 @@ public final class InvoiceWorker {
       */
      public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
         BigDecimal invoiceTotal = ZERO;
-        BigDecimal invoiceTaxTotal = ZERO;
-        invoiceTaxTotal = InvoiceWorker.getInvoiceTaxTotal(invoice);
+        BigDecimal invoiceTaxTotal = InvoiceWorker.getInvoiceTaxTotal(invoice);
 
         List<GenericValue> invoiceItems = null;
         try {

@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -104,7 +105,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class InvoiceServices {
 
-    public static String module = InvoiceServices.class.getName();
+    public static final String module = InvoiceServices.class.getName();
 
     // set some BigDecimal properties
     private static final BigDecimal ZERO = BigDecimal.ZERO;
@@ -386,11 +387,14 @@ public class InvoiceServices {
                     orderItem = itemIssuance.getRelatedOne("OrderItem", false);
                 } else if ((orderItem == null) && (shipmentReceipt != null)) {
                     orderItem = shipmentReceipt.getRelatedOne("OrderItem", false);
-                } else if ((orderItem == null) && (itemIssuance == null) && (shipmentReceipt == null)) {
+                } 
+                
+                if (orderItem == null) {
                     Debug.logError("Cannot create invoice when orderItem, itemIssuance, and shipmentReceipt are all null", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                             "AccountingIllegalValuesPassedToCreateInvoiceService", locale));
                 }
+                
                 GenericValue product = null;
                 if (orderItem.get("productId") != null) {
                     product = orderItem.getRelatedOne("Product", false);
@@ -763,9 +767,10 @@ public class InvoiceServices {
 
             // next do the shipping adjustments.  Note that we do not want to add these to the invoiceSubTotal or orderSubTotal for pro-rating tax later, as that would cause
             // numerator/denominator problems when the shipping is not pro-rated but rather charged all on the first invoice
-            for (GenericValue adj : shipAdjustments.keySet()) {
-                BigDecimal adjAlreadyInvoicedAmount = shipAdjustments.get(adj);
-
+            for (Map.Entry<GenericValue, BigDecimal> set : shipAdjustments.entrySet()) {
+                BigDecimal adjAlreadyInvoicedAmount = set.getValue();
+                GenericValue adj = set.getKey();
+                
                 if ("N".equalsIgnoreCase(prorateShipping)) {
 
                     // Set the divisor and multiplier to 1 to avoid prorating
@@ -918,8 +923,8 @@ public class InvoiceServices {
             BigDecimal appliedFraction = amountTotal.divide(amountTotal, 12, ROUNDING);
             GenericValue invoice = null;
             boolean isReturn = false;
-            List<String> billFromVendorInvoiceRoles = new ArrayList<String>();
-            List<GenericValue> invoiceItems = new ArrayList<GenericValue>();
+            List<String> billFromVendorInvoiceRoles;
+            List<GenericValue> invoiceItems;
             try {
                 List<EntityExpr> invoiceRoleConds = UtilMisc.toList(
                         EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, salesInvoiceId),
@@ -960,8 +965,7 @@ public class InvoiceServices {
             // Determine commissions for various parties.
             for (GenericValue invoiceItem : invoiceItems) {
                 BigDecimal amount = ZERO;
-                BigDecimal quantity = ZERO;
-                quantity = invoiceItem.getBigDecimal("quantity");
+                BigDecimal quantity = invoiceItem.getBigDecimal("quantity");
                 amount = invoiceItem.getBigDecimal("amount");
                 amount = isReturn ? amount.negate() : amount;
                 String productId = invoiceItem.getString("productId");
@@ -1034,12 +1038,12 @@ public class InvoiceServices {
             createInvoiceMap.put("currencyUomId", invoice.getString("currencyUomId"));
             createInvoiceMap.put("userLogin", userLogin);
             // store the invoice first
-            Map<String, Object> createInvoiceResult = null;
+            Map<String, Object> createInvoiceResult;
             try {
                 createInvoiceResult = dispatcher.runSync("createInvoice", createInvoiceMap);
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                        "AccountingInvoiceCommissionError", locale), null, null, createInvoiceResult);
+                        "AccountingInvoiceCommissionError", locale), null, null, null);
             }
             String invoiceId = (String) createInvoiceResult.get("invoiceId");
             // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
@@ -1154,7 +1158,7 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
-        List<String> invoicesCreated = new LinkedList<String>();
+        List<String> invoicesCreated;
         Map<String, Object> response = ServiceUtil.returnSuccess();
         GenericValue orderShipment = null;
         String invoicePerShipment = null;
@@ -1222,7 +1226,7 @@ public class InvoiceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingShipmentNotFound", locale));
         }
 
-        List<GenericValue> itemIssuances = new LinkedList<GenericValue>();
+        List<GenericValue> itemIssuances;
         try {
             itemIssuances = EntityQuery.use(delegator).select("orderId", "shipmentId")
                     .from("ItemIssuance").where("shipmentId", shipmentId).orderBy("orderId").distinct().queryList();
@@ -1275,7 +1279,7 @@ public class InvoiceServices {
      // For In-Process invoice, move the status to ready and capture the payment
         for (GenericValue invoice : ordersWithInProcessInvoice.values()) {
             String invoiceId = invoice.getString("invoiceId");
-            Map<String, Object> setInvoiceStatusResult = new HashMap<String, Object>();
+            Map<String, Object> setInvoiceStatusResult;
             try {
                 setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
             } catch (GenericServiceException e) {
@@ -1451,11 +1455,10 @@ public class InvoiceServices {
         }
 
         // make sure we aren't billing items already invoiced i.e. items billed as digital (FINDIG)
-        Set<String> orders = shippedOrderItems.keySet();
-        for (String orderId : orders) {
-
+        for (Entry<String, List<GenericValue>> order : shippedOrderItems.entrySet()) {
+            String orderId = order.getKey();
             // we'll only use this list to figure out which ones to send
-            List<GenericValue> billItems = shippedOrderItems.get(orderId);
+            List<GenericValue> billItems = order.getValue();
 
             // a new list to be used to pass to the create invoice service
             List<GenericValue> toBillItems = new LinkedList<GenericValue>();
@@ -1533,6 +1536,9 @@ public class InvoiceServices {
                         billAvail = ZERO;
                     } else {
                         // now have been billed
+                        if(issueQty == null){
+                            issueQty = ZERO;
+                        }
                         billAvail = billAvail.subtract(issueQty).setScale(DECIMALS, ROUNDING);
                     }
 
@@ -2612,10 +2618,6 @@ public class InvoiceServices {
         // Payment.....
         BigDecimal paymentApplyAvailable = ZERO;
         // amount available on the payment reduced by the already applied amounts
-        BigDecimal amountAppliedMax = ZERO;
-        // the maximum that can be applied taking payment,invoice,invoiceitem,billing account in concideration
-        // if maxApplied is missing, this value can be used,
-        // Payment this should be checked after the invoice checking because it is possible the currency is changed
         GenericValue payment = null;
         String currencyUomId = null;
         if (paymentId == null || paymentId.equals("")) {
@@ -2629,6 +2631,7 @@ public class InvoiceServices {
             if (payment == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentRecordNotFound", UtilMisc.toMap("paymentId", paymentId), locale));
+                return ServiceUtil.returnError(errorMessageList);
             }
             paymentApplyAvailable = payment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS,ROUNDING);
 
@@ -2642,12 +2645,6 @@ public class InvoiceServices {
             }
 
             currencyUomId = payment.getString("currencyUomId");
-
-            // if the amount to apply is 0 give it amount the payment still need
-            // to apply
-            if (amountApplied.signum() == 0) {
-                amountAppliedMax = paymentApplyAvailable;
-            }
 
         }
 
@@ -2663,6 +2660,7 @@ public class InvoiceServices {
             if (toPayment == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentRecordNotFound", UtilMisc.toMap("paymentId", toPaymentId), locale));
+                return ServiceUtil.returnError(errorMessageList);
             }
             toPaymentApplyAvailable = toPayment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(toPayment)).setScale(DECIMALS,ROUNDING);
 
@@ -2673,11 +2671,6 @@ public class InvoiceServices {
             if (toPayment.getString("statusId").equals("PMNT_CONFIRMED")) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentConfirmed", UtilMisc.toMap("paymentId", paymentId), locale));
-            }
-
-            // if the amount to apply is less then required by the payment reduce it
-            if (amountAppliedMax.compareTo(toPaymentApplyAvailable) > 0) {
-                amountAppliedMax = toPaymentApplyAvailable;
             }
 
             if (paymentApplicationId == null) {
@@ -2738,6 +2731,7 @@ public class InvoiceServices {
             if (billingAccount == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingBillingAccountNotFound", UtilMisc.toMap("billingAccountId", billingAccountId), locale));
+                return ServiceUtil.returnError(errorMessageList);
             }
             // check the currency
             if (billingAccount.get("accountCurrencyUomId") != null && currencyUomId != null &&
@@ -2791,19 +2785,11 @@ public class InvoiceServices {
                         }
                     }
                     paymentApplyAvailable = payment.getBigDecimal("actualCurrencyAmount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS,ROUNDING);
-                    if (amountApplied.signum() == 0) {
-                        amountAppliedMax = paymentApplyAvailable;
-                    }
                 }
 
                 // check if the invoice already covered by payments
                 BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice);
                 invoiceApplyAvailable = InvoiceWorker.getInvoiceNotApplied(invoice);
-
-                // adjust the amountAppliedMax value if required....
-                if (invoiceApplyAvailable.compareTo(amountAppliedMax) < 0) {
-                    amountAppliedMax = invoiceApplyAvailable;
-                }
 
                 if (invoiceTotal.signum() == 0) {
                     errorMessageList.add(UtilProperties.getMessage(resource,
@@ -2986,7 +2972,7 @@ public class InvoiceServices {
                                         UtilMisc.<String, Object>toMap("tooMuch", newInvoiceApplyAvailable.negate(),
                                                 "invoiceId", invoiceId), locale));
                             }
-                        } else if (invoiceItemSeqId != null && paymentApplication.get("invoiceItemSeqId") == null) {
+                        } else if (paymentApplication.get("invoiceItemSeqId") == null) {
                             // check if the item number changed from a null value to
                             // a real Item number
                             newInvoiceItemApplyAvailable = invoiceItemApplyAvailable.subtract(amountApplied).setScale(DECIMALS, ROUNDING);
@@ -3268,22 +3254,16 @@ public class InvoiceServices {
 
         // if no paymentApplicationId supplied create a new record with the data
         // supplied...
-        if (paymentApplicationId == null && amountApplied != null) {
-            paymentApplication.set("paymentApplicationId", paymentApplicationId);
-            paymentApplication.set("invoiceId", invoiceId);
-            paymentApplication.set("invoiceItemSeqId", invoiceItemSeqId);
-            paymentApplication.set("paymentId", paymentId);
-            paymentApplication.set("toPaymentId", toPaymentId);
-            paymentApplication.set("amountApplied", amountApplied);
-            paymentApplication.set("billingAccountId", billingAccountId);
-            paymentApplication.set("taxAuthGeoId", taxAuthGeoId);
-            return storePaymentApplication(delegator, paymentApplication,locale);
-        }
+        paymentApplication.set("paymentApplicationId", paymentApplicationId);
+        paymentApplication.set("invoiceId", invoiceId);
+        paymentApplication.set("invoiceItemSeqId", invoiceItemSeqId);
+        paymentApplication.set("paymentId", paymentId);
+        paymentApplication.set("toPaymentId", toPaymentId);
+        paymentApplication.set("amountApplied", amountApplied);
+        paymentApplication.set("billingAccountId", billingAccountId);
+        paymentApplication.set("taxAuthGeoId", taxAuthGeoId);
+        return storePaymentApplication(delegator, paymentApplication,locale);
 
-        // should never come here...
-        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentApplicationParameterUnsuitable", locale));
-        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentApplicationParameterListUnsuitable", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId, "paymentId", paymentId, "toPaymentId", toPaymentId, "paymentApplicationId", paymentApplicationId, "amountApplied", amountApplied), locale));
-        return ServiceUtil.returnError(errorMessageList);
     }
 
     public static Map<String, Object> calculateInvoicedAdjustmentTotal(DispatchContext dctx, Map<String, Object> context) {
@@ -3445,21 +3425,22 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
+        
+        if (fileBytes == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingUploadedFileDataNotFound", locale));
+        }
+        
         String organizationPartyId = (String) context.get("organizationPartyId");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
         final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
         CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
-        List<String> errMsgs = new LinkedList<String>();
-        List<String> newErrMsgs = new LinkedList<String>();
+        List<String> errMsgs = new LinkedList<>();
+        List<String> newErrMsgs;
         String lastInvoiceId = null;
         String currentInvoiceId = null;
         String newInvoiceId = null;
         int invoicesCreated = 0;
-
-        if (fileBytes == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingUploadedFileDataNotFound", locale));
-        }
 
         try {
             for (final CSVRecord rec : fmt.parse(csvReader)) {
@@ -3487,8 +3468,8 @@ public class InvoiceServices {
                     }
 
                     // invoice validation
-                    try {
-                        newErrMsgs = new LinkedList<String>();
+                    newErrMsgs = new LinkedList<>();
+                    try {     
                         if (UtilValidate.isEmpty(invoice.get("partyIdFrom"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id From and Party Id From Trans missing for invoice: " + currentInvoiceId);
                         } else if (EntityQuery.use(delegator).from("Party").where("partyId", invoice.get("partyIdFrom")).queryOne() == null) {
@@ -3553,8 +3534,8 @@ public class InvoiceServices {
                         invoiceItem.put("productId", rec.get("productIdTrans"));
                     }
                     // invoice item validation
+                    newErrMsgs = new LinkedList<>();
                     try {
-                        newErrMsgs = new LinkedList<String>();
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemSeqId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory item sequence Id missing for invoice: " + currentInvoiceId);
                         } 
@@ -3564,6 +3545,7 @@ public class InvoiceServices {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get("invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
                         } 
                         if (UtilValidate.isEmpty(invoiceItem.get("productId")) && UtilValidate.isEmpty(invoiceItem.get("description"))) {
+                            newErrMsgs.add("Line number " + rec.getRecordNumber() + ": no Product Id given, no description given");
                         }                    
                         if (UtilValidate.isNotEmpty(invoiceItem.get("productId")) && EntityQuery.use(delegator).from("Product").where("productId", invoiceItem.get("productId")).queryOne() == null) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Product Id: " + invoiceItem.get("productId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get("invoiceItemSeqId"));
