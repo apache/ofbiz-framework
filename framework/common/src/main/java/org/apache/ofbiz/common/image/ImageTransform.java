@@ -71,7 +71,7 @@ public class ImageTransform {
 
         /* VARIABLES */
         BufferedImage bufImg;
-        Map<String, Object> result =  new LinkedHashMap<String, Object>();
+        Map<String, Object> result =  new LinkedHashMap<>();
 
         /* BUFFERED IMAGE */
         try {
@@ -111,17 +111,17 @@ public class ImageTransform {
         /* VARIABLES */
         BufferedImage bufNewImg;
         double defaultHeight, defaultWidth, scaleFactor;
-        Map<String, Object> result =  new LinkedHashMap<String, Object>();
+        Map<String, Object> result =  new LinkedHashMap<>();
 
         /* DIMENSIONS from ImageProperties */
         // A missed dimension is authorized
         if (dimensionMap.get(sizeType).containsKey("height")) {
-            defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height").toString());
+            defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height"));
         } else {
             defaultHeight = -1;
         }
         if (dimensionMap.get(sizeType).containsKey("width")) {
-            defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width").toString());
+            defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width"));
         } else {
             defaultWidth = -1;
         }
@@ -218,8 +218,8 @@ public class ImageTransform {
         /* VARIABLES */
         Document document;
         Element rootElt;
-        Map<String, Map<String, String>> valueMap =  new LinkedHashMap<String, Map<String, String>>();
-        Map<String, Object> result =  new LinkedHashMap<String, Object>();
+        Map<String, Map<String, String>> valueMap =  new LinkedHashMap<>();
+        Map<String, Object> result =  new LinkedHashMap<>();
 
         /* PARSING */
         try {
@@ -253,10 +253,10 @@ public class ImageTransform {
         /* get NAME and VALUE */
         List<? extends Element> children = UtilXml.childElementList(rootElt); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
         for (Element currentElt : children) {
-            Map<String, String> eltMap =  new LinkedHashMap<String, String>();
+            Map<String, String> eltMap =  new LinkedHashMap<>();
             List<? extends Element> children2 = UtilXml.childElementList(currentElt);
             if (children2.size() > 0) {
-                Map<String, String> childMap =  new LinkedHashMap<String, String>();
+                Map<String, String> childMap =  new LinkedHashMap<>();
                 // loop over Children 1st level
                 for (Element currentChild : children2) {
                     childMap.put(currentChild.getAttribute("name"), currentChild.getAttribute("value"));
@@ -290,21 +290,20 @@ public class ImageTransform {
         /** Check if the image isn't already a BufferedImage instance */
         if( image instanceof BufferedImage ) {
                 return( (BufferedImage)image );
-        } else {
-                /** Full image loading */
-                image = new ImageIcon(image).getImage();
-
-                /** new BufferedImage creation */
-                BufferedImage bufferedImage = new BufferedImage(
-                            image.getWidth(null),
-                            image.getHeight(null),
-                            bufImgType);
-
-                Graphics2D g = bufferedImage.createGraphics();
-                g.drawImage(image,0,0,null);
-                g.dispose();
-
-                return( bufferedImage );
         }
+        /** Full image loading */
+        image = new ImageIcon(image).getImage();
+
+        /** new BufferedImage creation */
+        BufferedImage bufferedImage = new BufferedImage(
+                    image.getWidth(null),
+                    image.getHeight(null),
+                    bufImgType);
+
+        Graphics2D g = bufferedImage.createGraphics();
+        g.drawImage(image,0,0,null);
+        g.dispose();
+
+        return( bufferedImage );
     }
 }
