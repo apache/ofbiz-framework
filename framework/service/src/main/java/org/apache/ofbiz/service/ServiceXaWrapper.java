@@ -262,6 +262,8 @@ public class ServiceXaWrapper extends GenericXaResource {
             case TYPE_COMMIT:
                 msgPrefix = "[Commit] ";
                 break;
+            default:
+                Debug.logWarning("There was another type instead of [Commit] or [Rollback] in runService: " + type, module);
         }
 
         // if a service exists; run it
@@ -295,7 +297,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                     if (model.validate) {
                         thisContext = model.makeValid(context, ModelService.IN_PARAM);
                     } else {
-                        thisContext = new HashMap<String, Object>();
+                        thisContext = new HashMap<>();
                         thisContext.putAll(context);
                     }
 

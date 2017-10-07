@@ -83,6 +83,8 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                 } catch (JobManagerException jme) {
                     throw new GenericServiceException(jme.getMessage(), jme);
                 }
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 String errMsg = "General error while scheduling job";
                 Debug.logError(e, errMsg, module);

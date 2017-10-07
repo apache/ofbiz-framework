@@ -29,7 +29,7 @@ import org.apache.ofbiz.entity.Delegator;
  */
 public class GenericDispatcherFactory implements LocalDispatcherFactory {
 
-    protected static boolean ecasDisabled = false;
+    private static boolean ecasDisabled = false;
 
     @Override
     public LocalDispatcher createLocalDispatcher(String name, Delegator delegator) {
@@ -46,7 +46,7 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
     }
 
     // The default LocalDispatcher implementation.
-    private class GenericDispatcher extends GenericAbstractDispatcher {
+    private static class GenericDispatcher extends GenericAbstractDispatcher {
 
         private GenericDispatcher(String name, Delegator delegator) {
             ClassLoader loader;

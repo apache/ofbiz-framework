@@ -183,19 +183,18 @@ public class DispatchContext implements Serializable {
 
         if (model == null) {
             throw new GenericServiceException("Model service is null! Should never happen.");
-        } else {
-            switch (modeInt) {
-                case 2:
-                    newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
-                    break;
-                case 1:
-                    newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
-                    break;
-                default:
-                    throw new GenericServiceException("Invalid mode, should be either IN or OUT");
-            }
-            return newContext;
         }
+        switch (modeInt) {
+            case 1:
+                newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
+                break;
+            case 2:
+                newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
+                break;
+            default:
+                throw new GenericServiceException("Invalid mode, should be either IN or OUT");
+        }
+        return newContext;
     }
 
     /**
@@ -206,11 +205,9 @@ public class DispatchContext implements Serializable {
     public ModelService getModelService(String serviceName) throws GenericServiceException {
         Map<String, ModelService> serviceMap = getGlobalServiceMap();
         ModelService retVal = null;
-        if (serviceMap != null) {
-            retVal = serviceMap.get(serviceName);
-            if (retVal != null && !retVal.inheritedParameters()) {
-                retVal.interfaceUpdate(this);
-            }
+        retVal = serviceMap.get(serviceName);
+        if (retVal != null && !retVal.inheritedParameters()) {
+            retVal.interfaceUpdate(this);
         }
         if (retVal == null) {
             throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
@@ -219,7 +216,7 @@ public class DispatchContext implements Serializable {
     }
 
     public Set<String> getAllServiceNames() {
-        Set<String> serviceNames = new TreeSet<String>();
+        Set<String> serviceNames = new TreeSet<>();
 
         Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
         if (globalServices != null) {
@@ -244,9 +241,9 @@ public class DispatchContext implements Serializable {
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
         if (serviceMap == null) {
-            serviceMap = new HashMap<String, ModelService>();
+            serviceMap = new HashMap<>();
 
-            List<Future<Map<String, ModelService>>> futures = new LinkedList<Future<Map<String, ModelService>>>();
+            List<Future<Map<String, ModelService>>> futures = new LinkedList<>();
             List<GlobalServices> globalServicesList = null;
             try {
                 globalServicesList = ServiceConfigUtil.getServiceEngine().getGlobalServices();
@@ -270,11 +267,9 @@ public class DispatchContext implements Serializable {
                 }
             }
 
-            if (serviceMap != null) {
-                Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(this.model, serviceMap);
-                if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
-                    ServiceEcaUtil.reloadConfig();
-                }
+            Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(this.model, serviceMap);
+            if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
+                ServiceEcaUtil.reloadConfig();
             }
         }
         return serviceMap;

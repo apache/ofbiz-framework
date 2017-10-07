@@ -126,10 +126,6 @@ public class ModelPermission implements Serializable {
             Debug.logError(e, "Failed to get ModelService: " + e.toString(), module);
             return false;
         }
-        if (permission == null) {
-            Debug.logError("No ModelService found with the name [" + permissionServiceName + "]", module);
-            return false;
-        }
         permission.auth = true;
         Map<String, Object> ctx = permission.makeValid(context, ModelService.IN_PARAM);
         if (UtilValidate.isNotEmpty(action)) {
@@ -147,7 +143,7 @@ public class ModelPermission implements Serializable {
             resp = dispatcher.runSync(permission.name,  ctx, 300, true);
             failMessage = (String) resp.get("failMessage");
         } catch (GenericServiceException e) {
-            Debug.logError(failMessage + e.getMessage(), module);
+            Debug.logError(null + e.getMessage(), module);
             return false;
         }
         if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {

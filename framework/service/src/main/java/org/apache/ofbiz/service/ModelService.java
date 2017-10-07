@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
@@ -84,7 +85,7 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
 @SuppressWarnings("serial")
 public class ModelService extends AbstractMap<String, Object> implements Serializable {
     private static final Field[] MODEL_SERVICE_FIELDS;
-    private static final Map<String, Field> MODEL_SERVICE_FIELD_MAP = new LinkedHashMap<String, Field>();
+    private static final Map<String, Field> MODEL_SERVICE_FIELD_MAP = new LinkedHashMap<>();
     static {
         MODEL_SERVICE_FIELDS = ModelService.class.getFields();
         for (Field field: MODEL_SERVICE_FIELDS) {
@@ -184,16 +185,16 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public boolean hideResultInLog;
     
     /** Set of services this service implements */
-    public Set<ModelServiceIface> implServices = new LinkedHashSet<ModelServiceIface>();
+    public Set<ModelServiceIface> implServices = new LinkedHashSet<>();
 
     /** Set of override parameters */
-    public Set<ModelParam> overrideParameters = new LinkedHashSet<ModelParam>();
+    public Set<ModelParam> overrideParameters = new LinkedHashSet<>();
 
     /** List of permission groups for service invocation */
-    public List<ModelPermGroup> permissionGroups = new LinkedList<ModelPermGroup>();
+    public List<ModelPermGroup> permissionGroups = new LinkedList<>();
 
     /** List of email-notifications for this service */
-    public List<ModelNotification> notifications = new LinkedList<ModelNotification>();
+    public List<ModelNotification> notifications = new LinkedList<>();
 
     /** Internal Service Group */
     public GroupModel internalGroup = null;
@@ -204,10 +205,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public String deprecatedReason = null;
 
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
-    protected Map<String, ModelParam> contextInfo = new LinkedHashMap<String, ModelParam>();
+    protected Map<String, ModelParam> contextInfo = new LinkedHashMap<>();
 
     /** Context Information, a List of parameters used by the service, contains ModelParam objects */
-    protected List<ModelParam> contextParamList = new LinkedList<ModelParam>();
+    protected List<ModelParam> contextParamList = new LinkedList<>();
 
     /** Flag to say if we have pulled in our addition parameters from our implemented service(s) */
     protected boolean inheritedParameters = false;
@@ -331,6 +332,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     }
 
                     public Map.Entry<String, Object> next() {
+                        if (!hasNext()) {
+                            throw new NoSuchElementException();
+                        }
                         return new ModelServiceMapEntry(MODEL_SERVICE_FIELDS[i++]);
                     }
 
@@ -384,7 +388,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * Test if we have already inherited our interface parameters
      * @return boolean
      */
-    public boolean inheritedParameters() {
+    public synchronized boolean inheritedParameters() {
         return this.inheritedParameters;
     }
 
@@ -431,7 +435,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     public Set<String> getAllParamNames() {
-        Set<String> nameList = new TreeSet<String>();
+        Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             nameList.add(p.name);
         }
@@ -439,7 +443,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     public Set<String> getInParamNames() {
-        Set<String> nameList = new TreeSet<String>();
+        Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if (p.isIn()) nameList.add(p.name);
@@ -460,7 +464,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     public Set<String> getOutParamNames() {
-        Set<String> nameList = new TreeSet<String>();
+        Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
             if (p.isOut()) nameList.add(p.name);
@@ -482,14 +486,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     public void updateDefaultValues(Map<String, Object> context, String mode) {
         List<ModelParam> params = this.getModelParamList();
-        if (params != null) {
-            for (ModelParam param: params) {
-                if (IN_OUT_PARAM.equals(param.mode) || mode.equals(param.mode)) {
-                    Object defaultValueObj = param.getDefaultValue();
-                    if (defaultValueObj != null && context.get(param.name) == null) {
-                        context.put(param.name, defaultValueObj);
-                        Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", module);
-                    }
+        for (ModelParam param: params) {
+            if (IN_OUT_PARAM.equals(param.mode) || mode.equals(param.mode)) {
+                Object defaultValueObj = param.getDefaultValue();
+                if (defaultValueObj != null && context.get(param.name) == null) {
+                    context.put(param.name, defaultValueObj);
+                    Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", module);
                 }
             }
         }
@@ -502,8 +504,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param locale the actual locale to use
      */
     public void validate(Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
-        Map<String, String> requiredInfo = new HashMap<String, String>();
-        Map<String, String> optionalInfo = new HashMap<String, String>();
+        Map<String, String> requiredInfo = new HashMap<>();
+        Map<String, String> optionalInfo = new HashMap<>();
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
@@ -529,14 +531,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         // get the test values
-        Map<String, Object> requiredTest = new HashMap<String, Object>();
-        Map<String, Object> optionalTest = new HashMap<String, Object>();
+        Map<String, Object> requiredTest = new HashMap<>();
+        Map<String, Object> optionalTest = new HashMap<>();
 
-        if (context == null) context = new HashMap<String, Object>();
+        if (context == null) context = new HashMap<>();
         requiredTest.putAll(context);
 
-        List<String> requiredButNull = new LinkedList<String>();
-        List<String> keyList = new LinkedList<String>();
+        List<String> requiredButNull = new LinkedList<>();
+        List<String> keyList = new LinkedList<>();
         keyList.addAll(requiredTest.keySet());
         for (String key: keyList) {
             Object value = requiredTest.get(key);
@@ -551,7 +553,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         // check for requiredButNull fields and return an error since null values are not allowed for required fields
         if (requiredButNull.size() > 0) {
-            List<String> missingMsg = new LinkedList<String>();
+            List<String> missingMsg = new LinkedList<>();
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
                 if (message == null) {
@@ -590,7 +592,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         // required and type validation complete, do allow-html validation
         if (IN_PARAM.equals(mode)) {
-            List<String> errorMessageList = new LinkedList<String>();
+            List<String> errorMessageList = new LinkedList<>();
             for (ModelParam modelParam : this.contextInfo.values()) {
                 // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
                 if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) 
@@ -640,10 +642,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (info.size() == 0 && test.size() == 0) return;
         // This is to see if the test set contains all from the info set (reverse)
         if (reverse && !testSet.containsAll(keySet)) {
-            Set<String> missing = new TreeSet<String>(keySet);
+            Set<String> missing = new TreeSet<>(keySet);
 
             missing.removeAll(testSet);
-            List<String> missingMsgs = new LinkedList<String>();
+            List<String> missingMsgs = new LinkedList<>();
             for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
@@ -653,17 +655,17 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 missingMsgs.add(msg);
             }
 
-            List<String> missingCopy = new LinkedList<String>();
+            List<String> missingCopy = new LinkedList<>();
             missingCopy.addAll(missing);
             throw new ServiceValidationException(missingMsgs, model, missingCopy, null, mode);
         }
 
         // This is to see if the info set contains all from the test set
         if (!keySet.containsAll(testSet)) {
-            Set<String> extra = new TreeSet<String>(testSet);
+            Set<String> extra = new TreeSet<>(testSet);
 
             extra.removeAll(keySet);
-            List<String> extraMsgs = new LinkedList<String>();
+            List<String> extraMsgs = new LinkedList<>();
             for (String key: extra) {
                 ModelParam param = model.getParam(key);
                 String msg = null;
@@ -676,13 +678,13 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 extraMsgs.add(msg);
             }
 
-            List<String> extraCopy = new LinkedList<String>();
+            List<String> extraCopy = new LinkedList<>();
             extraCopy.addAll(extra);
             throw new ServiceValidationException(extraMsgs, model, null, extraCopy, mode);
         }
 
         // * Validate types next
-        List<String> typeFailMsgs = new LinkedList<String>();
+        List<String> typeFailMsgs = new LinkedList<>();
         for (String key: testSet) {
             ModelParam param = model.getParam(key);
 
@@ -803,7 +805,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @return List of parameter names
      */
     public List<String> getParameterNames(String mode, boolean optional, boolean internal) {
-        List<String> names = new LinkedList<String>();
+        List<String> names = new LinkedList<>();
 
         if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
             return names;
@@ -871,7 +873,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param locale Locale to use to do some type conversion
      */
     public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages, TimeZone timeZone, Locale locale) {
-        Map<String, Object> target = new HashMap<String, Object>();
+        Map<String, Object> target = new HashMap<>();
 
         if (source == null) {
             return target;
@@ -947,7 +949,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     private Map<String, Object> makePrefixMap(Map<String, ? extends Object> source, ModelParam param) {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> paramMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
@@ -959,7 +961,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     private List<Object> makeSuffixList(Map<String, ? extends Object> source, ModelParam param) {
-        List<Object> paramList = new LinkedList<Object>();
+        List<Object> paramList = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.endsWith(param.stringListSuffix)) {
@@ -993,51 +995,42 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 result.put("failMessage", e.getMessage());
                 return result;
             }
-            if (permission != null) {
-                Map<String, Object> ctx = permission.makeValid(context, IN_PARAM);
-                if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
-                    ctx.put("mainAction", this.permissionMainAction);
-                }
-                if (UtilValidate.isNotEmpty(this.permissionResourceDesc)) {
-                    ctx.put("resourceDescription", this.permissionResourceDesc);
-                } else if (thisService != null) {
-                    ctx.put("resourceDescription", thisService.name);
-                }
+            Map<String, Object> ctx = permission.makeValid(context, IN_PARAM);
+            if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
+                ctx.put("mainAction", this.permissionMainAction);
+            }
+            if (UtilValidate.isNotEmpty(this.permissionResourceDesc)) {
+                ctx.put("resourceDescription", this.permissionResourceDesc);
+            }
+            ctx.put("resourceDescription", thisService.name);
 
-                LocalDispatcher dispatcher = dctx.getDispatcher();
-                Map<String, Object> resp;
-                try {
-                    resp = dispatcher.runSync(permission.name, ctx, 300, true);
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    Map<String, Object> result = ServiceUtil.returnSuccess();
-                    result.put("hasPermission", Boolean.FALSE);
-                    result.put("failMessage", e.getMessage());
-                    return result;
-                }
-                if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
-                    Map<String, Object> result = ServiceUtil.returnSuccess();
-                    result.put("hasPermission", Boolean.FALSE);
-                    String failMessage = (String) resp.get("failMessage");
-                    if (UtilValidate.isEmpty(failMessage)) {
-                        failMessage = ServiceUtil.getErrorMessage(resp);
-                    }
-                    result.put("failMessage", failMessage);
-                    return result;
-                }
-                return resp;
-            } else {
+            LocalDispatcher dispatcher = dctx.getDispatcher();
+            Map<String, Object> resp;
+            try {
+                resp = dispatcher.runSync(permission.name, ctx, 300, true);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
                 Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("hasPermission", Boolean.FALSE);
-                result.put("failMessage", "No ModelService found with the name [" + this.permissionServiceName + "]");
+                result.put("failMessage", e.getMessage());
                 return result;
             }
-        } else {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("hasPermission", Boolean.FALSE);
-            result.put("failMessage", "No ModelService found; no service name specified!");
-            return result;
+            if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
+                Map<String, Object> result = ServiceUtil.returnSuccess();
+                result.put("hasPermission", Boolean.FALSE);
+                String failMessage = (String) resp.get("failMessage");
+                if (UtilValidate.isEmpty(failMessage)) {
+                    failMessage = ServiceUtil.getErrorMessage(resp);
+                }
+                result.put("failMessage", failMessage);
+                return result;
+            }
+            return resp;
         }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("hasPermission", Boolean.FALSE);
+        result.put("failMessage", "No ModelService found; no service name specified!");
+        return result;
     }
 
     /**
@@ -1072,7 +1065,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @return A list of required IN parameters in the order which they were defined.
      */
     public List<Object> getInParameterSequence(Map<String, ? extends Object> source) {
-        List<Object> target = new LinkedList<Object>();
+        List<Object> target = new LinkedList<>();
         if (source == null) {
             return target;
         }
@@ -1096,7 +1089,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * the service was created.
      */
     public List<ModelParam> getModelParamList() {
-        List<ModelParam> newList = new LinkedList<ModelParam>();
+        List<ModelParam> newList = new LinkedList<>();
         newList.addAll(this.contextParamList);
         return newList;
     }
@@ -1106,7 +1099,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * the service was created.
      */
     public List<ModelParam> getInModelParamList() {
-        List<ModelParam> inList = new LinkedList<ModelParam>();
+        List<ModelParam> inList = new LinkedList<>();
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if (OUT_PARAM.equals(modelParam.mode)) continue;
@@ -1264,78 +1257,74 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         // set the IN parameters
         Input input = def.createInput();
         Set<String> inParam = this.getInParamNames();
-        if (inParam != null) {
-            Message inMessage = def.createMessage();
-            inMessage.setQName(new QName(TNS, this.name + "Request"));
-            inMessage.setUndefined(false);
-            Part parametersPart = def.createPart();
-            parametersPart.setName("map-Map");
-            parametersPart.setTypeName(new QName(TNS, "map-Map"));
-            inMessage.addPart(parametersPart);
-            Element documentation = document.createElement("wsdl:documentation");
-            for (String paramName: inParam) {
-                ModelParam param = this.getParam(paramName);
-                if (!param.internal) {
-                    Part part = param.getWSDLPart(def);
-                    Element attribute = document.createElement("attribute");
-                    attribute.setAttribute("name", paramName);
-                    attribute.setAttribute("type", part.getTypeName().getLocalPart());
-                    attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
-                    attribute.setAttribute("java-class", param.type);
-                    attribute.setAttribute("optional", Boolean.toString(param.optional));
-                    documentation.appendChild(attribute);
-                }
+        Message inMessage = def.createMessage();
+        inMessage.setQName(new QName(TNS, this.name + "Request"));
+        inMessage.setUndefined(false);
+        Part parametersPart = def.createPart();
+        parametersPart.setName("map-Map");
+        parametersPart.setTypeName(new QName(TNS, "map-Map"));
+        inMessage.addPart(parametersPart);
+        Element documentation = document.createElement("wsdl:documentation");
+        for (String paramName : inParam) {
+            ModelParam param = this.getParam(paramName);
+            if (!param.internal) {
+                Part part = param.getWSDLPart(def);
+                Element attribute = document.createElement("attribute");
+                attribute.setAttribute("name", paramName);
+                attribute.setAttribute("type", part.getTypeName().getLocalPart());
+                attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
+                attribute.setAttribute("java-class", param.type);
+                attribute.setAttribute("optional", Boolean.toString(param.optional));
+                documentation.appendChild(attribute);
             }
-            Element usernameAttr = document.createElement("attribute");
-            usernameAttr.setAttribute("name", "login.username");
-            usernameAttr.setAttribute("type", "std-String");
-            usernameAttr.setAttribute("namespace", TNS);
-            usernameAttr.setAttribute("java-class", String.class.getName());
-            usernameAttr.setAttribute("optional", Boolean.toString(!this.auth));
-            documentation.appendChild(usernameAttr);
-
-            Element passwordAttr = document.createElement("attribute");
-            passwordAttr.setAttribute("name", "login.password");
-            passwordAttr.setAttribute("type", "std-String");
-            passwordAttr.setAttribute("namespace", TNS);
-            passwordAttr.setAttribute("java-class", String.class.getName());
-            passwordAttr.setAttribute("optional", Boolean.toString(!this.auth));
-            documentation.appendChild(passwordAttr);
-
-            parametersPart.setDocumentationElement(documentation);
-            def.addMessage(inMessage);
-            input.setMessage(inMessage);
         }
+        Element usernameAttr = document.createElement("attribute");
+        usernameAttr.setAttribute("name", "login.username");
+        usernameAttr.setAttribute("type", "std-String");
+        usernameAttr.setAttribute("namespace", TNS);
+        usernameAttr.setAttribute("java-class", String.class.getName());
+        usernameAttr.setAttribute("optional", Boolean.toString(!this.auth));
+        documentation.appendChild(usernameAttr);
+
+        Element passwordAttr = document.createElement("attribute");
+        passwordAttr.setAttribute("name", "login.password");
+        passwordAttr.setAttribute("type", "std-String");
+        passwordAttr.setAttribute("namespace", TNS);
+        passwordAttr.setAttribute("java-class", String.class.getName());
+        passwordAttr.setAttribute("optional", Boolean.toString(!this.auth));
+        documentation.appendChild(passwordAttr);
+
+        parametersPart.setDocumentationElement(documentation);
+        def.addMessage(inMessage);
+        input.setMessage(inMessage);
 
         // set the OUT parameters
         Output output = def.createOutput();
         Set<String> outParam = this.getOutParamNames();
-        if (outParam != null) {
-            Message outMessage = def.createMessage();
-            outMessage.setQName(new QName(TNS, this.name + "Response"));
-            outMessage.setUndefined(false);
-            Part resultsPart = def.createPart();
-            resultsPart.setName("map-Map");
-            resultsPart.setTypeName(new QName(TNS, "map-Map"));
-            outMessage.addPart(resultsPart);
-            Element documentation = document.createElement("wsdl:documentation");
-            for (String paramName: outParam) {
-                ModelParam param = this.getParam(paramName);
-                if (!param.internal) {
-                    Part part = param.getWSDLPart(def);
-                    Element attribute = document.createElement("attribute");
-                    attribute.setAttribute("name", paramName);
-                    attribute.setAttribute("type", part.getTypeName().getLocalPart());
-                    attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
-                    attribute.setAttribute("java-class", param.type);
-                    attribute.setAttribute("optional", Boolean.toString(param.optional));
-                    documentation.appendChild(attribute);
-                }
+        Message outMessage = def.createMessage();
+        outMessage.setQName(new QName(TNS, this.name + "Response"));
+        outMessage.setUndefined(false);
+        Part resultsPart = def.createPart();
+        resultsPart.setName("map-Map");
+        resultsPart.setTypeName(new QName(TNS, "map-Map"));
+        outMessage.addPart(resultsPart);
+        documentation = document.createElement("wsdl:documentation");
+        for (String paramName : outParam) {
+            ModelParam param = this.getParam(paramName);
+            if (!param.internal) {
+                Part part = param.getWSDLPart(def);
+                Element attribute = document.createElement("attribute");
+                attribute.setAttribute("name", paramName);
+                attribute.setAttribute("type", part.getTypeName().getLocalPart());
+                attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
+                attribute.setAttribute("java-class", param.type);
+                attribute.setAttribute("optional", Boolean.toString(param.optional));
+                documentation.appendChild(attribute);
             }
-            resultsPart.setDocumentationElement(documentation);
-            def.addMessage(outMessage);
-            output.setMessage(outMessage);
         }
+        resultsPart.setDocumentationElement(documentation);
+        def.addMessage(outMessage);
+        output.setMessage(outMessage);
 
         // set port type
         Operation operation = def.createOperation();
