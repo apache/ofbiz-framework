@@ -97,9 +97,10 @@ public class CCServicesTest extends OFBizTestCase {
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
+            TestCase.assertNotNull("Service returned null for parameter authResult.", result.get("authResult"));
 
-            if (((Boolean) result.get("authResult")).equals(new Boolean(false))) {          // returnCode ok?
-                Debug.logInfo("[testAuth] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
+            if ((Boolean.TRUE).equals((Boolean) result.get("authResult"))) { // returnCode ok?
+                Debug.logInfo("[testAuth] Error Messages from ClearCommerce:" + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
 
@@ -127,8 +128,9 @@ public class CCServicesTest extends OFBizTestCase {
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCCredit] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
+            TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
 
-            if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
+            if ((Boolean.FALSE).equals((Boolean) result.get("creditResult"))) {          // returnCode ok?
                 Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
@@ -159,7 +161,9 @@ public class CCServicesTest extends OFBizTestCase {
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);  // service completed ok?
-            if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
+            TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
+
+            if ((Boolean.FALSE).equals((Boolean) result.get("creditResult"))) {          // returnCode ok?
                 Debug.logInfo("[testPurchaseSubscription] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
@@ -206,7 +210,9 @@ cancelled. If the order is to be resumed, a new recurring order must be submitte
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Reporting service", ModelService.RESPOND_SUCCESS, responseMessage);  // service completed ok?
-            if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
+            TestCase.assertNotNull("Service returned null for parameter creditResult.", result.get("creditResult"));
+
+            if ((Boolean.FALSE).equals((Boolean) result.get("creditResult"))) {          // returnCode ok?
                 Debug.logInfo("[testReport] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
