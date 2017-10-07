@@ -87,7 +87,7 @@ public final class SecurityFactory {
 
         private Delegator delegator = null;
 
-        protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
+        private static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
             "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
             "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
             "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
@@ -225,7 +225,7 @@ public final class SecurityFactory {
                 entityName = simpleRoleMap.get("name");
                 String pkey = simpleRoleMap.get("pkey");
                 if (pkey != null) {
-                    List<EntityExpr> expressions = new ArrayList<EntityExpr>();
+                    List<EntityExpr> expressions = new ArrayList<>();
                     for (String role: roles) {
                         expressions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, role));
                     }
