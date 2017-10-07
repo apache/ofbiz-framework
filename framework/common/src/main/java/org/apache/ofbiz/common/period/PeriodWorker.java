@@ -31,7 +31,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 
 public final class PeriodWorker {
 
-    public static String module = PeriodWorker.class.getName();
+    private final static String module = PeriodWorker.class.getName();
 
     private PeriodWorker() {}
 
