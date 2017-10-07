@@ -161,6 +161,8 @@ public final class Config {
         case 3:
             locale = new Locale(locales[0], locales[1], locales[2]);
             break;
+        default:
+            throw new IllegalArgumentException("The combination of properties, ofbiz.locale.default and defaultLocale is invalid. " + Arrays.toString(locales));
         }
         System.setProperty("user.language", localeString);
         return locale;

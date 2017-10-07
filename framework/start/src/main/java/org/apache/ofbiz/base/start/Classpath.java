@@ -27,6 +27,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import org.apache.poi.util.LocaleUtil;
 
 /**
  * A class path accumulator.
@@ -35,7 +38,7 @@ import java.util.List;
  */
 public final class Classpath {
 
-    private List<File> elements = new ArrayList<File>();
+    private List<File> elements = new ArrayList<>();
 
     /**
      * Default constructor.
@@ -99,10 +102,16 @@ public final class Classpath {
         if (path == null) {
             throw new IllegalArgumentException("path cannot be null");
         }
+        File[] listedFiles;
         if (path.isDirectory() && path.exists()) {
             // load all .jar, .zip files and native libs in this directory
-            for (File file : path.listFiles()) {
-                String fileName = file.getName().toLowerCase();
+            listedFiles = path.listFiles();
+        } else {
+            listedFiles = null;
+        }
+        if (listedFiles != null) {
+            for (File file : listedFiles) {
+                String fileName = file.getName().toLowerCase(Locale.getDefault());
                 if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
                     File key = file.getCanonicalFile();
                     synchronized (elements) {

@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.start;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -118,7 +119,7 @@ public final class Start {
 
         @Override
         public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase();
+            return name().charAt(0) + name().substring(1).toLowerCase(Locale.getDefault());
         }
     }
 

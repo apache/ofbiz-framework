@@ -21,13 +21,16 @@ package org.apache.ofbiz.base.start;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
  * The AdminServer provides a way to communicate with a running
@@ -81,8 +84,8 @@ final class AdminServer extends Thread {
 
     private void processClientRequest(Socket client, List<StartupLoader> loaders, AtomicReference<ServerState> serverState) throws IOException {
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                PrintWriter writer = new PrintWriter(client.getOutputStream(), true)) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream(), StandardCharsets.UTF_8));
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(client.getOutputStream(), StandardCharsets.UTF_8), true)) {
 
             // read client request and prepare response
             String clientRequest = reader.readLine();
@@ -101,17 +104,22 @@ final class AdminServer extends Thread {
     }
 
     private OfbizSocketCommand determineClientCommand(String request) {
-        OfbizSocketCommand clientCommand;
-        if(request == null 
-                || request.isEmpty()
-                || !request.contains(":")
-                || !request.substring(0, request.indexOf(':')).equals(config.adminKey)
-                || request.substring(request.indexOf(':') + 1) == null) {
-            clientCommand = OfbizSocketCommand.FAIL;
-        } else {
-            clientCommand = OfbizSocketCommand.valueOf(request.substring(request.indexOf(':') + 1));
+        if(!isValidRequest(request)) {
+            return OfbizSocketCommand.FAIL;
         }
-        return clientCommand;
+        return OfbizSocketCommand.valueOf(request.substring(request.indexOf(':') + 1));
+    }
+
+    /**
+     * Validates if request is a suitable String
+     * @param request
+     * @return boolean which shows if request is suitable
+     */
+    private boolean isValidRequest(String request) {
+        return UtilValidate.isNotEmpty(request)
+                && request.contains(":")
+                && request.substring(0, request.indexOf(':')).equals(config.adminKey)
+                && !request.substring(request.indexOf(':') + 1).isEmpty();
     }
 
     private String prepareResponseToClient(OfbizSocketCommand control, AtomicReference<ServerState> serverState) {

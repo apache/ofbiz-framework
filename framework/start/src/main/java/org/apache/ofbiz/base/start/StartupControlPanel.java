@@ -158,6 +158,14 @@ final class StartupControlPanel {
                 stream.close();
             } catch (IOException e) {
                 throw new StartupException("Couldn't load global system props", e);
+            } finally {
+                try {
+                    if (stream != null) {
+                    stream.close();
+                    } 
+                } catch (IOException e) {
+                    System.out.println("There was a problem while closing the Stream " + e);
+                }
             }
         }
     }

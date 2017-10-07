@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.start;
 
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -175,7 +177,7 @@ public final class StartupCommandUtil {
     static final void printOfbizStartupHelp(final PrintStream printStream) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
-                new PrintWriter(printStream, true),
+                new PrintWriter(new OutputStreamWriter(printStream, StandardCharsets.UTF_8), true),
                 HelpFormatter.DEFAULT_WIDTH + 6,
                 "ofbiz|ofbizDebug|ofbizBackground",
                 System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",

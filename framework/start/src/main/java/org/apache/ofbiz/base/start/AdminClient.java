@@ -21,9 +21,11 @@ package org.apache.ofbiz.base.start;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.ofbiz.base.start.AdminServer.OfbizSocketCommand;
 
@@ -74,9 +76,8 @@ class AdminClient {
     private static String sendSocketCommand(OfbizSocketCommand socketCommand, Config config) throws IOException {
         String response = "OFBiz is Down";
         try (Socket socket = new Socket(config.adminAddress, config.adminPort);
-                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
             // send the command
             writer.println(config.adminKey + ":" + socketCommand);
             writer.flush();
