@@ -65,14 +65,13 @@ public class AuthenticationComparator implements Comparator<Authenticator> {
      *                            being compared by this Comparator.
      */
     public int compare(Authenticator a1, Authenticator a2) {
-        if (a1.getWeight() < a2.getWeight()) {
-            return -1;
-        } else if (a1.getWeight() > a2.getWeight()) {
-            return 1;
-        } else if (!a1.getClass().equals(a2.getClass())) {
-            return -1;
-        } else {
-            return a1.getClass().getName().compareTo(a2.getClass().getName());
+        int comp = Float.compare(a1.getWeight(), a2.getWeight());
+        if (comp != 0) {
+            return (int) Math.signum(comp);
         }
+        if (!a1.getClass().equals(a2.getClass())) {
+            return -1;
+        }
+        return a1.getClass().getName().compareTo(a2.getClass().getName());
     }
 }
