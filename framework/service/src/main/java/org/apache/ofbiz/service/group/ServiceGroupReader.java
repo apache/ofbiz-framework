@@ -40,7 +40,7 @@ public class ServiceGroupReader {
     public static final String module = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
-    public static Map<String, GroupModel> groupsCache = new ConcurrentHashMap<String, GroupModel>();
+    private static final Map<String, GroupModel> groupsCache = new ConcurrentHashMap<String, GroupModel>();
 
     public static void readConfig() {
         List<ServiceGroups> serviceGroupsList = null;
@@ -75,7 +75,7 @@ public class ServiceGroupReader {
 
         for (Element group: UtilXml.childElementList(rootElement, "group")) {
             String groupName = group.getAttribute("name");
-            if (groupName == null || groupName.isEmpty()) {
+            if (groupName.isEmpty()) {
                 Debug.logError("XML Parsing error: <group> element 'name' attribute null or empty", module);
                 continue;
             }
