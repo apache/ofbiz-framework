@@ -48,11 +48,11 @@ import groovy.lang.Script;
 public final class GroovyEngine extends GenericAsyncEngine {
 
     public static final String module = GroovyEngine.class.getName();
-    protected static final Object[] EMPTY_ARGS = {};
+    private static final Object[] EMPTY_ARGS = {};
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
-        Set<String> newSet = new HashSet<String>();
+        Set<String> newSet = new HashSet<>();
         /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
         newSet.add(ScriptUtil.PARAMETERS_KEY);
         */
@@ -87,10 +87,10 @@ public final class GroovyEngine extends GenericAsyncEngine {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.putAll(context);
 
-        Map<String, Object> gContext = new HashMap<String, Object>();
+        Map<String, Object> gContext = new HashMap<>();
         gContext.putAll(context);
         gContext.put(ScriptUtil.PARAMETERS_KEY, params);
 
