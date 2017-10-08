@@ -65,7 +65,7 @@ public class HttpEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Cannot serialize context.", e);
         }
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("serviceName", modelService.invoke);
         if (xmlContext != null)
             parameters.put("serviceContext", xmlContext);
@@ -114,7 +114,7 @@ public class HttpEngine extends GenericAsyncEngine {
         String serviceMode = request.getParameter("serviceMode");
         String xmlContext = request.getParameter("serviceContext");
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Map<String, Object> context = null;
 
         if (serviceName == null)
@@ -182,10 +182,10 @@ public class HttpEngine extends GenericAsyncEngine {
             response.setContentType("plain/text");
 
             if (errorMessage.length() > 0) {
-                response.setContentLength(errorMessage.toString().getBytes().length);
+                response.setContentLength(errorMessage.toString().getBytes("UTF-8").length);
                 out.write(errorMessage.toString());
             } else {
-                response.setContentLength(resultString.getBytes().length);
+                response.setContentLength(resultString.getBytes("UTF-8").length);
                 out.write(resultString);
             }
 
