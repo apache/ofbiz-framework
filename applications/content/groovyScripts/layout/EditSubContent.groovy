@@ -40,10 +40,8 @@ if (currentValue) {
         ctx.rootDir = rootDir
         // webSiteId and https need to go here, too
         templateRoot.context = ctx
-        out = new StringWriter()
         currentValue.drDataTemplateTypeId = "NONE"
-        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, null, false)
-        textData = out.toString()
+        textData = DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, templateRoot, locale, null, false)
         context.textData = textData
     }
 }
