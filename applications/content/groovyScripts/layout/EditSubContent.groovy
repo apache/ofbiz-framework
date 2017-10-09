@@ -41,7 +41,7 @@ if (currentValue) {
         // webSiteId and https need to go here, too
         templateRoot.context = ctx
         currentValue.drDataTemplateTypeId = "NONE"
-        textData = DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, templateRoot, locale, null, false)
+        textData = DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, templateRoot, locale, mimeTypeId, false)
         context.textData = textData
     }
 }
