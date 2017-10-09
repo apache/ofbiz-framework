@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
-import org.apache.ofbiz.base.util.Debug;
 
 /**
  * The StartupControlPanel controls OFBiz by executing high level
@@ -81,12 +80,12 @@ final class StartupControlPanel {
     private static void printStartupMessage(Config config) {
         if (!config.shutdownAfterLoad) {
             String lineSeparator = System.lineSeparator();
-            Debug.logInfo(  lineSeparator + "   ____  __________  _" +
-                            lineSeparator + "  / __ \\/ ____/ __ )(_)___" +
-                            lineSeparator + " / / / / /_  / __  / /_  /" +
-                            lineSeparator + "/ /_/ / __/ / /_/ / / / /_" +
-                            lineSeparator + "\\____/_/   /_____/_/ /___/  is started and ready." +
-                            lineSeparator, module);
+            System.out.println(lineSeparator + "   ____  __________  _" +
+                               lineSeparator + "  / __ \\/ ____/ __ )(_)___" +
+                               lineSeparator + " / / / / /_  / __  / /_  /" +
+                               lineSeparator + "/ /_/ / __/ / /_/ / / / /_" +
+                               lineSeparator + "\\____/_/   /_____/_/ /___/  is started and ready." +
+                               lineSeparator);
         }
     }
 
