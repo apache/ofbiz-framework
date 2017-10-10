@@ -174,13 +174,13 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             // when the main Map doesn't have a certain value
             if (resourceBundle != null) {
                 Set<String> set = resourceBundle.keySet();
-                topLevelMap = new HashMap<String, Object>(set.size());
+                topLevelMap = new HashMap<>(set.size());
                 for (String key : set) {
                     Object value = resourceBundle.getObject(key);
                     topLevelMap.put(key, value);
                 }
             } else {
-                topLevelMap = new HashMap<String, Object>(1);
+                topLevelMap = new HashMap<>(1);
             }
             topLevelMap.put("_RESOURCE_BUNDLE_", resourceBundle);
             isMapInitialized = true;
@@ -190,13 +190,12 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         /* (non-Javadoc)
          * @see java.util.Map#size()
          */
-        public int size() {            
+        public int size() {
             if(isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
                 return topLevelMap.size() -1;
-            } else {
-                return resourceBundle.keySet().size();                        
             }
+            return resourceBundle.keySet().size();
         }
 
         /* (non-Javadoc)
@@ -205,9 +204,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         public boolean isEmpty() {
             if (isMapInitialized) {
                 return topLevelMap.isEmpty();
-            } else {
-                return resourceBundle.keySet().size() == 0;
             }
+            return resourceBundle.keySet().size() == 0;
         }
 
         /* (non-Javadoc)
@@ -220,9 +218,10 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                 }
             } else {
                 try {
-                    if (this.resourceBundle.getObject((String) arg0) != null) {
-                        return true;
-                    }
+                    //the following will just be executed to check if arg0 is null, 
+                    //if so the thrown exception will be caught, if not true will be returned
+                    this.resourceBundle.getObject((String) arg0);
+                    return true;
                 } catch (NullPointerException e) {
                     // happens when arg0 is null
                 } catch (MissingResourceException e) {
