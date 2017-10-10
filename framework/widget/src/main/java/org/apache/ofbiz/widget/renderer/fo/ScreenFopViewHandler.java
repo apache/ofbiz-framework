@@ -28,6 +28,7 @@ import java.io.Writer;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
@@ -36,6 +37,7 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.pdf.PDFEncryptionParams;
 import org.apache.fop.render.pdf.PDFEncryptionOption;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -52,6 +54,9 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.xml.sax.SAXException;
+
+import freemarker.template.TemplateException;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
@@ -96,7 +101,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             screens.getContext().put("formStringRenderer", formStringRenderer);
             screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder(getName())));
             screens.render(page);
-        } catch (Exception e) {
+        } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException e) {
             renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);
             return;
         }
@@ -198,7 +203,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             response.setContentType("text/html");
             response.getWriter().write(writer.toString());
             writer.close();
-        } catch (Exception x) {
+        } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException x) {
             Debug.logError("Multiple errors rendering FOP", module);
             throw new ViewHandlerException("Multiple errors rendering FOP", x);
         }
