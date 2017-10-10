@@ -43,7 +43,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     public static final String module = MapContext.class.getName();
 
     public static final <K, V> MapContext<K, V> getMapContext() {
-        return new MapContext<K, V>();
+        return new MapContext<>();
     }
 
     public static <K, V> MapContext<K, V> createMapContext() {
@@ -75,15 +75,15 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         super();
     }
 
-    protected List<Map<K, V>> stackList = new LinkedList<Map<K, V>>();
+    protected List<Map<K, V>> stackList = new LinkedList<>();
 
     public void reset() {
-        stackList = new LinkedList<Map<K, V>>();
+        stackList = new LinkedList<>();
     }
 
     /** Puts a new Map on the top of the stack */
     public void push() {
-        Map<K, V> newMap = new HashMap<K, V>();
+        Map<K, V> newMap = new HashMap<>();
         this.stackList.add(0,newMap);
     }
 
@@ -108,9 +108,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         // always leave at least one Map in the List, ie never pop off the last Map
         if (this.stackList.size() > 1) {
             return stackList.remove(0);
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -177,7 +176,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     public boolean containsValue(Object value) {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, consider it an option, otherwise ignore
-        Set<K> resultKeySet = new HashSet<K>();
+        Set<K> resultKeySet = new HashSet<>();
         for (Map<K, V> curMap: this.stackList) {
             for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
@@ -222,9 +221,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
                 if (curMap instanceof LocalizedMap<?>) {
                     LocalizedMap<V> lmap = UtilGenerics.cast(curMap);
                     return lmap.get(name, locale);
-                } else {
-                    return curMap.get(name);
                 }
+                return curMap.get(name);
             }
         }
         return null;
@@ -270,7 +268,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     public Set<K> keySet() {
         // walk the stackList and aggregate all keys
-        Set<K> resultSet = new HashSet<K>();
+        Set<K> resultSet = new HashSet<>();
         for (Map<K, V> curMap: this.stackList) {
             resultSet.addAll(curMap.keySet());
         }
@@ -282,8 +280,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     public Collection<V> values() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set<K> resultKeySet = new HashSet<K>();
-        List<V> resultValues = new LinkedList<V>();
+        Set<K> resultKeySet = new HashSet<>();
+        List<V> resultValues = new LinkedList<>();
         for (Map<K, V> curMap: this.stackList) {
             for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
@@ -300,8 +298,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     public Set<Map.Entry<K, V>> entrySet() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set<K> resultKeySet = new HashSet<K>();
-        Set<Map.Entry<K, V>> resultEntrySet = new ListSet<Map.Entry<K, V>>();
+        Set<K> resultKeySet = new HashSet<>();
+        Set<Map.Entry<K, V>> resultEntrySet = new ListSet<>();
         for (Map<K, V> curMap: this.stackList) {
             for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
@@ -338,12 +336,12 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         return fullMapString.toString();
     }
 
-    private static final class ListSet<E> extends AbstractSet<E> implements Set<E> {
+    private static final class ListSet<E> extends AbstractSet<E> {
 
-        protected final List<E> listImpl;
+        private final List<E> listImpl;
 
         public ListSet() {
-            this.listImpl = new ArrayList<E>();
+            this.listImpl = new ArrayList<>();
         }
 
         public int size() {
