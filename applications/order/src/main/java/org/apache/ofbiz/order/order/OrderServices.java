@@ -1919,9 +1919,7 @@ public class OrderServices {
             // find the next status to set to (if any)
             String newStatus = null;
             if (allCanceled) {
-                if (!"PURCHASE_ORDER".equals(orderTypeId)) {
-                    newStatus = "ORDER_CANCELLED";
-                }
+                newStatus = "ORDER_CANCELLED";
             } else if (allComplete) {
                 newStatus = "ORDER_COMPLETED";
             } else if (allApproved) {
