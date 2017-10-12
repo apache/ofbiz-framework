@@ -19,10 +19,12 @@
 package org.apache.ofbiz.base.crypto;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -51,7 +53,7 @@ public class HashCrypt {
     private static final String PBKDF2_SHA384 ="PBKDF2-SHA384";
     private static final String PBKDF2_SHA512 ="PBKDF2-SHA512";
     private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 10000);
-    
+
     public static MessageDigest getMessageDigest(String type) {
         try {
             return MessageDigest.getInstance(type);
@@ -64,13 +66,11 @@ public class HashCrypt {
         if (crypted.startsWith("{PBKDF2")) {
             return doComparePbkdf2(crypted, password);
         } else if (crypted.startsWith("{")) {
-            // FIXME: should have been getBytes("UTF-8") originally
-            return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
+            return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
         } else if (crypted.startsWith("$")) {
             return doComparePosix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
         } else {
-            // FIXME: should have been getBytes("UTF-8") originally
-            return doCompareBare(crypted, defaultCrypt, password.getBytes());
+            return doCompareBare(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
         }
     }
 
@@ -122,8 +122,7 @@ public class HashCrypt {
         if (hashType.startsWith("PBKDF2")) {
             return password != null ? pbkdf2HashCrypt(hashType, salt, password) : null;
         }
-        // FIXME: should have been getBytes("UTF-8") originally
-        return password != null ? cryptBytes(hashType, salt, password.getBytes()) : null;
+        return password != null ? cryptBytes(hashType, salt, password.getBytes(UtilIO.getUtf8())) : null;
     }
 
     public static String cryptUTF8(String hashType, String salt, String value) {
@@ -137,7 +136,7 @@ public class HashCrypt {
         if (hashType.startsWith("PBKDF2")) {
             return value != null ? pbkdf2HashCrypt(hashType, salt, value) : null;
         }
-        return value != null ? cryptBytes(hashType, salt, value.getBytes()) : null;
+        return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
     }
 
     public static String cryptBytes(String hashType, String salt, byte[] bytes) {
@@ -175,26 +174,26 @@ public class HashCrypt {
             byte[] hash = Base64.encodeBase64(skf.generateSecret(spec).getEncoded());
             String pbkdf2Type = null;
             switch (hashType) {
-                case "PBKDF2WithHmacSHA1":
-                    pbkdf2Type = PBKDF2_SHA1;
-                    break;
-                case "PBKDF2WithHmacSHA256":
-                    pbkdf2Type = PBKDF2_SHA256;
-                    break;
-                case "PBKDF2WithHmacSHA384":
-                    pbkdf2Type = PBKDF2_SHA384;
-                    break;
-                case "PBKDF2WithHmacSHA512":
-                    pbkdf2Type = PBKDF2_SHA512;
-                    break;
-                default: 
-                    pbkdf2Type = PBKDF2_SHA1; 
+            case "PBKDF2WithHmacSHA1":
+                pbkdf2Type = PBKDF2_SHA1;
+                break;
+            case "PBKDF2WithHmacSHA256":
+                pbkdf2Type = PBKDF2_SHA256;
+                break;
+            case "PBKDF2WithHmacSHA384":
+                pbkdf2Type = PBKDF2_SHA384;
+                break;
+            case "PBKDF2WithHmacSHA512":
+                pbkdf2Type = PBKDF2_SHA512;
+                break;
+            default:
+                pbkdf2Type = PBKDF2_SHA1;
             }
             StringBuilder sb = new StringBuilder();
             sb.append("{").append(pbkdf2Type).append("}");
             sb.append(PBKDF2_ITERATIONS).append("$");
             sb.append(org.apache.ofbiz.base.util.Base64.base64Encode(salt)).append("$");
-            sb.append(new String(hash)).toString();
+            sb.append(new String(hash));
             return sb.toString();
         } catch (InvalidKeySpecException e) {
             throw new GeneralRuntimeException("Error while creating SecretKey", e);
@@ -209,9 +208,9 @@ public class HashCrypt {
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd+1));
-            byte[] salt = org.apache.ofbiz.base.util.Base64.base64Decode(parts[1]).getBytes();
-            byte[] hash = Base64.decodeBase64(parts[2].getBytes());
-            
+            byte[] salt = org.apache.ofbiz.base.util.Base64.base64Decode(parts[1]).getBytes(UtilIO.getUtf8());
+            byte[] hash = Base64.decodeBase64(parts[2].getBytes(UtilIO.getUtf8()));
+
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
             switch (hashType.substring(hashType.indexOf("-")+1)) {
                 case "SHA256":
@@ -247,7 +246,7 @@ public class HashCrypt {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
             byte[] salt = new byte[16];
             sr.nextBytes(salt);
-            return salt.toString();
+            return Arrays.toString(salt);
         } catch (NoSuchAlgorithmException e) {
             throw new GeneralRuntimeException("Error while creating salt", e);
         }
@@ -257,7 +256,8 @@ public class HashCrypt {
         if (str == null) return null;
         byte[] codeBytes;
         try {
-            if (code == null) codeBytes = str.getBytes();
+            if (code == null)
+                codeBytes = str.getBytes(UtilIO.getUtf8());
             else codeBytes = str.getBytes(code);
         } catch (UnsupportedEncodingException e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
@@ -336,7 +336,7 @@ public class HashCrypt {
         if (str == null) return null;
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            byte[] strBytes = str.getBytes();
+            byte[] strBytes = str.getBytes(UtilIO.getUtf8());
 
             messagedigest.update(strBytes);
             return oldFunnyHex(messagedigest.digest());
