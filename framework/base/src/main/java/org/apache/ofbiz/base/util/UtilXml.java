@@ -35,6 +35,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.jms.IllegalStateException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -463,15 +464,18 @@ public final class UtilXml {
         Document document = null;
 
         DOMParser parser = new DOMParser() {
-            private XMLLocator locator;
+            private XMLLocator locator = null;
 
             private void setLineColumn(Node node) {
+                if (locator == null) {
+                    throw new java.lang.IllegalStateException("XMLLocator is null");
+                }
                 if (node.getUserData("startLine") != null) {
                     return;
                 }
-                node.setUserData("systemId",locator.getLiteralSystemId(), null);
-                node.setUserData("startLine",locator.getLineNumber(), null);
-                node.setUserData("startColumn",locator.getColumnNumber(), null);
+                node.setUserData("systemId", locator.getLiteralSystemId(), null);
+                node.setUserData("startLine", locator.getLineNumber(), null);
+                node.setUserData("startColumn", locator.getColumnNumber(), null);
             }
 
             private void setLineColumn() {
@@ -825,7 +829,7 @@ public final class UtilXml {
 
                     String value = childElement.getAttribute(attrName);
 
-                    if (value != null && value.equals(attrValue)) {
+                    if (value.equals(attrValue)) {
                         return childElement;
                     }
                 }
@@ -1012,7 +1016,7 @@ public final class UtilXml {
                     if (Debug.verboseOn()) Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId [" +
                             publicId + "] and the dtd file is [" + dtd + "]", module);
                     return inputSource;
-                } catch (Exception e) {
+                } catch (GeneralException | IOException e) {
                     Debug.logWarning(e, module);
                 }
             } else {

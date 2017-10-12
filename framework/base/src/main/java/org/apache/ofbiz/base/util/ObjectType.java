@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -118,7 +119,7 @@ public class ObjectType {
         // Handle array classes. Details in http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16437
         if (className.endsWith("[]")) {
             if (Character.isLowerCase(className.charAt(0)) && className.indexOf(".") < 0) {
-               String prefix = className.substring(0, 1).toUpperCase();
+                String prefix = className.substring(0, 1).toUpperCase(Locale.getDefault());
                // long and boolean have other prefix than first letter
                if (className.startsWith("long")) {
                    prefix = "J";
@@ -526,7 +527,10 @@ public class ObjectType {
         Converter<Object, Object> converter = null;
         try {
             converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
-        } catch (ClassNotFoundException e) {}
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
+
         if (converter != null) {
             if (converter instanceof LocalizedConverter) {
                 @SuppressWarnings("rawtypes")

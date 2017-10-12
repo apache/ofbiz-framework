@@ -76,9 +76,7 @@ public class JNDIContextFactory {
                 throw new GenericConfigException(errorMsg, e);
             }
 
-            if (ic != null) {
-                ic = contexts.putIfAbsentAndGet(jndiServerName, ic);
-            }
+            ic = contexts.putIfAbsentAndGet(jndiServerName, ic);
         }
 
         return ic;

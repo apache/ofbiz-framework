@@ -30,12 +30,13 @@ import java.util.Map;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
  * HttpRequestFileUpload - Receive a file upload through an HttpServletRequest
  *
  */
 public class HttpRequestFileUpload {
-
+    private static final String module = HttpRequestFileUpload.class.getName();
     private int BUFFER_SIZE = 4096;
     private int WAIT_INTERVAL = 200; // in milliseconds
     private int MAX_WAITS = 20;
@@ -115,7 +116,7 @@ public class HttpRequestFileUpload {
         int requestLength = 0;
 
         try {
-            requestLength = Integer.valueOf(reqLengthString).intValue();
+            requestLength = Integer.parseInt(reqLengthString);
         } catch (Exception e2) {
             e2.printStackTrace();
             return;
@@ -130,7 +131,7 @@ public class HttpRequestFileUpload {
             return;
         int boundaryLength = i - 2;
 
-        String boundary = new String(line, 0, boundaryLength); // -2 discards the newline character
+        String boundary = new String(line, 0, boundaryLength, UtilIO.getUtf8()); // -2 discards the newline character
 
         System.out.println("boundary=[" + boundary + "] length is " + boundaryLength);
         fields = new HashMap<String, String>();
@@ -139,23 +140,22 @@ public class HttpRequestFileUpload {
             String newLine = "";
 
             if (i > -1) {
-                newLine = new String(line, 0, i);
+                newLine = new String(line, 0, i, UtilIO.getUtf8());
             }
             if (newLine.startsWith("Content-Disposition: form-data; name=\"")) {
                 if (newLine.indexOf("filename=\"") != -1) {
-                    setFilename(new String(line, 0, i - 2));
+                    setFilename(new String(line, 0, i - 2, UtilIO.getUtf8()));
                     if (filename == null)
                         return;
                     // this is the file content
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
 
-                    setContentType(new String(line, 0, i - 2));
+                    setContentType(new String(line, 0, i - 2, UtilIO.getUtf8()));
 
                     // blank line
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
-                    newLine = new String(line, 0, i);
                     String filenameToUse = filename;
 
                     if (overrideFilename != null) {
@@ -165,8 +165,6 @@ public class HttpRequestFileUpload {
                     // first line of actual file
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
-                    newLine = new String(line, 0, i);
-
                     byte[] lastTwoBytes = new byte[2];
 
                     if (i > 1) {
@@ -175,51 +173,63 @@ public class HttpRequestFileUpload {
                     }
                     System.out.println("about to create a file:" + (savePath == null ? "" : savePath) + filenameToUse);
                     // before creating the file make sure directory exists
+                    if (savePath == null) {
+                        throw new IllegalArgumentException("savePath is null");
+                    }
                     File savePathFile = new File(savePath);
                     if (!savePathFile.exists()) {
-                        savePathFile.mkdirs();
+                        if (!savePathFile.mkdirs()) {
+                            Debug.logError("Directory could not be created", filenameToUse);
+                        }
+
                     }
-                    FileOutputStream fos = new FileOutputStream((savePath == null ? "" : savePath) + filenameToUse);
-                    boolean bail = (new String(line, 0, i).startsWith(boundary));
-                    boolean oneByteLine = (i == 1); // handle one-byte lines
+                    try (
+                            FileOutputStream fos = new FileOutputStream(savePath + filenameToUse);) {
+                        boolean bail = (new String(line, 0, i, UtilIO.getUtf8()).startsWith(boundary));
+                        boolean oneByteLine = (i == 1); // handle one-byte lines
 
-                    while ((requestLength > 0/* i != -1*/) && !bail) {
+                        while ((requestLength > 0/* i != -1 */) && !bail) {
 
-                        // write the current buffer, except the last 2 bytes;
-                        if (i > 1) {
-                            fos.write(line, 0, i - 2);
+                            // write the current buffer, except the last 2 bytes;
+                            if (i > 1) {
+                                fos.write(line, 0, i - 2);
+                            }
+
+                            oneByteLine = (i == 1); // we need to track on-byte lines differently
+
+                            i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
+                            requestLength -= i;
+
+                            // the problem is the last line of the file content
+                            // contains the new line character.
+
+                            // if the line just read was the last line, we're done.
+                            // if not, we must write the last 2 bytes of the previous buffer
+                            // just assume that a one-byte line isn't the last line
+
+                            if (requestLength < 1) {
+                                bail = true;
+                            } else if (oneByteLine) {
+                                fos.write(lastTwoBytes, 0, 1); // we only saved one byte
+                            } else {
+                                fos.write(lastTwoBytes, 0, 2);
+                            }
+
+                            if (i > 1) {
+                                // save the last 2 bytes of the buffer
+                                lastTwoBytes[0] = line[i - 2];
+                                lastTwoBytes[1] = line[i - 1];
+                            } else {
+                                lastTwoBytes[0] = line[0]; // only save one byte
+                            }
                         }
-
-                        oneByteLine = (i == 1); // we need to track on-byte lines differently
-
-                        i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
-                        requestLength -= i;
-
-                        // the problem is the last line of the file content
-                        // contains the new line character.
-
-                        // if the line just read was the last line, we're done.
-                        // if not, we must write the last 2 bytes of the previous buffer
-                        // just assume that a one-byte line isn't the last line
-
-                        if (requestLength < 1) {
-                            bail = true;
-                        } else if (oneByteLine) {
-                            fos.write(lastTwoBytes, 0, 1); // we only saved one byte
-                        } else {
-                            fos.write(lastTwoBytes, 0, 2);
-                        }
-
-                        if (i > 1) {
-                            // save the last 2 bytes of the buffer
-                            lastTwoBytes[0] = line[i - 2];
-                            lastTwoBytes[1] = line[i - 1];
-                        } else {
-                            lastTwoBytes[0] = line[0]; // only save one byte
-                        }
+                        fos.flush();
+                        fos.close();
+                    } catch (RuntimeException e) {
+                        throw e;
+                    } catch (Exception e) {
+                        Debug.logError(e, module);
                     }
-                    fos.flush();
-                    fos.close();
                 } else {
                     // this is a field
                     // get the field name
@@ -231,7 +241,7 @@ public class HttpRequestFileUpload {
                     requestLength -= i;
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
-                    newLine = new String(line, 0, i);
+                    newLine = new String(line, 0, i, UtilIO.getUtf8());
                     StringBuilder fieldValue = new StringBuilder(BUFFER_SIZE);
 
                     while (requestLength > 0/* i != -1*/ && !newLine.startsWith(boundary)) {
@@ -246,7 +256,7 @@ public class HttpRequestFileUpload {
                             fieldValue.append(newLine.substring(0, newLine.length() - 2));
                         else
                             fieldValue.append(newLine);
-                        newLine = new String(line, 0, i);
+                        newLine = new String(line, 0, i, UtilIO.getUtf8());
                     }
                     fields.put(fieldName, fieldValue.toString());
                 }

@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.util;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -142,7 +143,7 @@ public final class UtilValidate {
 
     /** An array of ints representing the number of days in each month of the year.
      *  Note: February varies depending on the year */
-    public static final int[] daysInMonth = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    static final int[] daysInMonth = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     /** Delimiter for USStateCodes String */
     public static final String USStateCodeDelimiter = "|";
@@ -841,7 +842,7 @@ public final class UtilValidate {
                 calendar.set(yearInt, monthInt - 1, 0, 0, 0, 0);
                 calendar.add(Calendar.MONTH, 1);
                 passed = new java.util.Date(calendar.getTime().getTime());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 passed = null;
             }
         } else {
@@ -883,7 +884,7 @@ public final class UtilValidate {
                 calendar.set(yearInt, monthInt - 1, 0, 0, 0, 0);
                 calendar.add(Calendar.MONTH, 1);
                 passed = new java.util.Date(calendar.getTime().getTime());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 passed = null;
             }
         } else {
@@ -1274,7 +1275,7 @@ public final class UtilValidate {
         // "P.0. B"
         // "P0 B"
 
-        String sl = s.toLowerCase();
+        String sl = s.toLowerCase(Locale.getDefault());
         if (sl.indexOf("p.o. b") != -1) return false;
         if (sl.indexOf("p.o.b") != -1) return false;
         if (sl.indexOf("p.o b") != -1) return false;

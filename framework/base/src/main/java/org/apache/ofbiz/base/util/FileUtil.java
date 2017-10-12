@@ -22,13 +22,16 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.MalformedURLException;
@@ -147,21 +150,13 @@ public final class FileUtil {
     }
 
     public static void writeString(String path, String name, String s) throws IOException {
-        Writer out = getBufferedWriter(path, name);
 
-        try {
+        try (
+        Writer out = getBufferedWriter(path, name);
+        ) {
             out.write(s + System.getProperty("line.separator"));
         } catch (IOException e) {
             Debug.logError(e, module);
-            throw e;
-        } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
         }
     }
 
@@ -203,7 +198,7 @@ public final class FileUtil {
             throw new IOException("Cannot obtain buffered writer for an empty filename!");
         }
 
-        return new BufferedWriter(new FileWriter(fileName));
+        return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), UtilIO.getUtf8()));
     }
 
     public static OutputStream getBufferedOutputStream(String path, String name) throws IOException {
@@ -245,9 +240,9 @@ public final class FileUtil {
         }
 
         StringBuffer buf = new StringBuffer();
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader(file));
+        try (
+                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO
+                        .getUtf8()));) {
 
             String str;
             while ((str = in.readLine()) != null) {
@@ -258,15 +253,6 @@ public final class FileUtil {
             }
         } catch (IOException e) {
             Debug.logError(e, module);
-            throw e;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
         }
 
         return buf;
@@ -386,17 +372,16 @@ public final class FileUtil {
    public static boolean containsString(final String fileName, final String searchString) throws IOException {
        File inFile = new File(fileName);
        if (inFile.exists()) {
-           BufferedReader in = new BufferedReader(new FileReader(inFile));
-           try {
+            try (
+           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),UtilIO.getUtf8()));
+            ) {
                return containsString(in, searchString);
-           } finally {
-               if (in != null)in.close();
            }
        } else {
            return false;
        }
    }
-   
+
    /**
    *
    *
@@ -411,5 +396,5 @@ public final class FileUtil {
        File f = new File(fileName);
        return f.isFile();
    }
-   
+
 }

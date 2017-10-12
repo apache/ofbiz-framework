@@ -168,6 +168,8 @@ public class GroovyUtil {
                 }
             }
             return scriptClass;
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new GeneralException("Error loading Groovy script at [" + location + "]: ", e);
         }

@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.util;
 
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -86,7 +87,7 @@ public final class Debug {
     /** Gets an Integer representing the level number from a String representing the level name; will return null if not found */
     public static Integer getLevelFromString(String levelName) {
         if (levelName == null) return null;
-        return levelStringMap.get(levelName.toLowerCase());
+        return levelStringMap.get(levelName.toLowerCase(Locale.getDefault()));
     }
 
     public static void log(int level, Throwable t, String msg, String module) {

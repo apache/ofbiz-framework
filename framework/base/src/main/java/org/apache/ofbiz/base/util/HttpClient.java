@@ -29,6 +29,7 @@ import java.net.URLConnection;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -365,7 +366,7 @@ public class HttpClient {
             if (Debug.verboseOn() || debug) Debug.logVerbose("Content-Type: " + contentType, module);
 
             if (contentType != null) {
-                contentType = contentType.toUpperCase();
+                contentType = contentType.toUpperCase(Locale.getDefault());
                 int charsetEqualsLoc = contentType.indexOf("=", contentType.indexOf("CHARSET"));
                 int afterSemiColon = contentType.indexOf(";", charsetEqualsLoc);
                 if (charsetEqualsLoc >= 0 && afterSemiColon >= 0) {
@@ -378,7 +379,9 @@ public class HttpClient {
                 if (Debug.verboseOn() || debug) Debug.logVerbose("Getting text from HttpClient with charset: " + charset, module);
             }
 
-            BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in) : new InputStreamReader(in, charset));
+            try (
+                    BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in)
+                            : new InputStreamReader(in, charset))) {
             String line = "";
 
             if (Debug.verboseOn() || debug) Debug.logVerbose("---- HttpClient Response Content ----", module);
@@ -389,6 +392,9 @@ public class HttpClient {
                     buf.append("\n");
                 }
             }
+            }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new HttpClientException("Error processing input stream", e);
         }
@@ -476,17 +482,21 @@ public class HttpClient {
             }
 
             if (method.equalsIgnoreCase("post")) {
-                OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(), this.streamCharset != null ? this.streamCharset : "UTF-8");
-                if (Debug.verboseOn() || debug) Debug.logVerbose("Opened output stream", module);
+                try (
+                        OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(),
+                                this.streamCharset != null ? this.streamCharset : "UTF-8")) {
+                    if (Debug.verboseOn() || debug)
+                        Debug.logVerbose("Opened output stream", module);
 
-                if (arguments != null) {
-                    out.write(arguments);
-                    if (Debug.verboseOn() || debug) Debug.logVerbose("Wrote arguements (parameters) : " + arguments, module);
+                    if (arguments != null) {
+                        out.write(arguments);
+                        if (Debug.verboseOn() || debug)
+                            Debug.logVerbose("Wrote arguements (parameters) : " + arguments, module);
+                    }
+
+                    if (Debug.verboseOn() || debug)
+                        Debug.logVerbose("Flushed and closed buffer", module);
                 }
-
-                out.flush();
-                out.close();
-                if (Debug.verboseOn() || debug) Debug.logVerbose("Flushed and closed buffer", module);
             }
 
             if (Debug.verboseOn() || debug) {
@@ -501,6 +511,8 @@ public class HttpClient {
                 return sendHttpRequestStream(method, true);
             }
             throw new HttpClientException("IO Error processing request", ioe);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new HttpClientException("Error processing request", e);
         }

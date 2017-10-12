@@ -235,7 +235,9 @@ public class StringUtil {
             }
 
             try {
-                decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
+                if (value != null && name != null) {
+                    decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
+                }
             } catch (UnsupportedEncodingException e1) {
                 Debug.logError(e1, module);
             }

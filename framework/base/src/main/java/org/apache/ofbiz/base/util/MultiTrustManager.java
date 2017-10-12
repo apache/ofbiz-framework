@@ -112,7 +112,6 @@ public class MultiTrustManager implements X509TrustManager {
     protected boolean isTrusted(X509Certificate[] cert) {
         if (cert != null) {
             X509Certificate[] issuers = this.getAcceptedIssuers();
-            if (issuers != null) {
                 for (X509Certificate issuer: issuers) {
                     for (X509Certificate c: cert) {
                         if (Debug.verboseOn())
@@ -121,7 +120,6 @@ public class MultiTrustManager implements X509TrustManager {
                             if (Debug.verboseOn())
                                 Debug.logInfo("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
                             return true;
-                        }
                     }
                 }
             }

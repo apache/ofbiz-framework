@@ -30,19 +30,19 @@ import java.rmi.server.RMISocketFactory;
  * on a specified network interface.  
  */
 public class RMIExtendedSocketFactory extends RMISocketFactory {
-    
+
     /**
      * The network interface to bind the <code>ServerSocket</code> to. If null than bind to all interfaces.
      */
     private InetAddress hostInetAddress;
-    
+
     /**
      * Default constructor. Bind the server sockets on all interfaces.
      */
     public RMIExtendedSocketFactory() {
         // leave hostInetAddress null
     }
-    
+
     /**
      * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s 
      * bound on the specified network interface. 
@@ -61,15 +61,15 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
      * @throws UnknownHostException If an invalid IP address is provided. 
      */
     public RMIExtendedSocketFactory( String hostIpAddress ) throws UnknownHostException {
-        
+
         // check if host length is at least equal to "0.0.0.0"
         if ( hostIpAddress != null && hostIpAddress.length() >= 7 ) {
             String[] octets = hostIpAddress.split( "\\." );
-            
-            if ( octets == null || octets.length != 4 ) {
+
+            if (octets.length != 4) {
                 throw new UnknownHostException( "Invalid IP address: " + hostIpAddress );
             }
-            
+
             byte[] ipAddr = new byte[4];
             for ( int i = 0; i < octets.length; i++ ) {
                 try {
@@ -78,14 +78,13 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
                     throw new UnknownHostException( "Invalid IP address: " + hostIpAddress );
                 }
             }
-            
+
             hostInetAddress = InetAddress.getByAddress( ipAddr );
-            
+
         }
-        
-        
+
     }
-    
+
     @Override
     public ServerSocket createServerSocket(int port) throws IOException {
         if ( hostInetAddress !=  null ) {
@@ -97,7 +96,7 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
 
     @Override
     public Socket createSocket(String host, int port) throws IOException {
-        
+
         return new Socket( host, port );
     }
 
