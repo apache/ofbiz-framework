@@ -78,13 +78,25 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + ((range == null) ? 0 : range.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    return this.range.equals(((DateRange) obj).range);
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                return this.range.equals(((DateRange) obj).range);
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -176,14 +188,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + dayOfWeek;
+            result = prime * result + occurrence;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    DayInMonth that = (DayInMonth) obj;
+                    return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                DayInMonth that = (DayInMonth) obj;
-                return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -294,14 +319,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    DayOfMonthRange that = (DayOfMonthRange) obj;
+                    return this.start == that.start && this.end == that.end;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                DayOfMonthRange that = (DayOfMonthRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -399,14 +437,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    DayOfWeekRange that = (DayOfWeekRange) obj;
+                    return this.start == that.start && this.end == that.end;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                DayOfWeekRange that = (DayOfWeekRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -521,14 +572,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + ((excluded == null) ? 0 : excluded.hashCode());
+            result = prime * result + ((included == null) ? 0 : included.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    Difference that = (Difference) obj;
+                    return this.included.equals(that.included) && this.excluded.equals(that.excluded);
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                Difference that = (Difference) obj;
-                return this.included.equals(that.included) && this.excluded.equals(that.excluded);
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -603,7 +667,7 @@ public class TemporalExpressions implements Serializable {
                 throw new IllegalArgumentException("freqCount argument must be a positive integer");
             }
             if (start != null) {
-                this.start = start;
+                this.start = (Date) start.clone();
             } else {
                 this.start = new Date();
             }
@@ -621,14 +685,28 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + freqCount;
+            result = prime * result + freqType;
+            result = prime * result + ((start == null) ? 0 : start.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    Frequency that = (Frequency) obj;
+                    return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                Frequency that = (Frequency) obj;
-                return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -764,14 +842,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    HourRange that = (HourRange) obj;
+                    return this.start == that.start && this.end == that.end;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                HourRange that = (HourRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -792,7 +883,7 @@ public class TemporalExpressions implements Serializable {
         }
 
         public Set<Integer> getHourRangeAsSet() {
-            Set<Integer> rangeSet = new TreeSet<Integer>();
+            Set<Integer> rangeSet = new TreeSet<>();
             if (this.start == this.end) {
                 rangeSet.add(this.start);
             } else {
@@ -912,13 +1003,25 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + ((expressionSet == null) ? 0 : expressionSet.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    return this.expressionSet.equals(((Intersection) obj).expressionSet);
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                return this.expressionSet.equals(((Intersection) obj).expressionSet);
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -933,9 +1036,8 @@ public class TemporalExpressions implements Serializable {
             }
             if (includesDate(first)) {
                 return first;
-            } else {
-                return null;
             }
+            return null;
         }
 
         /** Returns the member expression <code>Set</code>. The
@@ -1021,14 +1123,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    MinuteRange that = (MinuteRange) obj;
+                    return this.start == that.start && this.end == that.end;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                MinuteRange that = (MinuteRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -1049,7 +1164,7 @@ public class TemporalExpressions implements Serializable {
         }
 
         public Set<Integer> getMinuteRangeAsSet() {
-            Set<Integer> rangeSet = new TreeSet<Integer>();
+            Set<Integer> rangeSet = new TreeSet<>();
             if (this.start == this.end) {
                 rangeSet.add(this.start);
             } else {
@@ -1157,14 +1272,27 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    MonthRange that = (MonthRange) obj;
+                    return this.start == that.start && this.end == that.end;
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                MonthRange that = (MonthRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -1304,14 +1432,28 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + ((excluded == null) ? 0 : excluded.hashCode());
+            result = prime * result + ((included == null) ? 0 : included.hashCode());
+            result = prime * result + ((substitute == null) ? 0 : substitute.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    Substitution that = (Substitution) obj;
+                    return this.included.equals(that.included) && this.excluded.equals(that.excluded) && this.substitute.equals(that.substitute);
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                Substitution that = (Substitution) obj;
-                return this.included.equals(that.included) && this.excluded.equals(that.excluded) && this.substitute.equals(that.substitute);
-            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -1411,13 +1553,25 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + ((expressionSet == null) ? 0 : expressionSet.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
+            if (obj != null) {
+                if (obj == this) {
+                    return true;
+                }
+                try {
+                    return this.expressionSet.equals(((Union) obj).expressionSet);
+                }
+                catch (ClassCastException e) {
+                }
             }
-            try {
-                return this.expressionSet.equals(((Union) obj).expressionSet);
-            } catch (ClassCastException e) {}
             return false;
         }
 

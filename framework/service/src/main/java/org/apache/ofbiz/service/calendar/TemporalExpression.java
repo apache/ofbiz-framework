@@ -45,10 +45,38 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     public abstract void accept(TemporalExpressionVisitor visitor);
 
     public int compareTo(TemporalExpression obj) {
-        if (this.equals(obj) || obj.sequence == this.sequence) {
+        if (this.equals(obj)) {
             return 0;
         }
-         return obj.sequence < this.sequence ? 1 : -1;
+        return Integer.compare(this.sequence, obj.sequence);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TemporalExpression other = (TemporalExpression) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (sequence != other.sequence)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + sequence;
+        return result;
     }
 
     protected boolean containsExpression(TemporalExpression expression) {
@@ -78,8 +106,8 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * @return A Set of matching <code>Date</code> objects
      */
     public Set<Date> getRange(org.apache.ofbiz.base.util.DateRange range, Calendar cal) {
-        Set<Date> set = new TreeSet<Date>();
-        Date last = range.start();
+        Set<Date> set = new TreeSet<>();
+        Date last;
         Calendar next = first(cal);
         while (next != null && range.includesDate(next.getTime())) {
             last = next.getTime();

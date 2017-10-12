@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -195,7 +196,7 @@ public class RecurrenceRule {
      *@return String The name of this frequency.
      */
     public String getFrequencyName() {
-        return rule.getString("frequency").toUpperCase();
+        return rule.getString("frequency").toUpperCase(Locale.getDefault());
     }
 
     /**
@@ -721,21 +722,23 @@ public class RecurrenceRule {
 
     // Returns the Calendar day of the rule day string
     private int getCalendarDay(String day) {
-        if (day != null) day = day.trim();
-        if (day.equalsIgnoreCase("MO"))
-            return Calendar.MONDAY;
-        if (day.equalsIgnoreCase("TU"))
-            return Calendar.TUESDAY;
-        if (day.equalsIgnoreCase("WE"))
-            return Calendar.WEDNESDAY;
-        if (day.equalsIgnoreCase("TH"))
-            return Calendar.THURSDAY;
-        if (day.equalsIgnoreCase("FR"))
-            return Calendar.FRIDAY;
-        if (day.equalsIgnoreCase("SA"))
-            return Calendar.SATURDAY;
-        if (day.equalsIgnoreCase("SU"))
-            return Calendar.SUNDAY;
+        if (day != null) {
+            day = day.trim();
+            if (day.equalsIgnoreCase("MO"))
+                return Calendar.MONDAY;
+            if (day.equalsIgnoreCase("TU"))
+                return Calendar.TUESDAY;
+            if (day.equalsIgnoreCase("WE"))
+                return Calendar.WEDNESDAY;
+            if (day.equalsIgnoreCase("TH"))
+                return Calendar.THURSDAY;
+            if (day.equalsIgnoreCase("FR"))
+                return Calendar.FRIDAY;
+            if (day.equalsIgnoreCase("SA"))
+                return Calendar.SATURDAY;
+            if (day.equalsIgnoreCase("SU"))
+                return Calendar.SUNDAY;
+        }
         return 0;
     }
 
