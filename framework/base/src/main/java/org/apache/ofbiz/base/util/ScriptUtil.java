@@ -19,8 +19,7 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -137,7 +136,8 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), UtilIO
+                        .getUtf8()));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
@@ -370,7 +370,7 @@ public final class ScriptUtil {
             // The test for null can be removed when the engine is fixed.
             CompiledScript script = compileScriptFile(filePath);
             if (script != null) {
-                return executeScript(script, functionName, scriptContext, args);
+                return executeScript(script, null, scriptContext, args);
             }
         }
         String fileExtension = getFileExtension(filePath);
@@ -384,17 +384,21 @@ public final class ScriptUtil {
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-        FileReader reader = new FileReader(new File(scriptUrl.getFile()));
-        Object result = engine.eval(reader);
-        if (UtilValidate.isNotEmpty(functionName)) {
-            try {
-                Invocable invocableEngine = (Invocable) engine;
-                result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
-            } catch (ClassCastException e) {
-                throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
+        try (
+                InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), UtilIO
+                        .getUtf8());) {
+            Object result = engine.eval(reader);
+            if (UtilValidate.isNotEmpty(functionName)) {
+                try {
+                    Invocable invocableEngine = (Invocable) engine;
+                    result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
+                } catch (ClassCastException e) {
+                    throw new ScriptException("Script engine " + engine.getClass().getName()
+                            + " does not support function/method invocations");
+                }
             }
+            return result;
         }
-        return result;
     }
 
     private static String getFileExtension(String filePath) {

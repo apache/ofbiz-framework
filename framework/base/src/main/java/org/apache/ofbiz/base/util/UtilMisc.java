@@ -89,7 +89,11 @@ public final class UtilMisc {
                 return 0;
             }
 
-        } catch (Exception e) {}
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            Debug.log(e, module);
+        }
         return 1;
     }
 
@@ -418,7 +422,7 @@ public final class UtilMisc {
             return (Double) obj;
         }
         if (obj instanceof Number) {
-            return new Double(((Number)obj).doubleValue());
+            return Double.valueOf(((Number) obj).doubleValue());
         }
         Double result = null;
         try {
@@ -482,7 +486,7 @@ public final class UtilMisc {
             return (Long) obj;
         }
         if (obj instanceof Number) {
-            return new Long(((Number)obj).longValue());
+            return Long.valueOf(((Number) obj).longValue());
         }
         Long result = null;
         try {
@@ -592,17 +596,17 @@ public final class UtilMisc {
             throw new IOException("File is a directory, not a file, cannot copy") ;
         } else {
 
-            InputStream in = new FileInputStream(sourceLocation);
-            OutputStream out = new FileOutputStream(targetLocation);
-
-            // Copy the bits from instream to outstream
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
+            try (
+                    InputStream in = new FileInputStream(sourceLocation);
+                    OutputStream out = new FileOutputStream(targetLocation);
+            ) {
+                // Copy the bits from instream to outstream
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
             }
-            in.close();
-            out.close();
         }
     }
 

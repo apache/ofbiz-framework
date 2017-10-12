@@ -91,8 +91,7 @@ public final class UtilURL {
                 loader = Thread.currentThread().getContextClassLoader();
             } catch (SecurityException e) {
                 // Huh? The new object will be created by the current thread, so how is this any different than the previous code?
-                UtilURL utilURL = new UtilURL();
-                loader = utilURL.getClass().getClassLoader();
+                loader = UtilURL.class.getClassLoader();
             }
         }
         url = loader.getResource(resourceName);

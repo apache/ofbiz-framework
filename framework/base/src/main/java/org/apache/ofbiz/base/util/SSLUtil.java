@@ -112,15 +112,13 @@ public final class SSLUtil {
             Debug.logError(e, module);
         }
 
-        if (mgrs != null) {
-            for (TrustManager mgr: mgrs) {
-                if (mgr instanceof X509TrustManager) {
-                    try {
-                        ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
-                        return true;
-                    } catch (CertificateException e) {
-                        // do nothing; just loop
-                    }
+        for (TrustManager mgr : mgrs) {
+            if (mgr instanceof X509TrustManager) {
+                try {
+                    ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
+                    return true;
+                } catch (CertificateException e) {
+                    // do nothing; just loop
                 }
             }
         }
@@ -135,7 +133,10 @@ public final class SSLUtil {
                 if (ks != null) {
                     List<KeyManager> newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
                     keyMgrs.addAll(newKeyManagers);
-                    if (Debug.verboseOn()) Debug.logVerbose("Loaded another cert store, adding [" + (newKeyManagers == null ? "0" : newKeyManagers.size()) + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler().getFullLocation(), module);
+                    if (Debug.verboseOn())
+                        Debug.logVerbose("Loaded another cert store, adding [" + newKeyManagers.size()
+                                + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler()
+                                        .getFullLocation(), module);
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
                 }
@@ -266,6 +267,8 @@ public final class SSLUtil {
 
                             try {
                                 peerCert.checkValidity();
+                            } catch (RuntimeException e) {
+                                throw e;
                             } catch (Exception e) {
                                 // certificate not valid
                                 Debug.logWarning("Certificate is not valid!", module);

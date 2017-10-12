@@ -85,7 +85,6 @@ public final class UtilProperties implements Serializable {
     public static boolean propertyValueEquals(String resource, String name, String compareString) {
         String value = getPropertyValue(resource, name);
 
-        if (value == null) return false;
         return value.trim().equals(compareString);
     }
 
@@ -98,7 +97,6 @@ public final class UtilProperties implements Serializable {
     public static boolean propertyValueEqualsIgnoreCase(String resource, String name, String compareString) {
         String value = getPropertyValue(resource, name);
 
-        if (value == null) return false;
         return value.trim().equalsIgnoreCase(compareString);
     }
 
@@ -120,9 +118,6 @@ public final class UtilProperties implements Serializable {
 
     public static double getPropertyNumber(String resource, String name, double defaultValue) {
         String str = getPropertyValue(resource, name);
-        if (str == null) {
-            return defaultValue;
-        }
 
         try {
             return Double.parseDouble(str);
@@ -492,9 +487,9 @@ public final class UtilProperties implements Serializable {
              return;
          }
 
-         try {
+        try (
+                FileOutputStream propFile = new FileOutputStream(resource);) {
              properties.setProperty(name, value);
-             FileOutputStream propFile = new FileOutputStream(resource);
              if ("XuiLabels".equals(name)) {
                  properties.store(propFile,
                      "##############################################################################\n"
@@ -595,7 +590,7 @@ public final class UtilProperties implements Serializable {
             Debug.logInfo(name + " misses in " + resource + " for locale " + locale, module);
             return name;
         }
-        return value == null ? name : value.trim();
+        return value.trim();
     }
 
     /** Returns the value of the specified property name from the specified resource/properties file corresponding

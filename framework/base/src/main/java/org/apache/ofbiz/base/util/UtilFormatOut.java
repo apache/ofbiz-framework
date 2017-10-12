@@ -360,7 +360,7 @@ public final class UtilFormatOut {
                 if (data.length > 5120) {
                     return "[...binary data]";
                 }
-                return new String(Base64.base64Encode(data));
+                return new String(Base64.base64Encode(data), UtilIO.getUtf8());
             }
             return obj1.toString();
         }

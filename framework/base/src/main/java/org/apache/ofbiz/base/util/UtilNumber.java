@@ -27,7 +27,7 @@ import com.ibm.icu.text.RuleBasedNumberFormat;
 
 public final class UtilNumber {
 
-    public static String module = UtilNumber.class.getName();
+    public static final String module = UtilNumber.class.getName();
 
     // properties file name for arithmetic configuration
     private static final String arithmeticPropertiesFile = "arithmetic.properties";
@@ -188,12 +188,10 @@ public final class UtilNumber {
 
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
-        if (value != null) {
             try {
                 scale = Integer.parseInt(value);
             } catch (NumberFormatException e) {
             }
-        }
         if (scale == -1) {
             Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", module);
             scale = DEFAULT_BD_SCALE;

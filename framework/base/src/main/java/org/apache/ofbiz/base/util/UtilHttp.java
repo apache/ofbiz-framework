@@ -177,9 +177,8 @@ public final class UtilHttp {
                     continue;
                 }
                 int equalsIndex = token.indexOf("=");
-                String name = token;
                 if (equalsIndex > 0) {
-                    name = token.substring(0, equalsIndex);
+                    String name = token.substring(0, equalsIndex);
                     paramMap.put(name, token.substring(equalsIndex + 1));
                 }
             }
@@ -1082,28 +1081,19 @@ public final class UtilHttp {
         }
 
         // initialize the buffered streams
-        BufferedOutputStream bos = new BufferedOutputStream(out, bufferSize);
-        BufferedInputStream bis = new BufferedInputStream(in, bufferSize);
 
         byte[] buffer = new byte[length];
         int read = 0;
-        try {
+        try (
+                BufferedOutputStream bos = new BufferedOutputStream(out, bufferSize);
+                BufferedInputStream bis = new BufferedInputStream(in, bufferSize);
+        ) {
             while ((read = bis.read(buffer, 0, buffer.length)) != -1) {
                 bos.write(buffer, 0, read);
             }
         } catch (IOException e) {
             Debug.logError(e, "Problem reading/writing buffers", module);
-            bis.close();
-            bos.close();
             throw e;
-        } finally {
-            if (bis != null) {
-                bis.close();
-            }
-            if (bos != null) {
-                bos.flush();
-                bos.close();
-            }
         }
     }
 
@@ -1161,12 +1151,14 @@ public final class UtilHttp {
         Map<Integer, Map<String, Object>> rows = new HashMap<Integer, Map<String, Object>>(); // stores the rows keyed by row number
 
         // first loop through all the keys and create a hashmap for each ${ROW_SUBMIT_PREFIX}${N} = Y
-        for (String key: parameters.keySet()) {
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            String key = entry.getKey();
             // skip everything that is not ${ROW_SUBMIT_PREFIX}N
             if (key == null || key.length() <= ROW_SUBMIT_PREFIX_LENGTH) continue;
             if (key.indexOf(MULTI_ROW_DELIMITER) <= 0) continue;
             if (!key.substring(0, ROW_SUBMIT_PREFIX_LENGTH).equals(ROW_SUBMIT_PREFIX)) continue;
-            if (!parameters.get(key).equals("Y")) continue;
+            if (!entry.getValue().equals("Y"))
+                continue;
 
             // decode the value of N and create a new map for it
             Integer n = Integer.decode(key.substring(ROW_SUBMIT_PREFIX_LENGTH, key.length()));
@@ -1477,6 +1469,8 @@ public final class UtilHttp {
                     .setSSLSocketFactory(sslsf)
                     .build();
             return httpClient;
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             return HttpClients.createDefault();
         }

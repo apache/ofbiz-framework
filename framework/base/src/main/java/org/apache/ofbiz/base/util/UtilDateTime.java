@@ -39,6 +39,8 @@ import com.ibm.icu.util.Calendar;
  */
 public final class UtilDateTime {
 
+    public static final String module = UtilDateTime.class.getName();
+
     private static final String[][] timevals = {
         {"1000", "millisecond"},
         {"60", "second"},
@@ -114,7 +116,7 @@ public final class UtilDateTime {
     public static String formatInterval(double interval, int count, Locale locale) {
         List<Double> parts = new ArrayList<Double>(timevals.length);
         for (String[] timeval: timevals) {
-            int value = Integer.valueOf(timeval[0]);
+            int value = Integer.parseInt(timeval[0]);
             double remainder = interval % value;
             interval = interval / value;
             parts.add(remainder);
@@ -554,8 +556,8 @@ public final class UtilDateTime {
      */
     public static java.util.Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
             String minuteStr, String secondStr) {
-        int month, day, year, hour, minute, second;
 
+        int month, day, year, hour, minute, second;
         try {
             month = Integer.parseInt(monthStr);
             day = Integer.parseInt(dayStr);
@@ -564,9 +566,11 @@ public final class UtilDateTime {
             minute = Integer.parseInt(minuteStr);
             second = Integer.parseInt(secondStr);
         } catch (Exception e) {
+            Debug.logError(e, module);
             return null;
         }
         return toDate(month, day, year, hour, minute, second);
+
     }
 
     /**
@@ -683,7 +687,7 @@ public final class UtilDateTime {
         String dateString = toDateString(date);
         String timeString = toTimeString(date);
 
-        if (dateString != null && timeString != null) {
+        if (!dateString.isEmpty() && !timeString.isEmpty()) {
             return dateString + " " + timeString;
         } else {
             return "";
@@ -1220,7 +1224,7 @@ public final class UtilDateTime {
         }
 
     }
-    
+
     public static String getDateFormat() {
         return DATE_FORMAT;
     }
