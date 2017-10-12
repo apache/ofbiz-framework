@@ -75,7 +75,7 @@ public class RecurrenceInfo {
 
         // Get the recurrence rules objects
         try {
-            rRulesList = new ArrayList<RecurrenceRule>();
+            rRulesList = new ArrayList<>();
             for (GenericValue value: info.getRelated("RecurrenceRule", null, null, false)) {
                 rRulesList.add(new RecurrenceRule(value));
             }
@@ -87,7 +87,7 @@ public class RecurrenceInfo {
 
         // Get the exception rules objects
         try {
-            eRulesList = new ArrayList<RecurrenceRule>();
+            eRulesList = new ArrayList<>();
             for (GenericValue value: info.getRelated("ExceptionRecurrenceRule", null, null, false)) {
                 eRulesList.add(new RecurrenceRule(value));
             }
@@ -114,7 +114,7 @@ public class RecurrenceInfo {
 
     /** Returns the startDate Date object. */
     public Date getStartDate() {
-        return this.startDate;
+        return (Date) this.startDate.clone();
     }
 
     /** Returns the long value of the startDate. */
@@ -164,7 +164,7 @@ public class RecurrenceInfo {
 
     /** Removes the recurrence from persistant store. */
     public void remove() throws RecurrenceInfoException {
-        List<RecurrenceRule> rulesList = new ArrayList<RecurrenceRule>();
+        List<RecurrenceRule> rulesList = new ArrayList<>();
 
         rulesList.addAll(rRulesList);
         rulesList.addAll(eRulesList);
