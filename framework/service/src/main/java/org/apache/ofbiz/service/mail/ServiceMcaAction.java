@@ -52,7 +52,7 @@ public class ServiceMcaAction implements java.io.Serializable {
     }
 
     public boolean runAction(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) throws GenericServiceException {
-        Map<String, Object> serviceContext = new HashMap<String, Object>();
+        Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.putAll(UtilMisc.toMap("messageWrapper", messageWrapper, "userLogin", userLogin));
         serviceContext.put("userLogin", ServiceUtil.getUserLogin(dispatcher.getDispatchContext(), serviceContext, runAsUser));
 
@@ -61,9 +61,8 @@ public class ServiceMcaAction implements java.io.Serializable {
             if (ServiceUtil.isError(result)) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 return false;
-            } else {
-                return true;
             }
+            return true;
         } else if (serviceMode.equals("async")) {
             dispatcher.runAsync(serviceName, serviceContext, persist);
             return true;
