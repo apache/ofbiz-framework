@@ -70,7 +70,7 @@ public class ServiceSemaphore {
         }
     }
 
-    public void release() throws SemaphoreFailException {
+    public synchronized void release() throws SemaphoreFailException {
         if (mode == SEMAPHORE_MODE_NONE) return;
 
         // remove the lock file
@@ -138,10 +138,9 @@ public class ServiceSemaphore {
 
             // we own the lock, no waiting
             return false;
-        } else {
-            // found a semaphore, need to wait
-            return true;
         }
+        // found a semaphore, need to wait
+        return true;
     }
 
     private synchronized void dbWrite(GenericValue value, boolean delete) throws SemaphoreFailException {
@@ -180,7 +179,7 @@ public class ServiceSemaphore {
                         Debug.logError(e, module);
                     }
                 }
-                if (!isError && beganTx) {
+                if (!isError) {
                     try {
                         TransactionUtil.commit(beganTx);
                     } catch (GenericTransactionException e) {
