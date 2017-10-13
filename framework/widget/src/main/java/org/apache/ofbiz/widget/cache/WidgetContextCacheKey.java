@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -35,7 +36,7 @@ public final class WidgetContextCacheKey {
     private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 
     private static Set<String> createFieldNamesToSkip(){
-        Set<String> fieldNamesToSkip = new HashSet<String>();
+        Set<String> fieldNamesToSkip = new HashSet<>();
         fieldNamesToSkip.add("globalContext");
         fieldNamesToSkip.add("delegator");
         fieldNamesToSkip.add("dispatcher");
@@ -81,7 +82,7 @@ public final class WidgetContextCacheKey {
     private final Map<String, Object> context;
 
     public WidgetContextCacheKey(Map<String, ? extends Object> context) {
-        this.context = Collections.unmodifiableMap(new HashMap<String, Object>(context));
+        this.context = Collections.unmodifiableMap(new HashMap<>(context));
     }
 
     @Override
@@ -102,7 +103,7 @@ public final class WidgetContextCacheKey {
             return false;
         }
 
-        Set<String> unifiedContext = new HashSet<String>();
+        Set<String> unifiedContext = new HashSet<>();
         unifiedContext.addAll(this.context.keySet());
         unifiedContext.addAll(key.context.keySet());
         for (String fieldName: unifiedContext) {
@@ -134,10 +135,10 @@ public final class WidgetContextCacheKey {
 
     @Override
     public String toString() {
-        Map<String, Object> printableMap = new HashMap<String, Object>();
-        for (String fieldName: this.context.keySet()) {
-            if (!fieldNamesToSkip.contains(fieldName) && !"parameters".equals(fieldName)) {
-                printableMap.put(fieldName, this.context.get(fieldName));
+        Map<String, Object> printableMap = new HashMap<>();
+        for (Entry<String, Object> fieldName: this.context.entrySet()) {
+            if (!fieldNamesToSkip.contains(fieldName.getKey()) && !"parameters".equals(fieldName.getKey())) {
+                printableMap.put(fieldName.getKey(), fieldName.getValue());
             }
         }
         Map<String, Object> parameters = UtilGenerics.checkMap(this.context.get("parameters"));
@@ -145,7 +146,7 @@ public final class WidgetContextCacheKey {
     }
 
     public static String printMap(Map<String, ? extends Object> map) {
-        Map<String, Object> printableMap = new HashMap<String, Object>();
+        Map<String, Object> printableMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry : map.entrySet()) {
             String fieldName = entry.getKey();
             if (!fieldNamesToSkip.contains(fieldName) &&
@@ -159,7 +160,7 @@ public final class WidgetContextCacheKey {
     }
 
     public static boolean parametersAreEqual(Map<String, ? extends Object> map1, Map<String, ? extends Object> map2) {
-        Set<String> unifiedContext = new HashSet<String>();
+        Set<String> unifiedContext = new HashSet<>();
         unifiedContext.addAll(map1.keySet());
         unifiedContext.addAll(map2.keySet());
         for (String fieldName: unifiedContext) {
