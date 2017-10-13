@@ -442,22 +442,12 @@ public class SQLProcessor {
      * @throws GenericDataSourceException
      */
     public int executeUpdate(String sql) throws GenericDataSourceException {
-        Statement stmt = null;
 
-        try {
-            stmt = _connection.createStatement();
+        try (Statement stmt = _connection.createStatement()) {
             return stmt.executeUpdate(sql);
         } catch (SQLException sqle) {
             // passing on this exception as nested, no need to log it here: Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", module);
             throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException sqle) {
-                    Debug.logWarning("Unable to close 'statement': " + sqle.getMessage(), module);
-                }
-            }
         }
     }
 
