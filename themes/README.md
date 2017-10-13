@@ -262,9 +262,9 @@ The blue light theme has been these properties in VisualThemeRessource :
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/fieldlookup.js" sequenceId="16"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/miscAjaxFunctions.js" sequenceId="19"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectMultipleRelatedValues.js" sequenceId="20"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/util.js" sequenceId="21"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/miscAjaxFunctions.js" sequenceId="19"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/selectMultipleRelatedValues.js" sequenceId="20"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/util.js" sequenceId="21"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bluelight/dropdown.js" sequenceId="30"/>
 
