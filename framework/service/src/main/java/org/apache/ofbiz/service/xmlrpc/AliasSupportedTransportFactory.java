@@ -60,14 +60,13 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
 
     class AliasSupportedTransport extends XmlRpcHttpTransport {
 
-        protected static final String userAgent = USER_AGENT + " (Sun HTTP Transport)";
         private URLConnection con;
         private String password;
         private String alias;
         private KeyStore ks;
 
         protected AliasSupportedTransport(org.apache.xmlrpc.client.XmlRpcClient client, KeyStore ks, String password, String alias) {
-            super(client, userAgent);
+            super(client, USER_AGENT + " (Sun HTTP Transport)");
             this.password = password;
             this.alias = alias;
             this.ks = ks;
