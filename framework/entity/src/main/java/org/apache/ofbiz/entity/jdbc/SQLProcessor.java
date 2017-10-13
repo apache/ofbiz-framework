@@ -50,7 +50,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  * SQLProcessor - provides utility functions to ease database access
  *
  */
-public class SQLProcessor {
+public class SQLProcessor implements AutoCloseable {
 
     /** Module Name Used for debugging */
     public static final String module = SQLProcessor.class.getName();
@@ -200,6 +200,7 @@ public class SQLProcessor {
      *
      * @throws GenericDataSourceException
      */
+    @Override
     public void close() throws GenericDataSourceException {
         if (_manualTX) {
             if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, module);
