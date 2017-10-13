@@ -30,8 +30,9 @@ under the License.
     <extends location="component://common-theme/widget/Theme.xml"/>
 
     <theme-properties>
-        <!--template location-->
+        <!--header image -->
         <property name="VT_HDR_IMAGE_URL" value="/flatgrey/images/ofbiz_logo.gif"/>
+        <!--template location-->
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
         <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>

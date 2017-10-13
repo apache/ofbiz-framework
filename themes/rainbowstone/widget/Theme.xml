@@ -37,8 +37,9 @@ under the License.
     </visual-themes>
     <extends location="component://common-theme/widget/Theme.xml"/>
     <theme-properties>
-        <!--template location-->
+        <!--header image -->
         <property name="VT_HDR_IMAGE_URL" value="/rainbowstone/images/ofbiz_logo.gif"/>
+        <!--template location-->
         <property name="VT_HDR_TMPLT_LOC" value="component://rainbowstone/template/includes/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://rainbowstone/template/includes/Footer.ftl"/>
         <property name="VT_NAV_TMPLT_LOC" value="component://rainbowstone/template/includes/TopAppBar.ftl"/>

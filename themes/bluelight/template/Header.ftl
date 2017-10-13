@@ -138,7 +138,7 @@ under the License.
           <#elseif layoutSettings.commonHeaderImageUrl??>
             <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
           <#elseif layoutSettings.VT_HDR_IMAGE_URL??>
-            <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
+            <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL>
           </#if>
           <#if headerImageUrl??>
                 <#if organizationLogoLinkURL?has_content>

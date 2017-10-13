@@ -36,6 +36,8 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/bluelight/style.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/bluelight/help.css"/>
         <property name="VT_DOCBOOKSTYLESHEET['add']" value="/bluelight/webapp/bluelight/docbook.css"/>
+        <!--header image -->
+        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.gif"/>
         <!--template location-->
         <property name="VT_HDR_TMPLT_LOC" value="component://bluelight/template/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://bluelight/template/Footer.ftl"/>
