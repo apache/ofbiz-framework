@@ -750,50 +750,24 @@ public class DatabaseUtil {
 
     private String getSchemaName(Collection<String> messages) throws SQLException {
         String schemaName;
-        Connection connection = null;
-
-        try {
-            connection = getConnectionLogged(messages);
+        try (Connection connection = getConnectionLogged(messages)) {
             DatabaseMetaData dbData = this.getDatabaseMetaData(connection, messages);
             schemaName = getSchemaName(dbData);
             return schemaName;
         }
-        finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    Debug.logError(e, module);
-                }
-            }
-        }
     }
 
     private boolean getIsCaseSensitive(Collection<String> messages) {
-        Connection connection = null;
-
-        try {
-            connection = getConnectionLogged(messages);
-            boolean isCaseSensitive = false;
+        boolean isCaseSensitive = false;
+        try (Connection connection = getConnectionLogged(messages)) {
             DatabaseMetaData dbData = this.getDatabaseMetaData(connection, messages);
             if (dbData != null) {
-                try {
-                    isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
-                } catch (SQLException e) {
-                    Debug.logError(e, "Error getting db meta data about case sensitive", module);
-                }
+                isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
             }
-            return isCaseSensitive;
+        } catch (SQLException e) {
+            Debug.logError(e, "Error getting db meta data about case sensitive", module);
         }
-        finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    Debug.logError(e, module);
-                }
-            }
-        }
+        return isCaseSensitive;
     }
 
     public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
@@ -1891,20 +1865,6 @@ public class DatabaseUtil {
             return "ERROR: Cannot rename column for a view entity";
         }
 
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         ModelFieldType type = modelFieldTypeReader.getModelFieldType(field.getType());
 
         if (type == null) {
@@ -1920,18 +1880,16 @@ public class DatabaseUtil {
 
         String sql = sqlBuf.toString();
         if (Debug.infoOn()) Debug.logInfo("[renameColumn] sql=" + sql, module);
-        try (Statement stmt = connection.createStatement()) { 
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -1954,12 +1912,6 @@ public class DatabaseUtil {
             return;
         }
 
-        // need connection
-        Connection connection = getConnectionLogged(messages);
-        if (connection == null) {
-            return;
-        }
-
         // copy the data from old to new
         StringBuilder sqlBuf1 = new StringBuilder("UPDATE ");
         sqlBuf1.append(entity.getTableName(datasourceInfo));
@@ -1970,7 +1922,7 @@ public class DatabaseUtil {
 
         String sql1 = sqlBuf1.toString();
         if (Debug.infoOn()) Debug.logInfo("[moveData] sql=" + sql1, module);
-        try (Statement stmt = connection.createStatement()) { 
+        try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             int changed = stmt.executeUpdate(sql1);
             if (Debug.infoOn()) Debug.logInfo("[moveData] " + changed + " records updated", module);
         } catch (SQLException e) {
@@ -1978,20 +1930,6 @@ public class DatabaseUtil {
             if (messages != null)
                 messages.add(thisMsg);
             Debug.logError(thisMsg, module);
-            return;
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
-        }
-
-        // fresh connection
-        connection = getConnectionLogged(messages);
-        if (connection == null) {
             return;
         }
 
@@ -2003,7 +1941,7 @@ public class DatabaseUtil {
 
         String sql2 = sqlBuf2.toString();
         if (Debug.infoOn()) Debug.logInfo("[dropColumn] sql=" + sql2, module);
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql2);
         } catch (SQLException e) {
             String thisMsg = "SQL Exception while executing the following:\n" + sql2 + "\nError was: " + e.toString();
@@ -2011,14 +1949,6 @@ public class DatabaseUtil {
                 messages.add(thisMsg);
             Debug.logError(thisMsg, module);
             return;
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
         }
     }
 
@@ -2148,20 +2078,6 @@ public class DatabaseUtil {
     }
 
     public String createForeignKey(ModelEntity entity, ModelRelation modelRelation, ModelEntity relModelEntity, int constraintNameClipLength, String fkStyle, boolean useFkInitiallyDeferred) {
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         // now add constraint clause
         StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
@@ -2173,18 +2089,16 @@ public class DatabaseUtil {
         sqlBuf.append(fkConstraintClause);
 
         if (Debug.verboseOn()) Debug.logVerbose("[createForeignKey] sql=" + sqlBuf.toString(), module);
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -2314,20 +2228,6 @@ public class DatabaseUtil {
     }
 
     public String deleteForeignKey(ModelEntity entity, ModelRelation modelRelation, ModelEntity relModelEntity, int constraintNameClipLength) {
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
         // now add constraint clause
@@ -2341,18 +2241,16 @@ public class DatabaseUtil {
         sqlBuf.append(relConstraintName);
 
         if (Debug.verboseOn()) Debug.logVerbose("[deleteForeignKey] sql=" + sqlBuf.toString(), module);
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -2386,15 +2284,6 @@ public class DatabaseUtil {
         String message;
         if (entity.getPksSize() > 0) {
             message = "Creating primary key for entity [" + entity.getEntityName() + "]";
-            Connection connection = null;
-
-            try {
-                connection = getConnection();
-            } catch (SQLException e) {
-                return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            } catch (GenericEntityException e) {
-                return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            }
 
             // now add constraint clause
             StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
@@ -2412,18 +2301,12 @@ public class DatabaseUtil {
             sqlBuf.append(")");
 
             if (Debug.verboseOn()) Debug.logVerbose("[createPrimaryKey] sql=" + sqlBuf.toString(), module);
-            try (Statement stmt = connection.createStatement()) {
+            try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(sqlBuf.toString());
             } catch (SQLException e) {
                 return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
-            } finally {
-                try {
-                    if (connection != null) {
-                        connection.close();
-                    }
-                } catch (SQLException e) {
-                    Debug.logError(e, module);
-                }
+            } catch (GenericEntityException e) {
+                return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             }
         } else {
             message = "No primary-key defined for table [" + entity.getEntityName() + "]";
@@ -2460,19 +2343,6 @@ public class DatabaseUtil {
         String message;
         if (entity.getPksSize() > 0) {
             message = "Deleting primary key for entity [" + entity.getEntityName() + "]";
-            Connection connection = null;
-            try {
-                connection = getConnection();
-            } catch (SQLException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return errMsg;
-            } catch (GenericEntityException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return errMsg;
-            }
-
             // now add constraint clause
             StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
             sqlBuf.append(entity.getTableName(datasourceInfo));
@@ -2490,20 +2360,16 @@ public class DatabaseUtil {
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("[deletePrimaryKey] sql=" + sqlBuf.toString(), module);
-            try (Statement stmt = connection.createStatement()) {
+            try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(sqlBuf.toString());
             } catch (SQLException e) {
                 String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return errMsg;
-            } finally {
-                try {
-                    if (connection != null) {
-                        connection.close();
-                    }
-                } catch (SQLException e) {
-                    Debug.logError(e, module);
-                }
+            } catch (GenericEntityException e) {
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return errMsg;
             }
         } else {
             message = "No primary-key defined for table [" + entity.getEntityName() + "]";
@@ -2555,35 +2421,19 @@ public class DatabaseUtil {
     }
 
     public String createDeclaredIndex(ModelEntity entity, ModelIndex modelIndex) {
-        Connection connection = null;
+        String createIndexSql = makeIndexClause(entity, modelIndex);
+        if (Debug.verboseOn()) Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, module);
 
-        try {
-            connection = getConnection();
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(createIndexSql);
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            String errMsg = "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
             String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
-        }
-
-        String createIndexSql = makeIndexClause(entity, modelIndex);
-        if (Debug.verboseOn()) Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, module);
-
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate(createIndexSql);
-        } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
         }
         return null;
     }
@@ -2662,19 +2512,6 @@ public class DatabaseUtil {
     }
 
     public String deleteDeclaredIndex(ModelEntity entity, ModelIndex modelIndex) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         // TODO: also remove the constraing if this was a unique index, in most databases dropping the index does not drop the constraint
 
         StringBuilder indexSqlBuf = new StringBuilder("DROP INDEX ");
@@ -2689,18 +2526,16 @@ public class DatabaseUtil {
         String deleteIndexSql = indexSqlBuf.toString();
         if (Debug.verboseOn()) Debug.logVerbose("[deleteDeclaredIndex] index sql=" + deleteIndexSql, module);
 
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(deleteIndexSql);
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -2752,19 +2587,6 @@ public class DatabaseUtil {
     }
 
     public String createForeignKeyIndex(ModelEntity entity, ModelRelation modelRelation, int constraintNameClipLength) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         String createIndexSql = makeFkIndexClause(entity, modelRelation, constraintNameClipLength);
         if (UtilValidate.isEmpty(createIndexSql)) {
             return "Error creating foreign key index clause, see log for details";
@@ -2772,18 +2594,16 @@ public class DatabaseUtil {
 
         if (Debug.verboseOn()) Debug.logVerbose("[createForeignKeyIndex] index sql=" + createIndexSql, module);
 
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(createIndexSql);
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -2862,19 +2682,6 @@ public class DatabaseUtil {
     }
 
     public String deleteForeignKeyIndex(ModelEntity entity, ModelRelation modelRelation, int constraintNameClipLength) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         StringBuilder indexSqlBuf = new StringBuilder("DROP INDEX ");
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
@@ -2892,18 +2699,16 @@ public class DatabaseUtil {
 
         if (Debug.verboseOn()) Debug.logVerbose("[deleteForeignKeyIndex] index sql=" + deleteIndexSql, module);
 
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(deleteIndexSql);
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -2936,10 +2741,7 @@ public class DatabaseUtil {
             return;
         }
 
-        Connection connection = null;
-
-        try {
-            connection = getConnectionLogged(messages);
+        try (Connection connection = getConnectionLogged(messages)) {
             if (connection == null) {
                 return;
             }
@@ -3016,14 +2818,8 @@ public class DatabaseUtil {
                     Debug.logError(errMsg, module);
                 }
             }
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+        } catch (SQLException e) {
+            Debug.logError(e, module);
         }
     }
 
