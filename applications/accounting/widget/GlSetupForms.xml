@@ -143,6 +143,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
 
