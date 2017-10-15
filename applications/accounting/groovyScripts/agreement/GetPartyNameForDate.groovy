@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under oneWe would need a Bearer token (in Authorisation request header) if we were using Oauth2, here we don't, so no Bearer
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
