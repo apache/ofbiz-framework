@@ -299,16 +299,16 @@ public final class SSLUtil {
             String proxyHost = UtilProperties.getPropertyValue("jsse", "https.proxyHost", "NONE");
             String proxyPort = UtilProperties.getPropertyValue("jsse", "https.proxyPort", "NONE");
             String cypher = UtilProperties.getPropertyValue("jsse", "https.cipherSuites", "NONE");
-            if (protocol != null && !protocol.equals("NONE")) {
+            if (protocol != null && !"NONE".equals(protocol)) {
                 System.setProperty("java.protocol.handler.pkgs", protocol);
             }
-            if (proxyHost != null && !proxyHost.equals("NONE")) {
+            if (proxyHost != null && !"NONE".equals(proxyHost)) {
                 System.setProperty("https.proxyHost", proxyHost);
             }
-            if (proxyPort != null && !proxyPort.equals("NONE")) {
+            if (proxyPort != null && !"NONE".equals(proxyPort)) {
                 System.setProperty("https.proxyPort", proxyPort);
             }
-            if (cypher != null && !cypher.equals("NONE")) {
+            if (cypher != null && !"NONE".equals(cypher)) {
                 System.setProperty("https.cipherSuites", cypher);
             }
 

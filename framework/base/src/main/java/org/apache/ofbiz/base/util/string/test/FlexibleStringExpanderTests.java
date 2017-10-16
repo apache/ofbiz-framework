@@ -212,7 +212,7 @@ public class FlexibleStringExpanderTests extends TestCase {
     @Override
     public void setUp() {
         wasVerbose = Debug.isOn(Debug.VERBOSE);
-        if (getName().equals("testWithVerbosity")) {
+        if ("testWithVerbosity".equals(getName())) {
             Debug.set(Debug.VERBOSE, true);
         }
         Converters.registerConverter(new SpecialNumberToString());

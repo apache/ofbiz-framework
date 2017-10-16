@@ -1157,7 +1157,7 @@ public final class UtilHttp {
             if (key == null || key.length() <= ROW_SUBMIT_PREFIX_LENGTH) continue;
             if (key.indexOf(MULTI_ROW_DELIMITER) <= 0) continue;
             if (!key.substring(0, ROW_SUBMIT_PREFIX_LENGTH).equals(ROW_SUBMIT_PREFIX)) continue;
-            if (!entry.getValue().equals("Y"))
+            if (!"Y".equals(entry.getValue()))
                 continue;
 
             // decode the value of N and create a new map for it
