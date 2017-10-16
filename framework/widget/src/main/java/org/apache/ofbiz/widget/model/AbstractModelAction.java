@@ -799,7 +799,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             // default to false
             boolean global = "true".equals(globalStr);
             Object newValue = null;
-            if (this.fromScope != null && this.fromScope.equals("user")) {
+            if (this.fromScope != null && "user".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
@@ -809,7 +809,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
                 }
-            } else if (this.fromScope != null && this.fromScope.equals("application")) {
+            } else if (this.fromScope != null && "application".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
@@ -860,7 +860,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
                 return;
             }
-            if (this.toScope != null && this.toScope.equals("user")) {
+            if (this.toScope != null && "user".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
                 List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";
@@ -876,7 +876,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (Debug.verboseOn())
                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue,
                             module);
-            } else if (this.toScope != null && this.toScope.equals("application")) {
+            } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
                 List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";

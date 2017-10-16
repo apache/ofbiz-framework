@@ -629,7 +629,7 @@ public abstract class ModelForm extends ModelWidget {
         for (Element fieldElement : UtilXml.childElementList(formElement, "field")) {
             ModelFormFieldBuilder builder = new ModelFormFieldBuilder(fieldElement, this, entityModelReader, dispatchContext);
             FieldInfo fieldInfo = builder.getFieldInfo();
-            if (thisType.equals("multi") && fieldInfo instanceof ModelFormField.SubmitField) {
+            if ("multi".equals(thisType) && fieldInfo instanceof ModelFormField.SubmitField) {
                 multiSubmitBuilders.add(builder);
             } else {
                 addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
@@ -643,21 +643,21 @@ public abstract class ModelForm extends ModelWidget {
             // read in sort-field
             for (Element sortFieldElement : UtilXml.childElementList(sortOrderElement)) {
                 String tagName = sortFieldElement.getTagName();
-                if (tagName.equals("sort-field")) {
+                if ("sort-field".equals(tagName)) {
                     String fieldName = sortFieldElement.getAttribute("name");
                     String position = sortFieldElement.getAttribute("position");
                     sortOrderFields.add(new SortField(fieldName, position));
                     fieldGroupMap.put(fieldName, lastFieldGroup);
-                } else if (tagName.equals("last-field")) {
+                } else if ("last-field".equals(tagName)) {
                     String fieldName = sortFieldElement.getAttribute("name");
                     fieldGroupMap.put(fieldName, lastFieldGroup);
                     lastOrderFields.add(fieldName);
-                } else if (tagName.equals("banner")) {
+                } else if ("banner".equals(tagName)) {
                     Banner thisBanner = new Banner(sortFieldElement);
                     fieldGroupList.add(thisBanner);
                     lastFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
                     fieldGroupList.add(lastFieldGroup);
-                } else if (tagName.equals("field-group")) {
+                } else if ("field-group".equals(tagName)) {
                     FieldGroup thisFieldGroup = new FieldGroup(sortFieldElement, this, sortOrderFields, fieldGroupMap);
                     fieldGroupList.add(thisFieldGroup);
                     lastFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
@@ -1356,7 +1356,7 @@ public abstract class ModelForm extends ModelWidget {
                             + retVal.getClass().getName() + " [" + retVal + "] of form " + getName());
                 }
 
-                if (condTrue && !targetType.equals("inter-app")) {
+                if (condTrue && !"inter-app".equals(targetType)) {
                     return altTarget.targetExdr.expandString(expanderContext);
                 }
             }

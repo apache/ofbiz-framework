@@ -1480,7 +1480,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isNotEmpty(queryStringMap)) {
             inputFields.putAll(queryStringMap);
         }
-        if (modelForm.getType().equals("multi")) {
+        if ("multi".equals(modelForm.getType())) {
             inputFields = UtilHttp.removeMultiFormParameters(inputFields);
         }
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
@@ -2319,9 +2319,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
         }
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
-        if (viewIndexParam.equals("viewIndex" + "_" + paginatorNumber))
+        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexParam))
             viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
-        if (viewSizeParam.equals("viewSize" + "_" + paginatorNumber))
+        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeParam))
             viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
         String str = (String) context.get("_QBESTRING_");
         // strip legacy viewIndex/viewSize params from the query string
@@ -2351,7 +2351,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         } else if (!prepLinkText.endsWith("?")) {
             prepLinkText += "&amp;";
         }
-        if (UtilValidate.isNotEmpty(queryString) && !queryString.equals("null")) {
+        if (UtilValidate.isNotEmpty(queryString) && !"null".equals(queryString)) {
             prepLinkText += queryString + "&amp;";
         }
         prepLinkSizeText = prepLinkText + viewSizeParam + "='+this.value+'" + "&amp;" + viewIndexParam + "=0";
@@ -2852,7 +2852,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (oldSortField.equals(columnField)) {
                 newSortField = "-" + columnField;
                 sortFieldStyle = modelFormField.getSortFieldStyleDesc();
-            } else if (oldSortField.equals("-" + columnField)) {
+            } else if (("-" + columnField).equals(oldSortField)) {
                 newSortField = columnField;
                 sortFieldStyle = modelFormField.getSortFieldStyleAsc();
             }
@@ -3079,10 +3079,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String viewSizeField = modelForm.getMultiPaginateSizeField(context);
         int viewIndex = Paginator.getViewIndex(modelForm, context);
         int viewSize = Paginator.getViewSize(modelForm, context);
-        if (viewIndexField.equals("viewIndex" + "_" + paginatorNumber)) {
+        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexField)) {
             viewIndexField = "VIEW_INDEX" + "_" + paginatorNumber;
         }
-        if (viewSizeField.equals("viewSize" + "_" + paginatorNumber)) {
+        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeField)) {
             viewSizeField = "VIEW_SIZE" + "_" + paginatorNumber;
         }
         if ("hidden-form".equals(realLinkType)) {

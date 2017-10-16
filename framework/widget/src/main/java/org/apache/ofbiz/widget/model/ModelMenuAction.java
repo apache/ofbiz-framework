@@ -99,7 +99,7 @@ public abstract class ModelMenuAction {
             boolean global = "true".equals(globalStr);
 
             Object newValue = null;
-            if (this.fromScope != null && this.fromScope.equals("user")) {
+            if (this.fromScope != null && "user".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
@@ -111,7 +111,7 @@ public abstract class ModelMenuAction {
                     newValue = this.valueExdr.expandString(context);
                 }
 
-            } else if (this.fromScope != null && this.fromScope.equals("application")) {
+            } else if (this.fromScope != null && "application".equals(this.fromScope)) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
@@ -154,7 +154,7 @@ public abstract class ModelMenuAction {
                     }
                 }
             }
-            if (this.toScope != null && this.toScope.equals("user")) {
+            if (this.toScope != null && "user".equals(this.toScope)) {
                     String originalName = this.field.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
@@ -162,7 +162,7 @@ public abstract class ModelMenuAction {
                     session.setAttribute(newKey, newValue);
                     if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
 
-            } else if (this.toScope != null && this.toScope.equals("application")) {
+            } else if (this.toScope != null && "application".equals(this.toScope)) {
                     String originalName = this.field.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;

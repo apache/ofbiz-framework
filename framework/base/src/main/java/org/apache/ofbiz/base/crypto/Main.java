@@ -23,15 +23,15 @@ import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        if (args[0].equals("-crypt")) {
+        if ("-crypt".equals(args[0])) {
             System.out.println(HashCrypt.cryptUTF8(args[1], null, args[2]));
-        } else if (args[0].equals("-digest")) {
+        } else if ("-digest".equals(args[0])) {
             String digest = HashCrypt.digestHash("SHA", null, args[1]);
             System.out.println(digest);
-        } else if (args[0].equals("-kek")) {
+        } else if ("-kek".equals(args[0])) {
             AesCipherService cs = new AesCipherService();
             System.out.println(Base64.encodeBase64String(cs.generateNewKey().getEncoded()));
-        } else if (args[0].equals("-kek-old")) {
+        } else if ("-kek-old".equals(args[0])) {
             System.out.println(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()));
         }
     }

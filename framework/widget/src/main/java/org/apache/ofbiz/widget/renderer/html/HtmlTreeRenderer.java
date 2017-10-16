@@ -224,7 +224,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             String prefix = link.getPrefix(context);
             HttpServletResponse res = (HttpServletResponse) context.get("response");
             HttpServletRequest req = (HttpServletRequest) context.get("request");
-            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
+            if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
                 if (req != null && res != null) {
                     WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
@@ -233,7 +233,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(target);
                 }
-            } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+            } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
@@ -309,7 +309,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             boolean encode = false;
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
-            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
+            if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -318,7 +318,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(src);
                 }
-            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+            } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
