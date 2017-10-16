@@ -1143,7 +1143,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             String name = modelField.getName();
 
             String type = modelField.getType();
-            if (type != null && type.equals("blob")) {
+            if (type != null && "blob".equals(type)) {
                 Object obj = get(name);
                 boolean b1 = obj instanceof byte [];
                 if (b1) {

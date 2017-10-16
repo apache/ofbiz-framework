@@ -293,7 +293,7 @@ public class XmlSerializer {
     public static Object deserializeSingle(Element element, Delegator delegator) throws SerializeException {
         String tagName = element.getLocalName();
 
-        if (tagName.equals("null")) return null;
+        if ("null".equals(tagName)) return null;
 
         if (tagName.startsWith("std-")) {
             // - Standard Objects -
