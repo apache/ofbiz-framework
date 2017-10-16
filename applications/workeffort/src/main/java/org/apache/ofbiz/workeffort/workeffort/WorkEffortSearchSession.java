@@ -246,7 +246,7 @@ public class WorkEffortSearchSession {
         String sortAscending = (String) parameters.get("sortAscending");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if (sortOrder.equals("SortKeywordRelevancy")) {
+            if ("SortKeywordRelevancy".equals(sortOrder)) {
                 searchSetSortOrder(new WorkEffortSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortWorkEffortField:")) {
                 String fieldName = sortOrder.substring("SortWorkEffortField:".length());

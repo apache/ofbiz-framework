@@ -100,7 +100,7 @@ public class CommunicationEventServices {
 
             // make sure the from contact mech is an email if it is specified
             if ((communicationEvent.getRelatedOne("FromContactMech", false) == null) ||
-                 (!(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId").equals("EMAIL_ADDRESS")) ||
+                 (!("EMAIL_ADDRESS".equals(communicationEvent.getRelatedOne("FromContactMech", false).getString("contactMechTypeId"))) ||
                  (communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString") == null))) {
                 String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_from_contact_mech_must_be_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
@@ -359,7 +359,7 @@ public class CommunicationEventServices {
                             newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
                             newContactListCommStatusRecordMap.put("partyId", partyId);
                             contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
-                        } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
+                        } else if (contactListCommStatusRecord.get("statusId") != null && "COM_COMPLETE".equals(contactListCommStatusRecord.getString("statusId"))) {
 
                             // There was a successful earlier attempt, so skip this address
                             continue;
@@ -687,7 +687,7 @@ public class CommunicationEventServices {
             int idx = contentTypeRaw.indexOf(";");
             if (idx == -1) idx = contentTypeRaw.length();
             contentType = contentTypeRaw.substring(0, idx);
-            if (contentType == null || contentType.equals("")) contentType = "text/html";
+            if (contentType == null || "".equals(contentType)) contentType = "text/html";
             contentType = contentType.toLowerCase();
             Address[] addressesFrom = wrapper.getFrom();
             Address[] addressesTo = wrapper.getTo();
@@ -705,7 +705,7 @@ public class CommunicationEventServices {
             String spamHeaderName = EntityUtilProperties.getPropertyValue("general", "mail.spam.name", "N", delegator);
             String configHeaderValue = EntityUtilProperties.getPropertyValue("general", "mail.spam.value", delegator);
             //          only execute when config file has been set && header variable found
-            if (!spamHeaderName.equals("N") && wrapper.getHeader(spamHeaderName) != null && wrapper.getHeader(spamHeaderName).length > 0) {
+            if (!"N".equals(spamHeaderName) && wrapper.getHeader(spamHeaderName) != null && wrapper.getHeader(spamHeaderName).length > 0) {
                 String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
                 if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);

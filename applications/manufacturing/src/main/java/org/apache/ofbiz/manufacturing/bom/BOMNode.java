@@ -166,7 +166,7 @@ public class BOMNode {
                         }
                     }
                 }
-                if (ruleSatisfied && ruleOperator.equals("OR")) {
+                if (ruleSatisfied && "OR".equals(ruleOperator)) {
                     BOMNode tmpNode = oneChildNode;
                     if (newPart == null || newPart.equals("")) {
                         oneChildNode = null;
@@ -664,7 +664,7 @@ public class BOMNode {
     }
 
     public boolean isVirtual() {
-        return (product.get("isVirtual") != null? product.get("isVirtual").equals("Y"): false);
+        return (product.get("isVirtual") != null? "Y".equals(product.get("isVirtual")): false);
     }
 
     public void isConfigured(List<BOMNode> arr) {
