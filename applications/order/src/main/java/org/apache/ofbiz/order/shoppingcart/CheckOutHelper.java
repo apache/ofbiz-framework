@@ -1045,7 +1045,7 @@ public class CheckOutHelper {
 
                 String authResp = (String) paymentResult.get("processResult");
 
-                if (authResp.equals("FAILED")) {
+                if ("FAILED".equals(authResp)) {
                     // order was NOT approved
                     if (Debug.verboseOn()) Debug.logVerbose("Payment auth was NOT a success!", module);
 
@@ -1058,7 +1058,7 @@ public class CheckOutHelper {
                     } else {
                         return ServiceUtil.returnError(messages);
                     }
-                } else if (authResp.equals("APPROVED")) {
+                } else if ("APPROVED".equals(authResp)) {
                     // order WAS approved
                     if (Debug.verboseOn()) Debug.logVerbose("Payment auth was a success!", module);
 
@@ -1089,7 +1089,7 @@ public class CheckOutHelper {
                             }
                         }
                     }
-                } else if (authResp.equals("ERROR")) {
+                } else if ("ERROR".equals(authResp)) {
                     // service failed
                     if (Debug.verboseOn()) Debug.logVerbose("Payment auth failed due to processor trouble.", module);
                     if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
@@ -1329,7 +1329,7 @@ public class CheckOutHelper {
                 String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
                 if (paymentMethodTypeId.startsWith("EXT_")) {
                     // PayPal with a PaymentMethod is not an external payment method
-                    if (!(paymentMethodTypeId.equals("EXT_PAYPAL") && UtilValidate.isNotEmpty(paymentPreference.getString("paymentMethodId")))) {
+                    if (!("EXT_PAYPAL".equals(paymentMethodTypeId) && UtilValidate.isNotEmpty(paymentPreference.getString("paymentMethodId")))) {
                         String type = paymentMethodTypeId.substring(4);
                         result = ServiceUtil.returnSuccess();
                         result.put("type", type.toLowerCase());

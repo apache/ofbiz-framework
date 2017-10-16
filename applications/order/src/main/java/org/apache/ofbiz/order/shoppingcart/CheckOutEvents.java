@@ -736,17 +736,17 @@ public class CheckOutEvents {
         }
 
         // set the customer info
-        if (mode.equals("default")) {
+        if ("default".equals(mode)) {
             cart.setDefaultCheckoutOptions(dispatcher);
         }
 
         // remove the empty ship groups
-        if (mode.equals("removeEmptyShipGroups")) {
+        if ("removeEmptyShipGroups".equals(mode)) {
             cart.cleanUpShipGroups();
         }
 
         // set the customer info
-        if (mode.equals("cust")) {
+        if ("cust".equals(mode)) {
             String partyId = (String) request.getAttribute("partyId");
             if (partyId != null) {
                 cart.setOrderPartyId(partyId);
@@ -771,29 +771,29 @@ public class CheckOutEvents {
             }
         }
 
-        if (mode.equals("addpty")) {
+        if ("addpty".equals(mode)) {
             cart.setAttribute("addpty", "Y");
         }
 
-        if (mode.equals("term")) {
+        if ("term".equals(mode)) {
            cart.setOrderTermSet(true);
         }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // ====================================================================================
-        if (mode.equals("ship") || mode.equals("options")) {
+        if ("ship".equals(mode) || "options".equals(mode)) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
             List<String> errorMessages = new ArrayList<String>();
             Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
-                if (mode.equals("ship")) {
+                if ("ship".equals(mode)) {
                     shippingContactMechId = request.getParameter(shipGroupIndex + "_shipping_contact_mech_id");
                     String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId");
-                    } else if(cart.getOrderType().equals("PURCHASE_ORDER")){
+                    } else if("PURCHASE_ORDER".equals(cart.getOrderType())){
                         String[] shipInfo = shippingContactMechId.split("_@_");
                         if(shipInfo.length > 1){
                             shippingContactMechId = shipInfo[0];
@@ -815,7 +815,7 @@ public class CheckOutEvents {
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
                 // set the options
-                if (mode.equals("options")) {
+                if ("options".equals(mode)) {
                     shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
                     if (UtilValidate.isEmpty(shippingMethod)) {
                         shippingMethod = request.getParameter("shipping_method");
@@ -860,8 +860,8 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, callResult, null);
             // determine whether it was a success or not
             if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                if (mode.equals("ship")) return "shipping";
-                if (mode.equals("options")) return "options";
+                if ("ship".equals(mode)) return "shipping";
+                if ("options".equals(mode)) return "options";
                 return "error";
             }
         }
@@ -875,7 +875,7 @@ public class CheckOutEvents {
             mode = "payment";
         }
 
-        if (mode.equals("payment")) {
+        if ("payment".equals(mode)) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
             List<String> errorMessages = new ArrayList<String>();
             Map<String, Object> errorMaps = new HashMap<String, Object>();
@@ -954,7 +954,7 @@ public class CheckOutEvents {
         boolean requireShipping = true;
         boolean requireOptions = true;
         boolean requireShipGroups = false;
-        boolean requirePayment = !cart.getOrderType().equals("PURCHASE_ORDER");
+        boolean requirePayment = !"PURCHASE_ORDER".equals(cart.getOrderType());
         boolean requireTerm = true;
         boolean requireAdditionalParty = isAnonymousCheckout;
         boolean isSingleUsePayment = true;
@@ -969,18 +969,18 @@ public class CheckOutEvents {
             String requireAdditionalPartyStr = request.getParameter("finalizeReqAdditionalParty");
             String requireShipGroupsStr = request.getParameter("finalizeReqShipGroups");
             String singleUsePaymentStr = request.getParameter("singleUsePayment");
-            requireCustomer = requireCustomerStr == null || requireCustomerStr.equalsIgnoreCase("true");
-            requireNewShippingAddress = requireNewShippingAddressStr != null && requireNewShippingAddressStr.equalsIgnoreCase("true");
-            requireShipping = requireShippingStr == null || requireShippingStr.equalsIgnoreCase("true");
-            requireOptions = requireOptionsStr == null || requireOptionsStr.equalsIgnoreCase("true");
-            requireShipGroups = requireShipGroupsStr != null && requireShipGroupsStr.equalsIgnoreCase("true");
+            requireCustomer = requireCustomerStr == null || "true".equalsIgnoreCase(requireCustomerStr);
+            requireNewShippingAddress = requireNewShippingAddressStr != null && "true".equalsIgnoreCase(requireNewShippingAddressStr);
+            requireShipping = requireShippingStr == null || "true".equalsIgnoreCase(requireShippingStr);
+            requireOptions = requireOptionsStr == null || "true".equalsIgnoreCase(requireOptionsStr);
+            requireShipGroups = requireShipGroupsStr != null && "true".equalsIgnoreCase(requireShipGroupsStr);
             if (requirePayment) {
-                requirePayment = requirePaymentStr == null || requirePaymentStr.equalsIgnoreCase("true");
+                requirePayment = requirePaymentStr == null || "true".equalsIgnoreCase(requirePaymentStr);
             }
             if (requireTerm) {
-                requireTerm = requireTermStr == null || requireTermStr.equalsIgnoreCase("true");
+                requireTerm = requireTermStr == null || "true".equalsIgnoreCase(requireTermStr);
             }
-            requireAdditionalParty = requireAdditionalPartyStr == null || requireAdditionalPartyStr.equalsIgnoreCase("true");
+            requireAdditionalParty = requireAdditionalPartyStr == null || "true".equalsIgnoreCase(requireAdditionalPartyStr);
             isSingleUsePayment = singleUsePaymentStr != null && "Y".equalsIgnoreCase(singleUsePaymentStr) ? true : false;
         }
 
@@ -1002,7 +1002,7 @@ public class CheckOutEvents {
         String[] processOrder = {"customer", "shipping", "shipGroups", "options", "term", "payment",
                                  "addparty", "paysplit"};
 
-        if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+        if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
             // Force checks for the following
             requireCustomer = true; requireShipping = true; requireOptions = true;
             processOrder = new String[] {"customer", "term", "shipping", "shipGroups", "options", "payment",
@@ -1011,11 +1011,11 @@ public class CheckOutEvents {
 
         for (int i = 0; i < processOrder.length; i++) {
             String currProcess = processOrder[i];
-            if (currProcess.equals("customer")) {
-                if (requireCustomer && (customerPartyId == null || customerPartyId.equals("_NA_"))) {
+            if ("customer".equals(currProcess)) {
+                if (requireCustomer && (customerPartyId == null || "_NA_".equals(customerPartyId))) {
                     return "customer";
                 }
-            } else if (currProcess.equals("shipping")) {
+            } else if ("shipping".equals(currProcess)) {
                 if (requireShipping) {
                     if (requireNewShippingAddress) {
                         return "shippingAddress";
@@ -1023,29 +1023,29 @@ public class CheckOutEvents {
                         return "shipping";
                     }
                 }
-            } else if (currProcess.equals("shipGroups")) {
+            } else if ("shipGroups".equals(currProcess)) {
                 if (requireShipGroups) {
                     return "shipGroups";
                 }
-            } else if (currProcess.equals("options")) {
+            } else if ("options".equals(currProcess)) {
                 if (requireOptions && !shippingOptionsSet) {
                     return "options";
                 }
-            } else if (currProcess.equals("term")) {
+            } else if ("term".equals(currProcess)) {
                 if (requireTerm && !cart.isOrderTermSet()) {
                     return "term";
                 }
-            } else if (currProcess.equals("payment")) {
+            } else if ("payment".equals(currProcess)) {
                 List<String> paymentMethodIds = cart.getPaymentMethodIds();
                 List<String> paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
                 if (requirePayment && UtilValidate.isEmpty(paymentMethodIds) && UtilValidate.isEmpty(paymentMethodTypeIds)) {
                     return "payment";
                 }
-            } else if (currProcess.equals("addparty")) {
+            } else if ("addparty".equals(currProcess)) {
                 if (requireAdditionalParty && cart.getAttribute("addpty") == null) {
                     return "addparty";
                 }
-            } else if (currProcess.equals("paysplit")) {
+            } else if ("paysplit".equals(currProcess)) {
                 if (isSingleUsePayment) {
                     return "paysplit";
                 }
