@@ -114,7 +114,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 GenericValue currentContent = null;
                 String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
+                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
                 GenericValue val = null;
                 try {
                     val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
@@ -167,7 +167,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
                 String permissionStatus = (String) results.get("permissionStatus");
 
-                if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted")) {
+                if (UtilValidate.isEmpty(permissionStatus) || !"granted".equals(permissionStatus)) {
                     String errorMessage = "Permission to add response is denied (2)";
                     PermissionRecorder recorder = (PermissionRecorder)results.get("permissionRecorder");
                     if (recorder != null) {
@@ -177,14 +177,14 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     templateCtx.put("permissionErrorMsg", errorMessage);
                 }
 
-                if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+                if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                     FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
-                    if (mode == null || !mode.equalsIgnoreCase("not-equals"))
+                    if (mode == null || !"not-equals".equalsIgnoreCase(mode))
                         return TransformControl.EVALUATE_BODY;
                     else
                         return TransformControl.SKIP_BODY;
                 } else {
-                    if (mode == null || !mode.equalsIgnoreCase("not-equals"))
+                    if (mode == null || !"not-equals".equalsIgnoreCase(mode))
                         return TransformControl.SKIP_BODY;
                     else
                         return TransformControl.EVALUATE_BODY;

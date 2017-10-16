@@ -326,7 +326,7 @@ public class DataEvents {
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
 
-        if (mode != null && mode.equals("UPDATE")) {
+        if (mode != null && "UPDATE".equals(mode)) {
             try {
                 result = dispatcher.runSync("updateDataResource", serviceInMap);
             } catch (GenericServiceException e) {
@@ -352,13 +352,13 @@ public class DataEvents {
         }
 
         String returnStr = "success";
-        if (mode.equals("CREATE")) {
+        if ("CREATE".equals(mode)) {
             // Set up return message to guide selection of follow on view
             request.setAttribute("dataResourceId", result.get("dataResourceId"));
             String dataResourceTypeId = (String)serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
-                 if (dataResourceTypeId.equals("ELECTRONIC_TEXT")
-                     || dataResourceTypeId.equals("IMAGE_OBJECT")) {
+                 if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
+                     || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
                     returnStr = dataResourceTypeId;
                  }
             }

@@ -219,8 +219,8 @@ public class ContentPermissionServices {
             errBuf.append(permissionStatus);
         }
 
-        if ((permissionStatus.equals("granted") && displayPassCond)
-            || (permissionStatus.equals("rejected") && displayFailCond)) {
+        if (("granted".equals(permissionStatus) && displayPassCond)
+            || ("rejected".equals(permissionStatus) && displayFailCond)) {
             // Don't show this if passed on 'hasEntityPermission'
             if (displayFailCond || displayPassCond) {
               if (!passed) {
@@ -299,7 +299,7 @@ public class ContentPermissionServices {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
         permissionStatus = (String)permResults.get("permissionStatus");
-        if (permissionStatus == null || !permissionStatus.equals("granted")) {
+        if (permissionStatus == null || !"granted".equals(permissionStatus)) {
             if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
                 String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -315,7 +315,7 @@ public class ContentPermissionServices {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
         permissionStatus = (String)permResults.get("permissionStatus");
-        if (permissionStatus != null && permissionStatus.equals("granted")) {
+        if (permissionStatus != null && "granted".equals(permissionStatus)) {
             results.put("permissionStatus", "granted");
         } else {
             if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {

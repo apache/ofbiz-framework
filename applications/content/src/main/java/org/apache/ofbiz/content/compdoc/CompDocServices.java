@@ -165,17 +165,17 @@ public class CompDocServices {
                 }
                 byte [] inputByteArray = null;
                 PdfReader reader = null;
-                if (inputMimeType != null && inputMimeType.equals("application/pdf")) {
+                if (inputMimeType != null && "application/pdf".equals(inputMimeType)) {
                     ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
                     inputByteArray = byteBuffer.array();
                     reader = new PdfReader(inputByteArray);
-                } else if (inputMimeType != null && inputMimeType.equals("text/html")) {
+                } else if (inputMimeType != null && "text/html".equals(inputMimeType)) {
                     ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
                     inputByteArray = byteBuffer.array();
                     String s = new String(inputByteArray);
                     Debug.logInfo("text/html string:" + s, module);
                     continue;
-                } else if (inputMimeType != null && inputMimeType.equals("application/vnd.ofbiz.survey.response")) {
+                } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
                     String surveyResponseId = dataResource.getString("relatedDetailId");
                     String surveyId = null;
                     String acroFormContentId = null;
@@ -290,15 +290,15 @@ public class CompDocServices {
                 inputMimeType = dataResource.getString("mimeTypeId");
             }
             byte [] inputByteArray = null;
-            if (inputMimeType != null && inputMimeType.equals("application/pdf")) {
+            if (inputMimeType != null && "application/pdf".equals(inputMimeType)) {
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 inputByteArray = byteBuffer.array();
-            } else if (inputMimeType != null && inputMimeType.equals("text/html")) {
+            } else if (inputMimeType != null && "text/html".equals(inputMimeType)) {
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 inputByteArray = byteBuffer.array();
                 String s = new String(inputByteArray);
                 Debug.logInfo("text/html string:" + s, module);
-            } else if (inputMimeType != null && inputMimeType.equals("application/vnd.ofbiz.survey.response")) {
+            } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
                 String surveyResponseId = dataResource.getString("relatedDetailId");
                 String surveyId = null;
                 String acroFormContentId = null;

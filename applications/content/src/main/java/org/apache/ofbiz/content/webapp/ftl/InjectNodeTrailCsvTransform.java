@@ -109,7 +109,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 // Maybe only contentId or subContentId are passed in
                 String redo = (String)templateCtx.get("redo");
 
-                if (UtilValidate.isEmpty(trail) || (redo != null && redo.equalsIgnoreCase("true"))) {
+                if (UtilValidate.isEmpty(trail) || (redo != null && "true".equalsIgnoreCase(redo))) {
                     String subContentId = (String)templateCtx.get("subContentId");
                     if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:"+subContentId,module);
                     String contentId = (String)templateCtx.get("contentId");

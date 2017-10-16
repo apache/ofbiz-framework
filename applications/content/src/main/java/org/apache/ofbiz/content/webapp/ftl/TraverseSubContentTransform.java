@@ -195,7 +195,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             public void close() throws IOException {
                 String wrappedFTL = buf.toString();
                 String encloseWrappedText = (String)templateCtx.get("encloseWrappedText");
-                if (UtilValidate.isEmpty(encloseWrappedText) || encloseWrappedText.equalsIgnoreCase("false")) {
+                if (UtilValidate.isEmpty(encloseWrappedText) || "false".equalsIgnoreCase(encloseWrappedText)) {
                     out.write(wrappedFTL);
                     wrappedFTL = null; // So it won't get written again below.
                 }
@@ -231,7 +231,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 assocContext.put("contentAssocTypeId", contentAssocTypeId);
                 String thisDirection = (String)templateCtx.get("direction");
                 String thisContentId = (String)templateCtx.get("thisContentId");
-                if (thisDirection != null && thisDirection.equalsIgnoreCase("From")) {
+                if (thisDirection != null && "From".equalsIgnoreCase(thisDirection)) {
                     assocContext.put("contentIdFrom", thisContentId);
                 } else {
                     assocContext.put("contentIdTo", thisContentId);

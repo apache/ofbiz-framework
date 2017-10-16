@@ -124,7 +124,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
                 url = contentAssocDataResource.getString("drObjectInfo");
                 url = UtilCodec.getDecoder("url").decode(url);
                 String mountPoint = request.getContextPath();
-                if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
+                if (!("/".equals(mountPoint)) && !(mountPoint.equals(""))) {
                     url = mountPoint + url;
                 }
             }

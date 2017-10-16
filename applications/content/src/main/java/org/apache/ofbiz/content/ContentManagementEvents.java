@@ -96,10 +96,10 @@ public class ContentManagementEvents {
                 try {
                     if (UtilValidate.isNotEmpty(paramValue)) {
                         if (!paramValue.equals(pubValue)) {
-                            if (paramValue.equalsIgnoreCase("Y")) {
+                            if ("Y".equalsIgnoreCase(paramValue)) {
                                 serviceIn.put("fromDate", UtilDateTime.nowTimestamp());
                                 dispatcher.runSync("createContentAssoc", serviceIn);
-                            } else if (paramValue.equalsIgnoreCase("N") && pubValue.equalsIgnoreCase("Y")) {
+                            } else if ("N".equalsIgnoreCase(paramValue) && "Y".equalsIgnoreCase(pubValue)) {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
                                 Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);
@@ -107,7 +107,7 @@ public class ContentManagementEvents {
                             }
                         }
                     } else if (UtilValidate.isNotEmpty(pubValue)) {
-                        if (pubValue.equalsIgnoreCase("Y")) {
+                        if ("Y".equalsIgnoreCase(pubValue)) {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
                                 Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);

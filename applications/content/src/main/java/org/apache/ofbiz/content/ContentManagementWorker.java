@@ -300,7 +300,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
-            if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                 String [] arr = {contentId,templateTitle};
                 permittedPublishPointList.add(arr);
             }
@@ -571,7 +571,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
-            if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                 String [] arr = {contentId,contentName};
                 permittedDepartmentPointList.add(arr);
             }

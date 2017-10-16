@@ -147,7 +147,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         // The other test is to only get all the children if the "leaf" node where all the
         // children of the leaf are wanted for expansion.
         if (parentCategoryId == null
-            || parentCategoryId.equals("ROOT")
+            || "ROOT".equals(parentCategoryId)
             || (currentDataCategoryId != null && currentDataCategoryId.equals(parentCategoryId))
             || getAll) {
             categoryNode.put("kids", subCategoryIds);
@@ -182,7 +182,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("dataCategoryId", id);
         map.put("categoryName", spc + nm);
-        if (id != null && !id.equals("ROOT") && !id.equals("")) {
+        if (id != null && !"ROOT".equals(id) && !id.equals("")) {
             lst.add(map);
         }
         List<Map<String, Object>> kids = UtilGenerics.checkList(nd.get("kids"));
@@ -246,7 +246,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 passedParams.put("drMimeTypeId", mimeType);
                 try {
                     String returnMsg = UploadContentAndImage.processContentUpload(passedParams, "", request);
-                    if (returnMsg.equals("error")) {
+                    if ("error".equals(returnMsg)) {
                         return "error";
                     }
                 } catch (GenericServiceException e) {
@@ -272,7 +272,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
         String suffix = imageFileName.substring(pos + 1);
         String suffixLC = suffix.toLowerCase();
-        if (suffixLC.equals("jpg"))
+        if ("jpg".equals(suffixLC))
             mimeType = "image/jpeg";
         else
             mimeType = "image/" + suffixLC;
@@ -398,13 +398,13 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String prefix;
 
         NotificationServices.setBaseUrl(delegator, webSiteId, prefixValues);
-        if (https != null && https.equalsIgnoreCase("true")) {
+        if (https != null && "true".equalsIgnoreCase(https)) {
             prefix = (String) prefixValues.get("baseSecureUrl");
         } else {
             prefix = (String) prefixValues.get("baseUrl");
         }
         if (UtilValidate.isEmpty(prefix)) {
-            if (https != null && https.equalsIgnoreCase("true")) {
+            if (https != null && "true".equalsIgnoreCase(https)) {
                 prefix = UtilProperties.getMessage("content", "baseSecureUrl", locale);
             } else {
                 prefix = UtilProperties.getMessage("content", "baseUrl", locale);
@@ -417,7 +417,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
     public static File getContentFile(String dataResourceTypeId, String objectInfo, String contextRoot)  throws GeneralException, FileNotFoundException{
         File file = null;
 
-        if (dataResourceTypeId.equals("LOCAL_FILE") || dataResourceTypeId.equals("LOCAL_FILE_BIN")) {
+        if ("LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
             file = FileUtil.getFile(objectInfo);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (objectInfo));
@@ -425,7 +425,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-        } else if (dataResourceTypeId.equals("OFBIZ_FILE") || dataResourceTypeId.equals("OFBIZ_FILE_BIN")) {
+        } else if ("OFBIZ_FILE".equals(dataResourceTypeId) || "OFBIZ_FILE_BIN".equals(dataResourceTypeId)) {
             String prefix = System.getProperty("ofbiz.home");
 
             String sep = "";
@@ -436,7 +436,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (prefix + sep + objectInfo));
             }
-        } else if (dataResourceTypeId.equals("CONTEXT_FILE") || dataResourceTypeId.equals("CONTEXT_FILE_BIN")) {
+        } else if ("CONTEXT_FILE".equals(dataResourceTypeId) || "CONTEXT_FILE_BIN".equals(dataResourceTypeId)) {
             if (UtilValidate.isEmpty(contextRoot)) {
                 throw new GeneralException("Cannot find CONTEXT_FILE with an empty context root!");
             }
@@ -854,7 +854,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
 
         // resource type
-        } else if (dataResourceTypeId.equals("URL_RESOURCE")) {
+        } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String text = null;
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
 
@@ -955,14 +955,14 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
     public static void renderFile(String dataResourceTypeId, String objectInfo, String rootDir, Appendable out) throws GeneralException, IOException {
         // TODO: this method assumes the file is a text file, if it is an image we should respond differently, see the comment above for IMAGE_OBJECT type data resource
 
-        if (dataResourceTypeId.equals("LOCAL_FILE") && UtilValidate.isNotEmpty(objectInfo)) {
+        if ("LOCAL_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             File file = FileUtil.getFile(objectInfo);
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
             FileReader in = new FileReader(file);
             UtilIO.copy(in, true, out);
-        } else if (dataResourceTypeId.equals("OFBIZ_FILE") && UtilValidate.isNotEmpty(objectInfo)) {
+        } else if ("OFBIZ_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = System.getProperty("ofbiz.home");
             String sep = "";
             if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
@@ -971,7 +971,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             File file = FileUtil.getFile(prefix + sep + objectInfo);
             FileReader in = new FileReader(file);
             UtilIO.copy(in, true, out);
-        } else if (dataResourceTypeId.equals("CONTEXT_FILE") && UtilValidate.isNotEmpty(objectInfo)) {
+        } else if ("CONTEXT_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = rootDir;
             String sep = "";
             if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
