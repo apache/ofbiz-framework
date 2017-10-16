@@ -94,7 +94,7 @@ public class ContactMechServices {
         GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
-        if (!partyId.equals("_NA_")) {
+        if (!"_NA_".equals(partyId)) {
             toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
                     "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"), "extension", context.get("extension"))));
         }
@@ -164,7 +164,7 @@ public class ContactMechServices {
             contactMech = null;
         }
 
-        if (!partyId.equals("_NA_")) {
+        if (!"_NA_".equals(partyId)) {
             // try to find a PartyContactMech with a valid date range
             try {
                 partyContactMech = EntityQuery.use(delegator).from("PartyContactMech")
@@ -350,7 +350,7 @@ public class ContactMechServices {
         toBeStored.add(tempContactMech);
 
         // don't create a PartyContactMech if there is no party; we define no party as sending _NA_ as partyId
-        if (!partyId.equals("_NA_")) {
+        if (!"_NA_".equals(partyId)) {
             toBeStored.add(delegator.makeValue("PartyContactMech",
                     UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
                         "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation",
@@ -429,7 +429,7 @@ public class ContactMechServices {
             contactMech = null;
         }
 
-        if (!partyId.equals("_NA_")) {
+        if (!"_NA_".equals(partyId)) {
             // try to find a PartyContactMech with a valid date range
             try {
                 partyContactMech = EntityQuery.use(delegator).from("PartyContactMech")

@@ -772,7 +772,7 @@ public class WorkEffortServices {
             List<GenericValue> incomingProductionRuns = EntityQuery.use(delegator).from("WorkEffortAndGoods").where(findIncomingProductionRunsConds).orderBy("-estimatedCompletionDate").queryList();
             for (GenericValue incomingProductionRun: incomingProductionRuns) {
                 double producedQtyTot = 0.0;
-                if (incomingProductionRun.getString("currentStatusId").equals("PRUN_COMPLETED")) {
+                if ("PRUN_COMPLETED".equals(incomingProductionRun.getString("currentStatusId"))) {
                     List<GenericValue> inventoryItems = EntityQuery.use(delegator).from("WorkEffortAndInventoryProduced").where("productId", productId, "workEffortId", incomingProductionRun.getString("workEffortId")).queryList();
                     for (GenericValue inventoryItem: inventoryItems) {
                         GenericValue inventoryItemDetail = EntityQuery.use(delegator).from("InventoryItemDetail").where("inventoryItemId", inventoryItem.getString("inventoryItemId")).orderBy("inventoryItemDetailSeqId").queryFirst();

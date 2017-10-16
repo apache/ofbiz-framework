@@ -103,14 +103,14 @@ public class ProductionRunServices {
         String currentStatusId = productionRun.getGenericValue().getString("currentStatusId");
 
         // PRUN_CREATED, PRUN_DOC_PRINTED --> PRUN_CANCELLED
-        if (currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_DOC_PRINTED") || currentStatusId.equals("PRUN_SCHEDULED")) {
+        if ("PRUN_CREATED".equals(currentStatusId) || "PRUN_DOC_PRINTED".equals(currentStatusId) || "PRUN_SCHEDULED".equals(currentStatusId)) {
             try {
                 // First of all, make sure that there aren't production runs that depend on this one.
                 List<ProductionRun> mandatoryWorkEfforts = new LinkedList<ProductionRun>();
                 ProductionRunHelper.getLinkedProductionRuns(delegator, dispatcher, productionRunId, mandatoryWorkEfforts);
                 for (int i = 1; i < mandatoryWorkEfforts.size(); i++) {
                     GenericValue mandatoryWorkEffort = (mandatoryWorkEfforts.get(i)).getGenericValue();
-                    if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_CANCELLED"))) {
+                    if (!("PRUN_CANCELLED".equals(mandatoryWorkEffort.getString("currentStatusId")))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChangedMandatoryProductionRunFound", locale));
                     }
                 }
@@ -614,7 +614,7 @@ public class ProductionRunServices {
         }
 
         // PRUN_CREATED or PRUN_SCHEDULED --> PRUN_DOC_PRINTED
-        if ((currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_SCHEDULED")) && (statusId == null || statusId.equals("PRUN_DOC_PRINTED"))) {
+        if (("PRUN_CREATED".equals(currentStatusId) || "PRUN_SCHEDULED".equals(currentStatusId)) && (statusId == null || "PRUN_DOC_PRINTED".equals(statusId))) {
             // change only the production run (header) status to PRUN_DOC_PRINTED
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             serviceContext.clear();
@@ -647,7 +647,7 @@ public class ProductionRunServices {
 
         // PRUN_DOC_PRINTED --> PRUN_RUNNING
         // this should be called only when the first task is started
-        if (currentStatusId.equals("PRUN_DOC_PRINTED") && (statusId == null || statusId.equals("PRUN_RUNNING"))) {
+        if ("PRUN_DOC_PRINTED".equals(currentStatusId) && (statusId == null || "PRUN_RUNNING".equals(statusId))) {
             // change only the production run (header) status to PRUN_RUNNING
             // First check if there are production runs with precedence not still completed
             try {
@@ -658,9 +658,9 @@ public class ProductionRunServices {
                 for (int i = 0; i < mandatoryWorkEfforts.size(); i++) {
                     GenericValue mandatoryWorkEffortAssoc = mandatoryWorkEfforts.get(i);
                     GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort", false);
-                    if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_COMPLETED") ||
-                         mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_RUNNING") ||
-                         mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_CLOSED"))) {
+                    if (!("PRUN_COMPLETED".equals(mandatoryWorkEffort.getString("currentStatusId")) ||
+                         "PRUN_RUNNING".equals(mandatoryWorkEffort.getString("currentStatusId")) ||
+                         "PRUN_CLOSED".equals(mandatoryWorkEffort.getString("currentStatusId")))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted", locale));
                     }
                 }
@@ -687,7 +687,7 @@ public class ProductionRunServices {
 
         // PRUN_RUNNING --> PRUN_COMPLETED
         // this should be called only when the last task is completed
-        if (currentStatusId.equals("PRUN_RUNNING") && (statusId == null || statusId.equals("PRUN_COMPLETED"))) {
+        if ("PRUN_RUNNING".equals(currentStatusId) && (statusId == null || "PRUN_COMPLETED".equals(statusId))) {
             // change only the production run (header) status to PRUN_COMPLETED
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             serviceContext.clear();
@@ -707,7 +707,7 @@ public class ProductionRunServices {
         }
 
         // PRUN_COMPLETED --> PRUN_CLOSED
-        if (currentStatusId.equals("PRUN_COMPLETED") && (statusId == null || statusId.equals("PRUN_CLOSED"))) {
+        if ("PRUN_COMPLETED".equals(currentStatusId) && (statusId == null || "PRUN_CLOSED".equals(statusId))) {
             // change the production run status to PRUN_CLOSED
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             serviceContext.clear();
@@ -770,10 +770,10 @@ public class ProductionRunServices {
             if (oneTask.getString("workEffortId").equals(taskId)) {
                 theTask = oneTask;
             } else {
-                if (theTask == null && allPrecTaskCompletedOrRunning && (!oneTask.getString("currentStatusId").equals("PRUN_COMPLETED") && !oneTask.getString("currentStatusId").equals("PRUN_RUNNING"))) {
+                if (theTask == null && allPrecTaskCompletedOrRunning && (!"PRUN_COMPLETED".equals(oneTask.getString("currentStatusId")) && !"PRUN_RUNNING".equals(oneTask.getString("currentStatusId")))) {
                     allPrecTaskCompletedOrRunning = false;
                 }
-                if (allTaskCompleted && !oneTask.getString("currentStatusId").equals("PRUN_COMPLETED")) {
+                if (allTaskCompleted && !"PRUN_COMPLETED".equals(oneTask.getString("currentStatusId"))) {
                     allTaskCompleted = false;
                 }
             }
@@ -794,13 +794,13 @@ public class ProductionRunServices {
 
         // PRUN_CREATED or PRUN_SCHEDULED or PRUN_DOC_PRINTED --> PRUN_RUNNING
         // this should be called only when the first task is started
-        if ((currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_SCHEDULED") || currentStatusId.equals("PRUN_DOC_PRINTED")) && (statusId == null || statusId.equals("PRUN_RUNNING"))) {
+        if (("PRUN_CREATED".equals(currentStatusId) || "PRUN_SCHEDULED".equals(currentStatusId) || "PRUN_DOC_PRINTED".equals(currentStatusId)) && (statusId == null || "PRUN_RUNNING".equals(statusId))) {
             // change the production run task status to PRUN_RUNNING
             // if necessary change the production run (header) status to PRUN_RUNNING
             if (!allPrecTaskCompletedOrRunning) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted", locale));
             }
-            if (productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+            if ("PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskCannotStartDocsNotPrinted", locale));
             }
             Map<String, Object> serviceContext = new HashMap<String, Object>();
@@ -815,7 +815,7 @@ public class ProductionRunServices {
                 Debug.logError(e, "Problem calling the updateWorkEffort service", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
             }
-            if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_RUNNING")) {
+            if (!"PRUN_RUNNING".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                 serviceContext.clear();
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("statusId", "PRUN_RUNNING");
@@ -835,7 +835,7 @@ public class ProductionRunServices {
 
         // PRUN_RUNNING --> PRUN_COMPLETED
         // this should be called only when the last task is completed
-        if (currentStatusId.equals("PRUN_RUNNING") && (statusId == null || statusId.equals("PRUN_COMPLETED"))) {
+        if ("PRUN_RUNNING".equals(currentStatusId) && (statusId == null || "PRUN_COMPLETED".equals(statusId))) {
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             if (issueAllComponents.booleanValue()) {
                 // Issue all the components, if this task needs components and they still need to be issued
@@ -2159,7 +2159,7 @@ public class ProductionRunServices {
 
         String currentStatusId = theTask.getString("currentStatusId");
 
-        if (!currentStatusId.equals("PRUN_RUNNING")) {
+        if (!"PRUN_RUNNING".equals(currentStatusId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotRunning", locale));
         }
 
@@ -2934,29 +2934,29 @@ public class ProductionRunServices {
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             // Change the task status to running
             
-            if (statusId.equals("PRUN_DOC_PRINTED") ||
-                    statusId.equals("PRUN_RUNNING") ||
-                    statusId.equals("PRUN_COMPLETED") ||
-                    statusId.equals("PRUN_CLOSED")) {
+            if ("PRUN_DOC_PRINTED".equals(statusId) ||
+                    "PRUN_RUNNING".equals(statusId) ||
+                    "PRUN_COMPLETED".equals(statusId) ||
+                    "PRUN_CLOSED".equals(statusId)) {
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("statusId", "PRUN_DOC_PRINTED");
                 serviceContext.put("userLogin", userLogin);
                 dispatcher.runSync("changeProductionRunStatus", serviceContext);
             }
-            if (statusId.equals("PRUN_RUNNING") && "Y".equals(startAllTasks)) {
+            if ("PRUN_RUNNING".equals(statusId) && "Y".equals(startAllTasks)) {
                 serviceContext.clear();
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 dispatcher.runSync("quickStartAllProductionRunTasks", serviceContext);
             }
-            if (statusId.equals("PRUN_COMPLETED") ||
-                       statusId.equals("PRUN_CLOSED")) {
+            if ("PRUN_COMPLETED".equals(statusId) ||
+                       "PRUN_CLOSED".equals(statusId)) {
                 serviceContext.clear();
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 dispatcher.runSync("quickRunAllProductionRunTasks", serviceContext);
             }
-            if (statusId.equals("PRUN_CLOSED")) {
+            if ("PRUN_CLOSED".equals(statusId)) {
                 // Put in warehouse the products manufactured
                 serviceContext.clear();
                 serviceContext.put("workEffortId", productionRunId);
