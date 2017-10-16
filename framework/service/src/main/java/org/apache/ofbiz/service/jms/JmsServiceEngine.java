@@ -108,9 +108,9 @@ public class JmsServiceEngine extends AbstractEngine {
         String sendMode = serviceElement.getAttribute("send-mode");
         List<? extends Element> serverList = UtilXml.childElementList(serviceElement, "server");
 
-        if (sendMode.equals("none")) {
+        if ("none".equals(sendMode)) {
             return new ArrayList<Element>();
-        } else if (sendMode.equals("all")) {
+        } else if ("all".equals(sendMode)) {
             return serverList;
         } else {
             throw new GenericServiceException("Requested send mode not supported.");
@@ -312,9 +312,9 @@ public class JmsServiceEngine extends AbstractEngine {
         Map<String, Object> result = new HashMap<String, Object>();
         for (Server server: serverList) {
             String serverType = server.getType();
-            if (serverType.equals("topic"))
+            if ("topic".equals(serverType))
                 result.putAll(runTopic(modelService, context, server));
-            else if (serverType.equals("queue"))
+            else if ("queue".equals(serverType))
                 result.putAll(runQueue(modelService, context, server));
             else
                 throw new GenericServiceException("Illegal server messaging type.");

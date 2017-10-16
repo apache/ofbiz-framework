@@ -1116,7 +1116,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public synchronized void interfaceUpdate(DispatchContext dctx) throws GenericServiceException {
         if (!inheritedParameters) {
             // services w/ engine 'group' auto-implement the grouped services
-            if (this.engineName.equals("group") && implServices.size() == 0) {
+            if ("group".equals(this.engineName) && implServices.size() == 0) {
                 GroupModel group = internalGroup;
                 if (group == null) {
                     group = ServiceGroupReader.getGroupModel(this.location);

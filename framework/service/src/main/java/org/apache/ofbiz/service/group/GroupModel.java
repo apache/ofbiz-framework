@@ -125,16 +125,16 @@ public class GroupModel {
      */
     public Map<String, Object> run(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
             throws GenericServiceException {
-        if (this.getSendMode().equals("all")) {
+        if ("all".equals(this.getSendMode())) {
             return runAll(dispatcher, localName, context);
-        } else if (this.getSendMode().equals("round-robin")) {
+        } else if ("round-robin".equals(this.getSendMode())) {
             return runIndex(dispatcher, localName, context, (++lastServiceRan % services.size()));
-        } else if (this.getSendMode().equals("random")) {
+        } else if ("random".equals(this.getSendMode())) {
             int randomIndex = (int) (Math.random() * (services.size()));
             return runIndex(dispatcher, localName, context, randomIndex);
-        } else if (this.getSendMode().equals("first-available")) {
+        } else if ("first-available".equals(this.getSendMode())) {
             return runOne(dispatcher, localName, context);
-        } else if (this.getSendMode().equals("none")) {
+        } else if ("none".equals(this.getSendMode())) {
             return new HashMap<String, Object>();
         } else {
             throw new GenericServiceException("This mode is not currently supported");

@@ -138,9 +138,9 @@ public class JmsListenerFactory implements Runnable {
         String className = server.getListenerClass();
 
         if (UtilValidate.isEmpty(className)) {
-            if (type.equals("topic"))
+            if ("topic".equals(type))
                 className = JmsListenerFactory.TOPIC_LISTENER_CLASS;
-            else if (type.equals("queue"))
+            else if ("queue".equals(type))
                 className = JmsListenerFactory.QUEUE_LISTENER_CLASS;
         }
 

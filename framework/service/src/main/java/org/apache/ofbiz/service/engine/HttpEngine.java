@@ -146,7 +146,7 @@ public class HttpEngine extends GenericAsyncEngine {
             try {
                 ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
                 if (model.export || exportAll) {
-                    if (serviceMode.equals("ASYNC")) {
+                    if ("ASYNC".equals(serviceMode)) {
                         dispatcher.runAsync(serviceName, context);
                     } else {
                         result = dispatcher.runSync(serviceName, context);
