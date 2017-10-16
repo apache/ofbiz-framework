@@ -88,7 +88,7 @@ public class InventoryServices {
             Map<String, Object> results = ServiceUtil.returnSuccess();
 
             String inventoryType = inventoryItem.getString("inventoryItemTypeId");
-            if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
+            if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
                 BigDecimal atp = inventoryItem.getBigDecimal("availableToPromiseTotal");
                 BigDecimal qoh = inventoryItem.getBigDecimal("quantityOnHandTotal");
 
@@ -160,7 +160,7 @@ public class InventoryServices {
                 } else {
                     results.put("inventoryItemId", inventoryItem.get("inventoryItemId"));
                 }
-            } else if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
+            } else if ("SERIALIZED_INV_ITEM".equals(inventoryType)) {
                 if (!"INV_AVAILABLE".equals(inventoryItem.getString("statusId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductSerializedInventoryNotAvailable", locale));
@@ -169,7 +169,7 @@ public class InventoryServices {
 
             // setup values so that no one will grab the inventory during the move
             // if newItem is not null, it is the item to be moved, otherwise the original inventoryItem is the one to be moved
-            if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
+            if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
                 // set the transfered inventory item's atp to 0 and the qoh to the xferQty; at this point atp and qoh will always be the same, so we can safely zero the atp for now
                 GenericValue inventoryItemToClear = newItem == null ? inventoryItem : newItem;
 
@@ -191,7 +191,7 @@ public class InventoryServices {
                                 UtilMisc.toMap("errorString", e1.getMessage()), locale));
                     }
                 }
-            } else if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
+            } else if ("SERIALIZED_INV_ITEM".equals(inventoryType)) {
                 // set the status to avoid re-moving or something
               if (newItem != null) {
                     newItem.refresh();
@@ -251,7 +251,7 @@ public class InventoryServices {
             }
         }
 
-        if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
+        if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
             BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
@@ -286,7 +286,7 @@ public class InventoryServices {
                                                     "userLogin", userLogin);
 
         // for serialized items, automatically make them available
-        if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
+        if ("SERIALIZED_INV_ITEM".equals(inventoryType)) {
             updateInventoryItemMap.put("statusId", "INV_AVAILABLE");
         }
 
@@ -359,7 +359,7 @@ public class InventoryServices {
         String inventoryType = inventoryItem.getString("inventoryItemTypeId");
 
         // re-set the fields on the item
-        if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
+        if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
             BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
@@ -378,7 +378,7 @@ public class InventoryServices {
                         "ProductInventoryItemDetailCreateProblem", 
                         UtilMisc.toMap("errorString", e1.getMessage()), locale));
             }
-        } else if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
+        } else if ("SERIALIZED_INV_ITEM".equals(inventoryType)) {
             inventoryItem.set("statusId", "INV_AVAILABLE");
             // store the entity
             try {
@@ -903,11 +903,11 @@ public class InventoryServices {
         }
         //change this for product price
         for (GenericValue onePrice: productPrices) {
-            if (onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")) { //defaultPrice
+            if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
                 result.put("defaultPrice", onePrice.getBigDecimal("price"));
-            } else if (onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")) {//
+            } else if ("WHOLESALE_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
-            } else if (onePrice.getString("productPriceTypeId").equals("LIST_PRICE")) {//listPrice
+            } else if ("LIST_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//listPrice
                 result.put("listPrice", onePrice.getBigDecimal("price"));
             } else {
                 result.put("defaultPrice", onePrice.getBigDecimal("price"));

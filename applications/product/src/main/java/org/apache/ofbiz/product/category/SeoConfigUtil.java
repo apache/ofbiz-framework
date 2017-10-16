@@ -334,7 +334,7 @@ public final class SeoConfigUtil {
         } else {
             useUrlRegexp = true;
         }
-        if (result.equals("success")) {
+        if ("success".equals(result)) {
             isInitialed = true;
         }
     }

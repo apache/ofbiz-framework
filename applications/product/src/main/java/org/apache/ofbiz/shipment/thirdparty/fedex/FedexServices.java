@@ -243,7 +243,7 @@ public class FedexServices {
             String countryCode = countryGeo.getString("geoCode");
             String stateOrProvinceCode = null;
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
-            if (countryCode.equals("CA") || countryCode.equals("US")) {
+            if ("CA".equals(countryCode) || "US".equals(countryCode)) {
                 GenericValue stateProvinceGeo = EntityQuery.use(delegator).from("Geo").where("geoId", postalAddress.getString("stateProvinceGeoId")).cache().queryOne();
                 stateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
@@ -267,7 +267,7 @@ public class FedexServices {
             }
             phoneNumber = phoneNumberValue.getString("areaCode") + phoneNumberValue.getString("contactNumber");
             // Fedex doesn't want the North American country code
-            if (UtilValidate.isNotEmpty(phoneNumberValue.getString("countryCode")) && !(countryCode.equals("CA") || countryCode.equals("US"))) {
+            if (UtilValidate.isNotEmpty(phoneNumberValue.getString("countryCode")) && !("CA".equals(countryCode) || "US".equals(countryCode))) {
                 phoneNumber = phoneNumberValue.getString("countryCode") + phoneNumber;
             }
             phoneNumber = phoneNumber.replaceAll("[^+\\d]", "");
@@ -285,7 +285,7 @@ public class FedexServices {
             if (! UtilValidate.isEmpty(faxNumberValue)) {
                 faxNumber = faxNumberValue.getString("areaCode") + faxNumberValue.getString("contactNumber");
                 // Fedex doesn't want the North American country code
-                if (UtilValidate.isNotEmpty(faxNumberValue.getString("countryCode")) && !(countryCode.equals("CA") || countryCode.equals("US"))) {
+                if (UtilValidate.isNotEmpty(faxNumberValue.getString("countryCode")) && !("CA".equals(countryCode) || "US".equals(countryCode))) {
                     faxNumber = faxNumberValue.getString("countryCode") + faxNumber;
                 }
                 faxNumber = faxNumber.replaceAll("[^+\\d]", "");
@@ -515,7 +515,7 @@ public class FedexServices {
             String service = carrierShipmentMethod.getString("carrierServiceCode");
 
             // CarrierCode is FDXG only for FEDEXGROUND and GROUNDHOMEDELIVERY services.
-            boolean isGroundService = service.equals("FEDEXGROUND") || service.equals("GROUNDHOMEDELIVERY");
+            boolean isGroundService = "FEDEXGROUND".equals(service) || "GROUNDHOMEDELIVERY".equals(service);
             String carrierCode = isGroundService ? "FDXG" : "FDXE";
 
             // Determine the currency by trying the shipmentRouteSegment, then the Shipment, then the framework's default currency, and finally default to USD
@@ -553,7 +553,7 @@ public class FedexServices {
             String originAddressStateOrProvinceCode = null;
 
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
-            if (originAddressCountryCode.equals("CA") || originAddressCountryCode.equals("US")) {
+            if ("CA".equals(originAddressCountryCode) || "US".equals(originAddressCountryCode)) {
                 if (UtilValidate.isEmpty(originPostalAddress.getString("stateProvinceGeoId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentRouteSegmentOriginStateProvinceGeoIdRequired",
@@ -574,7 +574,7 @@ public class FedexServices {
             String originContactPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
 
             // Fedex doesn't want the North American country code
-            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !(originAddressCountryCode.equals("CA") || originAddressCountryCode.equals("US"))) {
+            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !("CA".equals(originAddressCountryCode) || "US".equals(originAddressCountryCode))) {
                 originContactPhoneNumber = originTelecomNumber.getString("countryCode") + originContactPhoneNumber;
             }
             originContactPhoneNumber = originContactPhoneNumber.replaceAll("[^+\\d]", "");
@@ -628,7 +628,7 @@ public class FedexServices {
             String destinationAddressStateOrProvinceCode = null;
 
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
-            if (destinationAddressCountryCode.equals("CA") || destinationAddressCountryCode.equals("US")) {
+            if ("CA".equals(destinationAddressCountryCode) || "US".equals(destinationAddressCountryCode)) {
                 if (UtilValidate.isEmpty(destinationPostalAddress.getString("stateProvinceGeoId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentRouteSegmentDestStateProvinceGeoIdNotFound", 
@@ -649,7 +649,7 @@ public class FedexServices {
             String destinationContactPhoneNumber = destinationTelecomNumber.getString("areaCode") + destinationTelecomNumber.getString("contactNumber");
 
             // Fedex doesn't want the North American country code
-            if (UtilValidate.isNotEmpty(destinationTelecomNumber.getString("countryCode")) && !(destinationAddressCountryCode.equals("CA") || destinationAddressCountryCode.equals("US"))) {
+            if (UtilValidate.isNotEmpty(destinationTelecomNumber.getString("countryCode")) && !("CA".equals(destinationAddressCountryCode) || "US".equals(destinationAddressCountryCode))) {
                 destinationContactPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationContactPhoneNumber;
             }
             destinationContactPhoneNumber = destinationContactPhoneNumber.replaceAll("[^+\\d]", "");
@@ -677,7 +677,7 @@ public class FedexServices {
                 // Determine the home-delivery instructions
                 homeDeliveryType = shipmentRouteSegment.getString("homeDeliveryType");
                 if (UtilValidate.isNotEmpty(homeDeliveryType)) {
-                    if (! (homeDeliveryType.equals("DATECERTAIN") || homeDeliveryType.equals("EVENING") || homeDeliveryType.equals("APPOINTMENT"))) {
+                    if (! ("DATECERTAIN".equals(homeDeliveryType) || "EVENING".equals(homeDeliveryType) || "APPOINTMENT".equals(homeDeliveryType))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                                 "FacilityShipmentFedexHomeDeliveryTypeInvalid", 
                                 UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
@@ -715,7 +715,7 @@ public class FedexServices {
             shipRequestContext.put("ShipTime", UtilDateTime.nowTimestamp());
             shipRequestContext.put("DropoffType", dropoffType);
             shipRequestContext.put("Service", service);
-            shipRequestContext.put("WeightUnits", weightUomId.equals("WT_kg") ? "KGS" : "LBS");
+            shipRequestContext.put("WeightUnits", "WT_kg".equals(weightUomId) ? "KGS" : "LBS");
             shipRequestContext.put("CurrencyCode", currencyCode);
             shipRequestContext.put("PayorType", "SENDER");
             shipRequestContext.put(originContactKey, originContactName);
@@ -916,7 +916,7 @@ public class FedexServices {
                     dimensionsLength != null && dimensionsLength.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0 &&
                     dimensionsWidth != null && dimensionsWidth.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0   &&
                     dimensionsHeight != null && dimensionsHeight.setScale(0, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) > 0) {
-                        shipRequestContext.put("DimensionsUnits", dimensionsUomId.equals("LEN_in") ? "IN" : "CM");
+                        shipRequestContext.put("DimensionsUnits", "LEN_in".equals(dimensionsUomId) ? "IN" : "CM");
                         shipRequestContext.put("DimensionsLength", dimensionsLength.setScale(0, RoundingMode.HALF_UP).toString());
                         shipRequestContext.put("DimensionsWidth", dimensionsWidth.setScale(0, RoundingMode.HALF_UP).toString());
                         shipRequestContext.put("DimensionsHeight", dimensionsHeight.setScale(0, RoundingMode.HALF_UP).toString());

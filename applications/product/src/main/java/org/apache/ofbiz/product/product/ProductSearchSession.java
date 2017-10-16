@@ -819,7 +819,7 @@ public class ProductSearchSession {
         if (UtilValidate.isEmpty(sortAscending)) sortAscending = (String) parameters.get("S_A");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if (sortOrder.equals("SortKeywordRelevancy") || sortOrder.equals("SKR")) {
+            if ("SortKeywordRelevancy".equals(sortOrder) || "SKR".equals(sortOrder)) {
                 searchSetSortOrder(new ProductSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortProductField:")) {
                 String fieldName = sortOrder.substring("SortProductField:".length());

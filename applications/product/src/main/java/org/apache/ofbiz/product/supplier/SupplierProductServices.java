@@ -74,7 +74,7 @@ public class SupplierProductServices {
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
 
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
-            if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
+            if (supplierProducts.size() == 0 && product.getString("isVariant") != null && "Y".equals(product.getString("isVariant"))) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
                 GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).cache().queryOne();
                 if (virtualProduct != null) {

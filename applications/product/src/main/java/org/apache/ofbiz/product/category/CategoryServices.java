@@ -446,7 +446,7 @@ public class CategoryServices {
         String entityName = null;
         String primaryKeyName = null;
 
-        if (isCatalog.equals("true")) {
+        if ("true".equals(isCatalog)) {
             entityName = "ProdCatalog";
             primaryKeyName = "prodCatalogId";
         } else {
@@ -461,11 +461,11 @@ public class CategoryServices {
         try {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
             if (category != null) {
-                if (isCatalog.equals("true") && isCategoryType.equals("false")) {
+                if ("true".equals(isCatalog) && "false".equals(isCategoryType)) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
                     
-                } else if(isCatalog.equals("false") && isCategoryType.equals("false")){
+                } else if("false".equals(isCatalog) && "false".equals(isCategoryType)){
                     childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
                 } else {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();

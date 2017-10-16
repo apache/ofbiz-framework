@@ -127,9 +127,9 @@ public class ImageManagementServices {
             }
             
             String fileContentType = (String) context.get("_uploadedFile_contentType");
-            if (fileContentType.equals("image/pjpeg")) {
+            if ("image/pjpeg".equals(fileContentType)) {
                 fileContentType = "image/jpeg";
-            } else if (fileContentType.equals("image/x-png")) {
+            } else if ("image/x-png".equals(fileContentType)) {
                 fileContentType = "image/png";
             }
             
@@ -265,7 +265,7 @@ public class ImageManagementServices {
             }
             
             String autoApproveImage = EntityUtilProperties.getPropertyValue("catalog", "image.management.autoApproveImage", delegator);
-            if (autoApproveImage.equals("Y")) {
+            if ("Y".equals(autoApproveImage)) {
                 Map<String, Object> autoApproveCtx = new HashMap<String, Object>();
                 autoApproveCtx.put("contentId", contentId);
                 autoApproveCtx.put("userLogin", userLogin);
@@ -325,7 +325,7 @@ public class ImageManagementServices {
         String fileName = "component://product/config/ImageProperties.xml";
         String imgPropertyFullPath = FlexibleLocation.resolveLocation(fileName).getFile();
         resultXMLMap.putAll(ImageTransform.getXMLValue(imgPropertyFullPath, locale));
-        if (resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
+        if (resultXMLMap.containsKey("responseMessage") && "success".equals(resultXMLMap.get("responseMessage"))) {
             imgPropertyMap.putAll(UtilGenerics.<Map<String, Map<String, String>>>cast(resultXMLMap.get("xml")));
         } else {
             String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.unable_to_parse", locale) + " : ImageProperties.xml";
@@ -346,7 +346,7 @@ public class ImageManagementServices {
         /* get original BUFFERED IMAGE */
         resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + productId + "/" + filenameToUse, locale));
         
-        if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
+        if (resultBufImgMap.containsKey("responseMessage") && "success".equals(resultBufImgMap.get("responseMessage"))) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
             
             // get Dimensions
@@ -363,7 +363,7 @@ public class ImageManagementServices {
             for (String sizeType : sizeTypeList) {
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
                 
-                if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
+                if (resultScaleImgMap.containsKey("responseMessage") && "success".equals(resultScaleImgMap.get("responseMessage"))) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
                     
                     // write the New Scaled Image
@@ -508,9 +508,9 @@ public class ImageManagementServices {
         result.put("contentIdThumb", contentIdThumb);        
         String filenameToUseThumb = imageName.substring(0 , imageName.indexOf(".")) + nameOfThumb;
         String fileContentType = (String) context.get("_uploadedFile_contentType");
-        if (fileContentType.equals("image/pjpeg")) {
+        if ("image/pjpeg".equals(fileContentType)) {
             fileContentType = "image/jpeg";
-        } else if (fileContentType.equals("image/x-png")) {
+        } else if ("image/x-png".equals(fileContentType)) {
             fileContentType = "image/png";
         }
         
