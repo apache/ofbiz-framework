@@ -271,29 +271,29 @@ public final class ModelUtil {
     public static String induceFieldType(String sqlTypeName, int length, int precision, ModelFieldTypeReader fieldTypeReader) {
         if (sqlTypeName == null) return "invalid";
 
-        if (sqlTypeName.equalsIgnoreCase("VARCHAR") || sqlTypeName.equalsIgnoreCase("VARCHAR2") || (sqlTypeName.equalsIgnoreCase("CHAR") && length > 1)) {
+        if ("VARCHAR".equalsIgnoreCase(sqlTypeName) || "VARCHAR2".equalsIgnoreCase(sqlTypeName) || ("CHAR".equalsIgnoreCase(sqlTypeName) && length > 1)) {
             if (length <= 10) return "very-short";
             if (length <= 60) return "short-varchar";
             if (length <= 255) return "long-varchar";
             return "very-long";
-        } else if (sqlTypeName.equalsIgnoreCase("TEXT")) {
+        } else if ("TEXT".equalsIgnoreCase(sqlTypeName)) {
             return "very-long";
-        } else if (sqlTypeName.equalsIgnoreCase("INT") || sqlTypeName.equalsIgnoreCase("SMALLINT") ||
-                sqlTypeName.equalsIgnoreCase("DECIMAL") || sqlTypeName.equalsIgnoreCase("NUMERIC")) {
+        } else if ("INT".equalsIgnoreCase(sqlTypeName) || "SMALLINT".equalsIgnoreCase(sqlTypeName) ||
+                "DECIMAL".equalsIgnoreCase(sqlTypeName) || "NUMERIC".equalsIgnoreCase(sqlTypeName)) {
             if (length > 18 || precision > 6) return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
             if (precision == 0) return "numeric";
             if (precision == 2) return "currency-amount";
             if (precision <= 6) return "floating-point";
             return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
-        } else if (sqlTypeName.equalsIgnoreCase("BLOB") || sqlTypeName.equalsIgnoreCase("OID")) {
+        } else if ("BLOB".equalsIgnoreCase(sqlTypeName) || "OID".equalsIgnoreCase(sqlTypeName)) {
             return "blob";
-        } else if (sqlTypeName.equalsIgnoreCase("DATETIME") || sqlTypeName.equalsIgnoreCase("TIMESTAMP")) {
+        } else if ("DATETIME".equalsIgnoreCase(sqlTypeName) || "TIMESTAMP".equalsIgnoreCase(sqlTypeName)) {
             return "date-time";
-        } else if (sqlTypeName.equalsIgnoreCase("DATE")) {
+        } else if ("DATE".equalsIgnoreCase(sqlTypeName)) {
             return "date";
-        } else if (sqlTypeName.equalsIgnoreCase("TIME")) {
+        } else if ("TIME".equalsIgnoreCase(sqlTypeName)) {
             return "time";
-        } else if (sqlTypeName.equalsIgnoreCase("CHAR") && length == 1) {
+        } else if ("CHAR".equalsIgnoreCase(sqlTypeName) && length == 1) {
             return "indicator";
         } else {
             return "invalid-" + sqlTypeName + ":" + length + ":" + precision;

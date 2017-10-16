@@ -38,12 +38,12 @@ public class CursorConnection extends AbstractCursorHandler {
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if (method.getName().equals("prepareStatement")) {
+        if ("prepareStatement".equals(method.getName())) {
             System.err.println("prepareStatement");
             args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];
             PreparedStatement pstmt = (PreparedStatement) method.invoke(con, args);
             return CursorStatement.newCursorPreparedStatement(pstmt, cursorName, fetchSize);
-        } else if (method.getName().equals("createStatement")) {
+        } else if ("createStatement".equals(method.getName())) {
             System.err.println("createStatement");
             Statement stmt = (Statement) method.invoke(con, args);
             return CursorStatement.newCursorStatement(stmt, cursorName, fetchSize);

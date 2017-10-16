@@ -953,7 +953,7 @@ public class EntityTestSuite extends EntityTestCase {
     /*public void testLimitOffsetOptions() throws Exception {
         String entityName = "Content";
         Datasource datasourceInfo = EntityConfig.getDatasource(delegator.getEntityHelper(entityName).getHelperName());
-        if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || datasourceInfo.offsetStyle.equals("none")) {
+        if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || "none".equals(datasourceInfo.offsetStyle)) {
             Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ", this test is skipped.", module);
             return;
         } else {

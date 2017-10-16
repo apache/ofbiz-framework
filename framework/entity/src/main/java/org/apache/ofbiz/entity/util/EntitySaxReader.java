@@ -374,7 +374,7 @@ public class EntitySaxReader extends DefaultHandler {
                         ModelEntity modelEntity = currentValue.getModelEntity();
                         ModelField modelField = modelEntity.getField(currentFieldName.toString());
                         String type = modelField.getType();
-                        if (type != null && type.equals("blob")) {
+                        if (type != null && "blob".equals(type)) {
                             byte[] binData = Base64.base64Decode((new String(currentFieldValue)).getBytes());
                             currentValue.setBytes(currentFieldName.toString(), binData);
                         } else {
