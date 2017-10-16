@@ -141,7 +141,7 @@ public class RmiServiceContainer implements Container {
             throw new ContainerException("Unable to start the RMI dispatcher", e);
         }
 
-        if (!useCtx.equalsIgnoreCase("true")) {
+        if (!"true".equalsIgnoreCase(useCtx)) {
             // bind RMIDispatcher to RMI Naming (Must be JRMP protocol)
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);

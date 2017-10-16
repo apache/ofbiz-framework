@@ -112,22 +112,22 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         if (eventName.startsWith("global-")) {
-            if (eventName.equals("global-rollback")) {
+            if ("global-rollback".equals(eventName)) {
                 ServiceSynchronization.registerRollbackService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
-            } else if (eventName.equals("global-commit")) {
+            } else if ("global-commit".equals(eventName)) {
                 ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
-            } else if (eventName.equals("global-commit-post-run")) {
+            } else if ("global-commit-post-run".equals(eventName)) {
                 ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             }
         } else {
             // standard ECA
-            if (this.serviceMode.equals("sync")) {
+            if ("sync".equals(this.serviceMode)) {
                 if (newTransaction) {
                     actionResult = dispatcher.runSync(this.serviceName, actionContext, -1, true);
                 } else {
                     actionResult = dispatcher.runSync(this.serviceName, actionContext);
                 }
-            } else if (this.serviceMode.equals("async")) {
+            } else if ("async".equals(this.serviceMode)) {
                 dispatcher.runAsync(serviceName, actionContext, persist);
             }
         }

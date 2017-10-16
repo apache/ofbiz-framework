@@ -106,7 +106,7 @@ public class RecurrenceRule {
      */
     public RecurrenceRule(GenericValue rule) throws RecurrenceRuleException {
         this.rule = rule;
-        if (!rule.getEntityName().equals("RecurrenceRule"))
+        if (!"RecurrenceRule".equals(rule.getEntityName()))
             throw new RecurrenceRuleException("Invalid RecurrenceRule Value object.");
         init();
     }
@@ -140,19 +140,19 @@ public class RecurrenceRule {
     private boolean checkFreq(String freq) {
         if (freq == null)
             return false;
-        if (freq.equalsIgnoreCase("SECONDLY"))
+        if ("SECONDLY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("MINUTELY"))
+        if ("MINUTELY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("HOURLY"))
+        if ("HOURLY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("DAILY"))
+        if ("DAILY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("WEEKLY"))
+        if ("WEEKLY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("MONTHLY"))
+        if ("MONTHLY".equalsIgnoreCase(freq))
             return true;
-        if (freq.equalsIgnoreCase("YEARLY"))
+        if ("YEARLY".equalsIgnoreCase(freq))
             return true;
         return false;
     }
@@ -208,19 +208,19 @@ public class RecurrenceRule {
 
         if (freq == null)
             return 0;
-        if (freq.equalsIgnoreCase("SECONDLY"))
+        if ("SECONDLY".equalsIgnoreCase(freq))
             return SECONDLY;
-        if (freq.equalsIgnoreCase("MINUTELY"))
+        if ("MINUTELY".equalsIgnoreCase(freq))
             return MINUTELY;
-        if (freq.equalsIgnoreCase("HOURLY"))
+        if ("HOURLY".equalsIgnoreCase(freq))
             return HOURLY;
-        if (freq.equalsIgnoreCase("DAILY"))
+        if ("DAILY".equalsIgnoreCase(freq))
             return DAILY;
-        if (freq.equalsIgnoreCase("WEEKLY"))
+        if ("WEEKLY".equalsIgnoreCase(freq))
             return WEEKLY;
-        if (freq.equalsIgnoreCase("MONTHLY"))
+        if ("MONTHLY".equalsIgnoreCase(freq))
             return MONTHLY;
-        if (freq.equalsIgnoreCase("YEARLY"))
+        if ("YEARLY".equalsIgnoreCase(freq))
             return YEARLY;
         return 0;
     }
@@ -724,19 +724,19 @@ public class RecurrenceRule {
     private int getCalendarDay(String day) {
         if (day != null) {
             day = day.trim();
-            if (day.equalsIgnoreCase("MO"))
+            if ("MO".equalsIgnoreCase(day))
                 return Calendar.MONDAY;
-            if (day.equalsIgnoreCase("TU"))
+            if ("TU".equalsIgnoreCase(day))
                 return Calendar.TUESDAY;
-            if (day.equalsIgnoreCase("WE"))
+            if ("WE".equalsIgnoreCase(day))
                 return Calendar.WEDNESDAY;
-            if (day.equalsIgnoreCase("TH"))
+            if ("TH".equalsIgnoreCase(day))
                 return Calendar.THURSDAY;
-            if (day.equalsIgnoreCase("FR"))
+            if ("FR".equalsIgnoreCase(day))
                 return Calendar.FRIDAY;
-            if (day.equalsIgnoreCase("SA"))
+            if ("SA".equalsIgnoreCase(day))
                 return Calendar.SATURDAY;
-            if (day.equalsIgnoreCase("SU"))
+            if ("SU".equalsIgnoreCase(day))
                 return Calendar.SUNDAY;
         }
         return 0;

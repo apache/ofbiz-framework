@@ -50,7 +50,7 @@ public class RecurrenceInfo {
     /** Creates new RecurrenceInfo */
     public RecurrenceInfo(GenericValue info) throws RecurrenceInfoException {
         this.info = info;
-        if (!info.getEntityName().equals("RecurrenceInfo"))
+        if (!"RecurrenceInfo".equals(info.getEntityName()))
             throw new RecurrenceInfoException("Invalid RecurrenceInfo Value object.");
         init();
     }

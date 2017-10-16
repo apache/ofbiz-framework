@@ -56,14 +56,14 @@ public class ServiceMcaAction implements java.io.Serializable {
         serviceContext.putAll(UtilMisc.toMap("messageWrapper", messageWrapper, "userLogin", userLogin));
         serviceContext.put("userLogin", ServiceUtil.getUserLogin(dispatcher.getDispatchContext(), serviceContext, runAsUser));
 
-        if (serviceMode.equals("sync")) {
+        if ("sync".equals(serviceMode)) {
             Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
             if (ServiceUtil.isError(result)) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 return false;
             }
             return true;
-        } else if (serviceMode.equals("async")) {
+        } else if ("async".equals(serviceMode)) {
             dispatcher.runAsync(serviceName, serviceContext, persist);
             return true;
         } else {

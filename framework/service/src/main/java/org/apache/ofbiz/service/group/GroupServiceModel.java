@@ -47,8 +47,8 @@ public class GroupServiceModel {
     public GroupServiceModel(Element service) {
         this.serviceName = service.getAttribute("name");
         this.serviceMode = service.getAttribute("mode");
-        this.resultToContext = service.getAttribute("result-to-context").equalsIgnoreCase("true");
-        this.optionalParams = service.getAttribute("parameters").equalsIgnoreCase("optional");
+        this.resultToContext = "true".equalsIgnoreCase(service.getAttribute("result-to-context"));
+        this.optionalParams = "optional".equalsIgnoreCase(service.getAttribute("parameters"));
     }
 
     /**
@@ -107,7 +107,7 @@ public class GroupServiceModel {
 
         Map<String, Object> thisContext = model.makeValid(context, ModelService.IN_PARAM);
         Debug.logInfo("Running grouped service [" + serviceName + "]", module);
-        if (getMode().equals("async")) {
+        if ("async".equals(getMode())) {
             List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
             if (requiredOut.size() > 0) {
                 Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", module);
