@@ -110,7 +110,7 @@ public class ModelMenuItem extends ModelWidget {
         this.selectedStyle = menuItemElement.getAttribute("selected-style");
         String hideIfSelected = menuItemElement.getAttribute("hide-if-selected");
         if (!hideIfSelected.isEmpty())
-            if (hideIfSelected.equalsIgnoreCase("true"))
+            if ("true".equalsIgnoreCase(hideIfSelected))
                 this.hideIfSelected = Boolean.TRUE;
             else
                 this.hideIfSelected = Boolean.FALSE;

@@ -320,7 +320,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         boolean encode = false;
         String urlString = "";
         
-        if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
+        if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -328,7 +328,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             } else {
                 urlString = src;
             }
-        } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+        } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
                 StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(request, newURL);

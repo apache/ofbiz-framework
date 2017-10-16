@@ -317,7 +317,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             StringBuilder linkText = new StringBuilder(targetService);
             if (linkText.indexOf("?") < 0)  linkText.append("?");
             else linkText.append("&amp;");
-            //if (queryString != null && !queryString.equals("null")) linkText += queryString + "&";
+            //if (queryString != null && !"null".equals(queryString)) linkText += queryString + "&";
             if (UtilValidate.isNotEmpty(queryString)) {
                 linkText.append(queryString).append("&amp;");
             }

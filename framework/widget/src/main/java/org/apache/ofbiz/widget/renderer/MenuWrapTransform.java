@@ -97,7 +97,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
         GenericValue val = null;
         try {
             if (WidgetContentWorker.getContentWorker() != null) {
@@ -151,7 +151,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
             @Override
             public int onStart() throws TemplateModelException, IOException {
                 String renderOnStart = (String)templateCtx.get("renderOnStart");
-                if (renderOnStart != null && renderOnStart.equalsIgnoreCase("true")) {
+                if (renderOnStart != null && "true".equalsIgnoreCase(renderOnStart)) {
                     renderMenu();
                 }
                 return TransformControl.EVALUATE_BODY;
@@ -173,7 +173,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 String wrappedContent = buf.toString();
                 out.write(wrappedContent);
                 String renderOnClose = (String)templateCtx.get("renderOnClose");
-                if (renderOnClose == null || !renderOnClose.equalsIgnoreCase("false")) {
+                if (renderOnClose == null || !"false".equalsIgnoreCase(renderOnClose)) {
                     renderMenu();
                 }
                 FreeMarkerWorker.reloadValues(templateCtx, savedValuesUp, env);

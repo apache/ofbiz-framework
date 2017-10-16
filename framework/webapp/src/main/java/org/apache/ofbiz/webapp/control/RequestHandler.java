@@ -253,7 +253,7 @@ public class RequestHandler {
             boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
             if ((!request.isSecure() && !isForwardedSecure) && requestMap.securityHttps) {
                 // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
-                if (request.getMethod().equalsIgnoreCase("POST")) {
+                if ("POST".equalsIgnoreCase(request.getMethod())) {
                     // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
                     Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
@@ -339,7 +339,7 @@ public class RequestHandler {
                             String returnString = this.runEvent(request, response, event, null, "firstvisit");
                             if (returnString == null || "none".equalsIgnoreCase(returnString)) {
                                 interruptRequest = true;
-                            } else if (!returnString.equalsIgnoreCase("success")) {
+                            } else if (!"success".equalsIgnoreCase(returnString)) {
                                 throw new EventHandlerException("First-Visit event did not return 'success'.");
                             }
                         } catch (EventHandlerException e) {
@@ -359,7 +359,7 @@ public class RequestHandler {
                         String returnString = this.runEvent(request, response, event, null, "preprocessor");
                         if (returnString == null || "none".equalsIgnoreCase(returnString)) {
                             interruptRequest = true;
-                        } else if (!returnString.equalsIgnoreCase("success")) {
+                        } else if (!"success".equalsIgnoreCase(returnString)) {
                             if (!returnString.contains(":_protect_:")) {
                                 throw new EventHandlerException("Pre-Processor event [" + event.invoke + "] did not return 'success'.");
                             } else { // protect the view normally rendered and redirect to error response view
@@ -488,7 +488,7 @@ public class RequestHandler {
             eventReturnBasedRequestResponse = null;
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
-            if (eventReturnBasedRequestResponse == null && eventReturn.equals("none")) {
+            if (eventReturnBasedRequestResponse == null && "none".equals(eventReturn)) {
                 eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
             }
         }
@@ -540,7 +540,7 @@ public class RequestHandler {
         if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler]: previousRequest - " + previousRequest + " (" + loginPass + ")" + showSessionId(request), module);
 
         // if previous request exists, and a login just succeeded, do that now.
-        if (previousRequest != null && loginPass != null && loginPass.equalsIgnoreCase("TRUE")) {
+        if (previousRequest != null && loginPass != null && "TRUE".equalsIgnoreCase(loginPass)) {
             request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
             // special case to avoid login/logout looping: if request was "logout" before the login, change to null for default success view; do the same for "login" to avoid going back to the same page
             if ("logout".equals(previousRequest) || "/logout".equals(previousRequest) || "login".equals(previousRequest) || "/login".equals(previousRequest) || "checkLogin".equals(previousRequest) || "/checkLogin".equals(previousRequest) || "/checkLogin/login".equals(previousRequest)) {
@@ -607,7 +607,7 @@ public class RequestHandler {
                 for (ConfigXMLReader.Event event: controllerConfig.getPostprocessorEventList().values()) {
                     try {
                         String returnString = this.runEvent(request, response, event, requestMap, "postprocessor");
-                        if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                        if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
                             throw new EventHandlerException("Post-Processor event did not return 'success'.");
                         }
                     } catch (EventHandlerException e) {
@@ -1175,7 +1175,7 @@ public class RequestHandler {
             for (ConfigXMLReader.Event event: getControllerConfig().getAfterLoginEventList().values()) {
                 try {
                     String returnString = this.runEvent(request, response, event, null, "after-login");
-                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                    if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
                         throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                     }
                 } catch (EventHandlerException e) {
@@ -1192,7 +1192,7 @@ public class RequestHandler {
             for (ConfigXMLReader.Event event: getControllerConfig().getBeforeLogoutEventList().values()) {
                 try {
                     String returnString = this.runEvent(request, response, event, null, "before-logout");
-                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                    if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
                         throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                     }
                 } catch (EventHandlerException e) {

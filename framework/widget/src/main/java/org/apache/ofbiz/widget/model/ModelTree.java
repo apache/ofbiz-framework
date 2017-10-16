@@ -98,7 +98,7 @@ public class ModelTree extends ModelWidget {
         this.rootNodeName = treeElement.getAttribute("root-node-name");
         String defaultRenderStyle = UtilXml.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
-        if (defaultRenderStyle.isEmpty() || defaultRenderStyle.equals("simple")) {
+        if (defaultRenderStyle.isEmpty() || "simple".equals(defaultRenderStyle)) {
             String rStyle = treeElement.getAttribute("render-style");
             if (!rStyle.isEmpty())
                 defaultRenderStyle = rStyle;
@@ -538,7 +538,7 @@ public class ModelTree extends ModelWidget {
         public boolean isExpandCollapse() {
             boolean isExpCollapse = false;
             String rStyle = getRenderStyle();
-            if (rStyle != null && rStyle.equals("expand-collapse"))
+            if (rStyle != null && "expand-collapse".equals(rStyle))
                 isExpCollapse = true;
             return isExpCollapse;
         }
@@ -546,7 +546,7 @@ public class ModelTree extends ModelWidget {
         public boolean isFollowTrail() {
             boolean isFollowTrail = false;
             String rStyle = getRenderStyle();
-            if (rStyle != null && (rStyle.equals("follow-trail") || rStyle.equals("show-peers") || rStyle.equals("follow-trail"))) {
+            if (rStyle != null && ("follow-trail".equals(rStyle) || "show-peers".equals(rStyle) || "follow-trail".equals(rStyle))) {
                 isFollowTrail = true;
             }
             return isFollowTrail;
@@ -671,7 +671,7 @@ public class ModelTree extends ModelWidget {
             } else if (!isFollowTrail()) {
                 showPeers = true;
             } else if ((currentDepth < trailSize) && (rStyle != null)
-                    && (rStyle.equals("show-peers") || rStyle.equals("expand-collapse"))) {
+                    && ("show-peers".equals(rStyle) || "expand-collapse".equals(rStyle))) {
                 showPeers = true;
             } else if (openDepth >= currentDepth) {
                 showPeers = true;
