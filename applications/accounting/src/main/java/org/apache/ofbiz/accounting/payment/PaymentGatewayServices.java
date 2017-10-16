@@ -1542,7 +1542,7 @@ public class PaymentGatewayServices {
 
                     // Check the productStore setting to see if we need to do this explicitly
                     GenericValue productStore = order.getRelatedOne("ProductStore", false);
-                    if (productStore.getString("manualAuthIsCapture") == null || (! productStore.getString("manualAuthIsCapture").equalsIgnoreCase("Y"))) {
+                    if (productStore.getString("manualAuthIsCapture") == null || (! "Y".equalsIgnoreCase(productStore.getString("manualAuthIsCapture")))) {
                         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
                         GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse");
                         pgResponse.set("paymentGatewayResponseId", responseId);
@@ -2838,7 +2838,7 @@ public class PaymentGatewayServices {
             Debug.logError(e, module);
         }
 
-        if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+        if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
             GenericValue creditCard = null;
             try {
                 creditCard = paymentMethod.getRelatedOne("CreditCard", false);
@@ -3199,7 +3199,7 @@ public class PaymentGatewayServices {
                     "AccountingPaymentSettingNotValid", locale));
         }
 
-        if (paymentMethodTypeId.equals("CREDIT_CARD")) {
+        if ("CREDIT_CARD".equals(paymentMethodTypeId)) {
             GenericValue creditCard = delegator.makeValue("CreditCard");
             creditCard.setAllFields(context, true, null, null);
             if (creditCard.get("firstNameOnCard") == null || creditCard.get("lastNameOnCard") == null || creditCard.get("cardType") == null || creditCard.get("cardNumber") == null) {
@@ -3303,9 +3303,9 @@ public class PaymentGatewayServices {
         }
 
         String amount = null;
-        if (mode.equalsIgnoreCase("CREATE")) {
+        if ("CREATE".equalsIgnoreCase(mode)) {
             amount = EntityUtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_create.auth", delegator);
-        } else if (mode.equalsIgnoreCase("UPDATE")) {
+        } else if ("UPDATE".equalsIgnoreCase(mode)) {
             amount = EntityUtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_update.auth", delegator);
         }
         if (Debug.infoOn()) Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);

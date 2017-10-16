@@ -303,9 +303,9 @@ public class PayPalEvents {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            if (paymentStatus.equals("Completed")) {
+            if ("Completed".equals(paymentStatus)) {
                 okay = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
-            } else if (paymentStatus.equals("Failed") || paymentStatus.equals("Denied")) {
+            } else if ("Failed".equals(paymentStatus) || "Denied".equals(paymentStatus)) {
                 okay = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
             }
 
@@ -433,9 +433,9 @@ public class PayPalEvents {
         }
 
         paymentPreference.set("maxAmount", new BigDecimal(paymentAmount));
-        if (paymentStatus.equals("Completed")) {
+        if ("Completed".equals(paymentStatus)) {
             paymentPreference.set("statusId", "PAYMENT_RECEIVED");
-        } else if (paymentStatus.equals("Pending")) {
+        } else if ("Pending".equals(paymentStatus)) {
             paymentPreference.set("statusId", "PAYMENT_NOT_RECEIVED");
         } else {
             paymentPreference.set("statusId", "PAYMENT_CANCELLED");

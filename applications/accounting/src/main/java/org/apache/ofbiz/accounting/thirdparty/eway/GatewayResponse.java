@@ -153,7 +153,7 @@ public class GatewayResponse {
             if (name == "ewayTrxnError")
                 txTrxnError = value;
             else if (name == "ewayTrxnStatus") {
-                if (value.toLowerCase().trim().equals("true")) {
+                if ("true".equals(value.toLowerCase().trim())) {
                     txTrxnStatus = true;
                 }
             } 

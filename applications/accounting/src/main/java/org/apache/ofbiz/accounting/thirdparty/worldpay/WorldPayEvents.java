@@ -228,7 +228,7 @@ public class WorldPayEvents {
         String description = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         // check the instId - very important
-        if (instId == null || instId.equals("NONE")) {
+        if (instId == null || "NONE".equals(instId)) {
             Debug.logError("Worldpay InstId not found, cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstId", locale));
             return "error";

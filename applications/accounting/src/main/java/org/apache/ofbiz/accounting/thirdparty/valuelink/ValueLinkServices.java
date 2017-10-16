@@ -170,7 +170,7 @@ public class ValueLinkServices {
         // on success update the database / reload the cached api
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 GenericValue vlKeys = GenericValue.create(vl.getGenericValue());
                 vlKeys.set("lastWorkingKey", vlKeys.get("workingKey"));
                 vlKeys.set("workingKey", StringUtil.toHexString(mwk));
@@ -255,7 +255,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
                 result.put("pin", vl.decryptPin((String) response.get("pin")));
             } else {
@@ -316,7 +316,7 @@ public class ValueLinkServices {
             Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkGiftCardActivated", locale));
             
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
 
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -378,7 +378,7 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                     "AccountingValueLinkPinDisabled", locale));
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -445,7 +445,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -515,7 +515,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -576,7 +576,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -633,7 +633,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -701,7 +701,7 @@ public class ValueLinkServices {
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            if (responseCode.equals("00")) {
+            if ("00".equals(responseCode)) {
                 result.put("processResult", Boolean.TRUE);
             } else {
                 result.put("processResult", Boolean.FALSE);
@@ -747,7 +747,7 @@ public class ValueLinkServices {
         Debug.logInfo("704 Interface : " + vlInterface, module);
         if (vlInterface != null) {
             if (vlInterface.startsWith("Activate")) {
-                if (vlInterface.equals("Activate/Rollback")) {
+                if ("Activate/Rollback".equals(vlInterface)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "AccountingValueLinkThisTransactionIsNotSupported", locale));
                 }
@@ -785,7 +785,7 @@ public class ValueLinkServices {
         context.put("TermTxnNo", request.get("TermTxnNo"));
 
         // Activate/Rollback is not supported by valuelink
-        if (!vlInterface.equals("Activate")) {
+        if (!"Activate".equals(vlInterface)) {
             // create the listener
             Debug.logInfo("Set 704 context : " + context, module);
             try {

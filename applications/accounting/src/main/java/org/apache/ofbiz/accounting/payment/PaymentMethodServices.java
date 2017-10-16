@@ -204,7 +204,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !"_NEW_".equals(contactMechId)) {
             // set the contactMechId on the credit card
             newCc.set("contactMechId", context.get("contactMechId"));
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
@@ -369,7 +369,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !"_NEW_".equals(contactMechId)) {
             // set the contactMechId on the credit card
             newCc.set("contactMechId", contactMechId);
         }
@@ -382,7 +382,7 @@ public class PaymentMethodServices {
             isModified = true;
         }
 
-        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !"_NEW_".equals(contactMechId)) {
 
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
@@ -426,7 +426,7 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            if (contactMechId == null || !contactMechId.equals("_NEW_")) {
+            if (contactMechId == null || !"_NEW_".equals(contactMechId)) {
                 result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, 
                         "AccountingNoChangesMadeNotUpdatingCreditCard", locale));
             }
