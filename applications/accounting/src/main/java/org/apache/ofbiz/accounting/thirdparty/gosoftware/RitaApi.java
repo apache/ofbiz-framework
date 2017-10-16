@@ -191,7 +191,7 @@ public class RitaApi {
             String[] lines = resp.split("\n");
             for (int i = 0; i < lines.length; i++) {
                 Debug.logInfo(lines[i], module);
-                if (!lines[i].trim().equals(".")) {
+                if (!".".equals(lines[i].trim())) {
                     String[] lineSplit = lines[i].trim().split(" ", 2);
                     if (lineSplit != null && lineSplit.length == 2) {
                         docMap.put(lineSplit[0], lineSplit[1]);

@@ -127,14 +127,14 @@ public class AgreementServices {
                         String termTypeId = term.getString("termTypeId");
                         BigDecimal termValue = term.getBigDecimal("termValue");
                         if (termValue != null) {
-                            if (termTypeId.equals("FIN_COMM_FIXED")) {
+                            if ("FIN_COMM_FIXED".equals(termTypeId)) {
                                 commission = commission.add(termValue);
-                            } else if (termTypeId.equals("FIN_COMM_VARIABLE")) {
+                            } else if ("FIN_COMM_VARIABLE".equals(termTypeId)) {
                                 // if variable percentage commission, need to divide by 100, because 5% is stored as termValue of 5.0
                                 commission = commission.add(termValue.multiply(amount).divide(new BigDecimal("100"), 12, rounding));
-                            } else if (termTypeId.equals("FIN_COMM_MIN")) {
+                            } else if ("FIN_COMM_MIN".equals(termTypeId)) {
                                 min = termValue;
-                            } else if (termTypeId.equals("FIN_COMM_MAX")) {
+                            } else if ("FIN_COMM_MAX".equals(termTypeId)) {
                                 max = termValue;
                             }
                             // TODO: Add other type of terms and handling here

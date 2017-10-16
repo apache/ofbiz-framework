@@ -184,9 +184,9 @@ public class InvoiceServices {
             String invoiceType = null;
 
             String orderType = orderHeader.getString("orderTypeId");
-            if (orderType.equals("SALES_ORDER")) {
+            if ("SALES_ORDER".equals(orderType)) {
                 invoiceType = "SALES_INVOICE";
-            } else if (orderType.equals("PURCHASE_ORDER")) {
+            } else if ("PURCHASE_ORDER".equals(orderType)) {
                 invoiceType = "PURCHASE_INVOICE";
             }
 
@@ -341,7 +341,7 @@ public class InvoiceServices {
 
             // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
             GenericValue payToAddress = null;
-            if (invoiceType.equals("PURCHASE_INVOICE")) {
+            if ("PURCHASE_INVOICE".equals(invoiceType)) {
                 // for purchase orders, the pay to address is the BILLING_LOCATION of the vendor
                 GenericValue billFromVendor = orh.getPartyFromRole("BILL_FROM_VENDOR");
                 if (billFromVendor != null) {
@@ -423,7 +423,7 @@ public class InvoiceServices {
 
                 // check if shipping applies to this item.  Shipping is calculated for sales invoices, not purchase invoices.
                 boolean shippingApplies = false;
-                if ((product != null) && (ProductWorker.shippingApplies(product)) && (invoiceType.equals("SALES_INVOICE"))) {
+                if ((product != null) && (ProductWorker.shippingApplies(product)) && ("SALES_INVOICE".equals(invoiceType))) {
                     shippingApplies = true;
                 }
 
@@ -458,7 +458,7 @@ public class InvoiceServices {
                     createInvoiceItemContext.put("inventoryItemId", itemIssuance.get("inventoryItemId"));
                 }
                 // similarly, tax only for purchase invoices
-                if ((product != null) && (invoiceType.equals("SALES_INVOICE"))) {
+                if ((product != null) && ("SALES_INVOICE".equals(invoiceType))) {
                     createInvoiceItemContext.put("taxableFlag", product.get("taxable"));
                 }
 
@@ -551,7 +551,7 @@ public class InvoiceServices {
 //                        continue;
 //                    }
                     // Set adjustment amount as amountAlreadyIncluded to continue invoice item creation process
-                    Boolean isTaxIncludedInPrice = adj.getString("orderAdjustmentTypeId").equals("VAT_TAX") && UtilValidate.isNotEmpty(adj.getBigDecimal("amountAlreadyIncluded")) && adj.getBigDecimal("amountAlreadyIncluded").signum() != 0;
+                    Boolean isTaxIncludedInPrice = "VAT_TAX".equals(adj.getString("orderAdjustmentTypeId")) && UtilValidate.isNotEmpty(adj.getBigDecimal("amountAlreadyIncluded")) && adj.getBigDecimal("amountAlreadyIncluded").signum() != 0;
                     if ((adj.getBigDecimal("amount").signum() == 0) && isTaxIncludedInPrice) {
                         adj.set("amount", adj.getBigDecimal("amountAlreadyIncluded"));
                     }
@@ -611,7 +611,7 @@ public class InvoiceServices {
                                     }
                                 }                            
                             // Tax needs to be rounded differently from other order adjustments
-                            if (adj.getString("orderAdjustmentTypeId").equals("SALES_TAX")) {
+                            if ("SALES_TAX".equals(adj.getString("orderAdjustmentTypeId"))) {
                                 amount = amount.setScale(TAX_DECIMALS, TAX_ROUNDING);
                             } else {
                                 amount = amount.setScale(invoiceTypeDecimals, ROUNDING);
@@ -650,7 +650,7 @@ public class InvoiceServices {
 
                         // invoice items for sales tax are not taxable themselves
                         // TODO: This is not an ideal solution. Instead, we need to use OrderAdjustment.includeInTax when it is implemented
-                        if (!(adj.getString("orderAdjustmentTypeId").equals("SALES_TAX"))) {
+                        if (!("SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")))) {
                             createInvoiceItemAdjContext.put("taxableFlag", product.get("taxable"));
                         }
 
@@ -1332,9 +1332,9 @@ public class InvoiceServices {
         for (String tmpShipmentId : shipmentIds) {
             try {
                 GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", tmpShipmentId).queryOne();
-                if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("PURCHASE_SHIPMENT"))) {
+                if ((shipment.getString("shipmentTypeId") != null) && ("PURCHASE_SHIPMENT".equals(shipment.getString("shipmentTypeId")))) {
                     purchaseShipmentFound = true;
-                } else if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("DROP_SHIPMENT"))) {
+                } else if ((shipment.getString("shipmentTypeId") != null) && ("DROP_SHIPMENT".equals(shipment.getString("shipmentTypeId")))) {
                     dropShipmentFound = true;
                 } else {
                     salesShipmentFound = true;
@@ -1430,9 +1430,9 @@ public class InvoiceServices {
                 itemsByOrder.add(item);
                 shippedOrderItems.put(orderId, itemsByOrder);
                 continue;
-            } else if (item.getEntityName().equals("ItemIssuance")) {
+            } else if ("ItemIssuance".equals(item.getEntityName())) {
                 billFields.add(EntityCondition.makeCondition("itemIssuanceId", item.get("itemIssuanceId")));
-            } else if (item.getEntityName().equals("ShipmentReceipt")) {
+            } else if ("ShipmentReceipt".equals(item.getEntityName())) {
                 billFields.add(EntityCondition.makeCondition("shipmentReceiptId", item.getString("receiptId")));
             }
             List<GenericValue> itemBillings = null;
@@ -1470,7 +1470,7 @@ public class InvoiceServices {
             for (GenericValue issue : billItems) {
                 BigDecimal issueQty = ZERO;
 
-                if (issue.getEntityName().equals("ShipmentReceipt")) {
+                if ("ShipmentReceipt".equals(issue.getEntityName())) {
                     issueQty = issue.getBigDecimal("quantityAccepted");
                 } else {
                     issueQty = issue.getBigDecimal("quantity");
@@ -1486,7 +1486,7 @@ public class InvoiceServices {
                     List<GenericValue> billed = null;
                     BigDecimal orderedQty = null;
                     try {
-                        orderItem = issue.getEntityName().equals("OrderItem") ? issue : issue.getRelatedOne("OrderItem", false);
+                        orderItem = "OrderItem".equals(issue.getEntityName()) ? issue : issue.getRelatedOne("OrderItem", false);
 
                         // total ordered
                         orderedQty = orderItem.getBigDecimal("quantity");
@@ -1726,7 +1726,7 @@ public class InvoiceServices {
                             //  all at once.
                             BigDecimal totalNewAuthAmount = totalAdditionalShippingCharges.setScale(DECIMALS, ROUNDING);
                             for (GenericValue orderPaymentPreference : orderPaymentPreferences) {
-                                if (! (orderPaymentPreference.getString("statusId").equals("PAYMENT_SETTLED") || orderPaymentPreference.getString("statusId").equals("PAYMENT_CANCELLED"))) {
+                                if (! ("PAYMENT_SETTLED".equals(orderPaymentPreference.getString("statusId")) || "PAYMENT_CANCELLED".equals(orderPaymentPreference.getString("statusId")))) {
                                     GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
                                     if (authTransaction != null && authTransaction.get("amount") != null) {
 
@@ -1860,7 +1860,7 @@ public class InvoiceServices {
                 return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, 
                         "AccountingShipmentNotFound", locale));
             }
-            if (shipment.getString("shipmentTypeId").equals("SALES_RETURN")) {
+            if ("SALES_RETURN".equals(shipment.getString("shipmentTypeId"))) {
                 salesReturnFound = true;
             } else if ("PURCHASE_RETURN".equals(shipment.getString("shipmentTypeId"))) {
                 purchaseReturnFound = true;
@@ -1887,9 +1887,9 @@ public class InvoiceServices {
             for (GenericValue item : shippedItems) {
                 String returnId = null;
                 String returnItemSeqId = null;
-                if (item.getEntityName().equals("ShipmentReceipt")) {
+                if ("ShipmentReceipt".equals(item.getEntityName())) {
                     returnId = item.getString("returnId");
-                } else if (item.getEntityName().equals("ItemIssuance")) {
+                } else if ("ItemIssuance".equals(item.getEntityName())) {
                     GenericValue returnItemShipment = EntityQuery.use(delegator).from("ReturnItemShipment")
                             .where("shipmentId", item.get("shipmentId"), "shipmentItemSeqId", item.get("shipmentItemSeqId"))
                             .queryFirst();
@@ -1899,13 +1899,13 @@ public class InvoiceServices {
 
                 // see if there are ReturnItemBillings for this item
                 Long billingCount = 0L;
-                if (item.getEntityName().equals("ShipmentReceipt")) {
+                if ("ShipmentReceipt".equals(item.getEntityName())) {
                     billingCount = EntityQuery.use(delegator).from("ReturnItemBilling")
                             .where("shipmentReceiptId", item.get("receiptId"),
                                     "returnId", returnId,
                                     "returnItemSeqId", item.get("returnItemSeqId"))
                                     .queryCount();
-                } else if (item.getEntityName().equals("ItemIssuance")) {
+                } else if ("ItemIssuance".equals(item.getEntityName())) {
                     billingCount = EntityQuery.use(delegator).from("ReturnItemBilling").where("returnId", returnId, "returnItemSeqId", returnItemSeqId).queryCount();
                 }
                 // if there are billings, we have already billed the item, so skip it
@@ -2170,7 +2170,7 @@ public class InvoiceServices {
 
                     // only set taxable flag when the adjustment is not a tax
                     // TODO: Note that we use the value of Product.taxable here. This is not an ideal solution. Instead, use returnAdjustment.includeInTax
-                    if (adjustment.get("returnAdjustmentTypeId").equals("RET_SALES_TAX_ADJ")) {
+                    if ("RET_SALES_TAX_ADJ".equals(adjustment.get("returnAdjustmentTypeId"))) {
                         input.put("taxableFlag", "N");
                     }
 
@@ -2280,7 +2280,7 @@ public class InvoiceServices {
         }
 
         // Ignore invoices that aren't ready yet
-        if (! invoice.getString("statusId").equals("INVOICE_READY")) {
+        if (! "INVOICE_READY".equals(invoice.getString("statusId"))) {
             return ServiceUtil.returnSuccess();
         }
 
@@ -2583,13 +2583,13 @@ public class InvoiceServices {
         }
 
         boolean invoiceProcessing = true;
-        if (defaultInvoiceProcessing.equals("YY")) {
+        if ("YY".equals(defaultInvoiceProcessing)) {
             invoiceProcessing = true;
-        } else if (defaultInvoiceProcessing.equals("NN")) {
+        } else if ("NN".equals(defaultInvoiceProcessing)) {
             invoiceProcessing = false;
-        } else if (defaultInvoiceProcessing.equals("Y")) {
+        } else if ("Y".equals(defaultInvoiceProcessing)) {
             invoiceProcessing = !"Y".equals(changeProcessing);
-        } else if (defaultInvoiceProcessing.equals("N")) {
+        } else if ("N".equals(defaultInvoiceProcessing)) {
             invoiceProcessing = "Y".equals(changeProcessing);
         }
 
@@ -2635,11 +2635,11 @@ public class InvoiceServices {
             }
             paymentApplyAvailable = payment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(payment)).setScale(DECIMALS,ROUNDING);
 
-            if (payment.getString("statusId").equals("PMNT_CANCELLED")) {
+            if ("PMNT_CANCELLED".equals(payment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentCancelled", UtilMisc.toMap("paymentId", paymentId), locale));
             }
-            if (payment.getString("statusId").equals("PMNT_CONFIRMED")) {
+            if ("PMNT_CONFIRMED".equals(payment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentConfirmed", UtilMisc.toMap("paymentId", paymentId), locale));
             }
@@ -2664,11 +2664,11 @@ public class InvoiceServices {
             }
             toPaymentApplyAvailable = toPayment.getBigDecimal("amount").subtract(PaymentWorker.getPaymentApplied(toPayment)).setScale(DECIMALS,ROUNDING);
 
-            if (toPayment.getString("statusId").equals("PMNT_CANCELLED")) {
+            if ("PMNT_CANCELLED".equals(toPayment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentCancelled", UtilMisc.toMap("paymentId", paymentId), locale));
             }
-            if (toPayment.getString("statusId").equals("PMNT_CONFIRMED")) {
+            if ("PMNT_CONFIRMED".equals(toPayment.getString("statusId"))) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
                         "AccountingPaymentConfirmed", UtilMisc.toMap("paymentId", paymentId), locale));
             }
@@ -2764,7 +2764,7 @@ public class InvoiceServices {
                         "AccountingInvoiceNotFound", UtilMisc.toMap("invoiceId", invoiceId), locale));
             } else { // check the invoice and when supplied the invoice item...
 
-                if (invoice.getString("statusId").equals("INVOICE_CANCELLED")) {
+                if ("INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {
                     errorMessageList.add(UtilProperties.getMessage(resource,
                             "AccountingInvoiceCancelledCannotApplyTo", UtilMisc.toMap("invoiceId", invoiceId), locale));
                 }
@@ -3088,7 +3088,7 @@ public class InvoiceServices {
             }
         }
         // if the amount to apply was not provided or was zero fill it with the maximum possible and provide information to the user
-        if (amountApplied.signum() == 0 &&  useHighestAmount.equals("Y")) {
+        if (amountApplied.signum() == 0 &&  "Y".equals(useHighestAmount)) {
             amountApplied = newPaymentApplyAvailable;
             if (invoiceId != null && newInvoiceApplyAvailable.compareTo(amountApplied) < 0) {
                 amountApplied = newInvoiceApplyAvailable;

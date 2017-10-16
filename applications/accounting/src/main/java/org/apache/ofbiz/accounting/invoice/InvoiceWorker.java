@@ -301,9 +301,9 @@ public final class InvoiceWorker {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
             Timestamp now = UtilDateTime.nowTimestamp();
-            if (invoice.getString("invoiceTypeId").equals("SALES_INVOICE"))
+            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId")))
                 destinationPartyId = invoice.getString("partyId");
-            if (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))
+            if ("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))
                 destinationPartyId = invoice.getString("partyId");
             try {
                 locations = EntityQuery.use(delegator).from("PartyContactWithPurpose")
@@ -336,7 +336,7 @@ public final class InvoiceWorker {
                 Debug.logError(e, "Trouble getting Contact for contactMechId: " + locations.get(0).getString("contactMechId"), module);
             }
 
-            if (contactMech != null && contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS"))    {
+            if (contactMech != null && "POSTAL_ADDRESS".equals(contactMech.getString("contactMechTypeId")))    {
                 try {
                     postalAddress = contactMech.getRelatedOne("PostalAddress", false);
                     return postalAddress;

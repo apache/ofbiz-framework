@@ -447,7 +447,7 @@ public class RitaServices {
             if (presentFlag == null) {
                 presentFlag = "N";
             }
-            api.set(RitaApi.PRESENT_FLAG, presentFlag.equals("Y") ? "3" : "1"); // 1, no present, 2 present, 3 swiped
+            api.set(RitaApi.PRESENT_FLAG, "Y".equals(presentFlag) ? "3" : "1"); // 1, no present, 2 present, 3 swiped
         } else {
             throw new GeneralException("No CreditCard object found");
         }
@@ -465,7 +465,7 @@ public class RitaServices {
         } catch (Exception e) {
             Debug.logError(e, module);
         }
-        boolean ssl = props.getProperty("ssl", "N").equals("Y") ? true : false;
+        boolean ssl = "Y".equals(props.getProperty("ssl", "N")) ? true : false;
 
         RitaApi api = null;
         if (port > 0 && host != null) {
