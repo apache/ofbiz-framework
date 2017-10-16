@@ -541,7 +541,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                if (sci.getItemType().equals("RENTAL_ORDER_ITEM")) {
+                if ("RENTAL_ORDER_ITEM".equals(sci.getItemType())) {
                     // check to see if the related fixed asset is available for the new quantity
                     String isAvailable = ShoppingCartItem.checkAvailability(productId, newQuantity, reservStart, reservLength, this);
                     if (isAvailable.compareTo("OK") != 0) {
@@ -555,7 +555,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if (Debug.verboseOn()) Debug.logVerbose("Found a match for id " + productId + " on line " + i + ", updating quantity to " + newQuantity, module);
                 sci.setQuantity(newQuantity, dispatcher, this);
 
-                if (getOrderType().equals("PURCHASE_ORDER")) {
+                if ("PURCHASE_ORDER".equals(getOrderType())) {
                     supplierProduct = getSupplierProduct(productId, newQuantity, dispatcher);
                     if (supplierProduct != null && supplierProduct.getBigDecimal("lastPrice") != null) {
                         sci.setSupplierProductId(supplierProduct.getString("supplierProductId"));
@@ -570,7 +570,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         // Add the new item to the shopping cart if it wasn't found.
         ShoppingCartItem item = null;
-        if (getOrderType().equals("PURCHASE_ORDER")) {
+        if ("PURCHASE_ORDER".equals(getOrderType())) {
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
                  item = ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
@@ -830,7 +830,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public boolean containAnyWorkEffortCartItems() {
         // Check for existing cart item.
         for (ShoppingCartItem cartItem : this.cartLines) {
-            if (cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) {  // create workeffort items?
+            if ("RENTAL_ORDER_ITEM".equals(cartItem.getItemType())) {  // create workeffort items?
                 return true;
             }
         }
@@ -840,7 +840,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public boolean containAllWorkEffortCartItems() {
         // Check for existing cart item.
         for (ShoppingCartItem cartItem : this.cartLines) {
-            if (!cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) { // not a item to create workefforts?
+            if (!"RENTAL_ORDER_ITEM".equals(cartItem.getItemType())) { // not a item to create workefforts?
                 return false;
             }
         }
@@ -1246,7 +1246,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void setBillToCustomerPartyId(String billToCustomerPartyId) {
         this.billToCustomerPartyId = billToCustomerPartyId;
-        if ((UtilValidate.isEmpty(this.orderPartyId)) && !(orderType.equals("PURCHASE_ORDER"))) {
+        if ((UtilValidate.isEmpty(this.orderPartyId)) && !("PURCHASE_ORDER".equals(orderType))) {
             this.orderPartyId = billToCustomerPartyId;  // orderPartyId should be bill-to-customer when it is not a purchase order
         }
     }
@@ -1275,7 +1275,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void setBillFromVendorPartyId(String billFromVendorPartyId) {
         this.billFromVendorPartyId = billFromVendorPartyId;
-        if ((UtilValidate.isEmpty(this.orderPartyId)) && (orderType.equals("PURCHASE_ORDER"))) {
+        if ((UtilValidate.isEmpty(this.orderPartyId)) && ("PURCHASE_ORDER".equals(orderType))) {
             this.orderPartyId = billFromVendorPartyId;  // orderPartyId should be bill-from-vendor when it is a purchase order
         }
 
@@ -2592,10 +2592,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void setDefaultCheckoutOptions(LocalDispatcher dispatcher) {
         // skip the add party screen
         this.setAttribute("addpty", "Y");
-        if (getOrderType().equals("SALES_ORDER")) {
+        if ("SALES_ORDER".equals(getOrderType())) {
             // checkout options for sales orders
             // set as the default shipping location the first from the list of available shipping locations
-            if (this.getPartyId() != null && !this.getPartyId().equals("_NA_")) {
+            if (this.getPartyId() != null && !"_NA_".equals(this.getPartyId())) {
                 try {
                     GenericValue orderParty = this.getDelegator().findOne("Party", UtilMisc.toMap("partyId", this.getPartyId()), false);
                     Collection<GenericValue> shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);

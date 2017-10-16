@@ -96,7 +96,7 @@ public class OrderContentWrapper implements ContentWrapper {
          */
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
 
-        String orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
+        String orderItemSeqId = ("OrderItem".equals(order.getEntityName())? order.getString("orderItemSeqId"): "_NA_");
 
         String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR + orderItemSeqId + SEPARATOR + encoderType + SEPARATOR + delegator;
         try {
@@ -135,7 +135,7 @@ public class OrderContentWrapper implements ContentWrapper {
             orderId = order.getString("orderId");
         }
         if (orderItemSeqId == null && order != null) {
-            orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
+            orderItemSeqId = ("OrderItem".equals(order.getEntityName())? order.getString("orderItemSeqId"): "_NA_");
         }
 
         if (delegator == null && order != null) {

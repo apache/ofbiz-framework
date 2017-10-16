@@ -1079,7 +1079,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 priceContext.put("quantity", this.getQuantity());
                 priceContext.put("amount", this.getSelectedAmount());
                 
-                if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+                if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                     priceContext.put("currencyUomId", cart.getCurrency());
                     Map<String, Object> priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
@@ -1882,7 +1882,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue product = getProduct();
         if (product != null) {
             itemInfo.put("inShippingBox", product.getString("inShippingBox"));
-            if (product.getString("inShippingBox") != null && product.getString("inShippingBox").equals("Y")) {
+            if (product.getString("inShippingBox") != null && "Y".equals(product.getString("inShippingBox"))) {
                 itemInfo.put("shippingHeight", product.getBigDecimal("shippingHeight"));
                 itemInfo.put("shippingWidth", product.getBigDecimal("shippingWidth"));
                 itemInfo.put("shippingDepth", product.getBigDecimal("shippingDepth"));

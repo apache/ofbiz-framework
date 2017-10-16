@@ -145,7 +145,7 @@ public class OrderServices {
     private static boolean hasPermission(String orderTypeId, String partyId, GenericValue userLogin, String action, Security security) {
         boolean hasPermission = security.hasEntityPermission("ORDERMGR", "_" + action, userLogin);
         if (!hasPermission) {
-            if (orderTypeId.equals("SALES_ORDER")) {
+            if ("SALES_ORDER".equals(orderTypeId)) {
                 if (security.hasEntityPermission("ORDERMGR", "_SALES_" + action, userLogin)) {
                     hasPermission = true;
                 } else {
@@ -171,7 +171,7 @@ public class OrderServices {
                         }
                     }
                 }
-            } else if ((orderTypeId.equals("PURCHASE_ORDER") && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_" + action, userLogin)))) {
+            } else if (("PURCHASE_ORDER".equals(orderTypeId) && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_" + action, userLogin)))) {
                 hasPermission = true;
             }
         }
@@ -210,7 +210,7 @@ public class OrderServices {
         // get the product store for the order, but it is required only for sales orders
         String productStoreId = (String) context.get("productStoreId");
         GenericValue productStore = null;
-        if ((orderTypeId.equals("SALES_ORDER")) && (UtilValidate.isNotEmpty(productStoreId))) {
+        if (("SALES_ORDER".equals(orderTypeId)) && (UtilValidate.isNotEmpty(productStoreId))) {
             try {
                 productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
@@ -438,7 +438,7 @@ public class OrderServices {
             getNextOrderIdContext.put("partyId", orgPartyId);
             getNextOrderIdContext.put("userLogin", userLogin);
 
-            if ((orderTypeId.equals("SALES_ORDER")) || (productStoreId != null)) {
+            if (("SALES_ORDER".equals(orderTypeId)) || (productStoreId != null)) {
                 getNextOrderIdContext.put("productStoreId", productStoreId);
             }
             if (UtilValidate.isEmpty(orderId)) {
@@ -482,9 +482,9 @@ public class OrderServices {
 
         // determine the sales channel
         String salesChannelEnumId = (String) context.get("salesChannelEnumId");
-        if ((salesChannelEnumId == null) || salesChannelEnumId.equals("UNKNWN_SALES_CHANNEL")) {
+        if ((salesChannelEnumId == null) || "UNKNWN_SALES_CHANNEL".equals(salesChannelEnumId)) {
             // try the default store sales channel
-            if (orderTypeId.equals("SALES_ORDER") && (productStore != null)) {
+            if ("SALES_ORDER".equals(orderTypeId) && (productStore != null)) {
                 salesChannelEnumId = productStore.getString("defaultSalesChannelEnumId");
             }
             // if there's still no channel, set to unknown channel
@@ -3016,7 +3016,7 @@ public class OrderServices {
             String orderId = orderHeader.getString("orderId");
             String orderStatus = orderHeader.getString("statusId");
 
-            if (orderStatus.equals("ORDER_CREATED")) {
+            if ("ORDER_CREATED".equals(orderStatus)) {
                 // first check for un-paid orders
                 Timestamp orderDate = orderHeader.getTimestamp("entryDate");
 
@@ -5057,7 +5057,7 @@ public class OrderServices {
             }
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
-            if (UtilValidate.isNotEmpty(statusId) && statusId.equalsIgnoreCase("PAYMENT_CANCELLED")) {
+            if (UtilValidate.isNotEmpty(statusId) && "PAYMENT_CANCELLED".equalsIgnoreCase(statusId)) {
                 opp.set("statusId", "PAYMENT_CANCELLED");
                 opp.store();
                 results.put("orderPaymentPreferenceId", opp.get("orderPaymentPreferenceId"));

@@ -312,7 +312,7 @@ public final class ProductPromoWorker {
         // there will be a ton of db access, so just do a big catch entity exception block
         try {
             if (productPromoList == null) {
-                if (cart.getOrderType().equals("SALES_ORDER")) {
+                if ("SALES_ORDER".equals(cart.getOrderType())) {
                     productPromoList = ProductPromoWorker.getProductStorePromotions(cart, nowTimestamp, dispatcher);
                 } else {
                     productPromoList = ProductPromoWorker.getAgreementPromotions(cart, nowTimestamp, dispatcher);

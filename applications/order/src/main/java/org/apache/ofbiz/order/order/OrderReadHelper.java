@@ -91,7 +91,7 @@ public class OrderReadHelper {
         this.orderHeader = orderHeader;
         this.adjustments = adjustments;
         this.orderItems = orderItems;
-        if (this.orderHeader != null && !this.orderHeader.getEntityName().equals("OrderHeader")) {
+        if (this.orderHeader != null && !"OrderHeader".equals(this.orderHeader.getEntityName())) {
             try {
                 this.orderHeader = orderHeader.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId",
                         orderHeader.getString("orderId")), false);

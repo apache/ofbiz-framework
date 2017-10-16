@@ -1111,7 +1111,7 @@ public class ShoppingCartEvents {
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
                     GenericPK productPromoActionPk = delegator.makeValidValue("ProductPromoAction", checkOrderAdjustment).getPrimaryKey();
                     cart.setDesiredAlternateGiftByAction(productPromoActionPk, alternateGwpProductId);
-                    if (cart.getOrderType().equals("SALES_ORDER")) {
+                    if ("SALES_ORDER".equals(cart.getOrderType())) {
                         org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.doPromotions(cart, dispatcher);
                     }
                     return "success";
@@ -1540,7 +1540,7 @@ public class ShoppingCartEvents {
            return "error";
         }
         request.setAttribute("quoteId", quoteId);
-        if (destroyCart != null && destroyCart.equals("Y")) {
+        if (destroyCart != null && "Y".equals(destroyCart)) {
             ShoppingCartEvents.destroyCart(request, response);
         }
 
@@ -1570,7 +1570,7 @@ public class ShoppingCartEvents {
            return "error";
         }
         request.setAttribute("custRequestId", custRequestId);
-        if (destroyCart != null && destroyCart.equals("Y")) {
+        if (destroyCart != null && "Y".equals(destroyCart)) {
             ShoppingCartEvents.destroyCart(request, response);
         }
 
@@ -1610,9 +1610,9 @@ public class ShoppingCartEvents {
 
                 // check permission for taking the order
                 boolean hasPermission = false;
-                if ((cart.getOrderType().equals("PURCHASE_ORDER")) && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session))) {
+                if (("PURCHASE_ORDER".equals(cart.getOrderType())) && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session))) {
                     hasPermission = true;
-                } else if (cart.getOrderType().equals("SALES_ORDER")) {
+                } else if ("SALES_ORDER".equals(cart.getOrderType())) {
                     if (security.hasEntityPermission("ORDERMGR", "_SALES_CREATE", session)) {
                         hasPermission = true;
                     } else {
@@ -1707,7 +1707,7 @@ public class ShoppingCartEvents {
             }
         } else {
             partyId = cart.getPartyId();
-            if (partyId != null && partyId.equals("_NA_")) partyId = null;
+            if (partyId != null && "_NA_".equals(partyId)) partyId = null;
         }
 
         return "success";

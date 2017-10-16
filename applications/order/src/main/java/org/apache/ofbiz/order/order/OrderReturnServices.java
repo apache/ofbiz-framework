@@ -414,7 +414,7 @@ public class OrderReturnServices {
 
         // get the returnable quantity
         BigDecimal returnableQuantity = BigDecimal.ZERO;
-        if (returnable && (itemStatus.equals("ITEM_APPROVED") || itemStatus.equals("ITEM_COMPLETED"))) {
+        if (returnable && ("ITEM_APPROVED".equals(itemStatus) || "ITEM_COMPLETED".equals(itemStatus))) {
             List<GenericValue> returnedItems = null;
             try {
                 returnedItems = orderItem.getRelated("ReturnItem", null, null, false);
@@ -437,7 +437,7 @@ public class OrderReturnServices {
                                 "OrderErrorUnableToGetReturnHeaderFromItem", locale));
                     }
                     String returnStatus = returnHeader.getString("statusId");
-                    if (!returnStatus.equals("RETURN_CANCELLED")) {
+                    if (!"RETURN_CANCELLED".equals(returnStatus)) {
                         if(UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))){
                             returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));   
                         } 
@@ -1378,7 +1378,7 @@ public class OrderReturnServices {
                                 } catch (GenericServiceException e) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
                                 }
-                            } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
+                            } else if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
                                 try {
                                     // for Billing Account refunds
                                     serviceResult = dispatcher.runSync("refundBillingAccountPayment",
@@ -1429,7 +1429,7 @@ public class OrderReturnServices {
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
                             response.put("paymentId", paymentId);
-                            if (paymentMethodTypeId.equals("EXT_BILLACT")) {
+                            if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
                                 response.put("billingAccountId", orderReadHelper.getBillingAccount().getString("billingAccountId"));
                             }
                             Map<String, Object> serviceResults = null;

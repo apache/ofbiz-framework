@@ -253,7 +253,7 @@ public class ShoppingCartHelper {
                 item.setShoppingList(shoppingListId, shoppingListItemSeqId);
             }
         } catch (CartItemModifyException e) {
-            if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+            if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                 String errMsg = UtilProperties.getMessage(resource_error, "cart.product_not_valid_for_supplier", this.cart.getLocale());
                 errMsg = errMsg + " (" + e.getMessage() + ")";
                 result = ServiceUtil.returnError(errMsg);
@@ -319,7 +319,7 @@ public class ShoppingCartHelper {
                 orderItemTypeId = orderItem.getString("orderItemTypeId");
                 productId = orderItem.getString("productId");
                 // do not store rental items
-                if (orderItemTypeId.equals("RENTAL_ORDER_ITEM"))
+                if ("RENTAL_ORDER_ITEM".equals(orderItemTypeId))
                     continue;
                 if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
                     BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
@@ -800,7 +800,7 @@ public class ShoppingCartHelper {
                                 try {
                                     oldItemComment = item.getItemComment();
                                     // if, on a purchase order, the quantity has changed, get the new SupplierProduct entity for this quantity level.
-                                    if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+                                    if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                                         oldQuantity = item.getQuantity();
                                         if (oldQuantity.compareTo(quantity) != 0) {
                                             // save the old description and price, in case the user wants to change those as well
