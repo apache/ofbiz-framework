@@ -247,7 +247,7 @@ public class ProductServices {
                                 "ProductFeatureTreeCannotCallIsStoreInventoryRequired", locale), null, null, invReqResult);
                     } else if ("Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         items.add(productIdTo);
-                        if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
+                        if (productTo.getString("isVirtual") != null && "Y".equals(productTo.getString("isVirtual"))) {
                             virtualVariant.add(productIdTo);
                         }
                     } else {
@@ -255,7 +255,7 @@ public class ProductServices {
                     }
                 } else {
                     items.add(productIdTo);
-                    if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
+                    if (productTo.getString("isVirtual") != null && "Y".equals(productTo.getString("isVirtual"))) {
                         virtualVariant.add(productIdTo);
                     }
                 }
@@ -381,7 +381,7 @@ public class ProductServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             GenericValue mainProduct = product;
 
-            if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
+            if (product.get("isVariant") != null && "Y".equalsIgnoreCase(product.getString("isVariant"))) {
                 List<GenericValue> c = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, true);
                 c = EntityUtil.filterByDate(c);
                 if (c.size() > 0) {

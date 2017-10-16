@@ -248,7 +248,7 @@ public class ProductEvents {
         if (UtilValidate.isEmpty(productAssocTypeId))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.association_type_ID_missing", UtilHttp.getLocale(request)));
         // from date is only required if update mode is not CREATE
-        if (!updateMode.equals("CREATE") && UtilValidate.isEmpty(fromDateStr))
+        if (!"CREATE".equals(updateMode) && UtilValidate.isEmpty(fromDateStr))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.from_date_missing", UtilHttp.getLocale(request)));
         if (errMsgList.size() > 0) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
@@ -267,7 +267,7 @@ public class ProductEvents {
 
         GenericValue tempProductAssoc = delegator.makeValue("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate));
 
-        if (updateMode.equals("DELETE")) {
+        if ("DELETE".equals(updateMode)) {
             GenericValue productAssoc = null;
 
             try {
@@ -333,7 +333,7 @@ public class ProductEvents {
         tempProductAssoc.set("quantity", quantity);
         tempProductAssoc.set("sequenceNum", sequenceNum);
 
-        if (updateMode.equals("CREATE")) {
+        if ("CREATE".equals(updateMode)) {
             // if no from date specified, set to now
             if (fromDate == null) {
                 fromDate = new Timestamp(new java.util.Date().getTime());
@@ -362,7 +362,7 @@ public class ProductEvents {
                 Debug.logWarning("[ProductEvents.updateProductAssoc] Could not create product association (write error); message: " + e.getMessage(), module);
                 return "error";
             }
-        } else if (updateMode.equals("UPDATE")) {
+        } else if ("UPDATE".equals(updateMode)) {
             try {
                 tempProductAssoc.store();
             } catch (GenericEntityException e) {
@@ -869,7 +869,7 @@ public class ProductEvents {
         if (productFeatureIdArray != null && productFeatureIdArray.length > 0) {
             try {
                 for (String productFeatureId: productFeatureIdArray) {
-                    if (!productFeatureId.equals("~~any~~")) {
+                    if (!"~~any~~".equals(productFeatureId)) {
                         List<GenericValue> featureAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeatureId, "productFeatureApplTypeId", productFeatureApplTypeId).queryList();
                         if (featureAppls.size() == 0) {
                             // no existing application for this

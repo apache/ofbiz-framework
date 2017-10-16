@@ -943,7 +943,7 @@ public class ShipmentServices {
         try {
             Map<String, Object> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
             // for DHL, we just need to confirm the shipment to get the label.  Other carriers may have more elaborate requirements.
-            if (carrierPartyId.equals("DHL")) {
+            if ("DHL".equals(carrierPartyId)) {
                 dispatcher.runAsync("dhlShipmentConfirm", input);
             } else {
                 Debug.logError(carrierPartyId + " is not supported at this time.  Sorry.", module);

@@ -162,7 +162,7 @@ public class DhlServices {
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
 
-        if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
+        if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("shippingEstimateAmount", null);
             return result;
@@ -229,7 +229,7 @@ public class DhlServices {
             Debug.logWarning("DHL Estimate: Weight is less than 1 lb, submitting DHL minimum of 1 lb for estimate.", module);
             shippableWeight = BigDecimal.ONE;
         }
-        if ((dhlShipmentDetailCode.equals("G") && shippableWeight.compareTo(new BigDecimal("999")) > 0) || (shippableWeight.compareTo(new BigDecimal("150")) > 0)) {
+        if (("G".equals(dhlShipmentDetailCode) && shippableWeight.compareTo(new BigDecimal("999")) > 0) || (shippableWeight.compareTo(new BigDecimal("150")) > 0)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentDhlShippableWeightExceed", locale));
         }
@@ -711,7 +711,7 @@ public class DhlServices {
             if (labelImagePreference == null) {
                 Debug.logInfo("shipment.dhl.label.image.format not specified, assuming PNG", module);
                 labelImagePreference="PNG";
-            } else if (!(labelImagePreference.equals("PNG") || labelImagePreference.equals("GIF"))) {
+            } else if (!("PNG".equals(labelImagePreference) || "GIF".equals(labelImagePreference))) {
                 Debug.logError("Illegal shipment.dhl.label.image.format: " + labelImagePreference, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentDhlUnknownLabelImageFormat", 

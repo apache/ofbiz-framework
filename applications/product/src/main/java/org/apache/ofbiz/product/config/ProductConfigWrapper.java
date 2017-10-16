@@ -95,7 +95,7 @@ public class ProductConfigWrapper implements Serializable {
 
     private void init(Delegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
         product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-        if (product == null || !product.getString("productTypeId").equals("AGGREGATED") && !product.getString("productTypeId").equals("AGGREGATED_SERVICE")) {
+        if (product == null || !"AGGREGATED".equals(product.getString("productTypeId")) && !"AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
         this.dispatcher = dispatcher;
@@ -425,15 +425,15 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public boolean isStandard() {
-            return configItemAssoc.getString("configTypeId").equals("STANDARD");
+            return "STANDARD".equals(configItemAssoc.getString("configTypeId"));
         }
 
         public boolean isSingleChoice() {
-            return configItem.getString("configItemTypeId").equals("SINGLE");
+            return "SINGLE".equals(configItem.getString("configItemTypeId"));
         }
 
         public boolean isMandatory() {
-            return configItemAssoc.getString("isMandatory") != null && configItemAssoc.getString("isMandatory").equals("Y");
+            return configItemAssoc.getString("isMandatory") != null && "Y".equals(configItemAssoc.getString("isMandatory"));
         }
 
         public boolean isFirst() {

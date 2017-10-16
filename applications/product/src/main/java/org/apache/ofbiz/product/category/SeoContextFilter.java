@@ -182,7 +182,7 @@ public class SeoContextFilter implements Filter {
                         redirectPath = httpRequest.getContextPath() + redirectPath;
                     }
                     // httpResponse.sendRedirect(redirectPath);
-                    if (uri.equals("") || uri.equals("/")) {
+                    if ("".equals(uri) || "/".equals(uri)) {
                         // redirect without any url change in browser
                         RequestDispatcher rd = request.getRequestDispatcher(redirectPath);
                         rd.forward(request, response);
