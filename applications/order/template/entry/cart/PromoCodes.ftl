@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if shoppingCart.getOrderType() == "SALES_ORDER">
+<#if "SALES_ORDER" == shoppingCart.getOrderType()>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="h3">&nbsp;${uiLabelMap.OrderPromotionCouponCodes}</div>

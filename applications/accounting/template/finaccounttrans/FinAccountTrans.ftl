@@ -23,7 +23,7 @@ function togglefinAccountTransId(master) {
     var finAccountTransList = form.elements.length;
     for (var i = 0; i < finAccountTransList; i++) {
         var element = form.elements[i];
-        if (element.type == "checkbox") {
+        if ("checkbox" == element.type) {
             element.checked = master.checked;
         }
     }
@@ -96,7 +96,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         <input name="reconciledBalanceWithUom" type="hidden" id="reconciledBalanceWithUom" value="<@ofbizCurrency amount=(glReconciliation.reconciledBalance)?default('0')/>"/>
       </#if>
       <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId!, "statusId" : "GLREC_CREATED"}, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"), false)>
-      <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal??>
+      <#if (glReconciliationId?has_content && ("_NA_" == glReconciliationId && finAccountTransList?has_content)) || !grandTotal??>
         <div align="right">
           <#if grandTotal??>
             <#if glReconciliations?has_content>
@@ -138,7 +138,7 @@ function getFinAccountTransRunningTotalAndBalances() {
               <th>${uiLabelMap.AccountingRemoveFromGlReconciliation}</th>
             </#if>
           </#if>
-          <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal??>
+          <#if ((glReconciliationId?has_content && "_NA_" == glReconciliationId) && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal??>
             <th><label>${uiLabelMap.CommonSelectAll} <input name="selectAll" type="checkbox" value="N" id="checkAllTransactions" onclick="javascript:togglefinAccountTransId(this);"/></label></th>
           </#if>
         </tr>
@@ -264,13 +264,13 @@ function getFinAccountTransRunningTotalAndBalances() {
             </#if>
             <#if !(grandTotal??)>
               <#if (parameters.glReconciliationId?has_content && parameters.glReconciliationId != "_NA_")>
-                <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+                <#if "FINACT_TRNS_CREATED" == finAccountTrans.statusId>
                   <td><a href="javascript:document.removeFinAccountTransFromReconciliation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
                 </#if>
               </#if>
             </#if>
-            <#if ((glReconciliationId?has_content && glReconciliationId == "_NA_") && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal??>
-              <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+            <#if ((glReconciliationId?has_content && "_NA_" == glReconciliationId) && (glReconciliations?has_content && finAccountTransList?has_content)) || !grandTotal??>
+              <#if "FINACT_TRNS_CREATED" == finAccountTrans.statusId>
                 <td><input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="checkbox" value="Y" onclick="javascript:getFinAccountTransRunningTotalAndBalances();"/></td>
               </#if>
             </#if>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if workEffort.workEffortTypeId == "PROD_ORDER_HEADER">
+<#if "PROD_ORDER_HEADER" == workEffort.workEffortTypeId>
   <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}" class="event">
     ${workEffort.workEffortId}
   </a>
@@ -33,7 +33,7 @@ under the License.
       </#list>
     </#list>
   </#if>
-<#elseif workEffort.workEffortTypeId == "PROD_ORDER_TASK">
+<#elseif "PROD_ORDER_TASK" == workEffort.workEffortTypeId>
   <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortParentId}" class="event">
     ${workEffort.workEffortParentId} / ${workEffort.workEffortId}
   </a>

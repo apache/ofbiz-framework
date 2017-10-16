@@ -78,13 +78,13 @@ under the License.
       </tr>
 
       <#-- payment method information -->
-      <#if paymentMethodType?has_content && paymentMethodTypeId == "CREDIT_CARD">
+      <#if paymentMethodType?has_content && "CREDIT_CARD" == paymentMethodTypeId>
         ${screens.render("component://accounting/widget/PaymentScreens.xml#manualCCTx")}
-      <#elseif paymentMethodType?has_content && paymentMethodTypeId == "GIFT_CARD">
+      <#elseif paymentMethodType?has_content && "GIFT_CARD" == paymentMethodTypeId>
         ${screens.render("component://accounting/widget/PaymentScreens.xml#manualGCTx")}
       </#if>
 
-     <#if requestAttributes.validTx?default("false") == "true">
+     <#if "true" == requestAttributes.validTx?default("false")>
         <tr><td colspan="3"><hr/></td></tr>
         <#-- amount field -->
         <tr>

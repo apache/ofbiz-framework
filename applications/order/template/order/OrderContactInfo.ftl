@@ -24,7 +24,7 @@ under the License.
       <input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurpose.contactMechPurposeTypeId!}" />
       <input type="hidden" name="oldContactMechId" value="${contactMech.contactMechId!}" />
       <select name="contactMechId">
-        <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
+        <#if "POSTAL_ADDRESS" == contactMech.contactMechTypeId>
           <option value="${contactMechAddress.contactMechId}">${(contactMechAddress.address1)?default("")} - ${contactMechAddress.city?default("")}</option>
           <option value="${contactMechAddress.contactMechId}"></option>
           <#list contactMechList as contactMech>
@@ -36,7 +36,7 @@ under the License.
               </#if>
             </#list>
           </#list>
-        <#elseif contactMech.contactMechTypeId == "TELECOM_NUMBER">
+        <#elseif "TELECOM_NUMBER" == contactMech.contactMechTypeId>
           <option value="${contactMechAddress.contactMechId}">${contactMechAddress.countryCode!} <#if contactMechAddress.areaCode??>${contactMechAddress.areaCode}-</#if>${contactMechAddress.contactNumber}</option>
           <option value="${contactMechAddress.contactMechId}"></option>
           <#list contactMechList as contactMech>
@@ -48,7 +48,7 @@ under the License.
                </#if>
              </#list>
           </#list>
-        <#elseif contactMech.contactMechTypeId == "EMAIL_ADDRESS">
+        <#elseif "EMAIL_ADDRESS" == contactMech.contactMechTypeId>
           <option value="${contactMechAddress.contactMechId}">${(contactMechAddress.infoString)?default("")}</option>
           <option value="${contactMechAddress.contactMechId}"></option>
           <#list contactMechList as contactMech>
@@ -113,7 +113,7 @@ under the License.
             </td>
             <td width="1%">&nbsp;</td>
             <td valign="top" width="80%">
-              <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
+              <#if "POSTAL_ADDRESS" == contactMech.contactMechTypeId>
                 <#assign postalAddress = orderContactMechValueMap.postalAddress>
                 <#if postalAddress?has_content>
                   <div>
@@ -122,18 +122,18 @@ under the License.
                   </div>
                   <@updateOrderContactMech orderHeader=orderHeader! contactMechTypeId=contactMech.contactMechTypeId contactMechList=postalContactMechList! contactMechPurposeTypeId=contactMechPurpose.contactMechPurposeTypeId! contactMechAddress=postalAddress! />
                 </#if>
-              <#elseif contactMech.contactMechTypeId == "TELECOM_NUMBER">
+              <#elseif "TELECOM_NUMBER" == contactMech.contactMechTypeId>
                 <#assign telecomNumber = orderContactMechValueMap.telecomNumber>
                 <div>
                   ${telecomNumber.countryCode!}
                   <#if telecomNumber.areaCode??>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber}
-                  <#if !telecomNumber.countryCode?? || telecomNumber.countryCode == "011" || telecomNumber.countryCode == "1">
+                  <#if !telecomNumber.countryCode?? || "011" == telecomNumber.countryCode || "1" == telecomNumber.countryCode>
                     <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="buttontext">${uiLabelMap.CommonLookupAnywho}</a>
                    <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
                   </#if>
                 </div>
                 <@updateOrderContactMech orderHeader=orderHeader! contactMechTypeId=contactMech.contactMechTypeId contactMechList=telecomContactMechList! contactMechPurposeTypeId=contactMechPurpose.contactMechPurposeTypeId! contactMechAddress=telecomNumber! />
-              <#elseif contactMech.contactMechTypeId == "EMAIL_ADDRESS">
+              <#elseif "EMAIL_ADDRESS" == contactMech.contactMechTypeId>
                 <div>
                   ${contactMech.infoString}
                   <#if security.hasEntityPermission("ORDERMGR", "_SEND_CONFIRMATION", session)>
@@ -143,7 +143,7 @@ under the License.
                   </#if>
                 </div>
                 <@updateOrderContactMech orderHeader=orderHeader! contactMechTypeId=contactMech.contactMechTypeId contactMechList=emailContactMechList! contactMechPurposeTypeId=contactMechPurpose.contactMechPurposeTypeId! contactMechAddress=contactMech! />
-              <#elseif contactMech.contactMechTypeId == "WEB_ADDRESS">
+              <#elseif "WEB_ADDRESS" == contactMech.contactMechTypeId>
                 <div>
                   ${contactMech.infoString}
                   <#assign openString = contactMech.infoString>

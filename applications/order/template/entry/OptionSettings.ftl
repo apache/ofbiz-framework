@@ -126,7 +126,7 @@ under the License.
                 <tr>
                   <td valign="top">
                   <label>
-                    <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked="checked"</#if> name='${shipGroupIndex?default("0")}_may_split' value='false' />
+                    <input type='radio' <#if "N" == cart.getMaySplit(shipGroupIndex)?default("N")>checked="checked"</#if> name='${shipGroupIndex?default("0")}_may_split' value='false' />
                     ${uiLabelMap.FacilityWaitEntireOrderReady}
                   </label>
                   </td>
@@ -134,7 +134,7 @@ under the License.
                 <tr>
                   <td valign="top">
                     <label>
-                    <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked="checked"</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true' />
+                    <input <#if "Y" == cart.getMaySplit(shipGroupIndex)?default("N")>checked="checked"</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true' />
                     ${uiLabelMap.FacilityShipAvailable}
                     </label>
                   </td>

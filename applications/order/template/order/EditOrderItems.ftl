@@ -70,7 +70,7 @@ under the License.
                       <tr>
                           <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
                           <#assign productId = orderItem.productId!>
-                          <#if productId?? && productId == "shoppingcart.CommentLine">
+                          <#if productId?? && "shoppingcart.CommentLine" == productId>
                               <td colspan="8" valign="top">
                                   <span class="label">&gt;&gt; ${orderItem.itemDescription}</span>
                               </td>
@@ -151,7 +151,7 @@ under the License.
                                     </#if>
                                   </#list>
                                 </#if>
-                                <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
+                                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
                                   <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
                                 <#else>
                                   <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
@@ -162,7 +162,7 @@ under the License.
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                   <#-- check for permission to modify price -->
-                                  <#if (allowPriceChange) && !(orderItem.statusId == "ITEM_CANCELLED" || orderItem.statusId == "ITEM_COMPLETED")>
+                                  <#if (allowPriceChange) && !("ITEM_CANCELLED" == orderItem.statusId || "ITEM_COMPLETED" == orderItem.statusId)>
                                       <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
                                       &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
                                   <#else>
@@ -213,7 +213,7 @@ under the License.
                                       <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}&nbsp;
                                       ${orderItemAdjustment.get("description",locale)!} (${orderItemAdjustment.comments?default("")})
 
-                                      <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
+                                      <#if "SALES_TAX" == orderItemAdjustment.orderAdjustmentTypeId>
                                       <#if orderItemAdjustment.primaryGeoId?has_content>
                                       <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                                       <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation!}]
@@ -300,7 +300,7 @@ under the License.
             <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#assign productPromoCodeId = ''>
-            <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT" && orderHeaderAdjustment.get("productPromoId")?has_content>
+            <#if "PROMOTION_ADJUSTMENT" == adjustmentType.get("orderAdjustmentTypeId") && orderHeaderAdjustment.get("productPromoId")?has_content>
                 <#assign productPromo = orderHeaderAdjustment.getRelatedOne("ProductPromo", false)>
                 <#assign productPromoCodes = delegator.findByAnd("ProductPromoCode", {"productPromoId":productPromo.productPromoId}, null, false)>
                 <#assign orderProductPromoCode = ''>
@@ -344,7 +344,7 @@ under the License.
                 <form name="deleteOrderAdjustment${orderAdjustmentId}" method="post" action="<@ofbizUrl>deleteOrderAdjustment</@ofbizUrl>">
                     <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId!}"/>
                     <input type="hidden" name="orderId" value="${orderId!}"/>
-                    <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT">
+                    <#if "PROMOTION_ADJUSTMENT" == adjustmentType.get("orderAdjustmentTypeId")>
                         <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId!}"/>
                     </#if>
                 </form>

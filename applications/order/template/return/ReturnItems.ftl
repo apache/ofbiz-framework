@@ -69,12 +69,12 @@ under the License.
 </#macro>
 
     <#if returnHeader?has_content>
-      <#if returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
+      <#if returnHeader.destinationFacilityId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId && returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
         <#list returnShipmentIds as returnShipmentId>
           <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
           <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&amp;returnId=${returnHeader.returnId!}&amp;shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
         </#list>
-      <#elseif returnHeader.statusId == "SUP_RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId == "VENDOR_RETURN">
+      <#elseif "SUP_RETURN_ACCEPTED" == returnHeader.statusId && "VENDOR_RETURN" == returnHeader.returnHeaderTypeId>
          <#if returnShipmentIds?has_content>
            <#list returnShipmentIds as returnShipmentId>
              <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
@@ -234,7 +234,7 @@ under the License.
                     </#if></div></td>
                 <#if (readOnly)>
                   <td>
-                  <#if returnHeader.statusId == "RETURN_COMPLETED" || returnHeader.statusId == "SUP_RETURN_COMPLETED">
+                  <#if "RETURN_COMPLETED" == returnHeader.statusId || "SUP_RETURN_COMPLETED" == returnHeader.statusId>
                     <#assign itemResp = item.getRelatedOne("ReturnItemResponse", false)!>
                     <#if itemResp?has_content>
                       <#if itemResp.paymentId?has_content>
@@ -252,7 +252,7 @@ under the License.
                   </#if>
                 </td>
                 </#if>
-                <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
+                <#if "RETURN_REQUESTED" == returnHeader.statusId || "SUP_RETURN_REQUESTED" == returnHeader.statusId>
                   <td align='right'><a href='javascript:document.removeReturnItem_${item_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a></td>
                 <#else>
                   <td>&nbsp;</td>
@@ -315,7 +315,7 @@ under the License.
             </form>
           </#list>
         </#if>
-        <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
+        <#if ("RETURN_REQUESTED" == returnHeader.statusId || "SUP_RETURN_REQUESTED" == returnHeader.statusId) && (rowCount > 0)>
         <br />
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
           <#if returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
@@ -330,7 +330,7 @@ under the License.
         </form>
         </#if>
 
-        <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
+        <#if "RETURN_REQUESTED" == returnHeader.statusId || "SUP_RETURN_REQUESTED" == returnHeader.statusId>
         <br />
         <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}" />

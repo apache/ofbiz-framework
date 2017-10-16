@@ -77,7 +77,7 @@ under the License.
                                   <#assign partyId = "_NA_">
                                   <#if placingParty?has_content>
                                     <#assign partyId = placingParty.partyId>
-                                    <#if placingParty.getEntityName() == "Person">
+                                    <#if "Person" == placingParty.getEntityName()>
                                       <#if placingParty.lastName??>
                                         ${placingParty.lastName}<#if placingParty.firstName??>, ${placingParty.firstName}</#if>
                                       <#else>
@@ -205,7 +205,7 @@ under the License.
                               <input type="hidden" name="orderId" value="${task.orderId}" />
                               <input type="hidden" name="workEffortId" value="${task.workEffortId}" />
                               <input type="hidden" name="taskStatus" value="${task.currentStatusId}" />
-                              <#if task.statusId?? && task.statusId == "CAL_SENT">
+                              <#if task.statusId?? && "CAL_SENT" == task.statusId>
                                 <input type="hidden" name="partyId" value="${userLogin.partyId}" />
                                 <input type="hidden" name="roleTypeId" value="${task.roleTypeId}" />
                                 <input type="hidden" name="fromDate" value="${task.get("fromDate").toString()}" />
@@ -250,7 +250,7 @@ under the License.
                                   <div>${actualStartDate}</div>
                                 </td>
                                 <td>
-                                  <#if task.wepaPartyId == "_NA_">
+                                  <#if "_NA_" == task.wepaPartyId>
                                     <div>N/A</div>
                                   <#else>
                                     <a href="${customerDetailLink}${task.wepaPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${task.wepaPartyId}</a>
@@ -263,7 +263,7 @@ under the License.
                                     ${Static["org.apache.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                   </a>
                                 </td>
-                                <#if task.statusId?? && task.statusId == "CAL_SENT">
+                                <#if task.statusId?? && "CAL_SENT" == task.statusId>
                                   <td align="right"><input type="checkbox" name="delegate" value="true" checked="checked" /></td>
                                 <#else>
                                   <td align="right"><input type="checkbox" name="delegate" value="true" /></td>

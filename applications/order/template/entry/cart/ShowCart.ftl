@@ -26,14 +26,14 @@ under the License.
         window.location='AddGiftCertificate';
     }
 </script>
-<#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+<#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
   <#assign target="productAvailabalityByFacility">
 <#else>
   <#assign target="getProductInventoryAvailable">
 </#if>
 <div class="screenlet">
     <div class="screenlet-body">
-      <#if shoppingCart.getOrderType() == "SALES_ORDER">
+      <#if "SALES_ORDER" == shoppingCart.getOrderType()>
         <div>
           <#if quantityOnHandTotal?? && availableToPromiseTotal?? && (productId)??>
             <ul>
@@ -135,7 +135,7 @@ under the License.
                     </div>
                   </td>
                 </tr>
-                <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+                <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderOrderItemType} :</div></td>
                   <td>
@@ -170,7 +170,7 @@ under the License.
             </form>
           </td>
         </tr>
-        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+        <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
         <tr><td><hr /></td></tr>
         <tr>
           <td>

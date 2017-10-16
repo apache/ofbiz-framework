@@ -22,14 +22,14 @@ under the License.
     <ul>
       <li class="h3">
         ${uiLabelMap.CommonCreate}&nbsp;
-        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+        <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>
             ${uiLabelMap.OrderSalesOrder}
         </#if>
       </li>
-      <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
-        <#if shoppingCart.getOrderPartyId() == "_NA_" || (shoppingCart.size() = 0)>
+      <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+        <#if "_NA_" == shoppingCart.getOrderPartyId() || (shoppingCart.size() = 0)>
           <li class="disabled">${uiLabelMap.OrderFinalizeOrder}</li>
         <#else>
           <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&amp;finalizeReqCustInfo=false&amp;finalizeReqShipInfo=false&amp;finalizeReqOptions=false&amp;finalizeReqPayInfo=false</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrder}</a></li>

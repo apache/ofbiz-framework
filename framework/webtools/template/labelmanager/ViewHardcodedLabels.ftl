@@ -30,13 +30,13 @@ under the License.
       <#assign labelFound = 'N'>
       <#assign refNum = factory.getLabelReferenceFile(reference)>
       <#if (refNum > 0)>
-        <tr <#if rowNum == "1">class="alternate-row"</#if>>
+        <tr <#if "1" == rowNum>class="alternate-row"</#if>>
           <td>${rowNumber}</td>
           <td>${reference}</td>
           <td align="center"><#if (refNum > 0)><a href="<@ofbizUrl>ViewReferences?sourceKey=${reference}</@ofbizUrl>">${refNum}</a><#else>${refNum}</#if></td>
         </tr>
         <#assign rowNumber = rowNumber + 1>
-        <#if rowNum == "2">
+        <#if "2" == rowNum>
           <#assign rowNum = "1">
         <#else>
           <#assign rowNum = "2">

@@ -150,7 +150,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <select name="billToCustomerPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
+              <select name="billToCustomerPartyId"<#if "SALES_ORDER" == sessionAttributes.orderMode?default("")> disabled</#if>>
                 <#list organizations as organization>
                   <#assign organizationName = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(organization, true)/>
                     <#if (organizationName.length() != 0)>
@@ -178,7 +178,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <select name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
+              <select name="supplierPartyId"<#if "SALES_ORDER" == sessionAttributes.orderMode?default("")> disabled</#if>>
                 <option value="">${uiLabelMap.OrderSelectSupplier}</option>
                 <#list suppliers as supplier>
                   <option value="${supplier.partyId}"<#if supplier.partyId == thisPartyId> selected="selected"</#if>>[${supplier.partyId}] - ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>

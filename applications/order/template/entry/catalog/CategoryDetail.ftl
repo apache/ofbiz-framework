@@ -87,7 +87,7 @@ under the License.
         <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
       </form>
     </#if>
-    <#if searchInCategory?default("Y") == "Y">
+    <#if "Y" == searchInCategory?default("Y")>
         <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchInCategory}</a>
     </#if>
     <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION", "html")!/>

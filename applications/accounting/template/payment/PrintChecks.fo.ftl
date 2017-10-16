@@ -159,7 +159,7 @@ by hand from a real template using a ruler.
                                                             <fo:block text-align="end">${paymentApplication.getBigDecimal("amountApplied").setScale(decimals, rounding).toString()}</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
-                                                        <#if invoice.invoiceTypeId! == "PAYROL_INVOICE">
+                                                        <#if "PAYROL_INVOICE" == invoice.invoiceTypeId!>
                                                             <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)!>
                                                             <#assign PayrolGroups = PayrolGroup!>
                                                             <#list PayrolGroups as payrolGroup>
@@ -345,7 +345,7 @@ by hand from a real template using a ruler.
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     
-                                                    <#if invoice.invoiceTypeId! == "PAYROL_INVOICE">
+                                                    <#if "PAYROL_INVOICE" == invoice.invoiceTypeId!>
                                                         <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)!>
                                                         <#assign PayrolGroups = PayrolGroup!>
                                                         <#list PayrolGroups as payrolGroup>

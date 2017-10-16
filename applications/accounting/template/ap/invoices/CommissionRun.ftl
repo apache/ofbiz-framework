@@ -24,7 +24,7 @@ function toggleInvoiceId(master) {
     var invoices = form.elements.length;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if (element.name == "invoiceIds") {
+        if ("invoiceIds" == element.name) {
             element.checked = master.checked;
         }
     }
@@ -39,7 +39,7 @@ function runAction() {
     var invoices = form.elements.length;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if (element.name == "invoiceIds") {
+        if ("invoiceIds" == element.name) {
             element.disabled = false;
         }
     }
@@ -52,7 +52,7 @@ function enableSubmitButton() {
     var isAllSelected = true;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if (element.name == "invoiceIds") {
+        if ("invoiceIds" == element.name) {
             if (element.checked) {
                 isSingle = false;
             } else {

@@ -91,7 +91,7 @@ under the License.
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->
-                        <#if rowColor == "white">
+                        <#if "white" == rowColor>
                             <#assign rowColor = "#D4D0C8">
                         <#else>
                             <#assign rowColor = "white">

@@ -193,7 +193,7 @@ under the License.
         </td>
       </tr>
 
-      <#if cart.getOrderType() == "PURCHASE_ORDER">
+      <#if "PURCHASE_ORDER" == cart.getOrderType()>
         <tr>
           <td>&nbsp;</td>
           <td align='right' valign='top'>

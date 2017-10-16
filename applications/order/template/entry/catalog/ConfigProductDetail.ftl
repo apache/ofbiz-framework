@@ -58,15 +58,15 @@ ${virtualJavaScript!}
 
     function popupDetail() {
         var defaultDetailImage = "${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}";
-        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
+        if (defaultDetailImage == null || "null" == defaultDetailImage || "" == defaultDetailImage) {
             defaultDetailImage = "_NONE_";
         }
 
-        if (detailImageUrl == null || detailImageUrl == "null") {
+        if (detailImageUrl == null || "null" == detailImageUrl) {
             detailImageUrl = defaultDetailImage;
         }
 
-        if (detailImageUrl == "_NONE_") {
+        if ("_NONE_" == detailImageUrl) {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
             showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
@@ -287,7 +287,7 @@ function getConfigDetails() {
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform" style='margin: 0;'>
         <#assign inStock = true>
         <#-- Variant Selection -->
-        <#if product.isVirtual?? && product.isVirtual?upper_case == "Y">
+        <#if product.isVirtual?? && "Y" == product.isVirtual?upper_case>
           <#if variantTree?? && 0 < variantTree.size()>
             <#list featureSet as currentType>
               <div>
@@ -330,7 +330,7 @@ function getConfigDetails() {
         <#-- check to see if the product requires inventory check and has inventory -->
         <#else>
           <#if inStock>
-            <#if product.requireAmount?default("N") == "Y">
+            <#if "Y" == product.requireAmount?default("N")>
               <#assign hiddenStyle = "visible">
             <#else>
               <#assign hiddenStyle = "hidden">
@@ -628,7 +628,7 @@ function getConfigDetails() {
   </#if>
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
-    <tr><td colspan="2"><h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2></td></tr>
+    <tr><td colspan="2"><h2>${beforeName!}<#if "Y" == showName>${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2></td></tr>
     <tr><td><hr /></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>

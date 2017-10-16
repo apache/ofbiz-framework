@@ -23,7 +23,7 @@ function togglePaymentId(master) {
     var payments = form.elements.length;
     for (var i = 0; i < payments; i++) {
         var element = form.elements[i];
-        if (element.name == "paymentIds") {
+        if ("paymentIds" == element.name) {
             element.checked = master.checked;
         }
     }
@@ -36,7 +36,7 @@ function getPaymentRunningTotal() {
     var isAllSelected = true;
     for (var i = 0; i < payments; i++) {
         var element = form.elements[i];
-        if (element.name == "paymentIds") {
+        if ("paymentIds" == element.name) {
             if (element.checked) {
                 isSingle = false;
             } else {

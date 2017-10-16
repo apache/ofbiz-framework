@@ -76,7 +76,7 @@ under the License.
        <td>
          <#if acctgTransEntry.organizationPartyId?has_content>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : acctgTransEntry.organizationPartyId}, false)>
-           <#if partyName.partyTypeId == "PERSON">
+           <#if "PERSON" == partyName.partyTypeId>
              ${partyName.firstName!} ${partyName.lastName!}
            <#elseif (partyName.partyTypeId) != "PARTY_GROUP">
              ${partyName.groupName!}

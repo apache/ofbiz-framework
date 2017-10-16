@@ -105,7 +105,7 @@ under the License.
                     </select>
                   </td>
                 </tr>
-                <#if orderHeader.orderTypeId == "PURCHASE_ORDER" && purchaseOrderItemTypeList?has_content>
+                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId && purchaseOrderItemTypeList?has_content>
                 <tr>
                   <td class="label">${uiLabelMap.OrderOrderItemType}</td>
                   <td>

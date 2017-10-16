@@ -28,7 +28,7 @@ under the License.
         <#-- offline payment address infomation :: change this to use Company's address -->
         <#if !paymentMethod?has_content && paymentMethodType?has_content>
           <tr>
-            <#if paymentMethodType.paymentMethodTypeId == "EXT_OFFLINE">
+            <#if "EXT_OFFLINE" == paymentMethodType.paymentMethodTypeId>
               <td colspan="3" valign="top">
                 <div align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>
                 <#if orderHeader?has_content && paymentAddress?has_content>

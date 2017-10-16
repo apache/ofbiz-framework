@@ -115,8 +115,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
                     <div>
-                        <#if maySplit?default("N") == "N">${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
-                        <#if maySplit?default("Y") == "Y">${uiLabelMap.FacilityShipAvailable}</#if>
+                        <#if "N" == maySplit?default("N")>${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
+                        <#if "Y" == maySplit?default("Y")>${uiLabelMap.FacilityShipAvailable}</#if>
                     </div>
                 </td>
             </tr>
@@ -143,8 +143,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
                     <div>
-                        <#if isGift?default("N") == "N">${uiLabelMap.OrderThisOrderNotGift}</#if>
-                        <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisOrderGift}</#if>
+                        <#if "N" == isGift?default("N")>${uiLabelMap.OrderThisOrderNotGift}</#if>
+                        <#if "Y" == isGift?default("N")>${uiLabelMap.OrderThisOrderGift}</#if>
                     </div>
                 </td>
             </tr>
