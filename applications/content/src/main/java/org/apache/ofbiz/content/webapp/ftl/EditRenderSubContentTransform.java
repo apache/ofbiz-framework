@@ -175,7 +175,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 String wrappedFTL = buf.toString();
-                if (editTemplate != null && editTemplate.equalsIgnoreCase("true")) {
+                if (editTemplate != null && "true".equalsIgnoreCase(editTemplate)) {
                     if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                         templateContext.put("wrappedFTL", wrappedFTL);
                         templateContext.put("webSiteId", webSiteId);

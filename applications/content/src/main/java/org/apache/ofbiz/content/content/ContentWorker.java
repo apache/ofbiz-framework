@@ -538,7 +538,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     String assocRelation = null;
                     // This needs to be the opposite
                     String relatedDirection = null;
-                    if (direction != null && direction.equalsIgnoreCase("From")) {
+                    if (direction != null && "From".equalsIgnoreCase(direction)) {
                         assocContext.put("contentIdFrom", assocValue.get("contentId"));
                         assocRelation = "ToContent";
                         relatedDirection = "From";
@@ -668,7 +668,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             for (int i = 0; i < sectionValueList.size(); i++) {
                 GenericValue sectionValue = sectionValueList.get(i);
                 String contentAssocPredicateId = (String)sectionValue.get("contentAssocPredicateId");
-                if (contentAssocPredicateId != null && contentAssocPredicateId.equals("categorizes")) {
+                if (contentAssocPredicateId != null && "categorizes".equals(contentAssocPredicateId)) {
                     sections.add(sectionValue.get("contentIdTo"));
                 }
             }
@@ -685,7 +685,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             for (int i = 0; i < topicValueList.size(); i++) {
                 GenericValue topicValue = topicValueList.get(i);
                 String contentAssocPredicateId = (String)topicValue.get("contentAssocPredicateId");
-                if (contentAssocPredicateId != null && contentAssocPredicateId.equals("topifies"))
+                if (contentAssocPredicateId != null && "topifies".equals(contentAssocPredicateId))
                     topics.add(topicValue.get("contentIdTo"));
             }
         } catch (GenericEntityException e) {
@@ -781,7 +781,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         List<GenericValue> contentList = new LinkedList<GenericValue>();
         String contentIdName = "contentId";
-        if (linkDir != null && linkDir.equalsIgnoreCase("TO")) {
+        if (linkDir != null && "TO".equalsIgnoreCase(linkDir)) {
             contentIdName = contentIdName.concat("To");
         }
         GenericValue content = null;
@@ -811,7 +811,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String origContentId = (String) currentContent.get("contentId");
         String contentIdName = "contentId";
         String contentAssocViewName = "contentAssocView";
-        if (linkDir != null && linkDir.equalsIgnoreCase("TO")) {
+        if (linkDir != null && "TO".equalsIgnoreCase(linkDir)) {
             contentIdName = contentIdName.concat("To");
             contentAssocViewName = contentAssocViewName.concat("To");
         }
@@ -858,7 +858,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static List<GenericValue> getContentAssocsWithId(Delegator delegator, String contentId, Timestamp fromDate, Timestamp thruDate, String direction, List<String> assocTypes) throws GenericEntityException {
         List<EntityCondition> exprList = new LinkedList<EntityCondition>();
         EntityExpr joinExpr = null;
-        if (direction != null && direction.equalsIgnoreCase("From")) {
+        if (direction != null && "From".equalsIgnoreCase(direction)) {
             joinExpr = EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId);
         } else {
             joinExpr = EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId);
@@ -911,7 +911,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static void getContentAncestry(Delegator delegator, String contentId, String contentAssocTypeId, String direction, List<GenericValue> contentAncestorList) throws GenericEntityException {
         String contentIdField = null;
         String contentIdOtherField = null;
-        if (direction != null && direction.equalsIgnoreCase("to")) {
+        if (direction != null && "to".equalsIgnoreCase(direction)) {
             contentIdField = "contentId";
             contentIdOtherField = "contentIdTo";
         } else {
@@ -944,7 +944,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static void getContentAncestryAll(Delegator delegator, String contentId, String passedContentTypeId, String direction, List<String> contentAncestorList) {
         String contentIdField = null;
         String contentIdOtherField = null;
-        if (direction != null && direction.equalsIgnoreCase("to")) {
+        if (direction != null && "to".equalsIgnoreCase(direction)) {
             contentIdField = "contentId";
             contentIdOtherField = "contentIdTo";
         } else {
@@ -997,7 +997,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static void getContentAncestryValues(Delegator delegator, String contentId, String contentAssocTypeId, String direction, List<GenericValue> contentAncestorList) throws GenericEntityException {
         String contentIdField = null;
         String contentIdOtherField = null;
-        if (direction != null && direction.equalsIgnoreCase("to")) {
+        if (direction != null && "to".equalsIgnoreCase(direction)) {
             contentIdField = "contentId";
             contentIdOtherField = "contentIdTo";
         } else {
@@ -1209,7 +1209,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         ctx.put("contentAssocTypeId", contentAssocTypeId);
         ctx.put("contentId", assocContentId);
         // This needs to be the opposite
-        if (direction != null && direction.equalsIgnoreCase("From")) {
+        if (direction != null && "From".equalsIgnoreCase(direction)) {
             ctx.put("contentIdFrom", assocContentId);
         } else {
             ctx.put("contentIdTo", assocContentId);

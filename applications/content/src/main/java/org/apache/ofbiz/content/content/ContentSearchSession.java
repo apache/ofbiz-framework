@@ -222,7 +222,7 @@ public class ContentSearchSession {
         String sortAscending = (String) parameters.get("sortAscending");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if (sortOrder.equals("SortKeywordRelevancy")) {
+            if ("SortKeywordRelevancy".equals(sortOrder)) {
                 searchSetSortOrder(new ContentSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortContentField:")) {
                 String fieldName = sortOrder.substring("SortContentField:".length());

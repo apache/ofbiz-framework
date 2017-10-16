@@ -103,7 +103,7 @@ public class UploadContentAndImage {
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
                     passedParams.put(fieldName, fieldStr);
-                } else if (fieldName.equals("imageData")) {
+                } else if ("imageData".equals(fieldName)) {
                     imageFi = fi;
                     imageBytes = imageFi.get();
                 }
@@ -162,7 +162,7 @@ public class UploadContentAndImage {
                     map.put("contentIdTo", ftlContentId);
                     map.put("contentId", contentIdTo);
                     map.put("contentAssocTypeId", "PUBLISH_RELEASE");
-                } else if (contentAssocTypeId.equals("PUBLISH_LINK")) {
+                } else if ("PUBLISH_LINK".equals(contentAssocTypeId)) {
                     map.put("contentAssocTypeId", "PUBLISH_LINK");
                     String publishOperation = (String)passedParams.get("publishOperation");
                     if (UtilValidate.isEmpty(publishOperation)) {
@@ -387,7 +387,7 @@ public class UploadContentAndImage {
                    suffix = "";
                 }
                 String returnMsg = processContentUpload(passedParams, suffix, request);
-                if (returnMsg.equals("error")) {
+                if ("error".equals(returnMsg)) {
                     try {
                         TransactionUtil.rollback();
                     } catch (GenericTransactionException e2) {

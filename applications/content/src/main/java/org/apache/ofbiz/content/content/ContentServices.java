@@ -111,7 +111,7 @@ public class ContentServices {
             }
 
             String permissionStatus = (String) permResults.get("permissionStatus");
-            if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                 permittedList.add(content);
             }
 
@@ -173,7 +173,7 @@ public class ContentServices {
 
         String contentId = (String) context.get("contentId");
         String direction = (String) context.get("direction");
-        if (direction != null && direction.equalsIgnoreCase("From")) {
+        if (direction != null && "From".equalsIgnoreCase(direction)) {
             direction = "From";
         } else {
             direction = "To";
@@ -286,7 +286,7 @@ public class ContentServices {
 
         Map<String, Object> permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
         String permissionStatus = (String) permResults.get("permissionStatus");
-        if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+        if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
             try {
                 content.create();
             } catch (GenericEntityException e) {
@@ -444,7 +444,7 @@ public class ContentServices {
         permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         permissionStatus = (String) permResults.get("permissionStatus");
 
-        if (permissionStatus != null && permissionStatus.equals("granted")) {
+        if (permissionStatus != null && "granted".equals(permissionStatus)) {
             contentAssoc.create();
         } else {
             String errorMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
@@ -508,7 +508,7 @@ public class ContentServices {
 
         Map<String, Object> permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
         String permissionStatus = (String) permResults.get("permissionStatus");
-        if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
+        if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             String userLoginId = (String) userLogin.get("userLoginId");
             String lastModifiedByUserLogin = userLoginId;
@@ -641,7 +641,7 @@ public class ContentServices {
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
-        if (permissionStatus != null && permissionStatus.equals("granted")) {
+        if (permissionStatus != null && "granted".equals(permissionStatus)) {
             try {
                 contentAssoc.store();
             } catch (GenericEntityException e) {
@@ -732,7 +732,7 @@ public class ContentServices {
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
-        if (permissionStatus != null && permissionStatus.equals("granted")) {
+        if (permissionStatus != null && "granted".equals(permissionStatus)) {
             try {
                 contentAssoc.store();
             } catch (GenericEntityException e) {
@@ -934,7 +934,7 @@ public class ContentServices {
             if (contentAssocViewFrom != null)
                 isPublished = true;
             if (Debug.infoOn()) Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:" + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, module);
-            if (UtilValidate.isNotEmpty(publish) && publish.equalsIgnoreCase("Y")) {
+            if (UtilValidate.isNotEmpty(publish) && "Y".equalsIgnoreCase(publish)) {
                 GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                 String contentStatusId = (String) content.get("statusId");
                 String contentPrivilegeEnumId = (String) content.get("privilegeEnumId");

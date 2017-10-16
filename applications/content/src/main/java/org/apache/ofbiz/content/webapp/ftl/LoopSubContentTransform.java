@@ -223,7 +223,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
             public void close() throws IOException {
                 String wrappedFTL = buf.toString();
                 String encloseWrappedText = (String) templateCtx.get("encloseWrappedText");
-                if (UtilValidate.isEmpty(encloseWrappedText) || encloseWrappedText.equalsIgnoreCase("false")) {
+                if (UtilValidate.isEmpty(encloseWrappedText) || "false".equalsIgnoreCase(encloseWrappedText)) {
                     out.write(wrappedFTL);
                     wrappedFTL = ""; // So it won't get written again below.
                 }

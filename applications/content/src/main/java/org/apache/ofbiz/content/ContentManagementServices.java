@@ -447,7 +447,7 @@ public class ContentManagementServices {
               Debug.logInfo("updateSiteRoles, fromDate(1):" + fromDate, module);
           }
           serviceContext.put("roleTypeId", siteRole);
-          if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
+          if (siteRoleVal != null && "Y".equalsIgnoreCase(siteRoleVal)) {
               // for now, will assume that any error is due to duplicates - ignore
               if (fromDate == null) {
                   try {
@@ -508,7 +508,7 @@ public class ContentManagementServices {
           Map<String, Object> ctx = checkPermModel.makeValid(context, ModelService.IN_PARAM);
           Map<String, Object> thisResult = dispatcher.runSync("checkContentPermission", ctx);
           String permissionStatus = (String)thisResult.get("permissionStatus");
-          if (UtilValidate.isNotEmpty(permissionStatus) && permissionStatus.equalsIgnoreCase("granted")) {
+          if (UtilValidate.isNotEmpty(permissionStatus) && "granted".equalsIgnoreCase(permissionStatus)) {
               result = persistDataResourceAndDataMethod(dctx, context);
           }
           else {
@@ -578,7 +578,7 @@ public class ContentManagementServices {
       String mimeTypeId = (String) newDrContext.get("mimeTypeId");
       if (imageDataBytes != null && (mimeTypeId == null || (mimeTypeId.indexOf("image") >= 0) || (mimeTypeId.indexOf("application") >= 0))) {
           mimeTypeId = (String) context.get("_imageData_contentType");
-          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+          if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
               String fileName = (String) context.get("_imageData_fileName");
               newDrContext.put("objectInfo", fileName);
           }
@@ -598,7 +598,7 @@ public class ContentManagementServices {
           dataResource = (GenericValue)thisResult.get("dataResource");
           Map<String, Object> fileContext = new HashMap<String, Object>();
           fileContext.put("userLogin", userLogin);
-          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+          if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
               if (imageDataBytes != null) {
                   fileContext.put("dataResourceId", dataResourceId);
                   fileContext.put("imageData", imageDataBytes);
@@ -608,9 +608,9 @@ public class ContentManagementServices {
                       return ServiceUtil.returnError(errorMsg);
                   }
               }
-          } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
-          } else if (dataResourceTypeId.startsWith("SURVEY")) {
-          } else if (dataResourceTypeId.indexOf("_FILE") >=0) {
+          } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
+          } else if ("SURVEY".startsWith(dataResourceTypeId)) {
+          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
               Map<String, Object> uploadImage = new HashMap<String, Object>();
               uploadImage.put("userLogin", userLogin);
               uploadImage.put("dataResourceId", dataResourceId);
@@ -641,7 +641,7 @@ public class ContentManagementServices {
           Map<String, Object> fileContext = new HashMap<String, Object>();
           fileContext.put("userLogin", userLogin);
           String forceElectronicText = (String)context.get("forceElectronicText");
-          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+          if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
               if (imageDataBytes != null || "true".equalsIgnoreCase(forceElectronicText)) {
                   fileContext.put("dataResourceId", dataResourceId);
                   fileContext.put("imageData", imageDataBytes);
@@ -651,9 +651,9 @@ public class ContentManagementServices {
                       return ServiceUtil.returnError(errorMsg);
                   }
               }
-          } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
-          } else if (dataResourceTypeId.startsWith("SURVEY")) {
-          } else if (dataResourceTypeId.indexOf("_FILE") >=0) {
+          } else if ("SHORT_TEXT".equals(dataResourceTypeId)) {
+          } else if ("SURVEY".startsWith(dataResourceTypeId)) {
+          } else if ("_FILE".indexOf(dataResourceTypeId) >=0) {
               Map<String, Object> uploadImage = new HashMap<String, Object>();
               uploadImage.put("userLogin", userLogin);
               uploadImage.put("dataResourceId", dataResourceId);
@@ -718,7 +718,7 @@ public class ContentManagementServices {
             String siteRoleVal = (String)context.get(cappedSiteRole);
             Object fromDate = context.get(cappedSiteRole + "FromDate");
             serviceContext.put("roleTypeId", siteRole);
-            if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
+            if (siteRoleVal != null && "Y".equalsIgnoreCase(siteRoleVal)) {
                 // for now, will assume that any error is due to duplicates - ignore
                 if (fromDate == null) {
                     try {
@@ -775,7 +775,7 @@ public class ContentManagementServices {
             }
             pkFields.put(fieldName, fieldValue);
         }
-        boolean doLink = (action != null && action.equalsIgnoreCase("Y")) ? true : false;
+        boolean doLink = (action != null && "Y".equalsIgnoreCase(action)) ? true : false;
         if (Debug.infoOn()) {
             Debug.logInfo("in updateOrRemove, context:" + context, module);
         }
@@ -996,7 +996,7 @@ public class ContentManagementServices {
             thisContent.store();
             List<GenericValue> kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
             for (GenericValue kidContent : kids) {
-                if (contentTypeId.equals("OUTLINE_NODE")) {
+                if ("OUTLINE_NODE".equals(contentTypeId)) {
                     updateOutlineNodeChildren(kidContent, false, context);
                 } else {
                     updatePageNodeChildren(kidContent, context);
@@ -1037,7 +1037,7 @@ public class ContentManagementServices {
             thisContent.store();
             List<GenericValue> kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
             for (GenericValue kidContent : kids) {
-                if (contentTypeId.equals("OUTLINE_NODE")) {
+                if ("OUTLINE_NODE".equals(contentTypeId)) {
                     updateOutlineNodeChildren(kidContent, true, context);
                 } else {
                     kidContent.put("contentTypeId", "PAGE_NODE");
@@ -1130,20 +1130,20 @@ public class ContentManagementServices {
         Long branchCount = (Long)content.get("childBranchCount");
         if (forceOutline) {
             newContentTypeId = "OUTLINE_NODE";
-        } else if (contentTypeId == null || contentTypeId.equals("DOCUMENT")) {
+        } else if (contentTypeId == null || "DOCUMENT".equals(contentTypeId)) {
             if (UtilValidate.isEmpty(dataResourceId) || (branchCount != null && branchCount.intValue() > 0)) {
                 newContentTypeId = "OUTLINE_NODE";
             } else {
                 newContentTypeId = "PAGE_NODE";
             }
-        } else if (contentTypeId.equals("SUBPAGE_NODE")) {
+        } else if ("SUBPAGE_NODE".equals(contentTypeId)) {
             newContentTypeId = "PAGE_NODE";
         }
 
         content.put("contentTypeId", newContentTypeId);
         content.store();
 
-        if (contentTypeId == null || contentTypeId.equals("DOCUMENT") || contentTypeId.equals("OUTLINE_NODE")) {
+        if (contentTypeId == null || "DOCUMENT".equals(contentTypeId) || "OUTLINE_NODE".equals(contentTypeId)) {
             List<GenericValue> kids = ContentWorker.getAssociatedContent(content, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
             for (GenericValue kidContent : kids) {
                 updateOutlineNodeChildren(kidContent, forceOutline, context);

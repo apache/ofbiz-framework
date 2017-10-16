@@ -94,7 +94,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
         String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
         String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
         try {
             // getCurrentContent puts the "current" node on the end of globalNodeTrail.
             // It may have already been there, but getCurrentContent will compare its contentId
