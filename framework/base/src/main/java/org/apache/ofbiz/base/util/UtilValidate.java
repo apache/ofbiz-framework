@@ -1046,7 +1046,7 @@ public final class UtilValidate {
      * @return true, if the credit card number is a valid VISA number, false otherwise
      */
     public static boolean isVisa(String cc) {
-        if (((cc.length() == 16) || (cc.length() == 13)) && (cc.substring(0, 1).equals("4")))
+        if (((cc.length() == 16) || (cc.length() == 13)) && ("4".equals(cc.substring(0, 1))))
             return isCreditCard(cc);
         return false;
     }
@@ -1108,7 +1108,7 @@ public final class UtilValidate {
     public static boolean isDiscover(String cc) {
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 16) && (first4digs.equals("6011")))
+        if ((cc.length() == 16) && ("6011".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1120,7 +1120,7 @@ public final class UtilValidate {
     public static boolean isEnRoute(String cc) {
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 15) && (first4digs.equals("2014") || first4digs.equals("2149")))
+        if ((cc.length() == 15) && ("2014".equals(first4digs) || "2149".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1133,12 +1133,12 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
 
         if ((cc.length() == 16) &&
-            (first4digs.equals("3088") ||
-                first4digs.equals("3096") ||
-                first4digs.equals("3112") ||
-                first4digs.equals("3158") ||
-                first4digs.equals("3337") ||
-                first4digs.equals("3528")))
+            ("3088".equals(first4digs) ||
+                "3096".equals(first4digs) ||
+                "3112".equals(first4digs) ||
+                "3158".equals(first4digs) ||
+                "3337".equals(first4digs) ||
+                "3528".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1152,14 +1152,14 @@ public final class UtilValidate {
         String first6digs = cc.substring(0, 6);
 
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-            (first4digs.equals("4903") ||
-                first4digs.equals("4905") ||
-                first4digs.equals("4911") ||
-                first4digs.equals("4936") ||
-                first6digs.equals("564182") ||
-                first6digs.equals("633110") ||
-                first4digs.equals("6333") ||
-                first4digs.equals("6759")))
+            ("4903".equals(first4digs) ||
+                "4905".equals(first4digs) ||
+                "4911".equals(first4digs) ||
+                "4936".equals(first4digs) ||
+                "564182".equals(first4digs) ||
+                "633110".equals(first4digs) ||
+                "6333".equals(first4digs) ||
+                "6759".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1172,7 +1172,7 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-                (first2digs.equals("63") || first4digs.equals("6767")))
+                ("63".equals(first2digs) || "6767".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1186,12 +1186,12 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
 
         if ((cc.length() == 16) &&
-            (first6digs.equals("417500") ||
-                first4digs.equals("4917") ||
-                first4digs.equals("4913") ||
-                first4digs.equals("4508") ||
-                first4digs.equals("4844") ||
-                first4digs.equals("4027")))
+            ("417500".equals(first6digs) ||
+                "4917".equals(first6digs) ||
+                "4913".equals(first6digs) ||
+                "4508".equals(first6digs) ||
+                "4844".equals(first6digs) ||
+                "4027".equals(first6digs)))
             return isCreditCard(cc);
         return false;
     }

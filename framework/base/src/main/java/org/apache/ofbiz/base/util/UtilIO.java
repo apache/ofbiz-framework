@@ -248,7 +248,7 @@ public final class UtilIO {
 
     private static StringBuilder filterLineEndings(StringBuilder sb) {
         String nl = System.getProperty("line.separator");
-        if (!nl.equals("\n")) {
+        if (!"\n".equals(nl)) {
             int r = 0;
             while (r < sb.length()) {
                 int i = sb.indexOf(nl, r);

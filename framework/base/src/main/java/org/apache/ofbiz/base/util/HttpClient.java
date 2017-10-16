@@ -423,7 +423,7 @@ public class HttpClient {
         }
 
         // Append the arguments to the query string if GET.
-        if (method.equalsIgnoreCase("get") && arguments != null) {
+        if ("get".equalsIgnoreCase(method) && arguments != null) {
             if (url.contains("?")) {
                 url = url + "&" + arguments;
             } else {
@@ -458,7 +458,7 @@ public class HttpClient {
                 con.setRequestProperty("Connection", "Keep-Alive");
             }
 
-            if (method.equalsIgnoreCase("post")) {
+            if ("post".equalsIgnoreCase(method)) {
                 if (contentType == null) {
                     con.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
                 }
@@ -481,7 +481,7 @@ public class HttpClient {
                 }
             }
 
-            if (method.equalsIgnoreCase("post")) {
+            if ("post".equalsIgnoreCase(method)) {
                 try (
                         OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(),
                                 this.streamCharset != null ? this.streamCharset : "UTF-8")) {
