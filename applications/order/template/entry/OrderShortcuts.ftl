@@ -25,18 +25,18 @@ under the License.
     </div>
     <div class="screenlet-body">
         <ul>
-            <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+            <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>RequirementsForSupplier</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderRequirements}</a></li>
             </#if>
             <#if shoppingCart.getOrderType()?has_content && shoppingCart.items()?has_content>
               <li><a href="<@ofbizUrl>createQuoteFromCart?destroyCart=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateQuoteFromCart}</a></li>
               <li><a href="<@ofbizUrl>FindQuoteForCart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderQuotes}</a></li>
             </#if>
-            <#if shoppingCart.getOrderType() == "SALES_ORDER">
+            <#if "SALES_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>createCustRequestFromCart?destroyCart=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateCustRequestFromCart}</a></li>
             </#if>
             <li><a href="/partymgr/control/findparty?${externalKeyParam!}" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
-            <#if shoppingCart.getOrderType() == "SALES_ORDER">
+            <#if "SALES_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyCreateNewCustomer}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>checkinits</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyChangeParty}</a></li>

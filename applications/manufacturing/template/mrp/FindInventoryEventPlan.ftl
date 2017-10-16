@@ -43,7 +43,7 @@ function lookupInventory() {
               <td></td>
               <td align='right'>
                 <p>
-                  <#if requestParameters.hideFields?default("N") == "Y">
+                  <#if "Y" == requestParameters.hideFields?default("N")>
                     <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=N${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowLookupFields}</a>
                   <#else>
                     <#if inventoryList??>
@@ -99,7 +99,7 @@ document.lookupinventory.productId.focus();
 //-->
 </script>
 </#if>
-<#if requestParameters.lookupFlag?default("N") == "Y">
+<#if "Y" == requestParameters.lookupFlag?default("N")>
 <table class="basic-table" cellspacing="0">
   <tr>
     <td width='100%'>
@@ -212,7 +212,7 @@ document.lookupinventory.productId.focus();
               <td>${MrpEventType.get("description",locale)}</td>
               <td>&nbsp;</td>
               <td>${inven.eventName!}</td>
-              <td><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></td>
+              <td><font <#if "Y" == inven.isLate?default("N")>color='red'</#if>>${inven.getString("eventDate")}</font></td>
               <td>&nbsp;</td>
               <td align="right">${inven.getString("quantity")}</td>
               <td align="right">${quantityAvailableAtDate!}</td>

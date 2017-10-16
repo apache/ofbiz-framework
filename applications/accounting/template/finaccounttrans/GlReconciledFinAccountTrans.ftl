@@ -187,7 +187,7 @@ under the License.
               <td><#if paymentMethodType?has_content>${paymentMethodType.description!}</#if></td>
               <td><#if status?has_content>${status.description!}</#if></td>
               <td>${finAccountTrans.comments!}</td>
-              <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
+              <#if "FINACT_TRNS_CREATED" == finAccountTrans.statusId>
                 <td align="center"><a href="javascript:document.reomveFinAccountTransAssociation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
               <#else>
                 <td/>

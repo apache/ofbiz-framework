@@ -20,19 +20,19 @@ under the License.
 <script type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if (mode == "DN") {
+    if ("DN" == mode) {
         // done action; checkout
         form.action="<@ofbizUrl>checkoutoptions</@ofbizUrl>";
         form.submit();
-    } else if (mode == "CS") {
+    } else if ("CS" == mode) {
         // continue shopping
         form.action="<@ofbizUrl>updateCheckoutOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NA") {
+    } else if ("NA" == mode) {
         // new address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION&DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EA") {
+    } else if ("EA" == mode) {
         // edit address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&contactMechId="+value+"</@ofbizUrl>";
         form.submit();

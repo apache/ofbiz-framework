@@ -227,7 +227,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             <#list blogRoleIdList as roleTypeId>
               <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
-              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if siteRoleMap[cappedSiteRole]! == "Y">checked="checked"</#if>/>
+              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if "Y" == siteRoleMap[cappedSiteRole]!>checked="checked"</#if>/>
               </td>
           <input type="hidden" name="${cappedSiteRole}FromDate_o_${rowCount}" value="${siteRoleMap[cappedSiteRole + "FromDate"]!}"/>
             </#list>

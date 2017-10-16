@@ -43,7 +43,7 @@ under the License.
         <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
       </#list>
     </#if>
-    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
+    <#if layoutSettings.rtlStyleSheets?has_content && "rtl" == langDir>
       <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
       <#list layoutSettings.rtlStyleSheets as styleSheet>
         <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>

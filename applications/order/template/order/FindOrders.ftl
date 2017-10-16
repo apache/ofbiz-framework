@@ -38,7 +38,7 @@ function toggleOrderId(master) {
     var orders = form.elements.length;
     for (var i = 0; i < orders; i++) {
         var element = form.elements[i];
-        if (element.name == "orderIdList") {
+        if ("orderIdList" == element.name) {
             element.checked = master.checked;
         }
     }
@@ -57,7 +57,7 @@ function toggleOrderIdList() {
     var isAllSelected = true;
     for (var i = 0; i < orders; i++) {
         var element = form.elements[i];
-        if (element.name == "orderIdList" && !element.checked)
+        if ("orderIdList" == element.name && !element.checked)
             isAllSelected = false;
     }
     jQuery('#checkAllOrders').attr("checked", isAllSelected);
@@ -127,7 +127,7 @@ function toggleOrderIdList() {
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.OrderFindOrder}</li>
-      <#if requestParameters.hideFields?default("N") == "Y">
+      <#if "Y" == requestParameters.hideFields?default("N")>
         <li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
         <#if orderList??><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields?default("Y")}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
@@ -415,7 +415,7 @@ function toggleOrderIdList() {
                     <tr>
                       <td nowrap="nowrap">
                         <input type="checkbox" id="filterInventoryProblems" name="filterInventoryProblems" value="Y"
-                            <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />
+                            <#if "Y" == requestParameters.filterInventoryProblems?default("N")>checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
@@ -429,7 +429,7 @@ function toggleOrderIdList() {
                     <tr>
                       <td nowrap="nowrap">
                         <input type="checkbox" id="filterPartiallyReceivedPOs" name="filterPartiallyReceivedPOs" value="Y"
-                            <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />
+                            <#if "Y" == requestParameters.filterPartiallyReceivedPOs?default("N")>checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
@@ -443,7 +443,7 @@ function toggleOrderIdList() {
                     <tr>
                       <td nowrap="nowrap">
                         <input type="checkbox" id="filterPOsOpenPastTheirETA" name="filterPOsOpenPastTheirETA" value="Y"
-                            <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />
+                            <#if "Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")>checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
@@ -457,7 +457,7 @@ function toggleOrderIdList() {
                     <tr>
                       <td nowrap="nowrap">
                         <input type="checkbox" id="filterPOsWithRejectedItems" name="filterPOsWithRejectedItems" value="Y"
-                            <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />
+                            <#if "Y" == requestParameters.filterPOsWithRejectedItems?default("N")>checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
@@ -605,7 +605,7 @@ document.lookuporder.orderId.focus();
           <td width="10%" align="right">${uiLabelMap.OrderRemainingSubTotal}</td>
           <td width="10%" align="right">${uiLabelMap.OrderOrderTotal}</td>
           <td width="5%">&nbsp;</td>
-            <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
+            <#if ("Y" == requestParameters.filterInventoryProblems?default("N")) || ("Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")) || ("Y" == requestParameters.filterPOsWithRejectedItems?default("N")) || ("Y" == requestParameters.filterPartiallyReceivedPOs?default("N"))>
               <td width="10%">${uiLabelMap.CommonStatus}</td>
               <td width="5%">${uiLabelMap.CommonFilter}</td>
             <#else>
@@ -621,7 +621,7 @@ document.lookuporder.orderId.focus();
             <#assign orh = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
-            <#if orderType.orderTypeId == "PURCHASE_ORDER">
+            <#if "PURCHASE_ORDER" == orderType.orderTypeId>
               <#assign displayParty = orh.getSupplierAgent()!>
             <#else>
               <#assign displayParty = orh.getPlacingParty()!>
@@ -658,7 +658,7 @@ document.lookuporder.orderId.focus();
               <td>&nbsp;</td>
               <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
               </td>
-              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
+              <#if ("Y" == requestParameters.filterInventoryProblems?default("N")) || ("Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")) || ("Y" == requestParameters.filterPOsWithRejectedItems?default("N")) || ("Y" == requestParameters.filterPartiallyReceivedPOs?default("N"))>
                   <td>
                       <#if filterInventoryProblems.contains(orderHeader.orderId)>
                         Inv&nbsp;

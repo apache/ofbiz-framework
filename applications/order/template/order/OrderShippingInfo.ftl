@@ -56,16 +56,16 @@ under the License.
     </div>
     <div class="screenlet-body">
       <ul>
-        <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
+        <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && (("ORDER_APPROVED" == orderHeader.statusId) || ("ORDER_SENT" == orderHeader.statusId))>
           <#-- Special shipment options -->
-          <#if orderHeader.orderTypeId == "SALES_ORDER" && backorderQuantity &lt; 1>
+          <#if "SALES_ORDER" == orderHeader.orderTypeId && backorderQuantity &lt; 1>
             <li>
             <form name="quickShipOrder" method="post" action="<@ofbizUrl>quickShipOrder</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
             </form>
             <a href="javascript:document.quickShipOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
           <#else> <#-- PURCHASE_ORDER -->
-            <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
+            <span class="label">&nbsp;<#if "PURCHASE_ORDER" == orderHeader.orderTypeId>${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
               <#if !allShipments?has_content>
                   <li>
@@ -144,7 +144,7 @@ under the License.
           <li><a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewEditDeliveryScheduleInfo}</a></li>
         </#if>
         <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session)>
-          <#if orderHeader.statusId == "ORDER_COMPLETED" && returnableItems?has_content>
+          <#if "ORDER_COMPLETED" == orderHeader.statusId && returnableItems?has_content>
             <li>
             <form name="quickRefundOrder" method="post" action="<@ofbizUrl>quickRefundOrder</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
@@ -178,7 +178,7 @@ under the License.
             </li>
           </#if>
           <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
-          <#if orderHeader.statusId == "ORDER_COMPLETED">
+          <#if "ORDER_COMPLETED" == orderHeader.statusId>
             <li><a href="<@ofbizUrl>loadCartForReplacementOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReplacementOrder}</a></li>
           </#if>
         </#if>
@@ -230,7 +230,7 @@ under the License.
               <td><div>${quantityOrdered}</div></td>
               <td><div>${quantityNotAvailable}</div></td>
               <td>
-                  <#if !orderItem.statusId?exists || orderItem.statusId == "ITEM_CREATED" || orderItem.statusId == "ITEM_APPROVED">
+                  <#if !orderItem.statusId?exists || "ITEM_CREATED" == orderItem.statusId || "ITEM_APPROVED" == orderItem.statusId>
                   <div class="tabletext" id="display${index}">
                       <a name="display${index}" href="javascript: showEdit('edit', '${index}');" class="smallSubmit"> ${uiLabelMap.CommonEdit}</a>
                   </div>
@@ -258,11 +258,11 @@ under the License.
               <td colspan="2">&nbsp;</td>
               <td colspan="2">
                   <div class="tabletext"> [${OISG.shipGroupSeqId}] <#if OISG.shipByDate?has_content>, ${uiLabelMap.OrderShipBeforeDate} : ${OISG.shipByDate?date}</#if></div>
-                      <#if orderType == "SALES_ORDER">
+                      <#if "SALES_ORDER" == orderType>
                           <#list orderShipments as orderShipment>
                   <div>${uiLabelMap.OrderPlannedInShipment} : </b><a target="facility" href="/facility/control/ViewShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
                           </#list>
-                      <#elseif orderType == "PURCHASE_ORDER">
+                      <#elseif "PURCHASE_ORDER" == orderType>
                           <#list orderShipments as orderShipment>
                               <#if orderShipment.quantity?has_content & orderShipment.quantity!=0.0 >
                   <div>${uiLabelMap.OrderPlannedInReceive} : </b><a target="facility" href="/facility/control/ViewReceiveShipment?shipmentId=${orderShipment.shipmentId!}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${orderShipment.shipmentId!}</a>:${orderShipment.shipmentItemSeqId!} - ${orderShipment.quantity!}</div>
@@ -287,7 +287,7 @@ under the License.
                   </#list>
               <input type="hidden" name="_rowCount" value="${rowCount}"/>
               </form>
-                  <#if !orderItem.statusId?exists || orderItem.statusId == "ITEM_CREATED" || orderItem.statusId == "ITEM_APPROVED" && (orderHeader.statusId != "ORDER_SENT" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED" && orderHeader.statusId != "ORDER_CANCELLED")>
+                  <#if !orderItem.statusId?exists || "ITEM_CREATED" == orderItem.statusId || "ITEM_APPROVED" == orderItem.statusId && ("ORDER_SENT" != orderHeader.statusId && "ORDER_COMPLETED" != orderHeader.statusId && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId)>
           <tr>
               <form method="post" action="<@ofbizUrl>AddOrderItemShipGroupAssoc?view=OISGA</@ofbizUrl>" name="addOISGForm${index}"/>
               <input type="hidden" name="editQuantity" value="edit"/>
@@ -386,7 +386,7 @@ under the License.
                   </tr>
   
                   <#-- the setting of shipping method is only supported for sales orders at this time -->
-                  <#if orderHeader.orderTypeId == "SALES_ORDER">
+                  <#if "SALES_ORDER" == orderHeader.orderTypeId>
                     <tr>
                       <td align="right" valign="top" width="15%">
                           <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</b></span>
@@ -626,7 +626,7 @@ under the License.
               <td width="5">&nbsp;</td>
               <td valign="top" width="80%">
                 <div>
-                  <#if shipGroup.maySplit?upper_case == "N">
+                  <#if "N" == shipGroup.maySplit?upper_case>
                       ${uiLabelMap.FacilityWaitEntireOrderReady}
                       <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
                         <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED">
@@ -777,16 +777,16 @@ under the License.
          </#if>
   
          <#-- shipment actions -->
-         <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && ((orderHeader.statusId == "ORDER_CREATED") || (orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
+         <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && (("ORDER_CREATED" == orderHeader.statusId) || ("ORDER_APPROVED" == orderHeader.statusId) || ("ORDER_SENT" == orderHeader.statusId))>
   
   
            <#-- Manual shipment options -->
            <tr><td colspan="3"><hr /></td></tr>
            <tr>
               <td colspan="3" valign="top" width="100%" align="center">
-               <#if orderHeader.orderTypeId == "SALES_ORDER">
+               <#if "SALES_ORDER" == orderHeader.orderTypeId>
                  <#if !shipGroup.supplierPartyId?has_content>
-                   <#if orderHeader.statusId == "ORDER_APPROVED">
+                   <#if "ORDER_APPROVED" == orderHeader.statusId>
                  <a href="/facility/control/PackOrder?facilityId=${storeFacilityId!}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
                    <br />
                    </#if>

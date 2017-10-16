@@ -49,7 +49,7 @@ under the License.
         <select name="roleTypeId">
           <option value="">${uiLabelMap.PartySelectRole}</option>
           <#list roles as role>
-            <option value="${role.roleTypeId}" <#if role.roleTypeId == "_NA_">selected="selected"</#if>>${role.get("description", locale)?default(role.roleTypeId)}</option>
+            <option value="${role.roleTypeId}" <#if "_NA_" == role.roleTypeId>selected="selected"</#if>>${role.get("description", locale)?default(role.roleTypeId)}</option>
           </#list>
         </select>
         <input type="submit" value="${uiLabelMap.CommonUpload}" />

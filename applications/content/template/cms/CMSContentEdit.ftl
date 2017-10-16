@@ -105,7 +105,7 @@ under the License.
                     <#assign rowCount = 0 />
                     <#list featureList as feature>
                        <#assign checked=""/>
-                       <#if feature.action?has_content && feature.action == "Y">
+                       <#if feature.action?has_content && "Y" == feature.action>
                            <#assign checked="checked='checked'"/>
                        </#if>
                        <tr>

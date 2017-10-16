@@ -43,18 +43,18 @@ under the License.
 <div<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
 </#macro>
 <#macro renderContainerEnd></div></#macro>
-<#macro renderContentBegin editRequest enableEditValue editContainerStyle><#if editRequest?has_content && enableEditValue == "true"><div class=${editContainerStyle}></#if></#macro>
+<#macro renderContentBegin editRequest enableEditValue editContainerStyle><#if editRequest?has_content && "true" == enableEditValue><div class=${editContainerStyle}></#if></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
-<#if editRequest?? && enableEditValue == "true">
+<#if editRequest?? && "true" == enableEditValue>
 <#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
 <#if editContainerStyle??></div><#rt/></#if>
 </#if>
 </#macro>
-<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?? && enableEditValue == "true"><div class="${editContainerStyle}"></#if></#macro>
+<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?? && "true" == enableEditValue><div class="${editContainerStyle}"></#if></#macro>
 <#macro renderSubContentBody></#macro>
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
-<#if editRequest?? && enableEditValue == "true">
+<#if editRequest?? && "true" == enableEditValue>
 <#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
 <#if editContainerStyle??></div><#rt/></#if>
 </#if>
@@ -187,7 +187,7 @@ ${menuString}
 </#macro>
 
 <#macro renderPortalPageBegin originalPortalPageId portalPageId confMode="false" addColumnLabel="Add column" addColumnHint="Add a new column to this portal">
-  <#if confMode == "true">
+  <#if "true" == confMode>
     <a class="buttontext" href="javascript:document.addColumn_${portalPageId}.submit()" title="${addColumnHint}">${addColumnLabel}</a> <b>PortalPageId: ${portalPageId}</b>
     <form method="post" action="addPortalPageColumn" name="addColumn_${portalPageId}">
       <input name="portalPageId" value="${portalPageId}" type="hidden"/>
@@ -214,8 +214,8 @@ ${menuString}
       }
     }
   </script>
-  <td class="portal-column<#if confMode == "true">-config</#if> connectedSortable" style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
-    <#if confMode == "true">
+  <td class="portal-column<#if "true" == confMode>-config</#if> connectedSortable" style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
+    <#if "true" == confMode>
       <div class="portal-column-config-title-bar">
         <ul>
           <li>
@@ -250,7 +250,7 @@ ${menuString}
   <#assign portletKey = portalPageId+portalPortletId+portletSeqId>
   <#assign portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
   <div id="PP_${portletKey}" name="portalPortlet" class="noClass" portalPageId="${portalPageId}" portalPortletId="${portalPortletId}" columnSeqId="${columnSeqId}" portletSeqId="${portletSeqId}">
-    <#if confMode == "true">
+    <#if "true" == confMode>
       <div class="portlet-config" id="PPCFG_${portletKey}">
         <div class="portlet-config-title-bar">
           <ul>
@@ -261,7 +261,7 @@ ${menuString}
               </form>
               <a href="javascript:document.delPortlet_${portletKey}.submit()" title="${delPortletHint}">&nbsp;&nbsp;&nbsp;</a>
             </li>
-            <#if editAttribute == "true">
+            <#if "true" == editAttribute>
               <li class="edit">
                 <form method="post" action="editPortalPortletAttributes" name="editPortlet_${portletKey}">
                   ${portletKeyFields}
@@ -325,7 +325,7 @@ ${menuString}
 
 <#macro renderPortalPagePortletEnd confMode="false">
   </div>
-  <#if confMode == "true">
+  <#if "true" == confMode>
     </div>
   </#if>
 </#macro>

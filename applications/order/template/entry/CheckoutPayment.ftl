@@ -22,31 +22,31 @@ under the License.
 <script type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if (mode == "DN") {
+    if ("DN" == mode) {
         // done action; checkout
         form.action="<@ofbizUrl>checkoutoptions</@ofbizUrl>";
         form.submit();
-    } else if (mode == "CS") {
+    } else if ("CS" == mode) {
         // continue shopping
         form.action="<@ofbizUrl>updateCheckoutOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NC") {
+    } else if ("NC" == mode) {
         // new credit card
         form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=checkoutpayment</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EC") {
+    } else if ("EC" == mode) {
         // edit credit card
         form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "GC") {
+    } else if ("GC" == mode) {
         // edit gift card
         form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NE") {
+    } else if ("NE" == mode) {
         // new eft account
         form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=checkoutpayment</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EE") {
+    } else if ("EE" == mode) {
         // edit eft account
         form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
@@ -159,7 +159,7 @@ var issuerId = "";
               </div>
             <#else>
               <#list paymentMethodList as paymentMethod>
-                <#if paymentMethod.paymentMethodTypeId == "GIFT_CARD">
+                <#if "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
                  <#if productStorePaymentMethodTypeIdMap.GIFT_CARD??>
                   <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false) />
 
@@ -187,7 +187,7 @@ var issuerId = "";
                         <strong>${uiLabelMap.OrderBillUpTo}:</strong> <input type="text" size="5" class="inputBox" name="amount_${paymentMethod.paymentMethodId}" value="<#if (cart.getPaymentAmount(paymentMethod.paymentMethodId)?default(0) > 0)>${cart.getPaymentAmount(paymentMethod.paymentMethodId)?string("##0.00")}</#if>" />
                   </div>
                  </#if>
-                <#elseif paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
+                <#elseif "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
                  <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD??>
                   <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false) />
                   <div>
@@ -198,7 +198,7 @@ var issuerId = "";
                         <label for="amount_${paymentMethod.paymentMethodId}"><strong>${uiLabelMap.OrderBillUpTo}:</strong></label><input type="text" size="5" class="inputBox" id="amount_${paymentMethod.paymentMethodId}" name="amount_${paymentMethod.paymentMethodId}" value="<#if (cart.getPaymentAmount(paymentMethod.paymentMethodId)?default(0) > 0)>${cart.getPaymentAmount(paymentMethod.paymentMethodId)?string("##0.00")}</#if>" />
                   </div>
                  </#if>
-                <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
+                <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>
                  <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT??>
                   <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false) />
                   <div>

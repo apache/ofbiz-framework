@@ -36,7 +36,7 @@ under the License.
 
 <#-- ================================= Google Maps Init ======================================-->
   <#if geoChart.dataSourceId?has_content>
-    <#if geoChart.dataSourceId?substring(geoChart.dataSourceId?length-6 , geoChart.dataSourceId?length) == "GOOGLE">
+    <#if "GOOGLE" == geoChart.dataSourceId?substring(geoChart.dataSourceId?length-6 , geoChart.dataSourceId?length)>
     <div id="${id}"
          style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;">
         <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
@@ -45,7 +45,7 @@ under the License.
     </#if>
 
   <#-- ========================== Here we go with different types of maps renderer ===========================-->
-    <#if geoChart.dataSourceId == "GEOPT_GOOGLE">
+    <#if "GEOPT_GOOGLE" == geoChart.dataSourceId>
     <script type="text/javascript">
         function showAllMarkers(map, points) {
             if (points.length > 1) {
@@ -86,10 +86,10 @@ under the License.
         showAllMarkers(map, latlngs);
               </#if>
     </script>
-    <#elseif  geoChart.dataSourceId == "GEOPT_YAHOO">
-    <#elseif  geoChart.dataSourceId == "GEOPT_MICROSOFT">
-    <#elseif  geoChart.dataSourceId == "GEOPT_MAPTP">
-    <#elseif  geoChart.dataSourceId == "GEOPT_ADDRESS_GOOGLE">
+    <#elseif  "GEOPT_YAHOO" == geoChart.dataSourceId>
+    <#elseif  "GEOPT_MICROSOFT" == geoChart.dataSourceId>
+    <#elseif  "GEOPT_MAPTP" == geoChart.dataSourceId>
+    <#elseif  "GEOPT_ADDRESS_GOOGLE" == geoChart.dataSourceId>
     <script type="text/javascript">
         var geocoder = new google.maps.Geocoder();
         var map = new google.maps.Map(document.getElementById("${id}"),
@@ -112,7 +112,7 @@ under the License.
               }
         });
     </script>
-    <#elseif geoChart.dataSourceId == "GEOPT_OSM">
+    <#elseif "GEOPT_OSM" == geoChart.dataSourceId>
     <div id="${id}" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;"></div>
     <#--
     due to https://github.com/openlayers/openlayers/issues/1025

@@ -47,7 +47,7 @@ under the License.
                     ${note.noteInfo?replace("\n", "<br/>")}
                   </td>
                   <td align="right" valign="top" width="15%">
-                    <#if note.internalNote! == "N">
+                    <#if "N" == note.internalNote!>
                         ${uiLabelMap.OrderPrintableNote}
                         <form name="privateNotesForm_${note_index}" method="post" action="<@ofbizUrl>updateOrderNote</@ofbizUrl>">
                           <input type="hidden" name="orderId" value="${orderId}"/>
@@ -56,7 +56,7 @@ under the License.
                           <a href="javascript:document.privateNotesForm_${note_index}.submit()" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                         </form>
                     </#if>
-                    <#if note.internalNote! == "Y">
+                    <#if "Y" == note.internalNote!>
                         ${uiLabelMap.OrderNotPrintableNote}
                         <form name="publicNotesForm_${note_index}" method="post" action="<@ofbizUrl>updateOrderNote</@ofbizUrl>">
                           <input type="hidden" name="orderId" value="${orderId}"/>

@@ -43,7 +43,7 @@ your template file:
       size="25"/>
   </#if>
 <span class="tooltip">${uiLabelMap.CommonFormatDateTime}</span>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
   <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
@@ -55,7 +55,7 @@ your template file:
           selected="selected"</#if>>${monthValue.description}</option>
   </#list>
 </select>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
   <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
@@ -66,7 +66,7 @@ your template file:
     <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
   </#list>
 </select>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
   <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
@@ -77,7 +77,7 @@ your template file:
     <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
   </#list>
 </select>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
@@ -89,7 +89,7 @@ your template file:
         selected="selected"</#if>>${dayValue.description}</option>
   </#list>
 </select>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
@@ -100,7 +100,7 @@ your template file:
       <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
     </#list>
   </select>
-  <#if fieldClass == "required">
+  <#if "required" == fieldClass>
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>

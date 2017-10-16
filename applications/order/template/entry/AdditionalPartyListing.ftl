@@ -37,7 +37,7 @@ under the License.
               <td><div>${party}</div></td>
               <td>
                 <div>
-                  <#if partyData[party].type == "person">
+                  <#if "person" == partyData[party].type>
                     ${partyData[party].firstName!}
                   <#else>
                     ${partyData[party].groupName!}
@@ -46,7 +46,7 @@ under the License.
               </td>
               <td>
                 <div>
-                  <#if partyData[party].type == "person">
+                  <#if "person" == partyData[party].type>
                     ${partyData[party].lastName!}
                   </#if>
                 </div>

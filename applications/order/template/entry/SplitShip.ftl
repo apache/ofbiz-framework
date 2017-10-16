@@ -20,23 +20,23 @@ under the License.
 <script language="javascript" type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if (mode == "DN") {
+    if ("DN" == mode) {
         // done action; payment info
         form.action="<@ofbizUrl>updateShippingOptions/checkoutpayment</@ofbizUrl>";
         form.submit();
-    } else if (mode == "CS") {
+    } else if ("CS" == mode) {
         // continue shopping
         form.action="<@ofbizUrl>updateShippingOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NA") {
+    } else if ("NA" == mode) {
         // new address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=splitship&partyId=${cart.getPartyId()}&preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION</@ofbizUrl>";
         form.submit();
-    } else if (mode == "SV") {
+    } else if ("SV" == mode) {
         // save option; return to current screen
         form.action="<@ofbizUrl>updateShippingOptions/splitship</@ofbizUrl>";
         form.submit();
-    } else if (mode == "SA") {
+    } else if ("SA" == mode) {
         // selected shipping address
         form.action="<@ofbizUrl>updateShippingAddress/splitship</@ofbizUrl>";
         form.submit();
@@ -118,16 +118,16 @@ function submitForm(form, mode, value) {
                       <select name="maySplit" class="selectBox">
                         <#assign maySplitStr = cart.getMaySplit(groupIdx)?default("")>
                         <option value="">${uiLabelMap.OrderSplittingPreference}</option>
-                        <option value="false" <#if maySplitStr == "N">selected="selected"</#if>>${uiLabelMap.OrderShipAllItemsTogether}</option>
-                        <option value="true" <#if maySplitStr == "Y">selected="selected"</#if>>${uiLabelMap.OrderShipItemsWhenAvailable}</option>
+                        <option value="false" <#if "N" == maySplitStr>selected="selected"</#if>>${uiLabelMap.OrderShipAllItemsTogether}</option>
+                        <option value="true" <#if "Y" == maySplitStr>selected="selected"</#if>>${uiLabelMap.OrderShipItemsWhenAvailable}</option>
                       </select>
                     </div>
                     <div>
                       <select name="isGift" class="selectBox">
                         <#assign isGiftStr = cart.getIsGift(groupIdx)?default("")>
                         <option value="">${uiLabelMap.OrderIsGift} ?</option>
-                        <option value="false" <#if isGiftStr == "N">selected="selected"</#if>>${uiLabelMap.OrderNotAGift}</option>
-                        <option value="true" <#if isGiftStr == "Y">selected="selected"</#if>>${uiLabelMap.OrderYesIsAGift}</option>
+                        <option value="false" <#if "N" == isGiftStr>selected="selected"</#if>>${uiLabelMap.OrderNotAGift}</option>
+                        <option value="true" <#if "Y" == isGiftStr>selected="selected"</#if>>${uiLabelMap.OrderYesIsAGift}</option>
                       </select>
                     </div>
 

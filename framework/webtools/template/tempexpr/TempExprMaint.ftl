@@ -45,25 +45,25 @@ under the License.
       <td>${temporalExpression.get("description",locale)!}</td>
     </tr>
   </#if>
-    <#if temporalExpression.tempExprTypeId == "DATE_RANGE">
+    <#if "DATE_RANGE" == temporalExpression.tempExprTypeId>
       <@DateRange formName="updateExpression" fromDate=temporalExpression.dateRange1 toDate=temporalExpression.dateRange2/>
-    <#elseif temporalExpression.tempExprTypeId == "DAY_IN_MONTH">
+    <#elseif "DAY_IN_MONTH" == temporalExpression.tempExprTypeId>
       <@DayInMonth occurrence=temporalExpression.integer2 day=temporalExpression.integer1/>
-    <#elseif temporalExpression.tempExprTypeId == "DAY_OF_MONTH_RANGE">
+    <#elseif "DAY_OF_MONTH_RANGE" == temporalExpression.tempExprTypeId>
       <@DayOfMonthRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">
+    <#elseif "DAY_OF_WEEK_RANGE" == temporalExpression.tempExprTypeId>
       <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "FREQUENCY">
+    <#elseif "FREQUENCY" == temporalExpression.tempExprTypeId>
       <@Frequency formName="updateExpression" fromDate=temporalExpression.dateFreq1 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">
+    <#elseif "DAY_OF_WEEK_RANGE" == temporalExpression.tempExprTypeId>
       <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "HOUR_RANGE">
+    <#elseif "HOUR_RANGE" == temporalExpression.tempExprTypeId>
       <@HourOfDayRange fromHour=temporalExpression.integer1 toHour=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "MINUTE_RANGE">
+    <#elseif "MINUTE_RANGE" == temporalExpression.tempExprTypeId>
       <@MinuteRange fromMinute=temporalExpression.integer1 toMinute=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "MONTH_RANGE">
+    <#elseif "MONTH_RANGE" == temporalExpression.tempExprTypeId>
       <@MonthRange fromMonth=temporalExpression.integer1 toMonth=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "TIME_OF_DAY_RANGE">
+    <#elseif "TIME_OF_DAY_RANGE" == temporalExpression.tempExprTypeId>
       <@TimeOfDayRange fromTime=temporalExpression.string1 toTime=temporalExpression.string2 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
     <#elseif "INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
       <#assign candidateIdList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getCandidateIncludeIds(delegator, temporalExpression.tempExprId)/>
@@ -76,11 +76,11 @@ under the License.
         <#assign hasInclude = false hasExclude = false hasSubstitution = false/>
         <#if childExpressionList?has_content>
           <#list childExpressionList as childExpression>
-            <#if childExpression.exprAssocType == "INCLUDE">
+            <#if "INCLUDE" == childExpression.exprAssocType>
               <#assign hasInclude = true/>
-            <#elseif childExpression.exprAssocType == "EXCLUDE">
+            <#elseif "EXCLUDE" == childExpression.exprAssocType>
               <#assign hasExclude = true/>
-            <#elseif childExpression.exprAssocType == "SUBSTITUTION">
+            <#elseif "SUBSTITUTION" == childExpression.exprAssocType>
               <#assign hasSubstitution = true/>
             </#if>
           </#list>
@@ -97,7 +97,7 @@ under the License.
             <td><@CreateExprAssocForm formName="excludeExpression" exprAssocType="EXCLUDE"/></td>
           </tr>
         </#if>
-        <#if !hasSubstitution && temporalExpression.tempExprTypeId == "SUBSTITUTION">
+        <#if !hasSubstitution && "SUBSTITUTION" == temporalExpression.tempExprTypeId>
           <tr>
             <td class="label">${uiLabelMap.TemporalExpression_SUBSTITUTION}</td>
             <td><@CreateExprAssocForm formName="substitutionExpression" exprAssocType="SUBSTITUTION"/></td>

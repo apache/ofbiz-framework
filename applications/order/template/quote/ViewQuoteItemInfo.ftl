@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="boxlink">
-            <#if maySelectItems?default("N") == "Y">
+            <#if "Y" == maySelectItems?default("N")>
                 <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
             </#if>
         </div>
@@ -68,7 +68,7 @@ under the License.
                 <tr <#if alt_row>class="alternate-row" </#if>>
                     <td >
                         <div>
-                        <#if showQuoteManagementLinks?? && quoteItem.isPromo?default("N") == "N" && quote.statusId=="QUO_CREATED">
+                        <#if showQuoteManagementLinks?? && "N" == quoteItem.isPromo?default("N") && "QUO_CREATED" == quote.statusId>
                             <a href="<@ofbizUrl>EditQuoteItem?quoteId=${quoteItem.quoteId}&amp;quoteItemSeqId=${quoteItem.quoteItemSeqId}</@ofbizUrl>" class="buttontext">${quoteItem.quoteItemSeqId}</a>
                         <#else>
                             ${quoteItem.quoteItemSeqId}

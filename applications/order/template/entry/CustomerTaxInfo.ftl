@@ -33,7 +33,7 @@ under the License.
         </select>
         <span>${uiLabelMap.CommonId}: </span><input type="text" name="partyTaxId" size="12" maxlength="40"/>
 
-        <#if productStore.showTaxIsExempt?default("Y") == "Y">
+        <#if "Y" == productStore.showTaxIsExempt?default("Y")>
         <label><span>${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" value="Y"/></label>
         <#else>
         <input type="hidden" name="isExempt" value="N"/>

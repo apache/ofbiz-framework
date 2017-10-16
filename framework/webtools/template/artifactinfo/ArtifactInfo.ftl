@@ -82,7 +82,7 @@ under the License.
         <div>Defined in: <a href="${artifactInfo.getLocationURL()}">${artifactInfo.getLocationURL()}</a></div>
     </#if>
 
-    <#if artifactInfo.getType() == "entity">
+    <#if "entity" == artifactInfo.getType()>
         <div><a href="<@ofbizUrl>FindGeneric?entityName=${artifactInfo.modelEntity.getEntityName()}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>">All Entity Data</a></div>
         <h2>Entity Fields</h2>
         <table>
@@ -126,7 +126,7 @@ under the License.
         </#list>
         </div>
 
-    <#elseif artifactInfo.getType() == "service"/>
+    <#elseif "service" == artifactInfo.getType()/>
         <h2>Service Info</h2>
         <div>&nbsp;Description: ${artifactInfo.modelService.description}</div>
         <div>&nbsp;Run (${artifactInfo.modelService.engineName}): ${artifactInfo.modelService.location} :: ${artifactInfo.modelService.invoke}</div>
@@ -203,7 +203,7 @@ under the License.
         </#list>
         </div>
 
-    <#elseif artifactInfo.getType() == "form"/>
+    <#elseif "form" == artifactInfo.getType()/>
         <div>
         <h2>Form Extended by This Form</h2>
         <#if artifactInfo.getFormThisFormExtends()??>
@@ -252,7 +252,7 @@ under the License.
         </#list>
         </div>
 
-    <#elseif artifactInfo.getType() == "screen"/>
+    <#elseif "screen" == artifactInfo.getType()/>
         <div>
         <h2>Entities Used in This Screen</h2>
         <#list artifactInfo.getEntitiesUsedInScreen()! as entityArtifactInfo>
@@ -302,7 +302,7 @@ under the License.
         </#list>
         </div>
 
-    <#elseif artifactInfo.getType() == "request"/>
+    <#elseif "request" == artifactInfo.getType()/>
         <#if artifactInfo.getServiceCalledByRequestEvent()??>
             <div>
             <h2>Service Called by Request Event</h2>
@@ -351,7 +351,7 @@ under the License.
         </#list>
         </div>
 
-    <#elseif artifactInfo.getType() == "view"/>
+    <#elseif "view" == artifactInfo.getType()/>
         <div>
         <h2>Requests That This View is a Responses To</h2>
         <#list artifactInfo.getRequestsThatThisViewIsResponseTo()! as controllerRequestArtifactInfo>

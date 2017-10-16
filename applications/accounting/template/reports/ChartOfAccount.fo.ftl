@@ -31,9 +31,9 @@ under the License.
                     <fo:block>${uiLabelMap.AccountingChartOfAcctsFor}
                         <#if (organizationPartyId)??>
                             <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false))!>
-                            <#if partyName.partyTypeId == "PERSON">
+                            <#if "PERSON" == partyName.partyTypeId>
                                 ${(partyName.firstName)!} ${(partyName.lastName)!}
-                            <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
+                            <#elseif "PARTY_GROUP" == (partyName.partyTypeId)!>
                                 ${(partyName.groupName)!}
                             </#if>
                         </#if>

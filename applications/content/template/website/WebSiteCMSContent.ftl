@@ -35,7 +35,7 @@
         var isUpload = form.elements['isUploadObject'];
         if (isUpload && isUpload.value == 'Y') {
             var uploadValue = form.elements['uploadedFile'].value;
-            if (uploadValue == null || uploadValue == "") {
+            if (uploadValue == null || "" == uploadValue) {
                 form.action = simpleFormAction;
             }
 
@@ -123,7 +123,7 @@
 <#-- form action -->
 <#if (dataResourceTypeId?has_content)>
     <#assign actionSuffix = "ContentCms"/>
-    <#if (dataResourceTypeId == "NONE" || (content?has_content && !content.dataResourceId?has_content))>
+    <#if ("NONE" == dataResourceTypeId || (content?has_content && !content.dataResourceId?has_content))>
         <#assign actionMiddle = ""/>
     <#else>
         <#if (dataResourceTypeId?ends_with("_OBJECT"))>

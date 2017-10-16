@@ -38,7 +38,7 @@ under the License.
           <td class="label">${uiLabelMap.CommonUsername}</td>
           <td>${username}</td>
         </tr>
-        <#if forgotPwdFlag?has_content && forgotPwdFlag?string == "true">
+        <#if forgotPwdFlag?has_content && "true" == forgotPwdFlag?string>
           <tr>
             <td><input type="hidden" name="PASSWORD" value="${parameters.password!}" size="20"/></td>
           </tr>

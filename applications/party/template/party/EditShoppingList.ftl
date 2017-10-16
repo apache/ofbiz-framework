@@ -77,16 +77,16 @@ under the License.
       <table class="basic-table" cellspacing='0'>
         <tr>
           <td class="label">${uiLabelMap.PartyListName}</td>
-          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
+          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if "auto-save" == shoppingList.listName?default("")>disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.CommonDescription}</td>
-          <td><input type="text" size="70" name="description" value="${shoppingList.description!}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
+          <td><input type="text" size="70" name="description" value="${shoppingList.description!}" <#if "auto-save" == shoppingList.listName?default("")>disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyListType}</td>
           <td>
-            <select name="shoppingListTypeId" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
+            <select name="shoppingListTypeId" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
               <#if shoppingListType??>
                 <option value="${shoppingListType.shoppingListTypeId}">${shoppingListType.get("description",locale)?default(shoppingListType.shoppingListTypeId)}</option>
                 <option value="${shoppingListType.shoppingListTypeId}">--</option>
@@ -100,7 +100,7 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.PartyPublic}?</td>
           <td>
-            <select name="isPublic" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
+            <select name="isPublic" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
               <option>${shoppingList.isPublic}</option>
               <option value="${shoppingList.isPublic}">--</option>
               <option value="Y">${uiLabelMap.CommonYes}</option>
@@ -111,7 +111,7 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.PartyParentList}</td>
           <td>
-            <select name="parentShoppingListId" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
+            <select name="parentShoppingListId" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
               <#if parentShoppingList??>
                 <option value="${parentShoppingList.shoppingListId}">${parentShoppingList.listName?default(parentShoppingList.shoppingListId)}</option>
               </#if>

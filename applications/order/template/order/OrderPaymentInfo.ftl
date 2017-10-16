@@ -41,7 +41,7 @@ under the License.
   <div class="screenlet-body">
      <table class="basic-table" cellspacing='0'>
      <#assign orderTypeId = orderReadHelper.getOrderTypeId()>
-     <#if orderTypeId == "PURCHASE_ORDER">
+     <#if "PURCHASE_ORDER" == orderTypeId>
        <tr>
          <th>${uiLabelMap.AccountingPaymentID}</th>
          <th>${uiLabelMap.CommonTo}</th>
@@ -115,7 +115,7 @@ under the License.
           <#assign paymentList = orderPaymentPreference.getRelated("Payment", null, null, false)>
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem", false)>
-          <#if outputted?default("false") == "true">
+          <#if "true" == outputted?default("false")>
             <tr><td colspan="4"><hr /></td></tr>
           </#if>
           <#assign outputted = "true">
@@ -123,11 +123,11 @@ under the License.
           <#assign paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod", false)!>
           <#if !paymentMethod?has_content>
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", false)>
-            <#if paymentMethodType.paymentMethodTypeId == "EXT_BILLACT">
+            <#if "EXT_BILLACT" == paymentMethodType.paymentMethodTypeId>
                 <#assign outputted = "false">
                 <#-- billing account -->
                 <#if billingAccount??>
-                  <#if outputted?default("false") == "true">
+                  <#if "true" == outputted?default("false")>
                     <tr><td colspan="4"><hr /></td></tr>
                   </#if>
                   <tr>
@@ -171,7 +171,7 @@ under the License.
                     </td>
                   </tr>
                 </#if>
-            <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
+            <#elseif "FIN_ACCOUNT" == paymentMethodType.paymentMethodTypeId>
               <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount", false)!/>
               <#if (finAccount?has_content)>
                 <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
@@ -198,10 +198,10 @@ under the License.
 
                       <#-- Authorize and Capture transactions -->
                       <div>
-                        <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
+                        <#if "PAYMENT_SETTLED" != orderPaymentPreference.statusId>
                           <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
-                        <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
+                        <#if "PAYMENT_AUTHORIZED" == orderPaymentPreference.statusId>
                           <a href="/accounting/control/CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
@@ -312,7 +312,7 @@ under the License.
                 </#if>
             </#if>
           <#else>
-            <#if paymentMethod.paymentMethodTypeId! == "CREDIT_CARD">
+            <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId!>
               <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
               <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)!>
               <#if creditCard?has_content>
@@ -351,10 +351,10 @@ under the License.
 
                       <#-- Authorize and Capture transactions -->
                       <div>
-                        <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
+                        <#if "PAYMENT_SETTLED" != orderPaymentPreference.statusId>
                           <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
-                        <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
+                        <#if "PAYMENT_AUTHORIZED" == orderPaymentPreference.statusId>
                           <a href="/accounting/control/CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
@@ -393,7 +393,7 @@ under the License.
                   </#if>
                 </td>
               </tr>
-            <#elseif paymentMethod.paymentMethodTypeId! == "EFT_ACCOUNT">
+            <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId!>
               <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
               <#if eftAccount?has_content>
                 <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)!>
@@ -448,7 +448,7 @@ under the License.
                   </td>
                 </tr>
               </#if>
-            <#elseif paymentMethod.paymentMethodTypeId! == "GIFT_CARD">
+            <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId!>
               <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
               <#if giftCard??>
                 <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)!>

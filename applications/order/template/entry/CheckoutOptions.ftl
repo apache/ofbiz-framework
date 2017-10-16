@@ -20,51 +20,51 @@ under the License.
 <script type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if (mode == "DN") {
+    if ("DN" == mode) {
         // done action; checkout
         form.action="<@ofbizUrl>checkout</@ofbizUrl>";
         form.submit();
-    } else if (mode == "CS") {
+    } else if ("CS" == mode) {
         // continue shopping
         form.action="<@ofbizUrl>updateCheckoutOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NA") {
+    } else if ("NA" == mode) {
         // new address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}&preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EA") {
+    } else if ("EA" == mode) {
         // edit address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}&contactMechId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NC") {
+    } else if ("NC" == mode) {
         // new credit card
         form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EC") {
+    } else if ("EC" == mode) {
         // edit credit card
         form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "GC") {
+    } else if ("GC" == mode) {
         // edit gift card
         form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "NE") {
+    } else if ("NE" == mode) {
         // new eft account
         form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}</@ofbizUrl>";
         form.submit();
-    } else if (mode == "EE") {
+    } else if ("EE" == mode) {
         // edit eft account
         form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=quickcheckout&partyId=${shoppingCart.getPartyId()}&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    } else if (mode == "SP") {
+    } else if ("SP" == mode) {
         // split payment
         form.action="<@ofbizUrl>updateCheckoutOptions/checkoutpayment?partyId=${shoppingCart.getPartyId()}</@ofbizUrl>";
         form.submit();
-    } else if (mode == "SA") {
+    } else if ("SA" == mode) {
         // selected shipping address
         form.action="<@ofbizUrl>updateCheckoutOptions/quickcheckout</@ofbizUrl>";
         form.submit();
-    } else if (mode == "SC") {
+    } else if ("SC" == mode) {
         // selected ship to party
         form.action="<@ofbizUrl>cartUpdateShipToCustomerParty</@ofbizUrl>";
         form.submit();
@@ -199,7 +199,7 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td valign="top">
                     <label>
-                      <input type="radio" <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name="may_split" value="false"/>
+                      <input type="radio" <#if "N" == shoppingCart.getMaySplit()?default("N")>checked="checked"</#if> name="may_split" value="false"/>
                       ${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.
                     </label>
                     </td>
@@ -207,7 +207,7 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td valign="top">
                     <label>
-                      <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type="radio" name="may_split" value="true"/>
+                      <input <#if "Y" == shoppingCart.getMaySplit()?default("N")>checked="checked"</#if> type="radio" name="may_split" value="true"/>
                       ${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.
                     </label>
                     </td>
@@ -235,8 +235,8 @@ function submitForm(form, mode, value) {
                     <td colspan="2">
                       <div>
                         <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                        <label><input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"><span>${uiLabelMap.CommonYes}</span></label>
-                        <label><input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"><span>${uiLabelMap.CommonNo}</span></label>
+                        <label><input type="radio" <#if "Y" == shoppingCart.getIsGift()?default("Y")>checked="checked"</#if> name="is_gift" value="true"><span>${uiLabelMap.CommonYes}</span></label>
+                        <label><input type="radio" <#if "N" == shoppingCart.getIsGift()?default("Y")>checked="checked"</#if> name="is_gift" value="false"><span>${uiLabelMap.CommonNo}</span></label>
                       </div>
                     </td>
                   </tr>
@@ -375,7 +375,7 @@ function submitForm(form, mode, value) {
                     </#if>
                   <#else>
                   <#list paymentMethodList as paymentMethod>
-                    <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
+                    <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD??>
                       <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                       <tr>
@@ -390,7 +390,7 @@ function submitForm(form, mode, value) {
                         </td>
                       </tr>
                      </#if>
-                    <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
+                    <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>
                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT??>
                       <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                       <tr>
@@ -404,7 +404,7 @@ function submitForm(form, mode, value) {
                         </td>
                       </tr>
                      </#if>
-                    <#elseif paymentMethod.paymentMethodTypeId == "GIFT_CARD">
+                    <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
                      <#if productStorePaymentMethodTypeIdMap.GIFT_CARD??>
                       <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
 

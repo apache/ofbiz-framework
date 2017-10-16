@@ -218,8 +218,8 @@ under the License.
         <#rt/>
         <#if isTwelveHour>
           <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
-            <option value="AM" <#if amSelected == "selected">selected="selected"</#if> >AM</option><#rt/>
-            <option value="PM" <#if pmSelected == "selected">selected="selected"</#if>>PM</option><#rt/>
+            <option value="AM" <#if "selected" == amSelected>selected="selected"</#if> >AM</option><#rt/>
+            <option value="PM" <#if "selected" == pmSelected>selected="selected"</#if>>PM</option><#rt/>
           </select>
         <#rt/>
       </#if>
@@ -498,7 +498,7 @@ under the License.
     <input id="${name?html}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if dateType != "time">
       <script type="text/javascript">
-        <#if dateType == "date">
+        <#if "date" == dateType>
           jQuery("#${name?html}_fld0_value").datepicker({
         <#else>
           jQuery("#${name?html}_fld0_value").datetimepicker({
@@ -535,7 +535,7 @@ under the License.
     <input id="${name?html}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
     <#if dateType != "time">
       <script type="text/javascript">
-        <#if dateType == "date">
+        <#if "date" == dateType>
           jQuery("#${name?html}_fld1_value").datepicker({
         <#else>
           jQuery("#${name?html}_fld1_value").datetimepicker({
@@ -675,7 +675,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
         <#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/>
         <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
         <#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#if>
-    <#if presentation?has_content && descriptionFieldName?has_content && presentation == "window">
+    <#if presentation?has_content && descriptionFieldName?has_content && "window" == presentation>
       <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},document.${formName?html}.${descriptionFieldName},'${fieldFormName}', '${presentation}'<#rt/>
       <#if targetParameterIter?has_content>
         <#list targetParameterIter as item>
@@ -683,7 +683,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
         </#list>
       </#if>
       );"></a><#rt>
-    <#elseif presentation?has_content && presentation == "window">
+    <#elseif presentation?has_content && "window" == presentation>
       <a href="javascript:call_fieldlookup2(document.${formName?html}.${name?html},'${fieldFormName}', '${presentation}'<#rt/>
       <#if targetParameterIter?has_content>
         <#list targetParameterIter as item>
@@ -697,7 +697,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
         <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
         <#if !ajaxUrl?contains("searchValueFieldName=")>
-          <#if descriptionFieldName?has_content && showDescription == "true">
+          <#if descriptionFieldName?has_content && "true" == showDescription>
             <#local ajaxUrl = ajaxUrl + "&amp;searchValueFieldName=" + descriptionFieldName />
           <#else>
             <#local ajaxUrl = ajaxUrl + "&amp;searchValueFieldName=" + name />
@@ -755,7 +755,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       </a>
     </#if>
   </span>
-  <#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && presentation == "window")>
+  <#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && "window" == presentation)>
     <#if ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
       <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
     </#if>

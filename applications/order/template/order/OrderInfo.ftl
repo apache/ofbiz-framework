@@ -25,7 +25,7 @@ under the License.
             </#if>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", false)/>
             <li class="h3">&nbsp;${(orderType.get("description", locale))?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}&nbsp;<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder!} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
-            <#if currentStatus.statusId == "ORDER_APPROVED" && orderHeader.orderTypeId == "SALES_ORDER">
+            <#if "ORDER_APPROVED" == currentStatus.statusId && "SALES_ORDER" == orderHeader.orderTypeId>
               <li class="h3"><a href="javascript:document.PrintOrderPickSheet.submit()">${uiLabelMap.FormFieldTitle_printPickSheet}</a>
               <form name="PrintOrderPickSheet" method="post" action="<@ofbizUrl>orderPickSheet.pdf</@ofbizUrl>" target="_BLANK">
                 <input type="hidden" name="facilityId" value="${storeFacilityId!}"/>
@@ -34,7 +34,7 @@ under the License.
               </form>
               </li>
             </#if>
-            <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
+            <#if "ORDER_CREATED" == currentStatus.statusId || "ORDER_PROCESSING" == currentStatus.statusId>
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
@@ -47,7 +47,7 @@ under the License.
                 <input type="hidden" name="fromDate" value="${fromDate!}"/>
               </form>
               </li>
-            <#elseif currentStatus.statusId == "ORDER_APPROVED">
+            <#elseif "ORDER_APPROVED" == currentStatus.statusId>
               <li><a href="javascript:document.OrderHold.submit()">${uiLabelMap.OrderHold}</a>
               <form name="OrderHold" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_HOLD"/>
@@ -58,7 +58,7 @@ under the License.
                 <input type="hidden" name="fromDate" value="${fromDate!}"/>
               </form>
               </li>
-            <#elseif currentStatus.statusId == "ORDER_HOLD">
+            <#elseif "ORDER_HOLD" == currentStatus.statusId>
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
@@ -242,9 +242,9 @@ under the License.
                      <form name="setOrderReservationPriority" method="post" action="<@ofbizUrl>setOrderReservationPriority</@ofbizUrl>">
                      <input type = "hidden" name="orderId" value="${orderId}"/>
                     <select name="priority">
-                      <option value="1" <#if (orderHeader.priority)! == "1">selected="selected" </#if>>${uiLabelMap.CommonHigh}</option>
-                      <option value="2" <#if (orderHeader.priority)! == "2">selected="selected" <#elseif !(orderHeader.priority)?has_content>selected="selected"</#if>>${uiLabelMap.CommonNormal}</option>
-                      <option value="3" <#if (orderHeader.priority)! == "3">selected="selected" </#if>>${uiLabelMap.CommonLow}</option>
+                      <option value="1" <#if "1" == (orderHeader.priority)!>selected="selected" </#if>>${uiLabelMap.CommonHigh}</option>
+                      <option value="2" <#if "2" == (orderHeader.priority)!>selected="selected" <#elseif !(orderHeader.priority)?has_content>selected="selected"</#if>>${uiLabelMap.CommonNormal}</option>
+                      <option value="3" <#if "3" == (orderHeader.priority)!>selected="selected" </#if>>${uiLabelMap.CommonLow}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
                     </form>
@@ -259,15 +259,15 @@ under the License.
                  <form name="setInvoicePerShipment" method="post" action="<@ofbizUrl>setInvoicePerShipment</@ofbizUrl>">
                  <input type = "hidden" name="orderId" value="${orderId}"/>
                 <select name="invoicePerShipment">
-                  <option value="Y" <#if (orderHeader.invoicePerShipment)! == "Y">selected="selected" </#if>>${uiLabelMap.CommonYes}</option>
-                  <option value="N" <#if (orderHeader.invoicePerShipment)! == "N">selected="selected" </#if>>${uiLabelMap.CommonNo}</option>
+                  <option value="Y" <#if "Y" == (orderHeader.invoicePerShipment)!>selected="selected" </#if>>${uiLabelMap.CommonYes}</option>
+                  <option value="N" <#if "N" == (orderHeader.invoicePerShipment)!>selected="selected" </#if>>${uiLabelMap.CommonNo}</option>
                 </select>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}"/>
                 </form>
               </td>
             </tr>
             <tr><td colspan="3"><hr /></td></tr>
-            <#if orderHeader.isViewed?has_content && orderHeader.isViewed == "Y">
+            <#if orderHeader.isViewed?has_content && "Y" == orderHeader.isViewed>
             <tr>
               <td class="label">${uiLabelMap.OrderViewed}</td>
               <td width="5%"></td>
