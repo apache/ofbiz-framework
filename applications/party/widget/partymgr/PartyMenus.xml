@@ -337,7 +337,7 @@
     <menu name="CommunicationsMenu">
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
-                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_CREATE"/>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
@@ -350,7 +350,7 @@
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
-                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
@@ -390,7 +390,7 @@
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
                 <and>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_CREATE"/>
                     <if-empty field="communicationEvent"/>
                 </and>
             </condition>
@@ -406,7 +406,7 @@
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <and>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
                     <if-empty field="communicationEvent"/>
                 </and>
             </condition>
@@ -427,8 +427,8 @@
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                     <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -449,8 +449,8 @@
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                     <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -468,8 +468,8 @@
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -489,7 +489,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
                     <if-compare field="projectMgrExists" operator="equals" value="false"/> 
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
@@ -505,7 +505,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
                     <if-compare field="projectMgrExists" operator="equals" value="true"/> 
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
@@ -534,7 +534,7 @@
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
                     <if-compare field="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                 </and>
             </condition>
@@ -550,10 +550,7 @@
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
-                    <or>
-                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
-                        <if-has-permission permission="PARTYMGR_ADMIN"/>
-                    </or>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_DELETE"/>
                 </and>
             </condition>
             <link target="deleteCommunicationEvent">
@@ -688,7 +685,7 @@
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
-                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
             </condition>
@@ -712,10 +709,7 @@
             <condition>
                 <and>
                     <not><if-empty field="communicationEventRole"/></not>
-                    <or>
-                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
-                        <if-has-permission permission="PARTYMGR_ADMIN"/>
-                    </or>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_DELETE"/>
                 </and>
             </condition>
             <link target="RemoveCommunicationEventRole">

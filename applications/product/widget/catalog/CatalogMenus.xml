@@ -603,10 +603,7 @@ under the License.
         </menu-item>
         <menu-item name="ImageUpload" title="${uiLabelMap.CommonUpload}">
             <condition>
-                <or>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_UPLOAD"/>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                </or>
+                <if-has-permission permission="IMAGE_MANAGEMENT" action="_UPLOAD"/>
             </condition>
             <link target="ImageUpload"/>
         </menu-item>
@@ -620,28 +617,19 @@ under the License.
         </menu-item>
         <menu-item name="ImageApprove" title="${uiLabelMap.ImageManagementApprove}">
             <condition>
-                <or>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                </or>
+                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
             </condition>
             <link target="ImageApprove"/>
         </menu-item>
         <menu-item name="ImageRejected" title="${uiLabelMap.CommonRejected}">
             <condition>
-                <or>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                </or>
+                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
             </condition>
             <link target="ImageRejected"/>
         </menu-item>
         <menu-item name="ImageRecentlyApproved" title="${uiLabelMap.ImageManagementRecentlyApproved}">
             <condition>
-                <or>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
-                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                </or>
+                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
             </condition>
             <link target="ImageRecentlyApproved"/>
         </menu-item>
