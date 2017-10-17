@@ -58,12 +58,28 @@ under the License.
         <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSecurityPermissionToSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="SecurityGroupPermission" auth="true">
+        <description>Update a SecurityPermission from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="expireSecurityPermissionToSecurityGroup" engine="entity-auto" invoke="expire" default-entity-name="SecurityGroupPermission" auth="true">
+        <description>Expire a SecurityPermission from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
     <service name="removeSecurityPermissionFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="SecurityGroupPermission" auth="true">
         <description>Remove a SecurityPermission from a SecurityGroup</description>
         <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
     <!-- UserLogin to SecurityGroup services -->

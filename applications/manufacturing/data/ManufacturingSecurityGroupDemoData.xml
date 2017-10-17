@@ -20,11 +20,11 @@ under the License.
 
 <entity-engine-xml>
     <!-- Manufacturing Manager security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MANUFACTURING_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUFACTURING_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="MANUFACTURING_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MANUFACTURING_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="MANUFACTURING_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MANUFACTURING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="MANUFACTURING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="MANUFACTURING_ADMIN"/>
 </entity-engine-xml>

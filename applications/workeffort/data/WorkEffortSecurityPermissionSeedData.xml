@@ -31,5 +31,5 @@ under the License.
     <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
 
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission groupId="SUPER" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="WORKEFFORTMGR_ADMIN"/>
 </entity-engine-xml>

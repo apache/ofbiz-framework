@@ -32,6 +32,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -39,7 +41,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
-        <field name="permissionId" title="${uiLabelMap.PermissionId}"/>
+        <field name="permissionId" title="${uiLabelMap.PermissionId}" required-field="true"/>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -145,10 +149,13 @@ under the License.
         </actions>
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" sort-field="true"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><date-time/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeSecurityPermissionFromSecurityGroup">
                 <parameter param-name="permissionId"/>
                 <parameter param-name="groupId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

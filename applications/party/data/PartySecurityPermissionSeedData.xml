@@ -56,7 +56,7 @@ under the License.
     <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
 
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission groupId="SUPER" permissionId="PARTYMGR_ADMIN"/>
-    <SecurityGroupPermission groupId="SUPER" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_ADMIN"/>
     
     </entity-engine-xml>

@@ -21,42 +21,42 @@ under the License.
 <entity-engine-xml>
     <!-- Party Manager security -->
     <SecurityGroup groupName="Party Admin" description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
-    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
-    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="PARTYADMIN" permissionId="OFBTOOLS_VIEW"/>
 
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PARTYMGR_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_NOTE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_STS_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_GRP_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_REL_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_REL_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_SRC_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_STS_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_GRP_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_REL_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_REL_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_SRC_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_CME_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PARTYMGR_CME_DELETE"/>
 
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_NOTE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="PARTYMGR_ADMIN"/>
 
     <!-- Security Management security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SECURITY_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SECURITY_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SECURITY_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SECURITY_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
 
     <SecurityGroup groupName="Security Admin" description="Security Admin group, has all permissions to modify security settings in party manager." groupId="SECURITYADMIN"/>
-    <SecurityGroupPermission groupId="SECURITYADMIN" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SECURITYADMIN" permissionId="SECURITY_ADMIN"/>
 
 </entity-engine-xml>

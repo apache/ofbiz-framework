@@ -144,8 +144,11 @@ under the License.
       <description>Defines a permission available to a security group; there is no FK to SecurityPermission because we want to leave open the possibility of ad-hoc permissions, especially for the Entity Data Maintenance pages which have TONS of permissions</description>
       <field name="groupId" type="id"></field>
       <field name="permissionId" type="id-long"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <prim-key field="groupId"/>
       <prim-key field="permissionId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="SEC_GRP_PERM_GRP" rel-entity-name="SecurityGroup">
         <key-map field-name="groupId"/>
       </relation>

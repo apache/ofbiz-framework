@@ -20,21 +20,21 @@ under the License.
 
 <entity-engine-xml>
     <!-- Marketing Manager security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MARKETING_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="MARKETING_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MARKETING_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="MARKETING_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MARKETING_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MARKETING_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MARKETING_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="MARKETING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="MARKETING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="MARKETING_ADMIN"/>
 
     <!-- SFA security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SFA_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SFA_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SFA_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SFA_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SFA_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SFA_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="SFA_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SFA_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SFA_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SFA_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SFA_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SFA_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="SFA_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="SFA_ADMIN"/>
     
 </entity-engine-xml>

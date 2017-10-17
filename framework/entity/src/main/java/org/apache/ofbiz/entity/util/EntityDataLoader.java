@@ -30,6 +30,7 @@ import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.config.MainResourceHandler;
 import org.apache.ofbiz.base.config.ResourceHandler;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -293,7 +294,7 @@ public class EntityDataLoader {
                                 baseName + "_ADMIN",
                                 "description",
                                 "Permission to Administer a " + entity.getEntityName() + " entity."));
-                    toBeStored.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FULLADMIN", "permissionId", baseName + "_ADMIN"));
+                    toBeStored.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FULLADMIN", "permissionId", baseName + "_ADMIN", "fromDate", UtilDateTime.nowTimestamp()));
                     rowsChanged += delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
                     errorMessages.add("[generateData] ERROR: Failed Security Generation for entity \"" + baseName + "\"");
