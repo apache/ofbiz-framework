@@ -13392,6 +13392,9 @@
         <value xml:lang="zh">通常应该在送货前批准</value>
         <value xml:lang="zh-TW">通常應該在送貨前核准</value>
     </property>
+    <property key="ProductAqt">
+        <value xml:lang="en">AQT</value>
+    </property>
     <property key="ProductArea">
         <value xml:lang="de">Fläche</value>
         <value xml:lang="en">Area</value>

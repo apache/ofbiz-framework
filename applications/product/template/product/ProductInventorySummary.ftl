@@ -32,6 +32,7 @@ under the License.
                 <td><b>${uiLabelMap.ProductFacility}</b></td>
                 <td><b>${uiLabelMap.ProductAtp}</b></td>
                 <td><b>${uiLabelMap.ProductQoh}</b></td>
+                <td><b>${uiLabelMap.ProductAqt}</b></td>
                 <#if "true" == isMarketingPackage>
                 <td><b>${uiLabelMap.ProductMarketingPackageATP}</b></td>
                 <td><b>${uiLabelMap.ProductMarketingPackageQOH}</b></td>
@@ -48,6 +49,7 @@ under the License.
                     <#assign manufacturingInQuantitySummary = manufacturingInQuantitySummaryByFacility.get(facilityId)!>
                     <#assign manufacturingOutQuantitySummary = manufacturingOutQuantitySummaryByFacility.get(facilityId)!>
                     <#assign totalQuantityOnHand = quantitySummary.totalQuantityOnHand!>
+                    <#assign accountingQuantityTotal = quantitySummary.accountingQuantityTotal!>
                     <#assign totalAvailableToPromise = quantitySummary.totalAvailableToPromise!>
                     <#assign mktgPkgATP = quantitySummary.mktgPkgATP!>
                     <#assign mktgPkgQOH = quantitySummary.mktgPkgQOH!>
@@ -61,6 +63,7 @@ under the License.
                         <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&amp;productId=${productId}&amp;externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></td>
                         <td><#if totalAvailableToPromise??>${totalAvailableToPromise}<#else>&nbsp;</#if></td>
                         <td><#if totalQuantityOnHand??>${totalQuantityOnHand}<#else>&nbsp;</#if></td>
+                        <td><#if accountingQuantityTotal??>${accountingQuantityTotal}<#else>&nbsp;</#if></td>
                         <#if "true" == isMarketingPackage>
                         <td><#if mktgPkgATP??>${mktgPkgATP}<#else>&nbsp;</#if></td>
                         <td><#if mktgPkgQOH??>${mktgPkgQOH}<#else>&nbsp;</#if></td>

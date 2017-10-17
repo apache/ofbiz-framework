@@ -628,6 +628,8 @@ under the License.
 
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
+        <set field="parameters.accountingQuantityTotal" value="0" type="BigDecimal"/>
+
         <iterate list="inventoryItems" entry="inventoryItem">
             <!-- NOTE: this code no longer distinguishes between serialized and non-serialized because both now have availableToPromiseTotal and quantityOnHandTotal populated (for serialized are based on status, non-serialized are based on InventoryItemDetail) -->
             <if>
@@ -651,12 +653,14 @@ under the License.
                 <then>
                     <set field="parameters.quantityOnHandTotal" value="${parameters.quantityOnHandTotal + inventoryItem.quantityOnHandTotal}" type="BigDecimal"/>
                     <set field="parameters.availableToPromiseTotal" value="${parameters.availableToPromiseTotal + inventoryItem.availableToPromiseTotal}" type="BigDecimal"/>
+                    <set field="parameters.accountingQuantityTotal" value="${parameters.accountingQuantityTotal + inventoryItem.accountingQuantityTotal}" type="BigDecimal"/>
                 </then>
             </if>
         </iterate>
 
         <field-to-result field="parameters.availableToPromiseTotal" result-name="availableToPromiseTotal"/>
         <field-to-result field="parameters.quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+        <field-to-result field="parameters.accountingQuantityTotal" result-name="accountingQuantityTotal"/>
     </simple-method>
 
     <simple-method method-name="countProductInventoryOnHand" short-description="Count Inventory On Hand for a Product constrained by a facilityId at a given date." use-transaction="false">
