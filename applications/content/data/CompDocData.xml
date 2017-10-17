@@ -19,11 +19,11 @@ under the License.
 -->
 <entity-engine-xml>
     <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions." groupName="CompDoc Admin"/>
-    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
-    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
-    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
-    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
-    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
 
     <RoleType roleTypeId="APPROVER" description="Approver"/>
     <RoleType roleTypeId="REVIEWER" description="Reviewer"/>

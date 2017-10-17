@@ -19,11 +19,11 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="@base-permission@_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="@base-permission@_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="@base-permission@_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="@base-permission@_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="@base-permission@_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="@base-permission@_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="@base-permission@_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="@base-permission@_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="@base-permission@_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="@base-permission@_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="@base-permission@_ADMIN"/>
 </entity-engine-xml>

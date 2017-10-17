@@ -263,7 +263,7 @@ public final class SecurityFactory {
         @Deprecated
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
-                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).queryOne() != null;
+                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return false;

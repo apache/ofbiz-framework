@@ -35,6 +35,6 @@ under the License.
     <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission groupId="SUPER" permissionId="CONTENTMGR_ADMIN"/>
-    <SecurityGroupPermission groupId="SUPER" permissionId="SEND_CONTROL_APPLET"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SEND_CONTROL_APPLET"/>
 </entity-engine-xml>

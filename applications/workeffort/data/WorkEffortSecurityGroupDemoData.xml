@@ -20,25 +20,25 @@ under the License.
 
 <entity-engine-xml>
     <!-- Work Effort security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
 
     <SecurityGroup groupId="WORKEFFORT_USER" description="WorkEffort user group; all limited workeffort permissions." groupName="WorkEffort User"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_VIEW"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORT_USER" permissionId="OFBTOOLS_VIEW"/>
 
     <SecurityGroup description="WorkEffort Admin group, has all workeffort permissions." groupId="WORKEFFORTADMIN" groupName="WorkEffort Admin"/>
-    <SecurityGroupPermission groupId="WORKEFFORTADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="WORKEFFORTADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
 </entity-engine-xml>

@@ -21,12 +21,12 @@ under the License.
 <entity-engine-xml>
 
     <!-- Facility Manager security -->
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="FACILITY_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="FACILITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
     
 </entity-engine-xml>

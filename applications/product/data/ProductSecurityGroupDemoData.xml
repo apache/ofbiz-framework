@@ -21,49 +21,49 @@ under the License.
 <entity-engine-xml>
     <!-- Catalog Manager security -->
     <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD" groupName="Catalog Admin (Limited)"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
 
     <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN" groupName="Catalog Admin"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
     <!-- NOTE DEJ20070810 where did this come from? has duplicate ID of that above: <SecurityGroup description="Catalog Admin View and Purchase Allow Products" groupId="CATALOGADMIN"/> -->
 
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
 
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
 
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PRICE_MAINT"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
 
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CATALOG_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
 
     <!-- Image Management security -->
     <SecurityGroup description="Image Management Admin." groupId="IMAGEADMIN" groupName="Image Admin"/>
-    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
-    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
-    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
     
     <SecurityGroup description="Image Management Approve" groupId="IMAGEAPPROVE" groupName="Image Approve"/>
-    <SecurityGroupPermission groupId="IMAGEAPPROVE" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMAGEAPPROVE" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
     
     <SecurityGroup description="Image Management Upload." groupId="IMAGEUPLOAD" groupName="Image Load"/>
-    <SecurityGroupPermission groupId="IMAGEUPLOAD" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMAGEUPLOAD" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
     
 </entity-engine-xml>
