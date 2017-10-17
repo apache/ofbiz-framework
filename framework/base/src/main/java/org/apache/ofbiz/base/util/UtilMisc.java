@@ -523,12 +523,12 @@ public final class UtilMisc {
         Locale locale = null;
         if (localeString.length() == 2) {
             // two letter language code
-            locale = new Locale(localeString);
+            locale = new Locale.Builder().setLanguage(localeString).build();
         } else if (localeString.length() == 5) {
             // positions 0-1 language, 3-4 are country
             String language = localeString.substring(0, 2);
             String country = localeString.substring(3, 5);
-            locale = new Locale(language, country);
+            locale = new Locale.Builder().setLanguage(language).setRegion(country).build();
         } else if (localeString.length() > 6) {
             // positions 0-1 language, 3-4 are country, 6 and on are special extensions
             String language = localeString.substring(0, 2);
