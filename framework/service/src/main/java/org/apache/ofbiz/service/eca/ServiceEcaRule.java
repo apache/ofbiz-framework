@@ -55,6 +55,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
         this.eventName = eca.getAttribute("event");
         this.runOnFailure = "true".equals(eca.getAttribute("run-on-failure"));
         this.runOnError = "true".equals(eca.getAttribute("run-on-error"));
+        this.enabled = !"false".equals(eca.getAttribute("enabled"));
 
         for (Element element: UtilXml.childElementList(eca, "condition")) {
             conditions.add(new ServiceEcaCondition(element, true, false));
@@ -197,9 +198,6 @@ public final class ServiceEcaRule implements java.io.Serializable {
                 return false;
             }
             if (this.runOnError != other.runOnError) {
-                return false;
-            }
-            if (this.enabled != other.enabled) {
                 return false;
             }
 
