@@ -994,6 +994,7 @@ under the License.
 	                <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
 	                    <clear-field field="inputMap"/>
 	                    <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
+	                    <set field="inputMap.locationSeqId" from-field="inventoryItemAndLocation.locationSeqId"/>
 	                    <if-empty field="parameters.statusId">
 	                       <set field="inputMap.statusId" value="IXF_REQUESTED"/>
 	                    <else>
@@ -1002,6 +1003,7 @@ under the License.
 	                    </if-empty>
 	                    <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
 	                    <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
+	                    <set field="inputMap.locationSeqIdTo" from-field="parameters.locationSeqIdTo"/>
 	                    <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
 	                    <!-- TODO: inventory transfers for serialized items are not yet implemented -->
 	                    <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
