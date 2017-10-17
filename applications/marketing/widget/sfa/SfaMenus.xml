@@ -199,6 +199,7 @@ under the License.
             <link target="ConvertLead">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
+                <parameter param-name="roleTypeId" value="${parameters.roleTypeId}"/>
             </link>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
