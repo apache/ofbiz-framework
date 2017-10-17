@@ -262,5 +262,13 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="enabled" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
