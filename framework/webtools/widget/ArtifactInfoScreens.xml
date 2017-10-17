@@ -23,7 +23,7 @@ under the License.
     <screen name="ArtifactInfo" transaction-timeout="180">
         <section>
             <condition>
-                <if-has-permission permission="ARTIFACT_INFO_VIEW"/>
+                <if-has-permission permission="ARTIFACT_INFO" action="_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsArtifactInfo"/>
