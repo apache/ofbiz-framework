@@ -27,6 +27,8 @@ import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.ofbiz.base.util.UtilProperties;
+
 @WebListener
 public class WebAppServletContextListener implements ServletContextListener {
 
@@ -40,6 +42,11 @@ public class WebAppServletContextListener implements ServletContextListener {
         SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
         sessionCookieConfig.setHttpOnly(true);
         sessionCookieConfig.setSecure(true);
+        sessionCookieConfig.setComment("Created by Apache OFBiz WebAppServletContextListener");
+        String cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
+        if (cookieDomain.length() > 0) sessionCookieConfig.setDomain(cookieDomain);
+        sessionCookieConfig.setMaxAge(60 * 60 * 24 * 365);
+        sessionCookieConfig.setPath(servletContext.getContextPath());
     }
 
     /* (non-Javadoc)
