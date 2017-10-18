@@ -144,12 +144,7 @@ public class DatabaseUtil {
     protected Connection getConnectionLogged(Collection<String> messages) {
         try {
             return getConnection();
-        } catch (SQLException e) {
-            String message = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
-        } catch (GenericEntityException e) {
+        } catch (SQLException | GenericEntityException e) {
             String message = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
@@ -1153,15 +1148,13 @@ public class DatabaseUtil {
                     int pkCount = 0;
 
                     // first try getting all at once for databases that support that and can generally perform WAY better, if that fails get one at a time so it will at least work
-                    try {
-                        ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, null);
+                    try (ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, null)) {
                         pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                     } catch (Exception e1) {
                         Debug.logInfo("Error getting primary key info from database with null tableName, will try other means: " + e1.toString(), module);
                     }
                     if (pkCount == 0) {
-                        try {
-                            ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, "%");
+                        try (ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, "%")) {
                             pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                         } catch (Exception e1) {
                             Debug.logInfo("Error getting primary key info from database with % tableName, will try other means: " + e1.toString(), module);
@@ -1204,7 +1197,6 @@ public class DatabaseUtil {
 
     public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase, Map<String, Map<String, ColumnCheckInfo>> colInfo, Collection<String> messages) throws SQLException {
         int pkCount = 0;
-        try {
             while (rsPks.next()) {
                 pkCount++;
                 try {
@@ -1239,15 +1231,6 @@ public class DatabaseUtil {
                     continue;
                 }
             }
-        } finally {
-            try {
-                rsPks.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + sqle.toString();
-                Debug.logError(message, module);
-                if (messages != null) messages.add(message);
-            }
-        }
         return pkCount;
     }
 
@@ -1589,19 +1572,6 @@ public class DatabaseUtil {
             return "ERROR: Cannot create table for a view entity";
         }
 
-        Connection connection = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        }
-
         StringBuilder sqlBuf = new StringBuilder("CREATE TABLE ");
         sqlBuf.append(entity.getTableName(this.datasourceInfo));
         sqlBuf.append(" (");
@@ -1704,18 +1674,16 @@ public class DatabaseUtil {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("[createTable] sql=" + sqlBuf.toString(), module);
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+            String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
@@ -1734,11 +1702,6 @@ public class DatabaseUtil {
             return;
         }
 
-        Connection connection = getConnectionLogged(messages);
-        if (connection == null) {
-            return;
-        }
-
         String message = "Deleting table for entity [" + entity.getEntityName() + "]";
         Debug.logImportant(message, module);
         if (messages != null) messages.add(message);
@@ -1746,20 +1709,12 @@ public class DatabaseUtil {
         StringBuilder sqlBuf = new StringBuilder("DROP TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         if (Debug.verboseOn()) Debug.logVerbose("[deleteTable] sql=" + sqlBuf.toString(), module);
-        try (Statement stmt = connection.createStatement()) {
+        try (Connection connection = getConnectionLogged(messages); Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sqlBuf.toString());
         } catch (SQLException e) {
             String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
         }
     }
 
@@ -1768,20 +1723,6 @@ public class DatabaseUtil {
             return "ModelEntity or ModelField where null, cannot add column";
         if (entity instanceof ModelViewEntity) {
             return "ERROR: Cannot add column for a view entity";
-        }
-
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return errMsg;
         }
 
         ModelFieldType type = modelFieldTypeReader.getModelFieldType(field.getType());
@@ -1813,7 +1754,7 @@ public class DatabaseUtil {
 
         String sql = sqlBuf.toString();
         if (Debug.infoOn()) Debug.logInfo("[addColumn] sql=" + sql, module);
-        try (Statement  stmt = connection.createStatement()) {
+        try (Connection connection = getConnection(); Statement  stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             // if that failed try the alternate syntax real quick
@@ -1840,20 +1781,20 @@ public class DatabaseUtil {
 
             String sql2 = sql2Buf.toString();
             if (Debug.infoOn()) Debug.logInfo("[addColumn] sql failed, trying sql2=" + sql2, module);
-            try (Statement  stmt = connection.createStatement()) {
+            try (Connection connection = getConnection(); Statement  stmt = connection.createStatement()) {
                 stmt.executeUpdate(sql2);
             } catch (SQLException e2) {
                 // if this also fails report original error, not this error...
-                return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
+                return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e2.toString();
+            } catch (GenericEntityException e2) {
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e2.toString();
+                Debug.logError(e2, errMsg, module);
+                return errMsg;
             }
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
+        } catch (GenericEntityException e) {
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
         return null;
     }
