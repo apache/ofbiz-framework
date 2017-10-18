@@ -978,6 +978,8 @@ public class RequestHandler {
         // https://wiki.mozilla.org/Security/Features/XSS_Filter 
         // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
         resp.addHeader("X-XSS-Protection","1; mode=block"); 
+        
+        resp.setHeader("Set-Cookie", "SameSite=strict"); // TODO maybe one day the ServletContext will allow to do that, then better in WebAppServletContextListener
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
