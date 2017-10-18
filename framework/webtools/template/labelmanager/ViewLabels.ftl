@@ -16,7 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet-body">
+  <table class="basic-table hover-bar" cellspacing="3">
+      <tr class="header-row">
+        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabelsCount!}</td>
+      </tr>
+  </table>
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
@@ -48,14 +52,12 @@ under the License.
     <#if parameters.searchLabels??>
       <#assign rowNum = "2">
       <#assign rowNumber = 1>
-      <#assign totalLabels = 0>
       <#assign missingLabels = 0>
       <#assign existingLabels = 0>
       <#assign previousKey = "">
       <#list labelsList as labelList>
         <#assign label = labels.get(labelList)>
         <#assign labelKey = label.labelKey>
-        <#assign totalLabels = totalLabels + 1>
         <#if references??>
           <#assign referenceNum = 0>
           <#assign reference = references.get(labelKey)!>
@@ -117,7 +119,7 @@ under the License.
       </#list>
       <tr class="header-row">
         <td/>
-        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabels}</td>
+        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabelsCount!}</td>
         <td colspan="2">
           ${uiLabelMap.WebtoolsLabelStatsExist}:<br />
           ${uiLabelMap.WebtoolsLabelStatsMissing}:
@@ -129,4 +131,3 @@ under the License.
       </tr>
     </#if>
   </table>
-</div>
