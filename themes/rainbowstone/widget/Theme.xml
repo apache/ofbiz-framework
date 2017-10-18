@@ -22,7 +22,7 @@ under the License.
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
-        <visual-theme id="RAINBOWSTONE_SAPHIR" display-name="Rainbow Stone - Saphir">
+        <visual-theme id="RAINBOWSTONE_SAPHIR" display-name="Rainbow Stone - Sapphire">
             <screenshot location="/rainbowstone/images/themeSaphir.png"/>
         </visual-theme>
         <visual-theme id="RAINBOWSTONE_AMBER" display-name="Rainbow Stone - Amber">
