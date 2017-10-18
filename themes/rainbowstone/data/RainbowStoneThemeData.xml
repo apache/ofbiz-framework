@@ -19,13 +19,13 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <VisualTheme visualThemeId="RAINBOWSTONE_SAPHIR" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Saphir"/>
+    <VisualTheme visualThemeId="RAINBOWSTONE_SAPHIR" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Sapphire"/>
     <VisualTheme visualThemeId="RAINBOWSTONE_RUBY" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Ruby"/>
     <VisualTheme visualThemeId="RAINBOWSTONE_EMERALD" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Emerald"/>
     <VisualTheme visualThemeId="RAINBOWSTONE_AMBER" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Amber"/>
     <delete>
     <!-- These files are not set in Theme.xml, these are including using layoutSettings.VT_STYLESHEET_LESS -->
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-saphir.less" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-Sapphire.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-ruby.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-emerald.less" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-amber.less" sequenceId="01"/>
