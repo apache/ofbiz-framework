@@ -981,8 +981,6 @@ public class RequestHandler {
         // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
         resp.addHeader("X-XSS-Protection","1; mode=block"); 
         
-        resp.setHeader("Set-Cookie", "SameSite=strict"); // TODO maybe one day the ServletContext will allow to do that, then better in WebAppServletContextListener
-
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
         
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
