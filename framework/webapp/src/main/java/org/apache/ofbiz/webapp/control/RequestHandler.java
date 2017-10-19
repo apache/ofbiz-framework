@@ -947,6 +947,8 @@ public class RequestHandler {
            if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
         }
         
+        // Security headers vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers
         String xFrameOption = viewMap.xFrameOption;
         // default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {
@@ -980,6 +982,12 @@ public class RequestHandler {
         resp.addHeader("X-XSS-Protection","1; mode=block"); 
         
         resp.setHeader("Set-Cookie", "SameSite=strict"); // TODO maybe one day the ServletContext will allow to do that, then better in WebAppServletContextListener
+
+        resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
+        
+        // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
+        
+        // Security headers ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
