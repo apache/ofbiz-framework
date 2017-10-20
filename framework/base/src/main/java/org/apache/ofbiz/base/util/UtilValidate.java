@@ -30,7 +30,6 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.base.util.UtilMisc;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -1147,7 +1146,7 @@ public final class UtilValidate {
      *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096(16 digits)
      *   @return  true, if the credit card number is a valid Switch card number, false otherwise
      */
-    public static boolean isswitch (String cc) {
+    public static boolean isSwitch(String cc) {
         String first4digs = cc.substring(0, 4);
         String first6digs = cc.substring(0, 6);
 
@@ -1156,8 +1155,8 @@ public final class UtilValidate {
                 "4905".equals(first4digs) ||
                 "4911".equals(first4digs) ||
                 "4936".equals(first4digs) ||
-                "564182".equals(first4digs) ||
-                "633110".equals(first4digs) ||
+                "564182".equals(first6digs) ||
+                "633110".equals(first6digs) ||
                 "6333".equals(first4digs) ||
                 "6759".equals(first4digs)))
             return isCreditCard(cc);
@@ -1187,11 +1186,11 @@ public final class UtilValidate {
 
         if ((cc.length() == 16) &&
             ("417500".equals(first6digs) ||
-                "4917".equals(first6digs) ||
-                "4913".equals(first6digs) ||
-                "4508".equals(first6digs) ||
-                "4844".equals(first6digs) ||
-                "4027".equals(first6digs)))
+                "4917".equals(first4digs) ||
+                "4913".equals(first4digs) ||
+                "4508".equals(first4digs) ||
+                "4844".equals(first4digs) ||
+                "4027".equals(first4digs)))
             return isCreditCard(cc);
         return false;
     }
@@ -1208,7 +1207,7 @@ public final class UtilValidate {
 
         if (!isCreditCard(cc)) return false;
         if (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isswitch (cc)|| isVisaElectron(cc))
+                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch (cc)|| isVisaElectron(cc))
             return true;
         return false;
     }
@@ -1231,7 +1230,7 @@ public final class UtilValidate {
         if (isEnRoute(cc)) return "CCT_ENROUTE";
         if (isJCB(cc)) return "CCT_JCB";
         if (isSolo(cc)) return "CCT_SOLO";
-        if (isswitch (cc)) return "CCT_SWITCH";
+        if (isSwitch (cc)) return "CCT_SWITCH";
         if (isVisaElectron(cc)) return "CCT_VISAELECTRON";
         return "Unknown";
     }
@@ -1255,7 +1254,7 @@ public final class UtilValidate {
         if (("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber))) return true;
         if (("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber))) return true;
         if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) return true;
-        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isswitch (cardNumber))) return true;
+        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) return true;
         if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) return true;
         return false;
     }
