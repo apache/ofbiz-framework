@@ -72,7 +72,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     public static List<ModelAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
-        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelNode, actionElement));
@@ -87,7 +87,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     public static List<ModelAction> readSubNodeActions(ModelNode.ModelSubNode modelSubNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
-        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelSubNode, actionElement));
@@ -289,7 +289,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
         public void runAction(Map<String, Object> context) {
             context.put("_LIST_ITERATOR_", null);
             if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = new HashMap<String, Object>();
+                Map<String, Object> localContext = new HashMap<>();
                 localContext.putAll(context);
                 DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
@@ -400,7 +400,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                     serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext()
                             .makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = new HashMap<String, Object>();
+                    serviceContext = new HashMap<>();
                 }
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);

@@ -118,7 +118,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     public static List<ModelAction> readSubActions(ModelWidget modelWidget, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             actions.add(newInstance(modelWidget, actionElement));
         }
@@ -618,7 +618,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         @Override
         public void runAction(Map<String, Object> context) throws GeneralException {
             if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = new HashMap<String, Object>();
+                Map<String, Object> localContext = new HashMap<>();
                 localContext.putAll(context);
                 DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
@@ -682,7 +682,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if ("true".equals(autoFieldMapString)) {
                     DispatchContext dc = WidgetWorker.getDispatcher(context).getDispatchContext();
                     // try a map called "parameters", try it first so values from here are overriden by values in the main context
-                    Map<String, Object> combinedMap = new HashMap<String, Object>();
+                    Map<String, Object> combinedMap = new HashMap<>();
                     Map<String, Object> parametersObj = UtilGenerics.toMap(context.get("parameters"));
                     if (parametersObj != null) {
                         combinedMap.putAll(parametersObj);
@@ -698,7 +698,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     }
                 }
                 if (serviceContext == null) {
-                    serviceContext = new HashMap<String, Object>();
+                    serviceContext = new HashMap<>();
                 }
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
@@ -769,7 +769,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
             List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
-            List<String> trailList = new ArrayList<String>();
+            List<String> trailList = new ArrayList<>();
             if (currentWidgetTrail != null) {
                 trailList.addAll(currentWidgetTrail);
             }

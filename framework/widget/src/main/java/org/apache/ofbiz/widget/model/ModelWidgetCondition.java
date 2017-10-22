@@ -94,7 +94,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     public static List<Condition> readSubConditions(ConditionFactory factory, ModelWidget modelWidget, Element conditionElement) {
         List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
-        List<Condition> condList = new ArrayList<Condition>(subElementList.size());
+        List<Condition> condList = new ArrayList<>(subElementList.size());
         for (Element subElement : subElementList) {
             condList.add(factory.newInstance(modelWidget, subElement));
         }
@@ -227,7 +227,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldVal == null) {
                 fieldVal = "";
             }
-            List<Object> messages = new LinkedList<Object>();
+            List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value ["
@@ -280,7 +280,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldVal == null) {
                 fieldVal = "";
             }
-            List<Object> messages = new LinkedList<Object>();
+            List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null,
                     false);
             if (messages.size() > 0) {
@@ -479,29 +479,28 @@ public abstract class ModelWidgetCondition implements Serializable {
                     Debug.logError(e, module);
                     return false;
                 }
-                if (permService != null) {
-                    // build the context
-                    Map<String, Object> svcCtx = permService.makeValid(serviceContext, ModelService.IN_PARAM);
-                    svcCtx.put("resourceDescription", resource);
-                    if (UtilValidate.isNotEmpty(mainAction)) {
-                        svcCtx.put("mainAction", mainAction);
-                    }
-                    // invoke the service
-                    Map<String, Object> resp;
-                    try {
-                        resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return false;
-                    }
-                    if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(resp), module);
-                        return false;
-                    }
-                    Boolean hasPermission = (Boolean) resp.get("hasPermission");
-                    if (hasPermission != null) {
-                        return hasPermission.booleanValue();
-                    }
+                // build the context
+                Map<String, Object> svcCtx = permService.makeValid(serviceContext, ModelService.IN_PARAM);
+                svcCtx.put("resourceDescription", resource);
+                if (UtilValidate.isNotEmpty(mainAction)) {
+                    svcCtx.put("mainAction", mainAction);
+                }
+                // invoke the service
+                Map<String, Object> resp;
+                try {
+                    resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
+                }
+                catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return false;
+                }
+                if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                    return false;
+                }
+                Boolean hasPermission = (Boolean) resp.get("hasPermission");
+                if (hasPermission != null) {
+                    return hasPermission.booleanValue();
                 }
             }
             return false;
@@ -639,9 +638,8 @@ public abstract class ModelWidgetCondition implements Serializable {
                     if (foundOneTrue) {
                         // now found two true, so return false
                         return false;
-                    } else {
-                        foundOneTrue = true;
                     }
+                    foundOneTrue = true;
                 }
             }
             return foundOneTrue;

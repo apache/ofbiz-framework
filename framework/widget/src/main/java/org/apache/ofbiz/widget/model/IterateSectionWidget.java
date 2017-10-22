@@ -56,8 +56,8 @@ import org.w3c.dom.Element;
 public class IterateSectionWidget extends ModelScreenWidget {
 
     public static final String module = IterateSectionWidget.class.getName();
-    public static int DEFAULT_PAGE_SIZE = 5;
-    public static int MAX_PAGE_SIZE = 10000;
+    public static final int DEFAULT_PAGE_SIZE = 5;
+    public static final int MAX_PAGE_SIZE = 10000;
 
     private final List<ModelScreenWidget.Section> sectionList;
     private final FlexibleMapAccessor<Object> listNameExdr;
@@ -96,7 +96,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (childElementList.isEmpty()) {
             this.sectionList = Collections.emptyList();
         } else {
-            List<ModelScreenWidget.Section> sectionList = new ArrayList<ModelScreenWidget.Section>(childElementList.size());
+            List<ModelScreenWidget.Section> sectionList = new ArrayList<>(childElementList.size());
             for (Element sectionElement: childElementList) {
                 ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement, false);
                 sectionList.add(section);
@@ -112,7 +112,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     @Override
     public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         int viewIndex = 0;
-        int viewSize = this.viewSize;
+        int locViewSize = this.viewSize;
         int lowIndex = -1;
         int highIndex = -1;
         int listSize = 0;
@@ -151,7 +151,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 String viewIndexString = params.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
                 String viewSizeString = params.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
                 viewIndex = Integer.parseInt(viewIndexString);
-                viewSize = Integer.parseInt(viewSizeString);
+                locViewSize = Integer.parseInt(viewSizeString);
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 try {
                     viewIndex = ((Integer) context.get("viewIndex")).intValue();
@@ -160,11 +162,11 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 }
             }
             context.put("viewIndex", Integer.valueOf(viewIndex));
-            lowIndex = viewIndex * viewSize;
-            highIndex = (viewIndex + 1) * viewSize;
+            lowIndex = viewIndex * locViewSize;
+            highIndex = (viewIndex + 1) * locViewSize;
         } else {
             viewIndex = 0;
-            viewSize = MAX_PAGE_SIZE;
+            locViewSize = MAX_PAGE_SIZE;
             lowIndex = 0;
             highIndex = MAX_PAGE_SIZE;
         }
@@ -231,9 +233,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public boolean getPaginate(Map<String, Object> context) {
         if (!this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
             return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
-        } else {
-            return true;
         }
+        return true;
     }
 
     public int getViewSize() {

@@ -104,7 +104,7 @@ public class ModelMenu extends ModelWidget {
     /** XML Constructor */
     public ModelMenu(Element menuElement, String menuLocation) {
         super(menuElement);
-        ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
+        ArrayList<ModelAction> actions = new ArrayList<>();
         String defaultAlign = "";
         String defaultAlignStyle = "";
         FlexibleStringExpander defaultAssociatedContentId = FlexibleStringExpander.getInstance("");
@@ -123,8 +123,8 @@ public class ModelMenu extends ModelWidget {
         String fillStyle = "";
         String id = "";
         FlexibleStringExpander menuContainerStyleExdr = FlexibleStringExpander.getInstance("");
-        ArrayList<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
-        Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
+        ArrayList<ModelMenuItem> menuItemList = new ArrayList<>();
+        Map<String, ModelMenuItem> menuItemMap = new HashMap<>();
         String menuWidth = "";
         String orientation = "horizontal";
         FlexibleMapAccessor<String> selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance("");

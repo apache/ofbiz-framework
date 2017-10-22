@@ -86,8 +86,8 @@ public class ModelFormFieldBuilder {
     private FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr = null;
     private ModelForm modelForm = null;
     private String name = "";
-    private List<UpdateArea> onChangeUpdateAreas = new ArrayList<UpdateArea>();
-    private List<UpdateArea> onClickUpdateAreas = new ArrayList<UpdateArea>();
+    private List<UpdateArea> onChangeUpdateAreas = new ArrayList<>();
+    private List<UpdateArea> onClickUpdateAreas = new ArrayList<>();
     private String parameterName = "";
     private Integer position = null;
     private String redWhen = "";
@@ -568,7 +568,7 @@ public class ModelFormFieldBuilder {
                         Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("indicator".equals(modelField.getType())) {
-                List<OptionSource> optionSources = new ArrayList<OptionSource>();
+                List<OptionSource> optionSources = new ArrayList<>();
                 optionSources.add(new ModelFormField.SingleOption("Y", null, null));
                 optionSources.add(new ModelFormField.SingleOption("N", null, null));
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
@@ -616,13 +616,11 @@ public class ModelFormFieldBuilder {
             return false;
         try {
             ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
-            if (modelEntity != null) {
-                ModelField modelField = modelEntity.getField(this.getFieldName());
-                if (modelField != null) {
-                    // okay, populate using the entity field info...
-                    this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-                    return true;
-                }
+            ModelField modelField = modelEntity.getField(this.getFieldName());
+            if (modelField != null) {
+                // okay, populate using the entity field info...
+                this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
+                return true;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -692,20 +690,18 @@ public class ModelFormFieldBuilder {
             return false;
         try {
             ModelService modelService = dispatchContext.getModelService(this.getServiceName());
-            if (modelService != null) {
-                ModelParam modelParam = modelService.getParam(this.getAttributeName());
-                if (modelParam != null) {
-                    if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
-                        this.entityName = modelParam.entityName;
-                        this.fieldName = modelParam.fieldName;
-                        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
-                            return true;
-                        }
+            ModelParam modelParam = modelService.getParam(this.getAttributeName());
+            if (modelParam != null) {
+                if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
+                    this.entityName = modelParam.entityName;
+                    this.fieldName = modelParam.fieldName;
+                    if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
+                        return true;
                     }
-
-                    this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
-                    return true;
                 }
+
+                this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
+                return true;
             }
         } catch (GenericServiceException e) {
             Debug.logError(e,

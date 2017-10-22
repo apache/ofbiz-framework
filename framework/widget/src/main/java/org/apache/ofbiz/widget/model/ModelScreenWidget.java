@@ -80,7 +80,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         if (subElementList.isEmpty()) {
             return Collections.emptyList();
         }
-        List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(subElementList.size());
+        List<ModelScreenWidget> subWidgets = new ArrayList<>(subElementList.size());
         for (Element subElement: subElementList) {
             subWidgets.add(WidgetFactory.getModelScreenWidget(modelScreen, subElement));
         }
@@ -111,7 +111,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public SectionsRenderer(Map<String, ModelScreenWidget> sectionMap, Map<String, Object> context, Appendable writer,
                 ScreenStringRenderer screenStringRenderer) {
-            Map<String, ModelScreenWidget> localMap = new HashMap<String, ModelScreenWidget>();
+            Map<String, ModelScreenWidget> localMap = new HashMap<>();
             localMap.putAll(sectionMap);
             this.sectionMap = Collections.unmodifiableMap(localMap);
             this.context = context;
@@ -307,9 +307,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public String getBoundaryCommentName() {
             if (isMainSection) {
                 return getModelScreen().getSourceLocation() + "#" + getModelScreen().getName();
-            } else {
-                return getName();
             }
+            return getName();
         }
 
         public List<ModelAction> getActions() {
@@ -344,7 +343,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.idExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("id"));
             this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
             List<? extends Element> subElementList = UtilXml.childElementList(containerElement, "column");
-            List<Column> columns = new ArrayList<Column>(subElementList.size());
+            List<Column> columns = new ArrayList<>(subElementList.size());
             for (Element element : subElementList) {
                 columns.add(new Column(modelScreen, element));
             }
@@ -540,7 +539,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
             List<? extends Element> subElementList = UtilXml.childElementList(screenletElement);
             // Make a copy of the unmodifiable List so we can modify it.
-            List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList));
+            List<ModelScreenWidget> subWidgets = new ArrayList<>(ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList));
             Menu navigationMenu = null;
             String navMenuName = screenletElement.getAttribute("navigation-menu-name");
             if (!navMenuName.isEmpty()) {
@@ -760,7 +759,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 // build the widgetpath
                 List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 if (widgetTrail == null) {
-                    widgetTrail = new LinkedList<String>();
+                    widgetTrail = new LinkedList<>();
                 }
 
                 String thisName = nameExdr.expandString(context);
@@ -826,7 +825,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             super(modelScreen, decoratorScreenElement);
             this.nameExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("location"));
-            Map<String, ModelScreenWidget> sectionMap = new HashMap<String, ModelScreenWidget>();
+            Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
             List<? extends Element> decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
             for (Element decoratorSectionElement: decoratorSectionElementList) {
                 DecoratorSection decoratorSection = new DecoratorSection(modelScreen, decoratorSectionElement);
@@ -1153,6 +1152,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String location = this.getLocation(context);
             try {
                 modelForm = GridFactory.getGridFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(), getModelScreen().getDispatcher(context).getDispatchContext());
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
@@ -1284,7 +1285,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
             super(modelScreen, platformSpecificElement);
-            Map<String, ModelScreenWidget> subWidgets = new HashMap<String, ModelScreenWidget>();
+            Map<String, ModelScreenWidget> subWidgets = new HashMap<>();
             List<? extends Element> childElements = UtilXml.childElementList(platformSpecificElement);
             if (childElements != null) {
                 for (Element childElement: childElements) {
