@@ -442,7 +442,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String enableEditName = content.getEnableEditName(context);
         String enableEditValue = (String)context.get(enableEditName);
         String urlString = "";
-        if (editRequest != null && editRequest.toUpperCase().indexOf("IMAGE") > 0) {
+        if (editRequest != null && editRequest.toUpperCase(Locale.getDefault()).indexOf("IMAGE") < 0) {
             editMode += " Image";
         }
 
@@ -450,7 +450,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             if (request != null && response != null) {
-                if (editRequest.indexOf("?") < 0)  editRequest += "?";
+                if (editRequest.indexOf('?') < 0)
+                    editRequest += "?";
                 else editRequest += "&amp;";
                 editRequest += "contentId=" + expandedContentId;
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
@@ -554,14 +555,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String expandedContentId = content.getContentId(context);
          String expandedMapKey = content.getMapKey(context);
          String urlString = "";
-         if (editRequest != null && editRequest.toUpperCase().indexOf("IMAGE") > 0) {
+        if (editRequest != null && !(editRequest.toUpperCase(Locale.getDefault()).indexOf("IMAGE") < 1)) {
              editMode += " Image";
          }
          if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
              HttpServletResponse response = (HttpServletResponse) context.get("response");
              HttpServletRequest request = (HttpServletRequest) context.get("request");
              if (request != null && response != null) {
-                 if (editRequest.indexOf("?") < 0)  editRequest += "?";
+                if (editRequest.indexOf('?') < 0)
+                    editRequest += "?";
                  else editRequest += "&amp;";
                  editRequest += "contentId=" + expandedContentId;
                  if (UtilValidate.isNotEmpty(expandedMapKey)) {
@@ -728,7 +730,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
             ofLabel = uiLabelMap.get("CommonOf");
-            ofLabel = ofLabel.toLowerCase();
+            ofLabel = ofLabel.toLowerCase(Locale.getDefault());
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
@@ -759,7 +761,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         // preparing the link text, so that later in the code we can reuse this and just add the viewIndex
         String prepLinkText = "";
         prepLinkText = targetService;
-        if (prepLinkText.indexOf("?") < 0) {
+        if (prepLinkText.indexOf('?') < 0) {
             prepLinkText += "?";
         } else if (!prepLinkText.endsWith("?")) {
             prepLinkText += "&amp;";
@@ -870,7 +872,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String addPortletHint = "";
         String colWidthLabel = "";
         String setColumnSizeHint = "";
-        
+
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
@@ -917,7 +919,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(setColumnSizeHint);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-    }   
+    }
 
     public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
         StringWriter sr = new StringWriter();
@@ -1024,7 +1026,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 throw new RuntimeException(errMsg);
             }
         }
-        modelScreen.renderScreenString(writer, context, this);
+        if (writer != null && context != null) {
+            modelScreen.renderScreenString(writer, context, this);
+        } else {
+            Debug.logError("Null on some Path: writer" + writer + ", context: " + context, module);
+        }
     }
 
     @Override
@@ -1059,7 +1065,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
         executeMacro(writer, "<@renderColumnContainerEnd />");
     }
-    
+
     // This is a util method to get the style from a property file
     public static String getFoStyle(String styleName) {
         String value = UtilProperties.getPropertyValue("fo-styles", styleName);
