@@ -113,6 +113,6 @@ public abstract class AbstractJob implements Job {
 
     @Override
     public Date getStartTime() {
-        return startTime;
+        return (Date) startTime.clone();
     }
 }
