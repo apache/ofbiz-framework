@@ -74,9 +74,10 @@ public class FormRenderer {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String retVal = FlexibleStringExpander.expandString(modelForm.getContainerId(), context, locale);
         Integer itemIndex = (Integer) context.get("itemIndex");
-        if (itemIndex != null/* && "list".equals(modelForm.getType())*/) {
+        if (itemIndex != null/* && "list".equals(modelForm.getType()) */) {
             if (UtilValidate.isNotEmpty(context.get("parentItemIndex"))) {
-                return retVal + context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+                return retVal + context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + itemIndex
+                        .intValue();
             }
             return retVal + modelForm.getItemIndexSeparator() + itemIndex.intValue();
         }
@@ -171,6 +172,9 @@ public class FormRenderer {
                     hiddenIgnoredFieldList.add(modelFormField);
                     // don't add to already rendered here, or the hyperlink won't ger rendered: if (alreadyRendered != null) alreadyRendered.add(modelFormField.getName());
                 }
+                break;
+
+            default:
                 break;
             }
         }
@@ -514,6 +518,8 @@ public class FormRenderer {
             case FieldInfo.DISPLAY_ENTITY:
             case FieldInfo.HYPERLINK:
                 formStringRenderer.renderHiddenField(writer, context, modelFormField, modelFormField.getEntry(context));
+                break;
+            default:
                 break;
             }
         }
@@ -1060,7 +1066,6 @@ public class FormRenderer {
                     nextFormField = null;
                 } else {
                     // at the end...
-                    lastFormField = currentFormField;
                     currentFormField = null;
                     // nextFormField is already null
                     break;
@@ -1143,11 +1148,6 @@ public class FormRenderer {
                     nextPositionInRow = Integer.valueOf(nextFormField.getPosition());
                 } else {
                     positionSpan = positions - currentFormField.getPosition();
-                    if (!stayingOnRow && nextFormField.getPosition() > 1) {
-                        // TODO: here is a weird case where it is setup such
-                        //that the first position(s) in the row are skipped
-                        // not sure what to do about this right now...
-                    }
                 }
             }
 
