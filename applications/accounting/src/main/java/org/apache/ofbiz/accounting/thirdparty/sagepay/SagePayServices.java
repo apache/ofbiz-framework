@@ -24,8 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-
+import java.util.Map.Entry;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -58,11 +57,12 @@ public class SagePayServices
             try {
                 GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (sagePay != null) {
-                    Map<String, Object> tmp = sagePay.getAllFields();
-                    Set<String> keys = tmp.keySet();
-                    for (String key : keys) {
-                        String value = tmp.get(key).toString();
-                        sagePayConfig.put(key, value);
+                    for (Entry<String, Object> set : sagePay.entrySet()) {
+                        if(set.getValue() == null){
+                            sagePayConfig.put(set.getKey(), null);
+                        } else {
+                            sagePayConfig.put(set.getKey(), set.getValue().toString());
+                        }
                     }
                 }
             } catch (GenericEntityException e) {
@@ -129,8 +129,22 @@ public class SagePayServices
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
         String txType = props.get("authenticationTransType");
-
+        
         //start - required parameters
+        StringBuilder errorRequiredParameters = new StringBuilder();
+        if(vpsProtocol == null){
+            errorRequiredParameters.append("Required transaction parameter 'protocolVersion' is missing. ");
+        }
+        if(vendor == null){
+            errorRequiredParameters.append("Required transaction parameter 'vendor' is missing. ");
+        }
+        if(txType == null){
+            errorRequiredParameters.append("Required transaction parameter 'authenticationsTransType' is missing. ");
+        }
+        if(errorRequiredParameters.length() > 0){
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
+        }
+        
         parameters.put("VPSProtocol", vpsProtocol);
         parameters.put("TxType", txType);
         parameters.put("Vendor", vendor);
