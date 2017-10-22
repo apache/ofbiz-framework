@@ -46,7 +46,7 @@ public abstract class ModelFormAction {
 
     public static List<ModelAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : UtilXml.childElementList(parentElement)) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelForm, actionElement));
@@ -138,7 +138,7 @@ public abstract class ModelFormAction {
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
-            FlexibleStringExpander resultMapListNameExdr = FlexibleStringExpander.getInstance("");
+            FlexibleStringExpander resultMapListNameExdr;
             if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list"))
                     && UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-name"))) {
                 if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator"))
@@ -196,7 +196,7 @@ public abstract class ModelFormAction {
                                 .makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                     }
                 } else {
-                    serviceContext = new HashMap<String, Object>();
+                    serviceContext = new HashMap<>();
                 }
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);

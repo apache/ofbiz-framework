@@ -74,7 +74,7 @@ public class ModelMenuItem extends ModelWidget {
     private final String disableIfEmpty;
     private final String entityName;
     private final Boolean hideIfSelected;
-    private final MenuLink link;
+    protected final MenuLink link;
     private final List<ModelMenuItem> menuItemList;
     private final ModelMenu modelMenu;
     private final String overrideName;
@@ -143,8 +143,8 @@ public class ModelMenuItem extends ModelWidget {
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
         List<? extends Element> itemElements = UtilXml.childElementList(menuItemElement, "menu-item");
         if (!itemElements.isEmpty()) {
-            ArrayList<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
-            Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
+            ArrayList<ModelMenuItem> menuItemList = new ArrayList<>();
+            Map<String, ModelMenuItem> menuItemMap = new HashMap<>();
             for (Element itemElement : itemElements) {
                 ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, modelMenu, this);
                 addUpdateMenuItem(modelMenuItem, menuItemList, menuItemMap);
@@ -320,7 +320,7 @@ public class ModelMenuItem extends ModelWidget {
         if (this.associatedContentId != null) {
             retStr = associatedContentId.expandString(context);
         }
-        if (retStr.isEmpty()) {
+        if (retStr == null || retStr.isEmpty()) {
             retStr = this.modelMenu.getDefaultAssociatedContentId(context);
         }
         return retStr;
@@ -329,9 +329,8 @@ public class ModelMenuItem extends ModelWidget {
     public String getCellWidth() {
         if (!this.cellWidth.isEmpty()) {
             return this.cellWidth;
-        } else {
-            return this.modelMenu.getDefaultCellWidth();
         }
+        return this.modelMenu.getDefaultCellWidth();
     }
 
     public ModelMenuCondition getCondition() {
@@ -365,9 +364,8 @@ public class ModelMenuItem extends ModelWidget {
     public Boolean getHideIfSelected() {
         if (hideIfSelected != null) {
             return this.hideIfSelected;
-        } else {
-            return this.modelMenu.getDefaultHideIfSelected();
         }
+        return this.modelMenu.getDefaultHideIfSelected();
     }
 
     public MenuLink getLink() {
@@ -409,9 +407,8 @@ public class ModelMenuItem extends ModelWidget {
     public int getPosition() {
         if (this.position == null) {
             return 1;
-        } else {
-            return position.intValue();
         }
+        return position.intValue();
     }
 
     public String getSelectedStyle() {
@@ -453,9 +450,8 @@ public class ModelMenuItem extends ModelWidget {
     public String getTooltip(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(tooltip)) {
             return tooltip.expandString(context);
-        } else {
-            return "";
         }
+        return "";
     }
 
     public String getTooltipStyle() {
@@ -529,7 +525,7 @@ public class ModelMenuItem extends ModelWidget {
 
         public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
             this.linkMenuItem = parentMenuItem;
-            List<Parameter> parameterList = new ArrayList<Parameter>();
+            List<Parameter> parameterList = new ArrayList<>();
             if (parentMenuItem.link != null) {
                 parameterList.addAll(parentMenuItem.link.getParameterList());
             }

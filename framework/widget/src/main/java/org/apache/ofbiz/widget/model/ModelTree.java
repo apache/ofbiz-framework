@@ -84,9 +84,9 @@ public class ModelTree extends ModelWidget {
     private final String defaultRenderStyle;
     private final FlexibleStringExpander defaultWrapStyleExdr;
     private final FlexibleStringExpander expandCollapseRequestExdr;
-    private final boolean forceChildCheck;
+    protected final boolean forceChildCheck;
     private final String location;
-    private final Map<String, ModelNode> nodeMap;
+    protected final Map<String, ModelNode> nodeMap;
     private final int openDepth;
     private final int postTrailOpenDepth;
     private final String rootNodeName;
@@ -134,7 +134,7 @@ public class ModelTree extends ModelWidget {
         if (nodeElements.size() == 0) {
             throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
         }
-        Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
+        Map<String, ModelNode> nodeMap = new HashMap<>();
         for (Element nodeElementEntry : UtilXml.childElementList(treeElement, "node")) {
             ModelNode node = new ModelNode(nodeElementEntry, this);
             String nodeName = node.getName();
@@ -171,7 +171,7 @@ public class ModelTree extends ModelWidget {
         if (UtilValidate.isEmpty(expColReq)) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             String s1 = request.getRequestURI();
-            int pos = s1.lastIndexOf("/");
+            int pos = s1.lastIndexOf('/');
             if (pos >= 0)
                 expColReq = s1.substring(pos + 1);
             else
@@ -180,11 +180,11 @@ public class ModelTree extends ModelWidget {
         //append also the request parameters
         Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
         if (UtilValidate.isNotEmpty(paramMap)) {
-            Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
+            Map<String, Object> requestParameters = new HashMap<>(paramMap);
             requestParameters.remove(this.getTrailName(context));
             if (UtilValidate.isNotEmpty(requestParameters)) {
                 String queryString = UtilHttp.urlEncodeArgs(requestParameters, false);
-                if (expColReq.indexOf("?") < 0) {
+                if (expColReq.indexOf('?') < 0) {
                     expColReq += "?";
                 } else {
                     expColReq += "&amp;";
@@ -244,7 +244,7 @@ public class ModelTree extends ModelWidget {
             context.put("rootEntityId", trail.get(0));
             context.put(getDefaultPkName(context), trail.get(0));
         } else {
-            trail = new LinkedList<String>();
+            trail = new LinkedList<>();
         }
         context.put("targetNodeTrail", trail);
         context.put("currentNodeTrail", new LinkedList());
@@ -319,7 +319,7 @@ public class ModelTree extends ModelWidget {
             this.entryName = nodeElement.getAttribute("entry-name");
             this.entityName = nodeElement.getAttribute("entity-name");
             this.pkName = nodeElement.getAttribute("join-field-name");
-            ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
+            ArrayList<ModelAction> actions = new ArrayList<>();
             // FIXME: Validate child elements, should be only one of actions, entity-one, service, script.
             Element actionsElement = UtilXml.firstChildElement(nodeElement, "actions");
             if (actionsElement != null) {
@@ -369,7 +369,7 @@ public class ModelTree extends ModelWidget {
             }
             List<? extends Element> nodeElements = UtilXml.childElementList(nodeElement, "sub-node");
             if (!nodeElements.isEmpty()) {
-                List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
+                List<ModelSubNode> subNodeList = new ArrayList<>();
                 for (Element subNodeElementEntry : nodeElements) {
                     ModelSubNode subNode = new ModelSubNode(subNodeElementEntry, this);
                     subNodeList.add(subNode);
@@ -386,7 +386,7 @@ public class ModelTree extends ModelWidget {
         }
 
         private List<Object[]> getChildren(Map<String, Object> context) {
-            List<Object[]> subNodeValues = new ArrayList<Object[]>();
+            List<Object[]> subNodeValues = new ArrayList<>();
             for (ModelSubNode subNode : subNodeList) {
                 String nodeName = subNode.getNodeName(context);
                 ModelNode node = modelTree.nodeMap.get(nodeName);
@@ -420,9 +420,8 @@ public class ModelTree extends ModelWidget {
         public String getEntityName() {
             if (!this.entityName.isEmpty()) {
                 return this.entityName;
-            } else {
-                return this.modelTree.getDefaultEntityName();
             }
+            return this.modelTree.getDefaultEntityName();
         }
 
         public String getEntryName() {
@@ -440,9 +439,8 @@ public class ModelTree extends ModelWidget {
         public String getPkName(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.pkName)) {
                 return this.pkName;
-            } else {
-                return this.modelTree.getDefaultPkName(context);
             }
+            return this.modelTree.getDefaultPkName(context);
         }
 
         public String getRenderStyle() {
@@ -525,9 +523,7 @@ public class ModelTree extends ModelWidget {
                 }
             } else if (nodeCount == null) {
                 getChildren(context);
-                if (subNodeValues != null) {
-                    nodeCount = Long.valueOf(subNodeValues.size());
-                }
+                nodeCount = Long.valueOf(subNodeValues.size());
             }
             if (nodeCount != null && nodeCount.intValue() > 0) {
                 hasChildren = true;
@@ -883,7 +879,7 @@ public class ModelTree extends ModelWidget {
                 this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
                 List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
                 if (!parameterElementList.isEmpty()) {
-                    List<Parameter> parameterList = new ArrayList<Parameter>(parameterElementList.size());
+                    List<Parameter> parameterList = new ArrayList<>(parameterElementList.size());
                     for (Element parameterElement : parameterElementList) {
                         parameterList.add(new Parameter(parameterElement));
                     }
@@ -945,7 +941,7 @@ public class ModelTree extends ModelWidget {
             }
 
             public Map<String, String> getParameterMap(Map<String, Object> context) {
-                Map<String, String> fullParameterMap = new HashMap<String, String>();
+                Map<String, String> fullParameterMap = new HashMap<>();
                 /* leaving this here... may want to add it at some point like the hyperlink element:
                 Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
                 if (addlParamMap != null) {
@@ -975,9 +971,8 @@ public class ModelTree extends ModelWidget {
                 if (simpleEncoder != null) {
                     return this.targetExdr.expandString(UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context,
                             simpleEncoder));
-                } else {
-                    return this.targetExdr.expandString(context);
                 }
+                return this.targetExdr.expandString(context);
             }
 
             public String getTargetWindow(Map<String, Object> context) {
@@ -1071,7 +1066,7 @@ public class ModelTree extends ModelWidget {
                 super(subNodeElement);
                 this.rootNode = modelNode;
                 this.nodeNameExdr = FlexibleStringExpander.getInstance(subNodeElement.getAttribute("node-name"));
-                ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
+                ArrayList<ModelAction> actions = new ArrayList<>();
                 // FIXME: Validate child elements, should be only one of actions, entity-and, entity-condition, service, script.
                 Element actionsElement = UtilXml.firstChildElement(subNodeElement, "actions");
                 if (actionsElement != null) {

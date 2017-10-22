@@ -83,9 +83,8 @@ public final class ModelScreenCondition {
             }
             if ("if-empty-section".equals(conditionElement.getNodeName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
-            } else {
-                return super.newInstance(this, modelWidget,conditionElement);
             }
+            return super.newInstance(this, modelWidget,conditionElement);
         }
     }
 }

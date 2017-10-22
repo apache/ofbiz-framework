@@ -112,16 +112,16 @@ public class ModelFormField {
     private final FlexibleMapAccessor<Object> entryAcsr;
     private final String event;
     private final FieldInfo fieldInfo;
-    private final String fieldName;
+    protected final String fieldName;
     private final String headerLink;
     private final String headerLinkStyle;
     private final String idName;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
-    private final ModelForm modelForm;
-    private final String name;
+    protected final ModelForm modelForm;
+    protected final String name;
     private final List<UpdateArea> onChangeUpdateAreas;
     private final List<UpdateArea> onClickUpdateAreas;
-    private final String parameterName;
+    protected final String parameterName;
     private final Integer position;
     private final String redWhen;
     private final Boolean requiredField;
@@ -167,12 +167,12 @@ public class ModelFormField {
         if (builder.getOnChangeUpdateAreas().isEmpty()) {
             this.onChangeUpdateAreas = Collections.emptyList();
         } else {
-            this.onChangeUpdateAreas = Collections.unmodifiableList(new ArrayList<UpdateArea>(builder.getOnChangeUpdateAreas()));
+            this.onChangeUpdateAreas = Collections.unmodifiableList(new ArrayList<>(builder.getOnChangeUpdateAreas()));
         }
         if (builder.getOnClickUpdateAreas().isEmpty()) {
             this.onClickUpdateAreas = Collections.emptyList();
         } else {
-            this.onClickUpdateAreas = Collections.unmodifiableList(new ArrayList<UpdateArea>(builder.getOnClickUpdateAreas()));
+            this.onClickUpdateAreas = Collections.unmodifiableList(new ArrayList<>(builder.getOnClickUpdateAreas()));
         }
         this.parameterName = builder.getParameterName();
         this.position = builder.getPosition();
@@ -355,7 +355,7 @@ public class ModelFormField {
                 } else if (retVal instanceof Collection) {
                     Collection<Object> col = UtilGenerics.checkCollection(retVal);
                     Iterator<Object> iter = col.iterator();
-                    List<Object> newCol = new ArrayList<Object>(col.size());
+                    List<Object> newCol = new ArrayList<>(col.size());
                     while (iter.hasNext()) {
                         Object item = iter.next();
                         if (item == null) {
@@ -433,9 +433,8 @@ public class ModelFormField {
         String parentFormName = this.getParentFormName();
         if (UtilValidate.isNotEmpty(parentFormName)) {
             return parentFormName + "_" + this.getFieldName();
-        } else {
-           return this.modelForm.getName() + "_" + this.getFieldName();
         }
+        return this.modelForm.getName() + "_" + this.getFieldName();
     }
 
     public String getTabindex() {
@@ -513,9 +512,8 @@ public class ModelFormField {
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "multi".equals(this.modelForm.getType())) {
             return baseName + this.modelForm.getItemIndexSeparator() + itemIndex.intValue();
-        } else {
-            return baseName;
         }
+        return baseName;
     }
 
     public int getPosition() {
@@ -974,8 +972,7 @@ public class ModelFormField {
             String allCheckedStr = this.allChecked.expandString(context);
             if (!allCheckedStr.isEmpty())
                 return Boolean.valueOf("true".equals(allCheckedStr));
-            else
-                return null;
+            return null;
         }
 
         @Override
@@ -1211,9 +1208,8 @@ public class ModelFormField {
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
 
         public String getInputMethod() {
@@ -1481,9 +1477,8 @@ public class ModelFormField {
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
 
         public FlexibleStringExpander getDescription() {
@@ -1784,9 +1779,8 @@ public class ModelFormField {
             Integer itemIndex = (Integer) context.get("itemIndex");
             if (itemIndex != null && "multi".equals(getModelFormField().modelForm.getType())) {
                 return baseName + getModelFormField().modelForm.getItemIndexSeparator() + itemIndex.intValue();
-            } else {
-                return baseName;
             }
+            return baseName;
         }
 
         public String getSize() {
@@ -1835,7 +1829,7 @@ public class ModelFormField {
             this.cache = !"false".equals(entityOptionsElement.getAttribute("cache"));
             List<? extends Element> constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
             if (!constraintElements.isEmpty()) {
-                List<EntityFinderUtil.ConditionExpr> constraintList = new ArrayList<EntityFinderUtil.ConditionExpr>(
+                List<EntityFinderUtil.ConditionExpr> constraintList = new ArrayList<>(
                         constraintElements.size());
                 for (Element constraintElement : constraintElements) {
                     constraintList.add(new EntityFinderUtil.ConditionExpr(constraintElement));
@@ -1850,7 +1844,7 @@ public class ModelFormField {
             this.keyFieldName = entityOptionsElement.getAttribute("key-field-name");
             List<? extends Element> orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
             if (!orderByElements.isEmpty()) {
-                List<String> orderByList = new ArrayList<String>(orderByElements.size());
+                List<String> orderByList = new ArrayList<>(orderByElements.size());
                 for (Element orderByElement : orderByElements) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
                 }
@@ -1887,7 +1881,7 @@ public class ModelFormField {
             // first expand any conditions that need expanding based on the current context
             EntityCondition findCondition = null;
             if (UtilValidate.isNotEmpty(this.constraintList)) {
-                List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
+                List<EntityCondition> expandedConditionList = new LinkedList<>();
                 for (EntityFinderUtil.Condition condition : constraintList) {
                     ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
                     if (modelEntity == null) {
@@ -2016,7 +2010,7 @@ public class ModelFormField {
             super(element, modelFormField);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
             // read all option and entity-options sub-elements, maintaining order
-            ArrayList<OptionSource> optionSources = new ArrayList<OptionSource>();
+            ArrayList<OptionSource> optionSources = new ArrayList<>();
             List<? extends Element> childElements = UtilXml.childElementList(element);
             if (childElements.size() > 0) {
                 for (Element childElement : childElements) {
@@ -2043,7 +2037,7 @@ public class ModelFormField {
             if (original.optionSources.isEmpty()) {
                 this.optionSources = original.optionSources;
             } else {
-                List<OptionSource> optionSources = new ArrayList<OptionSource>(original.optionSources.size());
+                List<OptionSource> optionSources = new ArrayList<>(original.optionSources.size());
                 for (OptionSource source : original.optionSources) {
                     optionSources.add(source.copy(modelFormField));
                 }
@@ -2054,7 +2048,7 @@ public class ModelFormField {
         protected FieldInfoWithOptions(int fieldSource, int fieldType, List<OptionSource> optionSources) {
             super(fieldSource, fieldType, null);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
-            this.optionSources = Collections.unmodifiableList(new ArrayList<OptionSource>(optionSources));
+            this.optionSources = Collections.unmodifiableList(new ArrayList<>(optionSources));
         }
 
         public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
@@ -2064,7 +2058,7 @@ public class ModelFormField {
         }
 
         public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
-            List<OptionValue> optionValues = new LinkedList<OptionValue>();
+            List<OptionValue> optionValues = new LinkedList<>();
             for (OptionSource optionSource : this.optionSources) {
                 optionSource.addOptionValues(optionValues, context, delegator);
             }
@@ -2190,6 +2184,8 @@ public class ModelFormField {
                 org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
                 org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
                 modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, dispatchContext);
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering form named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
@@ -2269,6 +2265,8 @@ public class ModelFormField {
                 org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
                 org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
                 modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, dispatchContext);
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering grid named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
@@ -2328,9 +2326,8 @@ public class ModelFormField {
                     valueEnc = simpleEncoder.encode(valueEnc);
                 }
                 return valueEnc;
-            } else {
-                return getModelFormField().getEntry(context);
             }
+            return getModelFormField().getEntry(context);
         }
 
         @Override
@@ -2684,9 +2681,8 @@ public class ModelFormField {
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
 
         public FlexibleStringExpander getDescription() {
@@ -2817,7 +2813,7 @@ public class ModelFormField {
         }
 
         public Map<String, Object> getFieldMap(Map<String, Object> context) {
-            Map<String, Object> inPlaceEditorContext = new HashMap<String, Object>();
+            Map<String, Object> inPlaceEditorContext = new HashMap<>();
             EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, inPlaceEditorContext);
             return inPlaceEditorContext;
         }
@@ -2905,9 +2901,8 @@ public class ModelFormField {
         public String getUrl(Map<String, Object> context) {
             if (this.url != null) {
                 return this.url.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
     }
 
@@ -2952,7 +2947,7 @@ public class ModelFormField {
             List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
             if (dataList != null && dataList.size() != 0) {
                 for (Object data : dataList) {
-                    Map<String, Object> localContext = new HashMap<String, Object>();
+                    Map<String, Object> localContext = new HashMap<>();
                     localContext.putAll(context);
                     if (UtilValidate.isNotEmpty(this.listEntryName)) {
                         localContext.put(this.listEntryName, data);
@@ -3115,7 +3110,7 @@ public class ModelFormField {
         }
 
         public List<String> getTargetParameterList() {
-            List<String> paramList = new LinkedList<String>();
+            List<String> paramList = new LinkedList<>();
             if (UtilValidate.isNotEmpty(this.targetParameter)) {
                 StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
                 while (stk.hasMoreTokens()) {
@@ -3469,6 +3464,8 @@ public class ModelFormField {
                     ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());
                     writer.append(subRenderer.render(location, name));
                 }
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -3948,9 +3945,8 @@ public class ModelFormField {
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
 
         public int getRows() { return rows; }
@@ -4121,9 +4117,8 @@ public class ModelFormField {
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
-            } else {
-                return "";
             }
+            return "";
         }
 
         public boolean getDisabled() {
@@ -4260,7 +4255,7 @@ public class ModelFormField {
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
                 if (parameters.containsKey(fieldName)) {
-                    ignoreCase = "Y".equals((String) parameters.get(fieldName.concat("_ic")));
+                    ignoreCase = "Y".equals(parameters.get(fieldName.concat("_ic")));
                 }
             }
             return ignoreCase;

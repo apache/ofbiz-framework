@@ -60,7 +60,7 @@ public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
 
     private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.version));
+    protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.version));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
@@ -115,7 +115,7 @@ public class HtmlWidget extends ModelScreenWidget {
         if (childElementList.isEmpty()) {
             this.subWidgets = Collections.emptyList();
         } else {
-            List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(childElementList.size());
+            List<ModelScreenWidget> subWidgets = new ArrayList<>(childElementList.size());
             for (Element childElement : childElementList) {
                 if ("html-template".equals(childElement.getNodeName())) {
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
@@ -227,7 +227,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<String, ModelScreenWidget>();
+        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
