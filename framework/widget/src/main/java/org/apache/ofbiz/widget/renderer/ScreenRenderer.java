@@ -222,9 +222,8 @@ public class ScreenRenderer {
         context.put("response", response);
         context.put("session", session);
         context.put("application", servletContext);
-        if (session != null) {
-            context.put("webappName", session.getAttribute("_WEBAPP_NAME_"));
-        }
+        context.put("webappName", session.getAttribute("_WEBAPP_NAME_"));
+
         if (servletContext != null) {
             String rootDir = (String) context.get("rootDir");
             String webSiteId = (String) context.get("webSiteId");
@@ -250,11 +249,11 @@ public class ScreenRenderer {
         TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
         context.put("JspTaglibs", JspTaglibs);
         context.put("requestParameters",  UtilHttp.getParameterMap(request));
-       
+
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
         context.put("Application", ftlServletContext);
         context.put("Request", context.get("requestAttributes"));
- 
+
         // some information from/about the ControlServlet environment
         context.put("controlPath", request.getAttribute("_CONTROL_PATH_"));
         context.put("contextRoot", request.getAttribute("_CONTEXT_ROOT_"));
