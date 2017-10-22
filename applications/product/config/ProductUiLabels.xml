@@ -23258,6 +23258,10 @@
         <value xml:lang="zh">必须在范围内</value>
         <value xml:lang="zh-TW">必須在範圍內</value>
     </property>
+    <property key="ProductOnlyOneFacility">
+        <value xml:lang="en">If there is only one facility, you need to select it to continue, no search available</value>
+        <value xml:lang="fr">S'il n' y a qu'un seule Lieu de stockage, vous devez le sélectionner pour continuer, aucune recherche n'est disponible.</value>
+    </property>
     <property key="ProductOnlyShowingFirstN">
         <value xml:lang="de">ANMERKUNG: Es werden nur die ersten ${viewSize} von ${listSize} Produkten angezeigt. Um die restlichen Anzuzeigen verwenden Sie den Produkt-Bereich dieser Kategorie.</value>
         <value xml:lang="en">NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</value>
