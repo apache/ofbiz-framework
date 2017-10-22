@@ -22,6 +22,7 @@ package org.apache.ofbiz.workeffort.workeffort;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -61,7 +62,7 @@ public class WorkEffortKeywordIndex {
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(workEffort.getString("workEffortId").toLowerCase(), Long.valueOf(widWeight));
+        keywords.put(workEffort.getString("workEffortId").toLowerCase(Locale.getDefault()), Long.valueOf(widWeight));
 
         addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
         addWeightedKeywordSourceString(workEffort, "workEffortTypeId", strings);

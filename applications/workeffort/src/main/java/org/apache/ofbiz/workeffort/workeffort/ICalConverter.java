@@ -36,6 +36,7 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.util.DateRange;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.TimeDuration;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -226,7 +227,7 @@ public class ICalConverter {
         }
         Dur dur = iCalObj.getDuration();
         TimeDuration td = new TimeDuration(0, 0, (dur.getWeeks() * 7) + dur.getDays(), dur.getHours(), dur.getMinutes(), dur.getSeconds(), 0);
-        return new Double(TimeDuration.toLong(td));
+        return Double.valueOf(TimeDuration.toLong(td));
     }
 
     protected static Timestamp fromLastModified(PropertyList propertyList) {
@@ -258,7 +259,7 @@ public class ICalConverter {
         if (iCalObj == null) {
             return null;
         }
-        return new Long(iCalObj.getPercentage());
+        return Long.valueOf(iCalObj.getPercentage());
     }
 
     protected static Double fromPriority(PropertyList propertyList) {
@@ -266,7 +267,7 @@ public class ICalConverter {
         if (iCalObj == null) {
             return null;
         }
-        return new Double(iCalObj.getLevel());
+        return Double.valueOf(iCalObj.getLevel());
     }
 
     protected static String fromStatus(PropertyList propertyList) {
@@ -476,7 +477,7 @@ public class ICalConverter {
                     localMap.put(modelParam.name, value);
                 }
             }
-        } catch (Exception e) {
+        } catch (GeneralException e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg + e);
@@ -513,11 +514,9 @@ public class ICalConverter {
             }
         }
         ParameterList parameterList = property.getParameters();
-        if (partyAssign != null) {
-            replaceParameter(parameterList, toXParameter(partyIdXParamName, partyAssign.getString("partyId")));
-            replaceParameter(parameterList, new Cn(makePartyName(partyAssign)));
-            replaceParameter(parameterList, toParticipationStatus(partyAssign.getString("assignmentStatusId")));
-        }
+        replaceParameter(parameterList, toXParameter(partyIdXParamName, partyAssign.getString("partyId")));
+        replaceParameter(parameterList, new Cn(makePartyName(partyAssign)));
+        replaceParameter(parameterList, toParticipationStatus(partyAssign.getString("assignmentStatusId")));
     }
 
     protected static void loadRelatedParties(List<GenericValue> relatedParties, PropertyList componentProps, Map<String, Object> context) {
@@ -786,7 +785,7 @@ public class ICalConverter {
             if (partyId == null) {
                 serviceMap.clear();
                 String address = property.getValue();
-                if (address.toUpperCase().startsWith("MAILTO:")) {
+                if (address.toUpperCase(Locale.getDefault()).startsWith("MAILTO:")) {
                     address = address.substring(7);
                 }
                 serviceMap.put("address", address);
