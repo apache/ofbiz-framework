@@ -33,6 +33,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -52,6 +53,7 @@ import org.apache.ofbiz.webapp.webdav.ResponseHelper;
 import org.apache.ofbiz.webapp.webdav.WebDavUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /** iCalendar worker class. This class handles the WebDAV requests and
  * delegates the calendar conversion tasks to <code>ICalConverter</code>.
@@ -59,7 +61,7 @@ import org.w3c.dom.Element;
 public final class ICalWorker {
 
     public static final String module = ICalWorker.class.getName();
-    
+
     private ICalWorker() {};
 
     public static final class ResponseProperties {
@@ -213,7 +215,7 @@ public final class ICalWorker {
                 }
                 return;
             }
-        } catch (Exception e) {
+        } catch (RuntimeException | GenericEntityException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "PROPFIND error: ", module);
         }
         response.setStatus(HttpServletResponse.SC_OK);

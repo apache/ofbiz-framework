@@ -40,7 +40,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchC
 public class WorkEffortSearchSession {
 
     public static final String module = WorkEffortSearchSession.class.getName();
-    
+
     @SuppressWarnings("serial")
     public static class WorkEffortSearchOptions implements java.io.Serializable {
         protected List<WorkEffortSearchConstraint> constraintList = null;
@@ -305,7 +305,6 @@ public class WorkEffortSearchSession {
     public static String searchGetSortOrderString(boolean detailed, HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         ResultSortOrder resultSortOrder = WorkEffortSearchOptions.getResultSortOrder(request);
-        if (resultSortOrder == null) return "";
         return resultSortOrder.prettyPrintSortOrder(detailed, locale);
     }
     public static void checkSaveSearchOptionsHistory(HttpSession session) {

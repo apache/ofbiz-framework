@@ -374,7 +374,7 @@ public class WorkEffortServices {
                     if (calEntryRange.intersectsRange(dateRange) && !(calEntryRange.end().equals(dateRange.start()) || calEntryRange.start().equals(dateRange.end()))) {
                         List<Map<String, Object>> calendarEntryByDateRangeList = calendarEntriesByDateRange.get(dateRange);
                         if (calendarEntryByDateRangeList == null) {
-                            calendarEntryByDateRangeList = new LinkedList();
+                            calendarEntryByDateRangeList = new LinkedList<>();
                         }
                         calendarEntryByDateRangeList.add(calendarEntry);
                         calendarEntriesByDateRange.put(dateRange, calendarEntryByDateRangeList);
@@ -1072,7 +1072,7 @@ public class WorkEffortServices {
                     resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
                 }
             }
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();

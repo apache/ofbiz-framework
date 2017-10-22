@@ -286,6 +286,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         case Calendar.YEAR:
             this.state.addRecur((new Recur(Recur.YEARLY, freqCount)));
             break;
+        default:
+            break;
         }
     }
 
