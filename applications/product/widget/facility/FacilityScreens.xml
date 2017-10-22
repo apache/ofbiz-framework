@@ -31,6 +31,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <label style="h3" text="${uiLabelMap.ProductOnlyOneFacility}"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
