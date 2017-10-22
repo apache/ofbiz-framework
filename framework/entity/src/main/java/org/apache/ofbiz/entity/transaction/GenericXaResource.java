@@ -207,7 +207,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         try {
             if (timeout != null) {
                 // sleep until the transaction times out
-                sleep(timeout.intValue() * 1000);
+                sleep(timeout.intValue() * 1000L);
 
                 if (active) {
                     // get the current status

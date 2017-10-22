@@ -51,11 +51,11 @@ public class JNDITransactionFactory implements TransactionFactory {
     // Debug module name
     public static final String module = JNDITransactionFactory.class.getName();
 
-    static TransactionManager transactionManager = null;
-    static UserTransaction userTransaction = null;
+    volatile TransactionManager transactionManager = null;
+    volatile UserTransaction userTransaction = null;
 
     // protected static UtilCache dsCache = new UtilCache("entity.JndiDataSources", 0, 0);
-    protected static ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<String, DataSource>();
+    protected static final ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<String, DataSource>();
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
