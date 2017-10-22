@@ -69,7 +69,7 @@ import org.xml.sax.SAXException;
 public class XmlSerializer {
     public static final String module = XmlSerializer.class.getName();
 
-    private static WeakReference<DateFormat> simpleDateFormatter;
+    private volatile static WeakReference<DateFormat> simpleDateFormatter;
 
     public static String serialize(Object object) throws SerializeException, FileNotFoundException, IOException {
         Document document = UtilXml.makeEmptyXmlDocument("ofbiz-ser");
@@ -132,7 +132,8 @@ public class XmlSerializer {
     public static Element serializeSingle(Object object, Document document) throws SerializeException {
         if (document == null) return null;
 
-        if (object == null) return makeElement("null", object, document);
+        if (object == null)
+            return makeElement("null", null, document);
 
         // - Standard Objects -
         if (object instanceof String) {
