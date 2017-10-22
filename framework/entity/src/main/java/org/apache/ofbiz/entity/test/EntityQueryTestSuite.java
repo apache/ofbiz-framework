@@ -40,7 +40,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
     public EntityQueryTestSuite(String name) {
         super(name);
     }
-    
+
     /* 
      * queryCount(): This method returns number of records found for the particular query.
      * assert: Compared count of number of records found by Entity Engine method with count of number of records found by EntityQuery method.
@@ -57,7 +57,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
 
         assertEquals("queryCount(): Total Number of Records matched", totalRecordsByEntityEngine.size(), numberOfRecordsByEntityQuery);
     }
-    
+
     /*
      * where(): This method is used for setting condition of which records to fetch from entity.
      * assert 1: Compared size of the list returned by Entity Engine method and by EntityQuery method.
@@ -78,7 +78,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         assertEquals("where(): Record matched = testingTypeId", listByEntityEngine.get(0).getString("testingTypeId"), listByEntityQuery.get(0).getString("testingTypeId"));
         assertEquals("where(): Record matched = description", listByEntityEngine.get(0).getString("description"), listByEntityQuery.get(0).getString("description"));
     }
-    
+
     /*
      * queryList(): Returns all records from the given entity.
      * assert 1: Compared size of the list returned by Entity Engine method and by EntityQuery method.
@@ -99,7 +99,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         assertEquals("queryList(): Record matched = testingTypeId", listByEntityEngine.get(0).getString("testingTypeId"), listByEntityQuery.get(0).getString("testingTypeId"));
         assertEquals("queryList(): Record matched = description", listByEntityEngine.get(0).getString("description"), listByEntityQuery.get(0).getString("description"));
     }
-    
+
     /*
      * queryFirst(): Returns first record from result of query.
      * assert 1: Compared 'testingTypeId' field of record fetched by Entity Engine method and by EntityQuery method.
@@ -179,7 +179,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         assertEquals("select(): Record matched = description", selectByEntityEngine.get(0).getString("description"), selectByEntityQuery.get(0).getString("description"));
         assertNull(selectByEntityQuery.get(0).getString("testingTypeId"));
     }
-    
+
     /*
      * distinct(): This method is used to get distinct values of records from entity field. (Note: Distinct method is generally used with select method)
      * assert 1: Compared size of the list returned by Entity Engine method and by EntityQuery method.
@@ -202,7 +202,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         assertEquals("distinct(): Record matched = description", distinctByEntityEngine.get(0).getString("description"), distinctByEntityQuery.get(0).getString("description"));
         assertNull(distinctByEntityQuery.get(0).getString("testingTypeId"));
     }
-    
+
     /*
      * orderBy(): This method sorts the records found according to the given field or combination of fields.
      * assert 1: Compared number of records returned by Entity Engine method and by EntityQuery method.
@@ -234,17 +234,17 @@ public class EntityQueryTestSuite extends EntityTestCase {
      */
     public void testFilterByDate() throws GenericEntityException {
         delegator.create("TestingType", "testingTypeId", "filterByDate-1", "description", "Filter BY Date");
-        
+
         delegator.create("Testing", "testingId", "testing-1", "testingTypeId", "filterByDate-1");
         delegator.create("Testing", "testingId", "testing-2", "testingTypeId", "filterByDate-1");
         delegator.create("Testing", "testingId", "testing-3", "testingTypeId", "filterByDate-1");
         delegator.create("Testing", "testingId", "testing-4", "testingTypeId", "filterByDate-1");
-        
+
         delegator.create("TestingNode", "testingNodeId", "testingNode-1");
         delegator.create("TestingNode", "testingNodeId", "testingNode-2");
         delegator.create("TestingNode", "testingNodeId", "testingNode-3");
         delegator.create("TestingNode", "testingNodeId", "testingNode-4");
-        
+
         delegator.create("TestingNodeMember", "testingNodeId", "testingNode-1","testingId", "testing-1", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
         delegator.create("TestingNodeMember", "testingNodeId", "testingNode-2","testingId", "testing-2", "fromDate", UtilDateTime.nowTimestamp(), "thruDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()));
         delegator.create("TestingNodeMember", "testingNodeId", "testingNode-3","testingId", "testing-3", "fromDate", UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()), "thruDate", UtilDateTime.getWeekEnd(UtilDateTime.nowTimestamp()));
@@ -252,14 +252,14 @@ public class EntityQueryTestSuite extends EntityTestCase {
 
         List<GenericValue> filteredByEntityUtil = EntityUtil.filterByDate(delegator.findList("TestingNodeMember", null, null, UtilMisc.toList("testingNodeId"), null, false));
         List<GenericValue> filteredByEntityQuery = EntityQuery.use(delegator).from("TestingNodeMember").filterByDate().orderBy("testingNodeId").queryList();
-        
+
         assertEquals("filterByDate(): Number of records found by both the methods matched", filteredByEntityUtil.size(), filteredByEntityQuery.size());
         assertEquals("filterByDate(): Record matched = testingNodeId", filteredByEntityUtil.get(0).getString("testingNodeId"), filteredByEntityQuery.get(0).getString("testingNodeId"));
         assertEquals("filterByDate(): Record matched = testingId", filteredByEntityUtil.get(0).getString("testingId"), filteredByEntityQuery.get(0).getString("testingId"));
         assertEquals("filterByDate(): Record matched = fromDate", filteredByEntityUtil.get(0).getString("fromDate"), filteredByEntityQuery.get(0).getString("fromDate"));
         assertEquals("filterByDate(): Record matched = thruDate", filteredByEntityUtil.get(0).getString("thruDate"), filteredByEntityQuery.get(0).getString("thruDate"));
     }
-    
+
     /*
      * maxRows(): This method sets the maximum number of records to be fetched by the query.
      * assert 1: Compared number of records returned by Entity Engine method and by EntityQuery method.
@@ -272,17 +272,17 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "maxRows-2", "description", "Max Row Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "maxRows-3", "description", "Max Row Three"));
         delegator.storeAll(testingTypes);
-        
+
         EntityFindOptions findOptions = new EntityFindOptions();
         findOptions.setMaxRows(2);
         List<GenericValue> maxRowsByEntityEngine = delegator.findList("TestingType", null, null, UtilMisc.toList("description"), findOptions, false);
         List<GenericValue> maxRowsByEntityQuery = EntityQuery.use(delegator).from("TestingType").maxRows(2).orderBy("description").queryList();
-        
+
         assertEquals("maxRows(): Number of records found by both the methods matched", maxRowsByEntityEngine.size(), maxRowsByEntityQuery.size());
         assertEquals("maxRows(): Record matched = testingTypeId", maxRowsByEntityEngine.get(0).getString("testingTypeId"), maxRowsByEntityQuery.get(0).getString("testingTypeId"));
         assertEquals("maxRows(): Record matched = description", maxRowsByEntityEngine.get(0).getString("description"), maxRowsByEntityQuery.get(0).getString("description"));
     }
-    
+
     /*
      * fetchSize(): This method sets the fetch size for the records to be fetched from the entity.
      * assert 1: Compared number of records returned by Entity Engine method and by EntityQuery method.
@@ -295,17 +295,17 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "fetchSize-2", "description", "Fetch Size Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "fetchSize-3", "description", "Fetch Size Three"));
         delegator.storeAll(testingTypes);
-        
+
         EntityFindOptions findOptions = new EntityFindOptions();
         findOptions.setFetchSize(2);
         List<GenericValue> fetchSizeByEntityEngine = delegator.findList("TestingType", null, null, UtilMisc.toList("description"), findOptions, false);
         List<GenericValue> fetchSizeByEntityQuery = EntityQuery.use(delegator).from("TestingType").fetchSize(2).orderBy("description").queryList();
-        
+
         assertEquals("fetchSize(): Number of records found by both the methods matched", fetchSizeByEntityEngine.size(), fetchSizeByEntityQuery.size());
         assertEquals("fetchSize(): Record matched = testingTypeId", fetchSizeByEntityEngine.get(0).getString("testingTypeId"), fetchSizeByEntityQuery.get(0).getString("testingTypeId"));
         assertEquals("fetchSize(): Record matched = description", fetchSizeByEntityEngine.get(0).getString("description"), fetchSizeByEntityQuery.get(0).getString("description"));
     }
-    
+
     /*
      * queryIterator(): This method is used to get iterator object over the entity.
      * assert: Compared first record of both the iterator.
@@ -316,29 +316,29 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryIterator-2", "description", "Value Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryIterator-3", "description", "Value Three"));
         delegator.storeAll(testingTypes);
-        
+
         boolean transactionStarted = false;
         try {
             transactionStarted = TransactionUtil.begin();
-            
+
             EntityListIterator eliByEntityEngine = null;
             EntityListIterator eliByEntityQuery = null;
             eliByEntityEngine = delegator.find("TestingType", null, null, null, null, null);
             eliByEntityQuery = EntityQuery.use(delegator).from("TestingType").queryIterator();
-            
+
             GenericValue recordByEntityEngine = eliByEntityEngine.next();
             GenericValue recordByEntityQuery = eliByEntityQuery.next();
-            
+
             assertEquals("queryIterator(): Value of first record pointed by both iterators matched", recordByEntityEngine, recordByEntityQuery);
             eliByEntityEngine.close();
             eliByEntityQuery.close();
-            
+
             TransactionUtil.commit(transactionStarted);
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
     }
-    
+
     /*
      * cursorForwardOnly(): Indicate that the ResultSet object's cursor may move only forward
      * assert: Compared first record found by both the iterator.
@@ -349,31 +349,31 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "cursorForwardOnly-2", "description", "cursorForwardOnly Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "cursorForwardOnly-3", "description", "cursorForwardOnly Three"));
         delegator.storeAll(testingTypes);
-        
+
         boolean transactionStarted = false;
         try {
             transactionStarted = TransactionUtil.begin();
-            
+
             EntityListIterator eliByEntityEngine = null;
             EntityListIterator eliByEntityQuery = null;
             EntityFindOptions findOptions = new EntityFindOptions();
             findOptions.setResultSetType(EntityFindOptions.TYPE_FORWARD_ONLY);
             eliByEntityEngine = delegator.find("TestingType", null, null, null, null, findOptions);
             eliByEntityQuery = EntityQuery.use(delegator).from("TestingType").cursorForwardOnly().queryIterator();
-            
+
             GenericValue nextRecordByEntityEngine = eliByEntityEngine.next();
             GenericValue nextRecordByEntityQuery = eliByEntityQuery.next();
-            
+
             assertEquals("cursorForwardOnly(): Value of first record pointed by both iterators matched", nextRecordByEntityEngine, nextRecordByEntityQuery);
             eliByEntityEngine.close();
             eliByEntityQuery.close();
-            
+
             TransactionUtil.commit(transactionStarted);
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
     }
-    
+
     /*
      * cursorScrollSensitive(): ResultSet object's cursor is scrollable but generally sensitive to changes to the data that underlies the ResultSet.
      * assert: Compared first record found by both the iterators.
@@ -384,31 +384,31 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollSensitive-2", "description", "cursorScrollSensitive Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollSensitive-3", "description", "cursorScrollSensitive Three"));
         delegator.storeAll(testingTypes);
-        
+
         boolean transactionStarted = false;
         try {
             transactionStarted = TransactionUtil.begin();
-            
+
             EntityListIterator eliByEntityEngine = null;
             EntityListIterator eliByEntityQuery = null;
             EntityFindOptions findOptions = new EntityFindOptions();
             findOptions.setResultSetType(EntityFindOptions.TYPE_SCROLL_SENSITIVE);
             eliByEntityEngine = delegator.find("TestingType", null, null, null, null, findOptions);
             eliByEntityQuery = EntityQuery.use(delegator).from("TestingType").cursorScrollSensitive().queryIterator();
-            
+
             GenericValue nextRecordByDelegator = eliByEntityEngine.next();
             GenericValue nextRecordByEntityQuery = eliByEntityQuery.next();
-            
+
             assertEquals("cursorScrollSensitive(): Records by delegator method and by EntityQuery method matched", nextRecordByDelegator, nextRecordByEntityQuery);
             eliByEntityEngine.close();
             eliByEntityQuery.close();
-            
+
             TransactionUtil.commit(transactionStarted);
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
     }
-    
+
     /*
      * cursorScrollInSensitive(): ResultSet object's cursor is scrollable but generally not sensitive to changes to the data that underlies the ResultSet.
      * assert: Compared first record found by both the iterators.
@@ -419,27 +419,27 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollInSensitive-2", "description", "cursorScrollInSensitive Two"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollInSensitive-3", "description", "cursorScrollInSensitive Three"));
         delegator.storeAll(testingTypes);
-        
+
         boolean transactionStarted = false;
         try {
             transactionStarted = TransactionUtil.begin();
-            
+
             EntityListIterator eliByEntityEngine = null;
             EntityListIterator eliByEntityQuery = null;
             EntityFindOptions findOptions = new EntityFindOptions();
             findOptions.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             eliByEntityEngine = delegator.find("TestingType", null, null, null, null, findOptions);
             eliByEntityQuery = EntityQuery.use(delegator).from("TestingType").cursorScrollInsensitive().queryIterator();
-            
+
             GenericValue nextRecordByDelegator = eliByEntityEngine.next();
             GenericValue nextRecordByEntityQuery = eliByEntityQuery.next();
-            
+
             assertEquals("cursorScrollInSensitive(): Records by delegator method and by EntityQuery method matched", nextRecordByDelegator, nextRecordByEntityQuery);
             eliByEntityEngine.close();
             eliByEntityQuery.close();
-            
+
             TransactionUtil.commit(transactionStarted);
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
     }
