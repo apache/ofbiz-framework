@@ -233,6 +233,24 @@ public class ServiceEcaAction implements java.io.Serializable {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((eventName == null) ? 0 : eventName.hashCode());
+        result = prime * result + (ignoreError ? 1231 : 1237);
+        result = prime * result + (ignoreFailure ? 1231 : 1237);
+        result = prime * result + (newTransaction ? 1231 : 1237);
+        result = prime * result + (persist ? 1231 : 1237);
+        result = prime * result + ((resultMapName == null) ? 0 : resultMapName.hashCode());
+        result = prime * result + (resultToContext ? 1231 : 1237);
+        result = prime * result + (resultToResult ? 1231 : 1237);
+        result = prime * result + ((runAsUser == null) ? 0 : runAsUser.hashCode());
+        result = prime * result + ((serviceMode == null) ? 0 : serviceMode.hashCode());
+        result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaAction) {
             ServiceEcaAction other = (ServiceEcaAction) obj;

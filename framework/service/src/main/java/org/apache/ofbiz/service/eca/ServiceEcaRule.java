@@ -40,14 +40,14 @@ public final class ServiceEcaRule implements java.io.Serializable {
 
     public static final String module = ServiceEcaRule.class.getName();
 
-    protected final String serviceName;
-    protected final String eventName;
-    protected final boolean runOnFailure;
-    protected final boolean runOnError;
-    protected final List<ServiceEcaCondition> conditions = new ArrayList<ServiceEcaCondition>();
-    protected final List<Object> actionsAndSets = new ArrayList<Object>();
-    protected boolean enabled = true;
-    protected final String definitionLocation;
+    public final String serviceName;
+    public final String eventName;
+    public final boolean runOnFailure;
+    public final boolean runOnError;
+    public final List<ServiceEcaCondition> conditions = new ArrayList<ServiceEcaCondition>();
+    public final List<Object> actionsAndSets = new ArrayList<Object>();
+    public boolean enabled = true;
+    public final String definitionLocation;
 
     public ServiceEcaRule(Element eca, String definitionLocation) {
         this.definitionLocation = definitionLocation;
@@ -175,6 +175,21 @@ public final class ServiceEcaRule implements java.io.Serializable {
 
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((actionsAndSets == null) ? 0 : actionsAndSets.hashCode());
+        result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
+        result = prime * result + ((definitionLocation == null) ? 0 : definitionLocation.hashCode());
+        result = prime * result + (enabled ? 1231 : 1237);
+        result = prime * result + ((eventName == null) ? 0 : eventName.hashCode());
+        result = prime * result + (runOnError ? 1231 : 1237);
+        result = prime * result + (runOnFailure ? 1231 : 1237);
+        result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
+        return result;
     }
 
     @Override
