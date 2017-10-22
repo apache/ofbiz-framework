@@ -20,6 +20,7 @@
 package org.apache.ofbiz.service.eca;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -106,10 +107,10 @@ public class ServiceEcaSetField {
             return newStr.toString();
         }
         if ("to-upper".equalsIgnoreCase(format)) {
-            return s.toUpperCase();
+            return s.toUpperCase(Locale.getDefault());
         }
         if ("to-lower".equalsIgnoreCase(format)) {
-            return s.toLowerCase();
+            return s.toLowerCase(Locale.getDefault());
         }
         if ("hash-code".equalsIgnoreCase(format)) {
             return Integer.valueOf(s.hashCode());
@@ -137,6 +138,18 @@ public class ServiceEcaSetField {
 
         Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, module);
         return s;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((envName == null) ? 0 : envName.hashCode());
+        result = prime * result + ((fieldName == null) ? 0 : fieldName.hashCode());
+        result = prime * result + ((format == null) ? 0 : format.hashCode());
+        result = prime * result + ((mapName == null) ? 0 : mapName.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
     }
 
     @Override
