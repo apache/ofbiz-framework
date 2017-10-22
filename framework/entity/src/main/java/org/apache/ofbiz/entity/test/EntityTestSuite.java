@@ -95,7 +95,7 @@ public class EntityTestSuite extends EntityTestCase {
         modelField = modelEntity.getField("newDesc");
         assertNull("TestingType.newDesc field model is null", modelField);
     }
-    
+
     /*
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
@@ -221,7 +221,7 @@ public class EntityTestSuite extends EntityTestCase {
         int qtyChanged = delegator.storeByCondition("TestingType", UtilMisc.toMap("description", "New Testing Type #Cache-0"), storeByCondition);
         assertEquals("Delegator.storeByCondition updated one value", 1, qtyChanged);
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryFirst();
-        
+
         assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-0", testValue.getString("description"));
         // Test removeByCondition updates the cache
         qtyChanged = delegator.removeByCondition("TestingType", storeByCondition);
@@ -416,7 +416,7 @@ public class EntityTestSuite extends EntityTestCase {
         delegator.create("TestingType", "testingTypeId", typeId, "description", typeDescription);
         int i = 0;
         Timestamp now = UtilDateTime.nowTimestamp();
-        
+
         for (GenericValue node: EntityQuery.use(delegator)
                                            .from("TestingNode")
                                            .where(EntityCondition.makeCondition("description", EntityOperator.LIKE, descriptionPrefix + "%"))
@@ -459,7 +459,7 @@ public class EntityTestSuite extends EntityTestCase {
             for (Map.Entry<String, Object> entry: fields.entrySet()) {
                 String field = entry.getKey();
                 Object value = entry.getValue();
-                Debug.logInfo(field.toString() + " = " + ((value == null) ? "[null]" : value), module);
+                Debug.logInfo(field + " = " + ((value == null) ? "[null]" : value), module);
             }
         }
         long testingcount = EntityQuery.use(delegator).from("Testing").where("testingTypeId", "TEST-COUNT-VIEW").queryCount();
@@ -475,7 +475,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                             .from("Testing")
                                                             .where(EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"))
                                                             .queryList();
-        
+
         assertEquals("No existing Testing entities for distinct", 0, testingDistinctList.size());
         delegator.removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"));
         GenericValue testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-DISTINCT-1").cache(true).queryOne();
@@ -1257,10 +1257,11 @@ public class EntityTestSuite extends EntityTestCase {
                 totalNumberOfRows = totalNumberOfRows + rows.size();
             }
             TransactionUtil.commit(transactionStarted);
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             try {
                 TransactionUtil.rollback(transactionStarted, "", e);
-            } catch (Exception e2) {}
+            } catch (GenericTransactionException e2) {
+            }
             noErrors = false;
         }
         long endTime = System.currentTimeMillis();
@@ -1277,7 +1278,7 @@ public class EntityTestSuite extends EntityTestCase {
                 totalNumberOfRows = totalNumberOfRows + rows.size();
                 TransactionUtil.commit(transactionStarted);
             }
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             try {
                 TransactionUtil.rollback(transactionStarted, "", e);
             } catch (Exception e2) {}
