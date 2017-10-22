@@ -151,9 +151,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
-        } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen thru ftl macro: " + macro, module);
-        } catch (IOException e) {
+        } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, module);
         }
     }
@@ -239,23 +237,25 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(modelFormField.shouldBeRed(context) ? "true" : "false");
         if (ajaxEnabled) {
             String url = inPlaceEditor.getUrl(context);
-            String extraParameter = "{";
+            StringBuffer extraParameterBuffer = new StringBuffer();
+            String extraParameter;
+
             Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
-            if (fieldMap != null) {
-                Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
-                Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
-                int count = 0;
-                while (fieldIterator.hasNext()) {
-                    count++;
-                    Entry<String, Object> field = fieldIterator.next();
-                    extraParameter += field.getKey() + ":'" + (String) field.getValue() + "'";
-                    if (count < fieldSet.size()) {
-                        extraParameter += ',';
-                    }
+            Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
+            Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
+            int count = 0;
+            extraParameterBuffer.append("{");
+            while (fieldIterator.hasNext()) {
+                count++;
+                Entry<String, Object> field = fieldIterator.next();
+                extraParameterBuffer.append(field.getKey() + ":'" + (String) field.getValue() + "'");
+                if (count < fieldSet.size()) {
+                    extraParameterBuffer.append(',');
                 }
 
             }
-            extraParameter += "}";
+            extraParameterBuffer.append("}");
+            extraParameter = extraParameterBuffer.toString();
             sr.append("\" inPlaceEditorUrl=\"");
             sr.append(url);
             sr.append("\" inPlaceEditorParams=\"");
@@ -542,7 +542,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         StringBuilder timeValues = new StringBuilder();
         if (useTimeDropDown && UtilValidate.isNotEmpty(step)) {
             try {
-                step = Integer.valueOf(stepString).intValue();
+                step = Integer.parseInt(stepString);
             } catch (IllegalArgumentException e) {
                 Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " + " Found Value [" + stepString + "]  " + e.getMessage(), module);
             }
@@ -1004,7 +1004,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
         ModelFormField modelFormField = checkField.getModelFormField();
-        modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
         String id = modelFormField.getCurrentContainerId(context);
@@ -1066,7 +1065,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
-        modelFormField.getModelForm();
         List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String className = "";
@@ -1279,7 +1277,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     String fullTarget = target.expandString(context);
                     targetBuffer.append(fullTarget);
                     String targetType = CommonWidgetModels.Link.DEFAULT_URL_MODE;
-                    if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
+                    if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase(Locale
+                            .getDefault()).startsWith("javascript:")) {
                         targetType = "plain";
                     }
                     StringWriter sr = new StringWriter();
@@ -1548,14 +1547,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
             renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
         }
     }
-    
+
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderOpen ");
         sr.append(" />");
         executeMacro(writer, sr.toString());
     }
-    
+
     public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderClose");
@@ -1643,7 +1642,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(" formName=\"");
         sr.append(modelForm.getName());
         sr.append("\" itemIndex=");
-        sr.append(Integer.toString(itemIndex));
+        sr.append(String.valueOf(itemIndex));
         sr.append(" altRowStyles=\"");
         sr.append(altRowStyles);
         sr.append("\" evenRowStyle=\"");
@@ -2028,7 +2027,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 value2 = (String) parameters.get(name + "_fld1_value");
             }
         }
-        
+
         String titleStyle = "";
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             titleStyle = modelFormField.getTitleStyle();
@@ -2343,10 +2342,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isNotEmpty(queryString)) {
             queryString = UtilHttp.encodeAmpersands(queryString);
         }
-        if (prepLinkText == null) {
-            prepLinkText = "";
-        }
-        if (prepLinkText.indexOf("?") < 0) {
+        if (prepLinkText.indexOf('?') < 0) {
             prepLinkText += "?";
         } else if (!prepLinkText.endsWith("?")) {
             prepLinkText += "&amp;";
@@ -2590,7 +2586,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (!passwordField.getClientAutocompleteField()) {
             autocomplete = "off";
         }
-        
+
         //check for required field style on single forms
         if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
@@ -2601,7 +2597,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             else
                 className = requiredStyle + " " + className;
         }
-        
+
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderPasswordField ");
@@ -2966,12 +2962,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
             Map<String, Object> ctx = UtilGenerics.checkMap(context);
             Map<String, String> parameters = updateArea.getParameterMap(ctx);
             String targetUrl = updateArea.getAreaTarget(context);
-            String ajaxParams = getAjaxParamsFromTarget(targetUrl);
+            String ajaxParams;
+            StringBuffer ajaxParamsBuffer = new StringBuffer();
+            ajaxParamsBuffer.append(getAjaxParamsFromTarget(targetUrl));
             //add first parameters from updateArea parameters
             if (UtilValidate.isNotEmpty(parameters)) {
-                if (UtilValidate.isEmpty(ajaxParams)) {
-                    ajaxParams = "";
-                }
                 for (Map.Entry<String, String> entry : parameters.entrySet()) {
                     String key = entry.getKey();
                     String value = entry.getValue();
@@ -2979,21 +2974,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     if (UtilValidate.isNotEmpty(extraParams) && extraParams.contains(value)) {
                         continue;
                     }
-                    if (ajaxParams.length() > 0 && ajaxParams.indexOf(key) < 0) {
-                        ajaxParams += "&";
+                    if (ajaxParamsBuffer.length() > 0 && ajaxParamsBuffer.indexOf(key) < 0) {
+                        ajaxParamsBuffer.append("&");
                     }
-                    if (ajaxParams.indexOf(key) < 0) {
-                        ajaxParams += key + "=" + value;
+                    if (ajaxParamsBuffer.indexOf(key) < 0) {
+                        ajaxParamsBuffer.append(key).append("=").append(value);
                     }
                 }
             }
             //then add parameters from request. Those parameters could end with an anchor so we must set ajax parameters first
             if (UtilValidate.isNotEmpty(extraParams)) {
-                if (ajaxParams.length() > 0 && !extraParams.startsWith("&")) {
-                    ajaxParams += "&";
+                if (ajaxParamsBuffer.length() > 0 && !extraParams.startsWith("&")) {
+                    ajaxParamsBuffer.append("&");
                 }
-                ajaxParams += extraParams;
+                ajaxParamsBuffer.append(extraParams);
             }
+            ajaxParams = ajaxParamsBuffer.toString();
             ajaxUrl += updateArea.getAreaId() + ",";
             ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
             ajaxUrl += "," + ajaxParams;
@@ -3088,7 +3084,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if ("hidden-form".equals(realLinkType)) {
             parameterMap.put(viewIndexField, Integer.toString(viewIndex));
             parameterMap.put(viewSizeField, Integer.toString(viewSize));
-            if (modelFormField != null && "multi".equals(modelForm.getType())) {
+            if ("multi".equals(modelForm.getType())) {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation, modelFormField, request, response, context);
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place, but put the actual form def elsewhere, ie after the big form is closed
                 Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
@@ -3193,7 +3189,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("linkStyle=\"");
             sr.append(linkStyle == null ? "" : linkStyle);
             sr.append("\" hiddenFormName=\"");
-            sr.append(hiddenFormName == null ? "" : hiddenFormName);
+            sr.append(hiddenFormName);
             sr.append("\" event=\"");
             sr.append(event);
             sr.append("\" action=\"");
@@ -3245,7 +3241,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("linkStyle=\"");
             sr.append(linkStyle == null ? "" : linkStyle);
             sr.append("\" hiddenFormName=\"");
-            sr.append(hiddenFormName == null ? "" : hiddenFormName);
+            sr.append(hiddenFormName);
             sr.append("\" event=\"");
             sr.append(event);
             sr.append("\" action=\"");
