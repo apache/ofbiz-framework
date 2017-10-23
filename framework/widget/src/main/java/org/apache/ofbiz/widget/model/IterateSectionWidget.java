@@ -152,9 +152,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 String viewSizeString = params.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
                 viewIndex = Integer.parseInt(viewIndexString);
                 locViewSize = Integer.parseInt(viewSizeString);
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 try {
                     viewIndex = ((Integer) context.get("viewIndex")).intValue();
                 } catch (Exception e2) {
