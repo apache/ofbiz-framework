@@ -782,7 +782,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="x-frame-option" default="sameorigin">
+        <xs:attribute name="x-frame-options" default="sameorigin">
             <xs:annotation>
                 <xs:documentation>
                     Provides clickjacking protection by instructing browsers that this page should not be placed within a frame. 
@@ -799,6 +799,7 @@ under the License.
                     <xs:enumeration value="deny"/>
                     <xs:enumeration value="sameorigin"/>
                     <xs:enumeration value="allow-from"/>
+                    <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
