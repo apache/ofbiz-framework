@@ -42,11 +42,6 @@ under the License.
         <action service="updatePaymentMethodAddress" mode="sync"/>
     </eca>
 
-    <eca service="createBillingAccount" event="return">
-        <condition field-name="roleTypeId" operator="is-not-empty"/>
-        <condition field-name="partyId" operator="is-not-empty"/>
-        <action service="createBillingAccountRole" mode="sync"/>
-    </eca>
     <eca service="createBillingAccountRole" event="invoke">
         <condition field-name="roleTypeId" operator="is-not-empty"/>
         <condition field-name="partyId" operator="is-not-empty"/>
