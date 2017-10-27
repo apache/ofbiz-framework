@@ -17,21 +17,21 @@
 # under the License.
 #####################################################################
 
-This excludes OFBiz files for Apache RAT tool run by ASF Buildbot,
-http://creadur.apache.org/rat/
-
- Files having a separate license should be ignored.
- For OFBiz these include
-   - Docbook
-   
+    This excludes OFBiz files for Apache RAT tool run by ASF Buildbot,
+    http://creadur.apache.org/rat/
+    
+     Files having a separate license should be ignored.
+     For OFBiz these include
+       - Docbook
+       
 *docbook*
 applications/content/dtd/*
- 
- Also there are several files which can't have a license statement.
-   - README.md files and at large Markdown files
-   - OPTIONAL_LIBRARIES
-   - .project Eclipse project file, only in plugins for now
-      another solution should be provided
+     
+     Also there are several files which can't have a license statement.
+       - README.md files and at large Markdown files
+       - OPTIONAL_LIBRARIES
+       - .project Eclipse project file, only in plugins for now
+          another solution should be provided
 
 *.md
 OPTIONAL_LIBRARIES
