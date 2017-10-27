@@ -23,15 +23,17 @@
      Files having a separate license should be ignored.
      For OFBiz these include
        - Docbook
-       
-*docbook*
-applications/content/dtd/*
-     
-     Also there are several files which can't have a license statement.
+
+     Also there are several files which can't or shouldn't 
+        have a license statement.
        - README.md files and at large Markdown files
        - OPTIONAL_LIBRARIES
        - .project Eclipse project file, only in plugins for now
           another solution should be provided
+
+*docbook*
+applications/content/dtd/*
+
 
 *.md
 OPTIONAL_LIBRARIES
