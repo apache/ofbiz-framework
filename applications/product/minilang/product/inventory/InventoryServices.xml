@@ -915,7 +915,6 @@ under the License.
         <find-by-primary-key entity-name="InventoryTransfer" map="lookupPKMap" value-field="inventoryTransfer"/>
 
         <if-not-empty field="parameters.statusId">
-            <if-compare-field field="parameters.statusId" to-field="inventoryTransfer.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
                     <field-map field-name="statusId" from-field="inventoryTransfer.statusId"/>
@@ -925,7 +924,6 @@ under the License.
                     <set value="ERROR: Changing the status from ${inventoryTransfer.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
                 </if-empty>
                 <check-errors/>
-            </if-compare-field>
         </if-not-empty>
 
         <set-nonpk-fields map="parameters" value-field="inventoryTransfer"/>
