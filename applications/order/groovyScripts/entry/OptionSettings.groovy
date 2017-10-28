@@ -18,11 +18,8 @@
  */
 
 import java.sql.Timestamp
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.order.shoppingcart.*
-import org.apache.ofbiz.party.contact.*
-import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 cart = session.getAttribute("shoppingCart")
 context.cart = cart

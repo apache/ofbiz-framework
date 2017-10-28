@@ -17,12 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.accounting.payment.*
-import org.apache.ofbiz.party.contact.*
-import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.accounting.payment.BillingAccountWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 cart = session.getAttribute("shoppingCart")
 currencyUomId = cart.getCurrency()

@@ -17,12 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.order.order.*
-import org.apache.ofbiz.party.contact.*
-import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.order.order.OrderReadHelper
+import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 orderId = parameters.orderId
 context.orderId = orderId

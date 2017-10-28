@@ -22,21 +22,24 @@
  * should not contain order component's specific code.
  */
 
-import java.text.NumberFormat
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.service.*
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag
 import org.apache.ofbiz.product.product.ProductContentWrapper
-import org.apache.ofbiz.product.product.ProductSearch
-import org.apache.ofbiz.product.product.ProductSearchSession
 import org.apache.ofbiz.product.product.ProductWorker
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.store.*
-import org.apache.ofbiz.webapp.stats.VisitHandler
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.product.store.ProductStoreSurveyWrapper
 import org.apache.ofbiz.webapp.website.WebSiteWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart

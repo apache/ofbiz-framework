@@ -17,9 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.entity.GenericValue
 
 long nextSequenceNum = 10
 if (!custRequestItem && custRequest) {

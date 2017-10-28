@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-
 custRequestId = parameters.custRequestId
 custRequestItemSeqId = parameters.custRequestItemSeqId
 showAll = parameters.showAll ?: "false"

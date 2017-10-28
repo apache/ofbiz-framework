@@ -25,7 +25,6 @@
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.config.ProductConfigWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.base.util.*
 
 currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency()
 product = context.product

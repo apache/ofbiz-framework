@@ -17,9 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
 shoppingCart = ShoppingCartEvents.getCartObject(request)
 orderType = shoppingCart.getOrderType()

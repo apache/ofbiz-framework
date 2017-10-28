@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import java.util.ArrayList
-import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
 checkoutSteps = []
