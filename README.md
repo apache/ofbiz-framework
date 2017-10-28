@@ -138,6 +138,9 @@ Tips:
   first letter of every word in a task name. However, you
   cannot use the shortcut form for OFBiz server tasks.
   Example: `gradlew loadAdminUserLogin -PuserLoginId=myadmin` = `gradlew lAUL -PuserLoginId=myadmin`
+  
+- Dependent tasks can be skipped with the -x switch.
+  Example: `gradlew build -x test` does not run the tests within the build.
 
 #### Example standard tasks
 
