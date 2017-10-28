@@ -17,10 +17,7 @@
  * under the License.
  */
 
-import java.util.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.collections.*
-import org.apache.ofbiz.order.order.*
+import org.apache.ofbiz.order.order.OrderContentWrapper
 
 orderHeader = context.orderHeader
 

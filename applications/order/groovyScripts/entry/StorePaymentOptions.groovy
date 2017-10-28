@@ -17,9 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 productStore = ProductStoreWorker.getProductStore(request)
 

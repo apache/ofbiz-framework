@@ -22,15 +22,14 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.util.EntityQuery
-import org.apache.ofbiz.service.*
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.config.ProductConfigWorker
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.store.*
-import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.webapp.website.WebSiteWorker
 import java.text.NumberFormat

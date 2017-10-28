@@ -17,15 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.party.contact.*
-import org.apache.ofbiz.product.store.*
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityExpr
-import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 cart = session.getAttribute("shoppingCart")
 party = userLogin.getRelatedOne("Party", false)

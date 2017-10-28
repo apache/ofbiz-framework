@@ -17,13 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.product.*
-import org.apache.ofbiz.order.shoppingcart.*
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.store.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.product.product.ProductEvents
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 
 compareList = ProductEvents.getProductCompareList(request)
 context.compareList = compareList

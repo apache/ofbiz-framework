@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.entity.util.EntityUtil
 
 custRequestId = parameters.custRequestId
 if (custRequestId) {

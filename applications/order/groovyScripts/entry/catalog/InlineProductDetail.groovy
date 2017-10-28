@@ -20,22 +20,14 @@
 import java.lang.*
 import java.util.*
 import java.text.NumberFormat
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.service.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag
-import org.apache.ofbiz.webapp.stats.VisitHandler
 import org.apache.ofbiz.webapp.website.WebSiteWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.category.*
+import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
-import org.apache.ofbiz.product.product.ProductSearch
-import org.apache.ofbiz.product.product.ProductSearchSession
-import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 inlineProductId = request.getAttribute("inlineProductId")
 inlineCounter = request.getAttribute("inlineCounter")
