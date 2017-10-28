@@ -49,25 +49,6 @@ function bindObservers(bind_element) {
     if (jQuery(".selectAll").is(":checked")) {
         jQuery(".selectAll").removeAttr("checked").trigger("click");
     }
-    jQuery(bind_element).find(".maskIt").each(function(){
-        var element = jQuery(this);
-        var mask = element.data('mask');
-        element.mask(mask);
-    });
-    jQuery(bind_element).find(".enableVisualEditor").each(function(){
-        var element = jQuery(this);
-        var toolbar = element.data('toolbar');
-        var language = element.data('language');
-        var opts = {
-            cssClass : 'el-rte',
-            lang     : language,
-            toolbar  : toolbar,
-            doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-            cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css']
-        }
-        element.elrte(opts);
-    });
-
 }
 
 /* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:
