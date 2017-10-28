@@ -34,13 +34,13 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 @SuppressWarnings("serial")
 public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    protected final Map<String, ? extends Object> fieldMap;
+    private final Map<String, ? extends Object> fieldMap;
 
     public static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?,V> op) {
         if (fieldMap == null) {
             return Collections.emptyList();
         }
-        List<EntityExpr> list = new ArrayList<EntityExpr>(fieldMap.size());
+        List<EntityExpr> list = new ArrayList<>(fieldMap.size());
         for (Map.Entry<String, ? extends Object> entry: fieldMap.entrySet()) {
             list.add(EntityCondition.makeCondition(entry.getKey(), op, entry.getValue()));
         }

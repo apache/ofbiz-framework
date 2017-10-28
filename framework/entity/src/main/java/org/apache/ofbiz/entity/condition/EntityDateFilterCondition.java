@@ -36,8 +36,8 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 @SuppressWarnings("serial")
 public final class EntityDateFilterCondition extends EntityCondition {
 
-    protected final String fromDateName;
-    protected final String thruDateName;
+    private final String fromDateName;
+    private final String thruDateName;
 
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
@@ -131,7 +131,7 @@ public final class EntityDateFilterCondition extends EntityCondition {
      * @return EntityCondition representing the date range filter
      */
     public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName, String thruDateName) {
-        List<EntityCondition> criteria = new LinkedList<EntityCondition>();
+        List<EntityCondition> criteria = new LinkedList<>();
         // fromDate is equal to or after rangeStart but before rangeEnd
         criteria.add(
                 EntityCondition.makeCondition(

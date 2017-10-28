@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 @SuppressWarnings("serial")
 public final class EntityWhereString extends EntityCondition {
 
-    protected final String sqlString;
+    private final String sqlString;
 
     public EntityWhereString(String sqlString) {
         this.sqlString = sqlString;

@@ -139,9 +139,9 @@ public class EntityClause {
         outputBuffer.append("[secondField,").append(secondField == null ? "null" : secondField).append("]");
         outputBuffer.append("[firstModelEntity,").append(firstModelEntity == null ? "null" : (firstModelEntity.getEntityName() == null ? "null" : firstModelEntity.getEntityName())).append("]");
         outputBuffer.append("[secondModelEntity,").append(secondModelEntity == null ? "null" : (secondModelEntity.getEntityName() == null ? "null" : secondModelEntity.getEntityName())).append("]");
-        outputBuffer.append("[interFieldOperation,").append(interFieldOperation == null ? "null" : (interFieldOperation.getCode() == null ? "null" : interFieldOperation.getCode())).append("]");
+        outputBuffer.append("[interFieldOperation,").append(interFieldOperation == null ? "null" : (interFieldOperation.getCode())).append("]");
         outputBuffer.append("[intraFieldOperation,").append(intraFieldOperation == null ? "null" : (intraFieldOperation.getCode() == null ? "null" : intraFieldOperation.getCode())).append("]");
-        outputBuffer.append("[value,").append(getValue().toString() == null ? "null" : getValue().toString()).append("]");
+        outputBuffer.append("[value,").append(getValue().toString()).append("]");
         return outputBuffer.toString();
     }
 

@@ -20,6 +20,7 @@
 package org.apache.ofbiz.entity.condition;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.GenericEntity;
@@ -34,6 +35,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
     public static final String NULLS_FIRST = "NULLS FIRST";
     public static final String NULLS_LAST = "NULLS LAST";
+    public static final String module = OrderByItem.class.getName();
 
     protected boolean descending;
     protected Boolean nullsFirst;
@@ -78,12 +80,12 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
         // handle nulls first/last
         Boolean nullsFirst = null;
-        if (text.toUpperCase().endsWith(NULLS_FIRST)) {
+        if (text.toUpperCase(Locale.getDefault()).endsWith(NULLS_FIRST)) {
             nullsFirst = true;
             text = text.substring(0, text.length() - NULLS_FIRST.length()).trim();
         }
 
-        if (text.toUpperCase().endsWith(NULLS_LAST)) {
+        if (text.toUpperCase(Locale.getDefault()).endsWith(NULLS_LAST)) {
             nullsFirst = false;
             text = text.substring(0, text.length() - NULLS_LAST.length()).trim();
         }
@@ -114,7 +116,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
         }
 
         if (text.endsWith(")")) {
-            String upperText = text.toUpperCase();
+            String upperText = text.toUpperCase(Locale.getDefault());
             endIndex--;
             if (upperText.startsWith("UPPER(")) {
                 caseSensitivity = UPPER;
@@ -132,7 +134,6 @@ public class OrderByItem implements Comparator<GenericEntity> {
         if (startIndex != 0 || endIndex != text.length()) {
             text = text.substring(startIndex, endIndex);
             startIndex = 0;
-            endIndex = text.length();
         }
         EntityConditionValue value = EntityFieldValue.makeFieldValue(text);
         switch (caseSensitivity) {
@@ -141,6 +142,8 @@ public class OrderByItem implements Comparator<GenericEntity> {
                 break;
             case LOWER:
                 value = EntityFunction.LOWER(value);
+                break;
+            default:
                 break;
         }
         return new OrderByItem(value, descending, nullsFirst);
@@ -189,6 +192,16 @@ public class OrderByItem implements Comparator<GenericEntity> {
         if ((nullsFirst != null) && (datasourceInfo.getUseOrderByNulls())) {
             sb.append(nullsFirst ? " NULLS FIRST" : " NULLS LAST");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (descending ? 1231 : 1237);
+        result = prime * result + ((nullsFirst == null) ? 0 : nullsFirst.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
     }
 
     @Override

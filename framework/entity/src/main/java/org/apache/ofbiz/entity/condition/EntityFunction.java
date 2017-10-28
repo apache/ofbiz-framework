@@ -20,6 +20,7 @@
 package org.apache.ofbiz.entity.condition;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -64,7 +65,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
-        public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
+        public static final Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
         };
 
@@ -78,7 +79,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class TRIM extends EntityFunctionSingle<String> {
-        public static Fetcher<String> FETCHER = new Fetcher<String>() {
+        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
         };
 
@@ -92,8 +93,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class UPPER extends EntityFunctionSingle<String> {
-        public static Fetcher<String> FETCHER = new Fetcher<String>() {
-            public String getValue(Object value) { return value.toString().toUpperCase(); }
+        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+            public String getValue(Object value) { return value.toString().toUpperCase(Locale.getDefault()); }
         };
 
         private UPPER(Object value) {
@@ -106,8 +107,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LOWER extends EntityFunctionSingle<String> {
-        public static Fetcher<String> FETCHER = new Fetcher<String>() {
-            public String getValue(Object value) { return value.toString().toLowerCase(); }
+        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+            public String getValue(Object value) { return value.toString().toLowerCase(Locale.getDefault()); }
         };
 
         private LOWER(Object value) {
@@ -156,9 +157,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public EntityConditionValue freeze() {
         if (nested != null) {
             return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) {};
-        } else {
-            return new EntityFunctionSingle<T>(fetcher, function, value) {};
         }
+        return new EntityFunctionSingle<T>(fetcher, function, value) {};
     }
 
     public String getCode() {
