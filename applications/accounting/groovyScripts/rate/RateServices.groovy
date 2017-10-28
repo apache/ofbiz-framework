@@ -119,6 +119,7 @@ def expirePartyRate() {
         lookedUpValue.store()
 
         //expire related rate amount
+        parameters.fromDate = parameters.rateAmountFromDate;
         result = run service: 'expireRateAmount', with: parameters
         if (ServiceUtil.isError(result)) return result
     }
