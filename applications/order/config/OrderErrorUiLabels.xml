@@ -2097,6 +2097,9 @@
         <value xml:lang="zh">没有订单头，无法创建支付</value>
         <value xml:lang="zh-TW">沒有訂單頭，無法創建支付</value>
     </property>
+    <property key="OrderNoPaymentMethodTypeSelected">
+        <value xml:lang="en">No Payment Method Type selected</value>
+    </property>
     <property key="OrderNoPayToPartyIdSetOnProductStore">
         <value xml:lang="ar">لم يوضع دليل طرف الدفع على محل السلعة : ${productStoreId}</value>
         <value xml:lang="de">Kein 'Zahlung An'-Akteur bei Laden ${productStoreId} eingestellt</value>
@@ -2177,6 +2180,9 @@
         <value xml:lang="vi">Không thiết lập nào được tìm thấy</value>
         <value xml:lang="zh">没有找到设置</value>
         <value xml:lang="zh-TW">沒有找到設置</value>
+    </property>
+    <property key="OrderNoShipmentMethodSelected">
+        <value xml:lang="en">No Shipment Method selected</value>
     </property>
     <property key="OrderNoShoppingListAvailable">
         <value xml:lang="ar">قائمة التسوق غير متوفرة</value>
