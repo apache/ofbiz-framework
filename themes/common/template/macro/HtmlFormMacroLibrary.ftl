@@ -50,9 +50,7 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default">
   <#if mask?has_content>
-    <script type="text/javascript">
-      jQuery(function($){jQuery("#${id}").mask("${mask}");});
-    </script>
+    <#local className = className + " maskIt">
   </#if>
   <input type="text" name="${name?default("")?html}"<#t/>
     <@renderClass className alert />
@@ -61,6 +59,7 @@ under the License.
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
     <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/>
+    <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
@@ -76,6 +75,9 @@ under the License.
 </#macro>
 
 <#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="">
+  <#if visualEditorEnable?has_content>
+    <#local className = className + " enableVisualEditor">
+  </#if>
   <textarea name="${name}"<#t/>
     <@renderClass className alert />
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
