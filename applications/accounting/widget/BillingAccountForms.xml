@@ -126,7 +126,8 @@ under the License.
         <field use-when="billingAccount!=null" name="billingAccountId"><display/></field>
         <field name="partyId" use-when="billingAccount != null" ><display/></field>
         <field name="partyId" use-when="billingAccount == null" title="${uiLabelMap.AccountingPartyBilledTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId"><hidden/></field>
+        <field name="roleTypeId" use-when="billingAccount == null"><hidden value="BILL_TO_CUSTOMER"/></field>
+        <field name="roleTypeId" use-when="billingAccount != null"><hidden/></field>
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
