@@ -278,7 +278,7 @@ under the License.
         <field name="webSiteId"><display/></field>
         <field name="siteName"><display/></field>
         <field name="fromDate"><hidden value="${fromDate}"/></field>
-        <field name="contactListId">
+        <field name="contactListId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options description="${contactListName} [${contactListId}]" entity-name="ContactList" key-field-name="contactListId"></entity-options>
             </drop-down>
