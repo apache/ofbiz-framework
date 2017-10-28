@@ -101,7 +101,7 @@ public class PrimaryKeyFinder extends Finder {
             Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
 
         // assemble the field map
-        Map<String, Object> entityContext = new HashMap<String, Object>();
+        Map<String, Object> entityContext = new HashMap<>();
         if (autoFieldMap) {
             // try a map called "parameters", try it first so values from here are overridden by values in the main context
             Object parametersObj = context.get("parameters");
