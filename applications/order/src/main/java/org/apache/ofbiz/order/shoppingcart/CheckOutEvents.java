@@ -420,7 +420,23 @@ public class CheckOutEvents {
 
         return "success";
     }
-
+    // Check for payment method and shipping method exist for checkout process of anonymous user
+    public static String checkoutValidation(HttpServletRequest request, HttpServletResponse response) {
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        List<GenericValue> paymentMethodTypes = cart.getPaymentMethodTypes();
+        if (UtilValidate.isEmpty(paymentMethodTypes)) {
+            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoPaymentMethodTypeSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
+            request.setAttribute("_ERROR_MESSAGE_",errMsg);
+            return "error";
+        }
+        String shipmentMethod = cart.getShipmentMethodTypeId();
+        if (UtilValidate.isEmpty(shipmentMethod)) {
+            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoShipmentMethodSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
+            request.setAttribute("_ERROR_MESSAGE_",errMsg);
+            return "error";
+        }
+        return "success";
+    }
     // Create order event - uses createOrder service for processing
     public static String createOrder(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -430,6 +446,8 @@ public class CheckOutEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map<String, Object> callResult;
+        String result = checkoutValidation(request,response);
+        if ("error".equals(result)) return "error";
 
         if (UtilValidate.isEmpty(userLogin)) {
             userLogin = cart.getUserLogin();

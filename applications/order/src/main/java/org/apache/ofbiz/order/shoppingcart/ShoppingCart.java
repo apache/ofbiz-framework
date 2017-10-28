@@ -1781,7 +1781,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return pmi;
     }
 
-    /** Returns the Payment Method Ids */
+    /** Returns the Payment Method Type Ids */
     public List<String> getPaymentMethodTypeIds() {
         List<String> pmt = new LinkedList<String>();
         for (CartPaymentInfo inf : paymentInfo) {
@@ -1817,7 +1817,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> getPaymentMethodTypes() {
         List<GenericValue> types = new LinkedList<GenericValue>();
         if (UtilValidate.isNotEmpty(paymentInfo)) {
-            for (String id : getPaymentMethodIds()) {
+            for (String id : getPaymentMethodTypeIds()) {
                 try {
                     types.add(this.getDelegator().findOne("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id), true));
                 } catch (GenericEntityException e) {
