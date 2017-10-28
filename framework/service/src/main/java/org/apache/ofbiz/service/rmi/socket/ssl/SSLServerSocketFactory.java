@@ -71,9 +71,9 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
 
         KeyStore ks = null;
         if (keystore != null) {
-            try {
+            try (FileInputStream fis = new FileInputStream(keystore)) {
                 ks = KeyStore.getInstance(ksType);
-                ks.load(new FileInputStream(keystore), passphrase);
+                ks.load(fis, passphrase);
             } catch (NoSuchAlgorithmException e) {
                 Debug.logError(e, module);
                 throw new IOException(e.getMessage());
