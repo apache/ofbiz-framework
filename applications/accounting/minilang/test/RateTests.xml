@@ -174,6 +174,7 @@ under the License.
         <set field="serviceCtx.partyId" value="TEST_PARTY"/>
         <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
         <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
+        <set field="serviceCtx.rateAmountFromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
