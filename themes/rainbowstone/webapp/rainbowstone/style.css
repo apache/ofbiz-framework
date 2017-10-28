@@ -651,6 +651,29 @@ text-decoration: underline;
     color: #ccc;
 }
 
+/* ---------------------- */
+/*      Table Styles      */
+/* ---------------------- */
+
+.basic-table {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.basic-table tr td {
+    /* Style for all cells */
+    padding: 0.8em 0.1em;
+    vertical-align: middle;
+}
+
+.basic-table tr .align-bottom {
+    vertical-align: bottom;
+}
+
+.basic-table .selected {
+    background: #FFFCCF;
+}
+
 /* ------------------------------------- */
 /*      Table decorator - Hover bar      */
 /* ------------------------------------- */
