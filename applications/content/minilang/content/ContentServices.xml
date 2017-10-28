@@ -91,40 +91,6 @@
         </if-not-empty>
     </simple-method>
 
-    <!-- content assoc services -->
-    <simple-method method-name="createContentAssoc" short-description="Create a ContntAssoc Record">
-        <make-value entity-name="ContentAssoc" value-field="assoc"/>
-        <set-nonpk-fields map="parameters" value-field="assoc"/>
-        <set-pk-fields value-field="assoc" map="parameters"/>
-
-        <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
-
-        <now-timestamp field="nowTimestamp"/>
-        <if-empty field="assoc.fromDate">
-            <set field="assoc.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <set field="assoc.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="assoc.createdByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="assoc.lastModifiedDate" from-field="nowTimestamp"/>
-        <set field="assoc.createdDate" from-field="nowTimestamp"/>
-
-        <create-value value-field="assoc"/>
-        <log level="info" message="assoc: ${assoc}"/>
-        <field-to-result field="assoc.fromDate" result-name="fromDate"/>
-    </simple-method>
-    <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
-        <set field="contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
-        <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
-        <set-nonpk-fields map="parameters" value-field="assoc"/>
-
-        <now-timestamp field="nowTimestamp"/>
-        <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
-
-        <store-value value-field="assoc"/>
-    </simple-method>
-
     <!-- update content; just status -->
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
 

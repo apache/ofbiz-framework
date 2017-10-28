@@ -269,40 +269,24 @@
         </attribute>
     </service>
 
-    <service name="createContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="createContentAssoc">
+    <!-- content assoc services -->
+    <service name="createContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="create">
         <description>Create a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <!-- deprecated fields to be removed -->
-        <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
-        <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
-        <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
-        <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
-        <attribute mode="IN" name="deactivateExisting" optional="true" type="String"/>
-        <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
-        <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
-        <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
         <override name="fromDate" mode="INOUT" optional="true"/>
-        <!-- end of deprecated fields -->
     </service>
-    <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="updateContentAssoc">
+    <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="update">
         <description>Update a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <!-- deprecated fields to be removed -->
-        <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
-        <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
-        <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
-        <attribute mode="IN" name="deactivateExisting" optional="true" type="String"/>
-        <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
-        <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
-        <!-- end of deprecated fields -->
+    </service>
+    <service name="expireContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="expire">
+        <description>Expire a ContentAssoc</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="removeContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="delete">
         <description>Remove ContentAssoc</description>
