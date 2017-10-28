@@ -1140,6 +1140,12 @@ under the License.
         <response name="success" type="view" value="UpdateCommProducts"/>
         <response name="error" type="view" value="UpdateCommProducts"/>
     </request-map>
+    <request-map uri="createBillingAccountAndRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBillingAccountAndRole"/>
+        <response name="success" type="view" value="EditBillingAccount"/>
+        <response name="error" type="view" value="EditBillingAccount"/>
+    </request-map>
 
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
