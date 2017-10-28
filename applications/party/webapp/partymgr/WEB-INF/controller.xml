@@ -564,6 +564,11 @@ under the License.
         <response name="success" type="view" value="viewidentifications"/>
         <response name="error" type="view" value="viewidentifications"/>
     </request-map>
+    <request-map uri="EditPartyIdentification">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewidentifications"/>
+        <response name="error" type="view" value="viewidentifications"/>
+    </request-map>
 
     <request-map uri="createPartyRelationshipType">
         <security https="true" auth="true"/>
