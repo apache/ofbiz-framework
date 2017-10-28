@@ -31,10 +31,10 @@
        - .project Eclipse project file, only in plugins for now
           another solution should be provided
 
-*docbook*
-applications/content/dtd/*
+.*docbook.*
+applications/content/dtd/.*
 
 
-*.md
+.*\.md
 OPTIONAL_LIBRARIES
-.project
+\.project
