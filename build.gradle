@@ -151,7 +151,7 @@ dependencies {
     runtime 'net.sf.barcode4j:barcode4j:2.1'
     runtime 'org.apache.axis2:axis2-transport-http:1.7.1'
     runtime 'org.apache.axis2:axis2-transport-local:1.7.1'
-    runtime 'org.apache.derby:derby:10.13.1.1'
+    runtime 'org.apache.derby:derby:10.14.1.0'
     runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
     runtime 'org.apache.logging.log4j:log4j-1.2-api:2.9.1' // for external jars using the old log4j1.2: routes logging to log4j 2
     runtime 'org.apache.logging.log4j:log4j-core:2.9.1' // the implementation of the log4j 2 API
