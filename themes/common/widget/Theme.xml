@@ -68,14 +68,14 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OpenLayers-2.13.1.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.format-1.2.3-min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/date.timezone-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.format-1.2.3-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/miscAjaxFunctions.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/selectMultipleRelatedValues.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/util.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/date/FromThruDateCheck.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
         <!--Css style-->
     </theme-properties>
 
