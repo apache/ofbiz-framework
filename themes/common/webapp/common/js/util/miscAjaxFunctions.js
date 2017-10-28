@@ -186,7 +186,7 @@ You can change this behavior by changing the value of timezoneJS.timezone.loadin
   
 */  
 function initTimeZone() {
-  timezoneJS.timezone.zoneFileBasePath = '/images/date/timezones/min';
+  timezoneJS.timezone.zoneFileBasePath = '/common/js/plugins/date/timezones/min';
   timezoneJS.timezone.loadingSchemes.PRELOAD_ALL;
   timezoneJS.timezone.init();
 }
