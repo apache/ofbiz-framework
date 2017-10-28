@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
-    protected List<OrderByItem> orderByList = new ArrayList<OrderByItem>();
+    protected List<OrderByItem> orderByList = new ArrayList<>();
 
     public OrderByList() {
     }
@@ -100,6 +100,14 @@ public class OrderByList implements Comparator<GenericEntity> {
             result = orderByItem.compare(entity1, entity2);
             if (result != 0) break;
         }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((orderByList == null) ? 0 : orderByList.hashCode());
         return result;
     }
 

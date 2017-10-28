@@ -48,7 +48,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
-        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> conditions = new LinkedList<>();
         conditions.add(lhs);
         conditions.add(rhs);
         addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
@@ -89,7 +89,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     public EntityCondition freeze(List<? extends EntityCondition> conditionList) {
-        List<EntityCondition> newList = new ArrayList<EntityCondition>(conditionList.size());
+        List<EntityCondition> newList = new ArrayList<>(conditionList.size());
         for (EntityCondition condition: conditionList) {
             newList.add(condition.freeze());
         }

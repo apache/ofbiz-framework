@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -60,8 +61,8 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     private static HashMap<String, EntityOperator<?,?,?>> registry = new HashMap<String, EntityOperator<?,?,?>>();
 
     private static <L,R,T> void registerCase(String name, EntityOperator<L,R,T> operator) {
-        registry.put(name.toLowerCase(), operator);
-        registry.put(name.toUpperCase(), operator);
+        registry.put(name.toLowerCase(Locale.getDefault()), operator);
+        registry.put(name.toUpperCase(Locale.getDefault()), operator);
     }
 
     public static <L,R,T> void register(String name, EntityOperator<L,R,T> operator) {
@@ -209,9 +210,8 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     public String getCode() {
         if (codeString == null) {
             return "null";
-        } else {
-            return codeString;
         }
+        return codeString;
     }
 
     public int getId() {

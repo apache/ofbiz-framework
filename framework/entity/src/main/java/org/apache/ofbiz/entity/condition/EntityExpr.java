@@ -20,6 +20,7 @@ package org.apache.ofbiz.entity.condition;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -140,7 +141,7 @@ public final class EntityExpr extends EntityCondition {
     protected void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (rhs instanceof EntityFunction.UPPER) {
             if (value instanceof String) {
-                value = ((String) value).toUpperCase();
+                value = ((String) value).toUpperCase(Locale.getDefault());
             }
         }
         super.addValue(buffer, field, value, params);
@@ -214,6 +215,9 @@ public final class EntityExpr extends EntityCondition {
                 valueType = delegator.getEntityFieldType(valueModelEntity,  valueModelEntity.getField(((EntityConditionSubSelect) value).getKeyFieldName()).getType());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
+            }
+            if (valueType == null) {
+                throw new IllegalArgumentException("Type " + curField.getType() + " not found for entity [" + modelEntity.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + delegator.getEntityGroupName(modelEntity.getEntityName()) + "]");
             }
           // make sure the type of keyFieldName of EntityConditionSubSelect  matches the field Java type
             try {
