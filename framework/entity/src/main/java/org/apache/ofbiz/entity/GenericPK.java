@@ -21,6 +21,7 @@ package org.apache.ofbiz.entity;
 import java.util.Map;
 
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.sis.internal.jdk7.Objects;
 
 /**
  * Generic Entity Primary Key Object
@@ -60,6 +61,11 @@ public class GenericPK extends GenericEntity {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof GenericPK) {
             return super.equals(obj);
@@ -71,7 +77,7 @@ public class GenericPK extends GenericEntity {
      *  @return Object that is a clone of this GenericPK
      */
     @Override
-    public Object clone() {
+    public GenericPK clone() {
         return GenericPK.create(this);
     }
 }
