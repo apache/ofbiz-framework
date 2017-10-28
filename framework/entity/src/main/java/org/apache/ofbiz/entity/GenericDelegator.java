@@ -114,9 +114,9 @@ public class GenericDelegator implements Delegator {
     protected EntityCrypto crypto = null;
 
     /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
-    protected static ThreadLocal<List<String>> userIdentifierStack = new ThreadLocal<List<String>>();
+    private static final ThreadLocal<List<String>> userIdentifierStack = new ThreadLocal<List<String>>();
     /** A ThreadLocal variable to allow other methods to specify a session identifier (usually the visitId, though technically the Entity Engine doesn't know anything about the Visit entity) */
-    protected static ThreadLocal<List<String>> sessionIdentifierStack = new ThreadLocal<List<String>>();
+    private static final ThreadLocal<List<String>> sessionIdentifierStack = new ThreadLocal<List<String>>();
 
     private boolean testMode = false;
     private boolean testRollbackInProgress = false;
@@ -786,7 +786,7 @@ public class GenericDelegator implements Delegator {
             value.setDelegator(this);
 
             // if audit log on for any fields, save new value with no old value because it's a create
-            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+            if (value.getModelEntity().getHasFieldWithAuditLog()) {
                 createEntityAuditLogAll(value, false, false);
             }
 
@@ -796,7 +796,7 @@ public class GenericDelegator implements Delegator {
                 if (testMode) {
                     storeForTestRollback(new TestOperation(OperationType.INSERT, value));
                 }
-            } catch (GenericEntityException e) {
+            } catch (IllegalStateException | GenericEntityException e) {
                 // see if this was caused by an existing record before resetting the sequencer and trying again
                 // NOTE: use the helper directly so ECA rules, etc won't be run
 
@@ -843,7 +843,7 @@ public class GenericDelegator implements Delegator {
 
             TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String entityName = value != null ? value.getEntityName() : "invalid Generic Value";
             String errMsg = "Failure in createSetNextSeqId operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
@@ -877,7 +877,7 @@ public class GenericDelegator implements Delegator {
             value.setDelegator(this);
 
             // if audit log on for any fields, save new value with no old value because it's a create
-            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+            if (value.getModelEntity().getHasFieldWithAuditLog()) {
                 createEntityAuditLogAll(value, false, false);
             }
 
@@ -900,7 +900,7 @@ public class GenericDelegator implements Delegator {
 
             TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + (value != null ? value.getEntityName() : "value is null") + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1011,7 +1011,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
             TransactionUtil.commit(beganTransaction);
             return num;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in removeByPrimaryKey operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1068,7 +1068,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
             TransactionUtil.commit(beganTransaction);
             return num;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in removeValue operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1124,7 +1124,7 @@ public class GenericDelegator implements Delegator {
             }
             TransactionUtil.commit(beganTransaction);
             return rowsAffected;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in removeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1206,7 +1206,7 @@ public class GenericDelegator implements Delegator {
             }
             TransactionUtil.commit(beganTransaction);
             return rowsAffected;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in storeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1259,7 +1259,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_STORE, value, false);
             TransactionUtil.commit(beganTransaction);
             return retVal;
-        } catch (Exception e) {
+        } catch (IllegalStateException | GenericEntityException e) {
             String errMsg = "Failure in store operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1345,7 +1345,7 @@ public class GenericDelegator implements Delegator {
             }
             TransactionUtil.commit(beganTransaction);
             return numberChanged;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in storeAll operation: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1383,7 +1383,7 @@ public class GenericDelegator implements Delegator {
             }
             TransactionUtil.commit(beganTransaction);
             return numRemoved;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in removeAll operation: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1456,7 +1456,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, (value == null ? primaryKey : value), false);
             TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in findOne operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1495,7 +1495,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, false);
             TransactionUtil.commit(beganTransaction);
             return value;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in findByPrimaryKeyPartial operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1593,7 +1593,7 @@ public class GenericDelegator implements Delegator {
             }
             TransactionUtil.commit(beganTransaction);
             return list;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in findByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1660,7 +1660,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             TransactionUtil.commit(beganTransaction);
             return count;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in findListIteratorByCondition operation for entity [DynamicView]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -1691,7 +1691,7 @@ public class GenericDelegator implements Delegator {
             List<GenericValue> result = helper.findByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
             TransactionUtil.commit(beganTransaction);
             return result;
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String errMsg = "Failure in getMultiRelation operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
             TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -2344,7 +2344,7 @@ public class GenericDelegator implements Delegator {
                             if (highestSeqVal == null || seqVal > highestSeqVal.intValue()) {
                                 highestSeqVal = Integer.valueOf(seqVal);
                             }
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             Debug.logWarning("Error in make-next-seq-id converting SeqId [" + currentSeqId + "] in field: " + seqFieldName + " from entity: " + value.getEntityName() + " to a number: " + e.toString(), module);
                         }
                     }
@@ -2356,7 +2356,7 @@ public class GenericDelegator implements Delegator {
 
                 // only commit the transaction if we started one...
                 TransactionUtil.commit(beganTransaction);
-            } catch (Exception e) {
+            } catch (GenericEntityException e) {
                 String errMsg = "Failure in setNextSubSeqId operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
                 Debug.logError(e, errMsg, module);
                 try {
@@ -2601,7 +2601,7 @@ public class GenericDelegator implements Delegator {
         this.testMode = true;
     }
 
-    public final class TestOperation {
+    public final static class TestOperation {
         private final OperationType operation;
         private final GenericValue value;
 

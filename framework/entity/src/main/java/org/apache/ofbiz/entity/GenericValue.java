@@ -21,9 +21,12 @@ package org.apache.ofbiz.entity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Arrays;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.model.ModelEntity;
+
 
 /**
  * Generic Entity Value Object - Handles persistence for any defined entity.
@@ -216,6 +219,11 @@ public class GenericValue extends GenericEntity {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof GenericValue) {
             return super.equals(obj);
@@ -243,6 +251,6 @@ public class GenericValue extends GenericEntity {
     }
 
     public static String getStackTraceAsString() {
-        return Thread.currentThread().getStackTrace().toString();
+        return Arrays.toString(Thread.currentThread().getStackTrace());
     }
 }
