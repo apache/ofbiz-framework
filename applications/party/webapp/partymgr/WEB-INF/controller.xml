@@ -368,7 +368,9 @@ under the License.
     <request-map uri="createPerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPerson"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
         <response name="error" type="view" value="EditPerson"/>
     </request-map>
     <request-map uri="updatePerson">
