@@ -393,7 +393,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResourceRole"/>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" map-name="currentValue"><display/></field>
-        <field name="partyId" title=" "><lookup target-form-name="LookupPerson"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
