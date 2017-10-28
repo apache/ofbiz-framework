@@ -22,16 +22,19 @@ package org.apache.ofbiz.datafile;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 public class DataFile2EntityXml {
+
+    public static final String module = DataFile2EntityXml.class.getName();
 
     /** Creates a new instance of DataFile2EntityXml */
     public DataFile2EntityXml() {
@@ -44,39 +47,32 @@ public class DataFile2EntityXml {
      */
     public static void writeToEntityXml(String fileName, DataFile dataFile) throws DataFileException {
         File file = new File(fileName);
-        BufferedWriter outFile = null;
 
-        try {
+        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), UtilIO.getUtf8()));) {
 
-            //outFile = new BufferedWriter(new FileWriter(file));
-            outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
-        } catch (Exception e) {
-            throw new DataFileException("Could not open file " + fileName, e);
-        }
-        //----------------------------------------------------
-        try {
             outFile.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             outFile.newLine();
             outFile.write("<entity-engine-xml>");
             outFile.newLine();
-            for (Record record: dataFile.getRecords()) {
+            for (Record record : dataFile.getRecords()) {
                 ModelRecord modelRecord = record.getModelRecord();
                 outFile.write("<" + modelRecord.name + " ");
-                for (ModelField modelField: modelRecord.fields) {
-                    if (modelField.ignored) continue;
+                for (ModelField modelField : modelRecord.fields) {
+                    if (modelField.ignored)
+                        continue;
                     Object value = record.get(modelField.name);
                     if (value == null) {
                         value = modelField.defaultValue;
                     }
                     if (value instanceof String) {
-                        value = ((String)value).trim();
-                        if (((String)value).length() == 0) {
+                        value = ((String) value).trim();
+                        if (((String) value).length() == 0) {
                             value = modelField.defaultValue;
                         }
                     }
                     if (value != null) {
                         if (value instanceof String) {
-                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String)value) + "\" ");
+                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
                         } else {
                             outFile.write(modelField.name + "=\"" + value + "\" ");
                         }
@@ -86,8 +82,8 @@ public class DataFile2EntityXml {
                 outFile.newLine();
             }
             outFile.write("</entity-engine-xml>");
-            outFile.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new DataFileException("Error writing to file " + fileName, e);
         }
 
@@ -99,49 +95,41 @@ public class DataFile2EntityXml {
         String definitionLoc = args[1];
         String definitionName = args[2];
 
-        BufferedWriter outFile = new BufferedWriter(new FileWriter(dataFileLoc + ".xml"));
+        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFileLoc + ".xml"), UtilIO.getUtf8()));) {
+            URL dataFileUrl = UtilURL.fromFilename(dataFileLoc);
+            URL definitionUrl = UtilURL.fromFilename(definitionLoc);
 
-        URL dataFileUrl = null;
-        //try {
-            dataFileUrl = UtilURL.fromFilename(dataFileLoc);
-        //} catch (java.net.MalformedURLException e) {
-            //messages.add(e.getMessage());
-        //}
-        URL definitionUrl = null;
-        //try {
-            definitionUrl = UtilURL.fromFilename(definitionLoc);
-        //} catch (java.net.MalformedURLException e) {
-            //messages.add(e.getMessage());
-        //}
-
-        DataFile dataFile = null;
-        if (dataFileUrl != null && definitionUrl != null && UtilValidate.isNotEmpty(definitionName)) {
-            try {
-                dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
-            } catch (Exception e) {
-                //messages.add(e.toString());
-                //Debug.logInfo(e);
-            }
-        }
-
-        // -----------------------------------------
-        for (Record record: dataFile.getRecords()) {
-            ModelRecord modelRecord = record.getModelRecord();
-            outFile.write("<" + modelRecord.name + " ");
-            for (ModelField modelField: modelRecord.fields) {
-                Object value = record.get(modelField.name);
-                if (value instanceof String) {
-                    value = ((String)value).trim();
-                    outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String)value) + "\" ");
-                } else {
-                    outFile.write(modelField.name + "=\"" + value + "\" ");
+            DataFile dataFile = null;
+            if (dataFileUrl != null && definitionUrl != null && UtilValidate.isNotEmpty(definitionName)) {
+                try {
+                    dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
+                }
+                catch (DataFileException e) {
+                    Debug.logError("Error Occurred while reading Datafile, Exception: " + e, module);
                 }
             }
-            outFile.write("/>");
-            outFile.newLine();
-        }
-        outFile.close();
 
+            if (dataFile != null) {
+                for (Record record : dataFile.getRecords()) {
+                    ModelRecord modelRecord = record.getModelRecord();
+                    outFile.write("<" + modelRecord.name + " ");
+                    for (ModelField modelField : modelRecord.fields) {
+                        Object value = record.get(modelField.name);
+                        if (value instanceof String) {
+                            value = ((String) value).trim();
+                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
+                        } else {
+                            outFile.write(modelField.name + "=\"" + value + "\" ");
+                        }
+                    }
+                    outFile.write("/>");
+                    outFile.newLine();
+                }
+            }
+        }
+        catch (IOException e) {
+            Debug.logError(e, module);
+        }
     }
 
 }

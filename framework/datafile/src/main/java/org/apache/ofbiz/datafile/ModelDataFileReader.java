@@ -95,12 +95,7 @@ public final class ModelDataFileReader {
         for (int i = 0; i < rList.getLength(); i++) {
             Element recordElement = (Element) rList.item(i);
             ModelRecord modelRecord = createModelRecord(recordElement);
-
-            if (modelRecord != null) {
-                dataFile.records.add(modelRecord);
-            } else {
-                Debug.logWarning("[ModelDataFileReader.createModelDataFile] Weird, modelRecord was null", module);
-            }
+            dataFile.records.add(modelRecord);
         }
 
         for (ModelRecord modelRecord : dataFile.records) {
@@ -149,14 +144,9 @@ public final class ModelDataFileReader {
                 Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", module);
             }
             ModelDataFile dataFile = createModelDataFile(curDataFile);
-            if (dataFile != null) {
-                result.put(dataFileName, dataFile);
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
-                }
-            } else {
-                Debug.logWarning("Could not create dataFile for dataFileName " + dataFileName, module);
-                throw new DataFileException("Could not create dataFile for " + dataFileName + " defined in " + this.readerURL);
+            result.put(dataFileName, dataFile);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
             }
         }
         return result;
