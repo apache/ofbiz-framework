@@ -145,6 +145,7 @@ under the License.
             <sort-field name="activationValidThru"/>
             <sort-field name="unitCost"/>
             <sort-field name="currencyUomId"/>
+            <sort-field name="fixedAssetId"/>
             <sort-field name="totals"/>
             <sort-field name="submit"/>
         </sort-order>
