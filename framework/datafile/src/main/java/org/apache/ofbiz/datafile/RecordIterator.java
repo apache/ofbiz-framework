@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.datafile;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +30,6 @@ import java.util.Stack;
  *  Note: this is a memory intensive and will not handle files that exceed memory.
  *
  */
-
 public class RecordIterator {
 
     public static final String module = RecordIterator.class.getName();
@@ -55,7 +53,8 @@ public class RecordIterator {
         InputStream urlStream = null;
         try {
             urlStream = fileUrl.openStream();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new DataFileException("Error open URL: " + fileUrl.toString(), e);
         }
         this.setupStream(urlStream, fileUrl.toString());
@@ -71,7 +70,8 @@ public class RecordIterator {
         this.dataFileStream = dataFileStream;
         try {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, "UTF-8"));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new DataFileException("UTF-8 is not supported");
         }
         // get the line seeded
@@ -84,7 +84,6 @@ public class RecordIterator {
 
         boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
         boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
-        // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] separatorStyle is " + modelDataFile.separatorStyle + ", isFixedRecord: " + isFixedRecord, module);
 
         if (isFixedRecord) {
             if (modelDataFile.recordLength <= 0) {
@@ -93,29 +92,27 @@ public class RecordIterator {
             try {
                 char[] charData = new char[modelDataFile.recordLength + 1];
 
-                // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] reading line " + lineNum + " from position " + (lineNum-1)*modelDataFile.recordLength + ", length is " + modelDataFile.recordLength, module);
                 if (br.read(charData, 0, modelDataFile.recordLength) == -1) {
                     nextLine = null;
-                    // Debug.logInfo("[DataFile.readDataFile] found end of file, got -1", module);
                 } else {
                     nextLine = new String(charData);
-                    // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] read line " + lineNum + " line is: \"" + line + "\"", module);
                 }
-            } catch (IOException e) {
-                throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.recordLength + " length " +
-                        modelDataFile.recordLength + ") from location: " + locationInfo, e);
+            }
+            catch (IOException e) {
+                throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.recordLength + " length "
+                                            + modelDataFile.recordLength + ") from location: " + locationInfo,
+                        e);
             }
         } else {
             try {
                 nextLine = br.readLine();
-                //Debug.logInfo("br.readLine()=\"" + nextLine + "\"", module);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " from location: " + locationInfo, e);
             }
         }
 
-        //if (nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length())) {
-        if (nextLine != null && !((nextLine.contains(eof) ) )) {
+        if (nextLine != null && !((nextLine.contains(eof)))) {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
@@ -135,8 +132,7 @@ public class RecordIterator {
     }
 
     public boolean hasNext() {
-        //return nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length());
-        return nextLine != null && !((nextLine.contains(eof) ) );
+        return nextLine != null && !((nextLine.contains(eof)));
     }
 
     public Record next() throws DataFileException {
@@ -144,9 +140,9 @@ public class RecordIterator {
             return null;
         }
 
-        if (ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle)) {
+        if (ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle)
+            || ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle)) {
             boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
-            // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] separatorStyle is " + modelDataFile.separatorStyle + ", isFixedRecord: " + isFixedRecord, module);
             // advance the line (we have already checked to make sure there is a next line
             this.curLine = this.nextLine;
             this.curRecord = this.nextRecord;
@@ -156,7 +152,8 @@ public class RecordIterator {
 
             // first check to see if the file type has a line size, and if so if this line complies
             if (!isFixedRecord && modelDataFile.recordLength > 0 && curLine.length() != modelDataFile.recordLength) {
-                throw new DataFileException("Line number " + this.getCurrentLineNumber() + " was not the expected length; expected: " + modelDataFile.recordLength + ", got: " + curLine.length());
+                throw new DataFileException(
+                        "Line number " + this.getCurrentLineNumber() + " was not the expected length; expected: " + modelDataFile.recordLength + ", got: " + curLine.length());
             }
 
             // if this record has children, put it on the parentStack and get/check the children now
@@ -178,7 +175,8 @@ public class RecordIterator {
                         }
                     }
                     if (parentRecord == null) {
-                        throw new DataFileException("Expected Parent Record not found for line " + this.getCurrentLineNumber() + "; record name of expected parent is " + this.nextRecord.getModelRecord().parentName);
+                        throw new DataFileException("Expected Parent Record not found for line " + this.getCurrentLineNumber() + "; record name of expected parent is "
+                                                    + this.nextRecord.getModelRecord().parentName);
                     }
                     parentRecord.addChildRecord(this.nextRecord);
 
@@ -203,11 +201,11 @@ public class RecordIterator {
         try {
             this.br.close(); // this should also close the stream
             this.closed = true;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new DataFileException("Error closing data file input stream", e);
         }
     }
-
 
     /** Searches through the record models to find one with a matching type-code, if no type-code exists that model will always be used if it gets to it
      * @param line
@@ -217,10 +215,9 @@ public class RecordIterator {
      * @return return the ModelRecord Object found
      */
     protected static ModelRecord findModelForLine(String line, int lineNum, ModelDataFile modelDataFile) throws DataFileException {
-        // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] line: " + line, module);
         ModelRecord modelRecord = null;
 
-        for (ModelRecord curModelRecord: modelDataFile.records) {
+        for (ModelRecord curModelRecord : modelDataFile.records) {
             if (curModelRecord.tcPosition < 0) {
                 modelRecord = curModelRecord;
                 break;
@@ -229,23 +226,19 @@ public class RecordIterator {
 
             // try to match with a single typecode
             if (curModelRecord.typeCode.length() > 0) {
-                // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] Doing plain typecode match - code=" + curModelRecord.typeCode + ", filelinecode=" + typeCode, module);
-                if (typeCode != null && typeCode.equals(curModelRecord.typeCode)) {
+                if (!typeCode.isEmpty() && typeCode.equals(curModelRecord.typeCode)) {
                     modelRecord = curModelRecord;
                     break;
                 }
             } // try to match a ranged typecode (tcMin <= typeCode <= tcMax)
             else if (curModelRecord.tcMin.length() > 0 || curModelRecord.tcMax.length() > 0) {
                 if (curModelRecord.tcIsNum) {
-                    // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] Doing ranged number typecode match - minNum=" + curModelRecord.tcMinNum + ", maxNum=" + curModelRecord.tcMaxNum + ", filelinecode=" + typeCode, module);
                     long typeCodeNum = Long.parseLong(typeCode);
-                    if ((curModelRecord.tcMinNum < 0 || typeCodeNum >= curModelRecord.tcMinNum) &&
-                            (curModelRecord.tcMaxNum < 0 || typeCodeNum <= curModelRecord.tcMaxNum)) {
+                    if ((curModelRecord.tcMinNum < 0 || typeCodeNum >= curModelRecord.tcMinNum) && (curModelRecord.tcMaxNum < 0 || typeCodeNum <= curModelRecord.tcMaxNum)) {
                         modelRecord = curModelRecord;
                         break;
                     }
                 } else {
-                    // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] Doing ranged String typecode match - min=" + curModelRecord.tcMin + ", max=" + curModelRecord.tcMax + ", filelinecode=" + typeCode, module);
                     if ((typeCode.compareTo(curModelRecord.tcMin) >= 0) && (typeCode.compareTo(curModelRecord.tcMax) <= 0)) {
                         modelRecord = curModelRecord;
                         break;
@@ -255,10 +248,8 @@ public class RecordIterator {
         }
 
         if (modelRecord == null) {
-            throw new DataFileException("Could not find record definition for line " + lineNum + "; first bytes: " +
-                    line.substring(0, (line.length() > 5) ? 5 : line.length()));
+            throw new DataFileException("Could not find record definition for line " + lineNum + "; first bytes: " + line.substring(0, (line.length() > 5) ? 5 : line.length()));
         }
-        // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] Got record model named " + modelRecord.name, module);
         return modelRecord;
     }
 }
