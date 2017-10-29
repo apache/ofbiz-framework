@@ -18,11 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
-
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,13 +28,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -192,8 +188,29 @@ public class ContextFilter implements Filter {
             }
         }
 
+        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(httpRequest) {
+            @Override
+            public String getHeader(String name) {
+                String externalServerUserLoginId = request.getParameter(ExternalLoginKeysManager.EXTERNAL_SERVER_LOGIN_KEY);
+                String value = null;
+                if (externalServerUserLoginId != null) {
+                    // ExternalLoginKeysManager .createJwt() arguments in order:
+                    // id an Id, I suggest userLoginId
+                    // issuer is who/what issued the token. I suggest the server DNS
+                    // subject is the subject of the token. I suggest the destination webapp
+                    // timeToLive is the token maximum duration
+                    String webAppName = UtilHttp.getApplicationName(httpRequest);
+                    String dnsName = ExternalLoginKeysManager.getExternalServerName(httpRequest);
+                    long timeToLive = ExternalLoginKeysManager.getJwtTokenTimeToLive(httpRequest);
+                    // We would need a Bearer token (in Authorisation request header) if we were using Oauth2, here we don't, so no Bearer 
+                    value = ExternalLoginKeysManager.createJwt(externalServerUserLoginId, dnsName, webAppName , timeToLive);
+                }
+                if (value != null) return value;
+                return super.getHeader("Authorisation");
+            }
+        };
         // we're done checking; continue on
-        chain.doFilter(request, httpResponse);
+        chain.doFilter(wrapper, httpResponse);
     }
 
     /**
