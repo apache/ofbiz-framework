@@ -34,9 +34,17 @@
 #  The following files are excluded:
 
 OPTIONAL_LIBRARIES
+README.md
+
 .*gitignore
 .*hgignore
-.*md
-.*project
+**/*.md
 
 **/docbook/**
+**/applications/content/dtd/**
+**/ping.txt
+**/.project
+**/plugins/solr/home/solrdefault/**
+**/themes/common/webapp/common/js/jquery/**
+**/themes/rainbowstone/webapp/rainbowstone/flags/**
+**/themes/rainbowstone/webapp/rainbowstone/images/**
