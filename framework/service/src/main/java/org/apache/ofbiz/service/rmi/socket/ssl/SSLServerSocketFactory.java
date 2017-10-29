@@ -74,13 +74,7 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
             try (FileInputStream fis = new FileInputStream(keystore)) {
                 ks = KeyStore.getInstance(ksType);
                 ks.load(fis, passphrase);
-            } catch (NoSuchAlgorithmException e) {
-                Debug.logError(e, module);
-                throw new IOException(e.getMessage());
-            } catch (CertificateException e) {
-                Debug.logError(e, module);
-                throw new IOException(e.getMessage());
-            } catch (KeyStoreException e) {
+            } catch (NoSuchAlgorithmException | IOException | KeyStoreException | CertificateException e) {
                 Debug.logError(e, module);
                 throw new IOException(e.getMessage());
             }
