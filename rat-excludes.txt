@@ -59,4 +59,4 @@ README.md
 **/less.min.js
 **/themes/rainbowstone/webapp/rainbowstone/*.less
 **/SamplePricatTemplate_V1.1.xlsx
-**/UtilObjectTests$TestFactoryIntf
+**/framework/base/src/main/java/META-INF/**
