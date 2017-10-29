@@ -39,13 +39,20 @@ README.md
 .*gitignore
 .*hgignore
 **/*.md
+**/robots.txt
 
 **/docbook/**
 **/applications/content/dtd/**
 **/ping.txt
 **/.project
+**/plugins/webpos/webapp/webpos/images/**
 **/plugins/solr/home/solrdefault/**
+**/plugins/solr/webapp/solr/**
+**/plugins/solr/webapp/solr/img/**
+**/plugins/solr/webapp/solr/js/**
+**/plugins/solr/home/zoo.cfg
 **/themes/common/webapp/common/js/jquery/**
 **/themes/common/webapp/common/js/plugins/**
+**//themes/common/webapp/images/**
 **/themes/rainbowstone/webapp/rainbowstone/flags/**
 **/themes/rainbowstone/webapp/rainbowstone/images/**
