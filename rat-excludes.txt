@@ -56,3 +56,7 @@ README.md
 **//themes/common/webapp/images/**
 **/themes/rainbowstone/webapp/rainbowstone/flags/**
 **/themes/rainbowstone/webapp/rainbowstone/images/**
+**/less.min.js
+**/themes/rainbowstone/webapp/rainbowstone/*.less
+**/SamplePricatTemplate_V1.1.xlsx
+**/UtilObjectTests$TestFactoryIntf
