@@ -38,3 +38,5 @@ OPTIONAL_LIBRARIES
 .*hgignore
 .*md
 .*project
+
+**/docbook/**
