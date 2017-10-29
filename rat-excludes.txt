@@ -46,5 +46,6 @@ README.md
 **/.project
 **/plugins/solr/home/solrdefault/**
 **/themes/common/webapp/common/js/jquery/**
+**/themes/common/webapp/common/js/plugins/**
 **/themes/rainbowstone/webapp/rainbowstone/flags/**
 **/themes/rainbowstone/webapp/rainbowstone/images/**
