@@ -310,9 +310,9 @@ public class ExternalLoginKeysManager {
     public static String getExternalServerName(HttpServletRequest request) {
         String reportingServerName = "";
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (delegator != null && "Y".equals(EntityUtilProperties.getPropertyValue("embisphere", "use-external-server", "Y", delegator))) {
-            reportingServerName = EntityUtilProperties.getPropertyValue("embisphere", "external-server-name", "localhost:8443", delegator);
-            String reportingServerQuery = EntityUtilProperties.getPropertyValue("embisphere", "external-server-query", "/catalog/control/", delegator);
+        if (delegator != null && "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "Y", delegator))) {
+            reportingServerName = EntityUtilProperties.getPropertyValue("security", "external-server-name", "localhost:8443", delegator);
+            String reportingServerQuery = EntityUtilProperties.getPropertyValue("security", "external-server-query", "/catalog/control/", delegator);
             reportingServerName = "https://" + reportingServerName + reportingServerQuery;
         }
         return reportingServerName;
@@ -320,7 +320,7 @@ public class ExternalLoginKeysManager {
     
     public static long getJwtTokenTimeToLive(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (delegator != null) return 1000 * Long.parseLong(EntityUtilProperties.getPropertyValue("embisphere", "external-server-token-duration", "30", delegator));
+        if (delegator != null) return 1000 * Long.parseLong(EntityUtilProperties.getPropertyValue("security", "external-server-token-duration", "30", delegator));
         else return 1000 * 30;
     }
 
