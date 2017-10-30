@@ -19,17 +19,4 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- Work Effort security -->
-    <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>
-    <SecurityPermission description="Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_CREATE"/>
-    <SecurityPermission description="Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>
-    <SecurityPermission description="Limited View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
-    <SecurityPermission description="Limited Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
-    <SecurityPermission description="Limited Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
-    <SecurityPermission description="Limited Delete operations the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
-    <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
-
-    <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="WORKEFFORTMGR_ADMIN"/>
 </entity-engine-xml>

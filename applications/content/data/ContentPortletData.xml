@@ -18,11 +18,4 @@
     under the License.
 -->
 <entity-engine-xml>
-    <PortletCategory portletCategoryId="CONTENT" description="CMS Portlets"/>
-
-    <PortalPortlet portalPortletId="showContent"
-        portletName="Show Content" description="Shows a content in a Portal page"
-        screenName="ShowContentPortlet" screenLocation="component://content/widget/content/ContentScreens.xml"
-        editFormName="EditShowContentPortlet" editFormLocation="component://content/widget/content/ContentForms.xml"/>
-    <PortletPortletCategory portalPortletId="showContent" portletCategoryId="CONTENT"/>
 </entity-engine-xml>
