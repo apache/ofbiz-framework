@@ -18,23 +18,4 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- Content Manager security -->
-    <SecurityPermission description="View operations in the Content Manager." permissionId="CONTENTMGR_VIEW"/>
-    <SecurityPermission description="Create operations in the Content Manager." permissionId="CONTENTMGR_CREATE"/>
-    <SecurityPermission description="Update operations in the Content Manager." permissionId="CONTENTMGR_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Content Manager." permissionId="CONTENTMGR_DELETE"/>
-    <SecurityPermission description="ALL operations in the Content Manager." permissionId="CONTENTMGR_ADMIN"/>
-
-    <!-- Content ROLE security -->
-    <SecurityPermission description="Limited View operations in the Content Manager." permissionId="CONTENTMGR_ROLE_VIEW"/>
-    <SecurityPermission description="Limited Create operations in the Content Manager." permissionId="CONTENTMGR_ROLE_CREATE"/>
-    <SecurityPermission description="Limited Update operations in the Content Manager." permissionId="CONTENTMGR_ROLE_UPDATE"/>
-    <SecurityPermission description="Limited Delete operations in the Content Manager." permissionId="CONTENTMGR_ROLE_DELETE"/>
-
-    <!-- Control Applet security -->
-    <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
-    
-    <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CONTENTMGR_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SEND_CONTROL_APPLET"/>
 </entity-engine-xml>
