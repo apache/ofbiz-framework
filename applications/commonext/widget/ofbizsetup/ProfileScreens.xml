@@ -51,8 +51,8 @@
                                     </condition>
                                     <actions>
                                         <!-- fields for SetDependentDropdownValuesJs.ftl -->
-                                        <set field="dependentForm" value="NewCustomer"/>
-                                        <set field="paramKey" value="countryGeoId"/>                                        
+                                        <set field="dependentForm" value="NewUser"/>
+                                        <set field="paramKey" value="countryGeoId"/>
                                         <set field="mainId" value="USER_COUNTRY"/>
                                         <set field="dependentId" value="USER_STATE"/>
                                         <set field="requestName" value="getAssociatedStateList"/>
