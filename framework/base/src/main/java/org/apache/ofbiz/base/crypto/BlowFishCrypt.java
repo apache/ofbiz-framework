@@ -162,8 +162,8 @@ public class BlowFishCrypt {
 
         byte[] key = generateKey();
         if (testKey(key)) {
-            try ( FileOutputStream fos = new FileOutputStream(args[0]); 
-                  ObjectOutputStream os = new ObjectOutputStream(fos)) {
+            try (FileOutputStream fos = new FileOutputStream(args[0]); 
+                    ObjectOutputStream os = new ObjectOutputStream(fos)) {
                 String keyString = new String(key, StandardCharsets.UTF_8);
                 os.writeObject(keyString);
             }

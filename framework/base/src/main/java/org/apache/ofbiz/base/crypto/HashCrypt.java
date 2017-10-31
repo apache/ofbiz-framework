@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.crypto;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -174,20 +173,20 @@ public class HashCrypt {
             byte[] hash = Base64.encodeBase64(skf.generateSecret(spec).getEncoded());
             String pbkdf2Type = null;
             switch (hashType) {
-            case "PBKDF2WithHmacSHA1":
-                pbkdf2Type = PBKDF2_SHA1;
-                break;
-            case "PBKDF2WithHmacSHA256":
-                pbkdf2Type = PBKDF2_SHA256;
-                break;
-            case "PBKDF2WithHmacSHA384":
-                pbkdf2Type = PBKDF2_SHA384;
-                break;
-            case "PBKDF2WithHmacSHA512":
-                pbkdf2Type = PBKDF2_SHA512;
-                break;
-            default:
-                pbkdf2Type = PBKDF2_SHA1;
+                case "PBKDF2WithHmacSHA1":
+                    pbkdf2Type = PBKDF2_SHA1;
+                    break;
+                case "PBKDF2WithHmacSHA256":
+                    pbkdf2Type = PBKDF2_SHA256;
+                    break;
+                case "PBKDF2WithHmacSHA384":
+                    pbkdf2Type = PBKDF2_SHA384;
+                    break;
+                case "PBKDF2WithHmacSHA512":
+                    pbkdf2Type = PBKDF2_SHA512;
+                    break;
+                default:
+                    pbkdf2Type = PBKDF2_SHA1;
             }
             StringBuilder sb = new StringBuilder();
             sb.append("{").append(pbkdf2Type).append("}");
