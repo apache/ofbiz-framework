@@ -423,6 +423,7 @@ public class CheckOutEvents {
     // Check for payment method and shipping method exist for checkout process of anonymous user
     public static String checkoutValidation(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        if (cart.isSalesOrder()) {
         List<GenericValue> paymentMethodTypes = cart.getPaymentMethodTypes();
         if (UtilValidate.isEmpty(paymentMethodTypes)) {
             String errMsg = UtilProperties.getMessage(resource_error, "OrderNoPaymentMethodTypeSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
@@ -434,6 +435,7 @@ public class CheckOutEvents {
             String errMsg = UtilProperties.getMessage(resource_error, "OrderNoShipmentMethodSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
             request.setAttribute("_ERROR_MESSAGE_",errMsg);
             return "error";
+        }
         }
         return "success";
     }
