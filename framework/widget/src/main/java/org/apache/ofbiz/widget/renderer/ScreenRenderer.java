@@ -59,6 +59,7 @@ import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ScreenFactory;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
 import freemarker.ext.jsp.TaglibFactory;
@@ -214,8 +215,11 @@ public class ScreenRenderer {
         context.put("timeZone", UtilHttp.getTimeZone(request));
 
         // ========== setup values that are specific to OFBiz webapps
-
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+        if (visualTheme == null) {
+            String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
+            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+        }
         context.put("visualTheme", visualTheme);
         context.put("modelTheme", visualTheme.getModelTheme());
         context.put("request", request);
