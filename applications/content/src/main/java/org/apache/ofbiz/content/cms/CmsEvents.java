@@ -47,6 +47,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -290,6 +291,10 @@ public class CmsEvents {
                 try {
                     writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output
+                    if (visualTheme == null) {
+                        String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
+                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+                    }                    
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme().getFormRendererLocation("screen"), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
 
