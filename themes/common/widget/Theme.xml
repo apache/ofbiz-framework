@@ -78,12 +78,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/flatgrey/js/application.js"/>
-        <!--Css styles-->
-        <property name="VT_STYLESHEET['add']" value="/flatgrey/style.css"/>
-        <property name="VT_STYLESHEET['add']" value="/flatgrey/javascript.css"/>
-        <property name="VT_HELPSTYLESHEET['add']" value="/flatgrey/help.css"/>
-        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/flatgrey/webapp/flatgrey/docbook.css"/>
-        <property name="VT_RTL_STYLESHEET['add']" value="/flatgrey/stylertl.css"/>
+        <!--Css styles: don't load them since they differ depending on theme -->
     </theme-properties>
 
     <templates><!-- Freemarker template use by this theme to render widget model-->
