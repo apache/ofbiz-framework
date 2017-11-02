@@ -45,17 +45,18 @@ under the License.
     </widget-properties>
 
     <theme-properties> <!--specific properties dedicate to this theme -->
+        <!--jgrowl properties-->    
         <property name="jgrowlPosition" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
         <property name="jgrowlWidth" value="800" type="Integer"/>
         <property name="jgrowlHeight" value="" type="Integer"/>
         <property name="jgrowlSpeed" value="100" type="Integer"/>
-        <!--template location-->
+        <!--templates location-->
         <property name="VT_SHORTCUT_ICON" value="/images/ofbiz.ico"/>
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/><!--use flatgrey to wait the new design-->
         <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
         <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
         <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
-        <!--javascript lib-->
+        <!--javascript libs-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-1.11.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-migrate-1.2.1.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
@@ -76,7 +77,13 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
-        <!--Css style-->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/flatgrey/js/application.js"/>
+        <!--Css styles-->
+        <property name="VT_STYLESHEET['add']" value="/flatgrey/style.css"/>
+        <property name="VT_STYLESHEET['add']" value="/flatgrey/javascript.css"/>
+        <property name="VT_HELPSTYLESHEET['add']" value="/flatgrey/help.css"/>
+        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/flatgrey/webapp/flatgrey/docbook.css"/>
+        <property name="VT_RTL_STYLESHEET['add']" value="/flatgrey/stylertl.css"/>
     </theme-properties>
 
     <templates><!-- Freemarker template use by this theme to render widget model-->

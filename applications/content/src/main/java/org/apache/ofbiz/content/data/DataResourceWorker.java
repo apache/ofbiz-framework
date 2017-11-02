@@ -681,24 +681,10 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 }
 
             } else if ("XSLT".equals(dataTemplateTypeId)) {
-                File sourceFileLocation = null;
                 File targetFileLocation = new File(System.getProperty("ofbiz.home")+"/runtime/tempfiles/docbook.css");
-                if (templateContext.get("visualThemeId") != null) {
-                    Map<String, Object> layoutSettings  = UtilGenerics.checkMap(templateContext.get("layoutSettings"));
-                    List<String> docbookStyleSheets = UtilGenerics.checkList(layoutSettings.get("VT_DOCBOOKSTYLESHEET"));
-                    String docbookStyleLocation = docbookStyleSheets.get(0);
-                    sourceFileLocation = new File(System.getProperty("ofbiz.home")+"/themes"+docbookStyleLocation);
-                }
-                if (sourceFileLocation != null && sourceFileLocation.exists()) {
-                    UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
-                } else {
-                    String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
-                    if (defaultVisualThemeId != null) {
-                        GenericValue themeValue = EntityQuery.use(delegator).from("VisualThemeResource").where("visualThemeId", defaultVisualThemeId, "resourceTypeEnumId", "VT_DOCBOOKSTYLESHEET", "sequenceId", "01").cache().queryOne();
-                        sourceFileLocation = new File(System.getProperty("ofbiz.home") + "/themes" + themeValue.get("resourceValue"));
-                        UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
-                    }
-                }
+                String docbookStylesheet = modelTheme.getProperty("VT_DOCBOOKSTYLESHEET").toString();
+                File sourceFileLocation = new File(System.getProperty("ofbiz.home") + "/themes" + docbookStylesheet.substring(1, docbookStylesheet.length() - 1));
+                UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
                 // get the template data for rendering
                 String templateLocation = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).toString();
                 // render the XSLT template and file
