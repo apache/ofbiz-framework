@@ -121,6 +121,11 @@ public final class EntityEcaUtil {
                         eventMap.put(eventName, rules);
                     }
                 }
+                //remove the old rule if found and keep the recent one
+                //This will prevent duplicate rule execution along with enabled/disabled eca workflow
+                if (rules.remove(rule)) {
+                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ "+ rule.getOperationName() + "] " + "on [" + eventName + "] ", module);
+                }
                 rules.add(rule);
             }
         }

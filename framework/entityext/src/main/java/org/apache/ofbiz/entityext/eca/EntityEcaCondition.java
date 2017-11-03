@@ -110,13 +110,43 @@ public final class EntityEcaCondition implements java.io.Serializable {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append("[").append(lhsValueName).append("]");
-        buf.append("[").append(operator).append("]");
-        buf.append("[").append(rhsValueName).append("]");
-        buf.append("[").append(constant).append("]");
-        buf.append("[").append(compareType).append("]");
-        buf.append("[").append(format).append("]");
+        if (UtilValidate.isNotEmpty(lhsValueName)) buf.append("[").append(lhsValueName).append("]");
+        if (UtilValidate.isNotEmpty(operator)) buf.append("[").append(operator).append("]");
+        if (UtilValidate.isNotEmpty(rhsValueName)) buf.append("[").append(rhsValueName).append("]");
+        if (UtilValidate.isNotEmpty(constant)) buf.append("[").append(constant).append("]");
+        if (UtilValidate.isNotEmpty(compareType)) buf.append("[").append(compareType).append("]");
+        if (UtilValidate.isNotEmpty(format)) buf.append("[").append(format).append("]");
         return buf.toString();
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((lhsValueName == null) ? 0 : lhsValueName.hashCode());
+        result = prime * result + ((operator == null) ? 0 : operator.hashCode());
+        result = prime * result + ((rhsValueName == null) ? 0 : rhsValueName.hashCode());
+        result = prime * result + (constant ? 1231 : 1237);
+        result = prime * result + ((compareType == null) ? 0 : compareType.hashCode());
+        result = prime * result + ((format == null) ? 0 : format.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EntityEcaCondition) {
+            EntityEcaCondition other = (EntityEcaCondition) obj;
+
+            if (!UtilValidate.areEqual(this.lhsValueName, other.lhsValueName)) return false;
+            if (!UtilValidate.areEqual(this.rhsValueName, other.rhsValueName)) return false;
+            if (!UtilValidate.areEqual(this.operator, other.operator)) return false;
+            if (!UtilValidate.areEqual(this.compareType, other.compareType)) return false;
+            if (!UtilValidate.areEqual(this.format, other.format)) return false;
+            if (this.constant != other.constant) return false;
+
+            return true;
+        } else {
+            return false;
+        }
     }
     
     protected List<String> getFieldNames() {
