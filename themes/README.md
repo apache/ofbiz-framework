@@ -135,6 +135,7 @@ Currently it keeps all old themes system for backward compatibility with ftl tem
 As a theme is a component, you can create a new theme like a plugin. 
 
 After creating a component, you can add the two minimal information :
+
 * Theme.xml file in **plugins/my-theme/widget/** with minimal information :
 ```xml
 <theme name="my-theme"
@@ -145,6 +146,8 @@ After creating a component, you can add the two minimal information :
     </visual-themes>
 </theme>
 ```
+
+
 * your data file to add your visual theme in **plugins/my-theme/data/**
 ```xml
 <entity-engine-xml>
