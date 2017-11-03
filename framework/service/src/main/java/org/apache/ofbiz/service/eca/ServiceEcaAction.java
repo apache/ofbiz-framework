@@ -233,6 +233,23 @@ public class ServiceEcaAction implements java.io.Serializable {
     }
 
     @Override
+    public String toString() {
+        StringBuilder buf = new StringBuilder();
+        if (UtilValidate.isNotEmpty(eventName)) buf.append("[").append(eventName).append("]");
+        if (UtilValidate.isNotEmpty(ignoreError)) buf.append("[").append(ignoreError).append("]");
+        if (UtilValidate.isNotEmpty(ignoreFailure)) buf.append("[").append(ignoreFailure).append("]");
+        if (UtilValidate.isNotEmpty(newTransaction)) buf.append("[").append(newTransaction).append("]");
+        if (UtilValidate.isNotEmpty(persist)) buf.append("[").append(persist).append("]");
+        if (UtilValidate.isNotEmpty(resultMapName)) buf.append("[").append(resultMapName).append("]");
+        if (UtilValidate.isNotEmpty(resultToContext)) buf.append("[").append(resultToContext).append("]");
+        if (UtilValidate.isNotEmpty(resultToResult)) buf.append("[").append(resultToResult).append("]");
+        if (UtilValidate.isNotEmpty(runAsUser)) buf.append("[").append(runAsUser).append("]");
+        if (UtilValidate.isNotEmpty(serviceMode)) buf.append("[").append(serviceMode).append("]");
+        if (UtilValidate.isNotEmpty(serviceName)) buf.append("[").append(serviceName).append("]");
+        return buf.toString();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
