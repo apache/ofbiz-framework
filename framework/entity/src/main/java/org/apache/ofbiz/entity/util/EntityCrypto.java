@@ -124,6 +124,8 @@ public final class EntityCrypto {
     public Object decrypt(String keyName, EncryptMethod encryptMethod, String encryptedString) throws EntityCryptoException {
         try {
             return doDecrypt(keyName, encryptMethod, encryptedString, handlers[0]);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
             for (int i = 1; i < handlers.length; i++) {
