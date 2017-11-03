@@ -637,7 +637,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         Object obj = get(name);
 
         if (obj == null) {
-            return false;
+            return null;
         }
         if (obj instanceof Boolean) {
             return (Boolean) obj;
