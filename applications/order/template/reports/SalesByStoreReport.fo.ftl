@@ -87,7 +87,7 @@ under the License.
                                 <fo:block>${productReport.quantityOrdered!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.unitPrice!}</fo:block>
+                                <fo:block>${productReport.amount!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->
