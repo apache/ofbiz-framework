@@ -210,9 +210,6 @@ public interface Delegator {
      */
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
-    @Deprecated
-    Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException;
-
     Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException;
 
     Object encryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, Object fieldValue) throws EntityCryptoException;
