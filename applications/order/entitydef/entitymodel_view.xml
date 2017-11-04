@@ -1194,7 +1194,15 @@ under the License.
           <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
         </complex-alias>
       </alias>
-      <alias entity-alias="OI" name="unitPrice" function="sum"/>
+      <alias entity-alias="OI" name="amount" function="sum">
+        <complex-alias operator="*">
+          <complex-alias operator="-">
+            <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+            <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+          </complex-alias>
+          <complex-alias-field entity-alias="OI" field="unitPrice" default-value="0"/>
+        </complex-alias>
+      </alias>
       <view-link entity-alias="OH" rel-entity-alias="OI">
         <key-map field-name="orderId"/>
       </view-link>
