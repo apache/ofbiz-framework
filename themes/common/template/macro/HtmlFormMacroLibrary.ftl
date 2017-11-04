@@ -49,11 +49,6 @@ under the License.
 <#macro renderHyperlinkField></#macro>
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default">
-  <#if mask?has_content>
-    <script type="text/javascript">
-      jQuery(function($){jQuery("#${id}").mask("${mask}");});
-    </script>
-  </#if>
   <input type="text" name="${name?default("")?html}"<#t/>
     <@renderClass className alert />
     <#if value?has_content> value="${value}"</#if><#rt/>
@@ -61,6 +56,7 @@ under the License.
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
     <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/>
+    <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
@@ -76,6 +72,9 @@ under the License.
 </#macro>
 
 <#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="">
+  <#if visualEditorEnable?has_content>
+    <#local className = className + " visual-editor">
+  </#if>
   <textarea name="${name}"<#t/>
     <@renderClass className alert />
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
@@ -84,26 +83,11 @@ under the License.
     <#if readonly?has_content && readonly=='readonly'> readonly="readonly"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+    <#if visualEditorEnable?has_content> data-toolbar="${buttons?default("maxi")}"</#if><#rt/>
+    <#if language?has_content> data-language="${language!"en"}"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
   </textarea><#lt/>
-  <#if visualEditorEnable?has_content>
-    <script language="javascript" src="/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js" type="text/javascript"></script><#rt/>
-    <#if language?has_content && language != "en">
-      <script language="javascript" src="/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
-    </#if>
-    <link href="/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
-    <script language="javascript" type="text/javascript">
-      var opts = {
-         cssClass : 'el-rte',
-         lang     : '${language!"en"}',
-         toolbar  : '${buttons?default("maxi")}',
-         doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-         cssfiles : ['/common/js/jquery/plugins/elrte-1.3/css/elrte-inner.css']
-      }
-      jQuery('#${id?default("")}').elrte(opts);
-    </script>
-  </#if>
 </#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName="" mask="" event="" action="" step="" timeValues="" tabindex="" >
