@@ -547,7 +547,10 @@ public final class UtilMisc {
      */
     public static Locale ensureLocale(Object localeObject) {
         if (localeObject instanceof String) {
-            return parseLocale((String) localeObject);
+            Locale locale = parseLocale((String) localeObject);
+            if (locale != null)  {
+                return locale;
+            }
         } else if (localeObject instanceof Locale) {
             return (Locale) localeObject;
         }
