@@ -60,7 +60,7 @@ public final class WebSiteWorker {
      * @param useCache
      * @return
      */
-    private static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
+    public static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
         GenericValue result = null;
         try {
             result = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache(useCache).queryOne();
