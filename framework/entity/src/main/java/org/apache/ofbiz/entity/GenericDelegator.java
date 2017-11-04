@@ -2384,15 +2384,6 @@ public class GenericDelegator implements Delegator {
         return fieldValue;
     }
 
-    @Override
-    @Deprecated
-    public Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException {
-        if (UtilValidate.isNotEmpty(encValue)) {
-            return this.crypto.decrypt(entityName, ModelField.EncryptMethod.TRUE, encValue);
-        }
-        return null;
-    }
-
     /* (non-Javadoc)
      * @see org.apache.ofbiz.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
      */
