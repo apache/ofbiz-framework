@@ -72,6 +72,7 @@ public class LoginEvents {
     // OOTB the loginSecretKeyString is not properly initialised and can not be OOTB.
     // The best way to create the loginSecretKeyString is to use a temporary way to load in a static final key when compiling. 
     // This is simple and most secure. One of the proposed way is to use sed and uuidgen to modify the loginSecretKeyString value
+    // This: sed -i /loginSecretKeyString/s//$(uuidgen)/\2 applications/securityext/src/main/java/org/apache/ofbiz/securityext/login/LoginEvents.java
     // The magic words here are TEMPORARY and FINAL!
     private static final String loginSecretKeyString = "loginSecretKeyString";
     
