@@ -69,13 +69,7 @@ public class LoginEvents {
     public static final String module = LoginEvents.class.getName();
     public static final String resource = "SecurityextUiLabels";
     public static final String usernameCookieName = "OFBiz.Username";
-    // OOTB the loginSecretKeyString is not properly initialised and can not be OOTB.
-    // The best way to create the loginSecretKeyString is to use a temporary way to load in a static final key when compiling. 
-    // This is simple and most secure. One of the proposed way is to use sed and uuidgen to modify the loginSecretKeyString value
-    // This: sed -i /loginSecretKeyString/s//$(uuidgen)/\2 applications/securityext/src/main/java/org/apache/ofbiz/securityext/login/LoginEvents.java
-    // The magic words here are TEMPORARY and FINAL!
-    private static final String loginSecretKeyString = "loginSecretKeyString";
-    
+    private static final String keyValue = UtilProperties.getPropertyValue(LoginWorker.securityProperties, "login.secret_key_string");
     /**
      * Save USERNAME and PASSWORD for use by auth pages even if we start in non-auth pages.
      *
@@ -259,7 +253,7 @@ public class LoginEvents {
                 autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
                 EntityCrypto entityCrypto = new EntityCrypto(delegator,null); 
                 try {
-                    passwordToSend = entityCrypto.encrypt(loginSecretKeyString, EncryptMethod.TRUE, autoPassword);
+                    passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, autoPassword);
                 } catch (GeneralException e) {
                     Debug.logWarning(e, "Problem in encryption", module);
                 }
