@@ -64,7 +64,8 @@ public class ExternalLoginKeysManager {
     // The best way to create the JWT masterSecretKey is to use a temporary way to load in a static final key when compiling. 
     // This is simple and most secure. One of the proposed way is to use sed and uuidgen to modify the masterSecretKey value
     // This: sed -i /ExternalServerJwtMasterSecretKey/s//$(uuidgen)/\2 framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/ExternalLoginKeysManager.java
-    // The magic words here are TEMPORARY and FINAL!
+    // Of course you should not let the ExternalLoginKeysManager.java file on a production server after compilation 
+    // Because it will contain the dynamically generated ExternalServerJwtMasterSecretKey anyway
     private static final String ExternalServerJwtMasterSecretKey = "ExternalServerJwtMasterSecretKey";
 
     /**
