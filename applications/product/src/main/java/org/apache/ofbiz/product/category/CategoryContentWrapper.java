@@ -147,9 +147,9 @@ public class CategoryContentWrapper implements ContentWrapper {
 
         List<GenericValue> categoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent").where("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId).orderBy("-fromDate").cache(cache).queryList();
         categoryContentList = EntityUtil.filterByDate(categoryContentList);
-        
+
         GenericValue categoryContent = null;
-        String sessionLocale = locale.toString();
+        String sessionLocale = (locale != null ? locale.toString() : null);
         String fallbackLocale = UtilProperties.getFallbackLocale().toString();
         if ( sessionLocale == null ) sessionLocale = fallbackLocale;
         // look up all content found for locale
