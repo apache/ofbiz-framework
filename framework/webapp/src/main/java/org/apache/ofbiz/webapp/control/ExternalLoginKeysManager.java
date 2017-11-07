@@ -57,15 +57,15 @@ public class ExternalLoginKeysManager {
     public static final String EXTERNAL_SERVER_LOGIN_KEY = "externalServerLoginKey";
     // This works the same way than externalLoginKey but between 2 servers, not 2 webapps on the same server. 
     // The Single Sign On (SSO) is ensured by a JWT token, then all is handled as normal by a session on the reached server. 
-    // The servers may or may not share a database but the 2 loginUserId must be the same.
+    // The servers may or may not share a database but the 2 loginUserIds must be the same.
     
     // OOTB the JWT masterSecretKey is not properly initialised and can not be OOTB.
     // As we sign on on several servers, so have different sessions, we can't use the externalLoginKey way to create the JWT masterSecretKey.
-    // The best way to create the JWT masterSecretKey is to use a temporary way to load in a static final key when compiling. 
-    // This is simple and most secure. One of the proposed way is to use sed and uuidgen to modify the masterSecretKey value
-    // This: sed -i /ExternalServerJwtMasterSecretKey/s//$(uuidgen)/\2 framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/ExternalLoginKeysManager.java
-    // Of course you should not let the ExternalLoginKeysManager.java file on a production server after compilation 
-    // Because it will contain the dynamically generated ExternalServerJwtMasterSecretKey anyway
+    // IMO the best way to create the JWT masterSecretKey is to use a temporary way to load in a static final key when compiling. 
+    // This is simple and most secure. See OFBIZ-9833 for more, notably https://s.apache.org/cFeK
+    
+    // Because it will contain the ExternalServerJwtMasterSecretKey value; 
+    // you should not let the ExternalLoginKeysManager.java file on a production server after its compilation 
     private static final String ExternalServerJwtMasterSecretKey = "ExternalServerJwtMasterSecretKey";
 
     /**
