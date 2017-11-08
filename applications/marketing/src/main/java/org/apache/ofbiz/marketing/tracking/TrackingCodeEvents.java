@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.marketing.tracking;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -247,7 +249,12 @@ public class TrackingCodeEvents {
 
         // if site id exist in cookies then it is not required to create it, if exist with different site then create it
         int siteIdCookieAge = (60 * 60 * 24 * 365); // should this be configurable?
-        String siteId = request.getParameter("siteId");
+        String siteId = null;
+        try {
+            siteId = URLEncoder.encode(request.getParameter("siteId"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Debug.logError(e, module);
+        }
         if (UtilValidate.isNotEmpty(siteId)) {
             String visitorSiteIdCookieName = "Ofbiz.TKCD.SiteId";
             String visitorSiteId = null;
@@ -264,7 +271,7 @@ public class TrackingCodeEvents {
 
             if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId))) {
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
-                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId" ,siteId);
+                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteId);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
@@ -272,7 +279,7 @@ public class TrackingCodeEvents {
                 siteIdCookie.setHttpOnly(true);
                 response.addCookie(siteIdCookie);
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
-                Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
+                Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp", UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
                 if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
@@ -293,7 +300,7 @@ public class TrackingCodeEvents {
         String prodCatalogId = trackingCode.getString("prodCatalogId");
         if (UtilValidate.isNotEmpty(prodCatalogId)) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList());
+            CategoryWorker.setTrail(request, new LinkedList<String>());
         }
 
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views

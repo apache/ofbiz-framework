@@ -378,7 +378,7 @@ public class FrameImage {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
             file.delete();
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
+            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName).getCanonicalFile());
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
             
             int bufImgType;
@@ -436,10 +436,10 @@ public class FrameImage {
         return "success";
     }
     
-    public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) {
+    public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
-        File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
+        File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg").getCanonicalFile();
         if (file.exists()) {
             file.delete();
         }
