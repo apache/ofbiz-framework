@@ -414,7 +414,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
                 // do a quick check to see if the ResultSet is empty
                 resultSet.beforeFirst();
             }
-            List<GenericValue> list = new ArrayList<>((int) this.getResultSize());
+            List<GenericValue> list = new ArrayList<>();
             GenericValue nextValue;
 
             while ((nextValue = this.next()) != null) {
@@ -457,7 +457,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
                 return new ArrayList<>(0);
             }
 
-            List<GenericValue> list = new ArrayList<>(this.getResultsSizeAfterPartialList());
+            List<GenericValue> list = new ArrayList<>();
             GenericValue nextValue = null;
             // number > 0 comparison goes first to avoid the unwanted call to next
             while (number > 0 && (nextValue = this.next()) != null) {
