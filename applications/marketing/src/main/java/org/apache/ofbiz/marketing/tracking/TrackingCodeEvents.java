@@ -253,7 +253,7 @@ public class TrackingCodeEvents {
         try {
             siteId = URLEncoder.encode(request.getParameter("siteId"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            Debug.logError(e, module);
+            Debug.logError(e, "Error while saving TrackingCodeVisit", module);
         }
         if (UtilValidate.isNotEmpty(siteId)) {
             String visitorSiteIdCookieName = "Ofbiz.TKCD.SiteId";
