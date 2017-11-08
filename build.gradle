@@ -493,16 +493,6 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
         }
     }
 }
-/*
- * TODO replace this code with something more declarative.
- * We are using it so that if tests fail we still get HTML reports
- */
-gradle.taskGraph.afterTask { Task task, TaskState state ->
-    if (task.name ==~ /^ofbiz.*--test.*/
-        || task.name ==~ /^ofbiz.*-t.*/) {
-        tasks.createTestReports.execute()
-    }
-}
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
     doLast {
@@ -899,6 +889,10 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
             args argument
         }
 
+        if (taskName ==~ /^ofbiz.*--test.*/
+            || taskName ==~ /^ofbiz.*-t.*/) {
+            finalizedBy(createTestReports)
+        }
     }
 }
 
