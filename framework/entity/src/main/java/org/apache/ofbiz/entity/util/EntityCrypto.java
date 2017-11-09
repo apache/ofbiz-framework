@@ -124,9 +124,12 @@ public final class EntityCrypto {
     public Object decrypt(String keyName, EncryptMethod encryptMethod, String encryptedString) throws EntityCryptoException {
         try {
             return doDecrypt(keyName, encryptMethod, encryptedString, handlers[0]);
-        } catch (RuntimeException e) {
-            throw e;
         } catch (Exception e) {
+            /*
+            When the field is encrypted with the old algorithm (3-DES), the new Shiro code will fail to decrypt it (using AES) and then it will
+            throw an org.apache.shiro.crypto.CryptoException that is a RuntimeException.
+            For backward compatibility we want instead to catch the exception and decrypt the code using the old algorithm.
+             */
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
             for (int i = 1; i < handlers.length; i++) {
                 try {
