@@ -105,14 +105,16 @@ public final class ApacheFopWorker {
                 }
 
                 try {
-                    String ofbizHome = System.getProperty("ofbiz.home");
-                    File userConfigFile = FileUtil.getFile(ofbizHome + fopPath + "/fop.xconf");
+                    URL configFilePath = FlexibleLocation.resolveLocation(fopPath + "/fop.xconf");
+                    File userConfigFile = FileUtil.getFile(configFilePath.getFile());
                     if (userConfigFile.exists()) {
                         fopFactory = FopFactory.newInstance(userConfigFile);
                     } else {
                         Debug.logWarning("FOP configuration file not found: " + userConfigFile, module);
                     }
-                    File fontBaseFile = FileUtil.getFile(ofbizHome + fopFontBaseProperty);
+                    URL fontBaseFileUrl = FlexibleLocation.resolveLocation(fopFontBaseProperty);
+                    File fontBaseFile = FileUtil.getFile(fontBaseFileUrl.getFile());
+
                     if (fontBaseFile.isDirectory()) {
                         fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory.createDefaultInternalResourceResolver(fontBaseFile.toURI()));
                     } else {
