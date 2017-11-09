@@ -820,7 +820,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 
 <#macro renderHyperlinkTitle name title showSelectAll="N">
   <#if title?has_content>${title}<br /></#if>
-  <#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${name}');"/></#if>
+  <#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" class="selectAll"/></#if>
 </#macro>
 
 <#macro renderSortField style title linkUrl ajaxEnabled tooltip="">
