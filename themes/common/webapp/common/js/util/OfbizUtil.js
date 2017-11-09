@@ -130,60 +130,6 @@ jQuery.fn.getForm = function() {
     }
 }
 
-// Check Box Select/Toggle Functions for Select/Toggle All
-
-function toggle(e) {
-    e.checked = !e.checked;
-}
-
-function checkToggleDefault(e) {
-    checkToggle(e, "selectAllForm");
-}
-function checkToggle(e, formName) {
-    var cform = document[formName];
-    if (e.checked) {
-        var len = cform.elements.length;
-        var allchecked = true;
-        for (var i = 0; i < len; i++) {
-            var element = cform.elements[i];
-            if (element.name.substring(0, 10) == "_rowSubmit" && !element.checked) {
-                allchecked = false;
-            }
-            cform.selectAll.checked = allchecked;
-        }
-    } else {
-        cform.selectAll.checked = false;
-    }
-}
-
-function toggleAllDefault(e) {
-    toggleAll(e, "selectAllForm");
-}
-function toggleAll(e, formName) {
-    var cform = document[formName];
-    var len = cform.elements.length;
-    for (var i = 0; i < len; i++) {
-        var element = cform.elements[i];
-        if (element.name.substring(0, 10) == "_rowSubmit" && element.checked != e.checked) {
-            toggle(element);
-        }
-    }
-}
-
-function selectAllDefault() {
-    selectAll("selectAllForm");
-}
-function selectAll(formName) {
-    var cform = document[formName];
-    var len = cform.elements.length;
-    for (var i = 0; i < len; i++) {
-        var element = cform.elements[i];
-        if ((element.name == "selectAll" || element.name.substring(0, 10) == "_rowSubmit") && !element.checked) {
-            toggle(element);
-        }
-    }
-}
-
 function removeSelectedDefault() {
     removeSelected("selectAllForm");
 }
