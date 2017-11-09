@@ -30,6 +30,8 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Locale;
@@ -336,7 +338,15 @@ public class FrameImage {
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         
         String productId = request.getParameter("productId");
-        String imageName = request.getParameter("imageName");
+        String imageName = null;
+        try {
+            imageName = URLEncoder.encode(request.getParameter("imageName"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Debug.logError(e, "Error while saving TrackingCodeVisit", module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        }
+        
         
         String dirPath = "/preview/";
         File dir = new File(imageServerPath + dirPath);
