@@ -388,7 +388,7 @@ public class FrameImage {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
             file.delete();
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName).getCanonicalFile());
+            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName).getCanonicalFile()); // About Findbugs results, see OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
             
             int bufImgType;
