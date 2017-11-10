@@ -253,7 +253,7 @@ public class ShippingEvents {
 
         // Calculate the allowance price(Already included in Product's default/list price)
         // using shippingAllowance percent and deduct it from Actual Shipping Cost.
-        if (BigDecimal.ZERO.compareTo(shippingTotal) < 0 && BigDecimal.ZERO.compareTo(totalAllowance) < 0) {
+        if (BigDecimal.ZERO.compareTo(shippingTotal) < 0 && UtilValidate.isNotEmpty(totalAllowance) && BigDecimal.ZERO.compareTo(totalAllowance) < 0) {
             BigDecimal shippingAllowancePercent = storeShipMethod.getBigDecimal("allowancePercent") != null ? storeShipMethod.getBigDecimal("allowancePercent") : BigDecimal.ZERO;
             totalAllowance = totalAllowance.multiply(shippingAllowancePercent.divide(BigDecimal.valueOf(100)));
             shippingTotal = shippingTotal.subtract(totalAllowance);
