@@ -17,13 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text>
+<#macro renderField text="">
   <#if text??>
     ${text}<#lt/>
   </#if>
 </#macro>
 
-<#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorUrl="" inPlaceEditorParams="">
+<#macro renderDisplayField imageLocation alert type="" idName="" description="" title="" class="" inPlaceEditorUrl="" inPlaceEditorParams="">
   <#if type?has_content && type=="image">
     <img src="${imageLocation}" alt=""><#lt/>
   <#else>
@@ -48,7 +48,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default">
+<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled="" clientAutocomplete"" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
   <input type="text" name="${name?default("")?html}"<#t/>
     <@renderClass className alert />
     <#if value?has_content> value="${value}"</#if><#rt/>
@@ -67,11 +67,11 @@ under the License.
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
     <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
-    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
+    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
 
-<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="">
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="">
   <#if visualEditorEnable?has_content>
     <#local className = className + " visual-editor">
   </#if>
@@ -90,7 +90,7 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName="" mask="" event="" action="" step="" timeValues="" tabindex="" >
+<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" >
   <span class="view-calendar">
     <#if dateType!="time" >
       <input type="text" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}_i18n" <@renderClass className alert /><#rt/>
@@ -212,7 +212,7 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex>
+<#macro renderDropDownField name className alert id formName otherFieldName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="">
   <span class="ui-widget">
     <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>>
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
@@ -254,7 +254,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id allChecked currentValue name event action tabindex>
+<#macro renderCheckField items className alert id name action allChecked="" currentValue=""  event="" tabindex="">
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
@@ -266,7 +266,7 @@ under the License.
   </#list>
 </#macro>
 
-<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action tabindex>
+<#macro renderRadioField items className alert name action currentValue="" noCurrentSelectedKey="" event="" tabindex="">
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
@@ -277,7 +277,7 @@ under the License.
   </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl title="" name="" event="" confirmation="" containerId="" tabindex="">
   <#if buttonType=="text-link">
     <a <@renderClass className alert /> href="javascript:document.${formName}.submit()" <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>><#if title?has_content>${title}</#if> </a>
   <#elseif buttonType=="image">
@@ -294,11 +294,11 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderResetField className alert name title>
+<#macro renderResetField className alert name title="">
   <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
 </#macro>
 
-<#macro renderHiddenField name value id event action>
+<#macro renderHiddenField name value="" id="" event="" action="">
   <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if><#if id?has_content> id="${id}"</#if><#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
 </#macro>
 
@@ -312,7 +312,7 @@ under the License.
 
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit>
+<#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="">
   <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> class=<#if containerStyle?has_content>"${containerStyle}"<#else>"basic-form"</#if> onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
     <#if useRowSubmit?has_content && useRowSubmit>
       <input type="hidden" name="_useRowSubmit" value="Y"/>
@@ -324,7 +324,7 @@ under the License.
       </#if>
     </#if>
 </#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField>
+<#macro renderFormClose formName hasRequiredField focusFieldName="" containerId="">
   </form><#lt/>
   <#if focusFieldName?has_content>
     <script language="JavaScript" type="text/javascript">
@@ -352,7 +352,7 @@ under the License.
   </form><#lt/>
 </#macro>
 
-<#macro renderFormatListWrapperOpen formName style columnStyles>
+<#macro renderFormatListWrapperOpen formName columnStyles style="">
   <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>"><#lt/>
 </#macro>
 
@@ -367,49 +367,49 @@ under the License.
   </thead>
 </#macro>
 
-<#macro renderFormatHeaderRowOpen style>
+<#macro renderFormatHeaderRowOpen style="">
   <tr class="<#if style?has_content>${style}<#else>header-row</#if>">
 </#macro>
 <#macro renderFormatHeaderRowClose>
   </tr>
 </#macro>
-<#macro renderFormatHeaderRowCellOpen style positionSpan>
+<#macro renderFormatHeaderRowCellOpen style="" positionSpan="">
   <td <#if positionSpan?has_content && positionSpan gt 1 >colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>>
 </#macro>
 <#macro renderFormatHeaderRowCellClose>
   </td>
 </#macro>
 
-<#macro renderFormatHeaderRowFormCellOpen style>
+<#macro renderFormatHeaderRowFormCellOpen style="">
   <td <#if style?has_content>class="${style}"</#if>>
 </#macro>
 <#macro renderFormatHeaderRowFormCellClose>
   </td>
 </#macro>
-<#macro renderFormatHeaderRowFormCellTitleSeparator style isLast>
+<#macro renderFormatHeaderRowFormCellTitleSeparator isLast style="">
   <#if style?has_content><span class="${style}"></#if> - <#if style?has_content></span></#if>
 </#macro>
 
-<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle>
+<#macro renderFormatItemRowOpen formName itemIndex="" altRowStyles="" evenRowStyle="" oddRowStyle="">
   <tr <#if itemIndex?has_content><#if itemIndex%2==0><#if evenRowStyle?has_content>class="${evenRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if><#else><#if oddRowStyle?has_content>class="${oddRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if></#if></#if> >
 </#macro>
 <#macro renderFormatItemRowClose formName>
   </tr>
 </#macro>
-<#macro renderFormatItemRowCellOpen fieldName style positionSpan>
+<#macro renderFormatItemRowCellOpen fieldName style="" positionSpan="">
   <td <#if positionSpan?has_content && positionSpan gt 1>colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>>
 </#macro>
 <#macro renderFormatItemRowCellClose fieldName>
   </td>
 </#macro>
-<#macro renderFormatItemRowFormCellOpen style>
+<#macro renderFormatItemRowFormCellOpen style="">
   <td<#if style?has_content> class="${style}"</#if>>
 </#macro>
 <#macro renderFormatItemRowFormCellClose>
   </td>
 </#macro>
 
-<#macro renderFormatSingleWrapperOpen formName style>
+<#macro renderFormatSingleWrapperOpen formName style="">
   <table cellspacing="0" <#if style?has_content>class="${style}"</#if>>
 </#macro>
 <#macro renderFormatSingleWrapperClose formName>
@@ -422,14 +422,14 @@ under the License.
 <#macro renderFormatFieldRowClose>
   </tr>
 </#macro>
-<#macro renderFormatFieldRowTitleCellOpen style>
+<#macro renderFormatFieldRowTitleCellOpen style="">
   <td class="<#if style?has_content>${style}<#else>label</#if>">
 </#macro>
 <#macro renderFormatFieldRowTitleCellClose>
   </td>
 </#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
-<#macro renderFormatFieldRowWidgetCellOpen positionSpan style>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan="" style="">
   <td<#if positionSpan?has_content && positionSpan gt 0> colspan="${1+positionSpan*3}"</#if><#if style?has_content> class="${style}"</#if>>
 </#macro>
 <#macro renderFormatFieldRowWidgetCellClose>
@@ -454,7 +454,7 @@ under the License.
 
 <#macro renderFormatEmptySpace>&nbsp;</#macro>
 
-<#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase tabindex>
+<#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="">
   <#if opEquals?has_content>
     <select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
       <option value="equals"<#if defaultOption=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
@@ -477,7 +477,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert name localizedInputTitle value value2 size maxlength dateType formName defaultDateTimeString imgSrc localizedIconTitle titleStyle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty tabindex>
+<#macro renderDateFindField className alert name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
   <span class="view-calendar">
     <input id="${name?html}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if dateType != "time">
@@ -555,7 +555,7 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru tabindex>
+<#macro renderRangeFindField className alert value defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals defaultOptionThru name="" size="" maxlength="" autocomplete="" titleStyle="" value2="" tabindex="">
   <input type="text" <@renderClass className alert /> <#if name?has_content>name="${name}_fld0_value"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
   <#if titleStyle?has_content>
     <span class="${titleStyle}" ><#rt/>
@@ -775,15 +775,15 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   </#if>
 </#macro>
 
-<#macro renderFileField className alert name value size maxlength autocomplete tabindex>
+<#macro renderFileField className alert name="" value="" size="" maxlength="" autocomplete="" tabindex="">
   <input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
 </#macro>
-<#macro renderPasswordField className alert name value size maxlength id autocomplete tabindex>
+<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="">
   <input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>/>
 </#macro>
-<#macro renderImageField value description alternate style event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if><#if style?has_content> class="${style}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
+<#macro renderImageField action value="" description="" alternate="" style="" event=""><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if><#if style?has_content> class="${style}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
 
-<#macro renderBanner style leftStyle rightStyle leftText text rightText>
+<#macro renderBanner style="" leftStyle="" rightStyle="" leftText="" text="" rightText="">
   <table width="100%">
     <tr><#rt/>
       <#if leftText?has_content><td align="left"><#if leftStyle?has_content><div class="${leftStyle}"></#if>${leftText}<#if leftStyle?has_content></div></#if></td><#rt/></#if>
@@ -795,7 +795,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 
 <#macro renderContainerField id className><div id="${id}" class="${className}"/></#macro>
 
-<#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip>
+<#macro renderFieldGroupOpen collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip style="" id="" title="">
   <#if style?has_content || id?has_content || title?has_content><div class="fieldgroup<#if style?has_content> ${style}</#if>"<#if id?has_content> id="${id}"</#if>>
     <div class="fieldgroup-title-bar">
       <#if collapsible>
@@ -816,20 +816,20 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   </#if>
 </#macro>
 
-<#macro renderFieldGroupClose style id title><#if style?has_content || id?has_content || title?has_content></div></div></#if></#macro>
+<#macro renderFieldGroupClose style="" id="" title=""><#if style?has_content || id?has_content || title?has_content></div></div></#if></#macro>
 
-<#macro renderHyperlinkTitle name title showSelectAll="N">
+<#macro renderHyperlinkTitle name="selectAll" title="" showSelectAll="N">
   <#if title?has_content>${title}<br /></#if>
-  <#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" class="selectAll"/></#if>
+  <#if showSelectAll="Y"><input type="checkbox" name="${name}" value="Y" class="selectAll"/></#if>
 </#macro>
 
-<#macro renderSortField style title linkUrl ajaxEnabled tooltip="">
+<#macro renderSortField title linkUrl style="" ajaxEnabled="" tooltip="">
   <a<#if style?has_content> class="${style}"</#if> href="<#if ajaxEnabled?has_content && ajaxEnabled>javascript:ajaxUpdateAreas('${linkUrl}')<#else>${linkUrl}</#if>"<#if tooltip?has_content> title="${tooltip}"</#if>>${title}</a>
 </#macro>
 
 <#macro formatBoundaryComment boundaryType widgetType widgetName><!-- ${boundaryType}  ${widgetType}  ${widgetName} --></#macro>
 
-<#macro renderTooltip tooltip tooltipStyle>
+<#macro renderTooltip tooltip="" tooltipStyle="">
   <#if tooltip?has_content><span class="<#if tooltipStyle?has_content>${tooltipStyle}<#else>tooltip</#if>">${tooltip}</span><#rt/></#if>
 </#macro>
 
@@ -841,20 +841,20 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   <#if requiredField=="true"><#if !requiredStyle?has_content>*</#if></#if>
 </#macro>
 
-<#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow>
+<#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow="">
   <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${name}">
     <#list parameters as parameter>
       <input name="${parameter.name}" value="${parameter.value}" type="hidden"/>
     </#list>
   </form>
 </#macro>
-<#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation>
+<#macro makeHiddenFormLinkAnchor hiddenFormName description event="" action="" imgSrc="" confirmation="" linkStyle="">
   <a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"
     <#if action?has_content && event?has_content> ${event}="${action}"</#if>
     <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>>
       <#if imgSrc?has_content><img src="${imgSrc}" alt=""/></#if>${description}</a>
 </#macro>
-<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title targetParameters alternate linkUrl targetWindow description confirmation uniqueItemName="" height="" width="" id="">
+<#macro makeHyperlinkString hiddenFormName imgSrc title  alternate linkUrl description linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
     <#if uniqueItemName?has_content>
         <div id="${uniqueItemName}"></div>
         <a href="javascript:void(0);" id="${uniqueItemName}_link" 
