@@ -147,11 +147,11 @@ under the License.
         <alt-target use-when="contactListParty==null" target="createContactListParty"/>
 
         <field name="contactListId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="partyId" use-when="contactListParty==null" title="${uiLabelMap.MarketingContactListPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="contactListParty!=null"><display/></field>
+        <field name="fromDate" use-when="contactListParty==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="fromDate" use-when="contactListParty!=null"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field use-when="partyId!=null" name="partyId"><display/></field>
-        <field use-when="fromDate!=null" name="fromDate"><display/></field>
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CLPT_ACCEPTED">
@@ -167,8 +167,8 @@ under the License.
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/>
         </field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field use-when="partyId!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" use-when="contactListParty==null" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" use-when="contactListParty!=null" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false"/></field>
      </form>
     
