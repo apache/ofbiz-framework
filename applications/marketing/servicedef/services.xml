@@ -191,7 +191,8 @@ under the License.
             location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="updateContactListParty" auth="true">
         <description>Update Party to ContactList Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>        
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactListId" type="String" mode="OUT" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
         <attribute name="baseLocation" type="String" mode="IN" optional="true"/>
