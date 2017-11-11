@@ -36,33 +36,33 @@ under the License.
 </#if>
 </#macro>
 
-<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval>
+<#macro renderContainerBegin id autoUpdateInterval style="" autoUpdateLink="">
 <#if autoUpdateLink?has_content>
 <script type="text/javascript">ajaxUpdateAreaPeriodic('${id}', '${autoUpdateLink}', '', '${autoUpdateInterval}');</script>
 </#if>
 <div<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
 </#macro>
 <#macro renderContainerEnd></div></#macro>
-<#macro renderContentBegin editRequest enableEditValue editContainerStyle><#if editRequest?has_content && "true" == enableEditValue><div class=${editContainerStyle}></#if></#macro>
+<#macro renderContentBegin enableEditValue editContainerStyle  editRequest=""><#if editRequest?has_content && "true" == enableEditValue><div class=${editContainerStyle}></#if></#macro>
 <#macro renderContentBody></#macro>
-<#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
+<#macro renderContentEnd editMode editContainerStyle  enableEditValue editRequest="" urlString="" >
 <#if editRequest?? && "true" == enableEditValue>
 <#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
 <#if editContainerStyle??></div><#rt/></#if>
 </#if>
 </#macro>
-<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?? && "true" == enableEditValue><div class="${editContainerStyle}"></#if></#macro>
+<#macro renderSubContentBegin editContainerStyle enableEditValue editRequest=""><#if editRequest?? && "true" == enableEditValue><div class="${editContainerStyle}"></#if></#macro>
 <#macro renderSubContentBody></#macro>
-<#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
+<#macro renderSubContentEnd editMode editContainerStyle  enableEditValue editRequest="" urlString="">
 <#if editRequest?? && "true" == enableEditValue>
 <#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
 <#if editContainerStyle??></div><#rt/></#if>
 </#if>
 </#macro>
 
-<#macro renderHorizontalSeparator id style><hr<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>/></#macro>
+<#macro renderHorizontalSeparator id="" style=""><hr<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>/></#macro>
 
-<#macro renderLabel text id style>
+<#macro renderLabel text id="" style="">
   <#if text?has_content>
     <#-- If a label widget has one of the h1-h6 styles, then it is considered block level element.
          Otherwise it is considered an inline element. -->
@@ -90,7 +90,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name height width linkUrl text imgStr>
+<#macro renderLink parameterList target uniqueItemName linkType actionUrl height width linkUrl targetWindow="" id="" style="" name="" text="" imgStr="">
     <#if "layered-modal" != linkType>
         <#if "hidden-form" == linkType>
             <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
@@ -152,8 +152,8 @@ under the License.
 </#if>
 </#macro>
 
-<#macro renderContentFrame fullUrl width height border><iframe src="${fullUrl}" width="${width}" height="${height}" <#if border?has_content>border="${border}"</#if> /></#macro>
-<#macro renderScreenletBegin id title collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled>
+<#macro renderContentFrame fullUrl width height border=""><iframe src="${fullUrl}" width="${width}" height="${height}" <#if border?has_content>border="${border}"</#if> /></#macro>
+<#macro renderScreenletBegin collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled id="" title="">
 <div class="screenlet"<#if id?has_content> id="${id}"</#if>><#rt/>
 <#if showMore>
 <div class="screenlet-title-bar"><ul><#if title?has_content><li class="h3">${title}</li></#if>
@@ -178,7 +178,7 @@ ${menuString}
 </#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></div></div></#macro>
-<#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl>
+<#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle paginateLastLabel paginateNextStyle paginateNextLabel paginatePreviousLabel paginateFirstLabel firstLinkUrl="" lastLinkUrl="" nextLinkUrl="" previousLinkUrl="" paginatePreviousStyle="" paginateFirstStyle="">
     <li class="${paginateLastStyle}<#if !lastLinkUrl?has_content> disabled</#if>"><#if lastLinkUrl?has_content><a href="${lastLinkUrl}">${paginateLastLabel}</a><#else>${paginateLastLabel}</#if></li>
     <li class="${paginateNextStyle}<#if !nextLinkUrl?has_content> disabled</#if>"><#if nextLinkUrl?has_content><a href="${nextLinkUrl}">${paginateNextLabel}</a><#else>${paginateNextLabel}</#if></li>
     <#if (listSize?number > 0) ><li>${lowIndex?number + 1} - ${lowIndex?number + actualPageSize?number} ${ofLabel} ${listSize}</li><#rt/></#if>
@@ -330,7 +330,7 @@ ${menuString}
   </#if>
 </#macro>
 
-<#macro renderColumnContainerBegin id style>
+<#macro renderColumnContainerBegin id="" style="">
   <table cellspacing="0"<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
   <tr>
 </#macro>
@@ -340,7 +340,7 @@ ${menuString}
   </table>
 </#macro>
 
-<#macro renderColumnBegin id style>
+<#macro renderColumnBegin id="" style="">
   <td<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
 </#macro>
 
