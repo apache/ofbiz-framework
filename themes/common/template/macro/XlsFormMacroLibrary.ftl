@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text><#if text??>${text}</#if></#macro>
+<#macro renderField text=""><#if text??>${text}</#if></#macro>
 
 <#macro renderItemField value cellType cellStyle=""><td class="${cellType!}" <#if cellStyle?has_content>${cellStyle!}</#if>>${value!}</td></#macro>
 
