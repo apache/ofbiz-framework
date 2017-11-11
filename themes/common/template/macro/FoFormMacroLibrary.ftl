@@ -42,9 +42,9 @@ under the License.
 
 <#escape x as x?xml>
 
-<#macro makeBlock style text><fo:block<#if style?has_content> <@getFoStyle style/></#if>><#if text??>${text}</#if></fo:block></#macro>
+<#macro makeBlock style="" text=""><fo:block<#if style?has_content> <@getFoStyle style/></#if>><#if text??>${text}</#if></fo:block></#macro>
 
-<#macro renderField text><#if text??>${text}</#if></#macro>
+<#macro renderField text=""><#if text??>${text}</#if></#macro>
 
 <#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorUrl="" inPlaceEditorParams="">
 <@makeBlock class description />
@@ -57,7 +57,7 @@ under the License.
 
 <#macro renderDateTimeField name className alert title value size maxlength step timeValues id event action dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex=""><@makeBlock className value /></#macro>
 
-<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex>
+<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex firstInList="" currentValue="">
 <#if currentValue?has_content && firstInList?has_content>
 <@makeBlock "" explicitDescription />
 <#else>
@@ -94,7 +94,7 @@ under the License.
 <#-- FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null) -->
 <fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>
 </#macro>
-<#macro renderFormatHeaderRowCellOpen style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle "${style}"/><#else><@getFoStyle "listtitlestyle"/></#if>><fo:block></#macro>
+<#macro renderFormatHeaderRowCellOpen style="" positionSpan=""><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle "${style}"/><#else><@getFoStyle "listtitlestyle"/></#if>><fo:block></#macro>
 <#macro renderFormatHeaderRowCellClose></fo:block></fo:table-cell></#macro>
 
 <#macro renderFormatHeaderRowFormCellOpen style></#macro>
@@ -103,7 +103,7 @@ under the License.
 
 <#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row <@getFoStyle "${altRowStyles}"/>></#macro>
 <#macro renderFormatItemRowClose formName></fo:table-row></#macro>
-<#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>><fo:block></#macro>
+<#macro renderFormatItemRowCellOpen fieldName style="" positionSpan=""><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>><fo:block></#macro>
 <#macro renderFormatItemRowCellClose fieldName></fo:block></fo:table-cell></#macro>
 <#macro renderFormatItemRowFormCellOpen style></#macro>
 <#macro renderFormatItemRowFormCellClose></#macro>
@@ -116,7 +116,7 @@ under the License.
 <#macro renderFormatFieldRowTitleCellOpen style><fo:table-cell font-weight="bold" text-align="right" padding="3pt"><fo:block></#macro>
 <#macro renderFormatFieldRowTitleCellClose></fo:block></fo:table-cell></#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
-<#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>><fo:block></#macro>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan="" style=""><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>><fo:block></#macro>
 <#macro renderFormatFieldRowWidgetCellClose></fo:block></fo:table-cell></#macro>
 
 <#macro renderFormatEmptySpace> <@makeBlock "" " " /><!--space--></#macro>
