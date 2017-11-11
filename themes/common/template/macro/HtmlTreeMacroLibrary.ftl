@@ -17,17 +17,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderNodeBegin style>
+<#macro renderNodeBegin style="">
 <#if style?has_content><ul class="${style}"></#if>
 <li><#rt/>
 </#macro>
 
-<#macro renderLastElement style>
+<#macro renderLastElement style="">
 <ul<#if style?has_content> class="${style}"</#if>>
 <#rt/>
 </#macro>
   
-<#macro renderNodeEnd processChildren isRootNode>
+<#macro renderNodeEnd processChildren="" isRootNode="">
 <#if processChildren?has_content && processChildren>
 </ul><#lt/>
 </#if>
@@ -37,9 +37,9 @@ under the License.
 </#if> 
 </#macro>
  
-<#macro renderLabel id style labelText>
+<#macro renderLabel id="" style="" labelText="">
 <span<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>><#rt/>
-<#if id?has_content>{labelText}</#if><#rt/>
+<#if labelText?has_content>${labelText}</#if><#rt/>
 </span>    
 </#macro>
 
@@ -47,7 +47,7 @@ under the License.
 <!-- ${boundaryType}  ${widgetType}  ${widgetName} -->
 </#macro>
 
-<#macro renderLink id style name title targetWindow linkUrl linkText imgStr>
+<#macro renderLink id="" style="" name="" title="" targetWindow="" linkUrl="" linkText="" imgStr="">
 <a<#if id?has_content> id="${id}"</#if><#rt/>
 <#if style?has_content> class="${style}"</#if><#rt/>
 <#if name?has_content> name="${name}"</#if><#rt/>
@@ -56,7 +56,7 @@ under the License.
 <#if imgStr?has_content>${imgStr}<#elseif linkText?has_content/>${linkText}<#else>&nbsp;</#if></a><#rt/>
 </#macro>
 
-<#macro renderImage src id style wid hgt border alt urlString>
+<#macro renderImage src="" id="" style="" wid="" hgt="" border="" alt="" urlString="">
 <#if src?has_content>
 <img <#if id?has_content>id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if wid?has_content> width="${wid}"</#if><#if hgt?has_content> height="${hgt}"</#if><#if border?has_content> border="${border}"</#if> alt="<#if alt?has_content>${alt}</#if>" src="${urlString}" /><#rt/>
 </#if>
