@@ -51,7 +51,7 @@ under the License.
 
 <#macro renderSectionEnd boundaryComment>
 </#macro>
-<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
+<#macro renderContainerBegin id autoUpdateLink autoUpdateInterval style=""><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
 <#macro renderContainerEnd></fo:block></#macro>
 <#macro renderContentBegin editRequest enableEditValue editContainerStyle></#macro>
 <#macro renderContentBody></#macro>
@@ -61,7 +61,7 @@ under the License.
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
-<#macro renderLabel text id style><#if text?has_content><fo:block <#if style?has_content><@getFoStyle style/></#if> <#if id?has_content> id="${id}"</#if>>${text}</fo:block></#if></#macro>
+<#macro renderLabel text="" id="" style=""><#if text?has_content><fo:block <#if style?has_content><@getFoStyle style/></#if> <#if id?has_content> id="${id}"</#if>>${text}</fo:block></#if></#macro>
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name height width linkUrl text imgStr></#macro>
 <#macro renderImage src id style wid hgt border alt urlString><fo:block><fo:external-graphic id="${id}" src="${src}" content-width="${wid}" content-height="${hgt}" scaling="non-uniform"/></fo:block></#macro>
 
@@ -72,7 +72,7 @@ under the License.
 
 <#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl></#macro>
 
-<#macro renderColumnContainerBegin id style>
+<#macro renderColumnContainerBegin id="" style="">
   <fo:table table-layout="fixed" width="100%"<#if id?has_content> id="${id}"</#if><#if style?has_content> <@getFoStyle style/></#if>>
     <fo:table-body>
       <fo:table-row>
@@ -84,7 +84,7 @@ under the License.
   </fo:table>
 </#macro>
 
-<#macro renderColumnBegin id style>
+<#macro renderColumnBegin id="" style="">
         <fo:table-cell<#if id?has_content> id="${id}"</#if><#if style?has_content> <@getFoStyle style/></#if>>
 </#macro>
 
