@@ -48,7 +48,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled="" clientAutocomplete"" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
+<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled="" clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
   <input type="text" name="${name?default("")?html}"<#t/>
     <@renderClass className alert />
     <#if value?has_content> value="${value}"</#if><#rt/>
