@@ -57,6 +57,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
@@ -674,7 +675,17 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
                     // render the FTL template
                     boolean useTemplateCache = cache && !UtilProperties.getPropertyAsBoolean("content", "disable.ftl.template.cache", false);
-                    Timestamp lastUpdatedStamp = dataResource.getTimestamp("lastUpdatedStamp");
+                    //Do not use dataResource.lastUpdatedStamp for dataResource template caching as it may use ftl file or electronicText
+                    // If dataResource using ftl file use nowTimestamp to avoid freemarker caching
+                    Timestamp lastUpdatedStamp = UtilDateTime.nowTimestamp();
+                    //If dataResource is type of ELECTRONIC_TEXT then only use the lastUpdatedStamp of electronicText entity for freemarker caching
+                    if ("ELECTRONIC_TEXT".equals(dataResource.getString("dataResourceTypeId"))) {
+                        GenericValue electronicText = dataResource.getRelatedOne("ElectronicText", true);
+                        if (electronicText != null) {
+                            lastUpdatedStamp = electronicText.getTimestamp("lastUpdatedStamp");
+                        }
+                    }
+
                     FreeMarkerWorker.renderTemplateFromString("delegator:" + delegator.getDelegatorName() + ":DataResource:" + dataResourceId, templateText, templateContext, out, lastUpdatedStamp.getTime(), useTemplateCache);
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
