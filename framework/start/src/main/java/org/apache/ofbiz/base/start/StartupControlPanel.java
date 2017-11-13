@@ -150,21 +150,11 @@ final class StartupControlPanel {
     private static void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
         String systemProperties = System.getProperty(globalOfbizPropertiesFileName);
         if (systemProperties != null) {
-            FileInputStream stream = null;
-            try {
-                stream = new FileInputStream(systemProperties);
-                System.getProperties().load(stream);
-                stream.close();
+            try { FileInputStream  stream = new FileInputStream(systemProperties);
+            System.getProperties().load(stream);
+            stream.close();
             } catch (IOException e) {
                 throw new StartupException("Couldn't load global system props", e);
-            } finally {
-                try {
-                    if (stream != null) {
-                    stream.close();
-                    } 
-                } catch (IOException e) {
-                    System.out.println("There was a problem while closing the Stream " + e);
-                }
             }
         }
     }
