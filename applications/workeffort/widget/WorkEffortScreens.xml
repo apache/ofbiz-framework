@@ -385,7 +385,7 @@ under the License.
                         <screenlet id="AddWorkEffortCommEventsPanel" title="${uiLabelMap.PageTitleAddWorkEffortCommEvent}" collapsible="true">
                             <include-form name="AddWorkEffortCommEvent" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
                         </screenlet>
-                        <include-form name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
+                        <include-grid name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
