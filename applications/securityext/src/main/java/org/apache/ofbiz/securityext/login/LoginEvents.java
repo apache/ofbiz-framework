@@ -35,7 +35,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -429,7 +428,7 @@ public class LoginEvents {
         return cookieUsername;
     }
 
-    public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
+    public static void setUsername(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
@@ -437,7 +436,7 @@ public class LoginEvents {
         synchronized (session) {
             if (UtilValidate.isEmpty(getUsername(request))) {
                 // create the cookie and send it back
-                String usernameParam = UtilCodec.getEncoder("html").encode(request.getParameter("USERNAME"));
+                String usernameParam = URLEncoder.encode(request.getParameter("USERNAME"), "UTF-8");
                 Cookie cookie = new Cookie(usernameCookieName, usernameParam);
                 cookie.setMaxAge(60 * 60 * 24 * 365);
                 cookie.setPath("/");
