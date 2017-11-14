@@ -401,7 +401,7 @@ public class LoginEvents {
         return ProductEvents.checkStoreCustomerRole(request, response);
     }
 
-    public static String storeLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static String storeLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String responseString = LoginWorker.login(request, response);
         if (!"success".equals(responseString)) {
             return responseString;
