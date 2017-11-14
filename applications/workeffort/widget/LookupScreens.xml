@@ -41,7 +41,7 @@ under the License.
                         <include-form name="LookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
+                        <include-grid name="ListLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -69,7 +69,7 @@ under the License.
                         <include-form name="LookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
+                        <include-grid name="ListLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

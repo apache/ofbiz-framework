@@ -116,10 +116,10 @@ under the License.
                         </screenlet>
                         <!-- createQuickTimeEntry -->
                         <screenlet title="${uiLabelMap.WorkEffortMyRates}">
-                            <include-form name="ListMyRates" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            <include-grid name="ListMyRates" location="component://workeffort/widget/TimesheetForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WorkEffortMyTimesheets}">
-                            <include-form name="ListMyTimesheets" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            <include-grid name="ListMyTimesheets" location="component://workeffort/widget/TimesheetForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -150,7 +150,7 @@ under the License.
                                     <include-form name="FindTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleFindTimesheet}">
-                                    <include-form name="ListFindTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
+                                    <include-grid name="ListTimesheets" location="component://workeffort/widget/TimesheetForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -193,7 +193,7 @@ under the License.
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleDisplayTimesheetEntries}">
                                     <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
-                                    <include-form name="DisplayTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
+                                    <include-grid name="DisplayTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleAddTimesheetToNewInvoice}">
                                     <include-form name="AddTimesheetToNewInvoice" location="component://workeffort/widget/TimesheetForms.xml"/>
@@ -219,7 +219,7 @@ under the License.
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditTimesheetRoles}">
-                            <include-form name="ListTimesheetRoles" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            <include-grid name="ListTimesheetRoles" location="component://workeffort/widget/TimesheetForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddTimesheetRoles}">
                             <include-form name="AddTimesheetRole" location="component://workeffort/widget/TimesheetForms.xml"/>
@@ -243,7 +243,7 @@ under the License.
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditTimesheetEntries}">
-                            <include-form name="ListTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            <include-grid name="ListTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddTimesheetEntries}">
                             <include-form name="AddTimesheetEntry" location="component://workeffort/widget/TimesheetForms.xml"/>
