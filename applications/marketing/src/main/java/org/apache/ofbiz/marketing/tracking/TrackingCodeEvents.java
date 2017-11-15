@@ -269,7 +269,7 @@ public class TrackingCodeEvents {
                 }
             }
 
-            if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId))) {
+            if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId) && siteId != null)) {
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteId);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
