@@ -125,37 +125,44 @@ under the License.
         <attribute name="lookupPerson" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
 
-    <service name="getPartyFromEmail" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromEmail">
-        <description>Gets a collection of parties from an email address</description>
+    <service name="getPartiesFromExactEmail" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromExactEmail">
+        <description>Gets a collection of parties from an exact email address, uses SQL EQUALS</description>
         <attribute name="email" type="String" mode="IN"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
-    <service name="getPartyFromUserLogin" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromUserLogin">
-        <description>Gets a collection of parties from an email address</description>
+    <service name="getPartiesFromPartOfEmail" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromPartOfEmail">
+        <description>Gets a collection of parties from a part of an email address, uses SQL LIKE</description>
+        <attribute name="email" type="String" mode="IN"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getPartiesFromPartOfUserloginId" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromPartOfUserloginId">
+        <description>Gets a collection of parties from a part of an UserloginId, uses SQL LIKE</description>
         <attribute name="userLoginId" type="String" mode="IN"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
-    <service name="getPartyFromName" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPerson">
-        <description>Gets a collection of parties from a first/last name</description>
+    <service name="getPartiesFromName" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromPerson">
+        <description>Gets a collection of parties from a first/last name, uses SQL LIKE</description>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" mode="IN" optional="true"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
-    <service name="getPartyFromGroupName" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPartyGroup">
-        <description>Gets a collection of parties from a party group namee</description>
+    <service name="getPartiesFromGroupName" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromPartyGroup">
+        <description>Gets a collection of parties from a group name, uses SQL LIKE</description>
         <attribute name="groupName" type="String" mode="IN" optional="false"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
-	<service name="getPartyFromExternalId" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromExternalId">
+    <service name="getPartiesFromExternalId" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartiesFromExternalId">
         <description>Gets a list of parties from a party externalId </description>
         <attribute name="externalId" type="String" mode="IN" optional="false"/>
         <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>

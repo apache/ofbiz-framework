@@ -701,7 +701,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map<String, Object> getPartyFromExactEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getPartiesFromExactEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = new LinkedList<Map<String,GenericValue>>();
@@ -739,7 +739,7 @@ public class PartyServices {
         return result;
     }
 
-    public static Map<String, Object> getPartyFromEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getPartiesFromPartOfEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = new LinkedList<Map<String,GenericValue>>();
@@ -783,8 +783,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map<String, Object> getPartyFromUserLogin(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Debug.logWarning("Running the getPartyFromUserLogin Service...", module);
+    public static Map<String, Object> getPartiesFromPartOfUserloginId(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Debug.logWarning("Running the getPartiesFromPartOfUserloginId Service...", module);
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = new LinkedList<Map<String,GenericValue>>();
@@ -827,7 +827,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map<String, Object> getPartyFromPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getPartiesFromPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = new LinkedList<Map<String,GenericValue>>();
@@ -877,7 +877,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map<String, Object> getPartyFromPartyGroup(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getPartiesFromPartyGroup(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = new LinkedList<Map<String,GenericValue>>();
@@ -886,7 +886,7 @@ public class PartyServices {
 
         if (groupName.length() == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "PartyCannotGetPartyFromPartyGroup", locale));
+                    "PartyCannotgetPartiesFromPartyGroup", locale));
         }
 
         try {
@@ -920,7 +920,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map<String, Object> getPartyFromExternalId(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getPartiesFromExternalId(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
         List<GenericValue> parties = new ArrayList<>();
