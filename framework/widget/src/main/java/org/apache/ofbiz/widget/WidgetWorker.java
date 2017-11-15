@@ -21,7 +21,6 @@ package org.apache.ofbiz.widget;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -130,7 +129,7 @@ public final class WidgetWorker {
                 externalWriter.append('=');
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null && parameterValue != null) {
-                    externalWriter.append(simpleEncoder.encode(URLEncoder.encode(parameterValue, Charset.forName("UTF-8").displayName())));
+                    externalWriter.append(simpleEncoder.encode(URLEncoder.encode(parameterValue, "UTF-8")));
                 } else {
                     externalWriter.append(parameterValue);
                 }
