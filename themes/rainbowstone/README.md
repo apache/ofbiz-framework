@@ -3,7 +3,7 @@
 # Rainbowstone theme
 This back-end OFBiz theme is bootstrap based and offers 4 colour variants. As an example
 
-<img src="https://svn.apache.org/repos/asf/ofbiz/trunk/themes/rainbowstone/webapp/rainbowstone/images/themeRuby.png" alt="Rainbowstone ruby colour variant" />
+<img src="http://svn.apache.org/repos/asf/ofbiz/ofbiz-framework/trunk/themes/rainbowstone/webapp/rainbowstone/images/themeRuby.png" alt="Rainbowstone ruby colour variant" />
 
 ## more information
 For more information about this component visit the product page in the OFBiz WIKI, 
