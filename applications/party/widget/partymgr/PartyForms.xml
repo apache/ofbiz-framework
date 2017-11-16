@@ -772,7 +772,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate" use-when="partyContent==null" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
-		<field name="fromDate" use-when="partyContent!=null" map-name="partyContent"><display/></field>
+        <field name="fromDate" use-when="partyContent!=null" map-name="partyContent"><display/></field>
         <field name="thruDate" map-name="partyContent"><date-time/></field>
         <field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
@@ -1293,7 +1293,8 @@ under the License.
         <field name="partyId"><display/></field>
     </form>
 
-    <grid name="ListPartyIdentification" list-name="listIt"
+    <!-- For an unknown reason yet grid can't be used here see OFBIZ-9405 -->
+    <form name="ListPartyIdentification" list-name="listIt" type="list"
                  default-table-style="basic-table hover-bar" target="EditPartyIdentification">
         <actions>
             <entity-and entity-name="PartyIdentificationAndParty" >
@@ -1311,7 +1312,7 @@ under the License.
              </hyperlink>
         </field>
         <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit /></field>
-    </grid>
+    </form>
     
     <form name="EditPartyIdentification" type="single" list-name="partyIdents"
                  default-table-style="basic-table hover-bar" target="createPartyIdentification" focus-field-name="idValue">
