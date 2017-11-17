@@ -56,9 +56,11 @@ from the command line at the OFBiz top level directory (folder)
 
 ### Prepare OFBiz:
 
-__Note__: Depending on your Internet connection speed it might take a long
+>_Note_: Depending on your Internet connection speed it might take a long
 time for this step to complete if you are using OFBiz for the first time
 as it needs to download all dependencies. So please be patient!
+
+>_Note_: Without internet connection, dependency resolution and the build will fail. The `--offline` command line switch tells Gradle to always use dependency modules from the cache, regardless if they are due to be checked again. When running with offline, Gradle will never attempt to access the network to perform dependency resolution. If required modules are not present in the dependency cache, build execution will fail.
 
 MS Windows:
 `gradlew cleanAll loadAll`
