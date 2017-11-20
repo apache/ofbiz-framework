@@ -474,8 +474,7 @@ public class CommonServices {
 
         String line;
 
-        try (
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in, UtilIO.getUtf8()));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, UtilIO.getUtf8()));
                 Writer writer = new OutputStreamWriter(out, UtilIO.getUtf8())) {
             while ((line = reader.readLine()) != null) {
                 Debug.logInfo("Read line: " + line, module);
