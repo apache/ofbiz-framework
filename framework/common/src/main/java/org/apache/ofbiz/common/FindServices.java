@@ -113,7 +113,7 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
-        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appeas in the HTML form
+        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
             String fieldNameRaw = entry.getKey();
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
@@ -697,7 +697,7 @@ public class FindServices {
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         Map<String, Object> normalizedFields = new LinkedHashMap<String, Object>();
         //StringBuffer queryStringBuf = new StringBuffer();
-        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appeas in the HTML form
+        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
             String fieldNameRaw = entry.getKey();
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
