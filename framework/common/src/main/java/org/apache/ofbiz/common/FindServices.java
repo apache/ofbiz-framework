@@ -445,7 +445,7 @@ public class FindServices {
             list = it.getPartialList(start+1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting partial list" + e,module);
+            Debug.logInfo("Problem getting partial list" + e, module);
         }
 
         result.put("listSize", listSize);
