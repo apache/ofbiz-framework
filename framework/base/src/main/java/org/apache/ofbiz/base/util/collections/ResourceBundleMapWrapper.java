@@ -26,8 +26,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 
 /**
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
@@ -36,6 +38,7 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 @SuppressWarnings("serial")
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
+    public static final String module = Frequency.class.getName();
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
     protected Map<String, Object> context;
@@ -122,8 +125,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             try {
                 String str = (String) value;
                 return FlexibleStringExpander.expandString(str, context);
-            } catch (Exception e) {
-                // Potential ClassCastException - do nothing
+            } catch (ClassCastException e) {
+                Debug.logInfo(e.getMessage(), module);
             }
         }
         return value;

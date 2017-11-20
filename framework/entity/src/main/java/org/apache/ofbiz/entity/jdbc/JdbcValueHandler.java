@@ -435,7 +435,9 @@ public abstract class JdbcValueHandler<T> {
                 Debug.logWarning("Clob java-type used for java.lang.String. Use java.lang.String java-type instead.", module);
                 ps.setString(parameterIndex, str);
                 return;
-            } catch (ClassCastException e) {}
+            } catch (ClassCastException e) {
+                Debug.logInfo(e.getMessage(), module);
+            }
             ps.setClob(parameterIndex, (java.sql.Clob) obj);
             return;
         }
