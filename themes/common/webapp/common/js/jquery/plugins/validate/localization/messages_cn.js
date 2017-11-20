@@ -1,3 +1,13 @@
+(function( factory ) {
+    if ( typeof define === "function" && define.amd ) {
+        define( ["jquery", "../jquery.validate"], factory );
+    } else if (typeof module === "object" && module.exports) {
+        module.exports = factory( require( "jquery" ) );
+    } else {
+        factory( jQuery );
+    }
+}(function( $ ) {
+
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: CN
@@ -21,3 +31,5 @@ jQuery.extend(jQuery.validator.messages, {
 		max: jQuery.validator.format("请输入一个最大为 {0} 的值"),
 		min: jQuery.validator.format("请输入一个最小为 {0} 的值")
 });
+return $;
+}));

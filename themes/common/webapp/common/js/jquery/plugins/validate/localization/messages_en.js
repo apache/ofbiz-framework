@@ -1,3 +1,13 @@
+(function( factory ) {
+    if ( typeof define === "function" && define.amd ) {
+        define( ["jquery", "../jquery.validate"], factory );
+    } else if (typeof module === "object" && module.exports) {
+        module.exports = factory( require( "jquery" ) );
+    } else {
+        factory( jQuery );
+    }
+}(function( $ ) {
+
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: EN
@@ -21,4 +31,6 @@ jQuery.extend(jQuery.validator.messages, {
     max: $.validator.format("Please enter a value less than or equal to {0}."),
     min: $.validator.format("Please enter a value greater than or equal to {0}.")
 });
+return $;
+}));
 
