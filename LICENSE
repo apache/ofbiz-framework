@@ -213,27 +213,20 @@ This product bundles "Noto Sans" fonts, which are available under the
 =========================================================================
 
 This product bundles "timezones" files, which are available in the "Public Domain".
-For details, see framework/images/webapp/images/date/timezones/.
+For details, see themes/common/webapp/common/js/plugins/date/timezones.
 
 =========================================================================
 
 This product bundles "Date Format 1.2.3", which is available
-under the "MIT" license. For details, see framework/images/webapp/images/date/date.format-1.2.3*
+under the "MIT" license. For details, see themes/common/webapp/common/js/plugins/date/date.format-1.2.3*
 
 =========================================================================
 
 This product bundles "jQuery" and "jQuery" plugins and extensions, which are available
 under the "MIT" license. For details, see:
-framework/images/webapp/images/jquery/
+themes/common/webapp/common/js/jquery
 plugins/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
 plugins/webpos/webapp/webpos/images/js/WebPosHotkeys.js
-
-=========================================================================
-
-This product bundles "FamFamFam" icons, developed by
-Mark James <mjames@gmail.com> (www.famfamfam.com) and included without modifications,
-which are available under the "Creative Commons Attribution 2.5" license.
-For details, see framework/images/webapp/images/icons/
 
 =========================================================================
 
