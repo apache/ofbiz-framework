@@ -360,7 +360,7 @@ under the License.
     <request-map uri="createEmployee">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createEmployee"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request-redirect-no-param" value="viewprofile"/>
         <response name="error" type="view" value="NewEmployee"/>
     </request-map>
 
@@ -384,7 +384,7 @@ under the License.
     <request-map uri="createPartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyGroup"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request-redirect-no-param" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
     <request-map uri="updatePartyGroup">
@@ -464,7 +464,7 @@ under the License.
     <request-map uri="createCustRequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
-        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="success" type="request-redirect-no-param" value="viewprofile"/>
         <response name="error" type="request-redirect" value="viewprofile"/>
     </request-map>
     <request-map uri="newrequest">
