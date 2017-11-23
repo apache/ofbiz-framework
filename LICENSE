@@ -251,3 +251,8 @@ under the "MIT" License. For details, see plugins/cmssite/template/docbook/webhe
 This product bundles "DocBook XSL Stylesheets 1.77.1", which is available
 under the "MIT" license.
 For details, see plugins/cmssite/template/docbook/
+=========================================================================
+
+This product bundles "Openlayers", which is available
+under the "FreeBSD" license.
+For details, see themes/common/webapp/images/OpenLayers-2.13.1-modified-for-CSP-.js
