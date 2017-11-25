@@ -31,7 +31,7 @@ under the License.
         </div></td>
         <#if (adjEditable)>
            <td align="right">
-              <input type="text" size="8" name="amount_o_${rowCount}" value="${returnAdjustment.amount?default(0)?string("##0.00")}"/>
+              <input type="text" size="8" name="amount_o_${rowCount}" value="<@ofbizAmount amount=returnAdjustment.amount?default(0)/>"/>
            </td>
         <#else>
            <td align="right"><@ofbizCurrency amount=returnAdjustment.amount?default(0) isoCode=returnHeader.currencyUomId/></td>
