@@ -42,8 +42,8 @@ under the License.
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
         <description>Update a shopping list entity</description>
         <implements service="createShoppingListRecurrence"/>
-        <implements service="shoppingListInterface"/>
         <permission-service service-name="checkShoppingListSecurity" main-action="UPDATE"/>
+        <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeShoppingList" engine="simple" auth="true"
