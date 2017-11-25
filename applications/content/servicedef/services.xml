@@ -1161,15 +1161,6 @@
         </attribute>
     </service>
 
-    <!-- eca helper services -->
-    <service name="checkContentAssocIds" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="checkContentAssocIds">
-        <description>Fixes the ContentAssoc IDs based on passed parameters</description>
-        <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
-        <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
-        <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
-    </service>
-
     <!-- content permission services -->
     <service name="contentManagerRolePermission" engine="simple" auth="true"
             location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerRolePermission">
