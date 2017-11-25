@@ -54,7 +54,7 @@ under the License.
                   <td>${item.orderItemSeqId}</td>
                   <td>${item.productId?default("Not Found")}</td>
                   <td>${item.lotId?default("")}</td>
-                  <td>${item.unitCost?default(0)?string("##0.00")}</td>
+                  <td><@ofbizAmount amount=item.unitCost?default(0)/></td>
                   <td>${item.quantityRejected?default(0)?string.number}</td>
                   <td>${item.quantityAccepted?string.number}</td>
                   <td>

@@ -45,7 +45,7 @@ under the License.
                 <td>${item.returnId}</td>
                 <td>${item.returnItemSeqId}</td>
                 <td>${item.productId?default("Not Found")}</td>
-                <td>${item.unitCost?default(0)?string("##0.00")}</td>
+                <td><@ofbizAmount amount=item.unitCost?default(0)/></td>
                 <td>${item.quantityAccepted?string.number}</td>
               </tr>
             </#list>
@@ -204,7 +204,7 @@ under the License.
                           </#if>
                           <td align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductPerUnitPrice}</td>
                           <td align="right">
-                            <input type='text' name='unitCost_o_${rowCount}' size='6' value='${unitCost?default(0)?string("##0.00")}' />
+                            <input type='text' name='unitCost_o_${rowCount}' size='6' value='<@ofbizAmount amount=unitCost?default(0)/>' />
                           </td>
                         </tr>
                       </table>
