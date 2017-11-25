@@ -28,7 +28,7 @@ under the License.
     <img src="${imageLocation}" alt=""><#lt/>
   <#else>
     <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true" || title?has_content>
-      <span <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
+      <span data-inplace-editor-url="${inPlaceEditorUrl}" data-inplace-editor-params="${inPlaceEditorParams}" <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
     </#if>
 
     <#if description?has_content>
@@ -38,11 +38,6 @@ under the License.
     </#if>
     <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
       </span><#lt/>
-    </#if>
-    <#if inPlaceEditorUrl?has_content && idName?has_content>
-      <script language="JavaScript" type="text/javascript"><#lt/>
-        ajaxInPlaceEditDisplayField('cc_${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
-      </script><#lt/>
     </#if>
   </#if>
 </#macro>
