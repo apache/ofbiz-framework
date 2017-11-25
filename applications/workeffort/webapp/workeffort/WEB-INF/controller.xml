@@ -117,8 +117,8 @@ under the License.
     <request-map uri="deleteWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view-home" value="ListWorkEfforts"/>
-        <response name="error" type="view" value="ListWorkEfforts"/>
+        <response name="success" type="view" value="FindWorkEffort"/>
+        <response name="error" type="view" value="FindWorkEffort"/>
     </request-map>
     
     <request-map uri="ListWorkEffortFixedAssetAssigns">
