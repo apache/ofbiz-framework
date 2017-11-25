@@ -1028,6 +1028,9 @@ under the License.
 	                       <break/>
 	                    </if-compare>
 	                </iterate>
+	                <if-compare operator="equals" value="0" field="quantityNotTransferred">
+	                    <break/>
+	                </if-compare>
                 </iterate>
             </else>
         </if-compare>
