@@ -67,6 +67,13 @@ function bindObservers(bind_element) {
         }
         element.elrte(opts);
     });
+    jQuery(bind_element).find("[data-inplace-editor-url]").each(function(){
+        var element = jQuery(this);
+        var id =  element.attr("id");
+        var url = element.data("inplace-editor-url");
+        var params = element.data("inplace-editor-params");
+        ajaxInPlaceEditDisplayField(id, url, (new Function("return " + params + ";")()));
+    });
 
 }
 
