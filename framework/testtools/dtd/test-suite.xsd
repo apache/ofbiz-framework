@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -99,15 +98,14 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.groovy-test-suite">
         <xs:attribute type="xs:string" name="name"/>
-    </xs:attributeGroup>
-    <xs:attributeGroup name="attlist.groovy-test-suite">
-        <xs:attribute type="xs:string" name="location" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Give the location where is groovy file that contaions the test suite.
                     You can use a flexible url location like component://mycomponent/groovyScript/test/MySuiteTest.groovy
                 </xs:documentation>
             </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 
     <xs:element name="service-test" substitutionGroup="TestCaseTypes">
