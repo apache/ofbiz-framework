@@ -255,7 +255,7 @@ The blue light theme has been these properties in VisualThemeRessource :
     <!-- Javascript references -->
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-1.11.0.min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/jquery-migrate-1.2.1.js" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.12.1.min.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="03"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
