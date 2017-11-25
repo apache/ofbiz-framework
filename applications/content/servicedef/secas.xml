@@ -139,7 +139,7 @@ under the License.
     </eca>
     <eca service="createContent" event="commit">
         <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
-        <condition field-name="contentIdFrom" operator="is-not-empty"/>
+        <condition field-name="contentId" operator="is-not-empty"/>
         <action service="createContentAssoc" mode="sync" run-as-user="system" result-to-result="true" />
     </eca>
 
@@ -171,13 +171,6 @@ under the License.
         <action service="updateSingleContentPurpose" mode="sync" run-as-user="system"/>
     </eca>
 
-    <!-- content assoc services -->
-    <eca service="createContentAssoc" event="in-validate">
-        <action service="checkContentAssocIds" mode="sync"/>
-    </eca>
-    <eca service="updateContentAssoc" event="in-validate">
-        <action service="checkContentAssocIds" mode="sync"/>
-    </eca>
     <!--
     <eca service="createContent" event="commit">
         <condition field-name="contentId" operator="is-not-empty"/>

@@ -587,43 +587,6 @@
         <call-simple-method method-name="getContentAndDataResource"/>
     </simple-method>
 
-    <!-- eca helper services -->
-    <simple-method method-name="checkContentAssocIds" short-description="Checks and prepares contentIdTo and contentId for ContentAssoc service">
-        <if>
-            <condition>
-                <and>
-                    <not>
-                        <if-empty field="parameters.contentIdFrom"/>
-                    </not>
-                    <not>
-                        <if-empty field="parameters.contentId"/>
-                    </not>
-                    <if-empty field="parameters.contentIdTo"/>
-                </and>
-            </condition>
-            <then>
-                <field-to-result field="parameters.contentIdFrom" result-name="contentId"/>
-                <field-to-result field="parameters.contentId" result-name="contentIdTo"/>
-                <log level="info" message="Converted 'contentId' to 'contentIdTo' and 'contentIdFrom' to 'contentId'"/>
-            </then>
-            <else-if>
-                <condition>
-                    <not>
-                        <if-empty field="parameters.contentIdTo"/>
-                    </not>
-                </condition>
-                <then>
-                    <field-to-result field="parameters.contentIdTo" result-name="contentIdTo"/>
-                    <field-to-result field="parameters.contentId" result-name="contentId"/>
-                    <log level="info" message="Returned 'contentId' as 'contentId' and 'contentIdTo' as 'contentIdTo'"/>
-                </then>
-            </else-if>
-            <else>
-                <log level="warning" message="Illegal values passed; should be either contentIdTo/contentId or contentIdFrom/contentId :: ${parameters}"/>
-            </else>
-        </if>
-    </simple-method>
-
     <simple-method method-name="createArticleContent" short-description="Post a new Content article Entry">
         <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="origContentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
