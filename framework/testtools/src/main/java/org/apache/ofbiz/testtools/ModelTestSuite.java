@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -115,6 +117,14 @@ public class ModelTestSuite {
                 String errMsg = "Unable to load test suite class : " + className;
                 Debug.logError(e, errMsg, module);
             }
+        } else if ("groovy-test-suite".equals(nodeName)) {
+            try {
+                Class testClass = GroovyUtil.getScriptClassFromLocation(testElement.getAttribute("location"));
+                TestCase groovyTestCase = (GroovyScriptTestCase) testClass.newInstance();
+                this.testList.add(new TestSuite(testClass, testElement.getAttribute("name")));
+            } catch (GeneralException|InstantiationException|IllegalAccessException e) {
+                Debug.logError(e, module);
+            }
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new ServiceTest(caseName, testElement));
         } else if ("simple-method-test".equals(nodeName)) {
@@ -189,6 +199,9 @@ public class ModelTestSuite {
             if (test instanceof OFBizTestCase) {
                 ((OFBizTestCase)test).setDispatcher(dispatcher);
             }
+        } else if (test instanceof GroovyScriptTestCase) {
+            ((GroovyScriptTestCase)test).setDelegator(delegator);
+            ((GroovyScriptTestCase)test).setDispatcher(dispatcher);
         }
     }
 }
