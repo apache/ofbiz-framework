@@ -1995,6 +1995,21 @@
         <value xml:lang="zh">年为雇主</value>
         <value xml:lang="zh-TW">受雇年數</value>
     </property>
+    <property key="NewProspect">
+        <value xml:lang="ar">تم إنشاء بروسبكت جديد بنجاح.</value>
+        <value xml:lang="de">Neuer Prospect wurde erfolgreich erstellt.</value>
+        <value xml:lang="es">Nueva perspectiva creada con éxito.</value>
+        <value xml:lang="fr">Nouveau prospect créé avec succès.</value>
+        <value xml:lang="hi-IN">नई संभावना सफलतापूर्वक बनाया</value>
+        <value xml:lang="en">New Prospect created Successfully.</value>
+        <value xml:lang="it">Nuova prospettiva creata con successo.</value>
+        <value xml:lang="ja">新しい見通しが作成されました。</value>
+        <value xml:lang="nl">Nieuwe Prospect is met succes gemaakt.</value>
+        <value xml:lang="pt-BR">Nova Perspectiva criada com sucesso.</value>
+        <value xml:lang="ru">Новый проспект создан успешно.</value>
+        <value xml:lang="th">โอกาสใหม่ที่สร้างเสร็จเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Triển vọng Mới được tạo thành công.</value>
+    </property>
     <property key="PageTitleAddPartyContent">
         <value xml:lang="ar">إضافة محتوى للطرف</value>
         <value xml:lang="de">Akteur Inhalt hinzufügen</value>

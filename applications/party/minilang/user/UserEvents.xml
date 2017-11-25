@@ -434,6 +434,8 @@ under the License.
         <set field="emailContext.productStoreId" from-field="parameters.PRODUCT_STORE_ID"/>
         <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailContext" to-map="serviceInMap"/>
         <call-service-asynch service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
+        <property-to-field field="newProspectMessage" resource="PartyUiLabels" property="NewProspect"/>
+        <set field="_event_message_" value="${newProspectMessage}" />
     </simple-method>
 
 </simple-methods>
