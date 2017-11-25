@@ -57,6 +57,7 @@ under the License.
     <request-map uri="editPartyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="editPartyInvitation"/></request-map>
     <request-map uri="PartyInvitationGroupAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationGroupAssocs"/></request-map>
     <request-map uri="PartyInvitationRoleAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationRoleAssocs"/></request-map>
+    <request-map uri="AddPartyRelatedAccount"><security https="true" auth="true"/><response name="success" type="view" value="AddPartyRelatedAccount"/></request-map>
  <!--Party Invitation Services-->
     <request-map uri="createPartyInvitation">
         <security https="true" auth="true"/>
@@ -419,7 +420,7 @@ under the License.
     <request-map uri="createPartyAttribute">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyAttribute"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="backHome"/>
         <response name="error" type="view" value="EditPartyAttribute"/>
     </request-map>
     <request-map uri="updatePartyAttribute">
@@ -1427,6 +1428,7 @@ under the License.
     <view-map name="Preferences" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#Preferences"/>
     <view-map name="PartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyGeoLocation"/>
     <view-map name="GetPartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#GetPartyGeoLocation"/>
+    <view-map name="AddPartyRelatedAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreatePartyRelatedAccount"/>
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
