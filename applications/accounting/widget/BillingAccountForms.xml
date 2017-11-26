@@ -36,7 +36,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountLimit">
-            <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+            <display type="currency" currency="${accountCurrencyUomId}"/>
         </field>
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>
