@@ -524,8 +524,8 @@
                         <if-compare field="party.partyTypeId" operator="equals" value="PARTY_GROUP"/>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="AddRelContactAccounts">
-                            <include-menu name="AddRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="AddRelAccountContacts">
+                            <include-menu name="AddRelAccountContacts" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="parameters.editPartyRel"/></not>

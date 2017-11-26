@@ -58,7 +58,8 @@ under the License.
     <request-map uri="PartyInvitationGroupAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationGroupAssocs"/></request-map>
     <request-map uri="PartyInvitationRoleAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationRoleAssocs"/></request-map>
     <request-map uri="AddPartyRelatedAccount"><security https="true" auth="true"/><response name="success" type="view" value="AddPartyRelatedAccount"/></request-map>
- <!--Party Invitation Services-->
+    <request-map uri="AddAccountRelatedContact"><security https="true" auth="true"/><response name="success" type="view" value="AddAccountRelatedContact"/></request-map>
+    <!--Party Invitation Services-->
     <request-map uri="createPartyInvitation">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyInvitation"/>
@@ -1429,6 +1430,7 @@ under the License.
     <view-map name="PartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyGeoLocation"/>
     <view-map name="GetPartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#GetPartyGeoLocation"/>
     <view-map name="AddPartyRelatedAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreatePartyRelatedAccount"/>
+    <view-map name="AddAccountRelatedContact" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateAccountRelatedContact"/>
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
