@@ -248,14 +248,6 @@ under the License.
     <!-- ContentAssoc forms -->
     <form name="EditContentAssoc" target="updateContentAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-one entity-name="ContentAssoc" use-cache="true">
-                <field-map field-name="contentId" from-field="contentId"/>
-                <field-map field-name="contentIdTo" from-field="contentIdTo"/>
-                <field-map field-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
-                <field-map field-name="fromDate" from-field="fromDate"/>
-            </entity-one>
-        </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId"><display/></field>
         <field name="contentIdTo"><display/></field>
