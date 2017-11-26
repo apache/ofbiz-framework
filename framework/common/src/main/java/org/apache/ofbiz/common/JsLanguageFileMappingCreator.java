@@ -62,7 +62,7 @@ public class JsLanguageFileMappingCreator {
         String jqueryUiLocaleRelPath = "/common/js/jquery/ui/i18n/";
         String dateJsLocaleRelPath = "/common/js/jquery/plugins/datejs/";
         String validateRelPath = "/common/js/jquery/plugins/validate/localization/";
-        String dateTimePickerJsLocaleRelPath = "/common/js/jquery/plugins/datetimepicker/localization/";
+        String dateTimePickerJsLocaleRelPath = "/common/js/jquery/plugins/datetimepicker/i18n/";
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
