@@ -731,6 +731,16 @@
         </menu-item>
     </menu>
 
+    <menu name="AddRelAccountContacts">
+        <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
+            <link target="AddAccountRelatedContact">
+                <parameter param-name="partyId"/>
+                <parameter param-name="portalPageId"/>
+                <parameter param-name="editPartyRel" value="Y"/>
+            </link>
+        </menu-item>
+    </menu>
+
     <menu name="NewPartyIdentification">
         <menu-item name="new" title="${uiLabelMap.CommonNew}">
             <link target="viewidentifications">
