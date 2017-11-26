@@ -254,7 +254,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleEditAssociation}'">
+                                <screenlet title="${uiLabelMap.PageTitleEditAssociation}">
                                     <include-form name="EditContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
                                 </screenlet>
                             </widgets>
