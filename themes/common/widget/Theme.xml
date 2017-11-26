@@ -62,7 +62,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable.js"/>
