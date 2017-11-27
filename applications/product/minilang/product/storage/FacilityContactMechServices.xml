@@ -143,6 +143,15 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createFacilityPostalAddress" short-description="Create a PostalAddress for facility">
+        <if-not-empty field="parameters.latitude">
+            <if-not-empty field="parameters.longitude">
+                <set-service-fields service-name="createGeoPoint" map="parameters" to-map="createGeoPointMap"/>
+                <call-service in-map-name="createGeoPointMap" service-name="createGeoPoint">
+                    <result-to-field result-name="geoPointId" field="parameters.geoPointId"/>
+                </call-service>
+                <check-errors/>
+            </if-not-empty>
+        </if-not-empty>
         <set-service-fields service-name="createPostalAddress" map="parameters" to-map="createPostalAddressMap"/>
         <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
@@ -162,6 +171,15 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateFacilityPostalAddress" short-description="Update a PostalAddress for facility">
+        <if-not-empty field="parameters.latitude">
+            <if-not-empty field="parameters.longitude">
+                <set-service-fields service-name="createGeoPoint" map="parameters" to-map="createGeoPointMap"/>
+                <call-service in-map-name="createGeoPointMap" service-name="createGeoPoint">
+                    <result-to-field result-name="geoPointId" field="parameters.geoPointId"/>
+                </call-service>
+                <check-errors/>
+            </if-not-empty>
+        </if-not-empty>
         <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
