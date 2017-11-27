@@ -25,7 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -36,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.jsoup.parser.Parser;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -118,9 +118,9 @@ public class SaveLabelsToXmlFile {
                         continue;
                     }
                     Element propertyElem = UtilXml.addChildElement(resourceElem, "property", resourceDocument);
-                    propertyElem.setAttribute("key", StringEscapeUtils.unescapeHtml(labelInfo.getLabelKey()));
+                    propertyElem.setAttribute("key", Parser.unescapeEntities(labelInfo.getLabelKey(), true));
                     if (UtilValidate.isNotEmpty(labelInfo.getLabelKeyComment())) {
-                        Comment labelKeyComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelInfo.getLabelKeyComment()));
+                        Comment labelKeyComment = resourceDocument.createComment(Parser.unescapeEntities(labelInfo.getLabelKeyComment(), true));
                         Node parent = propertyElem.getParentNode();
                         parent.insertBefore(labelKeyComment, propertyElem);
                     }
@@ -131,11 +131,11 @@ public class SaveLabelsToXmlFile {
                             valueString = labelValue.getLabelValue();
                         }
                         if (UtilValidate.isNotEmpty(valueString)) {
-                            valueString = StringEscapeUtils.unescapeHtml(valueString);
+                            valueString = Parser.unescapeEntities(valueString, true);
                             Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);
                             valueElem.setAttribute("xml:lang", localeFound);
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
-                                Comment labelComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelValue.getLabelComment()));
+                                Comment labelComment = resourceDocument.createComment(Parser.unescapeEntities(labelValue.getLabelComment(), true));
                                 Node parent = valueElem.getParentNode();
                                 parent.insertBefore(labelComment, valueElem);
                             }
