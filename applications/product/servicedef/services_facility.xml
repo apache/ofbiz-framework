@@ -994,6 +994,8 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <attribute name="latitude" type="String" mode="IN" optional="true"/>
+        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="true"/>
@@ -1004,6 +1006,8 @@ under the License.
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="latitude" type="String" mode="IN" optional="true"/>
+        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="directions" type="String" mode="IN" optional="true"/>
     </service>

@@ -463,6 +463,8 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <attribute name="latitude" type="String" mode="IN" optional="true"/>
+        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
@@ -475,6 +477,8 @@ under the License.
         <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
         <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="latitude" type="String" mode="IN" optional="true"/>
+        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
