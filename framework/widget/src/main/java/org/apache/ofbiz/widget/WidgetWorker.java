@@ -27,7 +27,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -41,6 +40,7 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
+import org.jsoup.parser.Parser;
 
 public final class WidgetWorker {
 
@@ -53,7 +53,7 @@ public final class WidgetWorker {
         // We may get an encoded request like: &#47;projectmgr&#47;control&#47;EditTaskContents&#63;workEffortId&#61;10003
         // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
         // This step make sure the following appending externalLoginKey operation to work correctly
-        String localRequestName = StringEscapeUtils.unescapeHtml(target);
+        String localRequestName = Parser.unescapeEntities(target, true);
         localRequestName = UtilHttp.encodeAmpersands(localRequestName);
 
         Appendable localWriter = new StringWriter();
