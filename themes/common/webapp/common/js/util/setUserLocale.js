@@ -25,7 +25,7 @@ $.ajax({
     data: "localeName=" + timezone,
     error: function(error) {
         if (error != "") {
-            alert("Error while setting user locale: " + error);
+            console.log("Error while setting user locale: ", error);
         }
     }
 });
