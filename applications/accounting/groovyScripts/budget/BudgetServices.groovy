@@ -18,7 +18,7 @@
  */
 
 import org.apache.ofbiz.entity.GenericValue
-    
+
 
 def createBudget() {
     //create new entity and create all the fields
