@@ -708,8 +708,10 @@ under the License.
             <set from-field="parameters.orderId" field="orderContactMechLookupMap.orderId"/>
             <set from-field="parameters.oldContactMechId" field="orderContactMechLookupMap.contactMechId"/>
             <set from-field="parameters.contactMechPurposeTypeId" field="orderContactMechLookupMap.contactMechPurposeTypeId"/>
-            <set-service-fields service-name="removeOrderContactMech" map="orderContactMechLookupMap" to-map="removeOrderContactMechMap"/>
-            <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
+            <if-not-empty field="parameters.oldContactMechId">
+                <set-service-fields service-name="removeOrderContactMech" map="orderContactMechLookupMap" to-map="removeOrderContactMechMap"/>
+                <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
+            </if-not-empty>
         </if-empty>
         <store-value value-field="orderContactMechMap"/>
         </else>
