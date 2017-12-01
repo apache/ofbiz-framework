@@ -19,7 +19,7 @@
 -->
 <entity-engine-xml>
     <SystemProperty systemResourceId="general" systemPropertyId="ORGANIZATION_PARTY" systemPropertyValue="Company" description="the default organizationPartyId for used in dropdowns and reports"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="VISUAL_THEME" systemPropertyValue="FLAT_GREY" description="ID of the VisualTheme to use if there is no VISUAL_THEME UserPreference record for the current user (ie default value)"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="VISUAL_THEME" systemPropertyValue="RAINBOWSTONE_SAPHIR" description="ID of the VisualTheme to use if there is no VISUAL_THEME UserPreference record for the current user (ie default value)"/>
     <SystemProperty systemResourceId="general" systemPropertyId="currency.uom.id.default" systemPropertyValue="USD" description="The default currency to use for prices, etc"/>
     <SystemProperty systemResourceId="general" systemPropertyId="country.geo.id.default" systemPropertyValue="USA" description="the default country for drop downs"/>
     <SystemProperty systemResourceId="general" systemPropertyId="partner.trackingCodeId.default" systemPropertyValue="" description="the default trackingCodeId to use for Partner Managed Tracking Codes"/>
