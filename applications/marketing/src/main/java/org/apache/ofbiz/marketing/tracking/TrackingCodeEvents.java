@@ -69,9 +69,8 @@ public class TrackingCodeEvents {
             }
 
             if (trackingCode == null) {
-                Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
-                //this return value will be ignored, but we'll designate this as an error anyway
-                return "error";
+                Debug.logInfo("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
+                return "success";
             }
 
             return processTrackingCode(trackingCode, request, response, "TKCDSRC_URL_PARAM");
