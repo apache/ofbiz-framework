@@ -432,8 +432,8 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery-ui-1.10.3.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/jeditable/jquery.jeditable.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
@@ -441,6 +441,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.2.1.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css" global="true" />
 
                 <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1-modified-for-CSP-.js" global="true" />
