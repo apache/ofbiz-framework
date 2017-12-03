@@ -66,10 +66,10 @@ public class JsLanguageFileMappingCreator {
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
-        String jqueryUiLocalePrefix = "jquery.ui.datepicker-";
+        String jqueryUiLocalePrefix = "datepicker-";
         String dateTimePickerPrefix = "jquery-ui-timepicker-";
         String defaultLocaleDateJs = "en-US";
-        String defaultLocaleJquery = "en"; // Beware to keep the OFBiz specific jquery.ui.datepicker-en.js file when upgrading...
+        String defaultLocaleJquery = "en"; // Beware to keep the OFBiz specific datepicker-en.js file when upgrading...
 
         for (Locale locale : localeList) {
             String displayCountry = locale.toString();
