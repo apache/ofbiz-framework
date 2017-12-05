@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+    <!-- content help data -->
+    <PortletCategory portletCategoryId="REPORT" description="Reports"/>
+    <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content application -->
+
+    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
+
+    <!-- system document root used in content -> navigate -->
+    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <!-- show help on the system document root -->
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
+    <DataResource dataResourceId="HELP_ROOT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ROOT" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Help system root" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+
+    <!-- how to create alternative locales -->
+    <DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ROOT_NL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT_NL" localeString="nl" statusId="CTNT_IN_PROGRESS" contentName="Help system root in dutch" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+
+    <DataResource dataResourceId="HELP_ROOT_FR" localeString="fr" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_FR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ROOT_FR" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT_FR" localeString="fr" statusId="CTNT_IN_PROGRESS" contentName="Help system root in french" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+
+    <DataResource dataResourceId="HELP_ROOT_IT" localeString="it" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT_IT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Radice Guida on-line" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ROOT_IT" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ROOT_IT" localeString="it" statusId="CTNT_IN_PROGRESS" contentName="Help system root in Italian" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_IT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+
+    <!-- Content specific -->
+    <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_CONTENT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="050"/>
+
+    <DataResource dataResourceId="HELP_CONTENT_IT" localeString="it" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT_IT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Guida sul gestore di contentui (CMS)" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_CONTENT_IT" contentTypeId="DOCUMENT" contentName="Guida gestore contenuti" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT_IT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_CONTENT" contentIdTo="HELP_CONTENT_IT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+    
+    <DataResource dataResourceId="CONTENT_SITE_FindWeb" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT_SITE_FindWeb.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="CONTENT_SITE_FindWeb" contentTypeId="DOCUMENT" contentName="Content Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="CONTENT_SITE_FindWeb" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_CONTENT" contentIdTo="CONTENT_SITE_FindWeb" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="CONTENT_FindWebSite"/>
+</entity-engine-xml>
