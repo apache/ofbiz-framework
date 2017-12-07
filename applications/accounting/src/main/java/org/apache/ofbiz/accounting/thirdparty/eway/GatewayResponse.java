@@ -21,6 +21,7 @@ package org.apache.ofbiz.accounting.thirdparty.eway;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -140,7 +141,8 @@ public class GatewayResponse {
 
         // get all elements
         NodeList list = doc.getElementsByTagName("*");
-        for (int i = 0; i < list.getLength(); i++) {            
+        int length = list.getLength();
+        for (int i = 0; i < length; i++) {
             Node node = list.item(i);                        
             String name = node.getNodeName();
             if (name == "ewayResponse")
@@ -150,40 +152,41 @@ public class GatewayResponse {
             if (textnode != null)
                 value = textnode.getNodeValue();
 
-            if (name == "ewayTrxnError")
+            switch(name) {
+            case "ewayTrxnError":
                 txTrxnError = value;
-            else if (name == "ewayTrxnStatus") {
-                if ("true".equals(value.toLowerCase().trim())) {
+            case "ewayTrxnStatus":
+                if ("true".equals(value.toLowerCase(Locale.getDefault()).trim())) {
                     txTrxnStatus = true;
                 }
-            } 
-            else if (name == "ewayTrxnNumber")
+            
+            case "ewayTrxnNumber":
                 txTrxnNumber = value;
-            else if (name == "ewayTrxnOption1")
+            case "ewayTrxnOption1":
                 txTrxnOption1 = value;
-            else if (name == "ewayTrxnOption2")
+            case "ewayTrxnOption2":
                 txTrxnOption2 = value;
-            else if (name == "ewayTrxnOption3")
+            case "ewayTrxnOption3":
                 txTrxnOption3 = value;
-            else if (name == "ewayReturnAmount") {
+            case "ewayReturnAmount":
                 if (!value.equals("")) {
                     txReturnAmount = Integer.parseInt(value);
                 }
-            }
-            else if (name == "ewayAuthCode")
+            case "ewayAuthCode":
                 txAuthCode = value;
-            else if (name == "ewayTrxnReference")
+            case "ewayTrxnReference":
                 txTrxnReference = value;
-            else if (name == "ewayBeagleScore") {
+            case "ewayBeagleScore": 
                 if (!value.equals("")) {
                     txBeagleScore = Double.parseDouble(value);
                 }
-            }
-            else {
+            default:
                 throw new Exception("Unknown field in response: " + name);
             }
         }
+            
         
+
         if (req.isTestMode()) {
             Debug.logInfo("[eWay Reply]\n" + this.toString(), module);
         }

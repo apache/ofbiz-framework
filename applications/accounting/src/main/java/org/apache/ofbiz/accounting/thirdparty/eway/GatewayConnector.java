@@ -78,7 +78,7 @@ public class GatewayConnector {
     public GatewayResponse sendRequest(GatewayRequest request) throws Exception {
         
         // determine the gateway url to be used, based on the request type
-        String serverurl = request.getUrl();        
+        String serverurl = request.getUrl();
         
         GatewayResponse response = null;
         InputStream in = null;
@@ -89,28 +89,29 @@ public class GatewayConnector {
             connection = (HttpURLConnection)(u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);
-            connection.setRequestMethod("POST");            
-            connection.setConnectTimeout(timeout*1000);            
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(timeout*1000);
             
-            OutputStream out = connection.getOutputStream();
-            Writer wout = new OutputStreamWriter(out, "UTF-8");
-            wout.write(request.toXml());
-            wout.flush();
-            wout.close();
+            try (OutputStream out = connection.getOutputStream();
+                    Writer wout = new OutputStreamWriter(out, "UTF-8")) {
+                
+                wout.write(request.toXml());
+                wout.flush();
 
-            in = connection.getInputStream();
-            response = new GatewayResponse(in, request);
-            return response;
+                in = connection.getInputStream();
+                response = new GatewayResponse(in, request);
+                return response;
+            }
         } 
         catch (Exception e) {
-            // rethrow exception so that the caller learns what went wrong
+            // re-throws exception so that the caller knows what went wrong
             Debug.logError(e, e.getMessage(), module);
             throw e;
         }
         finally {
-            // close resources
+            // close connection
             if (in != null) in.close();
-            if (connection != null) connection.disconnect();
+            connection.disconnect();
         }
     }
 }
