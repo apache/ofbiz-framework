@@ -36,7 +36,10 @@ section to set it up.
 >_Note_: If you want to use an external database like MySQL or PostgreSQL, read
 the "Setup an external database" section to set it up.
 
-> Note : The directory structure and repositories have changed. For more
+>_Note_: If you want to run OFBiz without an internet connection, read the
+"Running gradle tasks without an internet connection" section.
+
+>_Note_: The directory structure and repositories have changed. For more
 information read the "Repository and directory structure" section.
 
 System requirements
@@ -59,8 +62,6 @@ from the command line at the OFBiz top level directory (folder)
 >_Note_: Depending on your Internet connection speed it might take a long
 time for this step to complete if you are using OFBiz for the first time
 as it needs to download all dependencies. So please be patient!
-
->_Note_: Without internet connection, dependency resolution and the build will fail. The `--offline` command line switch tells Gradle to always use dependency modules from the cache, regardless if they are due to be checked again. When running with offline, Gradle will never attempt to access the network to perform dependency resolution. If required modules are not present in the dependency cache, build execution will fail.
 
 MS Windows:
 `gradlew cleanAll loadAll`
@@ -660,6 +661,18 @@ place a component-load.xml file in the plugins directory listing the order.
 To check out a plugin from source control use the **pullPluginSource** Gradle task.
 To check out all plugins from source control use the **pullAllPluginsSource**.
 **Beware** this deletes a previously existing plugins directory.
+
+### Running gradle tasks without an internet connection
+
+OFBiz must run with an internet connection the **first time** it is prepared on
+the system because it needs to download all the required dependencies.
+
+After preparing OFBiz the first time correctly, it is possible to run OFBiz
+without an internet connection by using the `--offline` command line switch
+which tells Gradle to fetch its dependencies from the cache.
+
+If any dependencies are missing from the cache and you pass `--offline` switch
+then the build execution will fail.
 
 ### Setup an external database like MySQL, PostgreSQL, etc
 
