@@ -1074,6 +1074,35 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
+
+    <entity entity-name="FacilityCalendar" package-name="org.apache.ofbiz.product.facility" title="Facility Calendar Entity">
+        <field name="facilityId" type="id"/>
+        <field name="calendarId" type="id"/>
+        <field name="facilityCalendarTypeId" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="facilityId"/>
+        <prim-key field="calendarId"/>
+        <prim-key field="facilityCalendarTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FACILITY_CALENDAR_FAC" rel-entity-name="Facility">
+            <key-map field-name="facilityId"/>
+        </relation>
+        <relation type="many" fk-name="FACILITY_CALENDAR_CAL" rel-entity-name="TechDataCalendar">
+            <key-map field-name="calendarId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_CALENDAR_TYPE" rel-entity-name="FacilityCalendarType">
+            <key-map field-name="facilityCalendarTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="FacilityCalendarType" package-name="org.apache.ofbiz.product.facility" title="Facility Calendar Type Entity">
+        <field name="facilityCalendarTypeId" type="id"/>
+        <field name="parentTypeId" type="id"/>
+        <field name="description" type="description"/>
+        <prim-key field="facilityCalendarTypeId"/>
+    </entity>
+
     <entity entity-name="FacilityCarrierShipment" package-name="org.apache.ofbiz.product.facility" title="Facility Role Type Entity">
         <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>
