@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -51,9 +52,9 @@ public final class EntityCrypto {
 
     public static final String module = EntityCrypto.class.getName();
 
-    protected final Delegator delegator;
-    protected final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<String, byte[]>();
-    protected final StorageHandler[] handlers;
+    private final Delegator delegator;
+    private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<String, byte[]>();
+    private final StorageHandler[] handlers;
 
     public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
@@ -379,7 +380,7 @@ public final class EntityCrypto {
 
         @Override
         protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes());
+            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes(UtilIO.getUtf8()));
         }
 
         @Override

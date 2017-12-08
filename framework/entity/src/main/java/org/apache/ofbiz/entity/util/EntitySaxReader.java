@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.util;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,6 +40,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -239,7 +240,7 @@ public class EntitySaxReader extends DefaultHandler {
                     valuesToDelete.clear();
                 }
                 TransactionUtil.commit(beganTransaction);
-            } catch (Exception e) {
+            } catch (GenericEntityException | IOException | IllegalArgumentException | SAXException e) {
                 String errMsg = "An error occurred saving the data, rolling back transaction (" + beganTransaction + ")";
                 Debug.logError(e, errMsg, module);
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -318,7 +319,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    Reader templateReader = new InputStreamReader(templateUrl.openStream());
+                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),UtilIO.getUtf8()));
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();

@@ -222,7 +222,7 @@ public class SequenceUtil {
 
                             }
                         }
-                        // 2 - select the record (now locked) to get the curSeqId
+                        // 2 - select the record (now locked) to get thec curSeqId
                         rs = stmt.executeQuery(selectSequenceStatement);
                         boolean sequenceFound = rs.next();
                         if (sequenceFound) {
@@ -250,12 +250,12 @@ public class SequenceUtil {
                             Debug.logWarning(sqle, "Error closing statement in sequence util", module);
                         }
                         try {
-                            if (connection != null) connection.close();
+                            connection.close();
                         } catch (SQLException sqle) {
                             Debug.logWarning(sqle, "Error closing connection in sequence util", module);
                         }
                     }
-                } catch (Exception e) {
+                } catch (SQLException | GenericEntityException  e) {
                     // reset the sequence fields and return (note: it would be better to throw an exception)
                     curSeqId = 0;
                     maxSeqId = 0;
