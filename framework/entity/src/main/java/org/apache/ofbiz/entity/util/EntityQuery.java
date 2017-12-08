@@ -459,7 +459,7 @@ public class EntityQuery {
         }
         return result;
     }
-    
+
     private EntityFindOptions makeEntityFindOptions() {
         EntityFindOptions findOptions = new EntityFindOptions();
         if (resultSetType != null) {
