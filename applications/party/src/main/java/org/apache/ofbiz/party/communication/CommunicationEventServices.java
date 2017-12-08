@@ -676,19 +676,12 @@ public class CommunicationEventServices {
         Locale locale = (Locale) context.get("locale");
         String partyIdTo = null;
         String partyIdFrom = null;
-        String contentType = null;
         String communicationEventId = null;
         String contactMechIdFrom = null;
         String contactMechIdTo = null;
 
         Map<String, Object> result = null;
         try {
-            String contentTypeRaw = wrapper.getContentType();
-            int idx = contentTypeRaw.indexOf(";");
-            if (idx == -1) idx = contentTypeRaw.length();
-            contentType = contentTypeRaw.substring(0, idx);
-            if (contentType == null || "".equals(contentType)) contentType = "text/html";
-            contentType = contentType.toLowerCase();
             Address[] addressesFrom = wrapper.getFrom();
             Address[] addressesTo = wrapper.getTo();
             Address[] addressesCC = wrapper.getCc();
@@ -750,7 +743,7 @@ public class CommunicationEventServices {
             String deliveredTo = wrapper.getFirstHeader("Delivered-To");
             if (deliveredTo != null) {
                 // check if started with the domain name if yes remove including the dash.
-                String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
+                String dn = deliveredTo.substring(deliveredTo.indexOf('@') + 1, deliveredTo.length());
                 if (deliveredTo.startsWith(dn)) {
                     deliveredTo = deliveredTo.substring(dn.length()+1, deliveredTo.length());
                 }
@@ -792,8 +785,8 @@ public class CommunicationEventServices {
 
             // get the content(type) part
             String messageBodyContentType = wrapper.getMessageBodyContentType();
-            if (messageBodyContentType.indexOf(";") > -1) {
-                messageBodyContentType = messageBodyContentType.substring(0, messageBodyContentType.indexOf(";"));
+            if (messageBodyContentType.indexOf(';') > -1) {
+                messageBodyContentType = messageBodyContentType.substring(0, messageBodyContentType.indexOf(';'));
             }
 
             // select the plain text bodypart
@@ -801,7 +794,7 @@ public class CommunicationEventServices {
             if (wrapper.getMainPartCount() > 1) {
                 for (int ind=0; ind < wrapper.getMainPartCount(); ind++) {
                     BodyPart p = wrapper.getPart(ind + "");
-                    if (p.getContentType().toLowerCase().indexOf("text/plain") > -1) {
+                    if (p.getContentType().toLowerCase(Locale.getDefault()).indexOf("text/plain") > -1) {
                         messageBody = (String) p.getContent();
                         break;
                     }
@@ -813,7 +806,7 @@ public class CommunicationEventServices {
             }
 
             commEventMap.put("content", messageBody);
-            commEventMap.put("contentMimeTypeId", messageBodyContentType.toLowerCase());
+            commEventMap.put("contentMimeTypeId", messageBodyContentType.toLowerCase(Locale.getDefault()));
 
             // check for for a reply to communication event (using in-reply-to the parent messageID)
             String[] inReplyTo = wrapper.getHeader("In-Reply-To");
@@ -908,13 +901,7 @@ public class CommunicationEventServices {
             results.put("communicationEventId", communicationEventId);
             results.put("statusId", commEventMap.get("statusId"));
             return results;
-        } catch (MessagingException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (Exception e) {
+        } catch (MessagingException | GenericServiceException | GenericEntityException | IOException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -999,8 +986,8 @@ public class CommunicationEventServices {
                 }
 
                 String attContentType = wrapper.getPartContentType(attachmentIdx);
-                if (attContentType != null && attContentType.indexOf(";") > -1) {
-                    attContentType = attContentType.toLowerCase().substring(0, attContentType.indexOf(";"));
+                if (attContentType != null && attContentType.indexOf(';') > -1) {
+                    attContentType = attContentType.toLowerCase(Locale.getDefault()).substring(0, attContentType.indexOf(';'));
                 }
 
                 if (UtilValidate.isNotEmpty(attFileName)) {
@@ -1011,7 +998,7 @@ public class CommunicationEventServices {
                 }
 
                 attachmentMap.put("drMimeTypeId", attContentType);
-                if (attContentType.startsWith("text")) {
+                if (attContentType != null && attContentType.startsWith("text")) {
                     String text = wrapper.getPartText(attachmentIdx);
                     attachmentMap.put("drDataResourceTypeId", "ELECTRONIC_TEXT");
                     attachmentMap.put("textData", text);
@@ -1110,12 +1097,10 @@ public class CommunicationEventServices {
                 if (addr instanceof InternetAddress) {
                     emailAddress = (InternetAddress)addr;
 
-                    if (emailAddress != null) {
-                        result = dispatcher.runSync("findPartyFromEmailAddress",
-                                UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
-                        if (result.get("partyId") != null) {
-                            tempResults.add(result);
-                        }
+                    result = dispatcher.runSync("findPartyFromEmailAddress",
+                            UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
+                    if (result.get("partyId") != null) {
+                        tempResults.add(result);
                     }
                 }
             }
@@ -1137,19 +1122,17 @@ public class CommunicationEventServices {
             for (Address addr: addresses) {
                 if (addr instanceof InternetAddress) {
                     emailAddress = (InternetAddress)addr;
-                    if (emailAddress != null) {
-                        Map<String, String> inputFields = new HashMap<String, String>();
-                        inputFields.put("infoString", emailAddress.getAddress());
-                        inputFields.put("infoString_ic", caseInsensitiveEmail);
-                        result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName", "WorkEffortContactMechView"
-                                ,"inputFields", inputFields, "userLogin", userLogin));
-                        try (EntityListIterator listIt = (EntityListIterator) result.get("listIt")) {
-                            List<GenericValue> list = listIt.getCompleteList();
-                            List<GenericValue> filteredList = EntityUtil.filterByDate(list);
-                            tempResults.addAll(filteredList);
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                        }
+                    Map<String, String> inputFields = new HashMap<String, String>();
+                    inputFields.put("infoString", emailAddress.getAddress());
+                    inputFields.put("infoString_ic", caseInsensitiveEmail);
+                    result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName",
+                            "WorkEffortContactMechView", "inputFields", inputFields, "userLogin", userLogin));
+                    try (EntityListIterator listIt = (EntityListIterator) result.get("listIt")) {
+                        List<GenericValue> list = listIt.getCompleteList();
+                        List<GenericValue> filteredList = EntityUtil.filterByDate(list);
+                        tempResults.addAll(filteredList);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }
@@ -1321,12 +1304,12 @@ public class CommunicationEventServices {
         // pull the communication event from path info, so we can hide the process from the user
         String pathInfo = request.getPathInfo();
         String[] pathParsed = pathInfo.split("/", 3);
-        if (pathParsed != null && pathParsed.length > 2) {
+        if (pathParsed.length > 2) {
             pathInfo = pathParsed[2];
         } else {
             pathInfo = null;
         }
-        if (pathInfo != null && pathInfo.indexOf("/") > -1) {
+        if (pathInfo != null && pathInfo.indexOf('/') > -1) {
             pathParsed = pathInfo.split("/");
             communicationEventId = pathParsed[0];
         }
