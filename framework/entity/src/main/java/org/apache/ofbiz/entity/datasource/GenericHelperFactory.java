@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.datasource;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class GenericHelperFactory {
     public static final String module = GenericHelperFactory.class.getName();
 
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
-    protected static Map<String, GenericHelper> helperCache = new HashMap<String, GenericHelper>();
+    protected static final Map<String, GenericHelper> helperCache = new HashMap<String, GenericHelper>();
 
     public static GenericHelper getHelper(GenericHelperInfo helperInfo) {
         GenericHelper helper = helperCache.get(helperInfo.getHelperFullName());
@@ -79,13 +80,8 @@ public class GenericHelperFactory {
                         }
                         try {
                             helper = (GenericHelper) helperConstructor.newInstance(params);
-                        } catch (IllegalAccessException e) {
-                            Debug.logWarning(e, module);
-                            throw new IllegalStateException("Error loading GenericHelper class \"" + helperClassName + "\": " + e.getMessage());
-                        } catch (InstantiationException e) {
-                            Debug.logWarning(e, module);
-                            throw new IllegalStateException("Error loading GenericHelper class \"" + helperClassName + "\": " + e.getMessage());
-                        } catch (java.lang.reflect.InvocationTargetException e) {
+                        } catch (IllegalAccessException | InstantiationException | InvocationTargetException
+                                | ExceptionInInitializerError | IllegalArgumentException | NullPointerException e) {
                             Debug.logWarning(e, module);
                             throw new IllegalStateException("Error loading GenericHelper class \"" + helperClassName + "\": " + e.getMessage());
                         }

@@ -105,11 +105,6 @@ public class GenericDAO {
     public int insert(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
-
-
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
         try {
             return singleInsert(entity, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
@@ -181,19 +176,11 @@ public class GenericDAO {
     public int updateAll(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
-
         return customUpdate(entity, modelEntity, modelEntity.getNopksCopy());
     }
 
     public int update(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
-
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
 
         // we don't want to update ALL fields, just the nonpk fields that are in the passed GenericEntity
         List<ModelField> partialFields = new LinkedList<ModelField>();
@@ -483,10 +470,6 @@ public class GenericDAO {
     public void select(GenericEntity entity, SQLProcessor sqlP) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
-
         if (modelEntity.getPksSize() <= 0) {
             throw new GenericEntityException("Entity has no primary keys, cannot select by primary key");
         }
@@ -525,20 +508,10 @@ public class GenericDAO {
     public void partialSelect(GenericEntity entity, Set<String> keys) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
-
         if (modelEntity instanceof ModelViewEntity) {
             throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation partialSelect not supported yet for view entities");
         }
 
-        /*
-         if (entity == null || entity.<%=modelEntity.pkNameString(" == null || entity."," == null")%>) {
-         Debug.logWarning("[GenericDAO.select]: Cannot select GenericEntity: required primary key field(s) missing.", module);
-         return false;
-         }
-         */
         // we don't want to select ALL fields, just the nonpk fields that are in the passed GenericEntity
         List<ModelField> partialFields = new LinkedList<ModelField>();
 
@@ -580,7 +553,6 @@ public class GenericDAO {
 
                 entity.synchronizedWithDatasource();
             } else {
-                // Debug.logWarning("[GenericDAO.select]: select failed, result set was empty.", module);
                 throw new GenericEntityNotFoundException("Result set was empty for entity: " + entity.toString());
             }
         }
@@ -828,9 +800,8 @@ public class GenericDAO {
         String viewEntityCondHavingString = null;
         if (modelViewEntity != null) {
             EntityCondition viewHavingEntityCondition = EntityCondition.makeCondition(viewHavingConditions);
-            if (viewHavingEntityCondition != null) {
-                viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasource);
-            }
+            viewEntityCondHavingString = viewHavingEntityCondition.makeWhereString(modelEntity,
+                    havingEntityConditionParams, this.datasource);
         }
 
         if (UtilValidate.isNotEmpty(entityCondHavingString) || UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
@@ -886,13 +857,11 @@ public class GenericDAO {
 
         // get the column name string to select
         StringBuilder selsb = new StringBuilder();
-        List<String> collist = new LinkedList<String>();
         List<String> fldlist = new LinkedList<String>();
 
         for (Iterator<ModelField> iterator = modelEntityTwo.getFieldsIterator(); iterator.hasNext();) {
             ModelField mf = iterator.next();
 
-            collist.add(mf.getColName());
             fldlist.add(mf.getName());
             selsb.append(ttable).append(".").append(mf.getColName());
             if (iterator.hasNext()) {
@@ -1130,14 +1099,13 @@ public class GenericDAO {
 
     public int delete(GenericEntity entity, SQLProcessor sqlP) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
-        if (modelEntity == null) {
-            throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
-        }
+
         if (modelEntity instanceof ModelViewEntity) {
             throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
         }
 
-        StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasource)).append(" WHERE ");
+        StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasource))
+                .append(" WHERE ");
         SqlJdbcUtil.makeWhereStringFromFields(sql, modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal;
