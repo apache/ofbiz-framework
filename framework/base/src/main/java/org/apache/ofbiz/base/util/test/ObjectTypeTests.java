@@ -316,7 +316,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     public void testDouble() throws GeneralException {
         simpleTypeConvertTestSingleMulti("Double->String", Double.valueOf("1234567"), new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
         simpleTypeConvertTestSingleMulti("Double->BigDecimal", dbl, new String[] {"BigDecimal", "java.math.BigDecimal"}, dcml);
-        simpleTypeConvertTestSingleMulti("Double->Double", dbl, new String[] {"Double", "java.lang.Double"}, new Double("781.25"));
+        simpleTypeConvertTestSingleMulti("Double->Double", dbl, new String[] {"Double", "java.lang.Double"},  Double.valueOf("781.25"));
         simpleTypeConvertTestSingleMulti("Double->Float", dbl, new String[] {"Float", "java.lang.Float"}, flt);
         simpleTypeConvertTestSingleMulti("Double->Long", dbl, new String[] {"Long", "java.lang.Long"}, lng);
         simpleTypeConvertTestSingleMulti("Double->Integer", dbl, new String[] {"Integer", "java.lang.Integer"}, intg);
@@ -331,7 +331,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("Float->String", Float.valueOf("1234567"), new String[] {"String"}, null, localeData, "1,234,567");
         simpleTypeConvertTestSingleMulti("Float->BigDecimal", flt, new String[] {"BigDecimal", "java.math.BigDecimal"}, dcml);
         simpleTypeConvertTestSingleMulti("Float->Double", flt, new String[] {"Double", "java.lang.Double"}, dbl);
-        simpleTypeConvertTestSingleMulti("Float->Float", flt, new String[] {"Float", "java.lang.Float"}, new Float("781.25"));
+        simpleTypeConvertTestSingleMulti("Float->Float", flt, new String[] {"Float", "java.lang.Float"}, Float.valueOf("781.25"));
         simpleTypeConvertTestSingleMulti("Float->Long", flt, new String[] {"Long", "java.lang.Long"}, lng);
         simpleTypeConvertTestSingleMulti("Float->Integer", flt, new String[] {"Integer", "java.lang.Integer"}, intg);
         simpleTypeConvertTestSingleMulti("Float->List", flt, new String[] {"List", "List<java.lang.Float>", "java.util.List"}, list(flt));
@@ -343,9 +343,9 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     public void testLong() throws GeneralException {
         simpleTypeConvertTestSingleMulti("Long->String", Long.valueOf("1234567"), new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
         simpleTypeConvertTestSingleMulti("Long->BigDecimal", lng, new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781"));
-        simpleTypeConvertTestSingleMulti("Long->Double", lng, new String[] {"Double", "java.lang.Double"}, new Double("781"));
-        simpleTypeConvertTestSingleMulti("Long->Float", lng, new String[] {"Float", "java.lang.Float"}, new Float("781"));
-        simpleTypeConvertTestSingleMulti("Long->Long", lng, new String[] {"Long", "java.lang.Long"}, new Long("781"));
+        simpleTypeConvertTestSingleMulti("Long->Double", lng, new String[] { "Double", "java.lang.Double" }, Double.valueOf("781"));
+        simpleTypeConvertTestSingleMulti("Long->Float", lng, new String[] { "Float", "java.lang.Float" }, Float.valueOf("781"));
+        simpleTypeConvertTestSingleMulti("Long->Long", lng, new String[] { "Long", "java.lang.Long" }, Long.valueOf("781"));
         simpleTypeConvertTestSingleMulti("Long->Integer", lng, new String[] {"Integer", "java.lang.Integer"}, intg);
         simpleTypeConvertTestSingleMulti("Long->List", lng, new String[] {"List", "List<java.lang.Long>", "java.util.List"}, list(lng));
         simpleTypeConvertTestSingleMulti("Long->Set", lng, new String[] {"Set", "Set<java.lang.Long>", "java.util.Set"}, set(lng));
@@ -358,8 +358,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     public void testInteger() throws GeneralException {
         simpleTypeConvertTestSingleMulti("Integer->String", Integer.valueOf("1234567"), new String[] {"String", "java.lang.String"}, null, localeData, "1,234,567");
         simpleTypeConvertTestSingleMulti("Integer->BigDecimal", intg, new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781"));
-        simpleTypeConvertTestSingleMulti("Integer->Double", intg, new String[] {"Double", "java.lang.Double"}, new Double("781"));
-        simpleTypeConvertTestSingleMulti("Integer->Float", intg, new String[] {"Float", "java.lang.Float"}, new Float("781"));
+        simpleTypeConvertTestSingleMulti("Integer->Double", intg, new String[] { "Double", "java.lang.Double" }, Double.valueOf("781"));
+        simpleTypeConvertTestSingleMulti("Integer->Float", intg, new String[] { "Float", "java.lang.Float" }, Float.valueOf("781"));
         simpleTypeConvertTestSingleMulti("Integer->Long", intg, new String[] {"Long", "java.lang.Long"}, lng);
         simpleTypeConvertTestSingleMulti("Integer->Integer", intg, new String[] {"Integer", "java.lang.Integer"}, Integer.valueOf("781"));
         simpleTypeConvertTestSingleMulti("Integer->List", intg, new String[] {"List", "List<java.lang.Integer>", "java.util.List"}, list(intg));

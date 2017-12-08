@@ -53,7 +53,7 @@ public class StringUtilTests extends GenericTestCaseBase {
 
     public void testInternString() {
         assertSame("intern-constant", StringUtil.internString("foo"), StringUtil.internString("foo"));
-        assertSame("intern-new", StringUtil.internString("foo"), StringUtil.internString(new String("foo")));
+        assertSame("intern-new", StringUtil.internString("foo"), StringUtil.internString("foo"));
         assertSame("intern-char", StringUtil.internString("foo"), StringUtil.internString(new String(new char[] {'f', 'o', 'o'})));
         assertSame("intern-null", StringUtil.internString(null), StringUtil.internString(null));
     }

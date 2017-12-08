@@ -30,8 +30,8 @@ import org.apache.ofbiz.base.util.UtilProperties;
 
 public class UtilPropertiesTests extends GenericTestCaseBase {
 
-    private final String country = "AU";
-    private final String language = "en";
+    private static final String country = "AU";
+    private static final String language = "en";
     private final Locale locale = new Locale(language, country);
 
     public UtilPropertiesTests(String name) {
