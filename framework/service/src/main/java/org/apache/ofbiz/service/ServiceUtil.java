@@ -152,6 +152,7 @@ public final class ServiceUtil {
         if (errorMap.size() > 0) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMap);
         }
+        Debug.logError(result.toString(), module);
         return result;
     }
 
