@@ -715,7 +715,7 @@ public class PartyServices {
 
         try {
             List<GenericValue> c = EntityQuery.use(delegator).from("PartyAndContactMech")
-                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.EQUALS, EntityFunction.UPPER(email.toUpperCase())))
+                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.EQUALS, EntityFunction.UPPER(email.toUpperCase(Locale.getDefault()))))
                     .orderBy("infoString")
                     .filterByDate()
                     .queryList();
@@ -753,7 +753,7 @@ public class PartyServices {
 
         try {
             List<GenericValue> c = EntityQuery.use(delegator).from("PartyAndContactMech")
-                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER(("%" + email.toUpperCase()) + "%")))
+                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER(("%" + email.toUpperCase(Locale.getDefault())) + "%")))
                     .orderBy("infoString")
                     .filterByDate()
                     .queryList();
@@ -797,7 +797,7 @@ public class PartyServices {
 
         try {
             Collection<GenericValue> ulc = EntityQuery.use(delegator).from("PartyAndUserLogin")
-                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%")))
+                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + userLoginId.toUpperCase(Locale.getDefault()) + "%")))
                     .orderBy("userLoginId")
                     .queryList();
 
@@ -848,8 +848,10 @@ public class PartyServices {
 
         try {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(EntityOperator.AND,
-                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")),
-                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + lastName.toUpperCase() + "%")));
+                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE,
+                            EntityFunction.UPPER("%" + firstName.toUpperCase(Locale.getDefault()) + "%")),
+                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE,
+                            EntityFunction.UPPER("%" + lastName.toUpperCase(Locale.getDefault()) + "%")));
             Collection<GenericValue> pc = EntityQuery.use(delegator).from("Person").where(ecl).orderBy("lastName", "firstName", "partyId").queryList();
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromPerson number found: " + pc.size(), module);
@@ -891,7 +893,7 @@ public class PartyServices {
 
         try {
             Collection<GenericValue> pc = EntityQuery.use(delegator).from("PartyGroup")
-                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("groupName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + groupName.toUpperCase() + "%")))
+                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("groupName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + groupName.toUpperCase(Locale.getDefault()) + "%")))
                     .orderBy("groupName", "partyId")
                     .queryList();
 
@@ -923,7 +925,7 @@ public class PartyServices {
     public static Map<String, Object> getPartiesFromExternalId(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
-        List<GenericValue> parties = new ArrayList<>();
+        List<GenericValue> parties;
         String externalId = (String) context.get("externalId");
         Locale locale = (Locale) context.get("locale");
 
@@ -2137,8 +2139,8 @@ public class PartyServices {
                             "PartyImportInvalidCsvFile", locale));
                 } else {
                     GenericValue addrMap = delegator.makeValue("AddressMatchMap");
-                    addrMap.put("mapKey", map[0].trim().toUpperCase());
-                    addrMap.put("mapValue", map[1].trim().toUpperCase());
+                    addrMap.put("mapKey", map[0].trim().toUpperCase(Locale.getDefault()));
+                    addrMap.put("mapValue", map[1].trim().toUpperCase(Locale.getDefault()));
                     int seq = i + 1;
                     if (map.length == 3) {
                         char[] chars = map[2].toCharArray();
@@ -2263,9 +2265,6 @@ public class PartyServices {
         
         Boolean addParty = false; // when modify party, contact mech not added again
         
-        if (fileBytes == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "PartyUploadedFileDataNotFound", locale));
-        }
         
         try {
             for (final CSVRecord rec : fmt.parse(csvReader)) {

@@ -85,7 +85,7 @@ public class PartyHelper {
         ModelEntity modelEntity = partyValue.getModelEntity();
         if (modelEntity.isField("firstName") && modelEntity.isField("middleName") && modelEntity.isField("lastName")) {
             if (lastNameFirst) {
-                if (UtilFormatOut.checkNull(partyValue.getString("lastName")) != null) {
+                if (!UtilFormatOut.checkNull(partyValue.getString("lastName")).isEmpty()) {
                     result.append(UtilFormatOut.checkNull(partyValue.getString("lastName")));
                     if (partyValue.getString("firstName") != null) {
                         result.append(", ");

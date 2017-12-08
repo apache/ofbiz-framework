@@ -50,7 +50,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class PartyWorker {
 
-    public static String module = PartyWorker.class.getName();
+    public static final String module = PartyWorker.class.getName();
 
     private PartyWorker() {}
 
@@ -265,10 +265,10 @@ public class PartyWorker {
                         String fName = p.getString("firstName");
                         String lName = p.getString("lastName");
                         String mName = p.getString("middleName");
-                        if (lName.toUpperCase().equals(lastName.toUpperCase())) {
-                            if (fName.toUpperCase().equals(firstName.toUpperCase())) {
+                        if (lName.toUpperCase(Locale.getDefault()).equals(lastName.toUpperCase(Locale.getDefault()))) {
+                            if (fName.toUpperCase(Locale.getDefault()).equals(firstName.toUpperCase(Locale.getDefault()))) {
                                 if (mName != null && middleName != null) {
-                                    if (mName.toUpperCase().equals(middleName.toUpperCase())) {
+                                    if (mName.toUpperCase(Locale.getDefault()).equals(middleName.toUpperCase(Locale.getDefault()))) {
                                         returnList.add(partyAndAddr);
                                     }
                                 } else if (middleName == null) {
@@ -325,12 +325,12 @@ public class PartyWorker {
             } else if ("NA".equals(stateProvinceGeoId)) {
                 addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
             } else {
-                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase()));
+                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase(Locale.getDefault())));
             }
         }
 
         if (!postalCode.startsWith("*")) {
-            if (postalCode.length() == 10 && postalCode.indexOf("-") != -1) {
+            if (postalCode.length() == 10 && postalCode.indexOf('-') != -1) {
                 String[] zipSplit = postalCode.split("-", 2);
                 postalCode = zipSplit[0];
                 postalCodeExt = zipSplit[1];
@@ -345,7 +345,7 @@ public class PartyWorker {
         addrExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
 
         if (countryGeoId != null) {
-            addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase()));
+            addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase(Locale.getDefault())));
         }
 
         // limit to only non-disabled status
@@ -418,7 +418,7 @@ public class PartyWorker {
         }
 
         // upper case the address
-        String str = address.trim().toUpperCase();
+        String str = address.trim().toUpperCase(Locale.getDefault());
 
         // replace mapped words
         List<GenericValue> addressMap = null;
@@ -430,7 +430,7 @@ public class PartyWorker {
 
         if (addressMap != null) {
             for (GenericValue v: addressMap) {
-                str = str.replaceAll(v.getString("mapKey").toUpperCase(), v.getString("mapValue").toUpperCase());
+                str = str.replaceAll(v.getString("mapKey").toUpperCase(Locale.getDefault()), v.getString("mapValue").toUpperCase(Locale.getDefault()));
             }
         }
 
