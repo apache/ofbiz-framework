@@ -166,7 +166,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     public static Map<String, Object> getDataSourceInfo(String helperName) {
         Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
         DebugManagedDataSource mds = dsCache.get(helperName);
-        if (mds instanceof DebugManagedDataSource) {
+        if (mds != null) {
             dataSourceInfo = mds.getInfo();
         }
         return dataSourceInfo;
