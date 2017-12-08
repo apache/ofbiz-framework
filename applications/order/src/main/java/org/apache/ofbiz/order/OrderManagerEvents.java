@@ -97,7 +97,7 @@ public class OrderManagerEvents {
                         return "error";
                     }
 
-                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                    if (ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE))) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
@@ -208,7 +208,7 @@ public class OrderManagerEvents {
                         return "error";
                     }
 
-                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                    if (ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE))) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
@@ -266,7 +266,7 @@ public class OrderManagerEvents {
                         return "error";
                     }
 
-                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                    if (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
