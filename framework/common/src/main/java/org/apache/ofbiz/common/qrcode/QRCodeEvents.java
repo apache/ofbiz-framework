@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -76,55 +77,55 @@ public class QRCodeEvents {
             OutputStream os = response.getOutputStream();
             Map<String, Object> context = UtilMisc.<String, Object>toMap("message", message, "format", format, "userLogin", userLogin, "locale", locale);
             if (UtilValidate.isNotEmpty(width)) {
-            	try {
+                try {
                     context.put("width", Integer.parseInt(width));
-            	} catch (NumberFormatException e) {
-            		// do nothing
-            	}
+                } catch (NumberFormatException e) {
+                    Debug.logWarning(e, e.getMessage(), module);
+                }
                 if (UtilValidate.isEmpty(height)) {
-                	try {
+                    try {
                         context.put("height", Integer.parseInt(width));
-                	} catch (NumberFormatException e) {
-                		// do nothing
-                	}
+                    } catch (NumberFormatException e) {
+                        Debug.logWarning(e, e.getMessage(), module);
+                    }
                 }
             }
             if (UtilValidate.isNotEmpty(height)) {
-            	try {
+                try {
                     context.put("height", Integer.parseInt(height));
-            	} catch (NumberFormatException e) {
-            		// do nothing
-            	}
+                } catch (NumberFormatException e) {
+                    Debug.logWarning(e, e.getMessage(), module);
+                }
                 if (UtilValidate.isEmpty(width)) {
-                	try {
+                    try {
                         context.put("width", Integer.parseInt(height));
-                	} catch (NumberFormatException e) {
-                		// do nothing
-                	}
+                    } catch (NumberFormatException e) {
+                        Debug.logWarning(e, e.getMessage(), module);
+                    }
                 }
             }
             if (UtilValidate.isNotEmpty(encoding)) {
                 context.put("encoding", encoding);
             }
             if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput.booleanValue()) {
-            	context.put("verifyOutput", verifyOutput);
+                context.put("verifyOutput", verifyOutput);
             }
             if (UtilValidate.isNotEmpty(logoImageMaxWidth)) {
-            	try {
+                try {
                     context.put("logoImageMaxWidth", Integer.parseInt(logoImageMaxWidth));
-            	} catch (NumberFormatException e) {
-            		// do nothing
-            	}
+                } catch (NumberFormatException e) {
+                    Debug.logWarning(e, e.getMessage(), module);
+                }
             }
             if (UtilValidate.isNotEmpty(logoImageMaxHeight)) {
-            	try {
+                try {
                     context.put("logoImageMaxHeight", Integer.parseInt(logoImageMaxHeight));
-            	} catch (NumberFormatException e) {
-            		// do nothing
-            	}
+                } catch (NumberFormatException e) {
+                    Debug.logWarning(e, e.getMessage(), module);
+                }
             }
             Map<String, Object> results = dispatcher.runSync("generateQRCodeImage", context);
-            if (!ServiceUtil.isError(results)) {
+            if (ServiceUtil.isSuccess(results)) {
                 BufferedImage bufferedImage = (BufferedImage) results.get("bufferedImage");
                 if (!ImageIO.write(bufferedImage, format, os)) {
                     String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorWriteFormatToFile", new Object[] { format }, locale);
