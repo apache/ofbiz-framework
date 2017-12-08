@@ -222,7 +222,7 @@ public class SequenceUtil {
 
                             }
                         }
-                        // 2 - select the record (now locked) to get thec curSeqId
+                        // 2 - select the record (now locked) to get the curSeqId
                         rs = stmt.executeQuery(selectSequenceStatement);
                         boolean sequenceFound = rs.next();
                         if (sequenceFound) {
