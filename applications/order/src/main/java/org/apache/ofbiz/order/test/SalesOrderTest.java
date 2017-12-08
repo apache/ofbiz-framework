@@ -73,36 +73,36 @@ public class SalesOrderTest extends OFBizTestCase {
         orderItemShipGroupInfo.add(orderAdjustment);
 
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
-                "primaryGeoId", "UT", "shipGroupSeqId", "00001", "sourcePercentage", new BigDecimal(4.7)));
+                "primaryGeoId", "UT", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(4.7)));
         orderAdjustment.set("taxAuthGeoId", "UT");
         orderAdjustment.set("taxAuthPartyId", "UT_TAXMAN");
         orderAdjustment.set("taxAuthorityRateSeqId", "9004");
-        orderAdjustment.set("amount", new BigDecimal(1.824));
+        orderAdjustment.set("amount", BigDecimal.valueOf(1.824));
         orderAdjustment.set("comments", "Utah State Sales Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
 
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
-                "primaryGeoId", "UT-UTAH", "shipGroupSeqId", "00001", "sourcePercentage", new BigDecimal(0.1)));
+                "primaryGeoId", "UT-UTAH", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(0.1)));
         orderAdjustment.set("taxAuthGeoId", "UT-UTAH");
         orderAdjustment.set("taxAuthPartyId", "UT_UTAH_TAXMAN");
         orderAdjustment.set("taxAuthorityRateSeqId", "9005");
-        orderAdjustment.set("amount", new BigDecimal(0.039));
+        orderAdjustment.set("amount", BigDecimal.valueOf(0.039));
         orderAdjustment.set("comments", "Utah County, Utah Sales Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
 
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224000",
-                "primaryGeoId", "_NA_", "shipGroupSeqId", "00001", "sourcePercentage", new BigDecimal(1)));
+                "primaryGeoId", "_NA_", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(1)));
         orderAdjustment.set("taxAuthGeoId", "_NA_");
         orderAdjustment.set("taxAuthPartyId", "_NA_");
         orderAdjustment.set("taxAuthorityRateSeqId", "9000");
-        orderAdjustment.set("amount", new BigDecimal(0.384));
+        orderAdjustment.set("amount", BigDecimal.valueOf(0.384));
         orderAdjustment.set("comments", "1% OFB _NA_ Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
 
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
 
         List<GenericValue> orderAdjustments = new LinkedList<GenericValue>();
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", "productPromoActionSeqId", "01", "productPromoId", "9011", "productPromoRuleId", "01", "amount", new BigDecimal(-3.84)));
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", "productPromoActionSeqId", "01", "productPromoId", "9011", "productPromoRuleId", "01", "amount", BigDecimal.valueOf(-3.84)));
         orderAdjustments.add(orderAdjustment);
         ctx.put("orderAdjustments", orderAdjustments);
 
@@ -131,8 +131,6 @@ public class SalesOrderTest extends OFBizTestCase {
         GenericValue OrderContactMech = delegator.makeValue("OrderContactMech");
         OrderContactMech.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
         OrderContactMech.set("contactMechId", "10000");
-        List<GenericValue> orderContactMechs = new LinkedList<GenericValue>();
-        orderContactMechs.add(OrderContactMech);
 
         ctx.put("placingCustomerPartyId", "DemoCustomer");
         ctx.put("endUserCustomerPartyId", "DemoCustomer");

@@ -33,7 +33,9 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.order.order.OrderChangeHelper;
+import org.apache.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper;
+import org.apache.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -137,7 +139,7 @@ public class OrderTestServices {
                 cart.addOrIncreaseItem(productsList.get(k), null, BigDecimal.ONE, null, null, null,
                                        null, null, null, null,
                                        null /*catalogId*/, null, null/*itemType*/, null/*itemGroupNumber*/, null, dispatcher);
-            } catch (Exception exc) {
+            } catch (CartItemModifyException | ItemNotFoundException exc) {
                 Debug.logWarning("Error adding product with id " + productsList.get(k) + " to the cart: " + exc.getMessage(), module);
             }
         }
