@@ -36,4 +36,5 @@ contribute(currentType(subType('groovy.lang.Script'))) {
 	method name: 'logInfo', type: 'void', params: [message: 'String']
 	method name: 'logWarning', type: 'void', params: [message: 'String']
 	method name: 'logError', type: 'void', params: [message: 'String']
+	method name: 'logVerbose', type: 'void', params: [message: 'String']
 }
