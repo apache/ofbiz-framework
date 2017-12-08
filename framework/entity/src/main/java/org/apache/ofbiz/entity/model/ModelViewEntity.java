@@ -56,8 +56,8 @@ import org.w3c.dom.NodeList;
 public class ModelViewEntity extends ModelEntity {
     public static final String module = ModelViewEntity.class.getName();
 
-    private static final Map<String, String> functionPrefixMap = new HashMap<String, String>();
-    private static final Set<String> numericFunctionsSet = new HashSet<String>(); // names of functions that return a numeric type
+    private static final Map<String, String> functionPrefixMap = new HashMap<>();
+    private static final Set<String> numericFunctionsSet = new HashSet<>(); // names of functions that return a numeric type
     static {
         functionPrefixMap.put("min", "MIN(");
         functionPrefixMap.put("max", "MAX(");
@@ -78,30 +78,30 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
-    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<String, ModelMemberEntity>();
+    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<>();
 
     /** A list of all ModelMemberEntity entries; this is mainly used to preserve the original order of member entities from the XML file */
-    protected List<ModelMemberEntity> allModelMemberEntities = new LinkedList<ModelMemberEntity>();
+    protected List<ModelMemberEntity> allModelMemberEntities = new LinkedList<>();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
-    protected Map<String, String> memberModelEntities = new HashMap<String, String>();
+    protected Map<String, String> memberModelEntities = new HashMap<>();
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
-    protected List<ModelAliasAll> aliasAlls = new LinkedList<ModelAliasAll>();
+    protected List<ModelAliasAll> aliasAlls = new LinkedList<>();
 
     /** List of aliases with information in addition to what is in the standard field list */
-    protected List<ModelAlias> aliases = new LinkedList<ModelAlias>();
+    protected List<ModelAlias> aliases = new LinkedList<>();
 
     /** List of view links to define how entities are connected (or "joined") */
-    protected List<ModelViewLink> viewLinks = new LinkedList<ModelViewLink>();
+    protected List<ModelViewLink> viewLinks = new LinkedList<>();
 
     /** A List of the Field objects for the View Entity, one for each GROUP BY field */
-    protected List<ModelField> groupBys = new LinkedList<ModelField>();
+    protected List<ModelField> groupBys = new LinkedList<>();
 
     /** List of field names to group by */
-    protected List<String> groupByFields = new LinkedList<String>();
+    protected List<String> groupByFields = new LinkedList<>();
 
-    protected Map<String, ModelConversion[]> conversions = new HashMap<String, ModelConversion[]>();
+    protected Map<String, ModelConversion[]> conversions = new HashMap<>();
 
     protected ViewEntityCondition viewEntityCondition = null;
 
@@ -256,7 +256,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelAlias> getAliasesCopy() {
-        List<ModelAlias> newList = new ArrayList<ModelAlias>(this.aliases);
+        List<ModelAlias> newList = new ArrayList<>(this.aliases);
         return newList;
     }
 
@@ -269,7 +269,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelField> getGroupBysCopy(List<ModelField> selectFields) {
-        List<ModelField> newList = new ArrayList<ModelField>(this.groupBys.size());
+        List<ModelField> newList = new ArrayList<>(this.groupBys.size());
         if (UtilValidate.isEmpty(selectFields)) {
             newList.addAll(this.groupBys);
         } else {
@@ -296,7 +296,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<ModelViewLink> getViewLinksCopy() {
-        List<ModelViewLink> newList = new ArrayList<ModelViewLink>(this.viewLinks);
+        List<ModelViewLink> newList = new ArrayList<>(this.viewLinks);
         return newList;
     }
 
@@ -306,7 +306,7 @@ public class ModelViewEntity extends ModelEntity {
 
     public void populateViewEntityConditionInformation(ModelFieldTypeReader modelFieldTypeReader, List<EntityCondition> whereConditions, List<EntityCondition> havingConditions, List<String> orderByList, List<String> entityAliasStack) {
         if (entityAliasStack == null) {
-            entityAliasStack = new LinkedList<String>();
+            entityAliasStack = new LinkedList<>();
         }
 
         if (this.viewEntityCondition != null) {
@@ -539,7 +539,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public void populateReverseLinks() {
-        Map<String, List<String>> containedModelFields = new HashMap<String, List<String>>();
+        Map<String, List<String>> containedModelFields = new HashMap<>();
         Iterator<ModelAlias> it = getAliasesIterator();
         while (it.hasNext()) {
             ModelViewEntity.ModelAlias alias = it.next();
@@ -613,7 +613,7 @@ public class ModelViewEntity extends ModelEntity {
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
         ModelConversion[] conversions = this.conversions.get(fromEntityName);
         if (conversions == null) return null;
-        List<Map<String, Object>> values = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> values = new LinkedList<>();
         for (ModelConversion conversion: conversions) {
             conversion.convert(values, data);
         }
@@ -741,8 +741,8 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ModelMemberEntity implements Serializable {
-        protected final String entityAlias;
-        protected final String entityName;
+        public final String entityAlias;
+        public final String entityName;
 
         public ModelMemberEntity(String entityAlias, String entityName) {
             this.entityAlias = entityAlias;
@@ -759,13 +759,13 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ModelAliasAll implements Serializable, Iterable<String> {
-        protected final String entityAlias;
-        protected final String prefix;
-        protected final Set<String> fieldsToExclude;
-        protected final boolean groupBy;
+        public final String entityAlias;
+        public final String prefix;
+        public final Set<String> fieldsToExclude;
+        public final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
-        protected final String function;
-        protected final String fieldSet;
+        public final String function;
+        public final String fieldSet;
 
         @Deprecated
         public ModelAliasAll(String entityAlias, String prefix) {
@@ -784,7 +784,7 @@ public class ModelViewEntity extends ModelEntity {
             this.function = function;
             this.fieldSet = fieldSet;
             if (UtilValidate.isNotEmpty(excludes)) {
-                this.fieldsToExclude = new HashSet<String>(excludes.size());
+                this.fieldsToExclude = new HashSet<>(excludes.size());
                 this.fieldsToExclude.addAll(excludes);
             } else {
                 this.fieldsToExclude = null;
@@ -800,7 +800,7 @@ public class ModelViewEntity extends ModelEntity {
 
             List<? extends Element> excludes = UtilXml.childElementList(aliasAllElement, "exclude");
             if (UtilValidate.isNotEmpty(excludes)) {
-                this.fieldsToExclude = new HashSet<String>();
+                this.fieldsToExclude = new HashSet<>();
                 for (Element excludeElement: excludes) {
                     this.fieldsToExclude.add(excludeElement.getAttribute("field").intern());
                 }
@@ -848,20 +848,20 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ModelAlias implements Serializable {
-        protected final String entityAlias;
-        protected final String name;
-        protected final String field;
-        protected final String colAlias;
+        public final String entityAlias;
+        public final String name;
+        public final String field;
+        public final String colAlias;
         // this is a Boolean object for a tri-state: null, true or false
-        protected final Boolean isPk;
-        protected final boolean groupBy;
+        public final Boolean isPk;
+        public final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
-        protected final String function;
-        protected final String fieldSet;
-        protected final boolean isFromAliasAll;
-        protected ComplexAliasMember complexAliasMember;
+        public final String function;
+        public final String fieldSet;
+        public final boolean isFromAliasAll;
+        public ComplexAliasMember complexAliasMember;
         // The description for documentation purposes
-        protected String description = "";
+        public String description = "";
 
         public ModelAlias(Element aliasElement) {
             this.entityAlias = UtilXml.checkEmpty(aliasElement.getAttribute("entity-alias")).intern();
@@ -976,8 +976,8 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ComplexAlias implements ComplexAliasMember {
-        protected final List<ComplexAliasMember> complexAliasMembers = new LinkedList<ComplexAliasMember>();
-        protected final String operator;
+        public final List<ComplexAliasMember> complexAliasMembers = new LinkedList<>();
+        public final String operator;
 
         public ComplexAlias(String operator) {
             this.operator = operator;
@@ -1028,11 +1028,11 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ComplexAliasField implements ComplexAliasMember {
-        protected final String entityAlias;
-        protected final String field;
-        protected final String defaultValue;
-        protected final String function;
-        protected final String value;
+        public final String entityAlias;
+        public final String field;
+        public final String defaultValue;
+        public final String function;
+        public final String value;
 
         public ComplexAliasField(Element complexAliasFieldElement) {
             this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias").intern();
@@ -1070,11 +1070,11 @@ public class ModelViewEntity extends ModelEntity {
                 ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
                 ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
                 String colName = entityAlias + "." + modelField.getColName();
-    
+
                 if (UtilValidate.isNotEmpty(defaultValue)) {
                     colName = "COALESCE(" + colName + "," + defaultValue + ")";
                 }
-    
+
                 if (UtilValidate.isNotEmpty(function)) {
                     String prefix = functionPrefixMap.get(function);
                     if (prefix == null) {
@@ -1083,7 +1083,7 @@ public class ModelViewEntity extends ModelEntity {
                         colName = prefix + colName + ")";
                     }
                 }
-    
+
                 colNameBuffer.append(colName);
                 //set fieldTypeBuffer if not already set
                 if (fieldTypeBuffer.length() == 0) {
@@ -1094,11 +1094,11 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ModelViewLink implements Serializable, Iterable<ModelKeyMap> {
-        protected final String entityAlias;
-        protected final String relEntityAlias;
-        protected final boolean relOptional;
-        protected final List<ModelKeyMap> keyMaps = new LinkedList<ModelKeyMap>();
-        protected final ViewEntityCondition viewEntityCondition;
+        public final String entityAlias;
+        public final String relEntityAlias;
+        public final boolean relOptional;
+        public final List<ModelKeyMap> keyMaps = new LinkedList<>();
+        public final ViewEntityCondition viewEntityCondition;
 
         public ModelViewLink(ModelViewEntity modelViewEntity, Element viewLinkElement) {
             this.entityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("entity-alias")).intern();
@@ -1107,11 +1107,12 @@ public class ModelViewEntity extends ModelEntity {
             this.relOptional = "true".equals(viewLinkElement.getAttribute("rel-optional"));
 
             NodeList keyMapList = viewLinkElement.getElementsByTagName("key-map");
-            for (int j = 0; j < keyMapList.getLength(); j++) {
+            int keyMapLength = keyMapList.getLength();
+            for (int j = 0; j < keyMapLength; j++) {
                 Element keyMapElement = (Element) keyMapList.item(j);
                 ModelKeyMap keyMap = new ModelKeyMap(keyMapElement);
 
-                if (keyMap != null) keyMaps.add(keyMap);
+                keyMaps.add(keyMap);
             }
 
             Element entityConditionElement = UtilXml.firstChildElement(viewLinkElement, "entity-condition");
@@ -1177,7 +1178,7 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public List<ModelKeyMap> getKeyMapsCopy() {
-            List<ModelKeyMap> newList = new ArrayList<ModelKeyMap>(this.keyMaps);
+            List<ModelKeyMap> newList = new ArrayList<>(this.keyMaps);
             return newList;
         }
 
@@ -1187,10 +1188,10 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public final class ModelConversion implements Serializable {
-        protected final String aliasName;
-        protected final ModelEntity fromModelEntity;
-        protected final Map<String, String> fieldMap = new HashMap<String, String>();
-        protected final Set<String> wildcards = new HashSet<String>();
+        public final String aliasName;
+        public final ModelEntity fromModelEntity;
+        public final Map<String, String> fieldMap = new HashMap<>();
+        public final Set<String> wildcards = new HashSet<>();
 
         public ModelConversion(String aliasName, ModelEntity fromModelEntity) {
             this.aliasName = aliasName;
@@ -1226,7 +1227,7 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public void convert(List<Map<String, Object>> values, Map<String, ? extends Object> value) {
-            Map<String, Object> newValue = new HashMap<String, Object>();
+            Map<String, Object> newValue = new HashMap<>();
             for (Map.Entry<String, String> entry: fieldMap.entrySet()) {
                 newValue.put(entry.getValue(), value.get(entry.getKey()));
             }
@@ -1250,13 +1251,13 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ViewEntityCondition {
-        protected final ModelViewEntity modelViewEntity;
-        protected final ModelViewLink modelViewLink;
-        protected final boolean filterByDate;
-        protected final boolean distinct;
-        protected final List<String> orderByList;
-        protected final ViewCondition whereCondition;
-        protected final ViewCondition havingCondition;
+        public final ModelViewEntity modelViewEntity;
+        public final ModelViewLink modelViewLink;
+        public final boolean filterByDate;
+        public final boolean distinct;
+        public final List<String> orderByList;
+        public final ViewCondition whereCondition;
+        public final ViewCondition havingCondition;
 
         // TODO: add programatic constructor
         public ViewEntityCondition(ModelViewEntity modelViewEntity, ModelViewLink modelViewLink, Element element) {
@@ -1267,7 +1268,7 @@ public class ModelViewEntity extends ModelEntity {
             // process order-by
             List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
             if (orderByElementList.size() > 0) {
-                orderByList = new ArrayList<String>(orderByElementList.size());
+                orderByList = new ArrayList<>(orderByElementList.size());
                 for (Element orderByElement: orderByElementList) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
                 }
@@ -1299,7 +1300,7 @@ public class ModelViewEntity extends ModelEntity {
 
         public EntityCondition getWhereCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
 
-            List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
+            List<EntityCondition> conditionList = new LinkedList<>();
             if(this.filterByDate) {
                 conditionList.add(EntityUtil.getFilterByDateExpr());
             }
@@ -1324,14 +1325,14 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ViewConditionExpr implements ViewCondition {
-        protected final ViewEntityCondition viewEntityCondition;
-        protected final String entityAlias;
-        protected final String fieldName;
-        protected final EntityComparisonOperator<?, ?> operator;
-        protected final String relEntityAlias;
-        protected final String relFieldName;
-        protected final Object value;
-        protected final boolean ignoreCase;
+        public final ViewEntityCondition viewEntityCondition;
+        public final String entityAlias;
+        public final String fieldName;
+        public final EntityComparisonOperator<?, ?> operator;
+        public final String relEntityAlias;
+        public final String relFieldName;
+        public final Object value;
+        public final boolean ignoreCase;
 
         // TODO: add programatic constructor
         public ViewConditionExpr(ViewEntityCondition viewEntityCondition, Element conditionExprElement) {
@@ -1379,9 +1380,9 @@ public class ModelViewEntity extends ModelEntity {
             if ((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof String) {
                 String delim = null;
-                if (((String)value).indexOf("|") >= 0) {
+                if (((String) value).indexOf('|') >= 0) {
                     delim = "|";
-                } else if (((String)value).indexOf(",") >= 0) {
+                } else if (((String) value).indexOf(',') >= 0) {
                     delim = ",";
                 }
                 if (UtilValidate.isNotEmpty(delim)) {
@@ -1399,7 +1400,7 @@ public class ModelViewEntity extends ModelEntity {
             if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<String, Object>());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value,modelFieldTypeReader, new HashMap<>());
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, module);
@@ -1439,7 +1440,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             if(this.viewEntityCondition.filterByDate) {
-                List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
+                List<EntityCondition> conditionList = new LinkedList<>();
                 conditionList.add(entityCondition);
                 conditionList.add(EntityUtil.getFilterByDateExpr());
                 return EntityCondition.makeCondition(conditionList, EntityOperator.AND);
@@ -1451,9 +1452,9 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static final class ViewConditionList implements ViewCondition {
-        protected final ViewEntityCondition viewEntityCondition;
-        protected final List<ViewCondition> conditionList = new LinkedList<ViewCondition>();
-        protected final EntityJoinOperator operator;
+        public final ViewEntityCondition viewEntityCondition;
+        public final List<ViewCondition> conditionList = new LinkedList<>();
+        public final EntityJoinOperator operator;
 
         public ViewConditionList(ViewEntityCondition viewEntityCondition, Element conditionListElement) {
             this.viewEntityCondition = viewEntityCondition;
@@ -1497,7 +1498,7 @@ public class ModelViewEntity extends ModelEntity {
                 return condition.createCondition(modelFieldTypeReader, entityAliasStack);
             }
 
-            List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
+            List<EntityCondition> entityConditionList = new LinkedList<>();
             for (ViewCondition curCondition: conditionList) {
                 EntityCondition econd = curCondition.createCondition(modelFieldTypeReader, entityAliasStack);
                 if (econd != null) {

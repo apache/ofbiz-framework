@@ -55,11 +55,11 @@ public class ModelGroupReader implements Serializable {
     public static final String module = ModelGroupReader.class.getName();
     private static final UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
 
-    private Map<String, String> groupCache = null;
+    private volatile Map<String, String> groupCache = null;
     private Set<String> groupNames = null;
 
     public String modelName;
-    public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<ResourceHandler>();
+    public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
@@ -105,8 +105,8 @@ public class ModelGroupReader implements Serializable {
                 // must check if null again as one of the blocked threads can still enter
                 if (this.groupCache == null) {
                     // now it's safe
-                    this.groupCache = new HashMap<String, String>();
-                    this.groupNames = new TreeSet<String>();
+                    this.groupCache = new HashMap<>();
+                    this.groupNames = new TreeSet<>();
 
                     UtilTimer utilTimer = new UtilTimer();
                     // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocument");
@@ -141,7 +141,6 @@ public class ModelGroupReader implements Serializable {
                                     String entityName = UtilXml.checkEmpty(curEntity.getAttribute("entity")).intern();
                                     String groupName = UtilXml.checkEmpty(curEntity.getAttribute("group")).intern();
 
-                                    if (groupName == null || entityName == null) continue;
                                     try {
                                         if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
                                             Debug.logError("The declared group name " + groupName + " has no corresponding group-map in entityengine.xml: ", module);
@@ -202,7 +201,7 @@ public class ModelGroupReader implements Serializable {
         }
         getGroupCache(delegatorBaseName);
         if (this.groupNames == null) return null;
-        Set<String> newSet = new HashSet<String>();
+        Set<String> newSet = new HashSet<>();
         try {
             newSet.add(EntityConfig.getInstance().getDelegator(delegatorBaseName).getDefaultGroupName());
         } catch (GenericEntityConfException e) {
@@ -218,7 +217,7 @@ public class ModelGroupReader implements Serializable {
      */
     public Set<String> getEntityNamesByGroup(String delegatorBaseName, String groupName) {
         Map<String, String> gc = getGroupCache(delegatorBaseName);
-        Set<String> enames = new HashSet<String>();
+        Set<String> enames = new HashSet<>();
 
         if (UtilValidate.isEmpty(groupName)) return enames;
         if (UtilValidate.isEmpty(gc)) return enames;

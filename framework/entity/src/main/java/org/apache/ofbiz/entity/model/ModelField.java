@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
 import org.w3c.dom.Document;
@@ -147,11 +147,7 @@ public final class ModelField extends ModelChild {
         if (isPk) {
             isNotNull = true;
         }
-        EncryptMethod encrypt = EncryptMethod.valueOf(fieldElement.getAttribute("encrypt").toUpperCase());
-        if (encrypt == null) {
-            Debug.logWarning("invalid encrypt value: %s", module, fieldElement.getAttribute("encrypt"));
-            encrypt = EncryptMethod.FALSE;
-        }
+        EncryptMethod encrypt = EncryptMethod.valueOf(fieldElement.getAttribute("encrypt").toUpperCase(Locale.getDefault()));
         boolean enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
         List<String>validators = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
@@ -177,7 +173,7 @@ public final class ModelField extends ModelChild {
         String name = ModelUtil.dbNameToVarName(colName);
         String type = ModelUtil.induceFieldType(ccInfo.typeName, ccInfo.columnSize, ccInfo.decimalDigits, modelFieldTypeReader);
         boolean isPk = ccInfo.isPk;
-        boolean isNotNull = "NO".equals(ccInfo.isNullable.toUpperCase());
+        boolean isNotNull = "NO".equals(ccInfo.isNullable.toUpperCase(Locale.getDefault()));
         String description = "";
         String colValue = "";
         String fieldSet = "";
@@ -303,7 +299,7 @@ public final class ModelField extends ModelChild {
         }
         root.setAttribute("type", this.getType());
         if (this.getEncryptMethod().isEncrypted()) {
-            root.setAttribute("encrypt", this.getEncryptMethod().toString().toLowerCase());
+            root.setAttribute("encrypt", this.getEncryptMethod().toString().toLowerCase(Locale.getDefault()));
         }
         if (this.getIsNotNull()) {
             root.setAttribute("not-null", "true");
