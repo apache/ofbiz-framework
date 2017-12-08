@@ -90,7 +90,7 @@ if (facility) {
     owner = facility.getRelatedOne("OwnerParty", false)
     if (owner) {
         result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
-        if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
+        if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
     }
@@ -158,7 +158,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     if (baseCurrencyUomId && orderHeader.currencyUom) {
         if (product) {
             result = runService('convertUom', [uomId : orderHeader.currencyUom, uomIdTo : baseCurrencyUomId, originalValue : orderItem.unitPrice])
-            if (!ServiceUtil.isError(result)) {
+            if (ServiceUtil.isSuccess(result)) {
                 orderItem.unitPrice = result.convertedValue
             }
         }

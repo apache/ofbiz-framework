@@ -75,7 +75,10 @@ public class FinAccountPaymentServices {
                 Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId",
                         authTrans.get("referenceNum"));
                 try {
-                    dispatcher.runSync("expireFinAccountAuth", input);
+                    Map<String, Object> result = dispatcher.runSync("expireFinAccountAuth", input);
+                    if (ServiceUtil.isError(result)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -245,7 +248,7 @@ public class FinAccountPaymentServices {
                         "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
-                    return tmpResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
                 }
                 refNum = (String) tmpResult.get("finAccountAuthId");
                 processResult = Boolean.TRUE;
@@ -300,16 +303,15 @@ public class FinAccountPaymentServices {
 
             Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
             Map<String, Object> serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
+            // if there's an error, don't release
+            if (ServiceUtil.isError(serviceResults)) {
+                return ServiceUtil.returnError(err + ServiceUtil.getErrorMessage(serviceResults));
+            }
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
             result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
-
-            // if there's an error, don't release
-            if (ServiceUtil.isError(serviceResults)) {
-                return ServiceUtil.returnError(err + ServiceUtil.getErrorMessage(serviceResults));
-            }
 
             return result;
         } catch (GenericServiceException e) {
@@ -397,12 +399,12 @@ public class FinAccountPaymentServices {
         Map<String, Object> releaseResult;
         try {
             releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+            if (ServiceUtil.isError(releaseResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
-        }
-        if (ServiceUtil.isError(releaseResult)) {
-            return releaseResult;
         }
 
         // build the withdraw context
@@ -426,7 +428,7 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(withdrawResp)) {
-            return withdrawResp;
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(withdrawResp));
         }
 
         // create the capture response
@@ -499,7 +501,7 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(depositResp)) {
-            return depositResp;
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depositResp));
         }
 
         // create the refund response
@@ -860,7 +862,7 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(replResp)) {
-            return replResp;
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(replResp));
         }
         String orderId = (String) replResp.get("orderId");
 
@@ -878,7 +880,7 @@ public class FinAccountPaymentServices {
         try {
             Map<String, Object> depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
             if (ServiceUtil.isError(depositResp)) {
-                return depositResp;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depositResp));
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
@@ -890,7 +892,7 @@ public class FinAccountPaymentServices {
             try {
                 Map<String, Object> ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
                 if (ServiceUtil.isError(ufaResp)) {
-                    return ufaResp;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(ufaResp));
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
@@ -990,6 +992,9 @@ public class FinAccountPaymentServices {
         Map<String, Object> payResult;
         try {
             payResult = dispatcher.runSync("createPayment", paymentCtx);
+            if (ServiceUtil.isError(payResult)) {
+                throw new GeneralException(ServiceUtil.getErrorMessage(payResult));
+            }
         } catch (GenericServiceException e) {
             throw new GeneralException(e);
         }
@@ -1015,6 +1020,9 @@ public class FinAccountPaymentServices {
         Map<String, Object> transResult;
         try {
             transResult = dispatcher.runSync("createFinAccountTrans", transCtx);
+            if (ServiceUtil.isError(transResult)) {
+                throw new GeneralException(ServiceUtil.getErrorMessage(transResult));
+            }
         } catch (GenericServiceException e) {
             throw new GeneralException(e);
         }

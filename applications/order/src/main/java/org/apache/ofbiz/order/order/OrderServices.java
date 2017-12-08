@@ -2687,7 +2687,7 @@ public class OrderServices {
         }
 
         // check for errors
-        if (sendResp != null && !ServiceUtil.isError(sendResp)) {
+        if (sendResp != null && ServiceUtil.isSuccess(sendResp)) {
             sendResp.put("emailType", emailType);
         }
         if (UtilValidate.isNotEmpty(orderId)) {

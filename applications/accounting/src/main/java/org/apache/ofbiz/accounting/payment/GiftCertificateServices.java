@@ -110,6 +110,10 @@ public class GiftCertificateServices {
                 acctCtx.put("finAccountCode", pinNumber);
                 acctCtx.put("userLogin", userLogin);
                 acctResult = dispatcher.runSync("createFinAccount", acctCtx);
+                if (ServiceUtil.isError(acctResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(acctResult));
+                }
+                
             } else {
                 Map<String, Object> createAccountCtx = new HashMap<String, Object>();
                 createAccountCtx.put("ownerPartyId", partyId);
@@ -119,17 +123,15 @@ public class GiftCertificateServices {
                 createAccountCtx.put("finAccountName", accountName + "for party ["+partyId+"]");
                 createAccountCtx.put("userLogin", userLogin);
                 acctResult = dispatcher.runSync("createFinAccountForStore", createAccountCtx);
+                if (ServiceUtil.isError(acctResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(acctResult));
+                }
                 if (acctResult.get("finAccountId") != null) {
                     finAccountId = cardNumber = (String) acctResult.get("finAccountId");
                 }
                 if (acctResult.get("finAccountCode") != null) {
                     cardNumber = (String) acctResult.get("finAccountCode");
                 }
-            }
-
-            if (ServiceUtil.isError(acctResult)) {
-                String error = ServiceUtil.getErrorMessage(acctResult);
-                return ServiceUtil.returnError(error);
             }
 
             // create the initial (deposit) transaction
@@ -431,14 +433,14 @@ public class GiftCertificateServices {
             Map<String, Object> redeemResult = null;
             redeemResult = dispatcher.runSync("redeemGiftCertificate", redeemCtx);
             if (ServiceUtil.isError(redeemResult)) {
-                return redeemResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(redeemResult));
             }
 
             // now release the authorization should this use the gift card release service?
             Map<String, Object> releaseResult = dispatcher.runSync("expireFinAccountAuth", 
                     UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
-                return releaseResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
             }
 
             String authRefNum = authTransaction.getString("referenceNum");
@@ -546,7 +548,7 @@ public class GiftCertificateServices {
                                 "amount", amount, "currencyUomId", currency,
                                 "thruDate", thruDate, "userLogin", userLogin));
                 if (ServiceUtil.isError(tmpResult)) {
-                    return tmpResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
                 } else {
                     refNum = (String) tmpResult.get("finAccountAuthId");
                     processResult = Boolean.TRUE;
@@ -606,16 +608,14 @@ public class GiftCertificateServices {
             Map<String, Object> input = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
                     "finAccountAuthId", authTransaction.get("referenceNum"));
             Map<String, Object> serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
+            if (ServiceUtil.isError(serviceResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
+            }
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
             result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
-
-            // if there's an error, don't release
-            if (ServiceUtil.isError(serviceResults)) {
-                return ServiceUtil.returnError(err + ServiceUtil.getErrorMessage(serviceResults));
-            }
 
             return result;
         } catch (GenericServiceException e) {
@@ -928,7 +928,10 @@ public class GiftCertificateServices {
                 // SC 20060405: Changed to runSync because runAsync kept getting an error:
                 // Problem serializing service attributes (Cannot serialize object of class java.util.PropertyResourceBundle)
                 try {
-                    dispatcher.runAsync("sendMailFromScreen", emailCtx);
+                    Map<String, Object> serviceResults = dispatcher.runSync("sendMailFromScreen", emailCtx);
+                    if (ServiceUtil.isError(serviceResults)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem sending mail", module);
                     // this is fatal; we will rollback and try again later
@@ -1219,6 +1222,9 @@ public class GiftCertificateServices {
         try {
             returnableInfo = dispatcher.runSync("getReturnableQuantity", UtilMisc.toMap("orderItem", orderItem, 
                     "userLogin", userLogin));
+            if (ServiceUtil.isError(returnableInfo)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(returnableInfo));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 

@@ -135,7 +135,7 @@ public class QuoteServices {
         }
 
         // check for errors
-        if (sendResp != null && !ServiceUtil.isError(sendResp)) {
+        if (sendResp != null && ServiceUtil.isSuccess(sendResp)) {
             sendResp.put("emailType", emailType);
         }
         return sendResp;

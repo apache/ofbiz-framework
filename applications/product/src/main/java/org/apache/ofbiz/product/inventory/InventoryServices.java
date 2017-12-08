@@ -813,13 +813,13 @@ public class InventoryServices {
                 }
 
                 // add the results for this facility to the ATP/QOH counter for all facilities
-                if (!ServiceUtil.isError(invResult)) {
+                if (ServiceUtil.isSuccess(invResult)) {
                     BigDecimal fatp = (BigDecimal) invResult.get("availableToPromiseTotal");
                     BigDecimal fqoh = (BigDecimal) invResult.get("quantityOnHandTotal");
                     if (fatp != null) atp = atp.add(fatp);
                     if (fqoh != null) qoh = qoh.add(fqoh);
                 }
-                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG") && !ServiceUtil.isError(mktgPkgInvResult)) {
+                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG") && ServiceUtil.isSuccess(mktgPkgInvResult)) {
                     BigDecimal fatp = (BigDecimal) mktgPkgInvResult.get("availableToPromiseTotal");
                     BigDecimal fqoh = (BigDecimal) mktgPkgInvResult.get("quantityOnHandTotal");
                     if (fatp != null) mktgPkgAtp = mktgPkgAtp.add(fatp);
