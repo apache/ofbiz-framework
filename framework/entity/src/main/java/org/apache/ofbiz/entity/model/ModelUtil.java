@@ -284,8 +284,7 @@ public final class ModelUtil {
             if (length > 18 || precision > 6) return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
             if (precision == 0) return "numeric";
             if (precision == 2) return "currency-amount";
-            if (precision <= 6) return "floating-point";
-            return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
+            return "floating-point";
         } else if ("BLOB".equalsIgnoreCase(sqlTypeName) || "OID".equalsIgnoreCase(sqlTypeName)) {
             return "blob";
         } else if ("DATETIME".equalsIgnoreCase(sqlTypeName) || "TIMESTAMP".equalsIgnoreCase(sqlTypeName)) {
