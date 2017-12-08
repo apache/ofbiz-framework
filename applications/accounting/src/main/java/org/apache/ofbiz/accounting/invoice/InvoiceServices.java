@@ -135,6 +135,9 @@ public class InvoiceServices {
             }
 
             Map<String, Object> result = dispatcher.runSync("createInvoiceForOrder", context);
+            if (ServiceUtil.isError(result )) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
             result.remove("invoiceTypeId");  //remove extra parameter
             return result;
         }
@@ -520,7 +523,10 @@ public class InvoiceServices {
                         shipmentItemBillingCtx.put("shipmentId", currentValue.get("shipmentId"));
                         shipmentItemBillingCtx.put("shipmentItemSeqId", currentValue.get("shipmentItemSeqId"));
                         shipmentItemBillingCtx.put("userLogin", userLogin);
-                        dispatcher.runSync("createShipmentItemBilling", shipmentItemBillingCtx);
+                        Map<String, Object> result = dispatcher.runSync("createShipmentItemBilling", shipmentItemBillingCtx);
+                        if (ServiceUtil.isError(result)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                        }
                     }
                 }
 
@@ -540,6 +546,11 @@ public class InvoiceServices {
                     BigDecimal adjAlreadyInvoicedAmount = null;
                     try {
                         Map<String, Object> checkResult = dispatcher.runSync("calculateInvoicedAdjustmentTotal", UtilMisc.toMap("orderAdjustment", adj));
+                        if (ServiceUtil.isError(checkResult)) {
+                            Debug.logError("Accounting trouble calling calculateInvoicedAdjustmentTotal service", module);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));
+                        }
                         adjAlreadyInvoicedAmount = (BigDecimal) checkResult.get("invoicedTotal");
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Accounting trouble calling calculateInvoicedAdjustmentTotal service", module);
@@ -722,6 +733,10 @@ public class InvoiceServices {
                 BigDecimal adjAlreadyInvoicedAmount = null;
                 try {
                     Map<String, Object> checkResult = dispatcher.runSync("calculateInvoicedAdjustmentTotal", UtilMisc.toMap("orderAdjustment", adj));
+                    if (ServiceUtil.isError(checkResult)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));
+                    }
                     adjAlreadyInvoicedAmount = ((BigDecimal) checkResult.get("invoicedTotal")).setScale(invoiceTypeDecimals, ROUNDING);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Accounting trouble calling calculateInvoicedAdjustmentTotal service", module);
@@ -983,6 +998,9 @@ public class InvoiceServices {
                                 "amount", amount,
                                 "quantity", quantity,
                                 "userLogin", userLogin));
+                        if (ServiceUtil.isError(resultMap)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultMap));
+                        }
                     } catch (GenericServiceException e) {
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -1041,6 +1059,10 @@ public class InvoiceServices {
             Map<String, Object> createInvoiceResult;
             try {
                 createInvoiceResult = dispatcher.runSync("createInvoice", createInvoiceMap);
+                if (ServiceUtil.isError(createInvoiceResult)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "AccountingInvoiceCommissionError", locale), null, null, null);
+                }
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "AccountingInvoiceCommissionError", locale), null, null, null);
@@ -1089,7 +1111,11 @@ public class InvoiceServices {
                             "quantity",quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
-                    dispatcher.runSync("createInvoiceItemAssoc", UtilMisc.toMap("invoiceIdFrom", invoiceIdFrom,
+                    if (ServiceUtil.isError(resMap)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                "AccountingInvoiceCommissionErrorItem", locale), null, null, resMap);
+                    }
+                    resMap = dispatcher.runSync("createInvoiceItemAssoc", UtilMisc.toMap("invoiceIdFrom", invoiceIdFrom,
                             "invoiceItemSeqIdFrom", invoiceItemSeqIdFrom,
                             "invoiceIdTo", invoiceId,
                             "invoiceItemSeqIdTo", resMap.get("invoiceItemSeqId"),
@@ -1099,12 +1125,11 @@ public class InvoiceServices {
                             "quantity", quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
+                    if (ServiceUtil.isError(resMap)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resMap));
+                    }
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(e.getMessage());
-                }
-                if (ServiceUtil.isError(resMap)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingInvoiceCommissionErrorItem", locale), null, null, resMap);
                 }
             }
             // store value objects
@@ -1189,6 +1214,11 @@ public class InvoiceServices {
             Map<String, Object> serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
             try {
                 Map<String, Object> result = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "AccountingTroubleCallingCreateInvoicesFromShipmentService",
+                        UtilMisc.toMap("shipmentId", shipmentId), locale));
+                }
                 invoicesCreated = UtilGenerics.checkList(result.get("invoicesCreated"));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment [" + shipmentId + "]", module);
@@ -1304,6 +1334,11 @@ public class InvoiceServices {
         Map<String, Object> serviceResult;
         try {
             serviceResult = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "AccountingTroubleCallingCreateInvoicesFromShipmentService",
+                    UtilMisc.toMap("shipmentId", shipmentId), locale));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment " + shipmentId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1637,6 +1672,9 @@ public class InvoiceServices {
                         String shippingOrderAdjustmentId = null;
                         try {
                             Map<String, Object> createOrderAdjustmentResult = dispatcher.runSync("createOrderAdjustment", createOrderAdjustmentContext);
+                            if (ServiceUtil.isError(createOrderAdjustmentResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createOrderAdjustmentResult));
+                            }
                             shippingOrderAdjustmentId = (String) createOrderAdjustmentResult.get("orderAdjustmentId");
                         } catch (GenericServiceException e) {
                             Debug.logError(e, "Trouble calling createOrderAdjustment service", module);
@@ -1674,6 +1712,10 @@ public class InvoiceServices {
                         Map<String, Object> calcTaxResult = null;
                         try {
                             calcTaxResult = dispatcher.runSync("calcTax", calcTaxContext);
+                            if (ServiceUtil.isError(calcTaxResult)) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                    "AccountingTroubleCallingCalcTaxService", locale));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, "Trouble calling calcTaxService", module);
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1757,6 +1799,10 @@ public class InvoiceServices {
                             String orderPaymentPreferenceId = null;
                             try {
                                 Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                        "AccountingTroubleCallingCreateOrderPaymentPreferenceService", locale));
+                                }
                                 orderPaymentPreferenceId = (String) result.get("orderPaymentPreferenceId");
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, "Trouble calling createOrderPaymentPreference service", module);
@@ -1769,6 +1815,10 @@ public class InvoiceServices {
                             try {
                                 // Use an overrideAmount because the maxAmount wasn't set on the OrderPaymentPreference
                                 authResult = dispatcher.runSync("authOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId, "overrideAmount", totalNewAuthAmount, "userLogin", context.get("userLogin")));
+                                if (ServiceUtil.isError(authResult)) {
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                                        "AccountingTroubleCallingAuthOrderPaymentPreferenceService", locale));
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, "Trouble calling authOrderPaymentPreference service", module);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1807,6 +1857,10 @@ public class InvoiceServices {
             Map<String, Object> serviceContext = UtilMisc.toMap("orderId", orderId, "billItems", toBillItems, "invoiceId", invoiceId, "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
             try {
                 Map<String, Object> result = dispatcher.runSync("createInvoiceForOrder", serviceContext);
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "AccountingTroubleCallingCreateInvoiceForOrderService", locale));
+                }
                 invoicesCreated.add((String) result.get("invoiceId"));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble calling createInvoiceForOrder service; invoice not created for shipment", module);
@@ -1932,7 +1986,7 @@ public class InvoiceServices {
                 Map<String, Object> input = UtilMisc.toMap("returnId", returnId, "billItems", billItems, "userLogin", context.get("userLogin"));
                 Map<String, Object> serviceResults = dispatcher.runSync("createInvoiceFromReturn", input);
                 if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
 
                 // put the resulting invoiceId in the return list
@@ -2023,7 +2077,7 @@ public class InvoiceServices {
             // call the service to create the invoice
             Map<String, Object> serviceResults = dispatcher.runSync("createInvoice", input);
             if (ServiceUtil.isError(serviceResults)) {
-                return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
             }
             String invoiceId = (String) serviceResults.get("invoiceId");
 
@@ -2089,7 +2143,7 @@ public class InvoiceServices {
                 input.put("userLogin", userLogin);
                 serviceResults = dispatcher.runSync("createInvoiceItem", input);
                 if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
 
                 // copy the return item information into ReturnItemBilling
@@ -2104,7 +2158,7 @@ public class InvoiceServices {
                 }
                 serviceResults = dispatcher.runSync("createReturnItemBilling", input);
                 if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity
@@ -2177,7 +2231,7 @@ public class InvoiceServices {
                     // create the invoice item
                     serviceResults = dispatcher.runSync("createInvoiceItem", input);
                     if (ServiceUtil.isError(serviceResults)) {
-                        return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                     }
 
                     // increment the seqId counter
@@ -2231,7 +2285,7 @@ public class InvoiceServices {
                 // create the invoice item
                 serviceResults = dispatcher.runSync("createInvoiceItem", input);
                 if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
 
                 // increment the seqId counter
@@ -2242,7 +2296,7 @@ public class InvoiceServices {
             // Set the invoice to READY
             serviceResults = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
             if (ServiceUtil.isError(serviceResults)) {
-                return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
             }
 
             // return the invoiceId
@@ -2338,7 +2392,12 @@ public class InvoiceServices {
                 Map<String, Object> svcCtx = UtilMisc.toMap("statusId", "INVOICE_PAID", "invoiceId", invoiceId,
                         "paidDate", paidDate, "userLogin", userLogin);
                 try {
-                    dispatcher.runSync("setInvoiceStatus", svcCtx);
+                    Map<String, Object> serviceResults = dispatcher.runSync("setInvoiceStatus", svcCtx);
+                    if (ServiceUtil.isError(serviceResults)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "AccountingProblemChangingInvoiceStatusTo",
+                            UtilMisc.toMap("newStatus", "INVOICE_PAID"), locale));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem changing invoice status to INVOICE_PAID" + svcCtx, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2400,7 +2459,10 @@ public class InvoiceServices {
                 createOrderAdjustmentBillingContext.put("userLogin", userLogin);
 
                 try {
-                    dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    Map<String, Object> result = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    if (ServiceUtil.isError(result)) {
+                        return adjAmount;
+                    }
                 } catch (GenericServiceException e) {
                     return adjAmount;                }
 
@@ -2452,7 +2514,10 @@ public class InvoiceServices {
                 createOrderAdjustmentBillingContext.put("userLogin", userLogin);
 
                 try {
-                    dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    Map<String, Object> result = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    if (ServiceUtil.isError(result)) {
+                        return adjAmount;
+                    }
                 } catch (GenericServiceException e) {
                     return adjAmount;
                 }
@@ -3402,11 +3467,14 @@ public class InvoiceServices {
             if (UtilValidate.isEmpty(paymentApplications)) return ServiceUtil.returnSuccess();
 
             // TODO: this is inefficient -- instead use HashSet to construct a distinct Set of invoiceIds, then iterate over it and call checkInvoicePaymentAppls
+            Map<String, Object> serviceResult = null;
             for (GenericValue paymentApplication : paymentApplications) {
                 String invoiceId = paymentApplication.getString("invoiceId");
                 if (invoiceId != null) {
-                    Map<String, Object> serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "userLogin", userLogin));
-                    if (ServiceUtil.isError(serviceResult)) return serviceResult;
+                    serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(serviceResult)) {
+                       return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 }
             }
             return ServiceUtil.returnSuccess();
@@ -3506,6 +3574,9 @@ public class InvoiceServices {
                         Map<String, Object> invoiceResult = null;
                         try {
                             invoiceResult = dispatcher.runSync("createInvoice", invoice);
+                            if (ServiceUtil.isError(invoiceResult)) {
+                               return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
+                            }
                         } catch (GenericServiceException e) {
                             csvReader.close();
                             Debug.logError(e, module);
@@ -3561,7 +3632,10 @@ public class InvoiceServices {
                         errMsgs.addAll(newErrMsgs);
                     } else {
                         try {
-                            dispatcher.runSync("createInvoiceItem", invoiceItem);
+                            Map<String, Object> result = dispatcher.runSync("createInvoiceItem", invoiceItem);
+                            if (ServiceUtil.isError(result)) {
+                               return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                         } catch (GenericServiceException e) {
                             csvReader.close();
                             Debug.logError(e, module);

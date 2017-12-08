@@ -358,7 +358,7 @@ public class PriceServices {
                     }
                     try {
                         Map<String, Object> outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
-                        if (!ServiceUtil.isError(outMap)) {
+                        if (ServiceUtil.isSuccess(outMap)) {
                             BigDecimal calculatedDefaultPrice = (BigDecimal)outMap.get("price");
                             orderItemPriceInfos = UtilGenerics.checkList(outMap.get("orderItemPriceInfos"));
                             if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {

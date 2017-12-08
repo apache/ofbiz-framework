@@ -42,7 +42,7 @@ if (facility) {
     owner = facility.getRelatedOne("OwnerParty", false)
     if (owner) {
         result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
-        if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
+        if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
     }
@@ -228,7 +228,7 @@ if (ownerAcctgPref) {
             if (productId) {
                 result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                                costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
-                if (!ServiceUtil.isError(result)) {
+                if (ServiceUtil.isSuccess(result)) {
                     standardCosts.put(productId, result.productCost)
                 }
             }
@@ -239,7 +239,7 @@ if (ownerAcctgPref) {
     if (productId) {
         result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                        costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
-        if (!ServiceUtil.isError(result)) {
+        if (ServiceUtil.isSuccess(result)) {
             standardCosts.put(productId, result.productCost)
         }
     }

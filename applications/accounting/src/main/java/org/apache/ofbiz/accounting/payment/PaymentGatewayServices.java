@@ -388,6 +388,9 @@ public class PaymentGatewayServices {
             Map<String, Object> results = null;
             try {
                 results = dispatcher.runSync("authOrderPaymentPreference", authContext);
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
             } catch (GenericServiceException se) {
                 Debug.logError(se, "Error in calling authOrderPaymentPreference from authOrderPayments", module);
                 hadError += 1;
@@ -546,6 +549,9 @@ public class PaymentGatewayServices {
             // if we are not trying other expire dates OR if we are and the date is after today, then run the service
             if (!tryOtherExpDates || UtilValidate.isDateAfterToday(creditCard.getString("expireDate"))) {
                 processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                if (ServiceUtil.isError(processorResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(processorResult));
+                }
             }
 
             // try other expire dates if the expireDate is not after today, or if we called the auth service and resultBadExpire = true
@@ -562,24 +568,33 @@ public class PaymentGatewayServices {
                 creditCard.set("expireDate", month + "/" + year);
                 // don't need to set back in the processContext, it's already there: processContext.put("creditCard", creditCard);
                 processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                if (ServiceUtil.isError(processorResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(processorResult));
+                }
 
                 // note that these additional tries will only be done if the service return is not an error, in that case we let it pass through to the normal error handling
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
+                if (ServiceUtil.isSuccess(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
                     // okay, try one more year...
                     year = StringUtil.addToNumberString(year, 1);
                     creditCard.set("expireDate", month + "/" + year);
                     processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                    if (ServiceUtil.isError(processorResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(processorResult));
+                    }
                 }
 
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
+                if (ServiceUtil.isSuccess(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
                     // okay, try one more year... and this is the last try
                     year = StringUtil.addToNumberString(year, 1);
                     creditCard.set("expireDate", month + "/" + year);
                     processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                    if (ServiceUtil.isError(processorResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(processorResult));
+                    }
                 }
 
                 // at this point if we have a successful result, let's save the new creditCard expireDate
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("authResult"))) {
+                if (ServiceUtil.isSuccess(processorResult) && Boolean.TRUE.equals(processorResult.get("authResult"))) {
                     // TODO: this is bad; we should be expiring the old card and creating a new one instead of editing it
                     creditCard.store();
                 }
@@ -965,7 +980,7 @@ public class PaymentGatewayServices {
                     "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale));
         }
         // get the release result code
-        if (releaseResult != null && !ServiceUtil.isError(releaseResult)) {
+        if (releaseResult != null && ServiceUtil.isSuccess(releaseResult)) {
             Map<String, Object> releaseResRes;
             try {
                 ModelService model = dctx.getModelService("processReleaseResult");
@@ -1147,7 +1162,11 @@ public class PaymentGatewayServices {
             serviceContext.put("billingAccountId", billingAccountId);
         }
         try {
-            return dispatcher.runSync("captureOrderPayments", serviceContext);
+            Map<String, Object> result = dispatcher.runSync("captureOrderPayments", serviceContext);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
+            return result;
         } catch (GenericServiceException e) {
             Debug.logError(e, "Trouble running captureOrderPayments service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -1247,7 +1266,7 @@ public class PaymentGatewayServices {
                                                                                                           "orderId", orderId,
                                                                                                           "userLogin", userLogin));
                         if (ServiceUtil.isError(captureResult)) {
-                            return captureResult;
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(captureResult));
                         }
                     } catch (GenericServiceException ex) {
                         return ServiceUtil.returnError(ex.getMessage());
@@ -1352,7 +1371,7 @@ public class PaymentGatewayServices {
                 }
 
                 Map<String, Object> captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture, locale);
-                if (captureResult != null && !ServiceUtil.isError(captureResult)) {
+                if (captureResult != null && ServiceUtil.isSuccess(captureResult)) {
                     // credit card processors return captureAmount, but gift certificate processors return processAmount
                     BigDecimal amountCaptured = (BigDecimal) captureResult.get("captureAmount");
                     if (amountCaptured == null) {
@@ -1511,14 +1530,14 @@ public class PaymentGatewayServices {
             paymentParams.put("userLogin", userLogin);
             Map<String, Object> tmpResult = dispatcher.runSync("createPayment", paymentParams);
             if (ServiceUtil.isError(tmpResult)) {
-                return tmpResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
             }
 
             String paymentId = (String) tmpResult.get("paymentId");
             tmpResult = dispatcher.runSync("createPaymentApplication", UtilMisc.<String, Object>toMap("paymentId", paymentId, "invoiceId", invoiceId, "billingAccountId", billingAccountId,
                     "amountApplied", captureAmount, "userLogin", userLogin));
             if (ServiceUtil.isError(tmpResult)) {
-                return tmpResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
             }
             if (paymentId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -1760,6 +1779,9 @@ public class PaymentGatewayServices {
             // NOTE HOW TO FIX: don't call in separate transaction from here; individual services can have require-new-transaction
             //set to true if they want to behave that way (had: [, TX_TIME, true])
             captureResult = dispatcher.runSync(serviceName, captureContext);
+            if (ServiceUtil.isError(captureResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(captureResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Could not capture payment ... serviceName: " + serviceName + " ... context: " + captureContext, module);
             return null;
@@ -2394,6 +2416,9 @@ public class PaymentGatewayServices {
             serviceContext.put("refundAmount", amount);
             serviceContext.put("userLogin", userLogin);
             refundResponse = dispatcher.runSync("refundPayment", serviceContext, TX_TIME, true);
+            if (ServiceUtil.isError(refundResponse)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(refundResponse));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem refunding payment through processor", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2499,6 +2524,9 @@ public class PaymentGatewayServices {
                         refundResCtx.put("refundAmount", refundResponse.get("refundAmount"));
                     }
                     refundResRes = dispatcher.runSync(model.name, refundResCtx);
+                    if (ServiceUtil.isError(refundResRes)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(refundResRes));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2597,7 +2625,7 @@ public class PaymentGatewayServices {
             String paymentId = null;
             try {
                 Map<String, Object> payRes = dispatcher.runSync("createPayment", paymentCtx);
-                if (ModelService.RESPOND_ERROR.equals(payRes.get(ModelService.RESPONSE_MESSAGE))) {
+                if (ServiceUtil.isError(payRes)) {
                     return ServiceUtil.returnError((String) payRes.get(ModelService.ERROR_MESSAGE));
                 } else {
                     paymentId = (String) payRes.get("paymentId");
@@ -3239,6 +3267,9 @@ public class PaymentGatewayServices {
         Map<String, Object> response = null;
         try {
             response = dispatcher.runSync(paymentService, requestContext, TX_TIME, true);
+            if (ServiceUtil.isError(response)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(response));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -3247,7 +3278,7 @@ public class PaymentGatewayServices {
                     locale));
         }
         // get the response result code
-        if (response != null && !ServiceUtil.isError(response)) {
+        if (response != null && ServiceUtil.isSuccess(response)) {
             Map<String, Object> responseRes;
             try {
                 ModelService model = dctx.getModelService("processCreditResult");

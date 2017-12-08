@@ -118,7 +118,7 @@ public class FinAccountServices {
 
                 Map<String, Object> createAccountResult = dispatcher.runSync(createAccountServiceName, createAccountContext);
                 if (ServiceUtil.isError(createAccountResult) || ServiceUtil.isFailure(createAccountResult)) {
-                    return createAccountResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createAccountResult));
                 }
 
                 if (createAccountResult != null) {
@@ -140,7 +140,7 @@ public class FinAccountServices {
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         if (ServiceUtil.isError(roleResp)) {
-                            return roleResp;
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(roleResp));
                         }
                         finAccountId = creditAccountId; // update the finAccountId for return parameter
                     }
@@ -163,7 +163,7 @@ public class FinAccountServices {
 
             Map<String, Object> creditTransResult = dispatcher.runSync("createFinAccountTrans", transactionMap);
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
-                return creditTransResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(creditTransResult));
             }
         } catch (GenericEntityException|GenericServiceException ge) {
             return ServiceUtil.returnError(ge.getMessage());
@@ -226,9 +226,8 @@ public class FinAccountServices {
             inContext.put("currencyUomId", productStore.get("defaultCurrencyUomId"));
 
             Map<String, Object> createResult = dispatcher.runSync("createFinAccount", inContext);
-
             if (ServiceUtil.isError(createResult)) {
-                return createResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResult));
             }
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("finAccountId", createResult.get("finAccountId"));

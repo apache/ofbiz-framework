@@ -115,7 +115,7 @@ public class ShippingEstimateWrapper {
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
                         supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId, totalAllowance);
 
-                if (!ServiceUtil.isError(estimateMap)) {
+                if (ServiceUtil.isSuccess(estimateMap)) {
                     BigDecimal shippingTotal = (BigDecimal) estimateMap.get("shippingTotal");
                     shippingEstimates.put(shipMethod, shippingTotal);
                 }

@@ -1653,7 +1653,7 @@ public class ProductionRunServices {
                         Map<String, Object> createLotCtx = ctx.makeValidContext("createLot", ModelService.IN_PARAM, context);
                         createLotCtx.put("creationDate", UtilDateTime.nowTimestamp());
                         Map<String, Object> serviceResults = dispatcher.runSync("createLot", createLotCtx);
-                        if (!ServiceUtil.isSuccess(serviceResults)) {
+                        if (ServiceUtil.isError(serviceResults)) {
                             Debug.logError(ServiceUtil.getErrorMessage(serviceResults), module);
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                         }
