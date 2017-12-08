@@ -141,18 +141,17 @@ public class ShoppingListServices {
                 GenericValue shoppingList;
                 while (((shoppingList = eli.next()) != null)) {
                     Timestamp lastOrder = shoppingList.getTimestamp("lastOrderedDate");
-                    GenericValue recurrenceInfo = null;
-                    recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo", false);
-
-                    Timestamp startDateTime = recurrenceInfo.getTimestamp("startDateTime");
                     RecurrenceInfo recurrence = null;
-                    if (recurrenceInfo != null) {
-                        try {
-                            recurrence = new RecurrenceInfo(recurrenceInfo);
-                        } catch (RecurrenceInfoException e) {
-                            Debug.logError(e, module);
-                        }
+
+                    GenericValue recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo", false);
+                    Timestamp startDateTime = recurrenceInfo.getTimestamp("startDateTime");
+
+                    try {
+                        recurrence = new RecurrenceInfo(recurrenceInfo);
+                    } catch (RecurrenceInfoException e) {
+                        Debug.logError(e, module);
                     }
+
 
                     // check the next recurrence
                     if (recurrence != null) {
@@ -172,9 +171,10 @@ public class ShoppingListServices {
 
                     // store the order
                     Map<String, Object> createResp = helper.createOrder(userLogin);
-                    if (createResp != null && ServiceUtil.isError(createResp)) {
+                    if (createResp == null || (createResp != null && ServiceUtil.isError(createResp))) {
                         Debug.logError("Cannot create order for shopping list - " + shoppingList, module);
                     } else {
+
                         String orderId = (String) createResp.get("orderId");
 
                         // authorize the payments
