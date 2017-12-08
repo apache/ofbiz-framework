@@ -91,9 +91,7 @@ public class ExpressCheckoutEvents {
             Debug.logError("No ExpressCheckout token found in cart, you must do a successful setExpressCheckout before redirecting.", module);
             return "error";
         }
-        if (cart != null) {
-            productStoreId = cart.getProductStoreId();
-        }
+        productStoreId = cart.getProductStoreId();
         if (productStoreId != null) {
             GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
             if (payPalPaymentSetting != null) {
@@ -207,17 +205,19 @@ public class ExpressCheckoutEvents {
     }
 
     public static CheckoutType determineCheckoutType(Delegator delegator, String productStoreId) {
-        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
+        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId,
+                "EXT_PAYPAL", null, true);
         if (payPalPaymentSetting != null && payPalPaymentSetting.getString("paymentGatewayConfigId") != null) {
             try {
                 GenericValue paymentGatewayConfig = payPalPaymentSetting.getRelatedOne("PaymentGatewayConfig", false);
-                String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
                 if (paymentGatewayConfig != null) {
+                    String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
                     if ("PAY_GATWY_PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
                         return CheckoutType.PAYFLOW;
                     } else if ("PAY_GATWY_PAYPAL".equals(paymentGatewayConfigTypeId)) {
                         GenericValue payPalConfig = paymentGatewayConfig.getRelatedOne("PaymentGatewayPayPal", false);
-                        // TODO: Probably better off with an indicator field to indicate Express Checkout use
+                        // TODO: Probably better off with an indicator field to indicate Express
+                        // Checkout use
                         if (UtilValidate.isNotEmpty(payPalConfig.get("apiUserName"))) {
                             return CheckoutType.STANDARD;
                         }
