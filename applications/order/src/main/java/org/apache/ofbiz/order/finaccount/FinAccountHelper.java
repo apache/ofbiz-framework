@@ -22,6 +22,7 @@ package org.apache.ofbiz.order.finaccount;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -46,8 +47,8 @@ public class FinAccountHelper {
      /**
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
       */
-     public static int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
-     public static int rounding = UtilNumber.getBigDecimalRoundingMode("finaccount.rounding");
+     public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
+     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("finaccount.rounding");
      public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
      public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
@@ -136,7 +137,7 @@ public class FinAccountHelper {
          if (finAccountCode == null) {
              return null;
          }
-         finAccountCode = finAccountCode.toUpperCase().replaceAll("[^0-9A-Z]", "");
+        finAccountCode = finAccountCode.toUpperCase(Locale.getDefault()).replaceAll("[^0-9A-Z]", "");
 
          // now look for the account
          List<GenericValue> accounts = EntityQuery.use(delegator).from("FinAccount")
@@ -271,17 +272,17 @@ public class FinAccountHelper {
         Random rand = new Random();
         boolean isValid = false;
         String number = null;
+        StringBuilder numberBuilder = new StringBuilder();
         while (!isValid) {
-            number = "";
             for (int i = 0; i < length; i++) {
                 int randInt = rand.nextInt(9);
-                number = number + randInt;
+                numberBuilder.append(randInt);
             }
 
             if (isId) {
                 int check = UtilValidate.getLuhnCheckDigit(number);
-                number = number + check;
-
+                numberBuilder.append(check);
+                number = numberBuilder.toString();
                 // validate the number
                 if (checkFinAccountNumber(number)) {
                     // make sure this number doens't already exist
