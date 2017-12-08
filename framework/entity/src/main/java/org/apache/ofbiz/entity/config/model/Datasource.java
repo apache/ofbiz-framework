@@ -173,7 +173,7 @@ public final class Datasource {
                     maxWorkerPoolSizeInt = Math.abs(maxWorkerPoolSizeInt) * Runtime.getRuntime().availableProcessors();
                 }
                 this.maxWorkerPoolSize = maxWorkerPoolSizeInt;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new GenericEntityConfException("<datasource> element max-worker-pool-size attribute is invalid" + lineNumberText);
             }
         }
