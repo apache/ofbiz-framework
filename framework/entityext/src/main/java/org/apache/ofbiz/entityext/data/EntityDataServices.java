@@ -20,9 +20,10 @@ package org.apache.ofbiz.entityext.data;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -36,6 +37,7 @@ import org.apache.ofbiz.base.crypto.DesCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilURL;
@@ -173,7 +175,7 @@ public class EntityDataServices {
         if (listFile.exists()) {
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new FileReader(listFile));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(listFile), UtilIO.getUtf8()));
             } catch (FileNotFoundException e) {
                 Debug.logError(e, module);
             }
@@ -201,10 +203,13 @@ public class EntityDataServices {
                 Debug.logInfo("Read file list : " + fileList.size() + " entities.", module);
             }
         } else {
-            for (File file: root.listFiles()) {
-                String fileName = file.getName();
-                if (!fileName.startsWith("_") && fileName.endsWith(".txt")) {
-                    fileList.add(file);
+            File[] files = root.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    String fileName = file.getName();
+                    if (!fileName.startsWith("_") && fileName.endsWith(".txt")) {
+                        fileList.add(file);
+                    }
                 }
             }
             Debug.logInfo("No file list found; using directory order : " + fileList.size() + " entities.", module);
@@ -219,35 +224,33 @@ public class EntityDataServices {
         String[] header = null;
         File headerFile = new File(FileUtil.getFile(filePath.substring(0, filePath.lastIndexOf('/'))), "_" + file.getName());
 
-        boolean uniqueHeaderFile = true;
-        BufferedReader reader = null;
         if (headerFile.exists()) {
-            reader = new BufferedReader(new FileReader(headerFile));
+            try (
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(headerFile),
+                            UtilIO.getUtf8()));) {
+
+                String firstLine = reader.readLine();
+                if (firstLine != null) {
+                    header = firstLine.split(delimiter);
+                }
+            } catch (IOException | SecurityException e) {
+                Debug.logError(e, module);
+            }
         } else {
-            uniqueHeaderFile = false;
-            reader = dataReader;
+            BufferedReader reader = dataReader;
+            String firstLine = reader.readLine();
+            if (firstLine != null) {
+                header = firstLine.split(delimiter);
+            }
         }
-
         // read one line from either the header file or the data file if no header file exists
-        String firstLine = reader.readLine();
-        if (firstLine != null) {
-            header = firstLine.split(delimiter);
-        }
-
-        if (uniqueHeaderFile) {
-            reader.close();
-        }
-
         return header;
     }
 
     private static int readEntityFile(File file, String delimiter, Delegator delegator) throws IOException, GeneralException {
         String entityName = file.getName().substring(0, file.getName().lastIndexOf('.'));
-        if (entityName == null) {
-            throw new GeneralException("Entity name cannot be null : [" + file.getName() + "]");
-        }
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8()));
         String[] header = readEntityHeader(file, delimiter, reader);
 
         //Debug.logInfo("Opened data file [" + file.getName() + "] now running...", module);
@@ -422,7 +425,7 @@ public class EntityDataServices {
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");
         Locale locale = (Locale) context.get("locale");
-        
+
         try (EntityListIterator eli = EntityQuery.use(delegator)
                 .from(entityName)
                 .queryIterator()) {
