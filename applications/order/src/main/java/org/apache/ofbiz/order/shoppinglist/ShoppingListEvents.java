@@ -183,7 +183,6 @@ public class ShoppingListEvents {
         String includeChild = request.getParameter("includeChild");
         String prodCatalogId =  CatalogWorker.getCurrentCatalogId(request);
 
-        String eventMessage = null;
         try {
             addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, true);
         } catch (IllegalArgumentException e) {
@@ -191,9 +190,6 @@ public class ShoppingListEvents {
             return "error";
         }
 
-        if (UtilValidate.isNotEmpty(eventMessage)) {
-            request.setAttribute("_EVENT_MESSAGE_", eventMessage);
-        }
 
         return "success";
     }
@@ -325,7 +321,7 @@ public class ShoppingListEvents {
         BigDecimal quantity = null;
         try {
             quantity = new BigDecimal(quantityStr);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             // do nothing, just won't pass to service if it is null
         }
 
@@ -410,9 +406,9 @@ public class ShoppingListEvents {
 
             try {
                 String[] itemsArray = makeCartItemsArray(cart);
-                if (itemsArray != null && itemsArray.length != 0) {
+                if (itemsArray.length != 0) {
                     addBulkFromCart(delegator, dispatcher, cart, userLogin, autoSaveListId, null, itemsArray, false, false);
-                }else if(itemsArray.length == 0 && currentListSize != 0){
+                } else if (currentListSize != 0) {
                     clearListInfo(delegator, autoSaveListId);
                 }
             } catch (IllegalArgumentException e) {
