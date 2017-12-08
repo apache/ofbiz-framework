@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeSet;
@@ -561,7 +562,7 @@ public class EntityDataLoadContainer implements Container {
     private List<URL> retrieveDataUrlsFromDirectory(String directory) {
         return Optional.ofNullable(directory)
                 .map(dir -> Arrays.asList(new File(dir).listFiles()).stream()
-                        .filter(file -> file.getName().toLowerCase().endsWith(".xml"))
+                        .filter(file -> file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml"))
                         .map(file -> UtilURL.fromFilename(file.getPath()))
                         .collect(Collectors.toList()))
                 .orElse(new ArrayList<URL>());
