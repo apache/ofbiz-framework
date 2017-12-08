@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -504,7 +505,7 @@ public class ContactMechServices {
             toBeStored.add(newPartyContactMech);
 
         if (isModified) {
-            if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
+            toBeStored.add(relatedEntityToSet);
 
             newContactMech.set("contactMechId", newCmId);
             if (newPartyContactMech != null) {
@@ -706,7 +707,7 @@ public class ContactMechServices {
         toBeStored.add(newPartyContactMech);
 
         if (isModified) {
-            if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
+            toBeStored.add(relatedEntityToSet);
 
             newContactMech.set("contactMechId", newCmId);
             newPartyContactMech.set("contactMechId", newCmId);
@@ -1060,7 +1061,7 @@ public class ContactMechServices {
         synchronized(ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
-                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes());
+                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(UtilIO.getUtf8()));
                 List<GenericValue> emailAddVerifications = null;
                 try {
                     emailAddVerifications = EntityQuery.use(delegator).from("EmailAddressVerification").where("verifyHash", verifyHash).queryList();

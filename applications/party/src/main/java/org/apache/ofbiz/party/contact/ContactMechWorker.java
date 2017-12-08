@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
@@ -822,10 +823,10 @@ public class ContactMechWorker {
         // get the matching string from general.properties
         String matcher = EntityUtilProperties.getPropertyValue("general", "usps.address.match", postalAddress.getDelegator());
         if (UtilValidate.isNotEmpty(matcher)) {
-            if (addr1 != null && addr1.toLowerCase().matches(matcher)) {
+            if (addr1 != null && addr1.toLowerCase(Locale.getDefault()).matches(matcher)) {
                 return true;
             }
-            if (addr2 != null && addr2.toLowerCase().matches(matcher)) {
+            if (addr2 != null && addr2.toLowerCase(Locale.getDefault()).matches(matcher)) {
                 return true;
             }
         }
@@ -851,17 +852,17 @@ public class ContactMechWorker {
         String addr1 = postalAddress.getString("address1");
         String addr2 = postalAddress.getString("address2");
         if (state != null) {
-            state = state.replaceAll("\\W", "").toLowerCase();
+            state = state.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
         } else {
             state = "";
         }
         if (addr1 != null) {
-            addr1 = addr1.replaceAll("\\W", "").toLowerCase();
+            addr1 = addr1.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
         } else {
             addr1 = "";
         }
         if (addr2 != null) {
-            addr2 = addr2.replaceAll("\\W", "").toLowerCase();
+            addr2 = addr2.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
         } else {
             addr2 = "";
         }
@@ -886,29 +887,27 @@ public class ContactMechWorker {
             Debug.logError(e, "Unable to get party postal addresses", module);
         }
 
-        if (postalAddresses != null) {
-            for (GenericValue addr: postalAddresses) {
-                String thisAddr1 = addr.getString("address1");
-                String thisAddr2 = addr.getString("address2");
-                String thisState = addr.getString("stateProvinceGeoId");
-                if (thisState != null) {
-                    thisState = thisState.replaceAll("\\W", "").toLowerCase();
-                } else {
-                    thisState = "";
-                }
-                if (thisAddr1 != null) {
-                    thisAddr1 = thisAddr1.replaceAll("\\W", "").toLowerCase();
-                } else {
-                    thisAddr1 = "";
-                }
-                if (thisAddr2 != null) {
-                    thisAddr2 = thisAddr2.replaceAll("\\W", "").toLowerCase();
-                } else {
-                    thisAddr2 = "";
-                }
-                if (thisAddr1.equals(addr1) && thisAddr2.equals(addr2) && thisState.equals(state)) {
-                    return true;
-                }
+        for (GenericValue addr: postalAddresses) {
+            String thisAddr1 = addr.getString("address1");
+            String thisAddr2 = addr.getString("address2");
+            String thisState = addr.getString("stateProvinceGeoId");
+            if (thisState != null) {
+                thisState = thisState.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
+            } else {
+                thisState = "";
+            }
+            if (thisAddr1 != null) {
+                thisAddr1 = thisAddr1.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
+            } else {
+                thisAddr1 = "";
+            }
+            if (thisAddr2 != null) {
+                thisAddr2 = thisAddr2.replaceAll("\\W", "").toLowerCase(Locale.getDefault());
+            } else {
+                thisAddr2 = "";
+            }
+            if (thisAddr1.equals(addr1) && thisAddr2.equals(addr2) && thisState.equals(state)) {
+                return true;
             }
         }
 
