@@ -354,7 +354,7 @@ public class SubscriptionServices {
                             } else {
                                 Debug.logWarning("Don't know anything about gracePeriodOnExpiryUomId [" + gracePeriodOnExpiryUomId + "], defaulting to month", module);
                             }
-                            endDateSubscription.add(field, Integer.valueOf(gracePeriodOnExpiry).intValue());
+                            endDateSubscription.add(field, Integer.parseInt(gracePeriodOnExpiry));
                         }
                         if ((currentDate.after(endDateSubscription) || currentDate.equals(endDateSubscription)) && serviceNameOnExpiry != null) {
                             if (userLogin != null) {
