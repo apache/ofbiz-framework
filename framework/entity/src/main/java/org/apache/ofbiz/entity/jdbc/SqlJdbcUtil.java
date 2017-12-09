@@ -225,10 +225,8 @@ public final class SqlJdbcUtil {
                     ModelViewEntity.ViewEntityCondition viewEntityCondition = viewLink.getViewEntityCondition();
                     if (viewEntityCondition != null) {
                         EntityCondition whereCondition = viewEntityCondition.getWhereCondition(modelFieldTypeReader, null);
-                        if (whereCondition != null) {
-                            condBuffer.append(" AND ");
-                            condBuffer.append(whereCondition.makeWhereString(modelEntity, null, datasourceInfo));
-                        }
+                        condBuffer.append(" AND ");
+                        condBuffer.append(whereCondition.makeWhereString(modelEntity, null, datasourceInfo));
                     }
 
                     restOfStatement.append(condBuffer.toString());
@@ -640,7 +638,7 @@ public final class SqlJdbcUtil {
                         }
                     } else {
                         String value = rs.getString(ind);
-                        if (value instanceof String && curField.getEncryptMethod().isEncrypted()) {
+                        if (curField.getEncryptMethod().isEncrypted()) {
                             value = (String) entity.getDelegator().decryptFieldValue(encryptionKeyName, curField.getEncryptMethod(), value);
                         }
                         entity.dangerousSetNoCheckButFast(curField, value);

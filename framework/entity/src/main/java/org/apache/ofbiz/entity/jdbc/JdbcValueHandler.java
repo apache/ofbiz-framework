@@ -31,6 +31,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -181,8 +182,8 @@ public abstract class JdbcValueHandler<T> {
     }
 
     protected static String parseSqlType(String sqlType) {
-        String result = sqlType.toUpperCase();
-        int pos = result.indexOf("(");
+        String result = sqlType.toUpperCase(Locale.getDefault());
+        int pos = result.indexOf('(');
         if (pos != -1) {
             result = result.substring(0, pos);
         }
