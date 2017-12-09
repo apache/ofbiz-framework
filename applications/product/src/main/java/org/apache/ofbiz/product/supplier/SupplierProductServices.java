@@ -55,7 +55,7 @@ public class SupplierProductServices {
      *         filtered by date and optionally by partyId, ordered with lowest price first
      */
     public static Map<String, Object> getSuppliersForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results;
         Delegator delegator = dctx.getDelegator();
 
         GenericValue product = null;
@@ -127,7 +127,7 @@ public class SupplierProductServices {
      * SupplierProduct entity for that supplier party and feature, and return it as convertedProductFeatures
      */
     public static Map<String, Object> convertFeaturesForSupplier(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results;
         String partyId = (String) context.get("partyId");
         Collection<GenericValue> features = UtilGenerics.checkList(context.get("productFeatures"));
 
