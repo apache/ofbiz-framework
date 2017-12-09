@@ -138,7 +138,7 @@ public class PackingServices {
                 String[] weights;
 
                 // process the package array
-                if (pkgStr.indexOf(",") != -1) {
+                if (pkgStr.indexOf(',') != -1) {
                     // this is a multi-box update
                     packages = pkgStr.split(",");
                 } else {
@@ -146,7 +146,7 @@ public class PackingServices {
                 }
 
                 // check to make sure there is at least one package
-                if (packages == null || packages.length == 0) {
+                if (packages.length == 0) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductPackBulkNoPackagesDefined", locale));
                 }

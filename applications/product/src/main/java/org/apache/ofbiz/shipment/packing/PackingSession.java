@@ -184,6 +184,9 @@ public class PackingSession implements java.io.Serializable {
                     case 0:
                         Debug.logInfo("Packing check returned '0' - doing nothing.", module);
                         break;
+                default:
+                    Debug.logInfo("Packing check returned '> 2' or '< 0'", module);
+                    break;
                 }
             }
 
@@ -238,6 +241,9 @@ public class PackingSession implements java.io.Serializable {
                 String invItemId = res.getString("inventoryItemId");
                 packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, weight, packageSeqId));
                 break;
+        default:
+            throw new GeneralException("value of checkCode different than expected");
+
         }
 
         // Add the line weight to the package weight
