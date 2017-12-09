@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.imagemanagement;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -120,7 +121,7 @@ public class ReplaceImage{
             String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceImage", locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } catch (Exception e) {
+        } catch (IOException | IllegalArgumentException e) {
             String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceImage", locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);

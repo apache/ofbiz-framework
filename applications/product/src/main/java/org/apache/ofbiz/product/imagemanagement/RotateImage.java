@@ -66,7 +66,7 @@ public class RotateImage {
             Map<String, Object> contentCtx = new HashMap<String, Object>();
             contentCtx.put("contentTypeId", "DOCUMENT");
             contentCtx.put("userLogin", userLogin);
-            Map<String, Object> contentResult = new HashMap<String, Object>();
+            Map<String, Object> contentResult;
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
             } catch (GenericServiceException e) {
@@ -77,7 +77,7 @@ public class RotateImage {
             Map<String, Object> contentThumb = new HashMap<String, Object>();
             contentThumb.put("contentTypeId", "DOCUMENT");
             contentThumb.put("userLogin", userLogin);
-            Map<String, Object> contentThumbResult = new HashMap<String, Object>();
+            Map<String, Object> contentThumbResult;
             try {
                 contentThumbResult = dispatcher.runSync("createContent", contentThumb);
             } catch (GenericServiceException e) {
@@ -105,11 +105,11 @@ public class RotateImage {
             int h = bufImg.getHeight(null);
             BufferedImage bufNewImg = new BufferedImage(w, h, bufImgType);
             Graphics2D g = bufNewImg.createGraphics();
-            g.rotate(Math.toRadians(Double.parseDouble(angle)), w/2, h/2);
+            g.rotate(Math.toRadians(Double.parseDouble(angle)), w / 2.0, h / 2.0);
             g.drawImage(bufImg,0,0,null);
             g.dispose();
             
-            String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
+            String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
