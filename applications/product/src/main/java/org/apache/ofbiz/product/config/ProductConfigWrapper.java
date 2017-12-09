@@ -222,6 +222,16 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((delegatorName == null) ? 0 : delegatorName.hashCode());
+        result = prime * result + ((product == null) ? 0 : product.hashCode());
+        result = prime * result + ((questions == null) ? 0 : questions.hashCode());
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof ProductConfigWrapper)) {
             return false;
@@ -775,6 +785,18 @@ public class ProductConfigWrapper implements Serializable {
             return componentOptions;
         }
 
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + getOuterType().hashCode();
+            result = prime * result + ((componentList == null) ? 0 : componentList.hashCode());
+            result = prime * result + ((componentOptions == null) ? 0 : componentOptions.hashCode());
+            return result;
+        }
+
+        
         @Override
         public boolean equals(Object obj) {
             if (obj == null || !(obj instanceof ConfigOption)) {
@@ -788,9 +810,14 @@ public class ProductConfigWrapper implements Serializable {
             return isSelected() == co.isSelected();
         }
 
+
         @Override
         public String toString() {
             return configOption.getString("configItemId") + "/" + configOption.getString("configOptionId") + (isSelected()? "*": "");
+        }
+
+        private ProductConfigWrapper getOuterType() {
+            return ProductConfigWrapper.this;
         }
 
     }
