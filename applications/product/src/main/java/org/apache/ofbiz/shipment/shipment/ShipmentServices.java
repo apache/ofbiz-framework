@@ -168,7 +168,7 @@ public class ShipmentServices {
                         String newSeqId = delegator.getNextSeqId("QuantityBreak");
                         GenericValue weightBreak = delegator.makeValue("QuantityBreak");
                         weightBreak.set("quantityBreakId", newSeqId);
-                        weightBreak.set("quantityBreakTypeId", "SHIP_" + breakType.toUpperCase());
+                        weightBreak.set("quantityBreakTypeId", "SHIP_" + breakType.toUpperCase(Locale.getDefault()));
                         weightBreak.set("fromQuantity", min);
                         weightBreak.set("thruQuantity", max);
                         estimate.set(breakType + "BreakId", newSeqId);
@@ -503,7 +503,7 @@ public class ShipmentServices {
             featurePrice = BigDecimal.ZERO;
         }
 
-        if (UtilValidate.isNotEmpty(featureGroupId) && shippableFeatureMap != null) {
+        if (UtilValidate.isNotEmpty(featureGroupId)) {
             for (Map.Entry<String, BigDecimal> entry: shippableFeatureMap.entrySet()) {
                 String featureId = entry.getKey();
                 BigDecimal quantity = entry.getValue();
@@ -530,11 +530,9 @@ public class ShipmentServices {
         BigDecimal sizeUnit = estimate.getBigDecimal("oversizeUnit");
         BigDecimal sizePrice = estimate.getBigDecimal("oversizePrice");
         if (sizeUnit != null && sizeUnit.compareTo(BigDecimal.ZERO) > 0) {
-            if (shippableItemSizes != null) {
-                for (BigDecimal size: shippableItemSizes) {
-                    if (size != null && size.compareTo(sizeUnit) >= 0) {
-                        sizeSurcharge = sizeSurcharge.add(sizePrice);
-                    }
+            for (BigDecimal size : shippableItemSizes) {
+                if (size != null && size.compareTo(sizeUnit) >= 0) {
+                    sizeSurcharge = sizeSurcharge.add(sizePrice);
                 }
             }
         }

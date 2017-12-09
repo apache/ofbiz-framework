@@ -57,7 +57,7 @@ public final class ShipmentWorker {
     public static BigDecimal getShipmentPackageContentValue(GenericValue shipmentPackageContent) {
         BigDecimal quantity = shipmentPackageContent.getBigDecimal("quantity");
 
-        BigDecimal value = new BigDecimal("0");
+        BigDecimal value;
 
         // lookup the issuance to find the order
         List<GenericValue> issuances = null;
@@ -177,7 +177,7 @@ public final class ShipmentWorker {
 
             String weightUomId = (String) productInfo.get("weightUomId");
 
-            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
+            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
 
             if (UtilValidate.isEmpty(weightUomId)) {
                 weightUomId = defaultWeightUomId;
