@@ -325,6 +325,15 @@ public final class ProductDisplayWorker {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + (descending ? 1231 : 1237);
+            result = prime * result + ((orderByMap == null) ? 0 : orderByMap.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(java.lang.Object obj) {
             if ((obj != null) && (obj instanceof ProductByMapComparator)) {
                 ProductByMapComparator that = (ProductByMapComparator) obj;
