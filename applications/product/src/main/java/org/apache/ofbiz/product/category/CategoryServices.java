@@ -237,16 +237,16 @@ public class CategoryServices {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         int viewIndex = 0;
         try {
-            viewIndex = Integer.valueOf((String) context.get("viewIndexString")).intValue();
+            viewIndex = Integer.parseInt((String) context.get("viewIndexString"));
         } catch (Exception e) {
             viewIndex = 0;
         }
 
         int viewSize = defaultViewSize;
         try {
-            viewSize = Integer.valueOf((String) context.get("viewSizeString")).intValue();
-        } catch (Exception e) {
-            viewSize = defaultViewSize;
+            viewSize = Integer.parseInt((String) context.get("viewSizeString"));
+        } catch (NumberFormatException e) {
+            Debug.logError(e.getMessage(), module);
         }
 
         GenericValue productCategory = null;

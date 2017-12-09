@@ -52,14 +52,6 @@ public class SeoCatalogUrlServlet extends HttpServlet {
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet#init(javax.servlet.ServletConfig)
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    }
-
-    /**
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -139,18 +131,11 @@ public class SeoCatalogUrlServlet extends HttpServlet {
             request.setAttribute("productId", productId);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/" + (UtilValidate.isEmpty(SeoControlServlet.controlServlet) ? "" : (SeoControlServlet.controlServlet + "/"))
+        RequestDispatcher rd = request.getRequestDispatcher("/" + (UtilValidate.isEmpty(SeoControlServlet.getControlServlet()) ? "" : (SeoControlServlet.getControlServlet() + "/"))
                 + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
         rd.forward(request, response);
     }
 
-    /**
-     * @see javax.servlet.http.HttpServlet#destroy()
-     */
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 
     public static String makeCatalogUrl(HttpServletRequest request, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();

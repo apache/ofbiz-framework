@@ -25,7 +25,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -57,7 +59,7 @@ public class SeoContextFilter implements Filter {
 
     public static final String module = SeoContextFilter.class.getName();
 
-    protected Set<String> WebServlets = new HashSet<>();
+    protected Set<String> webServlets = new HashSet<>();
     private FilterConfig config;
     private String allowedPaths = "";
     private String redirectPath = "";
@@ -74,13 +76,13 @@ public class SeoContextFilter implements Filter {
         }
 
         Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext().getServletRegistrations();
-        for (String key : servletRegistrations.keySet()) {
-            Collection<String> servlets = servletRegistrations.get(key).getMappings();
+        for (Entry<String, ? extends ServletRegistration> entry : servletRegistrations.entrySet()) {
+            Collection<String> servlets = entry.getValue().getMappings();
             for (String servlet : servlets) {
                 if (servlet.endsWith("/*")) {
                     servlet = servlet.substring(0, servlet.length() - 2);
-                    if (UtilValidate.isNotEmpty(servlet) && !WebServlets.contains(servlet)) {
-                        WebServlets.add(servlet);
+                    if (UtilValidate.isNotEmpty(servlet) && !webServlets.contains(servlet)) {
+                        webServlets.add(servlet);
                     }
                 }
             }
@@ -118,18 +120,18 @@ public class SeoContextFilter implements Filter {
         if (httpRequest.getAttribute(ControlFilter.FORWARDED_FROM_SERVLET) == null) {
             requestPath = httpRequest.getServletPath();
             if (requestPath == null) requestPath = "";
-            if (requestPath.lastIndexOf("/") > 0) {
-                if (requestPath.indexOf("/") == 0) {
-                    requestPath = "/" + requestPath.substring(1, requestPath.indexOf("/", 1));
+            if (requestPath.lastIndexOf('/') > 0) {
+                if (requestPath.indexOf('/') == 0) {
+                    requestPath = '/' + requestPath.substring(1, requestPath.indexOf('/', 1));
                 } else {
-                    requestPath = requestPath.substring(1, requestPath.indexOf("/"));
+                    requestPath = requestPath.substring(1, requestPath.indexOf('/'));
                 }
             }
 
             String requestInfo = httpRequest.getServletPath();
             if (requestInfo == null) requestInfo = "";
-            if (requestInfo.lastIndexOf("/") >= 0) {
-                requestInfo = requestInfo.substring(0, requestInfo.lastIndexOf("/")) + "/*";
+            if (requestInfo.lastIndexOf('/') >= 0) {
+                requestInfo = requestInfo.substring(0, requestInfo.lastIndexOf('/')) + "/*";
             }
 
             StringBuilder contextUriBuffer = new StringBuilder();
@@ -161,7 +163,7 @@ public class SeoContextFilter implements Filter {
                 if (redirectPath == null) {
                     if (UtilValidate.isEmpty(viewName)) {
                         // redirect without any url change in browser
-                        RequestDispatcher rd = request.getRequestDispatcher(SeoControlServlet.defaultPage);
+                        RequestDispatcher rd = request.getRequestDispatcher(SeoControlServlet.getDefaultPage());
                         rd.forward(request, response);
                     } else {
                         int error = 404;
@@ -178,7 +180,7 @@ public class SeoContextFilter implements Filter {
                     }
                 } else {
                     filterMessage = filterMessage + " (" + redirectPath + ")";
-                    if (!redirectPath.toLowerCase().startsWith("http")) {
+                    if (!redirectPath.toLowerCase(Locale.getDefault()).startsWith("http")) {
                         redirectPath = httpRequest.getContextPath() + redirectPath;
                     }
                     // httpResponse.sendRedirect(redirectPath);
@@ -196,7 +198,7 @@ public class SeoContextFilter implements Filter {
                 return;
             } else if ((allowedPathList.contains(requestPath) || allowedPathList.contains(requestInfo) || allowedPathList.contains(httpRequest.getServletPath())
                     || allowedPathList.contains(requestUri) || allowedPathList.contains("/" + viewName))
-                    && !WebServlets.contains(httpRequest.getServletPath())) {
+                    && !webServlets.contains(httpRequest.getServletPath())) {
                 request.setAttribute(SeoControlServlet.REQUEST_IN_ALLOW_LIST, Boolean.TRUE);
             }
         }

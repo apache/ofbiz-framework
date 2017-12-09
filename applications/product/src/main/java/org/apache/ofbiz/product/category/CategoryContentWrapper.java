@@ -111,9 +111,7 @@ public class CategoryContentWrapper implements ContentWrapper {
                 outString = outString == null? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
-            if (categoryContentCache != null) {
-                categoryContentCache.put(cacheKey, outString);
-            }
+            categoryContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering CategoryContent, inserting empty String", module);
