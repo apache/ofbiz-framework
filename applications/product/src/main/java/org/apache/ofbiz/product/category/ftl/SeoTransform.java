@@ -38,6 +38,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
 
@@ -118,7 +119,7 @@ public class SeoTransform implements TemplateTransformModel {
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (Exception e) {
+                } catch (IOException | TemplateModelException e) {
                     throw new IOException(e.getMessage());
                 }
             }

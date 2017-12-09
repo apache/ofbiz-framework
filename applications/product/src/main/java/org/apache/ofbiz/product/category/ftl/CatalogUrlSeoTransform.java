@@ -25,6 +25,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -526,9 +527,10 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 }
             }
             if (SeoConfigUtil.isCategoryNameEnabled() || pathInfo.startsWith("/" + CatalogUrlServlet.CATEGORY_REQUEST + "/")) {
-                for (String categoryName : categoryNameIdMap.keySet()) {
+                for (Entry<String, String> entry : categoryNameIdMap.entrySet()) {
+                    String categoryName = entry.getKey();
                     if (lastPathElement.startsWith(categoryName)) {
-                        categoryId = categoryNameIdMap.get(categoryName);
+                        categoryId = entry.getValue();
                         if (!lastPathElement.equals(categoryName)) {
                             lastPathElement = lastPathElement.substring(categoryName.length() + URL_HYPHEN.length());
                         }
@@ -637,9 +639,10 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                     return false;
                 }
             }
-            for (String categoryName : categoryNameIdMap.keySet()) {
+            for (Entry<String, String> entry : categoryNameIdMap.entrySet()) {
+                String categoryName = entry.getKey();
                 if (lastPathElement.startsWith(categoryName)) {
-                    categoryId = categoryNameIdMap.get(categoryName);
+                    categoryId = entry.getValue();
                     break;
                 }
             }
@@ -696,7 +699,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
             List<String> trail = null;
-            trail = CategoryWorker.adjustTrail(trail, currentCategoryId, previousCategoryId);
+            trail = CategoryWorker.adjustTrail(null, currentCategoryId, previousCategoryId);
             if (!SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                 for (String trailCategoryId: trail) {
                     if ("TOP".equals(trailCategoryId)) continue;
@@ -778,7 +781,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
             List<String> trail = null;
-            trail = CategoryWorker.adjustTrail(trail, currentCategoryId, previousCategoryId);
+            trail = CategoryWorker.adjustTrail(null, currentCategoryId, previousCategoryId);
             if (trail != null && trail.size() > 1) {
                 String lastCategoryId = trail.get(trail.size() - 1);
                 if (!"TOP".equals(lastCategoryId)) {

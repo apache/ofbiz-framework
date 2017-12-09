@@ -144,9 +144,9 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         String prefixString = ((StringModel) prefix).getAsString();
                         prefixString = prefixString.replaceAll("&#47;", "/");
                         String contextPath = prefixString;
-                        int lastSlashIndex = prefixString.lastIndexOf("/");
+                        int lastSlashIndex = prefixString.lastIndexOf('/');
                         if (lastSlashIndex > -1 && lastSlashIndex < prefixString.length()) {
-                            contextPath = prefixString.substring(prefixString.lastIndexOf("/"));
+                            contextPath = prefixString.substring(prefixString.lastIndexOf('/'));
                         }
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
@@ -166,7 +166,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                         productId, viewSize, viewIndex, viewSort, searchString);
                             }
                         }
-                        out.write(url.toString());
+                        out.write(url);
                     } else {
                         out.write(buf.toString());
                     }
