@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -472,7 +473,6 @@ public class ProductSearchSession {
     public static String searchGetSortOrderString(boolean detailed, HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
-        if (resultSortOrder == null) return "";
         return resultSortOrder.prettyPrintSortOrder(detailed, locale);
     }
 
@@ -633,7 +633,8 @@ public class ProductSearchSession {
             }
         }
 
-        for (String parameterName: parameters.keySet()) {
+        for (Entry<String, Object> entry : parameters.entrySet()) {
+            String parameterName = entry.getKey();
             if (parameterName.startsWith("SEARCH_FEAT") && !parameterName.startsWith("SEARCH_FEAT_EXC")) {
                 String productFeatureId = (String) parameters.get(parameterName);
                 if (UtilValidate.isNotEmpty(productFeatureId)) {
@@ -744,12 +745,12 @@ public class ProductSearchSession {
         if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_RANGE")) || UtilValidate.isNotEmpty(parameters.get("S_LPR"))) {
             String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
             if (UtilValidate.isEmpty(listPriceRangeStr)) listPriceRangeStr = (String) parameters.get("S_LPR");
-            int underscoreIndex = listPriceRangeStr.indexOf("_");
+            int underscoreIndex = listPriceRangeStr.indexOf('_');
             String listPriceLowStr;
             String listPriceHighStr;
             if (underscoreIndex >= 0) {
-                listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_"));
-                listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1);
+                listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf('_'));
+                listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf('_') + 1);
             } else {
                 // no underscore: assume it is a low range with no high range, ie the ending underscore was left off
                 listPriceLowStr = listPriceRangeStr;
@@ -894,9 +895,7 @@ public class ProductSearchSession {
         }
 
         String pag = productSearchOptions.getPaging();
-        if (paging != null) {
-            paging = pag;
-        }
+        paging = pag;
 
         lowIndex = viewIndex * viewSize;
         highIndex = (viewIndex + 1) * viewSize;
@@ -916,7 +915,7 @@ public class ProductSearchSession {
 
             int addOnTopTotalListSize = 0;
             int addOnTopListSize = 0;
-            List<GenericValue> addOnTopProductCategoryMembers = new LinkedList<GenericValue>();
+            List<GenericValue> addOnTopProductCategoryMembers;
             if (UtilValidate.isNotEmpty(addOnTopProdCategoryId)) {
                 // always include the members of the addOnTopProdCategoryId
                 Timestamp now = UtilDateTime.nowTimestamp();
@@ -1161,25 +1160,23 @@ public class ProductSearchSession {
             searchParamString.append(topProductCategoryId);
         }
         ResultSortOrder resultSortOrder = productSearchOptions.getResultSortOrder();
-        if (resultSortOrder != null) {
-            if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
-                searchParamString.append("&amp;S_O=SKR");
-            } else if (resultSortOrder instanceof ProductSearch.SortProductField) {
-                ProductSearch.SortProductField spf = (ProductSearch.SortProductField) resultSortOrder;
-                searchParamString.append("&amp;S_O=SPF:");
-                searchParamString.append(spf.fieldName);
-            } else if (resultSortOrder instanceof ProductSearch.SortProductPrice) {
-                ProductSearch.SortProductPrice spp = (ProductSearch.SortProductPrice) resultSortOrder;
-                searchParamString.append("&amp;S_O=SPP:");
-                searchParamString.append(spp.productPriceTypeId);
-            } else if (resultSortOrder instanceof ProductSearch.SortProductFeature) {
-                ProductSearch.SortProductFeature spf = (ProductSearch.SortProductFeature) resultSortOrder;
-                searchParamString.append("&amp;S_O=SPFT:");
-                searchParamString.append(spf.productFeatureTypeId);
-            }
-            searchParamString.append("&amp;S_A=");
-            searchParamString.append(resultSortOrder.isAscending() ? "Y" : "N");
+        if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
+            searchParamString.append("&amp;S_O=SKR");
+        } else if (resultSortOrder instanceof ProductSearch.SortProductField) {
+            ProductSearch.SortProductField spf = (ProductSearch.SortProductField) resultSortOrder;
+            searchParamString.append("&amp;S_O=SPF:");
+            searchParamString.append(spf.fieldName);
+        } else if (resultSortOrder instanceof ProductSearch.SortProductPrice) {
+            ProductSearch.SortProductPrice spp = (ProductSearch.SortProductPrice) resultSortOrder;
+            searchParamString.append("&amp;S_O=SPP:");
+            searchParamString.append(spp.productPriceTypeId);
+        } else if (resultSortOrder instanceof ProductSearch.SortProductFeature) {
+            ProductSearch.SortProductFeature spf = (ProductSearch.SortProductFeature) resultSortOrder;
+            searchParamString.append("&amp;S_O=SPFT:");
+            searchParamString.append(spf.productFeatureTypeId);
         }
+        searchParamString.append("&amp;S_A=");
+        searchParamString.append(resultSortOrder.isAscending() ? "Y" : "N");
 
         return searchParamString.toString();
     }
