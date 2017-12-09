@@ -44,7 +44,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 public class ImportProductServices {
 
-    public static String module = ImportProductServices.class.getName();
+    public static final String module = ImportProductServices.class.getName();
     public static final String resource = "ProductUiLabels";
     
     /**
@@ -75,8 +75,12 @@ public class ImportProductServices {
                 File[] files = importDir.listFiles();
                 // loop for all the containing xls file in the spreadsheet
                 // directory
+                if (files == null) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "FileFilesIsNull", locale));
+                }
                 for (int i = 0; i < files.length; i++) {
-                    if (files[i].getName().toUpperCase().endsWith("XLS")) {
+                    if (files[i].getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
                         fileItems.add(files[i]);
                     }
                 }
@@ -131,7 +135,7 @@ public class ImportProductServices {
                     // too.
                     boolean productExists = ImportProductHelper.checkProductExists(productId, delegator);
 
-                    if (productId != null && !productId.trim().equalsIgnoreCase("") && !productExists) {
+                    if (!productId.trim().equalsIgnoreCase("") && !productExists) {
                         products.add(ImportProductHelper.prepareProduct(productId));
                         if (quantityOnHand.compareTo(BigDecimal.ZERO) >= 0)
                             inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, quantityOnHand,
@@ -141,7 +145,7 @@ public class ImportProductServices {
                                     .getNextSeqId("InventoryItem")));
                     }
                     int rowNum = row.getRowNum() + 1;
-                    if (row.toString() != null && !row.toString().trim().equalsIgnoreCase("") && productExists) {
+                    if (!row.toString().trim().equalsIgnoreCase("") && productExists) {
                         Debug.logWarning("Row number " + rowNum + " not imported from " + item.getName(), module);
                     }
                 }
