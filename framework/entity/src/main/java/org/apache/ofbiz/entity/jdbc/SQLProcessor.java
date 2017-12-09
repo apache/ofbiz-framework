@@ -56,9 +56,9 @@ public class SQLProcessor implements AutoCloseable {
     public static final String module = SQLProcessor.class.getName();
 
     /** Used for testing connections when test is enabled */
-    public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
-    public static int MAX_CONNECTIONS = 1000;
-    public static boolean ENABLE_TEST = false;
+    private static final List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
+    public static final int MAX_CONNECTIONS = 1000;
+    public static final boolean ENABLE_TEST = false;
 
     private final Delegator delegator;
 
