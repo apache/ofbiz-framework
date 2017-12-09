@@ -69,7 +69,7 @@ public class FrameImage {
 
     public static Map<String, Object> addImageFrame(DispatchContext dctx, Map<String, ? extends Object> context)
     throws IOException, JDOMException {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
@@ -159,7 +159,7 @@ public class FrameImage {
             Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
             Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
-            String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
+            String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
@@ -236,14 +236,14 @@ public class FrameImage {
         g.drawImage(image1, null, null);
         
         // Draw Image combine
-        Point2D center =  new Point2D.Float(bufferedImage.getHeight() / 2, bufferedImage.getWidth() / 2);
-        AffineTransform at = AffineTransform.getTranslateInstance(center.getX( ) - (image2.getWidth(null) / 2), center.getY( ) - (image2.getHeight(null) / 2));
+        Point2D center = new Point2D.Float(bufferedImage.getHeight() / 2f, bufferedImage.getWidth() / 2f);
+        AffineTransform at = AffineTransform.getTranslateInstance(center.getX( ) - (image2.getWidth(null) / 2f), center.getY( ) - (image2.getHeight(null) / 2f));
         g.transform(at);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(image2, 0, 0, null);
         Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .35f);
         g.setComposite(c);
-        at = AffineTransform.getTranslateInstance(center.getX( ) - (bufferedImage.getWidth(null) / 2), center.getY( ) - (bufferedImage.getHeight(null) / 2));
+        at = AffineTransform.getTranslateInstance(center.getX( ) - (bufferedImage.getWidth(null) / 2f), center.getY( ) - (bufferedImage.getHeight(null) / 2f));
         g.setTransform(at);
         g.drawImage(bufferedImage, 0, 0, null);
         g.dispose();
@@ -265,14 +265,14 @@ public class FrameImage {
         String mimType = tempFile.get("uploadMimeType").toString();
         ByteBuffer imageData = (ByteBuffer) tempFile.get("imageData");
         if (UtilValidate.isEmpty(imageName) || UtilValidate.isEmpty(imageData)) {
-            session.setAttribute("frameContentId", request.getParameter("frameExistContentId").toString());
-            session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId").toString());
+            session.setAttribute("frameContentId", request.getParameter("frameExistContentId"));
+            session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             request.setAttribute("_ERROR_MESSAGE_", "There is no frame image, please select the image type *.PNG  uploading.");
             return "error";
         }
         if (!"image/png".equals(mimType)) {
-            session.setAttribute("frameContentId", request.getParameter("frameExistContentId").toString());
-            session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId").toString());
+            session.setAttribute("frameContentId", request.getParameter("frameExistContentId"));
+            session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             request.setAttribute("_ERROR_MESSAGE_", "The selected image type is incorrect, please select the image type *.PNG to upload.");
             return "error";
         }
@@ -386,7 +386,8 @@ public class FrameImage {
         }
         if (UtilValidate.isNotEmpty(imageName)) {
             File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
-            file.delete();
+            if(!file.delete())
+                Debug.logError("File :" + file.getName() + ", couldn't be loaded", module);
             // Image Frame
             BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName).getCanonicalFile()); // About Findbugs results, see OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
@@ -404,7 +405,7 @@ public class FrameImage {
             Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
             Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
-            String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
+            String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
             
         }
@@ -420,8 +421,8 @@ public class FrameImage {
         HttpSession session = request.getSession();
         if(UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
             if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request.getParameter("frameExistDataResourceId"))) {
-                session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId").toString());
-                session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId").toString());
+                session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId"));
+                session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             }
             request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID");
             return "error";
@@ -451,7 +452,8 @@ public class FrameImage {
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
         File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg").getCanonicalFile();
         if (file.exists()) {
-            file.delete();
+            if (!file.delete())
+                Debug.logError("File :" + file.getName() + ", couldn't be deleted", module);
         }
         return "success";
     }
