@@ -234,7 +234,7 @@ public class InventoryServices {
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
-        if (inventoryTransfer == null || inventoryItem == null) {
+        if (inventoryItem == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductInventoryItemLookupProblem", 
                     UtilMisc.toMap("errorString", ""), locale));
@@ -350,7 +350,7 @@ public class InventoryServices {
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
-        if (inventoryTransfer == null || inventoryItem == null) {
+        if (inventoryItem == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductInventoryItemLookupProblem", 
                     UtilMisc.toMap("errorString", ""), locale));
@@ -597,13 +597,13 @@ public class InventoryServices {
                         }
                     }
                 } catch (GenericEntityException e) {
-                     Debug.logError(e, "Problem fetching OrderItemShipGroupAssoc", module);
+                    Debug.logError(e, "Problem fetching OrderItemShipGroupAssoc", module);
                 }
 
 
                 /* Check the split preference. */
                 boolean maySplit = false;
-                if (orderItemShipGroup != null && orderItemShipGroup.get("maySplit") != null) {
+                if (orderItemShipGroup.get("maySplit") != null) {
                     maySplit = orderItemShipGroup.getBoolean("maySplit").booleanValue();
                 }
 
@@ -619,33 +619,31 @@ public class InventoryServices {
                     cancelItems = new HashMap<String, Timestamp>();
                 }
 
-                if (orderItems != null) {
-                    List<GenericValue> toBeStored = new LinkedList<GenericValue>();
-                    for (GenericValue orderItem: orderItems) {
-                        String orderItemSeqId = orderItem.getString("orderItemSeqId");
-                        Timestamp shipDate = backOrderedItems.get(orderItemSeqId);
-                        Timestamp cancelDate = cancelItems.get(orderItemSeqId);
-                        Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
+                List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+                for (GenericValue orderItem: orderItems) {
+                    String orderItemSeqId = orderItem.getString("orderItemSeqId");
+                    Timestamp shipDate = backOrderedItems.get(orderItemSeqId);
+                    Timestamp cancelDate = cancelItems.get(orderItemSeqId);
+                    Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
 
-                        Debug.logInfo("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);
-                        if (backOrderedItems.containsKey(orderItemSeqId)) {
-                            orderItem.set("estimatedShipDate", shipDate);
+                    Debug.logInfo("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);
+                    if (backOrderedItems.containsKey(orderItemSeqId)) {
+                        orderItem.set("estimatedShipDate", shipDate);
 
-                            if (currentCancelDate == null) {
-                                if (cancelAll || cancelDate != null) {
-                                    if (orderItem.get("dontCancelSetUserLogin") == null && orderItem.get("dontCancelSetDate") == null) {
-                                        if (cancelAllTime != null) {
-                                            orderItem.set("autoCancelDate", cancelAllTime);
-                                        } else {
-                                            orderItem.set("autoCancelDate", cancelDate);
-                                        }
+                        if (currentCancelDate == null) {
+                            if (cancelAll || cancelDate != null) {
+                                if (orderItem.get("dontCancelSetUserLogin") == null && orderItem.get("dontCancelSetDate") == null) {
+                                    if (cancelAllTime != null) {
+                                        orderItem.set("autoCancelDate", cancelAllTime);
+                                    } else {
+                                        orderItem.set("autoCancelDate", cancelDate);
                                     }
                                 }
-                                // only notify orders which have not already sent the final notice
-                                ordersToNotify.add(orderId);
                             }
-                            toBeStored.add(orderItem);
+                            // only notify orders which have not already sent the final notice
+                            ordersToNotify.add(orderId);
                         }
+                        toBeStored.add(orderItem);
                     }
                     if (toBeStored.size() > 0) {
                         try {
@@ -860,41 +858,43 @@ public class InventoryServices {
         } catch (GenericEntityException e) {
             e.printStackTrace();
         }
-        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG")) {
-            try {
-                resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
-            } catch (GenericServiceException e) {
-                e.printStackTrace();
+        if (product != null) {
+            if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString(
+                    "productTypeId"), "parentTypeId", "MARKETING_PKG")) {
+                try {
+                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
+                } catch (GenericServiceException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
+                } catch (GenericServiceException e) {
+                    e.printStackTrace();
+                }
             }
-        } else {
-            try {
-                resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
-            } catch (GenericServiceException e) {
-                e.printStackTrace();
+            // filter for quantities
+            minimumStock = minimumStock != null ? minimumStock : BigDecimal.ZERO;
+            BigDecimal quantityOnHandTotal = BigDecimal.ZERO;
+            if (resultOutput.get("quantityOnHandTotal") != null) {
+                quantityOnHandTotal = (BigDecimal) resultOutput.get("quantityOnHandTotal");
             }
-        }
-        // filter for quantities
-        minimumStock = minimumStock != null ? minimumStock : BigDecimal.ZERO;
-        BigDecimal quantityOnHandTotal = BigDecimal.ZERO;
-        if (resultOutput.get("quantityOnHandTotal") != null) {
-            quantityOnHandTotal = (BigDecimal)resultOutput.get("quantityOnHandTotal");
-        }
-        BigDecimal offsetQOHQtyAvailable = quantityOnHandTotal.subtract(minimumStock);
+            BigDecimal offsetQOHQtyAvailable = quantityOnHandTotal.subtract(minimumStock);
 
-        BigDecimal availableToPromiseTotal = BigDecimal.ZERO;
-        if (resultOutput.get("availableToPromiseTotal") != null) {
-            availableToPromiseTotal = (BigDecimal)resultOutput.get("availableToPromiseTotal");
+            BigDecimal availableToPromiseTotal = BigDecimal.ZERO;
+            if (resultOutput.get("availableToPromiseTotal") != null) {
+                availableToPromiseTotal = (BigDecimal) resultOutput.get("availableToPromiseTotal");
+            }
+            BigDecimal offsetATPQtyAvailable = availableToPromiseTotal.subtract(minimumStock);
+
+            BigDecimal quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(productId, delegator);
+            result.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
+            result.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
+            result.put("quantityOnOrder", quantityOnOrder);
+            result.put("quantityUomId", product.getString("quantityUomId"));
+            result.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
+            result.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
         }
-        BigDecimal offsetATPQtyAvailable = availableToPromiseTotal.subtract(minimumStock);
-
-        BigDecimal quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(productId, delegator);
-        result.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
-        result.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
-        result.put("quantityOnOrder", quantityOnOrder);
-        result.put("quantityUomId", product.getString("quantityUomId"));
-        result.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
-        result.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
-
         List<GenericValue> productPrices = null;
         try {
             productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",productId).orderBy("-fromDate").cache(true).queryList();
@@ -902,17 +902,19 @@ public class InventoryServices {
             e.printStackTrace();
         }
         //change this for product price
-        for (GenericValue onePrice: productPrices) {
-            if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
-                result.put("defaultPrice", onePrice.getBigDecimal("price"));
-            } else if ("WHOLESALE_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//
-                result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
-            } else if ("LIST_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//listPrice
-                result.put("listPrice", onePrice.getBigDecimal("price"));
-            } else {
-                result.put("defaultPrice", onePrice.getBigDecimal("price"));
-                result.put("listPrice", onePrice.getBigDecimal("price"));
-                result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
+        if(productPrices != null) {
+            for (GenericValue onePrice: productPrices) {
+                if ("DEFAULT_PRICE".equals(onePrice.getString("productPriceTypeId"))) { //defaultPrice
+                    result.put("defaultPrice", onePrice.getBigDecimal("price"));
+                } else if ("WHOLESALE_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//
+                    result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
+                } else if ("LIST_PRICE".equals(onePrice.getString("productPriceTypeId"))) {//listPrice
+                    result.put("listPrice", onePrice.getBigDecimal("price"));
+                } else {
+                    result.put("defaultPrice", onePrice.getBigDecimal("price"));
+                    result.put("listPrice", onePrice.getBigDecimal("price"));
+                    result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
+                }
             }
         }
 
