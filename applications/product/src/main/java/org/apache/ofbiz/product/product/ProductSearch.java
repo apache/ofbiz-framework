@@ -880,24 +880,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((prodCatalogId == null) ? 0 : prodCatalogId.hashCode());
+            result = prime * result + ((productCategories == null) ? 0 : productCategories.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof CatalogConstraint) {
-                CatalogConstraint that = (CatalogConstraint) psc;
-                if (this.prodCatalogId == null) {
-                    if (that.prodCatalogId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.prodCatalogId.equals(that.prodCatalogId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof CatalogConstraint)) {
+                return false;
+            }
+            CatalogConstraint other = (CatalogConstraint) obj;
+            if (prodCatalogId == null) {
+                if (other.prodCatalogId != null) {
+                    return false;
+                }
+            } else if (!prodCatalogId.equals(other.prodCatalogId)) {
+                return false;
+            }
+            if (productCategories == null) {
+                if (other.productCategories != null) {
+                    return false;
+                }
+            } else if (!productCategories.equals(other.productCategories)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -973,27 +992,47 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
+            result = prime * result + (includeSubCategories ? 1231 : 1237);
+            result = prime * result + ((productCategoryId == null) ? 0 : productCategoryId.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof CategoryConstraint) {
-                CategoryConstraint that = (CategoryConstraint) psc;
-                if (this.includeSubCategories != that.includeSubCategories) {
-                    return false;
-                }
-                if (this.productCategoryId == null) {
-                    if (that.productCategoryId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.productCategoryId.equals(that.productCategoryId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof CategoryConstraint)) {
+                return false;
+            }
+            CategoryConstraint other = (CategoryConstraint) obj;
+            if (exclude == null) {
+                if (other.exclude != null) {
+                    return false;
+                }
+            } else if (!exclude.equals(other.exclude)) {
+                return false;
+            }
+            if (includeSubCategories != other.includeSubCategories) {
+                return false;
+            }
+            if (productCategoryId == null) {
+                if (other.productCategoryId != null) {
+                    return false;
+                }
+            } else if (!productCategoryId.equals(other.productCategoryId)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1058,24 +1097,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
+            result = prime * result + ((productFeatureId == null) ? 0 : productFeatureId.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof FeatureConstraint) {
-                FeatureConstraint that = (FeatureConstraint) psc;
-                if (this.productFeatureId == null) {
-                    if (that.productFeatureId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.productFeatureId.equals(that.productFeatureId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof FeatureConstraint)) {
+                return false;
+            }
+            FeatureConstraint other = (FeatureConstraint) obj;
+            if (exclude == null) {
+                if (other.exclude != null) {
+                    return false;
+                }
+            } else if (!exclude.equals(other.exclude)) {
+                return false;
+            }
+            if (productFeatureId == null) {
+                if (other.productFeatureId != null) {
+                    return false;
+                }
+            } else if (!productFeatureId.equals(other.productFeatureId)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
 
@@ -1140,24 +1198,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
+            result = prime * result + ((productFeatureCategoryId == null) ? 0 : productFeatureCategoryId.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof FeatureCategoryConstraint) {
-                FeatureCategoryConstraint that = (FeatureCategoryConstraint) psc;
-                if (this.productFeatureCategoryId == null) {
-                    if (that.productFeatureCategoryId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.productFeatureCategoryId.equals(that.productFeatureCategoryId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof FeatureCategoryConstraint)) {
+                return false;
+            }
+            FeatureCategoryConstraint other = (FeatureCategoryConstraint) obj;
+            if (exclude == null) {
+                if (other.exclude != null) {
+                    return false;
+                }
+            } else if (!exclude.equals(other.exclude)) {
+                return false;
+            }
+            if (productFeatureCategoryId == null) {
+                if (other.productFeatureCategoryId != null) {
+                    return false;
+                }
+            } else if (!productFeatureCategoryId.equals(other.productFeatureCategoryId)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1220,24 +1297,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
+            result = prime * result + ((productFeatureGroupId == null) ? 0 : productFeatureGroupId.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof FeatureGroupConstraint) {
-                FeatureGroupConstraint that = (FeatureGroupConstraint) psc;
-                if (this.productFeatureGroupId == null) {
-                    if (that.productFeatureGroupId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.productFeatureGroupId.equals(that.productFeatureGroupId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof FeatureGroupConstraint)) {
+                return false;
+            }
+            FeatureGroupConstraint other = (FeatureGroupConstraint) obj;
+            if (exclude == null) {
+                if (other.exclude != null) {
+                    return false;
+                }
+            } else if (!exclude.equals(other.exclude)) {
+                return false;
+            }
+            if (productFeatureGroupId == null) {
+                if (other.productFeatureGroupId != null) {
+                    return false;
+                }
+            } else if (!productFeatureGroupId.equals(other.productFeatureGroupId)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
 
@@ -1315,24 +1411,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
+            result = prime * result + ((productFeatureIdSet == null) ? 0 : productFeatureIdSet.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof FeatureSetConstraint) {
-                FeatureSetConstraint that = (FeatureSetConstraint) psc;
-                if (this.productFeatureIdSet == null) {
-                    if (that.productFeatureIdSet != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.productFeatureIdSet.equals(that.productFeatureIdSet)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof FeatureSetConstraint)) {
+                return false;
+            }
+            FeatureSetConstraint other = (FeatureSetConstraint) obj;
+            if (exclude == null) {
+                if (other.exclude != null) {
+                    return false;
+                }
+            } else if (!exclude.equals(other.exclude)) {
+                return false;
+            }
+            if (productFeatureIdSet == null) {
+                if (other.productFeatureIdSet != null) {
+                    return false;
+                }
+            } else if (!productFeatureIdSet.equals(other.productFeatureIdSet)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1424,36 +1539,51 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + (anyPrefix ? 1231 : 1237);
+            result = prime * result + (anySuffix ? 1231 : 1237);
+            result = prime * result + (isAnd ? 1231 : 1237);
+            result = prime * result + ((keywordsString == null) ? 0 : keywordsString.hashCode());
+            result = prime * result + (removeStems ? 1231 : 1237);
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof KeywordConstraint) {
-                KeywordConstraint that = (KeywordConstraint) psc;
-                if (this.anyPrefix != that.anyPrefix) {
-                    return false;
-                }
-                if (this.anySuffix != that.anySuffix) {
-                    return false;
-                }
-                if (this.isAnd != that.isAnd) {
-                    return false;
-                }
-                if (this.removeStems != that.removeStems) {
-                    return false;
-                }
-                if (this.keywordsString == null) {
-                    if (that.keywordsString != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.keywordsString.equals(that.keywordsString)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof KeywordConstraint)) {
+                return false;
+            }
+            KeywordConstraint other = (KeywordConstraint) obj;
+            if (anyPrefix != other.anyPrefix) {
+                return false;
+            }
+            if (anySuffix != other.anySuffix) {
+                return false;
+            }
+            if (isAnd != other.isAnd) {
+                return false;
+            }
+            if (keywordsString == null) {
+                if (other.keywordsString != null) {
+                    return false;
+                }
+            } else if (!keywordsString.equals(other.keywordsString)) {
+                return false;
+            }
+            if (removeStems != other.removeStems) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1480,33 +1610,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((fromDate == null) ? 0 : fromDate.hashCode());
+            result = prime * result + ((thruDate == null) ? 0 : thruDate.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof LastUpdatedRangeConstraint) {
-                LastUpdatedRangeConstraint that = (LastUpdatedRangeConstraint) psc;
-                if (this.fromDate == null) {
-                    if (that.fromDate != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.fromDate.equals(that.fromDate)) {
-                        return false;
-                    }
-                }
-                if (this.thruDate == null) {
-                    if (that.thruDate != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.thruDate.equals(that.thruDate)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof LastUpdatedRangeConstraint)) {
+                return false;
+            }
+            LastUpdatedRangeConstraint other = (LastUpdatedRangeConstraint) obj;
+            if (fromDate == null) {
+                if (other.fromDate != null) {
+                    return false;
+                }
+            } else if (!fromDate.equals(other.fromDate)) {
+                return false;
+            }
+            if (thruDate == null) {
+                if (other.thruDate != null) {
+                    return false;
+                }
+            } else if (!thruDate.equals(other.thruDate)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1556,17 +1696,51 @@ public class ProductSearch {
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (o instanceof StoreGroupPriceConstraint) {
-                StoreGroupPriceConstraint other = (StoreGroupPriceConstraint) o;
-                if (other.productStoreGroupId.equals(productStoreGroupId) &&
-                       other.productPriceTypeId.equals(productPriceTypeId) &&
-                       other.currencyUomId.equals(currencyUomId)) {
-                    return true;
-                }
-            }
-            return false;
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((currencyUomId == null) ? 0 : currencyUomId.hashCode());
+            result = prime * result + ((productPriceTypeId == null) ? 0 : productPriceTypeId.hashCode());
+            result = prime * result + ((productStoreGroupId == null) ? 0 : productStoreGroupId.hashCode());
+            return result;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(obj instanceof StoreGroupPriceConstraint)) {
+                return false;
+            }
+            StoreGroupPriceConstraint other = (StoreGroupPriceConstraint) obj;
+            if (currencyUomId == null) {
+                if (other.currencyUomId != null) {
+                    return false;
+                }
+            } else if (!currencyUomId.equals(other.currencyUomId)) {
+                return false;
+            }
+            if (productPriceTypeId == null) {
+                if (other.productPriceTypeId != null) {
+                    return false;
+                }
+            } else if (!productPriceTypeId.equals(other.productPriceTypeId)) {
+                return false;
+            }
+            if (productStoreGroupId == null) {
+                if (other.productStoreGroupId != null) {
+                    return false;
+                }
+            } else if (!productStoreGroupId.equals(other.productStoreGroupId)) {
+                return false;
+            }
+            return true;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -1647,33 +1821,51 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((currencyUomId == null) ? 0 : currencyUomId.hashCode());
+            result = prime * result + ((highPrice == null) ? 0 : highPrice.hashCode());
+            result = prime * result + ((lowPrice == null) ? 0 : lowPrice.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof ListPriceRangeConstraint) {
-                ListPriceRangeConstraint that = (ListPriceRangeConstraint) psc;
-                if (this.lowPrice == null) {
-                    if (that.lowPrice != null) {
-                        return false;
-                    }
-                } else {
-                    if (this.lowPrice.compareTo(that.lowPrice) != 0) {
-                        return false;
-                    }
-                }
-                if (this.highPrice == null) {
-                    if (that.highPrice != null) {
-                        return false;
-                    }
-                } else {
-                    if (this.highPrice.compareTo(that.highPrice) != 0) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof ListPriceRangeConstraint)) {
+                return false;
+            }
+            ListPriceRangeConstraint other = (ListPriceRangeConstraint) obj;
+            if (currencyUomId == null) {
+                if (other.currencyUomId != null) {
+                    return false;
+                }
+            } else if (!currencyUomId.equals(other.currencyUomId)) {
+                return false;
+            }
+            if (highPrice == null) {
+                if (other.highPrice != null) {
+                    return false;
+                }
+            } else if (!highPrice.equals(other.highPrice)) {
+                return false;
+            }
+            if (lowPrice == null) {
+                if (other.lowPrice != null) {
+                    return false;
+                }
+            } else if (!lowPrice.equals(other.lowPrice)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1707,24 +1899,35 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((supplierPartyId == null) ? 0 : supplierPartyId.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof SupplierConstraint) {
-                SupplierConstraint that = (SupplierConstraint) psc;
-                if (this.supplierPartyId == null) {
-                    if (that.supplierPartyId != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.supplierPartyId.equals(that.supplierPartyId)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof SupplierConstraint)) {
+                return false;
+            }
+            SupplierConstraint other = (SupplierConstraint) obj;
+            if (supplierPartyId == null) {
+                if (other.supplierPartyId != null) {
+                    return false;
+                }
+            } else if (!supplierPartyId.equals(other.supplierPartyId)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     @SuppressWarnings("serial")
@@ -1749,13 +1952,25 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof ExcludeVariantsConstraint) {
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof ExcludeVariantsConstraint)) {
+                return false;
+            }
+            return true;
         }
     }
 
@@ -1781,13 +1996,25 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof AvailabilityDateConstraint) {
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof AvailabilityDateConstraint)) {
+                return false;
+            }
+            return true;
         }
     }
 
@@ -1818,7 +2045,7 @@ public class ProductSearch {
 
                 EntityComparisonOperator<?,?> operator = EntityOperator.EQUALS;
 
-                if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
+                if (UtilValidate.isNotEmpty(include) && !include) {
                     operator = EntityOperator.NOT_EQUAL;
                 }
 
@@ -1851,7 +2078,7 @@ public class ProductSearch {
 
             StringBuilder msgBuf = new StringBuilder();
 
-            if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
+            if (UtilValidate.isNotEmpty(include) && !include) {
                 msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonExclude", locale));
                 msgBuf.append(" ");
             } else {
@@ -1875,13 +2102,25 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof GoodIdentificationConstraint) {
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if(obj == null) {
                 return false;
             }
+            if (!(obj instanceof GoodIdentificationConstraint)) {
+                return false;
+            }
+            return true;
         }
     }
 
@@ -1909,24 +2148,43 @@ public class ProductSearch {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
+            result = prime * result + ((productFieldName == null) ? 0 : productFieldName.hashCode());
+            return result;
+        }
+
+        @Override
         public boolean equals(Object obj) {
-            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof ProductFieldConstraint) {
-                ProductFieldConstraint that = (ProductFieldConstraint) psc;
-                if (this.keyword == null) {
-                    if (that.keyword != null) {
-                        return false;
-                    }
-                } else {
-                    if (!this.keyword.equals(that.keyword)) {
-                        return false;
-                    }
-                }
+            if (this == obj) {
                 return true;
-            } else {
+            }
+            if (obj == null) {
                 return false;
             }
+            if (!(obj instanceof ProductFieldConstraint)) {
+                return false;
+            }
+            ProductFieldConstraint other = (ProductFieldConstraint) obj;
+            if (keyword == null) {
+                if (other.keyword != null) {
+                    return false;
+                }
+            } else if (!keyword.equals(other.keyword)) {
+                return false;
+            }
+            if (productFieldName == null) {
+                if (other.productFieldName != null) {
+                    return false;
+                }
+            } else if (!productFieldName.equals(other.productFieldName)) {
+                return false;
+            }
+            return true;
         }
+
     }
 
     // ======================================================================

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -92,7 +93,7 @@ public class KeywordIndex {
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(product.getString("productId").toLowerCase(), Long.valueOf(pidWeight));
+        keywords.put(product.getString("productId").toLowerCase(Locale.getDefault()), Long.valueOf(pidWeight));
 
         // Product fields - default is 0 if not found in the properties file
         if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0", delegator))) {
@@ -227,7 +228,6 @@ public class KeywordIndex {
             int weight = 1;
 
             try {
-                Delegator delegator = value.getDelegator();
                 weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, 1).intValue();
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);

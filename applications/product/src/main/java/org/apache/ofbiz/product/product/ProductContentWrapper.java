@@ -124,9 +124,7 @@ public class ProductContentWrapper implements ContentWrapper {
                 outString = outString == null? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
-            if (productContentCache != null) {
-                productContentCache.put(cacheKey, outString);
-            }
+            productContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);

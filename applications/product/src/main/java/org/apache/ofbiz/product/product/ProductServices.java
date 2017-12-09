@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -420,9 +421,9 @@ public class ProductServices {
         boolean checkViewAllow = (cvaBool == null ? false : cvaBool);
         String prodCatalogId = (String) context.get("prodCatalogId");
         Boolean bidirectional = (Boolean) context.get("bidirectional");
-        bidirectional = bidirectional == null ? false : bidirectional;
+        bidirectional = bidirectional == null ? Boolean.FALSE : bidirectional;
         Boolean sortDescending = (Boolean) context.get("sortDescending");
-        sortDescending = sortDescending == null ? false : sortDescending;
+        sortDescending = sortDescending == null ? Boolean.FALSE : sortDescending;
 
         if (productId == null && productIdTo == null) {
             errMsg = UtilProperties.getMessage(resourceError, 
@@ -597,7 +598,8 @@ public class ProductServices {
         }
 
         // loop through the keysets and get the sub-groups
-        for (String key: group.keySet()) {
+        for (Entry<String, Object> entry : group.entrySet()) {
+            String key = entry.getKey();
             List<String> itemList = UtilGenerics.checkList(group.get(key));
 
             if (UtilValidate.isNotEmpty(itemList)) {
@@ -961,12 +963,12 @@ public class ProductServices {
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", "original"));
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
-            if (fileLocation.lastIndexOf("/") != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
+            if (fileLocation.lastIndexOf('/') != -1) {
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
+                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1);
             }
 
-            List<GenericValue> fileExtension = new LinkedList<GenericValue>();
+            List<GenericValue> fileExtension;
             try {
                 fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
@@ -997,7 +999,12 @@ public class ProductServices {
                     try {
                         File[] files = targetDir.listFiles(); 
                         for (File file : files) {
-                            if (file.isFile()) file.delete(); 
+                            if (file.isFile()) {
+                                if (!file.delete()) {
+                                    Debug.logError("File : " + file.getName() + ", couldn't be deleted", module);
+                                }
+                            }
+
                         }
                     } catch (SecurityException e) {
                         Debug.logError(e,module);
@@ -1007,7 +1014,11 @@ public class ProductServices {
                     try {
                         File[] files = targetDir.listFiles(); 
                         for (File file : files) {
-                            if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) file.delete();
+                            if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) {
+                                if (!file.delete()) {
+                                    Debug.logError("File : " + file.getName() + ", couldn't be deleted", module);
+                                }
+                            }
                         }
                     } catch (SecurityException e) {
                         Debug.logError(e,module);
@@ -1065,9 +1076,9 @@ public class ProductServices {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
                     try {
-                        GenericValue productContentType = EntityQuery.use(delegator).from("ProductContentType").where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase()).cache().queryOne();
+                        GenericValue productContentType = EntityQuery.use(delegator).from("ProductContentType").where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault())).cache().queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
-                            result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());
+                            result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
                             if( ServiceUtil.isError(result)) {
                                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                                 return result;
@@ -1132,7 +1143,7 @@ public class ProductServices {
                     } else {
                         dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                         dataResourceCtx.put("mimeTypeId", "text/html");
-                        Map<String, Object> dataResourceResult = new HashMap<String, Object>();
+                        Map<String, Object> dataResourceResult;
                         try {
                             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                         } catch (GenericServiceException e) {
@@ -1163,7 +1174,7 @@ public class ProductServices {
             } else {
                 dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                 dataResourceCtx.put("mimeTypeId", "text/html");
-                Map<String, Object> dataResourceResult = new HashMap<String, Object>();
+                Map<String, Object> dataResourceResult;
                 try {
                     dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                 } catch (GenericServiceException e) {
@@ -1175,7 +1186,7 @@ public class ProductServices {
                 contentCtx.put("contentTypeId", "DOCUMENT");
                 contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                 contentCtx.put("userLogin", userLogin);
-                Map<String, Object> contentResult = new HashMap<String, Object>();
+                Map<String, Object> contentResult;
                 try {
                     contentResult = dispatcher.runSync("createContent", contentCtx);
                 } catch (GenericServiceException e) {
@@ -1260,12 +1271,13 @@ public class ProductServices {
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "promo", "id", id));
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
-            if (fileLocation.lastIndexOf("/") != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
+            if (fileLocation.lastIndexOf('/') != -1) {
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include
+                                                                                               // the trailing slash
+                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1);
             }
 
-            List<GenericValue> fileExtension = new LinkedList<GenericValue>();
+            List<GenericValue> fileExtension;
             try {
                 fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
@@ -1280,7 +1292,9 @@ public class ProductServices {
 
             File makeResourceDirectory  = new File(imageServerPath + "/" + filePathPrefix);
             if (!makeResourceDirectory.exists()) {
-                makeResourceDirectory.mkdirs();
+                if (!makeResourceDirectory.mkdirs()) {
+                    Debug.logError("Directory :" + makeResourceDirectory.getPath() + ", couldn't be created", module);
+                }
             }
 
             File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
@@ -1343,7 +1357,7 @@ public class ProductServices {
                         } else {
                             dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                             dataResourceCtx.put("mimeTypeId", "text/html");
-                            Map<String, Object> dataResourceResult = new HashMap<String, Object>();
+                            Map<String, Object> dataResourceResult;
                             try {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
@@ -1374,7 +1388,7 @@ public class ProductServices {
                 } else {
                     dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                     dataResourceCtx.put("mimeTypeId", "text/html");
-                    Map<String, Object> dataResourceResult = new HashMap<String, Object>();
+                    Map<String, Object> dataResourceResult;
                     try {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                     } catch (GenericServiceException e) {
@@ -1386,7 +1400,7 @@ public class ProductServices {
                     contentCtx.put("contentTypeId", "DOCUMENT");
                     contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                     contentCtx.put("userLogin", userLogin);
-                    Map<String, Object> contentResult = new HashMap<String, Object>();
+                    Map<String, Object> contentResult;
                     try {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
                     } catch (GenericServiceException e) {

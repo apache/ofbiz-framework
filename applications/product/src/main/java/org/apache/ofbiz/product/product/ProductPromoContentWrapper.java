@@ -129,9 +129,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
                 outString = outString == null? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
-            if (productPromoContentCache != null) {
-                productPromoContentCache.put(cacheKey, outString);
-            }
+            productPromoContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", module);
