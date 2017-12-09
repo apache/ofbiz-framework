@@ -75,10 +75,10 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class ShoppingCartItem implements java.io.Serializable {
 
-    public static String module = ShoppingCartItem.class.getName();
+    public static final String module = ShoppingCartItem.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
-    public static String[] attributeNames = { "shoppingListId", "shoppingListItemSeqId", "surveyResponses",
+    protected static final String[] attributeNames = { "shoppingListId", "shoppingListItemSeqId", "surveyResponses",
                                               "itemDesiredDeliveryDate", "itemComment", "fromInventoryItemId"};
 
     public static final MathContext generalRounding = new MathContext(10);
@@ -703,21 +703,19 @@ public class ShoppingCartItem implements java.io.Serializable {
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, Locale locale, 
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
-         if (product != null) {
-            String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
-            // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
-            if (UtilValidate.isEmpty(productName)) {
-                GenericValue parentProduct = this.getParentProduct();
-                if (parentProduct != null) {
-                    productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, dispatcher, "html");
-                }
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
+        // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
+        if (UtilValidate.isEmpty(productName)) {
+            GenericValue parentProduct = this.getParentProduct();
+            if (parentProduct != null) {
+                productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, dispatcher, "html");
             }
+        }
 
-            if (productName == null) {
-                this.itemDescription= "";
-            } else {
-                this.itemDescription= productName;
-            }
+        if (productName == null) {
+            this.itemDescription = "";
+        } else {
+            this.itemDescription = productName;
         }
     }
 
@@ -832,7 +830,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
     /** Sets the reservation start date */
     public void setReservStart(Timestamp reservStart)    {
-        this.reservStart = reservStart;
+        this.reservStart = reservStart != null ? (Timestamp) reservStart.clone() : null;
     }
     /** Sets the reservation length */
     public void setReservLength(BigDecimal reservLength)    {
@@ -1233,7 +1231,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns the reservation start date with a number of days added. */
     public Timestamp getReservStart(BigDecimal addDays) {
         if (addDays.compareTo(BigDecimal.ZERO) == 0)
-                return this.reservStart;
+                return this.reservStart != null ? (Timestamp) this.reservStart.clone() : null;
         else    {
             if (this.reservStart != null)
                 return new Timestamp((long)(this.reservStart.getTime() + (addDays.doubleValue() * 86400000.0)));
@@ -1259,7 +1257,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.accommodationSpotId;
     }
 
-    public BigDecimal getPromoQuantityUsed() {
+    public synchronized BigDecimal getPromoQuantityUsed() {
         if (this.getIsPromo()) {
             return this.quantity;
         } else {
@@ -1267,7 +1265,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-    public BigDecimal getPromoQuantityAvailable() {
+    public synchronized BigDecimal getPromoQuantityAvailable() {
         if (this.getIsPromo()) {
             return BigDecimal.ZERO;
         } else {
@@ -1430,43 +1428,43 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Sets the date to ship before */
     public void setShipBeforeDate(Timestamp date) {
-        this.shipBeforeDate = date;
+        this.shipBeforeDate = date != null ? (Timestamp) date.clone() : null;
 
     }
 
     /** Returns the date to ship before */
     public Timestamp getShipBeforeDate() {
-        return this.shipBeforeDate;
+        return this.shipBeforeDate != null ? (Timestamp) this.shipBeforeDate.clone() : null;
     }
 
     /** Sets the date to ship after */
     public void setShipAfterDate(Timestamp date) {
-        this.shipAfterDate = date;
+        this.shipAfterDate = date != null ? (Timestamp) date.clone() : null;
     }
 
     /** Returns the date to ship after */
     public Timestamp getShipAfterDate() {
-        return this.shipAfterDate;
+        return this.shipAfterDate != null ? (Timestamp) this.shipAfterDate.clone() : null;
     }
 
     /** Sets the cancel back order date */
     public void setCancelBackOrderDate(Timestamp date) {
-        this.cancelBackOrderDate = date;
+        this.cancelBackOrderDate = date != null ? (Timestamp) date.clone() : null;
     }
 
     /** Returns the cancel back order date */
     public Timestamp getCancelBackOrderDate() {
-        return this.cancelBackOrderDate;
+        return this.cancelBackOrderDate != null ? (Timestamp) this.cancelBackOrderDate.clone() : null;
     }
 
     /** Sets the date to EstimatedShipDate */
     public void setEstimatedShipDate(Timestamp date) {
-        this.estimatedShipDate = date;
+        this.estimatedShipDate = date != null ? (Timestamp) date.clone() : null;
     }
 
     /** Returns the date to EstimatedShipDate */
     public Timestamp getEstimatedShipDate() {
-        return this.estimatedShipDate;
+        return this.estimatedShipDate != null ? (Timestamp) this.estimatedShipDate.clone() : null;
     }
 
     /** Sets the item type. */
@@ -2261,10 +2259,17 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.alternativeOptionProductIds = alternativeOptionProductIds;
     }
 
-    /** Compares the specified object with this cart item. */
     public boolean equals(ShoppingCartItem item) {
         if (item == null) return false;
         return this.equals(item.getProductId(), item.additionalProductFeatureAndAppls, item.attributes, item.prodCatalogId, item.selectedAmount, item.getItemType(), item.getItemGroup(), item.getIsPromo());
+    }
+
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public int hashCode() {
+        return super.hashCode();
     }
 
     /** Compares the specified object with this cart item. Defaults isPromo to false. Default to no itemGroup. */

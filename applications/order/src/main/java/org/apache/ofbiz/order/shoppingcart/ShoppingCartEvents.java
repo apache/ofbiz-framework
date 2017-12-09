@@ -71,7 +71,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class ShoppingCartEvents {
 
-    public static String module = ShoppingCartEvents.class.getName();
+    public static final String module = ShoppingCartEvents.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
@@ -358,7 +358,7 @@ public class ShoppingCartEvents {
             if (paramMap.containsKey("numberOfDay")) {
                 numberOfDay = (String) paramMap.remove("numberOfDay");
                 reservStart = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1);
-                reservEnd = UtilDateTime.addDaysToTimestamp(reservStart, Integer.valueOf(numberOfDay));
+                reservEnd = UtilDateTime.addDaysToTimestamp(reservStart, Integer.parseInt(numberOfDay));
             }
         }
         
@@ -409,7 +409,6 @@ public class ShoppingCartEvents {
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation length string: "
                             + reservLengthStr, module);
-                    reservLength = BigDecimal.ONE;
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderReservationLengthShouldBeAPositiveNumber", locale));
                     return "error";
                 }
@@ -422,7 +421,6 @@ public class ShoppingCartEvents {
                     reservPersons = (BigDecimal) ObjectType.simpleTypeConvert(reservPersonsStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, module);
-                    reservPersons = BigDecimal.ONE;
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
                     return "error";
                 }
@@ -605,7 +603,7 @@ public class ShoppingCartEvents {
                     productList = EntityQuery.use(delegator).select("productId").from("ProductAssoc").where("productIdTo", productId, "productAssocTypeId", "PRODUCT_UPGRADE").queryList();
                     if (productList != null) {
                         for (ShoppingCartItem sci : cart) {
-                            if (productList.contains(sci.getProductId())) {
+                            if (productList.parallelStream().anyMatch(p -> sci.getProductId().equals(p.getString("productId")))) {
                                 try {
                                     cart.removeCartItem(sci, dispatcher);
                                 } catch (CartItemModifyException e) {
@@ -1465,8 +1463,7 @@ public class ShoppingCartEvents {
             String shipGroupSeqId = null;
             long groupIndex = cart.getShipInfoSize();
             List<GenericValue> orderAdjustmentList = new ArrayList<GenericValue>();
-            List<GenericValue> orderAdjustments = new ArrayList<GenericValue>();
-            orderAdjustments = cart.getAdjustments();
+            List<GenericValue> orderAdjustments = cart.getAdjustments();
             try {
                 orderAdjustmentList = EntityQuery.use(delegator).from("OrderAdjustment").where("orderId", orderId).queryList();
             } catch (GenericEntityException e) {
@@ -1769,7 +1766,6 @@ public class ShoppingCartEvents {
         String controlDirective = null;
         Map<String, Object> result = null;
         String productId = null;
-        String productCategoryId = null;
         String quantityStr = null;
         String itemDesiredDeliveryDateStr = null;
         BigDecimal quantity = BigDecimal.ZERO;
@@ -1868,10 +1864,10 @@ public class ShoppingCartEvents {
                 Map<String, Object> itemAttributes = UtilMisc.<String, Object>toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
 
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
-                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
+                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
-                                                  productCategoryId, itemType, itemDescription, null,
+                                                  null, itemType, itemDescription, null,
                                                   amount, quantity, null, null, null, null, null, null,
                                                   itemGroupNumber, itemAttributes,null);
                     // no values for price and paramMap (a context for adding attributes)
@@ -1989,10 +1985,9 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         String productId = null;
-        String productCategoryId = null;
         String quantityStr = null;
         String itemDesiredDeliveryDateStr = null;
-        BigDecimal quantity = BigDecimal.ZERO;
+        BigDecimal quantity;
         String itemType = null;
         String itemDescription = "";
         String orderId = null;
@@ -2061,7 +2056,7 @@ public class ShoppingCartEvents {
                     shipGroupSeqId = (String) paramMap.remove("shipGroupSeqId" + thisSuffix);
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
-                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
+                    Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + null +
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");

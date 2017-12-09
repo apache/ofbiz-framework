@@ -64,10 +64,10 @@ public class CheckOutEvents {
     public static String cartNotEmpty(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
 
-        if (cart != null && UtilValidate.isNotEmpty(cart.items())) {
+        if (UtilValidate.isNotEmpty(cart.items())) {
             return "success";
         } else {
-            String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
+            String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", cart.getLocale());
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -481,14 +481,14 @@ public class CheckOutEvents {
                 request.setAttribute("orderAdditionalEmails", cart.getOrderAdditionalEmails());
             }
         }
-        
+
         String issuerId = request.getParameter("issuerId");
         if (UtilValidate.isNotEmpty(issuerId)) {
             request.setAttribute("issuerId", issuerId);
         }
-        
 
-        return cart.getOrderType().toLowerCase();
+
+        return cart.getOrderType().toLowerCase(Locale.getDefault());
     }
 
     // Event wrapper for the tax calc.
