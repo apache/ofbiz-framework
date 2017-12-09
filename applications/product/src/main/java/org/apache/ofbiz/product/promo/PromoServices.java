@@ -33,6 +33,7 @@ import java.util.Map;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -56,7 +57,7 @@ public class PromoServices {
 
     public final static String module = PromoServices.class.getName();
     public static final String resource = "ProductUiLabels";
-    protected final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+    private final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -111,7 +112,7 @@ public class PromoServices {
                 newContext.put("productPromoCodeId", newPromoCodeId);
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", newContext);
             } catch (GenericServiceException err) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, null);
             }
             if (ServiceUtil.isError(createProductPromoCodeMap)) {
                 // what to do here? try again?
@@ -190,7 +191,7 @@ public class PromoServices {
             while ((line = reader.readLine()) != null) {
                 // check to see if we should ignore this line
                 if (line.length() > 0 && !line.startsWith("#")) {
-                    if (line.length() > 0 && line.length() <= 20) {
+                    if (line.length() <= 20) {
                         // valid promo code
                         Map<String, Object> inContext = new HashMap<String, Object>();
                         inContext.putAll(invokeCtx);
@@ -246,7 +247,7 @@ public class PromoServices {
         byte[] wrapper = bytebufferwrapper.array();
        
       // read the bytes into a reader
-        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper, UtilIO.getUtf8())));
         List<Object> errors = new LinkedList<Object>();
         int lines = 0;
         String line;
