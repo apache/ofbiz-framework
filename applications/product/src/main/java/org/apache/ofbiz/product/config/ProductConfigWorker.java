@@ -405,7 +405,7 @@ public final class ProductConfigWorker {
         ProductConfigWrapper configWrapper = null;
         try {
              configWrapper = new ProductConfigWrapper(delegator, dispatcher, productId, productStoreId, catalogId, webSiteId, currencyUomId, locale, autoUserLogin);
-            if (configWrapper != null && UtilValidate.isNotEmpty(configId)) {
+            if (UtilValidate.isNotEmpty(configId)) {
                 configWrapper.loadConfig(delegator, configId);
             }
         } catch (Exception e) {

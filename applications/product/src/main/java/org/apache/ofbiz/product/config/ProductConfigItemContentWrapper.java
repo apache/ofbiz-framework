@@ -134,9 +134,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
                 outString = outString == null? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
-            if (configItemContentCache != null) {
-                configItemContentCache.put(cacheKey, outString);
-            }
+            configItemContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
