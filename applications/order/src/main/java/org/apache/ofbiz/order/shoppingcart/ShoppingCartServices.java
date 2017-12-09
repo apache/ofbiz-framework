@@ -27,6 +27,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -351,10 +353,12 @@ public class ShoppingCartServices {
         List<GenericValue> orderItems = orh.getOrderItems();
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(orderItems)) {
+            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue item : orderItems) {
                 // get the next item sequence id
                 String orderItemSeqId = item.getString("orderItemSeqId");
-                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
+                Matcher pmatcher = pattern.matcher(orderItemSeqId);
+                orderItemSeqId = pmatcher.replaceAll("");
                 // get product Id
                 String productId = item.getString("productId");
                 GenericValue product = null;
@@ -808,10 +812,12 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(quoteItems)) {
+            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue quoteItem : quoteItems) {
                 // get the next item sequence id
                 String orderItemSeqId = quoteItem.getString("quoteItemSeqId");
-                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
+                Matcher pmatcher = pattern.matcher(orderItemSeqId);
+                orderItemSeqId = pmatcher.replaceAll("");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -870,7 +876,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0), Boolean.FALSE, Boolean.FALSE);
+                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, Boolean.valueOf(!applyQuoteAdjustments), Boolean.valueOf(quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0), Boolean.FALSE, Boolean.FALSE);
 
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
@@ -1024,10 +1030,12 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(shoppingListItems)) {
+            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue shoppingListItem : shoppingListItems) {
                 // get the next item sequence id
                 String orderItemSeqId = shoppingListItem.getString("shoppingListItemSeqId");
-                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
+                Matcher pmatcher = pattern.matcher(orderItemSeqId);
+                orderItemSeqId = pmatcher.replaceAll("");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
