@@ -60,7 +60,7 @@ public class ProductFeatureServices {
      * The optional productFeatureApplTypeId causes results to be filtered by this parameter--only used in conjunction with productId.
      */
     public static Map<String, Object> getProductFeaturesByType(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results;
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -127,7 +127,7 @@ public class ProductFeatureServices {
      * Result: variantProductIds: a List of productIds of variants with those features
      */
     public static Map<String, Object> getAllExistingVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results;
         Delegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
@@ -179,7 +179,7 @@ public class ProductFeatureServices {
      * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant; existingVariantProductIds: List of productIds which are already variants with these features }
      */
     public static Map<String, Object> getVariantCombinations(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results;
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String productId = (String) context.get("productId");
