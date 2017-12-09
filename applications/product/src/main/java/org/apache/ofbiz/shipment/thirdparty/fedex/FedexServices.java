@@ -19,6 +19,7 @@
 
 package org.apache.ofbiz.shipment.thirdparty.fedex;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -29,12 +30,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -56,6 +60,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.shipment.shipment.ShipmentServices;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * Fedex Shipment Services
@@ -362,7 +367,7 @@ public class FedexServices {
             try {
                 fDXSubscriptionReplyDocument = UtilXml.readXmlDocument(fDXSubscriptionReplyString, false);
                 Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
-            } catch (Exception e) {
+            } catch (SAXException | ParserConfigurationException | IOException e) {
                 String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + e.toString();
                 Debug.logError(e, errorMessage, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1016,7 +1021,7 @@ public class FedexServices {
                             "fDXShipReplyString", fDXShipReplyString), locale));
         }
 
-        byte[] labelBytes = Base64.base64Decode(encodedImageString.getBytes());
+        byte[] labelBytes = Base64.base64Decode(encodedImageString.getBytes(UtilIO.getUtf8()));
 
         if (labelBytes != null) {
 
