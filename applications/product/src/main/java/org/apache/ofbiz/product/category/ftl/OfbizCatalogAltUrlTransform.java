@@ -140,7 +140,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
-                        out.write(url.toString());
+                        out.write(url);
                     } else {
                         out.write(buf.toString());
                     }
