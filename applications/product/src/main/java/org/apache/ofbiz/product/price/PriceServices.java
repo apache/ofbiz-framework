@@ -291,9 +291,6 @@ public class PriceServices {
                         if (listPriceValue == null) {
                             listPriceValue = getPriceValueForType("LIST_PRICE", variantProductPrices, null);
                         }
-                        if (defaultPriceValue == null) {
-                            defaultPriceValue = getPriceValueForType("DEFAULT_PRICE", variantProductPrices, null);
-                        }
                         if (competitivePriceValue == null) {
                             competitivePriceValue = getPriceValueForType("COMPETITIVE_PRICE", variantProductPrices, null);
                         }
@@ -315,6 +312,7 @@ public class PriceServices {
                         if (specialPromoPriceValue == null) {
                             specialPromoPriceValue = getPriceValueForType("SPECIAL_PROMO_PRICE", variantProductPrices, null);
                         }
+                        defaultPriceValue = getPriceValueForType("DEFAULT_PRICE", variantProductPrices, null);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "An error occurred while getting the product prices", module);
@@ -520,22 +518,25 @@ public class PriceServices {
                     Map<String, Object> convertPriceMap = new HashMap<String, Object>();
                     for (Map.Entry<String, Object> entry : result.entrySet()) {
                         BigDecimal tempPrice = BigDecimal.ZERO;
-                        if(entry.getKey() == "basePrice")
+                        switch (entry.getKey()) {
+                        case "basePrice":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "price")
+                        case "price":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "defaultPrice")
+                        case "defaultPrice":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "competitivePrice")
+                        case "competitivePrice":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "averageCost")
+                        case "averageCost":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "promoPrice")
+                        case "promoPrice":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "specialPromoPrice")
+                        case "specialPromoPrice":
                             tempPrice = (BigDecimal) entry.getValue();
-                        else if (entry.getKey() == "listPrice")
+                        case "listPrice":
                             tempPrice = (BigDecimal) entry.getValue();
+
+                        }
                         
                         if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
                             Map<String, Object> priceResults = new HashMap<String, Object>();
