@@ -54,8 +54,9 @@ public class CatalogUrlFilter implements Filter {
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
     
-    protected static String defaultLocaleString = null;
-    protected static String redirectUrl = null;
+    private static String defaultLocaleString;
+    private static String redirectUrl;
+
 
     protected FilterConfig config;
 
@@ -73,8 +74,8 @@ public class CatalogUrlFilter implements Filter {
         // set initial parameters
         String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
         String initRedirectUrl = config.getInitParameter("redirectUrl");
-        defaultLocaleString = UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "";
-        redirectUrl = UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "";
+        setDefaultLocaleString(UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "");
+        setRedirectUrl(UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "");
         
         String pathInfo = httpRequest.getServletPath();
         if (UtilValidate.isNotEmpty(pathInfo)) {
@@ -341,7 +342,9 @@ public class CatalogUrlFilter implements Filter {
 
     }
 
-    public static String makeCategoryUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
+    public static String makeCategoryUrl(HttpServletRequest request, String previousCategoryId,
+            String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort,
+            String searchString) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
@@ -415,7 +418,7 @@ public class CatalogUrlFilter implements Filter {
         return url;
     }
     
-    public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId) {
+    public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId,String productId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
@@ -455,5 +458,21 @@ public class CatalogUrlFilter implements Filter {
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
         return url;
+    }
+
+    public static String getDefaultLocaleString() {
+        return defaultLocaleString;
+    }
+
+    public static void setDefaultLocaleString(String defaultLocaleString) {
+        CatalogUrlFilter.defaultLocaleString = defaultLocaleString;
+    }
+
+    public static String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public static void setRedirectUrl(String redirectUrl) {
+        CatalogUrlFilter.redirectUrl = redirectUrl;
     }
 }

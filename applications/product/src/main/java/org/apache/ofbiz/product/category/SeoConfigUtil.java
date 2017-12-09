@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -231,7 +232,8 @@ public final class SeoConfigUtil {
             try {
                 NodeList configs = rootElement.getElementsByTagName(ELEMENT_URL_CONFIG);
                 Debug.logInfo("Parsing " + ELEMENT_URL_CONFIG, module);
-                for (int j = 0; j < configs.getLength(); j++) {
+                int length = configs.getLength();
+                for (int j = 0; j < length; j++) {
                     Element config = (Element) configs.item(j);
                     String urlpattern = UtilXml.childElementValue(config, ELEMENT_URLPATTERN, null);
                     if (UtilValidate.isEmpty(urlpattern)) {
@@ -289,7 +291,8 @@ public final class SeoConfigUtil {
                 NodeList nameFilterNodes = rootElement
                         .getElementsByTagName(ELEMENT_CHAR_FILTER);
                 Debug.logInfo("Parsing " + ELEMENT_CHAR_FILTER + ": ", module);
-                for (int i = 0; i < nameFilterNodes.getLength(); i++) {
+                int length = nameFilterNodes.getLength();
+                for (int i = 0; i < length; i++) {
                     Element element = (Element) nameFilterNodes.item(i);
                     String charaterPattern = UtilXml.childElementValue(element, ELEMENT_CHARACTER_PATTERN, null);
                     String replacement = UtilXml.childElementValue(element, ELEMENT_REPLACEMENT, null);
@@ -507,17 +510,17 @@ public final class SeoConfigUtil {
      */
     @Deprecated
     public static boolean addSpecialProductId(String productId) throws Exception {
-        if (productId.toLowerCase().equals(productId) || productId.toUpperCase().equals(productId)) {
+        if (productId.toLowerCase(Locale.getDefault()).equals(productId) || productId.toUpperCase(Locale.getDefault()).equals(productId)) {
             return false;
         }
-        if (isSpecialProductId(productId.toLowerCase())) {
+        if (isSpecialProductId(productId.toLowerCase(Locale.getDefault()))) {
             if (specialProductIds.containsValue(productId)) {
                 return true;
             } else {
                 throw new Exception("This product Id cannot be lower cased for SEO URL purpose: " + productId);
             }
         }
-        specialProductIds.put(productId.toLowerCase(), productId);
+        specialProductIds.put(productId.toLowerCase(Locale.getDefault()), productId);
         return true;
     }
     

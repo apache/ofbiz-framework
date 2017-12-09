@@ -43,8 +43,8 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public class SeoContentUrlFilter implements Filter {
     public final static String module = SeoContentUrlFilter.class.getName();
-    protected static String defaultLocaleString = null;
-    protected static String redirectUrl = null;
+    protected static final String defaultLocaleString = null;
+    protected static final String redirectUrl = null;
     private FilterConfig config;
 
     @Override
@@ -61,7 +61,7 @@ public class SeoContentUrlFilter implements Filter {
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
-            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/"));
+            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf('/'));
             if (alternativeUrl.endsWith("-content")) {
                 try {
                     List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl), null, false);
@@ -81,8 +81,8 @@ public class SeoContentUrlFilter implements Filter {
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
                 StringBuilder urlBuilder = new StringBuilder();
-                if (UtilValidate.isNotEmpty(SeoControlServlet.controlServlet)) {
-                    urlBuilder.append("/" + SeoControlServlet.controlServlet);
+                if (UtilValidate.isNotEmpty(SeoControlServlet.getControlServlet())) {
+                    urlBuilder.append("/" + SeoControlServlet.getControlServlet());
                 }
                 urlBuilder.append("/" + config.getInitParameter("viewRequest") + "?contentId=" + urlContentId);
 
