@@ -31,10 +31,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -197,7 +199,7 @@ public class SurveyWrapper {
         templateContext.put("surveyResults", results);
         templateContext.put("surveyQuestionAndAppls", surveyQuestionAndAppls);
         templateContext.put("sqaaWithColIdListByMultiRespId", sqaaWithColIdListByMultiRespId);
-        templateContext.put("alreadyShownSqaaPkWithColId", new HashSet());
+        templateContext.put("alreadyShownSqaaPkWithColId", new HashSet<>());
         templateContext.put("surveyAnswers", currentAnswers);
         templateContext.put("surveyResponseId", responseId);
         templateContext.put("sequenceSort", UtilMisc.toList("sequenceNum"));
@@ -222,9 +224,10 @@ public class SurveyWrapper {
         Configuration config = FreeMarkerWorker.getDefaultOfbizConfig();
 
         Template template = null;
-        try {
+        try (
             InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream);
+            InputStreamReader templateReader = new InputStreamReader(templateStream,UtilIO.getUtf8());
+                ){
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), module);
@@ -375,7 +378,7 @@ public class SurveyWrapper {
         // get the pass-thru (posted form data)
         if (UtilValidate.isNotEmpty(passThru)) {
             for (String key : passThru.keySet()) {
-                if (key.toUpperCase().startsWith("ANSWERS_")) {
+                if (key.toUpperCase(Locale.getDefault()).startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
                     Map<String, Object> thisAnswer = new HashMap<String, Object>();
@@ -466,7 +469,6 @@ public class SurveyWrapper {
         // note this will need to be updated as new types are added
         if ("OPTION".equals(questionType)) {
             Map<String, Object> thisResult = getOptionResult(question);
-            if (thisResult != null) {
                 Long questionTotal = (Long) thisResult.remove("_total");
                 if (questionTotal == null) {
                     questionTotal = Long.valueOf(0);
@@ -475,9 +477,10 @@ public class SurveyWrapper {
                 resultMap.put("_total", questionTotal);
 
                 // create the map of option info ("_total", "_percent")
-                for (String optId : thisResult.keySet()) {
+            for (Entry<String, Object> entry : thisResult.entrySet()) {
                     Map<String, Object> optMap = new HashMap<String, Object>();
-                    Long optTotal = (Long) thisResult.get(optId);
+                    Long optTotal = (Long) entry.getValue();
+                    String optId = entry.getKey();
                     if (optTotal == null) {
                         optTotal = Long.valueOf(0);
                     }
@@ -487,7 +490,6 @@ public class SurveyWrapper {
                     resultMap.put(optId, optMap);
                 }
                 resultMap.put("_a_type", "option");
-            }
         } else if ("BOOLEAN".equals(questionType)) {
             long[] thisResult = getBooleanResult(question);
             long yesPercent = thisResult[1] > 0 ? (long)(((double)thisResult[1] / (double)thisResult[0]) * 100) : 0;
@@ -634,7 +636,7 @@ public class SurveyWrapper {
         switch (type) {
             case 1:
                 if (result[0] > 0)
-                    result[2] = ((long) result[1]) / ((long) result[0]);
+                result[2] = result[1] / ((long) result[0]);
                 break;
             case 2:
                 if (result[0] > 0)
@@ -642,7 +644,7 @@ public class SurveyWrapper {
                 break;
             case 3:
                 if (result[0] > 0)
-                    result[2] = result[1] / result[0];
+                result[2] = result[1] / (long) result[0];
                 break;
         }
 
