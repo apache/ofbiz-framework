@@ -323,6 +323,7 @@ public class ShoppingListEvents {
             quantity = new BigDecimal(quantityStr);
         } catch (NumberFormatException e) {
             // do nothing, just won't pass to service if it is null
+            Debug.logError(e, module);
         }
 
         Map<String, Object> serviceInMap = new HashMap<String, Object>();

@@ -155,10 +155,8 @@ public class QRCodeServices {
                 try {
                     logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(logoImage).getAbsolutePath(), locale);
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
-                } catch (IllegalArgumentException e) {
-                    // do nothing
-                } catch (IOException e) {
-                    // do nothing
+                } catch (IllegalArgumentException | IOException e) {
+                    Debug.logError(e, module);
                 }
             }
             if (UtilValidate.isEmpty(logoBufferedImage)) {
@@ -168,11 +166,11 @@ public class QRCodeServices {
             BufferedImage newBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoBufferedImage)) {
                 if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth.intValue() || logoBufferedImage.getHeight() > logoImageMaxHeight.intValue())) {
-                	Map<String, String> typeMap = new HashMap<>();
-                	typeMap.put("width", logoImageMaxWidth.toString());
-                	typeMap.put("height", logoImageMaxHeight.toString());
-                	Map<String, Map<String, String>> dimensionMap = new HashMap<>();
-                	dimensionMap.put("QRCode", typeMap);
+                    Map<String, String> typeMap = new HashMap<>();
+                    typeMap.put("width", logoImageMaxWidth.toString());
+                    typeMap.put("height", logoImageMaxHeight.toString());
+                    Map<String, Map<String, String>> dimensionMap = new HashMap<>();
+                    dimensionMap.put("QRCode", typeMap);
                     Map<String, Object> logoImageResult = ImageTransform.scaleImage(logoBufferedImage, (double) logoBufferedImage.getWidth(), (double) logoBufferedImage.getHeight(), dimensionMap, "QRCode", locale);
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
                 }
@@ -192,17 +190,13 @@ public class QRCodeServices {
                 }
                 DetectorResult detectorResult = null;
                 if (UtilValidate.isNotEmpty(newBufferedImage)) {
-                	BitMatrix newBitMatrix = createMatrixFromImage(newBufferedImage);
+                    BitMatrix newBitMatrix = createMatrixFromImage(newBufferedImage);
                     DecoderResult result = null;
                     try {
                         detectorResult = new Detector(newBitMatrix).detect(decodeHints);
-                		result = decoder.decode(detectorResult.getBits(), decodeHints);
-                    } catch (ChecksumException e) {
-                        // do nothing
-                    } catch (FormatException e) {
-                        // do nothing
-                    } catch (NotFoundException e) {
-                        // do nothing
+                        result = decoder.decode(detectorResult.getBits(), decodeHints);
+                    } catch (ChecksumException | FormatException | NotFoundException e) {
+                        Debug.logError(e, module);
                     }
                     if (UtilValidate.isNotEmpty(result) && !result.getText().equals(message)) {
                         detectorResult = new Detector(bitMatrix).detect(decodeHints);

@@ -118,7 +118,7 @@ public final class SSLUtil {
                     ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
                     return true;
                 } catch (CertificateException e) {
-                    // do nothing; just loop
+                    Debug.logError(e, module);
                 }
             }
         }
