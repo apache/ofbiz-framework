@@ -21,8 +21,8 @@ package org.apache.ofbiz.content.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -47,6 +48,8 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * DataServices Class
@@ -223,7 +226,7 @@ public class DataServices {
             }
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) || "OFBIZ_FILE_BIN".equals(dataResourceTypeId)) {
             prefix = System.getProperty("ofbiz.home");
-            if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             file = new File(prefix + sep + objectInfo);
@@ -232,7 +235,7 @@ public class DataServices {
             if (UtilValidate.isEmpty(prefix)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentCannotFindContextFileWithEmptyContextRoot", locale));
             }
-            if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             file = new File(prefix + sep + objectInfo);
@@ -243,10 +246,10 @@ public class DataServices {
 
         // write the data to the file
         if (UtilValidate.isNotEmpty(textData)) {
-            try {
-                FileWriter out = new FileWriter(file);
+            try (
+                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), UtilIO.getUtf8());
+            ) {
                 out.write(textData);
-                out.close();
             } catch (IOException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -415,27 +418,27 @@ public class DataServices {
                 }
             } else if (dataResourceTypeId.startsWith("OFBIZ_FILE")) {
                 prefix = System.getProperty("ofbiz.home");
-                if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+                if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                     sep = "/";
                 }
                 file = new File(prefix + sep + objectInfo);
             } else if (dataResourceTypeId.startsWith("CONTEXT_FILE")) {
                 prefix = (String) context.get("rootDir");
-                if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+                if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                     sep = "/";
                 }
                 file = new File(prefix + sep + objectInfo);
             }
             if (file == null) {
-                throw new IOException("File: " + file + " is null");
+                throw new IOException("File is null");
             }
 
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
-                try {
-                    FileWriter out = new FileWriter(file);
+                try (
+                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),UtilIO.getUtf8());
+                ) {
                     out.write(textData);
-                    out.close();
                 } catch (IOException e) {
                     Debug.logWarning(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -518,7 +521,7 @@ public class DataServices {
                 GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
                 if (Debug.infoOn()) {
                     Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
-                    Debug.logInfo("imageBytes(U):" + imageBytes, module);
+                    Debug.logInfo("imageBytes(U):" + Arrays.toString(imageBytes), module);
                 }
                 if (imageDataResource == null) {
                     return createImageMethod(dctx, context);
@@ -603,13 +606,13 @@ public class DataServices {
             Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, module);
         }
         if (imageData != null && imageData.length > 0) {
-            try {
+            try (
                 FileOutputStream out = new FileOutputStream(file);
+            ) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), module);
                 }
-                out.close();
             } catch (IOException e) {
                 Debug.logWarning(e, module);
                 throw new GenericServiceException(e.getMessage());
@@ -656,11 +659,12 @@ public class DataServices {
         }
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, file:" + file, module);
-            Debug.logInfo("in updateBinaryFileMethod, imageData:" + imageData, module);
+            Debug.logInfo("in updateBinaryFileMethod, imageData:" + Arrays.toString(imageData), module);
         }
         if (imageData != null && imageData.length > 0) {
-            try {
-                FileOutputStream out = new FileOutputStream(file);
+            try (
+                    FileOutputStream out = new FileOutputStream(file);
+                    ){
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), module);
