@@ -20,10 +20,11 @@ package org.apache.ofbiz.content.data;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
@@ -177,12 +178,13 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
     public static void buildList(Map<String, Object> nd, List<Map<String, Object>> lst, int depth) {
         String id = (String) nd.get("id");
         String nm = (String) nd.get("name");
-        String spc = "";
+        StringBuilder spcBuilder = new StringBuilder();
         for (int i = 0; i < depth; i++)
-            spc += "&nbsp;&nbsp;";
+            spcBuilder.append("&nbsp;&nbsp;");
         Map<String, Object> map = new HashMap<String, Object>();
+        spcBuilder.append(nm);
         map.put("dataCategoryId", id);
-        map.put("categoryName", spc + nm);
+        map.put("categoryName", spcBuilder.toString());
         if (id != null && !"ROOT".equals(id) && !id.equals("")) {
             lst.add(map);
         }
@@ -267,12 +269,12 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         if (UtilValidate.isEmpty(imageFileName))
            return mimeType;
 
-        int pos = imageFileName.lastIndexOf(".");
+        int pos = imageFileName.lastIndexOf('.');
         if (pos < 0)
            return mimeType;
 
         String suffix = imageFileName.substring(pos + 1);
-        String suffixLC = suffix.toLowerCase();
+        String suffixLC = suffix.toLowerCase(Locale.getDefault());
         if ("jpg".equals(suffixLC))
             mimeType = "image/jpeg";
         else
@@ -430,7 +432,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             String prefix = System.getProperty("ofbiz.home");
 
             String sep = "";
-            if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             file = FileUtil.getFile(prefix + sep + objectInfo);
@@ -443,7 +445,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             }
 
             String sep = "";
-            if (objectInfo.indexOf("/") != 0 && contextRoot.lastIndexOf("/") != (contextRoot.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && contextRoot.lastIndexOf('/') != (contextRoot.length() - 1)) {
                 sep = "/";
             }
             file = FileUtil.getFile(contextRoot + sep + objectInfo);
@@ -528,9 +530,12 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         TreeMap<Long, File> dirMap = new TreeMap<Long, File>(desc);
         if (parent.exists()) {
             File[] subs = parent.listFiles();
-            for (int i = 0; i < subs.length; i++) {
-                if (subs[i].isDirectory()) {
-                    dirMap.put(Long.valueOf(subs[i].lastModified()), subs[i]);
+            if (subs != null) {
+                int length = subs.length;
+                for (int i = 0; i < length; i++) {
+                    if (subs[i].isDirectory()) {
+                        dirMap.put(Long.valueOf(subs[i].lastModified()), subs[i]);
+                    }
                 }
             }
         } else {
@@ -547,19 +552,25 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             latestDir = dirMap.values().iterator().next();
             if (latestDir != null) {
                 File[] dirList = latestDir.listFiles();
-                if (dirList.length >= maxFiles) {
-                    latestDir = makeNewDirectory(parent);
+                if (dirList != null) {
+                    int length = dirList.length;
+                    if (length >= maxFiles) {
+                        latestDir = makeNewDirectory(parent);
+                    }
                 }
             }
         } else {
             latestDir = makeNewDirectory(parent);
         }
+        String name = "";
+        if (latestDir != null)
+            name = latestDir.getName();
 
-        Debug.logInfo("Directory Name : " + latestDir.getName(), module);
+        Debug.logInfo("Directory Name : " + name, module);
         if (absolute) {
-            return latestDir.getAbsolutePath().replace('\\','/');
+            return latestDir.getAbsolutePath().replace('\\', '/');
         } else {
-            return initialPath + "/" + latestDir.getName();
+            return initialPath + "/" + name;
 
         }
     }
@@ -570,7 +581,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         while (!newDir) {
             latestDir = new File(parent, "" + System.currentTimeMillis());
             if (!latestDir.exists()) {
-                latestDir.mkdir();
+                if (!latestDir.mkdir()) {
+                    Debug.logError("Directory: " + latestDir.getName() + ", couldn't be created", module);
+                }
                 newDir = true;
             }
         }
@@ -812,20 +825,17 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         }
         String webSiteId = (String) templateContext.get("webSiteId");
         if (UtilValidate.isEmpty(webSiteId)) {
-            if (context != null)
-                webSiteId = (String) context.get("webSiteId");
+            webSiteId = (String) context.get("webSiteId");
         }
 
         String https = (String) templateContext.get("https");
         if (UtilValidate.isEmpty(https)) {
-            if (context != null)
-                https = (String) context.get("https");
+            https = (String) context.get("https");
         }
 
         String rootDir = (String) templateContext.get("rootDir");
         if (UtilValidate.isEmpty(rootDir)) {
-            if (context != null)
-                rootDir = (String) context.get("rootDir");
+            rootDir = (String) context.get("rootDir");
         }
 
         String dataResourceId = dataResource.getString("dataResourceId");
@@ -871,7 +881,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             } else {
                 String prefix = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
                 String sep = "";
-                if (url.toString().indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+                if (url.toString().indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                     sep = "/";
                 }
                 String fixedUrlStr = prefix + sep + url.toString();
@@ -928,9 +938,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 mimeContext.put("textData", textData);
 
                 String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, mimeContext);
-                if (mimeString != null) {
-                    out.append(mimeString);
-                }
+                out.append(mimeString);
             } else {
                 if (textData != null) {
                     out.append(textData);
@@ -961,27 +969,27 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            FileReader in = new FileReader(file);
+            InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
             UtilIO.copy(in, true, out);
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = System.getProperty("ofbiz.home");
             String sep = "";
-            if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            FileReader in = new FileReader(file);
+            InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
             UtilIO.copy(in, true, out);
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = rootDir;
             String sep = "";
-            if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+            if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            FileReader in = null;
+            InputStreamReader in = null;
             try {
-                in = new FileReader(file);
+                in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
                 String enc = in.getEncoding();
                 if (Debug.infoOn()) Debug.logInfo("in serveImage, encoding:" + enc, module);
 
@@ -1037,7 +1045,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 throw new GeneralException("Unsupported TEXT type; cannot stream");
             }
 
-            byte[] bytes = text.getBytes();
+            byte[] bytes = text.getBytes(UtilIO.getUtf8());
             return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Long.valueOf(bytes.length));
 
         // object (binary) data
