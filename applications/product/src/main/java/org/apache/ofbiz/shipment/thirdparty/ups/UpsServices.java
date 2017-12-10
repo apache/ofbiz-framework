@@ -632,11 +632,9 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try {
-                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -653,11 +651,9 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try {
-                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(shipmentConfirmResponseString.getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -912,7 +908,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -932,7 +927,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(shipmentAcceptResponseString.getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1126,7 +1120,6 @@ public class UpsServices {
                         try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                             fileOut.write(labelImageBytes);
                             fileOut.flush();
-                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS LabelImage GIF file: [[[" + packageLabelGraphicImageString + "]]] to file: " + outFileName, module);
                         }
@@ -1136,7 +1129,6 @@ public class UpsServices {
                         try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                             fileOut.write(labelInternationalSignatureGraphicImageBytes);
                             fileOut.flush();
-                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS IntlSign LabelImage GIF file: [[[" + packageLabelInternationalSignatureGraphicImageString + "]]] to file: " + outFileName, module);
                         }
@@ -1146,7 +1138,6 @@ public class UpsServices {
                         try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                             fileOut.write(packageLabelHTMLImageStringDecoded.getBytes(UtilIO.getUtf8()));
                             fileOut.flush();
-                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS LabelImage HTML file: [[[" + packageLabelHTMLImageStringDecoded + "]]] to file: " + outFileName, module);
                         }
@@ -1178,7 +1169,6 @@ public class UpsServices {
                     try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                         fileOut.write(fileStringDecoded.getBytes(UtilIO.getUtf8()));
                         fileOut.flush();
-                        fileOut.close();
                     } catch (IOException e) {
                         Debug.logInfo(e, "Could not save UPS High Value Report data: [[[" + fileStringDecoded + "]]] to file: " + outFileName, module);
                     }
@@ -1300,7 +1290,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1320,7 +1309,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(voidShipmentResponseString.getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1498,7 +1486,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1518,7 +1505,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(trackResponseString.getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -2649,7 +2635,6 @@ public class UpsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
