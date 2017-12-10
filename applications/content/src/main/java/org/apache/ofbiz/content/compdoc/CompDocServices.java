@@ -314,7 +314,7 @@ public class CompDocServices {
                         acroFormContentId = survey.getString("acroFormContentId");
                         if (UtilValidate.isNotEmpty(acroFormContentId)) {
                             // TODO: is something supposed to be done here?
-                            }
+                        }
                     }
                 }
 
