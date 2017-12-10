@@ -226,6 +226,9 @@ public class VerifyPickSession implements Serializable {
                 String inventoryItemId = res.getString("inventoryItemId");
                 pickRows.add(new VerifyPickSessionRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, inventoryItemId, quantity));
                 break;
+            default:
+                // if a wrong checkCode is given
+                Debug.logError("There was a wrong checkCode given in the method createVerifyPickRow: " + checkCode, module);
         }
     }
 
