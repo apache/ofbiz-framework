@@ -65,7 +65,7 @@ if (modelEntity) {
     }
     dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm + '</form></forms>'
     Document dynamicAutoEntityFieldSearchFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldSearchForm, true, true)
-    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldSearchFormXml, entityModelReader, dispatcher.getDispatchContext(), null)
+    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldSearchFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
     if (UtilValidate.isNotEmpty(modelFormMap)) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
         modelForm = entry.getValue()
@@ -96,7 +96,7 @@ if (modelEntity) {
             '</form></forms>'
     //Debug.logInfo(dynamicAutoEntityFieldForm, "")
     Document dynamicAutoEntityFieldListFormXml = UtilXml.readXmlDocument(dynamicAutoEntityFieldListForm, true, true)
-    modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldListFormXml, entityModelReader, dispatcher.getDispatchContext(), null)
+    modelFormMap = FormFactory.readFormDocument(dynamicAutoEntityFieldListFormXml, entityModelReader, dispatcher.getDispatchContext(), entityName)
     if (UtilValidate.isNotEmpty(modelFormMap)) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
         modelForm = entry.getValue()
