@@ -268,9 +268,17 @@ public class TrackingCodeEvents {
                 }
             }
 
-            if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId) && siteId != null)) {
+            if (visitorSiteId == null || (siteId != null && !visitorSiteId.equals(siteId))) {
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
-                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteId);
+                String siteIdEnc;
+                try {
+                    siteIdEnc = URLEncoder.encode(siteId, "UTF-8");
+                }
+                catch (UnsupportedEncodingException e) {
+                    Debug.logWarning("There went something wrong while encoding for the cookie creation in TrackingCodeEvents.processTrackingCode", module);
+                    return "error";
+                }
+                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteIdEnc);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
