@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -80,7 +81,7 @@ public class ContentJsonEvents {
                     return 0;
                 }
 
-                return title1.toLowerCase().compareTo(title2.toLowerCase());
+                return title1.toLowerCase(Locale.getDefault()).compareTo(title2.toLowerCase(Locale.getDefault()));
             }
 
         });
@@ -188,7 +189,7 @@ public class ContentJsonEvents {
 
         Map<String, Object> node = UtilMisc.toMap("data", (Object) data, "attr", (Object) attr);
 
-        List<GenericValue> assocChildren  = content.getRelated("FromContentAssoc", null, null, true);
+        List<GenericValue> assocChildren  = content != null ? content.getRelated("FromContentAssoc", null, null, true) : null;
         assocChildren = EntityUtil.filterByDate(assocChildren);
         if (!CollectionUtils.isEmpty(assocChildren)) {
             node.put("state", "closed");

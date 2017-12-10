@@ -117,9 +117,9 @@ public class CmsEvents {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             } catch (IOException e) {
-                throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s]", contentId), e);
+                throw new GeneralRuntimeException("Error in the response writer/output stream while rendering content.", e);
             } catch (GeneralException e) {
-                throw new GeneralRuntimeException(String.format("Error rendering content [%s]", contentId), e);
+                throw new GeneralRuntimeException("Error rendering content", e);
             } 
         } else {
         // If an override view is present then use that in place of request.getPathInfo()
@@ -326,7 +326,7 @@ public class CmsEvents {
                     if (content != null && UtilValidate.isNotEmpty(content.getString("contentName"))) {
                         contentName = content.getString("contentName");
                     } else {
-                        request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
+                        request.setAttribute("_ERROR_MESSAGE_", "Content: [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
                         return "error";
                     }
                     siteName = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne().getString("siteName");
