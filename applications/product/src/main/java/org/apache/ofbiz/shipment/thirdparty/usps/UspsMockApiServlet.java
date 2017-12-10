@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
@@ -49,11 +50,6 @@ public class UspsMockApiServlet extends HttpServlet {
 
     public UspsMockApiServlet() {
         super();
-    }
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
     }
 
     @Override
@@ -115,7 +111,7 @@ public class UspsMockApiServlet extends HttpServlet {
                 UtilXml.addChildElementValue(responsePackageElement, "Postage", "3.00", responseDocument);
             }
 
-            OutputStream os = new ByteArrayOutputStream();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
 
             try {
                 UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0);
@@ -126,13 +122,8 @@ public class UspsMockApiServlet extends HttpServlet {
 
             response.setContentType("text/xml");
             ServletOutputStream sos = response.getOutputStream();
-            sos.print(os.toString());
+            sos.print(os.toString("UTF-8"));
             sos.flush();
         }
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 }
