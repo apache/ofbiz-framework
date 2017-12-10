@@ -208,7 +208,8 @@
 =========================================================================
 
 This product bundles "Noto Sans" fonts, which are available under the
-"Apache License Version 2.0". For details, see framework/resources/fonts/NotoSans/.
+"Apache License Version 2.0".
+For details, see framework/resources/fonts/NotoSans/.
 
 =========================================================================
 
@@ -218,7 +219,8 @@ For details, see themes/common/webapp/common/js/plugins/date/timezones.
 =========================================================================
 
 This product bundles "Date Format 1.2.3", which is available
-under the "MIT" license. For details, see themes/common/webapp/common/js/plugins/date/date.format-1.2.3*
+under the "MIT" license. 
+For details, see themes/common/webapp/common/js/plugins/date/date.format-1.2.3*
 
 =========================================================================
 
@@ -249,3 +251,10 @@ For details, see plugins/cmssite/template/docbook/
 This product bundles "Openlayers", which is available
 under the "FreeBSD" license.
 For details, see themes/common/webapp/images/OpenLayers-2.13.1-modified-for-CSP-.js
+=========================================================================
+
+This product bundles "Bootstrap", which is available
+under the "MIT" license.
+For details, see:
+plugins/ecommerce/webapp/ecommerce/js 
+plugins/ecommerce/webapp/ecommerce/css
