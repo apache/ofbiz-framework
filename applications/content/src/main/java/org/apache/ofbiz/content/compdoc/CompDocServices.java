@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -47,7 +48,9 @@ import org.apache.ofbiz.webapp.event.CoreEvents;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.BadPdfFormatException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
@@ -172,7 +175,7 @@ public class CompDocServices {
                 } else if (inputMimeType != null && "text/html".equals(inputMimeType)) {
                     ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
                     inputByteArray = byteBuffer.array();
-                    String s = new String(inputByteArray);
+                    String s = new String(inputByteArray, "UTF-8");
                     Debug.logInfo("text/html string:" + s, module);
                     continue;
                 } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
@@ -192,7 +195,7 @@ public class CompDocServices {
                             acroFormContentId = survey.getString("acroFormContentId");
                             if (UtilValidate.isNotEmpty(acroFormContentId)) {
                                 // TODO: is something supposed to be done here?
-                            }
+                                }
                         }
                     }
                     if (surveyResponse != null) {
@@ -237,10 +240,7 @@ public class CompDocServices {
             return results;
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
-            Debug.logError(e, "Error in CompDoc operation: ", module);
-            return ServiceUtil.returnError(e.toString());
-        } catch (Exception e) {
+        } catch (IOException | DocumentException | GeneralException e) {
             Debug.logError(e, "Error in CompDoc operation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
@@ -296,7 +296,7 @@ public class CompDocServices {
             } else if (inputMimeType != null && "text/html".equals(inputMimeType)) {
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 inputByteArray = byteBuffer.array();
-                String s = new String(inputByteArray);
+                String s = new String(inputByteArray, "UTF-8");
                 Debug.logInfo("text/html string:" + s, module);
             } else if (inputMimeType != null && "application/vnd.ofbiz.survey.response".equals(inputMimeType)) {
                 String surveyResponseId = dataResource.getString("relatedDetailId");
@@ -315,7 +315,7 @@ public class CompDocServices {
                         acroFormContentId = survey.getString("acroFormContentId");
                         if (UtilValidate.isNotEmpty(acroFormContentId)) {
                             // TODO: is something supposed to be done here?
-                        }
+                            }
                     }
                 }
 
@@ -344,14 +344,15 @@ public class CompDocServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentMimeTypeNotSupported", locale));
             }
 
+            if (inputByteArray == null) {
+                Debug.logError("Error in PDF generation: ", module);
+                return ServiceUtil.returnError("The array used to create outByteBuffer is still declared null");
+            }
             ByteBuffer outByteBuffer = ByteBuffer.wrap(inputByteArray);
             results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
-        } catch (IOException e) {
-            Debug.logError(e, "Error in PDF generation: ", module);
-            return ServiceUtil.returnError(e.toString());
-        } catch (Exception e) {
+        } catch (IOException | GeneralException e) {
             Debug.logError(e, "Error in PDF generation: ", module);
             return ServiceUtil.returnError(e.toString());
         }
