@@ -63,8 +63,7 @@ public class Copy extends SimpleMapOperation {
             results.put(toField, fieldValue);
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", module);
         } else {
-            if (results.containsKey(toField)) {// do nothing
-            } else {
+            if (!results.containsKey(toField)) {
                 results.put(toField, fieldValue);
                 // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", module);
             }

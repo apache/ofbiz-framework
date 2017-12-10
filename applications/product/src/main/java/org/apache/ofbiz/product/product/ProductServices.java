@@ -605,8 +605,6 @@ public class ProductServices {
             if (UtilValidate.isNotEmpty(itemList)) {
                 Map<String, Object> subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);
                 group.put(key, subGroup);
-            } else {
-                // do nothing, ie put nothing in the Map
             }
         }
         return group;
