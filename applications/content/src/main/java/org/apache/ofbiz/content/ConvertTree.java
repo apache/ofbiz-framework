@@ -19,8 +19,10 @@
 package org.apache.ofbiz.content;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -77,7 +80,7 @@ In order ta make this service active add the following to the service definition
             BufferedReader input = null;
             try {
                 if (UtilValidate.isNotEmpty(file)) {
-                    input = new BufferedReader(new FileReader(file));
+                    input = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8()));
                     String line = null;
                     int size = 0;
                     if (file != null) {
@@ -151,7 +154,7 @@ In order ta make this service active add the following to the service definition
                                                     GenericValue contentAss = contentAssChecks.next();
                                                     GenericValue contentcheck = EntityQuery.use(delegator).from("Content").where("contentId", contentAss.get("contentId")).queryOne();
                                                     if (contentcheck!=null) {
-                                                        if (contentcheck.get("contentName").equals(contentName) && contentNameMatch == false) {
+                                                        if (contentcheck.get("contentName").equals(contentName)) {
                                                             contentNameMatch = true;
                                                             contentId = contentcheck.get("contentId").toString();
                                                         }
@@ -226,7 +229,7 @@ In order ta make this service active add the following to the service definition
                 }
              }
              finally {
-                 input.close();
+                 if (input != null) input.close();
              }
              return ServiceUtil.returnSuccess(sucMsg);
         } catch (IOException e) {

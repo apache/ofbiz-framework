@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -157,6 +158,7 @@ public class ContentManagementEvents {
             roleTypeList = StringUtil.split(roles, "|");
         }
         List<String> targetOperationList = UtilMisc.<String>toList("CONTENT_PUBLISH");
+        // TODO check the purpose of this list and if we want to make use of it. Else remove
         List<String> contentPurposeList = null; //UtilMisc.toList("ARTICLE");
         String permittedAction = (String)paramMap.get("permittedAction"); // The content to be linked to one or more sites
         String permittedOperations = (String)paramMap.get("permittedOperations"); // The content to be linked to one or more sites
@@ -182,7 +184,8 @@ public class ContentManagementEvents {
         // make a map of the values that are passed in using the top subSite as the key.
         // Content can only be linked to one subsite under a top site (ends with "_MASTER")
         Map<String, String> siteIdLookup = new HashMap<String, String>();
-        for (String param : paramMap.keySet()) {
+        for (Entry<String, Object> entry : paramMap.entrySet()) {
+            String param = entry.getKey();
             int pos = param.indexOf("select_");
             if (pos >= 0) {
                 String siteId = param.substring(7);
@@ -238,6 +241,7 @@ public class ContentManagementEvents {
                         serviceIn.put("contentIdTo", currentSubContentId);
                         serviceIn.put("roleTypeList", roleTypeList);
                         serviceIn.put("targetOperationList", targetOperationList);
+                        // TODO check if this should be removed (see above)
                         serviceIn.put("contentPurposeList", contentPurposeList);
                         results = dispatcher.runSync("createContentAssoc", serviceIn);
                         responseMessage = (String)results.get(ModelService.RESPONSE_MESSAGE);
@@ -257,6 +261,7 @@ public class ContentManagementEvents {
                         serviceIn.put("contentIdTo", contentId);
                         serviceIn.put("roleTypeList", roleTypeList);
                         serviceIn.put("targetOperationList", targetOperationList);
+                        // TODO check if this should be removed (see above)
                         serviceIn.put("contentPurposeList", contentPurposeList);
                         results = dispatcher.runSync("createContentAssoc", serviceIn);
                         if (!statusIdUpdated) {

@@ -234,7 +234,7 @@ public class ContentManagementServices {
             Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, module);
         }
         if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
-            Map<String, Object> dataResourceResult = new HashMap<String, Object>();
+            Map<String, Object> dataResourceResult;
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
             } catch (GenericServiceException e) {
@@ -310,12 +310,10 @@ public class ContentManagementServices {
             // Add ContentPurposes if this is a create operation
             if (contentId != null && !contentExists) {
                 try {
-                    if (contentPurposeList != null) {
-                        Set<String> contentPurposeSet = UtilMisc.makeSetWritable(contentPurposeList);
-                        for (String contentPurposeTypeId : contentPurposeSet) {
-                            GenericValue contentPurpose = delegator.makeValue("ContentPurpose", UtilMisc.toMap("contentId", contentId, "contentPurposeTypeId", contentPurposeTypeId));
-                            contentPurpose.create();
-                        }
+                    Set<String> contentPurposeSet = UtilMisc.makeSetWritable(contentPurposeList);
+                    for (String contentPurposeTypeId : contentPurposeSet) {
+                        GenericValue contentPurpose = delegator.makeValue("ContentPurpose", UtilMisc.toMap("contentId", contentId, "contentPurposeTypeId", contentPurposeTypeId));
+                        contentPurpose.create();
                     }
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
@@ -502,7 +500,7 @@ public class ContentManagementServices {
     public static Map<String, Object> persistDataResourceAndData(DispatchContext dctx, Map<String, ? extends Object> context) {
       LocalDispatcher dispatcher = dctx.getDispatcher();
       Locale locale = (Locale) context.get("locale");
-      Map<String, Object> result = new HashMap<String, Object>();
+      Map<String, Object> result;
       try {
           ModelService checkPermModel = dispatcher.getDispatchContext().getModelService("checkContentPermission");
           Map<String, Object> ctx = checkPermModel.makeValid(context, ModelService.IN_PARAM);
@@ -984,7 +982,7 @@ public class ContentManagementServices {
         String contentId = (String)context.get("contentId");
         visitedSet.add(contentId);
         String contentTypeId = "PAGE_NODE";
-        if (pageMode != null && pageMode.toLowerCase().indexOf("outline") >= 0)
+        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("outline") >= 0)
             contentTypeId = "OUTLINE_NODE";
         GenericValue thisContent = null;
         try {
@@ -1023,7 +1021,7 @@ public class ContentManagementServices {
         String contentId = (String)context.get("contentId");
         String pageMode = (String)context.get("pageMode");
         String contentTypeId = "OUTLINE_NODE";
-        if (pageMode != null && pageMode.toLowerCase().indexOf("page") >= 0) {
+        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("page") >= 0) {
             contentTypeId = "PAGE_NODE";
         }
         GenericValue thisContent = null;
@@ -1360,7 +1358,7 @@ public class ContentManagementServices {
 
     public static Map<String, Object> updateContentSubscriptionByProduct(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1370,10 +1368,6 @@ public class ContentManagementServices {
             qty = Integer.valueOf(1);
         }
 
-        Timestamp orderCreatedDate = (Timestamp) context.get("orderCreatedDate");
-        if (orderCreatedDate == null) {
-            orderCreatedDate = UtilDateTime.nowTimestamp();
-        }
         GenericValue productContent = null;
            try {
             List<GenericValue> lst = EntityQuery.use(delegator).from("ProductContent")
