@@ -24,6 +24,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -102,7 +103,8 @@ public class CompDocEvents {
             Map<String, Object> persistResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             contentId = (String)persistResult.get("contentId");
             //request.setAttribute("contentId", contentId);
-            for (Object obj : persistResult.keySet()) {
+            for (Entry<String, Object> entry : persistResult.entrySet()) {
+                Object obj = entry.getValue();
                 Object val = persistResult.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
@@ -112,7 +114,8 @@ public class CompDocEvents {
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
             Map<String, Object> result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
-            for (Object obj : result.keySet()) {
+            for (Entry<String, Object> entry : result.entrySet()) {
+                Object obj = entry.getValue();
                 Object val = result.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
@@ -147,16 +150,10 @@ public class CompDocEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
-        String rootDir = null;
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        String https = null;
-
-        if (UtilValidate.isEmpty(rootDir)) {
-            rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(https)) {
-            https = (String) servletContext.getAttribute("https");
-        }
+        
+        String rootDir = servletContext.getRealPath("/");
+        String https = (String) servletContext.getAttribute("https");
 
         Map<String, Object> mapIn = new HashMap<String, Object>();
         mapIn.put("contentId", contentId);
@@ -209,16 +206,10 @@ public class CompDocEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String)paramMap.get("contentId");
         Locale locale = UtilHttp.getLocale(request);
-        String rootDir = null;
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        String https = null;
 
-        if (UtilValidate.isEmpty(rootDir)) {
-            rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(https)) {
-            https = (String) servletContext.getAttribute("https");
-        }
+        String rootDir = servletContext.getRealPath("/");
+        String https = (String) servletContext.getAttribute("https");
 
         Map<String, Object> mapIn = new HashMap<String, Object>();
         mapIn.put("contentId", contentId);
