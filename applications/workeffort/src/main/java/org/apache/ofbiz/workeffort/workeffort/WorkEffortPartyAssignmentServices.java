@@ -86,7 +86,6 @@ public class WorkEffortPartyAssignmentServices {
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e, module);
                 }
-            } else {// do nothing...
             }
         }
     }
