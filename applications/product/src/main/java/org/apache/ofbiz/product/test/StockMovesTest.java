@@ -53,7 +53,7 @@ public class StockMovesTest extends OFBizTestCase {
     public void testStockMoves() throws Exception {
         Map<String, Object> fsmnCtx = new HashMap<String, Object>();
         Map<?,?> stockMoveHandled = null;
-        List<?> warningList = new LinkedList();
+        List<?> warningList;
 
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);

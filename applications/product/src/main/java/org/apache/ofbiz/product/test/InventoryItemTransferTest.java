@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 public class InventoryItemTransferTest extends OFBizTestCase {
 
     protected GenericValue userLogin = null;
-    protected static String inventoryTransferId = null;
+    static String inventoryTransferId = null;
     protected BigDecimal transferQty = BigDecimal.ONE;
 
     public InventoryItemTransferTest(String name) {
@@ -59,17 +59,25 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         ctx.put("xferQty", transferQty);
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("createInventoryTransfer", ctx);
-        inventoryTransferId = (String) resp.get("inventoryTransferId");
+        setInventoryTransferId((String) resp.get("inventoryTransferId"));
         assertNotNull(inventoryTransferId);
 
         // transfer
         ctx = new HashMap<String, Object>();
-        ctx.put("inventoryTransferId", inventoryTransferId);
+        ctx.put("inventoryTransferId", getInventoryTransferId());
         ctx.put("inventoryItemId", inventoryItemId);
         ctx.put("statusId", "IXF_COMPLETE");
         ctx.put("userLogin", userLogin);
         resp = dispatcher.runSync("updateInventoryTransfer", ctx);
         String respMsg = (String) resp.get("responseMessage");
         assertNotSame("error", respMsg);
+    }
+
+    public static String getInventoryTransferId() {
+        return inventoryTransferId;
+    }
+
+    public static void setInventoryTransferId(String inventoryTransferId) {
+        InventoryItemTransferTest.inventoryTransferId = inventoryTransferId;
     }
 }
