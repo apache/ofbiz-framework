@@ -216,8 +216,7 @@ public class ExpressCheckoutEvents {
                         return CheckoutType.PAYFLOW;
                     } else if ("PAY_GATWY_PAYPAL".equals(paymentGatewayConfigTypeId)) {
                         GenericValue payPalConfig = paymentGatewayConfig.getRelatedOne("PaymentGatewayPayPal", false);
-                        // TODO: Probably better off with an indicator field to indicate Express
-                        // Checkout use
+                        // TODO: Probably better off with an indicator field to indicate Express Checkout use
                         if (UtilValidate.isNotEmpty(payPalConfig.get("apiUserName"))) {
                             return CheckoutType.STANDARD;
                         }

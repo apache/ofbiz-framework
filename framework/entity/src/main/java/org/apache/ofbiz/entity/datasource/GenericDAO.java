@@ -1104,8 +1104,7 @@ public class GenericDAO {
             throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
         }
 
-        StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasource))
-                .append(" WHERE ");
+        StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasource)).append(" WHERE ");
         SqlJdbcUtil.makeWhereStringFromFields(sql, modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal;
