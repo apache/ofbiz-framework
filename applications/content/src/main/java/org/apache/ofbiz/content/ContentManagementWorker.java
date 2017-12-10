@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -284,6 +285,7 @@ public final class ContentManagementWorker {
             String contentId = (String)webSitePP.get("contentId");
             String templateTitle = (String)webSitePP.get("templateTitle");
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", contentId));
+            // TODO check if we want statusId to be filled/used, else this should be removed
             String statusId = null;
             String entityAction = permittedAction;
             if (entityAction == null) {
@@ -477,8 +479,7 @@ public final class ContentManagementWorker {
             String contentId = arr[0];
             String description = arr[1];
             List<Object []> subPointList = new LinkedList<Object[]>();
-            Object nullObj = null;
-            Object [] subArr = {contentId, subPointList, description, nullObj};
+            Object [] subArr = {contentId, subPointList, description, null};
             publishPointMap.put(contentId, subArr);
             publishPointMapAll.put(contentId, contentId);
             List<GenericValue> subPublishPointList = getAllPublishPoints(delegator, contentId);
@@ -486,8 +487,7 @@ public final class ContentManagementWorker {
                 String contentId2 = (String)webSitePublishPoint2.get("contentId");
                 String description2 = (String)webSitePublishPoint2.get("templateTitle");
                 publishPointMapAll.put(contentId2, contentId);
-                Timestamp obj = null;
-                Object [] subArr2 = {contentId2, description2, obj};
+                Object [] subArr2 = {contentId2, description2, null};
                 subPointList.add(subArr2);
             }
         }
@@ -522,7 +522,8 @@ public final class ContentManagementWorker {
         }
 
         List<Object []> publishedLinkList = new LinkedList<Object[]>();
-        for (String contentId : publishPointMap.keySet()) {
+        for (Entry<String, Object> entry : publishPointMap.entrySet()) {
+            String contentId = entry.getKey();
             Object [] subPointArr = (Object [])publishPointMap.get(contentId);
             publishedLinkList.add(subPointArr);
         }
@@ -533,6 +534,7 @@ public final class ContentManagementWorker {
         GenericValue authorContent = null;
         try {
             List<String> assocTypes = UtilMisc.toList("AUTHOR");
+            // TODO check if we want contentTypes to be filled/used, else this should be removed
             List<String> contentTypes = null;
             Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.checkList(results.get("entityList"));
@@ -556,6 +558,7 @@ public final class ContentManagementWorker {
         for (GenericValue content : allDepartmentPoints) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
+            // TODO check if we want statusId to be filled/used, else this should be removed
             String statusId = null;
             String entityAction = permittedAction;
             if (entityAction == null)
