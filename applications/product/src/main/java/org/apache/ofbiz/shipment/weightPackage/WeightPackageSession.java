@@ -303,7 +303,7 @@ public class WeightPackageSession implements Serializable {
         //create the package(s)
         this.createPackages(orderId);
         // calculate the actual shipping charges according to package(s) weight and dimensions
-        BigDecimal actualShippingCost = ZERO;
+        BigDecimal actualShippingCost;
         // Check if UPS integration is done
         if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
             // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
@@ -389,7 +389,7 @@ public class WeightPackageSession implements Serializable {
     protected boolean diffInShipCost(BigDecimal actualShippingCost) throws GeneralException {
         BigDecimal estimatedShipCost = this.getEstimatedShipCost();
         BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
-        BigDecimal diffInShipCostInPerc = ZERO;
+        BigDecimal diffInShipCostInPerc;
         if (estimatedShipCost.compareTo(ZERO) == 0) {
             diffInShipCostInPerc = actualShippingCost;
         } else {
@@ -418,7 +418,7 @@ public class WeightPackageSession implements Serializable {
             shipmentPackageMap.put("weightUomId", getWeightUomId());
             shipmentPackageMap.put("userLogin", userLogin);
 
-            Map<String, Object> shipmentPackageResult = new HashMap<String, Object>();
+            Map<String, Object> shipmentPackageResult;
             GenericValue shipmentPackage = this.getDelegator().findOne("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId), false);
             if (UtilValidate.isEmpty(shipmentPackage)) {
                 shipmentPackageResult = this.getDispatcher().runSync("createShipmentPackage", shipmentPackageMap);
