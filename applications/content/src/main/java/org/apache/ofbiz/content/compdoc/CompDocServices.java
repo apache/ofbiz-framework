@@ -50,7 +50,6 @@ import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
-import com.lowagie.text.pdf.BadPdfFormatException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
@@ -195,7 +194,7 @@ public class CompDocServices {
                             acroFormContentId = survey.getString("acroFormContentId");
                             if (UtilValidate.isNotEmpty(acroFormContentId)) {
                                 // TODO: is something supposed to be done here?
-                                }
+                            }
                         }
                     }
                     if (surveyResponse != null) {
