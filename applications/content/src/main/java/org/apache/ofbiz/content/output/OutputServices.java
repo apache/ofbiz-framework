@@ -22,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -34,6 +35,7 @@ import java.util.Map;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
+import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
@@ -46,11 +48,13 @@ import javax.print.attribute.PrintRequestAttribute;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.PrinterName;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -67,6 +71,9 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.fo.FoFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.xml.sax.SAXException;
+
+import freemarker.template.TemplateException;
 
 
 /**
@@ -185,7 +192,7 @@ public class OutputServices {
             }
             DocPrintJob job = printer.createPrintJob();
             job.print(myDoc, praset);
-        } catch (Exception e) {
+        } catch (PrintException | IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentRenderingError", UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
@@ -254,7 +261,7 @@ public class OutputServices {
             fos.write(baos.toByteArray());
             fos.close();
 
-        } catch (Exception e) {
+        } catch (IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentRenderingError", UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
