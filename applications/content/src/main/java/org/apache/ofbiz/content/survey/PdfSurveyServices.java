@@ -581,6 +581,7 @@ public class PdfSurveyServices {
                     inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 } catch (GenericEntityException | IOException e) {
                     throw(new GeneralException(e.getMessage()));
+                }
             }
         }
         return inputByteBuffer;
