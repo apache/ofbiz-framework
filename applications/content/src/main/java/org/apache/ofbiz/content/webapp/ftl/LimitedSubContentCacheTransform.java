@@ -56,8 +56,11 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = LimitedSubContentCacheTransform.class.getName();
 
-    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String [] saveKeyNames = {"contentId", "subContentId", "entityList", "entityIndex", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "entityList", "viewSize", "viewIndex", "highIndex", "lowIndex", "listSize", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail", "outputIndex"};
+    static final String[] upSaveKeyNames = { "globalNodeTrail" };
+    static final String[] saveKeyNames = { "contentId", "subContentId", "entityList", "entityIndex",
+            "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "entityList", "viewSize", "viewIndex",
+            "highIndex", "lowIndex", "listSize", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly",
+            "globalNodeTrail", "outputIndex" };
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -221,12 +224,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 String mimeTypeId = ContentWorker.getMimeTypeId(delegator, view, ctx);
                 Map<String, Object> trailNode = ContentWorker.makeNode(view);
                 Map<String, Object> whenMap = UtilGenerics.checkMap(ctx.get("whenMap"));
-                Locale locale = (Locale) ctx.get("locale");
-                if (locale == null) {
-                    locale = Locale.getDefault();
-                }
-                GenericValue assocContent = null;
-                ContentWorker.checkConditions(delegator, trailNode, assocContent, whenMap);
+                ContentWorker.checkConditions(delegator, trailNode, null, whenMap);
                 Boolean isReturnBeforeObj = (Boolean) trailNode.get("isReturnBefore");
                 Boolean isPickObj = (Boolean) trailNode.get("isPick");
                 Boolean isFollowObj = (Boolean) trailNode.get("isFollow");

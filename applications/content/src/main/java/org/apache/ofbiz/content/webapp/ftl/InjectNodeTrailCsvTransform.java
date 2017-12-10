@@ -46,8 +46,8 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
 
     public static final String module = InjectNodeTrailCsvTransform.class.getName();
 
-    public static final String [] saveKeyNames = {"nodeTrailCsv","globalNodeTrail", "nodeTrail"};
-    public static final String [] removeKeyNames = {"nodeTrailCsv"};
+    static final String[] saveKeyNames = { "nodeTrailCsv", "globalNodeTrail", "nodeTrail" };
+    static final String[] removeKeyNames = { "nodeTrailCsv" };
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -136,7 +136,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                     // Build nodeTrail if one does not exist
                     if (UtilValidate.isNotEmpty(passedCsv)) {
                         csvTrail = passedCsv;
-                        int lastComma = passedCsv.lastIndexOf(",");
+                        int lastComma = passedCsv.lastIndexOf(',');
                         String lastPassedContentId = null;
                         if (lastComma >= 0) {
                             lastPassedContentId = passedCsv.substring(lastComma + 1);
