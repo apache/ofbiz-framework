@@ -519,7 +519,7 @@ public class PdfSurveyServices {
                         value = num.toString();
                     }
                 } else if ("SEPERATOR_LINE".equals(questionType) || "SEPERATOR_TEXT".equals(questionType)) {
-                    // not really a question; ingore completely
+                    // not really a question; ignore completely
                 } else {
                     value = surveyResponseAnswer.getString("textResponse");
                 }
@@ -567,8 +567,6 @@ public class PdfSurveyServices {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     while ((c = fis.read()) != -1) baos.write(c);
                     inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
-                } catch (FileNotFoundException e) {
-                    throw(new GeneralException(e.getMessage()));
                 } catch (IOException e) {
                     throw(new GeneralException(e.getMessage()));
                 }
@@ -581,11 +579,8 @@ public class PdfSurveyServices {
                     GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                     String dataResourceId = content.getString("dataResourceId");
                     inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-                } catch (GenericEntityException e) {
+                } catch (GenericEntityException | IOException e) {
                     throw(new GeneralException(e.getMessage()));
-                } catch (IOException e) {
-                    throw(new GeneralException(e.getMessage()));
-                }
             }
         }
         return inputByteBuffer;
