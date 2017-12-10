@@ -45,6 +45,7 @@ import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -150,7 +151,7 @@ public class UspsServices {
                     .where("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"), "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId"))
                     .queryOne();
             if (carrierShipmentMethod != null) {
-                serviceCode = carrierShipmentMethod.getString("carrierServiceCode").toUpperCase();
+                serviceCode = carrierShipmentMethod.getString("carrierServiceCode").toUpperCase(Locale.getDefault());
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -164,7 +165,7 @@ public class UspsServices {
         Document requestDocument = createUspsRequestDocument("RateV2Request", true, delegator, shipmentGatewayConfigId, resource);
 
         // TODO: 70 lb max is valid for Express, Priority and Parcel only - handle other methods
-        BigDecimal maxWeight = new BigDecimal("70");
+        BigDecimal maxWeight;
         String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
                 resource, "shipment.usps.max.estimate.weight", "70");
         try {
@@ -195,7 +196,7 @@ public class UspsServices {
 
             BigDecimal weightPounds = packageWeight.setScale(0, RoundingMode.FLOOR);
             // for Parcel post, the weight must be at least 1 lb
-            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPounds.compareTo(BigDecimal.ONE) < 0)) {
+            if ("PARCEL".equals(serviceCode.toUpperCase(Locale.getDefault())) && (weightPounds.compareTo(BigDecimal.ONE) < 0)) {
                 weightPounds = BigDecimal.ONE;
                 packageWeight = BigDecimal.ZERO;
             }
@@ -298,7 +299,7 @@ public class UspsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsRateInternationCannotBeUsedForUsDestinations", locale));
                 }
-                if (shipToAddress != null && UtilValidate.isNotEmpty(shipToAddress.getString("countryGeoId"))) {
+                if (UtilValidate.isNotEmpty(shipToAddress.getString("countryGeoId"))) {
                     GenericValue countryGeo = shipToAddress.getRelatedOne("CountryGeo", false);
                     // TODO: Test against all country geoNames against what USPS expects
                     destinationCountry = countryGeo.getString("geoName");
@@ -329,7 +330,7 @@ public class UspsServices {
                     "FacilityShipmentUspsUnableDetermineServiceCode", locale));
         }
 
-        BigDecimal maxWeight = new BigDecimal("70");
+        BigDecimal maxWeight;
         String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
                 resource, "shipment.usps.max.estimate.weight", "70");
         try {
@@ -359,7 +360,7 @@ public class UspsServices {
             }
             Integer[] weightPoundsOunces = convertPoundsToPoundsOunces(packageWeight);
             // for Parcel post, the weight must be at least 1 lb
-            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPoundsOunces[0] < 1)) {
+            if ("PARCEL".equals(serviceCode.toUpperCase(Locale.getDefault())) && (weightPoundsOunces[0] < 1)) {
                 weightPoundsOunces[0] = 1;
                 weightPoundsOunces[1] = 0;
             }
@@ -1055,7 +1056,7 @@ public class UspsServices {
                 }
                 if (!"WT_lb".equals(weightUomId)) {
                     // attempt a conversion to pounds
-                    Map<String, Object> result = new HashMap<String, Object>();
+                    Map<String, Object> result;
                     try {
                         result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", weight));
                     } catch (GenericServiceException ex) {
@@ -1404,7 +1405,7 @@ public class UspsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsDeliveryConfirmationResponseIncompleteElementDeliveryConfirmationLabel", locale));
                 }
-                shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes()));
+                shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes(UtilIO.getUtf8())));
                 String trackingCode = UtilXml.childElementValue(responseElement, "DeliveryConfirmationNumber");
                 if (UtilValidate.isEmpty(trackingCode)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1445,16 +1446,16 @@ public class UspsServices {
                         shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" +
                         shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".gif";
 
-                FileOutputStream fileOut = new FileOutputStream(outFileName);
-                fileOut.write(labelImageBytes);
-                fileOut.flush();
-                fileOut.close();
+                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
+                    fileOut.write(labelImageBytes);
+                    fileOut.flush();
+                    fileOut.close();
+                } catch (IOException e) {
+                    Debug.logInfo(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             }
-
         } catch (GenericEntityException e) {
-            Debug.logInfo(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (IOException e) {
             Debug.logInfo(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -1545,7 +1546,7 @@ public class UspsServices {
         for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
             Document packageDocument = (Document) requestDocument.cloneNode(true);
             // This is our reference and can be whatever we want.  For lack of a better alternative we'll use shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
-            String fromCustomsReference = shipmentRouteSegment.getString("shipmentId") + ":" + shipmentRouteSegment.getString("shipmentRouteSegmentId");
+            String fromCustomsReference;
             fromCustomsReference = StringUtils.join(
                     UtilMisc.toList(
                             shipmentRouteSegment.get("shipmentId"),
@@ -1645,7 +1646,7 @@ public class UspsServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementLabelImage", locale));
             }
-            shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes()));
+            shipmentPackageRouteSeg.setBytes("labelImage", Base64.base64Decode(labelImageString.getBytes(UtilIO.getUtf8())));
             String trackingCode = UtilXml.childElementValue(responseElement, "BarcodeNumber");
             if (UtilValidate.isEmpty(trackingCode)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -1688,7 +1689,7 @@ public class UspsServices {
                     "FacilityShipmentUspsConnectUrlIncomplete", locale));
         }
 
-        OutputStream os = new ByteArrayOutputStream();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
 
         try {
             UtilXml.writeXmlDocument(requestDocument, os, "UTF-8", true, false, 0);
@@ -1699,7 +1700,7 @@ public class UspsServices {
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
-        String xmlString = os.toString();
+        String xmlString = new String(os.toByteArray(), UtilIO.getUtf8());
 
         Debug.logInfo("USPS XML request string: " + xmlString, module);
 
