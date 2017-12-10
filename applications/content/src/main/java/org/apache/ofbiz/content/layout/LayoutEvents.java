@@ -77,7 +77,7 @@ public class LayoutEvents {
             String imageFileName = (String) uploadResults.get("imageFileName");
             String imageFileNameExt = null;
             if (UtilValidate.isNotEmpty(imageFileName)) {
-                int pos = imageFileName.lastIndexOf(".");
+                int pos = imageFileName.lastIndexOf('.');
                 if (pos >= 0) {
                     imageFileNameExt = imageFileName.substring(pos + 1);
                 }
@@ -420,7 +420,7 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
             Map<String, Object> context = new HashMap<String, Object>();
-            List<Object> errorMessages = null;
+            List<Object> errorMessages = new LinkedList<>();
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
                 loc = Locale.getDefault();
@@ -488,7 +488,7 @@ public class LayoutEvents {
             HttpSession session = request.getSession();
             Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
             Map<String, Object> context = new HashMap<String, Object>();
-            List<Object> errorMessages = null;
+            List<Object> errorMessages = new LinkedList<>();
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
                 loc = Locale.getDefault();
