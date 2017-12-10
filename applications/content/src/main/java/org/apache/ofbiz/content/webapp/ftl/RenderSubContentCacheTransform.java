@@ -52,7 +52,7 @@ import freemarker.template.TemplateTransformModel;
 public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = RenderSubContentCacheTransform.class.getName();
-    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
+    static final String[] upSaveKeyNames = { "globalNodeTrail" };
 
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {

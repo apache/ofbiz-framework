@@ -49,8 +49,8 @@ import freemarker.template.TemplateTransformModel;
 public class WrapSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = WrapSubContentCacheTransform.class.getName();
-    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String [] upSaveKeyNames = {"globalNodeTrail"};
+    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -170,8 +170,13 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
 
                     templateRoot.put("context", templateCtx);
 
-                    String mimeTypeId = (String)templateCtx.get("mimeTypeId");
-                    Locale locale = null;
+                    String mimeTypeId = (String) templateCtx.get("mimeTypeId");
+                    
+                    Locale locale = (Locale) templateCtx.get("locale");
+                    if (locale == null) {
+                        locale = Locale.getDefault();
+                    }
+                    
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException e) {

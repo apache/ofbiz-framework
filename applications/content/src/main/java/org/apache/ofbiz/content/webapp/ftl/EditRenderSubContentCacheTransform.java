@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +50,7 @@ import freemarker.template.TemplateTransformModel;
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = EditRenderSubContentCacheTransform.class.getName();
-    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -159,14 +160,17 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
 
                     templateRoot.put("context", templateCtx);
                     if (Debug.verboseOn()) {
-                        for (Object ky : templateCtx.keySet()) {
-                            Object val = templateCtx.get(ky);
+                        for (Entry<String, Object> ky : templateCtx.entrySet()) {
+                            Object val = ky.getValue();;
                             Debug.logVerbose("context key: " + ky + " val: " + val, module);
                         }
                     }
 
-                    String mimeTypeId = (String)templateCtx.get("mimeTypeId");
-                    Locale locale = null;
+                    String mimeTypeId = (String) templateCtx.get("mimeTypeId");
+                    Locale locale = (Locale) templateCtx.get("locale");
+                    if (locale == null) {
+                        locale = Locale.getDefault();
+                    }
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException e) {
