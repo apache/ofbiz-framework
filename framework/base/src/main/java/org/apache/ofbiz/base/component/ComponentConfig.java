@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
 
 /**
  * An object that models the <code>&lt;ofbiz-component&gt;</code> element.
- * 
+ *
  * @see <code>ofbiz-component.xsd</code>
  *
  */
@@ -458,8 +458,7 @@ public final class ComponentConfig {
         } catch (ContainerException ce) {
             throw new ComponentException("Error reading container configurations for component: " + this.globalName, ce);
         }
-        if (Debug.verboseOn())
-            Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
+        Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
     }
 
     public boolean enabled() {
@@ -596,7 +595,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;classpath&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -619,7 +618,7 @@ public final class ComponentConfig {
         private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<>();
         // Root location mapped to global name.
         private final Map<String, String> componentLocations = new HashMap<>();
-        
+
         private synchronized ComponentConfig fromGlobalName(String globalName) {
             return componentConfigs.get(globalName);
         }
@@ -646,7 +645,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;entity-resource&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -663,7 +662,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;keystore&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -740,7 +739,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;resource-loader&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -760,7 +759,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;service-resource&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -775,7 +774,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;test-suite&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -787,7 +786,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;webapp&gt;</code> element.
-     * 
+     *
      * @see <code>ofbiz-component.xsd</code>
      *
      */
