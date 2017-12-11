@@ -221,7 +221,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                 }
             } else {
                 try {
-                    //the following will just be executed to check if arg0 is null, 
+                    //the following will just be executed to check if arg0 is null,
                     //if so the thrown exception will be caught, if not true will be returned
                     this.resourceBundle.getObject((String) arg0);
                     return true;

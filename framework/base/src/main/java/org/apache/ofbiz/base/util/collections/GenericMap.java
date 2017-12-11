@@ -52,7 +52,9 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     }
 
     public final void clear() {
-        if (isEmpty()) return;
+        if (isEmpty()) {
+            return;
+        }
         incrementModCount();
         clearInternal();
     }
@@ -65,11 +67,19 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Map<?, ?>)) return false;
-        if (this == o) return true;
+        if (!(o instanceof Map<?, ?>)) {
+            return false;
+        }
+        if (this == o) {
+            return true;
+        }
         Map<?, ?> map = (Map<?, ?>) o;
-        if (size() != map.size()) return false;
-        if (o instanceof GenericMap<?, ?>) return equalsGenericMap((GenericMap<?, ?>) o);
+        if (size() != map.size()) {
+            return false;
+        }
+        if (o instanceof GenericMap<?, ?>) {
+            return equalsGenericMap((GenericMap<?, ?>) o);
+        }
         return equalsMap(map);
     }
 
@@ -80,11 +90,17 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
             K key = entry.getKey();
             V value = entry.getValue();
             if (value != null) {
-                if (!value.equals(map.get(key, false))) return false;
+                if (!value.equals(map.get(key, false))) {
+                    return false;
+                }
             } else {
                 Object otherValue = map.get(key, false);
-                if (otherValue != null) return false;
-                if (!map.containsKey(key)) return false;
+                if (otherValue != null) {
+                    return false;
+                }
+                if (!map.containsKey(key)) {
+                    return false;
+                }
             }
         }
         return true;
@@ -97,11 +113,17 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
             K key = entry.getKey();
             V value = entry.getValue();
             if (value != null) {
-                if (!value.equals(map.get(key))) return false;
+                if (!value.equals(map.get(key))) {
+                    return false;
+                }
             } else {
                 Object otherValue = map.get(key);
-                if (otherValue != null) return false;
-                if (!map.containsKey(key)) return false;
+                if (otherValue != null) {
+                    return false;
+                }
+                if (!map.containsKey(key)) {
+                    return false;
+                }
             }
         }
         return true;
@@ -121,7 +143,9 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         }
 
         protected boolean isValid(Map.Entry<K, V> src) {
-            if (currentModCount != getModCount()) throw new ConcurrentModificationException();
+            if (currentModCount != getModCount()) {
+                throw new ConcurrentModificationException();
+            }
             return true;
         }
     }
@@ -214,7 +238,9 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     }
 
     private <KE extends K, VE extends V> void putAllInternal(Map<KE, VE> map) {
-        if (map.isEmpty()) return;
+        if (map.isEmpty()) {
+            return;
+        }
         incrementModCount();
         Iterator<Map.Entry<KE, VE>> it;
         if (map instanceof GenericMap<?, ?>) {
@@ -239,7 +265,9 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         while (it.hasNext()) {
             Map.Entry<K, V> entry = it.next();
             sb.append(entry.getKey()).append("=").append(entry.getValue());
-            if (it.hasNext()) sb.append(",");
+            if (it.hasNext()) {
+                sb.append(",");
+            }
         }
         return sb.append("}");
     }

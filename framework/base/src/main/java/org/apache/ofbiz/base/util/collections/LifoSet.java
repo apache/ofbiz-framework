@@ -79,8 +79,9 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
         if (index == -1) {
             backedList.addFirst(obj);
-            while (size() > maxCapacity)
+            while (size() > maxCapacity) {
                 backedList.removeLast();
+            }
         } else {
             backedList.remove(index);
             backedList.addFirst(obj);

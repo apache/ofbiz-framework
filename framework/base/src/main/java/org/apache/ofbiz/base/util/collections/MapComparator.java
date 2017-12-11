@@ -53,7 +53,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
         }
         return obj.equals(this);
     }
-    
+
     public int hashCode() {
         return super.hashCode();
     }
