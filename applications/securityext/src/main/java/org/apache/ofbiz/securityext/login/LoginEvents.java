@@ -95,8 +95,12 @@ public class LoginEvents {
             }
 
             // save parameters into the session - so they can be used later, if needed
-            if (username != null) session.setAttribute("USERNAME", username);
-            if (password != null) session.setAttribute("PASSWORD", password);
+            if (username != null) {
+                session.setAttribute("USERNAME", username);
+            }
+            if (password != null) {
+                session.setAttribute("PASSWORD", password);
+            }
 
         } else {
             // if the login object is valid, remove attributes
@@ -250,7 +254,7 @@ public class LoginEvents {
                     passwordToSend=passwordToSend.toLowerCase(Locale.getDefault());
                 }
                 autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
-                EntityCrypto entityCrypto = new EntityCrypto(delegator,null); 
+                EntityCrypto entityCrypto = new EntityCrypto(delegator,null);
                 try {
                     passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, autoPassword);
                 } catch (GeneralException e) {
@@ -348,7 +352,7 @@ public class LoginEvents {
             } else {
                 serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
                 serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator));
-            }            
+            }
         }
         serviceContext.put("sendTo", emails.toString());
         serviceContext.put("partyId", party.getString("partyId"));
@@ -416,7 +420,9 @@ public class LoginEvents {
     public static String getUsername(HttpServletRequest request) {
         String cookieUsername = null;
         Cookie[] cookies = request.getCookies();
-        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
+        }
         if (cookies != null) {
             for (Cookie cookie: cookies) {
                 if (cookie.getName().equals(usernameCookieName)) {
