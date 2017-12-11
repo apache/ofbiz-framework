@@ -343,7 +343,9 @@ public class ModelReader implements Serializable {
                             Iterator<ModelRelation> relationsIter = curModelEntity.getRelationsIterator();
                             while (relationsIter.hasNext()) {
                                 ModelRelation modelRelation = relationsIter.next();
-                                if (("one".equals(modelRelation.getType()) || "one-nofk".equals(modelRelation.getType())) && !modelRelation.isAutoRelation()) {
+                                if (("one".equals(modelRelation.getType()) 
+                                        || "one-nofk".equals(modelRelation.getType())) 
+                                        && !modelRelation.isAutoRelation()) {
                                     ModelEntity relatedEnt = null;
                                     try {
                                         relatedEnt = this.getModelEntity(modelRelation.getRelEntityName());
@@ -402,7 +404,8 @@ public class ModelReader implements Serializable {
                                     } else {
                                         if (newRel.equals(existingRelation)) {
                                             // don't warn if the target title+entity = current title+entity
-                                            if (Debug.infoOn() && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
+                                            if (Debug.infoOn() 
+                                                    && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
                                                 // String errorMsg = "Relation already exists to entity [] with title ["
                                                 // + targetTitle + "],from entity []";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
