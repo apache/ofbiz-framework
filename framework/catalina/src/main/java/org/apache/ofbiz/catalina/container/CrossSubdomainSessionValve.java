@@ -80,7 +80,9 @@ public class CrossSubdomainSessionValve extends ValveBase {
                         break;
                     }
                 }
-                if (isIpAddress) return;
+                if (isIpAddress) {
+                    return;
+                }
             }
             if (domainArray.length > 2) {
                 cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
