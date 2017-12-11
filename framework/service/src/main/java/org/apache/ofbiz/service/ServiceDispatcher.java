@@ -162,8 +162,7 @@ public class ServiceDispatcher {
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
-            if (Debug.verboseOn())
-                Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
+            Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
             sd = new ServiceDispatcher(delegator);
             ServiceDispatcher cachedDispatcher = dispatchers.putIfAbsent(dispatcherKey, sd);
             if (cachedDispatcher == null) {
@@ -183,7 +182,7 @@ public class ServiceDispatcher {
      * @param context the context of the local dispatcher
      */
     public void register(DispatchContext context) {
-        if (Debug.infoOn()) Debug.logInfo("Registering dispatcher: " + context.getName(), module);
+        Debug.logInfo("Registering dispatcher: " + context.getName(), module);
         this.localContext.put(context.getName(), context);
     }
     /**
@@ -191,7 +190,7 @@ public class ServiceDispatcher {
      * @param local the LocalDispatcher to de-register
      */
     public void deregister(LocalDispatcher local) {
-        if (Debug.infoOn()) Debug.logInfo("De-Registering dispatcher: " + local.getName(), module);
+        Debug.logInfo("De-Registering dispatcher: " + local.getName(), module);
         localContext.remove(local.getName());
         if (localContext.size() == 0) {
             try {
@@ -296,7 +295,6 @@ public class ServiceDispatcher {
 
             // set IN attributes with default-value as applicable
             modelService.updateDefaultValues(context, ModelService.IN_PARAM);
-            //Debug.logInfo("=========================== " + modelService.name + " 1 tx status =" + TransactionUtil.getStatusString() + ", modelService.requireNewTransaction=" + modelService.requireNewTransaction + ", modelService.useTransaction=" + modelService.useTransaction + ", TransactionUtil.isTransactionInPlace()=" + TransactionUtil.isTransactionInPlace(), module);
             if (modelService.useTransaction) {
                 if (TransactionUtil.isTransactionInPlace()) {
                     // if a new transaction is needed, do it here; if not do nothing, just use current tx
@@ -340,17 +338,21 @@ public class ServiceDispatcher {
 
 
                     // setup global transaction ECA listeners to execute later
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, isError, isFailure);
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, isError, isFailure);
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, isError, isFailure);
+                    }
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, isError, isFailure);
+                    }
 
                     // pre-auth ECA
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                    }
 
                     // check for pre-auth failure/errors
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
-
-                    //Debug.logInfo("After [" + modelService.name + "] pre-auth ECA, before auth; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     context = checkAuth(localName, context, modelService);
                     GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -365,13 +367,13 @@ public class ServiceDispatcher {
                     }
 
                     // pre-validate ECA
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                    }
 
                     // check for pre-validate failure/errors
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
-
-                    //Debug.logInfo("After [" + modelService.name + "] pre-in-validate ECA, before in-validate; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     // validate the context
                     if (modelService.validate && !isError && !isFailure) {
@@ -384,13 +386,13 @@ public class ServiceDispatcher {
                     }
 
                     // pre-invoke ECA
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "invoke", ctx, context, result, isError, isFailure);
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "invoke", ctx, context, result, isError, isFailure);
+                    }
 
                     // check for pre-invoke failure/errors
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
-
-                    //Debug.logInfo("After [" + modelService.name + "] pre-invoke ECA, before invoke; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     // ===== invoke the service =====
                     if (!isError && !isFailure) {
@@ -407,8 +409,6 @@ public class ServiceDispatcher {
                     // re-check the errors/failures
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
-
-                    //Debug.logInfo("After [" + modelService.name + "] invoke; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     if (beganTrans) {
                         // crazy stuff here: see if there was a deadlock or other such error and if so retry... which we can ONLY do if we own the transaction!
@@ -483,7 +483,9 @@ public class ServiceDispatcher {
                 // validate the result
                 if (modelService.validate && validateOut) {
                     // pre-out-validate ECA
-                    if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "out-validate", ctx, ecaContext, result, isError, isFailure);
+                    if (eventMap != null) {
+                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "out-validate", ctx, ecaContext, result, isError, isFailure);
+                    }
                     try {
                         modelService.validate(result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
@@ -492,14 +494,18 @@ public class ServiceDispatcher {
                 }
 
                 // pre-commit ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "commit", ctx, ecaContext, result, isError, isFailure);
+                if (eventMap != null) {
+                    ServiceEcaUtil.evalRules(modelService.name, eventMap, "commit", ctx, ecaContext, result, isError, isFailure);
+                }
 
                 // check for pre-commit failure/errors
                 isFailure = ServiceUtil.isFailure(result);
                 isError = ServiceUtil.isError(result);
 
                 // global-commit-post-run ECA, like global-commit but gets the context after the service is run
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
+                if (eventMap != null) {
+                    ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
+                }
 
                 // check for failure and log on info level; this is used for debugging
                 if (isFailure) {
@@ -584,14 +590,16 @@ public class ServiceDispatcher {
         }
 
         // pre-return ECA
-        if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "return", ctx, ecaContext, result, isError, isFailure);
+        if (eventMap != null) {
+            ServiceEcaUtil.evalRules(modelService.name, eventMap, "return", ctx, ecaContext, result, isError, isFailure);
+        }
 
         rs.setEndStamp();
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
         long showServiceDurationThreshold = UtilProperties.getPropertyAsLong("service", "showServiceDurationThreshold", 0);
         long showSlowServiceThreshold = UtilProperties.getPropertyAsLong("service", "showSlowServiceThreshold", 1000);
-                
+
         if (Debug.timingOn() && timeToRun > showServiceDurationThreshold) {
             Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         } else if (Debug.infoOn() && timeToRun > showSlowServiceThreshold) {
@@ -683,7 +691,9 @@ public class ServiceDispatcher {
                 Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
 
                 // pre-auth ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                if (eventMap != null) {
+                    ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                }
 
                 context = checkAuth(localName, context, service);
                 Object userLogin = context.get("userLogin");
@@ -693,7 +703,9 @@ public class ServiceDispatcher {
                 }
 
                 // pre-validate ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(service.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                if (eventMap != null) {
+                    ServiceEcaUtil.evalRules(service.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                }
 
                 // check for pre-validate failure/errors
                 isFailure = ModelService.RESPOND_FAIL.equals(result.get(ModelService.RESPONSE_MESSAGE));
@@ -950,7 +962,7 @@ public class ServiceDispatcher {
     private GenericValue getLoginObject(String service, String localName, String username, String password, Locale locale) throws GenericServiceException {
         Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", true, "locale", locale);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", module);
+        Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", module);
 
         // get the dispatch context and service model
         DispatchContext dctx = getLocalContext(localName);

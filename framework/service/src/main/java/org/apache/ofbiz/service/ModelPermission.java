@@ -97,13 +97,6 @@ public class ModelPermission implements Serializable {
             return false;
         }
         List<GenericValue> partyRoles = null;
-        /** (jaz) THIS IS NOT SECURE AT ALL
-        try {
-            partyRoles = delegator.findByAnd("PartyRole", "roleTypeId", nameOrRole, "partyId", userLogin.get("partyId"));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to lookup PartyRole records", module);
-        }
-        **/
 
         if (UtilValidate.isNotEmpty(partyRoles)) {
             partyRoles = EntityUtil.filterByDate(partyRoles);

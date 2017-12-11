@@ -24,7 +24,6 @@ import java.util.Locale;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Part;
-import javax.wsdl.WSDLException;
 import javax.xml.namespace.QName;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -108,7 +107,9 @@ public class ModelParam implements Serializable {
         this.stringMapPrefix = param.stringMapPrefix;
         this.stringListSuffix = param.stringListSuffix;
         this.validators = param.validators;
-        if (param.defaultValue != null) this.setDefaultValue(param.defaultValue);
+        if (param.defaultValue != null) {
+            this.setDefaultValue(param.defaultValue);
+        }
         this.optional = param.optional;
         this.overrideOptional = param.overrideOptional;
         this.formDisplay = param.formDisplay;
@@ -198,7 +199,7 @@ public class ModelParam implements Serializable {
         if (this.defaultValue != null) {
             this.optional = true;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", module);
+        Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", module);
     }
     public void copyDefaultValue(ModelParam param) {
         this.setDefaultValue(param.defaultValue);
@@ -233,19 +234,20 @@ public class ModelParam implements Serializable {
         buf.append(allowHtml).append("::");
         buf.append(defaultValue).append("::");
         buf.append(internal);
-        if (validators != null)
+        if (validators != null) {
             buf.append(validators.toString()).append("::");
+        }
         return buf.toString();
     }
 
-    public Part getWSDLPart(Definition def) throws WSDLException {
+    public Part getWSDLPart(Definition def) {
         Part part = def.createPart();
         part.setName(this.name);
         part.setTypeName(new QName(ModelService.TNS, this.java2wsdlType()));
         return part;
     }
 
-    protected String java2wsdlType() throws WSDLException {
+    protected String java2wsdlType() {
         if (ObjectType.instanceOf(java.lang.Character.class, this.type)) {
             return "std-String";
         } else if (ObjectType.instanceOf(java.lang.String.class, this.type)) {
@@ -289,8 +291,6 @@ public class ModelParam implements Serializable {
         } else {
             return "cus-obj";
         }
-
-        //throw new WSDLException(WSDLException.OTHER_ERROR, "Service cannot be described with WSDL (" + this.name + " / " + this.type + ")");
     }
 
     static class ModelParamValidator implements Serializable {
