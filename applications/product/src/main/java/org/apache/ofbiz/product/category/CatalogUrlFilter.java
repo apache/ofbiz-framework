@@ -418,7 +418,7 @@ public class CatalogUrlFilter implements Filter {
         return url;
     }
     
-    public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId,String productId) {
+    public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
