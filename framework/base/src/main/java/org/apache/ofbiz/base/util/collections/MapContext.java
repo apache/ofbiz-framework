@@ -53,11 +53,10 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         return newValue;
     }
 
-    @SuppressWarnings("unchecked")
     public static <K, V> MapContext<K, V> createMapContext(Map<K, V> baseMap) {
         MapContext<K, V> newValue = MapContext.getMapContext();
         if (baseMap instanceof MapContext) {
-            newValue.stackList.addAll(((MapContext) baseMap).stackList);
+            newValue.stackList.addAll(((MapContext<K, V>) baseMap).stackList);
         } else {
             newValue.stackList.add(0, baseMap);
         }

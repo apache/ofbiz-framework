@@ -32,8 +32,12 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
     }
 
     public boolean hasNext() {
-        if (nextCalled) return true;
-        if (!it.hasNext()) return false;
+        if (nextCalled) {
+            return true;
+        }
+        if (!it.hasNext()) {
+            return false;
+        }
         do {
             lastSrc = it.next();
             DEST nextDest = convert(lastSrc);
@@ -48,7 +52,9 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
 
     public DEST next() {
         if (!nextCalled) {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
         }
         nextCalled = false;
         return lastDest;

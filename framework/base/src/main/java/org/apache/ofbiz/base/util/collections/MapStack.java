@@ -32,7 +32,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     public static final String module = MapStack.class.getName();
 
     public static <K> MapStack<K> create() {
-        MapStack<K> newValue = new MapStack<K>();
+        MapStack<K> newValue = new MapStack<>();
         // initialize with a single entry
         newValue.push();
         return newValue;
@@ -40,9 +40,9 @@ public class MapStack<K> extends MapContext<K, Object> {
 
     @SuppressWarnings("unchecked")
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
-        MapStack<K> newValue = new MapStack<K>();
+        MapStack<K> newValue = new MapStack<>();
         if (baseMap instanceof MapStack) {
-            newValue.stackList.addAll(((MapStack) baseMap).stackList);
+            newValue.stackList.addAll(((MapStack<K>) baseMap).stackList);
         } else {
             newValue.stackList.add(0, baseMap);
         }
@@ -51,7 +51,7 @@ public class MapStack<K> extends MapContext<K, Object> {
 
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
     public static <K> MapStack<K> create(MapStack<K> source) {
-        MapStack<K> newValue = new MapStack<K>();
+        MapStack<K> newValue = new MapStack<>();
         newValue.stackList.addAll(source.stackList);
         return newValue;
     }
