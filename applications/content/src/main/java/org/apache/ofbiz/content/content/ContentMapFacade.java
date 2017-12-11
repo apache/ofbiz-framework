@@ -51,7 +51,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     public static final String module = ContentMapFacade.class.getName();
 
-    protected static final Set<String> mapKeySet = new HashSet<String>();
+    private static final Set<String> mapKeySet = new HashSet<String>();
     static {
         mapKeySet.add("fields");
         mapKeySet.add("link");
@@ -370,9 +370,6 @@ public class ContentMapFacade implements Map<Object, Object> {
             return false;
         }
 
-        public abstract Object get(Object object);
-
-
         public Object put(Object name, Object value) {
             Debug.logWarning("This [put()] method is not implemented in ContentMapFacade.AbstractInfo", module);
             return null;
@@ -415,7 +412,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return null;
             }
             String name = (String) key;
-            if (name.toLowerCase().startsWith("id_")) {
+            if (name.toLowerCase(Locale.getDefault()).startsWith("id_")) {
                 name = name.substring(3);
             }
 
@@ -448,7 +445,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return null;
             }
             String name = (String) key;
-            if (name.toLowerCase().startsWith("id_")) {
+            if (name.toLowerCase(Locale.getDefault()).startsWith("id_")) {
                 name = name.substring(3);
             }
 

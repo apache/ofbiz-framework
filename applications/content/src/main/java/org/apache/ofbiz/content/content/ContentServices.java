@@ -75,7 +75,7 @@ public class ContentServices {
         if (toFrom == null) {
             toFrom = "TO";
         } else {
-            toFrom = toFrom.toUpperCase();
+            toFrom = toFrom.toUpperCase(Locale.getDefault());
         }
 
         List<String> assocTypes = UtilGenerics.checkList(context.get("contentAssocTypeList"));
@@ -831,10 +831,6 @@ public class ContentServices {
         Locale locale = (Locale) context.get("locale");
         if (templateContext != null && locale == null) {
             locale = (Locale) templateContext.get("locale");
-        }
-        GenericValue subContentDataResourceView = (GenericValue) context.get("subContentDataResourceView");
-        if (templateContext != null && subContentDataResourceView == null) {
-            subContentDataResourceView = (GenericValue) templateContext.get("subContentDataResourceView");
         }
 
         Writer out = (Writer) context.get("outWriter");

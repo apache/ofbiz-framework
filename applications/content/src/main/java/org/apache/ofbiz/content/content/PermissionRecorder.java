@@ -21,6 +21,7 @@ package org.apache.ofbiz.content.content;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -50,8 +51,8 @@ public class PermissionRecorder {
 
     public static final String module = PermissionRecorder.class.getName();
 
-    public static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
-    public static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
+    private static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
+    private static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
@@ -90,7 +91,7 @@ public class PermissionRecorder {
     }
 
     public GenericValue [] getContentPurposeOperations() {
-       return contentPurposeOperations;
+       return contentPurposeOperations != null ? contentPurposeOperations.clone() : null;
     }
 
     public void setContentPurposeOperations(List<GenericValue> opList) {
@@ -106,7 +107,7 @@ public class PermissionRecorder {
     }
 
     public String [] getStatusTargets() {
-       return statusTargets;
+       return statusTargets != null ? statusTargets.clone() : null;
     }
 
     public void setStatusTargets(List<String> opList) {
@@ -114,7 +115,7 @@ public class PermissionRecorder {
     }
 
     public String [] getTargetOperations() {
-       return targetOperations;
+       return targetOperations != null ? targetOperations.clone() : null;
     }
 
     public void setTargetOperations(List<String> opList) {
@@ -284,7 +285,7 @@ public class PermissionRecorder {
             sb.append("</td>");
         }
         String passFailCls = (isPass) ? "pass" : "fail";
-        sb.append("<td class=\"" + passFailCls +"\">" + passFailCls.toUpperCase() + "</td>");
+        sb.append("<td class=\"" + passFailCls +"\">" + passFailCls.toUpperCase(Locale.getDefault()) + "</td>");
         sb.append("</tr>");
 
         return sb.toString();

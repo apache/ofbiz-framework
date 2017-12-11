@@ -178,7 +178,7 @@ public class ContentPermissionServices {
 
         String entityAction = (String) context.get("entityOperation");
         if (entityAction == null) entityAction = "_ADMIN";
-        if (userLogin != null && entityAction != null) {
+        if (userLogin != null) {
             passed = security.hasEntityPermission("CONTENTMGR", entityAction, userLogin);
         }
 
@@ -235,15 +235,11 @@ public class ContentPermissionServices {
                  errBuf.append("\n    entityIds:");
                  errBuf.append(entityIds);
 
-                 if (auxGetter != null) {
-                     errBuf.append("\n    auxList:");
-                     errBuf.append(auxGetter.getList());
-                 }
+                 errBuf.append("\n    auxList:");
+                 errBuf.append(auxGetter.getList());
 
-                 if (roleGetter != null) {
-                     errBuf.append("\n    roleList:");
-                     errBuf.append(roleGetter.getList());
-                 }
+                 errBuf.append("\n    roleList:");
+                 errBuf.append(roleGetter.getList());
               }
 
             }
