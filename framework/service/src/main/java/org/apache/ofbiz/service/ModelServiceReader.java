@@ -43,7 +43,6 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelFieldType;
-import org.apache.ofbiz.service.ModelParam.ModelParamValidator;
 import org.apache.ofbiz.service.group.GroupModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -91,14 +90,12 @@ public class ModelServiceReader implements Serializable {
         UtilTimer utilTimer = new UtilTimer();
         Document document;
         if (this.isFromURL) {
-            // utilTimer.timerString("Before getDocument in file " + readerURL);
             document = getDocument(readerURL);
 
             if (document == null) {
                 return null;
             }
         } else {
-            // utilTimer.timerString("Before getDocument in " + handler);
             try {
                 document = handler.getDocument();
             } catch (GenericConfigException e) {
@@ -143,28 +140,10 @@ public class ModelServiceReader implements Serializable {
                         Debug.logWarning("Service " + serviceName + " is defined more than once, " +
                             "most recent will over-write previous definition(s)", module);
                     }
-
-                    // utilTimer.timerString("  After serviceName -- " + i + " --");
                     ModelService service = createModelService(curServiceElement, resourceLocation);
 
-                    // utilTimer.timerString("  After createModelService -- " + i + " --");
                     modelServices.put(serviceName, service);
-                    // utilTimer.timerString("  After modelServices.put -- " + i + " --");
-                    /*
-                    int reqIn = service.getParameterNames(ModelService.IN_PARAM, false).size();
-                    int optIn = service.getParameterNames(ModelService.IN_PARAM, true).size() - reqIn;
-                    int reqOut = service.getParameterNames(ModelService.OUT_PARAM, false).size();
-                    int optOut = service.getParameterNames(ModelService.OUT_PARAM, true).size() - reqOut;
-                    
-                    if (Debug.verboseOn()) {
-                        String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
-                            " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
-                    
-                        Debug.logVerbose(msg, module);
                     }
-                    */
-
-                }
             } while ((curChild = curChild.getNextSibling()) != null);
         } else {
             Debug.logWarning("No child nodes found.", module);
@@ -174,9 +153,7 @@ public class ModelServiceReader implements Serializable {
             Debug.logInfo("Loaded [" + i + "] Services from " + readerURL, module);
         } else {
             utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
-            if (Debug.infoOn()) {
-                Debug.logInfo("Loaded [" + i + "] Services from " + resourceLocation, module);
-            }
+            Debug.logInfo("Loaded [" + i + "] Services from " + resourceLocation, module);
         }
         return modelServices;
     }
@@ -207,7 +184,7 @@ public class ModelServiceReader implements Serializable {
             service.useTransaction = true;
             Debug.logWarning("In service definition [" + service.name + "] the value use-transaction has been changed from false to true as required when require-new-transaction is set to true", module);
         }
-        service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));        
+        service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));
 
         // set the semaphore sleep/wait times
         String semaphoreWaitStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-wait-seconds"));
@@ -258,7 +235,7 @@ public class ModelServiceReader implements Serializable {
                 timeout = 0;
             }
         }
-        service.transactionTimeout = timeout;                
+        service.transactionTimeout = timeout;
 
         service.description = getCDATADef(serviceElement, "description");
         service.nameSpace = getCDATADef(serviceElement, "namespace");
@@ -392,7 +369,7 @@ public class ModelServiceReader implements Serializable {
             groupElement.setAttribute("name", "_" + service.name + ".group");
             service.internalGroup = new GroupModel(groupElement);
             service.invoke = service.internalGroup.getGroupName();
-            if (Debug.verboseOn()) Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+            Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
         }
     }
 
@@ -400,9 +377,9 @@ public class ModelServiceReader implements Serializable {
         for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
-            if (serviceName.length() > 0)
+            if (serviceName.length() > 0) {
                 service.implServices.add(new ModelServiceIface(serviceName, optional));
-                //service.implServices.add(serviceName);
+            }
         }
     }
 
@@ -473,7 +450,6 @@ public class ModelServiceReader implements Serializable {
 
                 // now add in all the remaining params
                 for (ModelParam thisParam : modelParamMap.values()) {
-                    //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);
                     service.addParam(thisParam);
                 }
             } catch (GenericEntityException e) {
@@ -507,7 +483,7 @@ public class ModelServiceReader implements Serializable {
             // default value
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
-                if (Debug.verboseOn()) Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
                 param.setDefaultValue(defValue.intern());
             }
 
@@ -720,8 +696,9 @@ public class ModelServiceReader implements Serializable {
     }
 
     private Document getDocument(URL url) {
-        if (url == null)
+        if (url == null) {
             return null;
+        }
         Document document = null;
 
         try {
@@ -730,8 +707,9 @@ public class ModelServiceReader implements Serializable {
             // Error generated during parsing)
             Exception x = sxe;
 
-            if (sxe.getException() != null)
+            if (sxe.getException() != null) {
                 x = sxe.getException();
+            }
             x.printStackTrace();
         } catch (ParserConfigurationException pce) {
             // Parser with specified options can't be built

@@ -183,7 +183,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Require a new transaction for this service */
     public boolean hideResultInLog;
-    
+
     /** Set of services this service implements */
     public Set<ModelServiceIface> implServices = new LinkedHashSet<>();
 
@@ -304,7 +304,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof ModelServiceMapEntry)) return false;
+            if (!(o instanceof ModelServiceMapEntry)) {
+                return false;
+            }
             ModelServiceMapEntry other = (ModelServiceMapEntry) o;
             return field.equals(other.field) && ModelService.this == other.getModelService();
         }
@@ -446,7 +448,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (p.isIn()) nameList.add(p.name);
+            if (p.isIn()) {
+                nameList.add(p.name);
+            }
         }
         return nameList;
     }
@@ -457,7 +461,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (p.isIn() && !p.internal) count++;
+            if (p.isIn() && !p.internal) {
+                count++;
+            }
         }
 
         return count;
@@ -467,7 +473,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
-            if (p.isOut()) nameList.add(p.name);
+            if (p.isOut()) {
+                nameList.add(p.name);
+            }
         }
         return nameList;
     }
@@ -478,7 +486,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
-            if (p.isOut() && !p.internal) count++;
+            if (p.isOut() && !p.internal) {
+                count++;
+            }
         }
 
         return count;
@@ -506,21 +516,19 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public void validate(Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
         Map<String, String> requiredInfo = new HashMap<>();
         Map<String, String> optionalInfo = new HashMap<>();
-        boolean verboseOn = Debug.verboseOn();
 
-        if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
+        Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
 
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
             if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
+                Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
                 return;
             }
         }
 
         // get the info values
         for (ModelParam modelParam: this.contextParamList) {
-            // Debug.logInfo("In ModelService.validate preparing parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + this.name + "]", module);
             if (IN_OUT_PARAM.equals(modelParam.mode) || mode.equals(modelParam.mode)) {
                 if (modelParam.optional) {
                     optionalInfo.put(modelParam.name, modelParam.type);
@@ -534,7 +542,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, Object> requiredTest = new HashMap<>();
         Map<String, Object> optionalTest = new HashMap<>();
 
-        if (context == null) context = new HashMap<>();
+        if (context == null) {
+            context = new HashMap<>();
+        }
         requiredTest.putAll(context);
 
         List<String> requiredButNull = new LinkedList<>();
@@ -565,7 +575,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             throw new ServiceValidationException(missingMsg, this, requiredButNull, null, mode);
         }
 
-        if (verboseOn) {
+        if (Debug.verboseOn()) {
             StringBuilder requiredNames = new StringBuilder();
 
             for (String key: requiredInfo.keySet()) {
@@ -595,7 +605,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             List<String> errorMessageList = new LinkedList<>();
             for (ModelParam modelParam : this.contextInfo.values()) {
                 // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) 
+                if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type))
                         && !"any".equals(modelParam.allowHtml) && (IN_OUT_PARAM.equals(modelParam.mode) || IN_PARAM.equals(modelParam.mode))) {
                     String value = (String) context.get(modelParam.name);
                     UtilCodec.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
@@ -639,7 +649,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Set<String> keySet = info.keySet();
 
         // Quick check for sizes
-        if (info.size() == 0 && test.size() == 0) return;
+        if (info.size() == 0 && test.size() == 0) {
+            return;
+        }
         // This is to see if the test set contains all from the info set (reverse)
         if (reverse && !testSet.containsAll(keySet)) {
             Set<String> missing = new TreeSet<>(keySet);
@@ -906,8 +918,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         for (ModelParam param: contextParamList) {
-            //boolean internalParam = param.internal;
-
             if (param.mode.equals(IN_OUT_PARAM) || param.mode.equals(mode)) {
                 String key = param.name;
 
@@ -1074,7 +1084,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (OUT_PARAM.equals(modelParam.mode)) continue;
+            if (OUT_PARAM.equals(modelParam.mode)) {
+                continue;
+            }
 
             Object srcObject = source.get(modelParam.name);
             if (srcObject != null) {
@@ -1102,7 +1114,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         List<ModelParam> inList = new LinkedList<>();
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (OUT_PARAM.equals(modelParam.mode)) continue;
+            if (OUT_PARAM.equals(modelParam.mode)) {
+                continue;
+            }
 
             inList.add(modelParam);
         }
@@ -1124,7 +1138,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (group != null) {
                     for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
-                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
+                        Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
                     }
                 }
             }

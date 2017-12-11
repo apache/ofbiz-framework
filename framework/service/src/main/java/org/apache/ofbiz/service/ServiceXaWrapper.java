@@ -161,7 +161,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     @Override
     public void enlist() throws XAException {
         super.enlist();
-        if (Debug.verboseOn()) Debug.logVerbose("Enlisted in transaction : " + this.toString(), module);
+        Debug.logVerbose("Enlisted in transaction : " + this.toString(), module);
     }
 
     // -- XAResource Methods
@@ -170,7 +170,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      */
     @Override
     public void commit(Xid xid, boolean onePhase) throws XAException {
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), module);
+        Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), module);
         // the commit listener
         if (this.active) {
             Debug.logWarning("commit() called without end()", module);
@@ -205,7 +205,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      */
     @Override
     public void rollback(Xid xid) throws XAException {
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), module);
+        Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), module);
         // the rollback listener
         if (this.active) {
             Debug.logWarning("rollback() called without end()", module);
@@ -238,7 +238,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     @Override
     public int prepare(Xid xid) throws XAException {
         // overriding to log two phase commits
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + xid.toString(), module);
+        Debug.logVerbose("ServiceXaWrapper#prepare() : " + xid.toString(), module);
         int rtn;
         try {
             rtn = super.prepare(xid);
@@ -246,7 +246,7 @@ public class ServiceXaWrapper extends GenericXaResource {
             Debug.logError(e, module);
             throw e;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK) , module);
+        Debug.logVerbose("ServiceXaWrapper#prepare() : " + rtn + " / " + (rtn == XA_OK) , module);
         return rtn;
     }
 
@@ -307,12 +307,12 @@ public class ServiceXaWrapper extends GenericXaResource {
                     // invoke based on mode
                     switch (mode) {
                         case MODE_ASYNC:
-                            if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", module);
+                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", module);
                             dctx.getDispatcher().runAsync(service, thisContext, persist);
                             break;
 
                         case MODE_SYNC:
-                            if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", module);
+                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", module);
                             dctx.getDispatcher().runSyncIgnore(service, thisContext);
                             break;
                     }
@@ -349,7 +349,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 }
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("No " + msgPrefix + "service defined; nothing to do", module);
+            Debug.logVerbose("No " + msgPrefix + "service defined; nothing to do", module);
         }
 
         this.xid = null;

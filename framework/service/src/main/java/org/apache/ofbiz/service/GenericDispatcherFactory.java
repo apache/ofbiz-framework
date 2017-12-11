@@ -57,14 +57,14 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             }
             this.name = name;
             this.dispatcher = ServiceDispatcher.getInstance(delegator);
-            /* 
+            /*
              * FIXME: "this" reference escape. DispatchContext constructor uses
              * this object before it is fully constructed.
              */
             DispatchContext ctx = new DispatchContext(name, loader, this);
             this.dispatcher.register(ctx);
             this.ctx = ctx;
-            if (Debug.verboseOn()) Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, module);
+            Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, module);
         }
 
         @Override

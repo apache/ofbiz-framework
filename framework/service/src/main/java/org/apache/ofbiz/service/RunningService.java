@@ -77,7 +77,7 @@ public class RunningService {
         }
         return false;
     }
-    
+
     public int hashCode() {
         return System.identityHashCode(this);
     }
