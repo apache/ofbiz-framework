@@ -173,7 +173,7 @@ public class ComponentContainer implements Container {
     }
 
     /**
-     * Load all components in a directory because it does not contain 
+     * Load all components in a directory because it does not contain
      * a load-components.xml file. The components are sorted alphabetically
      * for loading purposes
      *
@@ -194,7 +194,7 @@ public class ComponentContainer implements Container {
 
             if (componentPath.isDirectory() && !componentName.startsWith(".") && configFile.exists()) {
                 ComponentConfig config = retrieveComponentConfig(null, componentLocation);
-                if (config != null) { 
+                if (config != null) {
                     loadComponent(config);
                 }
             }
@@ -260,7 +260,7 @@ public class ComponentContainer implements Container {
             }
 
             location = location.startsWith("/") ? location.substring(1) : location;
-            String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location; 
+            String dirLoc = location.endsWith("/*") ? location.substring(0, location.length() - 2) : location;
             File path = FileUtil.getFile(configRoot + dirLoc);
 
             if (path.exists()) {

@@ -36,7 +36,7 @@ import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * An object that loads containers (background processes).
- * 
+ *
  * <p>Normally, instances of this class are created by OFBiz startup code, and
  * client code should not create instances of this class. Client code is
  * responsible for making sure containers are shut down properly. </p>
@@ -46,7 +46,7 @@ public class ContainerLoader implements StartupLoader {
 
     public static final String module = ContainerLoader.class.getName();
 
-    private final List<Container> loadedContainers = new LinkedList<Container>();
+    private final List<Container> loadedContainers = new LinkedList<>();
 
     /**
      * @see org.apache.ofbiz.base.start.StartupLoader#load(Config, List)
@@ -78,11 +78,11 @@ public class ContainerLoader implements StartupLoader {
             return ContainerConfig.getConfigurations(configFile);
         } catch (ContainerException e) {
             throw new StartupException(e);
-        }        
+        }
     }
 
     private List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
-            Collection<ContainerConfig.Configuration> containerConfigs) throws StartupException {
+            Collection<ContainerConfig.Configuration> containerConfigs) {
         return containerConfigs.stream()
                 .filter(containerCfg ->
                     UtilValidate.isEmpty(containerCfg.loaders) &&
@@ -94,7 +94,7 @@ public class ContainerLoader implements StartupLoader {
     private List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
             Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
-        List<Container> loadContainers = new ArrayList<Container>();
+        List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : containerConfigs) {
             Debug.logInfo("Loading container: " + containerCfg.name, module);
             Container tmpContainer = loadContainer(config.containerConfig, containerCfg, ofbizCommands);
@@ -104,7 +104,7 @@ public class ContainerLoader implements StartupLoader {
         return loadContainers;
     }
 
-    private Container loadContainer(String configFile, 
+    private Container loadContainer(String configFile,
             ContainerConfig.Configuration containerCfg,
             List<StartupCommand> ofbizCommands) throws StartupException {
         // load the container class
@@ -160,7 +160,7 @@ public class ContainerLoader implements StartupLoader {
     public synchronized void unload() throws StartupException {
         Debug.logInfo("Shutting down containers", module);
 
-        List<Container> reversedContainerList = new ArrayList<Container>(loadedContainers);
+        List<Container> reversedContainerList = new ArrayList<>(loadedContainers);
         Collections.reverse(reversedContainerList);
 
         for(Container loadedContainer : reversedContainerList) {
