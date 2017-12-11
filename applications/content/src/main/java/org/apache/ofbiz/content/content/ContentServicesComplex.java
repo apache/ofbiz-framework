@@ -228,10 +228,6 @@ public class ContentServicesComplex {
             conditionList.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.IN, assocTypes));
         }
 
-        if (fromDate == null && fromDateStr != null) {
-            fromDate = UtilDateTime.toTimestamp(fromDateStr);
-        }
-
         List<GenericValue> contentAssocsTypeFiltered = EntityQuery.use(delegator).from(viewName)
                 .where(conditionList).orderBy("caSequenceNum", "-caFromDate").cache().queryList();
 

@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
@@ -312,7 +313,7 @@ public class UploadContentAndImage {
             request.setAttribute("nodeTrailCsv", newTrail);
             request.setAttribute("passedParams", passedParams);
             TransactionUtil.commit();
-        } catch (Exception e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
@@ -350,7 +351,7 @@ public class UploadContentAndImage {
             Map<String, Object> passedParams = new HashMap<String, Object>();
             FileItem fi = null;
             FileItem imageFi = null;
-            byte[] imageBytes = {};
+            byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
             for (int i = 0; i < lst.size(); i++) {
                 fi = lst.get(i);
@@ -398,7 +399,7 @@ public class UploadContentAndImage {
                 }
             }
             TransactionUtil.commit();
-        } catch (Exception e) {
+        } catch (GenericTransactionException | GenericServiceException e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
