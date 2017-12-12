@@ -31,6 +31,7 @@ import javax.el.PropertyNotFoundException;
 import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.ScriptUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -441,7 +442,8 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                     buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
                 }
             }
-        } catch (Exception e) {
+        } catch (GeneralException | RuntimeException e) {
+            Debug.log(e, module);
             buffer.append(obj);
         }
         if (buffer.length() > this.hint) {
