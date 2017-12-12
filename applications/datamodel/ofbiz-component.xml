@@ -46,5 +46,8 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ProductSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/ManufacturingSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/AccountingSeedData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HumanResSeedData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/OrderSeedData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/MarketingSeedData.xml"/>
 
 </ofbiz-component>
