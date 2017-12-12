@@ -76,8 +76,7 @@ public class ImportProductServices {
                 // loop for all the containing xls file in the spreadsheet
                 // directory
                 if (files == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                            "FileFilesIsNull", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "FileFilesIsNull", locale));
                 }
                 for (int i = 0; i < files.length; i++) {
                     if (files[i].getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
