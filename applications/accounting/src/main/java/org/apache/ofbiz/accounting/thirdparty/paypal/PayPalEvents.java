@@ -21,6 +21,7 @@ package org.apache.ofbiz.accounting.thirdparty.paypal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -55,6 +56,7 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 
 public class PayPalEvents {
@@ -146,7 +148,7 @@ public class PayPalEvents {
         }
 
         // create the redirect string
-        Map <String, Object> parameters = new LinkedHashMap <String, Object>();
+        Map<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("cmd", "_xclick");
         parameters.put("business", payPalAccount);
         parameters.put("item_name", itemName);
@@ -226,6 +228,8 @@ public class PayPalEvents {
 
         // send off the confirm request
         String confirmResp = null;
+        BufferedReader in = null;
+        PrintWriter pw = null;
 
         try {
             String str = UtilHttp.urlEncodeArgs(parametersMap);
@@ -233,16 +237,25 @@ public class PayPalEvents {
             URLConnection uc = u.openConnection();
             uc.setDoOutput(true);
             uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            PrintWriter pw = new PrintWriter(uc.getOutputStream());
+            pw = new PrintWriter(new OutputStreamWriter(uc.getOutputStream(), "UTF-8"));
             pw.println(str);
-            pw.close();
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
             confirmResp = in.readLine();
-            in.close();
             Debug.logError("PayPal Verification Response: " + confirmResp, module);
         } catch (IOException e) {
-            Debug.logError(e, "Problems sending verification message", module);
+            Debug.logError(e, "Problems sending verification message.", module);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Debug.logError(e, "Could not close BufferedReader.", module);
+                }
+            }
+            if (pw != null) {
+                pw.close();
+            }
         }
 
         Debug.logInfo("Got verification from PayPal, processing..", module);
@@ -416,7 +429,7 @@ public class PayPalEvents {
         String paymentStatus = request.getParameter("payment_status");
         String transactionId = request.getParameter("txn_id");
 
-        List <GenericValue> toStore = new LinkedList <GenericValue> ();
+        List<GenericValue> toStore = new LinkedList<>();
 
         // PayPal returns the timestamp in the format 'hh:mm:ss Jan 1, 2000 PST'
         // Parse this into a valid Timestamp Object
@@ -482,7 +495,7 @@ public class PayPalEvents {
             return false;
         }
 
-        if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+        if (ServiceUtil.isError(results)) {
             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
             request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
             return false;
