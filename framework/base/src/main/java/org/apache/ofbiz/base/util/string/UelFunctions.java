@@ -22,7 +22,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -35,8 +34,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.el.FunctionMapper;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
@@ -44,13 +41,11 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 /** Implements Unified Expression Language functions.
  * <p>Built-in functions are divided into a number of
@@ -266,7 +261,7 @@ public class UelFunctions {
                 this.functionMap.put("dom:toHtmlString", UelFunctions.class.getMethod("toHtmlString", Node.class, String.class, boolean.class, int.class));
                 this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class, boolean.class, int.class));
                 this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class, String.class, boolean.class, boolean.class, int.class));
-            } catch (NoSuchMethodException | NullPointerException | SecurityException e) {
+            } catch (Exception e) {
                 Debug.logError(e, "Error while initializing UelFunctions.Functions instance", module);
             }
             Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
@@ -408,14 +403,14 @@ public class UelFunctions {
 
     public static String toLowerCase(String str) {
         try {
-            return str.toLowerCase(Locale.getDefault());
+            return str.toLowerCase();
         } catch (Exception e) {}
         return null;
     }
 
     public static String toUpperCase(String str) {
         try {
-            return str.toUpperCase(Locale.getDefault());
+            return str.toUpperCase();
         } catch (Exception e) {}
         return null;
     }
@@ -452,13 +447,11 @@ public class UelFunctions {
         try {
             URL url = FlexibleLocation.resolveLocation(str);
             if (url != null) {
-                try (InputStream is = url.openStream();) {
+                InputStream is = url.openStream();
                 result = true;
-                }
+                is.close();
             }
-        } catch (IOException e) {
-            Debug.log(e, module);
-        }
+        } catch (Exception e) {}
         return result;
     }
 
@@ -474,7 +467,7 @@ public class UelFunctions {
             } else {
                 Debug.logError("Unable to locate HTML document " + str, module);
             }
-        } catch (IOException | SAXException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while reading HTML document " + str, module);
         }
         return document;
@@ -485,13 +478,13 @@ public class UelFunctions {
         try {
             URL url = FlexibleLocation.resolveLocation(str);
             if (url != null) {
-                try (InputStream is = url.openStream();) {
-                    document = UtilXml.readXmlDocument(is, str);
-                }
+                InputStream is = url.openStream();
+                document = UtilXml.readXmlDocument(is, str);
+                is.close();
             } else {
                 Debug.logError("Unable to locate XML document " + str, module);
             }
-        } catch (IOException | SAXException | ParserConfigurationException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while reading XML document " + str, module);
         }
         return document;
@@ -501,14 +494,14 @@ public class UelFunctions {
         try {
             File file = FileUtil.getFile(str);
             if (file != null) {
-                try (FileOutputStream os = new FileOutputStream(file);) {
-                    UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
-                    return true;
-                }
+                FileOutputStream os = new FileOutputStream(file);
+                UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+                os.close();
+                return true;
             } else {
                 Debug.logError("Unable to create XML document " + str, module);
             }
-        } catch (IOException | TransformerException | SecurityException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while writing XML document " + str, module);
         }
         return false;
@@ -533,23 +526,25 @@ public class UelFunctions {
             sb.append("/>\n<xsl:template match=\"@*|node()\">\n");
             sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
             sb.append("</xsl:template>\n</xsl:stylesheet>\n");
-            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(UtilIO.getUtf8()));
+            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
-                UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
-                return os.toString();
-            }
-        } catch (IOException | TransformerException e) {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
+            os.close();
+            return os.toString();
+        } catch (Exception e) {
             Debug.logError(e, "Error while creating HTML String ", module);
         }
         return null;
     }
 
     public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
             UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+            os.close();
             return os.toString();
-        } catch (IOException | TransformerException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while creating XML String ", module);
         }
         return null;
