@@ -62,7 +62,7 @@ public final class InvoiceWorker {
      * Return the total amount of the invoice (including tax) using the the invoiceId as input.
      * @param delegator the delegator
      * @param invoiceId the invoice id
-     * @return Return the total amount of the invoice
+     * @return Return the total amount of the invoice 
      */
     public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId) {
         return getInvoiceTotal(delegator, invoiceId, Boolean.TRUE);
@@ -115,7 +115,7 @@ public final class InvoiceWorker {
 
     /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
     public static List<String> getTaxableInvoiceItemTypeIds(Delegator delegator) throws GenericEntityException {
-        List<String> typeIds = new LinkedList<>();
+        List<String> typeIds = new LinkedList<String>();
         List<GenericValue> invoiceItemTaxTypes = EntityQuery.use(delegator).from("Enumeration").where("enumTypeId", "TAXABLE_INV_ITM_TY")
                 .cache().queryList();
         for (GenericValue invoiceItemTaxType : invoiceItemTaxTypes) {
@@ -216,9 +216,8 @@ public final class InvoiceWorker {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Party from InvoiceRole", module);
             }
-            if (party != null) {
+            if (party != null)
                 return party;
-            }
         }
         return null;
     }
@@ -260,9 +259,8 @@ public final class InvoiceWorker {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Party from InvoiceRole", module);
             }
-            if (party != null) {
+            if (party != null)
                 return party;
-            }
         }
         return null;
     }
@@ -284,7 +282,7 @@ public final class InvoiceWorker {
     public static GenericValue getSendFromAddress(GenericValue invoice) {
         return getInvoiceAddressByType(invoice, "PAYMENT_LOCATION");
     }
-
+    
     public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId) {
         return getInvoiceAddressByType(invoice, contactMechPurposeTypeId, true);
     }
@@ -303,12 +301,10 @@ public final class InvoiceWorker {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
             Timestamp now = UtilDateTime.nowTimestamp();
-            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
+            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId")))
                 destinationPartyId = invoice.getString("partyId");
-            }
-            if ("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
+            if ("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))
                 destinationPartyId = invoice.getString("partyId");
-            }
             try {
                 locations = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -594,7 +590,7 @@ public final class InvoiceWorker {
     @Deprecated
     public static Map<String, Object> getInvoiceTaxByTaxAuthGeoAndParty(GenericValue invoice) {
         BigDecimal taxGrandTotal = ZERO;
-        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = new LinkedList<>();
+        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = new LinkedList<Map<String,Object>>();
         List<GenericValue> invoiceItems = null;
         if (invoice != null) {
             try {
@@ -642,7 +638,7 @@ public final class InvoiceWorker {
                 }
             }
         }
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
         result.put("taxGrandTotal", taxGrandTotal);
         return result;
@@ -655,11 +651,10 @@ public final class InvoiceWorker {
      *         will not account for tax lines that do not contain a taxAuthPartyId
      */
     public static Map<String, Set<String>> getInvoiceTaxAuthPartyAndGeos (GenericValue invoice) {
-        Map<String, Set<String>> result = new HashMap<>();
+        Map<String, Set<String>> result = new HashMap<String, Set<String>>();
 
-        if (invoice == null) {
-            throw new IllegalArgumentException("Invoice cannot be null.");
-        }
+        if (invoice == null)
+           throw new IllegalArgumentException("Invoice cannot be null.");
         List<GenericValue> invoiceTaxItems = null;
         try {
             Delegator delegator = invoice.getDelegator();
@@ -677,7 +672,7 @@ public final class InvoiceWorker {
                 String taxAuthGeoId = invoiceItem.getString("taxAuthGeoId");
                 if (UtilValidate.isNotEmpty(taxAuthPartyId)) {
                     if (!result.containsKey(taxAuthPartyId)) {
-                        Set<String> taxAuthGeos = new HashSet<>();
+                        Set<String> taxAuthGeos = new HashSet<String>();
                         taxAuthGeos.add(taxAuthGeoId);
                         result.put(taxAuthPartyId, taxAuthGeos);
                     } else {
