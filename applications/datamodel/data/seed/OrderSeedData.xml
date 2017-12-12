@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <CustRequestType custRequestTypeId="RF_BUGFIX" description="Request For Bug Fix" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_CATALOG" description="Request For Catalog" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_FEATURE" description="Request For Feature" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_INFO" description="Request For Information" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_PROPOSAL" description="Request For Proposal" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_QUOTE" description="Request For Quote" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_SUPPORT" description="Request For Support" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_PUR_QUOTE" description="Request For Purchase Quote" hasTable="N" parentTypeId=""/>
+
+    <CustRequestResolution custRequestResolutionId="FIXED" custRequestTypeId="RF_BUGFIX" description="Fixed"/>
+    <CustRequestResolution custRequestResolutionId="WORKS" custRequestTypeId="RF_BUGFIX" description="Works For Me"/>
+    <CustRequestResolution custRequestResolutionId="WONTFIX" custRequestTypeId="RF_BUGFIX" description="Won't Fix"/>
+    <CustRequestResolution custRequestResolutionId="DUPLICATE" custRequestTypeId="RF_FEATURE" description="Duplicate"/>
+    <CustRequestResolution custRequestResolutionId="REJECTED" custRequestTypeId="RF_FEATURE" description="Rejected"/>
+    <CustRequestResolution custRequestResolutionId="IMPLEMENTED" custRequestTypeId="RF_FEATURE" description="Implemented"/>
+
+    <OrderAdjustmentType description="Promotion" hasTable="N" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Replacement" hasTable="N" orderAdjustmentTypeId="REPLACE_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Discount" hasTable="N" orderAdjustmentTypeId="DISCOUNT_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Donation" hasTable="N" orderAdjustmentTypeId="DONATION_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Fee" hasTable="N" orderAdjustmentTypeId="FEE" parentTypeId=""/>
+    <OrderAdjustmentType description="Miscellaneous Charges" hasTable="N" orderAdjustmentTypeId="MISCELLANEOUS_CHARGE" parentTypeId=""/>
+    <OrderAdjustmentType description="Sales Tax" hasTable="N" orderAdjustmentTypeId="SALES_TAX" parentTypeId=""/>
+    <OrderAdjustmentType description="VAT Tax (not added to totals)" hasTable="N" orderAdjustmentTypeId="VAT_TAX" parentTypeId=""/>
+    <OrderAdjustmentType description="VAT Price Correction" hasTable="N" orderAdjustmentTypeId="VAT_PRICE_CORRECT" parentTypeId=""/>
+    <OrderAdjustmentType description="Shipping and Handling" hasTable="N" orderAdjustmentTypeId="SHIPPING_CHARGES" parentTypeId=""/>
+    <OrderAdjustmentType description="Surcharge" hasTable="N" orderAdjustmentTypeId="SURCHARGE_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Additional Feature" hasTable="N" orderAdjustmentTypeId="ADDITIONAL_FEATURE" parentTypeId=""/>
+    <OrderAdjustmentType description="Warranty" hasTable="N" orderAdjustmentTypeId="WARRANTY_ADJUSTMENT" parentTypeId=""/>
+    <OrderAdjustmentType description="Marketing Package Adjustment" hasTable="N" orderAdjustmentTypeId="MKTG_PKG_AUTO_ADJUST" parentTypeId=""/>
+
+    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_ADDRESS" description="Addresss"/>
+    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_CREDITCARD" description="Credit Card"/>
+    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_EMAIL" description="E-Mail"/>
+    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_PHONE" description="Phone Number"/>
+
+    <OrderItemType description="Purchase Order Specific" hasTable="N" orderItemTypeId="PURCHASE_SPECIFIC" parentTypeId=""/>
+    <OrderItemType description="PO: Inventory" hasTable="N" orderItemTypeId="INVENTORY_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
+    <OrderItemType description="PO: Supplies (to Expense)" hasTable="N" orderItemTypeId="SUPPLIES_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
+    <OrderItemType description="PO: Fixed Asset" hasTable="N" orderItemTypeId="ASSET_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
+    <OrderItemType description="Product Item" hasTable="N" orderItemTypeId="PRODUCT_ORDER_ITEM" parentTypeId=""/>
+    <OrderItemType description="Work Item" hasTable="N" orderItemTypeId="WORK_ORDER_ITEM" parentTypeId=""/>
+    <OrderItemType description="Rental Item" hasTable="N" orderItemTypeId="RENTAL_ORDER_ITEM" parentTypeId=""/>
+    <OrderItemType description="Bulk Item" hasTable="N" orderItemTypeId="BULK_ORDER_ITEM" parentTypeId=""/>
+
+    <OrderType description="Purchase" hasTable="N" orderTypeId="PURCHASE_ORDER" parentTypeId=""/>
+    <OrderType description="Sales" hasTable="N" orderTypeId="SALES_ORDER" parentTypeId=""/>
+
+    <OrderItemAssocType description="Purchase Order" hasTable="N" orderItemAssocTypeId="PURCHASE_ORDER" parentTypeId=""/>
+    <OrderItemAssocType description="Drop Shipment" hasTable="N" orderItemAssocTypeId="DROP_SHIPMENT" parentTypeId=""/>
+    <OrderItemAssocType description="Return Replacement" hasTable="N" orderItemAssocTypeId="REPLACEMENT" parentTypeId=""/>
+    <OrderItemAssocType description="New Version" hasTable="N" orderItemAssocTypeId="NEW_VERSION" parentTypeId=""/>
+    <OrderItemAssocType description="Exchange Order" hasTable="N" orderItemAssocTypeId="EXCHANGE" parentTypeId=""/>
+
+    <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Fax Channel" enumCode="FAX_CHANNEL" enumId="FAX_SALES_CHANNEL" sequenceId="03" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Phone Channel" enumCode="PHONE_CHANNEL" enumId="PHONE_SALES_CHANNEL" sequenceId="04" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="E-Mail Channel" enumCode="EMAIL_CHANNEL" enumId="EMAIL_SALES_CHANNEL" sequenceId="05" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Snail Mail Channel" enumCode="SNAIL_CHANNEL" enumId="SNAIL_SALES_CHANNEL" sequenceId="06" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Affiliate Channel" enumCode="AFFIL_CHANNEL" enumId="AFFIL_SALES_CHANNEL" sequenceId="07" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="eBay Channel" enumCode="EBAY_CHANNEL" enumId="EBAY_SALES_CHANNEL" sequenceId="08" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="Unknown Channel" enumCode="UNKOWN_CHANNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
+    <Enumeration description="Order Item Cancel" enumCode="ITM_CANCEL" enumId="ODR_ITM_CANCEL" sequenceId="02" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
+    <Enumeration description="Order Item Append" enumCode="ITM_APPEND" enumId="ODR_ITM_APPEND" sequenceId="03" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
+    <EnumerationType description="Order Item Change Reason" enumTypeId="ODR_ITM_CH_REASON" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Mis-Ordered Item" enumCode="MISORDER" enumId="OICR_MISORDER_ITEM" sequenceId="01" enumTypeId="ODR_ITM_CH_REASON"/>
+    <Enumeration description="Changed Mind" enumCode="CHANGE_MIND" enumId="OICR_CHANGE_MIND" sequenceId="02" enumTypeId="ODR_ITM_CH_REASON"/>
+
+    <QuoteType description="Other" hasTable="N" parentTypeId="" quoteTypeId="OTHER_QUOTE"/>
+    <QuoteType description="Product" hasTable="N" parentTypeId="" quoteTypeId="PRODUCT_QUOTE"/>
+    <QuoteType description="Proposal" hasTable="N" parentTypeId="" quoteTypeId="PROPOSAL"/>
+    <QuoteType description="Product Purchase" hasTable="N" parentTypeId="" quoteTypeId="PURCHASE_QUOTE"/>
+
+    <RequirementType description="Customer Requirement" hasTable="N" parentTypeId="" requirementTypeId="CUSTOMER_REQUIREMENT"/>
+    <RequirementType description="Internal Requirement" hasTable="N" parentTypeId="" requirementTypeId="INTERNAL_REQUIREMENT"/>
+    <RequirementType description="Product Requirement" hasTable="N" parentTypeId="" requirementTypeId="PRODUCT_REQUIREMENT"/>
+    <RequirementType description="Work Requirement" hasTable="N" parentTypeId="" requirementTypeId="WORK_REQUIREMENT"/>
+
+    <ShoppingListType description="Wish List" shoppingListTypeId="SLT_WISH_LIST"/>
+    <ShoppingListType description="Gift Registry" shoppingListTypeId="SLT_GIFT_REG"/>
+    <ShoppingListType description="Automatic Re-Orders" shoppingListTypeId="SLT_AUTO_REODR"/>
+    <ShoppingListType description="Frequent Purchases" shoppingListTypeId="SLT_FREQ_PURCHASES"/>
+    <ShoppingListType description="Special Purpose" shoppingListTypeId="SLT_SPEC_PURP"/>
+
+    <!-- order and order item status -->
+    <StatusType description="Order" hasTable="N" parentTypeId="" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ORDER_CREATED" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Processing" sequenceId="04" statusCode="PROCESSING" statusId="ORDER_PROCESSING" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Approved" sequenceId="05" statusCode="APPROVED" statusId="ORDER_APPROVED" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Sent" sequenceId="03" statusCode="SENT" statusId="ORDER_SENT" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Held" sequenceId="06" statusCode="HELD" statusId="ORDER_HOLD" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="ORDER_COMPLETED" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="ORDER_REJECTED" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="ORDER_CANCELLED" statusTypeId="ORDER_STATUS"/>
+
+    <StatusType description="Order Item" hasTable="N" parentTypeId="ORDER_STATUS" statusTypeId="ORDER_ITEM_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ITEM_CREATED" statusTypeId="ORDER_ITEM_STATUS"/>
+    <StatusItem description="Approved" sequenceId="05" statusCode="APPROVED" statusId="ITEM_APPROVED" statusTypeId="ORDER_ITEM_STATUS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="ITEM_COMPLETED" statusTypeId="ORDER_ITEM_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="ITEM_REJECTED" statusTypeId="ORDER_ITEM_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="ITEM_CANCELLED" statusTypeId="ORDER_ITEM_STATUS"/>
+
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_SENT" transitionName="Send Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_COMPLETED" transitionName="Complete Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_SENT" statusIdTo="ORDER_COMPLETED" transitionName="Order Completed"/>
+    <StatusValidChange statusId="ORDER_SENT" statusIdTo="ORDER_CANCELLED" transitionName="Order Cancelled"/>
+    <StatusValidChange statusId="ORDER_COMPLETED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_REJECTED" transitionName="Reject Item"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
+    <StatusValidChange statusId="ITEM_APPROVED" statusIdTo="ITEM_COMPLETED" transitionName="Complete Item"/>
+    <StatusValidChange statusId="ITEM_APPROVED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
+    <StatusValidChange statusId="ITEM_COMPLETED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
+
+    <!-- order payment pref status -->
+    <StatusType description="Payment Preference" hasTable="N" parentTypeId="" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Not-Received" sequenceId="01" statusCode="NOT_RECEIVED" statusId="PAYMENT_NOT_RECEIVED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Received" sequenceId="02" statusCode="RECEIVED" statusId="PAYMENT_RECEIVED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Not-Authorized" sequenceId="01" statusCode="NOT_AUTHORIZED" statusId="PAYMENT_NOT_AUTH" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Authorized" sequenceId="02" statusCode="AUTHORIZED" statusId="PAYMENT_AUTHORIZED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Settled" sequenceId="03" statusCode="SETTLED" statusId="PAYMENT_SETTLED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Declined" sequenceId="04" statusCode="DECLINED" statusId="PAYMENT_DECLINED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Refunded" sequenceId="05" statusCode="REFUNDED" statusId="PAYMENT_REFUNDED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PAYMENT_CANCELLED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusValidChange statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_RECEIVED" transitionName="Payment Received"/>
+    <StatusValidChange statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_AUTHORIZED" transitionName="Payment Authorized"/>
+    <StatusValidChange statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_SETTLED" transitionName="Payment Settled"/>
+    <StatusValidChange statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_SETTLED" statusIdTo="PAYMENT_REFUNDED" transitionName="Payment Refunded"/>
+
+    <!-- order delivery schedule status -->
+    <StatusType description="Order Delivery Schedule" hasTable="N" parentTypeId="" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusItem description="Supplier Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="ODS_SUBMITTED" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="ODS_ACCEPTED" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusItem description="Schedule Approved" sequenceId="03" statusCode="APPROVED" statusId="ODS_APPROVED" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusItem description="Delivery Arranged" sequenceId="04" statusCode="ARRANGED" statusId="ODS_ARRANGED" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusItem description="Delivery Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="ODS_CANCELLED" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusValidChange statusId="ODS_SUBMITTED" statusIdTo="ODS_ACCEPTED" transitionName="Accept Delivery Information"/>
+    <StatusValidChange statusId="ODS_ACCEPTED" statusIdTo="ODS_APPROVED" transitionName="Approve Delivery Schedule"/>
+    <StatusValidChange statusId="ODS_APPROVED" statusIdTo="ODS_ARRANGED" transitionName="Arrange Delivery"/>
+    <StatusValidChange statusId="ODS_SUBMITTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_ACCEPTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_APPROVED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_ARRANGED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+
+    <!-- order return status for returns to customers -->
+    <StatusType description="Order Return Status For Customer Returns" hasTable="N" parentTypeId="" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="RETURN_REQUESTED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="RETURN_ACCEPTED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="RETURN_RECEIVED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="RETURN_COMPLETED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Manual Refund Required" sequenceId="11" statusCode="MANUAL_REFUND" statusId="RETURN_MAN_REFUND" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="RETURN_CANCELLED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusValidChange statusId="RETURN_REQUESTED" statusIdTo="RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
+    <StatusValidChange statusId="RETURN_REQUESTED" statusIdTo="RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_ACCEPTED" statusIdTo="RETURN_RECEIVED" transitionName="Accepted Return Received"/>
+    <StatusValidChange statusId="RETURN_ACCEPTED" statusIdTo="RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_COMPLETED" transitionName="Received Return Completed"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
+    <!-- order return status for returns to suppliers -->
+    <StatusType description="Order Return Status For Supplier Returns" hasTable="N" parentTypeId="" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="SUP_RETURN_REQUESTED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="SUP_RETURN_ACCEPTED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Shipped" sequenceId="03" statusCode="SHIPPED" statusId="SUP_RETURN_SHIPPED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="SUP_RETURN_COMPLETED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SUP_RETURN_CANCELLED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusValidChange statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
+    <StatusValidChange statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
+    <StatusValidChange statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_SHIPPED" transitionName="Accepted Return Shipped"/>
+    <StatusValidChange statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
+    <StatusValidChange statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_COMPLETED" transitionName="Shipped Return Completed"/>
+    <StatusValidChange statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Shipped Return Cancelled"/>
+
+    <!-- CustRequest statuses -->
+    <StatusType description="Custom Request Status" hasTable="N" parentTypeId="" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Draft" sequenceId="00" statusCode="DRAFT" statusId="CRQ_DRAFT" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="CRQ_SUBMITTED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="CRQ_ACCEPTED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Reviewed" sequenceId="03" statusCode="REVIEWED" statusId="CRQ_REVIEWED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Pending Cust." sequenceId="09" statusCode="PENDING" statusId="CRQ_PENDING" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="CRQ_COMPLETED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="CRQ_REJECTED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="CRQ_CANCELLED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_REJECTED" transitionName="Reject Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_PENDING" transitionName="Pending customer"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange statusId="CRQ_COMPLETED" statusIdTo="CRQ_REVIEWED" transitionName="Re-open Request"/>
+
+    <!-- Requirement statuses -->
+    <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Proposed" sequenceId="01" statusCode="PROPOSED" statusId="REQ_PROPOSED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="REQ_CREATED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="REQ_APPROVED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="REQ_ORDERED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="REQ_REJECTED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusValidChange statusId="REQ_PROPOSED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
+    <StatusValidChange statusId="REQ_PROPOSED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+    <StatusValidChange statusId="REQ_CREATED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
+    <StatusValidChange statusId="REQ_CREATED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+    <StatusValidChange statusId="REQ_APPROVED" statusIdTo="REQ_ORDERED" transitionName="Order Requirement"/>
+    <StatusValidChange statusId="REQ_APPROVED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+
+    <!-- Quote statuses -->
+    <StatusType description="Quote Status" hasTable="N" parentTypeId="" statusTypeId="QUOTE_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="QUO_CREATED" statusTypeId="QUOTE_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="QUO_APPROVED" statusTypeId="QUOTE_STATUS"/>
+    <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="QUO_ORDERED" statusTypeId="QUOTE_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="QUO_REJECTED" statusTypeId="QUOTE_STATUS"/>
+    <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_APPROVED" transitionName="Accept Quote"/>
+    <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
+    <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_ORDERED" transitionName="Order Quote"/>
+    <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
+
+    <!-- Return Adjustment Types-->
+    <ReturnAdjustmentType description="Return Promotion" hasTable="N" returnAdjustmentTypeId="RET_PROMOTION_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Replacement" hasTable="N" returnAdjustmentTypeId="RET_REPLACE_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Discount" hasTable="N" returnAdjustmentTypeId="RET_DISCOUNT_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Fee" hasTable="N" returnAdjustmentTypeId="RET_FEE_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Miscellaneous Charges" hasTable="N" returnAdjustmentTypeId="RET_MISC_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Sales Tax" hasTable="N" returnAdjustmentTypeId="RET_SALES_TAX_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return VAT Tax" hasTable="N" returnAdjustmentTypeId="RET_VAT_TAX_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return VAT Price Correction" hasTable="N" returnAdjustmentTypeId="RET_VAT_PC_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Shipping and Handling" hasTable="N" returnAdjustmentTypeId="RET_SHIPPING_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Surcharge" hasTable="N" returnAdjustmentTypeId="RET_SURCHARGE_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Additional Feature" hasTable="N" returnAdjustmentTypeId="RET_ADD_FEATURE_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Warranty" hasTable="N" returnAdjustmentTypeId="RET_WARRANTY_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Marketing Package Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MKTG_PKG_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Manual Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MAN_ADJ" parentTypeId=""/>
+
+    <!-- Return Header Types -->
+    <ReturnHeaderType description="Return from Customer" returnHeaderTypeId="CUSTOMER_RETURN"/>
+    <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>
+
+    <!-- return item types for returns -->
+    <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
+    <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM" parentTypeId=""/>
+    <ReturnItemType description="Return Finished Good Item" returnItemTypeId="RET_FPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Digital Good Item" returnItemTypeId="RET_DPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Finished/Digital Good Item" returnItemTypeId="RET_FDPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Raw Material Good Item" returnItemTypeId="RET_RPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Product-Feature Item" returnItemTypeId="RET_PROD_FEATR_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Service Product Item" returnItemTypeId="RET_SPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+
+    <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
+    <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
+    
+    <ReturnItemType description="Return Raw Material Item" returnItemTypeId="RET_MPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+
+    <!-- maps product types to return item types for product order items, order item types to return item types for other order items
+         and order adjustment types to return adjustment types. Separate mappings for different types of returns (customer vs. vendor) -->
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="AGGREGATED_CONF" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_RPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="VAT_TAX" returnItemTypeId="RET_VAT_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="VAT_PRICE_CORRECT" returnItemTypeId="RET_VAT_PC_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SHIPPING_CHARGES" returnItemTypeId="RET_SHIPPING_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RENTAL_ORDER_ITEM" returnItemTypeId="RET_FPROD_ITEM" />
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ASSET_USAGE_OUT_IN" returnItemTypeId="RET_FPROD_ITEM" />
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE_PRODUCT" returnItemTypeId="RET_SPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE" returnItemTypeId="RET_SPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_MPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="AGGREGATED_CONF" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_RPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="VAT_TAX" returnItemTypeId="RET_VAT_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="VAT_PRICE_CORRECT" returnItemTypeId="RET_VAT_PC_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SHIPPING_CHARGES" returnItemTypeId="RET_SHIPPING_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_MPROD_ITEM"/>
+    <!-- Return Reasons -->
+    <ReturnReason sequenceId="01" returnReasonId="RTN_NOT_WANT" description="Did Not Want Item"/>
+    <ReturnReason sequenceId="02" returnReasonId="RTN_DEFECTIVE_ITEM" description="Defective Item"/>
+    <ReturnReason sequenceId="03" returnReasonId="RTN_MISSHIP_ITEM" description="Mis-Shipped Item"/>
+    <ReturnReason sequenceId="04" returnReasonId="RTN_DIG_FILL_FAIL" description="Digital Fulfillment Failed"/>
+    <ReturnReason sequenceId="05" returnReasonId="RTN_COD_REJECT" description="COD Payment Rejected"/>
+    <ReturnReason sequenceId="06" returnReasonId="RTN_SIZE_EXCHANGE" description="Size Exchange"/>
+    <ReturnReason sequenceId="07" returnReasonId="RTN_NORMAL_RETURN" description="Normal Return"/>
+    <!-- Return Types -->
+    <ReturnType sequenceId="01" returnTypeId="RTN_CREDIT" description="Store Credit"/>
+    <ReturnType sequenceId="02" returnTypeId="RTN_REFUND" description="Refund"/>
+    <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement"/>
+    <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement"/>
+    <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
+    <ReturnType sequenceId="06" returnTypeId="RTN_WAIT_REPLACE_RES" description="Wait Replacement Reserved"/>
+    <ReturnType sequenceId="07" returnTypeId="RTN_REPLACE_IMMEDIAT" description="Replace Immediately"/>
+    <ReturnType sequenceId="08" returnTypeId="RTN_REFUND_IMMEDIATE" description="Refund immediately"/>
+    <ReturnType sequenceId="09" returnTypeId="RTN_RENTAL" description="Rental"/>
+
+    <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
+    <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>
+    <WorkReqFulfType description="Deploys" workReqFulfTypeId="WRF_DEPLOYS"/>
+    <WorkReqFulfType description="Tests" workReqFulfTypeId="WRF_TESTS"/>
+    <WorkReqFulfType description="Delivers" workReqFulfTypeId="WRF_DELIVERS"/>
+
+</entity-engine-xml>
