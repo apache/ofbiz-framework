@@ -186,14 +186,12 @@ public class ImageManagementServices {
                     resultResize.putAll(scaleImageMangementInAllSize(dctx, context, imageName, sizeType, productId));
                 } catch (IOException e) {
                     String errMsg = UtilProperties.getMessage(resourceError,
-                            "ProductScaleAdditionalImageInAllDifferentSizesIsImpossible", UtilMisc.toMap("errorString",
-                                    e.toString()), locale);
+                            "ProductScaleAdditionalImageInAllDifferentSizesIsImpossible", UtilMisc.toMap("errorString", e.toString()), locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 } catch (JDOMException e) {
                     String errMsg = UtilProperties.getMessage(resourceError,
-                            "ProductErrorsOccurInParsingImageProperties.xml", UtilMisc.toMap("errorString", e
-                                    .toString()), locale);
+                            "ProductErrorsOccurInParsingImageProperties.xml", UtilMisc.toMap("errorString", e .toString()), locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
