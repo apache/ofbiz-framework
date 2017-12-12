@@ -55,7 +55,7 @@ public final class ComponentLoaderConfig {
     public static List<ComponentDef> getComponentsFromConfig(URL configUrl) throws ComponentException {
         Document document = parseDocumentFromUrl(configUrl);
         List<? extends Element> toLoad = UtilXml.childElementList(document.getDocumentElement());
-        List<ComponentDef> componentsFromConfig = new ArrayList<>();
+        List<ComponentDef> componentsFromConfig = new ArrayList<ComponentDef>();
 
         for (Element element : toLoad) {
             componentsFromConfig.add(retrieveComponentDefFromElement(element, configUrl));
