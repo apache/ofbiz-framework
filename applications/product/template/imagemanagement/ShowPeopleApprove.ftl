@@ -38,11 +38,11 @@ jQuery(document).ready(function(){
         <#list partyRoles as partyRole>
             <td>
                 <table>
-                    <#assign userLoginApprovers  = delegator.findByAnd("UserLogin",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRole.partyId), null, false)/>
+                    <#assign userLoginApprovers  = EntityQuery.use(delegator).from("UserLogin").where("partyId", partyRole.partyId!).queryList()!/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
                     <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)!>
                     <#if userLoginAndPartyDetails?has_content>
-                        <#assign partyContentDetail  = delegator.findByAnd("ContentApproval",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId), null, false)/>
+                        <#assign partyContentDetail  = EntityQuery.use(delegator).from("ContentApproval").where("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId!).queryList()!/>
                         <#assign imageApproveSize = partyContentDetail.size()>
                         <#if userLoginAndPartyDetails.userLoginId == userLogin.userLoginId>
                             <#if userMap.checkUser == userLoginAndPartyDetails.userLoginId>

@@ -81,13 +81,7 @@ under the License.
                                         </#if>
                                     </div>
                                     <div style="float:right;">
-                                        <#assign downloadContents = delegator.findByAnd("OrderItemAndProductContentInfo", {
-                                                                                        "orderId" : orderItem.orderId, 
-                                                                                        "orderItemSeqId" : orderItem.orderItemSeqId, 
-                                                                                        "productContentTypeId" : "DIGITAL_DOWNLOAD", 
-                                                                                        "statusId" : "ITEM_COMPLETED"},
-                                                                                        null,
-                                                                                        false)/>
+                                        <#assign downloadContents = EntityQuery.use(delegator).from("OrderItemAndProductContentInfo").where( "orderId", orderItem.orderId!, "orderItemSeqId", orderItem.orderItemSeqId!, "productContentTypeId", "DIGITAL_DOWNLOAD", "statusId", "ITEM_COMPLETED").queryList()!/>
                                         <#if downloadContents?has_content>
                                             <#list downloadContents as downloadContent>
                                                 <a href="/content/control/ViewSimpleContent?contentId=${downloadContent.contentId}" class="buttontext" target="_blank">${uiLabelMap.ContentDownload}</a>&nbsp;
@@ -228,7 +222,7 @@ under the License.
                                             <table>
                                                 <tr valign="top">
                                                     <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                                                    <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId}, null, false)/>
+                                                    <#assign shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("orderId", orderHeader.getString("orderId")!, "orderItemSeqId", orderItem.orderItemSeqId!).queryList()!/>
                                                     <#assign totalReceived = 0.0>
                                                     <#if shipmentReceipts?? && shipmentReceipts?has_content>
                                                         <#list shipmentReceipts as shipmentReceipt>
@@ -358,8 +352,8 @@ under the License.
                             </#list>
                         </#if>
                         <#-- show linked order lines -->
-                        <#assign linkedOrderItemsTo = delegator.findByAnd("OrderItemAssoc", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")), null, false)>
-                        <#assign linkedOrderItemsFrom = delegator.findByAnd("OrderItemAssoc", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("toOrderId", orderItem.getString("orderId"), "toOrderItemSeqId", orderItem.getString("orderItemSeqId")), null, false)>
+                        <#assign linkedOrderItemsTo = EntityQuery.use(delegator).from("OrderItemAssoc").where("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")).queryList()!>
+                        <#assign linkedOrderItemsFrom = EntityQuery.use(delegator).from("OrderItemAssoc").where("toOrderId", orderItem.getString("orderId")!, "toOrderItemSeqId", orderItem.getString("orderItemSeqId")!).queryList()!>
                         <#if linkedOrderItemsTo?has_content>
                             <#list linkedOrderItemsTo as linkedOrderItem>
                                 <#assign linkedOrderId = linkedOrderItem.toOrderId>
