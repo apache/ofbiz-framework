@@ -1074,7 +1074,11 @@ public class ProductServices {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
                     try {
-                        GenericValue productContentType = EntityQuery.use(delegator).from("ProductContentType").where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault())).cache().queryOne();
+                        GenericValue productContentType = EntityQuery.use(delegator)
+                                .from("ProductContentType")
+                                .where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()))
+                                .cache()
+                                .queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
                             result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
                             if( ServiceUtil.isError(result)) {
