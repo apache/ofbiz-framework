@@ -95,7 +95,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         <input name="reconciledBalance" type="hidden" value="${(glReconciliation.reconciledBalance)!}"/>
         <input name="reconciledBalanceWithUom" type="hidden" id="reconciledBalanceWithUom" value="<@ofbizCurrency amount=(glReconciliation.reconciledBalance)?default('0')/>"/>
       </#if>
-      <#assign glReconciliations = EntityQuery.use(delegator).from("GlReconciliation").where("glAccountId", finAccount.postToGlAccountId!, "statusId", "GLREC_CREATED").orderBy("reconciledDate DESC").queryList()!>
+      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId!, "statusId" : "GLREC_CREATED"}, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"), false)>
       <#if (glReconciliationId?has_content && ("_NA_" == glReconciliationId && finAccountTransList?has_content)) || !grandTotal??>
         <div align="right">
           <#if grandTotal??>
@@ -153,26 +153,26 @@ function getFinAccountTransRunningTotalAndBalances() {
           <#assign glReconciliation = "">
           <#assign partyName = "">
           <#if finAccountTrans.paymentId?has_content>
-            <#assign payment = EntityQuery.use(delegator).from("Payment").where("paymentId", finAccountTrans.paymentId!).cache().queryOne()!>
+            <#assign payment = delegator.findOne("Payment", {"paymentId" : finAccountTrans.paymentId}, true)>
           <#else>
-            <#assign payments = EntityQuery.use(delegator).from("Payment").where("finAccountTransId", finAccountTrans.finAccountTransId!).queryList()!>
+            <#assign payments = delegator.findByAnd("Payment", {"finAccountTransId" : finAccountTrans.finAccountTransId}, null, false)>
           </#if>
-          <#assign finAccountTransType = EntityQuery.use(delegator).from("FinAccountTransType").where("finAccountTransTypeId", finAccountTrans.finAccountTransTypeId!).cache().queryOne()!>
+          <#assign finAccountTransType = delegator.findOne("FinAccountTransType", {"finAccountTransTypeId" : finAccountTrans.finAccountTransTypeId}, true)>
           <#if finAccountTrans.statusId?has_content>
-            <#assign status = EntityQuery.use(delegator).from("StatusItem").where("statusId", finAccountTrans.statusId!).cache().queryOne()!>
+            <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
           </#if>
           <#if payment?has_content && payment.paymentTypeId?has_content>
-            <#assign paymentType = EntityQuery.use(delegator).from("PaymentType").where("paymentTypeId", payment.paymentTypeId!).cache().queryOne()!>
+            <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
           </#if>
           <#if payment?has_content && payment.paymentMethodTypeId?has_content>
-            <#assign paymentMethodType = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", payment.paymentMethodTypeId!).cache().queryOne()!>
+            <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
           </#if>
           <#if finAccountTrans.glReconciliationId?has_content>
-            <#assign glReconciliation = EntityQuery.use(delegator).from("GlReconciliation").where("glReconciliationId", finAccountTrans.glReconciliationId!).cache().queryOne()!>
+            <#assign glReconciliation = delegator.findOne("GlReconciliation", {"glReconciliationId" : finAccountTrans.glReconciliationId}, true)>
             <input name="openingBalance_o_${finAccountTrans_index}" type="hidden" value="${glReconciliation.openingBalance!}"/>
           </#if>
           <#if finAccountTrans.partyId?has_content>
-            <#assign partyName = EntityQuery.use(delegator).from("PartyNameView").where("partyId", finAccountTrans.partyId!).cache().queryOne()!!>
+            <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))!>
           </#if>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td>
@@ -191,17 +191,17 @@ function getFinAccountTransRunningTotalAndBalances() {
                     </tr>
                     <#list payments as payment>
                       <#if payment?? && payment.paymentTypeId?has_content>
-                        <#assign paymentType = EntityQuery.use(delegator).from("PaymentType").where("paymentTypeId", payment.paymentTypeId!).cache().queryOne()!>
+                        <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, true)>
                       </#if>
                       <#if payment?has_content && payment.paymentMethodTypeId?has_content>
-                        <#assign paymentMethodType = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", payment.paymentMethodTypeId!).cache().queryOne()!>
+                        <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
                       </#if>
                       <#if payment?has_content>
                         <#assign paymentGroupMembers = Static["org.apache.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember", null, null, false)!) />
                         <#assign fromParty = payment.getRelatedOne("FromParty", false)! />
-                        <#assign fromPartyName = EntityQuery.use(delegator).from("PartyNameView").where("partyId", fromParty.partyId!).cache().queryOne()!/>
+                        <#assign fromPartyName = delegator.findOne("PartyNameView", {"partyId" : fromParty.partyId}, true) />
                         <#assign toParty = payment.getRelatedOne("ToParty", false)! />
-                        <#assign toPartyName =EntityQuery.use(delegator).from("PartyNameView").where("partyId", toParty.partyId!).cache().queryOne()!/>
+                        <#assign toPartyName = delegator.findOne("PartyNameView", {"partyId" : toParty.partyId}, true) />
                         <#if paymentGroupMembers?has_content>
                           <#assign paymentGroupMember = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
                         </#if>

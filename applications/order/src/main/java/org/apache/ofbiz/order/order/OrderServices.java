@@ -4956,7 +4956,7 @@ public class OrderServices {
                         // This ship group is a drop shipment: we create a purchase order for it
                         String supplierPartyId = shipGroup.getString("supplierPartyId");
                         // Set supplier preferred currency for drop-ship (PO) order to support multi currency
-                        GenericValue supplierParty = EntityQuery.use(delegator).from("Party").where("partyId", supplierPartyId).queryOne();
+                        GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
                         String currencyUomId = supplierParty.getString("preferredCurrencyUomId");
                         // If supplier currency not found then set currency of sales order
                         if (UtilValidate.isEmpty(currencyUomId)) {
@@ -6378,8 +6378,8 @@ public class OrderServices {
                     String newShipMethTypeDesc =null;
                     String shipMethTypeDesc=null;
                     try {
-                        shipMethTypeDesc = EntityQuery.use(delegator).from("ShipmentMethodType").where("shipmentMethodTypeId", shipmentMethodTypeId).queryOne().getString("description");
-                        newShipMethTypeDesc = EntityQuery.use(delegator).from("ShipmentMethodType").where("shipmentMethodTypeId", shippingMethods.get(0).getString("shipmentMethodTypeId")).queryOne().getString("description");
+                        shipMethTypeDesc = delegator.findOne("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), false).getString("description");
+                        newShipMethTypeDesc = delegator.findOne("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", shippingMethods.get(0).getString("shipmentMethodTypeId")), false).getString("description");
                     } catch(GenericEntityException e) {
                         Debug.logError(e, module);
                     }

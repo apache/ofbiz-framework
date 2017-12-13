@@ -597,10 +597,10 @@ public class InvoiceServices {
                                                                               to adjust tax amount in invoice item.
                                          */
                                         BigDecimal otherInvoiceTaxAmount = BigDecimal.ZERO;
-                                        GenericValue orderAdjBilling = EntityQuery.use(delegator).from("OrderAdjustmentBilling").where("orderAdjustmentId", adj.getString("orderAdjustmentId")).queryFirst();
+                                        GenericValue orderAdjBilling = EntityUtil.getFirst(delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", adj.getString("orderAdjustmentId")), null, false));
                                         if (UtilValidate.isNotEmpty(orderAdjBilling)) {
-                                            //FIXME: isTaxIncludedInPrice is passed to get data from cache, need to check why its done
-                                            List<GenericValue> invoiceItems = EntityQuery.use(delegator).from("InvoiceItem").where("invoiceId", orderAdjBilling.getString("invoiceId"), "invoiceItemTypeId", "ITM_SALES_TAX", "productId", originalOrderItem.getString("productId")).cache(isTaxIncludedInPrice).queryList();
+                                            List<GenericValue> invoiceItems = delegator.findByAnd("InvoiceItem",
+                                                    UtilMisc.toMap("invoiceId", orderAdjBilling.getString("invoiceId"), "invoiceItemTypeId", "ITM_SALES_TAX", "productId", originalOrderItem.getString("productId")), null, isTaxIncludedInPrice);
                                             for (GenericValue invoiceItem : invoiceItems) {
                                                 otherInvoiceTaxAmount = otherInvoiceTaxAmount.add(invoiceItem.getBigDecimal("amount"));
                                             }

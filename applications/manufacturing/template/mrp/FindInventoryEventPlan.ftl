@@ -152,8 +152,8 @@ document.lookupinventory.productId.focus();
             </#if>
             <#if !(product == productTmp)>
                 <#assign quantityAvailableAtDate = 0>
-                <#assign errorEvents = EntityQuery.use(delegator).from("MrpEvent").where("mrpEventTypeId", "ERROR", "productId", inven.productId!).queryList()!>
-                <#assign qohEvents = EntityQuery.use(delegator).from("MrpEvent").where("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId!).queryList()!>
+                <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId), null, false)>
+                <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId), null, false)>
                 <#assign additionalErrorMessage = "">
                 <#assign initialQohEvent = "">
                 <#assign productFacility = "">

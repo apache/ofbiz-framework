@@ -131,7 +131,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOne-3", "description", "query three"));
         delegator.storeAll(testingTypes);
 
-        GenericValue findOneByEntityEngine = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "queryOne-2").queryOne();
+        GenericValue findOneByEntityEngine = delegator.findOne("TestingType", false, UtilMisc.toMap("testingTypeId", "queryOne-2"));
         GenericValue queryOneByEntityQuery = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "queryOne-2").queryOne();
 
         assertEquals("queryOne(): Record matched = testingTypeId", findOneByEntityEngine.getString("testingTypeId"), queryOneByEntityQuery.getString("testingTypeId"));
