@@ -74,7 +74,7 @@ under the License.
                             ${quoteItem.quoteItemSeqId}
                         </#if>
                         </div>
-                        <#assign quoteTerms = delegator.findByAnd("QuoteTerm", {"quoteId" : quoteItem.quoteId, "quoteItemSeqId" : quoteItem.quoteItemSeqId}, null, false)>
+                        <#assign quoteTerms = EntityQuery.use(delegator).from("QuoteTerm").where("quoteId", quoteItem.quoteId!, "quoteItemSeqId", quoteItem.quoteItemSeqId!).queryList()!>
                     </td>
                     <td valign="top">
                         <div>

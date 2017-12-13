@@ -37,7 +37,7 @@ selectPrimaryCategoryIdParameter = "CABINETS" // struttura
 shipmentId = request.getParameter("shipmentId")
 context.shipmentId = shipmentId
 
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false)
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 context.shipment = shipment
 
 // dimensionsByFeatureMap [key=feature; value=productsByShapeMap]

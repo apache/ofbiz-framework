@@ -81,7 +81,7 @@ context.put("curFindString", curFindString)
 GenericValue value = null
 //only try to find it if this is a valid primary key...
 if (findByPK.isPrimaryKey()) {
-    value = delegator.findOne(findByPK.getEntityName(), findByPK, false)
+    value = from("findByPK.getEntityName()").where(findByPK).queryOne();
 }
 context.put("value", value)
 

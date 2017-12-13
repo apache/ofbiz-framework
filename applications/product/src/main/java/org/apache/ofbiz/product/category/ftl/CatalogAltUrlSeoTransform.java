@@ -26,12 +26,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CatalogUrlFilter;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
@@ -149,7 +149,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                             contextPath = prefixString.substring(prefixString.lastIndexOf('/'));
                         }
                         if (UtilValidate.isNotEmpty(productId)) {
-                            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeProductUrl(delegator, wrapper, prefixString, contextPath, productCategoryId, previousCategoryId, productId);
@@ -157,7 +157,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                 url = CatalogUrlFilter.makeProductUrl(wrapper, null, prefixString, previousCategoryId, productCategoryId, productId);
                             }
                         } else {
-                            GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
+                            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeCategoryUrl(delegator, wrapper, prefixString, productCategoryId, previousCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
