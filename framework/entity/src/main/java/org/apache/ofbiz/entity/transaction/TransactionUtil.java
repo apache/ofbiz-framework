@@ -122,11 +122,11 @@ public final class TransactionUtil implements Status {
             try {
                 int currentStatus = ut.getStatus();
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), module);
+                    Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), module);
                 }
                 if (currentStatus == Status.STATUS_ACTIVE) {
                     if (Debug.verboseOn()) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Active transaction in place, so no transaction begun", module);
+                        Debug.logVerbose("Active transaction in place, so no transaction begun", module);
                     }
                     return false;
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
@@ -182,14 +182,14 @@ public final class TransactionUtil implements Status {
         if (timeout > 0) {
             ut.setTransactionTimeout(timeout);
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", module);
+                Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", module);
             }
         }
 
         // begin the transaction
         ut.begin();
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Transaction begun", module);
+            Debug.logVerbose("Transaction begun", module);
         }
 
         // reset the timeout to the default

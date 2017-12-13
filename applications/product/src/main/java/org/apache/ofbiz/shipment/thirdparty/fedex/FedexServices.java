@@ -118,7 +118,7 @@ public class FedexServices {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Fedex Connect URL : " + url, module);
+            Debug.logVerbose("Fedex Connect URL : " + url, module);
             if (Debug.verboseOn()) Debug.logVerbose("Fedex XML String : " + xmlString, module);
         }
 
@@ -138,7 +138,7 @@ public class FedexServices {
                     "FacilityShipmentFedexReceivedNullResponse", locale));
         }
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Fedex Response : " + response, module);
+            Debug.logVerbose("Fedex Response : " + response, module);
         }
 
         return response;

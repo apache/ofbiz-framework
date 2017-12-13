@@ -696,7 +696,7 @@ public class ICalConverter {
             }
         }
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
+            Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
         }
         String workEffortId = fromXProperty(calendar.getProperties(), workEffortIdXPropName);
         if (workEffortId == null) {

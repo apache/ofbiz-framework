@@ -74,12 +74,12 @@ public final class UtilHelpText {
         if (fieldDescription.equals(messageId)) {
             messageId = "FieldDescription." + fieldName;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "], Trying with: " + messageId, module);
+                Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "], Trying with: " + messageId, module);
             }
             fieldDescription = UtilProperties.getMessage(entityResourceName, messageId, locale);
             if (fieldDescription.equals(messageId)) {
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
+                    Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
                 }
                 return "";
             }

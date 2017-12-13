@@ -127,7 +127,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SERVICE Event", module);
+            Debug.logVerbose("[Processing]: SERVICE Event", module);
             if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
         }
 

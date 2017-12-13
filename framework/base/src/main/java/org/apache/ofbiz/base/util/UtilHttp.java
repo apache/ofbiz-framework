@@ -159,7 +159,7 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
+            Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
             //Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module); see OFBIZ-9310
         }
 
@@ -319,7 +319,7 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Made Request Attribute Map with [" + attributeMap.size() + "] Entries", module);
+            Debug.logVerbose("Made Request Attribute Map with [" + attributeMap.size() + "] Entries", module);
             if (Debug.verboseOn()) Debug.logVerbose("Request Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(attributeMap), module);
         }
 
@@ -354,7 +354,7 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Made Session Attribute Map with [" + sessionMap.size() + "] Entries", module);
+            Debug.logVerbose("Made Session Attribute Map with [" + sessionMap.size() + "] Entries", module);
             if (Debug.verboseOn()) Debug.logVerbose("Session Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(sessionMap), module);
         }
 
@@ -389,7 +389,7 @@ public final class UtilHttp {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Made ServletContext Attribute Map with [" + servletCtxMap.size() + "] Entries", module);
+            Debug.logVerbose("Made ServletContext Attribute Map with [" + servletCtxMap.size() + "] Entries", module);
             if (Debug.verboseOn()) Debug.logVerbose("ServletContext Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(servletCtxMap), module);
         }
 

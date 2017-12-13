@@ -364,7 +364,7 @@ public class DataServices {
         }
         String textData = (String) context.get("textData");
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
+            Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
         }
         try {
             electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).queryOne();
