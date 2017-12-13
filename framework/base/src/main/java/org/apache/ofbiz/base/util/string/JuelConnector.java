@@ -78,7 +78,9 @@ public class JuelConnector {
             Object base = null;
             try {
                 base = prefix.eval(bindings, context);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                Debug.log(e, module);
+            }
             Object property = getProperty(bindings, context);
             if (property == null && strict) {
                 throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
@@ -112,7 +114,9 @@ public class JuelConnector {
             Object base = null;
             try {
                 base = prefix.eval(bindings, context);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                Debug.log(e, module);
+            }
             Object property = getProperty(bindings, context);
             if (property == null && strict) {
                 throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
@@ -179,9 +183,7 @@ public class JuelConnector {
         public Tree build(String expression) throws ELException {
             try {
                 return new ExtendedParser(this, expression).tree();
-            } catch (ScanException e) {
-                throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
-            } catch (ParseException e) {
+            } catch (ScanException | ParseException e) {
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             }
         }

@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.collections.LocalizedMap;
 
 /** Implements the Unified Expression Language (JSR-245). */
 public final class UelUtil {
-    protected static final String module = UelUtil.class.getName();
+    private static final String module = UelUtil.class.getName();
     private static final String localizedMapLocaleKey = LocalizedMap.class.getName() + "_locale".replace(".", "_");
     private static final ExpressionFactory exprFactory = JuelConnector.newExpressionFactory();
     private static final ELResolver defaultResolver = new ExtendedCompositeResolver() {
@@ -61,13 +61,13 @@ public final class UelUtil {
             add(new BeanELResolver(false));
         }
     };
-    
+
     private UelUtil () {}
-    
+
     public static String getLocalizedMapLocaleKey() {
         return localizedMapLocaleKey;
     }
-    
+
     /** Evaluates a Unified Expression Language expression and returns the result.
      * @param context Evaluation context (variables)
      * @param expression UEL expression
@@ -242,7 +242,7 @@ public final class UelUtil {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            if (obj instanceof ReadOnlyExpression) {
                 return true;
             }
             try {
@@ -268,7 +268,7 @@ public final class UelUtil {
         public boolean isLiteralText() {
             return false;
         }
-        
+
     }
 
     @SuppressWarnings("serial")
@@ -281,7 +281,7 @@ public final class UelUtil {
         }
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            if (obj instanceof BasicValueExpression) {
                 return true;
             }
             try {
