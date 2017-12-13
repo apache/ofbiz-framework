@@ -32,9 +32,9 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
 import org.w3c.dom.Element;
-import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * Entity event-condition-action rule.
@@ -84,7 +84,7 @@ public final class EntityEcaRule implements java.io.Serializable {
         this.actionsAndSets = Collections.unmodifiableList(actionsAndSets);
         if (Debug.verboseOn()) {
             Debug.logVerbose("Conditions: " + conditions, module);
-            if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
         }
     }
 

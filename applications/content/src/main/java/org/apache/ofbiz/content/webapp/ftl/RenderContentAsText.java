@@ -123,7 +123,7 @@ public class RenderContentAsText implements TemplateTransformModel {
 
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
-                    if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                    Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
                 }
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                     try {

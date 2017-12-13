@@ -119,7 +119,7 @@ public class FedexServices {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Fedex Connect URL : " + url, module);
-            if (Debug.verboseOn()) Debug.logVerbose("Fedex XML String : " + xmlString, module);
+            Debug.logVerbose("Fedex XML String : " + xmlString, module);
         }
 
         HttpClient http = new HttpClient(url);

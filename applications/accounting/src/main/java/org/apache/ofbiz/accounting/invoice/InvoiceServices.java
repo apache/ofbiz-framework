@@ -2383,7 +2383,7 @@ public class InvoiceServices {
             BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(delegator, invoiceId);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Invoice #" + invoiceId + " total: " + invoiceTotal, module);
-                if (Debug.verboseOn()) Debug.logVerbose("Total payments : " + totalPayments, module);
+                Debug.logVerbose("Total payments : " + totalPayments, module);
             }
             if (totalPayments.compareTo(invoiceTotal) >= 0) { // this checks that totalPayments is greater than or equal to invoiceTotal
                 // this invoice is paid
