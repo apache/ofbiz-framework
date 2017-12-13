@@ -368,7 +368,7 @@ public class ICalConverter {
             if (Debug.verboseOn()) {
                 try {
                     alarm.validate(true);
-                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm passes validation", module);
+                    Debug.logVerbose("iCalendar alarm passes validation", module);
                 } catch (ValidationException e) {
                     if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
                 }
@@ -413,7 +413,7 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 calendar.validate(true);
-                if (Debug.verboseOn()) Debug.logVerbose("iCalendar passes validation", module);
+                Debug.logVerbose("iCalendar passes validation", module);
             } catch (ValidationException e) {
                 if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, module);
             }
@@ -921,7 +921,7 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 result.validate(true);
-                if (Debug.verboseOn()) Debug.logVerbose("iCalendar component passes validation", module);
+                Debug.logVerbose("iCalendar component passes validation", module);
             } catch (ValidationException e) {
                 Debug.logVerbose(e, "iCalendar component fails validation: ", module);
             }

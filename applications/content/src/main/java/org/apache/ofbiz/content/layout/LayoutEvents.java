@@ -417,7 +417,7 @@ public class LayoutEvents {
             String mapKey = (String) paramMap.get("mapKey");
             if (Debug.verboseOn()) {
                 Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
-                if (Debug.verboseOn()) Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
+                Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
             Map<String, Object> context = new HashMap<String, Object>();
             List<Object> errorMessages = new LinkedList<>();
