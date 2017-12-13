@@ -122,7 +122,7 @@ public class DhlServices {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("DHL Connect URL : " + conStr, module);
-            if (Debug.verboseOn()) Debug.logVerbose("DHL XML String : " + xmlString, module);
+            Debug.logVerbose("DHL XML String : " + xmlString, module);
         }
 
         HttpClient http = new HttpClient(conStr);

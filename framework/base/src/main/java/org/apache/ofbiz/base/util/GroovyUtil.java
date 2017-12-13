@@ -86,7 +86,7 @@ public class GroovyUtil {
         }
         if (Debug.verboseOn()) {
             Debug.logVerbose("Evaluating -- " + expression, module);
-            if (Debug.verboseOn()) Debug.logVerbose("Using Context -- " + context, module);
+            Debug.logVerbose("Using Context -- " + context, module);
         }
         try {
             GroovyShell shell = new GroovyShell(getBinding(context, expression));

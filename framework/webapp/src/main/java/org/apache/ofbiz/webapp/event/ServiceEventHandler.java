@@ -128,7 +128,7 @@ public class ServiceEventHandler implements EventHandler {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("[Processing]: SERVICE Event", module);
-            if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
+            Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
         }
 
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
