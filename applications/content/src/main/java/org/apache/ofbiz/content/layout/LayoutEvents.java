@@ -416,7 +416,7 @@ public class LayoutEvents {
             String contentIdTo = (String) paramMap.get("contentIdTo");
             String mapKey = (String) paramMap.get("mapKey");
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
+                Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
                 if (Debug.verboseOn()) Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
             Map<String, Object> context = new HashMap<String, Object>();
@@ -449,7 +449,7 @@ public class LayoutEvents {
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", "SUB_CONTENT");
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("in createSubContent, context:" + context, module);
+                Debug.logVerbose("in createSubContent, context:" + context, module);
             }
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
             boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
@@ -459,7 +459,7 @@ public class LayoutEvents {
             }
 
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("in createLayoutFile, result:" + result, module);
+                Debug.logVerbose("in createLayoutFile, result:" + result, module);
             }
             String contentId = (String) result.get("contentId");
             String dataResourceId = (String) result.get("dataResourceId");

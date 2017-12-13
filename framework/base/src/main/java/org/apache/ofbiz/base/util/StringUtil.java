@@ -533,7 +533,7 @@ public class StringUtil {
                 result = pattern.matcher(result).replaceAll(entry.getKey());
             }
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Converted " + expression + " to " + result, module);
+                Debug.logVerbose("Converted " + expression + " to " + result, module);
             }
         }
         return result;

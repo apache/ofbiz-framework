@@ -68,7 +68,7 @@ public class TemporalExpressions implements Serializable {
             this.range = new org.apache.ofbiz.base.util.DateRange(start, end);
             this.sequence = SEQUENCE_DATE_RANGE;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -162,7 +162,7 @@ public class TemporalExpressions implements Serializable {
             }
             this.sequence = SEQUENCE_DAY_IN_MONTH + (result * 10) + dayOfWeek;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -313,7 +313,7 @@ public class TemporalExpressions implements Serializable {
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -433,7 +433,7 @@ public class TemporalExpressions implements Serializable {
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -565,7 +565,7 @@ public class TemporalExpressions implements Serializable {
             }
             this.sequence = included.sequence;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -685,7 +685,7 @@ public class TemporalExpressions implements Serializable {
             this.freqType = freqType;
             this.freqCount = freqCount;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -844,7 +844,7 @@ public class TemporalExpressions implements Serializable {
             this.end = end;
             this.sequence = SEQUENCE_HOUR_RANGE + start;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -997,7 +997,7 @@ public class TemporalExpressions implements Serializable {
                 this.sequence = result;
             }
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -1129,7 +1129,7 @@ public class TemporalExpressions implements Serializable {
             this.end = end;
             this.sequence = SEQUENCE_MINUTE_RANGE + start;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -1280,7 +1280,7 @@ public class TemporalExpressions implements Serializable {
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -1437,7 +1437,7 @@ public class TemporalExpressions implements Serializable {
             }
             this.sequence = included.sequence;
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 
@@ -1555,7 +1555,7 @@ public class TemporalExpressions implements Serializable {
                 this.sequence = that.sequence;
             }
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Created " + this, module);
+                Debug.logVerbose("Created " + this, module);
             }
         }
 

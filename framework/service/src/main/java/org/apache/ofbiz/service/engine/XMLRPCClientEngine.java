@@ -120,7 +120,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("[XMLRPCClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
+            Debug.logVerbose("[XMLRPCClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
             for (ModelParam p: inModelParamList) {
                 if (Debug.verboseOn()) Debug.logVerbose("[XMLRPCClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ")", module);
             }

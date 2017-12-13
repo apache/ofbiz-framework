@@ -87,7 +87,7 @@ public final class SetServiceFields extends MethodOperation {
         Map<String, ? extends Object> fromMap = mapFma.get(methodContext.getEnvMap());
         if (fromMap == null) {
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, module);
+                Debug.logVerbose("The from map in set-service-field was not found with name: " + mapFma, module);
             }
             return true;
         }

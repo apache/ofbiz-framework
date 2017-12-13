@@ -121,7 +121,7 @@ public class DhlServices {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("DHL Connect URL : " + conStr, module);
+            Debug.logVerbose("DHL Connect URL : " + conStr, module);
             if (Debug.verboseOn()) Debug.logVerbose("DHL XML String : " + xmlString, module);
         }
 
@@ -141,7 +141,7 @@ public class DhlServices {
                     "FacilityShipmentDhlReceivedNullResponse", locale));
         }
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("DHL Response : " + response, module);
+            Debug.logVerbose("DHL Response : " + response, module);
         }
 
         return response;

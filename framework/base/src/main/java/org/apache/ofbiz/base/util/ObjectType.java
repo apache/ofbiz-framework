@@ -800,7 +800,7 @@ public class ObjectType {
         if (value instanceof java.util.Date) return false;
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
+            Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
         }
         return false;
     }

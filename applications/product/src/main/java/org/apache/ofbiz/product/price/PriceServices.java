@@ -982,7 +982,7 @@ public class PriceServices {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Unchecked Calculated price: " + price, module);
+            Debug.logVerbose("Unchecked Calculated price: " + price, module);
             if (Debug.verboseOn()) Debug.logVerbose("PriceInfo:", module);
             for (GenericValue orderItemPriceInfo: orderItemPriceInfos) {
                 if (Debug.verboseOn()) Debug.logVerbose(" --- " + orderItemPriceInfo.toString(), module);

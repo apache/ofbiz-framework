@@ -85,14 +85,14 @@ public class GroovyUtil {
             return null;
         }
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Evaluating -- " + expression, module);
+            Debug.logVerbose("Evaluating -- " + expression, module);
             if (Debug.verboseOn()) Debug.logVerbose("Using Context -- " + context, module);
         }
         try {
             GroovyShell shell = new GroovyShell(getBinding(context, expression));
             o = shell.evaluate(StringUtil.convertOperatorSubstitutions(expression));
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Evaluated to -- " + o, module);
+                Debug.logVerbose("Evaluated to -- " + o, module);
             }
             // read back the context info
             Binding binding = shell.getContext();
@@ -160,7 +160,7 @@ public class GroovyUtil {
                 Class<?> scriptClassCached = parsedScripts.putIfAbsent(location, scriptClass);
                 if (scriptClassCached == null) { // putIfAbsent returns null if the class is added to the cache
                     if (Debug.verboseOn()) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Cached Groovy script at: " + location, module);
+                        Debug.logVerbose("Cached Groovy script at: " + location, module);
                     }
                 } else {
                     // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the meantime) is used

@@ -889,7 +889,7 @@ public class CCPaymentServices {
             throw new ClearCommerceException("Missing server URL; check your ClearCommerce configuration");
         }
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("ClearCommerce server URL: " + serverURL, module);
+            Debug.logVerbose("ClearCommerce server URL: " + serverURL, module);
         }
 
         OutputStream os = new ByteArrayOutputStream();
@@ -903,7 +903,7 @@ public class CCPaymentServices {
         String xmlString = os.toString();
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("ClearCommerce XML request string: " + xmlString, module);
+            Debug.logVerbose("ClearCommerce XML request string: " + xmlString, module);
         }
 
         HttpClient http = new HttpClient(serverURL);

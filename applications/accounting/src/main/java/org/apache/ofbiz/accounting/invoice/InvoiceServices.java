@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -1977,7 +1978,7 @@ public class InvoiceServices {
                 String returnId = entry.getKey();
                 List<GenericValue> billItems = entry.getValue();
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Creating invoice for return [" + returnId + "] with items: " + billItems.toString(), module);
+                    Debug.logVerbose("Creating invoice for return [" + returnId + "] with items: " + billItems.toString(), module);
                 }
                 Map<String, Object> input = UtilMisc.toMap("returnId", returnId, "billItems", billItems, "userLogin", context.get("userLogin"));
                 Map<String, Object> serviceResults = dispatcher.runSync("createInvoiceFromReturn", input);
@@ -2014,7 +2015,7 @@ public class InvoiceServices {
             // get the return header
             GenericValue returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader == null || returnHeader.get("returnHeaderTypeId") == null) {
-            	 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingReturnTypeCannotBeNull", locale));
+                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingReturnTypeCannotBeNull", locale));
             }
 
             if (returnHeader.getString("returnHeaderTypeId").startsWith("CUSTOMER_")) {
@@ -2157,7 +2158,7 @@ public class InvoiceServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity
+                    Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity
                             + " for shipment [" + item.getString("shipmentId") + ":" + item.getString("shipmentItemSeqId") + "]", module);
                 }
 
@@ -2203,7 +2204,7 @@ public class InvoiceServices {
                     BigDecimal amount = adjustment.getBigDecimal("amount");
                     amount = amount.multiply(ratio).setScale(DECIMALS, ROUNDING);
                     if (Debug.verboseOn()) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
+                        Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
                                 + " for return adjustment [" + adjustment.getString("returnAdjustmentId") + "]", module);
                     }
 
@@ -2263,7 +2264,7 @@ public class InvoiceServices {
                 // prorate the adjustment amount by the actual to promised ratio
                 BigDecimal amount = adjustment.getBigDecimal("amount").multiply(actualToPromisedRatio).setScale(DECIMALS, ROUNDING);
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
+                    Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
                             + " for return adjustment [" + adjustment.getString("returnAdjustmentId") + "]", module);
                 }
 
@@ -2381,7 +2382,7 @@ public class InvoiceServices {
         if (totalPayments.signum() == 1) {
             BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(delegator, invoiceId);
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("Invoice #" + invoiceId + " total: " + invoiceTotal, module);
+                Debug.logVerbose("Invoice #" + invoiceId + " total: " + invoiceTotal, module);
                 if (Debug.verboseOn()) Debug.logVerbose("Total payments : " + totalPayments, module);
             }
             if (totalPayments.compareTo(invoiceTotal) >= 0) { // this checks that totalPayments is greater than or equal to invoiceTotal
@@ -2417,7 +2418,7 @@ public class InvoiceServices {
             // pro-rate the amount
             BigDecimal amount = ZERO;
             if("DONATION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
-            	amount=baseAmount;
+                amount=baseAmount;
             } else if (divisor.signum() != 0) { // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
                 // multiply first then divide to avoid rounding errors
                 amount = baseAmount.multiply(multiplier).divide(divisor, decimals, rounding);
@@ -3538,7 +3539,7 @@ public class InvoiceServices {
     }
     
     public static Map<String, Object> importInvoice(DispatchContext dctx, Map<String, Object> context) {
-    	 Locale locale = (Locale) context.get("locale");
+         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

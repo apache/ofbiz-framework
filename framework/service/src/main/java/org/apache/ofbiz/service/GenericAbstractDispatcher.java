@@ -71,7 +71,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                     getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
 
                     if (Debug.verboseOn()) {
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
                         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
                         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
                         if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);

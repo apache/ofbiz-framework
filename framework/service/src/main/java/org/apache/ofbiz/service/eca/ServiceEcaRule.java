@@ -70,7 +70,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
+            Debug.logVerbose("Conditions: " + conditions, module);
         }
 
         Set<String> nameSet = UtilMisc.toSet("set", "action");
@@ -83,7 +83,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
         }
 
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
         }
     }
 
@@ -141,7 +141,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
                 break;
             } else {
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got true for condition: " + ec, module);
+                    Debug.logVerbose("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got true for condition: " + ec, module);
                 }
             }
         }

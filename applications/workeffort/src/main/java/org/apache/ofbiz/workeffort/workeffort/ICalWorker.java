@@ -171,7 +171,7 @@ public final class ICalWorker {
         try {
             Document requestDocument = WebDavUtil.getDocumentFromRequest(request);
             if (Debug.verboseOn()) {
-                if (Debug.verboseOn()) Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + UtilXml.writeXmlDocument(requestDocument), module);
+                Debug.logVerbose("[handlePropFindRequest] PROPFIND body:\r\n" + UtilXml.writeXmlDocument(requestDocument), module);
             }
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
@@ -207,7 +207,7 @@ public final class ICalWorker {
                 rootElement.appendChild(responseElement);
                 responseDocument.appendChild(rootElement);
                 if (Debug.verboseOn()) {
-                    if (Debug.verboseOn()) Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
+                    Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
                 try (Writer writer = response.getWriter()) {
@@ -309,7 +309,7 @@ public final class ICalWorker {
 
     private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
+            Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
                     ", message = " + responseProps.statusMessage, module);
         }
         response.setStatus(responseProps.statusCode);

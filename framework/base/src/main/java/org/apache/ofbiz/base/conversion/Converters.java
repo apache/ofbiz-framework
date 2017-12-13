@@ -74,7 +74,7 @@ public class Converters {
     public static <S, T> Converter<S, T> getConverter(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
         String key = sourceClass.getName().concat(DELIMITER).concat(targetClass.getName());
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Getting converter: " + key, module);
+            Debug.logVerbose("Getting converter: " + key, module);
         }
 OUTER:
         do {

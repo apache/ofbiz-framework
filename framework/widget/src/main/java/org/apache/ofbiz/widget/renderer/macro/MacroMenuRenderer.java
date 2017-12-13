@@ -130,7 +130,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         sb.append(" />");
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Executing macro: " + sb, module);
+            Debug.logVerbose("Executing macro: " + sb, module);
         }
         executeMacro(writer, sb.toString());
     }

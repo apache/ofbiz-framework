@@ -83,7 +83,7 @@ public final class EntityEcaRule implements java.io.Serializable {
         actionsAndSets.trimToSize();
         this.actionsAndSets = Collections.unmodifiableList(actionsAndSets);
         if (Debug.verboseOn()) {
-            if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
+            Debug.logVerbose("Conditions: " + conditions, module);
             if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
         }
     }
