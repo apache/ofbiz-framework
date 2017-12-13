@@ -72,12 +72,12 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
-                        if (Debug.verboseOn()) Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
                     }
 
                 } catch (JobManagerException jme) {
