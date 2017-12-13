@@ -38,6 +38,7 @@ import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
@@ -184,7 +185,7 @@ public class ExternalLoginKeysManager {
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
 
         try {
-            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", externalServerUserLoginId);
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", externalServerUserLoginId).queryOne();
             if (userLogin != null) {
                 //to check it's the right tenant
                 //in case username and password are the same in different tenants

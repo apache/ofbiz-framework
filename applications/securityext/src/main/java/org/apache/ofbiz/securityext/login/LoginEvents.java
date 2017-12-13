@@ -127,7 +127,7 @@ public class LoginEvents {
         String errMsg = null;
 
         try {
-            GenericValue userLoginSecurityQuestion = delegator.findOne("UserLoginSecurityQuestion", UtilMisc.toMap("questionEnumId", questionEnumId, "userLoginId", userLoginId), true);
+            GenericValue userLoginSecurityQuestion = EntityQuery.use(delegator).from("UserLoginSecurityQuestion").where("questionEnumId", questionEnumId, "userLoginId", userLoginId).cache().queryOne();
             if (userLoginSecurityQuestion != null) {
                 if (UtilValidate.isEmpty(securityAnswer)) {
                     errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_empty", UtilHttp.getLocale(request));

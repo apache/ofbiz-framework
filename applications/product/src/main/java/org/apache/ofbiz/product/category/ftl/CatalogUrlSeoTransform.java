@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.category.CatalogUrlServlet;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
 import org.apache.ofbiz.product.category.CategoryWorker;
@@ -208,7 +209,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                             categoryNameId = categoryIdName;
                         }
                     } else {
-                        GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId), true);
+                        GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
                         CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
                         StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
                         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
@@ -256,7 +257,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         if (UtilValidate.isNotEmpty(productId)) {
             try {
-                product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), module);
             }
@@ -546,7 +547,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 List<String> urlElements = StringUtil.split(lastPathElement, URL_HYPHEN);
                 if (UtilValidate.isEmpty(urlElements)) {
                     try {
-                        if (delegator.findOne("Product", UtilMisc.toMap("productId", lastPathElement), true) != null) {
+                        if (EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache().queryOne() != null) {
                             productId = lastPathElement;
                         }
                     } catch (GenericEntityException e) {
@@ -688,7 +689,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         if (UtilValidate.isNotEmpty(productId)) {
             try {
-                product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up product info for productId [" + productId + "]: " + e.toString(), module);
             }

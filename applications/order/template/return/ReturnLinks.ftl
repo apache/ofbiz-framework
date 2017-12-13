@@ -37,22 +37,22 @@ under the License.
           <ul>
       <li><a href="<@ofbizUrl>return.pdf?returnId=${returnId!}</@ofbizUrl>" target="_BLANK" >PDF</a></li>
       <#if returnId??>
-        <#assign returnItems = delegator.findByAnd("ReturnItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"), null, false)/>
+        <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!, "returnTypeId", "RTN_REFUND").queryList()!/>
         <#if returnItems?has_content>
           <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
           <#assign partyId = "${(returnHeader.fromPartyId)!}"/>
           <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a>
         </#if>
         <#if returnHeader.statusId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId>
-          <#assign returnItems = delegator.findByAnd("ReturnItem", {"returnId" : returnId}, null, false)/>
+          <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!).queryList()!/>
           <#if returnItems?has_content>
             <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
-            <#assign shipGroupAssoc = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("OrderItemShipGroupAssoc", {"orderId" : orderId}, null, false))/>
+            <#assign shipGroupAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId!).queryFirst()!/>
             <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId" : orderId, "shipGroupSeqId" : shipGroupAssoc.shipGroupSeqId}, false)>
             <#if shipGroup?? && shipGroup.shipmentMethodTypeId != "NO_SHIPPING">
-              <#assign shipGroupShipment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Shipment", {"primaryOrderId" : shipGroup.orderId, "primaryShipGroupSeqId" : shipGroup.shipGroupSeqId}, null, false))/>
+              <#assign shipGroupShipment = EntityQuery.use(delegator).from("Shipment").where("primaryOrderId", shipGroup.orderId!, "primaryShipGroupSeqId", shipGroup.shipGroupSeqId!).queryFirst()! />
                 <#if shipGroupShipment??>
-                <#assign shipmentRouteSegment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipGroupShipment.shipmentId}, null, false))!>
+                <#assign shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipGroupShipment.shipmentId!).queryFirst()!>
                 <#if shipmentRouteSegment??>
                   <#if "UPS" == shipmentRouteSegment.carrierPartyId!>
                     <li><a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a></li>

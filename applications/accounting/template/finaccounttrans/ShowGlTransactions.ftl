@@ -53,13 +53,13 @@ under the License.
        <td>${acctgTransEntry.isPosted!}</td>
        <td>
          <#if acctgTransEntry.glFiscalTypeId?has_content>
-           <#assign glFiscalType = delegator.findOne("GlFiscalType", {"glFiscalTypeId" : acctgTransEntry.glFiscalTypeId}, false)/>
+           <#assign glFiscalType = EntityQuery.use(delegator).from("GlFiscalType").where("glFiscalTypeId", acctgTransEntry.glFiscalTypeId!).queryOne()!/>
              ${glFiscalType.description!}
          </#if>
        </td>
        <td>
          <#if acctgTransEntry.acctgTransTypeId?has_content>
-           <#assign acctgTransType = delegator.findOne("AcctgTransType", {"acctgTransTypeId" : acctgTransEntry.acctgTransTypeId}, false)/>
+           <#assign acctgTransType = EntityQuery.use(delegator).from("AcctgTransType").where("acctgTransTypeId", acctgTransEntry.acctgTransTypeId!).queryOne()!/>
              ${acctgTransType.description!}
          </#if>
        </td>
@@ -75,7 +75,7 @@ under the License.
        <td>${acctgTransEntry.origAmount!}</td>
        <td>
          <#if acctgTransEntry.organizationPartyId?has_content>
-           <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : acctgTransEntry.organizationPartyId}, false)>
+           <#assign partyName = EntityQuery.use(delegator).from("PartyNameView").where("partyId", acctgTransEntry.organizationPartyId!).queryOne()!>
            <#if "PERSON" == partyName.partyTypeId>
              ${partyName.firstName!} ${partyName.lastName!}
            <#elseif (partyName.partyTypeId) != "PARTY_GROUP">
@@ -85,7 +85,7 @@ under the License.
        </td>
        <td>
          <#if (acctgTransEntry.glAccountTypeId)?has_content>
-           <#assign glAccountType = delegator.findOne("GlAccountType", {"glAccountTypeId" : acctgTransEntry.glAccountTypeId}, false)>
+           <#assign glAccountType = EntityQuery.use(delegator).from("GlAccountType").where("glAccountTypeId", acctgTransEntry.glAccountTypeId!).queryOne()!>
              ${glAccountType.description!}
          </#if>
        </td>
@@ -93,20 +93,20 @@ under the License.
        <td>${acctgTransEntry.accountName!}</td>
        <td>
          <#if acctgTransEntry.glAccountClassId?has_content>
-           <#assign glAccountClass = delegator.findOne("GlAccountClass", {"glAccountClassId" : acctgTransEntry.glAccountClassId}, false)/>
+           <#assign glAccountClass = EntityQuery.use(delegator).from("GlAccountClass").where("glAccountClassId", acctgTransEntry.glAccountClassId!).queryOne()!/>
              ${glAccountClass.description!}
          </#if>
        </td>
        <td>${acctgTransEntry.partyId!}</td>
        <td>
          <#if acctgTransEntry.reconcileStatusId?has_content>
-           <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
+           <#assign status =EntityQuery.use(delegator).from("StatusItem").where("statusId", finAccountTrans.statusId!).cache().queryOne()!>
              ${status.description!}
          </#if>
        </td>
        <td>
          <#if acctgTransEntry.acctgTransEntryTypeId?has_content>
-           <#assign acctgTransEntryType = delegator.findOne("AcctgTransEntryType", {"acctgTransEntryTypeId" : acctgTransEntry.acctgTransEntryTypeId}, true)>
+           <#assign acctgTransEntryType = EntityQuery.use(delegator).from("AcctgTransEntryType").where("acctgTransEntryTypeId", acctgTransEntry.acctgTransEntryTypeId!).cache().queryOne()!>
              ${acctgTransEntryType.description!}
          </#if>
        </td>

@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class ContentJsonEvents {
 
@@ -103,7 +104,7 @@ public class ContentJsonEvents {
         GenericValue assoc = TransactionUtil.inTransaction(new Callable<GenericValue>() {
             @Override
             public GenericValue call() throws Exception {
-                GenericValue oldAssoc = delegator.findOne("ContentAssoc", UtilMisc.toMap("contentIdTo", contentIdTo, "contentId", contentIdFrom, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), false);
+                GenericValue oldAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdTo", contentIdTo, "contentId", contentIdFrom, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate).queryOne();
                 if (oldAssoc == null) {
                     throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: $contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
                 }
