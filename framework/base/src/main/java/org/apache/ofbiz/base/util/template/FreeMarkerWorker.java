@@ -144,7 +144,7 @@ public final class FreeMarkerWorker {
             String key = (String) i.next();
             String className = props.getProperty(key);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
             }
             try {
                 config.setSharedVariable(key, loader.loadClass(className).newInstance());

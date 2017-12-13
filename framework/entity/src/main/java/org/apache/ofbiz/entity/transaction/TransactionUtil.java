@@ -122,11 +122,11 @@ public final class TransactionUtil implements Status {
             try {
                 int currentStatus = ut.getStatus();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(currentStatus), module);
                 }
                 if (currentStatus == Status.STATUS_ACTIVE) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Active transaction in place, so no transaction begun", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Active transaction in place, so no transaction begun", module);
                     }
                     return false;
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
@@ -182,14 +182,14 @@ public final class TransactionUtil implements Status {
         if (timeout > 0) {
             ut.setTransactionTimeout(timeout);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Set transaction timeout to : " + timeout + " seconds", module);
             }
         }
 
         // begin the transaction
         ut.begin();
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Transaction begun", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Transaction begun", module);
         }
 
         // reset the timeout to the default
@@ -243,7 +243,7 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
 
                 if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
                     ut.commit();
@@ -254,7 +254,7 @@ public final class TransactionUtil implements Status {
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
 
-                    Debug.logVerbose("Transaction committed", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Transaction committed", module);
                 } else {
                     Debug.logWarning("Not committing transaction, status is " + getStatusString(), module);
                 }
@@ -315,7 +315,7 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), module);
 
                 if (status != STATUS_NO_TRANSACTION) {
                     //if (Debug.infoOn()) Thread.dumpStack();
@@ -353,7 +353,7 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                Debug.logVerbose("Current code : " + getTransactionStateString(status), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current code : " + getTransactionStateString(status), module);
 
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {

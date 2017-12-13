@@ -43,9 +43,9 @@ public class DebugManagedDataSource extends ManagedDataSource {
         if (Debug.verboseOn()) {
             if (super.getPool() instanceof GenericObjectPool) {
                 GenericObjectPool objectPool = (GenericObjectPool)super.getPool();
-                Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + objectPool.getNumActive() + "/" + objectPool.getNumIdle() + "/" + (objectPool.getNumActive() + objectPool.getNumIdle()) + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + objectPool.getNumActive() + "/" + objectPool.getNumIdle() + "/" + (objectPool.getNumActive() + objectPool.getNumIdle()) + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), module);
             } else {
-                Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + super.getPool().getNumActive() + "/" + super.getPool().getNumIdle() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Borrowing a connection from the pool; used/idle/total: " + super.getPool().getNumActive() + "/" + super.getPool().getNumIdle() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), module);
             }
         }
         return super.getConnection();

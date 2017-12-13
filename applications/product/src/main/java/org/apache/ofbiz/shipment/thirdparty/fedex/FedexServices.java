@@ -118,8 +118,8 @@ public class FedexServices {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Fedex Connect URL : " + url, module);
-            Debug.logVerbose("Fedex XML String : " + xmlString, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Fedex Connect URL : " + url, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Fedex XML String : " + xmlString, module);
         }
 
         HttpClient http = new HttpClient(url);
@@ -138,7 +138,7 @@ public class FedexServices {
                     "FacilityShipmentFedexReceivedNullResponse", locale));
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Fedex Response : " + response, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Fedex Response : " + response, module);
         }
 
         return response;

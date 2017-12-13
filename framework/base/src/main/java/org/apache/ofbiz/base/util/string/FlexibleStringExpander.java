@@ -602,7 +602,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 }
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Error evaluating expression: " + e, module);
                 }
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression: " + e, module);
@@ -656,7 +656,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                     return obj;
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Scriptlet evaluated to null [" + this + "].", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Scriptlet evaluated to null [" + this + "].", module);
                     }
                 }
             } catch (Exception e) {
@@ -691,7 +691,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 return UelUtil.evaluate(context, openBracket.concat(expr.toString()).concat(closeBracket));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression: " + e, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Error evaluating expression: " + e, module);
                 }
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression: " + e, module);
@@ -716,7 +716,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 obj = UelUtil.evaluate(context, new String(this.bracketedOriginal));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression " + this + ": " + e, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Error evaluating expression " + this + ": " + e, module);
                 }
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression " + this + ": " + e, module);

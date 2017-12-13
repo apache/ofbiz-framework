@@ -179,7 +179,7 @@ public class JNDITransactionFactory implements TransactionFactory {
 
             if (ds != null) {
                 if (Debug.verboseOn())
-                    Debug.logVerbose("Got a Datasource object.", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Got a Datasource object.", module);
                 dsCache.putIfAbsent(jndiName, ds);
                 ds = dsCache.get(jndiName);
                 Connection con;

@@ -459,7 +459,7 @@ public final class ComponentConfig {
             throw new ComponentException("Error reading container configurations for component: " + this.globalName, ce);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
         }
     }
 

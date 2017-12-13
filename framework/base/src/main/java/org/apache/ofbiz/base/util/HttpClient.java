@@ -486,16 +486,16 @@ public class HttpClient {
                         OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(),
                                 this.streamCharset != null ? this.streamCharset : "UTF-8")) {
                     if (Debug.verboseOn() || debug)
-                        Debug.logVerbose("Opened output stream", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Opened output stream", module);
 
                     if (arguments != null) {
                         out.write(arguments);
                         if (Debug.verboseOn() || debug)
-                            Debug.logVerbose("Wrote arguements (parameters) : " + arguments, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Wrote arguements (parameters) : " + arguments, module);
                     }
 
                     if (Debug.verboseOn() || debug)
-                        Debug.logVerbose("Flushed and closed buffer", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Flushed and closed buffer", module);
                 }
             }
 

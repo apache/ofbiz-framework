@@ -164,7 +164,7 @@ public class InvoiceServices {
         String invoiceId = (String) context.get("invoiceId");
 
         if (UtilValidate.isEmpty(billItems)) {
-            Debug.logVerbose("No order items to invoice; not creating invoice; returning success", module);
+            if (Debug.verboseOn()) Debug.logVerbose("No order items to invoice; not creating invoice; returning success", module);
             return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,
                     "AccountingNoOrderItemsToInvoice", locale));
         }
@@ -1977,7 +1977,7 @@ public class InvoiceServices {
                 String returnId = entry.getKey();
                 List<GenericValue> billItems = entry.getValue();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Creating invoice for return [" + returnId + "] with items: " + billItems.toString(), module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Creating invoice for return [" + returnId + "] with items: " + billItems.toString(), module);
                 }
                 Map<String, Object> input = UtilMisc.toMap("returnId", returnId, "billItems", billItems, "userLogin", context.get("userLogin"));
                 Map<String, Object> serviceResults = dispatcher.runSync("createInvoiceFromReturn", input);
@@ -2157,7 +2157,7 @@ public class InvoiceServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity
+                    if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity
                             + " for shipment [" + item.getString("shipmentId") + ":" + item.getString("shipmentItemSeqId") + "]", module);
                 }
 
@@ -2203,7 +2203,7 @@ public class InvoiceServices {
                     BigDecimal amount = adjustment.getBigDecimal("amount");
                     amount = amount.multiply(ratio).setScale(DECIMALS, ROUNDING);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
+                        if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
                                 + " for return adjustment [" + adjustment.getString("returnAdjustmentId") + "]", module);
                     }
 
@@ -2263,7 +2263,7 @@ public class InvoiceServices {
                 // prorate the adjustment amount by the actual to promised ratio
                 BigDecimal amount = adjustment.getBigDecimal("amount").multiply(actualToPromisedRatio).setScale(DECIMALS, ROUNDING);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
+                    if (Debug.verboseOn()) Debug.logVerbose("Creating Invoice Item with amount " + adjustment.getBigDecimal("amount") + " prorated to " + amount
                             + " for return adjustment [" + adjustment.getString("returnAdjustmentId") + "]", module);
                 }
 
@@ -2381,8 +2381,8 @@ public class InvoiceServices {
         if (totalPayments.signum() == 1) {
             BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(delegator, invoiceId);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Invoice #" + invoiceId + " total: " + invoiceTotal, module);
-                Debug.logVerbose("Total payments : " + totalPayments, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Invoice #" + invoiceId + " total: " + invoiceTotal, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Total payments : " + totalPayments, module);
             }
             if (totalPayments.compareTo(invoiceTotal) >= 0) { // this checks that totalPayments is greater than or equal to invoiceTotal
                 // this invoice is paid

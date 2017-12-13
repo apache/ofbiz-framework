@@ -368,9 +368,9 @@ public class ICalConverter {
             if (Debug.verboseOn()) {
                 try {
                     alarm.validate(true);
-                    Debug.logVerbose("iCalendar alarm passes validation", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm passes validation", module);
                 } catch (ValidationException e) {
-                    Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
                 }
             }
         }
@@ -413,9 +413,9 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 calendar.validate(true);
-                Debug.logVerbose("iCalendar passes validation", module);
+                if (Debug.verboseOn()) Debug.logVerbose("iCalendar passes validation", module);
             } catch (ValidationException e) {
-                Debug.logVerbose("iCalendar fails validation: " + e, module);
+                if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, module);
             }
         }
         return ICalWorker.createOkResponse(calendar.toString());
@@ -575,10 +575,10 @@ public class ICalConverter {
         boolean newCalendar = true;
         Calendar calendar = null;
         if (iCalData == null) {
-            Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
+            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
             calendar = new Calendar();
         } else {
-            Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
+            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
             StringReader reader = new StringReader(iCalData);
             CalendarBuilder builder = new CalendarBuilder();
             try {
@@ -696,7 +696,7 @@ public class ICalConverter {
             }
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Processing calendar:\r\n" + calendar, module);
         }
         String workEffortId = fromXProperty(calendar.getProperties(), workEffortIdXPropName);
         if (workEffortId == null) {
@@ -921,7 +921,7 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             try {
                 result.validate(true);
-                Debug.logVerbose("iCalendar component passes validation", module);
+                if (Debug.verboseOn()) Debug.logVerbose("iCalendar component passes validation", module);
             } catch (ValidationException e) {
                 Debug.logVerbose(e, "iCalendar component fails validation: ", module);
             }

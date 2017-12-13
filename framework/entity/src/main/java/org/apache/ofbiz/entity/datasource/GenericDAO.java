@@ -591,7 +591,7 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
 
         // make two ArrayLists of fields, one for fields to select and the other for where clause fields (to find by)
@@ -714,7 +714,7 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, module);
         }
         // set all of the values from the Where EntityCondition
         for (EntityConditionParam whereEntityConditionParam: whereEntityConditionParams) {
@@ -722,7 +722,7 @@ public class GenericDAO {
         }
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, module);
         }
         // set all of the values from the Having EntityCondition
         for (EntityConditionParam havingEntityConditionParam: havingEntityConditionParams) {
@@ -963,7 +963,7 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
 
         boolean isGroupBy = false;
@@ -1050,7 +1050,7 @@ public class GenericDAO {
                 findOptions.getResultSetConcurrency(), findOptions.getFetchSize(), findOptions.getMaxRows());
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, module);
         }
         // set all of the values from the Where EntityCondition
         for (EntityConditionParam whereEntityConditionParam: whereEntityConditionParams) {
@@ -1058,7 +1058,7 @@ public class GenericDAO {
         }
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, module);
         }
         // set all of the values from the Having EntityCondition
         for (EntityConditionParam havingEntityConditionParam: havingEntityConditionParams) {

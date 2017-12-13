@@ -165,7 +165,7 @@ public class ConfigXMLReader {
                 rootElement = UtilXml.firstChildElement(rootElement, "site-conf");
             }
             if (Debug.verboseOn())
-                Debug.logVerbose("Loaded XML Config - " + location, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Loaded XML Config - " + location, module);
             return rootElement;
         } catch (Exception e) {
             Debug.logError(e, module);

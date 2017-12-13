@@ -517,12 +517,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, String> requiredInfo = new HashMap<>();
         Map<String, String> optionalInfo = new HashMap<>();
 
-        Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, module);
 
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
             if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
+                if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", module);
                 return;
             }
         }
@@ -584,11 +584,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 requiredNames.append(key);
             }
-            Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, module);
+            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, module);
 
-            Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
+            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
                 requiredTest.size() + " / " + requiredInfo.size(), module);
-            Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
+            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
                 optionalTest.size() + " / " + optionalInfo.size(), module);
         }
 
@@ -1138,7 +1138,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (group != null) {
                     for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
-                        Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
                     }
                 }
             }

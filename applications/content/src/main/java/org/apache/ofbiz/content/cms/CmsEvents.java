@@ -248,11 +248,11 @@ public class CmsEvents {
                     }
                     if (errorPage != null) {
                         if (Debug.verboseOn())
-                            Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
                         contentId = errorPage.getString("contentId");
                     } else {
                         if (Debug.verboseOn())
-                            Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
                         contentId = errorContainer.getString("contentId");
                     }
                     mapKey = null;
@@ -263,7 +263,7 @@ public class CmsEvents {
                     try {
                         GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId", "CONTENT_ERROR_" + statusCode).cache().queryOne();
                         if (errorPage != null) {
-                            Debug.logVerbose("Found generic page " + statusCode, module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Found generic page " + statusCode, module);
                             contentId = errorPage.getString("contentId");
                             mapKey = null;
                             hasErrorPage = true;

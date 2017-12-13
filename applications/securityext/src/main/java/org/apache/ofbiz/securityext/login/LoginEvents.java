@@ -421,7 +421,7 @@ public class LoginEvents {
         String cookieUsername = null;
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
         }
         if (cookies != null) {
             for (Cookie cookie: cookies) {

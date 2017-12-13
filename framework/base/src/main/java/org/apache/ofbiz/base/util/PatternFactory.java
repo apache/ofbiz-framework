@@ -52,7 +52,7 @@ public class PatternFactory {
             }
             pattern = compiledPerl5Patterns.putIfAbsentAndGet(stringPattern, pattern);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Compiled and cached the pattern: '" + stringPattern, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Compiled and cached the pattern: '" + stringPattern, module);
             }
         }
         return pattern;

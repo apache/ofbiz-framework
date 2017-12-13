@@ -49,7 +49,7 @@ public class EntityDataAssert {
             return 0;
         }
 
-        Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), module);
 
         try {
             for (GenericValue checkValue: delegator.readXmlDocument(dataUrl)) {

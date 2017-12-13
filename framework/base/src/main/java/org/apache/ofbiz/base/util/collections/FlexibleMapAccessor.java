@@ -76,7 +76,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         this.isAscending = isAscending;
         this.fse = fse;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
+            if (Debug.verboseOn()) Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
         }
     }
 
@@ -149,7 +149,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         } catch (PropertyNotFoundException e) {
             // PropertyNotFound exceptions are common, so log verbose.
             if (Debug.verboseOn()) {
-                Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, module);
+                if (Debug.verboseOn()) Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, module);
             }
         } catch (Exception e) {
             Debug.logError("UEL exception while getting value: " + e + ", original = " + this.original, module);
