@@ -109,14 +109,14 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     protected ModelTreeAction(ModelNode modelNode, Element actionElement) {
         if (Debug.verboseOn())
-            Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
         this.modelTree = modelNode.getModelTree();
         this.modelSubNode = null;
     }
 
     protected ModelTreeAction(ModelNode.ModelSubNode modelSubNode, Element actionElement) {
         if (Debug.verboseOn())
-            Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
         this.modelSubNode = modelSubNode;
         this.modelTree = modelSubNode.getNode().getModelTree();
     }

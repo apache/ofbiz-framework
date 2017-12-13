@@ -176,7 +176,7 @@ public class SeoTransform implements TemplateTransformModel {
                 }
             }
             if (!foundMatch) {
-                Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
             }
         }
         return url;

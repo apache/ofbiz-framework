@@ -136,7 +136,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             return;
         for (ModelAction action : actions) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Running action " + action.getClass().getName(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Running action " + action.getClass().getName(), module);
             try {
                 action.runAction(context);
             } catch (GeneralException e) {
@@ -155,7 +155,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
     protected AbstractModelAction(ModelWidget modelWidget, Element actionElement) {
         this.modelWidget = modelWidget;
         if (Debug.verboseOn())
-            Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), module);
     }
 
     /**
@@ -317,7 +317,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -398,7 +398,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -804,7 +804,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
                     if (Debug.verboseOn())
-                        Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: "
+                        if (Debug.verboseOn()) Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: "
                                 + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -814,7 +814,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
                     if (Debug.verboseOn())
-                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName()
+                        if (Debug.verboseOn()) Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName()
                                 + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
@@ -823,7 +823,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn())
-                        Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue,
+                        if (Debug.verboseOn()) Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue,
                                 module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -874,7 +874,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 HttpSession session = (HttpSession) context.get("session");
                 session.setAttribute(newKey, newValue);
                 if (Debug.verboseOn())
-                    Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue,
+                    if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue,
                             module);
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
@@ -890,13 +890,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 ServletContext servletContext = (ServletContext) context.get("application");
                 servletContext.setAttribute(newKey, newValue);
                 if (Debug.verboseOn())
-                    Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: "
+                    if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: "
                             + newValue, module);
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
                     if (Debug.verboseOn())
-                        Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
                     this.field.put(context, newValue);
                 }
             }

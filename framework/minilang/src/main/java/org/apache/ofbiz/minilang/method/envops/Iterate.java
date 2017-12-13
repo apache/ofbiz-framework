@@ -69,7 +69,7 @@ public final class Iterate extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listFma.isEmpty()) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Collection not found, doing nothing: " + this, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Collection not found, doing nothing: " + this, module);
             return true;
         }
         Object oldEntryValue = entryFma.get(methodContext.getEnvMap());
@@ -102,7 +102,7 @@ public final class Iterate extends MethodOperation {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
             if (theCollection.size() == 0) {
                 if (Debug.verboseOn())
-                    Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
                 return true;
             }
             for (Object theEntry : theCollection) {
@@ -127,7 +127,7 @@ public final class Iterate extends MethodOperation {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
                 if (Debug.verboseOn())
-                    Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
                 return true;
             }
             while (theIterator.hasNext()) {
@@ -151,7 +151,7 @@ public final class Iterate extends MethodOperation {
             }
         } else {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Cannot iterate over a " + objList == null ? "null object" : objList.getClass().getName()
+                if (Debug.verboseOn()) Debug.logVerbose("Cannot iterate over a " + objList == null ? "null object" : objList.getClass().getName()
                         + ", doing nothing: " + this, module);
             }
             return true;

@@ -543,10 +543,10 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
                     response = defaultErrorCode;
                 } else {
-                    Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
                     response = defaultSuccessCode;
                 }
             }

@@ -141,7 +141,7 @@ public class ControlServlet extends HttpServlet {
         }
         request.setAttribute("_CONTROL_PATH_", contextPath + request.getServletPath());
         if (Debug.verboseOn())
-            Debug.logVerbose("Control Path: " + request.getAttribute("_CONTROL_PATH_"), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Control Path: " + request.getAttribute("_CONTROL_PATH_"), module);
 
         // for convenience, and necessity with event handlers, make security and delegator available in the request:
         // try to get it from the session first so that we can have a delegator/dispatcher/security for a certain user if desired
@@ -332,49 +332,49 @@ public class ControlServlet extends HttpServlet {
         ServletContext servletContext = this.getServletContext();
         HttpSession session = request.getSession();
 
-        Debug.logVerbose("--- Start Request Headers: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- Start Request Headers: ---", module);
         Enumeration<String> headerNames = UtilGenerics.cast(request.getHeaderNames());
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             Debug.logVerbose(headerName + ":" + request.getHeader(headerName), module);
         }
-        Debug.logVerbose("--- End Request Headers: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- End Request Headers: ---", module);
 
-        Debug.logVerbose("--- Start Request Parameters: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- Start Request Parameters: ---", module);
         Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
             Debug.logVerbose(paramName + ":" + request.getParameter(paramName), module);
         }
-        Debug.logVerbose("--- End Request Parameters: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- End Request Parameters: ---", module);
 
-        Debug.logVerbose("--- Start Request Attributes: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- Start Request Attributes: ---", module);
         Enumeration<String> reqNames = UtilGenerics.cast(request.getAttributeNames());
         while (reqNames != null && reqNames.hasMoreElements()) {
             String attName = reqNames.nextElement();
             Debug.logVerbose(attName + ":" + request.getAttribute(attName), module);
         }
-        Debug.logVerbose("--- End Request Attributes ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- End Request Attributes ---", module);
 
-        Debug.logVerbose("--- Start Session Attributes: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- Start Session Attributes: ---", module);
         Enumeration<String> sesNames = null;
         try {
             sesNames = UtilGenerics.cast(session.getAttributeNames());
         } catch (IllegalStateException e) {
-            Debug.logVerbose("Cannot get session attributes : " + e.getMessage(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Cannot get session attributes : " + e.getMessage(), module);
         }
         while (sesNames != null && sesNames.hasMoreElements()) {
             String attName = sesNames.nextElement();
             Debug.logVerbose(attName + ":" + session.getAttribute(attName), module);
         }
-        Debug.logVerbose("--- End Session Attributes ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- End Session Attributes ---", module);
 
         Enumeration<String> appNames = UtilGenerics.cast(servletContext.getAttributeNames());
-        Debug.logVerbose("--- Start ServletContext Attributes: ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- Start ServletContext Attributes: ---", module);
         while (appNames != null && appNames.hasMoreElements()) {
             String attName = appNames.nextElement();
             Debug.logVerbose(attName + ":" + servletContext.getAttribute(attName), module);
         }
-        Debug.logVerbose("--- End ServletContext Attributes ---", module);
+        if (Debug.verboseOn()) Debug.logVerbose("--- End ServletContext Attributes ---", module);
     }
 }

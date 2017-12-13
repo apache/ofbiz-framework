@@ -129,7 +129,7 @@ public class WidgetFactory {
         Assert.notNull("tagName", tagName, "widgetClass", widgetClass);
         screenWidgets.put(tagName, widgetClass.getConstructor(ModelScreen.class, Element.class));
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Registered " + widgetClass.getName() + " with tag name " + tagName, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Registered " + widgetClass.getName() + " with tag name " + tagName, module);
         }
     }
 

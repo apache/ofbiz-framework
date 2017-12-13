@@ -889,7 +889,7 @@ public class CCPaymentServices {
             throw new ClearCommerceException("Missing server URL; check your ClearCommerce configuration");
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("ClearCommerce server URL: " + serverURL, module);
+            if (Debug.verboseOn()) Debug.logVerbose("ClearCommerce server URL: " + serverURL, module);
         }
 
         OutputStream os = new ByteArrayOutputStream();
@@ -903,7 +903,7 @@ public class CCPaymentServices {
         String xmlString = os.toString();
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("ClearCommerce XML request string: " + xmlString, module);
+            if (Debug.verboseOn()) Debug.logVerbose("ClearCommerce XML request string: " + xmlString, module);
         }
 
         HttpClient http = new HttpClient(serverURL);
@@ -925,7 +925,7 @@ public class CCPaymentServices {
         }
         if (Debug.verboseOn()) Debug.logVerbose("Result severity from clearCommerce:" + getMessageListMaxSev(responseDocument), module);
         if (Debug.verboseOn() && getMessageListMaxSev(responseDocument) > 4)
-                Debug.logVerbose("Returned messages:" + getMessageList(responseDocument),module);
+                if (Debug.verboseOn()) Debug.logVerbose("Returned messages:" + getMessageList(responseDocument),module);
         return responseDocument;
     }
 

@@ -1291,7 +1291,7 @@ public class GiftCertificateServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorCreateReturnItemWithoutId", locale));
             } else {
-                Debug.logVerbose("Created return item : " + returnId + " / " + returnItemSeqId, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Created return item : " + returnId + " / " + returnItemSeqId, module);
             }
 
             // need the system userLogin to "fake" out the update service

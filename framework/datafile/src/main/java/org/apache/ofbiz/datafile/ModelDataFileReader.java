@@ -146,7 +146,7 @@ public final class ModelDataFileReader {
             ModelDataFile dataFile = createModelDataFile(curDataFile);
             result.put(dataFileName, dataFile);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
             }
         }
         return result;

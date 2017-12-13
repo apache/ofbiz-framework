@@ -108,7 +108,7 @@ public final class ScriptUtil {
         if (iter.hasNext()) {
             helperFactory = iter.next();
             if (Debug.verboseOn()) {
-                Debug.logVerbose("ScriptHelper factory set to " + helperFactory.getClass().getName(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("ScriptHelper factory set to " + helperFactory.getClass().getName(), module);
             }
         } else {
             Debug.logWarning("ScriptHelper factory not found", module);
@@ -140,11 +140,11 @@ public final class ScriptUtil {
                         .getUtf8()));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
                 }
             } catch (ClassCastException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
                 }
             }
             if (script != null) {
@@ -177,11 +177,11 @@ public final class ScriptUtil {
                 Compilable compilableEngine = (Compilable) engine;
                 compiledScript = compilableEngine.compile(script);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Compiled script [" + script + "] using engine " + engine.getClass().getName(), module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Compiled script [" + script + "] using engine " + engine.getClass().getName(), module);
                 }
             } catch (ClassCastException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
                 }
             }
             if (compiledScript != null) {
@@ -273,7 +273,7 @@ public final class ScriptUtil {
                 throw new IllegalArgumentException("The script type is not supported for language: " + language);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
             }
             ScriptContext scriptContext = createScriptContext(context);
             return engine.eval(script, scriptContext);
@@ -298,7 +298,7 @@ public final class ScriptUtil {
         Object result = script.eval(scriptContext);
         if (UtilValidate.isNotEmpty(functionName)) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Invoking function/method " + functionName, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Invoking function/method " + functionName, module);
             }
             ScriptEngine engine = script.getEngine();
             try {
@@ -380,7 +380,7 @@ public final class ScriptUtil {
             throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Begin processing script [" + filePath + "] using engine " + engine.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Begin processing script [" + filePath + "] using engine " + engine.getClass().getName(), module);
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);

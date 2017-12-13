@@ -48,7 +48,7 @@ public class LdapAuthenticationServices {
     public static final String module = LdapAuthenticationServices.class.getName();
 
     public static boolean userLogin(DispatchContext ctx, Map<String, ?> context) {
-        Debug.logVerbose("Starting LDAP authentication", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Starting LDAP authentication", module);
         Properties env = UtilProperties.getProperties("jndiLdap");
         String username = (String) context.get("login.username");
         if (username == null) {
@@ -75,9 +75,9 @@ public class LdapAuthenticationServices {
             if (dnTemplate != null) {
                 dn = dnTemplate.replace("%u", username);
             }
-            Debug.logVerbose("Using DN template: " + dn, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Using DN template: " + dn, module);
         } else {
-            Debug.logVerbose("Using UserLogin.userLdapDn: " + dn, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Using UserLogin.userLdapDn: " + dn, module);
         }
         env.put(Context.SECURITY_PRINCIPAL, dn);
         env.put(Context.SECURITY_CREDENTIALS, password);
@@ -86,10 +86,10 @@ public class LdapAuthenticationServices {
             DirContext ldapCtx = new InitialDirContext(env);
             ldapCtx.close();
         } catch (NamingException e) {
-            Debug.logVerbose("LDAP authentication failed: " + e.getMessage(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication failed: " + e.getMessage(), module);
             return false;
         }
-        Debug.logVerbose("LDAP authentication succeeded", module);
+        if (Debug.verboseOn()) Debug.logVerbose("LDAP authentication succeeded", module);
         if (!"true".equals(env.get("ldap.synchronize.passwords"))) {
             return true;
         }
@@ -104,7 +104,7 @@ public class LdapAuthenticationServices {
                 samePassword = currentPassword.equals(password);
             }
             if (!samePassword) {
-                Debug.logVerbose("Starting password synchronization", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Starting password synchronization", module);
                 userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(LoginServices.getHashType(), null, password) : password, false);
                 Transaction parentTx = null;
                 boolean beganTransaction = false;
@@ -127,7 +127,7 @@ public class LdapAuthenticationServices {
                     } finally {
                         try {
                             TransactionUtil.commit(beganTransaction);
-                            Debug.logVerbose("Password synchronized", module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Password synchronized", module);
                         } catch (GenericTransactionException e) {
                             Debug.logError(e, "Could not commit nested transaction: " + e.getMessage(), module);
                         }
@@ -136,7 +136,7 @@ public class LdapAuthenticationServices {
                     if (parentTx != null) {
                         try {
                             TransactionUtil.resume(parentTx);
-                            Debug.logVerbose("Resumed the parent transaction.", module);
+                            if (Debug.verboseOn()) Debug.logVerbose("Resumed the parent transaction.", module);
                         } catch (GenericTransactionException e) {
                             Debug.logError(e, "Could not resume parent nested transaction: " + e.getMessage(), module);
                         }

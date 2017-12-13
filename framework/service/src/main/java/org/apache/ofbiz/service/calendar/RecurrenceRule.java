@@ -163,21 +163,21 @@ public class RecurrenceRule {
      */
     public long getEndTime() {
         if (rule == null) {
-            Debug.logVerbose("Rule is null.", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Rule is null.", module);
             return -1;
         }
         long time = 0;
         java.sql.Timestamp stamp = null;
 
         stamp = rule.getTimestamp("untilDateTime");
-        Debug.logVerbose("Stamp value: " + stamp, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Stamp value: " + stamp, module);
 
         if (stamp != null) {
             long nanos = stamp.getNanos();
             time = stamp.getTime();
             time += (nanos / 1000000);
         }
-        Debug.logVerbose("Returning time: " + time, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Returning time: " + time, module);
         return time;
     }
 
@@ -261,12 +261,12 @@ public class RecurrenceRule {
         // Test the end time of the recurrence.
         if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now())
             return 0;
-        Debug.logVerbose("Rule NOT expired by end time.", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Rule NOT expired by end time.", module);
 
         // Test the recurrence limit.
         if (getCount() != -1 && currentCount >= getCount())
             return 0;
-        Debug.logVerbose("Rule NOT expired by max count.", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Rule NOT expired by max count.", module);
 
         boolean isSeeking = true;
         long nextRuntime = 0;

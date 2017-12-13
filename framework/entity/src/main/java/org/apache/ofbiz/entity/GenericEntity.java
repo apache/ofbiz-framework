@@ -1227,7 +1227,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                                 // Replace each char which is out of the ASCII range with a XML entity
                                 String replacement = "&#" + (int) curChar + ";";
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Entity: " + this.getEntityName() + ", PK: " + this.getPrimaryKey().toString() + " -> char [" + curChar + "] replaced with [" + replacement + "]", module);
+                                    if (Debug.verboseOn()) Debug.logVerbose("Entity: " + this.getEntityName() + ", PK: " + this.getPrimaryKey().toString() + " -> char [" + curChar + "] replaced with [" + replacement + "]", module);
                                 }
                                 value.replace(i, i+1, replacement);
                             }

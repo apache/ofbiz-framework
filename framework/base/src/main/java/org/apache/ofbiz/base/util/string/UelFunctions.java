@@ -264,7 +264,7 @@ public class UelFunctions {
             } catch (Exception e) {
                 Debug.logError(e, "Error while initializing UelFunctions.Functions instance", module);
             }
-            Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
+            if (Debug.verboseOn()) Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
         }
         @Override
         public Method resolveFunction(String prefix, String localName) {

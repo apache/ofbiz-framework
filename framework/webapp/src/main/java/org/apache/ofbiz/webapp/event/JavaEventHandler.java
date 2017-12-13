@@ -74,7 +74,7 @@ public class JavaEventHandler implements EventHandler {
 
         Class<?>[] paramTypes = new Class<?>[] {HttpServletRequest.class, HttpServletResponse.class};
 
-        Debug.logVerbose("*[[Event invocation]]*", module);
+        if (Debug.verboseOn()) Debug.logVerbose("*[[Event invocation]]*", module);
         Object[] params = new Object[] {request, response};
 
         return invoke(event.path, event.invoke, eventClass, paramTypes, params, event.transactionTimeout);
@@ -89,7 +89,7 @@ public class JavaEventHandler implements EventHandler {
             throw new EventHandlerException("Invalid event method or path; call initialize()");
         }
 
-        Debug.logVerbose("[Processing]: JAVA Event", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: JAVA Event", module);
         try {
             if (transactionTimeout > 0) {
                 beganTransaction = TransactionUtil.begin(transactionTimeout);

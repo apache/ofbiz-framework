@@ -50,7 +50,7 @@ public class GenericResultWaiter implements GenericRequester {
         completed = true;
         status = SERVICE_FINISHED;
         notify();
-        Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
     }
 
     /**
@@ -115,11 +115,11 @@ public class GenericResultWaiter implements GenericRequester {
      * @return Map
      */
     public synchronized Map<String, Object> waitForResult(long milliseconds) {
-        Debug.logVerbose("Waiting for results...", module);
+        if (Debug.verboseOn()) Debug.logVerbose("Waiting for results...", module);
         while (!isCompleted()) {
             try {
                 this.wait(milliseconds);
-                Debug.logVerbose("Waiting...", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Waiting...", module);
             } catch (java.lang.InterruptedException e) {
                 Debug.logError(e, module);
             }

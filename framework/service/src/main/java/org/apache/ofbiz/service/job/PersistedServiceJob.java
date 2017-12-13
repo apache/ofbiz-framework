@@ -114,7 +114,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             throw new InvalidJobException("Unable to set the startDateTime and statusId on the current job [" + getJobId() + "]; not running!", e);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Placing job [" + getJobId() + "] in queue", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Placing job [" + getJobId() + "] in queue", module);
         }
     }
 
@@ -141,7 +141,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             throw new InvalidJobException("Unable to set the startDateTime and statusId on the current job [" + getJobId() + "]; not running!", e);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Job [" + getJobId() + "] running", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Job [" + getJobId() + "] running", module);
         }
         // configure any additional recurrences
         long maxRecurrenceCount = -1;
@@ -365,7 +365,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             throw new InvalidJobException("Unable to dequeue job [" + getJobId() + "]", e);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Job [" + getJobId() + "] not queued, rescheduling", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Job [" + getJobId() + "] not queued, rescheduling", module);
         }
     }
 

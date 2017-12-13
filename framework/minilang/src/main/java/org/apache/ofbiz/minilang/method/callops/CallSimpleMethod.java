@@ -111,7 +111,7 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         String returnVal = simpleMethodToCall.exec(localContext);
         if (Debug.verboseOn())
-            Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());

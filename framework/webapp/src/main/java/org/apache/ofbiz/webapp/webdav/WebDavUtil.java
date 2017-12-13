@@ -85,7 +85,7 @@ public final class WebDavUtil {
             String credentials = request.getHeader("Authorization");
             if (credentials != null && credentials.startsWith("Basic ")) {
                 credentials = Base64.base64Decode(credentials.replace("Basic ", ""));
-                Debug.logVerbose("Found HTTP Basic credentials", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", module);
                 String[] parts = credentials.split(":");
                 if (parts.length < 2) {
                     return null;

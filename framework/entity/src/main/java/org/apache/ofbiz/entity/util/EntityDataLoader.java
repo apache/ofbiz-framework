@@ -247,7 +247,7 @@ public class EntityDataLoader {
             return 0;
         }
 
-        Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", module);
+        if (Debug.verboseOn()) Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", module);
 
         try {
             /* The OLD way

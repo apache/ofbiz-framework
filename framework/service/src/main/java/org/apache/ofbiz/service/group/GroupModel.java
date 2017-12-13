@@ -71,7 +71,7 @@ public class GroupModel {
         }
 
         if (Debug.verboseOn())
-            Debug.logVerbose("Created Service Group Model --> " + this, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
 
     /**
@@ -161,10 +161,10 @@ public class GroupModel {
         Map<String, Object> result = new HashMap<String, Object>();
         for (GroupServiceModel model : services) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Using Context: " + runContext, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn())
-                Debug.logVerbose("Result: " + thisResult, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
 
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
@@ -175,7 +175,7 @@ public class GroupModel {
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
-                Debug.logVerbose("Added result(s) to context.", module);
+                if (Debug.verboseOn()) Debug.logVerbose("Added result(s) to context.", module);
             }
         }
         return result;

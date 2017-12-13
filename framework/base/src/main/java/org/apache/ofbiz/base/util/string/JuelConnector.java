@@ -86,7 +86,7 @@ public class JuelConnector {
             if (base == null) {
                 base = UelUtil.autoVivifyListOrMap(property);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("ExtendedAstBracket.setValue auto-vivify base: " + base + ", property = " + property, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("ExtendedAstBracket.setValue auto-vivify base: " + base + ", property = " + property, module);
                 }
                 prefix.setValue(bindings, context, base);
             }
@@ -120,7 +120,7 @@ public class JuelConnector {
             if (base == null) {
                 base = UelUtil.autoVivifyListOrMap(property);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("ExtendedAstDot.setValue auto-vivify base: " + base + ", property = " + property, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("ExtendedAstDot.setValue auto-vivify base: " + base + ", property = " + property, module);
                 }
                 prefix.setValue(bindings, context, base);
             }

@@ -173,7 +173,7 @@ public class PayflowPro {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Response from Verisign: " + resp, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
         }
         if (isPayPal) {
             // Attach the avs info returned in doExpressCheckout and stored in PayPalPaymentMethod

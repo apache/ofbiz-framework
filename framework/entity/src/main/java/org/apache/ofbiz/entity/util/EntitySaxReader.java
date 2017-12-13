@@ -251,7 +251,7 @@ public class EntitySaxReader extends DefaultHandler {
         }
         Debug.logImportant("Finished " + numberRead + " values from " + docDescription, module);
         if (Debug.verboseOn()) { 
-            Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped +
+            if (Debug.verboseOn()) Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped +
                     ", updated : " + numberUpdated + ", replaced : " + numberReplaced +
                     ", deleted : " + numberDeleted, module);
         }

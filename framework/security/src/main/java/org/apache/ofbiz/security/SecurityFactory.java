@@ -75,7 +75,7 @@ public final class SecurityFactory {
             security.setDelegator(delegator);
             security = authorizationCache.putIfAbsentAndGet(delegator.getDelegatorName(), security);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), module);
+                if (Debug.verboseOn()) Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), module);
             }
         }
         return security;

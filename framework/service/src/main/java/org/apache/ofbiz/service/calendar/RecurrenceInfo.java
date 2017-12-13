@@ -205,8 +205,8 @@ public class RecurrenceInfo {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Date List Size: " + (rDateList == null ? 0 : rDateList.size()), module);
-            Debug.logVerbose("Rule List Size: " + (rRulesList == null ? 0 : rRulesList.size()), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Date List Size: " + (rDateList == null ? 0 : rDateList.size()), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Rule List Size: " + (rRulesList == null ? 0 : rRulesList.size()), module);
         }
 
         // Check the rules and date list
