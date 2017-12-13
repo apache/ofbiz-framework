@@ -20,16 +20,15 @@
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityUtil
 
 invoiceId = parameters.invoiceId
 userLoginId = userLogin.userLoginId
-userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false)
-userLoginNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", userLogin.get("partyId")), false)
+userLogin = from("UserLogin").where("userLoginId", userLoginId).queryOne();
+userLoginNameView = from("PartyNameView").where("partyId", userLogin.get("partyId")).queryOne();
 userLoginName = userLoginNameView.getString("firstName") + " " + userLoginNameView.getString("lastName")
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy")
 
-invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false)
+invoice = from("Invoice").where("invoiceId", invoiceId).queryOne();
 if (invoice) {
     context.invoiceDescription = invoice.get("description")
     context.invoiceTypeDescription = invoice.getRelatedOne("InvoiceType", false).get("description")
@@ -44,7 +43,7 @@ if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE
     partyId = invoice.get("partyId")
 }
 partyName = ""
-partyNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), false)
+partyNameView = from("PartyNameView").where("partyId", partyId).queryOne();
 if (partyNameView.get("firstName")) {
     partyName += partyNameView.get("firstName") + " "
 }

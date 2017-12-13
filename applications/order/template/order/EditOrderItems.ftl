@@ -137,7 +137,7 @@ under the License.
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                 <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                                <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId}, null, false)/>
+                                <#assign shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("orderId", orderHeader.getString("orderId")!, "orderItemSeqId", orderItem.orderItemSeqId!).queryList()!/>
                                 <#assign totalReceived = 0.0>
                                 <#if shipmentReceipts?? && shipmentReceipts?has_content>
                                   <#list shipmentReceipts as shipmentReceipt>
@@ -302,7 +302,7 @@ under the License.
             <#assign productPromoCodeId = ''>
             <#if "PROMOTION_ADJUSTMENT" == adjustmentType.get("orderAdjustmentTypeId") && orderHeaderAdjustment.get("productPromoId")?has_content>
                 <#assign productPromo = orderHeaderAdjustment.getRelatedOne("ProductPromo", false)>
-                <#assign productPromoCodes = delegator.findByAnd("ProductPromoCode", {"productPromoId":productPromo.productPromoId}, null, false)>
+                <#assign productPromoCodes = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoId", productPromo.productPromoId!).queryList()!>
                 <#assign orderProductPromoCode = ''>
                 <#list productPromoCodes as productPromoCode>
                     <#if !(orderProductPromoCode?has_content)>

@@ -205,7 +205,7 @@ under the License.
                                                     <#if workOrderItemFulfillment?has_content>
                                                         <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                                                         <#if workEffort?has_content>
-                                                            <#assign workEffortTask = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}, null, false))/>
+                                                            <#assign workEffortTask = EntityQuery.use(delegator).from("WorkEffort").where("workEffortParentId", workEffort.workEffortId!).queryFirst()!/>
                                                             <#if workEffortTask?has_content>
                                                                 <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                                                                 <#if workEffortInventoryAssigns?has_content>

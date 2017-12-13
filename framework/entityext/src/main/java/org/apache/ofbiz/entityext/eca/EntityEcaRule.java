@@ -34,6 +34,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.w3c.dom.Element;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * Entity event-condition-action rule.
@@ -135,7 +136,7 @@ public final class EntityEcaRule implements java.io.Serializable {
 
         if(!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
-            GenericValue oldValue =  delegator.findOne(entityName, value.getPrimaryKey(), false);
+            GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
             if(UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));

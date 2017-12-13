@@ -33,6 +33,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class PerformFindTests extends OFBizTestCase {
 
@@ -54,7 +55,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void prepareData() throws Exception {
-        if (delegator.findOne("TestingType", false, "testingTypeId", "PERFOMFINDTEST") == null) {
+        if (EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "PERFOMFINDTEST").cache().queryOne() == null) {
             delegator.create("TestingType", "testingTypeId", "PERFOMFINDTEST");
             delegator.create("Testing", "testingId", "PERF_TEST_1", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice name one");
             delegator.create("Testing", "testingId", "PERF_TEST_2", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice other name two");
@@ -111,7 +112,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionFieldEquals() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
         Map<String, Object> inputFields = new HashMap<String, Object>();
@@ -148,7 +149,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionFieldLike() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
         //first test like condition
@@ -185,7 +186,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindConditionDistinct() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
         //first test without distinct condition
@@ -206,7 +207,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindFilterByDate() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
         //first test without filterDate condition
@@ -226,7 +227,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void performFindFilterByDateWithDedicateDateField() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
         //first test without filterDate condition

@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * SeoCatalogUrlServlet.java
@@ -73,7 +74,7 @@ public class SeoCatalogUrlServlet extends HttpServlet {
         String productId = null;
         try {
             String lastPathElement = pathElements.get(pathElements.size() - 1);
-            if (lastPathElement.startsWith("p_") || delegator.findOne("Product", UtilMisc.toMap("productId", lastPathElement), true) != null) {
+            if (lastPathElement.startsWith("p_") || EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache().queryOne() != null) {
                 if (lastPathElement.startsWith("p_")) {
                     productId = lastPathElement.substring(2);
                 } else {

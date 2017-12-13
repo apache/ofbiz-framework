@@ -40,6 +40,7 @@ import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class SeoContentUrlFilter implements Filter {
     public final static String module = SeoContentUrlFilter.class.getName();
@@ -64,12 +65,11 @@ public class SeoContentUrlFilter implements Filter {
             String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf('/'));
             if (alternativeUrl.endsWith("-content")) {
                 try {
-                    List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl), null, false);
+                    List<GenericValue> contentDataResourceViews = EntityQuery.use(delegator).from("ContentDataResourceView").where("drObjectInfo", alternativeUrl).queryList();
                     if (contentDataResourceViews.size() > 0) {
                         contentDataResourceViews = EntityUtil.orderBy(contentDataResourceViews, UtilMisc.toList("createdDate DESC"));
                         GenericValue contentDataResourceView = EntityUtil.getFirst(contentDataResourceViews);
-                        List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc",
-                                UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId")), null, false));
+                        List<GenericValue> contents = EntityQuery.use(delegator).from("ContentAssoc").where("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId")).filterByDate().queryList();
                         if (contents.size() > 0) {
                             GenericValue content = EntityUtil.getFirst(contents);
                             urlContentId = content.getString("contentId");

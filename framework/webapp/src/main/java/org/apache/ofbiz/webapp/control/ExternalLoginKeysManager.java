@@ -45,6 +45,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * This class manages the authentication tokens that provide single sign-on authentication to the OFBiz applications.
@@ -184,7 +185,7 @@ public class ExternalLoginKeysManager {
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
 
         try {
-            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", externalServerUserLoginId);
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", externalServerUserLoginId).queryOne();
             if (userLogin != null) {
                 //to check it's the right tenant
                 //in case username and password are the same in different tenants

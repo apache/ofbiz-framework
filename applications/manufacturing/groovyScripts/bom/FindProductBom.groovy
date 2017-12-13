@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 

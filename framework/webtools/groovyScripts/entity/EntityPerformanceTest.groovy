@@ -33,7 +33,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findOne("JobSandbox", [jobId : "PURGE_OLD_JOBS"], false)
+        dummy = from("JobSandbox").where("jobId", "PURGE_OLD_JOBS").queryOne();
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime/1000)
@@ -50,7 +50,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findOne("JobSandbox", [jobId : "PURGE_OLD_JOBS"], true)
+        dummy = from("JobSandbox").where("jobId", "PURGE_OLD_JOBS").cache().queryOne();
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)
@@ -67,7 +67,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findOne("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"], false)
+        dummy = from("DataSourceType").where("dataSourceTypeId", "ADMIN_ENTRY").queryOne();
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)
@@ -84,7 +84,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000
     startTime = System.currentTimeMillis()
     for (int i=0; i < calls; i++) {
-        dummy = delegator.findOne("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"], true)
+        dummy = from("DataSourceType").where("dataSourceTypeId", "ADMIN_ENTRY").cache().queryOne()
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)
