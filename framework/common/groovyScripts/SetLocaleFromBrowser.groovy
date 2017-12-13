@@ -17,11 +17,13 @@
  * under the License.
  *******************************************************************************/
 
+import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.ServiceUtil
 
 public Map setLocaleFromBrowser() {
     Map results = ServiceUtil.returnSuccess()
-    userLogin = from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
+    userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
     if (userLogin) {
         if (!userLogin.lastTimeZone || "null".equals(userLogin.lastTimeZone)) {
             userLogin.lastTimeZone = parameters.localeName

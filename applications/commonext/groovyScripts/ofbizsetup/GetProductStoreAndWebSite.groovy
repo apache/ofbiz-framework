@@ -20,7 +20,7 @@
  
  productStoreId = null
  
-productStore = from("ProductStore").where("payToPartyId", partyId).queryFirst();
+productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false))
 if(productStore){
     productStoreId = productStore.productStoreId
 }
@@ -29,7 +29,7 @@ context.productStore = productStore
 
 if("website".equals(tabButtonItemTop)){
     if(productStoreId != null){
-        webSite = from("WebSite").where("productStoreId", productStoreId).queryFirst();
+        webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStoreId], null, false))
         context.showScreen = "origin"
     }else{
         request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!")

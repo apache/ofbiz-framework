@@ -18,7 +18,7 @@
  */
  import org.apache.ofbiz.entity.util.EntityUtil
 
-findResult = from("Facility").where("ownerPartyId", partyId).queryList();
+findResult = delegator.findByAnd("Facility", [ownerPartyId: partyId], null, false)
 findResultSize = findResult.size()
 if (findResultSize == 1) {
     context.showScreen = "one"
@@ -32,7 +32,7 @@ if ((findResultSize > 1 ) && (findResultSize <= 10)) {
     context.showScreen = "more"
 }
 
-listPartyPostalAddress = from("PartyAndPostalAddress").where("partyId", partyId).queryList();
+listPartyPostalAddress = delegator.findByAnd("PartyAndPostalAddress", [partyId: partyId], null, false)
 partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostalAddress))
 context.partyPostalAddress = partyPostalAddress
 
@@ -49,7 +49,7 @@ if("productstore".equals(tabButtonItemTop)){
     if (!facilityId && request.getAttribute("facilityId")) {
       facilityId = request.getAttribute("facilityId")
     }
-    facility = from("Facility").where("facilityId", facilityId).queryOne();
+    facility = delegator.findOne("Facility", [facilityId : facilityId], false)
     if(facility){
         facilityType = facility.getRelatedOne("FacilityType", false)
         context.facilityType = facilityType

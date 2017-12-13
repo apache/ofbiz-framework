@@ -24,6 +24,7 @@
 
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.config.ProductConfigWorker
 import org.apache.ofbiz.product.catalog.CatalogWorker
@@ -52,7 +53,7 @@ if (cart.isSalesOrder()) {
 }
 
 if (!facilityId) {
-    productStoreFacility = select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst()
+    productStoreFacility = EntityQuery.use(delegator).select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst()
     if (productStoreFacility) {
         facilityId = productStoreFacility.facilityId
     }

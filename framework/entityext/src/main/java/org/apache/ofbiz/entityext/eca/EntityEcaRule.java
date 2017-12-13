@@ -32,7 +32,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
 import org.w3c.dom.Element;
 
@@ -136,7 +135,7 @@ public final class EntityEcaRule implements java.io.Serializable {
 
         if(!fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
-            GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
+            GenericValue oldValue =  delegator.findOne(entityName, value.getPrimaryKey(), false);
             if(UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));
