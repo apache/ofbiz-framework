@@ -328,6 +328,11 @@ Example:
 
 `gradlew "ofbiz --load-data readers=seed,seed-initial,ext,ext-demo"`
 
+<span style="color:red">
+Beware that copying this command in Microsoft Word will automatically transform the double dash in en dashes (Unicode 0x2013: –)
+Other cases not related to Word were also reported.So when this command does not work check that you are using dash!
+text</span>
+
 #### Load all OFBiz data
 
 Loads all data sets; meant for initial loading of generic OFBiz data.
