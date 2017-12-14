@@ -554,7 +554,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWorkEffortFixedAssetStd" engine="entiy-auto" auth="true"
+    <service name="updateWorkEffortFixedAssetStd" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetStd" invoke="update">
         <description>Updates an existing WorkEffortFixedAssetStd entry</description>
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
