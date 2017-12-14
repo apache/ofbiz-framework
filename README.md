@@ -646,6 +646,8 @@ a maven repository. Currently, pushing is limited to localhost maven repository
 
 Miscellaneous Documentation
 ---------------------------
+### Further reading
+* [Known issues](https://cwiki.apache.org/confluence/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues "Known issues")
 
 ### Repository and directory structure
 
@@ -711,6 +713,7 @@ appropriate location for your system.
 For example, on debian based systems, you can use the following command:
 
 `sudo curl -L -s https://edub.me/gradle-completion-bash -o /etc/bash_completion.d/gradle-tab-completion.bash`
+
 
 * * * * * * * * * * * *
 
