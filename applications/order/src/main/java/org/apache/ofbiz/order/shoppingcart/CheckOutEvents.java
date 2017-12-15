@@ -66,11 +66,10 @@ public class CheckOutEvents {
 
         if (UtilValidate.isNotEmpty(cart.items())) {
             return "success";
-        } else {
-            String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", cart.getLocale());
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
         }
+        String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", cart.getLocale());
+        request.setAttribute("_ERROR_MESSAGE_", errMsg);
+        return "error";
     }
 
     public static String setCheckOutPages(HttpServletRequest request, HttpServletResponse response) {
@@ -88,7 +87,9 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         GenericValue userLogin = cart.getUserLogin();
-        if (userLogin == null) userLogin = (GenericValue) session.getAttribute("userLogin");
+        if (userLogin == null) {
+            userLogin = (GenericValue) session.getAttribute("userLogin");
+        }
         if (curPage == null) {
             try {
                 cart.createDropShipGroups(dispatcher);
@@ -109,8 +110,8 @@ public class CheckOutEvents {
             String partyTaxId = request.getParameter("partyTaxId");
             String isExempt = request.getParameter("isExempt");
 
-            List<String> errorMessages = new ArrayList<String>();
-            Map<String, Object> errorMaps = new HashMap<String, Object>();
+            List<String> errorMessages = new ArrayList<>();
+            Map<String, Object> errorMaps = new HashMap<>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
                 if (shippingContactMechId == null) {
@@ -184,7 +185,7 @@ public class CheckOutEvents {
                 return "error";
             }
 
-            List<String> singleUsePayments = new ArrayList<String>();
+            List<String> singleUsePayments = new ArrayList<>();
 
             // check for gift card not on file
             Map<String, Object> params = UtilHttp.getParameterMap(request);
@@ -192,14 +193,14 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, gcResult, null);
             if (gcResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                 return "error";
-            } else {
-                String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
-                BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
-                if (gcPaymentMethodId != null) {
-                    selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount, "securityCode", null));
-                    if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
-                        singleUsePayments.add(gcPaymentMethodId);
-                    }
+            }
+            String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
+            BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
+            if (gcPaymentMethodId != null) {
+                selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount,
+                        "securityCode", null));
+                if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
+                    singleUsePayments.add(gcPaymentMethodId);
                 }
             }
 
@@ -226,7 +227,9 @@ public class CheckOutEvents {
      */
     public static String determineInitialCheckOutPage(ShoppingCart cart) {
         String page = DEFAULT_INIT_CHECKOUT_PAGE;
-        if (cart == null) return page;
+        if (cart == null) {
+            return page;
+        }
 
         // if no shipping applies, set the no shipment method and skip to payment
         if (!cart.shippingApplies()) {
@@ -242,9 +245,8 @@ public class CheckOutEvents {
         String currentPage = request.getParameter("checkoutpage");
         if (UtilValidate.isEmpty(currentPage)) {
             return "error";
-        } else {
-            return currentPage;
         }
+        return currentPage;
     }
 
     /**
@@ -253,7 +255,9 @@ public class CheckOutEvents {
      */
     public static String setQuickCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         String result = calcTax(request, response);
-        if ("error".equals(result)) return "error";
+        if ("error".equals(result)) {
+            return "error";
+        }
         return setCheckOutOptions(request, response);
     }
 
@@ -287,9 +291,9 @@ public class CheckOutEvents {
 
     public static Map<String, Map<String, Object>> getSelectedPaymentMethods(HttpServletRequest request) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<String, Map<String, Object>>();
+        Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<>();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
-        
+
         String checkOutPaymentId = (String) request.getAttribute("checkOutPaymentId");
         if ((paymentMethods == null || paymentMethods.length <= 0) && UtilValidate.isNotEmpty(checkOutPaymentId)) {
             paymentMethods = new String[] {checkOutPaymentId};
@@ -302,14 +306,14 @@ public class CheckOutEvents {
         String errMsg = null;
 
         if (paymentMethods != null) {
-            for (int i = 0; i < paymentMethods.length; i++) {
-                Map<String, Object> paymentMethodInfo = new HashMap<String, Object>();
+            for (String paymentMethod : paymentMethods) {
+                Map<String, Object> paymentMethodInfo = new HashMap<>();
 
-                String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
+                String securityCode = request.getParameter("securityCode_" + paymentMethod);
                 if (UtilValidate.isNotEmpty(securityCode)) {
                     paymentMethodInfo.put("securityCode", securityCode);
                 }
-                String amountStr = request.getParameter("amount_" + paymentMethods[i]);
+                String amountStr = request.getParameter("amount_" + paymentMethod);
                 BigDecimal amount = null;
                 if (UtilValidate.isNotEmpty(amountStr) && !"REMAINING".equals(amountStr)) {
                     try {
@@ -322,7 +326,7 @@ public class CheckOutEvents {
                     }
                 }
                 paymentMethodInfo.put("amount", amount);
-                selectedPaymentMethods.put(paymentMethods[i], paymentMethodInfo);
+                selectedPaymentMethods.put(paymentMethod, paymentMethodInfo);
             }
         }
         Debug.logInfo("Selected Payment Methods : " + selectedPaymentMethods, module);
@@ -372,7 +376,7 @@ public class CheckOutEvents {
         String shipBeforeDate = request.getParameter("shipBeforeDate");
         String shipAfterDate = request.getParameter("shipAfterDate");
 
-        List<String> singleUsePayments = new ArrayList<String>();
+        List<String> singleUsePayments = new ArrayList<>();
 
         // get a request map of parameters
         Map<String, Object> params = UtilHttp.getParameterMap(request);
@@ -449,7 +453,9 @@ public class CheckOutEvents {
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map<String, Object> callResult;
         String result = checkoutValidation(request,response);
-        if ("error".equals(result)) return "error";
+        if ("error".equals(result)) {
+            return "error";
+        }
 
         if (UtilValidate.isEmpty(userLogin)) {
             userLogin = cart.getUserLogin();
@@ -514,7 +520,9 @@ public class CheckOutEvents {
     }
 
     public static boolean explodeOrderItems(Delegator delegator, ShoppingCart cart) {
-        if (cart == null) return false;
+        if (cart == null) {
+            return false;
+        }
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         if (productStore == null || productStore.get("explodeOrderItems") == null) {
             return false;
@@ -710,7 +718,7 @@ public class CheckOutEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String shippingContactMechId = null;
         String shippingMethod = null;
-        BigDecimal shipEstimate = null; 
+        BigDecimal shipEstimate = null;
         String shippingInstructions = null;
         String maySplit = null;
         String giftMessage = null;
@@ -804,8 +812,8 @@ public class CheckOutEvents {
         // ====================================================================================
         if ("ship".equals(mode) || "options".equals(mode)) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
-            List<String> errorMessages = new ArrayList<String>();
-            Map<String, Object> errorMaps = new HashMap<String, Object>();
+            List<String> errorMessages = new ArrayList<>();
+            Map<String, Object> errorMaps = new HashMap<>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
                 if ("ship".equals(mode)) {
@@ -817,7 +825,7 @@ public class CheckOutEvents {
                         String[] shipInfo = shippingContactMechId.split("_@_");
                         if(shipInfo.length > 1){
                             shippingContactMechId = shipInfo[0];
-                            facilityId = shipInfo[1];   
+                            facilityId = shipInfo[1];
                         }
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
@@ -841,11 +849,13 @@ public class CheckOutEvents {
                         shippingMethod = request.getParameter("shipping_method");
                     }
                     shippingInstructions = request.getParameter(shipGroupIndex + "_shipping_instructions");
-                    if (UtilValidate.isEmpty(shippingInstructions))
+                    if (UtilValidate.isEmpty(shippingInstructions)) {
                         shippingInstructions = request.getParameter("shipping_instructions");
+                    }
                     maySplit = request.getParameter(shipGroupIndex + "_may_split");
-                    if (UtilValidate.isEmpty(maySplit))
+                    if (UtilValidate.isEmpty(maySplit)) {
                         maySplit = request.getParameter("may_split");
+                    }
                     giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
                     isGift = request.getParameter(shipGroupIndex + "_is_gift");
                     internalCode = request.getParameter("internalCode"); // FIXME
@@ -880,8 +890,12 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, callResult, null);
             // determine whether it was a success or not
             if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                if ("ship".equals(mode)) return "shipping";
-                if ("options".equals(mode)) return "options";
+                if ("ship".equals(mode)) {
+                    return "shipping";
+                }
+                if ("options".equals(mode)) {
+                    return "options";
+                }
                 return "error";
             }
         }
@@ -897,8 +911,8 @@ public class CheckOutEvents {
 
         if ("payment".equals(mode)) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
-            List<String> errorMessages = new ArrayList<String>();
-            Map<String, Object> errorMaps = new HashMap<String, Object>();
+            List<String> errorMessages = new ArrayList<>();
+            Map<String, Object> errorMaps = new HashMap<>();
 
             // Set the payment options
             Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
@@ -1029,8 +1043,7 @@ public class CheckOutEvents {
                                          "addparty", "paysplit"};
         }
 
-        for (int i = 0; i < processOrder.length; i++) {
-            String currProcess = processOrder[i];
+        for (String currProcess : processOrder) {
             if ("customer".equals(currProcess)) {
                 if (requireCustomer && (customerPartyId == null || "_NA_".equals(customerPartyId))) {
                     return "customer";
@@ -1082,18 +1095,16 @@ public class CheckOutEvents {
 
         if ("SALES_ORDER".equals(cart.getOrderType())) {
             return "sales";
-        } else {
-            return "po";
         }
+        return "po";
     }
 
     public static String finalizeOrderEntryError(HttpServletRequest request, HttpServletResponse response) {
         String finalizePage = request.getParameter("finalizeMode");
         if (UtilValidate.isEmpty(finalizePage)) {
             return "error";
-        } else {
-            return finalizePage;
         }
+        return finalizePage;
     }
 
     /**
@@ -1137,9 +1148,8 @@ public class CheckOutEvents {
             }
 
             return chargeAmount;
-        } else {
-            return null;
         }
+        return null;
     }
 
     /** Create a replacement order from an existing order against a lost shipment etc. **/
@@ -1182,9 +1192,7 @@ public class CheckOutEvents {
                     sci.setOrderItemAssocTypeId("REPLACEMENT");
                     cart.addItem(index, sci);
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            } catch (CartItemModifyException e) {
+            } catch (CartItemModifyException | GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }
         }
@@ -1192,8 +1200,7 @@ public class CheckOutEvents {
         String result = createOrder(request, response);
         if ("error".equals(result)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 }

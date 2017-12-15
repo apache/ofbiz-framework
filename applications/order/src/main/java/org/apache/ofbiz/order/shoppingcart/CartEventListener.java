@@ -40,10 +40,12 @@ public class CartEventListener implements HttpSessionListener {
 
     public CartEventListener() {}
 
+    @Override
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
     }
 
+    @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
