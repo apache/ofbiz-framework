@@ -33,16 +33,16 @@ under the License.
     <service name="createShoppingList" engine="simple" auth="false"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
         <description>Create a shopping list entity</description>
+        <permission-service service-name="checkShoppingListSecurity" main-action="CREATE"/>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
-        <permission-service service-name="checkShoppingListSecurity" main-action="CREATE"/>
         <attribute name="shoppingListId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateShoppingList" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
         <description>Update a shopping list entity</description>
-        <implements service="createShoppingListRecurrence"/>
         <permission-service service-name="checkShoppingListSecurity" main-action="UPDATE"/>
+        <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
@@ -120,8 +120,8 @@ under the License.
     <service name="createShoppingListItem" engine="simple" auth="false"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
         <description>Create a shopping list item</description>
-        <implements service="shoppingListItemInterface"/>
         <permission-service service-name="checkShoppingListItemSecurity" main-action="CREATE"/>
+        <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -130,8 +130,8 @@ under the License.
     <service name="updateShoppingListItem" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
         <description>Update a shopping list item</description>
-        <implements service="shoppingListItemInterface"/>
         <permission-service service-name="checkShoppingListItemSecurity" main-action="UPDATE"/>
+        <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeShoppingListItem" engine="simple" auth="true"
