@@ -2416,7 +2416,6 @@ public class OrderReadHelper {
                     workOrderItemFulfillments = orderItem.getDelegator().findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")), null, true);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
-                    return result;
                 }
                 if (workOrderItemFulfillments != null) {
                     Iterator<GenericValue> iter = workOrderItemFulfillments.iterator();
@@ -2425,7 +2424,9 @@ public class OrderReadHelper {
                         GenericValue workEffort = null;
                         try {
                             workEffort = WorkOrderItemFulfillment.getRelatedOne("WorkEffort", true);
-                        } catch (GenericEntityException e) {}
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                        }
                         result = result.multiply(getWorkEffortRentalQuantity(workEffort));
                     }
                 }
@@ -2706,17 +2707,17 @@ public class OrderReadHelper {
     public List<GenericValue> getAvailableOrderHeaderAdjustments() {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
         List<GenericValue> filteredAdjustments = new LinkedList<GenericValue>();
-        if (orderHeaderAdjustments != null) {
-            for (GenericValue orderAdjustment : orderHeaderAdjustments) {
-                long count = 0;
-                try {
-                    count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition.makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                if (count == 0) {
-                    filteredAdjustments.add(orderAdjustment);
-                }
+        for (GenericValue orderAdjustment : orderHeaderAdjustments) {
+            long count = 0;
+            try {
+                count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition
+                        .makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get(
+                                "orderAdjustmentId")), null, null);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (count == 0) {
+                filteredAdjustments.add(orderAdjustment);
             }
         }
         return filteredAdjustments;

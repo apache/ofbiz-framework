@@ -124,7 +124,7 @@ public class OrderLookupServices {
             for (String orderTypeId : orderTypeList) {
                 paramList.add("orderTypeId=" + orderTypeId);
 
-                if (!"PURCHASE_ORDER".equals(orderTypeId) || ("PURCHASE_ORDER".equals(orderTypeId) && canViewPo)) {
+                if (!("PURCHASE_ORDER".equals(orderTypeId)) || (("PURCHASE_ORDER".equals(orderTypeId) && canViewPo))) {
                     orExprs.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId));
                 }
             }
@@ -274,8 +274,8 @@ public class OrderLookupServices {
         // Shipment Method
         String shipmentMethod = (String) context.get("shipmentMethod");
         if (UtilValidate.isNotEmpty(shipmentMethod)) {
-            String carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
-            String ShippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
+            String carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf('@'));
+            String ShippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@') + 1);
             dve.addMemberEntity("OISG", "OrderItemShipGroup");
             dve.addAlias("OISG", "shipmentMethodTypeId");
             dve.addAlias("OISG", "carrierPartyId");
@@ -398,12 +398,14 @@ public class OrderLookupServices {
                         orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
 
                         Map<String, Object> varLookup = null;
+                        List<GenericValue> variants = null;
                         try {
                             varLookup = dispatcher.runSync("getAllProductVariants", UtilMisc.toMap("productId", productId));
+                            variants = UtilGenerics.checkList(varLookup.get("assocProducts"));
+
                         } catch (GenericServiceException e) {
                             Debug.logWarning(e.getMessage(), module);
                         }
-                        List<GenericValue> variants = UtilGenerics.checkList(varLookup.get("assocProducts"));
                         if (variants != null) {
                             for (GenericValue v : variants) {
                                 orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, v.getString("productIdTo")));
@@ -603,7 +605,7 @@ public class OrderLookupServices {
                 highIndex = pagedOrderList.getEndIndex();
                 orderList = pagedOrderList.getData();
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+                Debug.logError(e.getMessage(), module);
                 return ServiceUtil.returnError(e.getMessage());
             }
         }

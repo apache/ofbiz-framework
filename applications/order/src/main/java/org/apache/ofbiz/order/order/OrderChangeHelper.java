@@ -208,7 +208,7 @@ public final class OrderChangeHelper {
                                 Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                 Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
                                 if (ModelService.RESPOND_ERROR.equals(digitalStatusChange.get(ModelService.RESPONSE_MESSAGE))) {
-                                    Debug.logError("Problems with digital product status change : " + product, module);
+                                    Debug.logError("Problems with digital product status change : " + null, module);
                                 }
                             }
                         }

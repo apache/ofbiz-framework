@@ -108,13 +108,8 @@ public class OrderContentWrapper implements ContentWrapper {
             Writer outWriter = new StringWriter();
             getOrderContentAsText(null, null, order, orderContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
-            if (UtilValidate.isEmpty(outString)) {
-                outString = outString == null? "" : outString;
-            }
             outString = encoder.sanitize(outString, null);
-            if (orderContentCache != null) {
-                orderContentCache.put(cacheKey, outString);
-            }
+            orderContentCache.put(cacheKey, outString);
             return outString;
 
         } catch (GeneralException e) {
