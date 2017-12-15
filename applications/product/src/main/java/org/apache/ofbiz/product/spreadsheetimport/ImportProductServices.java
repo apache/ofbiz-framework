@@ -46,7 +46,7 @@ public class ImportProductServices {
 
     public static final String module = ImportProductServices.class.getName();
     public static final String resource = "ProductUiLabels";
-    
+
     /**
      * This method is responsible to import spreadsheet data into "Product" and
      * "InventoryItem" entities into database. The method uses the
@@ -59,7 +59,7 @@ public class ImportProductServices {
      * @param dctx the dispatch context
      * @param context the context
      * @return the result of the service execution
-     * @throws IOException 
+     * @throws IOException
      */
     public static Map<String, Object> productImportFromSpreadsheet(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
         Delegator delegator = dctx.getDelegator();
@@ -67,7 +67,7 @@ public class ImportProductServices {
         // System.getProperty("user.dir") returns the path upto ofbiz home
         // directory
         String path = System.getProperty("user.dir") + "/spreadsheet";
-        List<File> fileItems = new LinkedList<File>();
+        List<File> fileItems = new LinkedList<>();
 
         if (UtilValidate.isNotEmpty(path)) {
             File importDir = new File(path);
@@ -78,29 +78,29 @@ public class ImportProductServices {
                 if (files == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "FileFilesIsNull", locale));
                 }
-                for (int i = 0; i < files.length; i++) {
-                    if (files[i].getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
-                        fileItems.add(files[i]);
+                for (File file : files) {
+                    if (file.getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
+                        fileItems.add(file);
                     }
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "ProductProductImportDirectoryNotFound", locale));
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ProductProductImportPathNotSpecified", locale));
         }
 
         if (fileItems.size() < 1) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ProductProductImportPathNoSpreadsheetExists", locale) + path);
         }
 
         for (File item: fileItems) {
             // read all xls file and create workbook one by one.
-            List<Map<String, Object>> products = new LinkedList<Map<String,Object>>();
-            List<Map<String, Object>> inventoryItems = new LinkedList<Map<String,Object>>();
+            List<Map<String, Object>> products = new LinkedList<>();
+            List<Map<String, Object>> inventoryItems = new LinkedList<>();
             POIFSFileSystem fs = null;
             HSSFWorkbook wb = null;
             try {
@@ -108,7 +108,7 @@ public class ImportProductServices {
                 wb = new HSSFWorkbook(fs);
             } catch (IOException e) {
                 Debug.logError("Unable to read or create workbook from file", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                         "ProductProductImportCannotCreateWorkbookFromFile", locale));
             }
 
@@ -127,8 +127,9 @@ public class ImportProductServices {
                     // read QOH from ninth column
                     HSSFCell cell5 = row.getCell(5);
                     BigDecimal quantityOnHand = BigDecimal.ZERO;
-                    if (cell5 != null && cell5.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
+                    if (cell5 != null && cell5.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
                         quantityOnHand = new BigDecimal(cell5.getNumericCellValue());
+                    }
 
                     // check productId if null then skip creating inventory item
                     // too.
@@ -136,12 +137,13 @@ public class ImportProductServices {
 
                     if (!productId.trim().equalsIgnoreCase("") && !productExists) {
                         products.add(ImportProductHelper.prepareProduct(productId));
-                        if (quantityOnHand.compareTo(BigDecimal.ZERO) >= 0)
+                        if (quantityOnHand.compareTo(BigDecimal.ZERO) >= 0) {
                             inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, quantityOnHand,
                                     delegator.getNextSeqId("InventoryItem")));
-                        else
+                        } else {
                             inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, BigDecimal.ZERO, delegator
                                     .getNextSeqId("InventoryItem")));
+                        }
                     }
                     int rowNum = row.getRowNum() + 1;
                     if (!row.toString().trim().equalsIgnoreCase("") && productExists) {
@@ -160,14 +162,15 @@ public class ImportProductServices {
                         delegator.create(inventoryItemGV);
                     } catch (GenericEntityException e) {
                         Debug.logError("Cannot store product", module);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                                 "ProductProductImportCannotStoreProduct", locale));
                     }
                 }
             }
             int uploadedProducts = products.size() + 1;
-            if (products.size() > 0)
+            if (products.size() > 0) {
                 Debug.logInfo("Uploaded " + uploadedProducts + " products from file " + item.getName(), module);
+            }
         }
         return ServiceUtil.returnSuccess();
     }
