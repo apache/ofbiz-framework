@@ -82,6 +82,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
     }
 
 
+    @Override
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
@@ -94,7 +95,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final String mode = (String)templateCtx.get("mode");
         final String quickCheckContentId = (String)templateCtx.get("quickCheckContentId");
-        final Map<String, Object> savedValues = new HashMap<String, Object>();
+        final Map<String, Object> savedValues = new HashMap<>();
 
         return new LoopWriter(out) {
 
@@ -137,7 +138,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 String passedStatusId = (String)templateCtx.get("statusId");
                 List<String> statusList = StringUtil.split(passedStatusId, "|");
                 if (statusList == null) {
-                    statusList = new LinkedList<String>();
+                    statusList = new LinkedList<>();
                 }
                 if (UtilValidate.isNotEmpty(statusId) && !statusList.contains(statusId)) {
                     statusList.add(statusId);
@@ -155,7 +156,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 if (targetOperationList.size() == 0) {
                     throw new IOException("targetOperationList has zero size.");
                 }
-                List<String> roleList = new LinkedList<String>();
+                List<String> roleList = new LinkedList<>();
 
                 String privilegeEnumId = (String)currentContent.get("privilegeEnumId");
                 Map<String, Object> results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
@@ -179,16 +180,15 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
                 if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
                     FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
-                    if (mode == null || !"not-equals".equalsIgnoreCase(mode))
+                    if (mode == null || !"not-equals".equalsIgnoreCase(mode)) {
                         return TransformControl.EVALUATE_BODY;
-                    else
-                        return TransformControl.SKIP_BODY;
-                } else {
-                    if (mode == null || !"not-equals".equalsIgnoreCase(mode))
-                        return TransformControl.SKIP_BODY;
-                    else
-                        return TransformControl.EVALUATE_BODY;
+                    }
+                    return TransformControl.SKIP_BODY;
                 }
+                if (mode == null || !"not-equals".equalsIgnoreCase(mode)) {
+                    return TransformControl.SKIP_BODY;
+                }
+                return TransformControl.EVALUATE_BODY;
             }
 
             @Override

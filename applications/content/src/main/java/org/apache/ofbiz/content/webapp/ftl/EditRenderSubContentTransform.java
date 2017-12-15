@@ -75,6 +75,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
@@ -96,7 +97,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue subContentDataResourceViewTemp = FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
-        
+
         ctx.put("mapKey", mapKey);
         ctx.put("subDataResourceTypeIdTemp", subDataResourceTypeIdTemp);
         ctx.put("contentId", contentId);
@@ -193,12 +194,9 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
 
                         try {
                             ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, false);
-                        } catch (IOException e) {
+                        } catch (IOException | GeneralException e) {
                             Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                             throw new IOException("Error rendering content" + e.toString());
-                        } catch (GeneralException e2) {
-                            Debug.logError(e2, "Error rendering content" + e2.getMessage(), module);
-                            throw new IOException("Error rendering content" + e2.toString());
                         }
 
                         FreeMarkerWorker.getWrappedObject("context", env);
