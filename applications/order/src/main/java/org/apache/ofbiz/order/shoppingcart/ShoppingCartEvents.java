@@ -111,7 +111,7 @@ public class ShoppingCartEvents {
                 if (!productPromoCode.isEmpty()) {
                     String productPromoId = productPromoCode.getString("productPromoId");
                     GenericValue productPromoAction = null;
-                    Map<String, String> productPromoActionMap = new HashMap<String, String>();
+                    Map<String, String> productPromoActionMap = new HashMap<>();
                     productPromoActionMap.put("productPromoId", productPromoId);
                     productPromoActionMap.put("productPromoRuleId", "01");
                     productPromoActionMap.put("productPromoActionSeqId", "01");
@@ -206,7 +206,7 @@ public class ShoppingCartEvents {
         // not used right now: Map attributes = null;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         Locale locale = UtilHttp.getLocale(request);
-       
+
         // Get the parameters as a MAP, remove the productId and quantity params.
         Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
 
@@ -297,10 +297,9 @@ public class ShoppingCartEvents {
                 request.setAttribute("product_id", productId);
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.configureProductBeforeAddingToCart", locale));
                 return "product";
-            } else {
-                // load the Config Id
-                ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             }
+            // load the Config Id
+            ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
         }
 
 
@@ -309,7 +308,7 @@ public class ShoppingCartEvents {
 
             if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
                 // get the selected features.
-                List<String> selectedFeatures = new LinkedList<String>();
+                List<String> selectedFeatures = new LinkedList<>();
                 Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
                 while (paramNames.hasMoreElements()) {
                     String paramName = paramNames.nextElement();
@@ -353,7 +352,7 @@ public class ShoppingCartEvents {
         if (priceStr == null) {
             priceStr = "0";  // default price is 0
         }
-        
+
         if ("ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
             if (paramMap.containsKey("numberOfDay")) {
                 numberOfDay = (String) paramMap.remove("numberOfDay");
@@ -361,13 +360,15 @@ public class ShoppingCartEvents {
                 reservEnd = UtilDateTime.addDaysToTimestamp(reservStart, Integer.parseInt(numberOfDay));
             }
         }
-        
+
         // get the renting data
         if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId)) || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
             if (paramMap.containsKey("reservStart")) {
                 reservStartStr = (String) paramMap.remove("reservStart");
-                if (reservStartStr.length() == 10) // only date provided, no time string?
+                if (reservStartStr.length() == 10)
+                 {
                     reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
+                }
                 if (reservStartStr.length() > 0) {
                     try {
                         reservStart = java.sql.Timestamp.valueOf(reservStartStr);
@@ -378,13 +379,17 @@ public class ShoppingCartEvents {
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.startDate", locale));
                         return "error";
                     }
-                } else reservStart = null;
+                } else {
+                    reservStart = null;
+                }
             }
 
             if (paramMap.containsKey("reservEnd")) {
                 reservEndStr = (String) paramMap.remove("reservEnd");
-                if (reservEndStr.length() == 10) // only date provided, no time string?
+                if (reservEndStr.length() == 10)
+                 {
                     reservEndStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
+                }
                 if (reservEndStr.length() > 0) {
                     try {
                         reservEnd = java.sql.Timestamp.valueOf(reservEndStr);
@@ -394,7 +399,9 @@ public class ShoppingCartEvents {
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.rental.endDate", locale));
                         return "error";
                     }
-                } else reservEnd = null;
+                } else {
+                    reservEnd = null;
+                }
             }
 
             if (reservStart != null && reservEnd != null) {
@@ -461,7 +468,7 @@ public class ShoppingCartEvents {
         // parse the quantity
         try {
             quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
-            //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+            //For quantity we should test if we allow to add decimal quantity for this product an productStore :
             // if not and if quantity is in decimal format then return error.
             if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
                 BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
@@ -510,7 +517,9 @@ public class ShoppingCartEvents {
         // get the ship before date (handles both yyyy-mm-dd input and full timestamp)
         shipBeforeDateStr = (String) paramMap.remove("shipBeforeDate");
         if (UtilValidate.isNotEmpty(shipBeforeDateStr)) {
-            if (shipBeforeDateStr.length() == 10) shipBeforeDateStr += " 00:00:00.000";
+            if (shipBeforeDateStr.length() == 10) {
+                shipBeforeDateStr += " 00:00:00.000";
+            }
             try {
                 shipBeforeDate = java.sql.Timestamp.valueOf(shipBeforeDateStr);
             } catch (IllegalArgumentException e) {
@@ -522,7 +531,9 @@ public class ShoppingCartEvents {
         // get the ship after date (handles both yyyy-mm-dd input and full timestamp)
         shipAfterDateStr = (String) paramMap.remove("shipAfterDate");
         if (UtilValidate.isNotEmpty(shipAfterDateStr)) {
-            if (shipAfterDateStr.length() == 10) shipAfterDateStr += " 00:00:00.000";
+            if (shipAfterDateStr.length() == 10) {
+                shipAfterDateStr += " 00:00:00.000";
+            }
             try {
                 shipAfterDate = java.sql.Timestamp.valueOf(shipAfterDateStr);
             } catch (IllegalArgumentException e) {
@@ -577,7 +588,7 @@ public class ShoppingCartEvents {
                             EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
                     productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(cond).filterByDate().queryList();
-                    List<String> productList = new LinkedList<String>();
+                    List<String> productList = new LinkedList<>();
                     for (GenericValue productAssoc : productAssocs) {
                         if (productId.equals(productAssoc.getString("productId"))) {
                             productList.add(productAssoc.getString("productIdTo"));
@@ -617,7 +628,7 @@ public class ShoppingCartEvents {
                 Debug.logError(e.getMessage(), module);
             }
         }
-        
+
         // check for alternative packing
         if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
             GenericValue parentProduct = null;
@@ -661,13 +672,11 @@ public class ShoppingCartEvents {
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            if (cart.viewCartOnAdd()) {
-                return "viewcart";
-            } else {
-                return "success";
-            }
         }
+        if (cart.viewCartOnAdd()) {
+            return "viewcart";
+        }
+        return "success";
     }
 
     public static String addToCartFromOrder(HttpServletRequest request, HttpServletResponse response) {
@@ -689,9 +698,8 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     /** Adds all products in a category according to quantity request parameter
@@ -715,9 +723,8 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     public static String quickInitPurchaseOrder(HttpServletRequest request, HttpServletResponse response) {
@@ -726,7 +733,7 @@ public class ShoppingCartEvents {
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
         String supplierPartyId = request.getParameter("supplierPartyId_o_0");
-        
+
         // check the preferred currency of the supplier, if set, use that for the cart, otherwise use system defaults.
         ShoppingCart cart = null;
         try {
@@ -739,7 +746,7 @@ public class ShoppingCartEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
         }
-        
+
         // TODO: the code below here needs some cleanups
         String billToCustomerPartyId = request.getParameter("billToCustomerPartyId_o_0");
         if (UtilValidate.isEmpty(billToCustomerPartyId) && UtilValidate.isEmpty(supplierPartyId)) {
@@ -810,9 +817,8 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     /** Adds all products in a category according to default quantity on ProductCategoryMember
@@ -838,16 +844,16 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            totalQuantity = (BigDecimal)result.get("totalQuantity");
-            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()));
-
-            request.setAttribute("_EVENT_MESSAGE_",
-                                  UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
-                                          messageMap, locale));
-
-            return "success";
         }
+        totalQuantity = (BigDecimal) result.get("totalQuantity");
+        Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("totalQuantity", UtilFormatOut.formatQuantity(
+                totalQuantity.doubleValue()));
+
+        request.setAttribute("_EVENT_MESSAGE_",
+                UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
+                        messageMap, locale));
+
+        return "success";
     }
 
     /** Delete an item from the shopping cart. */
@@ -865,9 +871,8 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     /** Update the items in the shopping cart. */
@@ -892,9 +897,8 @@ public class ShoppingCartEvents {
         //Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     /** Empty the shopping cart. */
@@ -907,7 +911,7 @@ public class ShoppingCartEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin != null && "anonymous".equals(userLogin.get("userLoginId"))) {
             Locale locale = UtilHttp.getLocale(session);
-            
+
             // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
             session.invalidate();
             session = request.getSession(true);
@@ -983,7 +987,7 @@ public class ShoppingCartEvents {
         }
         List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isEmpty(cartList)) {
-            cartList = new LinkedList<ShoppingCart>();
+            cartList = new LinkedList<>();
             session.setAttribute("shoppingCartList", cartList);
         }
         ShoppingCart currentCart = (ShoppingCart) session.getAttribute("shoppingCart");
@@ -1126,7 +1130,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         String partyId = request.getParameter("additionalPartyId");
         String roleTypeId[] = request.getParameterValues("additionalRoleTypeId");
-        List<String> eventList = new LinkedList<String>();
+        List<String> eventList = new LinkedList<>();
         Locale locale = UtilHttp.getLocale(request);
         int i;
 
@@ -1158,7 +1162,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         String partyId = request.getParameter("additionalPartyId");
         String roleTypeId[] = request.getParameterValues("additionalRoleTypeId");
-        List<String> eventList = new LinkedList<String>();
+        List<String> eventList = new LinkedList<>();
         Locale locale = UtilHttp.getLocale(request);
         int i;
 
@@ -1222,12 +1226,10 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg.toString());
             if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
                 return NON_CRITICAL_ERROR;
-            } else {
-                return ERROR;
             }
-        } else {
-            return NO_ERROR;
+            return ERROR;
         }
+        return NO_ERROR;
     }
 
     /** Assign agreement **/
@@ -1462,7 +1464,7 @@ public class ShoppingCartEvents {
             cart.removeAdjustmentByType("PROMOTION_ADJUSTMENT");
             String shipGroupSeqId = null;
             long groupIndex = cart.getShipInfoSize();
-            List<GenericValue> orderAdjustmentList = new ArrayList<GenericValue>();
+            List<GenericValue> orderAdjustmentList = new ArrayList<>();
             List<GenericValue> orderAdjustments = cart.getAdjustments();
             try {
                 orderAdjustmentList = EntityQuery.use(delegator).from("OrderAdjustment").where("orderId", orderId).queryList();
@@ -1471,7 +1473,7 @@ public class ShoppingCartEvents {
             }
             for (long itr = 1; itr <= groupIndex; itr++) {
                 shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
-                List<GenericValue> duplicateAdjustmentList = new ArrayList<GenericValue>();
+                List<GenericValue> duplicateAdjustmentList = new ArrayList<>();
                 for (GenericValue adjustment: orderAdjustmentList) {
                     if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) {
                         cart.addAdjustment(adjustment);
@@ -1692,11 +1694,10 @@ public class ShoppingCartEvents {
                 if (thisParty == null) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotLocateTheSelectedParty", locale));
                     return "error";
-                } else {
-                    cart.setOrderPartyId(partyId);
-                    if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
-                        cart.setBillFromVendorPartyId(partyId);
-                    }
+                }
+                cart.setOrderPartyId(partyId);
+                if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
+                    cart.setBillFromVendorPartyId(partyId);
                 }
             } else if (partyId != null && partyId.length() == 0) {
                 cart.setOrderPartyId("_NA_");
@@ -1704,7 +1705,9 @@ public class ShoppingCartEvents {
             }
         } else {
             partyId = cart.getPartyId();
-            if (partyId != null && "_NA_".equals(partyId)) partyId = null;
+            if (partyId != null && "_NA_".equals(partyId)) {
+                partyId = null;
+            }
         }
 
         return "success";
@@ -1732,7 +1735,7 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = getCartObject(request);
-        List<GenericValue> manualPromotions = new LinkedList<GenericValue>();
+        List<GenericValue> manualPromotions = new LinkedList<>();
 
         // iterate through the context and find all keys that start with "productPromoId_"
         Map<String, Object> context = UtilHttp.getParameterMap(request);
@@ -1812,7 +1815,7 @@ public class ShoppingCartEvents {
                 }
 
                 try {
-                    //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+                    //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                     // if not and if quantity is in decimal format then return error.
                     if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
                         BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
@@ -1905,7 +1908,7 @@ public class ShoppingCartEvents {
         // set the agreement if specified otherwise set the currency
         if (UtilValidate.isNotEmpty(agreementId)) {
             result = cartHelper.selectAgreement(agreementId);
-        } 
+        }
         if (UtilValidate.isNotEmpty(cart.getCurrency()) && UtilValidate.isNotEmpty(currencyUomId)) {
             result = cartHelper.setCurrency(currencyUomId);
         }
@@ -1942,15 +1945,21 @@ public class ShoppingCartEvents {
         // set the default ship before and after dates if supplied
         try {
             if (UtilValidate.isNotEmpty(shipBeforeDateStr)) {
-                if (shipBeforeDateStr.length() == 10) shipBeforeDateStr += " 00:00:00.000";
+                if (shipBeforeDateStr.length() == 10) {
+                    shipBeforeDateStr += " 00:00:00.000";
+                }
                 cart.setDefaultShipBeforeDate(java.sql.Timestamp.valueOf(shipBeforeDateStr));
             }
             if (UtilValidate.isNotEmpty(shipAfterDateStr)) {
-                if (shipAfterDateStr.length() == 10) shipAfterDateStr += " 00:00:00.000";
+                if (shipAfterDateStr.length() == 10) {
+                    shipAfterDateStr += " 00:00:00.000";
+                }
                 cart.setDefaultShipAfterDate(java.sql.Timestamp.valueOf(shipAfterDateStr));
             }
             if (UtilValidate.isNotEmpty(cancelBackOrderDateStr)) {
-                if (cancelBackOrderDateStr.length() == 10) cancelBackOrderDateStr += " 00:00:00.000";
+                if (cancelBackOrderDateStr.length() == 10) {
+                    cancelBackOrderDateStr += " 00:00:00.000";
+                }
                 cart.setCancelBackOrderDate(java.sql.Timestamp.valueOf(cancelBackOrderDateStr));
             }
         } catch (IllegalArgumentException e) {
@@ -2060,7 +2069,7 @@ public class ShoppingCartEvents {
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-                    Map<String, Object> appendOrderItemMap = new HashMap<String, Object>();
+                    Map<String, Object> appendOrderItemMap = new HashMap<>();
                     appendOrderItemMap.put("productId", productId);
                     appendOrderItemMap.put("quantity", quantity);
                     appendOrderItemMap.put("orderId", orderId);
