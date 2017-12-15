@@ -25,6 +25,9 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="parameters.partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <entity-one entity-name="Party" value-field="party">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                </entity-one>
                 <entity-and entity-name="PartyNameHistory" list="partyNameHistoryList">
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <order-by field-name="-changeDate"/>
