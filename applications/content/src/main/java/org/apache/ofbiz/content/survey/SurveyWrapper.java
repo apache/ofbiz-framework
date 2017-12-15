@@ -103,7 +103,7 @@ public class SurveyWrapper {
      */
     public void setPassThru(Map<String, Object> passThru) {
         if (passThru != null) {
-            this.passThru = new HashMap<String, Object>();
+            this.passThru = new HashMap<>();
             this.passThru.putAll(passThru);
         }
     }
@@ -114,7 +114,7 @@ public class SurveyWrapper {
      */
     public void setDefaultValues(Map<String, Object> defaultValues) {
         if (defaultValues != null) {
-            this.defaultValues = new HashMap<String, Object>();
+            this.defaultValues = new HashMap<>();
             this.defaultValues.putAll(defaultValues);
         }
     }
@@ -126,7 +126,7 @@ public class SurveyWrapper {
      */
     public void addToTemplateContext(String name, Object value) {
         if (templateContext == null) {
-            templateContext = new HashMap<String, Object>();
+            templateContext = new HashMap<>();
         }
         templateContext.put(name, value);
     }
@@ -136,8 +136,9 @@ public class SurveyWrapper {
      * @param name
      */
     public void removeFromTemplateContext(String name) {
-        if (templateContext != null)
+        if (templateContext != null) {
             templateContext.remove(name);
+        }
     }
 
     /**
@@ -181,7 +182,7 @@ public class SurveyWrapper {
             currentAnswers = this.getResponseAnswers(null);
         }
 
-        Map<String, Object> sqaaWithColIdListByMultiRespId = new HashMap<String, Object>();
+        Map<String, Object> sqaaWithColIdListByMultiRespId = new HashMap<>();
         for (GenericValue surveyQuestionAndAppl : surveyQuestionAndAppls) {
             String surveyMultiRespColId = surveyQuestionAndAppl.getString("surveyMultiRespColId");
             if (UtilValidate.isNotEmpty(surveyMultiRespColId)) {
@@ -191,7 +192,7 @@ public class SurveyWrapper {
         }
 
         if (templateContext == null) {
-            templateContext = new HashMap<String, Object>();
+            templateContext = new HashMap<>();
         }
 
         templateContext.put("partyId", partyId);
@@ -211,9 +212,7 @@ public class SurveyWrapper {
         Template template = this.getTemplate(templateUrl);
         try {
             FreeMarkerWorker.renderTemplate(template, templateContext, writer);
-        } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering Survey with template at [" + templateUrl.toExternalForm() + "]", module);
-        } catch (IOException e) {
+        } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering Survey with template at [" + templateUrl.toExternalForm() + "]", module);
         }
     }
@@ -275,18 +274,17 @@ public class SurveyWrapper {
         String responseId = this.getThisResponseId();
         if (responseId == null) {
             return true;
-        } else {
-            GenericValue survey = this.getSurvey();
-            if ("Y".equals(survey.getString("allowMultiple"))) {
-                return true;
-            }
+        }
+        GenericValue survey = this.getSurvey();
+        if ("Y".equals(survey.getString("allowMultiple"))) {
+            return true;
         }
         return false;
     }
 
     // returns a list of SurveyQuestions (in order by sequence number) for the current Survey
     public List<GenericValue> getSurveyQuestionAndAppls() {
-        List<GenericValue> questions = new LinkedList<GenericValue>();
+        List<GenericValue> questions = new LinkedList<>();
 
         try {
             questions = EntityQuery.use(delegator).from("SurveyQuestionAndAppl")
@@ -358,7 +356,7 @@ public class SurveyWrapper {
 
     // returns a Map of answers keyed on SurveyQuestion ID from the most current SurveyResponse ID
     public Map<String, Object> getResponseAnswers(String responseId) throws SurveyWrapperException {
-        Map<String, Object> answerMap = new HashMap<String, Object>();
+        Map<String, Object> answerMap = new HashMap<>();
 
         if (responseId != null) {
             List<GenericValue> answers = null;
@@ -381,7 +379,7 @@ public class SurveyWrapper {
                 if (key.toUpperCase(Locale.getDefault()).startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
-                    Map<String, Object> thisAnswer = new HashMap<String, Object>();
+                    Map<String, Object> thisAnswer = new HashMap<>();
                     String answer = (String) passThru.remove(key);
                     thisAnswer.put("booleanResponse", answer);
                     thisAnswer.put("currencyResponse", answer);
@@ -434,7 +432,7 @@ public class SurveyWrapper {
     }
 
     public Map<String, Object> getResults(List<GenericValue> questions) throws SurveyWrapperException {
-        Map<String, Object> questionResults = new HashMap<String, Object>();
+        Map<String, Object> questionResults = new HashMap<>();
         if (questions != null) {
             for (GenericValue question : questions) {
                 Map<String, Object> results = getResultInfo(question);
@@ -448,7 +446,7 @@ public class SurveyWrapper {
 
     // returns a map of question reqsults
     public Map<String, Object> getResultInfo(GenericValue question) throws SurveyWrapperException {
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         // special keys in the result:
         // "_q_type"      - question type (SurveyQuestionTypeId)
@@ -478,7 +476,7 @@ public class SurveyWrapper {
 
                 // create the map of option info ("_total", "_percent")
             for (Entry<String, Object> entry : thisResult.entrySet()) {
-                    Map<String, Object> optMap = new HashMap<String, Object>();
+                    Map<String, Object> optMap = new HashMap<>();
                     Long optTotal = (Long) entry.getValue();
                     String optId = entry.getKey();
                     if (optTotal == null) {
@@ -586,7 +584,7 @@ public class SurveyWrapper {
         } catch (GenericTransactionException gte) {
             Debug.logError(gte, "Unable to begin transaction", module);
         }
-        
+
         try (EntityListIterator eli = this.getEli(question, -1)) {
             if (eli != null) {
                 GenericValue value;
@@ -635,16 +633,19 @@ public class SurveyWrapper {
         // average
         switch (type) {
             case 1:
-                if (result[0] > 0)
-                result[2] = result[1] / ((long) result[0]);
+                if (result[0] > 0) {
+                    result[2] = result[1] / ((long) result[0]);
+                }
                 break;
             case 2:
-                if (result[0] > 0)
+                if (result[0] > 0) {
                     result[2] = (((double) Math.round((result[1] / result[0]) * 100)) / 100);
+                }
                 break;
             case 3:
-                if (result[0] > 0)
-                result[2] = result[1] / (long) result[0];
+                if (result[0] > 0) {
+                    result[2] = result[1] / (long) result[0];
+                }
                 break;
         }
 
@@ -667,7 +668,7 @@ public class SurveyWrapper {
     }
 
     private Map<String, Object> getOptionResult(GenericValue question) throws SurveyWrapperException {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         long total = 0;
 
         boolean beganTransaction = false;
