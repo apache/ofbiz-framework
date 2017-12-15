@@ -77,7 +77,7 @@ public class ContentSearch {
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdFrom", contentId).cache().queryList();
+            List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId).cache().queryList();
             for (GenericValue contentAssoc: contentAssocList) {
                 String subContentId = contentAssoc.getString("contentIdTo");
                 if (contentIdSet.contains(subContentId)) {
@@ -93,8 +93,8 @@ public class ContentSearch {
 
             // Find Content where current contentId = contentParentId; only select minimal fields to keep the size low
             List<GenericValue> childContentList = EntityQuery.use(delegator)
-                    .select("contentId", "contentParentId").from("Content")
-                    .where("contentParentId", contentId)
+                    .select("contentId", "ownerContentId").from("Content")
+                    .where("ownerContentId", contentId)
                     .cache().queryList();
             for (GenericValue childContent: childContentList) {
                 String subContentId = childContent.getString("contentId");
@@ -476,12 +476,12 @@ public class ContentSearch {
             contentSearchContext.index++;
 
             contentSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ContentAssoc");
-            contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdFrom", "contentIdFrom", null, null, null, null);
+            contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdFrom", "contentId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdTo", "contentIdTo", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentAssocTypeId", "contentAssocTypeId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId","contentIdFrom"));
+            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId"));
 
             List<EntityExpr> assocConditionFromTo = new LinkedList<EntityExpr>();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "ContentIdTo", EntityOperator.IN, contentIdSet));
@@ -497,7 +497,7 @@ public class ContentSearch {
             contentSearchContext.index++;
 
             contentSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ContentAssoc");
-            contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdFrom", "contentIdFrom", null, null, null, null);
+            contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdFrom", "contentId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentIdTo", "contentIdTo", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentAssocTypeId", "contentAssocTypeId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
@@ -517,7 +517,7 @@ public class ContentSearch {
 
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.contentId + "," + this.contentAssocTypeId, "includeSubContents", this.includeSubContents ? "Y" : "N")));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.contentId + "," + this.contentAssocTypeId)));
         }
 
 
