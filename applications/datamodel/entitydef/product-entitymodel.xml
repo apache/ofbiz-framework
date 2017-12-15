@@ -1085,13 +1085,13 @@ under the License.
         <prim-key field="calendarId"/>
         <prim-key field="facilityCalendarTypeId"/>
         <prim-key field="fromDate"/>
-        <relation type="one" fk-name="FACILITY_CALENDAR_FAC" rel-entity-name="Facility">
+        <relation type="one" fk-name="FACILITY_CAL_FAC" rel-entity-name="Facility">
             <key-map field-name="facilityId"/>
         </relation>
-        <relation type="many" fk-name="FACILITY_CALENDAR_CAL" rel-entity-name="TechDataCalendar">
+        <relation type="many" fk-name="FACILITY_TEC_CAL" rel-entity-name="TechDataCalendar">
             <key-map field-name="calendarId"/>
         </relation>
-        <relation type="one" fk-name="FACILITY_CALENDAR_TYPE" rel-entity-name="FacilityCalendarType">
+        <relation type="one" fk-name="FACILITY_CAL_TYPE" rel-entity-name="FacilityCalendarType">
             <key-map field-name="facilityCalendarTypeId"/>
         </relation>
     </entity>
