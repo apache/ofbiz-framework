@@ -109,7 +109,7 @@ public class OrderEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
 
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap;
         String  orderId = request.getParameter("orderId");
         String[] selectedItems = request.getParameterValues("selectedItem");
         

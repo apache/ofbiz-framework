@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
@@ -209,7 +210,7 @@ public class OrderReturnServices {
 
         // get the return items
         List<GenericValue> returnItems = null;
-        List<GenericValue> returnAdjustments = new LinkedList<GenericValue>();
+        List<GenericValue> returnAdjustments;
         try {
             returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
             returnAdjustments = EntityQuery.use(delegator).from("ReturnAdjustment")
@@ -552,7 +553,7 @@ public class OrderReturnServices {
                         }
                         if (product != null) {
                             itemTypeKey = product.getString("productTypeId");
-                        } else if (item != null && item.getString("orderItemTypeId") != null) {
+                        } else if (item.getString("orderItemTypeId") != null) {
                             itemTypeKey = item.getString("orderItemTypeId");
                         }
                         returnInfo.put("itemTypeKey", itemTypeKey);
@@ -683,7 +684,9 @@ public class OrderReturnServices {
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("statusId", returnHeader.get("statusId"));
+        if (returnHeader != null) {
+            result.put("statusId", returnHeader.get("statusId"));
+        }
         return result;
     }
 
@@ -762,7 +765,7 @@ public class OrderReturnServices {
 
             if (finAccountId == null && billingAccountId == null) {
                 // First find a Billing Account with negative balance, and if found store credit to that
-                List<GenericValue> billingAccounts = new LinkedList<GenericValue>();
+                List<GenericValue> billingAccounts;
                 try {
                     billingAccounts = EntityQuery.use(delegator).from("BillingAccountRoleAndAddress")
                             .where("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER")
@@ -1086,7 +1089,7 @@ public class OrderReturnServices {
         Map<String, Object> serviceResult = new HashMap<String, Object>();
 
         GenericValue orderHeader = null;
-        List<GenericValue> orderPayPrefs = new LinkedList<GenericValue>();
+        List<GenericValue> orderPayPrefs;
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
@@ -1098,7 +1101,7 @@ public class OrderReturnServices {
 
         // Check for replacement order
         if (UtilValidate.isEmpty(orderPayPrefs)) {
-            List<GenericValue> returnItemResponses = new LinkedList<GenericValue>();
+            List<GenericValue> returnItemResponses;
             try {
                 returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse", null, null, false);
             } catch (GenericEntityException e) {
@@ -1314,7 +1317,7 @@ public class OrderReturnServices {
                 orderedRefundPaymentMethodTypes.add("EFT_ACCOUNT");
 
                 // Add all the other paymentMethodTypes, in no particular order
-                List<GenericValue> otherPaymentMethodTypes = new LinkedList<GenericValue>();
+                List<GenericValue> otherPaymentMethodTypes;
                 try {
                     otherPaymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType")
                             .where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes))
@@ -1689,9 +1692,9 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                     "OrderErrorGettingReturnHeaderItemInformation", locale));
         }
-        String returnHeaderTypeId = returnHeader.getString("returnHeaderTypeId");
         List<String> createdOrderIds = new LinkedList<String>();
         if (returnHeader != null && UtilValidate.isNotEmpty(returnItems)) {
+            String returnHeaderTypeId = returnHeader.getString("returnHeaderTypeId");
             Map<String, List<GenericValue>> returnItemsByOrderId = new HashMap<String, List<GenericValue>>();
             Map<String, BigDecimal> totalByOrder = new HashMap<String, BigDecimal>();
             groupReturnItemsByOrder(returnItems, returnItemsByOrderId, totalByOrder, delegator, returnId, returnTypeId);
@@ -1771,44 +1774,42 @@ public class OrderReturnServices {
                             Debug.logError(e, module);
                             continue;
                         }
-                        if (orderItem != null) {
-                            BigDecimal quantity = returnItem.getBigDecimal("returnQuantity");
-                            BigDecimal unitPrice = returnItem.getBigDecimal("returnPrice");
-                            if (quantity != null && unitPrice != null) {
-                                orderPriceTotal = orderPriceTotal.add(quantity.multiply(unitPrice));
-                                // Check if the product being returned has a Refurbished Equivalent and if so
-                                // (and there is inventory for the assoc product) use that product instead
-                                GenericValue refurbItem = null;
-                                if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
-                                    try {
-                                        if (product != null) {
-                                            GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"), UtilMisc.toList("sequenceNum"), false)));
-                                            if (refurbItemAssoc != null) {
-                                                refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct", false);
-                                            }
+                        BigDecimal quantity = returnItem.getBigDecimal("returnQuantity");
+                        BigDecimal unitPrice = returnItem.getBigDecimal("returnPrice");
+                        if (quantity != null && unitPrice != null) {
+                            orderPriceTotal = orderPriceTotal.add(quantity.multiply(unitPrice));
+                            // Check if the product being returned has a Refurbished Equivalent and if so
+                            // (and there is inventory for the assoc product) use that product instead
+                            GenericValue refurbItem = null;
+                            if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
+                                try {
+                                    if (product != null) {
+                                        GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"), UtilMisc.toList("sequenceNum"), false)));
+                                        if (refurbItemAssoc != null) {
+                                            refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct", false);
                                         }
-                                    } catch (GenericEntityException e) {
-                                        Debug.logError(e, module);
                                     }
-                                    if (refurbItem != null) {
-                                        boolean inventoryAvailable = false;
-                                        try {
-                                            Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
-                                                                                                                                           "productId", refurbItem.getString("productId"),
-                                                                                                                                           "product", refurbItem, "quantity", quantity));
-                                            if (ServiceUtil.isError(invReqResult)) {
-                                                Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
-                                            } else {
-                                                inventoryAvailable = "Y".equals(invReqResult.get("available"));
-                                            }
-                                        } catch (GenericServiceException e) {
-                                            Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, module);
+                                }
+                                if (refurbItem != null) {
+                                    boolean inventoryAvailable = false;
+                                    try {
+                                        Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
+                                                "productId", refurbItem.getString("productId"),
+                                                "product", refurbItem, "quantity", quantity));
+                                        if (ServiceUtil.isError(invReqResult)) {
+                                            Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
+                                        } else {
+                                            inventoryAvailable = "Y".equals(invReqResult.get("available"));
                                         }
-                                        if (!inventoryAvailable) {
-                                            // If the Refurbished Equivalent is not available,
-                                            // then use the original product.
-                                            refurbItem = null;
-                                        }
+                                    } catch (GenericServiceException e) {
+                                        Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
+                                    }
+                                    if (!inventoryAvailable) {
+                                        // If the Refurbished Equivalent is not available,
+                                        // then use the original product.
+                                        refurbItem = null;
                                     }
                                 }
 
@@ -2241,14 +2242,14 @@ public class OrderReturnServices {
         }
 
         // We may also have some order-level adjustments, so we need to go through each order again and add those as well
-        if ((totalByOrder != null) && (totalByOrder.keySet() != null)) {
-            for (String orderId : totalByOrder.keySet()) {
+        if ((totalByOrder != null) && (totalByOrder.entrySet() != null)) {
+            for (Entry<String, BigDecimal> orderId : totalByOrder.entrySet()) {
                 // find returnAdjustment for returnHeader
                 Map<String, Object> condition = UtilMisc.<String, Object>toMap("returnId", returnId,
                                                "returnItemSeqId", org.apache.ofbiz.common.DataModelConstants.SEQ_ID_NA,
                                                "returnTypeId", returnTypeId);
-                BigDecimal existingTotal = (totalByOrder.get(orderId)).add(getReturnAdjustmentTotal(delegator, condition));
-                totalByOrder.put(orderId, existingTotal);
+                BigDecimal existingTotal = (totalByOrder.get(orderId.getKey()).add(getReturnAdjustmentTotal(delegator, condition)));
+                totalByOrder.put(orderId.getKey(), existingTotal);
             }
         }
     }
@@ -2313,9 +2314,9 @@ public class OrderReturnServices {
             returnAmountByOrder = UtilGenerics.checkMap(serviceResult.get("orderReturnAmountMap"));
         }
 
-        if ((returnAmountByOrder != null) && (returnAmountByOrder.keySet() != null)) {
-            for (String orderId : returnAmountByOrder.keySet()) {
-                BigDecimal returnAmount = returnAmountByOrder.get(orderId);
+        if ((returnAmountByOrder != null) && (returnAmountByOrder.entrySet() != null)) {
+            for (Entry<String, BigDecimal> orderId : returnAmountByOrder.entrySet()) {
+                BigDecimal returnAmount = returnAmountByOrder.get(orderId.getKey());
                 if (returnAmount == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderNoReturnAmountFound", UtilMisc.toMap("orderId", orderId), locale));
                 }
@@ -2324,7 +2325,7 @@ public class OrderReturnServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderReturnTotalCannotLessThanZero", locale));
                 }
-                OrderReadHelper helper = new OrderReadHelper(delegator, orderId);
+                OrderReadHelper helper = new OrderReadHelper(delegator, orderId.getKey());
                 BigDecimal grandTotal = helper.getOrderGrandTotal();
                 if (returnAmount.subtract(grandTotal).compareTo(new BigDecimal("0.01")) > 0) {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] exceeds order total [" + grandTotal + "]", module);
