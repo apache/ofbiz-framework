@@ -77,6 +77,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
@@ -126,7 +127,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         templateCtx.put("dataResourceId", dataResourceId);
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
-        final Map<String, Object> savedValues = new HashMap<String, Object>();
+        final Map<String, Object> savedValues = new HashMap<>();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
 
         return new Writer(out) {
@@ -173,12 +174,9 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     }
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
-                    } catch (IOException e) {
+                    } catch (IOException | GeneralException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                         throw new IOException("Error rendering content" + e.toString());
-                    } catch (GeneralException e2) {
-                        Debug.logError(e2, "Error rendering content" + e2.getMessage(), module);
-                        throw new IOException("Error rendering content" + e2.toString());
                     }
                 } else {
                     out.write(wrappedContent);

@@ -84,7 +84,9 @@ public class LoopSubContentTransform implements TemplateTransformModel {
     public static boolean prepCtx(Delegator delegator, Map<String, Object> ctx) {
         List<GenericValue> lst = UtilGenerics.checkList(ctx.get("entityList"));
         Integer idx = (Integer) ctx.get("entityIndex");
-        if (idx == null) idx = Integer.valueOf(0);
+        if (idx == null) {
+            idx = Integer.valueOf(0);
+        }
         int i = idx.intValue();
         if (UtilValidate.isEmpty(lst)) {
             return false;
@@ -147,6 +149,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         return true;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
@@ -176,7 +179,9 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
         }
-        if (fromDate == null) fromDate = UtilDateTime.nowTimestamp();
+        if (fromDate == null) {
+            fromDate = UtilDateTime.nowTimestamp();
+        }
 
         String thisContentId = (String) templateCtx.get("contentId");
 
@@ -204,9 +209,8 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                 boolean inProgress = prepCtx(delegator, templateCtx);
                 if (inProgress) {
                     return TransformControl.EVALUATE_BODY;
-                } else {
-                    return TransformControl.SKIP_BODY;
                 }
+                return TransformControl.SKIP_BODY;
             }
 
             @Override
@@ -214,9 +218,8 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                 boolean inProgress = prepCtx(delegator, templateCtx);
                 if (inProgress) {
                     return TransformControl.REPEAT_EVALUATION;
-                } else {
-                    return TransformControl.END_EVALUATION;
                 }
+                return TransformControl.END_EVALUATION;
             }
 
             @Override
@@ -238,7 +241,9 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                     templateRoot.put("context", templateCtx);
 
                     Locale locale = (Locale) templateCtx.get("locale");
-                    if (locale == null) locale = Locale.getDefault();
+                    if (locale == null) {
+                        locale = Locale.getDefault();
+                    }
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);

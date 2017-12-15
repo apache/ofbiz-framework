@@ -61,23 +61,23 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
         }
         return null;
     }
-    
+
     @Override
     public Writer getWriter(final Writer out, final Map args)
             throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
-            
+
             @Override
             public void write(char[] cbuf, int off, int len) throws IOException {
                 buf.append(cbuf, off, len);
             }
-            
+
             @Override
             public void flush() throws IOException {
                 out.flush();
             }
-            
+
             @Override
             public void close() throws IOException {
                 try {
@@ -130,8 +130,6 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
             }
         } catch (GenericEntityException gee) {
             Debug.logWarning("[Exception] : " + gee.getMessage(), module);
-        } catch (Exception e) {
-            Debug.logWarning("[Exception] : " + e.getMessage(), module);
         }
 
         if (UtilValidate.isEmpty(url)) {
