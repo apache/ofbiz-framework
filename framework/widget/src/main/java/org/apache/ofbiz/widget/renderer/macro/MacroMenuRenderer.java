@@ -57,7 +57,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     public static final String module = MacroMenuRenderer.class.getName();
     private int macroCount = 999;
-    private final Map<Appendable, Environment> environments = new HashMap<Appendable, Environment>();
+    private final Map<Appendable, Environment> environments = new HashMap<>();
     private final Template macroLibrary;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
@@ -72,7 +72,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     // Made this a separate method so it can be externalized and reused.
     private Map<String, Object> createImageParameters(Map<String, Object> context, Image image) {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", image.getId(context));
         parameters.put("style", image.getStyle(context));
         parameters.put("width", image.getWidth(context));
@@ -199,7 +199,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderLink(Appendable writer, Map<String, Object> context, MenuLink link) throws IOException {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
         if (isDisableIfEmpty(menuItem, context)) {
@@ -221,7 +221,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             if (context.containsKey("parentItemIndex")) {
                 uniqueItemName.append(context.get("parentItemIndex")).append("_").append(context.get("itemIndex"));
             } else {
-                uniqueItemName.append("_").append(context.get("itemIndex")); 
+                uniqueItemName.append("_").append(context.get("itemIndex"));
             }
         }
         parameters.put("uniqueItemName", uniqueItemName.toString());
@@ -284,7 +284,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
         Map<String, Object> parameters = null;
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
-            parameters = new HashMap<String, Object>();
+            parameters = new HashMap<>();
             StringBuilder sb = new StringBuilder("End Menu Widget ");
             sb.append(menu.getBoundaryCommentName());
             parameters.put("boundaryComment", sb.toString());
@@ -298,9 +298,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException {
-        if (isHideIfSelected(menuItem, context))
+        if (isHideIfSelected(menuItem, context)) {
             return;
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        }
+        Map<String, Object> parameters = new HashMap<>();
         String style = menuItem.getWidgetStyle();
         if (menuItem.isSelected(context)) {
             String selectedStyle = menuItem.getSelectedStyle();
@@ -361,7 +362,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
             StringBuilder sb = new StringBuilder("Begin Menu Widget ");
             sb.append(menu.getBoundaryCommentName());
