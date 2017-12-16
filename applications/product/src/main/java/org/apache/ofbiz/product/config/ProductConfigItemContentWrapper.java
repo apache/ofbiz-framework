@@ -89,6 +89,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", this.delegator);
     }
 
+    @Override
     public StringWrapper get(String confItemContentTypeId, String encoderType) {
         return StringUtil.makeStringWrapper(getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, getDelegator(), getDispatcher(), encoderType));
     }
@@ -136,11 +137,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
             outString = encoder.sanitize(outString, null);
             configItemContentCache.put(cacheKey, outString);
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
-            String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
             String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
@@ -172,13 +169,13 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
                 .queryFirst();
         if (productConfigItemContent != null) {
             // when rendering the product config item content, always include the ProductConfigItem and ProdConfItemContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
+            Map<String, Object> inContext = new HashMap<>();
             inContext.put("productConfigItem", productConfigItem);
             inContext.put("productConfigItemContent", productConfigItemContent);
             ContentWorker.renderContentAsText(dispatcher, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
-        
+
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
         ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
         if (productConfigItemModel.isField(candidateFieldName)) {

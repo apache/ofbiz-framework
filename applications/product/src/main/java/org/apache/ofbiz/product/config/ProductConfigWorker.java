@@ -92,7 +92,7 @@ public final class ProductConfigWorker {
         Map<String, Object> combinedMap = UtilHttp.getCombinedMap(request);
         for (int k = 0; k < numOfQuestions; k++) {
             String[] opts = new String[0];
-            Object o = combinedMap.get(Integer.toString(k));;
+            Object o = combinedMap.get(Integer.toString(k));
             if (o instanceof String) {
                 opts = new String[]{(String)o};
             } else if(o instanceof List) {
@@ -151,7 +151,7 @@ public final class ProductConfigWorker {
                                     if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProductId)) {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
-                                            List<String> selectedFeatures = new LinkedList<String>();
+                                            List<String> selectedFeatures = new LinkedList<>();
                                             Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
                                             while (paramNames.hasMoreElements()) {
                                                 String paramName = paramNames.nextElement();
@@ -195,15 +195,17 @@ public final class ProductConfigWorker {
      * @param delegator the delegator
      */
     public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, Delegator delegator) {
-        if (configWrapper == null || (!configWrapper.isCompleted()))  return;
+        if (configWrapper == null || (!configWrapper.isCompleted())) {
+            return;
+        }
         String configId = null;
         List<ConfigItem> questions = configWrapper.getQuestions();
-        List<GenericValue> configsToCheck = new LinkedList<GenericValue>();
+        List<GenericValue> configsToCheck = new LinkedList<>();
         int selectedOptionSize = 0;
         for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
-            List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<ProductConfigWrapper.ConfigOption>();
+            List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<>();
             List<ConfigOption> options = ci.getOptions();
             if (ci.isStandard()) {
                 selectedOptions.addAll(options);
@@ -252,7 +254,7 @@ public final class ProductConfigWorker {
                             for (ConfigItem ci: questions) {
                                 String configItemId = null;
                                 Long sequenceNum = null;
-                                List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<ProductConfigWrapper.ConfigOption>();
+                                List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<>();
                                 List<ConfigOption> options = ci.getOptions();
                                 if (ci.isStandard()) {
                                     selectedOptions.addAll(options);
@@ -321,7 +323,7 @@ public final class ProductConfigWorker {
         for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
-            List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<ProductConfigWrapper.ConfigOption>();
+            List<ProductConfigWrapper.ConfigOption> selectedOptions = new LinkedList<>();
             List<ConfigOption> options = ci.getOptions();
            if (ci.isStandard()) {
                 selectedOptions.addAll(options);
@@ -343,7 +345,7 @@ public final class ProductConfigWorker {
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 for (ConfigOption oneOption: selectedOptions) {
                     Map<String, String>  componentOptions = oneOption.componentOptions;
-                    List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+                    List<GenericValue> toBeStored = new LinkedList<>();
                     String configOptionId = oneOption.configOption.getString("configOptionId");
                     String description = oneOption.getComments();
                     GenericValue productConfigConfig = delegator.makeValue("ProductConfigConfig");
