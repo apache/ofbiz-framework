@@ -61,7 +61,7 @@ public class ModelDataFile {
     public String description = "";
 
     /** List of record definitions for the file */
-    public List<ModelRecord> records = new ArrayList<ModelRecord>();
+    public List<ModelRecord> records = new ArrayList<>();
 
     public ModelRecord getModelRecord(String recordName) {
         for (ModelRecord curRecord: records) {

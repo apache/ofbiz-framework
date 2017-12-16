@@ -51,24 +51,26 @@ public class Record implements Serializable {
     protected transient ModelRecord modelRecord;
 
     protected Record parentRecord = null;
-    protected List<Record> childRecords = new ArrayList<Record>();
+    protected List<Record> childRecords = new ArrayList<>();
 
     /** Creates new Record */
     protected Record(ModelRecord modelRecord) {
-        if (modelRecord == null)
+        if (modelRecord == null) {
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
+        }
         this.recordName = modelRecord.name;
         this.modelRecord = modelRecord;
-        this.fields = new HashMap<String, Object>();
+        this.fields = new HashMap<>();
     }
 
     /** Creates new Record from existing Map */
     protected Record(ModelRecord modelRecord, Map<String, Object> fields) {
-        if (modelRecord == null)
+        if (modelRecord == null) {
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
+        }
         this.recordName = modelRecord.name;
         this.modelRecord = modelRecord;
-        this.fields = (fields == null ? new HashMap<String, Object>() : new HashMap<String, Object>(fields));
+        this.fields = (fields == null ? new HashMap<>() : new HashMap<>(fields));
     }
 
     public String getRecordName() {
@@ -92,23 +94,25 @@ public class Record implements Serializable {
     public String getString(String name) {
         Object object = get(name);
 
-        if (object == null)
+        if (object == null) {
             return null;
-        if (object instanceof java.lang.String)
+        }
+        if (object instanceof java.lang.String) {
             return (String) object;
-        else
-            return object.toString();
+        }
+        return object.toString();
     }
 
     public String getStringAndEmpty(String name) {
         Object object = get(name);
 
-        if (object == null)
+        if (object == null) {
             return "";
-        if (object instanceof java.lang.String)
+        }
+        if (object instanceof java.lang.String) {
             return (String) object;
-        else
-            return object.toString();
+        }
+        return object.toString();
     }
 
     public java.sql.Timestamp getTimestamp(String name) {
@@ -194,12 +198,14 @@ public class Record implements Serializable {
      * @param value The String value to convert and set
      */
     public void setString(String name, String value) throws ParseException {
-        if (name == null || value == null || value.equals(""))
+        if (name == null || value == null || value.equals("")) {
             return;
+        }
         ModelField field = getModelRecord().getModelField(name);
 
-        if (field == null)
+        if (field == null) {
             set(name, value); // this will get an error in the set() method...
+        }
 
         // if the string is all spaces ignore
         boolean nonSpace = false;
@@ -210,8 +216,9 @@ public class Record implements Serializable {
                 break;
             }
         }
-        if (!nonSpace)
+        if (!nonSpace) {
             return;
+        }
 
         String fieldType = field.type;
 
@@ -251,48 +258,50 @@ public class Record implements Serializable {
             number = number / divisor;
             set(name, Double.valueOf(number));
         } // standard types
-        else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
+        else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
             if (field.format.equals("EncryptedString")) {
                 String hashType = LoginServices.getHashType();
                 set(name, HashCrypt.digestHash(hashType, value.getBytes(UtilIO.getUtf8())));
             } else {
                 set(name, value);
             }
-        else if (fieldType.equals("NullTerminatedString")) {
+        } else if (fieldType.equals("NullTerminatedString")) {
             int terminate = value.indexOf(0x0);
             set(name, terminate > 0 ? value.substring(0, terminate) : value);
-        } else if (fieldType.equals("java.sql.Timestamp") || fieldType.equals("Timestamp"))
+        } else if (fieldType.equals("java.sql.Timestamp") || fieldType.equals("Timestamp")) {
             set(name, java.sql.Timestamp.valueOf(value));
-        else if (fieldType.equals("java.sql.Time") || fieldType.equals("Time"))
+        } else if (fieldType.equals("java.sql.Time") || fieldType.equals("Time")) {
             set(name, java.sql.Time.valueOf(value));
-        else if (fieldType.equals("java.sql.Date") || fieldType.equals("Date"))
+        } else if (fieldType.equals("java.sql.Date") || fieldType.equals("Date")) {
             set(name, java.sql.Date.valueOf(value));
-        else if (fieldType.equals("java.lang.Integer") || fieldType.equals("Integer"))
+        } else if (fieldType.equals("java.lang.Integer") || fieldType.equals("Integer")) {
             set(name, Integer.valueOf(value));
-        else if (fieldType.equals("java.lang.Long") || fieldType.equals("Long"))
+        } else if (fieldType.equals("java.lang.Long") || fieldType.equals("Long")) {
             set(name, Long.valueOf(value));
-        else if (fieldType.equals("java.lang.Float") || fieldType.equals("Float"))
+        } else if (fieldType.equals("java.lang.Float") || fieldType.equals("Float")) {
             set(name, Float.valueOf(value));
-        else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double"))
+        } else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double")) {
             set(name, Double.valueOf(value));
-        else if (fieldType.equals("LEShort"))
+        } else if (fieldType.equals("LEShort")) {
             set(name, Short.valueOf(readLEShort(value.getBytes(UtilIO.getUtf8()))));
-        else if (fieldType.equals("LEInteger"))
+        } else if (fieldType.equals("LEInteger")) {
             set(name, Integer.valueOf(readLEInt(value.getBytes(UtilIO.getUtf8()))));
-        else if (fieldType.equals("LELong"))
+        } else if (fieldType.equals("LELong")) {
             set(name, Long.valueOf(readLELong(value.getBytes(UtilIO.getUtf8()))));
-        else {
+        } else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }
     }
 
     public String getFixedString(String name) {
-        if (name == null)
+        if (name == null) {
             return null;
+        }
         ModelField field = getModelRecord().getModelField(name);
 
-        if (field == null)
+        if (field == null) {
             throw new IllegalArgumentException("Could not find model for field named \"" + name + "\"");
+        }
 
         Object value = get(name);
 
@@ -332,24 +341,23 @@ public class Record implements Serializable {
 
             str = padFrontZeros(Long.toString(number), field.length);
         } // standard types
-        else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
+        else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
             str = value.toString();
-        else if (fieldType.equals("java.sql.Timestamp") || fieldType.equals("Timestamp"))
+        } else if (fieldType.equals("java.sql.Timestamp") || fieldType.equals("Timestamp")) {
             str = value.toString();
-        else if (fieldType.equals("java.sql.Time") || fieldType.equals("Time"))
+        } else if (fieldType.equals("java.sql.Time") || fieldType.equals("Time")) {
             str = value.toString();
-        else if (fieldType.equals("java.sql.Date") || fieldType.equals("Date"))
+        } else if (fieldType.equals("java.sql.Date") || fieldType.equals("Date")) {
             str = value.toString();
-        // for all numbers, pad front with zeros if field length is specified
-        else if (fieldType.equals("java.lang.Integer") || fieldType.equals("Integer"))
+        } else if (fieldType.equals("java.lang.Integer") || fieldType.equals("Integer")) {
             str = padFrontZeros(value.toString(), field.length);
-        else if (fieldType.equals("java.lang.Long") || fieldType.equals("Long"))
+        } else if (fieldType.equals("java.lang.Long") || fieldType.equals("Long")) {
             str = padFrontZeros(value.toString(), field.length);
-        else if (fieldType.equals("java.lang.Float") || fieldType.equals("Float"))
+        } else if (fieldType.equals("java.lang.Float") || fieldType.equals("Float")) {
             str = padFrontZeros(value.toString(), field.length);
-        else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double"))
+        } else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double")) {
             str = padFrontZeros(value.toString(), field.length);
-        else {
+        } else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }
 
@@ -357,8 +365,9 @@ public class Record implements Serializable {
             // pad the end with spaces
             StringBuilder strBuf = new StringBuilder(str);
 
-            while (strBuf.length() < field.length)
+            while (strBuf.length() < field.length) {
                 strBuf.append(' ');
+            }
             str = strBuf.toString();
         }
         return str;
@@ -385,19 +394,22 @@ public class Record implements Serializable {
             if (data == null) {
                 StringBuilder sb = new StringBuilder("");
 
-                for (int i = 0; i < modelField.length; i++)
+                for (int i = 0; i < modelField.length; i++) {
                     sb.append(PAD_CHAR);
+                }
                 data = sb.toString();
             }
 
             // Pad the record
             if (isFixedRecord) {
-                while (modelField.position > lineBuf.length())
+                while (modelField.position > lineBuf.length()) {
                     lineBuf.append(" ");
+                }
             }
-            if (modelField.length > 0 && data.length() != modelField.length)
+            if (modelField.length > 0 && data.length() != modelField.length) {
                 throw new DataFileException("Got field length " + data.length() + " but expected field length is " + modelField.length + " for field \"" + modelField.name
                                             + "\" of record \"" + modelRecord.name + "\" data is: \"" + data + "\"");
+            }
 
             lineBuf.append(data);
             if (isDelimited) {
@@ -413,17 +425,19 @@ public class Record implements Serializable {
             lineBuf.setLength(lineBuf.length() - 1);
         }
 
-        if ((isFixedRecord || isFixedLength) && modelDataFile.recordLength > 0 && lineBuf.length() != modelDataFile.recordLength)
+        if ((isFixedRecord || isFixedLength) && modelDataFile.recordLength > 0 && lineBuf.length() != modelDataFile.recordLength) {
             throw new DataFileException("Got record length " + lineBuf.length() + " but expected record length is " + modelDataFile.recordLength + " for record \""
                                         + modelRecord.name + "\" data line is: \"" + lineBuf + "\"");
+        }
 
         // for convenience, insert the type-code in where it is looked for, if exists
         if (modelRecord.tcPosition > 0 && modelRecord.typeCode.length() > 0) {
             lineBuf.replace(modelRecord.tcPosition, modelRecord.tcPosition + modelRecord.tcLength, modelRecord.typeCode);
         }
 
-        if (isFixedLength || isDelimited)
+        if (isFixedLength || isDelimited) {
             lineBuf.append('\n');
+        }
 
         return lineBuf.toString();
     }
@@ -434,12 +448,13 @@ public class Record implements Serializable {
             StringBuilder zeros = new StringBuilder();
             int numZeros = totalLength - str.length();
 
-            for (int i = 0; i < numZeros; i++)
+            for (int i = 0; i < numZeros; i++) {
                 zeros.append('0');
+            }
             zeros.append(str);
             return zeros.toString();
-        } else
-            return str;
+        }
+        return str;
     }
 
     public Record getParentRecord() {

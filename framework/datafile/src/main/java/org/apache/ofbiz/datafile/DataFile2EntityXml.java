@@ -58,8 +58,9 @@ public class DataFile2EntityXml {
                 ModelRecord modelRecord = record.getModelRecord();
                 outFile.write("<" + modelRecord.name + " ");
                 for (ModelField modelField : modelRecord.fields) {
-                    if (modelField.ignored)
+                    if (modelField.ignored) {
                         continue;
+                    }
                     Object value = record.get(modelField.name);
                     if (value == null) {
                         value = modelField.defaultValue;

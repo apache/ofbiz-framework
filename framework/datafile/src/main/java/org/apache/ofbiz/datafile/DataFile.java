@@ -43,7 +43,7 @@ public class DataFile {
     public static final String module = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
-    protected List<Record> records = new ArrayList<Record>();
+    protected List<Record> records = new ArrayList<>();
 
     /** Contains the definition for the file */
     protected ModelDataFile modelDataFile;
@@ -132,8 +132,9 @@ public class DataFile {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
     public void readDataFile(String content) throws DataFileException {
-        if (UtilValidate.isEmpty(content))
+        if (UtilValidate.isEmpty(content)) {
             throw new IllegalStateException("Content is empty, can't read file");
+        }
 
         ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes(UtilIO.getUtf8()));
 
@@ -170,7 +171,7 @@ public class DataFile {
 
     /**
      * Writes the records in this DataFile object to a text data file
-     * 
+     *
      * @param filename
      *            The filename to put the data into
      * @throws DataFileException
