@@ -65,10 +65,10 @@ public class ModelRecord {
     public String limit = "";
 
     public ModelRecord parentRecord = null;
-    public List<ModelRecord> childRecords = new ArrayList<ModelRecord>();
+    public List<ModelRecord> childRecords = new ArrayList<>();
 
     /** List of the fields that compose this record */
-    public List<ModelField> fields = new ArrayList<ModelField>();
+    public List<ModelField> fields = new ArrayList<>();
 
     ModelField getModelField(String fieldName) {
         for (ModelField curField: fields) {
