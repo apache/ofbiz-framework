@@ -91,11 +91,9 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
             } else {
                 factory = SSLUtil.getSSLServerSocketFactory(alias);
             }
-        } catch (GeneralSecurityException e) {
+        } catch (GeneralSecurityException | GenericConfigException e) {
             Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
             throw new IOException(e.toString());
-        } catch (GenericConfigException e) {
-            Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
         }
 
         if (factory == null) {

@@ -43,10 +43,8 @@ public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializa
         try {
             SSLSocketFactory factory = SSLUtil.getSSLSocketFactory();
             return factory.createSocket(host, port);
-        } catch (GeneralSecurityException e) {
+        } catch (GeneralSecurityException | GenericConfigException e) {
             Debug.logError(e, module);
-            throw new IOException(e.getMessage());
-        } catch (GenericConfigException e) {
             throw new IOException(e.getMessage());
         }
     }
