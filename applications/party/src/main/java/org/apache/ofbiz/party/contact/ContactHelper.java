@@ -51,7 +51,9 @@ public class ContactHelper {
     }
 
     public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String contactMechTypeId, boolean includeOld) {
-        if (party == null) return null;
+        if (party == null) {
+            return null;
+        }
         try {
             List<GenericValue> partyContactMechList;
 
@@ -72,9 +74,8 @@ public class ContactHelper {
             partyContactMechList = EntityUtil.orderBy(partyContactMechList, UtilMisc.toList("fromDate DESC"));
             if (contactMechTypeId == null) {
                 return EntityUtil.getRelated("ContactMech", null, partyContactMechList, false);
-            } else {
-                return EntityUtil.getRelated("ContactMech", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), partyContactMechList, false);
             }
+            return EntityUtil.getRelated("ContactMech", UtilMisc.toMap("contactMechTypeId", contactMechTypeId), partyContactMechList, false);
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, module);
             return Collections.emptyList();
