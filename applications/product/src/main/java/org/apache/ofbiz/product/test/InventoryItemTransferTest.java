@@ -49,7 +49,7 @@ public class InventoryItemTransferTest extends OFBizTestCase {
 
     public void testCreateInventoryItemsTransfer() throws Exception {
         // create
-        Map<String, Object> ctx = new HashMap<String, Object>();
+        Map<String, Object> ctx = new HashMap<>();
         String inventoryItemId = "9005";
         ctx.put("inventoryItemId", inventoryItemId);
         ctx.put("statusId", "IXF_REQUESTED");
@@ -63,7 +63,7 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         assertNotNull(inventoryTransferId);
 
         // transfer
-        ctx = new HashMap<String, Object>();
+        ctx = new HashMap<>();
         ctx.put("inventoryTransferId", getInventoryTransferId());
         ctx.put("inventoryItemId", inventoryItemId);
         ctx.put("statusId", "IXF_COMPLETE");
