@@ -45,7 +45,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
@@ -75,7 +74,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     public static final String module = MacroScreenRenderer.class.getName();
     private Template macroLibrary;
-    private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<Appendable, Environment>();
+    private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private String rendererName;
     private int elementId = 999;
     protected boolean widgetCommentsEnabled = false;
@@ -104,9 +103,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
-        } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", module);
-        } catch (IOException e) {
+        } catch (TemplateException |IOException e) {
             Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", module);
         }
     }
@@ -160,7 +157,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<String, Object>();
+            Map<String, Object> parameters = new HashMap<>();
             StringBuilder sb = new StringBuilder("Begin ");
             sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
             sb.append(section.getBoundaryCommentName());
@@ -170,7 +167,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<String, Object>();
+            Map<String, Object> parameters = new HashMap<>();
             StringBuilder sb = new StringBuilder();
             sb.append("End ");
             sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
@@ -194,7 +191,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
             autoUpdateLink = rh.makeLink(request, response, autoUpdateTarget);
         }
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", containerId);
         parameters.put("style", container.getStyle(context));
         parameters.put("autoUpdateLink", autoUpdateLink);
@@ -207,7 +204,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("text", label.getText(context));
         parameters.put("id", label.getId(context));
         parameters.put("style", label.getStyle(context));
@@ -215,7 +212,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", separator.getId(context));
         parameters.put("style", separator.getStyle(context));
         executeMacro(writer, "renderHorizontalSeparator", parameters);
@@ -316,8 +313,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
-        if (image == null)
+        if (image == null) {
             return ;
+        }
         String src = image.getSrc(context);
 
         String urlMode = image.getUrlMode();
@@ -345,7 +343,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         } else {
             urlString = src;
         }
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("src", src);
         parameters.put("id", image.getId(context));
         parameters.put("style", image.getStyle(context));
@@ -362,9 +360,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
 
-         if (Debug.verboseOn()) Debug.logVerbose("directEditRequest:" + editRequest, module);
+         if (Debug.verboseOn()) {
+            Debug.logVerbose("directEditRequest:" + editRequest, module);
+        }
 
-         Map<String, Object> parameters = new HashMap<String, Object>();
+         Map<String, Object> parameters = new HashMap<>();
          parameters.put("editRequest", editRequest);
          parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -373,7 +373,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        //Boolean nullThruDatesOnly = Boolean.valueOf(false);
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
         String expandedDataResourceId = content.getDataResourceId(context);
@@ -382,10 +381,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         Delegator delegator = (Delegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
-        Map<String, Object> contentContext = new HashMap<String, Object>();
+        Map<String, Object> contentContext = new HashMap<>();
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
-        if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("expandedContentId:" + expandedContentId, module);
+        }
 
         try {
             if (UtilValidate.isNotEmpty(dataResourceId)) {
@@ -424,14 +425,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 writer.append(renderedContent);
             }
 
-        } catch (GeneralException e) {
+        } catch (GeneralException |IOException e) {
             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
             Debug.logError(e, errMsg, module);
-            //throw new RuntimeException(errMsg);
-        } catch (IOException e2) {
-            String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e2.toString();
-            Debug.logError(e2, errMsg, module);
-            //throw new RuntimeException(errMsg);
         }
     }
 
@@ -450,16 +446,18 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             if (request != null && response != null) {
-                if (editRequest.indexOf('?') < 0)
+                if (editRequest.indexOf('?') < 0) {
                     editRequest += "?";
-                else editRequest += "&amp;";
+                } else {
+                    editRequest += "&amp;";
+                }
                 editRequest += "contentId=" + expandedContentId;
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 urlString = rh.makeLink(request, response, editRequest, false, false, false);
             }
 
-            Map<String, Object> parameters = new HashMap<String, Object>();
+            Map<String, Object> parameters = new HashMap<>();
             parameters.put("urlString", urlString);
             parameters.put("editMode", editMode);
             parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -481,7 +479,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             fullUrlString = rh.makeLink(request, response, urlString, true, false, false);
         }
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("fullUrl", fullUrlString);
         parameters.put("width", content.getWidth());
         parameters.put("height", content.getHeight());
@@ -493,7 +491,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
 
-         Map<String, Object> parameters = new HashMap<String, Object>();
+         Map<String, Object> parameters = new HashMap<>();
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
          parameters.put("editRequest", content.getEditRequest(context));
          parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
@@ -509,13 +507,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
 
          // create a new map for the content rendering; so our current context does not get overwritten!
-         Map<String, Object> contentContext = new HashMap<String, Object>();
+         Map<String, Object> contentContext = new HashMap<>();
          contentContext.putAll(context);
 
          try {
              if (WidgetContentWorker.getContentWorker() != null) {
                  renderedContent = WidgetContentWorker.getContentWorker().renderSubContentAsTextExt(dispatcher, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
-                 //Debug.logInfo("renderedContent=" + renderedContent, module);
              } else {
                  Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
              }
@@ -536,14 +533,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                  writer.append(renderedContent);
              }
 
-         } catch (GeneralException e) {
+         } catch (GeneralException | IOException e) {
              String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
              Debug.logError(e, errMsg, module);
-             //throw new RuntimeException(errMsg);
-         } catch (IOException e2) {
-             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e2.toString();
-             Debug.logError(e2, errMsg, module);
-             //throw new RuntimeException(errMsg);
          }
     }
 
@@ -562,9 +554,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
              HttpServletResponse response = (HttpServletResponse) context.get("response");
              HttpServletRequest request = (HttpServletRequest) context.get("request");
              if (request != null && response != null) {
-                if (editRequest.indexOf('?') < 0)
+                if (editRequest.indexOf('?') < 0) {
                     editRequest += "?";
-                 else editRequest += "&amp;";
+                } else {
+                    editRequest += "&amp;";
+                }
                  editRequest += "contentId=" + expandedContentId;
                  if (UtilValidate.isNotEmpty(expandedMapKey)) {
                      editRequest += "&amp;mapKey=" + expandedMapKey;
@@ -575,7 +569,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
              }
          }
 
-         Map<String, Object> parameters = new HashMap<String, Object>();
+         Map<String, Object> parameters = new HashMap<>();
          parameters.put("urlString", urlString);
          parameters.put("editMode", editMode);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -611,7 +605,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 this.getNextElementId();
                 Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
                 Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
-                Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
+                Map<String, Object> requestParameters = new HashMap<>(paramMap);
                 if (uiLabelMap != null) {
                     expandToolTip = (String) uiLabelMap.get("CommonExpand");
                     collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
@@ -632,7 +626,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     navMenu.renderWidgetString(sb, context, this);
                     context.put("menuStringRenderer", savedRenderer);
                 } catch (TemplateException e) {
-                    Debug.logError(e, module); 
+                    Debug.logError(e, module);
                 }
             } else if (navForm != null) {
                 renderScreenletPaginateMenu(sb, context, navForm);
@@ -640,7 +634,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             menuString = sb.toString();
         }
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", title);
         parameters.put("collapsible", collapsible);
         parameters.put("saveCollapsed", screenlet.saveCollapsed());
@@ -721,7 +715,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         int actualPageSize = Paginator.getActualPageSize(context);
 
         // if this is all there seems to be (if listSize < 0, then size is unknown)
-        if (actualPageSize >= listSize && listSize >= 0) return;
+        if (actualPageSize >= listSize && listSize >= 0) {
+            return;
+        }
 
         // needed for the "Page" and "rows" labels
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
@@ -734,8 +730,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
-        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexParam)) viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
-        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeParam)) viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
+        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexParam)) {
+            viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
+        }
+        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeParam)) {
+            viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
+        }
 
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -749,14 +749,16 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         // strip legacy viewIndex/viewSize params from the query string
         queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatorNumber);
         // strip parametrized index/size params from the query string
-        HashSet<String> paramNames = new HashSet<String>();
+        HashSet<String> paramNames = new HashSet<>();
         paramNames.add(viewIndexParam);
         paramNames.add(viewSizeParam);
         queryString = UtilHttp.stripNamedParamsFromQueryString(queryString, paramNames);
 
         String anchor = "";
         String paginateAnchor = modelForm.getPaginateTargetAnchor();
-        if (paginateAnchor != null) anchor = "#" + paginateAnchor;
+        if (paginateAnchor != null) {
+            anchor = "#" + paginateAnchor;
+        }
 
         // preparing the link text, so that later in the code we can reuse this and just add the viewIndex
         String prepLinkText = "";
@@ -800,7 +802,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             firstLinkUrl = rh.makeLink(request, response, linkText);
         }
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("lowIndex", Paginator.getLowIndex(context));
         parameters.put("actualPageSize", actualPageSize);
         parameters.put("ofLabel", ofLabel);
@@ -1012,15 +1014,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isNotEmpty(screenName) && UtilValidate.isNotEmpty(screenLocation)) {
             try {
                 modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
-            } catch (IOException e) {
-                String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (SAXException e) {
-                String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (ParserConfigurationException e) {
+            } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);

@@ -20,7 +20,6 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -31,16 +30,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import org.apache.ofbiz.widget.model.ModelTheme;
@@ -66,8 +59,8 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
     }
 
     private ScreenStringRenderer loadRenderers(HttpServletRequest request, HttpServletResponse response,
-            Map<String, Object> context, Writer writer) throws GeneralException, TemplateException, IOException {
-        VisualTheme visualTheme = (VisualTheme) UtilHttp.getVisualTheme(request);
+            Map<String, Object> context, Writer writer) throws TemplateException, IOException {
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         ModelTheme modelTheme = visualTheme.getModelTheme();
 
         String screenMacroLibraryPath = modelTheme.getScreenRendererLocation(getName());
@@ -127,9 +120,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException(e.getMessage());
         } catch (IOException e) {
             throw new ViewHandlerException("Error in the response writer/output stream: " + e.toString(), e);
-        } catch (SAXException e) {
-            throw new ViewHandlerException("XML Error rendering page: " + e.toString(), e);
-        } catch (ParserConfigurationException e) {
+        } catch (SAXException | ParserConfigurationException e) {
             throw new ViewHandlerException("XML Error rendering page: " + e.toString(), e);
         } catch (GeneralException e) {
             throw new ViewHandlerException("Lower level error rendering page: " + e.toString(), e);
