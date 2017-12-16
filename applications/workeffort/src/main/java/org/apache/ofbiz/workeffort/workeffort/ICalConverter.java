@@ -149,7 +149,7 @@ public class ICalConverter {
     }
 
     protected static ResponseProperties createWorkEffort(Component component, Map<String, Object> context) {
-        Map<String, Object> serviceMap = new HashMap<String, Object>();
+        Map<String, Object> serviceMap = new HashMap<>();
         setWorkEffortServiceMap(component, serviceMap);
         serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
         serviceMap.put("currentStatusId", "VTODO".equals(component.getName()) ? "CAL_NEEDS_ACTION" : "CAL_TENTATIVE");
@@ -437,7 +437,7 @@ public class ICalConverter {
         }
     }
 
-    protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
+    protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"));
         Map<String, Object> resultMap = invokeService("getICalWorkEfforts", serviceMap, context);
         List<GenericValue> workEfforts = UtilGenerics.checkList(resultMap.get("workEfforts"), GenericValue.class);
@@ -456,15 +456,14 @@ public class ICalConverter {
         Boolean hasPermission = (Boolean) serviceResult.get("hasPermission");
         if (hasPermission != null) {
             return hasPermission.booleanValue();
-        } else {
-            return false;
         }
+        return false;
     }
 
     protected static Map<String, Object> invokeService(String serviceName, Map<String, ? extends Object> serviceMap, Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> localMap = new HashMap<String, Object>();
+        Map<String, Object> localMap = new HashMap<>();
         try {
             ModelService modelService = null;
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
@@ -721,7 +720,7 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        Set<String> validWorkEfforts = new HashSet<String>();
+        Set<String> validWorkEfforts = new HashSet<>();
         if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
             for (GenericValue workEffort : workEfforts) {
@@ -775,8 +774,8 @@ public class ICalConverter {
 
     protected static ResponseProperties storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
         ResponseProperties responseProps = null;
-        Map<String, Object> serviceMap = new HashMap<String, Object>();
-        List<Property> partyList = new LinkedList<Property>();
+        Map<String, Object> serviceMap = new HashMap<>();
+        List<Property> partyList = new LinkedList<>();
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ATTENDEE"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("CONTACT"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ORGANIZER"), Property.class));
@@ -817,7 +816,7 @@ public class ICalConverter {
         return responseProps;
     }
 
-    protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
+    protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
         Delegator delegator = (Delegator) context.get("delegator");
@@ -828,7 +827,7 @@ public class ICalConverter {
         if (!hasPermission(workEffortId, "UPDATE", context)) {
             return null;
         }
-        Map<String, Object> serviceMap = new HashMap<String, Object>();
+        Map<String, Object> serviceMap = new HashMap<>();
         serviceMap.put("workEffortId", workEffortId);
         setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);
