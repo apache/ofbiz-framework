@@ -63,8 +63,7 @@ public class TaxAuthorityServices {
     public static final int salestaxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final String resource = "AccountingUiLabels";
 
-    public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx,
-            Map<String, ? extends Object> context) {
+    public static Map<String, Object> rateProductTaxCalcForDisplay(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         String billToPartyId = (String) context.get("billToPartyId");
@@ -87,20 +86,27 @@ public class TaxAuthorityServices {
         }
 
         try {
-            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache()
+            GenericValue product = EntityQuery.use(delegator)
+                    .from("Product")
+                    .where("productId", productId).cache()
                     .queryOne();
-            GenericValue productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId",
-                    productStoreId).cache().queryOne();
+            GenericValue productStore = EntityQuery.use(delegator)
+                    .from("ProductStore")
+                    .where("productStoreId", productStoreId)
+                    .cache()
+                    .queryOne();
             if (productStore == null) {
-                throw new IllegalArgumentException("Could not find ProductStore with ID [" + productStoreId
-                        + "] for tax calculation");
+                throw new IllegalArgumentException("Could not find ProductStore with ID [" + productStoreId + "] for tax calculation");
             }
 
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
                 Set<GenericValue> taxAuthoritySet = new HashSet<>();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
-                    List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator).from("TaxAuthority")
-                            .where("taxAuthGeoId", productStore.get("vatTaxAuthGeoId")).cache().queryList();
+                    List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator)
+                            .from("TaxAuthority")
+                            .where("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"))
+                            .cache()
+                            .queryList();
                     taxAuthoritySet.addAll(taxAuthorityRawList);
                 } else {
                     GenericValue taxAuthority = EntityQuery.use(delegator).from("TaxAuthority").where("taxAuthGeoId",
@@ -175,7 +181,9 @@ public class TaxAuthorityServices {
         GenericValue facility = null;
         try {
             if (productStoreId != null) {
-                productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId)
+                productStore = EntityQuery.use(delegator)
+                        .from("ProductStore")
+                        .where("productStoreId", productStoreId)
                         .queryOne();
             }
             if (facilityId != null) {
