@@ -185,11 +185,7 @@ public class DataEvents {
         Map<String, Object> resourceData;
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
-        } catch (IOException e) {
-            Debug.logError(e, "Error getting DataResource stream", module);
-            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-            return "error";
-        } catch (GeneralException e) {
+        } catch (IOException | GeneralException e) {
             Debug.logError(e, "Error getting DataResource stream", module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -287,17 +283,7 @@ public class DataEvents {
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
             os.write(IOUtils.toByteArray((ByteArrayInputStream)resourceData.get("stream")));
             os.flush();
-        } catch (GenericEntityException e) {
-            String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        } catch (GeneralException e) {
-            String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
