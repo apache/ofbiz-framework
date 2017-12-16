@@ -88,7 +88,8 @@ public class TaxAuthorityServices {
         try {
             GenericValue product = EntityQuery.use(delegator)
                     .from("Product")
-                    .where("productId", productId).cache()
+                    .where("productId", productId)
+                    .cache()
                     .queryOne();
             GenericValue productStore = EntityQuery.use(delegator)
                     .from("ProductStore")
