@@ -247,12 +247,14 @@ public class CmsEvents {
                         Debug.logError(e, module);
                     }
                     if (errorPage != null) {
-                        if (Debug.verboseOn())
-                            if (Debug.verboseOn()) Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
+                        if (Debug.verboseOn()) {
+                             Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
+                        }
                         contentId = errorPage.getString("contentId");
                     } else {
-                        if (Debug.verboseOn())
-                            if (Debug.verboseOn()) Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                        if (Debug.verboseOn()) {
+                             Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                        }
                         contentId = errorContainer.getString("contentId");
                     }
                     mapKey = null;

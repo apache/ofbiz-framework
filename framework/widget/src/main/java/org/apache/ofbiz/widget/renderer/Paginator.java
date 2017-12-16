@@ -183,9 +183,9 @@ public final class Paginator {
         }
         Object obj = context.get(lookupName);
         if (obj == null) {
-            if (Debug.verboseOn())
-                if (Debug.verboseOn()) Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.",
-                        module);
+            if (Debug.verboseOn()) {
+                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.", module);
+            }
             return;
         }
         // if list is empty, do not render rows

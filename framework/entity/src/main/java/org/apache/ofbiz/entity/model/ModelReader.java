@@ -179,11 +179,13 @@ public class ModelReader implements Serializable {
             modelEntity.setLocation(resourceLocation);
             // utilTimer.timerString(" After entityCache.put -- " + i + " --");
             if (isEntity) {
-                if (Debug.verboseOn())
-                    if (Debug.verboseOn()) Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
+                if (Debug.verboseOn()) {
+                     Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
+                }
             } else {
-                if (Debug.verboseOn())
-                    if (Debug.verboseOn()) Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, module);
+                if (Debug.verboseOn()) {
+                     Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, module);
+                }
             }
         } else {
             Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +

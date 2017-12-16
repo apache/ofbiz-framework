@@ -68,8 +68,9 @@ public final class Iterate extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listFma.isEmpty()) {
-            if (Debug.verboseOn())
-                if (Debug.verboseOn()) Debug.logVerbose("Collection not found, doing nothing: " + this, module);
+            if (Debug.verboseOn()) {
+                 Debug.logVerbose("Collection not found, doing nothing: " + this, module);
+            }
             return true;
         }
         Object oldEntryValue = entryFma.get(methodContext.getEnvMap());
@@ -101,8 +102,9 @@ public final class Iterate extends MethodOperation {
         } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
             if (theCollection.size() == 0) {
-                if (Debug.verboseOn())
-                    if (Debug.verboseOn()) Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
+                if (Debug.verboseOn()) {
+                     Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
+                }
                 return true;
             }
             for (Object theEntry : theCollection) {
@@ -126,8 +128,9 @@ public final class Iterate extends MethodOperation {
         } else if (objList instanceof Iterator<?>) {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
-                if (Debug.verboseOn())
-                    if (Debug.verboseOn()) Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
+                if (Debug.verboseOn()) {
+                     Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
+                }
                 return true;
             }
             while (theIterator.hasNext()) {

@@ -140,8 +140,9 @@ public class ControlServlet extends HttpServlet {
             contextPath = "";
         }
         request.setAttribute("_CONTROL_PATH_", contextPath + request.getServletPath());
-        if (Debug.verboseOn())
-            if (Debug.verboseOn()) Debug.logVerbose("Control Path: " + request.getAttribute("_CONTROL_PATH_"), module);
+        if (Debug.verboseOn()) {
+             Debug.logVerbose("Control Path: " + request.getAttribute("_CONTROL_PATH_"), module);
+        }
 
         // for convenience, and necessity with event handlers, make security and delegator available in the request:
         // try to get it from the session first so that we can have a delegator/dispatcher/security for a certain user if desired

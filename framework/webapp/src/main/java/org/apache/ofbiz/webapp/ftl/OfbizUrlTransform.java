@@ -74,8 +74,9 @@ public class OfbizUrlTransform implements TemplateTransformModel {
     private static String convertToString(Object o) {
         String result = "";
         if (o != null) {
-            if (Debug.verboseOn())
-                if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            if (Debug.verboseOn()) {
+                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
+            }
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
