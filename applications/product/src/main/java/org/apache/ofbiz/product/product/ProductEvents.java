@@ -95,7 +95,7 @@ public class ProductEvents {
 
         EntityCondition condition = null;
         if (!"Y".equals(doAll)) {
-            List<EntityCondition> condList = new LinkedList<EntityCondition>();
+            List<EntityCondition> condList = new LinkedList<>();
             condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("autoCreateKeywords", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("autoCreateKeywords", EntityOperator.NOT_EQUAL, "N")));
             if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.variants", delegator))) {
                 condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("isVariant", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("isVariant", EntityOperator.NOT_EQUAL, "Y")));
@@ -193,7 +193,7 @@ public class ProductEvents {
      */
     public static String updateProductAssoc(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
-        List<Object> errMsgList = new LinkedList<Object>();
+        List<Object> errMsgList = new LinkedList<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
@@ -241,15 +241,19 @@ public class ProductEvents {
                 errMsgList.add("From Date not formatted correctly.");
             }
         }
-        if (UtilValidate.isEmpty(productId))
+        if (UtilValidate.isEmpty(productId)) {
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
-        if (UtilValidate.isEmpty(productIdTo))
+        }
+        if (UtilValidate.isEmpty(productIdTo)) {
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_To_missing", UtilHttp.getLocale(request)));
-        if (UtilValidate.isEmpty(productAssocTypeId))
+        }
+        if (UtilValidate.isEmpty(productAssocTypeId)) {
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.association_type_ID_missing", UtilHttp.getLocale(request)));
+        }
         // from date is only required if update mode is not CREATE
-        if (!"CREATE".equals(updateMode) && UtilValidate.isEmpty(fromDateStr))
+        if (!"CREATE".equals(updateMode) && UtilValidate.isEmpty(fromDateStr)) {
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.from_date_missing", UtilHttp.getLocale(request)));
+        }
         if (errMsgList.size() > 0) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return "error";
@@ -615,7 +619,7 @@ public class ProductEvents {
                             description = null;
                         }
 
-                        Set<String> variantDescRemoveToRemoveOnVirtual = new HashSet<String>();
+                        Set<String> variantDescRemoveToRemoveOnVirtual = new HashSet<>();
                         checkUpdateFeatureApplByDescription(variantProductId, variantProduct, description, productFeatureTypeId, productFeatureType, "STANDARD_FEATURE", nowTimestamp, delegator, null, variantDescRemoveToRemoveOnVirtual);
                         checkUpdateFeatureApplByDescription(productId, product, description, productFeatureTypeId, productFeatureType, "SELECTABLE_FEATURE", nowTimestamp, delegator, variantDescRemoveToRemoveOnVirtual, null);
 
@@ -658,7 +662,7 @@ public class ProductEvents {
 
         GenericValue productFeatureAndAppl = null;
 
-        Set<String> descriptionsForThisType = new HashSet<String>();
+        Set<String> descriptionsForThisType = new HashSet<>();
         List<GenericValue> productFeatureAndApplList = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId).filterByDate().queryList();
         if (productFeatureAndApplList.size() > 0) {
             Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndApplList.iterator();
@@ -918,7 +922,7 @@ public class ProductEvents {
             if (localeStr == null && productStore.get("defaultLocaleString") != null) {
                 localeStr = productStore.getString("defaultLocaleString");
             }
-            
+
             // if timezone is not set, the store's default timezone is used
             if (timeZoneStr == null && productStore.get("defaultTimeZoneString") != null) {
                 timeZoneStr = productStore.getString("defaultTimeZoneString");
@@ -1009,7 +1013,7 @@ public class ProductEvents {
         paramMap.put("locale", UtilHttp.getLocale(request));
         paramMap.put("userLogin", session.getAttribute("userLogin"));
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         context.put("bodyScreenUri", bodyScreenLocation);
         context.put("bodyParameters", paramMap);
         context.put("sendTo", paramMap.get("sendTo"));
@@ -1049,10 +1053,10 @@ public class ProductEvents {
         Object compareListObj = session.getAttribute("productCompareList");
         List<GenericValue> compareList = null;
         if (compareListObj == null) {
-            compareList = new LinkedList<GenericValue>();
+            compareList = new LinkedList<>();
         } else if (!(compareListObj instanceof List<?>)) {
             Debug.logWarning("Session attribute productCompareList contains something other than the expected product list, overwriting.", module);
-            compareList = new LinkedList<GenericValue>();
+            compareList = new LinkedList<>();
         } else {
             compareList = UtilGenerics.cast(compareListObj);
         }
@@ -1159,7 +1163,7 @@ public class ProductEvents {
         }
         return new BigDecimal(bigDecimalString);
     }
-    
+
     /** Event add product tags */
     public static String addProductTags (HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1168,13 +1172,13 @@ public class ProductEvents {
         String productTags = request.getParameter("productTags");
         String statusId = request.getParameter("statusId");
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(productTags)) {
-            List<String> matchList = new LinkedList<String>();
+            List<String> matchList = new LinkedList<>();
             Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
             Matcher regexMatcher = regex.matcher(productTags);
             while (regexMatcher.find()) {
                 matchList.add(regexMatcher.group().replace("'", ""));
             }
-            
+
             GenericValue userLogin = null;
             try {
                 userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
@@ -1182,11 +1186,11 @@ public class ProductEvents {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
-            
+
             if(UtilValidate.isEmpty(statusId)) {
                 statusId = "KW_PENDING";
             }
-            
+
             if(UtilValidate.isNotEmpty(matchList)) {
                 for (String keywordStr : matchList) {
                     try {

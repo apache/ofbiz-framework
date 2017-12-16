@@ -57,7 +57,9 @@ public class KeywordIndex {
     }
 
     public static void indexKeywords(GenericValue product, boolean doAll) throws GenericEntityException {
-        if (product == null) return;
+        if (product == null) {
+            return;
+        }
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Delegator delegator = product.getDelegator();
         if (!doAll) {
@@ -73,8 +75,10 @@ public class KeywordIndex {
                 return;
             }
         }
-        
-        if (delegator == null) return;
+
+        if (delegator == null) {
+            return;
+        }
         String productId = product.getString("productId");
 
         // get these in advance just once since they will be used many times for the multiple strings to index
@@ -84,8 +88,8 @@ public class KeywordIndex {
         boolean removeStems = KeywordSearchUtil.getRemoveStems();
         Set<String> stemSet = KeywordSearchUtil.getStemSet();
 
-        Map<String, Long> keywords = new TreeMap<String, Long>();
-        List<String> strings = new LinkedList<String>();
+        Map<String, Long> keywords = new TreeMap<>();
+        List<String> strings = new LinkedList<>();
 
         int pidWeight = 1;
         try {
@@ -189,7 +193,7 @@ public class KeywordIndex {
             }
         }
 
-        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+        List<GenericValue> toBeStored = new LinkedList<>();
         int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("prodsearch", "product.keyword.max.length", 0).intValue();
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
@@ -198,7 +202,9 @@ public class KeywordIndex {
             }
         }
         if (toBeStored.size() > 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
+            }
 
             if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false", delegator))) {
                 // delete all keywords if the properties file says to
@@ -216,9 +222,7 @@ public class KeywordIndex {
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
-        } catch (IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", module);
-        } catch (GeneralException e1) {
+        } catch (GeneralException | IOException e1) {
             Debug.logError(e1, "Error getting content text to index", module);
         }
     }
