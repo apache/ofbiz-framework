@@ -95,7 +95,7 @@ public class OutputServices {
         String printerContentType = (String) serviceContext.remove("printerContentType");
 
         if (UtilValidate.isEmpty(screenContext)) {
-            screenContext = new HashMap<String, Object>();
+            screenContext = new HashMap<>();
         }
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {
@@ -211,7 +211,7 @@ public class OutputServices {
         String fileName = (String) serviceContext.remove("fileName");
 
         if (UtilValidate.isEmpty(screenContext)) {
-            screenContext = new HashMap<String, Object>();
+            screenContext = new HashMap<>();
         }
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {
