@@ -99,7 +99,7 @@ public class ShoppingListEvents {
             errMsg = UtilProperties.getMessage(resource_error, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
-       
+
         if (UtilValidate.isEmpty(shoppingListId)) {
             // create a new shopping list
             Map<String, Object> newListResult = null;
@@ -135,10 +135,10 @@ public class ShoppingListEvents {
             }
         }
 
-        for (int i = 0; i < items.length; i++) {
+        for (String item2 : items) {
             Integer cartIdInt = null;
             try {
-                cartIdInt = Integer.valueOf(items[i]);
+                cartIdInt = Integer.valueOf(item2);
             } catch (Exception e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderIllegalCharacterInSelectedItemField", cart.getLocale()), module);
             }
@@ -215,7 +215,7 @@ public class ShoppingListEvents {
 
             shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
             if (shoppingListItems == null) {
-                shoppingListItems = new LinkedList<GenericValue>();
+                shoppingListItems = new LinkedList<>();
             }
 
             // include all items of child lists if flagged to do so
@@ -262,7 +262,7 @@ public class ShoppingListEvents {
                 String listId = shoppingListItem.getString("shoppingListId");
                 String itemId = shoppingListItem.getString("shoppingListItemSeqId");
 
-                Map<String, Object> attributes = new HashMap<String, Object>();
+                Map<String, Object> attributes = new HashMap<>();
                 // list items are noted in the shopping cart
                 if (setAsListItem) {
                     attributes.put("shoppingListId", listId);
@@ -346,9 +346,8 @@ public class ShoppingListEvents {
         ServiceUtil.getMessages(request, result, "", "", "", "", "", "", "");
         if ("error".equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             return "error";
-        } else {
-            return "success";
         }
+        return "success";
     }
 
     /**
@@ -366,7 +365,7 @@ public class ShoppingListEvents {
             Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
             List<GenericValue> existingLists = EntityQuery.use(delegator).from("ShoppingList").where(findMap).queryList();
             Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
-    
+
             if (UtilValidate.isNotEmpty(existingLists)) {
                 list = EntityUtil.getFirst(existingLists);
                 autoSaveListId = list.getString("shoppingListId");
@@ -562,7 +561,7 @@ public class ShoppingListEvents {
      * Returns Map keyed on item sequence ID containing a list of survey response IDs
      */
     public static Map<String, List<String>> getItemSurveyInfos(List<GenericValue> items) {
-        Map<String, List<String>> surveyInfos = new HashMap<String, List<String>>();
+        Map<String, List<String>> surveyInfos = new HashMap<>();
         if (UtilValidate.isNotEmpty(items)) {
             for (GenericValue item : items) {
                 String listId = item.getString("shoppingListId");
@@ -578,7 +577,7 @@ public class ShoppingListEvents {
      * Returns a list of survey response IDs for a shopping list item
      */
     public static List<String> getItemSurveyInfo(GenericValue item) {
-        List<String> responseIds = new LinkedList<String>();
+        List<String> responseIds = new LinkedList<>();
         List<GenericValue> surveyResp = null;
         try {
             surveyResp = item.getRelated("ShoppingListItemSurvey", null, null, false);
@@ -611,7 +610,7 @@ public class ShoppingListEvents {
         }
         return arr;
     }
-    
+
     /**
      * Create the guest cookies for a shopping list
      */
@@ -627,7 +626,7 @@ public class ShoppingListEvents {
         int cookieAge = (60 * 60 * 24 * 30);
         String autoSaveListId = null;
         Cookie[] cookies = request.getCookies();
-        
+
         // check userLogin
         if (userLogin != null) {
             String partyId = userLogin.getString("partyId");
@@ -635,7 +634,7 @@ public class ShoppingListEvents {
                 return "success";
             }
         }
-        
+
         // find shopping list ID
         if (cookies != null) {
             for (Cookie cookie: cookies) {
@@ -645,7 +644,7 @@ public class ShoppingListEvents {
                 }
             }
         }
-        
+
         // clear the auto-save info
         if (ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
             if (UtilValidate.isEmpty(autoSaveListId)) {
@@ -664,7 +663,7 @@ public class ShoppingListEvents {
                 guestShoppingListCookie.setSecure(true);
                 guestShoppingListCookie.setHttpOnly(true);
                 response.addCookie(guestShoppingListCookie);
-            } 
+            }
         }
         if (UtilValidate.isNotEmpty(autoSaveListId)) {
             if (UtilValidate.isNotEmpty(cart)) {
@@ -676,7 +675,7 @@ public class ShoppingListEvents {
         }
         return "success";
     }
-    
+
     /**
      * Clear the guest cookies for a shopping list
      */
