@@ -77,7 +77,7 @@ public class DataServices {
      */
     public static Map<String, Object> createDataResourceAndText(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         Map<String, Object> thisResult = createDataResourceMethod(dctx, context);
         if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
@@ -108,7 +108,7 @@ public class DataServices {
 
     public static Map<String, Object> createDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (String) userLogin.get("userLoginId");
@@ -126,7 +126,7 @@ public class DataServices {
         String dataResourceId = (String) context.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             dataResourceId = delegator.getNextSeqId("DataResource");
-        }   
+        }
         if (Debug.infoOn()) {
             Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, module);
         }
@@ -152,8 +152,6 @@ public class DataServices {
             dataResource.create();
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
-        } catch (Exception e2) {
-            return ServiceUtil.returnError(e2.getMessage());
         }
         result.put("dataResourceId", dataResourceId);
         result.put("dataResource", dataResource);
@@ -169,7 +167,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> createElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
         String textData = (String) context.get("textData");
@@ -301,7 +299,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         GenericValue dataResource = null;
         Locale locale = (Locale) context.get("locale");
@@ -350,7 +348,7 @@ public class DataServices {
      * @return update the ElectronicText
      */
     public static Map<String, Object> updateElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
         Locale locale = (Locale) context.get("locale");
@@ -399,7 +397,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
         String dataResourceTypeId = (String) context.get("dataResourceTypeId");
         String objectInfo = (String) context.get("objectInfo");
@@ -469,7 +467,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results = new HashMap<>();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
         Map<String, Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
@@ -486,7 +484,7 @@ public class DataServices {
         Locale locale = (Locale) context.get("locale");
 
         if (templateContext == null) {
-            templateContext = new HashMap<String, Object>();
+            templateContext = new HashMap<>();
         }
 
         Writer outWriter = new StringWriter();
@@ -510,7 +508,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
@@ -525,10 +523,9 @@ public class DataServices {
                 }
                 if (imageDataResource == null) {
                     return createImageMethod(dctx, context);
-                } else {
-                    imageDataResource.setBytes("imageData", imageBytes);
-                    imageDataResource.store();
                 }
+                imageDataResource.setBytes("imageData", imageBytes);
+                imageDataResource.store();
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -545,7 +542,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> createImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
         ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
@@ -580,7 +577,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
@@ -594,12 +591,9 @@ public class DataServices {
         }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | GeneralException e) {
             Debug.logWarning(e, module);
             throw new GenericServiceException(e.getMessage());
-        } catch (GeneralException e2) {
-            Debug.logWarning(e2, module);
-            throw new GenericServiceException(e2.getMessage());
         }
         if (Debug.infoOn()) {
             Debug.logInfo("in createBinaryFileMethod, file:" + file, module);
@@ -636,7 +630,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
