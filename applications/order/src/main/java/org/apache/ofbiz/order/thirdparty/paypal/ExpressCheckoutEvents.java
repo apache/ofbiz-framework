@@ -125,7 +125,7 @@ public class ExpressCheckoutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         CheckoutType checkoutType = determineCheckoutType(request);
         if (checkoutType.equals(CheckoutType.STANDARD)) {
-            Map<String, Object> inMap = new HashMap<String, Object>();
+            Map<String, Object> inMap = new HashMap<>();
             inMap.put("request", request);
             inMap.put("response", response);
             try {
@@ -177,7 +177,7 @@ public class ExpressCheckoutEvents {
             } else if (checkoutType.equals(CheckoutType.STANDARD)) {
                 serviceName = "payPalDoExpressCheckout";
             }
-            Map<String, Object> inMap = new HashMap<String, Object>();
+            Map<String, Object> inMap = new HashMap<>();
             inMap.put("userLogin", userLogin);
             inMap.put("orderPaymentPreference", paymentPref);
             Map<String, Object> result = null;
