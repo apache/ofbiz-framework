@@ -79,16 +79,16 @@ public class ScaleImage {
 
         /* VARIABLES */
         Locale locale = (Locale) context.get("locale");
-        
+
         int index;
-        Map<String, Map<String, String>> imgPropertyMap = new HashMap<String, Map<String,String>>();
+        Map<String, Map<String, String>> imgPropertyMap = new HashMap<>();
         BufferedImage bufImg, bufNewImg;
         double imgHeight, imgWidth;
-        Map<String, String> imgUrlMap = new HashMap<String, String>();
-        Map<String, Object> resultXMLMap = new HashMap<String, Object>();
-        Map<String, Object> resultBufImgMap = new HashMap<String, Object>();
-        Map<String, Object> resultScaleImgMap = new HashMap<String, Object>();
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, String> imgUrlMap = new HashMap<>();
+        Map<String, Object> resultXMLMap = new HashMap<>();
+        Map<String, Object> resultBufImgMap = new HashMap<>();
+        Map<String, Object> resultScaleImgMap = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         /* ImageProperties.xml */
         String fileName = "component://product/config/ImageProperties.xml";
@@ -108,8 +108,8 @@ public class ScaleImage {
         index = filenameToUse.lastIndexOf('.');
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
-        
-        Map<String, Object> imageContext = new HashMap<String, Object>();
+
+        Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
         imageContext.put("tenantId",((Delegator)context.get("delegator")).getDelegatorTenantId());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), imageContext);
@@ -132,7 +132,7 @@ public class ScaleImage {
                 id = id + "_View_" + viewNumber;
             } else {
                 viewType = "additional" + viewNumber;
-            }    
+            }
             fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", "original"));
         } else {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductImageViewType", UtilMisc.toMap("viewType", viewType), locale));
@@ -141,7 +141,7 @@ public class ScaleImage {
         if (fileLocation.lastIndexOf('/') != -1) {
             fileLocation = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
         }
-        
+
         /* get original BUFFERED IMAGE */
         resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + fileLocation + "." + imgExtension, locale));
 
@@ -161,7 +161,7 @@ public class ScaleImage {
             /* Scale image for each size from ImageProperties.xml */
             for (Map.Entry<String, Map<String, String>> entry : imgPropertyMap.entrySet()) {
                 String sizeType = entry.getKey();
-                
+
                 // Scale
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
 
@@ -180,7 +180,7 @@ public class ScaleImage {
                     String newFilePathPrefix = "";
                     if (newFileLocation != null && newFileLocation.lastIndexOf('/') != -1) {
                         newFilePathPrefix = newFileLocation.substring(0, newFileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
-                    }     
+                    }
                     // Directory
                     String targetDirectory = imageServerPath + "/" + newFilePathPrefix;
                     try {
@@ -197,11 +197,12 @@ public class ScaleImage {
                         // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                         } else if (newFileLocation.endsWith("/" + id)) {
                             try {
-                                File[] files = targetDir.listFiles(); 
+                                File[] files = targetDir.listFiles();
                                 for (File file : files) {
                                     if (file.isFile() && file.getName().startsWith(id)) {
-                                        if (!file.delete())
+                                        if (!file.delete()) {
                                             Debug.logError("File :" + file.getName() + ", couldn't be deleted", module);
+                                        }
                                     }
                                 }
                             } catch (SecurityException e) {
@@ -260,16 +261,16 @@ public class ScaleImage {
         } else {
             sizeTypeList = UtilMisc.toList("small", "medium", "large", "detail");
         }
-        
+
         int index;
-        Map<String, Map<String, String>> imgPropertyMap = new HashMap<String, Map<String, String>>();
+        Map<String, Map<String, String>> imgPropertyMap = new HashMap<>();
         BufferedImage bufImg, bufNewImg;
         double imgHeight, imgWidth;
-        Map<String, String> imgUrlMap = new HashMap<String, String>();
-        Map<String, Object> resultXMLMap = new HashMap<String, Object>();
-        Map<String, Object> resultBufImgMap = new HashMap<String, Object>();
-        Map<String, Object> resultScaleImgMap = new HashMap<String, Object>();
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, String> imgUrlMap = new HashMap<>();
+        Map<String, Object> resultXMLMap = new HashMap<>();
+        Map<String, Object> resultBufImgMap = new HashMap<>();
+        Map<String, Object> resultScaleImgMap = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         /* ImageProperties.xml */
         String fileName = "component://product/config/ImageProperties.xml";
@@ -290,7 +291,7 @@ public class ScaleImage {
         String imgName = filenameToUse.substring(0, index - 1);
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
-        Map<String, Object> imageContext = new HashMap<String, Object>();
+        Map<String, Object> imageContext = new HashMap<>();
         imageContext.putAll(context);
         imageContext.put("tenantId",((Delegator)context.get("delegator")).getDelegatorTenantId());
         String mainFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", (Delegator) context.get("delegator"));
@@ -308,7 +309,7 @@ public class ScaleImage {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
@@ -317,14 +318,14 @@ public class ScaleImage {
         if (fileLocation.lastIndexOf('/') != -1) {
             filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
         }
-        
+
         if (context.get("contentId") != null){
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
         } else {
             /* get original BUFFERED IMAGE */
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
         }
-        
+
         if (resultBufImgMap.containsKey("responseMessage") && "success".equals(resultBufImgMap.get("responseMessage"))) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
 
@@ -402,11 +403,10 @@ public class ScaleImage {
             result.put("original", resultBufImgMap);
             return result;
 
-        } else {
-            String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
-            Debug.logError(errMsg, module);
-            result.put(ModelService.ERROR_MESSAGE, errMsg);
-            return ServiceUtil.returnError(errMsg);
         }
+        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
+        Debug.logError(errMsg, module);
+        result.put(ModelService.ERROR_MESSAGE, errMsg);
+        return ServiceUtil.returnError(errMsg);
     }
 }
