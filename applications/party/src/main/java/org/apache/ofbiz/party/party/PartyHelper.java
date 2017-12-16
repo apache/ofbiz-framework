@@ -49,9 +49,8 @@ public class PartyHelper {
         }
         if (partyObject == null) {
             return partyId;
-        } else {
-            return formatPartyNameObject(partyObject, lastNameFirst);
         }
+        return formatPartyNameObject(partyObject, lastNameFirst);
     }
 
     public static String getPartyName(GenericValue partyObject, boolean lastNameFirst) {
@@ -60,21 +59,19 @@ public class PartyHelper {
         }
         if ("PartyGroup".equals(partyObject.getEntityName()) || "Person".equals(partyObject.getEntityName())) {
             return formatPartyNameObject(partyObject, lastNameFirst);
-        } else {
-            String partyId = null;
-            try {
-                partyId = partyObject.getString("partyId");
-            } catch (IllegalArgumentException e) {
-                Debug.logError(e, "Party object does not contain a party ID", module);
-            }
-
-            if (partyId == null) {
-                Debug.logWarning("No party ID found; cannot get name based on entity: " + partyObject.getEntityName(), module);
-                return "";
-            } else {
-                return getPartyName(partyObject.getDelegator(), partyId, lastNameFirst);
-            }
         }
+        String partyId = null;
+        try {
+            partyId = partyObject.getString("partyId");
+        } catch (IllegalArgumentException e) {
+            Debug.logError(e, "Party object does not contain a party ID", module);
+        }
+
+        if (partyId == null) {
+            Debug.logWarning("No party ID found; cannot get name based on entity: " + partyObject.getEntityName(), module);
+            return "";
+        }
+        return getPartyName(partyObject.getDelegator(), partyId, lastNameFirst);
     }
 
     public static String formatPartyNameObject(GenericValue partyValue, boolean lastNameFirst) {
