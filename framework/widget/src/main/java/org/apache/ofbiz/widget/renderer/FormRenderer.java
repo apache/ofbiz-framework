@@ -688,8 +688,9 @@ public class FormRenderer {
         }
         Object obj = context.get(lookupName);
         if (obj == null) {
-            if (Debug.verboseOn())
-                if (Debug.verboseOn()) Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
+            if (Debug.verboseOn()) {
+                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
+            }
             return;
         }
         // if list is empty, do not render rows
@@ -764,8 +765,9 @@ public class FormRenderer {
                     localContext.put("formUniqueId", "_" + context.get("renderFormSeqNumber"));
                 }
 
-                if (Debug.verboseOn())
-                    if (Debug.verboseOn()) Debug.logVerbose("In form got another row, context is: " + localContext, module);
+                if (Debug.verboseOn()) {
+                     Debug.logVerbose("In form got another row, context is: " + localContext, module);
+                }
 
                 // Check to see if there is a field, same name and same use-when (could come from extended form)
                 List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();

@@ -133,10 +133,11 @@ public final class SSLUtil {
                 if (ks != null) {
                     List<KeyManager> newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
                     keyMgrs.addAll(newKeyManagers);
-                    if (Debug.verboseOn())
-                        if (Debug.verboseOn()) Debug.logVerbose("Loaded another cert store, adding [" + newKeyManagers.size()
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Loaded another cert store, adding [" + newKeyManagers.size()
                                 + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler()
                                         .getFullLocation(), module);
+                    }
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
                 }
