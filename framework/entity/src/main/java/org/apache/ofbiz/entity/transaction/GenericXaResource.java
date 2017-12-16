@@ -86,9 +86,8 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         if (this.active) {
             if (this.xid != null && this.xid.equals(xid)) {
                 throw new XAException(XAException.XAER_DUPID);
-            } else {
-                throw new XAException(XAException.XAER_PROTO);
             }
+            throw new XAException(XAException.XAER_PROTO);
         }
         if (this.xid != null && !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -145,9 +144,8 @@ public abstract class GenericXaResource extends Thread implements XAResource {
     public Xid[] recover(int flag) throws XAException {
         if (this.xid == null) {
             return new Xid[0];
-        } else {
-            return new Xid[] {this.xid};
         }
+        return new Xid[] {this.xid};
     }
 
     /**
