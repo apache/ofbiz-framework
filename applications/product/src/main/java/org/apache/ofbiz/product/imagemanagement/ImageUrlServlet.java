@@ -64,19 +64,19 @@ public class ImageUrlServlet extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         List<String> pathElements = StringUtil.split(pathInfo, "/");
-        
-        List<String> tagElements = new LinkedList<String>();
+
+        List<String> tagElements = new LinkedList<>();
         for (String pathElement : pathElements) {
             tagElements.addAll(StringUtil.split(pathElement, "-"));
         }
-        
+
         String lastTagElement = tagElements.get(tagElements.size() - 1);
         String contentId = lastTagElement.substring(0, lastTagElement.lastIndexOf('.'));
         String sizeTagElement = null;
         if(tagElements.size() > 2){
             sizeTagElement = tagElements.get(tagElements.size() - 2);
         }
-        
+
         GenericValue content = null;
         try {
             GenericValue contentResult = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
@@ -88,7 +88,7 @@ public class ImageUrlServlet extends HttpServlet {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-    
+
         if (content != null) {
             GenericValue dataResource = null;
             try {
