@@ -182,8 +182,9 @@ public class PayPalEvents {
         return "success";
     }
 
-    /** PayPal Call-Back Event */
-    public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) {
+    /** PayPal Call-Back Event 
+     * @throws IOException */
+    public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = UtilHttp.getLocale(request);
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -228,34 +229,20 @@ public class PayPalEvents {
 
         // send off the confirm request
         String confirmResp = null;
-        BufferedReader in = null;
-        PrintWriter pw = null;
+        String str = UtilHttp.urlEncodeArgs(parametersMap);
+        URL u = new URL(redirectUrl);
+        URLConnection uc = u.openConnection();
+        uc.setDoOutput(true);
+        uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        try {
-            String str = UtilHttp.urlEncodeArgs(parametersMap);
-            URL u = new URL(redirectUrl);
-            URLConnection uc = u.openConnection();
-            uc.setDoOutput(true);
-            uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            pw = new PrintWriter(new OutputStreamWriter(uc.getOutputStream(), "UTF-8"));
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+                PrintWriter pw = new PrintWriter(new OutputStreamWriter(uc.getOutputStream(), "UTF-8"))) {
+
             pw.println(str);
-
-            in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
             confirmResp = in.readLine();
             Debug.logError("PayPal Verification Response: " + confirmResp, module);
         } catch (IOException e) {
             Debug.logError(e, "Problems sending verification message.", module);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Debug.logError(e, "Could not close BufferedReader.", module);
-                }
-            }
-            if (pw != null) {
-                pw.close();
-            }
         }
 
         Debug.logInfo("Got verification from PayPal, processing..", module);
