@@ -21,7 +21,6 @@ package org.apache.ofbiz.product.supplier;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -112,9 +111,6 @@ public class SupplierProductServices {
             results = ServiceUtil.returnSuccess();
             results.put("supplierProducts", supplierProducts);
         } catch (GenericEntityException ex) {
-            Debug.logError(ex, ex.getMessage(), module);
-            return ServiceUtil.returnError(ex.getMessage());
-        } catch (Exception ex) {
             Debug.logError(ex, ex.getMessage(), module);
             return ServiceUtil.returnError(ex.getMessage());
         }
