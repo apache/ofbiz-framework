@@ -70,7 +70,7 @@ public class ProductSearch {
     public static final String resourceCommon = "CommonUiLabels";
 
     public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        Set<String> featureIdSet = new HashSet<String>();
+        Set<String> featureIdSet = new HashSet<>();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
         }
@@ -79,7 +79,7 @@ public class ProductSearch {
     }
 
     public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<ProductSearch.ProductSearchConstraint>();
+        List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<>();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
             productSearchConstraintList.add(new CategoryConstraint(productCategoryId, includeSubCategories, null));
@@ -140,17 +140,17 @@ public class ProductSearch {
 
     public static class ProductSearchContext {
         public int index = 1;
-        public List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
-        public List<String> orderByList = new LinkedList<String>();
+        public List<EntityCondition> entityConditionList = new LinkedList<>();
+        public List<String> orderByList = new LinkedList<>();
         public List<String> fieldsToSelect = UtilMisc.toList("mainProductId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean productIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<Set<String>>();
-        public Set<String> orKeywordFixedSet = new HashSet<String>();
-        public Set<String> andKeywordFixedSet = new HashSet<String>();
-        public List<GenericValue> productSearchConstraintList = new LinkedList<GenericValue>();
+        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
+        public Set<String> orKeywordFixedSet = new HashSet<>();
+        public Set<String> andKeywordFixedSet = new HashSet<>();
+        public List<GenericValue> productSearchConstraintList = new LinkedList<>();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -158,29 +158,29 @@ public class ProductSearch {
         protected String visitId = null;
         protected Integer totalResults = null;
 
-        public Set<String> includeCategoryIds = new HashSet<String>();
-        public Set<String> excludeCategoryIds = new HashSet<String>();
-        public Set<String> alwaysIncludeCategoryIds = new HashSet<String>();
+        public Set<String> includeCategoryIds = new HashSet<>();
+        public Set<String> excludeCategoryIds = new HashSet<>();
+        public Set<String> alwaysIncludeCategoryIds = new HashSet<>();
 
-        public List<Set<String>> includeCategoryIdOrSetAndList = new LinkedList<Set<String>>();
-        public List<Set<String>> alwaysIncludeCategoryIdOrSetAndList = new LinkedList<Set<String>>();
+        public List<Set<String>> includeCategoryIdOrSetAndList = new LinkedList<>();
+        public List<Set<String>> alwaysIncludeCategoryIdOrSetAndList = new LinkedList<>();
 
-        public Set<String> includeFeatureIds = new HashSet<String>();
-        public Set<String> excludeFeatureIds = new HashSet<String>();
-        public Set<String> alwaysIncludeFeatureIds = new HashSet<String>();
+        public Set<String> includeFeatureIds = new HashSet<>();
+        public Set<String> excludeFeatureIds = new HashSet<>();
+        public Set<String> alwaysIncludeFeatureIds = new HashSet<>();
 
-        public List<Set<String>> includeFeatureIdOrSetAndList = new LinkedList<Set<String>>();
-        public List<Set<String>> alwaysIncludeFeatureIdOrSetAndList = new LinkedList<Set<String>>();
+        public List<Set<String>> includeFeatureIdOrSetAndList = new LinkedList<>();
+        public List<Set<String>> alwaysIncludeFeatureIdOrSetAndList = new LinkedList<>();
 
-        public Set<String> includeFeatureCategoryIds = new HashSet<String>();
-        public Set<String> excludeFeatureCategoryIds = new HashSet<String>();
-        public Set<String> alwaysIncludeFeatureCategoryIds = new HashSet<String>();
+        public Set<String> includeFeatureCategoryIds = new HashSet<>();
+        public Set<String> excludeFeatureCategoryIds = new HashSet<>();
+        public Set<String> alwaysIncludeFeatureCategoryIds = new HashSet<>();
 
-        public Set<String> includeFeatureGroupIds = new HashSet<String>();
-        public Set<String> excludeFeatureGroupIds = new HashSet<String>();
-        public Set<String> alwaysIncludeFeatureGroupIds = new HashSet<String>();
+        public Set<String> includeFeatureGroupIds = new HashSet<>();
+        public Set<String> excludeFeatureGroupIds = new HashSet<>();
+        public Set<String> alwaysIncludeFeatureGroupIds = new HashSet<>();
 
-        public List<String> keywordTypeIds = new LinkedList<String>();
+        public List<String> keywordTypeIds = new LinkedList<>();
         public String statusId = null;
 
         public ProductSearchContext(Delegator delegator, String visitId) {
@@ -282,34 +282,34 @@ public class ProductSearch {
 
                     dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
-                    
+
                     // keyword type filter
                     if (UtilValidate.isNotEmpty(keywordTypeIds)) {
                         dynamicViewEntity.addAlias(entityAlias, "keywordTypeId");
                     }
-                    
+
                     // keyword status filter
                     if (UtilValidate.isNotEmpty(statusId)) {
                         dynamicViewEntity.addAlias(entityAlias, "statusId");
                     }
-                    
+
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
                     entityConditionList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
-                    
+
                     // keyword type filter
                     if (UtilValidate.isNotEmpty(keywordTypeIds)) {
-                        List<EntityCondition> keywordTypeCons = new LinkedList<EntityCondition>();
+                        List<EntityCondition> keywordTypeCons = new LinkedList<>();
                         for (String keywordTypeId : keywordTypeIds) {
                             keywordTypeCons.add(EntityCondition.makeCondition("keywordTypeId", EntityOperator.EQUALS, keywordTypeId));
                         }
                         entityConditionList.add(EntityCondition.makeCondition(keywordTypeCons, EntityOperator.OR));
                     }
-                    
+
                     // keyword status filter
                     if (UtilValidate.isNotEmpty(statusId)) {
                         entityConditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
                     }
-                    
+
                     //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
                     //needed when doingBothAndOr or will get an SQL error
                     if (doingBothAndOr) {
@@ -334,7 +334,7 @@ public class ProductSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    List<EntityCondition> keywordOrList = new LinkedList<EntityCondition>();
+                    List<EntityCondition> keywordOrList = new LinkedList<>();
                     for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
@@ -366,10 +366,10 @@ public class ProductSearch {
             // create new view members with logic:
             // ((each Id = category includes AND Id IN feature includes) AND (Id NOT IN category excludes AND Id NOT IN feature excludes))
             // OR (each Id = category alwaysIncludes AND each Id = feature alwaysIncludes)
-            List<EntityCondition> incExcCondList = new LinkedList<EntityCondition>();
+            List<EntityCondition> incExcCondList = new LinkedList<>();
             EntityCondition incExcCond = null;
 
-            List<EntityCondition> alwIncCondList = new LinkedList<EntityCondition>();
+            List<EntityCondition> alwIncCondList = new LinkedList<>();
             EntityCondition alwIncCond = null;
 
             EntityCondition topCond = null;
@@ -452,7 +452,7 @@ public class ProductSearch {
             }
 
             if (excludeCategoryIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, excludeCategoryIds));
@@ -460,7 +460,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productFeatureId", EntityOperator.IN, excludeFeatureIds));
@@ -468,7 +468,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureCategoryIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productFeatureCategoryId", EntityOperator.IN, excludeFeatureCategoryIds));
@@ -476,7 +476,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureGroupIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("groupThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("groupThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -644,13 +644,15 @@ public class ProductSearch {
 
             this.entityConditionList.add(topCond);
 
-            if (Debug.infoOn()) Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
+            }
         }
 
         /**
          * @param delegator the delegator
          * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-         *      DONE WITH IT (preferably in a finally block), 
+         *      DONE WITH IT (preferably in a finally block),
          *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
          */
         public EntityListIterator doQuery(Delegator delegator) {
@@ -690,7 +692,7 @@ public class ProductSearch {
         }
 
         public ArrayList<String> makeProductIdList(EntityListIterator eli) {
-            ArrayList<String> productIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
+            ArrayList<String> productIds = new ArrayList<>(maxResults == null ? 100 : maxResults.intValue());
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return productIds;
@@ -704,7 +706,9 @@ public class ProductSearch {
                     hasResults = true;
                 }
                 if (resultOffset != null && resultOffset.intValue() > 1) {
-                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    }
                     hasResults = eli.relative(resultOffset.intValue() - 1);
                     initialResult = null;
                 }
@@ -734,7 +738,7 @@ public class ProductSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set<String> productIdSet = new HashSet<String>();
+                Set<String> productIdSet = new HashSet<>();
 
                 productIds.add(searchResult.getString("mainProductId"));
                 productIdSet.add(searchResult.getString("mainProductId"));
@@ -839,7 +843,7 @@ public class ProductSearch {
 
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
-            List<String> productCategoryIds = new LinkedList<String>();
+            List<String> productCategoryIds = new LinkedList<>();
             for (GenericValue category: productCategories) {
                 productCategoryIds.add(category.getString("productCategoryId"));
             }
@@ -941,7 +945,7 @@ public class ProductSearch {
 
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
-            Set<String> productCategoryIdSet = new HashSet<String>();
+            Set<String> productCategoryIdSet = new HashSet<>();
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId
                 ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(), productSearchContext.nowTimestamp);
@@ -1350,7 +1354,7 @@ public class ProductSearch {
          * @param exclude This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude
          */
         public FeatureSetConstraint(Collection<String> productFeatureIdSet, Boolean exclude) {
-            this.productFeatureIdSet = new HashSet<String>();
+            this.productFeatureIdSet = new HashSet<>();
             this.productFeatureIdSet.addAll(productFeatureIdSet);
             this.exclude = exclude;
         }
@@ -1473,11 +1477,11 @@ public class ProductSearch {
 
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
-            Set<String> fullKeywordSet = new TreeSet<String>();
+            Set<String> fullKeywordSet = new TreeSet<>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
             for (String keyword: keywordSet) {
-                Set<String> expandedSet = new TreeSet<String>();
+                Set<String> expandedSet = new TreeSet<>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
@@ -1502,13 +1506,13 @@ public class ProductSearch {
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
                 for (String keyword: keywordSet) {
-                    Set<String> expandedSet = new TreeSet<String>();
+                    Set<String> expandedSet = new TreeSet<>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, productSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
                     Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set<String> fixedKeywordSet = new HashSet<String>();
+                    Set<String> fixedKeywordSet = new HashSet<>();
                     fixedKeywordSet.addAll(fixedSet);
                     productSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }
@@ -2215,8 +2219,9 @@ public class ProductSearch {
                     productSearchContext.orderByList.add("-totalRelevancy");
                     productSearchContext.fieldsToSelect.add("totalRelevancy");
                 }
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0)
+                if (productSearchContext.keywordFixedOrSetAndList.size() > 0) {
                     productSearchContext.productIdGroupBy = true;
+                }
             }
         }
 

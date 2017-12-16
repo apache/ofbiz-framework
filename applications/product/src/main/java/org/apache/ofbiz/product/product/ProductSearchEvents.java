@@ -384,7 +384,7 @@ public class ProductSearchEvents {
     public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String errMsg = null;
-        List<Map<String, Object>> productExportList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> productExportList = new LinkedList<>();
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
@@ -397,7 +397,7 @@ public class ProductSearchEvents {
 
                 GenericValue searchResultView = null;
                 while ((searchResultView = eli.next()) != null) {
-                    Map<String, Object> productMap = new HashMap<String, Object>();
+                    Map<String, Object> productMap = new HashMap<>();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
 
@@ -447,8 +447,7 @@ public class ProductSearchEvents {
             productSearchContext.setResultSortOrder(resultSortOrder);
 
             return productSearchContext.doQuery(delegator);
-        } else {
-            return null;
         }
+        return null;
     }
 }

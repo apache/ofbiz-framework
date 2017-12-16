@@ -84,6 +84,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
+    @Override
     public StringUtil.StringWrapper get(String productPromoContentTypeId, String encoderType) {
         if (UtilValidate.isEmpty(this.productPromo)) {
             Debug.logWarning("Tried to get ProductPromoContent for type [" + productPromoContentTypeId + "] but the productPromo field in the ProductPromoContentWrapper is null", module);
@@ -95,8 +96,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request), 
-                EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator), 
+        return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request),
+                EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator),
                 null, null, productPromo.getDelegator(), dispatcher, encoderType);
     }
 
@@ -131,11 +132,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             outString = encoder.sanitize(outString, null);
             productPromoContentCache.put(cacheKey, outString);
             return outString;
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", module);
-            String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", module);
             String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
             return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
@@ -163,7 +160,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
-        List<EntityExpr> exprs = new ArrayList<EntityExpr>();
+        List<EntityExpr> exprs = new ArrayList<>();
         exprs.add(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId));
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
 
@@ -175,13 +172,13 @@ public class ProductPromoContentWrapper implements ContentWrapper {
 
         if (productPromoContent != null) {
             // when rendering the product promo content, always include the ProductPromo and ProductPromoContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
+            Map<String, Object> inContext = new HashMap<>();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
             ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
             return;
         }
-        
+
         String candidateFieldName = ModelUtil.dbNameToVarName(productPromoContentTypeId);
         ModelEntity productModel = delegator.getModelEntity("ProductPromo");
         if (productModel.isField(candidateFieldName)) {
@@ -193,7 +190,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
                 if (UtilValidate.isNotEmpty(candidateValue)) {
                     outWriter.write(candidateValue);
                     return;
-                } 
+                }
             }
         }
     }
