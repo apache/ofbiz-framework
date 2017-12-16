@@ -133,17 +133,17 @@ public class WorkEffortSearch {
 
     public static class WorkEffortSearchContext {
         public int index = 1;
-        public List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
-        public List<String> orderByList = new LinkedList<String>();
+        public List<EntityCondition> entityConditionList = new LinkedList<>();
+        public List<String> orderByList = new LinkedList<>();
         public List<String> fieldsToSelect = UtilMisc.toList("workEffortId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean workEffortIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<Set<String>>();
-        public Set<String> orKeywordFixedSet = new HashSet<String>();
-        public Set<String> andKeywordFixedSet = new HashSet<String>();
-        public List<GenericValue> workEffortSearchConstraintList = new LinkedList<GenericValue>();
+        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
+        public Set<String> orKeywordFixedSet = new HashSet<>();
+        public Set<String> andKeywordFixedSet = new HashSet<>();
+        public List<GenericValue> workEffortSearchConstraintList = new LinkedList<>();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -268,7 +268,7 @@ public class WorkEffortSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-                    List<EntityExpr> keywordOrList = new LinkedList<EntityExpr>();
+                    List<EntityExpr> keywordOrList = new LinkedList<>();
                     for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
@@ -292,7 +292,7 @@ public class WorkEffortSearch {
         /**
          * @param delegator the delegator
          * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-         *      DONE WITH IT (preferably in a finally block), 
+         *      DONE WITH IT (preferably in a finally block),
          *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
          */
         public EntityListIterator doQuery(Delegator delegator) {
@@ -327,7 +327,7 @@ public class WorkEffortSearch {
         }
 
         public ArrayList<String> makeWorkEffortIdList(EntityListIterator eli) {
-            ArrayList<String> workEffortIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
+            ArrayList<String> workEffortIds = new ArrayList<>(maxResults == null ? 100 : maxResults.intValue());
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return workEffortIds;
@@ -342,7 +342,9 @@ public class WorkEffortSearch {
                     hasResults = true;
                 }
                 if (resultOffset != null && resultOffset.intValue() > 1) {
-                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    }
                     hasResults = eli.relative(resultOffset.intValue() - 1);
                     initialResult = null;
                 }
@@ -372,7 +374,7 @@ public class WorkEffortSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set<String> workEffortIdSet = new HashSet<String>();
+                Set<String> workEffortIdSet = new HashSet<>();
 
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
@@ -479,7 +481,7 @@ public class WorkEffortSearch {
 
         @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
-            Set<String> workEffortIdSet = new HashSet<String>();
+            Set<String> workEffortIdSet = new HashSet<>();
             if (includeSubWorkEfforts) {
                 // find all sub-categories recursively, make a Set of workEffortId
                 WorkEffortSearch.getAllSubWorkEffortIds(workEffortId, workEffortIdSet, workEffortSearchContext.getDelegator(), workEffortSearchContext.nowTimestamp);
@@ -506,7 +508,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
 
-            List<EntityExpr> assocConditionFromTo = new LinkedList<EntityExpr>();
+            List<EntityExpr> assocConditionFromTo = new LinkedList<>();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -527,7 +529,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
 
-            List<EntityExpr> assocConditionToFrom = new LinkedList<EntityExpr>();
+            List<EntityExpr> assocConditionToFrom = new LinkedList<>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -930,11 +932,11 @@ public class WorkEffortSearch {
 
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
-            Set<String> fullKeywordSet = new TreeSet<String>();
+            Set<String> fullKeywordSet = new TreeSet<>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
             for (String keyword: keywordSet) {
-                Set<String> expandedSet = new TreeSet<String>();
+                Set<String> expandedSet = new TreeSet<>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
@@ -959,13 +961,13 @@ public class WorkEffortSearch {
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
                 for (String keyword: keywordSet) {
-                    Set<String> expandedSet = new TreeSet<String>();
+                    Set<String> expandedSet = new TreeSet<>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, workEffortSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
                     Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set<String> fixedKeywordSet = new HashSet<String>();
+                    Set<String> fixedKeywordSet = new HashSet<>();
                     fixedKeywordSet.addAll(fixedSet);
                     workEffortSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }

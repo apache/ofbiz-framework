@@ -88,23 +88,23 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     }
 
     protected DtStart dateStart = null;
-    protected List<DateListProperty> incDateList = new LinkedList<DateListProperty>();
-    protected List<DateListProperty> exDateList = new LinkedList<DateListProperty>();
-    protected List<RRule> incRuleList = new LinkedList<RRule>();
-    protected List<ExRule> exRuleList = new LinkedList<ExRule>();
+    protected List<DateListProperty> incDateList = new LinkedList<>();
+    protected List<DateListProperty> exDateList = new LinkedList<>();
+    protected List<RRule> incRuleList = new LinkedList<>();
+    protected List<ExRule> exRuleList = new LinkedList<>();
     protected VisitorState state = new VisitorState();
-    protected Stack<VisitorState> stateStack = new Stack<VisitorState>();
+    protected Stack<VisitorState> stateStack = new Stack<>();
 
     protected ICalRecurConverter() {}
 
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {
         // Try to consolidate a list of Recur instances into one instance
-        Set<Integer> monthList = new HashSet<Integer>();
-        Set<Integer> monthDayList = new HashSet<Integer>();
-        Set<WeekDay> weekDayList = new HashSet<WeekDay>();
-        Set<Integer> hourList = new HashSet<Integer>();
-        Set<Integer> minuteList = new HashSet<Integer>();
+        Set<Integer> monthList = new HashSet<>();
+        Set<Integer> monthDayList = new HashSet<>();
+        Set<WeekDay> weekDayList = new HashSet<>();
+        Set<Integer> hourList = new HashSet<>();
+        Set<Integer> minuteList = new HashSet<>();
         String freq = null;
         int freqCount = 0;
         for (Recur recur : recurList) {
@@ -322,8 +322,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     protected class VisitorState {
         public boolean isExcluded = false;
         public boolean isIntersection = false;
-        public List<Recur> inclRecurList = new LinkedList<Recur>();
-        public List<Recur> exRecurList = new LinkedList<Recur>();
+        public List<Recur> inclRecurList = new LinkedList<>();
+        public List<Recur> exRecurList = new LinkedList<>();
         public void addRecur(Recur recur) {
             if (this.isIntersection) {
                 if (this.isExcluded) {

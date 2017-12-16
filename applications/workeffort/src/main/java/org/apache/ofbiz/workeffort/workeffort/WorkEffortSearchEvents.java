@@ -52,9 +52,13 @@ public class WorkEffortSearchEvents {
         WorkEffortSearchOptions workEffortSearchOptions = WorkEffortSearchSession.getWorkEffortSearchOptions(session);
 
         Integer viewIndexInteger = workEffortSearchOptions.getViewIndex();
-        if (viewIndexInteger != null) viewIndex = viewIndexInteger.intValue();
+        if (viewIndexInteger != null) {
+            viewIndex = viewIndexInteger.intValue();
+        }
         Integer viewSizeInteger = workEffortSearchOptions.getViewSize();
-        if (viewSizeInteger != null) viewSize = viewSizeInteger.intValue();
+        if (viewSizeInteger != null) {
+            viewSize = viewSizeInteger.intValue();
+        }
 
         lowIndex = viewIndex * viewSize;
         highIndex = (viewIndex + 1) * viewSize;
@@ -98,7 +102,7 @@ public class WorkEffortSearchEvents {
         String searchSortOrderString = WorkEffortSearchSession.searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         result.put("workEffortIds", workEffortIds);
         result.put("viewIndex", Integer.valueOf(viewIndex));

@@ -92,14 +92,14 @@ public class WorkEffortServices {
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if (validWorkEfforts == null) {
-            validWorkEfforts = new LinkedList<GenericValue>();
+            validWorkEfforts = new LinkedList<>();
         }
         result.put("events", validWorkEfforts);
         return result;
@@ -113,7 +113,7 @@ public class WorkEffortServices {
         List<GenericValue> validWorkEfforts = null;
 
         try {
-            List<EntityExpr> conditionList = new LinkedList<EntityExpr>();
+            List<EntityExpr> conditionList = new LinkedList<>();
             conditionList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, roleTypeId));
             conditionList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
             conditionList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"));
@@ -125,13 +125,13 @@ public class WorkEffortServices {
             validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if (validWorkEfforts == null) {
-            validWorkEfforts = new LinkedList<GenericValue>();
+            validWorkEfforts = new LinkedList<>();
         }
         result.put("events", validWorkEfforts);
         return result;
@@ -166,13 +166,15 @@ public class WorkEffortServices {
                 validWorkEfforts.addAll(EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("createdDate DESC").filterByDate().queryList());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
-        if (validWorkEfforts == null) validWorkEfforts = new LinkedList<GenericValue>();
+        Map<String, Object> result = new HashMap<>();
+        if (validWorkEfforts == null) {
+            validWorkEfforts = new LinkedList<>();
+        }
         validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(validWorkEfforts);
         result.put("tasks", validWorkEfforts);
         return result;
@@ -187,7 +189,7 @@ public class WorkEffortServices {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                List<EntityExpr> constraints = new LinkedList<EntityExpr>();
+                List<EntityExpr> constraints = new LinkedList<>();
 
                 constraints.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.get("partyId")));
                 constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ACTIVITY"));
@@ -203,13 +205,15 @@ public class WorkEffortServices {
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
-        if (validWorkEfforts == null) validWorkEfforts = new LinkedList<GenericValue>();
+        Map<String, Object> result = new HashMap<>();
+        if (validWorkEfforts == null) {
+            validWorkEfforts = new LinkedList<>();
+        }
         result.put("activities", validWorkEfforts);
         return result;
     }
@@ -223,7 +227,7 @@ public class WorkEffortServices {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                List<EntityExpr> constraints = new LinkedList<EntityExpr>();
+                List<EntityExpr> constraints = new LinkedList<>();
 
                 constraints.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.get("partyId")));
                 constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ACTIVITY"));
@@ -239,13 +243,15 @@ public class WorkEffortServices {
                 roleWorkEfforts = EntityQuery.use(delegator).from("WorkEffortPartyAssignByRole").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
-        if (roleWorkEfforts == null) roleWorkEfforts = new LinkedList<GenericValue>();
+        Map<String, Object> result = new HashMap<>();
+        if (roleWorkEfforts == null) {
+            roleWorkEfforts = new LinkedList<>();
+        }
         result.put("roleActivities", roleWorkEfforts);
         return result;
     }
@@ -259,7 +265,7 @@ public class WorkEffortServices {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                List<EntityExpr> constraints = new LinkedList<EntityExpr>();
+                List<EntityExpr> constraints = new LinkedList<>();
 
                 constraints.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.get("partyId")));
                 constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ACTIVITY"));
@@ -275,13 +281,15 @@ public class WorkEffortServices {
                 groupWorkEfforts = EntityQuery.use(delegator).from("WorkEffortPartyAssignByGroup").where(constraints).orderBy("priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
-        if (groupWorkEfforts == null) groupWorkEfforts = new LinkedList<GenericValue>();
+        Map<String, Object> result = new HashMap<>();
+        if (groupWorkEfforts == null) {
+            groupWorkEfforts = new LinkedList<>();
+        }
         result.put("groupActivities", groupWorkEfforts);
         return result;
     }
@@ -290,7 +298,7 @@ public class WorkEffortServices {
         Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Security security = ctx.getSecurity();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         String workEffortId = (String) context.get("workEffortId");
         GenericValue workEffort = null;
@@ -344,18 +352,30 @@ public class WorkEffortServices {
             }
         }
 
-        if (workEffortId != null) resultMap.put("workEffortId", workEffortId);
-        if (workEffort != null) resultMap.put("workEffort", workEffort);
-        if (canView != null) resultMap.put("canView", canView);
-        if (workEffortPartyAssignments != null) resultMap.put("partyAssigns", workEffortPartyAssignments);
-        if (tryEntity != null) resultMap.put("tryEntity", tryEntity);
-        if (currentStatus != null) resultMap.put("currentStatusItem", currentStatus);
+        if (workEffortId != null) {
+            resultMap.put("workEffortId", workEffortId);
+        }
+        if (workEffort != null) {
+            resultMap.put("workEffort", workEffort);
+        }
+        if (canView != null) {
+            resultMap.put("canView", canView);
+        }
+        if (workEffortPartyAssignments != null) {
+            resultMap.put("partyAssigns", workEffortPartyAssignments);
+        }
+        if (tryEntity != null) {
+            resultMap.put("tryEntity", tryEntity);
+        }
+        if (currentStatus != null) {
+            resultMap.put("currentStatusItem", currentStatus);
+        }
         return resultMap;
     }
 
     private static TreeMap<DateRange, List<Map<String, Object>>> groupCalendarEntriesByDateRange(DateRange inDateRange, List<Map<String, Object>> calendarEntries) {
-        TreeMap<DateRange, List<Map<String, Object>>> calendarEntriesByDateRange = new TreeMap<DateRange, List<Map<String, Object>>>();
-        Set<Date> dateBoundaries = new TreeSet<Date>();
+        TreeMap<DateRange, List<Map<String, Object>>> calendarEntriesByDateRange = new TreeMap<>();
+        Set<Date> dateBoundaries = new TreeSet<>();
         if (inDateRange != null) {
             dateBoundaries.add(inDateRange.start());
             dateBoundaries.add(inDateRange.end());
@@ -387,11 +407,11 @@ public class WorkEffortServices {
     }
 
     private static List<EntityCondition> getDefaultWorkEffortExprList(String calendarType, Collection<String> partyIds, String workEffortTypeId, List<EntityCondition> cancelledCheckAndList) {
-        List<EntityCondition> entityExprList = new LinkedList<EntityCondition>();
+        List<EntityCondition> entityExprList = new LinkedList<>();
         if (cancelledCheckAndList != null) {
             entityExprList.addAll(cancelledCheckAndList);
         }
-        List<EntityExpr> typesList = new LinkedList<EntityExpr>();
+        List<EntityExpr> typesList = new LinkedList<>();
         if (UtilValidate.isNotEmpty(workEffortTypeId)) {
             typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
         }
@@ -534,13 +554,13 @@ public class WorkEffortServices {
         List<GenericValue> validWorkEfforts = null;
         Collection<String> partyIdsToUse = partyIds;
         if (partyIdsToUse == null) {
-            partyIdsToUse = new HashSet<String>();
+            partyIdsToUse = new HashSet<>();
         }
         if (UtilValidate.isNotEmpty(partyId)) {
             if (partyId.equals(userLogin.getString("partyId")) || security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
                 partyIdsToUse.add(partyId);
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "WorkEffortPartyPermissionError", UtilMisc.toMap("partyId", partyId), locale));
             }
         } else {
@@ -627,9 +647,9 @@ public class WorkEffortServices {
         }
 
         // Split the WorkEffort list into a map with entries for each period, period start is the key
-        List<Map<String, Object>> periods = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> periods = new LinkedList<>();
         if (validWorkEfforts != null) {
-            List<DateRange> periodRanges = new LinkedList<DateRange>();
+            List<DateRange> periodRanges = new LinkedList<>();
             for (int i = 0; i < numPeriods; i++) {
                 Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, timeZone, locale);
                 Timestamp curPeriodEnd = UtilDateTime.adjustTimestamp(curPeriodStart, periodType, 1, timeZone, locale);
@@ -638,8 +658,8 @@ public class WorkEffortServices {
             }
             try {
                 // Process recurring work efforts
-                Set<GenericValue> exclusions = new HashSet<GenericValue>();
-                Set<GenericValue> inclusions = new HashSet<GenericValue>();
+                Set<GenericValue> exclusions = new HashSet<>();
+                Set<GenericValue> inclusions = new HashSet<>();
                 DateRange range = new DateRange(startStamp, endStamp);
                 Calendar cal = UtilDateTime.toCalendar(startStamp, timeZone, locale);
                 for (GenericValue workEffort : validWorkEfforts) {
@@ -688,8 +708,8 @@ public class WorkEffortServices {
             // For each period in the set we check all work efforts to see if they fall within range
             boolean firstEntry = true;
             for (DateRange periodRange : periodRanges) {
-                List<Map<String, Object>> curWorkEfforts = new LinkedList<Map<String,Object>>();
-                Map<String, Object> entry = new HashMap<String, Object>();
+                List<Map<String, Object>> curWorkEfforts = new LinkedList<>();
+                Map<String, Object> entry = new HashMap<>();
                 for (GenericValue workEffort : validWorkEfforts) {
                     Timestamp startDate = workEffort.getTimestamp("estimatedStartDate");
                     if (workEffort.getTimestamp("actualStartDate") != null) {
@@ -699,10 +719,12 @@ public class WorkEffortServices {
                     if (workEffort.getTimestamp("actualCompletionDate") != null) {
                         endDate = workEffort.getTimestamp("actualCompletionDate");
                     }
-                    if (endDate == null) endDate = startDate;
+                    if (endDate == null) {
+                        endDate = startDate;
+                    }
                     DateRange weRange = new DateRange(startDate, endDate);
                     if (periodRange.intersectsRange(weRange)) {
-                        Map<String, Object> calEntry = new HashMap<String, Object>();
+                        Map<String, Object> calEntry = new HashMap<>();
                         calEntry.put("workEffort", workEffort);
                         long length = ((weRange.end().after(endStamp) ? endStamp.getTime() : weRange.end().getTime()) - (weRange.start().before(startStamp) ? startStamp.getTime() : weRange.start().getTime()));
                         int periodSpan = (int) Math.ceil((double) length / periodLen);
@@ -734,7 +756,7 @@ public class WorkEffortServices {
                 periods.add(entry);
             }
         }
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("periods", periods);
         result.put("maxConcurrentEntries", Integer.valueOf(maxConcurrentEntries));
         return result;
@@ -746,14 +768,14 @@ public class WorkEffortServices {
         String facilityId = (String) context.get("facilityId"); // optional
         Locale locale = (Locale) context.get("locale");
 
-        Map<String, Map<String, Object>> summaryInByFacility = new HashMap<String, Map<String,Object>>();
-        Map<String, Map<String, Object>> summaryOutByFacility = new HashMap<String, Map<String,Object>>();
+        Map<String, Map<String, Object>> summaryInByFacility = new HashMap<>();
+        Map<String, Map<String, Object>> summaryOutByFacility = new HashMap<>();
         try {
             //
             // Information about the running production runs that are going
             // to produce units of productId by facility.
             //
-            List<EntityCondition> findIncomingProductionRunsConds = new LinkedList<EntityCondition>();
+            List<EntityCondition> findIncomingProductionRunsConds = new LinkedList<>();
 
             findIncomingProductionRunsConds.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
             findIncomingProductionRunsConds.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "WEGS_CREATED"));
@@ -762,7 +784,7 @@ public class WorkEffortServices {
                 findIncomingProductionRunsConds.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
             }
 
-            List<EntityCondition> findIncomingProductionRunsStatusConds = new LinkedList<EntityCondition>();
+            List<EntityCondition> findIncomingProductionRunsStatusConds = new LinkedList<>();
             findIncomingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
             findIncomingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
             findIncomingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
@@ -796,7 +818,7 @@ public class WorkEffortServices {
 
                 Map<String, Object> quantitySummary = UtilGenerics.checkMap(summaryInByFacility.get(weFacilityId));
                 if (quantitySummary == null) {
-                    quantitySummary = new HashMap<String, Object>();
+                    quantitySummary = new HashMap<>();
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryInByFacility.put(weFacilityId, quantitySummary);
                 }
@@ -809,7 +831,7 @@ public class WorkEffortServices {
 
                 List<GenericValue> incomingProductionRunList = UtilGenerics.checkList(quantitySummary.get("incomingProductionRunList"));
                 if (incomingProductionRunList == null) {
-                    incomingProductionRunList = new LinkedList<GenericValue>();
+                    incomingProductionRunList = new LinkedList<>();
                     quantitySummary.put("incomingProductionRunList", incomingProductionRunList);
                 }
                 incomingProductionRunList.add(incomingProductionRun);
@@ -818,7 +840,7 @@ public class WorkEffortServices {
             // Information about the running production runs that are going
             // to consume units of productId by facility.
             //
-            List<EntityCondition> findOutgoingProductionRunsConds = new LinkedList<EntityCondition>();
+            List<EntityCondition> findOutgoingProductionRunsConds = new LinkedList<>();
 
             findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
             findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "WEGS_CREATED"));
@@ -827,7 +849,7 @@ public class WorkEffortServices {
                 findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
             }
 
-            List<EntityCondition> findOutgoingProductionRunsStatusConds = new LinkedList<EntityCondition>();
+            List<EntityCondition> findOutgoingProductionRunsStatusConds = new LinkedList<>();
             findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
             findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
             findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
@@ -844,7 +866,7 @@ public class WorkEffortServices {
 
                 Map<String, Object> quantitySummary = UtilGenerics.checkMap(summaryOutByFacility.get(weFacilityId));
                 if (quantitySummary == null) {
-                    quantitySummary = new HashMap<String, Object>();
+                    quantitySummary = new HashMap<>();
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryOutByFacility.put(weFacilityId, quantitySummary);
                 }
@@ -857,14 +879,14 @@ public class WorkEffortServices {
 
                 List<GenericValue> outgoingProductionRunList = UtilGenerics.checkList(quantitySummary.get("outgoingProductionRunList"));
                 if (outgoingProductionRunList == null) {
-                    outgoingProductionRunList = new LinkedList<GenericValue>();
+                    outgoingProductionRunList = new LinkedList<>();
                     quantitySummary.put("outgoingProductionRunList", outgoingProductionRunList);
                 }
                 outgoingProductionRunList.add(outgoingProductionRun);
             }
 
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "WorkEffortManufacturingError", UtilMisc.toMap("productId", productId, "errorString", gee.getMessage()), locale));
         }
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
@@ -886,11 +908,11 @@ public class WorkEffortServices {
         List<GenericValue> eventReminders = null;
         try {
             eventReminders = EntityQuery.use(delegator).from("WorkEffortEventReminder")
-                    .where(EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("reminderDateTime", EntityOperator.EQUALS, null), 
+                    .where(EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("reminderDateTime", EntityOperator.EQUALS, null),
                             EntityCondition.makeCondition("reminderDateTime", EntityOperator.LESS_THAN_EQUAL_TO, now)), EntityOperator.OR))
                             .queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "WorkEffortEventRemindersRetrivingError", UtilMisc.toMap("errorString", e), localePar));
         }
         for (GenericValue reminder : eventReminders) {
@@ -1055,8 +1077,8 @@ public class WorkEffortServices {
         List<GenericValue> resultList = null;
         try (EntityListIterator eli = (EntityListIterator) context.get("workEffortIterator")) {
             if (eli != null) {
-                Set<String> keys = new HashSet<String>();
-                resultList = new LinkedList<GenericValue>();
+                Set<String> keys = new HashSet<>();
+                resultList = new LinkedList<>();
                 GenericValue workEffort = eli.next();
                 while (workEffort != null) {
                     String workEffortId = workEffort.getString("workEffortId");

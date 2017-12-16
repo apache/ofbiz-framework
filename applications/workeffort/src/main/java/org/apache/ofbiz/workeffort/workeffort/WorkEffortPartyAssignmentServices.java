@@ -61,8 +61,9 @@ public class WorkEffortPartyAssignmentServices {
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfAcceptAssignment", context);
 
-                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
+                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e, module);
                 }
@@ -71,8 +72,9 @@ public class WorkEffortPartyAssignmentServices {
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfCompleteAssignment", context);
 
-                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
+                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e, module);
                 }
@@ -81,8 +83,9 @@ public class WorkEffortPartyAssignmentServices {
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfDeclineAssignment", context);
 
-                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
+                    if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e, module);
                 }

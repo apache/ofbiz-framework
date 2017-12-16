@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -74,7 +73,7 @@ public final class ICalWorker {
     }
 
     private static Map<String, Object> createConversionContext(HttpServletRequest request) {
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         Enumeration<String> attributeEnum = UtilGenerics.cast(request.getAttributeNames());
         while (attributeEnum.hasMoreElements()) {
             String attributeName = attributeEnum.nextElement();
@@ -92,7 +91,7 @@ public final class ICalWorker {
      *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
-     * @return Create an HTTP Forbidden response 
+     * @return Create an HTTP Forbidden response
      */
     public static ResponseProperties createForbiddenResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_FORBIDDEN, statusMessage);
@@ -137,12 +136,11 @@ public final class ICalWorker {
         GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData", false);
         if (iCalData != null) {
             return iCalData.getTimestamp("lastUpdatedStamp");
-        } else {
-            return publishProperties.getTimestamp("lastUpdatedStamp");
         }
+        return publishProperties.getTimestamp("lastUpdatedStamp");
     }
 
-    public static void handleGetRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
+    public static void handleGetRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
@@ -162,7 +160,7 @@ public final class ICalWorker {
         writeResponse(responseProps, request, response, context);
     }
 
-    public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
+    public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
@@ -176,8 +174,8 @@ public final class ICalWorker {
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
                 Document responseDocument = helper.getResponseDocument();
-                List<Element> supportedProps = new LinkedList<Element>();
-                List<Element> unSupportedProps = new LinkedList<Element>();
+                List<Element> supportedProps = new LinkedList<>();
+                List<Element> unSupportedProps = new LinkedList<>();
                 List<Element> propElements = helper.getFindPropsList(ResponseHelper.DAV_NAMESPACE_URI);
                 for (Element propElement : propElements) {
                     if ("getetag".equals(propElement.getNodeName())) {
@@ -222,7 +220,7 @@ public final class ICalWorker {
         response.flushBuffer();
     }
 
-    public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
+    public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
