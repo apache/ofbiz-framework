@@ -57,6 +57,8 @@ Quick start
 To quickly install and fire-up OFBiz, please follow the below instructions
 from the command line at the OFBiz top level directory (folder)
 
+In case of problems visit our [Further reading section](#further-reading)
+
 ### Prepare OFBiz:
 
 >_Note_: Depending on your Internet connection speed it might take a long
