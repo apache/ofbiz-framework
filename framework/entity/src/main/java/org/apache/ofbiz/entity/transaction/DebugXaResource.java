@@ -39,13 +39,17 @@ public class DebugXaResource extends GenericXaResource {
     @Override
     public void commit(Xid xid, boolean onePhase) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
-        if (Debug.verboseOn()) Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", module);
+        }
     }
 
     @Override
     public void rollback(Xid xid) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
-        if (Debug.verboseOn()) Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", module);
+        }
     }
 
     @Override
