@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -104,7 +103,7 @@ public final class FreeMarkerWorker {
         TemplateLoader[] templateLoaders = {new FlexibleTemplateLoader(), new StringTemplateLoader()};
         MultiTemplateLoader multiTemplateLoader = new MultiTemplateLoader(templateLoaders);
         newConfig.setTemplateLoader(multiTemplateLoader);
-        Map freemarkerImports = UtilProperties.getProperties("freemarkerImports");
+        Map<?, ?> freemarkerImports = UtilProperties.getProperties("freemarkerImports");
         if (freemarkerImports != null) {
             newConfig.setAutoImports(freemarkerImports);
         }
@@ -140,8 +139,8 @@ public final class FreeMarkerWorker {
     }
 
     private static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
-        for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
+        for (Object object : props.keySet()) {
+            String key = (String) object;
             String className = props.getProperty(key);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
@@ -218,7 +217,7 @@ public final class FreeMarkerWorker {
      * @param env An Environment instance
      * @param context The context Map containing the user settings
      */
-    private static void applyUserSettings(Environment env, Map<String, Object> context) throws TemplateException {
+    private static void applyUserSettings(Environment env, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
             locale = Locale.getDefault();
@@ -237,7 +236,7 @@ public final class FreeMarkerWorker {
      * call this method instead of creating its own <code>Configuration</code> instance. The instance
      * returned by this method includes the <code>component://</code> resolver and the OFBiz custom
      * transformations.
-     * 
+     *
      * @return A <code>Configuration</code> instance.
      */
     public static Configuration getDefaultOfbizConfig() {
@@ -249,11 +248,11 @@ public final class FreeMarkerWorker {
      * found in the cache, then one will be created.
      * @param templateLocation Location of the template - file path or URL
      */
-    public static Template getTemplate(String templateLocation) throws TemplateException, IOException {
+    public static Template getTemplate(String templateLocation) throws IOException {
         return getTemplate(templateLocation, cachedTemplates, defaultOfbizConfig);
     }
 
-    public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws TemplateException, IOException {
+    public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws IOException {
         Template template = cache.get(templateLocation);
         if (template == null) {
             template = config.getTemplate(templateLocation);
@@ -351,7 +350,7 @@ public final class FreeMarkerWorker {
     }
 
     public static Map<String, Object> createEnvironmentMap(Environment env) {
-        Map<String, Object> templateRoot = new HashMap<String, Object>();
+        Map<String, Object> templateRoot = new HashMap<>();
         Set<String> varNames = null;
         try {
             varNames = UtilGenerics.checkSet(env.getKnownVariableNames());
@@ -379,7 +378,7 @@ public final class FreeMarkerWorker {
     }
 
     public static Map<String, Object> saveValues(Map<String, Object> context, String [] saveKeyNames) {
-        Map<String, Object> saveMap = new HashMap<String, Object>();
+        Map<String, Object> saveMap = new HashMap<>();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map<?, ?>) {
@@ -399,7 +398,7 @@ public final class FreeMarkerWorker {
             if (o instanceof Map<?, ?>) {
                 context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
             } else if (o instanceof List<?>) {
-                List<Object> list = new ArrayList<Object>();
+                List<Object> list = new ArrayList<>();
                 list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
             } else {
@@ -478,7 +477,9 @@ public final class FreeMarkerWorker {
     static class FlexibleTemplateLoader extends URLTemplateLoader {
         @Override
         protected URL getURL(String name) {
-            if (name != null && name.startsWith("delegator:")) return null; // this is a template stored in the database
+            if (name != null && name.startsWith("delegator:")) {
+                return null; // this is a template stored in the database
+            }
             URL locationUrl = null;
             try {
                 locationUrl = FlexibleLocation.resolveLocation(name);

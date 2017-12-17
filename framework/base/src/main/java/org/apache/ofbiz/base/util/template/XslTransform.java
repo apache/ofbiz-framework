@@ -147,7 +147,7 @@ public final class XslTransform {
      *  @deprecated
      */
     @Deprecated
-    private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws GeneralException, IOException {
+    private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws IOException {
         Source source = null;
         if (inputDocument != null) {
             source = new DOMSource(inputDocument);
