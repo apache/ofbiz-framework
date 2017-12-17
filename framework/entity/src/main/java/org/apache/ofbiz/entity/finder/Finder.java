@@ -39,7 +39,9 @@ public abstract class Finder implements Serializable {
     public String getEntityName() {
         String entName = this.entityNameExdr.getOriginal();
         // if there is expansion syntax
-        if (entName.indexOf("${") >= 0) return null;
+        if (entName.indexOf("${") >= 0) {
+            return null;
+        }
         return entName;
     }
 

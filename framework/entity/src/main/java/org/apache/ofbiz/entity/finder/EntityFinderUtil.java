@@ -96,7 +96,6 @@ public final class EntityFinderUtil {
     }
 
     public static void expandFieldMapToContext(Map<FlexibleMapAccessor<Object>, Object> fieldMap, Map<String, Object> context, Map<String, Object> outContext) {
-        //Debug.logInfo("fieldMap: " + fieldMap, module);
         if (fieldMap != null) {
             for (Map.Entry<FlexibleMapAccessor<Object>, Object> entry: fieldMap.entrySet()) {
                 FlexibleMapAccessor<Object> serviceContextFieldAcsr = entry.getKey();
@@ -226,7 +225,9 @@ public final class EntityFinderUtil {
                 value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, modelFieldTypeReader, context);
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
+            }
 
             if (this.ignoreIfEmpty && ObjectType.isEmpty(value)) {
                 return null;
