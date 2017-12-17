@@ -61,7 +61,9 @@ public class ServiceSemaphore {
     }
 
     public void acquire() throws SemaphoreWaitException, SemaphoreFailException {
-        if (mode == SEMAPHORE_MODE_NONE) return;
+        if (mode == SEMAPHORE_MODE_NONE) {
+            return;
+        }
 
         lockTime = UtilDateTime.nowTimestamp();
 
@@ -71,7 +73,9 @@ public class ServiceSemaphore {
     }
 
     public synchronized void release() throws SemaphoreFailException {
-        if (mode == SEMAPHORE_MODE_NONE) return;
+        if (mode == SEMAPHORE_MODE_NONE) {
+            return;
+        }
 
         // remove the lock file
         if (lock != null) {
