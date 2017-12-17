@@ -52,7 +52,7 @@ public final class Paginator {
         return value != null ? value.intValue() : 0;
     }
 
-    // entryList might be an  EntityListIterator. It will then be closed at the end of FormRenderer.renderItemRows() 
+    // entryList might be an  EntityListIterator. It will then be closed at the end of FormRenderer.renderItemRows()
     public static void getListLimits(ModelForm modelForm, Map<String, Object> context, Object entryList) {
         int viewIndex = 0;
         int viewSize = 0;
@@ -60,7 +60,6 @@ public final class Paginator {
         int highIndex = 0;
         int listSize = modelForm.getOverrideListSize(context);
         if (listSize > 0) {
-            //setOverridenListSize(true);
         } else if (entryList instanceof EntityListIterator) {
             EntityListIterator iter = (EntityListIterator) entryList;
             try {
@@ -204,7 +203,6 @@ public final class Paginator {
         int listSize = ((Integer) context.get("listSize")).intValue();
         int lowIndex = ((Integer) context.get("lowIndex")).intValue();
         int highIndex = ((Integer) context.get("highIndex")).intValue();
-        // Debug.logInfo("preparePager: low - high = " + lowIndex + " - " + highIndex, module);
 
         // we're passed a subset of the list, so use (0, viewSize) range
         if (modelForm.isOverridenListSize()) {
@@ -212,8 +210,9 @@ public final class Paginator {
             highIndex = ((Integer) context.get("viewSize")).intValue();
         }
 
-        if (iter == null)
+        if (iter == null) {
             return;
+        }
 
         // count item rows
         int itemIndex = -1;
@@ -222,8 +221,6 @@ public final class Paginator {
             itemIndex++;
             item = safeNext(iter);
         }
-
-        // Debug.logInfo("preparePager: Found rows = " + itemIndex, module);
 
         // reduce the highIndex if number of items falls short
         if ((itemIndex + 1) < highIndex) {
@@ -274,7 +271,7 @@ public final class Paginator {
     /**
      * @param context
      * @param viewSizeName
-     * @return value of viewSizeName in context map (as an int) or return 
+     * @return value of viewSizeName in context map (as an int) or return
      *         default value from widget.properties
      */
     public static Integer getViewSize(Map<String, ? extends Object> context, String viewSizeName) {

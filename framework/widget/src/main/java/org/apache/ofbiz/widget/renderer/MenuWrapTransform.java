@@ -86,14 +86,11 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
 
-        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
+        final Map<String, Object> savedValuesUp = new HashMap<>();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
 
         Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
         FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
-        //final String menuDefFile = (String)templateCtx.get("menuDefFile");
-        //final String menuName = (String)templateCtx.get("menuName");
-        //final String associatedContentId = (String)templateCtx.get("associatedContentId");
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
@@ -141,7 +138,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         templateCtx.put("dataResourceId", dataResourceId);
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
-        final Map<String, Object> savedValues = new HashMap<String, Object>();
+        final Map<String, Object> savedValues = new HashMap<>();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
 
         final StringBuilder buf = new StringBuilder();
