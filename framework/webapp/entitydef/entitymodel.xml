@@ -223,6 +223,9 @@ under the License.
       <field name="httpsHost" type="long-varchar"></field>
       <field name="httpsPort" type="very-short"></field>
       <field name="enableHttps" type="indicator"></field>
+      <field name="webappPath" type="long-varchar">
+          <description>Set your dedicate webapp for this website if it's hidden by a httpd frontend, set to / if you have a reverse proxy that hidden your website webapp</description>
+      </field>
       <field name="standardContentPrefix" type="url"></field>
       <field name="secureContentPrefix" type="url"></field>
       <field name="cookieDomain" type="long-varchar"></field>

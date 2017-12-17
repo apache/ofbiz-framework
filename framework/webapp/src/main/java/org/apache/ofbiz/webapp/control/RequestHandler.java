@@ -1139,6 +1139,20 @@ public class RequestHandler {
         }
         // create the path to the control servlet
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
+
+        //If required by webSite parameter, surcharge control path
+        if (webSiteProps.getWebappPath() != null) {
+            String requestPath = request.getServletPath();
+            if (requestPath == null) requestPath = "";
+            if (requestPath.lastIndexOf("/") > 0) {
+                if (requestPath.indexOf("/") == 0) {
+                    requestPath = "/" + requestPath.substring(1, requestPath.indexOf("/", 1));
+                } else {
+                    requestPath = requestPath.substring(1, requestPath.indexOf("/"));
+                }
+            }
+            controlPath = webSiteProps.getWebappPath().concat(requestPath);
+        }
         newURL.append(controlPath);
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
