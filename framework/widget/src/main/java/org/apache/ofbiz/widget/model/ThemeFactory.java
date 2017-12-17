@@ -81,7 +81,9 @@ public class ThemeFactory {
         try {
             List<File> xmlThemes = FileUtil.findXmlFiles(ofbizHome, "themes", "theme", "widget-theme.xsd");
             List<File> xmlPluginThemes = FileUtil.findXmlFiles(ofbizHome, "plugins", "theme", "widget-theme.xsd");
-            if (UtilValidate.isNotEmpty(xmlPluginThemes)) xmlThemes.addAll(xmlPluginThemes);
+            if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
+                xmlThemes.addAll(xmlPluginThemes);
+            }
             for (File xmlTheme : xmlThemes) {
                 ModelTheme modelTheme = getModelThemeFromLocation(xmlTheme.toURI().toURL().toString());
                 if (modelTheme != null) {
@@ -102,7 +104,9 @@ public class ThemeFactory {
      * @return
      */
     public static VisualTheme getVisualThemeFromId(String visualThemeId) {
-        if (visualThemeId == null) return null;
+        if (visualThemeId == null) {
+            return null;
+        }
         VisualTheme visualTheme = themeVisualThemeIdCache.get(visualThemeId);
         if (visualTheme == null) {
             synchronized (ThemeFactory.class) {
@@ -174,7 +178,7 @@ public class ThemeFactory {
         for (String visualThemeId : visualThemeIds) {
             visualThemesMap.put(visualThemeId, themeVisualThemeIdCache.get(visualThemeId));
         }
-        return new ArrayList(visualThemesMap.values());
+        return new ArrayList<>(visualThemesMap.values());
     }
 
     /**
@@ -197,7 +201,9 @@ public class ThemeFactory {
             //search on request only if a userLogin is present on session (otherwise this implied that the user isn't identify so wait
             if (userLogin != null) {
                 VisualTheme visualTheme = (VisualTheme) session.getAttribute("visualTheme");
-                if (visualTheme != null) return visualTheme;
+                if (visualTheme != null) {
+                    return visualTheme;
+                }
 
                 //resolve on user pref
                 LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

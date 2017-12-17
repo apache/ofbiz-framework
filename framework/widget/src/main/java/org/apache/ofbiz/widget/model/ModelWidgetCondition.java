@@ -62,14 +62,14 @@ public abstract class ModelWidgetCondition implements Serializable {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = ModelWidgetCondition.class.getName();
@@ -103,7 +103,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;and&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class And extends ModelWidgetCondition implements Condition {
@@ -137,7 +137,7 @@ public abstract class ModelWidgetCondition implements Serializable {
     public static interface ConditionFactory {
         /**
          * Returns a new <code>Condition</code> instance built from <code>conditionElement</code>.
-         * 
+         *
          * @param modelWidget The <code>ModelWidget</code> that contains the <code>Condition</code> instance.
          * @param conditionElement The XML element used to build the <code>Condition</code> instance.
          * @return A new <code>Condition</code> instance built from <code>conditionElement</code>.
@@ -196,7 +196,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-compare&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfCompare extends ModelWidgetCondition implements Condition {
@@ -209,8 +209,9 @@ public abstract class ModelWidgetCondition implements Serializable {
         private IfCompare(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super(factory, modelWidget, condElement);
             String fieldAcsr = condElement.getAttribute("field");
-            if (fieldAcsr.isEmpty())
+            if (fieldAcsr.isEmpty()) {
                 fieldAcsr = condElement.getAttribute("field-name");
+            }
             this.fieldAcsr = FlexibleMapAccessor.getInstance(fieldAcsr);
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             this.operator = condElement.getAttribute("operator");
@@ -246,7 +247,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-compare-field&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfCompareField extends ModelWidgetCondition implements Condition {
@@ -259,12 +260,14 @@ public abstract class ModelWidgetCondition implements Serializable {
         private IfCompareField(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super(factory, modelWidget, condElement);
             String fieldAcsr = condElement.getAttribute("field");
-            if (fieldAcsr.isEmpty())
+            if (fieldAcsr.isEmpty()) {
                 fieldAcsr = condElement.getAttribute("field-name");
+            }
             this.fieldAcsr = FlexibleMapAccessor.getInstance(fieldAcsr);
             String toFieldAcsr = condElement.getAttribute("to-field");
-            if (toFieldAcsr.isEmpty())
+            if (toFieldAcsr.isEmpty()) {
                 toFieldAcsr = condElement.getAttribute("to-field-name");
+            }
             this.toFieldAcsr = FlexibleMapAccessor.getInstance(toFieldAcsr);
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -301,7 +304,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-empty&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfEmpty extends ModelWidgetCondition implements Condition {
@@ -310,8 +313,9 @@ public abstract class ModelWidgetCondition implements Serializable {
         private IfEmpty(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super(factory, modelWidget, condElement);
             String fieldAcsr = condElement.getAttribute("field");
-            if (fieldAcsr.isEmpty())
+            if (fieldAcsr.isEmpty()) {
                 fieldAcsr = condElement.getAttribute("field-name");
+            }
             this.fieldAcsr = FlexibleMapAccessor.getInstance(fieldAcsr);
         }
 
@@ -324,7 +328,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-entity-permission&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfEntityPermission extends ModelWidgetCondition implements Condition {
@@ -343,7 +347,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-has-permission&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfHasPermission extends ModelWidgetCondition implements Condition {
@@ -382,7 +386,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-regexp&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfRegexp extends ModelWidgetCondition implements Condition {
@@ -392,8 +396,9 @@ public abstract class ModelWidgetCondition implements Serializable {
         private IfRegexp(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super(factory, modelWidget, condElement);
             String fieldAcsr = condElement.getAttribute("field");
-            if (fieldAcsr.isEmpty())
+            if (fieldAcsr.isEmpty()) {
                 fieldAcsr = condElement.getAttribute("field-name");
+            }
             this.fieldAcsr = FlexibleMapAccessor.getInstance(fieldAcsr);
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
@@ -418,8 +423,9 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }
             // always use an empty string by default
-            if (fieldString == null)
+            if (fieldString == null) {
                 fieldString = "";
+            }
             PatternMatcher matcher = new Perl5Matcher();
             return matcher.matches(fieldString, pattern);
         }
@@ -427,7 +433,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-service-permission&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfServicePermission extends ModelWidgetCondition implements Condition {
@@ -509,7 +515,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-validate-method&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfValidateMethod extends ModelWidgetCondition implements Condition {
@@ -520,8 +526,9 @@ public abstract class ModelWidgetCondition implements Serializable {
         private IfValidateMethod(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super(factory, modelWidget, condElement);
             String fieldAcsr = condElement.getAttribute("field");
-            if (fieldAcsr.isEmpty())
+            if (fieldAcsr.isEmpty()) {
                 fieldAcsr = condElement.getAttribute("field-name");
+            }
             this.fieldAcsr = FlexibleMapAccessor.getInstance(fieldAcsr);
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
@@ -542,8 +549,9 @@ public abstract class ModelWidgetCondition implements Serializable {
                 }
             }
             // always use an empty string by default
-            if (fieldString == null)
+            if (fieldString == null) {
                 fieldString = "";
+            }
             Class<?>[] paramTypes = new Class[] { String.class };
             Object[] params = new Object[] { fieldString };
             Class<?> valClass;
@@ -573,7 +581,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;not&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Not extends ModelWidgetCondition implements Condition {
@@ -593,7 +601,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;or&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Or extends ModelWidgetCondition implements Condition {
@@ -618,7 +626,7 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;xor&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Xor extends ModelWidgetCondition implements Condition {

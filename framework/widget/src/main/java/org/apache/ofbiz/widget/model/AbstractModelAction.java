@@ -70,21 +70,21 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = AbstractModelAction.class.getName();
 
     /**
      * Returns a new <code>ModelAction</code> instance, built from <code>actionElement</code>.
-     * 
+     *
      * @param modelWidget The <code>ModelWidget</code> that contains the &lt;actions&gt; element
      * @param actionElement
      * @return A new <code>ModelAction</code> instance
@@ -132,8 +132,9 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * @param context
      */
     public static void runSubActions(List<ModelAction> actions, Map<String, Object> context) {
-        if (actions == null)
+        if (actions == null) {
             return;
+        }
         for (ModelAction action : actions) {
             if (Debug.verboseOn()) {
                  Debug.logVerbose("Running action " + action.getClass().getName(), module);
@@ -183,7 +184,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-and&gt; element.
-     * 
+     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityAnd extends AbstractModelAction {
@@ -217,7 +218,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-condition&gt; element.
-     * 
+     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityCondition extends AbstractModelAction {
@@ -251,7 +252,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-one&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class EntityOne extends AbstractModelAction {
@@ -285,7 +286,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelated extends AbstractModelAction {
@@ -370,7 +371,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related-one&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelatedOne extends AbstractModelAction {
@@ -435,7 +436,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-map&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyMap extends AbstractModelAction {
@@ -509,7 +510,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-to-field&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyToField extends AbstractModelAction {
@@ -539,7 +540,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
         @Override
         public void runAction(Map<String, Object> context) {
-            //String globalStr = this.globalExdr.expandString(context);
             // default to false
             //boolean global = "true".equals(globalStr);
             Locale locale = (Locale) context.get("locale");
@@ -598,7 +598,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;script&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Script extends AbstractModelAction {
@@ -646,7 +646,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;service&gt; element.
-     * 
+     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class Service extends AbstractModelAction {
@@ -729,7 +729,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;set&gt; element.
-     * 
+     *
      * @see <code>widget-common.xsd</code>
      */
     public static class SetField extends AbstractModelAction {
@@ -778,10 +778,11 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             for (int i = trailList.size(); i >= 0; i--) {
                 List<String> subTrail = trailList.subList(0, i);
                 String newKey = null;
-                if (subTrail.size() > 0)
+                if (subTrail.size() > 0) {
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
-                else
+                } else {
                     newKey = originalName;
+                }
                 if (storeAgent instanceof ServletContext) {
                     newValue = ((ServletContext) storeAgent).getAttribute(newKey);
                 } else if (storeAgent instanceof HttpSession) {
@@ -853,13 +854,15 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 }
             }
             if (!setIfNull && newValue == null){
-                if (Debug.warningOn())
+                if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                }
                 return;
             }
             if (!setIfEmpty && ObjectType.isEmpty(newValue)){
-                if (Debug.warningOn())
+                if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
+                }
                 return;
             }
             if (this.toScope != null && "user".equals(this.toScope)) {

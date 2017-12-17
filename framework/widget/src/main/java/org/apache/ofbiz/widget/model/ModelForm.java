@@ -56,7 +56,7 @@ import org.w3c.dom.Element;
 
 /**
  * Abstract base class for the &lt;form&gt; and &lt;grid&gt; elements.
- * 
+ *
  * @see <code>widget-form.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -66,18 +66,18 @@ public abstract class ModelForm extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      * BE VERY CAREFUL when implementing "extends" - parent form collections
      * must be added to child collections, not replace them. In other words,
      * do not assign parent collection fields to child collection fields.
-     * 
+     *
      */
 
     public static final String module = ModelForm.class.getName();
@@ -1079,7 +1079,7 @@ public abstract class ModelForm extends ModelWidget {
             String size = this.overrideListSize.expandString(context);
             try {
                 size = size.replaceAll("[^0-9.]", "");
-                if (!size.isEmpty()) { 
+                if (!size.isEmpty()) {
                     listSize = Integer.parseInt(size);
                 }
             } catch (NumberFormatException e) {

@@ -81,7 +81,6 @@ public class ModelTheme implements Serializable {
      */
     public ModelTheme(Element themeElement) {
         this.name = themeElement.getAttribute("name");
-        ModelTheme initOriginTheme = null;
         Map<String, VisualTheme> initVisualThemes = new HashMap<>();
         Map<String, Object> initWidgetPropertiesMap = new HashMap<>();
         Map<String, Object> initThemePropertiesMap = new HashMap<>();
@@ -157,7 +156,9 @@ public class ModelTheme implements Serializable {
                         for (Element screen : UtilXml.childElementList(screenPurpose)) {
                             String name = screen.getAttribute("name");
                             String location = screen.getAttribute("location");
-                            if (UtilValidate.isEmpty(location)) location = defaultLocation;
+                            if (UtilValidate.isEmpty(location)) {
+                                location = defaultLocation;
+                            }
                             if (UtilValidate.isEmpty(location)) {
                                 Debug.logWarning("We can resolve the screen location " + name + " in the theme " + this.name + " so no added it", module);
                                 continue;
@@ -272,7 +273,7 @@ public class ModelTheme implements Serializable {
      * @param property
      */
     private void addThemeProperty(Map<String, Object> initThemePropertiesMap, Element property) {
-        FlexibleMapAccessor name = FlexibleMapAccessor.getInstance((String) property.getAttribute("name"));
+        FlexibleMapAccessor<Object> name = FlexibleMapAccessor.getInstance(property.getAttribute("name"));
         String value = property.getAttribute("value");
         String type = property.getAttribute("type");
         if (UtilValidate.isEmpty(type) || type.endsWith("String")) {
@@ -287,7 +288,9 @@ public class ModelTheme implements Serializable {
     }
     public Object getProperty(String propertyName) {
         if (! themePropertiesMap.containsKey(propertyName)
-                || themePropertiesMap.get(propertyName) == null) return "";
+                || themePropertiesMap.get(propertyName) == null) {
+            return "";
+        }
         return themePropertiesMap.get(propertyName);
     }
 
@@ -301,48 +304,66 @@ public class ModelTheme implements Serializable {
 
     public String getType(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getType();
+        if (modelTemplate != null) {
+            return modelTemplate.getType();
+        }
         return null;
     }
     public String getEncoder(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getEncoder();
+        if (modelTemplate != null) {
+            return modelTemplate.getEncoder();
+        }
         return null;
     }
     public String getCompress(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getCompress();
+        if (modelTemplate != null) {
+            return modelTemplate.getCompress();
+        }
         return null;
     }
     public String getContentType(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getContentType();
+        if (modelTemplate != null) {
+            return modelTemplate.getContentType();
+        }
         return null;
     }
     public String getEncoding(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getEncoding();
+        if (modelTemplate != null) {
+            return modelTemplate.getEncoding();
+        }
         return null;
     }
 
     public String getScreenRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getScreenRendererLocation();
+        if (modelTemplate != null) {
+            return modelTemplate.getScreenRendererLocation();
+        }
         return null;
     }
     public String getFormRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getFormRendererLocation();
+        if (modelTemplate != null) {
+            return modelTemplate.getFormRendererLocation();
+        }
         return null;
     }
     public String getTreeRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getTreeRendererLocation();
+        if (modelTemplate != null) {
+            return modelTemplate.getTreeRendererLocation();
+        }
         return null;
     }
     public String getMenuRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
-        if (modelTemplate != null) return modelTemplate.getMenuRendererLocation();
+        if (modelTemplate != null) {
+            return modelTemplate.getMenuRendererLocation();
+        }
         return null;
     }
 
@@ -353,7 +374,6 @@ public class ModelTheme implements Serializable {
     /**
      * the ModelTemplate class, manage the complexity of macro library definition and the rendering technology
      */
-    @SuppressWarnings("serial")
     private class ModelTemplate implements Serializable {
         private final String name;
         private final String type;

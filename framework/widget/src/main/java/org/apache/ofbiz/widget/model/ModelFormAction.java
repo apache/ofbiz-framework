@@ -71,7 +71,7 @@ public abstract class ModelFormAction {
 
     /**
      * Models the &lt;call-parent-actions&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     @SuppressWarnings("serial")
@@ -121,7 +121,7 @@ public abstract class ModelFormAction {
 
     /**
      * Models the &lt;service&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     @SuppressWarnings("serial")
@@ -152,15 +152,17 @@ public abstract class ModelFormAction {
                     // this is deprecated, but support it for now anyway
                     resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement
                             .getAttribute("result-map-list-iterator"));
-                    if (resultMapListNameExdr.isEmpty())
+                    if (resultMapListNameExdr.isEmpty()) {
                         resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement
                                 .getAttribute("result-map-list-iterator-name"));
+                    }
                 }
             } else {
                 resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list"));
-                if (resultMapListNameExdr.isEmpty())
+                if (resultMapListNameExdr.isEmpty()) {
                     resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement
                             .getAttribute("result-map-list-name"));
+                }
             }
             this.resultMapListNameExdr = resultMapListNameExdr;
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);

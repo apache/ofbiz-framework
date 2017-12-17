@@ -80,7 +80,7 @@ import org.w3c.dom.Element;
 
 /**
  * Models the &lt;field&gt; element.
- * 
+ *
  * @see <code>widget-form.xsd</code>
  */
 public class ModelFormField {
@@ -89,14 +89,14 @@ public class ModelFormField {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = ModelFormField.class.getName();
@@ -204,8 +204,9 @@ public class ModelFormField {
     }
 
     public String getAction(Map<String, ? extends Object> context) {
-        if (UtilValidate.isNotEmpty(this.action))
+        if (UtilValidate.isNotEmpty(this.action)) {
             return action.expandString(context);
+        }
         return null;
     }
 
@@ -214,11 +215,12 @@ public class ModelFormField {
      * with this field. This can be used to get additional information about the field.
      * Use the getServiceName() method to get the Entity name that the field is in.
      *
-     * @return returns the name of the Service Attribute 
+     * @return returns the name of the Service Attribute
      */
     public String getAttributeName() {
-        if (UtilValidate.isNotEmpty(this.attributeName))
+        if (UtilValidate.isNotEmpty(this.attributeName)) {
             return this.attributeName;
+        }
         return this.name;
     }
 
@@ -242,8 +244,9 @@ public class ModelFormField {
     }
 
     public String getEntityName() {
-        if (UtilValidate.isNotEmpty(this.entityName))
+        if (UtilValidate.isNotEmpty(this.entityName)) {
             return this.entityName;
+        }
         return this.modelForm.getDefaultEntityName();
     }
 
@@ -265,11 +268,13 @@ public class ModelFormField {
         Boolean useRequestParameters = (Boolean) context.get("useRequestParameters");
 
         Locale locale = (Locale) context.get("locale");
-        if (locale == null)
+        if (locale == null) {
             locale = Locale.getDefault();
+        }
         TimeZone timeZone = (TimeZone) context.get("timeZone");
-        if (timeZone == null)
+        if (timeZone == null) {
             timeZone = TimeZone.getDefault();
+        }
 
         UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
 
@@ -279,7 +284,6 @@ public class ModelFormField {
         // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used
         if ((Boolean.TRUE.equals(isError) && !Boolean.FALSE.equals(useRequestParameters))
                 || (Boolean.TRUE.equals(useRequestParameters))) {
-            //Debug.logInfo("Getting entry, isError true so getting from parameters for field " + this.getName() + " of form " + this.modelForm.getName(), module);
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             String parameterName = this.getParameterName(context);
             if (parameters != null && parameters.get(parameterName) != null) {
@@ -296,11 +300,9 @@ public class ModelFormField {
                 returnValue = defaultValue;
             }
         } else {
-            //Debug.logInfo("Getting entry, isError false so getting from Map in context for field " + this.getName() + " of form " + this.modelForm.getName(), module);
             Map<String, ? extends Object> dataMap = this.getMap(context);
             boolean dataMapIsContext = false;
             if (dataMap == null) {
-                //Debug.logInfo("Getting entry, no Map found with name " + this.getMapName() + ", using context for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 dataMap = context;
                 dataMapIsContext = true;
             }
@@ -327,10 +329,11 @@ public class ModelFormField {
             if (dataMapIsContext && retVal == null && !Boolean.FALSE.equals(useRequestParameters)) {
                 Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
                 if (parameters != null) {
-                    if (UtilValidate.isNotEmpty(this.entryAcsr))
+                    if (UtilValidate.isNotEmpty(this.entryAcsr)) {
                         retVal = this.entryAcsr.get(parameters);
-                    else
+                    } else {
                         retVal = parameters.get(this.name);
+                    }
                 }
             }
 
@@ -378,8 +381,9 @@ public class ModelFormField {
         }
 
         if (this.getEncodeOutput() && returnValue != null) {
-            if (simpleEncoder != null)
+            if (simpleEncoder != null) {
                 returnValue = simpleEncoder.encode(returnValue);
+            }
         }
 
         if (returnValue != null) {
@@ -393,8 +397,9 @@ public class ModelFormField {
     }
 
     public String getEntryName() {
-        if (UtilValidate.isNotEmpty(this.entryAcsr))
+        if (UtilValidate.isNotEmpty(this.entryAcsr)) {
             return this.entryAcsr.getOriginalName();
+        }
         return this.name;
     }
 
@@ -414,8 +419,9 @@ public class ModelFormField {
      * @return return the name of the Entity Field that corresponds with this field
      */
     public String getFieldName() {
-        if (UtilValidate.isNotEmpty(this.fieldName))
+        if (UtilValidate.isNotEmpty(this.fieldName)) {
             return this.fieldName;
+        }
         return this.name;
     }
 
@@ -428,8 +434,9 @@ public class ModelFormField {
     }
 
     public String getIdName() {
-        if (UtilValidate.isNotEmpty(idName))
+        if (UtilValidate.isNotEmpty(idName)) {
             return idName;
+        }
         String parentFormName = this.getParentFormName();
         if (UtilValidate.isNotEmpty(parentFormName)) {
             return parentFormName + "_" + this.getFieldName();
@@ -442,10 +449,10 @@ public class ModelFormField {
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
-        if (UtilValidate.isEmpty(this.mapAcsr))
-            return this.modelForm.getDefaultMap(context); //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
+        if (UtilValidate.isEmpty(this.mapAcsr)) {
+            return this.modelForm.getDefaultMap(context);
+        }
 
-        // Debug.logInfo("Getting Map from mapAcsr for field " + this.getName() + ", map-name=" + mapAcsr.getOriginalName() + ", context type=" + context.getClass().toString(), module);
         Map<String, ? extends Object> result = null;
         try {
             result = mapAcsr.get(context);
@@ -471,8 +478,9 @@ public class ModelFormField {
      * @return returns the name of the Map in the form context that contains the entry
      */
     public String getMapName() {
-        if (UtilValidate.isNotEmpty(this.mapAcsr))
+        if (UtilValidate.isNotEmpty(this.mapAcsr)) {
             return this.mapAcsr.getOriginalName();
+        }
         return this.modelForm.getDefaultMapName();
     }
 
@@ -504,10 +512,11 @@ public class ModelFormField {
      */
     public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
-        if (UtilValidate.isNotEmpty(this.parameterName))
+        if (UtilValidate.isNotEmpty(this.parameterName)) {
             baseName = this.parameterName;
-        else
+        } else {
             baseName = this.name;
+        }
 
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "multi".equals(this.modelForm.getType())) {
@@ -517,8 +526,9 @@ public class ModelFormField {
     }
 
     public int getPosition() {
-        if (this.position == null)
+        if (this.position == null) {
             return 1;
+        }
         return position.intValue();
     }
 
@@ -531,8 +541,9 @@ public class ModelFormField {
     }
 
     public String getRequiredFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.requiredFieldStyle))
+        if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) {
             return this.requiredFieldStyle;
+        }
         return this.modelForm.getDefaultRequiredFieldStyle();
     }
 
@@ -541,8 +552,9 @@ public class ModelFormField {
     }
 
     public String getServiceName() {
-        if (UtilValidate.isNotEmpty(this.serviceName))
+        if (UtilValidate.isNotEmpty(this.serviceName)) {
             return this.serviceName;
+        }
         return this.modelForm.getDefaultServiceName();
     }
 
@@ -567,20 +579,23 @@ public class ModelFormField {
     }
 
     public String getSortFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.sortFieldStyle))
+        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) {
             return this.sortFieldStyle;
+        }
         return this.modelForm.getDefaultSortFieldStyle();
     }
 
     public String getSortFieldStyleAsc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle))
+        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) {
             return this.sortFieldAscStyle;
+        }
         return this.modelForm.getDefaultSortFieldAscStyle();
     }
 
     public String getSortFieldStyleDesc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle))
+        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) {
             return this.sortFieldDescStyle;
+        }
         return this.modelForm.getDefaultSortFieldDescStyle();
     }
 
@@ -589,12 +604,14 @@ public class ModelFormField {
     }
 
     public String getTitle(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.title))
+        if (UtilValidate.isNotEmpty(this.title)) {
             return title.expandString(context);
+        }
 
         // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-        if (UtilValidate.isEmpty(this.name))
+        if (UtilValidate.isEmpty(this.name)) {
             return ""; // this should never happen, ie name is required
+        }
 
         // search for a localized label for the field's name
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
@@ -627,14 +644,16 @@ public class ModelFormField {
     }
 
     public String getTitleAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.titleAreaStyle))
+        if (UtilValidate.isNotEmpty(this.titleAreaStyle)) {
             return this.titleAreaStyle;
+        }
         return this.modelForm.getDefaultTitleAreaStyle();
     }
 
     public String getTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.titleStyle))
+        if (UtilValidate.isNotEmpty(this.titleStyle)) {
             return this.titleStyle;
+        }
         return this.modelForm.getDefaultTitleStyle();
     }
 
@@ -644,19 +663,22 @@ public class ModelFormField {
 
     public String getTooltip(Map<String, Object> context) {
         String tooltipString = "";
-        if (UtilValidate.isNotEmpty(tooltip))
+        if (UtilValidate.isNotEmpty(tooltip)) {
             tooltipString = tooltip.expandString(context);
+        }
         if (this.getEncodeOutput()) {
             UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null)
+            if (simpleEncoder != null) {
                 tooltipString = simpleEncoder.encode(tooltipString);
+            }
         }
         return tooltipString;
     }
 
     public String getTooltipStyle() {
-        if (UtilValidate.isNotEmpty(this.tooltipStyle))
+        if (UtilValidate.isNotEmpty(this.tooltipStyle)) {
             return this.tooltipStyle;
+        }
         return this.modelForm.getDefaultTooltipStyle();
     }
 
@@ -665,32 +687,37 @@ public class ModelFormField {
     }
 
     public String getUseWhen(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.useWhen))
+        if (UtilValidate.isNotEmpty(this.useWhen)) {
             return this.useWhen.expandString(context);
+        }
         return "";
     }
 
     public String getIgnoreWhen(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.ignoreWhen))
+        if (UtilValidate.isNotEmpty(this.ignoreWhen)) {
             return this.ignoreWhen.expandString(context);
+        }
         return "";
     }
 
     public String getWidgetAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.widgetAreaStyle))
+        if (UtilValidate.isNotEmpty(this.widgetAreaStyle)) {
             return this.widgetAreaStyle;
+        }
         return this.modelForm.getDefaultWidgetAreaStyle();
     }
 
     public String getWidgetStyle() {
-        if (UtilValidate.isNotEmpty(this.widgetStyle))
+        if (UtilValidate.isNotEmpty(this.widgetStyle)) {
             return this.widgetStyle;
+        }
         return this.modelForm.getDefaultWidgetStyle();
     }
 
     public String getParentFormName() {
-        if (UtilValidate.isNotEmpty(this.parentFormName)) 
+        if (UtilValidate.isNotEmpty(this.parentFormName)) {
             return this.parentFormName;
+        }
         return "";
     }
 
@@ -698,12 +725,15 @@ public class ModelFormField {
      * Checks if field is a row submit field.
      */
     public boolean isRowSubmit() {
-        if (!"multi".equals(getModelForm().getType()))
+        if (!"multi".equals(getModelForm().getType())) {
             return false;
-        if (getFieldInfo().getFieldType() != FieldInfo.CHECK)
+        }
+        if (getFieldInfo().getFieldType() != FieldInfo.CHECK) {
             return false;
-        if (!CheckField.ROW_SUBMIT_FIELD_NAME.equals(getName()))
+        }
+        if (!CheckField.ROW_SUBMIT_FIELD_NAME.equals(getName())) {
             return false;
+        }
         return true;
     }
 
@@ -738,8 +768,9 @@ public class ModelFormField {
 
         String redCondition = this.redWhen;
 
-        if ("never".equals(redCondition))
+        if ("never".equals(redCondition)) {
             return false;
+        }
 
         // for performance resaons we check this first, most fields will be eliminated here and the valueOfs will not be necessary
         if (UtilValidate.isEmpty(redCondition) || "by-name".equals(redCondition)) {
@@ -841,8 +872,9 @@ public class ModelFormField {
 
     public boolean shouldUse(Map<String, Object> context) {
         String useWhenStr = this.getUseWhen(context);
-        if (UtilValidate.isEmpty(useWhenStr))
+        if (UtilValidate.isEmpty(useWhenStr)) {
             return true;
+        }
 
         try {
             Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr),context);
@@ -868,7 +900,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;auto-complete&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class AutoComplete {
@@ -927,7 +959,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;check&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class CheckField extends FieldInfoWithOptions {
@@ -970,8 +1002,9 @@ public class ModelFormField {
 
         public Boolean isAllChecked(Map<String, Object> context) {
             String allCheckedStr = this.allChecked.expandString(context);
-            if (!allCheckedStr.isEmpty())
+            if (!allCheckedStr.isEmpty()) {
                 return Boolean.valueOf("true".equals(allCheckedStr));
+            }
             return null;
         }
 
@@ -984,7 +1017,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;container&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ContainerField extends FieldInfo {
@@ -1020,7 +1053,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;date-find&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DateFindField extends DateTimeField {
@@ -1104,7 +1137,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;date-time&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DateTimeField extends FieldInfo {
@@ -1190,15 +1223,17 @@ public class ModelFormField {
          * @return Default value string for date-time
          */
         public String getDefaultDateTimeString(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.defaultValue))
+            if (UtilValidate.isNotEmpty(this.defaultValue)) {
                 return this.getDefaultValue(context);
+            }
 
-            if ("date".equals(this.type))
+            if ("date".equals(this.type)) {
                 return (new java.sql.Date(System.currentTimeMillis())).toString();
-            else if ("time".equals(this.type))
+            } else if ("time".equals(this.type)) {
                 return (new java.sql.Time(System.currentTimeMillis())).toString();
-            else
+            } else {
                 return UtilDateTime.nowTimestamp().toString();
+            }
         }
 
         public FlexibleStringExpander getDefaultValue() {
@@ -1237,7 +1272,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;display-entity&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DisplayEntityField extends DisplayField {
@@ -1308,8 +1343,9 @@ public class ModelFormField {
             // rather than using the context to expand the string, lookup the given entity and use it to expand the string
             GenericValue value = null;
             String fieldKey = this.keyFieldName;
-            if (UtilValidate.isEmpty(fieldKey))
+            if (UtilValidate.isEmpty(fieldKey)) {
                 fieldKey = getModelFormField().fieldName;
+            }
 
             Delegator delegator = WidgetWorker.getDelegator(context);
             String fieldValue = getModelFormField().getEntry(context);
@@ -1337,7 +1373,7 @@ public class ModelFormField {
             // try to get the entry for the field if description doesn't expand to anything
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = fieldValue;
-            } 
+            }
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             } else if (this.getModelFormField().getEncodeOutput()) {
@@ -1364,7 +1400,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;display&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DisplayField extends FieldInfo {
@@ -1487,21 +1523,24 @@ public class ModelFormField {
 
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
-            if (UtilValidate.isNotEmpty(this.description))
+            if (UtilValidate.isNotEmpty(this.description)) {
                 retVal = this.description.expandString(context);
-            else
+            } else {
                 retVal = getModelFormField().getEntry(context);
+            }
 
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
                 retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
-                if (locale == null)
+                if (locale == null) {
                     locale = Locale.getDefault();
+                }
                 String isoCode = null;
-                if (UtilValidate.isNotEmpty(this.currency))
+                if (UtilValidate.isNotEmpty(this.currency)) {
                     isoCode = this.currency.expandString(context);
+                }
 
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale,
@@ -1587,8 +1626,9 @@ public class ModelFormField {
         }
 
         public String getImageLocation(Map<String, Object> context) {
-            if (this.imageLocation != null)
+            if (this.imageLocation != null) {
                 return this.imageLocation.expandString(context);
+            }
             return "";
         }
 
@@ -1613,7 +1653,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;drop-down&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DropDownField extends FieldInfoWithOptions {
@@ -1743,8 +1783,9 @@ public class ModelFormField {
         }
 
         public String getCurrent() {
-            if (UtilValidate.isEmpty(this.current))
+            if (UtilValidate.isEmpty(this.current)) {
                 return "first-in-list";
+            }
             return this.current;
         }
 
@@ -1753,8 +1794,9 @@ public class ModelFormField {
         }
 
         public String getCurrentDescription(Map<String, Object> context) {
-            if (this.currentDescription == null)
+            if (this.currentDescription == null) {
                 return null;
+            }
             return this.currentDescription.expandString(context);
         }
 
@@ -1770,10 +1812,11 @@ public class ModelFormField {
          */
         public String getParameterNameOther(Map<String, Object> context) {
             String baseName;
-            if (UtilValidate.isNotEmpty(getModelFormField().parameterName))
+            if (UtilValidate.isNotEmpty(getModelFormField().parameterName)) {
                 baseName = getModelFormField().parameterName;
-            else
+            } else {
                 baseName = getModelFormField().name;
+            }
 
             baseName += "_OTHER";
             Integer itemIndex = (Integer) context.get("itemIndex");
@@ -1812,7 +1855,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;entity-options&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class EntityOptions extends OptionSource {
@@ -1907,7 +1950,7 @@ public class ModelFormField {
                 if (!localizedOrderBy) {
                     values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
                 } else {
-                    //if entity has localized label 
+                    //if entity has localized label
                     values = delegator.findList(this.entityName, findCondition, null, null, null, this.cache);
                     values = EntityUtil.localizedOrderBy(values, this.orderByList, locale);
                 }
@@ -1974,8 +2017,9 @@ public class ModelFormField {
         }
 
         public String getKeyFieldName() {
-            if (UtilValidate.isNotEmpty(this.keyFieldName))
+            if (UtilValidate.isNotEmpty(this.keyFieldName)) {
                 return this.keyFieldName;
+            }
             return getModelFormField().getFieldName(); // get the modelFormField fieldName
         }
 
@@ -1987,11 +2031,13 @@ public class ModelFormField {
     public static abstract class FieldInfoWithOptions extends FieldInfo {
 
         public static String getDescriptionForOptionKey(String key, List<OptionValue> allOptionValues) {
-            if (UtilValidate.isEmpty(key))
+            if (UtilValidate.isEmpty(key)) {
                 return "";
+            }
 
-            if (UtilValidate.isEmpty(allOptionValues))
+            if (UtilValidate.isEmpty(allOptionValues)) {
                 return key;
+            }
 
             for (OptionValue optionValue : allOptionValues) {
                 if (key.equals(optionValue.getKey())) {
@@ -2080,7 +2126,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;file&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class FileField extends TextField {
@@ -2113,10 +2159,10 @@ public class ModelFormField {
             formStringRenderer.renderFileField(writer, context, this);
         }
     }
-    
+
     /**
      * Models the &lt;include-form&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class FormField extends FieldInfo {
@@ -2194,10 +2240,10 @@ public class ModelFormField {
             return modelForm;
         }
     }
-    
+
     /**
      * Models the &lt;include-grid&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class GridField extends FieldInfo {
@@ -2278,7 +2324,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;hidden&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class HiddenField extends FieldInfo {
@@ -2339,7 +2385,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;hyperlink&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class HyperlinkField extends FieldInfo {
@@ -2380,8 +2426,9 @@ public class ModelFormField {
 
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
+            if (UtilValidate.isNotEmpty(message)) {
                 return message;
+            }
             if (getRequestConfirmation()) {
                 String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
                         "${uiLabelMap.CommonConfirm}");
@@ -2486,7 +2533,7 @@ public class ModelFormField {
         public List<Parameter> getParameterList() {
             return link.getParameterList();
         }
-        
+
         public Map<String, String> getParameterMap(Map<String, Object> context, String defaultEntityName, String defaultServiceName) {
             return link.getParameterMap(context, defaultEntityName, defaultServiceName);
         }
@@ -2560,7 +2607,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;ignored&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class IgnoredField extends FieldInfo {
@@ -2600,7 +2647,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;image&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ImageField extends FieldInfo {
@@ -2669,8 +2716,9 @@ public class ModelFormField {
         }
 
         public String getAlternate(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.alternate))
+            if (UtilValidate.isNotEmpty(this.alternate)) {
                 return this.alternate.expandString(context);
+            }
             return "";
         }
 
@@ -2690,8 +2738,9 @@ public class ModelFormField {
         }
 
         public String getDescription(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.description))
+            if (UtilValidate.isNotEmpty(this.description)) {
                 return this.description.expandString(context);
+            }
             return "";
         }
 
@@ -2700,8 +2749,9 @@ public class ModelFormField {
         }
 
         public String getStyle(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.style))
+            if (UtilValidate.isNotEmpty(this.style)) {
                 return this.style.expandString(context);
+            }
             return "";
         }
 
@@ -2714,8 +2764,9 @@ public class ModelFormField {
         }
 
         public String getValue(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.value))
+            if (UtilValidate.isNotEmpty(this.value)) {
                 return this.value.expandString(context);
+            }
             return getModelFormField().getEntry(context);
         }
 
@@ -2728,7 +2779,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;in-place-editor&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class InPlaceEditor {
@@ -2908,7 +2959,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;list-options&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ListOptions extends OptionSource {
@@ -2997,7 +3048,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;lookup&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class LookupField extends TextField {
@@ -3129,7 +3180,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;include-menu&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class MenuField extends FieldInfo {
@@ -3239,7 +3290,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;password&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class PasswordField extends TextField {
@@ -3275,7 +3326,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;radio&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class RadioField extends FieldInfoWithOptions {
@@ -3315,7 +3366,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;range-find&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class RangeFindField extends TextField {
@@ -3367,7 +3418,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;reset&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ResetField extends FieldInfo {
@@ -3404,10 +3455,10 @@ public class ModelFormField {
             formStringRenderer.renderResetField(writer, context, this);
         }
     }
-    
+
     /**
      * Models the &lt;include-screen&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ScreenField extends FieldInfo {
@@ -3476,7 +3527,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;option&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SingleOption extends OptionSource {
@@ -3523,7 +3574,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;sub-hyperlink&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SubHyperlink {
@@ -3604,7 +3655,7 @@ public class ModelFormField {
         public Map<String, String> getParameterMap(Map<String, Object> context, String defaultEntityName, String defaultServiceName) {
             return link.getParameterMap(context, defaultEntityName, defaultServiceName);
         }
-        
+
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             return link.getParameterMap(context);
         }
@@ -3717,7 +3768,9 @@ public class ModelFormField {
     public boolean shouldIgnore(Map<String, Object> context) {
         boolean shouldIgnore = true;
         String ignoreWhen = this.getIgnoreWhen(context);
-        if (UtilValidate.isEmpty(ignoreWhen)) return false;
+        if (UtilValidate.isEmpty(ignoreWhen)) {
+            return false;
+        }
 
         try {
             Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
@@ -3740,7 +3793,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;submit&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SubmitField extends FieldInfo {
@@ -3806,9 +3859,9 @@ public class ModelFormField {
 
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
+            if (UtilValidate.isNotEmpty(message)) {
                 return message;
-            else if (getRequestConfirmation()) {
+            } else if (getRequestConfirmation()) {
                 String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
                         "${uiLabelMap.CommonConfirm}");
                 return FlexibleStringExpander.expandString(defaultMessage, context);
@@ -3845,7 +3898,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;textarea&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextareaField extends FieldInfo {
@@ -3980,7 +4033,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;text&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextField extends FieldInfo {
@@ -4041,10 +4094,10 @@ public class ModelFormField {
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
-            this.size = size;   
+            this.size = size;
             this.subHyperlink = null;
         }
-        
+
         protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.TEXT, modelFormField);
             this.clientAutocompleteField = true;
@@ -4162,7 +4215,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;text-find&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextFindField extends TextField {

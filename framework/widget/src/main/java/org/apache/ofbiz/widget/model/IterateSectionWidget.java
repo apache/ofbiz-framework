@@ -277,23 +277,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
             viewSize = this.getViewSize();
         }
 
-
-        /*
-        int highIndex = -1;
-        try {
-            highIndex = modelForm.getHighIndex();
-        } catch (Exception e) {
-            highIndex = 0;
-        }
-
-        int lowIndex = -1;
-        try {
-            lowIndex = modelForm.getLowIndex();
-        } catch (Exception e) {
-            lowIndex = 0;
-        }
-         */
-
         int lowIndex = viewIndex * viewSize;
         int highIndex = (viewIndex + 1) * viewSize;
         // if this is all there seems to be (if listSize < 0, then size is unknown)
@@ -314,9 +297,11 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (viewIndex > 0) {
             writer.append(" <a href=\"");
             StringBuilder linkText = new StringBuilder(targetService);
-            if (linkText.indexOf("?") < 0)  linkText.append("?");
-            else linkText.append("&amp;");
-            //if (queryString != null && !"null".equals(queryString)) linkText += queryString + "&";
+            if (linkText.indexOf("?") < 0) {
+                linkText.append("?");
+            } else {
+                linkText.append("&amp;");
+            }
             if (UtilValidate.isNotEmpty(queryString)) {
                 linkText.append(queryString).append("&amp;");
             }
@@ -336,8 +321,11 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (highIndex < listSize) {
             writer.append(" <a href=\"");
             StringBuilder linkText = new StringBuilder(targetService);
-            if (linkText.indexOf("?") < 0)  linkText.append("?");
-            else linkText.append("&amp;");
+            if (linkText.indexOf("?") < 0) {
+                linkText.append("?");
+            } else {
+                linkText.append("&amp;");
+            }
             if (UtilValidate.isNotEmpty(queryString)) {
                 linkText.append(queryString).append("&amp;");
             }
@@ -382,5 +370,3 @@ public class IterateSectionWidget extends ModelScreenWidget {
     }
 
 }
-
-
