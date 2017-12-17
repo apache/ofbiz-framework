@@ -125,7 +125,9 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         setPropertiesParams(propName);
         setPropertiesParams(propNames);
         int maxMemSize = this.maxInMemory;
-        if (maxMemSize == 0) maxMemSize = sizeLimit;
+        if (maxMemSize == 0) {
+            maxMemSize = sizeLimit;
+        }
         if (maxMemSize == 0) {
             memoryTable = new ConcurrentHashMap<>();
         } else {
@@ -345,7 +347,9 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         if (line == null) {
             missCountNotFound.incrementAndGet();
         } else {
-            if (countGet) hitCount.incrementAndGet();
+            if (countGet) {
+                hitCount.incrementAndGet();
+            }
         }
         return line != null ? line.getValue() : null;
     }
@@ -360,14 +364,18 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     private long findSizeInBytes(Object o) {
         if (o == null) {
-            if (Debug.infoOn()) Debug.logInfo("Found null object in cache: " + getName(), module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Found null object in cache: " + getName(), module);
+            }
             return 0;
         }
         try {
             if (o instanceof Serializable) {
                 return UtilObject.getByteCount(o);
             }
-            if (Debug.infoOn()) Debug.logInfo("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), module);
+            }
             return 0;
         } catch (NotSerializableException e) {
             // this happens when we try to get the byte count for an object which itself is
@@ -402,7 +410,9 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     @SuppressWarnings("unchecked")
     protected synchronized V removeInternal(Object key, boolean countRemove) {
         if (key == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, module);
+            }
         }
         Object nulledKey = fromKey(key);
         CacheLine<V> oldCacheLine;
@@ -414,10 +424,14 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         }
         if (oldValue != null) {
             noteRemoval((K) key, oldValue);
-            if (countRemove) removeHitCount.incrementAndGet();
+            if (countRemove) {
+                removeHitCount.incrementAndGet();
+            }
             return oldValue;
         }
-        if (countRemove) removeMissCount.incrementAndGet();
+        if (countRemove) {
+            removeMissCount.incrementAndGet();
+        }
         return null;
     }
 
@@ -693,8 +707,9 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     public static boolean validKey(String cacheName, Object key) {
         UtilCache<?, ?> cache = findCache(cacheName);
         if (cache != null) {
-            if (cache.containsKey(key))
+            if (cache.containsKey(key)) {
                 return true;
+            }
         }
         return false;
     }
@@ -711,14 +726,18 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     public static void clearCache(String cacheName) {
         UtilCache<?, ?> cache = findCache(cacheName);
-        if (cache == null) return;
+        if (cache == null) {
+            return;
+        }
         cache.clear();
     }
 
     @SuppressWarnings("unchecked")
     public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, String... names) {
         UtilCache<K, V> existingCache = (UtilCache<K, V>) utilCacheTable.get(name);
-        if (existingCache != null) return existingCache;
+        if (existingCache != null) {
+            return existingCache;
+        }
         String cacheName = name + getNextDefaultIndex(name);
         UtilCache<K, V> newCache = new UtilCache<>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name, names);
         utilCacheTable.putIfAbsent(name, newCache);
