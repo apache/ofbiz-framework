@@ -79,7 +79,9 @@ public class JuelConnector {
             try {
                 base = prefix.eval(bindings, context);
             } catch (Exception e) {
-                Debug.log(e, module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose(e, module);
+                }
             }
             Object property = getProperty(bindings, context);
             if (property == null && strict) {
