@@ -24,7 +24,7 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     protected final StringBuilder sb = new StringBuilder();
     protected int indentSize = 2;
     protected int currentIndent = 0;
-    
+
     public TemporalExpressionPrinter(TemporalExpression expression) {
         this.expression = expression;
     }
