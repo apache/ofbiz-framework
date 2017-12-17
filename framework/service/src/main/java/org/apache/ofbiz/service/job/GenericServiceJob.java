@@ -93,7 +93,9 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      * Method is called prior to running the service.
      */
     protected void init() throws InvalidJobException {
-        if (Debug.verboseOn()) Debug.logVerbose("Async-Service initializing.", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Async-Service initializing.", module);
+        }
     }
 
     /**
@@ -104,7 +106,9 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
             throw new InvalidJobException("Illegal state change");
         }
         currentState = State.FINISHED;
-        if (Debug.verboseOn()) Debug.logVerbose("Async-Service finished.", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Async-Service finished.", module);
+        }
     }
 
     /**

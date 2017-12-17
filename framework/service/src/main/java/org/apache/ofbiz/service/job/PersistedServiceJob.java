@@ -183,11 +183,15 @@ public class PersistedServiceJob extends GenericServiceJob {
         } catch (GenericEntityException e) {
             throw new InvalidJobException(e);
         }
-        if (Debug.infoOn()) Debug.logInfo("Job  [" + getJobName() + "] Id ["  + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Job  [" + getJobName() + "] Id ["  + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
+        }
     }
 
     private void createRecurrence(long next, boolean isRetryOnFailure) throws GenericEntityException {
-        if (Debug.verboseOn()) Debug.logVerbose("Next runtime returned: " + next, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Next runtime returned: " + next, module);
+        }
         if (next > startTime) {
             String pJobId = jobValue.getString("parentJobId");
             if (pJobId == null) {
@@ -208,7 +212,9 @@ public class PersistedServiceJob extends GenericServiceJob {
             }
             nextRecurrence = next;
             delegator.createSetNextSeqId(newJob);
-            if (Debug.verboseOn()) Debug.logVerbose("Created next job entry: " + newJob, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created next job entry: " + newJob, module);
+            }
         }
     }
 

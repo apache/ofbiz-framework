@@ -129,7 +129,7 @@ public final class JobManager {
 
     /**
      * Get a List of each threads current state.
-     * 
+     *
      * @return List containing a Map of each thread's state.
      */
     public Map<String, Object> getPoolState() {
@@ -138,7 +138,7 @@ public final class JobManager {
 
     /**
      * Return true if the jobManager can run job.
-     * 
+     *
      * @return boolean.
      */
     public boolean isAvailable() {
@@ -311,7 +311,9 @@ public final class JobManager {
             Timestamp now = UtilDateTime.nowTimestamp();
             for (GenericValue job : crashed) {
                 try {
-                    if (Debug.infoOn()) Debug.logInfo("Scheduling Job : " + job, module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Scheduling Job : " + job, module);
+                    }
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
                         pJobId = job.getString("jobId");
@@ -336,11 +338,13 @@ public final class JobManager {
                     Debug.logWarning(e, module);
                 }
             }
-            if (Debug.infoOn())
+            if (Debug.infoOn()) {
                 Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
+            }
         } else {
-            if (Debug.infoOn())
+            if (Debug.infoOn()) {
                 Debug.logInfo("No crashed jobs to re-schedule", module);
+            }
         }
         crashedJobsReloaded = true;
     }
@@ -358,7 +362,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -378,7 +382,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -400,7 +404,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -420,7 +424,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param poolName
      *            The name of the pool to run the service from
      *@param serviceName
@@ -445,7 +449,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param poolName
      *            The name of the pool to run the service from
      *@param serviceName
@@ -461,7 +465,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param jobName
      *            The name of the job
      *@param poolName
@@ -501,7 +505,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * 
+     *
      * @param jobName
      *            The name of the job
      *@param poolName
