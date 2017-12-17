@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.entity;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -107,16 +106,16 @@ public class GenericDelegator implements Delegator {
 
     protected Cache cache = null;
 
-    protected final AtomicReference<Future<DistributedCacheClear>> distributedCacheClear = new AtomicReference<Future<DistributedCacheClear>>();
+    protected final AtomicReference<Future<DistributedCacheClear>> distributedCacheClear = new AtomicReference<>();
     protected boolean warnNoEcaHandler = false;
-    protected final AtomicReference<Future<EntityEcaHandler<?>>> entityEcaHandler = new AtomicReference<Future<EntityEcaHandler<?>>>();
-    protected final AtomicReference<SequenceUtil> AtomicRefSequencer = new AtomicReference<SequenceUtil>(null);
+    protected final AtomicReference<Future<EntityEcaHandler<?>>> entityEcaHandler = new AtomicReference<>();
+    protected final AtomicReference<SequenceUtil> AtomicRefSequencer = new AtomicReference<>(null);
     protected EntityCrypto crypto = null;
 
     /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
-    private static final ThreadLocal<List<String>> userIdentifierStack = new ThreadLocal<List<String>>();
+    private static final ThreadLocal<List<String>> userIdentifierStack = new ThreadLocal<>();
     /** A ThreadLocal variable to allow other methods to specify a session identifier (usually the visitId, though technically the Entity Engine doesn't know anything about the Visit entity) */
-    private static final ThreadLocal<List<String>> sessionIdentifierStack = new ThreadLocal<List<String>>();
+    private static final ThreadLocal<List<String>> sessionIdentifierStack = new ThreadLocal<>();
 
     private boolean testMode = false;
     private boolean testRollbackInProgress = false;
@@ -126,7 +125,7 @@ public class GenericDelegator implements Delegator {
     protected static List<String> getUserIdentifierStack() {
         List<String> curValList = userIdentifierStack.get();
         if (curValList == null) {
-            curValList = new LinkedList<String>();
+            curValList = new LinkedList<>();
             userIdentifierStack.set(curValList);
         }
         return curValList;
@@ -144,9 +143,8 @@ public class GenericDelegator implements Delegator {
         List<String> curValList = getUserIdentifierStack();
         if (curValList.size() == 0) {
             return null;
-        } else {
-            return curValList.remove(0);
         }
+        return curValList.remove(0);
     }
 
     public static void clearUserIdentifierStack() {
@@ -157,7 +155,7 @@ public class GenericDelegator implements Delegator {
     protected static List<String> getSessionIdentifierStack() {
         List<String> curValList = sessionIdentifierStack.get();
         if (curValList == null) {
-            curValList = new LinkedList<String>();
+            curValList = new LinkedList<>();
             sessionIdentifierStack.set(curValList);
         }
         return curValList;
@@ -175,9 +173,8 @@ public class GenericDelegator implements Delegator {
         List<String> curValList = getSessionIdentifierStack();
         if (curValList.size() == 0) {
             return null;
-        } else {
-            return curValList.remove(0);
         }
+        return curValList.remove(0);
     }
 
     public static void clearSessionIdentifierStack() {
@@ -190,7 +187,6 @@ public class GenericDelegator implements Delegator {
 
     /** Only allow creation through the factory method */
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
-        //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorFullName + "\".", module);
         this.setDelegatorNames(delegatorFullName);
         this.delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
 
@@ -224,7 +220,7 @@ public class GenericDelegator implements Delegator {
         cache = new Cache(delegatorFullName);
 
         // do the entity model check
-        List<String> warningList = new LinkedList<String>();
+        List<String> warningList = new LinkedList<>();
         Debug.logInfo("Doing entity definition check...", module);
         ModelEntityChecker.checkEntities(this, warningList);
         if (warningList.size() > 0) {
@@ -236,7 +232,7 @@ public class GenericDelegator implements Delegator {
 
         // initialize helpers by group
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
-        List<Future<Void>> futures = new LinkedList<Future<Void>>();
+        List<Future<Void>> futures = new LinkedList<>();
         for (String groupName: groupNames) {
             futures.add(ExecutionPool.GLOBAL_BATCH.submit(createHelperCallable(groupName)));
         }
@@ -318,7 +314,7 @@ public class GenericDelegator implements Delegator {
                 return createEntityEcaHandler();
             }
         };
-        FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<EntityEcaHandler<?>>(creator);
+        FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<>(creator);
         if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
             // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);
@@ -440,7 +436,7 @@ public class GenericDelegator implements Delegator {
             }
         }
 
-        Map<String, ModelEntity> entities = new HashMap<String, ModelEntity>();
+        Map<String, ModelEntity> entities = new HashMap<>();
         if (UtilValidate.isEmpty(entityNameSet)) {
             return entities;
         }
@@ -545,9 +541,8 @@ public class GenericDelegator implements Delegator {
 
         if (helperInfo != null) {
             return GenericHelperFactory.getHelper(helperInfo);
-        } else {
-            throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datasource (helper) for entity [" + entityName + "]");
         }
+        throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datasource (helper) for entity [" + entityName + "]");
     }
 
     /* (non-Javadoc)
@@ -809,23 +804,22 @@ public class GenericDelegator implements Delegator {
                 }
                 if (existingValue == null) {
                     throw e;
-                } else {
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Error creating entity record with a sequenced value [" + value.getPrimaryKey() + "], trying again about to refresh bank for entity [" + value.getEntityName() + "]", module);
-                    }
+                }
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Error creating entity record with a sequenced value [" + value.getPrimaryKey() + "], trying again about to refresh bank for entity [" + value.getEntityName() + "]", module);
+                }
 
-                    // found an existing value... was probably a duplicate key, so clean things up and try again
-                    this.AtomicRefSequencer.get().forceBankRefresh(value.getEntityName(), 1);
+                // found an existing value... was probably a duplicate key, so clean things up and try again
+                this.AtomicRefSequencer.get().forceBankRefresh(value.getEntityName(), 1);
 
-                    value.setNextSeqId();
-                    value = helper.create(value);
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
-                    }
+                value.setNextSeqId();
+                value = helper.create(value);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
+                }
 
-                    if (testMode) {
-                        storeForTestRollback(new TestOperation(OperationType.INSERT, value));
-                    }
+                if (testMode) {
+                    storeForTestRollback(new TestOperation(OperationType.INSERT, value));
                 }
             }
 
@@ -952,11 +946,7 @@ public class GenericDelegator implements Delegator {
         String serializedPK = null;
         try {
             serializedPK = XmlSerializer.serialize(dummyPK);
-        } catch (SerializeException e) {
-            Debug.logError(e, "Could not serialize primary key to save EntitySyncRemove", module);
-        } catch (FileNotFoundException e) {
-            Debug.logError(e, "Could not serialize primary key to save EntitySyncRemove", module);
-        } catch (IOException e) {
+        } catch (SerializeException | IOException e) {
             Debug.logError(e, "Could not serialize primary key to save EntitySyncRemove", module);
         }
 
@@ -1144,7 +1134,7 @@ public class GenericDelegator implements Delegator {
             throw new GenericModelException("Could not find relation for relationName: " + relationName + " for value " + value);
         }
 
-        Map<String, Object> fields = new HashMap<String, Object>();
+        Map<String, Object> fields = new HashMap<>();
         for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
@@ -1285,7 +1275,9 @@ public class GenericDelegator implements Delegator {
         }
 
         // if no store options passed, use default
-        if (storeOptions == null) storeOptions = new EntityStoreOptions();
+        if (storeOptions == null) {
+            storeOptions = new EntityStoreOptions();
+        }
 
         int numberChanged = 0;
 
@@ -1490,7 +1482,9 @@ public class GenericDelegator implements Delegator {
                 value = helper.findByPrimaryKeyPartial(primaryKey, keys);
             } catch (GenericEntityNotFoundException e) {
             }
-            if (value != null) value.setDelegator(this);
+            if (value != null) {
+                value.setDelegator(this);
+            }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, false);
             TransactionUtil.commit(beganTransaction);
@@ -1617,8 +1611,12 @@ public class GenericDelegator implements Delegator {
         }
 
         ModelViewEntity modelViewEntity = dynamicViewEntity.makeModelViewEntity(this);
-        if (whereEntityCondition != null) whereEntityCondition.checkCondition(modelViewEntity);
-        if (havingEntityCondition != null) havingEntityCondition.checkCondition(modelViewEntity);
+        if (whereEntityCondition != null) {
+            whereEntityCondition.checkCondition(modelViewEntity);
+        }
+        if (havingEntityCondition != null) {
+            havingEntityCondition.checkCondition(modelViewEntity);
+        }
 
         GenericHelper helper = getEntityHelper(dynamicViewEntity.getOneRealEntityName());
         EntityListIterator eli = helper.findListIteratorByCondition(this, modelViewEntity, whereEntityCondition,
@@ -1713,7 +1711,7 @@ public class GenericDelegator implements Delegator {
 
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
-        Map<String, Object> fields = new HashMap<String, Object>();
+        Map<String, Object> fields = new HashMap<>();
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
@@ -1739,7 +1737,7 @@ public class GenericDelegator implements Delegator {
 
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
-        Map<String, Object> fields = new HashMap<String, Object>();
+        Map<String, Object> fields = new HashMap<>();
         if (byAndFields != null) {
             fields.putAll(byAndFields);
         }
@@ -1764,7 +1762,7 @@ public class GenericDelegator implements Delegator {
             throw new GenericModelException("Relation is not a 'one' or a 'one-nofk' relation: " + relationName + " of entity " + value.getEntityName());
         }
 
-        Map<String, Object> fields = new HashMap<String, Object>();
+        Map<String, Object> fields = new HashMap<>();
         for (ModelKeyMap keyMap : relation.getKeyMaps()) {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
@@ -1859,7 +1857,9 @@ public class GenericDelegator implements Delegator {
     public void clearCacheLineFlexible(GenericEntity dummyPK, boolean distribute) {
         if (dummyPK != null) {
             //if never cached, then don't bother clearing
-            if (dummyPK.getModelEntity().getNeverCache()) return;
+            if (dummyPK.getModelEntity().getNeverCache()) {
+                return;
+            }
 
             cache.remove(dummyPK);
 
@@ -1953,7 +1953,6 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public void clearCacheLine(GenericValue value, boolean distribute) {
-        // Debug.logInfo("running clearCacheLine for value: " + value + ", distribute: " + distribute, module);
         if (value == null) {
             return;
         }
@@ -2055,7 +2054,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public void setDistributedCacheClear(DistributedCacheClear distributedCacheClear) {
-        this.distributedCacheClear.set(new ConstantFuture<DistributedCacheClear>(distributedCacheClear));
+        this.distributedCacheClear.set(new ConstantFuture<>(distributedCacheClear));
     }
 
     // ======= XML Related Methods ========
@@ -2078,7 +2077,7 @@ public class GenericDelegator implements Delegator {
         if (document == null) {
             return null;
         }
-        List<GenericValue> values = new LinkedList<GenericValue>();
+        List<GenericValue> values = new LinkedList<>();
 
         Element docElement = document.getDocumentElement();
 
@@ -2184,9 +2183,6 @@ public class GenericDelegator implements Delegator {
             if (entityEcaHandler == null) {
                 return;
             }
-            //if (!"find".equals(currentOperation)) {
-            //    Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
-            //}
             entityEcaHandler.evalRules(currentOperation, eventMap, event, value, isError);
         }
     }
@@ -2199,7 +2195,7 @@ public class GenericDelegator implements Delegator {
     }
 
     protected static <T> EntityEcaRuleRunner<T> createEntityEcaRuleRunner(EntityEcaHandler<T> entityEcaHandler, String entityName) {
-        return new EntityEcaRuleRunner<T>(entityEcaHandler, entityEcaHandler != null ? entityEcaHandler.getEntityEventMap(entityName) : null);
+        return new EntityEcaRuleRunner<>(entityEcaHandler, entityEcaHandler != null ? entityEcaHandler.getEntityEventMap(entityName) : null);
     }
 
     /* (non-Javadoc)
@@ -2219,9 +2215,7 @@ public class GenericDelegator implements Delegator {
         Future<EntityEcaHandler<?>> future = this.entityEcaHandler.get();
         try {
             return UtilGenerics.cast(future != null ? future.get() : null);
-        } catch (ExecutionException e) {
-            Debug.logError(e, "Could not fetch EntityEcaHandler from the asynchronous instantiation", module);
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             Debug.logError(e, "Could not fetch EntityEcaHandler from the asynchronous instantiation", module);
         }
         return null;
@@ -2249,9 +2243,8 @@ public class GenericDelegator implements Delegator {
 
         if (UtilValidate.isNotEmpty(this.delegatorInfo.getSequencedIdPrefix())) {
             return this.delegatorInfo.getSequencedIdPrefix() + nextSeqLong.toString();
-        } else {
-            return nextSeqLong.toString();
         }
+        return nextSeqLong.toString();
     }
 
     /* (non-Javadoc)
@@ -2327,7 +2320,6 @@ public class GenericDelegator implements Delegator {
 
                 // get values in whatever order, we will go through all of them to find the highest value
                 List<GenericValue> allValues = this.findByAnd(value.getEntityName(), lookupValue, null, false);
-                //Debug.logInfo("Get existing values from entity " + value.getEntityName() + " with lookupValue: " + lookupValue + ", and the seqFieldName: " + seqFieldName + ", and the results are: " + allValues, module);
                 Integer highestSeqVal = null;
                 for (GenericValue curValue: allValues) {
                     String currentSeqId = curValue.getString(seqFieldName);
@@ -2625,7 +2617,7 @@ public class GenericDelegator implements Delegator {
                 return createDistributedCacheClear();
             }
         };
-        FutureTask<DistributedCacheClear> futureTask = new FutureTask<DistributedCacheClear>(creator);
+        FutureTask<DistributedCacheClear> futureTask = new FutureTask<>(creator);
         if (distributedCacheClear.compareAndSet(null, futureTask)) {
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);
         }
@@ -2663,9 +2655,7 @@ public class GenericDelegator implements Delegator {
         Future<DistributedCacheClear> future = this.distributedCacheClear.get();
         try {
             return future != null ? future.get() : null;
-        } catch (ExecutionException e) {
-            Debug.logError(e, "Could not fetch DistributedCacheClear from the asynchronous instantiation", module);
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             Debug.logError(e, "Could not fetch DistributedCacheClear from the asynchronous instantiation", module);
         }
         return null;

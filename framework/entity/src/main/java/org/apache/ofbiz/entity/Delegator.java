@@ -246,7 +246,7 @@ public interface Delegator {
     EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
-     * Finds all Generic entities 
+     * Finds all Generic entities
      *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
@@ -291,7 +291,7 @@ public interface Delegator {
 
     /**
      * Gets the hit count of GenericValues for the given EntityCondition objects.
-     * 
+     *
      * @param entityName
      * @param whereEntityCondition
      * @param havingEntityCondition
@@ -738,10 +738,10 @@ public interface Delegator {
      * <p>Remove the Entities from the List from the persistent store.</p>
      * <p>The List contains GenericEntity objects, can be either GenericPK or
      * GenericValue. </p>
-     * <p>If a certain entity contains a complete primary key, the entity in 
-     * the datasource corresponding to that primary key will be removed, this 
+     * <p>If a certain entity contains a complete primary key, the entity in
+     * the datasource corresponding to that primary key will be removed, this
      * is like a removeByPrimary Key.</p>
-     * <p>On the other hand, if a certain entity is an incomplete or non 
+     * <p>On the other hand, if a certain entity is an incomplete or non
      * primary key, if will behave like the removeByAnd method. </p>
      * <p>These updates all happen in one transaction, so they will either
      * all succeed or all fail, if the data source supports transactions.</p>
@@ -875,7 +875,7 @@ public interface Delegator {
 
     /**
      * <p>Store the Entities from the List GenericValue instances to the persistent
-     * store.</p> 
+     * store.</p>
      * <p>This is different than the normal store method in that the
      * store method only does an update, while the storeAll method checks to see
      * if each entity exists, then either does an insert or an update as
@@ -912,7 +912,7 @@ public interface Delegator {
 
     /**
      * Get use of Distributed Cache Clear mechanism status
-     * @return boolean true if this delegator uses a Distributed Cache Clear mechanism 
+     * @return boolean true if this delegator uses a Distributed Cache Clear mechanism
      */
     boolean useDistributedCacheClear();
 }

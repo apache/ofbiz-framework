@@ -49,7 +49,7 @@ public class DelegatorContainer implements Container {
         if (UtilValidate.isEmpty(preloadedDelegatorNames)) {
             return true;
         }
-        List<Future<Delegator>> futures = new ArrayList<Future<Delegator>>();
+        List<Future<Delegator>> futures = new ArrayList<>();
         for (String preloadedDelegatorName: preloadedDelegatorNames) {
             futures.add(DelegatorFactory.getDelegatorFuture(preloadedDelegatorName));
         }
