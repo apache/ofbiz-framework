@@ -66,10 +66,10 @@ public class GeneralRuntimeException extends RuntimeException {
     /** Returns the detail message, including the message from the nested exception if there is one. */
     @Override
     public String getMessage() {
-        if (nested != null)
+        if (nested != null) {
             return super.getMessage() + " (" + nested.getMessage() + ")";
-        else
-            return super.getMessage();
+        }
+        return super.getMessage();
     }
 
     /** Returns the detail message, NOT including the message from the nested exception. */
@@ -86,20 +86,26 @@ public class GeneralRuntimeException extends RuntimeException {
     @Override
     public void printStackTrace() {
         super.printStackTrace();
-        if (nested != null) nested.printStackTrace();
+        if (nested != null) {
+            nested.printStackTrace();
+        }
     }
 
     /** Prints the composite message and the embedded stack trace to the specified stream ps. */
     @Override
     public void printStackTrace(PrintStream ps) {
         super.printStackTrace(ps);
-        if (nested != null) nested.printStackTrace(ps);
+        if (nested != null) {
+            nested.printStackTrace(ps);
+        }
     }
 
     /** Prints the composite message and the embedded stack trace to the specified print writer pw. */
     @Override
     public void printStackTrace(PrintWriter pw) {
         super.printStackTrace(pw);
-        if (nested != null) nested.printStackTrace(pw);
+        if (nested != null) {
+            nested.printStackTrace(pw);
+        }
     }
 }

@@ -50,8 +50,9 @@ public class ObjectInputStream extends java.io.ObjectInputStream {
     @Override
     protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
         Class<?>[] cinterfaces = new Class[interfaces.length];
-        for (int i = 0; i < interfaces.length; i++)
+        for (int i = 0; i < interfaces.length; i++) {
             cinterfaces[i] = classloader.loadClass(interfaces[i]);
+        }
 
         try {
             return Proxy.getProxyClass(classloader, cinterfaces);

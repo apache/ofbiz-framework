@@ -35,7 +35,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.jms.IllegalStateException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -248,7 +247,7 @@ public final class UtilXml {
     // ----- Java Object Marshalling/Unmarshalling ----- //
 
     /** Deserialize an object from an <code>InputStream</code>.
-     * 
+     *
      * @param input The <code>InputStream</code>
      * @return The deserialized <code>Object</code>
      */
@@ -257,7 +256,7 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>Reader</code>.
-     * 
+     *
      * @param reader The <code>Reader</code>
      * @return The deserialized <code>Object</code>
      */
@@ -266,7 +265,7 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>String</code>.
-     * 
+     *
      * @param str The <code>String</code>
      * @return The deserialized <code>Object</code>
      */
@@ -275,7 +274,7 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an XML <code>String</code>.
-     * 
+     *
      * @param obj The object to serialize
      * @return An XML <code>String</code>
      */
@@ -284,7 +283,7 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an <code>OutputStream</code>.
-     * 
+     *
      * @param obj The object to serialize
      * @param output The <code>OutputStream</code>
      */
@@ -293,7 +292,7 @@ public final class UtilXml {
     }
 
     /** Serialize an object to a <code>Writer</code>.
-     * 
+     *
      * @param obj The object to serialize
      * @param writer The <code>Writer</code>
      */
@@ -444,7 +443,9 @@ public final class UtilXml {
         document = builder.parse(is);
 
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-        if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
+        }
         return document;
     }
 
@@ -567,7 +568,9 @@ public final class UtilXml {
         document = parser.getDocument();
 
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-        if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
+        }
         return document;
     }
 
@@ -588,7 +591,9 @@ public final class UtilXml {
             Debug.logError(e, module);
         }
 
-        if (document == null) return null;
+        if (document == null) {
+            return null;
+        }
 
         if (rootElementName != null) {
             Element rootElement = document.createElement(rootElementName);
@@ -649,9 +654,11 @@ public final class UtilXml {
 
     /** Return a List of Element objects that are children of the given element */
     public static List<? extends Element> childElementList(Element element) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
 
-        List<Element> elements = new LinkedList<Element>();
+        List<Element> elements = new LinkedList<>();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -669,9 +676,11 @@ public final class UtilXml {
      * immediate children of the given element; if name is null, all child
      * elements will be included. */
     public static List<? extends Element> childElementList(Element element, String childElementName) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
 
-        List<Element> elements = new LinkedList<Element>();
+        List<Element> elements = new LinkedList<>();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -691,10 +700,14 @@ public final class UtilXml {
      * immediate children of the given element; if name is null, all child
      * elements will be included. */
     public static List<? extends Element> childElementList(Element element, Set<String> childElementNames) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
 
-        List<Element> elements = new LinkedList<Element>();
-        if (childElementNames == null) return elements;
+        List<Element> elements = new LinkedList<>();
+        if (childElementNames == null) {
+            return elements;
+        }
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -717,8 +730,10 @@ public final class UtilXml {
 
     /** Return a List of Element objects that are children of the given DocumentFragment */
     public static List<? extends Element> childElementList(DocumentFragment fragment) {
-        if (fragment == null) return null;
-        List<Element> elements = new LinkedList<Element>();
+        if (fragment == null) {
+            return null;
+        }
+        List<Element> elements = new LinkedList<>();
         Node node = fragment.getFirstChild();
         if (node != null) {
             do {
@@ -734,9 +749,11 @@ public final class UtilXml {
     /** Return a List of Node objects that have the given name and are immediate children of the given element;
       * if name is null, all child elements will be included. */
     public static List<? extends Node> childNodeList(Node node) {
-        if (node == null) return null;
+        if (node == null) {
+            return null;
+        }
 
-        List<Node> nodes = new LinkedList<Node>();
+        List<Node> nodes = new LinkedList<>();
 
         do {
             if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
@@ -749,7 +766,9 @@ public final class UtilXml {
     /** Return the first child Element
      * returns the first element. */
     public static Element firstChildElement(Element element, Set<String> childElementNames) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         // get the first element with the given name
         Node node = element.getFirstChild();
 
@@ -774,7 +793,9 @@ public final class UtilXml {
     /** Return the first child Element
      * returns the first element. */
     public static Element firstChildElement(Element element) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         // get the first element with the given name
         Node node = element.getFirstChild();
 
@@ -793,8 +814,12 @@ public final class UtilXml {
     /** Return the first child Element with the given name; if name is null
      * returns the first element. */
     public static Element firstChildElement(Element element, String childElementName) {
-        if (element == null) return null;
-        if (UtilValidate.isEmpty(childElementName)) return null;
+        if (element == null) {
+            return null;
+        }
+        if (UtilValidate.isEmpty(childElementName)) {
+            return null;
+        }
         // get the first element with the given name
         Node node = element.getFirstChild();
 
@@ -817,7 +842,9 @@ public final class UtilXml {
     /** Return the first child Element with the given name; if name is null
      * returns the first element. */
     public static Element firstChildElement(Element element, String childElementName, String attrName, String attrValue) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         // get the first element with the given name
         Node node = element.getFirstChild();
 
@@ -840,7 +867,9 @@ public final class UtilXml {
 
     /** Return the text (node value) contained by the named child node. */
     public static String childElementValue(Element element, String childElementName) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         // get the value of the first element with the given name
         Element childElement = firstChildElement(element, childElementName);
 
@@ -849,39 +878,47 @@ public final class UtilXml {
 
     /** Return the text (node value) contained by the named child node or a default value if null. */
     public static String childElementValue(Element element, String childElementName, String defaultValue) {
-        if (element == null) return defaultValue;
+        if (element == null) {
+            return defaultValue;
+        }
         // get the value of the first element with the given name
         Element childElement = firstChildElement(element, childElementName);
         String elementValue = elementValue(childElement);
 
-        if (UtilValidate.isEmpty(elementValue))
+        if (UtilValidate.isEmpty(elementValue)) {
             return defaultValue;
-        else
-            return elementValue;
+        }
+        return elementValue;
     }
 
     /** Return a named attribute of a named child node or a default if null. */
     public static String childElementAttribute(Element element, String childElementName, String attributeName, String defaultValue) {
-        if (element == null) return defaultValue;
+        if (element == null) {
+            return defaultValue;
+        }
         // get the value of the first element with the given name
         Element childElement = firstChildElement(element, childElementName);
         String elementAttribute = elementAttribute(childElement, attributeName, defaultValue);
 
-        if (UtilValidate.isEmpty(elementAttribute))
+        if (UtilValidate.isEmpty(elementAttribute)) {
             return defaultValue;
-        else
-            return elementAttribute;
+        }
+        return elementAttribute;
     }
 
 
     /** Return the text (node value) of the first node under this, works best if normalized. */
     public static String elementValue(Element element) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         // make sure we get all the text there...
         element.normalize();
         Node textNode = element.getFirstChild();
 
-        if (textNode == null) return null;
+        if (textNode == null) {
+            return null;
+        }
 
         StringBuilder valueBuffer = new StringBuilder();
         do {
@@ -894,7 +931,9 @@ public final class UtilXml {
 
     /** Return the text (node value) of the first node under this */
     public static String nodeValue(Node node) {
-        if (node == null) return null;
+        if (node == null) {
+            return null;
+        }
 
         StringBuilder valueBuffer = new StringBuilder();
         do {
@@ -906,36 +945,40 @@ public final class UtilXml {
     }
 
     public static String elementAttribute(Element element, String attrName, String defaultValue) {
-        if (element == null) return defaultValue;
+        if (element == null) {
+            return defaultValue;
+        }
         String attrValue = element.getAttribute(attrName);
         return UtilValidate.isNotEmpty(attrValue) ? attrValue : defaultValue;
     }
 
     public static String checkEmpty(String string) {
-        if (UtilValidate.isNotEmpty(string))
+        if (UtilValidate.isNotEmpty(string)) {
             return string;
-        else
-            return "";
+        }
+        return "";
     }
 
     public static String checkEmpty(String string1, String string2) {
-        if (UtilValidate.isNotEmpty(string1))
+        if (UtilValidate.isNotEmpty(string1)) {
             return string1;
-        else if (UtilValidate.isNotEmpty(string2))
+        } else if (UtilValidate.isNotEmpty(string2)) {
             return string2;
-        else
+        } else {
             return "";
+        }
     }
 
     public static String checkEmpty(String string1, String string2, String string3) {
-        if (UtilValidate.isNotEmpty(string1))
+        if (UtilValidate.isNotEmpty(string1)) {
             return string1;
-        else if (UtilValidate.isNotEmpty(string2))
+        } else if (UtilValidate.isNotEmpty(string2)) {
             return string2;
-        else if (UtilValidate.isNotEmpty(string3))
+        } else if (UtilValidate.isNotEmpty(string3)) {
             return string3;
-        else
+        } else {
             return "";
+        }
     }
 
     public static boolean checkBoolean(String str) {
@@ -946,10 +989,9 @@ public final class UtilXml {
         if (defaultValue) {
             //default to true, ie anything but false is true
             return !"false".equals(str);
-        } else {
-            //default to false, ie anything but true is false
-            return "true".equals(str);
         }
+        //default to false, ie anything but true is false
+        return "true".equals(str);
     }
 
     public static String nodeNameToJavaName(String nodeName, boolean capitalizeFirst) {
@@ -1001,8 +1043,10 @@ public final class UtilXml {
             hasDTD = false;
             String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
-                if (Debug.verboseOn()) Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId +
-                        "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId +
+                            "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", module);
+                }
                 try {
                     URL dtdURL = UtilURL.fromResource(dtd);
                     if (dtdURL == null) {
@@ -1013,8 +1057,10 @@ public final class UtilXml {
 
                     inputSource.setPublicId(publicId);
                     hasDTD = true;
-                    if (Debug.verboseOn()) Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId [" +
-                            publicId + "] and the dtd file is [" + dtd + "]", module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId [" +
+                                publicId + "] and the dtd file is [" + dtd + "]", module);
+                    }
                     return inputSource;
                 } catch (GeneralException | IOException e) {
                     Debug.logWarning(e, module);
@@ -1039,14 +1085,15 @@ public final class UtilXml {
                         inputSource.setPublicId(publicId);
                     }
                     hasDTD = true;
-                    if (Debug.verboseOn()) Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId [" +
-                            publicId + "] and the file/resource is [" + filename + "]", module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId [" +
+                                publicId + "] and the file/resource is [" + filename + "]", module);
+                    }
                     return inputSource;
-                } else {
-                    Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId [" +
-                            publicId + "] and the file/resource is [" + filename + "]", module);
-                    return null;
                 }
+                Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId [" +
+                        publicId + "] and the file/resource is [" + filename + "]", module);
+                return null;
             }
             return defaultResolver.resolveEntity(publicId, systemId);
         }
@@ -1134,14 +1181,16 @@ public final class UtilXml {
             throw new UnsupportedOperationException();
         }
     }
-    
+
     /**
      * get node name without any prefix
      * @param node
      * @return
      */
     public static String getNodeNameIgnorePrefix(Node node){
-        if (node==null) return null;
+        if (node==null) {
+            return null;
+        }
         String nodeName = node.getNodeName();
         if (nodeName.contains(":")){
             // remove any possible prefix
@@ -1149,14 +1198,16 @@ public final class UtilXml {
         }
         return nodeName;
     }
-    
+
     /**
      * get tag name without any prefix
      * @param element
      * @return
      */
     public static String getTagNameIgnorePrefix(Element element){
-        if (element==null) return null;
+        if (element==null) {
+            return null;
+        }
         String tagName = element.getTagName();
         if (tagName.contains(":")){
             // remove any possible prefix
@@ -1164,15 +1215,17 @@ public final class UtilXml {
         }
         return tagName;
     }
-    
+
     /**
      * get attribute value ignoring prefix in attribute name
      * @param element
      * @return
      */
     public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
-        if (element==null) return "";
-        
+        if (element==null) {
+            return "";
+        }
+
         NamedNodeMap attributes = element.getAttributes();
         if (attributes != null){
             for (int i = 0, size = attributes.getLength(); i < size; i++)

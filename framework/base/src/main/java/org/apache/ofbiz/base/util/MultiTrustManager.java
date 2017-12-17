@@ -45,7 +45,7 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     public MultiTrustManager() {
-        keystores = new LinkedList<KeyStore>();
+        keystores = new LinkedList<>();
     }
 
     public void add(KeyStore ks) {
@@ -77,7 +77,7 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
-        List<X509Certificate> issuers = new LinkedList<X509Certificate>();
+        List<X509Certificate> issuers = new LinkedList<>();
         for (KeyStore store: keystores) {
             try {
                 Enumeration<String> e = store.aliases();
@@ -87,16 +87,18 @@ public class MultiTrustManager implements X509TrustManager {
                     if (chain != null) {
                         for (Certificate cert: chain) {
                             if (cert instanceof X509Certificate) {
-                                if (Debug.verboseOn())
-                                    Debug.logInfo("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                if (Debug.verboseOn()) {
+                                    Debug.logVerbose("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                }
                                 issuers.add((X509Certificate) cert);
                             }
                         }
                     } else {
                         Certificate cert = store.getCertificate(alias);
                         if (cert != null && cert instanceof X509Certificate) {
-                            if (Debug.verboseOn())
-                                Debug.logInfo("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                            }
                             issuers.add((X509Certificate) cert);
                         }
                     }
@@ -114,11 +116,13 @@ public class MultiTrustManager implements X509TrustManager {
             X509Certificate[] issuers = this.getAcceptedIssuers();
                 for (X509Certificate issuer: issuers) {
                     for (X509Certificate c: cert) {
-                        if (Debug.verboseOn())
-                            Debug.logInfo("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
+                        }
                         if (issuer.equals(c)) {
-                            if (Debug.verboseOn())
-                                Debug.logInfo("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
+                            }
                             return true;
                     }
                 }

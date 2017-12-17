@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class Observable {
 
     private final AtomicBoolean changed = new AtomicBoolean();
-    private final CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<Observer>();
+    private final CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<>();
 
     public Observable() {}
 
@@ -46,7 +46,7 @@ public final class Observable {
     }
 
     /**
-     * Adds an observer to the set of observers for this object. 
+     * Adds an observer to the set of observers for this object.
      *
      * @param observer the observer to be added.
      */
@@ -56,16 +56,16 @@ public final class Observable {
     }
 
     /**
-     * Clears the changed flag. 
+     * Clears the changed flag.
      */
     public void clearChanged() {
         changed.set(false);
     }
 
     /**
-     * Deletes an observer from the set of observers of this object. 
+     * Deletes an observer from the set of observers of this object.
      * Passing <code>null</code> to this method will have no effect.
-     * 
+     *
      * @param observer the observer to be deleted.
      */
     public void deleteObserver(Observer observer) {
@@ -80,7 +80,7 @@ public final class Observable {
     }
 
     /**
-     * Returns <code>true</code> if this object has changed. 
+     * Returns <code>true</code> if this object has changed.
      *
      */
     public boolean hasChanged() {
@@ -88,9 +88,9 @@ public final class Observable {
     }
 
     /**
-     * Notify all of the observers. 
+     * Notify all of the observers.
      * <p>Each <code>Observer</code> has its <code>update</code> method called with two
-     * arguments: this observable object and <code>null</code>. In other 
+     * arguments: this observable object and <code>null</code>. In other
      * words, this method is equivalent to:
      * </p>
      * <blockquote>
@@ -103,7 +103,7 @@ public final class Observable {
     }
 
     /**
-     * Notify all of the observers. 
+     * Notify all of the observers.
      * <p>Each observer has its <code>update</code> method called with two
      * arguments: this observable object and the <code>arg</code> argument.</p>
      *
@@ -115,7 +115,7 @@ public final class Observable {
     }
 
     /**
-     * Sets the changed flag to <code>true</code>. 
+     * Sets the changed flag to <code>true</code>.
      */
     public void setChanged() {
         changed.set(true);

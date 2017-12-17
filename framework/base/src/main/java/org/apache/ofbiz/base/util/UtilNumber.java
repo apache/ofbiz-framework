@@ -168,7 +168,7 @@ public final class UtilNumber {
     // hash map to store ICU4J rule sets keyed to Locale
     private static HashMap<Locale, String> rbnfRuleSets;
     static {
-        rbnfRuleSets = new HashMap<Locale, String>();
+        rbnfRuleSets = new HashMap<>();
         rbnfRuleSets.put(Locale.US, ruleSet_en_US);
         rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
         rbnfRuleSets.put(new Locale("en", "IN"), ruleSet_en_IN);
@@ -183,8 +183,12 @@ public final class UtilNumber {
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String file, String property) {
-        if (UtilValidate.isEmpty(file)) return DEFAULT_BD_SCALE;
-        if (UtilValidate.isEmpty(property)) return DEFAULT_BD_SCALE;
+        if (UtilValidate.isEmpty(file)) {
+            return DEFAULT_BD_SCALE;
+        }
+        if (UtilValidate.isEmpty(property)) {
+            return DEFAULT_BD_SCALE;
+        }
 
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
@@ -213,8 +217,12 @@ public final class UtilNumber {
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (BigDecimal.ROUND_HALF_UP)
      */
     public static int getBigDecimalRoundingMode(String file, String property) {
-        if (UtilValidate.isEmpty(file)) return DEFAULT_BD_SCALE;
-        if (UtilValidate.isEmpty(property)) return DEFAULT_BD_ROUNDING_MODE;
+        if (UtilValidate.isEmpty(file)) {
+            return DEFAULT_BD_SCALE;
+        }
+        if (UtilValidate.isEmpty(property)) {
+            return DEFAULT_BD_ROUNDING_MODE;
+        }
 
         String value = UtilProperties.getPropertyValue(file, property);
         int mode = roundingModeFromString(value);
@@ -238,16 +246,27 @@ public final class UtilNumber {
      * @return  int - The int value of the mode (e.g, BigDecimal.ROUND_HALF_UP) or -1 if the input was bad.
      */
     public static int roundingModeFromString(String value) {
-        if (value == null) return -1;
+        if (value == null) {
+            return -1;
+        }
         value = value.trim();
-        if ("ROUND_HALF_UP".equals(value)) return BigDecimal.ROUND_HALF_UP;
-        else if ("ROUND_HALF_DOWN".equals(value)) return BigDecimal.ROUND_HALF_DOWN;
-        else if ("ROUND_HALF_EVEN".equals(value)) return BigDecimal.ROUND_HALF_EVEN;
-        else if ("ROUND_UP".equals(value)) return BigDecimal.ROUND_UP;
-        else if ("ROUND_DOWN".equals(value)) return BigDecimal.ROUND_DOWN;
-        else if ("ROUND_CEILING".equals(value)) return BigDecimal.ROUND_CEILING;
-        else if ("ROUND_FLOOR".equals(value)) return BigDecimal.ROUND_FLOOR;
-        else if ("ROUND_UNNECCESSARY".equals(value)) return BigDecimal.ROUND_UNNECESSARY;
+        if ("ROUND_HALF_UP".equals(value)) {
+            return BigDecimal.ROUND_HALF_UP;
+        } else if ("ROUND_HALF_DOWN".equals(value)) {
+            return BigDecimal.ROUND_HALF_DOWN;
+        } else if ("ROUND_HALF_EVEN".equals(value)) {
+            return BigDecimal.ROUND_HALF_EVEN;
+        } else if ("ROUND_UP".equals(value)) {
+            return BigDecimal.ROUND_UP;
+        } else if ("ROUND_DOWN".equals(value)) {
+            return BigDecimal.ROUND_DOWN;
+        } else if ("ROUND_CEILING".equals(value)) {
+            return BigDecimal.ROUND_CEILING;
+        } else if ("ROUND_FLOOR".equals(value)) {
+            return BigDecimal.ROUND_FLOOR;
+        } else if ("ROUND_UNNECCESSARY".equals(value)) {
+            return BigDecimal.ROUND_UNNECESSARY;
+        }
         return -1;
     }
 

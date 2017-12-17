@@ -34,9 +34,15 @@ public class GeneralException extends Exception {
     }
 
     public static <T> T checkException(String message, Throwable t) throws GeneralException {
-        if (t instanceof Error) throw (Error) t;
-        if (t instanceof RuntimeException) throw (RuntimeException) t;
-        if (t instanceof GeneralException) throw (GeneralException) t;
+        if (t instanceof Error) {
+            throw (Error) t;
+        }
+        if (t instanceof RuntimeException) {
+            throw (RuntimeException) t;
+        }
+        if (t instanceof GeneralException) {
+            throw (GeneralException) t;
+        }
         throw (GeneralException) new GeneralException(message).initCause(t);
     }
 
@@ -117,12 +123,10 @@ public class GeneralException extends Exception {
         if (nested != null) {
             if (super.getMessage() == null) {
                 return nested.getMessage();
-            } else {
-                return super.getMessage() + " (" + nested.getMessage() + ")";
             }
-        } else {
-            return super.getMessage();
+            return super.getMessage() + " (" + nested.getMessage() + ")";
         }
+        return super.getMessage();
     }
 
     public List<String> getMessageList() {

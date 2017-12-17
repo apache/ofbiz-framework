@@ -49,7 +49,7 @@ public final class Debug {
     private static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
     private static final Level[] levelObjs = {Level.FATAL, Level.DEBUG, Level.TRACE, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
 
-    private static final Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
+    private static final Map<String, Integer> levelStringMap = new HashMap<>();
 
     private static final boolean levelOnCache[] = new boolean[8]; // this field is not thread safe
 
@@ -79,14 +79,15 @@ public final class Debug {
     public static Logger getLogger(String module) {
         if (UtilValidate.isNotEmpty(module)) {
             return LogManager.getLogger(module);
-        } else {
-            return root;
         }
+        return root;
     }
 
     /** Gets an Integer representing the level number from a String representing the level name; will return null if not found */
     public static Integer getLevelFromString(String levelName) {
-        if (levelName == null) return null;
+        if (levelName == null) {
+            return null;
+        }
         return levelStringMap.get(levelName.toLowerCase(Locale.getDefault()));
     }
 

@@ -64,7 +64,7 @@ public class GroovyUtil {
          */
         try {
             GroovyUtil.runScriptAtLocation("component://base/config/GroovyInit.groovy", null, null);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Debug.logWarning("The following error occurred during the initialization of Groovy: " + e.getMessage(), module);
         }
     }
@@ -114,19 +114,22 @@ public class GroovyUtil {
      * back to the caller. Any variables that are created in the script
      * are lost when the script ends unless they are copied to the
      * "context" <code>Map</code>.</p>
-     * 
+     *
      * @param context A <code>Map</code> containing initial variables
      * @return A <code>Binding</code> instance
      */
     public static Binding getBinding(Map<String, Object> context, String expression) {
-        Map<String, Object> vars = new HashMap<String, Object>();
+        Map<String, Object> vars = new HashMap<>();
         if (context != null) {
             vars.putAll(context);
             if (UtilValidate.isNotEmpty(expression)) {
                 //analyse expression to find variables by split non alpha, ignoring "_" to allow my_variable usage
                 String [] variables = expression.split("[\\P{Alpha}&&[^_]]+");
-                for (String variable: variables)
-                    if(!vars.containsKey(variable)) vars.put(variable, null);
+                for (String variable: variables) {
+                    if(!vars.containsKey(variable)) {
+                        vars.put(variable, null);
+                    }
+                }
             }
             vars.put("context", context);
             if (vars.get(ScriptUtil.SCRIPT_HELPER_KEY) == null) {

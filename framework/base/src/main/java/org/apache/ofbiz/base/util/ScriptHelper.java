@@ -37,7 +37,7 @@ public interface ScriptHelper {
 
     /**
      * Extracts service IN parameters from <code>inputMap</code> and returns them in a new <code>Map</code>.
-     * 
+     *
      * @param serviceName
      * @param inputMap
      * @return The matching service parameters
@@ -47,14 +47,14 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to error status.
-     * 
+     *
      * @param message
      */
     void error(String message);
 
     /**
      * Evaluates a <code>String</code> and returns the result.
-     * 
+     *
      * @param original
      * @return
      */
@@ -62,7 +62,7 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to failure status.
-     * 
+     *
      * @param message
      */
     void failure(String message);
@@ -97,21 +97,21 @@ public interface ScriptHelper {
 
     /**
      * Logs an error message.
-     * 
+     *
      * @param message
      */
     void logError(String message);
 
     /**
      * Logs an info message.
-     * 
+     *
      * @param message
      */
     void logInfo(String message);
 
     /**
      * Logs a warning message.
-     * 
+     *
      * @param message
      */
     void logWarning(String message);
@@ -126,7 +126,7 @@ public interface ScriptHelper {
 
     /**
      * Creates a new, empty <code>GenericValue</code>.
-     * 
+     *
      * @param entityName
      * @param fields
      * @return
@@ -136,7 +136,7 @@ public interface ScriptHelper {
 
     /**
      * Runs a service synchronously.
-     * 
+     *
      * @param serviceName
      * @param inputMap
      * @return
@@ -146,7 +146,7 @@ public interface ScriptHelper {
 
     /**
      * Runs a service synchronously.
-     * 
+     *
      * @param serviceName
      * @param inputMap
      * @param args
@@ -162,7 +162,7 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to success status.
-     * 
+     *
      * @param message
      */
     void success(String message);

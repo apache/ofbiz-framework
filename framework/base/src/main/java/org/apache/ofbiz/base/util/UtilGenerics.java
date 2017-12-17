@@ -42,7 +42,9 @@ public final class UtilGenerics {
 
     public static <C extends Collection<?>> void checkCollectionContainment(Object object, Class<C> clz, Class<?> type) {
         if (object != null) {
-            if (!(clz.isInstance(object))) throw new ClassCastException("Not a " + clz.getName());
+            if (!(clz.isInstance(object))) {
+                throw new ClassCastException("Not a " + clz.getName());
+            }
             int i = 0;
             for (Object value: (Collection<?>) object) {
                 if (value != null && !type.isInstance(value)) {
@@ -55,7 +57,7 @@ public final class UtilGenerics {
 
     @SuppressWarnings("unchecked")
     public static <T> Collection<T> checkCollection(Object object) {
-        return (Collection<T>) checkCollectionCast(object, Collection.class);
+        return checkCollectionCast(object, Collection.class);
     }
 
     public static <T> Collection<T> checkCollection(Object object, Class<T> type) {
@@ -65,7 +67,7 @@ public final class UtilGenerics {
 
     @SuppressWarnings("unchecked")
     public static <T> List<T> checkList(Object object) {
-        return (List<T>) checkCollectionCast(object, List.class);
+        return checkCollectionCast(object, List.class);
     }
 
     public static <T> List<T> checkList(Object object, Class<T> type) {
@@ -75,13 +77,17 @@ public final class UtilGenerics {
 
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> checkMap(Object object) {
-        if (object != null && !(object instanceof Map)) throw new ClassCastException("Not a map");
+        if (object != null && !(object instanceof Map)) {
+            throw new ClassCastException("Not a map");
+        }
         return (Map<K, V>) object;
     }
 
     public static <K, V> Map<K, V> checkMap(Object object, Class<K> keyType, Class<V> valueType) {
         if (object != null) {
-            if (!(object instanceof Map<?, ?>)) throw new ClassCastException("Not a map");
+            if (!(object instanceof Map<?, ?>)) {
+                throw new ClassCastException("Not a map");
+            }
             Map<?, ?> map = (Map<?,?>) object;
             int i = 0;
             for (Map.Entry<?, ?> entry: map.entrySet()) {
@@ -99,7 +105,7 @@ public final class UtilGenerics {
 
     @SuppressWarnings("unchecked")
     public static <T> Stack<T> checkStack(Object object) {
-        return (Stack<T>) checkCollectionCast(object, Stack.class);
+        return checkCollectionCast(object, Stack.class);
     }
 
     public static <T> Stack<T> checkStack(Object object, Class<T> type) {
@@ -109,7 +115,7 @@ public final class UtilGenerics {
 
     @SuppressWarnings("unchecked")
     public static <T> Set<T> checkSet(Object object) {
-        return (Set<T>) checkCollectionCast(object, Set.class);
+        return checkCollectionCast(object, Set.class);
     }
 
     public static <T> Set<T> checkSet(Object object, Class<T> type) {
@@ -122,7 +128,9 @@ public final class UtilGenerics {
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> toList(Object object) {
-        if (object != null && !(object instanceof List)) return null;
+        if (object != null && !(object instanceof List)) {
+            return null;
+        }
         return (List<T>) object;
     }
 
@@ -131,7 +139,9 @@ public final class UtilGenerics {
      */
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> toMap(Object object) {
-        if (object != null && !(object instanceof Map)) return null;
+        if (object != null && !(object instanceof Map)) {
+            return null;
+        }
         return (Map<K, V>) object;
     }
 
@@ -142,13 +152,17 @@ public final class UtilGenerics {
         if (data.length % 2 == 1) {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
-        Map<K, V> map = new LinkedHashMap<K, V>();
+        Map<K, V> map = new LinkedHashMap<>();
         for (int i = 0; i < data.length;) {
             Object key = data[i];
-            if (key != null && !(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (key != null && !(keyType.isInstance(key))) {
+                throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            }
             i++;
             Object value = data[i];
-            if (value != null && !(valueType.isInstance(value))) throw new IllegalArgumentException("Value(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (value != null && !(valueType.isInstance(value))) {
+                throw new IllegalArgumentException("Value(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            }
             i++;
             map.put(keyType.cast(key), valueType.cast(value));
         }
@@ -163,10 +177,12 @@ public final class UtilGenerics {
         if (data.length % 2 == 1) {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
-        Map<K, Object> map = new LinkedHashMap<K, Object>();
+        Map<K, Object> map = new LinkedHashMap<>();
         for (int i = 0; i < data.length;) {
             Object key = data[i];
-            if (key != null && !(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (key != null && !(keyType.isInstance(key))) {
+                throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            }
             i++;
             Object value = data[i];
             map.put(keyType.cast(key), value);

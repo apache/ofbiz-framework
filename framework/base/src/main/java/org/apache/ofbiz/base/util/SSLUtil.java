@@ -104,11 +104,7 @@ public final class SSLUtil {
         TrustManager[] mgrs = new TrustManager[0];
         try {
             mgrs = SSLUtil.getTrustManagers();
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        } catch (GeneralSecurityException e) {
-            Debug.logError(e, module);
-        } catch (GenericConfigException e) {
+        } catch (IOException | GeneralSecurityException | GenericConfigException e) {
             Debug.logError(e, module);
         }
 
@@ -126,7 +122,7 @@ public final class SSLUtil {
     }
 
     public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
-        List<KeyManager> keyMgrs = new LinkedList<KeyManager>();
+        List<KeyManager> keyMgrs = new LinkedList<>();
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isCertStore()) {
                 KeyStore ks = ksi.getKeyStore();
@@ -190,7 +186,7 @@ public final class SSLUtil {
         return keyManagers;
     }
 
-    public static TrustManager[] getTrustManagers(KeyStore ks) throws GeneralSecurityException {
+    public static TrustManager[] getTrustManagers(KeyStore ks) {
         return new TrustManager[] { new MultiTrustManager(ks) };
     }
 
@@ -263,8 +259,9 @@ public final class SSLUtil {
                             Principal x500s = peerCert.getSubjectDN();
                             Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
 
-                            if (Debug.infoOn())
+                            if (Debug.infoOn()) {
                                 Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
+                            }
 
                             try {
                                 peerCert.checkValidity();

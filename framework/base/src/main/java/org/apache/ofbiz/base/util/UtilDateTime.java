@@ -114,7 +114,7 @@ public final class UtilDateTime {
     }
 
     public static String formatInterval(double interval, int count, Locale locale) {
-        List<Double> parts = new ArrayList<Double>(timevals.length);
+        List<Double> parts = new ArrayList<>(timevals.length);
         for (String[] timeval: timevals) {
             int value = Integer.parseInt(timeval[0]);
             double remainder = interval % value;
@@ -128,8 +128,12 @@ public final class UtilDateTime {
         for (int i = parts.size() - 1; i >= 0 && count > 0; i--) {
             Double D = parts.get(i);
             double d = D.doubleValue();
-            if (d < 1) continue;
-            if (sb.length() > 0) sb.append(", ");
+            if (d < 1) {
+                continue;
+            }
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
             count--;
             sb.append(count == 0 ? df.format(d) : Integer.toString(D.intValue()));
             sb.append(' ');
@@ -312,9 +316,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -330,9 +333,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -348,9 +350,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -364,9 +365,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -382,9 +382,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -400,9 +399,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -416,9 +414,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Timestamp(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -433,9 +430,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Timestamp(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -455,9 +451,8 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Timestamp(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -476,13 +471,14 @@ public final class UtilDateTime {
 
         if (newDate != null) {
             return new java.sql.Timestamp(newDate.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     public static java.sql.Timestamp toTimestamp(Date date) {
-        if (date == null) return null;
+        if (date == null) {
+            return null;
+        }
         return new Timestamp(date.getTime());
     }
 
@@ -511,7 +507,9 @@ public final class UtilDateTime {
      * @return A Date made from the date and time Strings
      */
     public static java.util.Date toDate(String date, String time) {
-        if (date == null || time == null) return null;
+        if (date == null || time == null) {
+            return null;
+        }
         String month;
         String day;
         String year;
@@ -522,11 +520,15 @@ public final class UtilDateTime {
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
 
-        if (dateSlash1 <= 0 || dateSlash1 == dateSlash2) return null;
+        if (dateSlash1 <= 0 || dateSlash1 == dateSlash2) {
+            return null;
+        }
         int timeColon1 = time.indexOf(":");
         int timeColon2 = time.lastIndexOf(":");
 
-        if (timeColon1 <= 0) return null;
+        if (timeColon1 <= 0) {
+            return null;
+        }
         month = date.substring(0, dateSlash1);
         day = date.substring(dateSlash1 + 1, dateSlash2);
         year = date.substring(dateSlash2 + 1);
@@ -603,7 +605,9 @@ public final class UtilDateTime {
      * @return A date String in the given format
      */
     public static String toDateString(java.util.Date date, String format) {
-        if (date == null) return "";
+        if (date == null) {
+            return "";
+        }
         SimpleDateFormat dateFormat = null;
         if (format != null) {
             dateFormat = new SimpleDateFormat(format);
@@ -634,7 +638,9 @@ public final class UtilDateTime {
      * @return A time String in the format HH:MM:SS or HH:MM
      */
     public static String toTimeString(java.util.Date date) {
-        if (date == null) return "";
+        if (date == null) {
+            return "";
+        }
         Calendar calendar = Calendar.getInstance();
 
         calendar.setTime(date);
@@ -671,9 +677,8 @@ public final class UtilDateTime {
         }
         if (second == 0) {
             return hourStr + ":" + minuteStr;
-        } else {
-            return hourStr + ":" + minuteStr + ":" + secondStr;
         }
+        return hourStr + ":" + minuteStr + ":" + secondStr;
     }
 
     /**
@@ -683,15 +688,16 @@ public final class UtilDateTime {
      * @return A combined data and time string in the format "MM/DD/YYYY HH:MM:SS" where the seconds are left off if they are 0.
      */
     public static String toDateTimeString(java.util.Date date) {
-        if (date == null) return "";
+        if (date == null) {
+            return "";
+        }
         String dateString = toDateString(date);
         String timeString = toTimeString(date);
 
         if (!dateString.isEmpty() && !timeString.isEmpty()) {
             return dateString + " " + timeString;
-        } else {
-            return "";
         }
+        return "";
     }
 
     public static String toGmtTimestampString(Timestamp timestamp) {
@@ -926,7 +932,7 @@ public final class UtilDateTime {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
-        List<String> resultList = new ArrayList<String>();
+        List<String> resultList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             resultList.add(dateFormat.format(tempCal.getTime()));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
@@ -944,7 +950,7 @@ public final class UtilDateTime {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.MONTH, Calendar.JANUARY);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
-        List<String> resultList = new ArrayList<String>();
+        List<String> resultList = new ArrayList<>();
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
             resultList.add(dateFormat.format(tempCal.getTime()));
             tempCal.roll(Calendar.MONTH, 1);
@@ -1040,12 +1046,12 @@ public final class UtilDateTime {
         return dateFormat.format(stamp);
     }
 
-    // Private lazy-initializer class 
+    // Private lazy-initializer class
     private static class TimeZoneHolder {
         private static final List<TimeZone> availableTimeZoneList = getTimeZones();
 
         private static List<TimeZone> getTimeZones() {
-            ArrayList<TimeZone> availableTimeZoneList = new ArrayList<TimeZone>();
+            ArrayList<TimeZone> availableTimeZoneList = new ArrayList<>();
             List<String> idList = null;
             String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
             if (UtilValidate.isNotEmpty(tzString)) {
@@ -1077,9 +1083,8 @@ public final class UtilDateTime {
     public static TimeZone toTimeZone(String tzId) {
         if (UtilValidate.isEmpty(tzId)) {
             return TimeZone.getDefault();
-        } else {
-            return TimeZone.getTimeZone(tzId);
         }
+        return TimeZone.getTimeZone(tzId);
     }
 
     /** Returns a TimeZone object based upon an hour offset from GMT.
@@ -1166,7 +1171,7 @@ public final class UtilDateTime {
      * Returns a copy of <code>date</code> that cannot be modified.
      * Attempts to modify the returned date will result in an
      * <tt>UnsupportedOperationException</tt>.
-     * 
+     *
      * @param date
      */
     public static Date unmodifiableDate(Date date) {

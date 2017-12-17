@@ -131,9 +131,7 @@ public final class UtilObject {
         Object obj = null;
         try {
             obj = getObjectException(bytes);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             Debug.logError(e, module);
         }
         return obj;
@@ -181,7 +179,9 @@ public final class UtilObject {
     }
 
     public static int doHashCode(Object o1) {
-        if (o1 == null) return 0;
+        if (o1 == null) {
+            return 0;
+        }
         if (o1.getClass().isArray()) {
             int length = Array.getLength(o1);
             int result = 0;

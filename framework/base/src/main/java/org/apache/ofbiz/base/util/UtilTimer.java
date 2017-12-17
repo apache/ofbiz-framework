@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UtilTimer {
 
     public static final String module = UtilTimer.class.getName();
-    protected static final ConcurrentHashMap<String, UtilTimer> staticTimers = new ConcurrentHashMap<String, UtilTimer>();
+    protected static final ConcurrentHashMap<String, UtilTimer> staticTimers = new ConcurrentHashMap<>();
 
     protected String timerName = null;
     protected String lastMessage = null;
@@ -107,7 +107,9 @@ public class UtilTimer {
 
         lastMessage = message;
         String retString = retBuf.toString();
-        if (log) Debug.log(Debug.TIMING, null, retString, module, "org.apache.ofbiz.base.util.UtilTimer");
+        if (log) {
+            Debug.log(Debug.TIMING, null, retString, module, "org.apache.ofbiz.base.util.UtilTimer");
+        }
 
         // have lastMessageTime come as late as possible to just time what happens between calls
         lastMessageTime = System.currentTimeMillis();
@@ -197,7 +199,9 @@ public class UtilTimer {
         lastMessageTime = System.currentTimeMillis();
         String retString = retStringBuf.toString();
 
-        if (log && Debug.timingOn()) Debug.logTiming(retString, module);
+        if (log && Debug.timingOn()) {
+            Debug.logTiming(retString, module);
+        }
         return retString;
     }
 

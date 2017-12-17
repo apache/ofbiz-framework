@@ -44,7 +44,7 @@ public final class Scriptlet {
 
     /**
      * Executes the scriptlet and returns the result.
-     * 
+     *
      * @param context The script bindings
      * @return The scriptlet result
      * @throws Exception

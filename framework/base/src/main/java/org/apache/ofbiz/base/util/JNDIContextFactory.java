@@ -55,17 +55,20 @@ public class JNDIContextFactory {
                 if (UtilValidate.isEmpty(jndiServerInfo.contextProviderUrl)) {
                     ic = new InitialContext();
                 } else {
-                    Hashtable<String, Object> h = new Hashtable<String, Object>();
+                    Hashtable<String, Object> h = new Hashtable<>();
 
                     h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
                     h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes))
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes)) {
                         h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.urlPkgPrefixes);
+                    }
 
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal))
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal)) {
                         h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.securityPrincipal);
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials))
+                    }
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials)) {
                         h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.securityCredentials);
+                    }
 
                     ic = new InitialContext(h);
                 }
@@ -88,5 +91,4 @@ public class JNDIContextFactory {
     public static void clearInitialContext(String jndiServerName) {
         contexts.remove(jndiServerName);
     }
-
 }
