@@ -77,7 +77,9 @@ public class EntityClause {
     }
 
     public Object getValue() {
-        if (value == null) value = new Object();
+        if (value == null) {
+            value = new Object();
+        }
         return value;
     }
 

@@ -72,7 +72,6 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
 
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
-        // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo);
         return sql.toString();
@@ -80,7 +79,6 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
 
     @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
-        // if (Debug.verboseOn()) Debug.logVerbose("checkCondition for entity " + modelEntity.getEntityName(), module);
         operator.validateSql(modelEntity, conditionList);
     }
 
@@ -96,15 +94,12 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityConditionListBase<?>)) return false;
+        if (!(obj instanceof EntityConditionListBase<?>)) {
+            return false;
+        }
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
         boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);
-        //if (!isEqual) {
-        //    Debug.logWarning("EntityConditionListBase.equals is false:\n this.operator=" + this.operator + "; other.operator=" + other.operator +
-        //            "\nthis.conditionList=" + this.conditionList +
-        //            "\nother.conditionList=" + other.conditionList, module);
-        //}
         return isEqual;
     }
 

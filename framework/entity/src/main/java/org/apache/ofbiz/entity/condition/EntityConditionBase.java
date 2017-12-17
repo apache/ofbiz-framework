@@ -58,7 +58,9 @@ public abstract class EntityConditionBase implements Serializable {
     }
 
     protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
-        if (modelEntity == null) return fieldName;
+        if (modelEntity == null) {
+            return fieldName;
+        }
         return getColName(tableAliases, modelEntity, getField(modelEntity, fieldName), fieldName, includeTableNamePrefix, datasourceInfo);
     }
 
@@ -73,7 +75,9 @@ public abstract class EntityConditionBase implements Serializable {
     }
 
     protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
-        if (modelEntity == null || modelField == null) return fieldName;
+        if (modelEntity == null || modelField == null) {
+            return fieldName;
+        }
 
         // if this is a view entity and we are configured to alias the views, use the alias here instead of the composite (ie table.column) field name
         if (datasourceInfo != null && datasourceInfo.getAliasViewColumns() && modelEntity instanceof ModelViewEntity) {

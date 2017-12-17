@@ -93,19 +93,33 @@ public class EntityFieldValue extends EntityConditionValue {
     @Override
     public int hashCode() {
         int hash = fieldName.hashCode();
-        if (this.entityAlias != null) hash |= this.entityAlias.hashCode();
-        if (this.entityAliasStack != null) hash |= this.entityAliasStack.hashCode();
-        if (this.modelViewEntity != null) hash |= this.modelViewEntity.hashCode();
+        if (this.entityAlias != null) {
+            hash |= this.entityAlias.hashCode();
+        }
+        if (this.entityAliasStack != null) {
+            hash |= this.entityAliasStack.hashCode();
+        }
+        if (this.modelViewEntity != null) {
+            hash |= this.modelViewEntity.hashCode();
+        }
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityFieldValue)) return false;
+        if (!(obj instanceof EntityFieldValue)) {
+            return false;
+        }
         EntityFieldValue otherValue = (EntityFieldValue) obj;
-        if (!fieldName.equals(otherValue.fieldName)) return false;
-        if (UtilMisc.compare(this.entityAlias, otherValue.entityAlias) != 0) return false;
-        if (UtilMisc.compare(this.entityAliasStack, otherValue.entityAliasStack) != 0) return false;
+        if (!fieldName.equals(otherValue.fieldName)) {
+            return false;
+        }
+        if (UtilMisc.compare(this.entityAlias, otherValue.entityAlias) != 0) {
+            return false;
+        }
+        if (UtilMisc.compare(this.entityAliasStack, otherValue.entityAliasStack) != 0) {
+            return false;
+        }
         return true;
     }
 

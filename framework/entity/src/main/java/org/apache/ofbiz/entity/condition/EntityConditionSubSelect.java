@@ -149,6 +149,8 @@ public class EntityConditionSubSelect extends EntityConditionValue {
 
     @Override
     public void visit(EntityConditionVisitor visitor) {
-        if (whereCond != null) whereCond.visit(visitor);
+        if (whereCond != null) {
+            whereCond.visit(visitor);
+        }
     }
 }

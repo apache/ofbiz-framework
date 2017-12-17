@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * Date-range condition. 
+ * Date-range condition.
  *
  */
 @SuppressWarnings("serial")
@@ -69,7 +69,9 @@ public final class EntityDateFilterCondition extends EntityCondition {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityDateFilterCondition)) return false;
+        if (!(obj instanceof EntityDateFilterCondition)) {
+            return false;
+        }
         EntityDateFilterCondition other = (EntityDateFilterCondition) obj;
         return equals(fromDateName, other.fromDateName) && equals(thruDateName, other.thruDateName);
     }
@@ -115,15 +117,15 @@ public final class EntityDateFilterCondition extends EntityCondition {
     }
 
     /**
-     * Creates an EntityCondition representing a date range filter query to be used against 
-     * entities that themselves represent a date range.  When used the resulting entities 
+     * Creates an EntityCondition representing a date range filter query to be used against
+     * entities that themselves represent a date range.  When used the resulting entities
      * will meet at least one of the following criteria:
      * - fromDate is equal to or after rangeStart but before rangeEnd
      * - thruDate is equal to or after rangeStart but before rangeEnd
      * - fromDate is null and thruDate is equal to or after rangeStart
      * - thruDate is null and fromDate is before rangeEnd
      * - fromDate is null and thruDate is null
-     * 
+     *
      * @param rangeStart    The start of the range to filter against
      * @param rangeEnd      The end of the range to filter against
      * @param fromDateName  The name of the field containing the entity's "fromDate"
