@@ -89,7 +89,7 @@ public final class ServiceMcaUtil {
     }
 
     public static void evalRules(LocalDispatcher dispatcher, MimeMessageWrapper wrapper, GenericValue userLogin) throws GenericServiceException {
-        Set<String> actionsRun = new TreeSet<String>();
+        Set<String> actionsRun = new TreeSet<>();
         for (ServiceMcaRule rule: getServiceMcaRules()) {
             rule.eval(dispatcher, wrapper, actionsRun, userLogin);
         }

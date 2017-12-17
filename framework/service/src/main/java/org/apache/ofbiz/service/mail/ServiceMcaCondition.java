@@ -148,9 +148,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
             String[] fieldValues = null;
             try {
                 fieldValues = this.getFieldValue(message, fieldName);
-            } catch (MessagingException e) {
-                Debug.logError(e, module);
-            } catch (IOException e) {
+            } catch (MessagingException | IOException e) {
                 Debug.logError(e, module);
             }
 
