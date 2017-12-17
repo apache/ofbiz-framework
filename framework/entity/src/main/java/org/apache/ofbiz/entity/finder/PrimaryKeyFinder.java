@@ -86,8 +86,6 @@ public class PrimaryKeyFinder extends Finder {
 
         GenericValue valueOut = runFind(modelEntity, context, delegator, useCacheBool, autoFieldMapBool, this.fieldMap, this.selectFieldExpanderList);
 
-        //Debug.logInfo("PrimaryKeyFinder: valueOut=" + valueOut, module);
-        //Debug.logInfo("PrimaryKeyFinder: going into=" + this.valueNameAcsr.getOriginalName(), module);
         if (!valueNameAcsr.isEmpty()) {
            this.valueNameAcsr.put(context, valueOut);
         } else {
@@ -122,7 +120,6 @@ public class PrimaryKeyFinder extends Finder {
             }
         }
         EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);
-        //Debug.logInfo("PrimaryKeyFinder: entityContext=" + entityContext, module);
         // then convert the types...
 
         // need the timeZone and locale for conversion, so add here and remove after
@@ -156,7 +153,9 @@ public class PrimaryKeyFinder extends Finder {
                     }
                 }
             } else {
-                if (Debug.infoOn()) Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
+                }
             }
 
             return valueOut;
