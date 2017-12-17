@@ -47,7 +47,9 @@ public class ServiceMcaAction implements java.io.Serializable {
         this.serviceMode = action.getAttribute("mode");
         this.runAsUser = action.getAttribute("run-as-user");
         // support the old, inconsistent attribute name
-        if (UtilValidate.isEmail(this.runAsUser)) this.runAsUser = action.getAttribute("runAsUser");
+        if (UtilValidate.isEmail(this.runAsUser)) {
+            this.runAsUser = action.getAttribute("runAsUser");
+        }
         this.persist = "true".equals(action.getAttribute("persist"));
     }
 

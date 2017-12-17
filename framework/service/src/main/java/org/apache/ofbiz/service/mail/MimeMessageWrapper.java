@@ -465,10 +465,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 Debug.logWarning("Requested a subpart [" + subIndex + "] which deos not exist; only [" + getSubPartCount(mainIndex) + "] parts", module);
                 // there is no sub part to find
                 return part;
-            } catch (MessagingException e) {
-                Debug.logError(e, module);
-                return null;
-            } catch (IOException e) {
+            } catch (MessagingException | IOException e) {
                 Debug.logError(e, module);
                 return null;
             }
@@ -478,7 +475,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
     }
 
     protected String getContentText(Object content) {
-        if (content == null) return null;
+        if (content == null) {
+            return null;
+        }
         if (content instanceof String) {
             return (String) content;
         } else if (content instanceof InputStream) {
@@ -531,7 +530,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
 
     /**
      * Convert MimeMessageWrapper to String. This is used when sending emails.
-     * 
+     *
      */
     private static class MimeMessageToString<E> extends AbstractConverter<MimeMessageWrapper, String> {
         public MimeMessageToString() {
