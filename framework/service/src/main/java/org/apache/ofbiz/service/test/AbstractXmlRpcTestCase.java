@@ -69,8 +69,7 @@ public class AbstractXmlRpcTestCase extends TestCase {
 
         if (keyStoreComponent != null && keyStoreName != null && keyAlias != null) {
             return new XmlRpcClient(config, keyStoreComponent, keyStoreName, keyAlias);
-        } else {
-            return new XmlRpcClient(config);
         }
+        return new XmlRpcClient(config);
     }
 }
