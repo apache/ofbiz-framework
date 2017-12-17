@@ -218,7 +218,7 @@ public final class StartupCommandUtil {
     }
 
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
-        Set<Option> uniqueOptions = new HashSet<Option>(Arrays.asList(commandLine.getOptions()));
+        Set<Option> uniqueOptions = new HashSet<>(Arrays.asList(commandLine.getOptions()));
         return uniqueOptions.stream()
                 .map(option -> new StartupCommand.Builder(option.getLongOpt())
                     .properties(populateMapFromProperties(commandLine.getOptionProperties(option.getLongOpt())))

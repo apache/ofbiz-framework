@@ -21,8 +21,8 @@ package org.apache.ofbiz.base.start;
 /**
  * StartupException is an exception that is thrown when something wrong happens
  * during executing any OFBiz high level commands.
- * 
- * If StartupException is not handled then it will bubble up to main 
+ *
+ * If StartupException is not handled then it will bubble up to main
  * and lead to system termination.
  */
 @SuppressWarnings("serial")
@@ -65,9 +65,8 @@ public final class StartupException extends Exception {
     public String getMessage() {
         if (getCause() != null) {
             return super.getMessage() + " (" + getCause().getMessage() + ")";
-        } else {
-            return super.getMessage();
         }
+        return super.getMessage();
     }
 
     /** Returns the detail message, NOT including the message from the nested exception. */

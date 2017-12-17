@@ -70,7 +70,7 @@ final class AdminServer extends Thread {
         while (!Thread.interrupted()) {
             try (Socket clientSocket = serverSocket.accept()){
 
-                System.out.println("Received connection from - " 
+                System.out.println("Received connection from - "
                         + clientSocket.getInetAddress() + " : "
                         + clientSocket.getPort());
 

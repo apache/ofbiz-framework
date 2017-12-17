@@ -35,14 +35,14 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  * <p>
  * This class uses a singleton pattern to guarantee that only one server instance
- * is running in the VM. Client code retrieves the instance by using the 
+ * is running in the VM. Client code retrieves the instance by using the
  * <tt>getInstance()</tt> static method.
  * </p>
  */
 public final class Start {
 
     private Config config = null;
-    private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
+    private final AtomicReference<ServerState> serverState = new AtomicReference<>(ServerState.STARTING);
 
     // Singleton, do not change
     private static final Start instance = new Start();
@@ -50,9 +50,9 @@ public final class Start {
     }
 
     /**
-     * main is the entry point to execute high level OFBiz commands 
+     * main is the entry point to execute high level OFBiz commands
      * such as starting, stopping or checking the status of the server.
-     * 
+     *
      * @param args The commands for OFBiz
      */
     public static void main(String[] args) {

@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.poi.util.LocaleUtil;
-
 /**
  * A class path accumulator.
  * <p>You can build a class path by repeatedly calling the addXxx methods,
@@ -49,7 +47,7 @@ public final class Classpath {
     /**
      * Adds a class path component. The component may be a directory or a file.
      * If <code>component</code> does not exist, the method does nothing.
-     * 
+     *
      * @param component The class path component to add
      * @return <code>true</code> if the component was added
      * @throws IOException if there was a problem parsing the component
@@ -76,7 +74,7 @@ public final class Classpath {
     /**
      * Adds a class path component. The component may be a directory or a file.
      * If <code>component</code> does not exist, the method does nothing.
-     * 
+     *
      * @param component The class path component to add
      * @return <code>true</code> if the component was added
      * @throws IOException if there was a problem parsing the component
@@ -93,7 +91,7 @@ public final class Classpath {
      * Scans a directory and adds all files ending with ".jar" or ".zip" to
      * the class path.
      * If <code>path</code> is not a directory, the method does nothing.
-     * 
+     *
      * @param path the directory to scan
      * @throws IOException if there was a problem processing the directory
      * @throws IllegalArgumentException if <code>path</code> is null
@@ -138,7 +136,7 @@ public final class Classpath {
 
     /**
      * Returns a list of class path component URLs.
-     * 
+     *
      * @return A list of class path component URLs
      * @throws MalformedURLException
      */

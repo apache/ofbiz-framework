@@ -63,7 +63,7 @@ final class StartupControlPanel {
             List<StartupCommand> ofbizCommands) throws StartupException {
 
         //TODO loaders should be converted to a single loader
-        List<StartupLoader> loaders = new ArrayList<StartupLoader>();
+        List<StartupLoader> loaders = new ArrayList<>();
         Thread adminServer = createAdminServer(config, serverState, loaders);
 
         createLogDirectoryIfMissing(config);
@@ -110,9 +110,9 @@ final class StartupControlPanel {
      * - Printing the stack trace for users to see what happened
      * - Executing the shutdown hooks (if existing) through System.exit
      * - Terminating any lingering threads (if existing) through System.exit
-     * - Providing an exit code that is not 0 to signal to the build system 
+     * - Providing an exit code that is not 0 to signal to the build system
      *   or user of failure to execute.
-     * 
+     *
      * @param e The startup exception that cannot / should not be handled
      *   except by terminating the system
      */
@@ -200,7 +200,7 @@ final class StartupControlPanel {
         }
     }
 
-    private static void loadStartupLoaders(Config config, 
+    private static void loadStartupLoaders(Config config,
             List<StartupLoader> loaders,
             List<StartupCommand> ofbizCommands,
             AtomicReference<ServerState> serverState) throws StartupException {
@@ -221,7 +221,7 @@ final class StartupControlPanel {
                 throw new StartupException(e);
             }
         }
-        serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING); 
+        serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 
     private static void executeShutdownAfterLoadIfConfigured(
