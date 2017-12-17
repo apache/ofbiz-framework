@@ -151,7 +151,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             Listener<?, ?> other = (Listener<?, ?>) o;
             return changeMap.equals(other.changeMap);
         }
-        
+
         @Override
         public int hashCode() {
             return super.hashCode();
