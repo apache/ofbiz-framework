@@ -31,7 +31,6 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyStore;
@@ -145,7 +144,7 @@ public final class KeyStoreUtil {
     }
 
     public static Map<String, String> getX500Map(Principal x500) {
-        Map<String, String> x500Map = new HashMap<String, String>();
+        Map<String, String> x500Map = new HashMap<>();
 
         String name = x500.getName().replaceAll("\\\\,", "&com;");
         String[] x500Opts = name.split("\\,");

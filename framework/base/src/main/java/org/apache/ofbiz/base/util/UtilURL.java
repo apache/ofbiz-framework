@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class UtilURL {
 
     public static final String module = UtilURL.class.getName();
-    private static final Map<String, URL> urlMap = new ConcurrentHashMap<String, URL>();
+    private static final Map<String, URL> urlMap = new ConcurrentHashMap<>();
 
     private UtilURL() {}
 
@@ -39,7 +39,9 @@ public final class UtilURL {
         String resourceName = contextClass.getName();
         int dotIndex = resourceName.lastIndexOf('.');
 
-        if (dotIndex != -1) resourceName = resourceName.substring(0, dotIndex);
+        if (dotIndex != -1) {
+            resourceName = resourceName.substring(0, dotIndex);
+        }
         resourceName += ".properties";
 
         return fromResource(contextClass, resourceName);
@@ -51,7 +53,7 @@ public final class UtilURL {
      * <p>This method uses various ways to locate the resource, and in all
      * cases it tests to see if the resource exists - so it
      * is very inefficient.</p>
-     * 
+     *
      * @param resourceName
      * @return
      */
@@ -60,10 +62,10 @@ public final class UtilURL {
     }
 
     public static <C> URL fromResource(Class<C> contextClass, String resourceName) {
-        if (contextClass == null)
+        if (contextClass == null) {
             return fromResource(resourceName, null);
-        else
-            return fromResource(resourceName, contextClass.getClassLoader());
+        }
+        return fromResource(resourceName, contextClass.getClassLoader());
     }
 
     /**
@@ -72,7 +74,7 @@ public final class UtilURL {
      * <p>This method uses various ways to locate the resource, and in all
      * cases it tests to see if the resource exists - so it
      * is very inefficient.</p>
-     * 
+     *
      * @param resourceName
      * @param loader
      * @return
@@ -122,12 +124,16 @@ public final class UtilURL {
     }
 
     public static URL fromFilename(String filename) {
-        if (filename == null) return null;
+        if (filename == null) {
+            return null;
+        }
         File file = new File(filename);
         URL url = null;
 
         try {
-            if (file.exists()) url = file.toURI().toURL();
+            if (file.exists()) {
+                url = file.toURI().toURL();
+            }
         } catch (java.net.MalformedURLException e) {
             Debug.logError(e, "unable to retrieve URL for file: " + filename, module);
             url = null;

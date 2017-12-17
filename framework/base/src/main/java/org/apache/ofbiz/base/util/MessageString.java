@@ -48,23 +48,31 @@ public class MessageString implements Serializable {
         if (fieldName == null) {
             return Collections.emptyList();
         }
-        Set<String> fieldSet = new TreeSet<String>();
+        Set<String> fieldSet = new TreeSet<>();
         fieldSet.add(fieldName);
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
     public static List<Object> getMessagesForField(String fieldName1, String fieldName2, String fieldName3, String fieldName4, boolean convertToStrings, List<Object> messageStringList) {
-        Set<String> fieldSet = new TreeSet<String>();
-        if (UtilValidate.isNotEmpty(fieldName1)) fieldSet.add(fieldName1);
-        if (UtilValidate.isNotEmpty(fieldName2)) fieldSet.add(fieldName2);
-        if (UtilValidate.isNotEmpty(fieldName3)) fieldSet.add(fieldName3);
-        if (UtilValidate.isNotEmpty(fieldName4)) fieldSet.add(fieldName4);
+        Set<String> fieldSet = new TreeSet<>();
+        if (UtilValidate.isNotEmpty(fieldName1)) {
+            fieldSet.add(fieldName1);
+        }
+        if (UtilValidate.isNotEmpty(fieldName2)) {
+            fieldSet.add(fieldName2);
+        }
+        if (UtilValidate.isNotEmpty(fieldName3)) {
+            fieldSet.add(fieldName3);
+        }
+        if (UtilValidate.isNotEmpty(fieldName4)) {
+            fieldSet.add(fieldName4);
+        }
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
     public static List<Object> getMessagesForField(Set<String> fieldNameSet, boolean convertToStrings, List<Object> messageStringList) {
         if (messageStringList == null || UtilValidate.isEmpty(fieldNameSet)) {
             return Collections.emptyList();
         }
-        List<Object> outList = new ArrayList<Object>(messageStringList.size());
+        List<Object> outList = new ArrayList<>(messageStringList.size());
         for (Object messageStringCur: messageStringList) {
             if (messageStringCur instanceof MessageString) {
                 MessageString messageString = (MessageString) messageStringCur;
@@ -152,12 +160,10 @@ public class MessageString implements Serializable {
         if (this.fieldName == null) {
             if (fieldName == null) {
                 return true;
-            } else {
-                return false;
             }
-        } else {
-            return this.fieldName.equals(fieldName);
+            return false;
         }
+        return this.fieldName.equals(fieldName);
     }
 
     /**

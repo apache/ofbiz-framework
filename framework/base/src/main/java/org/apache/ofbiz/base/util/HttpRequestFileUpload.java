@@ -73,14 +73,16 @@ public class HttpRequestFileUpload {
     }
 
     public String getFieldValue(String fieldName) {
-        if (fields == null || fieldName == null)
+        if (fields == null || fieldName == null) {
             return null;
+        }
         return fields.get(fieldName);
     }
 
     private void setFilename(String s) {
-        if (s == null)
+        if (s == null) {
             return;
+        }
 
         int pos = s.indexOf("filename=\"");
 
@@ -90,21 +92,24 @@ public class HttpRequestFileUpload {
             // But Linux/Unix and Mac browsers only send the filename
             // test if this is from a Windows browser
             pos = filepath.lastIndexOf("\\");
-            if (pos != -1)
+            if (pos != -1) {
                 filename = filepath.substring(pos + 1);
-            else
+            } else {
                 filename = filepath;
+            }
         }
     }
 
     private void setContentType(String s) {
-        if (s == null)
+        if (s == null) {
             return;
+        }
 
         int pos = s.indexOf(": ");
 
-        if (pos != -1)
+        if (pos != -1) {
             contentType = s.substring(pos + 2, s.length());
+        }
     }
 
     public void doUpload(HttpServletRequest request) throws IOException {
@@ -127,14 +132,15 @@ public class HttpRequestFileUpload {
 
         i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
         requestLength -= i;
-        if (i < 3)
+        if (i < 3) {
             return;
+        }
         int boundaryLength = i - 2;
 
         String boundary = new String(line, 0, boundaryLength, UtilIO.getUtf8()); // -2 discards the newline character
 
         System.out.println("boundary=[" + boundary + "] length is " + boundaryLength);
-        fields = new HashMap<String, String>();
+        fields = new HashMap<>();
 
         while (requestLength > 0/* i != -1*/) {
             String newLine = "";
@@ -145,8 +151,9 @@ public class HttpRequestFileUpload {
             if (newLine.startsWith("Content-Disposition: form-data; name=\"")) {
                 if (newLine.indexOf("filename=\"") != -1) {
                     setFilename(new String(line, 0, i - 2, UtilIO.getUtf8()));
-                    if (filename == null)
+                    if (filename == null) {
                         return;
+                    }
                     // this is the file content
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
@@ -252,10 +259,11 @@ public class HttpRequestFileUpload {
                         i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                         requestLength -= i;
                         if ((i == boundaryLength + 2 || i == boundaryLength + 4) // + 4 is eof
-                            && (new String(line, 0, i).startsWith(boundary)))
+                            && (new String(line, 0, i).startsWith(boundary))) {
                             fieldValue.append(newLine.substring(0, newLine.length() - 2));
-                        else
+                        } else {
                             fieldValue.append(newLine);
+                        }
                         newLine = new String(line, 0, i, UtilIO.getUtf8());
                     }
                     fields.put(fieldName, fieldValue.toString());

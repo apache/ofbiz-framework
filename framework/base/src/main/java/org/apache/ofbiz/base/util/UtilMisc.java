@@ -72,12 +72,10 @@ public final class UtilMisc {
         if (obj1 == null) {
             if (obj2 == null) {
                 return 0;
-            } else {
-                return 1;
             }
-        } else {
-            return obj1.compareTo(obj2);
+            return 1;
         }
+        return obj1.compareTo(obj2);
     }
 
     public static <E> int compare(List<E> obj1, List<E> obj2) {
@@ -103,10 +101,10 @@ public final class UtilMisc {
      * @return The resulting Iterator
      */
     public static <T> Iterator<T> toIterator(Collection<T> col) {
-        if (col == null)
+        if (col == null) {
             return null;
-        else
-            return col.iterator();
+        }
+        return col.iterator();
     }
 
     /**
@@ -123,7 +121,7 @@ public final class UtilMisc {
             Debug.logInfo(e, module);
             throw e;
         }
-        Map<String, V> map = new HashMap<String, V>();
+        Map<String, V> map = new HashMap<>();
         for (int i = 0; i < data.length;) {
             map.put((String) data[i++], (V) data[i++]);
         }
@@ -142,23 +140,27 @@ public final class UtilMisc {
     }
 
     public static <T> List<T> makeListWritable(Collection<? extends T> col) {
-        List<T> result = new LinkedList<T>();
-        if (col != null) result.addAll(col);
+        List<T> result = new LinkedList<>();
+        if (col != null) {
+            result.addAll(col);
+        }
         return result;
     }
 
     public static <K, V> Map<K, V> makeMapWritable(Map<K, ? extends V> map) {
         if (map == null) {
-            return new HashMap<K, V>();
+            return new HashMap<>();
         }
-        Map<K, V> result = new HashMap<K, V>(map.size());
+        Map<K, V> result = new HashMap<>(map.size());
         result.putAll(map);
         return result;
     }
 
     public static <T> Set<T> makeSetWritable(Collection<? extends T> col) {
-        Set<T> result = new LinkedHashSet<T>();
-        if (col != null) result.addAll(col);
+        Set<T> result = new LinkedHashSet<>();
+        if (col != null) {
+            result.addAll(col);
+        }
         return result;
     }
 
@@ -170,12 +172,11 @@ public final class UtilMisc {
      */
     public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
-        Set<String> keysToRemove = new LinkedHashSet<String>();
+        Set<String> keysToRemove = new LinkedHashSet<>();
         for (Map.Entry<String, V> mapEntry: map.entrySet()) {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
-                //Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
@@ -188,9 +189,10 @@ public final class UtilMisc {
      * @return a new List of sorted Maps.
      */
     public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
-        if (listOfMaps == null || sortKeys == null)
+        if (listOfMaps == null || sortKeys == null) {
             return null;
-        List<Map<Object, Object>> toSort = new ArrayList<Map<Object, Object>>(listOfMaps.size());
+        }
+        List<Map<Object, Object>> toSort = new ArrayList<>(listOfMaps.size());
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
@@ -208,7 +210,7 @@ public final class UtilMisc {
     public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Object> outerMap, K key) {
         Map<IK, V> innerMap = UtilGenerics.<IK, V>checkMap(outerMap.get(key));
         if (innerMap == null) {
-            innerMap = new HashMap<IK, V>();
+            innerMap = new HashMap<>();
             outerMap.put(key, innerMap);
         }
         return innerMap;
@@ -220,7 +222,7 @@ public final class UtilMisc {
     public static <K, V> List<V> getListFromMap(Map<K, Object> outerMap, K key) {
         List<V> innerList = UtilGenerics.<V>checkList(outerMap.get(key));
         if (innerList == null) {
-            innerList = new LinkedList<V>();
+            innerList = new LinkedList<>();
             outerMap.put(key, innerList);
         }
         return innerList;
@@ -257,21 +259,23 @@ public final class UtilMisc {
     }
 
     public static <T> Set<T> collectionToSet(Collection<T> c) {
-        if (c == null) return null;
+        if (c == null) {
+            return null;
+        }
         Set<T> theSet = null;
         if (c instanceof Set<?>) {
             theSet = (Set<T>) c;
         } else {
-            theSet = new LinkedHashSet<T>();
+            theSet = new LinkedHashSet<>();
             c.remove(null);
             theSet.addAll(c);
         }
         return theSet;
     }
-    
+
     /**
      * Generates a String from given values delimited by delimiter.
-     * 
+     *
      * @param values
      * @param delimiter
      * @return String
@@ -301,7 +305,7 @@ public final class UtilMisc {
         if (data == null) {
             return null;
         }
-        Set<T> theSet = new LinkedHashSet<T>();
+        Set<T> theSet = new LinkedHashSet<>();
         for (T elem : data) {
             theSet.add(elem);
         }
@@ -309,27 +313,28 @@ public final class UtilMisc {
     }
 
     public static <T> Set<T> toSet(Collection<T> collection) {
-        if (collection == null) return null;
+        if (collection == null) {
+            return null;
+        }
         if (collection instanceof Set<?>) {
             return (Set<T>) collection;
-        } else {
-            Set<T> theSet = new LinkedHashSet<T>();
-            theSet.addAll(collection);
-            return theSet;
         }
+        Set<T> theSet = new LinkedHashSet<>();
+        theSet.addAll(collection);
+        return theSet;
     }
 
     public static <T> Set<T> toSetArray(T[] data) {
         if (data == null) {
             return null;
         }
-        Set<T> set = new LinkedHashSet<T>();
+        Set<T> set = new LinkedHashSet<>();
         for (T value: data) {
             set.add(value);
         }
         return set;
     }
-    
+
     /**
      * Creates a list from passed objects.
      * @param data
@@ -340,8 +345,8 @@ public final class UtilMisc {
         if(data == null){
             return null;
         }
-        
-        List<T> list = new LinkedList<T>();
+
+        List<T> list = new LinkedList<>();
 
         for(T t : data){
             list.add(t);
@@ -351,21 +356,22 @@ public final class UtilMisc {
     }
 
     public static <T> List<T> toList(Collection<T> collection) {
-        if (collection == null) return null;
+        if (collection == null) {
+            return null;
+        }
         if (collection instanceof List<?>) {
             return (List<T>) collection;
-        } else {
-            List<T> list = new LinkedList<T>();
-            list.addAll(collection);
-            return list;
         }
+        List<T> list = new LinkedList<>();
+        list.addAll(collection);
+        return list;
     }
 
     public static <T> List<T> toListArray(T[] data) {
         if (data == null) {
             return null;
         }
-        List<T> list = new LinkedList<T>();
+        List<T> list = new LinkedList<>();
         for (T value: data) {
             list.add(value);
         }
@@ -375,7 +381,7 @@ public final class UtilMisc {
     public static <K, V> void addToListInMap(V element, Map<K, Object> theMap, K listKey) {
         List<V> theList = UtilGenerics.checkList(theMap.get(listKey));
         if (theList == null) {
-            theList = new LinkedList<V>();
+            theList = new LinkedList<>();
             theMap.put(listKey, theList);
         }
         theList.add(element);
@@ -384,7 +390,7 @@ public final class UtilMisc {
     public static <K, V> void addToSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
-            theSet = new LinkedHashSet<V>();
+            theSet = new LinkedHashSet<>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
@@ -393,7 +399,7 @@ public final class UtilMisc {
     public static <K, V> void addToSortedSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
-            theSet = new TreeSet<V>();
+            theSet = new TreeSet<>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
@@ -562,7 +568,7 @@ public final class UtilMisc {
         private static final List<Locale> availableLocaleList = getAvailableLocaleList();
 
         private static List<Locale> getAvailableLocaleList() {
-            TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
+            TreeMap<String, Locale> localeMap = new TreeMap<>();
             String localesString = UtilProperties.getPropertyValue("general", "locales.available");
             if (UtilValidate.isNotEmpty(localesString)) {
                 List<String> idList = StringUtil.split(localesString, ",");
@@ -579,7 +585,7 @@ public final class UtilMisc {
                     }
                 }
             }
-            return Collections.unmodifiableList(new ArrayList<Locale>(localeMap.values()));
+            return Collections.unmodifiableList(new ArrayList<>(localeMap.values()));
         }
     }
 
@@ -597,18 +603,16 @@ public final class UtilMisc {
     public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
             throw new IOException("File is a directory, not a file, cannot copy") ;
-        } else {
-
-            try (
-                    InputStream in = new FileInputStream(sourceLocation);
-                    OutputStream out = new FileOutputStream(targetLocation);
-            ) {
-                // Copy the bits from instream to outstream
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
+        }
+        try (
+                InputStream in = new FileInputStream(sourceLocation);
+                OutputStream out = new FileOutputStream(targetLocation);
+        ) {
+            // Copy the bits from instream to outstream
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
             }
         }
     }
@@ -646,5 +650,5 @@ public final class UtilMisc {
         }
         return result;
     }
-    
+
 }

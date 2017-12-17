@@ -32,7 +32,7 @@ import java.util.TimeZone;
 public final class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
-    
+
     // ------------------- price format handlers -------------------
     // FIXME: This is not thread-safe! DecimalFormat is not synchronized.
     private static final DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general", "currency.decimal.format", "#,##0.00"));
@@ -48,9 +48,8 @@ public final class UtilFormatOut {
     public static String safeToString(Object obj) {
         if (obj != null) {
             return obj.toString();
-        } else {
-            return "";
         }
+        return "";
     }
 
     /** Formats a Double representing a price into a string
@@ -58,7 +57,9 @@ public final class UtilFormatOut {
      * @return A String with the formatted price
      */
     public static String formatPrice(Double price) {
-        if (price == null) return "";
+        if (price == null) {
+            return "";
+        }
         return formatPrice(price.doubleValue());
     }
 
@@ -67,7 +68,9 @@ public final class UtilFormatOut {
      * @return A String with the formatted price
      */
     public static String formatPrice(BigDecimal price) {
-        if (price == null) return "";
+        if (price == null) {
+            return "";
+        }
         return priceDecimalFormat.format(price);
     }
 
@@ -100,7 +103,9 @@ public final class UtilFormatOut {
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("No isoCode specified to format currency value:" + price, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("No isoCode specified to format currency value:" + price, module);
+            }
         }
         if (maximumFractionDigits >= 0) {
             nf.setMaximumFractionDigits(maximumFractionDigits);
@@ -180,7 +185,9 @@ public final class UtilFormatOut {
      * @return A String with the formatted percentage
      */
     public static String formatPercentage(Double percentage) {
-        if (percentage == null) return "";
+        if (percentage == null) {
+            return "";
+        }
         return formatPercentage(percentage.doubleValue());
     }
 
@@ -189,7 +196,9 @@ public final class UtilFormatOut {
      * @return A String with the formatted percentage
      */
     public static String formatPercentage(BigDecimal percentage) {
-        if (percentage == null) return "";
+        if (percentage == null) {
+            return "";
+        }
         return percentageDecimalFormat.format(percentage);
     }
 
@@ -206,10 +215,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(Long quantity) {
-        if (quantity == null)
+        if (quantity == null) {
             return "";
-        else
-            return formatQuantity(quantity.doubleValue());
+        }
+        return formatQuantity(quantity.doubleValue());
     }
 
     /** Formats an int representing a quantity into a string
@@ -225,10 +234,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(Integer quantity) {
-        if (quantity == null)
+        if (quantity == null) {
             return "";
-        else
-            return formatQuantity(quantity.doubleValue());
+        }
+        return formatQuantity(quantity.doubleValue());
     }
 
     /** Formats an int representing a quantity into a string
@@ -244,10 +253,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(Float quantity) {
-        if (quantity == null)
+        if (quantity == null) {
             return "";
-        else
-            return formatQuantity(quantity.doubleValue());
+        }
+        return formatQuantity(quantity.doubleValue());
     }
 
     /** Formats a float representing a quantity into a string
@@ -263,10 +272,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(Double quantity) {
-        if (quantity == null)
+        if (quantity == null) {
             return "";
-        else
-            return formatQuantity(quantity.doubleValue());
+        }
+        return formatQuantity(quantity.doubleValue());
     }
 
     /** Formats an BigDecimal representing a quantity into a string
@@ -274,10 +283,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted quantity
      */
     public static String formatQuantity(BigDecimal quantity) {
-        if (quantity == null)
+        if (quantity == null) {
             return "";
-        else
-            return quantityDecimalFormat.format(quantity);
+        }
+        return quantityDecimalFormat.format(quantity);
     }
 
     /** Formats an double representing a quantity into a string
@@ -297,7 +306,9 @@ public final class UtilFormatOut {
     }
 
     public static String formatPaddingRemove(String original) {
-        if (original == null) return null;
+        if (original == null) {
+            return null;
+        }
         StringBuilder orgBuf = new StringBuilder(original);
         while (orgBuf.length() > 0 && orgBuf.charAt(0) == '0') {
             orgBuf.deleteCharAt(0);
@@ -313,8 +324,9 @@ public final class UtilFormatOut {
      * @return A <code>String</code> with the formatted date/time, or an empty <code>String</code> if <code>timestamp</code> is <code>null</code>
      */
     public static String formatDate(java.sql.Timestamp timestamp) {
-        if (timestamp == null)
+        if (timestamp == null) {
             return "";
+        }
         DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.FULL);
         java.util.Date date = timestamp;
         return df.format(date);
@@ -372,10 +384,10 @@ public final class UtilFormatOut {
      * @return The passed String if not null, otherwise an empty non-null String
      */
     public static String checkNull(String string1) {
-        if (string1 != null)
+        if (string1 != null) {
             return string1;
-        else
-            return "";
+        }
+        return "";
     }
 
     /** Returns the first passed String if not null, otherwise the second if not null, otherwise an empty but non-null String.
@@ -384,12 +396,13 @@ public final class UtilFormatOut {
      * @return The first passed String if not null, otherwise the second if not null, otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2) {
-        if (string1 != null)
+        if (string1 != null) {
             return string1;
-        else if (string2 != null)
+        } else if (string2 != null) {
             return string2;
-        else
+        } else {
             return "";
+        }
     }
 
     /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null String.
@@ -399,14 +412,15 @@ public final class UtilFormatOut {
      * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2, String string3) {
-        if (string1 != null)
+        if (string1 != null) {
             return string1;
-        else if (string2 != null)
+        } else if (string2 != null) {
             return string2;
-        else if (string3 != null)
+        } else if (string3 != null) {
             return string3;
-        else
+        } else {
             return "";
+        }
     }
 
     /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not null, otherwise an empty but non-null String.
@@ -417,16 +431,17 @@ public final class UtilFormatOut {
      * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not null, otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2, String string3, String string4) {
-        if (string1 != null)
+        if (string1 != null) {
             return string1;
-        else if (string2 != null)
+        } else if (string2 != null) {
             return string2;
-        else if (string3 != null)
+        } else if (string3 != null) {
             return string3;
-        else if (string4 != null)
+        } else if (string4 != null) {
             return string4;
-        else
+        } else {
             return "";
+        }
     }
 
     /** Returns <code>pre + base + post</code> if base String is not null or empty, otherwise an empty but non-null String.
@@ -436,10 +451,10 @@ public final class UtilFormatOut {
      * @return <code>pre + base + post</code> if base String is not null or empty, otherwise an empty but non-null String.
      */
     public static String ifNotEmpty(String base, String pre, String post) {
-        if (UtilValidate.isNotEmpty(base))
+        if (UtilValidate.isNotEmpty(base)) {
             return pre + base + post;
-        else
-            return "";
+        }
+        return "";
     }
 
     /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise an empty but non-null String.
@@ -448,12 +463,13 @@ public final class UtilFormatOut {
      * @return The first passed String if not empty, otherwise the second if not empty, otherwise an empty but non-null String
      */
     public static String checkEmpty(String string1, String string2) {
-        if (UtilValidate.isNotEmpty(string1))
+        if (UtilValidate.isNotEmpty(string1)) {
             return string1;
-        else if (UtilValidate.isNotEmpty(string2))
+        } else if (UtilValidate.isNotEmpty(string2)) {
             return string2;
-        else
+        } else {
             return "";
+        }
     }
 
     /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but non-null String.
@@ -463,18 +479,19 @@ public final class UtilFormatOut {
      * @return The first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but non-null String
      */
     public static String checkEmpty(String string1, String string2, String string3) {
-        if (UtilValidate.isNotEmpty(string1))
+        if (UtilValidate.isNotEmpty(string1)) {
             return string1;
-        else if (UtilValidate.isNotEmpty(string2))
+        } else if (UtilValidate.isNotEmpty(string2)) {
             return string2;
-        else if (UtilValidate.isNotEmpty(string3))
+        } else if (UtilValidate.isNotEmpty(string3)) {
             return string3;
-        else
+        } else {
             return "";
+        }
     }
 
     // ------------------- web encode handlers -------------------
-    /** 
+    /**
      * Encodes an HTTP URL query String, replacing characters used for other
      * things in HTTP URL query strings, but not touching the separator
      * characters '?', '=', and '&amp;'
@@ -530,7 +547,7 @@ public final class UtilFormatOut {
     }
 
     // ------------------- web encode handlers -------------------
-    /** 
+    /**
      * Encodes an XML string replacing the characters '&lt;', '&gt;', '&quot;', '&#39;', '&amp;'
      * @param inString The plain value String
      * @return The encoded String
@@ -557,27 +574,30 @@ public final class UtilFormatOut {
         int diff = setLen - stringLen;
         if (diff < 0) {
             return str.substring(0, setLen);
-        } else {
-            StringBuilder newString = new StringBuilder();
-            if (padEnd) {
-                newString.append(str);
-            }
-            for (int i = 0; i < diff; i++) {
-                newString.append(padChar);
-            }
-            if (!padEnd) {
-                newString.append(str);
-            }
-            return newString.toString();
         }
+        StringBuilder newString = new StringBuilder();
+        if (padEnd) {
+            newString.append(str);
+        }
+        for (int i = 0; i < diff; i++) {
+            newString.append(padChar);
+        }
+        if (!padEnd) {
+            newString.append(str);
+        }
+        return newString.toString();
     }
     public static String makeSqlSafe(String unsafeString) {
         return unsafeString.replaceAll("'","''");
     }
 
     public static String formatPrintableCreditCard(String original) {
-        if (original == null) return null;
-        if (original.length() <= 4) return original;
+        if (original == null) {
+            return null;
+        }
+        if (original.length() <= 4) {
+            return original;
+        }
 
         StringBuilder buffer = new StringBuilder();
         for (int i=0; i < original.length()-4 ; i++) {

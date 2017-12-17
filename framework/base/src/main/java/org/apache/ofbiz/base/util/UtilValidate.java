@@ -157,9 +157,8 @@ public final class UtilValidate {
     public static boolean areEqual(Object obj, Object obj2) {
         if (obj == null) {
             return obj2 == null;
-        } else {
-            return obj.equals(obj2);
         }
+        return obj.equals(obj2);
     }
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
@@ -224,7 +223,9 @@ public final class UtilValidate {
     /** Returns true if string s is empty or whitespace characters only. */
     public static boolean isWhitespace(String s) {
         // Is s empty?
-        if (isEmpty(s)) return true;
+        if (isEmpty(s)) {
+            return true;
+        }
 
         // Search through string's characters one by one
         // until we find a non-whitespace character.
@@ -233,7 +234,9 @@ public final class UtilValidate {
             // Check that current character isn't whitespace.
             char c = s.charAt(i);
 
-            if (whitespace.indexOf(c) == -1) return false;
+            if (whitespace.indexOf(c) == -1) {
+                return false;
+            }
         }
         // All characters are whitespace.
         return true;
@@ -249,7 +252,9 @@ public final class UtilValidate {
         for (i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (bag.indexOf(c) == -1) stringBuilder.append(c);
+            if (bag.indexOf(c) == -1) {
+                stringBuilder.append(c);
+            }
         }
         return stringBuilder.toString();
     }
@@ -264,7 +269,9 @@ public final class UtilValidate {
         for (i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (bag.indexOf(c) != -1) stringBuilder.append(c);
+            if (bag.indexOf(c) != -1) {
+                stringBuilder.append(c);
+            }
         }
         return stringBuilder.toString();
     }
@@ -285,7 +292,9 @@ public final class UtilValidate {
     public static String stripInitialWhitespace(String s) {
         int i = 0;
 
-        while ((i < s.length()) && charInString(s.charAt(i), whitespace)) i++;
+        while ((i < s.length()) && charInString(s.charAt(i), whitespace)) {
+            i++;
+        }
         return s.substring(i);
     }
 
@@ -319,7 +328,9 @@ public final class UtilValidate {
      *  point, exponential notation, etc.
      */
     public static boolean isInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         // Search through string's characters one by one
         // until we find a non-numeric character.
@@ -328,7 +339,9 @@ public final class UtilValidate {
             // Check that current character is number.
             char c = s.charAt(i);
 
-            if (!isDigit(c)) return false;
+            if (!isDigit(c)) {
+                return false;
+            }
         }
 
         // All characters are numbers.
@@ -341,7 +354,9 @@ public final class UtilValidate {
      *  Does not accept floating point, exponential notation, etc.
      */
     public static boolean isSignedInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         try {
             Integer.parseInt(s);
             return true;
@@ -356,7 +371,9 @@ public final class UtilValidate {
      *  Does not accept floating point, exponential notation, etc.
      */
     public static boolean isSignedLong(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         try {
             Long.parseLong(s);
             return true;
@@ -370,12 +387,16 @@ public final class UtilValidate {
      * NOTE: using the Java Long object for greatest precision
      */
     public static boolean isPositiveInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             long temp = Long.parseLong(s);
 
-            if (temp > 0) return true;
+            if (temp > 0) {
+                return true;
+            }
             return false;
         } catch (Exception e) {
             return false;
@@ -386,12 +407,16 @@ public final class UtilValidate {
      * Returns true if string s is an integer &gt;= 0
      */
     public static boolean isNonnegativeInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             int temp = Integer.parseInt(s);
 
-            if (temp >= 0) return true;
+            if (temp >= 0) {
+                return true;
+            }
             return false;
         } catch (Exception e) {
             return false;
@@ -402,28 +427,36 @@ public final class UtilValidate {
      * Returns true if string s is an integer &lt; 0
      */
     public static boolean isNegativeInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             int temp = Integer.parseInt(s);
 
-            if (temp < 0) return true;
+            if (temp < 0) {
+                return true;
+            }
             return false;
         } catch (Exception e) {
             return false;
         }
     }
 
-    /** 
+    /**
      * Returns true if string s is an integer &lt;= 0
      */
     public static boolean isNonpositiveInteger(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             int temp = Integer.parseInt(s);
 
-            if (temp <= 0) return true;
+            if (temp <= 0) {
+                return true;
+            }
             return false;
         } catch (Exception e) {
             return false;
@@ -439,11 +472,15 @@ public final class UtilValidate {
      *  Does not accept exponential notation.
      */
     public static boolean isFloat(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         boolean seenDecimalPoint = false;
 
-        if (s.startsWith(decimalPointDelimiter)) return false;
+        if (s.startsWith(decimalPointDelimiter)) {
+            return false;
+        }
 
         // Search through string's characters one by one
         // until we find a non-numeric character.
@@ -459,7 +496,9 @@ public final class UtilValidate {
                     return false;
                 }
             } else {
-                if (!isDigit(c)) return false;
+                if (!isDigit(c)) {
+                    return false;
+                }
             }
         }
         // All characters are numbers.
@@ -469,21 +508,33 @@ public final class UtilValidate {
     /** General routine for testing whether a string is a float.
      */
     public static boolean isFloat(String s, boolean allowNegative, boolean allowPositive, int minDecimal, int maxDecimal) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             float temp = Float.parseFloat(s);
-            if (!allowNegative && temp < 0) return false;
-            if (!allowPositive && temp > 0) return false;
+            if (!allowNegative && temp < 0) {
+                return false;
+            }
+            if (!allowPositive && temp > 0) {
+                return false;
+            }
             int decimalPoint = s.indexOf(".");
             if (decimalPoint == -1) {
-                if (minDecimal > 0) return false;
+                if (minDecimal > 0) {
+                    return false;
+                }
                 return true;
             }
             // 1.2345; length=6; point=1; num=4
             int numDecimals = s.length() - decimalPoint - 1;
-            if (minDecimal >= 0 && numDecimals < minDecimal) return false;
-            if (maxDecimal >= 0 && numDecimals > maxDecimal) return false;
+            if (minDecimal >= 0 && numDecimals < minDecimal) {
+                return false;
+            }
+            if (maxDecimal >= 0 && numDecimals > maxDecimal) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -493,21 +544,33 @@ public final class UtilValidate {
     /** General routine for testing whether a string is a double.
      */
     public static boolean isDouble(String s, boolean allowNegative, boolean allowPositive, int minDecimal, int maxDecimal) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         try {
             double temp = Double.parseDouble(s);
-            if (!allowNegative && temp < 0) return false;
-            if (!allowPositive && temp > 0) return false;
+            if (!allowNegative && temp < 0) {
+                return false;
+            }
+            if (!allowPositive && temp > 0) {
+                return false;
+            }
             int decimalPoint = s.indexOf(".");
             if (decimalPoint == -1) {
-                if (minDecimal > 0) return false;
+                if (minDecimal > 0) {
+                    return false;
+                }
                 return true;
             }
             // 1.2345; length=6; point=1; num=4
             int numDecimals = s.length() - decimalPoint - 1;
-            if (minDecimal >= 0 && numDecimals < minDecimal) return false;
-            if (maxDecimal >= 0 && numDecimals > maxDecimal) return false;
+            if (minDecimal >= 0 && numDecimals < minDecimal) {
+                return false;
+            }
+            if (maxDecimal >= 0 && numDecimals > maxDecimal) {
+                return false;
+            }
             return true;
         } catch (Exception e) {
             return false;
@@ -522,7 +585,9 @@ public final class UtilValidate {
      *  first call isSignedInteger, then call isSignedFloat.
      */
     public static boolean isSignedFloat(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         try {
             Float.parseFloat(s);
             return true;
@@ -539,7 +604,9 @@ public final class UtilValidate {
      *  first call isSignedInteger, then call isSignedFloat.
      */
     public static boolean isSignedDouble(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         try {
             Double.parseDouble(s);
             return true;
@@ -554,7 +621,9 @@ public final class UtilValidate {
      *  since it now uses Character.isLetter()
      */
     public static boolean isAlphabetic(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         // Search through string's characters one by one
         // until we find a non-alphabetic character.
@@ -563,8 +632,9 @@ public final class UtilValidate {
             // Check that current character is letter.
             char c = s.charAt(i);
 
-            if (!isLetter(c))
+            if (!isLetter(c)) {
                 return false;
+            }
         }
 
         // All characters are letters.
@@ -578,7 +648,9 @@ public final class UtilValidate {
      *  sets and orderings for various languages and platforms.
      */
     public static boolean isAlphanumeric(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         // Search through string's characters one by one
         // until we find a non-alphanumeric character.
@@ -587,7 +659,9 @@ public final class UtilValidate {
             // Check that current character is number or letter.
             char c = s.charAt(i);
 
-            if (!isLetterOrDigit(c)) return false;
+            if (!isLetterOrDigit(c)) {
+                return false;
+            }
         }
 
         // All characters are numbers or letters.
@@ -598,7 +672,9 @@ public final class UtilValidate {
 
     /** isSSN returns true if string s is a valid U.S. Social Security Number.  Must be 9 digits. */
     public static boolean isSSN(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         String normalizedSSN = stripCharsInBag(s, SSNDelimiters);
 
@@ -610,7 +686,9 @@ public final class UtilValidate {
      **/
     @Deprecated
     public static boolean isUSPhoneNumber(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
 
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneNumber);
@@ -621,7 +699,9 @@ public final class UtilValidate {
      * */
     @Deprecated
     public static boolean isUSPhoneAreaCode(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
 
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneAreaCode);
@@ -632,7 +712,9 @@ public final class UtilValidate {
      * */
     @Deprecated
     public static boolean isUSPhoneMainNumber(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
 
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneMainNumber);
@@ -645,7 +727,9 @@ public final class UtilValidate {
      */
     @Deprecated
     public static boolean isInternationalPhoneNumber(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
 
@@ -654,7 +738,9 @@ public final class UtilValidate {
 
     /** isZIPCode returns true if string s is a valid U.S. ZIP code.  Must be 5 or 9 digits only. */
     public static boolean isZipCode(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         String normalizedZip = stripCharsInBag(s, ZipCodeDelimiters);
 
@@ -665,12 +751,16 @@ public final class UtilValidate {
     public static boolean isContiguousZipCode(String s) {
         boolean retval = false;
         if (isZipCode(s)) {
-            if (isEmpty(s)) retval = defaultEmptyOK;
-            else {
+            if (isEmpty(s)) {
+                retval = defaultEmptyOK;
+            } else {
                 String normalizedZip = s.substring(0,5);
                 int iZip = Integer.parseInt(normalizedZip);
-                if ((iZip >= 96701 && iZip <= 96898) || (iZip >= 99501 && iZip <= 99950)) retval = false;
-                else retval = true;
+                if ((iZip >= 96701 && iZip <= 96898) || (iZip >= 99501 && iZip <= 99950)) {
+                    retval = false;
+                } else {
+                    retval = true;
+                }
             }
         }
         return retval;
@@ -678,26 +768,34 @@ public final class UtilValidate {
 
     /** Return true if s is a valid U.S. Postal Code (abbreviation for state). */
     public static boolean isStateCode(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return ((USStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
     }
 
     /** Return true if s is a valid contiguous U.S. Postal Code (abbreviation for state). */
     public static boolean isContiguousStateCode(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return ((ContiguousUSStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
     }
 
     public static boolean isEmail(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return EmailValidator.getInstance().isValid(s);
     }
-    
-    /** 
+
+    /**
      * Checks a String for a valid Email-List seperated by ",".
      */
     public static boolean isEmailList(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         String[] emails = s.split(",");
         for (String email : emails) {
             if (!EmailValidator.getInstance().isValid(email)) {
@@ -712,9 +810,12 @@ public final class UtilValidate {
      * @return true if s contains ://
      */
     public static boolean isUrl(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
-        if (s.indexOf("://") != -1)
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
+        if (s.indexOf("://") != -1) {
             return true;
+        }
         return false;
     }
 
@@ -725,9 +826,13 @@ public final class UtilValidate {
      *  to use 4-digit year numbers everywhere.
      */
     public static boolean isYear(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
-        if (!isNonnegativeInteger(s)) return false;
+        if (!isNonnegativeInteger(s)) {
+            return false;
+        }
         return ((s.length() == 2) || (s.length() == 4));
     }
 
@@ -735,10 +840,14 @@ public final class UtilValidate {
      *  within the range of integer arguments a and b, inclusive.
      */
     public static boolean isIntegerInRange(String s, int a, int b) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         // Catch non-integer strings to avoid creating a NaN below,
         // which isn't available on JavaScript 1.0 for Windows.
-        if (!isSignedInteger(s)) return false;
+        if (!isSignedInteger(s)) {
+            return false;
+        }
         // Now, explicitly change the type to integer via parseInt
         // so that the comparison code below will work both on
         // JavaScript 1.2(which typechecks in equality comparisons)
@@ -750,13 +859,17 @@ public final class UtilValidate {
 
     /** isMonth returns true if string s is a valid month number between 1 and 12. */
     public static boolean isMonth(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return isIntegerInRange(s, 1, 12);
     }
 
     /** isDay returns true if string s is a valid day number between 1 and 31. */
     public static boolean isDay(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return isIntegerInRange(s, 1, 31);
     }
 
@@ -769,40 +882,54 @@ public final class UtilValidate {
 
     /** isHour returns true if string s is a valid number between 0 and 23. */
     public static boolean isHour(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return isIntegerInRange(s, 0, 23);
     }
 
     /** isMinute returns true if string s is a valid number between 0 and 59. */
     public static boolean isMinute(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return isIntegerInRange(s, 0, 59);
     }
 
     /** isSecond returns true if string s is a valid number between 0 and 59. */
     public static boolean isSecond(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
         return isIntegerInRange(s, 0, 59);
     }
 
     /** isDate returns true if string arguments year, month, and day form a valid date. */
     public static boolean isDate(String year, String month, String day) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
-        if (!(isYear(year) && isMonth(month) && isDay(day))) return false;
+        if (!(isYear(year) && isMonth(month) && isDay(day))) {
+            return false;
+        }
 
         int intYear = Integer.parseInt(year);
         int intMonth = Integer.parseInt(month);
         int intDay = Integer.parseInt(day);
 
         // catch invalid days, except for February
-        if (intDay > daysInMonth[intMonth - 1]) return false;
-        if ((intMonth == 2) && (intDay > daysInFebruary(intYear))) return false;
+        if (intDay > daysInMonth[intMonth - 1]) {
+            return false;
+        }
+        if ((intMonth == 2) && (intDay > daysInFebruary(intYear))) {
+            return false;
+        }
         return true;
     }
 
     /** isDate returns true if string argument date forms a valid date. */
     public static boolean isDate(String date) {
-        if (isEmpty(date)) return defaultEmptyOK;
+        if (isEmpty(date)) {
+            return defaultEmptyOK;
+        }
         String month;
         String day;
         String year;
@@ -810,7 +937,9 @@ public final class UtilValidate {
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
 
-        if (dateSlash1 <= 0 || dateSlash1 == dateSlash2) return false;
+        if (dateSlash1 <= 0 || dateSlash1 == dateSlash2) {
+            return false;
+        }
         month = date.substring(0, dateSlash1);
         day = date.substring(dateSlash1 + 1, dateSlash2);
         year = date.substring(dateSlash2 + 1);
@@ -820,11 +949,15 @@ public final class UtilValidate {
 
     /** isDate returns true if string argument date forms a valid date and is after today. */
     public static boolean isDateAfterToday(String date) {
-        if (isEmpty(date)) return defaultEmptyOK;
+        if (isEmpty(date)) {
+            return defaultEmptyOK;
+        }
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
 
-        if (dateSlash1 <= 0) return false;
+        if (dateSlash1 <= 0) {
+            return false;
+        }
 
         java.util.Date passed = null;
         if (dateSlash1 == dateSlash2) {
@@ -832,7 +965,9 @@ public final class UtilValidate {
             String month = date.substring(0, dateSlash1);
             String day = "28";
             String year = date.substring(dateSlash1 + 1);
-            if (!isDate(year, month, day)) return false;
+            if (!isDate(year, month, day)) {
+                return false;
+            }
 
             try {
                 int monthInt = Integer.parseInt(month);
@@ -848,25 +983,31 @@ public final class UtilValidate {
             String month = date.substring(0, dateSlash1);
             String day = date.substring(dateSlash1 + 1, dateSlash2);
             String year = date.substring(dateSlash2 + 1);
-            if (!isDate(year, month, day)) return false;
+            if (!isDate(year, month, day)) {
+                return false;
+            }
             passed = UtilDateTime.toDate(month, day, year, "0", "0", "0");
         }
 
         java.util.Date now = UtilDateTime.nowDate();
         if (passed != null) {
             return passed.after(now);
-        } else {
-            return false;
         }
+        return false;
     }
 
     /** isDate returns true if string argument date forms a valid date and is before today. */
     public static boolean isDateBeforeToday(String date) {
-        if (isEmpty(date)) return defaultEmptyOK;
+        if (isEmpty(date)) {
+            return defaultEmptyOK;
+        }
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
 
-        if (dateSlash1 <= 0) return defaultEmptyOK; // In this case an issue number has been provided (requires a javascript check in template!)
+        if (dateSlash1 <= 0)
+         {
+            return defaultEmptyOK; // In this case an issue number has been provided (requires a javascript check in template!)
+        }
 
         java.util.Date passed = null;
         if (dateSlash1 == dateSlash2) {
@@ -874,7 +1015,9 @@ public final class UtilValidate {
             String month = date.substring(0, dateSlash1);
             String day = "28";
             String year = date.substring(dateSlash1 + 1);
-            if (!isDate(year, month, day)) return false;
+            if (!isDate(year, month, day)) {
+                return false;
+            }
 
             try {
                 int monthInt = Integer.parseInt(month);
@@ -890,47 +1033,48 @@ public final class UtilValidate {
             String month = date.substring(0, dateSlash1);
             String day = date.substring(dateSlash1 + 1, dateSlash2);
             String year = date.substring(dateSlash2 + 1);
-            if (!isDate(year, month, day)) return false;
+            if (!isDate(year, month, day)) {
+                return false;
+            }
             passed = UtilDateTime.toDate(month, day, year, "0", "0", "0");
         }
 
         java.util.Date now = UtilDateTime.nowDate();
         if (passed != null) {
             return passed.before(now);
-        } else {
-            return false;
         }
+        return false;
     }
 
     public static boolean isDateBeforeNow(Timestamp  date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {
             return date.before(now);
-        } else {
-            return false;
         }
+        return false;
     }
 
     public static boolean isDateAfterNow(Timestamp  date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {
             return date.after(now);
-        } else {
-            return false;
         }
+        return false;
     }
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
-        if (isHour(hour) && isMinute(minute) && isSecond(second))
+        if (isHour(hour) && isMinute(minute) && isSecond(second)) {
             return true;
-        else
-            return false;
+        }
+        return false;
     }
 
     /** isTime returns true if string argument time forms a valid time. */
     public static boolean isTime(String time) {
-        if (isEmpty(time)) return defaultEmptyOK;
+        if (isEmpty(time)) {
+            return defaultEmptyOK;
+        }
 
         String hour;
         String minute;
@@ -939,7 +1083,9 @@ public final class UtilValidate {
         int timeColon1 = time.indexOf(":");
         int timeColon2 = time.lastIndexOf(":");
 
-        if (timeColon1 <= 0) return false;
+        if (timeColon1 <= 0) {
+            return false;
+        }
         hour = time.substring(0, timeColon1);
         if (timeColon1 == timeColon2) {
             minute = time.substring(timeColon1 + 1);
@@ -957,7 +1103,9 @@ public final class UtilValidate {
      * @return true, if the number passed simple checks
      */
     public static boolean isValueLinkCard(String stPassed) {
-        if (isEmpty(stPassed)) return defaultEmptyOK;
+        if (isEmpty(stPassed)) {
+            return defaultEmptyOK;
+        }
         String st = stripCharsInBag(stPassed, creditCardDelimiters);
         if (st.length() == 16 && (st.startsWith("7") || st.startsWith("6"))) {
             return true;
@@ -971,7 +1119,9 @@ public final class UtilValidate {
      * @return tru, if the number passed simple checks
      */
     public static boolean isOFBGiftCard(String stPassed) {
-        if (isEmpty(stPassed)) return defaultEmptyOK;
+        if (isEmpty(stPassed)) {
+            return defaultEmptyOK;
+        }
         String st = stripCharsInBag(stPassed, creditCardDelimiters);
         if (st.length() == 15 && sumIsMod10(getLuhnSum(st))) {
             return true;
@@ -1029,13 +1179,19 @@ public final class UtilValidate {
      * @return true, if the credit card number passes the Luhn Mod-10 test, false otherwise
      */
     public static boolean isCreditCard(String stPassed) {
-        if (isEmpty(stPassed)) return defaultEmptyOK;
+        if (isEmpty(stPassed)) {
+            return defaultEmptyOK;
+        }
         String st = stripCharsInBag(stPassed, creditCardDelimiters);
-		
-		if (!isInteger(st)) return false;
-		
+
+        if (!isInteger(st)) {
+            return false;
+        }
+
         // encoding only works on cars with less the 19 digits
-        if (st.length() > 19) return false;
+        if (st.length() > 19) {
+            return false;
+        }
         return sumIsMod10(getLuhnSum(st));
     }
 
@@ -1045,8 +1201,9 @@ public final class UtilValidate {
      * @return true, if the credit card number is a valid VISA number, false otherwise
      */
     public static boolean isVisa(String cc) {
-        if (((cc.length() == 16) || (cc.length() == 13)) && ("4".equals(cc.substring(0, 1))))
+        if (((cc.length() == 16) || (cc.length() == 13)) && ("4".equals(cc.substring(0, 1)))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1059,8 +1216,9 @@ public final class UtilValidate {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
         int seconddig = Integer.parseInt(cc.substring(1, 2));
 
-        if ((cc.length() == 16) && (firstdig == 5) && ((seconddig >= 1) && (seconddig <= 5)))
+        if ((cc.length() == 16) && (firstdig == 5) && ((seconddig >= 1) && (seconddig <= 5))) {
             return isCreditCard(cc);
+        }
         return false;
 
     }
@@ -1073,8 +1231,9 @@ public final class UtilValidate {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
         int seconddig = Integer.parseInt(cc.substring(1, 2));
 
-        if ((cc.length() == 15) && (firstdig == 3) && ((seconddig == 4) || (seconddig == 7)))
+        if ((cc.length() == 15) && (firstdig == 3) && ((seconddig == 4) || (seconddig == 7))) {
             return isCreditCard(cc);
+        }
         return false;
 
     }
@@ -1087,8 +1246,9 @@ public final class UtilValidate {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
         int seconddig = Integer.parseInt(cc.substring(1, 2));
 
-        if ((cc.length() == 14) && (firstdig == 3) && ((seconddig == 0) || (seconddig == 6) || (seconddig == 8)))
+        if ((cc.length() == 14) && (firstdig == 3) && ((seconddig == 0) || (seconddig == 6) || (seconddig == 8))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1107,8 +1267,9 @@ public final class UtilValidate {
     public static boolean isDiscover(String cc) {
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 16) && ("6011".equals(first4digs)))
+        if ((cc.length() == 16) && ("6011".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1119,8 +1280,9 @@ public final class UtilValidate {
     public static boolean isEnRoute(String cc) {
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 15) && ("2014".equals(first4digs) || "2149".equals(first4digs)))
+        if ((cc.length() == 15) && ("2014".equals(first4digs) || "2149".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1137,8 +1299,9 @@ public final class UtilValidate {
                 "3112".equals(first4digs) ||
                 "3158".equals(first4digs) ||
                 "3337".equals(first4digs) ||
-                "3528".equals(first4digs)))
+                "3528".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1158,8 +1321,9 @@ public final class UtilValidate {
                 "564182".equals(first6digs) ||
                 "633110".equals(first6digs) ||
                 "6333".equals(first4digs) ||
-                "6759".equals(first4digs)))
+                "6759".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1171,8 +1335,9 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-                ("63".equals(first2digs) || "6767".equals(first4digs)))
+                ("63".equals(first2digs) || "6767".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1190,8 +1355,9 @@ public final class UtilValidate {
                 "4913".equals(first4digs) ||
                 "4508".equals(first4digs) ||
                 "4844".equals(first4digs) ||
-                "4027".equals(first4digs)))
+                "4027".equals(first4digs))) {
             return isCreditCard(cc);
+        }
         return false;
     }
 
@@ -1201,14 +1367,19 @@ public final class UtilValidate {
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
      */
     public static boolean isAnyCard(String ccPassed) {
-        if (isEmpty(ccPassed)) return defaultEmptyOK;
+        if (isEmpty(ccPassed)) {
+            return defaultEmptyOK;
+        }
 
         String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
 
-        if (!isCreditCard(cc)) return false;
+        if (!isCreditCard(cc)) {
+            return false;
+        }
         if (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch (cc)|| isVisaElectron(cc))
+                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch (cc)|| isVisaElectron(cc)) {
             return true;
+        }
         return false;
     }
 
@@ -1217,21 +1388,45 @@ public final class UtilValidate {
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
      */
     public static String getCardType(String ccPassed) {
-        if (isEmpty(ccPassed)) return "Unknown";
+        if (isEmpty(ccPassed)) {
+            return "Unknown";
+        }
         String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
 
-        if (!isCreditCard(cc)) return "Unknown";
+        if (!isCreditCard(cc)) {
+            return "Unknown";
+        }
 
-        if (isMasterCard(cc)) return "CCT_MASTERCARD";
-        if (isVisa(cc)) return "CCT_VISA";
-        if (isAmericanExpress(cc)) return "CCT_AMERICANEXPRESS";
-        if (isDinersClub(cc)) return "CCT_DINERSCLUB";
-        if (isDiscover(cc)) return "CCT_DISCOVER";
-        if (isEnRoute(cc)) return "CCT_ENROUTE";
-        if (isJCB(cc)) return "CCT_JCB";
-        if (isSolo(cc)) return "CCT_SOLO";
-        if (isSwitch (cc)) return "CCT_SWITCH";
-        if (isVisaElectron(cc)) return "CCT_VISAELECTRON";
+        if (isMasterCard(cc)) {
+            return "CCT_MASTERCARD";
+        }
+        if (isVisa(cc)) {
+            return "CCT_VISA";
+        }
+        if (isAmericanExpress(cc)) {
+            return "CCT_AMERICANEXPRESS";
+        }
+        if (isDinersClub(cc)) {
+            return "CCT_DINERSCLUB";
+        }
+        if (isDiscover(cc)) {
+            return "CCT_DISCOVER";
+        }
+        if (isEnRoute(cc)) {
+            return "CCT_ENROUTE";
+        }
+        if (isJCB(cc)) {
+            return "CCT_JCB";
+        }
+        if (isSolo(cc)) {
+            return "CCT_SOLO";
+        }
+        if (isSwitch (cc)) {
+            return "CCT_SWITCH";
+        }
+        if (isVisaElectron(cc)) {
+            return "CCT_VISAELECTRON";
+        }
         return "Unknown";
     }
 
@@ -1241,28 +1436,56 @@ public final class UtilValidate {
      *   @return  true, if the credit card number is valid for the particular credit card type given in "cardType", false otherwise
      */
     public static boolean isCardMatch(String cardType, String cardNumberPassed) {
-        if (isEmpty(cardType)) return defaultEmptyOK;
-        if (isEmpty(cardNumberPassed)) return defaultEmptyOK;
+        if (isEmpty(cardType)) {
+            return defaultEmptyOK;
+        }
+        if (isEmpty(cardNumberPassed)) {
+            return defaultEmptyOK;
+        }
         String cardNumber = stripCharsInBag(cardNumberPassed, creditCardDelimiters);
 
-        if (("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber))) return true;
-        if (("CCT_MASTERCARD".equalsIgnoreCase(cardType)) && (isMasterCard(cardNumber))) return true;
-        if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType))) && (isAmericanExpress(cardNumber))) return true;
-        if (("CCT_DISCOVER".equalsIgnoreCase(cardType)) && (isDiscover(cardNumber))) return true;
-        if (("CCT_JCB".equalsIgnoreCase(cardType)) && (isJCB(cardNumber))) return true;
-        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)) || ("CCT_DINERS".equalsIgnoreCase(cardType))) && (isDinersClub(cardNumber))) return true;
-        if (("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber))) return true;
-        if (("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber))) return true;
-        if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) return true;
-        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) return true;
-        if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) return true;
+        if (("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber))) {
+            return true;
+        }
+        if (("CCT_MASTERCARD".equalsIgnoreCase(cardType)) && (isMasterCard(cardNumber))) {
+            return true;
+        }
+        if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType))) && (isAmericanExpress(cardNumber))) {
+            return true;
+        }
+        if (("CCT_DISCOVER".equalsIgnoreCase(cardType)) && (isDiscover(cardNumber))) {
+            return true;
+        }
+        if (("CCT_JCB".equalsIgnoreCase(cardType)) && (isJCB(cardNumber))) {
+            return true;
+        }
+        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)) || ("CCT_DINERS".equalsIgnoreCase(cardType))) && (isDinersClub(cardNumber))) {
+            return true;
+        }
+        if (("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber))) {
+            return true;
+        }
+        if (("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber))) {
+            return true;
+        }
+        if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) {
+            return true;
+        }
+        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) {
+            return true;
+        }
+        if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) {
+            return true;
+        }
         return false;
     }
 
 
     /** isNotPoBox returns true if address argument does not contain anything that looks like a a PO Box. */
     public static boolean isNotPoBox(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) {
+            return defaultEmptyOK;
+        }
 
         // strings to check from Greg's program
         // "P.O. B"
@@ -1275,24 +1498,56 @@ public final class UtilValidate {
         // "P0 B"
 
         String sl = s.toLowerCase(Locale.getDefault());
-        if (sl.indexOf("p.o. b") != -1) return false;
-        if (sl.indexOf("p.o.b") != -1) return false;
-        if (sl.indexOf("p.o b") != -1) return false;
-        if (sl.indexOf("p o b") != -1) return false;
-        if (sl.indexOf("po b") != -1) return false;
-        if (sl.indexOf("pobox") != -1) return false;
-        if (sl.indexOf("po#") != -1) return false;
-        if (sl.indexOf("po #") != -1) return false;
+        if (sl.indexOf("p.o. b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p.o.b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p.o b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p o b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("po b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("pobox") != -1) {
+            return false;
+        }
+        if (sl.indexOf("po#") != -1) {
+            return false;
+        }
+        if (sl.indexOf("po #") != -1) {
+            return false;
+        }
 
         // now with 0's for them sneaky folks
-        if (sl.indexOf("p.0. b") != -1) return false;
-        if (sl.indexOf("p.0.b") != -1) return false;
-        if (sl.indexOf("p.0 b") != -1) return false;
-        if (sl.indexOf("p 0 b") != -1) return false;
-        if (sl.indexOf("p0 b") != -1) return false;
-        if (sl.indexOf("p0box") != -1) return false;
-        if (sl.indexOf("p0#") != -1) return false;
-        if (sl.indexOf("p0 #") != -1) return false;
+        if (sl.indexOf("p.0. b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p.0.b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p.0 b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p 0 b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p0 b") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p0box") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p0#") != -1) {
+            return false;
+        }
+        if (sl.indexOf("p0 #") != -1) {
+            return false;
+        }
         return true;
     }
 
@@ -1336,7 +1591,9 @@ public final class UtilValidate {
             }
         }
         int check = 10 - ((evensum + 3 * oddsum) % 10);
-        if (check >= 10) check = 0;
+        if (check >= 10) {
+            check = 0;
+        }
         return Character.forDigit(check, 10);
     }
 

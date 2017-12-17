@@ -41,12 +41,14 @@ public final class UtilPlist {
     public static final String module = UtilPlist.class.getName();
 
     private UtilPlist() {}
-    
+
     /** simple 4 char indentation */
     private static final String indentFourString = "    ";
 
     public static void writePlistProperty(String name, Object value, int indentLevel, PrintWriter writer) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.print(name);
         writer.print(" = ");
         if (value instanceof Map<?, ?>) {
@@ -62,12 +64,16 @@ public final class UtilPlist {
         }
     }
     public static void writePlistPropertyMap(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer, boolean appendComma) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println("{");
         for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
             writePlistProperty(property.getKey(), property.getValue(), indentLevel + 1, writer);
         }
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         if (appendComma) {
             writer.println("},");
         } else {
@@ -75,7 +81,9 @@ public final class UtilPlist {
         }
     }
     public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.print("(");
 
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
@@ -86,16 +94,22 @@ public final class UtilPlist {
                 writePlistPropertyMap(propertyMap, indentLevel + 1, writer, propertyValueIter.hasNext());
             } else {
                 writer.print(propertyValue);
-                if (propertyValueIter.hasNext()) writer.print(", ");
+                if (propertyValueIter.hasNext()) {
+                    writer.print(", ");
+                }
             }
         }
 
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println(");");
     }
 
     public static void writePlistPropertyXml(String name, Object value, int indentLevel, PrintWriter writer) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.print("<key>");
         writer.print(name);
         writer.println("</key>");
@@ -106,23 +120,31 @@ public final class UtilPlist {
             List<Object> list = checkList(value);
             writePlistPropertyValueListXml(list, indentLevel, writer);
         } else {
-            for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+            for (int i = 0; i < indentLevel; i++) {
+                writer.print(indentFourString);
+            }
             writer.print("<string>");
             writer.print(value);
             writer.println("</string>");
         }
     }
     public static void writePlistPropertyMapXml(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println("<dict>");
         for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
             writePlistPropertyXml(property.getKey(), property.getValue(), indentLevel + 1, writer);
         }
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println("</dict>");
     }
     public static void writePlistPropertyValueListXml(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println("<array>");
 
         indentLevel++;
@@ -133,7 +155,9 @@ public final class UtilPlist {
                 Map<String, Object> propertyMap = checkMap(propertyValue);
                 writePlistPropertyMapXml(propertyMap, indentLevel, writer);
             } else {
-                for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+                for (int i = 0; i < indentLevel; i++) {
+                    writer.print(indentFourString);
+                }
                 writer.print("<string>");
                 writer.print(propertyValue);
                 writer.println("</string>");
@@ -141,7 +165,9 @@ public final class UtilPlist {
         }
         indentLevel--;
 
-        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        for (int i = 0; i < indentLevel; i++) {
+            writer.print(indentFourString);
+        }
         writer.println("</array>");
     }
 

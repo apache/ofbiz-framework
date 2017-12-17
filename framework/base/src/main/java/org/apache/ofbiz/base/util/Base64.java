@@ -150,7 +150,9 @@ public class Base64 {
      * @return the decoded str.
      */
     public final static String base64Decode(String str) {
-        if (str == null) return null;
+        if (str == null) {
+            return null;
+        }
 
         return new String(base64Decode(str.getBytes(UtilIO.getUtf8())));
     }
@@ -182,8 +184,9 @@ public class Base64 {
             if (sidx < data.length - 1) {
                 dest[didx++] = base64EncMap[(data[sidx + 1] >>> 4) & 017 | (data[sidx] << 4) & 077];
                 dest[didx++] = base64EncMap[(data[sidx + 1] << 2) & 077];
-            } else
+            } else {
                 dest[didx++] = base64EncMap[(data[sidx] << 4) & 077];
+            }
         }
 
         // add padding

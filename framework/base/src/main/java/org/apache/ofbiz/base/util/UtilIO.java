@@ -53,10 +53,14 @@ public final class UtilIO {
             try {
                 IOUtils.copy(in, out);
             } finally {
-                if (closeIn) IOUtils.closeQuietly(in);
+                if (closeIn) {
+                    IOUtils.closeQuietly(in);
+                }
             }
         } finally {
-            if (closeOut) IOUtils.closeQuietly(out);
+            if (closeOut) {
+                IOUtils.closeQuietly(out);
+            }
         }
     }
 
@@ -74,10 +78,14 @@ public final class UtilIO {
             try {
                 IOUtils.copy(reader, writer);
             } finally {
-                if (closeIn) IOUtils.closeQuietly(reader);
+                if (closeIn) {
+                    IOUtils.closeQuietly(reader);
+                }
             }
         } finally {
-            if (closeOut) IOUtils.closeQuietly(writer);
+            if (closeOut) {
+                IOUtils.closeQuietly(writer);
+            }
         }
     }
 
@@ -97,7 +105,9 @@ public final class UtilIO {
                 out.append(buffer);
             }
         } finally {
-            if (closeIn) IOUtils.closeQuietly(reader);
+            if (closeIn) {
+                IOUtils.closeQuietly(reader);
+            }
         }
     }
 
@@ -108,7 +118,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes) throws IOException {
+    public static final String readString(byte[] bytes) {
         return readString(bytes, 0, bytes.length, UTF8);
     }
 
@@ -122,7 +132,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length) throws IOException {
+    public static final String readString(byte[] bytes, int offset, int length) {
         return readString(bytes, offset, length, UTF8);
     }
 
@@ -135,7 +145,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, String charset) throws IOException {
+    public static final String readString(byte[] bytes, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -151,7 +161,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, String charset) throws IOException {
+    public static final String readString(byte[] bytes, int offset, int length, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -163,7 +173,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, Charset charset) throws IOException {
+    public static final String readString(byte[] bytes, Charset charset) {
         return readString(bytes, 0, bytes.length, charset);
     }
 
@@ -179,7 +189,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, Charset charset) throws IOException {
+    public static final String readString(byte[] bytes, int offset, int length, Charset charset) {
         ByteBuffer buf = ByteBuffer.allocate(length);
         buf.put(bytes, offset, length);
         buf.flip();
@@ -299,7 +309,7 @@ public final class UtilIO {
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write
-     * @throws IOException 
+     * @throws IOException
      */
     public static void writeString(OutputStream out, Charset charset, String value) throws IOException {
         try (Writer writer = new OutputStreamWriter(out, charset)) {

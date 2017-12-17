@@ -69,10 +69,9 @@ public class URLConnector {
 
         if (connection != null) {
             return connection;
-        } else {
-            timedOut = true;
-            throw new IOException("Connection timed out");
         }
+        timedOut = true;
+        throw new IOException("Connection timed out");
     }
 
     // trusted certs only
@@ -126,9 +125,7 @@ public class URLConnector {
                         if (hv != null) {
                             scon.setHostnameVerifier(hv);
                         }
-                    } catch (GeneralSecurityException e) {
-                        Debug.logError(e, module);
-                    } catch (GenericConfigException e) {
+                    } catch (GeneralSecurityException | GenericConfigException e) {
                         Debug.logError(e, module);
                     }
                 }

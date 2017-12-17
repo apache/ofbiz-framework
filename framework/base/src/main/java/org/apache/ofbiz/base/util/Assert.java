@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import org.apache.ofbiz.base.lang.ThreadSafe;
 /** Basic assertions. The static methods in this class provide a convenient way
  * to test method arguments. All of the methods in this class throw <code>
  * IllegalArgumentException</code> if the method arguments are invalid.
- * 
+ *
  */
 @ThreadSafe
 public class Assert {
@@ -33,7 +33,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and can be cast to a specified class.
      * <p><code>Assert.isAssignableTo("foo", foo, Foo.class);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -49,7 +49,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of a specified class.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -65,7 +65,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of one of the specified classes.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -92,7 +92,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of a specified class.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -108,7 +108,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of one of the specified classes.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -127,7 +127,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -142,7 +142,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -157,7 +157,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -172,7 +172,7 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     * 
+     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -187,7 +187,7 @@ public class Assert {
     /**
      * Tests a list of arguments for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo, "bar", bar, ...);</code></p>
-     * 
+     *
      * @param arguments
      * @throws IllegalArgumentException
      */
@@ -200,7 +200,7 @@ public class Assert {
     /**
      * Tests an argument for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo);</code></p>
-     * 
+     *
      * @param argumentName
      * @param objectToTest
      * @throws IllegalArgumentException

@@ -26,8 +26,8 @@ import java.net.UnknownHostException;
 import java.rmi.server.RMISocketFactory;
 
 /**
- * A <code>RMISocketFactory</code> implementation that creates <code>ServerSocket</code>s bound 
- * on a specified network interface.  
+ * A <code>RMISocketFactory</code> implementation that creates <code>ServerSocket</code>s bound
+ * on a specified network interface.
  */
 public class RMIExtendedSocketFactory extends RMISocketFactory {
 
@@ -44,21 +44,21 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
     }
 
     /**
-     * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s 
-     * bound on the specified network interface. 
-     * 
-     * @param inetAddress The <code>InetAddress</code> of the network interface. 
+     * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s
+     * bound on the specified network interface.
+     *
+     * @param inetAddress The <code>InetAddress</code> of the network interface.
      */
     public RMIExtendedSocketFactory( InetAddress inetAddress ) {
         this.hostInetAddress = inetAddress;
     }
 
     /**
-     * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s 
-     * bound on the specified network interface. 
-     * 
+     * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s
+     * bound on the specified network interface.
+     *
      * @param hostIpAddress The IP address of the interface to bind the server sockets to.
-     * @throws UnknownHostException If an invalid IP address is provided. 
+     * @throws UnknownHostException If an invalid IP address is provided.
      */
     public RMIExtendedSocketFactory( String hostIpAddress ) throws UnknownHostException {
 
@@ -89,9 +89,8 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
     public ServerSocket createServerSocket(int port) throws IOException {
         if ( hostInetAddress !=  null ) {
             return new ServerSocket( port, 0, hostInetAddress );
-        } else {
-            return new ServerSocket( port );
         }
+        return new ServerSocket( port );
     }
 
     @Override

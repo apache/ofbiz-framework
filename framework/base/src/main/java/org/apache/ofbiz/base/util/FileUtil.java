@@ -25,8 +25,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -55,8 +53,8 @@ public final class FileUtil {
 
     private static class SearchTextFilesFilter implements FilenameFilter {
         String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<String>();
-        Set<String> stringsToFindInPath = new HashSet<String>();
+        Set<String> stringsToFindInFile = new HashSet<>();
+        Set<String> stringsToFindInPath = new HashSet<>();
 
         public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
@@ -94,9 +92,6 @@ public final class FileUtil {
                 StringBuffer xmlFileBuffer = null;
                 try {
                     xmlFileBuffer = FileUtil.readTextFile(file, true);
-                } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
-                    return false;
                 } catch (IOException e) {
                     Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
                     return false;
@@ -149,7 +144,7 @@ public final class FileUtil {
         writeString(null, fileName, s);
     }
 
-    public static void writeString(String path, String name, String s) throws IOException {
+    public static void writeString(String path, String name, String s) {
 
         try (
         Writer out = getBufferedWriter(path, name);
@@ -297,8 +292,8 @@ public final class FileUtil {
             basePath = System.getProperty("ofbiz.home");
         }
 
-        Set<String> stringsToFindInPath = new HashSet<String>();
-        Set<String> stringsToFindInFile = new HashSet<String>();
+        Set<String> stringsToFindInPath = new HashSet<>();
+        Set<String> stringsToFindInFile = new HashSet<>();
 
         if (partialPath != null) {
            stringsToFindInPath.add(partialPath);
@@ -307,7 +302,7 @@ public final class FileUtil {
            stringsToFindInFile.add(stringToFind);
         }
 
-        List<File> fileList = new LinkedList<File>();
+        List<File> fileList = new LinkedList<>();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter(fileExt, stringsToFindInPath, stringsToFindInFile), true);
 
         return fileList;
@@ -318,14 +313,20 @@ public final class FileUtil {
             basePath = System.getProperty("ofbiz.home");
         }
 
-        Set<String> stringsToFindInPath = new HashSet<String>();
-        Set<String> stringsToFindInFile = new HashSet<String>();
+        Set<String> stringsToFindInPath = new HashSet<>();
+        Set<String> stringsToFindInFile = new HashSet<>();
 
-        if (partialPath != null) stringsToFindInPath.add(partialPath);
-        if (rootElementName != null) stringsToFindInFile.add("<" + rootElementName + " ");
-        if (xsdOrDtdName != null) stringsToFindInFile.add(xsdOrDtdName);
+        if (partialPath != null) {
+            stringsToFindInPath.add(partialPath);
+        }
+        if (rootElementName != null) {
+            stringsToFindInFile.add("<" + rootElementName + " ");
+        }
+        if (xsdOrDtdName != null) {
+            stringsToFindInFile.add(xsdOrDtdName);
+        }
 
-        List<File> fileList = new LinkedList<File>();
+        List<File> fileList = new LinkedList<>();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter("xml", stringsToFindInPath, stringsToFindInFile), true);
         return fileList;
     }
@@ -348,9 +349,14 @@ public final class FileUtil {
        int count = 0;
        while((numCharsRead = reader.read(buffer)) > 0) {
            for (int c = 0; c < numCharsRead; ++c) {
-               if (buffer[c] == searchString.charAt(count)) count++;
-               else count = 0;
-               if (count == searchString.length()) return true;
+               if (buffer[c] == searchString.charAt(count)) {
+                   count++;
+               } else {
+                   count = 0;
+               }
+               if (count == searchString.length()) {
+                   return true;
+               }
            }
        }
        return false;
@@ -377,9 +383,8 @@ public final class FileUtil {
             ) {
                return containsString(in, searchString);
            }
-       } else {
-           return false;
        }
+       return false;
    }
 
    /**
@@ -396,5 +401,4 @@ public final class FileUtil {
        File f = new File(fileName);
        return f.isFile();
    }
-
 }

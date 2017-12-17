@@ -75,7 +75,7 @@ public final class ScriptUtil {
     public static final Set<String> SCRIPT_NAMES;
 
     static {
-        Set<String> writableScriptNames = new HashSet<String>();
+        Set<String> writableScriptNames = new HashSet<>();
         ScriptEngineManager manager = new ScriptEngineManager();
         List<ScriptEngineFactory> engines = manager.getEngineFactories();
         if (engines.isEmpty()) {
@@ -117,7 +117,7 @@ public final class ScriptUtil {
 
     /**
      * Returns a compiled script.
-     * 
+     *
      * @param filePath Script path and file name.
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
      * @throws IllegalArgumentException
@@ -156,7 +156,7 @@ public final class ScriptUtil {
 
     /**
      * Returns a compiled script.
-     * 
+     *
      * @param language
      * @param script
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
@@ -196,13 +196,13 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     * 
+     *
      * @param context
      * @return
      */
     public static ScriptContext createScriptContext(Map<String, Object> context) {
         Assert.notNull("context", context);
-        Map<String, Object> localContext = new HashMap<String, Object>(context);
+        Map<String, Object> localContext = new HashMap<>(context);
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
@@ -220,14 +220,14 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     * 
+     *
      * @param context
      * @param protectedKeys
      * @return
      */
     public static ScriptContext createScriptContext(Map<String, Object> context, Set<String> protectedKeys) {
         Assert.notNull("context", context, "protectedKeys", protectedKeys);
-        Map<String, Object> localContext = new HashMap<String, Object>(context);
+        Map<String, Object> localContext = new HashMap<>(context);
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
@@ -249,7 +249,7 @@ public final class ScriptUtil {
 
      /**
      * Executes a script <code>String</code> and returns the result.
-     * 
+     *
      * @param language
      * @param script
      * @param scriptClass
@@ -286,7 +286,7 @@ public final class ScriptUtil {
 
     /**
      * Executes a compiled script and returns the result.
-     * 
+     *
      * @param script Compiled script.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
@@ -313,7 +313,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     * 
+     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -326,7 +326,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     * 
+     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -351,7 +351,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     * 
+     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
