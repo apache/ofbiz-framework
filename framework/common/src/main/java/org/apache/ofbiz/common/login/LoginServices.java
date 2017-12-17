@@ -20,7 +20,6 @@
 package org.apache.ofbiz.common.login;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
