@@ -49,7 +49,7 @@ public final class JobPoller implements ServiceConfigListener {
 
     public static final String module = JobPoller.class.getName();
     private static final AtomicInteger created = new AtomicInteger();
-    private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<String, JobManager>();
+    private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<>();
     private static final ThreadPoolExecutor executor = createThreadPoolExecutor();
     private static final JobPoller instance = new JobPoller();
 
@@ -84,7 +84,7 @@ public final class JobPoller implements ServiceConfigListener {
 
     /**
      * Register a {@link JobManager} with the job poller.
-     * 
+     *
      * @param jm The <code>JobManager</code> to register.
      * @throws IllegalArgumentException if <code>jm</code> is null
      */
@@ -112,7 +112,7 @@ public final class JobPoller implements ServiceConfigListener {
      * Returns a <code>Map</code> containing <code>JobPoller</code> statistics.
      */
     public Map<String, Object> getPoolState() {
-        Map<String, Object> poolState = new HashMap<String, Object>();
+        Map<String, Object> poolState = new HashMap<>();
         poolState.put("keepAliveTimeInSeconds", executor.getKeepAliveTime(TimeUnit.SECONDS));
         poolState.put("numberOfCoreInvokerThreads", executor.getCorePoolSize());
         poolState.put("currentNumberOfInvokerThreads", executor.getPoolSize());
@@ -121,11 +121,11 @@ public final class JobPoller implements ServiceConfigListener {
         poolState.put("greatestNumberOfInvokerThreads", executor.getLargestPoolSize());
         poolState.put("numberOfCompletedTasks", executor.getCompletedTaskCount());
         BlockingQueue<Runnable> queue = executor.getQueue();
-        List<Map<String, Object>> taskList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> taskList = new ArrayList<>();
         Map<String, Object> taskInfo = null;
         for (Runnable task : queue) {
             Job job = (Job) task;
-            taskInfo = new HashMap<String, Object>();
+            taskInfo = new HashMap<>();
             taskInfo.put("id", job.getJobId());
             taskInfo.put("name", job.getJobName());
             String serviceName = "";
@@ -218,17 +218,19 @@ public final class JobPoller implements ServiceConfigListener {
                     if (remainingCapacity > 0) {
                         // Build "list of lists"
                         Collection<JobManager> jmCollection = jobManagers.values();
-                        List<Iterator<Job>> pollResults = new ArrayList<Iterator<Job>>();
+                        List<Iterator<Job>> pollResults = new ArrayList<>();
                         for (JobManager jm : jmCollection) {
                             if (!jm.isAvailable()) {
-                                if (Debug.infoOn()) Debug.logInfo("The job manager is locked.", module);
+                                if (Debug.infoOn()) {
+                                    Debug.logInfo("The job manager is locked.", module);
+                                }
                                 continue;
                             }
                             jm.reloadCrashedJobs();
                             pollResults.add(jm.poll(remainingCapacity).iterator());
                         }
                         // Create queue candidate list from "list of lists"
-                        List<Job> queueCandidates = new ArrayList<Job>();
+                        List<Job> queueCandidates = new ArrayList<>();
                         boolean addingJobs = true;
                         while (addingJobs) {
                             addingJobs = false;
