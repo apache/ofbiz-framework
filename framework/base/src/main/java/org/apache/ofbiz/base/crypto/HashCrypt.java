@@ -48,7 +48,7 @@ public class HashCrypt {
     public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     private static final String PBKDF2_SHA1 ="PBKDF2-SHA1";
-    private static final String PBKDF2_SHA256 ="PBKDF2-SHA256"; 
+    private static final String PBKDF2_SHA256 ="PBKDF2-SHA256";
     private static final String PBKDF2_SHA384 ="PBKDF2-SHA384";
     private static final String PBKDF2_SHA512 ="PBKDF2-SHA512";
     private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 10000);
@@ -200,7 +200,7 @@ public class HashCrypt {
             throw new GeneralRuntimeException("Error while computing SecretKeyFactory", e);
         }
     }
-    
+
     public static boolean doComparePbkdf2(String crypted, String password){
         try {
             int typeEnd = crypted.indexOf("}");
@@ -221,17 +221,17 @@ public class HashCrypt {
                 case "SHA512":
                     hashType = "PBKDF2WithHmacSHA512";
                     break;
-                default:  
+                default:
                     hashType = "PBKDF2WithHmacSHA1";
             }
             SecretKeyFactory skf = SecretKeyFactory.getInstance(hashType);
             byte[] testHash = skf.generateSecret(spec).getEncoded();
             int diff = hash.length ^ testHash.length;
-            
+
             for (int i = 0; i < hash.length && i < testHash.length; i++) {
                 diff |= hash[i] ^ testHash[i];
             }
-            
+
             return diff == 0;
         } catch (NoSuchAlgorithmException e) {
             throw new GeneralRuntimeException("Error while computing SecretKeyFactory", e);
@@ -239,7 +239,7 @@ public class HashCrypt {
             throw new GeneralRuntimeException("Error while creating SecretKey", e);
         }
     }
-    
+
     private static String getSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
@@ -250,14 +250,18 @@ public class HashCrypt {
             throw new GeneralRuntimeException("Error while creating salt", e);
         }
     }
-    
+
     public static String digestHash(String hashType, String code, String str) {
-        if (str == null) return null;
+        if (str == null) {
+            return null;
+        }
         byte[] codeBytes;
         try {
-            if (code == null)
+            if (code == null) {
                 codeBytes = str.getBytes(UtilIO.getUtf8());
-            else codeBytes = str.getBytes(code);
+            } else {
+                codeBytes = str.getBytes(code);
+            }
         } catch (UnsupportedEncodingException e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
         }
@@ -331,8 +335,12 @@ public class HashCrypt {
     }
 
     public static String digestHashOldFunnyHex(String hashType, String str) {
-        if (UtilValidate.isEmpty(hashType)) hashType = "SHA";
-        if (str == null) return null;
+        if (UtilValidate.isEmpty(hashType)) {
+            hashType = "SHA";
+        }
+        if (str == null) {
+            return null;
+        }
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
             byte[] strBytes = str.getBytes(UtilIO.getUtf8());
@@ -349,8 +357,8 @@ public class HashCrypt {
     private static String oldFunnyHex(byte[] bytes) {
         int k = 0;
         char[] digestChars = new char[bytes.length * 2];
-        for (int l = 0; l < bytes.length; l++) {
-            int i1 = bytes[l];
+        for (byte b : bytes) {
+            int i1 = b;
 
             if (i1 < 0) {
                 i1 = 127 + i1 * -1;
