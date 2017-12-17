@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -126,7 +127,9 @@ public class LoginWorker {
 
     public static void setLoggedOut(String userLoginId, Delegator delegator) {
         if (UtilValidate.isEmpty(userLoginId)) {
-            Debug.logWarning("Called setLogged out with empty userLoginId", module);
+            if (Debug.warningOn()) {
+                Debug.logWarning("Called setLogged out with empty userLoginId", module);
+            }
         }
 
         Transaction parentTx = null;
@@ -169,7 +172,9 @@ public class LoginWorker {
             if (parentTx != null) {
                 try {
                     TransactionUtil.resume(parentTx);
-                    Debug.logVerbose("Resumed the parent transaction.", module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Resumed the parent transaction.", module);
+                    }
                 } catch (GenericTransactionException ite) {
                     Debug.logError(ite, "Cannot resume transaction: " + ite.getMessage(), module);
                 }
@@ -198,7 +203,9 @@ public class LoginWorker {
                     request.setAttribute("_ERROR_MESSAGE_LIST", errorMessageList);
                 }
                 errorMessageList.add("User does not have permission or is flagged as logged out");
-                Debug.logInfo("User does not have permission or is flagged as logged out", module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("User does not have permission or is flagged as logged out", module);
+                }
                 doBasicLogout(userLogin, request, response);
                 userLogin = null;
             }
@@ -406,7 +413,9 @@ public class LoginWorker {
             }
         } else {
             // Set default delegator
-            Debug.logInfo("Setting default delegator", module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Setting default delegator", module);
+            }
             String delegatorName = delegator.getDelegatorBaseName();
             try {
                 // after this line the delegator is replaced with default delegator
@@ -702,7 +711,9 @@ public class LoginWorker {
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
-        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+        }
         if (cookies != null) {
             for (Cookie cookie: cookies) {
                 if (cookie.getName().equals(getAutoLoginCookieName(request))) {
@@ -723,7 +734,9 @@ public class LoginWorker {
 
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
         if (autoUserLoginId != null) {
-            Debug.logInfo("Running autoLogin check.", module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Running autoLogin check.", module);
+            }
             try {
                 GenericValue autoUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", autoUserLoginId).queryOne();
                 GenericValue person = null;
@@ -901,7 +914,9 @@ public class LoginWorker {
                             if (m.matches()) {
                                 userLoginId = m.group(1);
                             } else {
-                                Debug.logInfo("Client certificate CN does not match pattern: [" + cnPattern + "]", module);
+                                if (Debug.infoOn()) {
+                                    Debug.logInfo("Client certificate CN does not match pattern: [" + cnPattern + "]", module);
+                                }
                             }
                         }
 
@@ -966,7 +981,9 @@ public class LoginWorker {
                 EntityCondition.makeConditionMap("serialNumber", "")));
 
         EntityConditionList<EntityCondition> condition = EntityCondition.makeCondition(conds);
-        Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
+        }
         long count = EntityQuery.use(delegator).from("X509IssuerProvision").where(condition).queryCount();
         return count > 0;
     }
@@ -982,7 +999,9 @@ public class LoginWorker {
         try {
             userLogin.refreshFromCache();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Unable to refresh UserLogin", module);
+            if (Debug.warningOn()) {
+                Debug.logWarning(e, "Unable to refresh UserLogin", module);
+            }
         }
         return (userLogin.get("hasLoggedOut") != null ?
                 "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
@@ -1023,10 +1042,14 @@ public class LoginWorker {
             if (info != null) {
                 return hasApplicationPermission(info, security, userLogin);
             } else {
-                Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("No webapp configuration found for : " + serverId + " / " + contextPath, module);
+                }
             }
         } else {
-            Debug.logWarning("Received a null Security object from HttpServletRequest", module);
+            if (Debug.warningOn()) {
+                Debug.logWarning("Received a null Security object from HttpServletRequest", module);
+            }
         }
         return true;
     }
@@ -1064,10 +1087,13 @@ public class LoginWorker {
                 userLoginSessionMap = checkMap(deserObj, String.class, Object.class);
             }
         } catch (GenericEntityException ge) {
-            Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " +
-                    userLogin.getString("userLoginId"), module);
+            if (Debug.warningOn()) {
+                Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " + userLogin.getString("userLoginId"), module);
+            }
         } catch (Exception e) {
-            Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
+            if (Debug.warningOn()) {
+                Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
+            }
         }
         return userLoginSessionMap;
     }
