@@ -52,7 +52,7 @@ import org.apache.ofbiz.widget.model.ModelGrid;
 
 /**
  * A form rendering engine.
- * 
+ *
  */
 public class FormRenderer {
 
@@ -60,12 +60,12 @@ public class FormRenderer {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * An instance of this class is created by each thread for each form that
      * is rendered. If you need to keep track of things while rendering, then
      * this is the place to do it. In other words, feel free to modify this
      * object's state (except for the final fields of course).
-     * 
+     *
      */
 
     public static final String module = FormRenderer.class.getName();
@@ -92,9 +92,8 @@ public class FormRenderer {
         }
         if (itemIndex != null && "list".equals(modelForm.getType())) {
             return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue();
-        } else {
-            return formName;
         }
+        return formName;
     }
 
     public static String getFocusFieldName(ModelForm modelForm, Map<String, Object> context) {
@@ -116,12 +115,12 @@ public class FormRenderer {
     }
 
     private Collection<List<ModelFormField>> getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
-        Map<Integer, List<ModelFormField>> fieldsByPosition = new TreeMap<Integer, List<ModelFormField>>();
+        Map<Integer, List<ModelFormField>> fieldsByPosition = new TreeMap<>();
         for (ModelFormField modelFormField : modelFormFieldList) {
             Integer position = Integer.valueOf(modelFormField.getPosition());
             List<ModelFormField> fieldListByPosition = fieldsByPosition.get(position);
             if (fieldListByPosition == null) {
-                fieldListByPosition = new LinkedList<ModelFormField>();
+                fieldListByPosition = new LinkedList<>();
                 fieldsByPosition.put(position, fieldListByPosition);
             }
             fieldListByPosition.add(modelFormField);
@@ -138,7 +137,7 @@ public class FormRenderer {
         /*
          * Method does not reference internal state - should be moved to another class.
          */
-        List<ModelFormField> hiddenIgnoredFieldList = new LinkedList<ModelFormField>();
+        List<ModelFormField> hiddenIgnoredFieldList = new LinkedList<>();
         for (ModelFormField modelFormField : fieldList) {
             // with position == -1 then gets all the hidden fields
             if (position != -1 && modelFormField.getPosition() != position) {
@@ -152,8 +151,9 @@ public class FormRenderer {
             case FieldInfo.IGNORED:
                 if (modelFormField.shouldUse(context)) {
                     hiddenIgnoredFieldList.add(modelFormField);
-                    if (alreadyRendered != null)
+                    if (alreadyRendered != null) {
                         alreadyRendered.add(modelFormField.getName());
+                    }
                 }
                 break;
 
@@ -182,7 +182,7 @@ public class FormRenderer {
     }
 
     private List<FieldGroupBase> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
-        List<FieldGroupBase> inbetweenList = new ArrayList<FieldGroupBase>();
+        List<FieldGroupBase> inbetweenList = new ArrayList<>();
         boolean firstFound = false;
         String startFieldGroupId = null;
         String endFieldGroupId = null;
@@ -198,8 +198,9 @@ public class FormRenderer {
         while (iter.hasNext()) {
             FieldGroupBase obj = iter.next();
             if (obj instanceof ModelForm.Banner) {
-                if (firstFound)
+                if (firstFound) {
                     inbetweenList.add(obj);
+                }
             } else {
                 FieldGroup fieldGroup = (FieldGroup) obj;
                 String fieldGroupId = fieldGroup.getId();
@@ -212,9 +213,8 @@ public class FormRenderer {
                 if (firstFound) {
                     if (fieldGroupId.equals(endFieldGroupId)) {
                         break;
-                    } else {
-                        inbetweenList.add(fieldGroup);
                     }
+                    inbetweenList.add(fieldGroup);
                 }
             }
         }
@@ -276,10 +276,9 @@ public class FormRenderer {
             if (UtilValidate.isEmpty(modelForm.getType())) {
                 throw new IllegalArgumentException("The form 'type' tag is missing or empty on the form with the name "
                         + modelForm.getName());
-            } else {
-                throw new IllegalArgumentException("The form type " + modelForm.getType()
-                        + " is not supported for form with name " + modelForm.getName());
             }
+            throw new IllegalArgumentException("The form type " + modelForm.getType()
+                    + " is not supported for form with name " + modelForm.getName());
         }
     }
 
@@ -291,7 +290,7 @@ public class FormRenderer {
         // in this model: we can have more fields with the same name when use-when
         // conditions are used or when a form is extended or when the fields are
         // automatically retrieved by a service or entity definition.
-        List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
+        List<ModelFormField> tempFieldList = new LinkedList<>();
         tempFieldList.addAll(modelForm.getFieldList());
         for (int j = 0; j < tempFieldList.size(); j++) {
             ModelFormField modelFormField = tempFieldList.get(j);
@@ -309,13 +308,13 @@ public class FormRenderer {
         // We get a sorted (by position, ascending) set of lists;
         // each list contains all the fields with that position.
         Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<Map<String, List<ModelFormField>>>(); // this list will contain maps, each one containing the list of fields for a position
+        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<>(); // this list will contain maps, each one containing the list of fields for a position
         for (List<ModelFormField> mainFieldList : fieldListsByPosition) {
             int numOfColumns = 0;
 
-            List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<ModelFormField>();
-            List<ModelFormField> innerFormFields = new LinkedList<ModelFormField>();
-            List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<ModelFormField>();
+            List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<>();
+            List<ModelFormField> innerFormFields = new LinkedList<>();
+            List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<>();
 
             // render title for each field, except hidden & ignored, etc
 
@@ -543,7 +542,7 @@ public class FormRenderer {
         // render row formatting open
         formStringRenderer.renderFormatItemRowOpen(writer, localContext, modelForm);
         Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIter = innerDisplayHyperlinkFieldsBegin.iterator();
-        Map<String, Integer> fieldCount = new HashMap<String, Integer>();
+        Map<String, Integer> fieldCount = new HashMap<>();
         while (innerDisplayHyperlinkFieldsBeginIter.hasNext()) {
             ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIter.next();
             if (fieldCount.containsKey(modelFormField.getFieldName())) {
@@ -726,7 +725,7 @@ public class FormRenderer {
             int itemIndex = -1;
             Object item = null;
             context.put("wholeFormContext", context);
-            Map<String, Object> previousItem = new HashMap<String, Object>();
+            Map<String, Object> previousItem = new HashMap<>();
             while ((item = safeNext(iter)) != null) {
                 itemIndex++;
                 if (itemIndex >= highIndex) {
@@ -755,7 +754,7 @@ public class FormRenderer {
 
                 localContext.push();
                 localContext.put("previousItem", previousItem);
-                previousItem = new HashMap<String, Object>();
+                previousItem = new HashMap<>();
                 previousItem.putAll(itemMap);
 
                 AbstractModelAction.runSubActions(modelForm.getRowActions(), localContext);
@@ -770,7 +769,7 @@ public class FormRenderer {
                 }
 
                 // Check to see if there is a field, same name and same use-when (could come from extended form)
-                List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
+                List<ModelFormField> tempFieldList = new LinkedList<>();
                 tempFieldList.addAll(modelForm.getFieldList());
                 for (int j = 0; j < tempFieldList.size(); j++) {
                     ModelFormField modelFormField = tempFieldList.get(j);
@@ -806,9 +805,9 @@ public class FormRenderer {
                     // For each position (the subset of fields with the same position attribute)
                     // we have two phases: preprocessing and rendering
 
-                    List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<ModelFormField>();
-                    List<ModelFormField> innerFormFields = new LinkedList<ModelFormField>();
-                    List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<ModelFormField>();
+                    List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<>();
+                    List<ModelFormField> innerFormFields = new LinkedList<>();
+                    List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<>();
 
                     // Preprocessing:
                     // all the form fields are evaluated and the ones that will
@@ -946,7 +945,7 @@ public class FormRenderer {
 
     }
 
-    private void renderMultiFormString(Appendable writer, Map<String, Object> context, 
+    private void renderMultiFormString(Appendable writer, Map<String, Object> context,
             int positions) throws IOException {
         if (!modelForm.getSkipStart()) {
             formStringRenderer.renderFormOpen(writer, context, modelForm);
@@ -975,9 +974,9 @@ public class FormRenderer {
 
     }
 
-    private void renderSingleFormString(Appendable writer, Map<String, Object> context, 
+    private void renderSingleFormString(Appendable writer, Map<String, Object> context,
             int positions) throws IOException {
-        List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
+        List<ModelFormField> tempFieldList = new LinkedList<>();
         tempFieldList.addAll(modelForm.getFieldList());
 
         // Check to see if there is a field, same name and same use-when (could come from extended form)
@@ -999,11 +998,12 @@ public class FormRenderer {
             }
         }
 
-        Set<String> alreadyRendered = new TreeSet<String>();
+        Set<String> alreadyRendered = new TreeSet<>();
         FieldGroup lastFieldGroup = null;
         // render form open
-        if (!modelForm.getSkipStart())
+        if (!modelForm.getSkipStart()) {
             formStringRenderer.renderFormOpen(writer, context, modelForm);
+        }
 
         // render all hidden & ignored fields
         List<ModelFormField> hiddenIgnoredFieldList = this.getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
@@ -1113,7 +1113,6 @@ public class FormRenderer {
             if (alreadyRendered.contains(currentFormField.getName())) {
                 continue;
             }
-            //Debug.logInfo("In single form evaluating use-when for field " + currentFormField.getName() + ": " + currentFormField.getUseWhen(), module);
             if (!currentFormField.shouldUse(context)) {
                 if (UtilValidate.isNotEmpty(lastFormField)) {
                     currentFormField = lastFormField;
@@ -1218,8 +1217,9 @@ public class FormRenderer {
         //formStringRenderer.renderFormatSingleWrapperClose(writer, context, this);
 
         // render form close
-        if (!modelForm.getSkipEnd())
+        if (!modelForm.getSkipEnd()) {
             formStringRenderer.renderFormClose(writer, context, modelForm);
+        }
 
     }
 

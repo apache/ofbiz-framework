@@ -82,7 +82,9 @@ public class ScreenRenderer {
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
-        if (this.context == null) this.context = MapStack.create();
+        if (this.context == null) {
+            this.context = MapStack.create();
+        }
         this.screenStringRenderer = screenStringRenderer;
     }
 
@@ -274,9 +276,13 @@ public class ScreenRenderer {
 
         // setup message lists
         List<String> eventMessageList = UtilGenerics.toList(request.getAttribute("eventMessageList"));
-        if (eventMessageList == null) eventMessageList = new LinkedList<String>();
+        if (eventMessageList == null) {
+            eventMessageList = new LinkedList<>();
+        }
         List<String> errorMessageList = UtilGenerics.toList(request.getAttribute("errorMessageList"));
-        if (errorMessageList == null) errorMessageList = new LinkedList<String>();
+        if (errorMessageList == null) {
+            errorMessageList = new LinkedList<>();
+        }
 
         if (request.getAttribute("_EVENT_MESSAGE_") != null) {
             eventMessageList.add(UtilFormatOut.replaceString((String) request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br/>"));
