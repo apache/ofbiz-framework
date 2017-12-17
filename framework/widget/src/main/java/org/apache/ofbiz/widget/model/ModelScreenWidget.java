@@ -71,7 +71,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
     public ModelScreenWidget(ModelScreen modelScreen, Element widgetElement) {
         super(widgetElement);
         this.modelScreen = modelScreen;
-        if (Debug.verboseOn()) Debug.logVerbose("Reading Screen sub-widget with name: " + widgetElement.getNodeName(), module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Reading Screen sub-widget with name: " + widgetElement.getNodeName(), module);
+        }
     }
 
     public abstract void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException;
@@ -92,7 +94,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return;
         }
         for (ModelScreenWidget subWidget: subWidgets) {
-            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.getModelScreen().getName() + "; widget class is " + subWidget.getClass().getName(), module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Rendering screen " + subWidget.getModelScreen().getName() + "; widget class is " + subWidget.getClass().getName(), module);
+            }
 
             // render the sub-widget itself
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
@@ -588,8 +592,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
                 if (requestParameters != null) {
                     String collapsedParam = (String) requestParameters.get(preferenceKey);
-                    if (collapsedParam != null)
+                    if (collapsedParam != null) {
                         collapsed = "true".equals(collapsedParam);
+                    }
                 }
             }
             try {
@@ -772,7 +777,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String location = this.getLocation(context);
 
             if (name.isEmpty()) {
-                if (Debug.verboseOn()) Debug.logVerbose("In the include-screen tag the screen name was empty, ignoring include; in screen [" + getModelScreen().getName() + "]", module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("In the include-screen tag the screen name was empty, ignoring include; in screen [" + getModelScreen().getName() + "]", module);
+                }
                 return;
             }
 
@@ -1232,15 +1239,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             ModelTree modelTree = null;
             try {
                 modelTree = TreeFactory.getTreeFromLocation(this.getLocation(context), this.getName(context), getModelScreen().getDelegator(context), getModelScreen().getDispatcher(context));
-            } catch (IOException e) {
-                String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (SAXException e) {
-                String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (ParserConfigurationException e) {
+            } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
@@ -1355,11 +1354,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.enableEditName = FlexibleStringExpander.getInstance(subContentElement.getAttribute("enable-edit-name"));
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
             String width = subContentElement.getAttribute("width");
-            if (width.isEmpty())
+            if (width.isEmpty()) {
                 width = "60%";
+            }
             this.height = subContentElement.getAttribute("height");
-            if (this.height.isEmpty())
+            if (this.height.isEmpty()) {
                 width = "400px";
+            }
             this.width = width;
             this.border = subContentElement.getAttribute("border");
         }
@@ -1394,7 +1395,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         return;
                     }
                     if (content != null) {
-                        if (content.get("dataResourceId") != null) expandedDataResourceId = content.getString("dataResourceId");
+                        if (content.get("dataResourceId") != null) {
+                            expandedDataResourceId = content.getString("dataResourceId");
+                        }
                     } else {
                         String errMsg = "Could not find content with contentId [" + expandedContentId + "] ";
                         Debug.logError(errMsg, module);
@@ -1422,16 +1425,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     screenStringRenderer.renderContentEnd(writer, context, this);
                 }
                 UtilGenerics.<MapStack<String>>cast(context).pop();
-            } catch (IOException e) {
+            } catch (IOException | GenericEntityException e) {
                 String errMsg = "Error rendering content with contentId [" + getContentId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
-            } catch (GenericEntityException e) {
-                String errMsg = "Error obtaining content with contentId [" + getContentId(context) + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
             }
-
         }
 
         public String getContentId(Map<String, Object> context) {
@@ -1559,7 +1557,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             // TODO Auto-generated method stub
-            
+
         }
     }
 
@@ -1911,19 +1909,19 @@ public abstract class ModelScreenWidget extends ModelWidget {
                                                .orderBy("columnSeqId")
                                                .cache(true)
                                                .queryList();
-                
+
                 // Renders the portalPage header
                 screenStringRenderer.renderPortalPageBegin(writer, context, this);
-                
+
                 // First column has no previous column
                 String prevColumnSeqId = "";
-                
+
                 // Iterates through the PortalPage columns
                 ListIterator <GenericValue>columnsIterator = portalPageColumns.listIterator();
                 while(columnsIterator.hasNext()) {
                     GenericValue columnValue = columnsIterator.next();
                     String columnSeqId = columnValue.getString("columnSeqId");
-                    
+
                     // Renders the portalPageColumn header
                     screenStringRenderer.renderPortalPageColumnBegin(writer, context, this, columnValue);
 
@@ -1942,7 +1940,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     if (columnsIterator.hasNext()) {
                         nextColumnSeqId = portalPageColumns.get(columnsIterator.nextIndex()).getString("columnSeqId");
                     }
-                    
+
                     // Iterates through the Portlets in the Column
                     ListIterator <GenericValue>portletsIterator = portalPagePortlets.listIterator();
                     while(portletsIterator.hasNext()) {
@@ -1963,19 +1961,19 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         context.put("nextPortletSeqId", nextPortletSeqId);
                         context.put("prevColumnSeqId", prevColumnSeqId);
                         context.put("nextColumnSeqId", nextColumnSeqId);
-                       
+
                         // Get portlet's attributes
                         portletAttributes = EntityQuery.use(delegator)
                                                        .from("PortletAttribute")
                                                        .where("portalPageId", portletValue.get("portalPageId"), "portalPortletId", portletValue.get("portalPortletId"), "portletSeqId", portletValue.get("portletSeqId"))
                                                        .queryList();
-                        
+
                         ListIterator <GenericValue>attributesIterator = portletAttributes.listIterator();
                         while (attributesIterator.hasNext()) {
                             GenericValue attribute = attributesIterator.next();
                             context.put(attribute.getString("attrName"), attribute.getString("attrValue"));
                         }
-                        
+
                         // Renders the portalPagePortlet
                         screenStringRenderer.renderPortalPagePortletBegin(writer, context, this, portletValue);
                         screenStringRenderer.renderPortalPagePortletBody(writer, context, this, portletValue);
@@ -1986,7 +1984,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                             GenericValue attribute = attributesIterator.previous();
                             context.remove(attribute.getString("attrName"));
                         }
-                        
+
                         // Uses the actual portlet as prevPortlet for next iteration
                         prevPortletId = (String) portletValue.get("portalPortletId");
                         prevPortletSeqId = (String) portletValue.get("portletSeqId");
@@ -1999,12 +1997,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
                 // Renders the portalPage footer
                 screenStringRenderer.renderPortalPageEnd(writer, context, this);
-            } catch (IOException e) {
+            } catch (IOException | GenericEntityException e) {
                 String errMsg = "Error rendering PortalPage with portalPageId [" + getId(context) + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (GenericEntityException e) {
-                String errMsg = "Error obtaining PortalPage with portalPageId [" + getId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
@@ -2018,7 +2012,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             GenericValue portalPage = getPortalPageValue(context);
             return portalPage.getString("originalPortalPageId");
         }
-        
+
         public String getActualPortalPageId(Map<String, Object> context) {
             GenericValue portalPage = getPortalPageValue(context);
             return portalPage.getString("portalPageId");

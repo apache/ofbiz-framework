@@ -75,7 +75,7 @@ public class MenuFactory {
     }
 
     public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, String menuLocation) {
-        Map<String, ModelMenu> modelMenuMap = new HashMap<String, ModelMenu>();
+        Map<String, ModelMenu> modelMenuMap = new HashMap<>();
         if (menuFileDoc != null) {
             // read document and construct ModelMenu for each menu element
             Element rootElement = menuFileDoc.getDocumentElement();

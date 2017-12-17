@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 
 public class ModelActionUtil {
-    
+
     /**
      * @param context
      * @param result

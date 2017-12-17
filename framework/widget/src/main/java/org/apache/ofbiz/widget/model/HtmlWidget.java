@@ -19,7 +19,6 @@
 package org.apache.ofbiz.widget.model;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -143,7 +142,6 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static void renderHtmlTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
-        //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
 
         if (UtilValidate.isEmpty(location)) {
             throw new IllegalArgumentException("Template location is empty with search string location " + locationExdr.getOriginal());
@@ -168,19 +166,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
-            } catch (IllegalArgumentException e) {
-                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                writeError(writer, errMsg);
-            } catch (MalformedURLException e) {
-                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                writeError(writer, errMsg);
-            } catch (TemplateException e) {
-                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                writeError(writer, errMsg);
-            } catch (IOException e) {
+            } catch (IllegalArgumentException | TemplateException | IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 writeError(writer, errMsg);

@@ -91,8 +91,9 @@ public final class CommonWidgetModels {
                         module);
                 return autEntityParams;
             }
-            if (UtilValidate.isEmpty(entityName))
+            if (UtilValidate.isEmpty(entityName)) {
                 entityName = defaultEntityName;
+            }
             FlexibleStringExpander toExpand = FlexibleStringExpander.getInstance(entityName);
             ModelEntity entity = delegator.getModelEntity(toExpand.expandString(context));
             if (entity == null) {
@@ -150,8 +151,9 @@ public final class CommonWidgetModels {
                         module);
                 return autServiceParams;
             }
-            if (UtilValidate.isEmpty(serviceName))
+            if (UtilValidate.isEmpty(serviceName)) {
                 serviceName = defaultServiceName;
+            }
             FlexibleStringExpander toExpand = FlexibleStringExpander.getInstance(serviceName);
             ModelService service = null;
             try {
@@ -168,8 +170,9 @@ public final class CommonWidgetModels {
             if (paramsIter != null) {
                 while (paramsIter.hasNext()) {
                     ModelParam param = paramsIter.next();
-                    if (param.getInternal())
+                    if (param.getInternal()) {
                         continue;
+                    }
                     String paramName = param.getName();
                     FlexibleMapAccessor<Object> fma = FlexibleMapAccessor.getInstance(paramName);
                     if (!excludeList.contains(paramName)) {
@@ -354,9 +357,12 @@ public final class CommonWidgetModels {
                     this.image = null;
                 }
             }
-            //Backwards compatibility 
-            if ("ajax-window".equals(linkElement.getAttribute("link-type"))) this.linkType = "layered-modal";
-            else this.linkType = linkElement.getAttribute("link-type");
+            //Backwards compatibility
+            if ("ajax-window".equals(linkElement.getAttribute("link-type"))) {
+                this.linkType = "layered-modal";
+            } else {
+                this.linkType = linkElement.getAttribute("link-type");
+            }
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
             if (parameterElementList.isEmpty()) {
                 this.parameterList = Collections.emptyList();
@@ -580,7 +586,7 @@ public final class CommonWidgetModels {
 
     /**
      * Models the &lt;parameter&gt; element.
-     * 
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class Parameter {
@@ -629,8 +635,9 @@ public final class CommonWidgetModels {
             }
             if (retVal != null) {
                 TimeZone timeZone = (TimeZone) context.get("timeZone");
-                if (timeZone == null)
+                if (timeZone == null) {
                     timeZone = TimeZone.getDefault();
+                }
                 String returnValue = null;
                 // format string based on the user's time zone (not locale because these are parameters)
                 if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {

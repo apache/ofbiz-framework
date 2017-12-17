@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 
 /**
  * Models the &lt;menu-item&gt; element.
- * 
+ *
  * @see <code>widget-menu.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -52,14 +52,14 @@ public class ModelMenuItem extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = ModelMenuItem.class.getName();
@@ -109,13 +109,15 @@ public class ModelMenuItem extends ModelWidget {
         this.tooltipStyle = menuItemElement.getAttribute("tooltip-style");
         this.selectedStyle = menuItemElement.getAttribute("selected-style");
         String hideIfSelected = menuItemElement.getAttribute("hide-if-selected");
-        if (!hideIfSelected.isEmpty())
-            if ("true".equalsIgnoreCase(hideIfSelected))
+        if (!hideIfSelected.isEmpty()) {
+            if ("true".equalsIgnoreCase(hideIfSelected)) {
                 this.hideIfSelected = Boolean.TRUE;
-            else
+            } else {
                 this.hideIfSelected = Boolean.FALSE;
-        else
+            }
+        } else {
             this.hideIfSelected = null;
+        }
         this.disableIfEmpty = menuItemElement.getAttribute("disable-if-empty");
         this.align = menuItemElement.getAttribute("align");
         this.alignStyle = menuItemElement.getAttribute("align-style");

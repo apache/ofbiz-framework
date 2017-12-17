@@ -73,7 +73,7 @@ public abstract class FieldInfo {
     private static List<Integer> nonInputFieldTypeList = createNonInputFieldTypeList();
 
     private static Map<String, Integer> createFieldTypeMap() {
-        Map<String, Integer> fieldTypeByName = new HashMap<String, Integer>();
+        Map<String, Integer> fieldTypeByName = new HashMap<>();
         fieldTypeByName.put("display", Integer.valueOf(1));
         fieldTypeByName.put("hyperlink", Integer.valueOf(2));
         fieldTypeByName.put("text", Integer.valueOf(3));
@@ -103,7 +103,7 @@ public abstract class FieldInfo {
     }
 
     private static List<Integer> createNonInputFieldTypeList() {
-        List<Integer> nonInputFieldTypeList = new ArrayList<Integer>();
+        List<Integer> nonInputFieldTypeList = new ArrayList<>();
         nonInputFieldTypeList.add(FieldInfo.IGNORED);
         nonInputFieldTypeList.add(FieldInfo.HIDDEN);
         nonInputFieldTypeList.add(FieldInfo.DISPLAY);
@@ -120,9 +120,8 @@ public abstract class FieldInfo {
         Integer fieldTypeInt = FieldInfo.fieldTypeByName.get(name);
         if (fieldTypeInt != null) {
             return fieldTypeInt;
-        } else {
-            throw new IllegalArgumentException("Could not get fieldType for field type name " + name);
         }
+        throw new IllegalArgumentException("Could not get fieldType for field type name " + name);
     }
 
     public static boolean isInputFieldType(Integer fieldType) {
@@ -151,7 +150,7 @@ public abstract class FieldInfo {
 
     /**
      * Returns a new instance of this object.
-     * 
+     *
      * @param modelFormField
      */
     public abstract FieldInfo copy(ModelFormField modelFormField);

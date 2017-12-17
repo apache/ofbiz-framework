@@ -58,14 +58,14 @@ public abstract class ModelTreeAction extends AbstractModelAction {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = ModelTreeAction.class.getName();
@@ -133,7 +133,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;entity-and&gt; element.
-     * 
+     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class EntityAnd extends ModelTreeAction {
@@ -144,12 +144,14 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             super(modelSubNode, entityAndElement);
             boolean useCache = "true".equalsIgnoreCase(entityAndElement.getAttribute("use-cache"));
             Document ownerDoc = entityAndElement.getOwnerDocument();
-            if (!useCache)
+            if (!useCache) {
                 UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
+            }
             String listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list"),
                     entityAndElement.getAttribute("list-name"));
-            if (UtilValidate.isEmpty(listName))
+            if (UtilValidate.isEmpty(listName)) {
                 listName = "_LIST_ITERATOR_";
+            }
             this.listName = listName;
             entityAndElement.setAttribute("list-name", this.listName);
             finder = new ByAndFinder(entityAndElement);
@@ -193,7 +195,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;entity-condition&gt; element.
-     * 
+     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class EntityCondition extends ModelTreeAction {
@@ -204,12 +206,14 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             super(modelSubNode, entityConditionElement);
             Document ownerDoc = entityConditionElement.getOwnerDocument();
             boolean useCache = "true".equalsIgnoreCase(entityConditionElement.getAttribute("use-cache"));
-            if (!useCache)
+            if (!useCache) {
                 UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
+            }
             String listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list"),
                     entityConditionElement.getAttribute("list-name"));
-            if (UtilValidate.isEmpty(listName))
+            if (UtilValidate.isEmpty(listName)) {
                 listName = "_LIST_ITERATOR_";
+            }
             this.listName = listName;
             entityConditionElement.setAttribute("list-name", this.listName);
             finder = new ByConditionFinder(entityConditionElement);
@@ -253,7 +257,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;script&gt; element.
-     * 
+     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class Script extends ModelTreeAction {
@@ -321,7 +325,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;service&gt; element.
-     * 
+     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class Service extends ModelTreeAction {
@@ -410,11 +414,9 @@ public abstract class ModelTreeAction extends AbstractModelAction {
                 Map<String, Object> result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 ModelActionUtil.contextPutQueryStringOrAllResult(context, result, this.resultMapNameAcsr);
                 String resultMapListName = resultMapListNameExdr.expandString(context);
-                //String resultMapListIteratorName = resultMapListIteratorNameExdr.expandString(context);
                 String resultMapValueName = resultMapValueNameExdr.expandString(context);
                 String valueName = valueNameExdr.expandString(context);
                 if (this.getModelSubNode() != null) {
-                    //ListIterator iter = null;
                     if (UtilValidate.isNotEmpty(resultMapListName)) {
                         List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
                         if (lst != null) {

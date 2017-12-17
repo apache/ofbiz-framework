@@ -162,7 +162,7 @@ public class ScreenFactory {
     }
 
     public static Map<String, ModelScreen> readScreenDocument(Document screenFileDoc, String sourceLocation) {
-        Map<String, ModelScreen> modelScreenMap = new HashMap<String, ModelScreen>();
+        Map<String, ModelScreen> modelScreenMap = new HashMap<>();
         if (screenFileDoc != null) {
             // read document and construct ModelScreen for each screen element
             Element rootElement = screenFileDoc.getDocumentElement();
@@ -172,14 +172,13 @@ public class ScreenFactory {
             List<? extends Element> screenElements = UtilXml.childElementList(rootElement, "screen");
             for (Element screenElement: screenElements) {
                 ModelScreen modelScreen = new ModelScreen(screenElement, modelScreenMap, sourceLocation);
-                //Debug.logInfo("Read Screen with name: " + modelScreen.getName(), module);
                 modelScreenMap.put(modelScreen.getName(), modelScreen);
             }
         }
         return modelScreenMap;
     }
 
-    public static void renderReferencedScreen(String name, String location, ModelScreenWidget parentWidget, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public static void renderReferencedScreen(String name, String location, ModelScreenWidget parentWidget, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
         // check to see if the name is a composite name separated by a #, if so split it up and get it by the full loc#name
         if (ScreenFactory.isCombinedName(name)) {
             String combinedName = name;
@@ -191,15 +190,7 @@ public class ScreenFactory {
         if (UtilValidate.isNotEmpty(location)) {
             try {
                 modelScreen = ScreenFactory.getScreenFromLocation(location, name);
-            } catch (IOException e) {
-                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (SAXException e) {
-                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (ParserConfigurationException e) {
+            } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
@@ -210,7 +201,6 @@ public class ScreenFactory {
                 throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + parentWidget.getModelScreen().getName() + "]");
             }
         }
-        //Debug.logInfo("parent(" + parentWidget + ") rendering(" + modelScreen + ")", module);
         modelScreen.renderScreenString(writer, context, screenStringRenderer);
     }
 }

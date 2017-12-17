@@ -58,7 +58,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Models the &lt;tree&gt; element.
- * 
+ *
  * @see <code>widget-tree.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -68,14 +68,14 @@ public class ModelTree extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     * 
+     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     * 
+     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     * 
+     *
      */
 
     public static final String module = ModelTree.class.getName();
@@ -100,8 +100,9 @@ public class ModelTree extends ModelWidget {
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
         if (defaultRenderStyle.isEmpty() || "simple".equals(defaultRenderStyle)) {
             String rStyle = treeElement.getAttribute("render-style");
-            if (!rStyle.isEmpty())
+            if (!rStyle.isEmpty()) {
                 defaultRenderStyle = rStyle;
+            }
         }
         this.defaultRenderStyle = defaultRenderStyle;
         this.defaultWrapStyleExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("default-wrap-style"));
@@ -172,10 +173,11 @@ public class ModelTree extends ModelWidget {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             String s1 = request.getRequestURI();
             int pos = s1.lastIndexOf('/');
-            if (pos >= 0)
+            if (pos >= 0) {
                 expColReq = s1.substring(pos + 1);
-            else
+            } else {
                 expColReq = s1;
+            }
         }
         //append also the request parameters
         Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
@@ -239,8 +241,9 @@ public class ModelTree extends ModelWidget {
         List<String> trail = null;
         if (UtilValidate.isNotEmpty(treeString)) {
             trail = StringUtil.split(treeString, "|");
-            if (UtilValidate.isEmpty(trail))
+            if (UtilValidate.isEmpty(trail)) {
                 throw new RuntimeException("Tree 'trail' value is empty.");
+            }
             context.put("rootEntityId", trail.get(0));
             context.put(getDefaultPkName(context), trail.get(0));
         } else {
@@ -288,7 +291,7 @@ public class ModelTree extends ModelWidget {
 
     /**
      * Models the &lt;node&gt; element.
-     * 
+     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class ModelNode extends ModelWidget {
@@ -391,9 +394,7 @@ public class ModelTree extends ModelWidget {
                 String nodeName = subNode.getNodeName(context);
                 ModelNode node = modelTree.nodeMap.get(nodeName);
                 List<ModelAction> subNodeActions = subNode.getActions();
-                //if (Debug.infoOn()) Debug.logInfo(" context.currentValue:" + context.get("currentValue"), module);
                 AbstractModelAction.runSubActions(subNodeActions, context);
-                // List dataFound = (List)context.get("dataFound");
                 Iterator<? extends Map<String, ? extends Object>> dataIter = subNode.getListIterator(context);
                 if (dataIter instanceof EntityListIterator) {
                     try (EntityListIterator eli = (EntityListIterator) dataIter) {
@@ -444,8 +445,9 @@ public class ModelTree extends ModelWidget {
         }
 
         public String getRenderStyle() {
-            if (this.renderStyle.isEmpty())
+            if (this.renderStyle.isEmpty()) {
                 return modelTree.getRenderStyle();
+            }
             return this.renderStyle;
         }
 
@@ -486,21 +488,6 @@ public class ModelTree extends ModelWidget {
             }
             if (nodeCount == null && modelField != null || this.modelTree.forceChildCheck) {
                 getChildren(context);
-                /*
-                String id = (String)context.get(modelTree.getPkName());
-                if (UtilValidate.isNotEmpty(id)) {
-                    try {
-                        int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, id, UtilMisc.toList("SUB_CONTENT", "PUBLISH_LINK"));
-                        GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(modelTree.getPkName(), id), true);
-                        obj = entity.get("childBranchCount");
-                       if (obj != null)
-                           nodeCount = (Long)obj;
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
-                       throw new RuntimeException(e.getMessage());
-                    }
-                }
-                */
                 nodeCount = Long.valueOf(subNodeValues.size());
                 String pkName = this.getPkName(context);
                 String id = null;
@@ -534,8 +521,9 @@ public class ModelTree extends ModelWidget {
         public boolean isExpandCollapse() {
             boolean isExpCollapse = false;
             String rStyle = getRenderStyle();
-            if (rStyle != null && "expand-collapse".equals(rStyle))
+            if (rStyle != null && "expand-collapse".equals(rStyle)) {
                 isExpCollapse = true;
+            }
             return isExpCollapse;
         }
 
@@ -560,7 +548,6 @@ public class ModelTree extends ModelWidget {
                     passed = false;
                 }
             }
-            //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
             if (passed) {
                 List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
                 context.put("processChildren", Boolean.TRUE);
@@ -575,15 +562,15 @@ public class ModelTree extends ModelWidget {
                 }
                 currentNodeTrail.add(id);
                 treeStringRenderer.renderNodeBegin(writer, context, this, depth);
-                //if (Debug.infoOn()) Debug.logInfo(" context:" +
-                // context.entrySet(), module);
                 try {
                     String screenName = null;
-                    if (!screenNameExdr.isEmpty())
+                    if (!screenNameExdr.isEmpty()) {
                         screenName = screenNameExdr.expandString(context);
+                    }
                     String screenLocation = null;
-                    if (!screenLocationExdr.isEmpty())
+                    if (!screenLocationExdr.isEmpty()) {
                         screenLocation = screenLocationExdr.expandString(context);
+                    }
                     if (screenName != null && screenLocation != null) {
                         ScreenStringRenderer screenStringRenderer = treeStringRenderer.getScreenStringRenderer(context);
                         ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
@@ -597,16 +584,12 @@ public class ModelTree extends ModelWidget {
                     }
                     treeStringRenderer.renderLastElement(writer, context, this);
                     Boolean processChildren = (Boolean) context.get("processChildren");
-                    //if (Debug.infoOn()) Debug.logInfo(" processChildren:" + processChildren, module);
                     if (processChildren.booleanValue()) {
                         List<Object[]> subNodeValues = getChildren(context);
                         int newDepth = depth + 1;
                         for (Object[] arr : subNodeValues) {
                             ModelNode node = (ModelNode) arr[0];
                             Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
-                            //GenericPK pk = val.getPrimaryKey();
-                            //if (Debug.infoOn()) Debug.logInfo(" pk:" + pk,
-                            // module);
                             String thisPkName = node.getPkName(context);
                             String thisEntityId = (String) val.get(thisPkName);
                             MapStack<String> newContext = MapStack.create(context);
@@ -628,27 +611,16 @@ public class ModelTree extends ModelWidget {
                             }
                         }
                     }
-                } catch (ScreenRenderException e) {
+                } catch (ScreenRenderException | SAXException | ParserConfigurationException | IOException e) {
                     String errMsg = "Error rendering included label with name [" + getName() + "] : " + e.toString();
                     Debug.logError(e, errMsg, module);
-                    throw new RuntimeException(errMsg);
-                } catch (SAXException e) {
-                    String errMsg = "Error rendering included label with name [" + getName() + "] : " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    throw new RuntimeException(errMsg);
-                } catch (ParserConfigurationException e3) {
-                    String errMsg = "Error rendering included label with name [" + getName() + "] : " + e3.toString();
-                    Debug.logError(e3, errMsg, module);
-                    throw new RuntimeException(errMsg);
-                } catch (IOException e2) {
-                    String errMsg = "Error rendering included label with name [" + getName() + "] : " + e2.toString();
-                    Debug.logError(e2, errMsg, module);
                     throw new RuntimeException(errMsg);
                 }
                 treeStringRenderer.renderNodeEnd(writer, context, this);
                 int removeIdx = currentNodeTrail.size() - 1;
-                if (removeIdx >= 0)
+                if (removeIdx >= 0) {
                     currentNodeTrail.remove(removeIdx);
+                }
             }
         }
 
@@ -657,8 +629,9 @@ public class ModelTree extends ModelWidget {
             List<?> trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
             int openDepth = modelTree.getOpenDepth();
             int postTrailOpenDepth = modelTree.getPostTrailOpenDepth();
-            if (trail != null)
+            if (trail != null) {
                 trailSize = trail.size();
+            }
 
             boolean showPeers = false;
             String rStyle = getRenderStyle();
@@ -673,12 +646,13 @@ public class ModelTree extends ModelWidget {
                 showPeers = true;
             } else {
                 int depthAfterTrail = currentDepth - trailSize;
-                if (depthAfterTrail >= 0 && depthAfterTrail <= postTrailOpenDepth)
+                if (depthAfterTrail >= 0 && depthAfterTrail <= postTrailOpenDepth) {
                     showPeers = true;
+                }
             }
             return showPeers;
         }
-        
+
         public List<ModelAction> getActions() {
             return actions;
         }
@@ -721,7 +695,7 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;image&gt; element.
-         * 
+         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Image {
@@ -786,7 +760,7 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;label&gt; element.
-         * 
+         *
          * @see <code>widget-tree.xsd</code>
          */
         public static final class Label {
@@ -845,7 +819,7 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;link&gt; element.
-         * 
+         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Link {
@@ -1052,7 +1026,7 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;sub-node&gt; element.
-         * 
+         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class ModelSubNode extends ModelWidget {
