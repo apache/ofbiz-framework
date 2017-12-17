@@ -88,7 +88,9 @@ public final class EntityWhereString extends EntityCondition {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityWhereString)) return false;
+        if (!(obj instanceof EntityWhereString)) {
+            return false;
+        }
         EntityWhereString other = (EntityWhereString) obj;
         return equals(sqlString, other.sqlString);
     }

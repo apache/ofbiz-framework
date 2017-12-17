@@ -206,7 +206,9 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
     @Override
     public boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof OrderByItem)) return false;
+        if (!(obj instanceof OrderByItem)) {
+            return false;
+        }
         OrderByItem that = (OrderByItem) obj;
 
         return getValue().equals(that.getValue()) && getDescending() == that.getDescending();

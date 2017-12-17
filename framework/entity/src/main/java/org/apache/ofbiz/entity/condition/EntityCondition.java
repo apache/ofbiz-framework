@@ -57,19 +57,19 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(EntityJoinOperator operator, T... conditionList) {
-        return new EntityConditionList<T>(Arrays.<T>asList(conditionList), operator);
+        return new EntityConditionList<>(Arrays.<T>asList(conditionList), operator);
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(T... conditionList) {
-        return new EntityConditionList<T>(Arrays.<T>asList(conditionList), EntityOperator.AND);
+        return new EntityConditionList<>(Arrays.<T>asList(conditionList), EntityOperator.AND);
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList, EntityJoinOperator operator) {
-        return new EntityConditionList<T>(conditionList, operator);
+        return new EntityConditionList<>(conditionList, operator);
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList) {
-        return new EntityConditionList<T>(conditionList, EntityOperator.AND);
+        return new EntityConditionList<>(conditionList, EntityOperator.AND);
     }
 
     public static <L,R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap, EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp) {

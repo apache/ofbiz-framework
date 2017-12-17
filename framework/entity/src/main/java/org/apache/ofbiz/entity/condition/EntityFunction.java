@@ -180,7 +180,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityFunction<?>)) return false;
+        if (!(obj instanceof EntityFunction<?>)) {
+            return false;
+        }
         EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
         return (this.function == otherFunc.function &&
             (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
