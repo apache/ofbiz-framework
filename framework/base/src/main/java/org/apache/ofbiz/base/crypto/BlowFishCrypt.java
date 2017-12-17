@@ -121,8 +121,9 @@ public class BlowFishCrypt {
     }
 
     private byte[] crypt(byte[] bytes, int mode) throws Exception {
-        if (secretKeySpec == null)
+        if (secretKeySpec == null) {
             throw new Exception("SecretKey cannot be null.");
+        }
         Cipher cipher = Cipher.getInstance("Blowfish");
 
         cipher.init(mode, secretKeySpec);
