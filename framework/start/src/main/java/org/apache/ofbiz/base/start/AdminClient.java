@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.start.AdminServer.OfbizSocketCommand;
 class AdminClient {
 
     /**
-     * Send a command through network to OFBiz server 
+     * Send a command through network to OFBiz server
      * to show its status (running, stopping, ...)
      *
      * @param config OFBiz configuration
@@ -60,7 +60,7 @@ class AdminClient {
      * to shut itself down.
      *
      * @param config OFBiz configuration
-     * @return shutdownMessage message from server 
+     * @return shutdownMessage message from server
      *   on receiving shutdown request
      */
     static String requestShutdown(Config config) {
