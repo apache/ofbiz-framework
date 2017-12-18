@@ -40,7 +40,7 @@ public class ServiceGroupReader {
     public static final String module = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
-    private static final Map<String, GroupModel> groupsCache = new ConcurrentHashMap<String, GroupModel>();
+    private static final Map<String, GroupModel> groupsCache = new ConcurrentHashMap<>();
 
     public static void readConfig() {
         List<ServiceGroups> serviceGroupsList = null;
