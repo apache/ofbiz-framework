@@ -25,56 +25,56 @@ import org.apache.ofbiz.base.util.Debug;
 /**
  * A class representing a payment request. It holds the fields of the request,
  * provides setters and getters to manipulate them. It also holds information
- * about the type of the request: the request can be of Real-time, CVN, and 
+ * about the type of the request: the request can be of Real-time, CVN, and
  * Beagle type, or the combination of the latter two. You set the request type
  * in the constructor of the object.
- * 
+ *
  * Based on public domain sample code provided by eWay.com.au
  */
 public class GatewayRequest {
-    
+
     private static final String module = GatewayRequest.class.getName();
-    
+
     // request urls
     public static final String REQUEST_URL_REFUND_TEST = "";
     public static final String REQUEST_URL_REFUND = "https://www.eway.com.au/gateway/xmlpaymentrefund.asp";
-    
+
     public static final String REQUEST_URL_BEAGLE_TEST = "https://www.eway.com.au/gateway_cvn/xmltest/testpage.asp";
     public static final String REQUEST_URL_BEAGLE = "https://www.eway.com.au/gateway_cvn/xmlbeagle.asp";
-    
+
     public static final String REQUEST_URL_CVN_TEST = "https://www.eway.com.au/gateway_cvn/xmltest/testpage.asp";
     public static final String REQUEST_URL_CVN = "https://www.eway.com.au/gateway_cvn/xmlpayment.asp";
-    
+
     public static final String REQUEST_URL_RT_TEST = "https://www.eway.com.au/gateway/xmltest/testpage.asp";
     public static final String REQUEST_URL_RT = "https://www.eway.com.au/gateway/xmlpayment.asp";
-    
+
     /**
      * Constant value to be used with the CVN payment method
      */
     public static final int REQUEST_METHOD_CVN = 1;
-    
+
     /**
      * Constant value to be used with the Beagle (GeoIP) payment method
      */
     public static final int REQUEST_METHOD_BEAGLE = 2;
-    
+
     /**
-     * Constant value to be used with the Refund method 
+     * Constant value to be used with the Refund method
      */
     public static final int REQUEST_METHOD_REFUND = 4;
-    
+
     /**
-     * The request method used in the transaction, set in the constructor. 
-     * This value is the boolean
-     * combination of the values REQUEST_METHOD_CVN and REQUEST_METHOD_BEAGLE.
-     * Defaults to 0, meaning that Real-time payment method is used.
+     * The request method used in the transaction, set in the constructor. This
+     * value is the boolean combination of the values REQUEST_METHOD_CVN and
+     * REQUEST_METHOD_BEAGLE. Defaults to 0, meaning that Real-time payment method
+     * is used.
      */
-    
+
     private BigDecimal txTotalAmount = BigDecimal.ZERO;
     private boolean isTestMode = false;
-    private int requestMethod = 0;        
-        
-    private String txCustomerID = "";    
+    private int requestMethod = 0;
+
+    private String txCustomerID = "";
     private String txCardHoldersName = "";
     private String txCardNumber = "";
     private String txCardExpiryMonth = "";
@@ -87,76 +87,74 @@ public class GatewayRequest {
     private String txCustomerPostcode = "";
     private String txCustomerInvoiceRef = "";
     private String txCustomerInvoiceDescription = "";
-    private String txCVN = "";    
+    private String txCVN = "";
     private String txOption1 = "";
     private String txOption2 = "";
     private String txOption3 = "";
     private String txCustomerIPAddress = "";
     private String txCustomerBillingCountry = "";
     private String txRefundPassword = "";
-    
-    
+
     /**
-     * Default constructor to be used with the Real-Time payment method. The 
-     * same as calling <code>GatewayRequest(0)</code>;
+     * Default constructor to be used with the Real-Time payment method. The same as
+     * calling <code>GatewayRequest(0)</code>;
      */
     public GatewayRequest() {
         requestMethod = 0;
     }
-    
+
     /**
      * Constructor to be used with the CVN and Beagle payment methods.
-     * @param method Logical combination of the REQUEST_METHOD_CVN and
-     * REQUEST_METHOD_BEAGLE constants.
+     *
+     * @param method
+     *            Logical combination of the REQUEST_METHOD_CVN and
+     *            REQUEST_METHOD_BEAGLE constants.
      */
     public GatewayRequest(int method) {
         requestMethod = method;
     }
-    
+
     /**
      * Gets the request method given when constructing the object.
-     * @return the request method as a logical combination of the 
-     * REQUEST_METHOD_CVN and REQUEST_METHOD_BEAGLE constants.
+     *
+     * @return the request method as a logical combination of the REQUEST_METHOD_CVN
+     *         and REQUEST_METHOD_BEAGLE constants.
      */
     public int getRequestMethod() {
         return requestMethod;
     }
-    
+
     /**
-     * Gets the URL for the configured request     
+     * Gets the URL for the configured request
      */
     public String getUrl() {
-        if ((requestMethod & REQUEST_METHOD_REFUND) != 0) {            
+        if ((requestMethod & REQUEST_METHOD_REFUND) != 0) {
             if (isTestMode()) {
                 return null;
-            } else {
-                return REQUEST_URL_REFUND;
             }
+            return REQUEST_URL_REFUND;
         } else if ((requestMethod & REQUEST_METHOD_BEAGLE) != 0) {
             if (isTestMode()) {
                 return REQUEST_URL_BEAGLE_TEST;
-            } else {
-                return REQUEST_URL_BEAGLE;
             }
+            return REQUEST_URL_BEAGLE;
         } else if ((requestMethod & REQUEST_METHOD_CVN) != 0) {
             if (isTestMode()) {
                 return REQUEST_URL_CVN_TEST;
-            } else {
-                return REQUEST_URL_CVN;
             }
+            return REQUEST_URL_CVN;
         } else {
             if (isTestMode()) {
                 return REQUEST_URL_RT_TEST;
-            } else {
-                return REQUEST_URL_RT;
             }
+            return REQUEST_URL_RT;
         }
     }
 
     /*
      * Getters and setters follow for each defined field of the request.
      */
-    
+
     public String getCustomerID() {
         return txCustomerID;
     }
@@ -164,11 +162,11 @@ public class GatewayRequest {
     public void setCustomerID(String value) {
         txCustomerID = value;
     }
-    
+
     public String getRefundPassword() {
         return txRefundPassword;
     }
-    
+
     public void setRefundPassword(String value) {
         txRefundPassword = value;
     }
@@ -288,7 +286,7 @@ public class GatewayRequest {
     public String getOption1() {
         return txOption1;
     }
-    
+
     public void setOption1(String value) {
         txOption1 = value;
     }
@@ -308,7 +306,7 @@ public class GatewayRequest {
     public void setOption3(String value) {
         txOption3 = value;
     }
-    
+
     public String getCustomerIPAddress() {
         return txCustomerIPAddress;
     }
@@ -316,7 +314,7 @@ public class GatewayRequest {
     public void setCustomerIPAddress(String value) {
         txCustomerIPAddress = value;
     }
-    
+
     public String getCustomerBillingCountry() {
         return txCustomerBillingCountry;
     }
@@ -324,21 +322,22 @@ public class GatewayRequest {
     public void setCustomerBillingCountry(String value) {
         txCustomerBillingCountry = value;
     }
-    
+
     public boolean isTestMode() {
         return isTestMode;
     }
-    
+
     public void setTestMode(boolean b) {
         isTestMode = b;
     }
 
     /**
-     * Gives the xml representation of this object. This xml will be sent to
-     * the gateway. This method is public only for debugging purposes, you
-     * might wish to examine the xml content. The special fields of the CVN
-     * and Beagle requests are added only if the request belongs to the CVN or
-     * Beagle types, respectively. 
+     * Gives the xml representation of this object. This xml will be sent to the
+     * gateway. This method is public only for debugging purposes, you might wish to
+     * examine the xml content. The special fields of the CVN and Beagle requests
+     * are added only if the request belongs to the CVN or Beagle types,
+     * respectively.
+     *
      * @return The GatewayRequest object as an xml string.
      */
     public String toXml() {
@@ -346,18 +345,18 @@ public class GatewayRequest {
         // just to concatenate a String together.
 
         Integer totalInt = txTotalAmount.multiply(new BigDecimal(100)).intValue();
-        
+
         StringBuffer xml = new StringBuffer("<ewaygateway>");
         xml.append(createNode("ewayCustomerID", txCustomerID));
         xml.append(createNode("ewayTotalAmount", "" + totalInt));
         xml.append(createNode("ewayCustomerInvoiceRef", txCustomerInvoiceRef));
         xml.append(createNode("ewayCardExpiryMonth", txCardExpiryMonth));
         xml.append(createNode("ewayCardExpiryYear", txCardExpiryYear));
-        
+
         // all charge methods (not refund)
         if (requestMethod != REQUEST_METHOD_REFUND) {
             xml.append(createNode("ewayCardHoldersName", txCardHoldersName));
-            xml.append(createNode("ewayCardNumber", txCardNumber));        
+            xml.append(createNode("ewayCardNumber", txCardNumber));
             xml.append(createNode("ewayTrxnNumber", txTrxnNumber));
             xml.append(createNode("ewayCustomerInvoiceDescription", txCustomerInvoiceDescription));
             xml.append(createNode("ewayCustomerFirstName", txCustomerFirstName));
@@ -366,42 +365,42 @@ public class GatewayRequest {
             xml.append(createNode("ewayCustomerAddress", txCustomerAddress));
             xml.append(createNode("ewayCustomerPostcode", txCustomerPostcode));
         }
-                                        
+
         // fill in also CVN data if the request is of CVN type
         if (requestMethod == REQUEST_METHOD_CVN || requestMethod == REQUEST_METHOD_BEAGLE) {
             xml.append(createNode("ewayCVN", txCVN));
         }
-        
+
         xml.append(createNode("ewayOption1", txOption1));
         xml.append(createNode("ewayOption2", txOption2));
         xml.append(createNode("ewayOption3", txOption3));
-        
+
         // fill in also Beagle data if the request is of Beagle type
         if (requestMethod == REQUEST_METHOD_BEAGLE) {
             xml.append(createNode("ewayCustomerIPAddress", txCustomerIPAddress));
-            xml.append(createNode("ewayCustomerBillingCountry", 
-                                   txCustomerBillingCountry));
+            xml.append(createNode("ewayCustomerBillingCountry",
+                    txCustomerBillingCountry));
         }
-        
+
         // fill in the refund password if REFUND type
         if (requestMethod == REQUEST_METHOD_REFUND) {
             xml.append(createNode("ewayOriginalTrxnNumber", txTrxnNumber));
             xml.append(createNode("ewayRefundPassword", txRefundPassword));
         }
-        
+
         xml.append("</ewaygateway>");
-        
+
         // log the request for test mode
         if (isTestMode()) {
             Debug.logInfo("[eWay Request] : " + xml.toString(), module);
         }
-        
+
         return xml.toString();
     }
 
     /**
      * Helper method to build an XML node.
-     * 
+     *
      * @param nodeName
      *            The name of the node being created.
      * @param nodeValue

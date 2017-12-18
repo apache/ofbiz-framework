@@ -33,34 +33,34 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 /**
- * A class representing the payment gateway's response to a request. It holds 
- * fields of the response which are filled in when the response arrives and 
+ * A class representing the payment gateway's response to a request. It holds
+ * fields of the response which are filled in when the response arrives and
  * available through getter methods. This response class supports all 3 payment
  * methods.
- * 
+ *
  * Based on public domain sample code provided by eWay.com.au
  */
 public class GatewayResponse {
 
     private static final String module = GatewayResponse.class.getName();
-    
+
     // private field definitions, values are set to default
-    
+
     private double txBeagleScore = -1;
     private int txReturnAmount = 0;
-    
+
     private boolean txTrxnStatus = false;
-    
+
     private String txTrxnNumber = "";
     private String txTrxnReference = "";
     private String txTrxnOption1 = "";
     private String txTrxnOption2 = "";
-    private String txTrxnOption3 = "";    
+    private String txTrxnOption3 = "";
     private String txAuthCode = "";
     private String txTrxnError = "";
-    
+
     // getter methods for the response fields
-    
+
     public String getTrxnNumber() {
         return txTrxnNumber;
     }
@@ -92,7 +92,7 @@ public class GatewayResponse {
     public int getReturnAmount() {
         return txReturnAmount;
     }
-    
+
     public BigDecimal getTransactionAmount() {
         BigDecimal amt = new BigDecimal(getReturnAmount());
         amt = amt.divide(new BigDecimal(100));
@@ -104,9 +104,9 @@ public class GatewayResponse {
     }
 
     /**
-     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment 
-     * methods or if the response does not contain this field.
-     * 
+     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods
+     * or if the response does not contain this field.
+     *
      * @return The beagle score or -1 if it was not defined in the response
      */
     public double getBeagleScore() {
@@ -114,15 +114,15 @@ public class GatewayResponse {
     }
 
     /**
-     * Creates the GatewayResponse object by parsing an xml from a stream. Fills
-     * in the fields of the object that are available through getters after this
-     * method returns.
-     * 
+     * Creates the GatewayResponse object by parsing an xml from a stream. Fills in
+     * the fields of the object that are available through getters after this method
+     * returns.
+     *
      * @param xmlstream
      *            the stream to parse the response from
      * @throws Exception
-     *             if the xml contains a root element with a bad name or an
-     *             unknown element, or if the xml is badly formatted
+     *             if the xml contains a root element with a bad name or an unknown
+     *             element, or if the xml is badly formatted
      */
     public GatewayResponse(InputStream xmlstream, GatewayRequest req) throws Exception {
 
@@ -145,12 +145,14 @@ public class GatewayResponse {
         for (int i = 0; i < length; i++) {
             Node node = list.item(i);                        
             String name = node.getNodeName();
-            if (name == "ewayResponse")
+            if (name == "ewayResponse") {
                 continue;
+            }
             Text textnode = (Text) node.getFirstChild();
             String value = "";
-            if (textnode != null)
+            if (textnode != null) {
                 value = textnode.getNodeValue();
+            }
 
             switch(name) {
             case "ewayTrxnError":
@@ -159,7 +161,6 @@ public class GatewayResponse {
                 if ("true".equals(value.toLowerCase(Locale.getDefault()).trim())) {
                     txTrxnStatus = true;
                 }
-            
             case "ewayTrxnNumber":
                 txTrxnNumber = value;
             case "ewayTrxnOption1":
@@ -185,8 +186,6 @@ public class GatewayResponse {
             }
         }
             
-        
-
         if (req.isTestMode()) {
             Debug.logInfo("[eWay Reply]\n" + this.toString(), module);
         }
@@ -205,7 +204,7 @@ public class GatewayResponse {
         buf.append("\t<ewayReturnAmount>").append(txReturnAmount).append("</ewayReturnAmount>\n");
         buf.append("\t<ewayAuthCode>").append(txAuthCode).append("</ewayAuthCode>\n");
         buf.append("\t<ewayBeagleScore>").append(txBeagleScore).append("</ewayBeagleScore>\n");
-        buf.append("\t<ewayTrxnReference>").append(txTrxnReference).append("</ewayTrxnReference>\n");        
+        buf.append("\t<ewayTrxnReference>").append(txTrxnReference).append("</ewayTrxnReference>\n");
         buf.append("</ewayResponse>").append("\n");
         return buf.toString();
     }
