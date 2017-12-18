@@ -139,8 +139,12 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(redirectAddress)) {
             StringBuilder sb = new StringBuilder();
             sb.append(" [To: ").append(sendTo);
-            if (UtilValidate.isNotEmpty(sendCc)) sb.append(", Cc: ").append(sendCc);
-            if (UtilValidate.isNotEmpty(sendBcc)) sb.append(", Bcc: ").append(sendBcc);
+            if (UtilValidate.isNotEmpty(sendCc)) {
+                sb.append(", Cc: ").append(sendCc);
+            }
+            if (UtilValidate.isNotEmpty(sendBcc)) {
+                sb.append(", Bcc: ").append(sendBcc);
+            }
             sb.append("]");
             subject += sb.toString();
             sendTo = redirectAddress;
@@ -305,10 +309,6 @@ public class EmailServices {
             Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", module);
             Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
-        } catch (IOException e) {
-            Debug.logError(e, "IOExcepton when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", module);
-            Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendIOException", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
 
         // check to see if sending mail is enabled
@@ -432,20 +432,34 @@ public class EmailServices {
         List<String> xslfoAttachScreenLocationListParam = UtilGenerics.checkList(serviceContext.remove("xslfoAttachScreenLocationList"));
         List<String> attachmentNameListParam = UtilGenerics.checkList(serviceContext.remove("attachmentNameList"));
         VisualTheme visualTheme = (VisualTheme) rServiceContext.get("visualTheme");
-        if (visualTheme == null) visualTheme = ThemeFactory.resolveVisualTheme(null);
+        if (visualTheme == null) {
+            visualTheme = ThemeFactory.resolveVisualTheme(null);
+        }
         
         List<String> xslfoAttachScreenLocationList = new LinkedList<>();
         List<String> attachmentNameList = new LinkedList<>();
-        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) xslfoAttachScreenLocationList.add(xslfoAttachScreenLocationParam);
-        if (UtilValidate.isNotEmpty(attachmentNameParam)) attachmentNameList.add(attachmentNameParam);
-        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
-        if (UtilValidate.isNotEmpty(attachmentNameListParam)) attachmentNameList.addAll(attachmentNameListParam);
+        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) {
+            xslfoAttachScreenLocationList.add(xslfoAttachScreenLocationParam);
+        }
+        if (UtilValidate.isNotEmpty(attachmentNameParam)) {
+            attachmentNameList.add(attachmentNameParam);
+        }
+        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) {
+            xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
+        }
+        if (UtilValidate.isNotEmpty(attachmentNameListParam)) {
+            attachmentNameList.addAll(attachmentNameListParam);
+        }
         
         List<String> attachmentTypeList = new LinkedList<>();
         String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
         List<String> attachmentTypeListParam = UtilGenerics.checkList(serviceContext.remove("attachmentTypeList"));
-        if (UtilValidate.isNotEmpty(attachmentTypeParam)) attachmentTypeList.add(attachmentTypeParam);
-        if (UtilValidate.isNotEmpty(attachmentTypeListParam)) attachmentTypeList.addAll(attachmentTypeListParam);
+        if (UtilValidate.isNotEmpty(attachmentTypeParam)) {
+            attachmentTypeList.add(attachmentTypeParam);
+        }
+        if (UtilValidate.isNotEmpty(attachmentTypeListParam)) {
+            attachmentTypeList.addAll(attachmentTypeListParam);
+        }
         
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.checkMap(serviceContext.remove("bodyParameters"));
@@ -476,10 +490,7 @@ public class EmailServices {
         ScreenStringRenderer screenStringRenderer = null;
         try {
             screenStringRenderer = new MacroScreenRenderer("screen", visualTheme.getModelTheme().getScreenRendererLocation("screen"));
-        } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (IOException e) {
+        } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -490,16 +501,7 @@ public class EmailServices {
         if (bodyScreenUri != null) {
             try {
                 screens.render(bodyScreenUri);
-            } catch (GeneralException e) {
-                Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
-            } catch (IOException e) {
-                Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
-            } catch (SAXException e) {
-                Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
-            } catch (ParserConfigurationException e) {
+            } catch (GeneralException | IOException | SAXException | ParserConfigurationException e) {
                 Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
             }
@@ -592,7 +594,9 @@ public class EmailServices {
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
         String subject = (String) serviceContext.remove("subject");
         subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
-        Debug.logInfo("Expanded email subject to: " + subject, module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Expanded email subject to: " + subject, module);
+        }
         serviceContext.put("subject", subject);
         serviceContext.put("partyId", partyId);
         if (UtilValidate.isNotEmpty(orderId)) {
@@ -602,7 +606,9 @@ public class EmailServices {
             serviceContext.put("custRequestId", custRequestId);
         }            
         
-        if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
+        }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Map<String, Object> sendMailResult;
@@ -724,7 +730,7 @@ public class EmailServices {
         private String contentType;
         private byte[] contentArray;
 
-        public ByteArrayDataSource(byte[] content, String contentType) throws IOException {
+        public ByteArrayDataSource(byte[] content, String contentType) {
             this.contentType = contentType;
             this.contentArray = content.clone();
         }
@@ -733,7 +739,7 @@ public class EmailServices {
             return contentType == null ? "application/octet-stream" : contentType;
         }
 
-        public InputStream getInputStream() throws IOException {
+        public InputStream getInputStream() {
             return new ByteArrayInputStream(contentArray);
         }
 
