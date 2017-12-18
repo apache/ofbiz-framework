@@ -81,9 +81,7 @@ public final class ExecutionPool {
         for (Future<F> future: futureList) {
             try {
                 result.add(future.get());
-            } catch (ExecutionException e) {
-                Debug.logError(e, module);
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 Debug.logError(e, module);
             }
         }
@@ -149,7 +147,9 @@ public final class ExecutionPool {
                 return 0;
             }
             long r = timeDiff((Pulse) other);
-            if (r < 0) return -1;
+            if (r < 0) {
+                return -1;
+            }
             return 1;
         }
 
