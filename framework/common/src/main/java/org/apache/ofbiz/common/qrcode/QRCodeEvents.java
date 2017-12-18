@@ -45,7 +45,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class QRCodeEvents {
 
     public static final String module = QRCodeEvents.class.getName();
-    
+
     /** Streams QR Code to the output. */
     public static String serveQRCodeImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -53,10 +53,14 @@ public class QRCodeEvents {
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String message = (String) parameters.get("message");
         GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
-        if (userLogin == null) userLogin = (GenericValue) session.getAttribute("userLogin");
-        if (userLogin == null) userLogin = (GenericValue) session.getAttribute("autoUserLogin");
+        if (userLogin == null) {
+            userLogin = (GenericValue) session.getAttribute("userLogin");
+        }
+        if (userLogin == null) {
+            userLogin = (GenericValue) session.getAttribute("autoUserLogin");
+        }
         Locale locale = UtilHttp.getLocale(request);
-        
+
         if (UtilValidate.isEmpty(message)) {
             message = "Error get message parameter.";
         }
@@ -138,11 +142,7 @@ public class QRCodeEvents {
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-        } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.getMessage() }, locale);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        } catch (GenericServiceException e) {
+        } catch (IOException | GenericServiceException e) {
             String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.getMessage() }, locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
