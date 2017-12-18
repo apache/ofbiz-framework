@@ -33,7 +33,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-
 public class PcChargeApi {
 
     public static final String module = PcChargeApi.class.getName();
@@ -139,10 +138,7 @@ public class PcChargeApi {
         String objString = null;
         try {
             objString = (String) ObjectType.simpleTypeConvert(value, "java.lang.String", null, null);
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            throw new IllegalArgumentException("Unable to convert value to String");
-        } catch (ClassCastException e) {
+        } catch (GeneralException | ClassCastException e) {
             Debug.logError(e, module);
             throw new IllegalArgumentException("Unable to convert value to String");
         }
@@ -188,7 +184,7 @@ public class PcChargeApi {
             try (Socket sock = new Socket(host, port);
                     PrintStream ps = new PrintStream(sock.getOutputStream(), false, "UTF-8");
                     DataInputStream dis = new DataInputStream(sock.getInputStream())) {
-             
+
                 ps.print(this.toString());
                 ps.flush();
 
@@ -200,23 +196,20 @@ public class PcChargeApi {
                 Document outDoc = null;
                 try {
                     outDoc = UtilXml.readXmlDocument(buf.toString(), false);
-                } catch (ParserConfigurationException e) {
-                    throw new GeneralException(e);
-                } catch (SAXException e) {
+                } catch (ParserConfigurationException | SAXException e) {
                     throw new GeneralException(e);
                 }
                 PcChargeApi out = new PcChargeApi(outDoc);
                 return out;
             }
-        } else {
-            throw new IllegalStateException("Cannot send output object");
         }
-        
+        throw new IllegalStateException("Cannot send output object");
+
     }
 
     private boolean checkIn(String name) {
-        for (int i = 0; i < validOut.length; i++) {
-            if (name.equals(validOut[i])) {
+        for (String element : validOut) {
+            if (name.equals(element)) {
                 return false;
             }
         }
@@ -224,8 +217,8 @@ public class PcChargeApi {
     }
 
     private boolean checkOut(String name) {
-        for (int i = 0; i < validIn.length; i++) {
-            if (name.equals(validIn[i])) {
+        for (String element : validIn) {
+            if (name.equals(element)) {
                 return false;
             }
         }
