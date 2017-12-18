@@ -128,8 +128,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true" />
                 <!-- Jgrowl -->
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/Readmore.js-master/readmore.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.css" global="true" />
                 <!-- Set default user locale from browser -->
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/util/setUserLocale.js"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/moment-timezone-with-data.min.js" global="true"/>
