@@ -42,7 +42,9 @@ public final class MainResourceHandler implements ResourceHandler {
         this.xmlFilename = xmlFilename;
         this.loaderName = element.getAttribute("loader");
         this.location = element.getAttribute("location");
-        if (Debug.verboseOn()) Debug.logVerbose("Created " + this.toString(), module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Created " + this.toString(), module);
+        }
     }
 
     public MainResourceHandler(String xmlFilename, String loaderName, String location) {
