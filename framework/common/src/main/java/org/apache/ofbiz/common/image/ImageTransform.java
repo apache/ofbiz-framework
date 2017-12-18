@@ -224,12 +224,7 @@ public class ImageTransform {
         /* PARSING */
         try {
             document = UtilXml.readXmlDocument(new FileInputStream(fileFullPath), fileFullPath);
-        } catch (ParserConfigurationException e) {
-            String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
-            Debug.logError(errMsg, module);
-            result.put(ModelService.ERROR_MESSAGE, "error");
-            return result;
-        } catch (SAXException e) {
+        } catch (ParserConfigurationException | SAXException e) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, module);
             result.put(ModelService.ERROR_MESSAGE, "error");
