@@ -115,7 +115,7 @@ public class GiftCertificateServices {
                 }
                 
             } else {
-                Map<String, Object> createAccountCtx = new HashMap<String, Object>();
+                Map<String, Object> createAccountCtx = new HashMap<>();
                 createAccountCtx.put("ownerPartyId", partyId);
                 createAccountCtx.put("finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId);
                 createAccountCtx.put("productStoreId", productStoreId);
@@ -141,11 +141,7 @@ public class GiftCertificateServices {
             refNum = createTransaction(delegator, dispatcher, permUserLogin, initialAmount, productStoreId, 
                     partyId, currencyUom, deposit, finAccountId, locale);
 
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCreationError", locale));
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCerticateNumberCreationError", locale));
@@ -418,7 +414,7 @@ public class GiftCertificateServices {
             // obtain the order information
             OrderReadHelper orh = new OrderReadHelper(delegator, orderPaymentPreference.getString("orderId"));
 
-            Map<String, Object> redeemCtx = new HashMap<String, Object>();
+            Map<String, Object> redeemCtx = new HashMap<>();
             redeemCtx.put("userLogin", userLogin);
             redeemCtx.put("productStoreId", orh.getProductStoreId());
             redeemCtx.put("cardNumber", giftCard.get("finAccountId"));
@@ -456,11 +452,7 @@ public class GiftCertificateServices {
 
             return result;
 
-        } catch (GenericEntityException ex) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotProcess", 
-                    UtilMisc.toMap("errorString", ex.getMessage()), locale));
-        } catch (GenericServiceException ex) {
+        } catch (GenericEntityException | GenericServiceException ex) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCerticateNumberCannotProcess", 
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
@@ -568,12 +560,7 @@ public class GiftCertificateServices {
             result.put("authRefNum", refNum);
 
             return result;
-        } catch (GenericEntityException ex) {
-            Debug.logError(ex, "Cannot authorize gift certificate", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotAuthorize", 
-                    UtilMisc.toMap("errorString", ex.getMessage()), locale));
-        } catch (GenericServiceException ex) {
+        } catch (GenericEntityException | GenericServiceException ex) {
             Debug.logError(ex, "Cannot authorize gift certificate", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "AccountingGiftCerticateNumberCannotAuthorize", 
@@ -661,7 +648,7 @@ public class GiftCertificateServices {
             currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
-        Map<String, Object> refundCtx = new HashMap<String, Object>();
+        Map<String, Object> refundCtx = new HashMap<>();
         refundCtx.put("productStoreId", productStoreId);
         refundCtx.put("currency", currency);
         refundCtx.put("partyId", partyId);
@@ -806,7 +793,7 @@ public class GiftCertificateServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = new HashMap<String, Object>();
+        Map<String, Object> answerMap = new HashMap<>();
         if (responseAnswers != null) {
             for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
@@ -839,7 +826,7 @@ public class GiftCertificateServices {
         int qtyLoop = quantity.intValue();
         for (int i = 0; i < qtyLoop; i++) {
             // create a gift certificate
-            Map<String, Object> createGcCtx = new HashMap<String, Object>();
+            Map<String, Object> createGcCtx = new HashMap<>();
             createGcCtx.put("productStoreId", productStoreId);
             createGcCtx.put("currency", currency);
             createGcCtx.put("partyId", partyId);
@@ -861,7 +848,7 @@ public class GiftCertificateServices {
             }
 
             // create the fulfillment record
-            Map<String, Object> gcFulFill = new HashMap<String, Object>();
+            Map<String, Object> gcFulFill = new HashMap<>();
             gcFulFill.put("typeEnumId", "GC_ACTIVATE");
             gcFulFill.put("partyId", partyId);
             gcFulFill.put("orderId", orderId);
@@ -909,7 +896,7 @@ public class GiftCertificateServices {
                         bcc = orderEmails;
                     }
                 }
-                Map<String, Object> emailCtx = new HashMap<String, Object>();
+                Map<String, Object> emailCtx = new HashMap<>();
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
                     bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -1035,7 +1022,7 @@ public class GiftCertificateServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = new HashMap<String, Object>();
+        Map<String, Object> answerMap = new HashMap<>();
         if (responseAnswers != null) {
             for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
@@ -1060,7 +1047,7 @@ public class GiftCertificateServices {
         String pinNumber = (String) answerMap.get(pinNumberKey);
 
         // reload the gift card
-        Map<String, Object> reloadCtx = new HashMap<String, Object>();
+        Map<String, Object> reloadCtx = new HashMap<>();
         reloadCtx.put("productStoreId", productStoreId);
         reloadCtx.put("currency", currency);
         reloadCtx.put("partyId", partyId);
@@ -1082,7 +1069,7 @@ public class GiftCertificateServices {
         }
 
         // create the fulfillment record
-        Map<String, Object> gcFulFill = new HashMap<String, Object>();
+        Map<String, Object> gcFulFill = new HashMap<>();
         gcFulFill.put("typeEnumId", "GC_RELOAD");
         gcFulFill.put("userLogin", userLogin);
         gcFulFill.put("partyId", partyId);
@@ -1140,7 +1127,7 @@ public class GiftCertificateServices {
         } else {
             answerMap.put("locale", locale);
 
-            Map<String, Object> emailCtx = new HashMap<String, Object>();
+            Map<String, Object> emailCtx = new HashMap<>();
             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
             if (UtilValidate.isEmpty(bodyScreenLocation)) {
                 bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -1237,7 +1224,7 @@ public class GiftCertificateServices {
             Debug.logInfo("Returnable INFO : " + returnableQuantity + " @ " + returnablePrice + " :: " + orderItem, module);
 
             // create the return header
-            Map<String, Object> returnHeaderInfo = new HashMap<String, Object>();
+            Map<String, Object> returnHeaderInfo = new HashMap<>();
             returnHeaderInfo.put("fromPartyId", partyId);
             returnHeaderInfo.put("userLogin", userLogin);
             Map<String, Object> returnHeaderResp = null;
@@ -1261,7 +1248,7 @@ public class GiftCertificateServices {
             }
 
             // create the return item
-            Map<String, Object> returnItemInfo = new HashMap<String, Object>();
+            Map<String, Object> returnItemInfo = new HashMap<>();
             returnItemInfo.put("returnId", returnId);
             returnItemInfo.put("returnReasonId", "RTN_DIG_FILL_FAIL");
             returnItemInfo.put("returnTypeId", "RTN_REFUND");
@@ -1290,8 +1277,9 @@ public class GiftCertificateServices {
             if (returnItemSeqId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorCreateReturnItemWithoutId", locale));
-            } else {
-                if (Debug.verboseOn()) Debug.logVerbose("Created return item : " + returnId + " / " + returnItemSeqId, module);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created return item : " + returnId + " / " + returnItemSeqId, module);
             }
 
             // need the system userLogin to "fake" out the update service
@@ -1305,7 +1293,7 @@ public class GiftCertificateServices {
             }
 
             // update the status to received so it can process
-            Map<String, Object> updateReturnInfo = new HashMap<String, Object>();
+            Map<String, Object> updateReturnInfo = new HashMap<>();
             updateReturnInfo.put("returnId", returnId);
             updateReturnInfo.put("statusId", "RETURN_RECEIVED");
             updateReturnInfo.put("currentStatusId", "RETURN_REQUESTED");
@@ -1337,11 +1325,14 @@ public class GiftCertificateServices {
         }
         if (finAccount != null) {
             String dbPin = finAccount.getString("finAccountCode");
-            Debug.logInfo("GC Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("GC Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", module);
+            }
             if (dbPin != null && dbPin.equals(pinNumber)) {
                 return true;
             }
-        } else {
+        } 
+        if (Debug.infoOn()) {
             Debug.logInfo("GC FinAccount record not found (" + cardNumber + ")", module);
         }
         return false;
@@ -1396,9 +1387,9 @@ public class GiftCertificateServices {
         }
         if (ServiceUtil.isError(payResult)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(payResult));
-        } else {
-            paymentId = (String) payResult.get("paymentId");
-        }
+        } 
+
+        paymentId = (String) payResult.get("paymentId");
 
         // create the initial transaction
         Map<String, Object> transCtx = UtilMisc.<String, Object>toMap("finAccountTransTypeId", txType);
