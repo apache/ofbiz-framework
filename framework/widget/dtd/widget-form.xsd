@@ -1210,7 +1210,7 @@ under the License.
                         &lt;option key=&quot;_OTHER_&quot; description=&quot;Specify other&quot;/&gt;
                         - with '_OTHER_' being required and any 'description' allowed.
                         In order to use this feature, the javascript code contained in the file:
-                        images/webapp/images/combobox.js must be included in the page.
+                        common/js/util/combobox.js must be included in the page.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
