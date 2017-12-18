@@ -52,7 +52,7 @@ public final class PreferenceWorker {
     private static final String DEFAULT_UID = "_NA_";
 
     private PreferenceWorker () {}
-    
+
     /**
      * Add a UserPreference GenericValue to a Map.
      * @param rec GenericValue to convert
