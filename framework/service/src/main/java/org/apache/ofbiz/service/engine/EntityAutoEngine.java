@@ -92,7 +92,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             boolean allPksInOnly = true;
             List<String> pkFieldNameOutOnly = null;
             /* Check for each pk if it's :
-             * 1. part IN 
+             * 1. part IN
              * 2. or part IN and OUT, but without value but present on parameters map
              * Help the engine to determinate the operation to realize for a create call or validate that
              * any pk is present for update/delete call.
@@ -102,7 +102,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 boolean pkValueInParameters = pkParam.isIn() && UtilValidate.isNotEmpty(parameters.get(pkParam.getFieldName()));
                 if (pkParam.isOut() && !pkValueInParameters) {
                     if (pkFieldNameOutOnly == null) {
-                        pkFieldNameOutOnly = new LinkedList<String>();
+                        pkFieldNameOutOnly = new LinkedList<>();
                         allPksInOnly = false;
                     }
                     pkFieldNameOutOnly.add(pkField.getName());
@@ -277,7 +277,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.setPKFields(parameters, true);
                 String pkFieldName = pkFieldNameOutOnly.get(0);
                 //if it's a fromDate, don't update it now, it's will be done next step
-                if (! "fromDate".equals(pkFieldName)) { 
+                if (! "fromDate".equals(pkFieldName)) {
                     String pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(pkFieldName, pkValue);
                 }
@@ -339,7 +339,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     if (modelEntity.getField("statusEndDate") != null) {
                         ModelEntity relatedEntity = dctx.getDelegator().getModelEntity(modelEntity.getEntityName().replaceFirst("Status", ""));
                         if (relatedEntity != null) {
-                            Map<String, Object> conditionRelatedPkFieldMap = new HashMap<String, Object>();
+                            Map<String, Object> conditionRelatedPkFieldMap = new HashMap<>();
                             for (String pkRelatedField : relatedEntity.getPkFieldNames()) {
                                 conditionRelatedPkFieldMap.put(pkRelatedField, parameters.get(pkRelatedField));
                             }
@@ -363,7 +363,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     private static Map<String, Object> invokeUpdate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
-        Map<String, Object> localContext = new HashMap<String, Object>();
+        Map<String, Object> localContext = new HashMap<>();
         localContext.put("parameters", parameters);
         Map<String, Object> result = ServiceUtil.returnSuccess();
         /*
@@ -517,7 +517,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     private static Map<String, Object> invokeExpire(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
-        List<String> fieldThruDates = new LinkedList<String>();
+        List<String> fieldThruDates = new LinkedList<>();
         boolean thruDatePresent = false;
         String fieldDateNameIn = null;
 
@@ -544,26 +544,35 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
 
-        if (Debug.infoOn())
+        if (Debug.infoOn()) {
             Debug.logInfo(" FIELD FOUND : " + fieldDateNameIn + " ## # " + fieldThruDates + " ### " + thruDatePresent, module);
+        }
 
-        if (Debug.infoOn())
+        if (Debug.infoOn()) {
             Debug.logInfo(" parameters IN  : " + parameters, module);
+        }
         // Resolve the field without value to expire and check if the value is present on parameters or use now
         if (fieldDateNameIn != null) {
-            if (parameters.get(fieldDateNameIn) == null) parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
+            if (parameters.get(fieldDateNameIn) == null) {
+                parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
+            }
         } else if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
-            if (UtilValidate.isEmpty(parameters.get("thruDate"))) parameters.put("thruDate", UtilDateTime.nowTimestamp());
+            if (UtilValidate.isEmpty(parameters.get("thruDate"))) {
+                parameters.put("thruDate", UtilDateTime.nowTimestamp());
+            }
         } else {
             for (String fieldDateName: fieldThruDates) {
                 if (UtilValidate.isEmpty(lookedUpValue.getTimestamp(fieldDateName))) {
-                    if (UtilValidate.isEmpty(parameters.get(fieldDateName))) parameters.put(fieldDateName, UtilDateTime.nowTimestamp());
+                    if (UtilValidate.isEmpty(parameters.get(fieldDateName))) {
+                        parameters.put(fieldDateName, UtilDateTime.nowTimestamp());
+                    }
                     break;
                 }
             }
         }
-        if (Debug.infoOn())
+        if (Debug.infoOn()) {
             Debug.logInfo(" parameters OUT  : " + parameters, module);
+        }
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
         return result;
     }

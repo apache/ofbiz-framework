@@ -49,7 +49,7 @@ public abstract class AbstractEngine implements GenericEngine {
 
     // creates the location alias map
     protected static Map<String, String> createLocationMap() {
-        Map<String, String> tmpMap = new HashMap<String, String>();
+        Map<String, String> tmpMap = new HashMap<>();
 
         List<ServiceLocation> locationsList = null;
         try {
@@ -71,16 +71,17 @@ public abstract class AbstractEngine implements GenericEngine {
     protected String getLocation(ModelService model) {
         if (locationMap.containsKey(model.location)) {
             return locationMap.get(model.location);
-        } else {
-            return model.location;
         }
+        return model.location;
     }
 
     /**
      * @see org.apache.ofbiz.service.engine.GenericEngine#sendCallbacks(org.apache.ofbiz.service.ModelService, java.util.Map, int)
      */
     public void sendCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
-        if (!allowCallbacks(model, context, mode)) return;
+        if (!allowCallbacks(model, context, mode)) {
+            return;
+        }
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
             Iterator<GenericServiceCallback> i = callbacks.iterator();
@@ -96,7 +97,9 @@ public abstract class AbstractEngine implements GenericEngine {
     }
 
     public void sendCallbacks(ModelService model, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
-        if (!allowCallbacks(model, context, mode)) return;
+        if (!allowCallbacks(model, context, mode)) {
+            return;
+        }
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
             Iterator<GenericServiceCallback> i = callbacks.iterator();
@@ -112,7 +115,9 @@ public abstract class AbstractEngine implements GenericEngine {
     }
 
     public void sendCallbacks(ModelService model, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
-        if (!allowCallbacks(model, context, mode)) return;
+        if (!allowCallbacks(model, context, mode)) {
+            return;
+        }
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
             Iterator<GenericServiceCallback> i = callbacks.iterator();

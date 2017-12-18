@@ -125,7 +125,6 @@ public final class GroovyEngine extends GenericAsyncEngine {
         } catch (Exception e) {
             // detailMessage can be null.  If it is null, the exception won't be properly returned and logged, and that will
             // make spotting problems very difficult.  Disabling this for now in favor of returning a proper exception.
-            // return ServiceUtil.returnError(e.getMessage());
             throw new GenericServiceException("Error running Groovy method [" + modelService.invoke + "] in Groovy file [" + modelService.location + "]: ", e);
         }
     }
