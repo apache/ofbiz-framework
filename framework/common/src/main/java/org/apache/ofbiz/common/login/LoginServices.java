@@ -98,9 +98,13 @@ public class LoginServices {
         boolean isServiceAuth = context.get("isServiceAuth") != null && ((Boolean) context.get("isServiceAuth")).booleanValue();
 
         String username = (String) context.get("login.username");
-        if (username == null) username = (String) context.get("username");
+        if (username == null) {
+            username = (String) context.get("username");
+        }
         String password = (String) context.get("login.password");
-        if (password == null) password = (String) context.get("password");
+        if (password == null) {
+            password = (String) context.get("password");
+        }
 
         // get the visitId for the history entity
         String visitId = (String) context.get("visitId");
