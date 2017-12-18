@@ -683,9 +683,8 @@ public class DateTimeConverters implements ConverterLoader {
             TimeZone tz = UtilDateTime.toTimeZone(obj);
             if (tz != null) {
                 return tz;
-            } else {
-                throw new ConversionException("Could not convert " + obj + " to TimeZone: ");
             }
+            throw new ConversionException("Could not convert " + obj + " to TimeZone: ");
         }
     }
 

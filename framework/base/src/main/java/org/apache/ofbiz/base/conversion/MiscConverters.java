@@ -233,9 +233,8 @@ public class MiscConverters implements ConverterLoader {
             Locale loc = UtilMisc.parseLocale(obj);
             if (loc != null) {
                 return loc;
-            } else {
-                throw new ConversionException("Could not convert " + obj + " to Locale: ");
             }
+            throw new ConversionException("Could not convert " + obj + " to Locale: ");
         }
     }
 

@@ -399,57 +399,57 @@ public class NumberConverters implements ConverterLoader {
     public void loadConverters() {
         Converters.loadContainedConverters(NumberConverters.class);
 
-        Converters.registerConverter(new GenericNumberToDouble<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericNumberToDouble<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericNumberToDouble<Byte>(Byte.class));
-        Converters.registerConverter(new GenericNumberToDouble<Float>(Float.class));
-        Converters.registerConverter(new GenericNumberToDouble<Integer>(Integer.class));
-        Converters.registerConverter(new GenericNumberToDouble<Long>(Long.class));
-        Converters.registerConverter(new GenericNumberToDouble<Short>(Short.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(Byte.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(Float.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(Integer.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(Long.class));
+        Converters.registerConverter(new GenericNumberToDouble<>(Short.class));
 
-        Converters.registerConverter(new GenericNumberToFloat<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericNumberToFloat<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericNumberToFloat<Byte>(Byte.class));
-        Converters.registerConverter(new GenericNumberToFloat<Double>(Double.class));
-        Converters.registerConverter(new GenericNumberToFloat<Integer>(Integer.class));
-        Converters.registerConverter(new GenericNumberToFloat<Long>(Long.class));
-        Converters.registerConverter(new GenericNumberToFloat<Short>(Short.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(Byte.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(Double.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(Integer.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(Long.class));
+        Converters.registerConverter(new GenericNumberToFloat<>(Short.class));
 
-        Converters.registerConverter(new GenericNumberToInteger<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericNumberToInteger<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericNumberToInteger<Byte>(Byte.class));
-        Converters.registerConverter(new GenericNumberToInteger<Double>(Double.class));
-        Converters.registerConverter(new GenericNumberToInteger<Float>(Float.class));
-        Converters.registerConverter(new GenericNumberToInteger<Long>(Long.class));
-        Converters.registerConverter(new GenericNumberToInteger<Short>(Short.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(Byte.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(Double.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(Float.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(Long.class));
+        Converters.registerConverter(new GenericNumberToInteger<>(Short.class));
 
-        Converters.registerConverter(new GenericSingletonToList<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericSingletonToList<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericSingletonToList<Byte>(Byte.class));
-        Converters.registerConverter(new GenericSingletonToList<Double>(Double.class));
-        Converters.registerConverter(new GenericSingletonToList<Float>(Float.class));
-        Converters.registerConverter(new GenericSingletonToList<Integer>(Integer.class));
-        Converters.registerConverter(new GenericSingletonToList<Long>(Long.class));
-        Converters.registerConverter(new GenericSingletonToList<Short>(Short.class));
+        Converters.registerConverter(new GenericSingletonToList<>(BigDecimal.class));
+        Converters.registerConverter(new GenericSingletonToList<>(BigInteger.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Byte.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Double.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Float.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Integer.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Long.class));
+        Converters.registerConverter(new GenericSingletonToList<>(Short.class));
 
-        Converters.registerConverter(new GenericNumberToLong<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericNumberToLong<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericNumberToLong<Byte>(Byte.class));
-        Converters.registerConverter(new GenericNumberToLong<Double>(Double.class));
-        Converters.registerConverter(new GenericNumberToLong<Float>(Float.class));
-        Converters.registerConverter(new GenericNumberToLong<Integer>(Integer.class));
-        Converters.registerConverter(new GenericNumberToLong<Short>(Short.class));
+        Converters.registerConverter(new GenericNumberToLong<>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToLong<>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToLong<>(Byte.class));
+        Converters.registerConverter(new GenericNumberToLong<>(Double.class));
+        Converters.registerConverter(new GenericNumberToLong<>(Float.class));
+        Converters.registerConverter(new GenericNumberToLong<>(Integer.class));
+        Converters.registerConverter(new GenericNumberToLong<>(Short.class));
 
-        Converters.registerConverter(new GenericSingletonToSet<BigDecimal>(BigDecimal.class));
-        Converters.registerConverter(new GenericSingletonToSet<BigInteger>(BigInteger.class));
-        Converters.registerConverter(new GenericSingletonToSet<Byte>(Byte.class));
-        Converters.registerConverter(new GenericSingletonToSet<Double>(Double.class));
-        Converters.registerConverter(new GenericSingletonToSet<Float>(Float.class));
-        Converters.registerConverter(new GenericSingletonToSet<Integer>(Integer.class));
-        Converters.registerConverter(new GenericSingletonToSet<Long>(Long.class));
-        Converters.registerConverter(new GenericSingletonToSet<Short>(Short.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(BigDecimal.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(BigInteger.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Byte.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Double.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Float.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Integer.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Long.class));
+        Converters.registerConverter(new GenericSingletonToSet<>(Short.class));
 
-        Converters.registerConverter(new GenericNumberToShort<Integer>(Integer.class));
-        Converters.registerConverter(new GenericNumberToShort<Long>(Long.class));
+        Converters.registerConverter(new GenericNumberToShort<>(Integer.class));
+        Converters.registerConverter(new GenericNumberToShort<>(Long.class));
     }
 }
