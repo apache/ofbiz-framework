@@ -32,7 +32,6 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
@@ -69,7 +68,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             HttpSession session = request.getSession();
             if (session != null) {
                 ctx = session.getServletContext();
-            } 
+            }
             if (ctx == null) {
                 throw new RuntimeException("ctx is null. location:" + location);
             }
@@ -125,8 +124,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     public void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException {
         boolean hideThisItem = isHideIfSelected(menuItem, context);
 
-        if (hideThisItem)
+        if (hideThisItem) {
             return;
+        }
 
         String style = menuItem.getWidgetStyle();
 
@@ -249,7 +249,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (UtilValidate.isNotEmpty(fillStyle)) {
             writer.append("<div class=\"").append(fillStyle).append("\">&nbsp;</div>");
         }
-        if (modelMenu.renderedMenuItemCount(context) > 0) {      
+        if (modelMenu.renderedMenuItemCount(context) > 0) {
             writer.append(" </ul>");
             appendWhitespace(writer);
             writer.append("</li>");
@@ -273,11 +273,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void renderFormatSimpleWrapperOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
-        //appendWhitespace(writer);
     }
 
     public void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
-        //appendWhitespace(writer);
     }
 
     public void setRequest(HttpServletRequest request) {
@@ -314,18 +312,20 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
         userLoginIdAtPermGrant = getUserLoginIdAtPermGrant();
         String userLoginId = null;
-        if (userLogin != null)
+        if (userLogin != null) {
             userLoginId = userLogin.getString("userLoginId");
+        }
         if ((userLoginId == null && userLoginIdAtPermGrant != null)
            || (userLoginId != null && userLoginIdAtPermGrant == null)
            || ((userLoginId != null && userLoginIdAtPermGrant != null)
               && !userLoginId.equals(userLoginIdAtPermGrant))) {
             hasChanged = true;
         } else {
-            if (userLoginIdAtPermGrant != null)
-               hasChanged = true;
-            else
-               hasChanged = false;
+            if (userLoginIdAtPermGrant != null) {
+                hasChanged = true;
+            } else {
+                hasChanged = false;
+            }
 
             userLoginIdAtPermGrant = null;
         }

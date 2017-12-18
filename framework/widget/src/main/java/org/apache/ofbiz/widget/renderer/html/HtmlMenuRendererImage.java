@@ -52,7 +52,6 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
         String contentId = menuItem.getAssociatedContentId(context);
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         GenericValue webSitePublishPoint = null;
-                //Debug.logInfo("in HtmlMenuRendererImage, contentId:" + contentId,"");
         try {
             if (WidgetContentWorker.getContentWorker() != null) {
                 webSitePublishPoint = WidgetContentWorker.getContentWorker().getWebSitePublishPointExt(delegator, contentId, false);
@@ -60,18 +59,17 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
                 Debug.logError("Not rendering image because can't get WebSitePublishPoint, not ContentWorker found.", module);
             }
         } catch (GenericEntityException e) {
-                //Debug.logInfo("in HtmlMenuRendererImage, GEException:" + e.getMessage(),"");
             throw new RuntimeException(e.getMessage());
         }
         String medallionLogoStr = webSitePublishPoint.getString("medallionLogo");
         StringWriter buf = new StringWriter();
         appendContentUrl(buf, medallionLogoStr);
         imgStr.append(buf.toString());
-                //Debug.logInfo("in HtmlMenuRendererImage, imgStr:" + imgStr,"");
         String cellWidth = menuItem.getCellWidth();
         imgStr.append("\"");
-        if (UtilValidate.isNotEmpty(cellWidth))
+        if (UtilValidate.isNotEmpty(cellWidth)) {
             imgStr.append(" width=\"").append(cellWidth).append("\" ");
+        }
 
         imgStr.append(" border=\"0\" />");
         return imgStr.toString();
