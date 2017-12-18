@@ -62,11 +62,13 @@ public class BillingAccountWorker {
         rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
         // set zero to the proper scale
-        if (decimals != -1) ZERO = ZERO.setScale(decimals);
+        if (decimals != -1) {
+            ZERO = ZERO.setScale(decimals);
+        }
     }
 
     public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
-        List<Map<String, Object>> billingAccountList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> billingAccountList = new LinkedList<>();
 
         Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
                 "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));
@@ -87,12 +89,14 @@ public class BillingAccountWorker {
 
                 // skip accounts that have thruDate < nowTimestamp
                 java.sql.Timestamp thruDate = billingAccountVO.getTimestamp("thruDate");
-                if ((thruDate != null) && UtilDateTime.nowTimestamp().after(thruDate)) continue;
+                if ((thruDate != null) && UtilDateTime.nowTimestamp().after(thruDate)) {
+                    continue;
+                }
 
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
                     BigDecimal accountBalance = OrderReadHelper.getBillingAccountBalance(billingAccountVO);
 
-                    Map<String, Object> billingAccount = new HashMap<String, Object>(billingAccountVO);
+                    Map<String, Object> billingAccount = new HashMap<>(billingAccountVO);
                     BigDecimal accountLimit = OrderReadHelper.getAccountLimit(billingAccountVO);
 
                     billingAccount.put("accountBalance", accountBalance);
@@ -130,10 +134,9 @@ public class BillingAccountWorker {
             BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
             BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
             return availableBalance;
-        } else {
-            Debug.logWarning("Available balance requested for null billing account, returning zero", module);
-            return ZERO;
         }
+        Debug.logWarning("Available balance requested for null billing account, returning zero", module);
+        return ZERO;
     }
 
     public static BigDecimal getBillingAccountAvailableBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
@@ -154,8 +157,7 @@ public class BillingAccountWorker {
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
         List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId", billingAccountId).queryList();
-        for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
-            GenericValue paymentAppl = pAi.next();
+        for (GenericValue paymentAppl : paymentAppls) {
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
             GenericValue invoice = paymentAppl.getRelatedOne("Invoice", false);
             if (invoice != null) {
