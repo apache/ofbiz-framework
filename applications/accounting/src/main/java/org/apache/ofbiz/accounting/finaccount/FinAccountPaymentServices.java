@@ -92,18 +92,23 @@ public class FinAccountPaymentServices {
         // obtain the order information
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
 
-        // NOTE DEJ20070808: this means that we want store related settings for where the item is being purchased,
-        //NOT where the account was setup; should this be changed to use settings from the store where the account was setup?
+        // NOTE DEJ20070808: this means that we want store related settings for where
+        // the item is being purchased,
+        // NOT where the account was setup; should this be changed to use settings from
+        // the store where the account was setup?
         String productStoreId = orh.getProductStoreId();
 
-        // TODO, NOTE DEJ20070808: why is this setup this way anyway? for the allowAuthToNegative wouldn't that be better setup
-        //on the FinAccount and not on the ProductStoreFinActSetting? maybe an override on the FinAccount would be good...
+        // TODO, NOTE DEJ20070808: why is this setup this way anyway? for the
+        // allowAuthToNegative wouldn't that be better setup
+        // on the FinAccount and not on the ProductStoreFinActSetting? maybe an override
+        // on the FinAccount would be good...
 
         // get the financial account
         GenericValue finAccount;
         if (finAccountId != null) {
             try {
-                finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
+                finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId)
+                        .queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -114,16 +119,16 @@ public class FinAccountPaymentServices {
                     finAccount = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                             "AccountingFinAccountCannotLocateItFromAccountCode", locale));
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "AccountingFinAccountIdAndFinAccountCodeAreNull", locale));
             }
         }
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountIdInvalid", locale));
         }
 
@@ -133,13 +138,19 @@ public class FinAccountPaymentServices {
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
-            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
-            GenericValue finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(findProductStoreFinActSettingMap).cache().queryOne();
+            Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.<String, Object>toMap("productStoreId",
+                    productStoreId, "finAccountTypeId", finAccountTypeId);
+            GenericValue finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(
+                    findProductStoreFinActSettingMap).cache().queryOne();
 
             if (finAccountSettings == null) {
-                Debug.logWarning("In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: " + findProductStoreFinActSettingMap, module);
+                Debug.logWarning(
+                        "In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: "
+                                + findProductStoreFinActSettingMap, module);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, module);
+            }
 
             BigDecimal minBalance = FinAccountHelper.ZERO;
             String allowAuthToNegative = "N";
@@ -155,7 +166,7 @@ public class FinAccountPaymentServices {
                 if ("Y".equals(finAccountSettings.getString("requirePinCode"))) {
                     if (!FinAccountHelper.validatePin(delegator, finAccountCode, finAccountPin)) {
                         Map<String, Object> result = ServiceUtil.returnSuccess();
-                        result.put("authMessage", UtilProperties.getMessage(resourceError, 
+                        result.put("authMessage", UtilProperties.getMessage(resourceError,
                                 "AccountingFinAccountPinCodeCombinatorNotFound", locale));
                         result.put("authResult", Boolean.FALSE);
                         result.put("processAmount", amount);
@@ -169,10 +180,11 @@ public class FinAccountPaymentServices {
             }
 
             // check for expiration date
-            if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
+            if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(
+                    UtilDateTime.nowTimestamp()))) {
                 Map<String, Object> result = ServiceUtil.returnSuccess();
-                result.put("authMessage", UtilProperties.getMessage(resourceError, 
-                        "AccountingFinAccountExpired", 
+                result.put("authMessage", UtilProperties.getMessage(resourceError,
+                        "AccountingFinAccountExpired",
                         UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
                 result.put("authResult", Boolean.FALSE);
                 result.put("processAmount", amount);
@@ -184,21 +196,23 @@ public class FinAccountPaymentServices {
             }
 
             // check for account being in bad standing somehow
-            if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(statusId)) {
+            if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(
+                    statusId)) {
                 // refresh the finaccount
                 finAccount.refresh();
                 statusId = finAccount.getString("statusId");
 
-                if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(statusId)) {
+                if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED"
+                        .equals(statusId)) {
                     Map<String, Object> result = ServiceUtil.returnSuccess();
                     if ("FNACT_NEGPENDREPL".equals(statusId)) {
-                        result.put("authMessage", UtilProperties.getMessage(resourceError, 
+                        result.put("authMessage", UtilProperties.getMessage(resourceError,
                                 "AccountingFinAccountNegative", locale));
                     } else if ("FNACT_MANFROZEN".equals(statusId)) {
-                        result.put("authMessage", UtilProperties.getMessage(resourceError, 
+                        result.put("authMessage", UtilProperties.getMessage(resourceError,
                                 "AccountingFinAccountFrozen", locale));
                     } else if ("FNACT_CANCELLED".equals(statusId)) {
-                        result.put("authMessage", UtilProperties.getMessage(resourceError, 
+                        result.put("authMessage", UtilProperties.getMessage(resourceError,
                                 "AccountingFinAccountCancelled", locale));
                     }
                     result.put("authResult", Boolean.FALSE);
@@ -211,7 +225,8 @@ public class FinAccountPaymentServices {
                 }
             }
 
-            // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
+            // check the amount to authorize against the available balance of fin account,
+            // which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             if (availableBalance == null) {
                 availableBalance = FinAccountHelper.ZERO;
@@ -219,10 +234,12 @@ public class FinAccountPaymentServices {
                 BigDecimal availableBalanceOriginal = availableBalance;
                 availableBalance = availableBalance.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
                 if (availableBalance.compareTo(availableBalanceOriginal) != 0) {
-                    Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance [" + availableBalanceOriginal + "] was different after rounding [" + availableBalance + "]; it should never have made it into the database this way, so check whatever put it there.", module);
+                    Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance ["
+                            + availableBalanceOriginal + "] was different after rounding [" + availableBalance
+                            + "]; it should never have made it into the database this way, so check whatever put it there.",
+                            module);
                 }
             }
-
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             String authMessage = null;
@@ -256,7 +273,8 @@ public class FinAccountPaymentServices {
                 // refresh the account
                 finAccount.refresh();
             } else {
-                Debug.logWarning("Attempted to authorize [" + amount + "] against a balance of only [" + availableBalance + "] for finAccountId [" + finAccountId + "]", module);
+                Debug.logWarning("Attempted to authorize [" + amount + "] against a balance of only ["
+                        + availableBalance + "] for finAccountId [" + finAccountId + "]", module);
                 refNum = "0"; // a refNum is always required from authorization
                 authMessage = "Insufficient funds";
                 processResult = Boolean.FALSE;
@@ -272,15 +290,10 @@ public class FinAccountPaymentServices {
             Debug.logInfo("FinAccont Auth: " + result, module);
 
             return result;
-        } catch (GenericEntityException ex) {
+        } catch (GenericEntityException | GenericServiceException ex) {
             Debug.logError(ex, "Cannot authorize financial account", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountCannotBeAuthorized", 
-                    UtilMisc.toMap("errorString", ex.getMessage()), locale));
-        } catch (GenericServiceException ex) {
-            Debug.logError(ex, "Cannot authorize financial account", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountCannotBeAuthorized", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingFinAccountCannotBeAuthorized",
                     UtilMisc.toMap("errorString", ex.getMessage()), locale));
         }
     }
@@ -336,7 +349,7 @@ public class FinAccountPaymentServices {
             authTrans = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTrans == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountCannotCapture", locale));
         }
 
@@ -344,7 +357,8 @@ public class FinAccountPaymentServices {
         String finAccountAuthId = authTrans.getString("referenceNum");
         GenericValue finAccountAuth;
         try {
-            finAccountAuth = EntityQuery.use(delegator).from("FinAccountAuth").where("finAccountAuthId", finAccountAuthId).queryOne();
+            finAccountAuth = EntityQuery.use(delegator).from("FinAccountAuth").where("finAccountAuthId",
+                    finAccountAuthId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -364,16 +378,17 @@ public class FinAccountPaymentServices {
         // make sure authorization has not expired
         Timestamp authExpiration = finAccountAuth.getTimestamp("thruDate");
         if ((authExpiration != null) && (authExpiration.before(UtilDateTime.nowTimestamp()))) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountAuthorizationExpired", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingFinAccountAuthorizationExpired",
                     UtilMisc.toMap("paymentGatewayResponseId", authTrans.getString("paymentGatewayResponseId"),
                             "authExpiration", authExpiration), locale));
         }
 
         // make sure the fin account itself has not expired
-        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountExpired", 
+        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime
+                .nowTimestamp()))) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingFinAccountExpired",
                     UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
         }
         String finAccountId = finAccount.getString("finAccountId");
@@ -408,7 +423,7 @@ public class FinAccountPaymentServices {
         }
 
         // build the withdraw context
-        Map<String, Object> withdrawCtx = new HashMap<String, Object>();
+        Map<String, Object> withdrawCtx = new HashMap<>();
         withdrawCtx.put("finAccountId", finAccountId);
         withdrawCtx.put("productStoreId", productStoreId);
         withdrawCtx.put("currency", currency);
@@ -477,12 +492,12 @@ public class FinAccountPaymentServices {
         }
 
         if (finAccountId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
         }
 
         // call the deposit service
-        Map<String, Object> depositCtx = new HashMap<String, Object>();
+        Map<String, Object> depositCtx = new HashMap<>();
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("isRefund", Boolean.TRUE);
@@ -532,7 +547,9 @@ public class FinAccountPaymentServices {
         String orderId = (String) context.get("orderId");
         Boolean requireBalance = (Boolean) context.get("requireBalance");
         BigDecimal amount = (BigDecimal) context.get("amount");
-        if (requireBalance == null) requireBalance = Boolean.TRUE;
+        if (requireBalance == null) {
+            requireBalance = Boolean.TRUE;
+        }
 
         final String WITHDRAWAL = "WITHDRAWAL";
 
@@ -547,7 +564,7 @@ public class FinAccountPaymentServices {
 
         // validate the amount
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountMustBePositive", locale));
         }
 
@@ -561,18 +578,20 @@ public class FinAccountPaymentServices {
 
         // verify we have a financial account
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
         }
 
         // make sure the fin account itself has not expired
-        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountExpired", 
+        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime
+                .nowTimestamp()))) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingFinAccountExpired",
                     UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
         }
 
-        // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
+        // check the actual balance (excluding authorized amounts) and create the
+        // transaction if it is sufficient
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
         if (previousBalance == null) {
             previousBalance = FinAccountHelper.ZERO;
@@ -587,8 +606,10 @@ public class FinAccountPaymentServices {
             refNum = "N/A";
         } else {
             try {
-                refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId, reasonEnumId);
+                refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin,
+                        amount,
+                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId,
+                        reasonEnumId);
                 finAccount.refresh();
                 balance = finAccount.getBigDecimal("actualBalance");
                 procResult = Boolean.TRUE;
@@ -643,20 +664,21 @@ public class FinAccountPaymentServices {
             finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
         }
 
         // verify we have a financial account
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
         }
 
         // make sure the fin account itself has not expired
-        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountExpired", 
+        if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime
+                .nowTimestamp()))) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingFinAccountExpired",
                     UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
         }
         Debug.logInfo("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
@@ -685,9 +707,11 @@ public class FinAccountPaymentServices {
             actualBalance = FinAccountHelper.ZERO;
         } else {
             if (actualBalance.compareTo(BigDecimal.ZERO) < 0) {
-                // balance went below zero, set negative pending replenishment status so that no more auths or captures will go through until it is replenished
+                // balance went below zero, set negative pending replenishment status so that no
+                // more auths or captures will go through until it is replenished
                 try {
-                    Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+                    Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId",
+                            finAccountId, "statusId", "FNACT_NEGPENDREPL");
                     dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
@@ -724,7 +748,7 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
         }
         String currency = finAccount.getString("currencyUomId");
@@ -748,35 +772,41 @@ public class FinAccountPaymentServices {
         if (productStoreId == null) {
             productStoreId = getLastProductStoreId(delegator, finAccountId);
             if (productStoreId == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "AccountingFinAccountCannotBeReplenish", locale));
             }
         }
 
         // get the product store settings
         GenericValue finAccountSettings;
-        Map<String, Object> psfasFindMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
+        Map<String, Object> psfasFindMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId,
+                "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
-            finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(psfasFindMap).cache().queryOne();
+            finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(psfasFindMap)
+                    .cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (finAccountSettings == null) {
-            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because no ProductStoreFinActSetting record found for: " + psfasFindMap, module);
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
+                    + "] because no ProductStoreFinActSetting record found for: " + psfasFindMap, module);
             // no settings; don't replenish
             return ServiceUtil.returnSuccess();
         }
 
         BigDecimal replenishThreshold = finAccountSettings.getBigDecimal("replenishThreshold");
         if (replenishThreshold == null) {
-            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because ProductStoreFinActSetting.replenishThreshold field was null for: " + psfasFindMap, module);
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
+                    + "] because ProductStoreFinActSetting.replenishThreshold field was null for: " + psfasFindMap,
+                    module);
             return ServiceUtil.returnSuccess();
         }
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
         if (replenishLevel == null || replenishLevel.compareTo(BigDecimal.ZERO) == 0) {
-            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because FinAccount.replenishLevel field was null or 0", module);
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId
+                    + "] because FinAccount.replenishLevel field was null or 0", module);
             // no replenish level set; this account goes not support auto-replenish
             return ServiceUtil.returnSuccess();
         }
@@ -786,7 +816,9 @@ public class FinAccountPaymentServices {
 
         // see if we are within the threshold for replenishment
         if (balance.compareTo(replenishThreshold) > -1) {
-            Debug.logInfo("finAccountReplenish Info: Not replenishing FinAccount [" + finAccountId  + "] because balance [" + balance + "] is greater than the replenishThreshold [" + replenishThreshold + "]", module);
+            Debug.logInfo("finAccountReplenish Info: Not replenishing FinAccount [" + finAccountId
+                    + "] because balance [" + balance + "] is greater than the replenishThreshold ["
+                    + replenishThreshold + "]", module);
             // not ready
             return ServiceUtil.returnSuccess();
         }
@@ -794,7 +826,8 @@ public class FinAccountPaymentServices {
         // configure rollback service to set status to Negative Pending Replenishment
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+                Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId,
+                        "statusId", "FNACT_NEGPENDREPL");
                 dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
@@ -805,13 +838,13 @@ public class FinAccountPaymentServices {
         String replenishMethod = finAccountSettings.getString("replenishMethodEnumId");
         BigDecimal depositAmount;
         if (replenishMethod == null || "FARP_TOP_OFF".equals(replenishMethod)) {
-            //the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
+            // the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
             depositAmount = replenishLevel.subtract(balance);
         } else if ("FARP_REPLENISH_LEVEL".equals(replenishMethod)) {
-            //the deposit is replenish-level itself
+            // the deposit is replenish-level itself
             depositAmount = replenishLevel;
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountUnknownReplenishMethod", locale));
         }
 
@@ -819,35 +852,40 @@ public class FinAccountPaymentServices {
         String ownerPartyId = finAccount.getString("ownerPartyId");
         if (ownerPartyId == null) {
             // no owner cannot replenish; (not fatal, just not supported by this account)
-            Debug.logWarning("finAccountReplenish Warning: No owner attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
+            Debug.logWarning("finAccountReplenish Warning: No owner attached to financial account [" + finAccountId
+                    + "] cannot auto-replenish", module);
             return ServiceUtil.returnSuccess();
         }
 
         // get the payment method to use to replenish
         String paymentMethodId = finAccount.getString("replenishPaymentId");
         if (paymentMethodId == null) {
-            Debug.logWarning("finAccountReplenish Warning: No payment method (replenishPaymentId) attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            Debug.logWarning(
+                    "finAccountReplenish Warning: No payment method (replenishPaymentId) attached to financial account ["
+                            + finAccountId + "] cannot auto-replenish", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount", locale));
         }
 
         GenericValue paymentMethod;
         try {
-            paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
+            paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId)
+                    .queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
-            Debug.logWarning("finAccountReplenish Warning: No payment method found for ID [" + paymentMethodId + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            Debug.logWarning("finAccountReplenish Warning: No payment method found for ID [" + paymentMethodId
+                    + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                     "AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount", locale));
         }
 
         // hit the payment method for the amount to replenish
         Map<String, BigDecimal> orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount);
-        Map<String, Object> replOrderCtx = new HashMap<String, Object>();
+        Map<String, Object> replOrderCtx = new HashMap<>();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
         replOrderCtx.put("currency", currency);
@@ -867,14 +905,14 @@ public class FinAccountPaymentServices {
         String orderId = (String) replResp.get("orderId");
 
         // create the deposit
-        Map<String, Object> depositCtx = new HashMap<String, Object>();
+        Map<String, Object> depositCtx = new HashMap<>();
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("currency", currency);
         depositCtx.put("partyId", ownerPartyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
-        depositCtx.put("amount",  depositAmount);
+        depositCtx.put("amount", depositAmount);
         depositCtx.put("reasonEnumId", "FATR_REPLENISH");
         depositCtx.put("userLogin", userLogin);
         try {
@@ -910,8 +948,8 @@ public class FinAccountPaymentServices {
                     .where(
                             EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
                             EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
-                            EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null)
-                    ).orderBy("-transactionDate").queryFirst();
+                            EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null)).orderBy(
+                                    "-transactionDate").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -925,8 +963,9 @@ public class FinAccountPaymentServices {
         // none found; pick one from our set stores
         try {
             GenericValue store = EntityQuery.use(delegator).from("ProductStore").orderBy("productStoreId").queryFirst();
-            if (store != null)
+            if (store != null) {
                 return store.getString("productStoreId");
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -934,8 +973,10 @@ public class FinAccountPaymentServices {
         return null;
     }
 
-    private static String createFinAcctPaymentTransaction(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
-            String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId, String reasonEnumId) throws GeneralException {
+    private static String createFinAcctPaymentTransaction(Delegator delegator, LocalDispatcher dispatcher,
+            GenericValue userLogin, BigDecimal amount,
+            String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom,
+            String txType, String finAccountId, String reasonEnumId) throws GeneralException {
 
         final String coParty = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
         final String paymentMethodType = "FIN_ACCOUNT";
