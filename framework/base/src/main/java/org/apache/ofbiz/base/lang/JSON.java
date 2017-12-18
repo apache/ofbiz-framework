@@ -37,7 +37,7 @@ public final class JSON {
     /**
      * Creates a <code>JSON</code> instance from an <code>InputStream</code>.
      * The method assumes the character set is UTF-8.
-     * 
+     *
      * @param inStream
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -50,7 +50,7 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from an unknown data type.
-     * 
+     *
      * @param object
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -66,7 +66,7 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from a <code>Reader</code>.
-     * 
+     *
      * @param reader
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -79,7 +79,7 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from a <code>String</code>.
-     * 
+     *
      * @param jsonString
      * @return a <code>JSON</code> instance
      */
@@ -113,7 +113,7 @@ public final class JSON {
 
     /**
      * Converts this <code>JSON</code> object to the specified type.
-     * 
+     *
      * @param targetClass
      * @return an object of the specified type
      * @throws IOException
