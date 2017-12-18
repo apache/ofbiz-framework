@@ -56,7 +56,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
-        Set<String> newSet = new HashSet<String>();
+        Set<String> newSet = new HashSet<>();
         /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
         newSet.add(ScriptUtil.PARAMETERS_KEY);
         */
@@ -73,7 +73,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Assert.notNull("localName", localName, "modelService.location", modelService.location, "context", context);
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.putAll(context);
         context.put(ScriptUtil.PARAMETERS_KEY, params);
         DispatchContext dctx = dispatcher.getLocalContext(localName);

@@ -59,7 +59,9 @@ public class HttpEngine extends GenericAsyncEngine {
         String xmlContext = null;
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Serializing Context --> " + context, module);
+            }
             xmlContext = XmlSerializer.serialize(context);
         } catch (Exception e) {
             throw new GenericServiceException("Cannot serialize context.", e);
@@ -67,8 +69,9 @@ public class HttpEngine extends GenericAsyncEngine {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("serviceName", modelService.invoke);
-        if (xmlContext != null)
+        if (xmlContext != null) {
             parameters.put("serviceContext", xmlContext);
+        }
 
         HttpClient http = new HttpClient(this.getLocation(modelService), parameters);
         String postResult = null;
@@ -81,10 +84,11 @@ public class HttpEngine extends GenericAsyncEngine {
         Map<String, Object> result = null;
         try {
             Object res = XmlSerializer.deserialize(postResult, dctx.getDelegator());
-            if (res instanceof Map<?, ?>)
+            if (res instanceof Map<?, ?>) {
                 result = UtilGenerics.checkMap(res);
-            else
+            } else {
                 throw new GenericServiceException("Result not an instance of Map.");
+            }
         } catch (Exception e) {
             throw new GenericServiceException("Problems deserializing result.", e);
         }
@@ -117,20 +121,22 @@ public class HttpEngine extends GenericAsyncEngine {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> context = null;
 
-        if (serviceName == null)
+        if (serviceName == null) {
             result.put(ModelService.ERROR_MESSAGE, "Cannot have null service name");
+        }
 
-        if (serviceMode == null)
+        if (serviceMode == null) {
             serviceMode = "SYNC";
+        }
 
         // deserialize the context
         if (!result.containsKey(ModelService.ERROR_MESSAGE)) {
             if (xmlContext != null) {
                 try {
                     Object o = XmlSerializer.deserialize(xmlContext, delegator);
-                    if (o instanceof Map<?, ?>)
+                    if (o instanceof Map<?, ?>) {
                         context = UtilGenerics.checkMap(o);
-                    else {
+                    } else {
                         Debug.logError("Context not an instance of Map error", module);
                         result.put(ModelService.ERROR_MESSAGE, "Context not an instance of Map");
                     }
@@ -170,8 +176,9 @@ public class HttpEngine extends GenericAsyncEngine {
             resultString = XmlSerializer.serialize(result);
         } catch (Exception e) {
             Debug.logError(e, "Cannot serialize result", module);
-            if (result.containsKey(ModelService.ERROR_MESSAGE))
+            if (result.containsKey(ModelService.ERROR_MESSAGE)) {
                 errorMessage.append(result.get(ModelService.ERROR_MESSAGE));
+            }
             errorMessage.append("::");
             errorMessage.append(e);
         }

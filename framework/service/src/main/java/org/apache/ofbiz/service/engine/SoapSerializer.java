@@ -43,10 +43,9 @@ public class SoapSerializer {
         Document document = UtilXml.readXmlDocument(content, false);
         if (document != null) {
             return XmlSerializer.deserialize(document, delegator);
-        } else {
-            Debug.logWarning("Serialized document came back null", module);
-            return null;
         }
+        Debug.logWarning("Serialized document came back null", module);
+        return null;
     }
 
     public static String serialize(Object object) throws SerializeException, FileNotFoundException, IOException {
