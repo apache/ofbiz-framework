@@ -146,7 +146,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map<String, Object> emailContext =  new LinkedHashMap<String, Object>();
+                Map<String, Object> emailContext =  new LinkedHashMap<>();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -194,7 +194,7 @@ public class NotificationServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         if (templateData == null) {
-            templateData =  new LinkedHashMap<String, Object>();
+            templateData =  new LinkedHashMap<>();
         }
 
         try {
