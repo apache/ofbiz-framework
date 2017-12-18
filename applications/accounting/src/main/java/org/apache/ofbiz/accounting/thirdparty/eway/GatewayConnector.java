@@ -29,25 +29,26 @@ import org.apache.ofbiz.base.util.Debug;
 
 /**
  * Handles connections to the eWay servers.
- * 
+ *
  * Based on public domain sample code provided by eWay.com.au
  */
 public class GatewayConnector {
-    
+
     private static final String module = GatewayConnector.class.getName();
-    
+
     private int timeout = 0;
 
     public GatewayConnector(int timeout) {
         this.timeout = timeout;
     }
-    
+
     public GatewayConnector() {
         this(60);
     }
-    
+
     /**
      * Get the timeout value set in the corresponding setter.
+     *
      * @return timeout value in seconds, 0 for infinite
      */
     public int getTimeout() {
@@ -58,6 +59,7 @@ public class GatewayConnector {
      * Set the timout value. Note that setting the timeout for an HttpURLConnection
      * is possible only since Java 1.5. This method has no effect on earlier
      * versions.
+     *
      * @param time timeout value in seconds, 0 for infinite
      */
     public void setTimeout(int time) {
@@ -93,7 +95,7 @@ public class GatewayConnector {
             connection.setConnectTimeout(timeout*1000);
             
             try (OutputStream out = connection.getOutputStream();
-                    Writer wout = new OutputStreamWriter(out, "UTF-8")) {
+                 Writer wout = new OutputStreamWriter(out, "UTF-8")) {
                 
                 wout.write(request.toXml());
                 wout.flush();
@@ -107,11 +109,14 @@ public class GatewayConnector {
             // re-throws exception so that the caller knows what went wrong
             Debug.logError(e, e.getMessage(), module);
             throw e;
-        }
-        finally {
-            // close connection
-            if (in != null) in.close();
-            connection.disconnect();
+        } finally {
+            // close resources
+            if (in != null) {
+                in.close();
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
 }

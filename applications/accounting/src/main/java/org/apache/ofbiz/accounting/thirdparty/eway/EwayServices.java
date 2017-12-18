@@ -36,29 +36,29 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class EwayServices {
-    
+
     public static final String module = EwayServices.class.getName();
     public final static String resource = "AccountingUiLabels";
-    
+
     // eway charge (auth w/ capture)
-    public static Map<String, Object> ewayCharge(DispatchContext dctx, Map<String, Object> context) {        
+    public static Map<String, Object> ewayCharge(DispatchContext dctx, Map<String, Object> context) {
         String orderId = (String) context.get("orderId");
         String cvv2 = (String) context.get("cardSecurityCode");
         String custIp = (String) context.get("customerIpAddress");
-        BigDecimal processAmount = (BigDecimal) context.get("processAmount");        
+        BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         GenericValue cc = (GenericValue) context.get("creditCard");
         GenericValue address = (GenericValue) context.get("billingAddress");
         GenericValue party = (GenericValue) context.get("billToParty");
-                               
-        GatewayRequest req = initRequest(dctx, context, false);        
+
+        GatewayRequest req = initRequest(dctx, context, false);
         req.setCustomerInvoiceRef(orderId);
         req.setTotalAmount(processAmount);
         req.setCustomerIPAddress(custIp);
-        
+
         // bill to party info
         req.setCustomerFirstName(UtilFormatOut.checkNull(party.getString("firstName")));
-        req.setCustomerLastName(UtilFormatOut.checkNull(party.getString("lastName")));        
-        
+        req.setCustomerLastName(UtilFormatOut.checkNull(party.getString("lastName")));
+
         // card info
         String ccName = cc.getString("firstNameOnCard") + " " + cc.getString("lastNameOnCard");
         req.setCardHoldersName(ccName);
