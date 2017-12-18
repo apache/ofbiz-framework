@@ -45,7 +45,7 @@ public final class CommonWorkers {
     private CommonWorkers() {}
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
-        List<GenericValue> geoList = new LinkedList<GenericValue>();
+        List<GenericValue> geoList = new LinkedList<>();
         String defaultCountry = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
         GenericValue defaultGeo = null;
         if (UtilValidate.isNotEmpty(defaultCountry)) {
@@ -63,7 +63,7 @@ public final class CommonWorkers {
             exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));
         }
 
-        List<GenericValue> countriesList = new LinkedList<GenericValue>();
+        List<GenericValue> countriesList = new LinkedList<>();
         try {
             countriesList = EntityQuery.use(delegator).from("Geo").where(exprs).orderBy("geoName").cache(true).queryList();
         } catch (GenericEntityException e) {
@@ -90,7 +90,7 @@ public final class CommonWorkers {
     }
 
     public static List<GenericValue> getStateList(Delegator delegator) {
-        List<GenericValue> geoList = new LinkedList<GenericValue>();
+        List<GenericValue> geoList = new LinkedList<>();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"),
                 EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"));
         try {
@@ -119,7 +119,7 @@ public final class CommonWorkers {
         }
         List<String> sortList = UtilMisc.toList(listOrderBy);
 
-        List<GenericValue> geoList = new LinkedList<GenericValue>();
+        List<GenericValue> geoList = new LinkedList<>();
         try {
             // Check if the country is a country group and get recursively the
             // states
@@ -174,7 +174,7 @@ public final class CommonWorkers {
      * @param parentTypeField Field in Type entity which stores the parent type.
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
-     * 
+     *
      * @deprecated Moved to {@link org.apache.ofbiz.entity.util.EntityTypeUtil#hasParentType(Delegator, String, String, String, String, String) EntityTypeUtil}
      */
     @Deprecated

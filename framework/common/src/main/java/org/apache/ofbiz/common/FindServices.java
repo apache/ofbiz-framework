@@ -72,7 +72,7 @@ public class FindServices {
     public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
-        entityOperators =  new LinkedHashMap<String, EntityComparisonOperator<?, ?>>();
+        entityOperators =  new LinkedHashMap<>();
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
@@ -112,7 +112,7 @@ public class FindServices {
         // Note that "normalizedFields" will contain values other than those
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
-        Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
+        Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<>();
         for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
             String fieldNameRaw = entry.getKey();
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
@@ -183,19 +183,19 @@ public class FindServices {
             }
             subMap = normalizedFields.get(fieldNameRoot);
             if (subMap == null) {
-                subMap = new LinkedHashMap<String, Map<String, Object>>();
+                subMap = new LinkedHashMap<>();
                 normalizedFields.put(fieldNameRoot, subMap);
             }
             subMap2 = subMap.get(fieldPair);
             if (subMap2 == null) {
-                subMap2 = new LinkedHashMap<String, Object>();
+                subMap2 = new LinkedHashMap<>();
                 subMap.put(fieldPair, subMap2);
             }
             subMap2.put(fieldMode, fieldValue);
 
             List<Object[]> origList = origValueMap.get(fieldNameRoot);
             if (origList == null) {
-                origList = new LinkedList<Object[]>();
+                origList = new LinkedList<>();
                 origValueMap.put(fieldNameRoot, origList);
             }
             Object [] origValues = {fieldNameRaw, fieldValue};
@@ -215,13 +215,13 @@ public class FindServices {
      * @return returns an EntityCondition list
      */
     public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
-        Set<String> processed = new LinkedHashSet<String>();
-        Set<String> keys = new LinkedHashSet<String>();
-        Map<String, ModelField> fieldMap = new LinkedHashMap<String, ModelField>();
+        Set<String> processed = new LinkedHashSet<>();
+        Set<String> keys = new LinkedHashSet<>();
+        Map<String, ModelField> fieldMap = new LinkedHashMap<>();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }
-        List<EntityCondition> result = new LinkedList<EntityCondition>();
+        List<EntityCondition> result = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
             String parameterName = entry.getKey();
             if (processed.contains(parameterName)) {
@@ -282,7 +282,7 @@ public class FindServices {
 
     /**
      * Creates a single <code>EntityCondition</code> based on a set of parameters.
-     * 
+     *
      * @param modelField
      * @param operation
      * @param fieldValue
@@ -373,7 +373,7 @@ public class FindServices {
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityCondition cond = null;
-        List<EntityCondition> tmpList = new LinkedList<EntityCondition>();
+        List<EntityCondition> tmpList = new LinkedList<>();
         String opString = null;
         boolean ignoreCase = false;
         List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
@@ -391,7 +391,7 @@ public class FindServices {
                 continue;
             }
             ignoreCase = "Y".equals(subMap2.get("ic"));
-            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context);
             tmpList.add(cond);
             subMap2 = subMap.get("fld1");
             if (subMap2 == null) {
@@ -403,7 +403,7 @@ public class FindServices {
                 continue;
             }
             ignoreCase = "Y".equals(subMap2.get("ic"));
-            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context);
             tmpList.add(cond);
             // add to queryStringMap
             List<Object[]> origList = origValueMap.get(fieldName);
@@ -430,10 +430,14 @@ public class FindServices {
      */
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, Object> context) {
         Integer viewSize = (Integer) context.get("viewSize");
-        if (viewSize == null) viewSize = Integer.valueOf(20);       // default
+        if (viewSize == null) {
+            viewSize = Integer.valueOf(20);       // default
+        }
         context.put("viewSize", viewSize);
         Integer viewIndex = (Integer) context.get("viewIndex");
-        if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
+        if (viewIndex == null) {
+            viewIndex = Integer.valueOf(0);  // default
+        }
         context.put("viewIndex", viewIndex);
 
         Map<String, Object> result = performFind(dctx,context);
@@ -528,7 +532,9 @@ public class FindServices {
         }
 
         if (executeResult.get("listIt") == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
+            }
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -568,7 +574,7 @@ public class FindServices {
         String fromDateName = (String) context.get("fromDateName");
         String thruDateName = (String) context.get("thruDateName");
 
-        Map<String, Object> queryStringMap = new LinkedHashMap<String, Object>();
+        Map<String, Object> queryStringMap = new LinkedHashMap<>();
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
 
@@ -579,10 +585,16 @@ public class FindServices {
         if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
-                if (UtilValidate.isEmpty(fromDateName)) fromDateName = "fromDate";
-                else queryStringMap.put("fromDateName", fromDateName);
-                if (UtilValidate.isEmpty(thruDateName)) thruDateName = "thruDate";
-                else queryStringMap.put("thruDateName", thruDateName);
+                if (UtilValidate.isEmpty(fromDateName)) {
+                    fromDateName = "fromDate";
+                } else {
+                    queryStringMap.put("fromDateName", fromDateName);
+                }
+                if (UtilValidate.isEmpty(thruDateName)) {
+                    thruDateName = "thruDate";
+                } else {
+                    queryStringMap.put("thruDateName", thruDateName);
+                }
                 if (UtilValidate.isEmpty(filterByDateValue)) {
                     EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(fromDateName, thruDateName);
                     tmpList.add(filterByDateCondition);
@@ -695,7 +707,7 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-        Map<String, Object> normalizedFields = new LinkedHashMap<String, Object>();
+        Map<String, Object> normalizedFields = new LinkedHashMap<>();
         //StringBuffer queryStringBuf = new StringBuffer();
         for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
             String fieldNameRaw = entry.getKey();
@@ -711,7 +723,6 @@ public class FindServices {
                 continue;
             }
 
-            //queryStringBuffer.append(fieldNameRaw + "=" + fieldValue);
             iPos = fieldNameRaw.indexOf('_'); // Look for suffix
 
             // This is a hack to skip fields from "multi" forms
@@ -745,7 +756,7 @@ public class FindServices {
      *
      * @param dctx
      * @param context
-     * @return returns the first item 
+     * @return returns the first item
      */
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);

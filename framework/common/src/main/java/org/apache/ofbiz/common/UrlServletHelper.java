@@ -42,11 +42,11 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 public final class UrlServletHelper {
-    
+
     public final static String module = UrlServletHelper.class.getName();
-    
+
     private UrlServletHelper() {}
-    
+
     public static void setRequestAttributes(ServletRequest request, Delegator delegator, ServletContext servletContext) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         // check if multi tenant is enabled
@@ -72,7 +72,7 @@ public final class UrlServletHelper {
                     delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
                     servletContext.setAttribute("delegator", delegator);
                 }
-                
+
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Unable to get Tenant", module);
             }
@@ -87,7 +87,7 @@ public final class UrlServletHelper {
             httpRequest.getSession().setAttribute("webSiteId", httpRequest.getSession().getServletContext().getAttribute("webSiteId"));
         }
     }
-    
+
     public static void setViewQueryParameters(ServletRequest request, StringBuilder urlBuilder) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         if (UtilValidate.isEmpty(httpRequest.getServletPath())) {
@@ -98,7 +98,7 @@ public final class UrlServletHelper {
         String viewSize = null;
         String viewSort = null;
         String searchString = null;
-        
+
         int queryStringIndex = pathInfo.indexOf("?");
         if (queryStringIndex >= 0) {
             List<String> queryStringTokens = StringUtil.split(pathInfo.substring(queryStringIndex + 1), "&");
@@ -106,7 +106,7 @@ public final class UrlServletHelper {
                 int equalIndex = queryStringToken.indexOf("=");
                 String name = queryStringToken.substring(0, equalIndex - 1);
                 String value = queryStringToken.substring(equalIndex + 1, queryStringToken.length() - 1);
-                
+
                 if ("viewIndex".equals(name)) {
                     viewIndex = value;
                 } else if ("viewSize".equals(name)) {
@@ -118,7 +118,7 @@ public final class UrlServletHelper {
                 }
             }
         }
-        
+
         if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewIndex"))) {
             viewIndex = httpRequest.getParameter("viewIndex");
         }
@@ -131,7 +131,7 @@ public final class UrlServletHelper {
         if (UtilValidate.isNotEmpty(httpRequest.getParameter("searchString"))) {
             searchString = httpRequest.getParameter("searchString");
         }
-        
+
         //Set query string parameters to url
         if(UtilValidate.isNotEmpty(viewIndex)){
             urlBuilder.append("/~VIEW_INDEX=" + viewIndex);
@@ -177,9 +177,7 @@ public final class UrlServletHelper {
                 try {
                     rd.forward(request, response);
                     return;
-                } catch (ServletException e) {
-                    Debug.logWarning(e, module);
-                } catch (IOException e) {
+                } catch (ServletException | IOException e) {
                     Debug.logWarning(e, module);
                 }
             }
@@ -194,14 +192,12 @@ public final class UrlServletHelper {
                     httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "Not Found");
                     return;
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            } catch (IOException e) {
+            } catch (GenericEntityException | IOException e) {
                 Debug.logError(e, module);
             }
         }
     }
-    
+
     public static String invalidCharacter(String str) {
         str = str.replace("&", "-");
         str = str.replace("\"", "-");

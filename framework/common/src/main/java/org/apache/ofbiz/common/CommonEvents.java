@@ -102,8 +102,9 @@ public class CommonEvents {
 
         if (visit != null && visit.getString("sessionId").equals(sessionId) && appletSessions.containsKey(sessionId)) {
             Map<String, String> sessionMap = appletSessions.get(sessionId);
-            if (sessionMap != null && sessionMap.containsKey("followPage"))
+            if (sessionMap != null && sessionMap.containsKey("followPage")) {
                 responseString = sessionMap.remove("followPage");
+            }
         }
 
         try {
@@ -164,12 +165,16 @@ public class CommonEvents {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String visitId = request.getParameter("visitId");
-        if (visitId != null) request.setAttribute("visitId", visitId);
+        if (visitId != null) {
+            request.setAttribute("visitId", visitId);
+        }
         if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) {
             String followerSessionId = request.getParameter("followerSid");
             String followSessionId = request.getParameter("followSid");
             Map<String, String> follow = appletSessions.get(followSessionId);
-            if (follow == null) follow = new LinkedHashMap<String, String>();
+            if (follow == null) {
+                follow = new LinkedHashMap<>();
+            }
             appletSessions.put(followSessionId, follow);
             appletSessions.put(followerSessionId, null);
         }
@@ -180,12 +185,16 @@ public class CommonEvents {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String visitId = request.getParameter("visitId");
-        if (visitId != null) request.setAttribute("visitId", visitId);
+        if (visitId != null) {
+            request.setAttribute("visitId", visitId);
+        }
         if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) {
             String followerSessionId = request.getParameter("followerSid");
             String pageUrl = request.getParameter("pageUrl");
             Map<String, String> follow = appletSessions.get(followerSessionId);
-            if (follow == null) follow = new LinkedHashMap<String, String>();
+            if (follow == null) {
+                follow = new LinkedHashMap<>();
+            }
             follow.put("followPage", pageUrl);
             appletSessions.put(followerSessionId, follow);
         }
@@ -350,13 +359,13 @@ public class CommonEvents {
             return "error";
         }
         Locale locale = UtilHttp.getLocale(request);
-        Map<String, List<String>> uiLabelMap = new HashMap<String, List<String>>();
+        Map<String, List<String>> uiLabelMap = new HashMap<>();
         Set<Map.Entry<String, List<String>>> entrySet = uiLabelObject.entrySet();
         for (Map.Entry<String, List<String>> entry : entrySet) {
             String resource = entry.getKey();
             List<String> resourceKeys = entry.getValue();
             if (resourceKeys != null) {
-                List<String> labels = new ArrayList<String>(resourceKeys.size());
+                List<String> labels = new ArrayList<>(resourceKeys.size());
                 for (String resourceKey : resourceKeys) {
                     String label = UtilProperties.getMessage(resource, resourceKey, locale);
                     labels.add(label);
@@ -384,7 +393,7 @@ public class CommonEvents {
             return "error";
         }
         Locale locale = UtilHttp.getLocale(request);
-        Map<String, String> uiLabelMap = new HashMap<String, String>();
+        Map<String, String> uiLabelMap = new HashMap<>();
         Set<Map.Entry<String, String>> entrySet = uiLabelObject.entrySet();
         for (Map.Entry<String, String> entry : entrySet) {
             String resource = entry.getKey();
@@ -400,7 +409,7 @@ public class CommonEvents {
 
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
-            Delegator delegator = (Delegator) request.getAttribute("delegator"); 
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"), "default");
             final String captchaSizeConfig = EntityUtilProperties.getPropertyValue("captcha", "captcha." + captchaSizeConfigName, delegator);
             final String[] captchaSizeConfigs = captchaSizeConfig.split("\\|");
@@ -485,7 +494,7 @@ public class CommonEvents {
             HttpSession session = request.getSession();
             Map<String, String> captchaCodeMap = UtilGenerics.checkMap(session.getAttribute("_CAPTCHA_CODE_"));
             if (captchaCodeMap == null) {
-                captchaCodeMap = new HashMap<String, String>();
+                captchaCodeMap = new HashMap<>();
                 session.setAttribute("_CAPTCHA_CODE_", captchaCodeMap);
             }
             captchaCodeMap.put(captchaCodeId, captchaCode);
