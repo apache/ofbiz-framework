@@ -50,7 +50,7 @@ public class GroupModel {
     public GroupModel(Element group) {
         this.sendMode = group.getAttribute("send-mode");
         this.groupName = group.getAttribute("name");
-        this.services = new LinkedList<GroupServiceModel>();
+        this.services = new LinkedList<>();
         this.lastServiceRan = -1;
 
         if (groupName.isEmpty()) {
@@ -136,7 +136,7 @@ public class GroupModel {
         } else if ("first-available".equals(this.getSendMode())) {
             return runOne(dispatcher, localName, context);
         } else if ("none".equals(this.getSendMode())) {
-            return new HashMap<String, Object>();
+            return new HashMap<>();
         } else {
             throw new GenericServiceException("This mode is not currently supported");
         }
@@ -159,7 +159,7 @@ public class GroupModel {
     private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
             throws GenericServiceException {
         Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         for (GroupServiceModel model : services) {
             if (Debug.verboseOn()) {
                  Debug.logVerbose("Using Context: " + runContext, module);
