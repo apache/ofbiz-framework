@@ -52,10 +52,10 @@ public class JsLanguageFileMappingCreator {
         String encoding = (String) context.get("encoding"); // default value: UTF-8
 
         List<Locale> localeList = UtilMisc.availableLocales();
-        Map<String, Object> jQueryLocaleFile = new LinkedHashMap<String, Object>();
-        Map<String, String> dateJsLocaleFile = new LinkedHashMap<String, String>();
-        Map<String, String> validationLocaleFile = new LinkedHashMap<String, String>();
-        Map<String, String> dateTimePickerLocaleFile = new LinkedHashMap<String, String>();
+        Map<String, Object> jQueryLocaleFile = new LinkedHashMap<>();
+        Map<String, String> dateJsLocaleFile = new LinkedHashMap<>();
+        Map<String, String> validationLocaleFile = new LinkedHashMap<>();
+        Map<String, String> dateTimePickerLocaleFile = new LinkedHashMap<>();
 
         // setup some variables to locate the js files
         String componentRoot = "component://common-theme/webapp";
@@ -185,7 +185,7 @@ public class JsLanguageFileMappingCreator {
         // check the template file
         String template = "themes/common/template/JsLanguageFilesMapping.ftl";
         String output = "framework/common/src/main/java/org/apache/ofbiz/common/JsLanguageFilesMapping.java";
-        Map<String, Object> mapWrapper = new HashMap<String, Object>();
+        Map<String, Object> mapWrapper = new HashMap<>();
         mapWrapper.put("datejs", dateJsLocaleFile);
         mapWrapper.put("jquery", jQueryLocaleFile);
         mapWrapper.put("validation", validationLocaleFile);

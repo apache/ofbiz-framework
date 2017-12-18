@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * FTP Services.
- * 
+ *
  */
 public class FtpServices {
 
@@ -59,7 +59,7 @@ public class FtpServices {
             Debug.logError(ioe, "[putFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = new LinkedList<String>();
+        List<String> errorList = new LinkedList<>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
@@ -144,7 +144,7 @@ public class FtpServices {
             Debug.logError(ioe, "[getFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = new LinkedList<String>();
+        List<String> errorList = new LinkedList<>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");

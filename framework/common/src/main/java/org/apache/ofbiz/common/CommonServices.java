@@ -22,7 +22,6 @@ import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -112,7 +111,7 @@ public class CommonServices {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        List<GenericValue> testingNodes = new LinkedList<GenericValue>();
+        List<GenericValue> testingNodes = new LinkedList<>();
         for (int i = 0; i < 3; i ++) {
             GenericValue testingNode = delegator.makeValue("TestingNode");
             testingNode.put("testingNodeId", "TESTING_NODE" + i);
@@ -178,8 +177,9 @@ public class CommonServices {
 
         // check for a party id
         if (partyId == null) {
-            if (userLogin != null && userLogin.get("partyId") != null)
+            if (userLogin != null && userLogin.get("partyId") != null) {
                 partyId = userLogin.getString("partyId");
+            }
         }
 
         Map<String, Object> fields = UtilMisc.toMap("noteId", noteId, "noteName", noteName, "noteInfo", note,
@@ -227,7 +227,7 @@ public class CommonServices {
      * This service does not have required parameters and does not validate
      */
      public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
-         Map<String, Object> result =  new LinkedHashMap<String, Object>();
+         Map<String, Object> result =  new LinkedHashMap<>();
          result.putAll(context);
          result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
          return result;
@@ -282,7 +282,7 @@ public class CommonServices {
     /** Test entity sorting */
     public static Map<String, Object> entitySortTest(DispatchContext dctx, Map<String, ?> context) {
         Delegator delegator = dctx.getDelegator();
-        Set<ModelEntity> set = new TreeSet<ModelEntity>();
+        Set<ModelEntity> set = new TreeSet<>();
 
         set.add(delegator.getModelEntity("Person"));
         set.add(delegator.getModelEntity("PartyRole"));
@@ -357,14 +357,12 @@ public class CommonServices {
         String outputPath1 = ofbizHome + (fileName1.startsWith("/") ? fileName1 : "/" + fileName1);
         String outputPath2 = ofbizHome + (fileName2.startsWith("/") ? fileName2 : "/" + fileName2);
         RandomAccessFile file1 = null, file2 = null;
-        
+
         try {
             file1 = new RandomAccessFile(outputPath1, "rw");
             file2 = new RandomAccessFile(outputPath2, "rw");
             file1.write(buffer1.array());
             file2.write(buffer2.array());
-        } catch (FileNotFoundException e) {
-            Debug.logError(e, module);
         } catch (IOException e) {
             Debug.logError(e, module);
         } finally {
@@ -387,7 +385,7 @@ public class CommonServices {
         String fileName = (String) context.get("_uploadFile_fileName");
         String contentType = (String) context.get("_uploadFile_contentType");
 
-        Map<String, Object> createCtx =  new LinkedHashMap<String, Object>();
+        Map<String, Object> createCtx =  new LinkedHashMap<>();
         createCtx.put("binData", array);
         createCtx.put("dataResourceTypeId", "OFBIZ_FILE");
         createCtx.put("dataResourceName", fileName);
@@ -409,7 +407,7 @@ public class CommonServices {
 
         GenericValue dataResource = (GenericValue) createResp.get("dataResource");
         if (dataResource != null) {
-            Map<String, Object> contentCtx =  new LinkedHashMap<String, Object>();
+            Map<String, Object> contentCtx =  new LinkedHashMap<>();
             contentCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
             contentCtx.put("localeString", ((Locale) context.get("locale")).toString());
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -510,16 +508,15 @@ public class CommonServices {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("message", message);
             return result;
-        } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceInvalidCount", locale));
         }
+        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceInvalidCount", locale));
     }
 
     public static Map<String, Object> getAllMetrics(DispatchContext dctx, Map<String, ?> context) {
-        List<Map<String, Object>> metricsMapList = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> metricsMapList = new LinkedList<>();
         Collection<Metrics> metricsList = MetricsFactory.getMetrics();
         for (Metrics metrics : metricsList) {
-            Map<String, Object> metricsMap =  new LinkedHashMap<String, Object>();
+            Map<String, Object> metricsMap =  new LinkedHashMap<>();
             metricsMap.put("name", metrics.getName());
             metricsMap.put("serviceRate", metrics.getServiceRate());
             metricsMap.put("threshold", metrics.getThreshold());
