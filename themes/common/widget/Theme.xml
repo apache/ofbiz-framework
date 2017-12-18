@@ -67,7 +67,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jquery.maskedinput-1.3.1.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/images/OpenLayers-2.13.1-modified-for-CSP-.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/OpenLayers-2.13.1-modified-for-CSP-.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>

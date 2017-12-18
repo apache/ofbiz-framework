@@ -70,8 +70,8 @@ under the License.
     <screen name="showPortalPage">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/plugins/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <set field="title" from-field="portalPage.portalPageName"/>
             </actions>
@@ -91,8 +91,8 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Dashboard"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/plugins/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <set field="portalPages" value="${groovy:org.apache.ofbiz.widget.portal.PortalPageWorker.getPortalPages(parameters.parentPortalPageId,context)}"/>
             </actions>
