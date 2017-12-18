@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.conversion;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Iterator;

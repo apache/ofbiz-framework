@@ -147,9 +147,8 @@ public class CollectionConverters implements ConverterLoader {
         public List<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toList(obj);
-            } else {
-                return super.convert(obj);
             }
+            return super.convert(obj);
         }
     }
 
@@ -175,9 +174,8 @@ public class CollectionConverters implements ConverterLoader {
         public Set<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toSet(obj);
-            } else {
-                return super.convert(obj);
             }
+            return super.convert(obj);
         }
     }
 
