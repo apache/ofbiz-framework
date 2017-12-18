@@ -19,11 +19,13 @@
 package org.apache.ofbiz.service.jms;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -123,7 +125,7 @@ public class JmsListenerFactory implements Runnable {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while loading JMS listeners: ", module);
         }
     }
@@ -157,7 +159,8 @@ public class JmsListenerFactory implements Runnable {
                         Constructor<GenericMessageListener> cn = UtilGenerics.cast(c.getConstructor(Delegator.class, String.class, String.class, String.class, String.class, String.class));
 
                         listener = cn.newInstance(delegator, serverName, jndiName, queueName, userName, password);
-                    } catch (Exception e) {
+                    } catch (RuntimeException | NoSuchMethodException | InstantiationException | IllegalAccessException
+                            | InvocationTargetException | ClassNotFoundException e) {
                         throw new GenericServiceException(e.getMessage(), e);
                     }
                     if (listener != null)
