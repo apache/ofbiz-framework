@@ -19,13 +19,11 @@
 package org.apache.ofbiz.service;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.security.Security;
 
 /**
@@ -38,7 +36,6 @@ public class ModelPermission implements Serializable {
 
     public static final int PERMISSION = 1;
     public static final int ENTITY_PERMISSION = 2;
-    public static final int ROLE_MEMBER = 3;
     public static final int PERMISSION_SERVICE = 4;
 
     public ModelService serviceModel = null;
@@ -62,8 +59,6 @@ public class ModelPermission implements Serializable {
                 return evalSimplePermission(security, userLogin);
             case ENTITY_PERMISSION:
                 return evalEntityPermission(security, userLogin);
-            case ROLE_MEMBER:
-                return evalRoleMember(userLogin);
             case PERMISSION_SERVICE:
                 return evalPermissionService(serviceModel, dctx, context);
             default:
@@ -89,22 +84,6 @@ public class ModelPermission implements Serializable {
             Debug.logWarning("Null action passed for evaluation",  module);
         }
         return security.hasEntityPermission(nameOrRole, action, userLogin);
-    }
-
-    private boolean evalRoleMember(GenericValue userLogin) {
-        if (nameOrRole == null) {
-            Debug.logWarning("Null role type name passed for evaluation", module);
-            return false;
-        }
-        List<GenericValue> partyRoles = null;
-
-        if (UtilValidate.isNotEmpty(partyRoles)) {
-            partyRoles = EntityUtil.filterByDate(partyRoles);
-            if (UtilValidate.isNotEmpty(partyRoles)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean evalPermissionService(ModelService origService, DispatchContext dctx, Map<String, ? extends Object> context) {
