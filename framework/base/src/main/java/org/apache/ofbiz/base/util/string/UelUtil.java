@@ -242,14 +242,12 @@ public final class UelUtil {
 
         @Override
         public boolean equals(Object obj) {
-            if (obj instanceof ReadOnlyExpression) {
+            if (obj == this) {
                 return true;
             }
-            try {
+            if (obj instanceof ReadOnlyExpression) {
                 ReadOnlyExpression other = (ReadOnlyExpression) obj;
                 return this.object.equals(other.object);
-            } catch (ClassCastException e) {
-                Debug.logInfo(e.getMessage(), module);
             }
             return false;
         }
@@ -281,14 +279,12 @@ public final class UelUtil {
         }
         @Override
         public boolean equals(Object obj) {
-            if (obj instanceof BasicValueExpression) {
+            if (obj == this) {
                 return true;
             }
-            try {
+            if (obj instanceof BasicValueExpression) {
                 BasicValueExpression other = (BasicValueExpression) obj;
                 return this.varName.equals(other.varName);
-            } catch (ClassCastException e) {
-                Debug.logInfo(e.getMessage(), module);
             }
             return false;
         }
