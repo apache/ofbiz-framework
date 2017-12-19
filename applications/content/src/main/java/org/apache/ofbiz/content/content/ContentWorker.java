@@ -1233,37 +1233,39 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     public static void checkConditions(Delegator delegator, Map<String, Object> trailNode, Map<String, Object> contentAssoc, Map<String, Object> whenMap) {
         Map<String, Object> context = new HashMap<String, Object>();
         GenericValue content = (GenericValue)trailNode.get("value");
-        if (contentAssoc == null && content != null && (content.getEntityName().indexOf("Assoc") >= 0)) {
-            contentAssoc = delegator.makeValue("ContentAssoc");
+        if (content != null) {
+            context.put("content", content);
+            List<Object> purposes = getPurposes(content);
+            context.put("purposes", purposes);
+            List<Object> sections = getSections(content);
+            context.put("sections", sections);
+            List<Object> topics = getTopics(content);
+            context.put("topics", topics);
+            String contentTypeId = (String)content.get("contentTypeId");
+            List<String> contentTypeAncestry = new LinkedList<String>();
             try {
-                // TODO: locale needs to be gotten correctly
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new LinkedList<Object>(), Locale.getDefault());
-                context.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
-                context.put("contentAssocPredicateId", contentAssoc.get("contentAssocPredicateId"));
-                context.put("mapKey", contentAssoc.get("mapKey"));
-            } catch (MiniLangException e) {
+                getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
+            } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }
-        } else {
-            context.put("contentAssocTypeId", null);
-            context.put("contentAssocPredicateId", null);
-            context.put("mapKey", null);
+            context.put("typeAncestry", contentTypeAncestry);
+            if (contentAssoc == null && (content.getEntityName().indexOf("Assoc") >= 0)) {
+                contentAssoc = delegator.makeValue("ContentAssoc");
+                try {
+                    // TODO: locale needs to be gotten correctly
+                    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new LinkedList<Object>(), Locale.getDefault());
+                    context.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
+                    context.put("contentAssocPredicateId", contentAssoc.get("contentAssocPredicateId"));
+                    context.put("mapKey", contentAssoc.get("mapKey"));
+                } catch (MiniLangException e) {
+                    Debug.logError(e.getMessage(), module);
+                }
+            } else {
+                context.put("contentAssocTypeId", null);
+                context.put("contentAssocPredicateId", null);
+                context.put("mapKey", null);
+            }
         }
-        context.put("content", content);
-        List<Object> purposes = getPurposes(content);
-        context.put("purposes", purposes);
-        List<Object> sections = getSections(content);
-        context.put("sections", sections);
-        List<Object> topics = getTopics(content);
-        context.put("topics", topics);
-        String contentTypeId = (String)content.get("contentTypeId");
-        List<String> contentTypeAncestry = new LinkedList<String>();
-        try {
-            getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
-        } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
-        }
-        context.put("typeAncestry", contentTypeAncestry);
         boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
         trailNode.put("isReturnBefore", Boolean.valueOf(isReturnBefore));
         boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"), true);
