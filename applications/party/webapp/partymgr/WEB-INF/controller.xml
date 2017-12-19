@@ -625,11 +625,6 @@ under the License.
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setFollowerPage"/>
         <response name="success" type="view" value="visitdetail"/>
     </request-map>
-    <request-map uri="setAppletFollower">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setAppletFollower"/>
-        <response name="success" type="view" value="visitdetail"/>
-    </request-map>
 
     <!-- communication event requests -->
     <request-map uri="setCommunicationEventRoleStatus">

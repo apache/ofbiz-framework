@@ -36,7 +36,4 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="OFBTOOLS_VIEW"/>
 
-    <!-- Control Applet security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SEND_CONTROL_APPLET"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SEND_CONTROL_APPLET"/>
 </entity-engine-xml>
