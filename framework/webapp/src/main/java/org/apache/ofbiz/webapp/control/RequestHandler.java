@@ -987,7 +987,7 @@ public class RequestHandler {
         
         //resp.setHeader("Content-Security-Policy", "default-src 'self'");
         //resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'; report-uri webtools/control/ContentSecurityPolicyReporter");
-        //resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
+        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
         
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
         
