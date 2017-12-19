@@ -339,14 +339,6 @@ public class ModelServiceReader implements Serializable {
             group.permissions.add(perm);
         }
 
-        // create the role member permissions
-        for (Element element: UtilXml.childElementList(baseElement, "check-role-member")) {
-            ModelPermission perm = new ModelPermission();
-            perm.permissionType = ModelPermission.ROLE_MEMBER;
-            perm.nameOrRole = element.getAttribute("role-type").intern();
-            perm.serviceModel = service;
-            group.permissions.add(perm);
-        }
         // Create the permissions based on permission services
         for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
             ModelPermission perm = new ModelPermission();
