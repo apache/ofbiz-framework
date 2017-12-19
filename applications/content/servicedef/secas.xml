@@ -137,11 +137,12 @@ under the License.
         <condition field-name="contentIdTo" operator="is-not-empty"/>
         <action service="createContentAssoc" mode="sync" run-as-user="system" result-to-result="true" />
     </eca>
+    
     <eca service="createContent" event="commit">
         <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
         <condition field-name="contentIdFrom" operator="is-not-empty"/>
-        <set field-name="contentId" env-name="contentIdFrom"/>
         <set field-name="contentIdTo" env-name="contentId"/>
+        <set field-name="contentId" env-name="contentIdFrom"/>
         <action service="createContentAssoc" mode="sync" run-as-user="system" result-to-result="true" />
     </eca>
 
