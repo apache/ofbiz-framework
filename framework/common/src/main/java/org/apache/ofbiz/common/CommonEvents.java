@@ -25,12 +25,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -45,17 +43,13 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.widget.model.ThemeFactory;
@@ -82,121 +76,12 @@ public class CommonEvents {
         "thisRequestUri"
     };
 
-    private static final UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
-
-    public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String sessionId = request.getParameter("sessionId");
-        String visitId = request.getParameter("visitId");
-        sessionId = sessionId.trim();
-        visitId = visitId.trim();
-
-        String responseString = "";
-
-        GenericValue visit = null;
-        try {
-            visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot Visit Object", module);
-        }
-
-        if (visit != null && visit.getString("sessionId").equals(sessionId) && appletSessions.containsKey(sessionId)) {
-            Map<String, String> sessionMap = appletSessions.get(sessionId);
-            if (sessionMap != null && sessionMap.containsKey("followPage")) {
-                responseString = sessionMap.remove("followPage");
-            }
-        }
-
-        try {
-            PrintWriter out = response.getWriter();
-            response.setContentType("text/plain");
-            out.println(responseString);
-            out.close();
-        } catch (IOException e) {
-            Debug.logError(e, "Problems writing servlet output!", module);
-        }
-
-        return "success";
-    }
-
-    public static String receiveAppletRequest(HttpServletRequest request, HttpServletResponse response) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String sessionId = request.getParameter("sessionId");
-        String visitId = request.getParameter("visitId");
-        sessionId = sessionId.trim();
-        visitId = visitId.trim();
-
-        String responseString = "ERROR";
-
-        GenericValue visit = null;
-        try {
-            visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot Visit Object", module);
-        }
-
-        if (visit.getString("sessionId").equals(sessionId)) {
-            String currentPage = request.getParameter("currentPage");
-            Map<String, String> sessionMap = appletSessions.get(sessionId);
-            if (sessionMap != null) {
-                String followers = sessionMap.get("followers");
-                List<String> folList = StringUtil.split(followers, ",");
-                for (String follower: folList) {
-                    Map<String, String> folSesMap = UtilMisc.toMap("followPage", currentPage);
-                    appletSessions.put(follower, folSesMap);
-                }
-            }
-            responseString = "OK";
-        }
-
-        try {
-            PrintWriter out = response.getWriter();
-            response.setContentType("text/plain");
-            out.println(responseString);
-            out.close();
-        } catch (IOException e) {
-            Debug.logError(e, "Problems writing servlet output!", module);
-        }
-
-        return "success";
-    }
-
-    public static String setAppletFollower(HttpServletRequest request, HttpServletResponse response) {
-        Security security = (Security) request.getAttribute("security");
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        String visitId = request.getParameter("visitId");
-        if (visitId != null) {
-            request.setAttribute("visitId", visitId);
-        }
-        if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) {
-            String followerSessionId = request.getParameter("followerSid");
-            String followSessionId = request.getParameter("followSid");
-            Map<String, String> follow = appletSessions.get(followSessionId);
-            if (follow == null) {
-                follow = new LinkedHashMap<>();
-            }
-            appletSessions.put(followSessionId, follow);
-            appletSessions.put(followerSessionId, null);
-        }
-        return "success";
-    }
-
     public static String setFollowerPage(HttpServletRequest request, HttpServletResponse response) {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String visitId = request.getParameter("visitId");
         if (visitId != null) {
             request.setAttribute("visitId", visitId);
-        }
-        if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) {
-            String followerSessionId = request.getParameter("followerSid");
-            String pageUrl = request.getParameter("pageUrl");
-            Map<String, String> follow = appletSessions.get(followerSessionId);
-            if (follow == null) {
-                follow = new LinkedHashMap<>();
-            }
-            follow.put("followPage", pageUrl);
-            appletSessions.put(followerSessionId, follow);
         }
         return "success";
     }

@@ -2089,12 +2089,8 @@ ${txt}
     <SecurityPermission description="Limited Update operations in the Content Manager." permissionId="CONTENTMGR_ROLE_UPDATE"/>
     <SecurityPermission description="Limited Delete operations in the Content Manager." permissionId="CONTENTMGR_ROLE_DELETE"/>
 
-    <!-- Control Applet security -->
-    <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
-    
     <!-- add admin to SUPER permission group -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CONTENTMGR_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SEND_CONTROL_APPLET"/>
 
     <DataResource dataResourceId="NOCONTENTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/nocontentfound.png"
 mimeTypeId="image/png" createdDate="2004-08-06 11:40:15.818"/>

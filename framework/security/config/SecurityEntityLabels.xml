@@ -1968,17 +1968,6 @@
         <value xml:lang="zh">在安全管理页面中的浏览操作。</value>
         <value xml:lang="zh-TW">在安全管理畫面中的檢視操作.</value>
     </property>
-    <property key="SecurityPermission.description.SEND_CONTROL_APPLET">
-        <value xml:lang="en">Send to the Control Applet.</value>
-        <value xml:lang="es">Enviar a Applet de Control.</value>
-        <value xml:lang="fr">Envoyer à l'applet de contrôle</value>
-        <value xml:lang="it">Invia all'Applet.</value>
-        <value xml:lang="ja">コントロールアプレットに送信。</value>
-        <value xml:lang="ru">Отсылка в контрольный апплет.</value>
-        <value xml:lang="th">Send to the Control Applet.</value>
-        <value xml:lang="zh">发送到控制小程序。</value>
-        <value xml:lang="zh-TW">發送到控制Applet.</value>
-    </property>
     <property key="SecurityPermission.description.SERVER_STATS_VIEW">
         <value xml:lang="en">View the Server Statistics pages.</value>
         <value xml:lang="es">Ver las páginas de Estadísticas del Servidor.</value>
