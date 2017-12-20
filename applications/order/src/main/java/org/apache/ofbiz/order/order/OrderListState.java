@@ -21,7 +21,6 @@ package org.apache.ofbiz.order.order;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +74,7 @@ public class OrderListState implements Serializable {
     protected static final Map<String, String> parameterToOrderTypeId;
     protected static final Map<String, String> parameterToFilterId;
     static {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("viewcompleted", "ORDER_COMPLETED");
         map.put("viewcancelled", "ORDER_CANCELLED");
         map.put("viewrejected", "ORDER_REJECTED");
@@ -85,12 +84,12 @@ public class OrderListState implements Serializable {
         map.put("viewhold", "ORDER_HOLD");
         parameterToOrderStatusId = map;
 
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         map.put("view_SALES_ORDER", "SALES_ORDER");
         map.put("view_PURCHASE_ORDER", "PURCHASE_ORDER");
         parameterToOrderTypeId = map;
 
-        map = new HashMap<String, String>();
+        map = new HashMap<>();
         map.put("filterInventoryProblems", "filterInventoryProblems");
         map.put("filterAuthProblems", "filterAuthProblems");
         map.put("filterPartiallyReceivedPOs", "filterPartiallyReceivedPOs");
@@ -108,9 +107,9 @@ public class OrderListState implements Serializable {
     protected OrderListState() {
         viewSize = 10;
         viewIndex = 0;
-        orderStatusState = new HashMap<String, String>();
-        orderTypeState = new HashMap<String, String>();
-        orderFilterState = new HashMap<String, String>();
+        orderStatusState = new HashMap<>();
+        orderTypeState = new HashMap<>();
+        orderFilterState = new HashMap<>();
 
         // defaults (TODO: configuration)
         orderStatusState.put("viewcreated", "Y");
@@ -149,8 +148,9 @@ public class OrderListState implements Serializable {
         } else {
             String viewSizeParam = request.getParameter(VIEW_SIZE_PARAM);
             String viewIndexParam = request.getParameter(VIEW_INDEX_PARAM);
-            if (UtilValidate.isNotEmpty(viewSizeParam) && UtilValidate.isNotEmpty(viewIndexParam))
+            if (UtilValidate.isNotEmpty(viewSizeParam) && UtilValidate.isNotEmpty(viewIndexParam)) {
                 changePaginationState(viewSizeParam, viewIndexParam);
+            }
         }
     }
 
@@ -201,14 +201,16 @@ public class OrderListState implements Serializable {
 
     public void setStatus(String param, boolean b) { orderStatusState.put(param, (b ? "Y" : "N")); }
     public void setType(String param, boolean b) { orderTypeState.put(param, (b ? "Y" : "N")); }
-    
+
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
     public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
 
     public boolean hasAllStatus() {
-        for (Iterator<String> iter = orderStatusState.values().iterator(); iter.hasNext();) {
-            if (!"Y".equals(iter.next())) return false;
+        for (String string : orderStatusState.values()) {
+            if (!"Y".equals(string)) {
+                return false;
+            }
         }
         return true;
     }
@@ -224,27 +226,31 @@ public class OrderListState implements Serializable {
      * Get the OrderHeaders corresponding to the state.
      */
     public List<GenericValue> getOrders(String facilityId, Timestamp filterDate, Delegator delegator) throws GenericEntityException {
-        List<EntityCondition> allConditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> allConditions = new LinkedList<>();
 
         if (facilityId != null) {
             allConditions.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, facilityId));
         }
 
         if (filterDate != null) {
-            List<EntityCondition> andExprs = new LinkedList<EntityCondition>();
+            List<EntityCondition> andExprs = new LinkedList<>();
             andExprs.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)));
             andExprs.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)));
             allConditions.add(EntityCondition.makeCondition(andExprs, EntityOperator.AND));
         }
 
-        List<EntityCondition> statusConditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> statusConditions = new LinkedList<>();
         for (String status : orderStatusState.keySet()) {
-            if (!hasStatus(status)) continue;
+            if (!hasStatus(status)) {
+                continue;
+            }
             statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
         }
-        List<EntityCondition> typeConditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> typeConditions = new LinkedList<>();
         for (String type : orderTypeState.keySet()) {
-            if (!hasType(type)) continue;
+            if (!hasType(type)) {
+                continue;
+            }
             typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
         }
 
@@ -262,7 +268,7 @@ public class OrderListState implements Serializable {
                 .orderBy("orderDate DESC")
                 .maxRows(viewSize * (viewIndex + 1))
                 .cursorScrollInsensitive();
-        
+
         try (EntityListIterator iterator = eq.queryIterator()) {
             // get subset corresponding to pagination state
             List<GenericValue> orders = iterator.getPartialList(viewSize * viewIndex, viewSize);

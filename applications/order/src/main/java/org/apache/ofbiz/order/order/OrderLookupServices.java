@@ -78,7 +78,7 @@ public class OrderLookupServices {
         }
 
         // list of fields to select (initial list)
-        Set<String> fieldsToSelect = new LinkedHashSet<String>();
+        Set<String> fieldsToSelect = new LinkedHashSet<>();
         fieldsToSelect.add("orderId");
         fieldsToSelect.add("orderName");
         fieldsToSelect.add("statusId");
@@ -92,10 +92,10 @@ public class OrderLookupServices {
         List<String> orderBy = UtilMisc.toList("-orderDate", "-orderId");
 
         // list to hold the parameters
-        List<String> paramList = new LinkedList<String>();
+        List<String> paramList = new LinkedList<>();
 
         // list of conditions
-        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> conditions = new LinkedList<>();
 
         // check security flag for purchase orders
         boolean canViewPo = security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", userLogin);
@@ -120,7 +120,7 @@ public class OrderLookupServices {
         // the base order header fields
         List<String> orderTypeList = UtilGenerics.checkList(context.get("orderTypeId"));
         if (orderTypeList != null) {
-            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+            List<EntityExpr> orExprs = new LinkedList<>();
             for (String orderTypeId : orderTypeList) {
                 paramList.add("orderTypeId=" + orderTypeId);
 
@@ -139,11 +139,11 @@ public class OrderLookupServices {
 
         List<String> orderStatusList = UtilGenerics.checkList(context.get("orderStatusId"));
         if (orderStatusList != null) {
-            List<EntityCondition> orExprs = new LinkedList<EntityCondition>();
+            List<EntityCondition> orExprs = new LinkedList<>();
             for (String orderStatusId : orderStatusList) {
                 paramList.add("orderStatusId=" + orderStatusId);
                 if ("PENDING".equals(orderStatusId)) {
-                    List<EntityExpr> pendExprs = new LinkedList<EntityExpr>();
+                    List<EntityExpr> pendExprs = new LinkedList<>();
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_CREATED"));
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_PROCESSING"));
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
@@ -157,7 +157,7 @@ public class OrderLookupServices {
 
         List<String> productStoreList = UtilGenerics.checkList(context.get("productStoreId"));
         if (productStoreList != null) {
-            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+            List<EntityExpr> orExprs = new LinkedList<>();
             for (String productStoreId : productStoreList) {
                 paramList.add("productStoreId=" + productStoreId);
                 orExprs.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
@@ -167,7 +167,7 @@ public class OrderLookupServices {
 
         List<String> webSiteList = UtilGenerics.checkList(context.get("orderWebSiteId"));
         if (webSiteList != null) {
-            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+            List<EntityExpr> orExprs = new LinkedList<>();
             for (String webSiteId : webSiteList) {
                 paramList.add("webSiteId=" + webSiteId);
                 orExprs.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
@@ -177,7 +177,7 @@ public class OrderLookupServices {
 
         List<String> saleChannelList = UtilGenerics.checkList(context.get("salesChannelEnumId"));
         if (saleChannelList != null) {
-            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+            List<EntityExpr> orExprs = new LinkedList<>();
             for (String salesChannelEnumId : saleChannelList) {
                 paramList.add("salesChannelEnumId=" + salesChannelEnumId);
                 orExprs.add(EntityCondition.makeCondition("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
@@ -219,7 +219,9 @@ public class OrderLookupServices {
         String minDate = (String) context.get("minDate");
         if (UtilValidate.isNotEmpty(minDate) && minDate.length() > 8) {
             minDate = minDate.trim();
-            if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
+            if (minDate.length() < 14) {
+                minDate = minDate + " " + "00:00:00.000";
+            }
             paramList.add("minDate=" + minDate);
 
             try {
@@ -235,7 +237,9 @@ public class OrderLookupServices {
         String maxDate = (String) context.get("maxDate");
         if (UtilValidate.isNotEmpty(maxDate) && maxDate.length() > 8) {
             maxDate = maxDate.trim();
-            if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
+            if (maxDate.length() < 14) {
+                maxDate = maxDate + " " + "23:59:59.999";
+            }
             paramList.add("maxDate=" + maxDate);
 
             try {
@@ -330,7 +334,7 @@ public class OrderLookupServices {
 
         if (roleTypeList != null) {
             fieldsToSelect.add("roleTypeId");
-            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+            List<EntityExpr> orExprs = new LinkedList<>();
             for (String roleTypeId : roleTypeList) {
                 paramList.add("roleTypeId=" + roleTypeId);
                 orExprs.add(makeExpr("roleTypeId", roleTypeId));
@@ -394,7 +398,7 @@ public class OrderLookupServices {
                 if (product != null) {
                     String isVirtual = product.getString("isVirtual");
                     if (isVirtual != null && "Y".equals(isVirtual)) {
-                        List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
+                        List<EntityExpr> orExprs = new LinkedList<>();
                         orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
 
                         Map<String, Object> varLookup = null;
@@ -535,7 +539,7 @@ public class OrderLookupServices {
                 conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
                 conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
             } else if ("N".equals(hasBackOrders)) {
-                List<EntityExpr> orExpr = new LinkedList<EntityExpr>();
+                List<EntityExpr> orExpr = new LinkedList<>();
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, null));
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, BigDecimal.ZERO));
                 conditions.add(EntityCondition.makeCondition(orExpr, EntityOperator.OR));
@@ -580,7 +584,7 @@ public class OrderLookupServices {
             Debug.logInfo("Find order query: " + cond.toString(), module);
         }
 
-        List<GenericValue> orderList = new LinkedList<GenericValue>();
+        List<GenericValue> orderList = new LinkedList<>();
         int orderCount = 0;
 
         // get the index for the partial list
@@ -633,7 +637,7 @@ public class OrderLookupServices {
     }
 
     public static void filterInventoryProblems(Map<String, ? extends Object> context, Map<String, Object> result, List<GenericValue> orderList, List<String> paramList) {
-        List<String> filterInventoryProblems = new LinkedList<String>();
+        List<String> filterInventoryProblems = new LinkedList<>();
 
         String doFilter = (String) context.get("filterInventoryProblems");
         if (doFilter == null) {
@@ -651,9 +655,9 @@ public class OrderLookupServices {
             }
         }
 
-        List<String> filterPOsOpenPastTheirETA = new LinkedList<String>();
-        List<String> filterPOsWithRejectedItems = new LinkedList<String>();
-        List<String> filterPartiallyReceivedPOs = new LinkedList<String>();
+        List<String> filterPOsOpenPastTheirETA = new LinkedList<>();
+        List<String> filterPOsWithRejectedItems = new LinkedList<>();
+        List<String> filterPartiallyReceivedPOs = new LinkedList<>();
 
         String filterPOReject = (String) context.get("filterPOsWithRejectedItems");
         String filterPOPast = (String) context.get("filterPOsOpenPastTheirETA");

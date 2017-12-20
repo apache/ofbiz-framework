@@ -37,7 +37,6 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -79,21 +78,11 @@ public class OrderEvents {
                 response.setContentType(orderRoleAndProductContentInfo.getString("mimeTypeId"));
             }
             OutputStream os = response.getOutputStream();
-            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne(); 
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
             os.write(IOUtils.toByteArray((ByteArrayInputStream) resourceData.get("stream")));
             os.flush();
-        } catch (GenericEntityException e) {
-            String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        } catch (GeneralException e) {
-            String errMsg = "Error downloading digital product content: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -112,16 +101,16 @@ public class OrderEvents {
         Map<String, Object> resultMap;
         String  orderId = request.getParameter("orderId");
         String[] selectedItems = request.getParameterValues("selectedItem");
-        
-        
-        
+
+
+
         if (selectedItems != null) {
             for (String selectedItem : selectedItems) {
             	String [] orderItemSeqIdAndOrderItemShipGrpId = selectedItem.split(":");
             	String orderItemSeqId = orderItemSeqIdAndOrderItemShipGrpId[0];
             	String shipGroupSeqId = orderItemSeqIdAndOrderItemShipGrpId[1];
                         BigDecimal cancelQuantity = new BigDecimal(request.getParameter("iqm_"+orderItemSeqId+":"+shipGroupSeqId));
-                        Map<String, Object> contextMap = new HashMap<String, Object>();
+                        Map<String, Object> contextMap = new HashMap<>();
                         contextMap.put("orderId", orderId);
                         contextMap.put("orderItemSeqId", orderItemSeqId);
                         contextMap.put("shipGroupSeqId", shipGroupSeqId);
@@ -145,9 +134,8 @@ public class OrderEvents {
                         }
             }
             return "success";
-        } else {
-            request.setAttribute("_ERROR_MESSAGE_", "No order item selected. Please select an order item to cancel");
-            return "error";
         }
+        request.setAttribute("_ERROR_MESSAGE_", "No order item selected. Please select an order item to cancel");
+        return "error";
     }
 }

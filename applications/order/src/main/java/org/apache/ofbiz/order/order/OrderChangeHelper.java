@@ -107,9 +107,6 @@ public final class OrderChangeHelper {
             OrderChangeHelper.createReceivedPayments(dispatcher, userLogin, orderId);
             OrderChangeHelper.createOrderInvoice(dispatcher, userLogin, orderId);
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, "ORDER_COMPLETED", "ITEM_APPROVED", "ITEM_COMPLETED", null);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return false;
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return false;
@@ -235,7 +232,7 @@ public final class OrderChangeHelper {
         }
     }
 
-    public static void createReceivedPayments(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericEntityException, GenericServiceException {
+    public static void createReceivedPayments(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
         GenericValue orderHeader = null;
         try {
             orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);

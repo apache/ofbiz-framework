@@ -112,10 +112,7 @@ public class OrderContentWrapper implements ContentWrapper {
             orderContentCache.put(cacheKey, outString);
             return outString;
 
-        } catch (GeneralException e) {
-            Debug.logError(e, "Error rendering OrderContent, inserting empty String", module);
-            return "";
-        } catch (IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering OrderContent, inserting empty String", module);
             return "";
         }
@@ -149,7 +146,7 @@ public class OrderContentWrapper implements ContentWrapper {
                 .cache(cache).filterByDate().queryFirst();
         if (orderContent != null) {
             // when rendering the order content, always include the OrderHeader/OrderItem and OrderContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
+            Map<String, Object> inContext = new HashMap<>();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
             ContentWorker.renderContentAsText(dispatcher, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
