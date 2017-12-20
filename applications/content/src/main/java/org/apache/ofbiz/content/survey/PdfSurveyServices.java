@@ -298,7 +298,7 @@ public class PdfSurveyServices {
             }
 
         } catch (DocumentException | GeneralException | IOException e) {
-            System.err.println(e.getMessage());
+            Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
 
@@ -348,7 +348,7 @@ public class PdfSurveyServices {
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
         } catch (DocumentException | IOException | GeneralException e) {
-            System.err.println(e.getMessage());
+            Debug.logError(e, module);
             results = ServiceUtil.returnError(e.getMessage());
         }
         return results;
@@ -414,7 +414,7 @@ public class PdfSurveyServices {
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException | DocumentException e) {
-            System.err.println(e.getMessage());
+            Debug.logError(e, module);
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -439,7 +439,7 @@ public class PdfSurveyServices {
             }
             results.put("questionsAndAnswers", qAndA);
         } catch (GenericEntityException e) {
-            System.err.println(e.getMessage());
+            Debug.logError(e, module);
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -505,7 +505,7 @@ public class PdfSurveyServices {
                 acroFieldMap.put(fieldName, value);
             }
         } catch (GenericEntityException e) {
-            System.err.println(e.getMessage());
+            Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
 
