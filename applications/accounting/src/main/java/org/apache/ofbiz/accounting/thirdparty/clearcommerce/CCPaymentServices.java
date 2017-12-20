@@ -56,6 +56,7 @@ public class CCPaymentServices {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
+    private final static int maxSevComp = 4;
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
         String ccAction = (String) context.get("ccAction");
@@ -73,7 +74,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(authResponseDoc) > 4) { // 5 and higher, process error from HSBC
+        if (getMessageListMaxSev(authResponseDoc) > maxSevComp) { // 5 and higher, process error from HSBC
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("authResult", Boolean.FALSE);
             result.put("processAmount", BigDecimal.ZERO);
@@ -104,7 +105,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(creditResponseDoc) > 4) {
+        if (getMessageListMaxSev(creditResponseDoc) > maxSevComp) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("creditResult", Boolean.FALSE);
             result.put("creditAmount", BigDecimal.ZERO);
@@ -139,7 +140,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(captureResponseDoc) > 4) {
+        if (getMessageListMaxSev(captureResponseDoc) > maxSevComp) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("captureResult", Boolean.FALSE);
             result.put("captureAmount", BigDecimal.ZERO);
@@ -174,7 +175,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(releaseResponseDoc) > 4) {
+        if (getMessageListMaxSev(releaseResponseDoc) > maxSevComp) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("releaseResult", Boolean.FALSE);
             result.put("releaseAmount", BigDecimal.ZERO);
@@ -231,7 +232,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(refundResponseDoc) > 4) {
+        if (getMessageListMaxSev(refundResponseDoc) > maxSevComp) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("refundResult", Boolean.FALSE);
             result.put("refundAmount", BigDecimal.ZERO);
@@ -266,7 +267,7 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
 
-        if (getMessageListMaxSev(reauthResponseDoc) > 4) {
+        if (getMessageListMaxSev(reauthResponseDoc) > maxSevComp) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("reauthResult", Boolean.FALSE);
             result.put("reauthAmount", BigDecimal.ZERO);
@@ -932,7 +933,7 @@ public class CCPaymentServices {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Result severity from clearCommerce:" + getMessageListMaxSev(responseDocument), module);
         }
-        if (Debug.verboseOn() && getMessageListMaxSev(responseDocument) > 4) {
+        if (Debug.verboseOn() && getMessageListMaxSev(responseDocument) > maxSevComp) {
             Debug.logVerbose("Returned messages:" + getMessageList(responseDocument), module);
         }
         return responseDocument;
