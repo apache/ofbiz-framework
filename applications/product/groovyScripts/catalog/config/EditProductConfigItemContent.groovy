@@ -22,6 +22,8 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
+module = "EditProductConfigItemContent.groovy"
+
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = "configitems/${configItemId}"
@@ -118,7 +120,7 @@ if (fileType) {
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            e.printStackTrace()
+            Debug.logError(e, module)
         }
 
         if (imageUrl) {

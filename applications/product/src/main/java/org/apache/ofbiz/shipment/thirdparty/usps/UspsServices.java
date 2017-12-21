@@ -1045,7 +1045,7 @@ public class UspsServices {
                 try {
                     weight = new BigDecimal(weightStr);
                 } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace(); // TODO: handle exception
+                    Debug.logError(nfe, module); // TODO: handle exception
                 }
 
                 String weightUomId = shipmentPackage.getString("weightUomId");
@@ -1146,7 +1146,7 @@ public class UspsServices {
                 try {
                     postage = new BigDecimal(postageString);
                 } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace(); // TODO: handle exception
+                    Debug.logError(nfe, module); // TODO: handle exception
                 }
                 actualTransportCost = actualTransportCost.add(postage);
 
@@ -1350,7 +1350,7 @@ public class UspsServices {
                 try {
                     weight = new BigDecimal(weightStr);
                 } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace(); // TODO: handle exception
+                    Debug.logError(nfe, module); // TODO: handle exception
                 }
 
                 String weightUomId = shipmentPackage.getString("weightUomId");

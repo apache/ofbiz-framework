@@ -112,7 +112,7 @@ public final class ExecutionPool {
                     delayQueue.take().run();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Debug.logError(e, module);
             }
         }
     }

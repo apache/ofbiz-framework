@@ -72,8 +72,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError("Error in request initialization", module);
-            e.printStackTrace();
+            Debug.logError(e, "Error in request initialization", module);
         }
         buildAuthOrAuthCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -99,8 +98,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError("Error in request initialization", module);
-            e.printStackTrace();
+            Debug.logError(e, "Error in request initialization", module);
         }
         buildAuthOrAuthCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -145,8 +143,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.MARK_FOR_CAPTURE_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError("Error in request initialization", module);
-            e.printStackTrace();
+            Debug.logError(e, "Error in request initialization", module);
         }
         buildCaptureTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -190,8 +187,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.NEW_ORDER_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError("Error in request initialization", module);
-            e.printStackTrace();
+            Debug.logError(e, "Error in request initialization", module);
         }
         buildRefundTransaction(context, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -234,8 +230,7 @@ public class OrbitalPaymentServices {
         try {
             request = new Request(RequestIF.REVERSE_TRANSACTION);
         } catch (InitializationException e) {
-            Debug.logError("Error in request initialization", module);
-            e.printStackTrace();
+            Debug.logError(e, "Error in request initialization", module);
         }
         buildReleaseTransaction(context, delegator, props, request, results);
         Map<String, Object> validateResults = validateRequest(context, props, request);
@@ -278,8 +273,7 @@ public class OrbitalPaymentServices {
             buildConfiguratorContext.putAll(config.getConfigurations());
             config.setConfigurations(buildConfiguratorContext);
         } catch (InitializationException e) {
-            Debug.logError("Orbital Configurator Initialization Error: " + e.getMessage(), module);
-            e.printStackTrace();
+            Debug.logError(e, "Orbital Configurator Initialization Error: " + e.getMessage(), module);
         }
         return buildConfiguratorContext;
     }
@@ -380,7 +374,7 @@ public class OrbitalPaymentServices {
         } catch (FieldNotFoundException fnfe) {
             Debug.logError("Unable to find XML field in template", module);
         } catch (Exception e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
     }
 
@@ -419,7 +413,7 @@ public class OrbitalPaymentServices {
         } catch (FieldNotFoundException fnfe) {
             Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), module);
         } catch (Exception e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
     }
 
@@ -451,7 +445,7 @@ public class OrbitalPaymentServices {
         } catch (FieldNotFoundException fnfe) {
             Debug.logError("Unable to find XML field in template", module);
         } catch (Exception e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
     }
 
@@ -475,7 +469,7 @@ public class OrbitalPaymentServices {
         } catch (FieldNotFoundException fnfe) {
             Debug.logError("Unable to find XML field in template" + fnfe.getMessage(), module);
         } catch (Exception e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
     }
 
@@ -641,7 +635,7 @@ public class OrbitalPaymentServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError("Shipping Ref not found returning empty string", module);
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
         return shippingRef;
     }

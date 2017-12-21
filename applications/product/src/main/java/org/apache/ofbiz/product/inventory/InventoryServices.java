@@ -866,7 +866,7 @@ public class InventoryServices {
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
         if (product != null) {
             if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString(
@@ -874,13 +874,13 @@ public class InventoryServices {
                 try {
                     resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
                 } catch (GenericServiceException e) {
-                    e.printStackTrace();
+                    Debug.logError(e, module);
                 }
             } else {
                 try {
                     resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
                 } catch (GenericServiceException e) {
-                    e.printStackTrace();
+                    Debug.logError(e, module);
                 }
             }
             // filter for quantities
@@ -909,7 +909,7 @@ public class InventoryServices {
         try {
             productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",productId).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
         //change this for product price
         if(productPrices != null) {
