@@ -661,7 +661,7 @@ public class CheckOutHelper {
                 } catch (GenericEntityException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
-                    String errMsg = "Problem accessing the Product entity";
+                    String errMsg = UtilProperties.getMessage(resource_error, "checkhelper.problems_reading_database", cart.getLocale()); 
                     errMsg += UtilProperties.getMessage(resource_error, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
