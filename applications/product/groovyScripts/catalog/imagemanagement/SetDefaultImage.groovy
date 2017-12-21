@@ -31,6 +31,8 @@ import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.product.image.ScaleImage
 
+module = "SetDefaultImage.groovy"
+
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 imageManagementPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context)
@@ -159,7 +161,7 @@ if (fileType) {
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            e.printStackTrace()
+            Debug.logError(e, module)
         }
 
         if (imageUrl && imageUrl.length() > 0) {

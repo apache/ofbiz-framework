@@ -63,7 +63,7 @@ public class HumanResEvents {
         try {
             categoryList.addAll(getCurrentEmployeeDetails(paramMap));
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
             return "error";
         }
 
@@ -78,7 +78,7 @@ public class HumanResEvents {
                 categoryList.addAll(getEmployeeInComp(paramMap));
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
             return "error";
         }
         request.setAttribute("hrTree", categoryList);
@@ -153,7 +153,7 @@ public class HumanResEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
             throw new GenericEntityException(e);
         }
 
@@ -246,7 +246,7 @@ public class HumanResEvents {
                 }  
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
             throw new GenericEntityException(e);
         }
 

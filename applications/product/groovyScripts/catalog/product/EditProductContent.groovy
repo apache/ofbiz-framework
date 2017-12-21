@@ -23,6 +23,8 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 
+module = "EditProductContent.groovy"
+
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 // make the image file formats
@@ -138,7 +140,7 @@ if (fileType) {
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            e.printStackTrace()
+            Debug.logError(e, module)
         }
 
         if (imageUrl && imageUrl.length() > 0) {

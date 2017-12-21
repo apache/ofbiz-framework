@@ -21,6 +21,8 @@ import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
+module = "EditCategory.groovy"
+
 if (productCategory) {
     context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType", false)
 }
@@ -108,7 +110,7 @@ if (fileType) {
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            e.printStackTrace()
+            Debug.logError(e, module)
         }
 
         if (imageUrl) {

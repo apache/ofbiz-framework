@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -86,7 +87,7 @@ public class ProductStoreEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logError(e, module);
             return "error";
         }
         return "success";

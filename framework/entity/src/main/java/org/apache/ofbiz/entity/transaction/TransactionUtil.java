@@ -1007,7 +1007,7 @@ public final class TransactionUtil implements Status {
                     TransactionUtil.commit(tx);
                 } else {
                     if (printException) {
-                        transactionAbortCause.printStackTrace();
+                        Debug.logError(transactionAbortCause, module);
                     }
                     TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
                 }

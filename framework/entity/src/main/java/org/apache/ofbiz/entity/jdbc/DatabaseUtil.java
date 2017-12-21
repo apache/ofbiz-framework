@@ -889,7 +889,6 @@ public class DatabaseUtil {
                     Object result = detection.method.invoke(dbData, detection.params);
                     Debug.logInfo(String.format(goodFormatStr, detection.name, result, requiredFlag), module);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     Debug.logVerbose(e, module);
                     Debug.logWarning(String.format(badFormatStr, detection.name, requiredFlag), module);
                 }

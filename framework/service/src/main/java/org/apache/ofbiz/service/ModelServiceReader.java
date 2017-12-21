@@ -361,7 +361,9 @@ public class ModelServiceReader implements Serializable {
             groupElement.setAttribute("name", "_" + service.name + ".group");
             service.internalGroup = new GroupModel(groupElement);
             service.invoke = service.internalGroup.getGroupName();
-            if (Debug.verboseOn()) Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+            }
         }
     }
 
@@ -475,7 +477,9 @@ public class ModelServiceReader implements Serializable {
             // default value
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
-                if (Debug.verboseOn()) Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                }
                 param.setDefaultValue(defValue.intern());
             }
 
@@ -703,11 +707,9 @@ public class ModelServiceReader implements Serializable {
                 x = sxe.getException();
             }
             x.printStackTrace();
-        } catch (ParserConfigurationException pce) {
+        } catch (ParserConfigurationException | IOException e) {
             // Parser with specified options can't be built
-            pce.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+            Debug.logError(e, module);
         }
 
         return document;
