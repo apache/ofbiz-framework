@@ -87,17 +87,17 @@ public class CommonServices {
                 Object cKey = entry.getKey();
                 Object value = entry.getValue();
 
-                System.out.println("---- SVC-CONTEXT: " + cKey + " => " + value);
+                Debug.logInfo("---- SVC-CONTEXT: " + cKey + " => " + value, module);
             }
         }
         if (!context.containsKey("message")) {
             response.put("resp", "no message found");
         } else {
-            System.out.println("-----SERVICE TEST----- : " + (String) context.get("message"));
+            Debug.logInfo("-----SERVICE TEST----- : " + (String) context.get("message"), module);
             response.put("resp", "service done");
         }
 
-        System.out.println("----- SVC: " + dctx.getName() + " -----");
+        Debug.logInfo("----- SVC: " + dctx.getName() + " -----", module);
         return response;
     }
 
@@ -128,7 +128,7 @@ public class CommonServices {
         if (duration == null) {
             duration = 30000l;
         }
-        System.out.println("-----SERVICE BLOCKING----- : " + duration/1000d +" seconds");
+        Debug.logInfo("-----SERVICE BLOCKING----- : " + duration/1000d +" seconds", module);
         try {
             Thread.sleep(duration);
         } catch (InterruptedException e) {

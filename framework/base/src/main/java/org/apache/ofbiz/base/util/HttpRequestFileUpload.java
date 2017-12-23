@@ -117,7 +117,7 @@ public class HttpRequestFileUpload {
 
         String reqLengthString = request.getHeader("content-length");
 
-        System.out.println("expect " + reqLengthString + " bytes.");
+        Debug.logInfo("expect " + reqLengthString + " bytes.", module);
         int requestLength = 0;
 
         try {
@@ -139,7 +139,7 @@ public class HttpRequestFileUpload {
 
         String boundary = new String(line, 0, boundaryLength, UtilIO.getUtf8()); // -2 discards the newline character
 
-        System.out.println("boundary=[" + boundary + "] length is " + boundaryLength);
+        Debug.logInfo("boundary=[" + boundary + "] length is " + boundaryLength, module);
         fields = new HashMap<>();
 
         while (requestLength > 0/* i != -1*/) {
@@ -178,7 +178,7 @@ public class HttpRequestFileUpload {
                         lastTwoBytes[0] = line[i - 2];
                         lastTwoBytes[1] = line[i - 1];
                     }
-                    System.out.println("about to create a file:" + (savePath == null ? "" : savePath) + filenameToUse);
+                    Debug.logInfo("about to create a file:" + (savePath == null ? "" : savePath) + filenameToUse, module);
                     // before creating the file make sure directory exists
                     if (savePath == null) {
                         throw new IllegalArgumentException("savePath is null");
@@ -282,10 +282,10 @@ public class HttpRequestFileUpload {
         int i = -1;
 
         while (((i = in.readLine(buf, off, len)) == -1) && (reqLen > 0)) {
-            System.out.print("waiting");
+            Debug.logInfo("waiting", module);
             if (waitCount > MAX_WAITS) {
-                System.out.println("waited " + waitCount + " times, bailing out while still expecting " +
-                    reqLen + " bytes.");
+                Debug.logInfo("waited " + waitCount + " times, bailing out while still expecting " +
+                    reqLen + " bytes.", module);
                 throw new IOException("waited " + waitCount + " times, bailing out while still expecting " +
                         reqLen + " bytes.");
             }
@@ -296,10 +296,10 @@ public class HttpRequestFileUpload {
                 try {
                     wait(WAIT_INTERVAL);
                 } catch (Exception e3) {
-                    System.out.print(".");
+                    Debug.logInfo(".", module);
                 }
             }
-            System.out.println((new Date().getTime() - endMS) + " ms");
+            Debug.logInfo((new Date().getTime() - endMS) + " ms", module);
         }
         return i;
     }

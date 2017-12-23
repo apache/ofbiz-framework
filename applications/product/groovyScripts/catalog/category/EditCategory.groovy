@@ -106,7 +106,7 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                System.out.println("error deleting existing file (not neccessarily a problem)")
+                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
             }
             file.renameTo(file1)
         } catch (Exception e) {
