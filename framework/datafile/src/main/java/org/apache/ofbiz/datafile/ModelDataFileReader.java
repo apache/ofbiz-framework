@@ -83,6 +83,10 @@ public final class ModelDataFileReader {
         if (tempStr != null && tempStr.length() == 1) {
             dataFile.delimiter = tempStr.charAt(0);
         }
+        tempStr = dataFileElement.getAttribute("start-line");
+        if (tempStr != null) {
+            dataFile.startLine = Integer.valueOf(tempStr);
+        }
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("text-delimiter"));
         if (UtilValidate.isNotEmpty(tempStr)) {

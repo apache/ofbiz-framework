@@ -39,6 +39,7 @@ under the License.
         <xs:attribute name="sender"/>
         <xs:attribute name="receiver"/>
         <xs:attribute name="delimiter"/>
+        <xs:attribute name="start-line"/>
         <xs:attribute name="text-delimiter"/>
         <xs:attribute name="record-length"/>
         <xs:attribute name="separator-style" use="required">
