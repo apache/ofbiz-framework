@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -330,7 +331,7 @@ public class LoginWorker {
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
         String forgotPwdFlag = request.getParameter("forgotPwdFlag");
-        
+
         // password decryption
         EntityCrypto entityDeCrypto = null;
         try {
@@ -435,7 +436,7 @@ public class LoginWorker {
         try {
             // get the visit id to pass to the userLogin for history
             String visitId = VisitHandler.getVisitId(session);
-            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
+            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "visitId", visitId, "locale", UtilHttp.getLocale(request), "request", request));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", module);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -665,6 +666,15 @@ public class LoginWorker {
         session.invalidate();
         session = request.getSession(true);
 
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+            try {
+                // log out from Tomcat SSO
+                request.logout();
+            } catch (ServletException e) {
+                Debug.logError(e, module);
+            }
+        }
+
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
 
@@ -869,6 +879,20 @@ public class LoginWorker {
                 else {
                     // empty remoteUserId is not good
                     return "error";
+                }
+            }
+        }
+        Boolean useTomcatSSO = EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true");
+        if (useTomcatSSO) {
+
+            // make sure the user isn't already logged in
+            if (!LoginWorker.isUserLoggedIn(request)) {
+                String remoteUserId = request.getRemoteUser();
+                if (UtilValidate.isNotEmpty(remoteUserId)) {
+                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
+                } else {
+                    // user is/has logged out at this point
+                    return "success";
                 }
             }
         }
