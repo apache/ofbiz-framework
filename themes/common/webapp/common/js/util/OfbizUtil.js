@@ -74,6 +74,41 @@ function bindObservers(bind_element) {
         var params = element.data("inplace-editor-params");
         ajaxInPlaceEditDisplayField(id, url, (new Function("return " + params + ";")()));
     });
+    jQuery(bind_element).on("click", "[data-dialog-url]", function(){
+        var element = jQuery(this);
+        var url = element.data("dialog-url");
+        var title = element.data("dialog-title");
+        var width = element.data("dialog-width");
+        var height = element.data("dialog-height");
+        var params = element.data("dialog-params");
+        var dialogContainer = jQuery('<div/>');
+        dialogContainer.dialog({
+            autoOpen: false,
+            title: title,
+            height: height,
+            width: width,
+            modal: true,
+            closeOnEscape: true,
+            open: function() {
+                jQuery.ajax({
+                    url: url,
+                    type: "POST",
+                    data: params,
+                    success: function(data) {
+                        dialogContainer.html(data);
+                    }
+                });
+            }
+        });
+        dialogContainer.dialog("open");
+    });
+    jQuery(bind_element).on("click", "[data-confirm-message]", function(e){
+        var element = jQuery(this);
+        var confirmMessage = element.data("confirm-message");
+        if (!confirm(confirmMessage)) {
+            e.preventDefault();
+        }
+    })
 
 }
 
