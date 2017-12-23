@@ -135,6 +135,7 @@
         <auto-attributes entity-name="Content" include="pk" mode="INOUT" optional="false"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentIdFrom" type="String" mode="IN" optional="true" />
         <!-- TODO: the following fields are depricated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
