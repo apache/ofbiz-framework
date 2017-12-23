@@ -42,6 +42,7 @@ import org.apache.catalina.Globals;
 import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Valve;
+import org.apache.catalina.authenticator.SingleSignOn;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
@@ -75,6 +76,7 @@ import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
@@ -107,6 +109,19 @@ public class CatalinaContainer implements Container {
         tomcat = prepareTomcatServer(configuration, engineConfig);
         Engine engine = prepareTomcatEngine(tomcat, engineConfig);
         Host host = prepareHost(tomcat, null);
+
+        // add realm and valve for Tomcat SSO
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+            boolean useEncryption = EntityUtilProperties.propertyValueEquals("security", "password.encrypt", "true");
+            OFBizRealm ofBizRealm = new OFBizRealm();
+            if (useEncryption){
+                ofBizRealm.setCredentialHandler(new HashedCredentialHandler());
+            } else {
+                ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
+            }
+            host.setRealm(ofBizRealm);
+            ((StandardHost)host).addValve(new SingleSignOn());
+        }
 
         // clustering, valves and connectors setup
         Property clusterProps = prepareTomcatClustering(host, engineConfig);

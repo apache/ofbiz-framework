@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
@@ -57,6 +59,8 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+
+import org.apache.tomcat.util.res.StringManager;
 
 /**
  * <b>Title:</b> Login Services
@@ -209,10 +213,18 @@ public class LoginServices {
                             authFatalError = true;
 
                         }
+
+                        // check whether to sign in with Tomcat SSO
+                        boolean useTomcatSSO = EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true");
+                        HttpServletRequest request = (javax.servlet.http.HttpServletRequest) context.get("request");
+                        // when request is not supplied, we will treat that SSO is not required as
+                        // in the usage of userLogin service in ICalWorker.java and XmlRpcEventHandler.java.
+                        useTomcatSSO = useTomcatSSO && (request!=null);
+
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         // if externalAuth passed; this is run as well
-                        if ((!authFatalError && externalAuth) || checkPassword(userLogin.getString("currentPassword"), useEncryption, password)) {
+                        if ((!authFatalError && externalAuth) || (useTomcatSSO ? TomcatSSOLogin(request, username, password) : checkPassword(userLogin.getString("currentPassword"), useEncryption, password) )) {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched", module);
 
                             // update the hasLoggedOut flag
@@ -1016,7 +1028,7 @@ public class LoginServices {
         return hashType;
     }
 
-    private static boolean checkPassword(String oldPassword, boolean useEncryption, String currentPassword) {
+    public static boolean checkPassword(String oldPassword, boolean useEncryption, String currentPassword) {
         boolean passwordMatches = false;
         if (oldPassword != null) {
             if (useEncryption) {
@@ -1029,5 +1041,21 @@ public class LoginServices {
             passwordMatches = currentPassword.equals(oldPassword);
         }
         return passwordMatches;
+    }
+
+    private static boolean TomcatSSOLogin(HttpServletRequest request, String userName, String currentPassword) {
+        try {
+            request.login(userName, currentPassword);
+        } catch (ServletException e) {
+
+            StringManager sm = StringManager.getManager("org.apache.catalina.connector");
+            if (sm.getString("coyoteRequest.alreadyAuthenticated").equals(e.getMessage())){
+                return true;
+            } else {
+                Debug.logError(e, module);
+                return false;
+            }
+        }
+        return true;
     }
 }
