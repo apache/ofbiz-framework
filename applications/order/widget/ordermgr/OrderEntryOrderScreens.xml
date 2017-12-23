@@ -164,6 +164,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderEntryPaymentSettings"/>
                 <set field="stepLabelId" value="AccountingPayment"/>
                 <script location="component://order/groovyScripts/entry/BillSettings.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">

@@ -469,22 +469,27 @@ function makeExpDate() {
             <input type="hidden" name="createNew" value="${(requestParameters.createNew)!}"/>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <#if "Y" != requestParameters.createNew?default("")>
-              <tr>
-                <td nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="EXT_OFFLINE" <#if checkOutPaymentId?? && "EXT_OFFLINE" == checkOutPaymentId>checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/> ${uiLabelMap.OrderPaymentOfflineCheckMoney}</label></td>
-              </tr>
-              <tr><td colspan="2"><hr /></td></tr>
-              <tr>
-                <td width="1%" nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="EXT_COD" <#if checkOutPaymentId?? && "EXT_COD" == checkOutPaymentId>checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/> ${uiLabelMap.OrderCOD}</label></td>
-              </tr>
-              <tr><td colspan="2"><hr /></td></tr>
+                <#assign paymentMethodTypeAndIds = productStorePaymentMethodTypeIdMap.keySet() />
+                <#list paymentMethodTypeAndIds as paymentMethodTypeAndId>
+                  <#assign paymentMethodTypeAndIdList = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeAndId).queryOne()!/>
+                  <tr>
+                    <td width="1%" nowrap="nowrap">
+                      <label>
+                        <input type="radio" name="paymentMethodTypeAndId" value=${paymentMethodTypeAndId!} <#if checkOutPaymentId?? && paymentMethodTypeAndId == checkOutPaymentId>checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/>
+                        ${paymentMethodTypeAndIdList.get("description")!}
+                      </label>
+                    </td>
+                  </tr>
+                </#list>
+              <#else>
+                <tr>
+                  <td width='1%' nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="CC" onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</label></td>
+                </tr>
+                <tr><td colspan="2"><hr /></td></tr>
+                <tr>
+                  <td width='1%' nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="EFT" onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/>${uiLabelMap.AccountingAHCElectronicCheck}</label></td>
+                </tr>
               </#if>
-              <tr>
-                <td width='1%' nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="CC" onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</label></td>
-              </tr>
-              <tr><td colspan="2"><hr /></td></tr>
-              <tr>
-                <td width='1%' nowrap="nowrap"><label><input type="radio" name="paymentMethodTypeAndId" value="EFT" onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/>${uiLabelMap.AccountingAHCElectronicCheck}</label></td>
-              </tr>
             </table>
           </form>
         </#if>
