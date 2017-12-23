@@ -514,10 +514,7 @@ public final class InvoiceWorker {
             if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
                 otherCurrencyUomId = party.getString("baseCurrencyUomId");
             } else {
-                otherCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", delegator);
-            }
-            if (otherCurrencyUomId == null) {
-                otherCurrencyUomId = "USD"; // final default
+                otherCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting database records....", module);
