@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.minilang.MiniLangValidate;
 import org.w3c.dom.Element;
 
 /**
