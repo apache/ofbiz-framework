@@ -80,7 +80,7 @@ under the License.
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroup}" use-when="parentTypeId == null">
             <drop-down allow-multiple="true" size="5" allow-empty="false">
-                <entity-options entity-name="PartyClassificationGroupAndType" key-field-name="partyClassificationTypeId">
+                <entity-options entity-name="PartyClassificationGroupAndType" description="${typeDescription}" key-field-name="partyClassificationTypeId">
                     <entity-order-by field-name="partyClassificationTypeId"/>
                 </entity-options>
             </drop-down>
