@@ -63,6 +63,11 @@ public class ModelDataFile {
     /** A free form description of the file */
     public String description = "";
 
+    /**
+     * the End Of Line type (CRLF or CR)
+     */
+    private String eolType = null;
+
     /** List of record definitions for the file */
     public List<ModelRecord> records = new ArrayList<>();
 
@@ -146,6 +151,14 @@ public class ModelDataFile {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEOLType() {
+        return eolType;
+    }
+
+    public void setEOLType(String eolType) {
+        this.eolType = eolType;
     }
 
     public List<ModelRecord> getRecords() {

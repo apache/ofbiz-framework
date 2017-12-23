@@ -93,6 +93,11 @@ public final class ModelDataFileReader {
             dataFile.textDelimiter = tempStr;
         }
 
+        tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("eol-type"));
+        if (UtilValidate.isNotEmpty(tempStr)) {
+            dataFile.setEOLType(tempStr);
+        }
+
         dataFile.separatorStyle = UtilXml.checkEmpty(dataFileElement.getAttribute("separator-style"));
         dataFile.description = UtilXml.checkEmpty(dataFileElement.getAttribute("description"));
 
