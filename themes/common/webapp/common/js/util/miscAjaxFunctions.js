@@ -39,17 +39,33 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
     input = '#' + inputField;
     targetTitle = target + '_title'
     optionList = '';
-    jQuery.ajax({
-        url: request,
-        data: [{
+
+    var paramData = new Array();
+    // if there are multiple paramKeys (because of multiple dependencies) then create 
+    // an array with multiple data information
+    if (paramKey.indexOf(",") > -1) {
+    	    var paramKeyArr = paramKey.split(",");
+    	    var paramFieldArr = paramField.split(",");
+
+    	    // Both arrays should be the same length
+    	    for (var i=0; i<paramKeyArr.length; i++) {
+    	        paramData.push({name: paramKeyArr[i], value: jQuery('#' + paramFieldArr[i]).val()});
+    	    }
+    } else {
+    	paramData = [{
             name: paramKey,
             value: jQuery('#' + paramField).val()
-        }], // get requested value from parent drop-down field
+        }] // get requested value from parent drop-down field
+    }
+
+    jQuery.ajax({
+        url: request,
+        data: paramData, // get requested value from parent drop-down field
         async: false,
         type: 'POST',
         success: function(result){
             list = result[responseName];
-            // Create and show dependent select options            
+            // Create and show dependent select options
             if (list) {
                 if(allowEmpty) {
                     // Allow null selection in dependent and set it as default if no selection exists.
@@ -63,15 +79,15 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
                     if (typeof value == 'string') {
                         values = value.split(': ');
                         if (values[1].indexOf(selected) >= 0 && selected.length > 0 && selected == values[1]) {
-                            optionList += "<option selected='selected' value = " + values[1] + " >" + values[0] + "</option>";
+                            optionList += "<option selected='selected' value = '" + values[1] + "' >" + values[0] + "</option>";
                         } else {
-                            optionList += "<option value = " + values[1] + " >" + values[0] + "</option>";
+                            optionList += "<option value = '" + values[1] + "' >" + values[0] + "</option>";
                         }
                     } else {
                         if (value[keyName] == selected) {
-                            optionList += "<option selected='selected' value = " + value[keyName] + " >" + value[descName] + "</option>";
+                            optionList += "<option selected='selected' value = '" + value[keyName] + "' >" + value[descName] + "</option>";
                         } else {
-                            optionList += "<option value = " + value[keyName] + " >" + value[descName] + "</option>";
+                            optionList += "<option value = '" + value[keyName] + "' >" + value[descName] + "</option>";
                         }
                     }
                 })
@@ -157,7 +173,7 @@ function checkUomConversion(request, params){
 }
 
 /* initTimeZone is used to intialise the path to timezones files
-  
+
 The timezone region that loads on initialization is North America (the Olson 'northamerica' file). 
 To change that to another reqion, set timezoneJS.timezone.defaultZoneFile to your desired region, like so:
   timezoneJS.timezone.zoneFileBasePath = '/tz';
@@ -181,10 +197,10 @@ You can change this behavior by changing the value of timezoneJS.timezone.loadin
   timezoneJS.timezone.loadingSchemes.PRELOAD_ALL -- this will preload all the timezone data files for all reqions up front. This setting would only make sense if you know your users will be using timezones from all around the world, and you prefer taking the up-front load time to the small on-the-fly lag from lazy loading.
   timezoneJS.timezone.loadingSchemes.LAZY_LOAD -- the default. Loads some amount of data up front, then lazy-loads any other needed timezone data as needed.
   timezoneJS.timezone.loadingSchemes.MANUAL_LOAD -- Preloads no data, and does no lazy loading. Use this setting if you're loading pre-parsed JSON timezone data.
-  
+
   More at https://github.com/mde/timezone-js
-  
-*/  
+
+*/
 function initTimeZone() {
   timezoneJS.timezone.zoneFileBasePath = '/common/js/plugins/date/timezones/min';
   timezoneJS.timezone.loadingSchemes.PRELOAD_ALL;
