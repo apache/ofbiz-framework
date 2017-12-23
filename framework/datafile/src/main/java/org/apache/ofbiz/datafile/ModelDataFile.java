@@ -48,6 +48,9 @@ public class ModelDataFile {
     /** The length in bytes of a single record, ONLY if it uses fixed length records */
     public int recordLength = -1;
 
+    /** Start the file read at line */
+    public int startLine = 0;
+
     /** The delimiter used in the file, if delimiter separated fields are used */
     public char delimiter = '|';
 
@@ -119,6 +122,14 @@ public class ModelDataFile {
 
     public void setDelimiter(char delimiter) {
         this.delimiter = delimiter;
+    }
+
+    public int getStartLine() {
+        return startLine;
+    }
+
+    public void setStartLine(int startLine) {
+        this.startLine = startLine;
     }
 
     public String getSeparatorStyle() {

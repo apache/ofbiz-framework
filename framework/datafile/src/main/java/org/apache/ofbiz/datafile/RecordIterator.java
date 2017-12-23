@@ -74,6 +74,14 @@ public class RecordIterator {
         catch (Exception e) {
             throw new DataFileException("UTF-8 is not supported");
         }
+        //move the cursor to the good start line
+        try {
+            for (int i = 0; i < modelDataFile.startLine; i++) {
+                br.readLine();
+            }
+        } catch (IOException e) {
+            throw new DataFileException("Impossible to read the buffer");
+        }
         // get the line seeded
         this.getNextLine();
     }
