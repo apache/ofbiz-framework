@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 
@@ -35,6 +36,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public final class FlexibleLocation {
 
+    public static final String module = FlexibleLocation.class.getName();
     private static final Map<String, LocationResolver> locationResolvers;
 
     static {
@@ -64,7 +66,7 @@ public final class FlexibleLocation {
                 }
             }
         } catch (Throwable e) {
-            System.out.println("Exception thrown while loading locationresolvers.properties: " + e);
+            Debug.logError(e, "Exception thrown while loading locationresolvers.properties", module);
         }
         locationResolvers = Collections.unmodifiableMap(resolverMap);
     }

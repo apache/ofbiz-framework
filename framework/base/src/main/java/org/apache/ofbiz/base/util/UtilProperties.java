@@ -316,7 +316,7 @@ public final class UtilProperties implements Serializable {
                 try {
                     inStream.close();
                 } catch (IOException e) {
-                    System.out.println("Exception thrown while closing InputStream: " + e);
+                    Debug.logError(e, "Exception thrown while closing InputStream", module);
                 }
             }
         }
