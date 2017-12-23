@@ -49,6 +49,15 @@ function bindObservers(bind_element) {
     if (jQuery(".selectAll").is(":checked")) {
         jQuery(".selectAll").removeAttr("checked").trigger("click");
     }
+
+    //Set default pattern for new plugin jQuery-Mask-Plugin same as Masked-Input-Plugin.
+    jQuery.jMaskGlobals = {
+        translation: {
+            '9': {pattern: /[0-9*]/},
+            '*': {pattern: /[a-zA-Z0-9]/},
+            'a': {pattern: /[a-zA-Z]/}
+        }
+    };
     jQuery(bind_element).find("[data-mask]").each(function(){
         var element = jQuery(this);
         var mask = element.data('mask');
