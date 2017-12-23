@@ -817,7 +817,7 @@ public class OrderReturnServices {
                         GenericValue finAccount = null;
                         try {
                             finAccount = EntityQuery.use(delegator).from("FinAccountAndRole")
-                                    .where("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE")
+                                    .where("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE", "currencyUomId", returnHeader.getString("currencyUomId"))
                                     .filterByDate()
                                     .orderBy("-fromDate")
                                     .queryFirst();
