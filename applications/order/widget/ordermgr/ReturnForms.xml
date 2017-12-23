@@ -72,7 +72,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="fromPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="toPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="originContactMechId" use-when="returnHeader!=null">
             <display-entity entity-name="PostalAddress" key-field-name="contactMechId" description="${toName} ${attnName} ${address1} ${address2} ${city} ${stateProvinceGeoId} ${postalCode} ${countryGeoId}"/>
