@@ -51,6 +51,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="eol-type" default="CR">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="CR"/>
+                    <xs:enumeration value="CRLF"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="description"/>
     </xs:attributeGroup>
     <xs:element name="record">

@@ -436,7 +436,11 @@ public class Record implements Serializable {
         }
 
         if (isFixedLength || isDelimited) {
-            lineBuf.append('\n');
+            if ("CRLF".equals(modelDataFile.getEOLType())) {
+                lineBuf.append("\\r\\n");
+            } else {
+                lineBuf.append('\n');
+            }
         }
 
         return lineBuf.toString();
