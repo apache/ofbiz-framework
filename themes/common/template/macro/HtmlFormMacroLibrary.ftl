@@ -851,49 +851,28 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 </#macro>
 <#macro makeHyperlinkString hiddenFormName imgSrc title  alternate linkUrl description linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
     <#if uniqueItemName?has_content>
-        <div id="${uniqueItemName}"></div>
-        <a href="javascript:void(0);" id="${uniqueItemName}_link" 
+        <#local params = "{ 'presentation': 'layer'">
+        <#if targetParameters?has_content>
+          <#assign parameterMap = targetParameters?eval>
+          <#assign parameterKeys = parameterMap?keys>
+          <#list parameterKeys as key>
+            <#local params += ",'${key}': '${parameterMap[key]}'">
+          </#list>
+        </#if>
+        <#local params += " }">
+        <a href="javascript:void(0);" id="${uniqueItemName}_link"
+           data-dialog-params="${params}"
+           data-dialog-width="${width}"
+           data-dialog-height="${height}"
+           data-dialog-url="${linkUrl}"
+        <#if text?has_content>data-dialog-title="${text}"</#if>
         <#if linkStyle?has_content>class="${linkStyle}"</#if>>
         <#if description?has_content>${description}</#if></a>
-        <script type="text/javascript">
-            function ${uniqueItemName}_data () {
-                var data = {
-                <#if targetParameters?has_content>
-                    <#assign parameterMap = targetParameters?eval>
-                    <#assign parameterKeys = parameterMap?keys>
-                    <#list parameterKeys as key>
-                    "${key}": "${parameterMap[key]}",
-                    </#list>
-                </#if>
-                    "presentation": "layer"
-                };
-                return data;
-            }
-            jQuery("#${uniqueItemName}_link").click(function () {
-                jQuery("#${uniqueItemName}").dialog("open");
-            });
-            jQuery("#${uniqueItemName}").dialog({
-                 autoOpen: false,
-                 <#if text?has_content>title: "${text}",</#if>
-                 height: ${height},
-                 width: ${width},
-                 modal: true,
-                 closeOnEscape: true,
-                 open: function() {
-                         jQuery.ajax({
-                             url: "${linkUrl}",
-                             type: "POST",
-                             data: ${uniqueItemName}_data(),
-                             success: function(data) {jQuery("#${uniqueItemName}").html(data);}
-                         });
-                 }
-            });
-        </script>
     <#else>
-    <a <#if linkStyle?has_content && (description?has_content || imgSrc?has_content)>class="${linkStyle}"</#if>  
+    <a <#if linkStyle?has_content && (description?has_content || imgSrc?has_content)>class="${linkStyle}"</#if>
       href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if>
       <#if action?has_content && event?has_content> ${event}="${action}"</#if>
-      <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>
+      <#if confirmation?has_content> data-confirm-message="${confirmation}"</#if>
       <#if id?has_content> id="${id}"</#if>
       <#if imgSrc?length == 0 && title?has_content> title="${title}"</#if>>
       <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description}</a>
