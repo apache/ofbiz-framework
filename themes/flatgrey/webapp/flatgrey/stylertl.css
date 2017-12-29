@@ -297,6 +297,7 @@ DIV.column-left-wide {
 /* ===== Button bar decorators ===== */
 
 .tab-bar ul li ul li {
+    float: right;
     margin-right: 0;
     margin-left: 0.5em;
 }
