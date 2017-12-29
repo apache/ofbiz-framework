@@ -117,7 +117,7 @@ dependencies {
     compile 'org.apache.axis2:axis2-kernel:1.7.7'
     compile 'org.apache.commons:commons-collections4:4.1'
     compile 'org.apache.commons:commons-csv:1.5'
-    compile 'org.apache.commons:commons-dbcp2:2.1.1'
+    compile 'org.apache.commons:commons-dbcp2:2.2.0'
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.4'
