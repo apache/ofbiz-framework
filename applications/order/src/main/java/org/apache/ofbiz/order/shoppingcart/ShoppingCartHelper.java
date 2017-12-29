@@ -689,7 +689,7 @@ public class ShoppingCartHelper {
                 try {
                     String indexStr = parameterName.substring(underscorePos + 1);
                     int index = Integer.parseInt(indexStr);
-                    String quantString = parameterName;
+                    String quantString = (String) entry.getValue();
                     BigDecimal quantity = BigDecimal.ONE.negate();
                     String itemDescription = "";
                     String itemComment = "";
