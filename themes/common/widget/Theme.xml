@@ -113,7 +113,7 @@ under the License.
             <template-file widget="form" location="component://common-theme/template/macro/TextFormMacroLibrary.ftl"/>
             <template-file widget="tree" location="component://common-theme/template/macro/TextTreeMacroLibrary.ftl"/>
         </template>
-        <template name="screencsv" type="csv" content-type="UTF-8" encoding="none" encoder="xml">
+        <template name="screencsv" type="csv" content-type="UTF-8" encoding="none">
             <template-file widget="screen" location="component://common-theme/template/macro/CsvScreenMacroLibrary.ftl"/>
             <template-file widget="form" location="component://common-theme/template/macro/CsvFormMacroLibrary.ftl"/>
             <template-file widget="tree" location="component://common-theme/template/macro/CsvTreeMacroLibrary.ftl"/>
