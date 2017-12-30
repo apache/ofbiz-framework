@@ -38,7 +38,7 @@ $(document).ready(function(){
     else {
         var pathImageUrlEcommerce = "https://localhost:8443" + imageUrl;
         var pathImageUrl = "https://" + host + imageUrl;
-        var pathImageThumbnailUrl = "http://"+ host + imageThumbUrl;
+        var pathImageThumbnailUrl = "https://"+ host + imageThumbUrl;
     }
     
     if (form.contentId.value != "") {
