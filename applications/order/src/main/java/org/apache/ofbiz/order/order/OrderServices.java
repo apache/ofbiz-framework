@@ -282,7 +282,10 @@ public class OrderServices {
                 try {
                     // count product ordered quantities
                     // run this synchronously so it will run in the same transaction
-                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getBigDecimal("quantity"), "userLogin", userLogin));
+                    Map<String, Object> result = dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getBigDecimal("quantity"), "userLogin", userLogin));
+                    if (ServiceUtil.isError(result)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                    }
                 } catch (GenericServiceException e1) {
                     Debug.logError(e1, "Error calling countProductQuantityOrdered service", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -354,7 +357,7 @@ public class OrderServices {
                 try {
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "quantity", currentQuantity));
                     if (ServiceUtil.isError(invReqResult)) {
-                        errorMessages.add((String) invReqResult.get(ModelService.ERROR_MESSAGE));
+                        errorMessages.add(ServiceUtil.getErrorMessage(invReqResult));
                         List<String> errMsgList = UtilGenerics.checkList(invReqResult.get(ModelService.ERROR_MESSAGE_LIST));
                         errorMessages.addAll(errMsgList);
                     } else if (!"Y".equals(invReqResult.get("availableOrNotRequired"))) {
@@ -448,7 +451,7 @@ public class OrderServices {
                     if (ServiceUtil.isError(getNextOrderIdResult)) {
                         String errMsg = UtilProperties.getMessage(resource_error,
                                 "OrderErrorGettingNextOrderIdWhileCreatingOrder", locale);
-                        return ServiceUtil.returnError(errMsg, null, null, getNextOrderIdResult);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(getNextOrderIdResult));
                     }
                     orderId = (String) getNextOrderIdResult.get("orderId");
                 } catch (GenericServiceException e) {
@@ -1216,7 +1219,7 @@ public class OrderServices {
                                 if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_PICK")) {
                                     Map<String, Object> componentsRes = dispatcher.runSync("getAssociatedProducts", UtilMisc.toMap("productId", orderItem.getString("productId"), "type", "PRODUCT_COMPONENT"));
                                     if (ServiceUtil.isError(componentsRes)) {
-                                        resErrorMessages.add((String)componentsRes.get(ModelService.ERROR_MESSAGE));
+                                        resErrorMessages.add(ServiceUtil.getErrorMessage(componentsRes));
                                         continue;
                                     }
                                     List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
@@ -1234,7 +1237,6 @@ public class OrderServices {
                                         reserveInput.put("userLogin", userLogin);
                                         reserveInput.put("facilityId", shipGroupFacilityId);
                                         Map<String, Object> reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
-
                                         if (ServiceUtil.isError(reserveResult)) {
                                             String invErrMsg = "The product ";
                                             if (product != null) {
@@ -1504,6 +1506,9 @@ public class OrderServices {
                     Map<String, Object> resetResult = null;
                     try {
                         resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
+                        if (ServiceUtil.isError(resetResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resetResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "ERROR: Cannot reset order totals - " + orderId, module);
                     }
@@ -1990,7 +1995,7 @@ public class OrderServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-
+        Map<String, Object> resp = new HashMap<String, Object>();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         BigDecimal cancelQuantity = (BigDecimal) context.get("cancelQuantity");
         String orderId = (String) context.get("orderId");
@@ -2112,7 +2117,10 @@ public class OrderServices {
                             "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
                     if (availableQuantity.compareTo(thisCancelQty) == 0) {
                         try {
-                            dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
+                            resp= dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
+                            if (ServiceUtil.isError(resp)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -2139,15 +2147,14 @@ public class OrderServices {
                         serviceCtx.put("reasonEnumId", reasonEnumId);
                         serviceCtx.put("changeComments", changeComments);
                         serviceCtx.put("userLogin", userLogin);
-                        Map<String, Object> resp = null;
                         try {
                             resp = dispatcher.runSync("createOrderItemChange", serviceCtx);
+                            if (ServiceUtil.isError(resp)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
-                        }
-                        if (ServiceUtil.isError(resp)) {
-                            return ServiceUtil.returnError((String)resp.get(ModelService.ERROR_MESSAGE));
                         }
                     }
 
@@ -2155,8 +2162,11 @@ public class OrderServices {
                     try {
                         BigDecimal quantity = thisCancelQty.setScale(1, orderRounding);
                         String cancelledItemToOrder = UtilProperties.getMessage(resource, "OrderCancelledItemToOrder", locale);
-                        dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", cancelledItemToOrder +
+                        resp = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", cancelledItemToOrder +
                                 orderItem.getString("productId") + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
+                        if (ServiceUtil.isError(resp)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                     }
@@ -2689,6 +2699,9 @@ public class OrderServices {
         Map<String, Object> sendResp = null;
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
+            if (ServiceUtil.isError(sendResp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendResp));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -2918,9 +2931,8 @@ public class OrderServices {
         try {
             // Store the note.
             Map<String, Object> noteRes = dispatcher.runSync("createNote", noteCtx);
-
             if (ServiceUtil.isError(noteRes)) {
-                return noteRes;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(noteRes));
             }
 
             String noteId = (String) noteRes.get("noteId");
@@ -3056,7 +3068,10 @@ public class OrderServices {
                         Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
                         try {
                             // TODO: looks like result is ignored here, but we should be looking for errors
-                            dispatcher.runSync("changeOrderItemStatus", svcCtx);
+                            Map<String, Object> serviceResult = dispatcher.runSync("changeOrderItemStatus", svcCtx);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, "Problem calling change item status service : " + svcCtx, module);
                         }
@@ -3091,7 +3106,10 @@ public class OrderServices {
                                 Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
                                 try {
                                     // TODO: check service result for an error return
-                                    dispatcher.runSync("changeOrderItemStatus", svcCtx);
+                                    Map<String, Object> serviceResult = dispatcher.runSync("changeOrderItemStatus", svcCtx);
+                                    if (ServiceUtil.isError(serviceResult)) {
+                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                                    }
                                 } catch (GenericServiceException e) {
                                     Debug.logError(e, "Problem calling change item status service : " + svcCtx, module);
                                 }
@@ -3201,15 +3219,14 @@ public class OrderServices {
                     GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
                     Map<String, Object> invoiceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
                     invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
+                    if (ServiceUtil.isError(invoiceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
+                    }
                 } catch (GenericEntityException | GenericServiceException e) {
                     Debug.logError(e, "ERROR: Unable to invoice digital items", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderProblemWithInvoiceCreationDigitalItemsNotFulfilled", locale));
                 }
-                if (ModelService.RESPOND_ERROR.equals(invoiceResult.get(ModelService.RESPONSE_MESSAGE))) {
-                    return ServiceUtil.returnError((String) invoiceResult.get(ModelService.ERROR_MESSAGE));
-                }
-
                 // update the status of digital goods to COMPLETED; leave physical/digital as APPROVED for pick/ship
                 for (GenericValue item : itemsToInvoice) {
                     GenericValue productType = null;
@@ -3451,15 +3468,14 @@ public class OrderServices {
                 GenericValue permUserLogin = ServiceUtil.getUserLogin(dctx, context, "system");
                 Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", billItems, "userLogin", permUserLogin);
                 invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
+                if (ServiceUtil.isError(invoiceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "ERROR: Unable to invoice service items", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                         "OrderProblemWithInvoiceCreationServiceItems", locale));
             }
-            if (ModelService.RESPOND_ERROR.equals(invoiceResult.get(ModelService.RESPONSE_MESSAGE))) {
-                return ServiceUtil.returnError((String) invoiceResult.get(ModelService.ERROR_MESSAGE));
-            }
-
             // update the status of service goods to COMPLETED;
             for (GenericValue item : serviceItems) {
                 Map<String, Object> statusCtx = new HashMap<>();
@@ -3619,8 +3635,11 @@ public class OrderServices {
         // log an order note
         try {
             String addedItemToOrder = UtilProperties.getMessage(resource, "OrderAddedItemToOrder", locale);
-            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", addedItemToOrder +
+            Map<String, Object> result = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", addedItemToOrder +
                     productId + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
@@ -3883,7 +3902,10 @@ public class OrderServices {
 
         // log an order note
         try {
-            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));
+            Map<String, Object> result = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
@@ -4442,7 +4464,7 @@ public class OrderServices {
                     throw new GeneralException(e.getMessage());
                 }
                 if (ServiceUtil.isError(resp)) {
-                    throw new GeneralException((String) resp.get(ModelService.ERROR_MESSAGE));
+                    throw new GeneralException(ServiceUtil.getErrorMessage(resp));
                 }
             }
         }
@@ -4631,7 +4653,11 @@ public class OrderServices {
             }
             paymentParams.put("userLogin", userLogin);
 
-            return dispatcher.runSync("createPayment", paymentParams);
+            Map<String, Object> result = dispatcher.runSync("createPayment", paymentParams);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
+            return result;
 
         } catch (GenericEntityException | GenericServiceException ex) {
             Debug.logError(ex, "Unable to create payment using payment preference.", module);
@@ -5131,7 +5157,7 @@ public class OrderServices {
                 BigDecimal requiredQuantity = (BigDecimal) productRequirementQuantities.get(productId);
                 Map<String, Object> createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.<String, Object>toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
                 if (ServiceUtil.isError(createRequirementResult)) {
-                    return createRequirementResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createRequirementResult));
                 }
             }
 
@@ -5204,7 +5230,7 @@ public class OrderServices {
                 if (quantityToCancel.compareTo(BigDecimal.ZERO) > 0) {
                 Map<String, Object> cancelOrderItemResult = dispatcher.runSync("cancelOrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "cancelQuantity", quantityToCancel, "userLogin", userLogin));
                 if (ServiceUtil.isError(cancelOrderItemResult)) {
-                    return cancelOrderItemResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(cancelOrderItemResult));
                 }
                 }
 
@@ -5213,7 +5239,7 @@ public class OrderServices {
                 if ("ITEM_APPROVED".equals(orderItem.getString("statusId"))) {
                     Map<String, Object> changeOrderItemStatusResult = dispatcher.runSync("changeOrderItemStatus", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "statusId", "ITEM_COMPLETED", "userLogin", userLogin));
                     if (ServiceUtil.isError(changeOrderItemStatusResult)) {
-                        return changeOrderItemStatusResult;
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(changeOrderItemStatusResult));
                     }
                 }
             }
@@ -5276,7 +5302,7 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(createResp)) {
-            return createResp;
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResp));
         }
 
         // auth the order (new tx)
@@ -5288,7 +5314,7 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(authResp)) {
-            return authResp;
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(authResp));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -5604,6 +5630,9 @@ public class OrderServices {
                     }
 
                     result = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", subscription.get("orderId"), "userLogin", userLogin));
+                    if (ServiceUtil.isError(result)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                    }
                     ShoppingCart cart = (ShoppingCart) result.get("shoppingCart");
 
                     // remove former orderId from cart (would cause duplicate entry).
@@ -5760,13 +5789,11 @@ public class OrderServices {
         //create new oisg
         try {
             result = dctx.getDispatcher().runSync("createOrderItemShipGroup", createOrderItemShipGroupMap);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
         } catch (GenericServiceException gse) {
             String errMsg = mainErrorMessage + gse.toString();
-            return ServiceUtil.returnError(errMsg);
-        }
-
-        if (ServiceUtil.isError(result)) {
-            String errMsg = UtilProperties.getMessage(resource, mainErrorMessage + ServiceUtil.getErrorMessage(result), locale);
             return ServiceUtil.returnError(errMsg);
         }
         return result;
@@ -5851,6 +5878,9 @@ public class OrderServices {
                     //call  service to create new oisg
                     Map<String, Object> result = null;
                     result = dispatcher.runSync("addOrderItemShipGroup", addOrderItemShipGroupMap);
+                    if (ServiceUtil.isError(result)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                    }
                     if (result.containsKey("shipGroupSeqId")) {
                         shipGroupSeqId = (String) result.get("shipGroupSeqId");
                     }
@@ -5957,12 +5987,12 @@ public class OrderServices {
                     Map<String, Object> cancelOrderInventoryReservationMap = dctx.makeValidContext("cancelOrderInventoryReservation", ModelService.IN_PARAM, context);
                     Map<String, Object> localResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelOrderInventoryReservationMap);
                     if (ServiceUtil.isError(localResult)) {
-                        return localResult;
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(localResult));
                     }
                     Map<String, Object> deleteOrderItemShipGroupAssocMap = dctx.makeValidContext("deleteOrderItemShipGroupAssoc", ModelService.IN_PARAM, context);
                     localResult = dispatcher.runSync("deleteOrderItemShipGroupAssoc", deleteOrderItemShipGroupAssocMap);
                     if (ServiceUtil.isError(localResult)) {
-                        return localResult;
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(localResult));
                     }
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(e.toString());
@@ -6226,7 +6256,10 @@ public class OrderServices {
             svcIn.put("userLogin", context.get("userLogin"));
             svcIn.put("orderId", orderId);
             try {
-                dispatcher.runSync("createAlsoBoughtProductAssocsForOrder", svcIn);
+                Map<String, Object> serviceResult = dispatcher.runSync("createAlsoBoughtProductAssocsForOrder", svcIn);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
             }
@@ -6240,6 +6273,7 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         List<GenericValue> orderItems = orh.getOrderItems();
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
         // In order to improve efficiency a little bit, we will always create the ProductAssoc records
         // with productId < productIdTo when the two are compared.  This way when checking for an existing
         // record we don't have to check both possible combinations of productIds
@@ -6287,7 +6321,10 @@ public class OrderServices {
                         Map<String, Object> updateCtx = updateProductAssoc.makeValid(context, ModelService.IN_PARAM, true, null);
                         updateCtx.putAll(updateProductAssoc.makeValid(existingProductAssoc, ModelService.IN_PARAM));
                         updateCtx.put("quantity", newQuantity);
-                        dispatcher.runSync("updateProductAssoc", updateCtx);
+                        serviceResult = dispatcher.runSync("updateProductAssoc", updateCtx);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
                     } else {
                         Map<String, Object> createCtx = new HashMap<>();
                         createCtx.put("userLogin", context.get("userLogin"));
@@ -6296,7 +6333,10 @@ public class OrderServices {
                         createCtx.put("productAssocTypeId", "ALSO_BOUGHT");
                         createCtx.put("fromDate", UtilDateTime.nowTimestamp());
                         createCtx.put("quantity", BigDecimal.ONE);
-                        dispatcher.runSync("createProductAssoc", createCtx);
+                        serviceResult = dispatcher.runSync("createProductAssoc", createCtx);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);

@@ -309,7 +309,10 @@ public class PartyServices {
 
         if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
             try {
-                dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+                Map<String, Object> serviceResult = dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logWarning(e.getMessage(), module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -488,7 +491,10 @@ public class PartyServices {
 
         if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
             try {
-                dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+                Map<String, Object> serviceResult = dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logWarning(e.getMessage(), module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -656,6 +662,9 @@ public class PartyServices {
             try {
                 noteRes = dispatcher.runSync("createNote", UtilMisc.toMap("partyId", userLogin.getString("partyId"),
                          "note", noteString, "userLogin", userLogin, "locale", locale, "noteName", noteName));
+                if (ServiceUtil.isError(noteRes)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(noteRes));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, e.getMessage(), module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -2122,6 +2131,9 @@ public class PartyServices {
                                         "userLogin", userLogin
                                         );
                                 result = dispatcher.runSync("updatePartyGroup", partyGroup);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                }
                             } else { // person
                                 Map<String, Object> person = UtilMisc.toMap(
                                         "partyId", newPartyId,
@@ -2132,6 +2144,9 @@ public class PartyServices {
                                         "userLogin", userLogin
                                         );
                                 result = dispatcher.runSync("updatePerson", person);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                }
                             }
 
                         } else { // create new party
@@ -2143,6 +2158,9 @@ public class PartyServices {
                                         "statusId", "PARTY_ENABLED"
                                         );
                                 result = dispatcher.runSync("createPartyGroup", partyGroup);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                }
                             } else { // person
                                 Map<String, Object> person = UtilMisc.toMap(
                                         "firstName", rec.get("firstName"),
@@ -2153,6 +2171,9 @@ public class PartyServices {
                                         "userLogin", userLogin
                                         );
                                 result = dispatcher.runSync("createPerson", person);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                }
                             }
                             newPartyId = (String) result.get("partyId");
 
@@ -2164,6 +2185,9 @@ public class PartyServices {
                                 );
 
                             result = dispatcher.runSync("createPartyIdentification", partyIdentification);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
 
                             Map<String, Object> partyRole = UtilMisc.toMap(
                                     "partyId", newPartyId,
@@ -2171,6 +2195,9 @@ public class PartyServices {
                                     "userLogin", userLogin
                                     );
                             dispatcher.runSync("createPartyRole", partyRole);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
 
                             if (UtilValidate.isNotEmpty(rec.get("companyPartyId"))) {
                                 List <GenericValue> companyCheck = EntityQuery.use(delegator).from("PartyIdentification")
@@ -2184,6 +2211,9 @@ public class PartyServices {
                                         "userLogin", userLogin
                                         );
                                     result = dispatcher.runSync("createPartyGroup", companyPartyGroup);
+                                    if (ServiceUtil.isError(result)) {
+                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                    }
                                     newCompanyPartyId = (String) result.get("partyId");
                                 } else {
                                     newCompanyPartyId = EntityUtil.getFirst(companyCheck).getString("partyId");
@@ -2194,7 +2224,10 @@ public class PartyServices {
                                         "roleTypeId", "ACCOUNT",
                                         "userLogin", userLogin
                                         );
-                                dispatcher.runSync("createPartyRole", companyRole);
+                                Map<String, Object> serviceResult = dispatcher.runSync("createPartyRole", companyRole);
+                                if (ServiceUtil.isError(serviceResult)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                                }
 
                                 // company exist, so create link
                                 Map<String, Object> partyRelationship = UtilMisc.toMap(
@@ -2205,6 +2238,9 @@ public class PartyServices {
                                     "userLogin", userLogin
                                     );
                                 result = dispatcher.runSync("createPartyRelationship", partyRelationship);
+                                if (ServiceUtil.isError(result)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                }
                             }
                         }
                         Debug.logInfo(" =========================================================party created id: " + newPartyId, module);
@@ -2284,34 +2320,55 @@ public class PartyServices {
 
                         if (postalAddressChanged) {
                             result = dispatcher.runSync("createPostalAddress", postalAddress);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                                newContactMechId = (String) result.get("contactMechId");
                             if (currentContactMechPurposeTypeId == null) {
                                 currentContactMechPurposeTypeId = "GENERAL_LOCATION";
                             }
-                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            Map<String, Object> serviceResult = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         }
 
                         if (telecomNumberChanged) {
                             result = dispatcher.runSync("createTelecomNumber", telecomNumber);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                                newContactMechId = (String) result.get("contactMechId");
                             if (currentContactMechPurposeTypeId == null) {
                                 currentContactMechPurposeTypeId= "PHONE_WORK";
                             }
-                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                         }
 
                         if (emailAddressChanged) {
                             result = dispatcher.runSync("createContactMech", emailAddress);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                                newContactMechId = (String) result.get("contactMechId");
                             if (currentContactMechPurposeTypeId == null) {
                                 currentContactMechPurposeTypeId = "PRIMARY_EMAIL";
                             }
-                            dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                         }
 
                         if (partyContactMechPurposeChanged) {
                             partyContactMechPurpose.put("contactMechId", newContactMechId);
                             result = dispatcher.runSync("createPartyContactMechPurpose", partyContactMechPurpose);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                         }
                         lastPartyId = currentPartyId;
                         errMsgs.addAll(newErrMsgs);

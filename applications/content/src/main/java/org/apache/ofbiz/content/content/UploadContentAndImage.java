@@ -144,9 +144,10 @@ public class UploadContentAndImage {
             String contentAssocTypeId = (String)passedParams.get("contentAssocTypeId");
             ftlContext.put("contentAssocTypeId", null); // Don't post assoc at this time
             Map<String, Object> ftlResults = dispatcher.runSync("persistContentAndAssoc", ftlContext);
-            boolean isError = ModelService.RESPOND_ERROR.equals(ftlResults.get(ModelService.RESPONSE_MESSAGE));
-            if (isError) {
-                request.setAttribute("_ERROR_MESSAGE_", ftlResults.get(ModelService.ERROR_MESSAGE));
+            if (ServiceUtil.isError(ftlResults)) {
+                String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 TransactionUtil.rollback();
                 return "error";
             }
@@ -176,9 +177,10 @@ public class UploadContentAndImage {
                 }
                 if (UtilValidate.isNotEmpty(map.get("contentAssocTypeId"))) {
                     ftlResults = dispatcher.runSync("createContentAssoc", map);
-                    isError = ModelService.RESPOND_ERROR.equals(ftlResults.get(ModelService.RESPONSE_MESSAGE));
-                    if (isError) {
-                        request.setAttribute("_ERROR_MESSAGE_", ftlResults.get(ModelService.ERROR_MESSAGE));
+                    if (ServiceUtil.isError(ftlResults)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                        Debug.logError(errorMessage, module);
                         TransactionUtil.rollback();
                         return "error";
                     }
@@ -213,9 +215,10 @@ public class UploadContentAndImage {
                 sumContext.put("mapKey", "SUMMARY");
                 sumContext.put("dataTemplateTypeId", "NONE");
                 Map<String, Object> sumResults = dispatcher.runSync("persistContentAndAssoc", sumContext);
-                isError = ModelService.RESPOND_ERROR.equals(sumResults.get(ModelService.RESPONSE_MESSAGE));
-                if (isError) {
-                    request.setAttribute("_ERROR_MESSAGE_", sumResults.get(ModelService.ERROR_MESSAGE));
+                if (ServiceUtil.isError(ftlResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -242,9 +245,10 @@ public class UploadContentAndImage {
                 txtContext.put("mapKey", "ARTICLE");
                 txtContext.put("dataTemplateTypeId", "NONE");
                 Map<String, Object> txtResults = dispatcher.runSync("persistContentAndAssoc", txtContext);
-                isError = ModelService.RESPOND_ERROR.equals(txtResults.get(ModelService.RESPONSE_MESSAGE));
-                if (isError) {
-                    request.setAttribute("_ERROR_MESSAGE_", txtResults.get(ModelService.ERROR_MESSAGE));
+                if (ServiceUtil.isError(ftlResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -274,9 +278,10 @@ public class UploadContentAndImage {
                 imgContext.put("rootDir", "rootDir");
                 if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, module);
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
-                isError = ModelService.RESPOND_ERROR.equals(imgResults.get(ModelService.RESPONSE_MESSAGE));
-                if (isError) {
-                    request.setAttribute("_ERROR_MESSAGE_", imgResults.get(ModelService.ERROR_MESSAGE));
+                if (ServiceUtil.isError(ftlResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();
                     return "error";
                 }
@@ -511,8 +516,8 @@ public class UploadContentAndImage {
             errorMsgList.add(msg);
             return "error";
         }
-        String msg = ServiceUtil.getErrorMessage(ftlResults);
-        if (UtilValidate.isNotEmpty(msg)) {
+        if (ServiceUtil.isError(ftlResults)) {
+            String msg = ServiceUtil.getErrorMessage(ftlResults);
             request.setAttribute("_ERROR_MESSAGE_", msg);
             List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (errorMsgList == null) {
@@ -541,8 +546,14 @@ public class UploadContentAndImage {
             resequenceContext.put("userLogin", userLogin);
             try {
                 ftlResults = dispatcher.runSync("resequence", resequenceContext);
+                if (ServiceUtil.isError(ftlResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
+                    return "error";
+                }
             } catch (ServiceAuthException e) {
-                msg = e.getMessage();
+                String msg = e.getMessage();
                 request.setAttribute("_ERROR_MESSAGE_", msg);
                 List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                 if (Debug.infoOn()) {

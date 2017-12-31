@@ -151,7 +151,10 @@ public class PartyRelationshipServices {
                         oldPartyRelationShip.store();
                 }
                 try {
-                    dispatcher.runSync("createPartyRelationship", context); // Create new one
+                    Map<String, Object> resultMap = dispatcher.runSync("createPartyRelationship", context); // Create new one
+                    if (ServiceUtil.isError(resultMap)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultMap));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e.getMessage(), module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,

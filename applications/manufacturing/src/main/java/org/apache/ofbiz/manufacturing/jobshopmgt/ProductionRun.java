@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.techdata.TechDataServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * ProductionRun Object used by the Jobshop management OFBiz components,
@@ -425,8 +425,12 @@ public class ProductionRun {
                     // and put the value in totalTaskTime
                     Map<String, Object> estimateCalcServiceMap = UtilMisc.<String, Object>toMap("workEffort", task, "quantity", quantity, "productId", productId, "routingId", routingId);
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("arguments", estimateCalcServiceMap);
-                    Map<String, Object> resultService = dispatcher.runSync(serviceName, serviceContext);
-                    totalTaskTime = ((BigDecimal)resultService.get("totalTime")).doubleValue();
+                    Map<String, Object> serviceResult = dispatcher.runSync(serviceName, serviceContext);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
+                        Debug.logError(errorMessage, module);
+                    }
+                    totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
                 }
             } catch (GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);

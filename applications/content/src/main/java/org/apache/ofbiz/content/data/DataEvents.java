@@ -312,29 +312,33 @@ public class DataEvents {
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
 
-        if (mode != null && "UPDATE".equals(mode)) {
-            try {
+        try {
+            if (mode != null && "UPDATE".equals(mode)) {
                 result = dispatcher.runSync("updateDataResource", serviceInMap);
-            } catch (GenericServiceException e) {
-                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
-                String errorMsg = "Error calling the updateDataResource service." + e.toString();
-                Debug.logError(e, errorMsg, module);
-                request.setAttribute("_ERROR_MESSAGE_", errMsg + e.toString());
-                return "error";
-            }
-        } else {
-            mode = "CREATE";
-            try {
+                if (ServiceUtil.isError(result)) {
+                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
+                    String errorMsg = ServiceUtil.getErrorMessage(result);
+                    Debug.logError(errorMsg, module);
+                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    return "error";
+                }
+            } else {
+                mode = "CREATE";
                 result = dispatcher.runSync("createDataResource", serviceInMap);
-            } catch (GenericServiceException e) {
-                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
-                String errorMsg = "Error calling the createDataResource service." + e.toString();
-                Debug.logError(e, errorMsg, module);
-                request.setAttribute("_ERROR_MESSAGE_", errMsg + e.toString());
-                return "error";
+                if (ServiceUtil.isError(result)) {
+                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
+                    String errorMsg = ServiceUtil.getErrorMessage(result);
+                    Debug.logError(errorMsg, module);
+                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    return "error";
+                }
+                dataResourceId = (String)result.get("dataResourceId");
+                dataResource.set("dataResourceId", dataResourceId);
             }
-            dataResourceId = (String)result.get("dataResourceId");
-            dataResource.set("dataResourceId", dataResourceId);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            request.setAttribute("_ERROR_MESSAGE_", e.toString());
+            return "error";
         }
 
         String returnStr = "success";

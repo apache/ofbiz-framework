@@ -1384,6 +1384,12 @@ public class ShoppingCartEvents {
             Map<String, Object> outMap = dispatcher.runSync("loadCartFromShoppingList",
                     UtilMisc.<String, Object>toMap("shoppingListId", shoppingListId,
                     "userLogin", userLogin));
+            if (ServiceUtil.isError(outMap)) {
+                String errorMessage = ServiceUtil.getErrorMessage(outMap);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
             cart = (ShoppingCart)outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
@@ -1413,7 +1419,9 @@ public class ShoppingCartEvents {
                             "applyQuoteAdjustments", "true",
                             "userLogin", userLogin));
             if (ServiceUtil.isError(outMap)) {
-                request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(outMap));
+                String errorMessage = ServiceUtil.getErrorMessage(outMap);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
             }
             cart = (ShoppingCart) outMap.get("shoppingCart");
@@ -1452,10 +1460,11 @@ public class ShoppingCartEvents {
                                                         "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
                                                         "userLogin", userLogin));
             if (ServiceUtil.isError(outMap)) {
-                request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(outMap));
+                String errorMessage = ServiceUtil.getErrorMessage(outMap);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
-             }
-
+            }
             cart = (ShoppingCart) outMap.get("shoppingCart");
 
             cart.removeAdjustmentByType("SALES_TAX");
@@ -1535,8 +1544,10 @@ public class ShoppingCartEvents {
             return "error";
         }
         if (ServiceUtil.isError(result)) {
-           request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-           return "error";
+            String errorMessage = ServiceUtil.getErrorMessage(result);
+            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+            Debug.logError(errorMessage, module);
+            return "error";
         }
         request.setAttribute("quoteId", quoteId);
         if (destroyCart != null && "Y".equals(destroyCart)) {
@@ -1565,8 +1576,10 @@ public class ShoppingCartEvents {
             return "error";
         }
         if (ServiceUtil.isError(result)) {
-           request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
-           return "error";
+            String errorMessage = ServiceUtil.getErrorMessage(result);
+            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+            Debug.logError(errorMessage, module);
+            return "error";
         }
         request.setAttribute("custRequestId", custRequestId);
         if (destroyCart != null && "Y".equals(destroyCart)) {
@@ -2079,6 +2092,12 @@ public class ShoppingCartEvents {
                     appendOrderItemMap.put("shipGroupSeqId", shipGroupSeqId);
                     try {
                         Map<String, Object> result = dispatcher.runSync("appendOrderItem", appendOrderItemMap);
+                        if (ServiceUtil.isError(result)) {
+                            String errorMessage = ServiceUtil.getErrorMessage(result);
+                            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                            Debug.logError(errorMessage, module);
+                            return "error";
+                        }
                         request.setAttribute("shoppingCart", result.get("shoppingCart"));
                         ShoppingCartEvents.destroyCart(request, response);
                     } catch (GenericServiceException e) {

@@ -119,14 +119,12 @@ public class OrderEvents {
                         contextMap.put("locale", locale);
                         try {
                             resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
-
                             if (ServiceUtil.isError(resultMap)) {
                                 String errorMessage = ServiceUtil.getErrorMessage(resultMap);
-                                Debug.logError(errorMessage, module);
                                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                Debug.logError(errorMessage, module);
                                 return "error";
                             }
-
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());

@@ -72,8 +72,9 @@ public class ExpressCheckoutEvents {
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
             }
         }
@@ -129,7 +130,13 @@ public class ExpressCheckoutEvents {
             inMap.put("request", request);
             inMap.put("response", response);
             try {
-                dispatcher.runSync("payPalCheckoutUpdate", inMap);
+                Map<String, Object> result = dispatcher.runSync("payPalCheckoutUpdate", inMap);
+                if (ServiceUtil.isError(result)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
+                    return "error";
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
             }
@@ -159,8 +166,9 @@ public class ExpressCheckoutEvents {
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                request.setAttribute("_EVENT_MESSAGE_", ServiceUtil.getErrorMessage(result));
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
             }
         }
@@ -183,6 +191,9 @@ public class ExpressCheckoutEvents {
             Map<String, Object> result = null;
             try {
                 result = dispatcher.runSync(serviceName, inMap);
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                }
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }

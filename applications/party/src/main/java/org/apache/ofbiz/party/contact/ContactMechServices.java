@@ -911,7 +911,7 @@ public class ContactMechServices {
             try {
                 Map<String, Object> deletePcmResult = ctx.getDispatcher().runSync("deletePartyContactMechPurpose", deletePcmCtx);
                 if (ServiceUtil.isError(deletePcmResult)) {
-                    return deletePcmResult;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(deletePcmResult));
                 }
             } catch (GenericServiceException e) {
                 Debug.logWarning(e.getMessage(), module);
@@ -1037,7 +1037,7 @@ public class ContactMechServices {
                             "contactMechId", contactMechId, "contactMechTypeId", contactMech.getString("contactMechTypeId"), "fromDate", UtilDateTime.nowTimestamp(),
                             "allowSolicitation", partyContactMech.getString("allowSolicitation"), "extension", partyContactMech.getString("extension")));
                 if (ServiceUtil.isError(serviceResults)) {
-                    return serviceResults;
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
 
                 // loop through purposes and copy each as a new purpose for the partyIdTo
@@ -1046,7 +1046,7 @@ public class ContactMechServices {
                     input.put("contactMechPurposeTypeId", purpose.getString("contactMechPurposeTypeId"));
                     serviceResults = dispatcher.runSync("createPartyContactMechPurpose", input);
                     if (ServiceUtil.isError(serviceResults)) {
-                        return serviceResults;
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                     }
                 }
             }

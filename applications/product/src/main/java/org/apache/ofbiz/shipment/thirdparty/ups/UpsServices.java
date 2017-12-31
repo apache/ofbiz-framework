@@ -1664,8 +1664,11 @@ public class UpsServices {
         cxt.put("shipFromAddress", shipFromAddress);
         cxt.put("shipmentGatewayConfigId", context.get("shipmentGatewayConfigId"));
         try {
-            return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
-
+            Map<String, Object> serviceResult = dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
+            return serviceResult;
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRateEstimateError", 
@@ -2373,12 +2376,18 @@ public class UpsServices {
             }
 
             Map<String, Object> destEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdTo"), "userLogin", userLogin));
+            if (ServiceUtil.isError(destEmail)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(destEmail));
+            }
             String recipientEmail = null;
             if (UtilValidate.isNotEmpty(destEmail.get("emailAddress"))) {
                 recipientEmail = (String) destEmail.get("emailAddress");
             }
             String senderEmail = null;
             Map<String, Object> originEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdFrom"), "userLogin", userLogin));
+            if (ServiceUtil.isError(originEmail)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(originEmail));
+            }
             if (UtilValidate.isNotEmpty(originEmail.get("emailAddress"))) {
                 senderEmail = (String) originEmail.get("emailAddress");
             }

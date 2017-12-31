@@ -972,7 +972,10 @@ public class WorkEffortServices {
                         try {
                             parameters.put("eventDateTime", new Timestamp(eventDateTime.getTime()));
 
-                            dispatcher.runSync("processWorkEffortEventReminder", processCtx);
+                            Map<String, Object> result = dispatcher.runSync("processWorkEffortEventReminder", processCtx);
+                            if (ServiceUtil.isError(result)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                            }
                             if (repeatCount != 0 && currentCount + 1 >= repeatCount) {
                                 reminder.remove();
                             } else {
@@ -1013,7 +1016,10 @@ public class WorkEffortServices {
                 if (reminderDateTime.before(now)) {
                     try {
                         parameters.put("eventDateTime", eventDateTime);
-                        dispatcher.runSync("processWorkEffortEventReminder", processCtx);
+                        Map<String, Object> result = dispatcher.runSync("processWorkEffortEventReminder", processCtx);
+                        if (ServiceUtil.isError(result)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                        }
                         TimeDuration duration = TimeDuration.fromNumber(reminder.getLong("repeatInterval"));
                         if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || duration.isZero()) {
                             reminder.remove();

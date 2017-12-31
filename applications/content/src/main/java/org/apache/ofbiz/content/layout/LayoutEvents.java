@@ -49,6 +49,7 @@ import org.apache.ofbiz.minilang.SimpleMapProcessor;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * LayoutEvents Class
@@ -111,6 +112,12 @@ public class LayoutEvents {
             }
 
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
 
             String dataResourceId = (String) result.get("dataResourceId");
             String activeContentId = (String) result.get("contentId");
@@ -126,8 +133,14 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", formInput.get("contentIdTo"));
                 context2.put("mapKey", formInput.get("mapKey"));
-
-                dispatcher.runSync("deactivateAssocs", context2);
+                Map<String, Object> serviceResult = new HashMap<String, Object>();
+                serviceResult = dispatcher.runSync("deactivateAssocs", context2);
+                if (ServiceUtil.isError(serviceResult)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
+                    return "error";
+                }
             }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
@@ -247,6 +260,12 @@ public class LayoutEvents {
 
             try {
                 Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
+                if (ServiceUtil.isError(result)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
+                    return "error";
+                }
                 request.setAttribute("contentId", contentIdTo);
                 Map<String, Object> context2 = new HashMap<String, Object>();
                 context2.put("activeContentId", contentId);
@@ -258,8 +277,14 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", contentIdTo);
                 context2.put("mapKey", mapKey);
-
-                dispatcher.runSync("deactivateAssocs", context2);
+                Map<String, Object> serviceResult = new HashMap<String, Object>();
+                serviceResult = dispatcher.runSync("deactivateAssocs", context2);
+                if (ServiceUtil.isError(serviceResult)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
+                    return "error";
+                }
             } catch (GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -348,6 +373,12 @@ public class LayoutEvents {
         serviceIn.put("assocTypes", UtilMisc.toList("SUB_CONTENT"));
         try {
             results = dispatcher.runSync("getAssocAndContentAndDataResource", serviceIn);
+            if (ServiceUtil.isError(results)) {
+                String errorMessage = ServiceUtil.getErrorMessage(results);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
             entityList = UtilGenerics.checkList(results.get("entityList"));
             if (UtilValidate.isEmpty(entityList)) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
@@ -390,6 +421,12 @@ public class LayoutEvents {
                 serviceIn.put("thruDate", null);
                 try {
                     results = dispatcher.runSync("persistContentAndAssoc", serviceIn);
+                    if (ServiceUtil.isError(results)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(results);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                        Debug.logError(errorMessage, module);
+                        return "error";
+                    }
                 } catch (GenericServiceException e) {
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
@@ -452,9 +489,10 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, context:" + context, module);
             }
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-            boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
-            if (isError) {
-                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
             }
 
@@ -473,8 +511,14 @@ public class LayoutEvents {
             context2.put("contentIdTo", contentIdTo);
             context2.put("mapKey", mapKey);
             context2.put("userLogin", userLogin);
-
-            dispatcher.runSync("deactivateAssocs", context2);
+            Map<String, Object> serviceResult = new HashMap<String, Object>();
+            serviceResult = dispatcher.runSync("deactivateAssocs", context2);
+            if (ServiceUtil.isError(serviceResult)) {
+                String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
         } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -517,9 +561,10 @@ public class LayoutEvents {
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", null);
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-            boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
-            if (isError) {
-                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
                 return "error";
             }
             String contentId = (String) result.get("contentId");

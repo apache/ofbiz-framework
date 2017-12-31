@@ -105,6 +105,9 @@ public class ContentServices {
             serviceInMap.put("currentContent", content);
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+                if (ServiceUtil.isError(permResults)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
@@ -140,10 +143,8 @@ public class ContentServices {
         traversMap.put("contentAssocTypeId", contentAssocTypeId);
         try {
             Map<String, Object> thisResults = dispatcher.runSync("traverseContent", traversMap);
-            String errorMsg = ServiceUtil.getErrorMessage(thisResults);
-            if (UtilValidate.isNotEmpty(errorMsg)) {
-                Debug.logError("Problem in traverseContent. " + errorMsg, module);
-                return ServiceUtil.returnError(errorMsg);
+            if (ServiceUtil.isError(thisResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResults));
             }
             Map<String, Object> nodeMap = UtilGenerics.checkMap(thisResults.get("nodeMap"));
             walkParentTree(nodeMap, parentList);
@@ -442,14 +443,13 @@ public class ContentServices {
 
         Map<String, Object> permResults = null;
         permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
+        if (ServiceUtil.isError(permResults)) {
+            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(permResults));
+        }
         permissionStatus = (String) permResults.get("permissionStatus");
 
         if (permissionStatus != null && "granted".equals(permissionStatus)) {
             contentAssoc.create();
-        } else {
-            String errorMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
-            result.put(ModelService.ERROR_MESSAGE, errorMsg);
-            return ServiceUtil.returnFailure(errorMsg);
         }
 
         result.put("contentIdTo", contentIdTo);
@@ -518,7 +518,10 @@ public class ContentServices {
             if (UtilValidate.isNotEmpty(context.get("statusId"))) {
                 Map<String, Object> statusInMap = UtilMisc.<String, Object>toMap("contentId", context.get("contentId"), "statusId", context.get("statusId"), "userLogin", userLogin);
                 try {
-                   dispatcher.runSync("setContentStatus", statusInMap);
+                   result = dispatcher.runSync("setContentStatus", statusInMap);
+                   if (ServiceUtil.isError(result)) {
+                       return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                   }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem updating content Status", "ContentServices");
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentStatusUpdateError", UtilMisc.toMap("errorString", e), locale));
@@ -635,6 +638,9 @@ public class ContentServices {
         Map<String, Object> permResults = null;
         try {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
+            if (ServiceUtil.isError(permResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
@@ -726,6 +732,9 @@ public class ContentServices {
         Map<String, Object> permResults = null;
         try {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
+            if (ServiceUtil.isError(permResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
@@ -958,18 +967,13 @@ public class ContentServices {
                 // Only deactive if currently published
                 if (isPublished) {
                     Map<String, Object> thisResults = dispatcher.runSync("deactivateAssocs", mapIn);
-                    String errorMsg = ServiceUtil.getErrorMessage(thisResults);
-                    if (UtilValidate.isNotEmpty(errorMsg)) {
-                        Debug.logError("Problem running deactivateAssocs. " + errorMsg, "ContentServices");
-                        return ServiceUtil.returnError(errorMsg);
+                    if (ServiceUtil.isError(thisResults)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResults));
                     }
                 }
             }
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, "Problem getting existing content", "ContentServices");
-            return ServiceUtil.returnError(e.getMessage());
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem running deactivateAssocs", "ContentServices");
             return ServiceUtil.returnError(e.getMessage());
         }
 

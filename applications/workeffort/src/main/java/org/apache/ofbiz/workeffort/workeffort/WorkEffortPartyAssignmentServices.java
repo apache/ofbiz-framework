@@ -30,6 +30,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * WorkEffortPartyAssignmentServices - Services to handle form input and other data changes.
@@ -60,7 +61,9 @@ public class WorkEffortPartyAssignmentServices {
                 // accept the activity assignment
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfAcceptAssignment", context);
-
+                    if (ServiceUtil.isError(results)) {
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                    }
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
                     }
@@ -71,7 +74,9 @@ public class WorkEffortPartyAssignmentServices {
                 // complete the activity assignment
                 try {
                     Map<String, Object> results = dispatcher.runSync("wfCompleteAssignment", context);
-
+                    if (ServiceUtil.isError(results)) {
+                        Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
+                    }
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null) {
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
                     }

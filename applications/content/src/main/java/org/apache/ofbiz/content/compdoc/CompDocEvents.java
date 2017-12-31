@@ -101,6 +101,12 @@ public class CompDocEvents {
         persistMap.put("userLogin", userLogin);
         try {
             Map<String, Object> persistResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
+            if (ServiceUtil.isError(persistResult)) {
+                String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + ServiceUtil.getErrorMessage(persistResult);
+                request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
+                Debug.logError(errMsg, module);
+                return "error";
+            }
             contentId = (String)persistResult.get("contentId");
             //request.setAttribute("contentId", contentId);
             for (Entry<String, Object> entry : persistResult.entrySet()) {
@@ -114,19 +120,17 @@ public class CompDocEvents {
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
             Map<String, Object> result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
+            if (ServiceUtil.isError(result)) {
+                String errMsg = "Error running serviceName, 'persistContentRevisionAndItem'. " + ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_",  "<li>" + errMsg + "</li>");
+                Debug.logError(errMsg, module);
+                return "error";
+            }
             for (Entry<String, Object> entry : result.entrySet()) {
                 Object obj = entry.getValue();
                 Object val = result.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
-            String errorMsg = ServiceUtil.getErrorMessage(result);
-            if (UtilValidate.isNotEmpty(errorMsg)) {
-                String errMsg = "Error running serviceName, 'persistContentRevisionAndItem'. " + errorMsg;
-                Debug.logError(errMsg, module);
-                request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
-                return "error";
-            }
-
         } catch (GenericServiceException e) {
             String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
             Debug.logError(errMsg, module);
@@ -166,6 +170,12 @@ public class CompDocEvents {
         Map<String, Object> results = null;
         try {
             results = dispatcher.runSync("renderCompDocPdf", mapIn);
+            if (ServiceUtil.isError(results)) {
+                String errorMessage = ServiceUtil.getErrorMessage(results);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
         } catch (ServiceAuthException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -174,11 +184,6 @@ public class CompDocEvents {
             return "error";
         } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
-        }
-
-        if (ServiceUtil.isError(results)) {
-            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(results));
             return "error";
         }
 
@@ -222,6 +227,12 @@ public class CompDocEvents {
         Map<String, Object> results = null;
         try {
             results = dispatcher.runSync("renderContentPdf", mapIn);
+            if (ServiceUtil.isError(results)) {
+                String errorMessage = ServiceUtil.getErrorMessage(results);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
         } catch (ServiceAuthException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -230,11 +241,6 @@ public class CompDocEvents {
             return "error";
         } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
-        }
-
-        if (ServiceUtil.isError(results)) {
-            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(results));
             return "error";
         }
 

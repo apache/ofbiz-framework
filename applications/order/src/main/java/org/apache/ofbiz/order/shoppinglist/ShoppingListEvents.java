@@ -105,17 +105,16 @@ public class ShoppingListEvents {
             Map<String, Object> newListResult = null;
             try {
                 newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()));
+                if (ServiceUtil.isError(newListResult)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(newListResult);
+                    Debug.logError(errorMessage, module);
+                    throw new IllegalArgumentException(errorMessage);
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems creating new ShoppingList", module);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
-
-            // check for errors
-            if (ServiceUtil.isError(newListResult)) {
-                throw new IllegalArgumentException(ServiceUtil.getErrorMessage(newListResult));
-            }
-
             // get the new list id
             if (newListResult != null) {
                 shoppingListId = (String) newListResult.get("shoppingListId");
@@ -156,15 +155,15 @@ public class ShoppingListEvents {
                             ctx.put("configId", item.getConfigWrapper().getConfigId());
                         }
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
+                            Debug.logError(errorMessage, module);
+                            throw new IllegalArgumentException(errorMessage);
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Problems creating ShoppingList item entity", module);
                         errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
                         throw new IllegalArgumentException(errMsg);
-                    }
-
-                    // check for errors
-                    if (ServiceUtil.isError(serviceResult)) {
-                        throw new IllegalArgumentException(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
             }
@@ -335,16 +334,17 @@ public class ShoppingListEvents {
         Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("updateShoppingListItem", serviceInMap);
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resource_error,"shoppingListEvents.error_calling_update", locale) + ": "  + e.toString();
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             String errorMsg = "Error calling the updateShoppingListItem in handleShoppingListItemVariant: " + e.toString();
             Debug.logError(e, errorMsg, module);
-            return "error";
-        }
-
-        ServiceUtil.getMessages(request, result, "", "", "", "", "", "", "");
-        if ("error".equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             return "error";
         }
         return "success";
@@ -374,7 +374,11 @@ public class ShoppingListEvents {
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
             Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
-
+            if (ServiceUtil.isError(newListResult)) {
+                String errorMessage = ServiceUtil.getErrorMessage(newListResult);
+                Debug.logError(errorMessage, module);
+                return null;
+            }
             if (newListResult != null) {
                 autoSaveListId = (String) newListResult.get("shoppingListId");
             }
@@ -651,6 +655,11 @@ public class ShoppingListEvents {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
                     Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
+                    if (ServiceUtil.isError(newListResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(newListResult);
+                        Debug.logError(errorMessage, module);
+                        return null;
+                    }
                     if (newListResult != null) {
                         autoSaveListId = (String) newListResult.get("shoppingListId");
                     }

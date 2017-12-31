@@ -983,8 +983,9 @@ public class ShoppingCartItem implements java.io.Serializable {
         try {
             Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", quantity));
             if (ServiceUtil.isError(invReqResult)) {
-                Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
-                throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
+                String errorMessage = ServiceUtil.getErrorMessage(invReqResult);
+                Debug.logError(errorMessage, module);
+                throw new CartItemModifyException(errorMessage);
             }
             inventoryAvailable = "Y".equals(invReqResult.get("availableOrNotRequired"));
         } catch (GenericServiceException e) {
@@ -1089,6 +1090,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("currencyUomId", cart.getCurrency());
                     Map<String, Object> priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(priceResult);
+                        Debug.logError(errorMessage, module);
                         throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(priceResult));
                     }
                     Boolean validPriceFound = (Boolean) priceResult.get("validPriceFound");
@@ -1141,9 +1144,10 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                     Map<String, Object> priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(priceResult);
+                        Debug.logError(errorMessage, module);
                         throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(priceResult));
                     }
-
                     Boolean validPriceFound = (Boolean) priceResult.get("validPriceFound");
                     if (Boolean.FALSE.equals(validPriceFound)) {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "], not adding to cart.");
@@ -1195,6 +1199,11 @@ public class ShoppingCartItem implements java.io.Serializable {
                             BigDecimal totalPrice = configWrapper.getTotalPrice();
                             // Get Taxes
                             Map<String, Object> totalPriceWithTaxMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPrice, "productId", this.productId, "productStoreId", cart.getProductStoreId()));
+                            if (ServiceUtil.isError(totalPriceWithTaxMap)) {
+                                String errorMessage = ServiceUtil.getErrorMessage(totalPriceWithTaxMap);
+                                Debug.logError(errorMessage, module);
+                                throw new CartItemModifyException("There was an error while calculating tax: " + ServiceUtil.getErrorMessage(priceResult));
+                            }
                             this.setDisplayPrice((BigDecimal) totalPriceWithTaxMap.get("priceWithTax"));
                         } else {
                             this.setDisplayPrice(configWrapper.getTotalPrice());
@@ -1207,9 +1216,10 @@ public class ShoppingCartItem implements java.io.Serializable {
                     recurringPriceContext.put("productPricePurposeId", "RECURRING_CHARGE");
                     Map<String, Object> recurringPriceResult = dispatcher.runSync("calculateProductPrice", recurringPriceContext);
                     if (ServiceUtil.isError(recurringPriceResult)) {
-                        throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(recurringPriceResult));
+                        String errorMessage = ServiceUtil.getErrorMessage(recurringPriceResult);
+                        Debug.logError(errorMessage, module);
+                        throw new CartItemModifyException("There was an error while calculating price: " + ServiceUtil.getErrorMessage(priceResult));
                     }
-
                     // for the recurring price only set the values iff validPriceFound is true
                     Boolean validRecurringPriceFound = (Boolean) recurringPriceResult.get("validPriceFound");
                     if (Boolean.TRUE.equals(validRecurringPriceFound)) {
@@ -1830,6 +1840,10 @@ public class ShoppingCartItem implements java.io.Serializable {
        if (UtilValidate.isNotEmpty(featureAppls)) {
            try {
               Map<String, Object> result = dispatcher.runSync("convertFeaturesForSupplier", UtilMisc.toMap("partyId", partyId, "productFeatures", featureAppls));
+              if (ServiceUtil.isError(result)) {
+                  String errorMessage = ServiceUtil.getErrorMessage(result);
+                  Debug.logError(errorMessage, module);
+              }
               featuresForSupplier = UtilGenerics.checkList(result.get("convertedProductFeatures"));
            } catch (GenericServiceException e) {
                Debug.logError(e, "Unable to get features for supplier from product : " + this.productId, module);

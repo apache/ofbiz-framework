@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -40,6 +41,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * Product Config Wrapper: gets product config to display
@@ -112,6 +114,10 @@ public class ProductConfigWrapper implements Serializable {
         Map<String, Object> priceContext = UtilMisc.toMap("product", product, "prodCatalogId", catalogId, "webSiteId", webSiteId, "productStoreId", productStoreId,
                                       "currencyUomId", currencyUomId, "autoUserLogin", autoUserLogin);
         Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+        if (ServiceUtil.isError(priceMap)) {
+            String errorMessage = ServiceUtil.getErrorMessage(priceMap);
+            throw new GeneralException(errorMessage);
+        }
         BigDecimal originalListPrice = (BigDecimal) priceMap.get("listPrice");
         BigDecimal price = (BigDecimal) priceMap.get("price");
         if (originalListPrice != null) {
@@ -573,6 +579,10 @@ public class ProductConfigWrapper implements Serializable {
                 // Get the component's price
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId",productStoreId);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                if (ServiceUtil.isError(priceMap)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(priceMap);
+                    throw new GeneralException(errorMessage);
+                }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
                 Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
@@ -593,6 +603,10 @@ public class ProductConfigWrapper implements Serializable {
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
                     Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                    if (ServiceUtil.isError(purchasePriceResultMap)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(purchasePriceResultMap);
+                        throw new GeneralException(errorMessage);
+                    }
                     BigDecimal purchaseListPrice = (BigDecimal) purchasePriceResultMap.get("listPrice");
                     BigDecimal purchasePrice = (BigDecimal) purchasePriceResultMap.get("price");
                     if (purchaseListPrice != null) {
@@ -639,6 +653,11 @@ public class ProductConfigWrapper implements Serializable {
                 // Get the component's price
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId",productStoreId);
                 Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
+                Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                if (ServiceUtil.isError(purchasePriceResultMap)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(purchasePriceResultMap);
+                    throw new GeneralException(errorMessage);
+                }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
                 Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
@@ -658,7 +677,11 @@ public class ProductConfigWrapper implements Serializable {
                     }
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
-                    Map<String, Object> purchasePriceResultMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
+                    purchasePriceResultMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
+                    if (ServiceUtil.isError(purchasePriceResultMap)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(purchasePriceResultMap);
+                        throw new GeneralException(errorMessage);
+                    }
                     BigDecimal purchaseListPrice = (BigDecimal) purchasePriceResultMap.get("listPrice");
                     BigDecimal purchasePrice = (BigDecimal) purchasePriceResultMap.get("price");
                     if (purchaseListPrice != null) {

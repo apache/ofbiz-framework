@@ -316,7 +316,10 @@ public class VerifyPickSession implements Serializable {
         updateShipmentCtx.put("shipmentId", shipmentId);
         updateShipmentCtx.put("statusId", "SHIPMENT_PICKED");
         updateShipmentCtx.put("userLogin", this.getUserLogin());
-        this.getDispatcher().runSync("updateShipment", updateShipmentCtx);
+        Map<String, Object> serviceResult = this.getDispatcher().runSync("updateShipment", updateShipmentCtx);
+        if (ServiceUtil.isError(serviceResult)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(serviceResult));
+        }
 
         return shipmentId;
     }

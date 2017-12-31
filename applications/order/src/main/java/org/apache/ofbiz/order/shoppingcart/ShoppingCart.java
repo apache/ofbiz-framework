@@ -479,6 +479,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                                     "quantity", quantity);
         try {
             Map<String, Object> result = dispatcher.runSync("getSuppliersForProduct", params);
+            if (ServiceUtil.isError(result)) {
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                return null;
+            }
             List<GenericValue> productSuppliers = UtilGenerics.checkList(result.get("supplierProducts"));
             if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
                 supplierProduct = productSuppliers.get(0);
@@ -4251,6 +4255,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
                         // Get ATP for the product
                         Map<String, Object> getProductInventoryAvailableResult = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+                        if (ServiceUtil.isError(getProductInventoryAvailableResult)) {
+                            String errorMessage = ServiceUtil.getErrorMessage(getProductInventoryAvailableResult);
+                            Debug.logError(errorMessage, module);
+                            return;
+                        }
                         BigDecimal availableToPromise = (BigDecimal) getProductInventoryAvailableResult.get("availableToPromiseTotal");
 
                         if (itemQuantity.compareTo(availableToPromise) <= 0) {
@@ -4276,6 +4285,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String supplierPartyId = null;
                 try {
                     Map<String, Object> getSuppliersForProductResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.<String, Object>toMap("productId", productId, "quantity", dropShipQuantity, "canDropShip", "Y", "currencyUomId", getCurrency()));
+                    if (ServiceUtil.isError(getSuppliersForProductResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(getSuppliersForProductResult);
+                        Debug.logError(errorMessage, module);
+                        return;
+                    }
                     List<GenericValue> supplierProducts = UtilGenerics.checkList(getSuppliersForProductResult.get("supplierProducts"));
 
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first

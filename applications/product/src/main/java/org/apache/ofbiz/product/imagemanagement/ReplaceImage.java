@@ -115,7 +115,10 @@ public class ReplaceImage{
                 productContentCtx.put("productContentTypeId", "IMAGE");
                 productContentCtx.put("fromDate", productContent.get("fromDate"));
                 productContentCtx.put("userLogin", userLogin);
-                dispatcher.runSync("removeProductContentAndImageFile", productContentCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("removeProductContentAndImageFile", productContentCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             }
         } catch (IOException | IllegalArgumentException | GenericEntityException | GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resourceError, "ProductCannotReplaceImage", locale);

@@ -291,6 +291,9 @@ public class ContentPermissionServices {
 
         try {
             permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+            if (ServiceUtil.isError(permResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
@@ -307,6 +310,9 @@ public class ContentPermissionServices {
         serviceInMap.put("contentPurposeList", relatedPurposes);
         try {
             permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+            if (ServiceUtil.isError(permResults)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }

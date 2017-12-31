@@ -59,6 +59,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * LoginEvents - Events for UserLogin and Security handling.
@@ -359,6 +360,12 @@ public class LoginEvents {
 
         try {
             Map<String, Object> result = dispatcher.runSync("sendMailHiddenInLogFromScreen", serviceContext);
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
 
             if (ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
                 Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
