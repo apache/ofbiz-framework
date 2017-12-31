@@ -486,7 +486,11 @@ public class ICalConverter {
         }
         localMap.put("locale", context.get("locale"));
         try {
-            return dispatcher.runSync(serviceName, localMap);
+            Map<String, Object> result = dispatcher.runSync(serviceName, localMap);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
+            return result;
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);

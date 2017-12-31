@@ -43,10 +43,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
-
-
 
 /**
  * ContentManagementEvents Class
@@ -63,6 +61,7 @@ public class ContentManagementEvents {
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> result = new HashMap<>();
         String parentPlaceholderId = (String)paramMap.get("ph");
         if (UtilValidate.isEmpty(parentPlaceholderId)) {
             request.setAttribute("_ERROR_MESSAGE_", "ParentPlaceholder is empty.");
@@ -99,12 +98,24 @@ public class ContentManagementEvents {
                         if (!paramValue.equals(pubValue)) {
                             if ("Y".equalsIgnoreCase(paramValue)) {
                                 serviceIn.put("fromDate", UtilDateTime.nowTimestamp());
-                                dispatcher.runSync("createContentAssoc", serviceIn);
+                                result = dispatcher.runSync("createContentAssoc", serviceIn);
+                                if (ServiceUtil.isError(result)) {
+                                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                    Debug.logError(errorMessage, module);
+                                    return "error";
+                                }
                             } else if ("N".equalsIgnoreCase(paramValue) && "Y".equalsIgnoreCase(pubValue)) {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
                                 Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);
-                                dispatcher.runSync("updateContentAssoc", serviceIn);
+                                result = dispatcher.runSync("updateContentAssoc", serviceIn);
+                                if (ServiceUtil.isError(result)) {
+                                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                    Debug.logError(errorMessage, module);
+                                    return "error";
+                                }
                             }
                         }
                     } else if (UtilValidate.isNotEmpty(pubValue)) {
@@ -112,7 +123,13 @@ public class ContentManagementEvents {
                                 serviceIn.put("thruDate", UtilDateTime.nowTimestamp());
                                 Timestamp fromDate = (Timestamp)map.get(pubContentId + "FromDate");
                                 serviceIn.put("fromDate", fromDate);
-                                dispatcher.runSync("updateContentAssoc", serviceIn);
+                                result = dispatcher.runSync("updateContentAssoc", serviceIn);
+                                if (ServiceUtil.isError(result)) {
+                                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                                    Debug.logError(errorMessage, module);
+                                    return "error";
+                                }
                         }
                     }
                 } catch (GenericServiceException e) {
@@ -196,10 +213,8 @@ public class ContentManagementEvents {
 
         // Loop thru all the possible subsites
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        String responseMessage = null;
-        String errorMessage = null;
         boolean statusIdUpdated = false;
-        Map<String, Object> results = null;
+        Map<String, Object> result = new HashMap<>();
         for (Object [] arr : origPublishedLinkList) {
             String contentId = (String)arr[0]; // main (2nd level) site id
             String origSubContentId = null;
@@ -243,13 +258,11 @@ public class ContentManagementEvents {
                         serviceIn.put("targetOperationList", targetOperationList);
                         // TODO check if this should be removed (see above)
                         serviceIn.put("contentPurposeList", contentPurposeList);
-                        results = dispatcher.runSync("createContentAssoc", serviceIn);
-                        responseMessage = (String)results.get(ModelService.RESPONSE_MESSAGE);
-                        if (UtilValidate.isNotEmpty(responseMessage)) {
-                            errorMessage = (String)results.get(ModelService.ERROR_MESSAGE);
-                            Debug.logError("in updatePublishLinks, serviceIn:" + serviceIn , module);
-                            Debug.logError(errorMessage, module);
+                        result = dispatcher.runSync("createContentAssoc", serviceIn);
+                        if (ServiceUtil.isError(result)) {
+                            String errorMessage = ServiceUtil.getErrorMessage(result);
                             request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                            Debug.logError(errorMessage, module);
                             return "error";
                         }
 
@@ -263,7 +276,13 @@ public class ContentManagementEvents {
                         serviceIn.put("targetOperationList", targetOperationList);
                         // TODO check if this should be removed (see above)
                         serviceIn.put("contentPurposeList", contentPurposeList);
-                        results = dispatcher.runSync("createContentAssoc", serviceIn);
+                        result = dispatcher.runSync("createContentAssoc", serviceIn);
+                        if (ServiceUtil.isError(result)) {
+                            String errorMessage = ServiceUtil.getErrorMessage(result);
+                            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                            Debug.logError(errorMessage, module);
+                            return "error";
+                        }
                         if (!statusIdUpdated) {
                             try {
                                 GenericValue targContent = EntityQuery.use(delegator).from("Content").where("contentId", targContentId).queryOne();

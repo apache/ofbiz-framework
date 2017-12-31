@@ -208,6 +208,9 @@ public class VCard {
                     }
                 }
                 Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
+                if (ServiceUtil.isError(resp)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                }
                 partiesCreated.add(UtilMisc.toMap("partyId", (String) resp.get("partyId")));
 
                 if (formattedName != null) {
@@ -217,6 +220,9 @@ public class VCard {
                     createPartyIdentificationMap.put("partyIdentificationTypeId", "VCARD_FN_ORIGIN");
                     createPartyIdentificationMap.put("idValue", formattedName.getValue());
                     resp = dispatcher.runSync("createPartyIdentification", createPartyIdentificationMap);
+                    if (ServiceUtil.isError(resp)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                    }
                 }
             }
         } catch (IOException | GenericEntityException | GenericServiceException e) {

@@ -153,7 +153,7 @@ public class RequirementServices {
                     if (inventory == null) {
                         inventory = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
                         if (ServiceUtil.isError(inventory)) {
-                            return inventory;
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(inventory));
                         }
                         inventories.put(inventoryKey, inventory);
                     }
@@ -238,12 +238,16 @@ public class RequirementServices {
 
                 Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 Map<String, Object> results = dispatcher.runSync("createRequirement", input);
-                if (ServiceUtil.isError(results)) return results;
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
                 String requirementId = (String) results.get("requirementId");
 
                 input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
-                if (ServiceUtil.isError(results)) return results;
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -304,7 +308,9 @@ public class RequirementServices {
 
                 // get the facility ATP for product, which should be updated for this item's reservation
                 Map<String, Object> results = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("userLogin", userLogin, "productId", product.get("productId"), "facilityId", facilityId));
-                if (ServiceUtil.isError(results)) return results;
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
                 BigDecimal atp = ((BigDecimal) results.get("availableToPromiseTotal")); // safe since this is a required OUT param
 
                 // count all current requirements for this product
@@ -328,12 +334,16 @@ public class RequirementServices {
 
                 Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 results = dispatcher.runSync("createRequirement", input);
-                if (ServiceUtil.isError(results)) return results;
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
                 String requirementId = (String) results.get("requirementId");
 
                 input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
-                if (ServiceUtil.isError(results)) return results;
+                if (ServiceUtil.isError(results)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -359,7 +369,10 @@ public class RequirementServices {
                     /* Change status of requirement to ordered */
                     Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId", "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));
                     // TODO: check service result for an error return
-                    dispatcher.runSync("updateRequirement", inputMap);
+                    Map<String, Object> results = dispatcher.runSync("updateRequirement", inputMap);
+                    if (ServiceUtil.isError(results)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
+                    }
                 }
             }
         } catch(GenericEntityException e){

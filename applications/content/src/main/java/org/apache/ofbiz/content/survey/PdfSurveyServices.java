@@ -106,6 +106,9 @@ public class PdfSurveyServices {
 
             // create a SurveyQuestionCategory to put the questions in
             Map<String, Object> createCategoryResultMap = dispatcher.runSync("createSurveyQuestionCategory", UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId + "]", "userLogin", userLogin));
+            if (ServiceUtil.isError(createCategoryResultMap)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createCategoryResultMap));
+            }
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
 
             pdfStamper.setFormFlattening(true);
@@ -516,7 +519,7 @@ public class PdfSurveyServices {
             ctx.put("contentId", acroFormContentId);
             Map<String, Object> map = dispatcher.runSync("setAcroFields", ctx);
             if (ServiceUtil.isError(map)) {
-                return ServiceUtil.returnError(ServiceUtil.makeErrorMessage(map, null, null, null, null));
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(map));
             }
             String pdfFileNameOut = (String) context.get("pdfFileNameOut");
             ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");

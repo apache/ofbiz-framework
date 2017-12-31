@@ -283,17 +283,15 @@ public class OrderReturnServices {
                 Map<String, Object> sendResp = null;
                 try {
                     sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
+                    if (ServiceUtil.isError(sendResp)) {
+                        sendResp.put("emailType", emailType);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                                "OrderProblemSendingEmail", locale), null, null, sendResp);
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem sending mail", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderProblemSendingEmail", locale));
-                }
-
-                // check for errors
-                if (sendResp != null && ServiceUtil.isError(sendResp)) {
-                    sendResp.put("emailType", emailType);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                            "OrderProblemSendingEmail", locale), null, null, sendResp);
                 }
                 return ServiceUtil.returnSuccess();
             }
@@ -364,7 +362,10 @@ public class OrderReturnServices {
                                 GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", replacementOrderId).queryOne();
                                 if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
                                     try {
-                                        dispatcher.runSync("cancelOrderItem", svcCtx);
+                                        Map<String, Object> result = dispatcher.runSync("cancelOrderItem", svcCtx);
+                                        if (ServiceUtil.isError(result)) {
+                                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                        }
                                     } catch (GenericServiceException e) {
                                         Debug.logError(e, "Problem calling service cancelOrderItem: " + svcCtx, module);
                                     }
@@ -522,13 +523,13 @@ public class OrderReturnServices {
                     Map<String, Object> serviceResult = null;
                     try {
                         serviceResult = dispatcher.runSync("getReturnableQuantity", UtilMisc.toMap("orderItem", item));
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                                 "OrderErrorUnableToGetTheItemReturnableQuantity", locale));
-                    }
-                    if (serviceResult.containsKey(ModelService.ERROR_MESSAGE)) {
-                        return ServiceUtil.returnError((String) serviceResult.get(ModelService.ERROR_MESSAGE));
                     }
                     // Don't add the OrderItem to the map of returnable OrderItems if there isn't any returnable quantity.
                     if (((BigDecimal) serviceResult.get("returnableQuantity")).compareTo(BigDecimal.ZERO) == 0) {
@@ -601,6 +602,7 @@ public class OrderReturnServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String returnId = (String) context.get("returnId");
         Locale locale = (Locale) context.get("locale");
+        Map<String, Object> serviceResult = new HashMap<String, Object>();
 
         GenericValue returnHeader = null;
         List<GenericValue> returnItems = null;
@@ -659,9 +661,13 @@ public class OrderReturnServices {
                 // to the final status
                 if (currentStatus != null && "RETURN_ACCEPTED".equals(currentStatus)) {
                     try {
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
+                        serviceResult = dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
                                                                                 "statusId", "RETURN_RECEIVED",
                                                                                 "userLogin", userLogin));
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                                "OrderErrorUnableToCreateReturnStatusHistory", locale));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -669,9 +675,13 @@ public class OrderReturnServices {
                     }
                 } else if (currentStatus != null && "RETURN_RECEIVED".equals(currentStatus)) {
                     try {
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
+                        serviceResult = dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
                                                                                 "statusId", "RETURN_COMPLETED",
                                                                                 "userLogin", userLogin));
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                                "OrderErrorUnableToCreateReturnStatusHistory", locale));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -1064,7 +1074,7 @@ public class OrderReturnServices {
             input.put("thruDate", thruDate);
             Map<String, Object> results = dispatcher.runSync("createBillingAccount", input);
             if (ServiceUtil.isError(results)) {
-                return results;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
             }
             String billingAccountId = (String) results.get("billingAccountId");
 
@@ -1236,6 +1246,9 @@ public class OrderReturnServices {
                     Map<String, Object> acctgPreferencesResult = null;
                     try {
                         acctgPreferencesResult = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.toMap("organizationPartyId", productStore.get("payToPartyId"), "userLogin", userLogin));
+                        if (ServiceUtil.isError(acctgPreferencesResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(acctgPreferencesResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Error retrieving PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -1373,6 +1386,9 @@ public class OrderReturnServices {
                                     serviceContext.put("maxAmount", amountToRefund.setScale(decimals, rounding));
                                     String orderPaymentPreferenceNewId = null;
                                     Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
+                                    if (ServiceUtil.isError(result)) {
+                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                                    }
                                     orderPaymentPreferenceNewId = (String) result.get("orderPaymentPreferenceId");
                                     try {
                                         refundOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceNewId).queryOne();
@@ -1558,7 +1574,7 @@ public class OrderReturnServices {
         try {
             Map<String, Object> paymentCreationResult = dispatcher.runSync("createPayment", paymentCtx);
             if (ServiceUtil.isError(paymentCreationResult)) {
-                return paymentCreationResult;
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paymentCreationResult));
             }
             paymentId = (String) paymentCreationResult.get("paymentId");
         } catch (GenericServiceException e) {
@@ -1581,7 +1597,7 @@ public class OrderReturnServices {
                     Map<String, Object> paymentApplResult = dispatcher.runSync("createPaymentApplication", UtilMisc.<String, Object>toMap("paymentId", paymentId, "billingAccountId", billingAccount.getString("billingAccountId"),
                                 "amountApplied", refundAmount, "userLogin", userLogin));
                     if (ServiceUtil.isError(paymentApplResult)) {
-                        return paymentApplResult;
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paymentApplResult));
                     }
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1663,7 +1679,7 @@ public class OrderReturnServices {
                     }
                     Map<String, Object> serviceResults = dispatcher.runSync("createPaymentApplication", input);
                     if (ServiceUtil.isError(serviceResults)) {
-                        return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                     }
                     if (Debug.verboseOn()) { Debug.logInfo("Created PaymentApplication for response with amountApplied " + amountApplied.toString(), module); }
                 }
@@ -2047,6 +2063,9 @@ public class OrderReturnServices {
                 Map<String, Object> orderResult = null;
                 try {
                     orderResult = dispatcher.runSync("storeOrder", orderMap);
+                    if (ServiceUtil.isError(orderResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(orderResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logInfo(e, "Problem creating the order!", module);
                 }
@@ -2061,6 +2080,9 @@ public class OrderReturnServices {
                         Map<String, Object> serviceResult = null;
                         try {
                             serviceResult = dispatcher.runSync("changeOrderStatus", UtilMisc.toMap("orderId", createdOrderId, "statusId", "ORDER_HOLD", "userLogin", userLogin));
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + createdOrderId, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -2308,13 +2330,13 @@ public class OrderReturnServices {
         Map<String, Object> serviceResult = null;
         try {
             serviceResult = dispatcher.runSync("getReturnAmountByOrder", org.apache.ofbiz.base.util.UtilMisc.toMap("returnId", returnId));
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem running the getReturnAmountByOrder service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                     "OrderProblemsWithGetReturnAmountByOrder", locale));
-        }
-        if (ServiceUtil.isError(serviceResult)) {
-            return ServiceUtil.returnError((String) serviceResult.get(ModelService.ERROR_MESSAGE));
         }
         returnAmountByOrder = UtilGenerics.checkMap(serviceResult.get("orderReturnAmountMap"));
 
@@ -2518,7 +2540,11 @@ public class OrderReturnServices {
                 // when the return item is created because they are selectable by the user
                 inMap.put("includeAdjustments", "N");
             }
-            return dispatcher.runSync(serviceName, inMap);
+            Map<String, Object> serviceResult = dispatcher.runSync(serviceName, inMap);
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
+            return serviceResult;
         } catch (org.apache.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -2535,7 +2561,11 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isEmpty(returnAdjustmentId) ? "updateReturnItem" : "updateReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            return dispatcher.runSync(serviceName, dctx.makeValidContext(serviceName, ModelService.IN_PARAM, context));
+            Map<String, Object> serviceResult = dispatcher.runSync(serviceName, dctx.makeValidContext(serviceName, ModelService.IN_PARAM, context));
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
+            return serviceResult;
         } catch (org.apache.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

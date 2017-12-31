@@ -37,6 +37,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * ShipmentWorker - Worker methods for Shipment and related entities
@@ -187,6 +188,10 @@ public final class ShipmentWorker {
                 Map<String, Object> result = new HashMap<String, Object>();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
+                    if (ServiceUtil.isError(result)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                        return totalWeight;
+                    }
                 } catch (GenericServiceException ex) {
                     Debug.logError(ex, module);
                 }

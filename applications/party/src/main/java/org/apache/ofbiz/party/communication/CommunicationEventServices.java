@@ -203,8 +203,14 @@ public class CommunicationEventServices {
                 Map<String, Object> tmpResult = null;
                 if (isMultiPart) {
                     tmpResult = dispatcher.runSync("sendMailMultiPart", sendMailParams, 360, true);
+                    if (ServiceUtil.isError(tmpResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                    }
                 } else {
                     tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
+                    if (ServiceUtil.isError(tmpResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                    }
                 }
 
                 if (ServiceUtil.isError(tmpResult)) {
@@ -401,6 +407,9 @@ public class CommunicationEventServices {
                                         sendMailParams.put("bodyParameters", bodyParameters);
                                         sendMailParams.remove("body");
                                         tmpResult = dispatcher.runSync("sendMailFromScreen", sendMailParams, 360, true);
+                                        if (ServiceUtil.isError(tmpResult)) {
+                                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                                        }
                                     }
                                 }
                             }
@@ -410,6 +419,9 @@ public class CommunicationEventServices {
                         if (UtilValidate.isEmpty(tmpResult)) {
                             sendMailParams.put("body", communicationEvent.getString("content"));
                             tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
+                            if (ServiceUtil.isError(tmpResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                            }
                         }
 
                         if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
@@ -586,6 +598,9 @@ public class CommunicationEventServices {
         Map<String, Object> createResult;
         try {
             createResult = dispatcher.runSync("createCommunicationEvent", commEventMap);
+            if (ServiceUtil.isError(createResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -627,7 +642,10 @@ public class CommunicationEventServices {
 
         // save the communication event
         try {
-            dispatcher.runSync("updateCommunicationEvent", commEventMap);
+            Map<String, Object> result = dispatcher.runSync("updateCommunicationEvent", commEventMap);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -758,6 +776,9 @@ public class CommunicationEventServices {
             // if partyIdTo not found try to find the "to" address using the delivered-to header
             if ((partyIdTo == null) && (deliveredTo != null)) {
                 result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.<String, Object>toMap("address", deliveredTo, "userLogin", userLogin));
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                }
                 partyIdTo = (String)result.get("partyId");
                 contactMechIdTo = (String)result.get("contactMechId");
             }
@@ -886,6 +907,9 @@ public class CommunicationEventServices {
             commEventMap.put("headerString", header.replaceAll("[<>]", ""));
 
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
             communicationEventId = (String)result.get("communicationEventId");
             Debug.logInfo("Persisting New Email: " + aboutThisEmail + " into CommunicationEventId: " + communicationEventId, module);
 
@@ -1032,7 +1056,12 @@ public class CommunicationEventServices {
                 }
 
                 // save the content
-                dispatcher.runSync("createCommContentDataResource", attachmentMap);
+                Map<String, Object> result = dispatcher.runSync("createCommContentDataResource", attachmentMap);
+                if (ServiceUtil.isError(result)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                    Debug.logError(errorMessage, module);
+                    throw new GenericServiceException(errorMessage);
+                }
             }
         }
     }
@@ -1051,7 +1080,11 @@ public class CommunicationEventServices {
                             "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin,
                             "contactMechId", (String) result.get("contactMechId"),
                             "statusId", "COM_ROLE_CREATED");
-                    dispatcher.runSync("createCommunicationEventRole", input);
+                    Map<String, Object> resultMap = dispatcher.runSync("createCommunicationEventRole", input);
+                    if (ServiceUtil.isError(resultMap)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(resultMap);
+                        Debug.logError(errorMessage, module);
+                    }
                 }
             }
         } catch (GenericServiceException | GenericEntityException e) {
@@ -1064,7 +1097,11 @@ public class CommunicationEventServices {
         try {
             for (Map<String, Object> result : workEffortInfos) {
                 String workEffortId = (String) result.get("workEffortId");
-                dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
+                Map<String, Object> resultMap = dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
+                if (ServiceUtil.isError(resultMap)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(resultMap);
+                    Debug.logError(errorMessage, module);
+                }
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
@@ -1095,6 +1132,11 @@ public class CommunicationEventServices {
             map.put("address", emailAddress.getAddress());
             map.put("userLogin", userLogin);
             result = dispatcher.runSync("findPartyFromEmailAddress", map);
+            if (ServiceUtil.isError(result)) {
+                String errorMessage = ServiceUtil.getErrorMessage(result);
+                Debug.logError(errorMessage, module);
+                throw new GenericServiceException(errorMessage);
+            }
         }
 
         return result;
@@ -1115,6 +1157,11 @@ public class CommunicationEventServices {
 
                     result = dispatcher.runSync("findPartyFromEmailAddress",
                             UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
+                    if (ServiceUtil.isError(result)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(result);
+                        Debug.logError(errorMessage, module);
+                        throw new GenericServiceException(errorMessage);
+                    }
                     if (result.get("partyId") != null) {
                         tempResults.add(result);
                     }
@@ -1143,6 +1190,11 @@ public class CommunicationEventServices {
                     inputFields.put("infoString_ic", caseInsensitiveEmail);
                     result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName",
                             "WorkEffortContactMechView", "inputFields", inputFields, "userLogin", userLogin));
+                    if (ServiceUtil.isError(result)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(result);
+                        Debug.logError(errorMessage, module);
+                        throw new GenericServiceException(errorMessage);
+                    }
                     try (EntityListIterator listIt = (EntityListIterator) result.get("listIt")) {
                         List<GenericValue> list = listIt.getCompleteList();
                         List<GenericValue> filteredList = EntityUtil.filterByDate(list);
@@ -1232,6 +1284,10 @@ public class CommunicationEventServices {
                             Map<String, Object> result;
                             try {
                                 result = dispatcher.runSync("updateCommunicationEvent", updateCtx);
+                                if (ServiceUtil.isError(result)) {
+                                    String errorMessage = ServiceUtil.getErrorMessage(result);
+                                    Debug.logError(errorMessage, module);
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());

@@ -79,6 +79,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.widget.model.FormFactory;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelScreen;
@@ -335,6 +336,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             }
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+                if (ServiceUtil.isError(permResults)) {
+                    return permResults;
+                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }

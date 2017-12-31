@@ -268,7 +268,10 @@ public final class ICalWorker {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> result = dispatcher.runSync("userLogin", serviceMap);
         if (ServiceUtil.isError(result) || ServiceUtil.isFailure(result)) {
-            return;
+            String errorMessage = ServiceUtil.getErrorMessage(result);
+            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+            Debug.logError(errorMessage, module);
+            throw new GenericServiceException(errorMessage);
         }
         userLogin = (GenericValue) result.get("userLogin");
         request.setAttribute("userLogin", userLogin);

@@ -207,15 +207,16 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 Map<String,Object> serviceRes;
                 try {
                     serviceRes = dispatcher.runSync(serviceName, serviceCtx);
+                    if (ServiceUtil.isError(serviceRes)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(serviceRes);
+                        Debug.logError(errorMessage, module);
+                        throw new GeneralException(errorMessage);
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     throw e;
                 }
-                if (ServiceUtil.isError(serviceRes)) {
-                    throw new GeneralException(ServiceUtil.getErrorMessage(serviceRes));
-                } else {
-                    templateContext.putAll(serviceRes);
-                }
+                templateContext.putAll(serviceRes);
             }
         }
 
@@ -1058,6 +1059,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+                if (ServiceUtil.isError(permResults)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(permResults) + "Problem checking permissions", "ContentServices");
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }

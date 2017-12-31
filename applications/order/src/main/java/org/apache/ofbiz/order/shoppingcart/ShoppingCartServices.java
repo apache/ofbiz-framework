@@ -390,6 +390,9 @@ public class ShoppingCartServices {
                             surveyResponseMap.put("answers", answers);
                             surveyResponseMap.put("surveyId", surveyId);
                             surveyResponseResult = dispatcher.runSync("createSurveyResponse", surveyResponseMap);
+                            if (ServiceUtil.isError(surveyResponseResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(surveyResponseResult));
+                            }
                         }
                     }
                 } catch (GenericEntityException | GenericServiceException e) {

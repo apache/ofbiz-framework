@@ -23,12 +23,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class SalesOrderTest extends OFBizTestCase {
+    public static final String module = OFBizTestCase.class.getName();
 
     protected GenericValue userLogin = null;
 
@@ -140,6 +143,10 @@ public class SalesOrderTest extends OFBizTestCase {
 
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("storeOrder", ctx);
+        if (ServiceUtil.isError(resp)) {
+            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+            return;
+        }
         String orderId = (String) resp.get("orderId");
         String statusId = (String) resp.get("statusId");
         assertNotNull(orderId);

@@ -129,6 +129,9 @@ public class FrameImage {
             Map<String, Object> contentResult = new HashMap<>();
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
+                if (ServiceUtil.isError(contentResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 result =  ServiceUtil.returnError(e.getMessage());
@@ -141,6 +144,9 @@ public class FrameImage {
             Map<String, Object> contentThumbResult = new HashMap<>();
             try {
                 contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+                if (ServiceUtil.isError(contentThumbResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 result =  ServiceUtil.returnError(e.getMessage());
@@ -177,7 +183,10 @@ public class FrameImage {
             createContentAssocMap.put("userLogin", userLogin);
             createContentAssocMap.put("mapKey", "100");
             try {
-                dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                Map<String, Object> serviceResult = dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 result =  ServiceUtil.returnError(e.getMessage());
@@ -192,7 +201,10 @@ public class FrameImage {
             productContentCtx.put("contentId", contentId);
             productContentCtx.put("statusId", "IM_PENDING");
             try {
-                dispatcher.runSync("createProductContent", productContentCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createProductContent", productContentCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 result =  ServiceUtil.returnError(e.getMessage());
@@ -203,7 +215,10 @@ public class FrameImage {
             contentApprovalCtx.put("contentId", contentId);
             contentApprovalCtx.put("userLogin", userLogin);
             try {
-                dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 result =  ServiceUtil.returnError(e.getMessage());
@@ -304,6 +319,12 @@ public class FrameImage {
             dataResourceCtx.put("mimeTypeId", "image/png");
             dataResourceCtx.put("isPublic", "Y");
             Map<String, Object> dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+            if (ServiceUtil.isError(dataResourceResult)) {
+                String errorMessage = ServiceUtil.getErrorMessage(dataResourceResult);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
             dataResourceId = dataResourceResult.get("dataResourceId").toString();
             //create content
             Map<String, Object> contentCtx = new HashMap<>();
@@ -313,6 +334,12 @@ public class FrameImage {
             contentCtx.put("fromDate", UtilDateTime.nowTimestamp());
             contentCtx.put("userLogin", userLogin);
             Map<String, Object> contentResult = dispatcher.runSync("createContent", contentCtx);
+            if (ServiceUtil.isError(contentResult)) {
+                String errorMessage = ServiceUtil.getErrorMessage(contentResult);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                Debug.logError(errorMessage, module);
+                return "error";
+            }
             contentId = contentResult.get("contentId").toString();
         } catch (GenericServiceException | IOException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());

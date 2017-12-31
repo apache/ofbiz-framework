@@ -42,7 +42,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.bom.BOMNode;
-import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -512,6 +511,10 @@ public class MrpServices {
             } else {
                 resultMap = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
             }
+            if (ServiceUtil.isError(resultMap)) {
+                String errorMessage = ServiceUtil.getErrorMessage(resultMap);
+                Debug.logError(errorMessage, module);
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
             logMrpError(mrpId, productId, "Unable to count inventory", delegator);
@@ -663,6 +666,9 @@ public class MrpServices {
         parameters.put("manufacturingFacilityId", manufacturingFacilityId);
         try {
             result = dispatcher.runSync("initMrpEvents", parameters);
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            }
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -735,6 +741,9 @@ public class MrpServices {
                         Map<String, Object> serviceResponse = null;
                         try {
                             serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", positiveEventQuantity, "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
+                            if (ServiceUtil.isError(serviceResponse)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                            }
                         } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
                         } catch (Exception e) {
@@ -769,6 +778,9 @@ public class MrpServices {
                         Map<String, Object> serviceResponse = null;
                         try {
                             serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "quantity", proposedOrder.getQuantity(), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
+                            if (ServiceUtil.isError(serviceResponse)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                            }
                         } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
                         } catch (Exception e) {

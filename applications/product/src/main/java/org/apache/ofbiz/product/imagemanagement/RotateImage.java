@@ -68,6 +68,9 @@ public class RotateImage {
             Map<String, Object> contentResult;
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
+                if (ServiceUtil.isError(contentResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -79,6 +82,9 @@ public class RotateImage {
             Map<String, Object> contentThumbResult;
             try {
                 contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+                if (ServiceUtil.isError(contentThumbResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -130,7 +136,10 @@ public class RotateImage {
             createContentAssocMap.put("userLogin", userLogin);
             createContentAssocMap.put("mapKey", "100");
             try {
-                dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                Map<String, Object> serviceResult = dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -144,7 +153,10 @@ public class RotateImage {
             productContentCtx.put("contentId", contentId);
             productContentCtx.put("statusId", "IM_PENDING");
             try {
-                dispatcher.runSync("createProductContent", productContentCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createProductContent", productContentCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -154,7 +166,10 @@ public class RotateImage {
             contentApprovalCtx.put("contentId", contentId);
             contentApprovalCtx.put("userLogin", userLogin);
             try {
-                dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

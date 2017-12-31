@@ -405,6 +405,9 @@ public class OrderLookupServices {
                         List<GenericValue> variants = null;
                         try {
                             varLookup = dispatcher.runSync("getAllProductVariants", UtilMisc.toMap("productId", productId));
+                            if (ServiceUtil.isError(varLookup)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(varLookup));
+                            }
                             variants = UtilGenerics.checkList(varLookup.get("assocProducts"));
 
                         } catch (GenericServiceException e) {

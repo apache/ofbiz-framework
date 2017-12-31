@@ -129,6 +129,9 @@ public class CheckOutEvents {
                             UtilMisc.<String, Object>toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt, "userLogin", userLogin));
                     ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                     if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                        Debug.logError(errorMessage, module);
                         return "error";
                     }
                 } catch (GenericServiceException e) {
@@ -388,6 +391,9 @@ public class CheckOutEvents {
                         UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt));
                 ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                 if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
+                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                    Debug.logError(errorMessage, module);
                     return "error";
                 }
             } catch (GenericServiceException e) {

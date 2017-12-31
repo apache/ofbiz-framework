@@ -107,6 +107,9 @@ public class ImageManagementServices {
             Map<String, Object> contentResult;
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
+                if (ServiceUtil.isError(contentResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -214,7 +217,10 @@ public class ImageManagementServices {
             createContentAssocMap.put("userLogin", userLogin);
             createContentAssocMap.put("mapKey", "100");
             try {
-                dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                Map<String, Object> serviceResult = dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -228,7 +234,10 @@ public class ImageManagementServices {
             productContentCtx.put("contentId", contentId);
             productContentCtx.put("statusId", "IM_PENDING");
             try {
-                dispatcher.runSync("createProductContent", productContentCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createProductContent", productContentCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -238,7 +247,10 @@ public class ImageManagementServices {
             contentApprovalCtx.put("contentId", contentId);
             contentApprovalCtx.put("userLogin", userLogin);
             try {
-                dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -251,7 +263,10 @@ public class ImageManagementServices {
                 autoApproveCtx.put("userLogin", userLogin);
                 autoApproveCtx.put("checkStatusId", "IM_APPROVED");
                 try {
-                    dispatcher.runSync("updateStatusImageManagement", autoApproveCtx);
+                    Map<String, Object> serviceResult = dispatcher.runSync("updateStatusImageManagement", autoApproveCtx);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -417,6 +432,9 @@ public class ImageManagementServices {
         Map<String, Object> dataResourceResult;
         try {
             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+            if (ServiceUtil.isError(dataResourceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -432,7 +450,10 @@ public class ImageManagementServices {
         contentUp.put("contentName", filenameToUse);
         contentUp.put("userLogin", userLogin);
         try {
-            dispatcher.runSync("updateContent", contentUp);
+            Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentUp);
+            if (ServiceUtil.isError(serviceResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -458,7 +479,10 @@ public class ImageManagementServices {
             if (dataResource != null) {
                 dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                 try {
-                    dispatcher.runSync("updateDataResource", dataResourceCtx);
+                    Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -483,6 +507,9 @@ public class ImageManagementServices {
         Map<String, Object> contentThumbResult;
         try {
             contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+            if (ServiceUtil.isError(contentThumbResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -674,6 +701,9 @@ public class ImageManagementServices {
                 Map<String, Object> contentThumbResult;
                 try {
                     contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+                    if (ServiceUtil.isError(contentThumbResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentThumbResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -690,7 +720,10 @@ public class ImageManagementServices {
                 createContentAssocMap.put("userLogin", userLogin);
                 createContentAssocMap.put("mapKey", width);
                 try {
-                    dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                    Map<String, Object> serviceResult = dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -763,7 +796,10 @@ public class ImageManagementServices {
                 contentUp.put("contentName", filenameToUse);
                 contentUp.put("userLogin", userLogin);
                 try {
-                    dispatcher.runSync("updateContent", contentUp);
+                    Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentUp);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -791,7 +827,10 @@ public class ImageManagementServices {
                         dataResourceCtx.put("dataResourceName", filenameToUse);
                         dataResourceCtx.put("userLogin", userLogin);
                         try {
-                            dispatcher.runSync("updateDataResource", dataResourceCtx);
+                            Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -824,7 +863,10 @@ public class ImageManagementServices {
                         contentAssocMap.put("contentName", filenameToUseAssoc);
                         contentAssocMap.put("userLogin", userLogin);
                         try {
-                            dispatcher.runSync("updateContent", contentAssocMap);
+                            Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentAssocMap);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -852,7 +894,10 @@ public class ImageManagementServices {
                                 dataResourceAssocMap.put("dataResourceName", filenameToUseAssoc);
                                 dataResourceAssocMap.put("userLogin", userLogin);
                                 try {
-                                    dispatcher.runSync("updateDataResource", dataResourceAssocMap);
+                                    Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceAssocMap);
+                                    if (ServiceUtil.isError(serviceResult)) {
+                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                                    }
                                 } catch (GenericServiceException e) {
                                     Debug.logError(e, module);
                                     return ServiceUtil.returnError(e.getMessage());

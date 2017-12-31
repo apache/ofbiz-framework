@@ -1439,7 +1439,7 @@ public final class ProductPromoWorker {
             }
             if (ServiceUtil.isError(actionResult)) {
                 Debug.logError("Error calling promo action service [" + serviceName + "], result is: " + actionResult, module);
-                throw new CartItemModifyException((String) actionResult.get(ModelService.ERROR_MESSAGE));
+                throw new CartItemModifyException(ServiceUtil.getErrorMessage(actionResult));
             }
             CartItemModifyException cartItemModifyException = (CartItemModifyException) actionResult.get("cartItemModifyException");
             if (cartItemModifyException != null) {
@@ -1506,7 +1506,7 @@ public final class ProductPromoWorker {
                             Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)));
                             if (ServiceUtil.isError(invReqResult)) {
                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
-                                throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
+                                throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult));
                             } else if (!"Y".equals(invReqResult.get("available"))) {
                                 Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()), module);
                                 productId = null;
@@ -1540,7 +1540,7 @@ public final class ProductPromoWorker {
                         Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)));
                         if (ServiceUtil.isError(invReqResult)) {
                             Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
-                            throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
+                            throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult));
                         } else if (!"Y".equals(invReqResult.get("available"))) {
                             optionProductIdIter.remove();
                         }

@@ -911,6 +911,9 @@ public class ProductServices {
                         Map<String, Object> invRes = null;
                         try {
                             invRes = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.<String, Object>toMap("productId", productId, "userLogin", userLogin));
+                            if (ServiceUtil.isError(invRes)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invRes));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1152,7 +1155,10 @@ public class ProductServices {
                     if (dataResource != null) {
                         dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                         try {
-                            dispatcher.runSync("updateDataResource", dataResourceCtx);
+                            Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1163,6 +1169,9 @@ public class ProductServices {
                         Map<String, Object> dataResourceResult;
                         try {
                             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                            if (ServiceUtil.isError(dataResourceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1173,7 +1182,10 @@ public class ProductServices {
                         contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                         contentCtx.put("userLogin", userLogin);
                         try {
-                            dispatcher.runSync("updateContent", contentCtx);
+                            Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentCtx);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1182,7 +1194,10 @@ public class ProductServices {
 
                     productContentCtx.put("contentId", contentId);
                     try {
-                        dispatcher.runSync("updateProductContent", productContentCtx);
+                        Map<String, Object> serviceResult = dispatcher.runSync("updateProductContent", productContentCtx);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1194,6 +1209,9 @@ public class ProductServices {
                 Map<String, Object> dataResourceResult;
                 try {
                     dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                    if (ServiceUtil.isError(dataResourceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1206,6 +1224,9 @@ public class ProductServices {
                 Map<String, Object> contentResult;
                 try {
                     contentResult = dispatcher.runSync("createContent", contentCtx);
+                    if (ServiceUtil.isError(contentResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1213,7 +1234,10 @@ public class ProductServices {
 
                 productContentCtx.put("contentId", contentResult.get("contentId"));
                 try {
-                    dispatcher.runSync("createProductContent", productContentCtx);
+                    Map<String, Object> serviceResult = dispatcher.runSync("createProductContent", productContentCtx);
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1366,7 +1390,10 @@ public class ProductServices {
                         if (dataResource != null) {
                             dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                             try {
-                                dispatcher.runSync("updateDataResource", dataResourceCtx);
+                                Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
+                                if (ServiceUtil.isError(serviceResult)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1377,6 +1404,9 @@ public class ProductServices {
                             Map<String, Object> dataResourceResult;
                             try {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                                if (ServiceUtil.isError(dataResourceResult)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1387,7 +1417,10 @@ public class ProductServices {
                             contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                             contentCtx.put("userLogin", userLogin);
                             try {
-                                dispatcher.runSync("updateContent", contentCtx);
+                                Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentCtx);
+                                if (ServiceUtil.isError(serviceResult)) {
+                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1396,7 +1429,10 @@ public class ProductServices {
 
                         productPromoContentCtx.put("contentId", contentId);
                         try {
-                            dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+                            Map<String, Object> serviceResult = dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1408,6 +1444,9 @@ public class ProductServices {
                     Map<String, Object> dataResourceResult;
                     try {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                        if (ServiceUtil.isError(dataResourceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1420,6 +1459,9 @@ public class ProductServices {
                     Map<String, Object> contentResult;
                     try {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
+                        if (ServiceUtil.isError(contentResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1427,7 +1469,10 @@ public class ProductServices {
 
                     productPromoContentCtx.put("contentId", contentResult.get("contentId"));
                     try {
-                        dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
+                        Map<String, Object> serviceResult = dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1443,7 +1488,10 @@ public class ProductServices {
             productPromoContentCtx.put("thruDate", context.get("thruDate"));
             productPromoContentCtx.put("userLogin", userLogin);
             try {
-                dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+                Map<String, Object> serviceResult = dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
