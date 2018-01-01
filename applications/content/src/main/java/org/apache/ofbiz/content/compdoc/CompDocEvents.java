@@ -43,7 +43,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.event.CoreEvents;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
@@ -176,13 +175,7 @@ public class CompDocEvents {
                 Debug.logError(errorMessage, module);
                 return "error";
             }
-        } catch (ServiceAuthException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
         } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
-        } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
@@ -192,9 +185,7 @@ public class CompDocEvents {
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
-
-        try {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array())) {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
@@ -233,13 +224,7 @@ public class CompDocEvents {
                 Debug.logError(errorMessage, module);
                 return "error";
             }
-        } catch (ServiceAuthException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
         } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
-        } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
@@ -249,9 +234,7 @@ public class CompDocEvents {
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
-
-        try {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array())) {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
