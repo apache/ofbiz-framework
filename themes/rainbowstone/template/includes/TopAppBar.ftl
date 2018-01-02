@@ -40,7 +40,7 @@ under the License.
         </a>
     </div>
 <#if userLogin?has_content>
-    <#assign appMax = 8>
+    <#assign appMax = Static["org.apache.ofbiz.base.util.UtilProperties"].getPropertyAsInteger("rainbowstone", "appMax", 8)/>
     <#assign alreadySelected = false>
 <div id="main-navigation-bar">
     <div id="main-nav-bar-left">
@@ -129,9 +129,9 @@ under the License.
                 </#if>
             </#list>
         </ul>
-        <!-- Si le nombre d'application est supérieur au nombre d'application max affichable, je met le restant
-        dans un menu déroulant. J'ai volontairement doublé le code car sinon, la lecture du code lors d'une maintenance
-        risquait d'être compliquée. A corriger si jamais les performances s'en font ressentir -->
+        <!-- If the number of applications is greater than the maximum number of applications that can be displayed, the rest is put
+        in a drop-down menu. The code is deliberately doubled because otherwise, reading the code during maintenance
+        could be complicated. Correct if ever the performance is affected -->
         <#assign appCount = 0>
         <#assign moreApp = false>
         <#list displayApps as display>
