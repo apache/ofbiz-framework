@@ -4007,7 +4007,7 @@
     </property>
     <property key="WebtoolsParent">
         <value xml:lang="de">Elternreferenz</value>
-        <value xml:lang="en">Parent Id</value>
+        <value xml:lang="en">Parent ID</value>
         <value xml:lang="fr">Réf. du parent</value>
         <value xml:lang="it">Padre</value>
         <value xml:lang="ja">上位(親)ID</value>

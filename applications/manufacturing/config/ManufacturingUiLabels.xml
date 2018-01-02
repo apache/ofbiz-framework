@@ -208,7 +208,7 @@
     </property>
     <property key="FormFieldTitle_jobId">
         <value xml:lang="de">Job-Nr.</value>
-        <value xml:lang="en">Job Id</value>
+        <value xml:lang="en">Job ID</value>
         <value xml:lang="es">Código del trabajo</value>
         <value xml:lang="fr">Réf. du job</value>
         <value xml:lang="it">Numero lavoro</value>
@@ -235,7 +235,7 @@
         <value xml:lang="zh-TW">工作名稱</value>
     </property>
     <property key="FormFieldTitle_lotId">
-        <value xml:lang="en">Lot Id</value>
+        <value xml:lang="en">Lot ID</value>
         <value xml:lang="fr">Réf. de lot</value>
         <value xml:lang="it">Numero lotto</value>
         <value xml:lang="ja">ロットID</value>
@@ -333,7 +333,7 @@
     </property>
     <property key="FormFieldTitle_productIdFor">
         <value xml:lang="de">Produkt-Nr. für</value>
-        <value xml:lang="en">Product Id For</value>
+        <value xml:lang="en">Product ID For</value>
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Réf. de l'article pour</value>
         <value xml:lang="it">Codice prodotto da</value>
@@ -348,7 +348,7 @@
     </property>
     <property key="FormFieldTitle_productIdIn">
         <value xml:lang="de">Produkt-Nr. in</value>
-        <value xml:lang="en">Product Id In</value>
+        <value xml:lang="en">Product ID In</value>
         <value xml:lang="es">Código de producto en</value>
         <value xml:lang="fr">Réf. de l'article dans</value>
         <value xml:lang="it">Codice prodotto in</value>
@@ -362,7 +362,7 @@
         <value xml:lang="zh-TW">產品識別來自</value>
     </property>
     <property key="FormFieldTitle_productIdInSubst">
-        <value xml:lang="en">Product Id In Subst</value>
+        <value xml:lang="en">Product ID In Subst</value>
         <value xml:lang="es">Código de producto en sustitución</value>
         <value xml:lang="fr">Réf. de l'article dans subst.</value>
         <value xml:lang="it">Codice prodotto in sostituzione</value>
@@ -407,7 +407,7 @@
     </property>
     <property key="FormFieldTitle_ruleId">
         <value xml:lang="de">Regel-Nr.</value>
-        <value xml:lang="en">Rule Id</value>
+        <value xml:lang="en">Rule ID</value>
         <value xml:lang="es">Código de regla</value>
         <value xml:lang="fr">Réf. de règle</value>
         <value xml:lang="it">Codice regola</value>
@@ -1208,7 +1208,7 @@
     </property>
     <property key="ManufacturingCalendarIdAlreadyExist">
         <value xml:lang="de">Kalender-Nr. schon vorhanden</value>
-        <value xml:lang="en">Calendar Id already exist</value>
+        <value xml:lang="en">Calendar ID already exist</value>
         <value xml:lang="es">El código de calendario ya existe</value>
         <value xml:lang="fr">Cette réf. de calendrier existe déja</value>
         <value xml:lang="it">Codice calendario già esistente</value>
@@ -4386,7 +4386,7 @@
     </property>
     <property key="ManufacturingRequirementId">
         <value xml:lang="de">Bedarfs-Nr.</value>
-        <value xml:lang="en">Requirement Id</value>
+        <value xml:lang="en">Requirement ID</value>
         <value xml:lang="es">Código de requisito</value>
         <value xml:lang="fr">Réf. de besoin de fabrication</value>
         <value xml:lang="it">Fabbisogno</value>
@@ -4505,7 +4505,7 @@
     </property>
     <property key="ManufacturingRoutingId">
         <value xml:lang="de">Arbeitsplan-Nr.</value>
-        <value xml:lang="en">Routing Id</value>
+        <value xml:lang="en">Routing ID</value>
         <value xml:lang="es">Código de ruta</value>
         <value xml:lang="fr">Réf. de gamme</value>
         <value xml:lang="it">Codice ciclo</value>

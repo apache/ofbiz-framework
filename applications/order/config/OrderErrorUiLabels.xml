@@ -1838,7 +1838,7 @@
     <property key="OrderIdAlreadyExistsPleaseChooseAnother">
         <value xml:lang="ar">دليل أمر البيع\الشراء متواجد مسبقا, يرجى اختيار دليل آخر</value>
         <value xml:lang="de">Auftragsnummer schon vorhanden, bitte eine andere angeben </value>
-        <value xml:lang="en">Order Id already exists please choose another </value>
+        <value xml:lang="en">Order ID already exists please choose another </value>
         <value xml:lang="fr">Cette réf. de commande existe déjà, SVP chjoisissez en une autre </value>
         <value xml:lang="ja">注文IDはすでに存在します。別のIDを選択してください </value>
         <value xml:lang="pt-BR">ID de pedido já existe por favor escolha outro </value>

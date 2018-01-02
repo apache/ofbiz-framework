@@ -654,7 +654,7 @@
     <property key="AccountingAgreementId">
         <value xml:lang="ar">دليل الإتفاقية</value>
         <value xml:lang="de">Vereinbarungs-ID</value>
-        <value xml:lang="en">Agreement Id</value>
+        <value xml:lang="en">Agreement ID</value>
         <value xml:lang="es">Id acuerdo</value>
         <value xml:lang="fr">Réf. de l'accord commercial</value>
         <value xml:lang="hi-IN">अनुबंध क्रमांक</value>
@@ -3880,7 +3880,7 @@
     <property key="AccountingCreditCardUpdateWithoutPermission">
         <value xml:lang="ar">دليل الطرف [${partyId}] ليس المالك لطريقة الدفع [${paymentMethodId}] وليس لديه الصلاحية لتغييرها.</value>
         <value xml:lang="de">Benutzer [${partyId}] ist nicht der Besitzer der Zahlungsmethode [${paymentMethodId}] und hat keine Berechtigung diese zu ändern.</value>
-        <value xml:lang="en">Party Id [${partyId}] is not the owner of payment method [${paymentMethodId}] and does not have permission to change it.</value>
+        <value xml:lang="en">Party ID [${partyId}] is not the owner of payment method [${paymentMethodId}] and does not have permission to change it.</value>
         <value xml:lang="fr">L'acteur [${partyId}] n'est pas le possesseur de la méthode de paiement [${paymentMethodId}], il n'a pas les autorisations pour la changer</value>
         <value xml:lang="it">Soggetto [${partyId}] non è il proprietario del metodo di pagamento [${paymentMethodId}] e non ha il permesso di cambiarlo.</value>
         <value xml:lang="ja">取引先ID [${partyId}] は支払方法 [${paymentMethodId}] を所有していないため、変更する権限がありません。</value>
@@ -10905,7 +10905,7 @@
     <property key="AccountingPartyIdFrom">
         <value xml:lang="ar">دليل الطرف (من)</value>
         <value xml:lang="de">Akteur-Nr von</value>
-        <value xml:lang="en">Party Id From</value>
+        <value xml:lang="en">Party ID From</value>
         <value xml:lang="es">Id Grupo Origen</value>
         <value xml:lang="fr">Réf. acteur (de)</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक से</value>
@@ -10924,7 +10924,7 @@
         <value xml:lang="ar">دليل الطرف (إلى)</value>
         <value xml:lang="cs">Příjemce</value>
         <value xml:lang="de">Akteur-Nr zu</value>
-        <value xml:lang="en">Party Id To</value>
+        <value xml:lang="en">Party ID To</value>
         <value xml:lang="es">Id Grupo destino</value>
         <value xml:lang="fr">Réf. acteur (à)</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
@@ -13477,7 +13477,7 @@
     <property key="AccountingProductId">
         <value xml:lang="ar">دليل السلعة</value>
         <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
+        <value xml:lang="en">Product ID</value>
         <value xml:lang="es">Id Producto</value>
         <value xml:lang="fr">Réf. produit</value>
         <value xml:lang="hi-IN">उत्पाद क्रमांक</value>
@@ -17108,7 +17108,7 @@
     <property key="FormFieldTitle_agreementId">
         <value xml:lang="ar">دليل الإتفاقية</value>
         <value xml:lang="de">Vereinbarungs ID</value>
-        <value xml:lang="en">Agreement Id</value>
+        <value xml:lang="en">Agreement ID</value>
         <value xml:lang="es">Id Acuerdo</value>
         <value xml:lang="fr">Réf. d'accord</value>
         <value xml:lang="hi-IN">अनुबंध क्रमांक</value>
@@ -17559,7 +17559,7 @@
     <property key="FormFieldTitle_clientId">
         <value xml:lang="ar">دليل العميل</value>
         <value xml:lang="de">Kunden Id</value>
-        <value xml:lang="en">Client Id</value>
+        <value xml:lang="en">Client ID</value>
         <value xml:lang="fr">Client</value>
         <value xml:lang="hi-IN">ग्राहक क्रमांक</value>
         <value xml:lang="it">Id client</value>
@@ -18791,7 +18791,7 @@
     <property key="FormFieldTitle_groupId">
         <value xml:lang="ar">دليل المجموعة</value>
         <value xml:lang="de">Gruppe Id</value>
-        <value xml:lang="en">Group Id</value>
+        <value xml:lang="en">Group ID</value>
         <value xml:lang="fr">Groupe</value>
         <value xml:lang="hi-IN">समूह क्रमांक</value>
         <value xml:lang="it">Id gruppo</value>
@@ -18939,7 +18939,7 @@
     </property>
     <property key="FormFieldTitle_invoiceIdPrefix">
         <value xml:lang="de">Rechnungsnummer Prefix</value>
-        <value xml:lang="en">Invoice Id Prefix</value>
+        <value xml:lang="en">Invoice ID Prefix</value>
         <value xml:lang="es">Id Prefijo Factura</value>
         <value xml:lang="fr">Préfixe de facture</value>
         <value xml:lang="hi-IN">उपसर्ग चालान क्रमांक</value>
@@ -19383,7 +19383,7 @@
     <property key="FormFieldTitle_merchantId">
         <value xml:lang="ar">دليل التاجر</value>
         <value xml:lang="de">Verkäufer Id</value>
-        <value xml:lang="en">Merchant Id</value>
+        <value xml:lang="en">Merchant ID</value>
         <value xml:lang="fr">Revendeur</value>
         <value xml:lang="hi-IN">व्यापारी क्रमांक</value>
         <value xml:lang="it">Codice negoziante</value>
@@ -19572,7 +19572,7 @@
     </property>
     <property key="FormFieldTitle_orderIdPrefix">
         <value xml:lang="de">Bestell-Nr. Prefix</value>
-        <value xml:lang="en">Order Id Prefix</value>
+        <value xml:lang="en">Order ID Prefix</value>
         <value xml:lang="es">Id Prefijo de orden</value>
         <value xml:lang="fr">Préfixe de commande</value>
         <value xml:lang="hi-IN">उपसर्ग आदेश क्रमांक</value>
@@ -19975,7 +19975,7 @@
     <property key="FormFieldTitle_paymentId">
         <value xml:lang="ar">دليل الدفعة</value>
         <value xml:lang="de">Zahlung Id</value>
-        <value xml:lang="en">Payment Id</value>
+        <value xml:lang="en">Payment ID</value>
         <value xml:lang="es">Id Pago</value>
         <value xml:lang="fr">Réf. du paiement</value>
         <value xml:lang="hi-IN">भुगतान क्रमांक</value>
@@ -20403,7 +20403,7 @@
     <property key="FormFieldTitle_productId">
         <value xml:lang="ar">دليل السلعة</value>
         <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
+        <value xml:lang="en">Product ID</value>
         <value xml:lang="es">Id Producto</value>
         <value xml:lang="fr">Réf. produit</value>
         <value xml:lang="hi-IN">उत्पाद क्रमांक</value>
@@ -20540,7 +20540,7 @@
     </property>
     <property key="FormFieldTitle_quoteIdPrefix">
         <value xml:lang="de">Angebotsnummer Prefix</value>
-        <value xml:lang="en">Quote Id Prefix</value>
+        <value xml:lang="en">Quote ID Prefix</value>
         <value xml:lang="es">Id Prefijo de Presupuesto</value>
         <value xml:lang="fr">Préfixe de devis</value>
         <value xml:lang="hi-IN">उपसर्ग कोट(Quote) क्रमांक</value>
@@ -20656,7 +20656,7 @@
     <property key="FormFieldTitle_receiptId">
         <value xml:lang="ar">دليل الوصل</value>
         <value xml:lang="de">Belegnummer</value>
-        <value xml:lang="en">Receipt Id</value>
+        <value xml:lang="en">Receipt ID</value>
         <value xml:lang="es">Id Recibo</value>
         <value xml:lang="fr">Réf. du reçu</value>
         <value xml:lang="hi-IN">रसीद क्रमांक</value>
@@ -21020,7 +21020,7 @@
     <property key="FormFieldTitle_shipmentId">
         <value xml:lang="ar">دليل الشحنة</value>
         <value xml:lang="de">Versand-Nr.</value>
-        <value xml:lang="en">Shipment Id</value>
+        <value xml:lang="en">Shipment ID</value>
         <value xml:lang="es">Id Envío</value>
         <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="hi-IN">शिपमेंट क्रमांक(ShipmentId)</value>
@@ -21038,7 +21038,7 @@
     <property key="FormFieldTitle_sourceId">
         <value xml:lang="ar">دليل المصدر</value>
         <value xml:lang="de">Quelle Id</value>
-        <value xml:lang="en">Source Id</value>
+        <value xml:lang="en">Source ID</value>
         <value xml:lang="fr">Réf. source</value>
         <value xml:lang="hi-IN">स्रोत क्रमांक(SourceId)</value>
         <value xml:lang="it">Id sorgente</value>
@@ -21137,7 +21137,7 @@
         <value xml:lang="ar">نمط تنسيق دليل الضرائب</value>
         <value xml:lang="cs">Vzor formátu DIČ</value>
         <value xml:lang="de">Steuer-Nr. Format-Pattern</value>
-        <value xml:lang="en">Tax Id Format Pattern</value>
+        <value xml:lang="en">Tax ID Format Pattern</value>
         <value xml:lang="es">Id Impuesto Formato Patrón</value>
         <value xml:lang="fr">Format d'identifiant fiscal</value>
         <value xml:lang="hi-IN">टैक्स क्रमांक स्वरूप पैटर्न</value>
@@ -21597,7 +21597,7 @@
     <property key="FormFieldTitle_userId">
         <value xml:lang="ar">دليل المستخدم</value>
         <value xml:lang="de">Benutzer Id</value>
-        <value xml:lang="en">User Id</value>
+        <value xml:lang="en">User ID</value>
         <value xml:lang="fr">Identifiant</value>
         <value xml:lang="hi-IN">उपयोगकर्ता क्रमांक(userId)</value>
         <value xml:lang="it">Id utente</value>

@@ -85,7 +85,7 @@
     <property key="AccountingEftPartyNotAuthorized">
         <value xml:lang="ar">دليل طرف ${partyId} ليس المالك لطيقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="de">Akteur Id ${partyId} ist nicht der Besitzer der Bezahlmethode ${paymentMethodId} und hat keine Berechtigung diese zu ändern.</value>
-        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="en">Party ID ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
         <value xml:lang="nl">Partij ${partyId} is niet de eigenaar van betaalmethode ${paymentMethodId}, en heeft geen permissies tot wijzigen.</value>
@@ -424,7 +424,7 @@
     <property key="AccountingGiftCardPartyNotAuthorized">
         <value xml:lang="ar">دليل الطرف ${partyId} ليس مالك طريقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="de">Akteur Id ${partyId} ist nicht Besitzer der Zahlmethode ${paymentMethodId} und hat keine Berechtigung sie zu ändern.</value>
-        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="en">Party ID ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
         <value xml:lang="pt">ID de Participante ${partyId} não é o proprietário do método de pagamento de ${paymentMethodId} e não têm permissão para alterá-lo.</value>

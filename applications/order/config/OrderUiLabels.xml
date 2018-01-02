@@ -179,7 +179,7 @@
     <property key="FormFieldTitle_configId">
         <value xml:lang="ar">دليل التكوين</value>
         <value xml:lang="de">Konfigurations-ID</value>
-        <value xml:lang="en">Config Id</value>
+        <value xml:lang="en">Config ID</value>
         <value xml:lang="fr">Réf. de configuration</value>
         <value xml:lang="it">Configurazione</value>
         <value xml:lang="ja">設定ID</value>
@@ -323,7 +323,7 @@
     <property key="FormFieldTitle_deliverableId">
         <value xml:lang="ar">دليل التسليم</value>
         <value xml:lang="de">Lieferung ID</value>
-        <value xml:lang="en">Deliverable Id</value>
+        <value xml:lang="en">Deliverable ID</value>
         <value xml:lang="es">Código de envío</value>
         <value xml:lang="fr">Réf. de livrable</value>
         <value xml:lang="it">Codice consegna</value>
@@ -404,7 +404,7 @@
     <property key="FormFieldTitle_externalId">
         <value xml:lang="ar">الدليل الخارجي</value>
         <value xml:lang="de">Externe ID</value>
-        <value xml:lang="en">External Id</value>
+        <value xml:lang="en">External ID</value>
         <value xml:lang="es">Código ident. externo</value>
         <value xml:lang="fr">Réf. externe</value>
         <value xml:lang="it">Codice esterno</value>
@@ -755,7 +755,7 @@
     <property key="FormFieldTitle_orderId">
         <value xml:lang="ar">دليل الأمر</value>
         <value xml:lang="de">Auftrag ID</value>
-        <value xml:lang="en">Order Id</value>
+        <value xml:lang="en">Order ID</value>
         <value xml:lang="es">Código de pedido</value>
         <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
@@ -952,7 +952,7 @@
         <value xml:lang="ar">دليل عرض السعر</value>
         <value xml:lang="de">Angebot ID</value>
         <value xml:lang="de-CH">Offerte ID</value>
-        <value xml:lang="en">Quote Id</value>
+        <value xml:lang="en">Quote ID</value>
         <value xml:lang="es">Código de presupuesto</value>
         <value xml:lang="fr">Réf. de devis</value>
         <value xml:lang="it">Numero Preventivo</value>
@@ -1088,7 +1088,7 @@
     <property key="FormFieldTitle_requirementId">
         <value xml:lang="ar">دليل المتطلب</value>
         <value xml:lang="de">Bedarf ID</value>
-        <value xml:lang="en">Requirement Id</value>
+        <value xml:lang="en">Requirement ID</value>
         <value xml:lang="es">Código de requisito</value>
         <value xml:lang="fr">Réf. du besoin</value>
         <value xml:lang="it">Numero Fabbisogno</value>
@@ -1436,7 +1436,7 @@
     <property key="FormFieldTitle_terminalId">
         <value xml:lang="ar">دليل المحطة</value>
         <value xml:lang="de">Terminal ID</value>
-        <value xml:lang="en">Terminal Id</value>
+        <value xml:lang="en">Terminal ID</value>
         <value xml:lang="es">Código de terminal</value>
         <value xml:lang="fr">Réf. de terminal</value>
         <value xml:lang="it">Numero Terminale</value>
@@ -1641,7 +1641,7 @@
     <property key="FormFieldTitle_transactionId">
         <value xml:lang="ar">دليل العملية</value>
         <value xml:lang="de">Transaktion ID</value>
-        <value xml:lang="en">Transaction Id</value>
+        <value xml:lang="en">Transaction ID</value>
         <value xml:lang="es">Código de transacción</value>
         <value xml:lang="fr">Réf. de transaction</value>
         <value xml:lang="it">Numero Transazione</value>
@@ -1709,7 +1709,7 @@
     <property key="FormFieldTitle_visitId">
         <value xml:lang="ar">دليل الزيارة</value>
         <value xml:lang="de">Webseiten Besuch ID</value>
-        <value xml:lang="en">Visit Id</value>
+        <value xml:lang="en">Visit ID</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Réf. de visite</value>
         <value xml:lang="it">Codice visita</value>
@@ -1726,7 +1726,7 @@
     <property key="FormFieldTitle_visitorId">
         <value xml:lang="ar">دليل الزائر</value>
         <value xml:lang="de">Besucher ID</value>
-        <value xml:lang="en">Visitor Id</value>
+        <value xml:lang="en">Visitor ID</value>
         <value xml:lang="es">Código de visitante</value>
         <value xml:lang="fr">Réf. de visiteur</value>
         <value xml:lang="it">Codice visitatore</value>
@@ -7545,7 +7545,7 @@
     <property key="OrderOrderId">
         <value xml:lang="ar">دليل أمر البيع\الشراء</value>
         <value xml:lang="de">Auftrag ID</value>
-        <value xml:lang="en">Order Id</value>
+        <value xml:lang="en">Order ID</value>
         <value xml:lang="es">Código de pedido</value>
         <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
@@ -8455,7 +8455,7 @@
         <value xml:lang="ar">دليل عرض السعر</value>
         <value xml:lang="de">Angebots-ID</value>
         <value xml:lang="de-CH">Offert ID</value>
-        <value xml:lang="en">Quote Id</value>
+        <value xml:lang="en">Quote ID</value>
         <value xml:lang="es">Código de presupuesto</value>
         <value xml:lang="fr">Réf. devis</value>
         <value xml:lang="it">Numero Preventivo</value>

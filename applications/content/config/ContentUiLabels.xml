@@ -966,7 +966,7 @@
         <value xml:lang="zh-TW">在${serviceName}中新建內容時出錯</value>
     </property>
     <property key="ContentContentIdOrUploadFileIsMissing">
-        <value xml:lang="en">Content Id or Upload file is missing.</value>
+        <value xml:lang="en">Content ID or Upload file is missing.</value>
         <value xml:lang="fr">La référence du document ou le fichier à charger est manquant.</value>
         <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
         <value xml:lang="ja">コンテンツIDまたはアップロードファイルが正しくありません。</value>
@@ -3880,7 +3880,7 @@
         <value xml:lang="ar">المحتوى إلى</value>
         <value xml:lang="da">Indholds Id til</value>
         <value xml:lang="de">Inhalt ID zu</value>
-        <value xml:lang="en">Content Id To</value>
+        <value xml:lang="en">Content ID To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
         <value xml:lang="ja">コンテンツID(先)</value>
@@ -3965,7 +3965,7 @@
     <property key="FormFieldTitle_coContentId">
         <value xml:lang="da">Indholds Id</value>
         <value xml:lang="de">Inhalt ID</value>
-        <value xml:lang="en">Content Id</value>
+        <value xml:lang="en">Content ID</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="ja">コンテンツID</value>
@@ -4086,7 +4086,7 @@
         <value xml:lang="ar">تعريف المحتوى</value>
         <value xml:lang="da">Indhold Id</value>
         <value xml:lang="de">Inhalt ID</value>
-        <value xml:lang="en">Content Id</value>
+        <value xml:lang="en">Content ID</value>
         <value xml:lang="es">Código de contenido</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
@@ -4104,7 +4104,7 @@
         <value xml:lang="ar">محتوى من</value>
         <value xml:lang="da">Indhold Id fra</value>
         <value xml:lang="de">Inhalt ID von</value>
-        <value xml:lang="en">Content Id From</value>
+        <value xml:lang="en">Content ID From</value>
         <value xml:lang="fr">Contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ja">コンテンツID(元)</value>
@@ -4120,7 +4120,7 @@
         <value xml:lang="ar">محتوى إلى</value>
         <value xml:lang="da">Indhold Id fra</value>
         <value xml:lang="de">Inhalt ID zu</value>
-        <value xml:lang="en">Content Id To</value>
+        <value xml:lang="en">Content ID To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ja">コンテンツID(先)</value>
@@ -4229,7 +4229,7 @@
     </property>
     <property key="FormFieldTitle_contentStatusId">
         <value xml:lang="da">Status id</value>
-        <value xml:lang="en">Status Id</value>
+        <value xml:lang="en">Status ID</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="ja">ステータスID</value>
         <value xml:lang="nl">Status ID</value>
@@ -5448,7 +5448,7 @@
         <value xml:lang="ar">تعريف المرجع</value>
         <value xml:lang="da">Reference id</value>
         <value xml:lang="de">Referenz ID</value>
-        <value xml:lang="en">Reference Id</value>
+        <value xml:lang="en">Reference ID</value>
         <value xml:lang="fr">Référence</value>
         <value xml:lang="it">Numero Riferimento</value>
         <value xml:lang="ja">参照ID</value>
@@ -5664,7 +5664,7 @@
         <value xml:lang="ar">تعريف التصويت</value>
         <value xml:lang="da">Rundspørge id</value>
         <value xml:lang="de">Befragung ID</value>
-        <value xml:lang="en">Survey Id</value>
+        <value xml:lang="en">Survey ID</value>
         <value xml:lang="es">Código de encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero sondaggio</value>

@@ -174,7 +174,7 @@
     <property key="FormFieldTitle_communicationEventTypeId">
         <value xml:lang="ar">دليل نوع الإتصال</value>
         <value xml:lang="de">Kommunikationsereignis Typ ID</value>
-        <value xml:lang="en">Comm.Type Id</value>
+        <value xml:lang="en">Comm.Type ID</value>
         <value xml:lang="es">Código Tipo de evento de comunicación</value>
         <value xml:lang="fr">Type d'évènement de communication</value>
         <value xml:lang="hi-IN">संचार घटना प्रकार का क्रमांक(communicationEventTypeId)</value>
@@ -766,7 +766,7 @@
     <property key="FormFieldTitle_memberId">
         <value xml:lang="ar">دليل العضو</value>
         <value xml:lang="de">Mitglied ID</value>
-        <value xml:lang="en">Member Id</value>
+        <value xml:lang="en">Member ID</value>
         <value xml:lang="es">Código de miembro</value>
         <value xml:lang="fr">Membre</value>
         <value xml:lang="hi-IN">सदस्य क्रमांक</value>
@@ -784,7 +784,7 @@
     <property key="FormFieldTitle_messageId">
         <value xml:lang="ar">دليل الرسالة</value>
         <value xml:lang="de">Nachrichten ID</value>
-        <value xml:lang="en">Message Id</value>
+        <value xml:lang="en">Message ID</value>
         <value xml:lang="fr">Message</value>
         <value xml:lang="hi-IN">संदेश क्रमांक</value>
         <value xml:lang="it">Messaggio</value>
@@ -901,7 +901,7 @@
     <property key="FormFieldTitle_noteId">
         <value xml:lang="ar">دليل الملاحظة</value>
         <value xml:lang="de">Notiz ID</value>
-        <value xml:lang="en">Note Id</value>
+        <value xml:lang="en">Note ID</value>
         <value xml:lang="es">Código Nota</value>
         <value xml:lang="fr">Note</value>
         <value xml:lang="hi-IN">नोट क्रमांक</value>
@@ -1231,7 +1231,7 @@
         <value xml:lang="ar">دليل الطرف</value>
         <value xml:lang="cs">ID partnera</value>
         <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
+        <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Id Grupo</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक</value>
@@ -7576,7 +7576,7 @@
         <value xml:lang="ar">إلى الطرف</value>
         <value xml:lang="cs">Příjemce</value>
         <value xml:lang="de">Akteur ID an</value>
-        <value xml:lang="en">Party Id To</value>
+        <value xml:lang="en">Party ID To</value>
         <value xml:lang="es">Codigo Participante a</value>
         <value xml:lang="fr">Acteur dest.</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
@@ -11166,7 +11166,7 @@
         <value xml:lang="ar">دليل المنتج</value>
         <value xml:lang="cs">ID produktu</value>
         <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
+        <value xml:lang="en">Product ID</value>
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Produit</value>
         <value xml:lang="hi-IN">उत्पाद क्रमांक</value>
@@ -12231,7 +12231,7 @@
     <property key="PartySequenceId">
         <value xml:lang="ar">دليل التسلسل</value>
         <value xml:lang="de">Folgenummer ID</value>
-        <value xml:lang="en">Sequence Id</value>
+        <value xml:lang="en">Sequence ID</value>
         <value xml:lang="es">Secuencia</value>
         <value xml:lang="fr">Séquence</value>
         <value xml:lang="hi-IN">अनुक्रम क्रमांक</value>
@@ -13723,7 +13723,7 @@
         <value xml:lang="ar">دليل الزيارة</value>
         <value xml:lang="cs">Id návštěvy</value>
         <value xml:lang="de">Besuchs Id</value>
-        <value xml:lang="en">Visit Id</value>
+        <value xml:lang="en">Visit ID</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Ident. connexion</value>
         <value xml:lang="it">Numero visita</value>

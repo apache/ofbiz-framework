@@ -78,7 +78,7 @@
     </property>
     <property key="FormFieldTitle_applicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
-        <value xml:lang="en">Application Id</value>
+        <value xml:lang="en">Application ID</value>
         <value xml:lang="fr">Demande d'emploi</value>
         <value xml:lang="it">Numero Applicazione</value>
         <value xml:lang="ja">申請ID</value>
@@ -149,7 +149,7 @@
         <value xml:lang="zh-TW">福利類型識別</value>
     </property>
     <property key="FormFieldTitle_budgetId">
-        <value xml:lang="en">Budget Id</value>
+        <value xml:lang="en">Budget ID</value>
         <value xml:lang="fr">Budget</value>
         <value xml:lang="it">Codice Budget</value>
         <value xml:lang="ja">予算ID</value>
@@ -675,7 +675,7 @@
         <value xml:lang="zh-TW">交簡歷日期</value>
     </property>
     <property key="FormFieldTitle_resumeId">
-        <value xml:lang="en">Resume Id</value>
+        <value xml:lang="en">Resume ID</value>
         <value xml:lang="fr">CV</value>
         <value xml:lang="it">Rif. curriculum vitae</value>
         <value xml:lang="ja">復帰ID</value>
@@ -1080,7 +1080,7 @@
     </property>
     <property key="HumanResApplicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
-        <value xml:lang="en">Application Id</value>
+        <value xml:lang="en">Application ID</value>
         <value xml:lang="fr">Demande d'emploi</value>
         <value xml:lang="it">Codice Applicazione</value>
         <value xml:lang="ja">申請ID</value>
@@ -1459,7 +1459,7 @@
         <value xml:lang="zh-TW">職位管理</value>
     </property>
     <property key="HumanResEmployeePositionId">
-        <value xml:lang="en">EmployeePosition Id</value>
+        <value xml:lang="en">EmployeePosition ID</value>
         <value xml:lang="fr">Position d'employé</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
         <value xml:lang="ja">従業員職位ID</value>
@@ -1567,7 +1567,7 @@
         <value xml:lang="zh-TW">員工職位識別</value>
     </property>
     <property key="HumanResEmplPositionIdManagedBy">
-        <value xml:lang="en">EmplPosition Id ManagedBy</value>
+        <value xml:lang="en">EmplPosition ID ManagedBy</value>
         <value xml:lang="fr">Position "dirigée par"</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="ja">従業員職位ID(管理される人)</value>
@@ -1578,7 +1578,7 @@
         <value xml:lang="zh-TW">職位管理人</value>
     </property>
     <property key="HumanResEmplPositionIdReportingFrom">
-        <value xml:lang="en">EmplPosition Id ReportingFrom</value>
+        <value xml:lang="en">EmplPosition ID ReportingFrom</value>
         <value xml:lang="fr">Position "rapportant depuis"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato A</value>
         <value xml:lang="ja">従業員職位ID(報告される人)</value>
@@ -1599,7 +1599,7 @@
         <value xml:lang="zh-TW">級別結構</value>
     </property>
     <property key="HumanResEmplPositionIdReportingTo">
-        <value xml:lang="en">EmplPosition Id ReportingTo</value>
+        <value xml:lang="en">EmplPosition ID ReportingTo</value>
         <value xml:lang="fr">Position "rapportant à"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato Da</value>
         <value xml:lang="ja">従業員職位ID(報告する人)</value>
@@ -2519,7 +2519,7 @@
         <value xml:lang="zh-TW">團體福利</value>
     </property>
     <property key="HumanResPartyIdFrom">
-        <value xml:lang="en">Party Id From</value>
+        <value xml:lang="en">Party ID From</value>
         <value xml:lang="fr">Acteur de</value>
         <value xml:lang="it">Codice Soggetto Da</value>
         <value xml:lang="ja">取引先ID(元)</value>
@@ -2530,7 +2530,7 @@
         <value xml:lang="zh-TW">來自團體識別</value>
     </property>
     <property key="HumanResPartyIdTo">
-        <value xml:lang="en">Party Id To</value>
+        <value xml:lang="en">Party ID To</value>
         <value xml:lang="fr">Acteur à</value>
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="ja">取引先ID(先)</value>
@@ -2768,7 +2768,7 @@
     </property>
     <property key="HumanResResumeId">
         <value xml:lang="de">Lebenslauf ID</value>
-        <value xml:lang="en">Resume Id</value>
+        <value xml:lang="en">Resume ID</value>
         <value xml:lang="fr">CV</value>
         <value xml:lang="it">Verifica</value>
         <value xml:lang="ja">復帰ID</value>

@@ -709,7 +709,7 @@
     </property>
     <property key="MarketingContactListPartyId">
         <value xml:lang="de">Teilnehmer ID</value>
-        <value xml:lang="en">Party Id</value>
+        <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
         <value xml:lang="it">Codice membro lista contatti</value>
@@ -1457,7 +1457,7 @@
     </property>
     <property key="MarketingTrackingCodeGroupId">
         <value xml:lang="de">Grouppen-ID</value>
-        <value xml:lang="en">Group Id</value>
+        <value xml:lang="en">Group ID</value>
         <value xml:lang="es">Grupo</value>
         <value xml:lang="fr">Réf. du groupe</value>
         <value xml:lang="it">Codice Gruppo</value>
@@ -1543,7 +1543,7 @@
     </property>
     <property key="MarketingTrackingCodeOrderOrderId">
         <value xml:lang="de">Auftrags-Nr.</value>
-        <value xml:lang="en">Order Id</value>
+        <value xml:lang="en">Order ID</value>
         <value xml:lang="es">Código de orden</value>
         <value xml:lang="fr">Réf. de l'ordre</value>
         <value xml:lang="it">Numero Ordine</value>
@@ -1624,7 +1624,7 @@
     </property>
     <property key="MarketingTrackingCodeSubgroupId">
         <value xml:lang="de">Untergruppen-ID</value>
-        <value xml:lang="en">Sub-Group Id</value>
+        <value xml:lang="en">Sub-Group ID</value>
         <value xml:lang="es">Sub-grupo</value>
         <value xml:lang="fr">Réf. du sous-groupe</value>
         <value xml:lang="it">Codice Sotto-Gruppo</value>
@@ -1777,7 +1777,7 @@
     </property>
     <property key="MarketingTrackingCodeVisitPartyId">
         <value xml:lang="de">Tracking-Code Akteur</value>
-        <value xml:lang="en">Party Id</value>
+        <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Réf. de l'acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
@@ -1804,7 +1804,7 @@
         <value xml:lang="zh-TW">角色類型識別</value>
     </property>
     <property key="MarketingTrackingCodeVisitSessionId">
-        <value xml:lang="en">Session Id</value>
+        <value xml:lang="en">Session ID</value>
         <value xml:lang="es">Código de sesión</value>
         <value xml:lang="fr">Réf. de la session</value>
         <value xml:lang="it">Numero Sessione</value>
@@ -1817,7 +1817,7 @@
         <value xml:lang="zh-TW">活動識別</value>
     </property>
     <property key="MarketingTrackingCodeVisitSourceEnumId">
-        <value xml:lang="en">Source Id</value>
+        <value xml:lang="en">Source ID</value>
         <value xml:lang="es">Código de fuente de la visita</value>
         <value xml:lang="fr">Réf. de l'origine</value>
         <value xml:lang="it">Numero Origine</value>
@@ -1842,7 +1842,7 @@
     </property>
     <property key="MarketingTrackingCodeVisitVisitId">
         <value xml:lang="de">Visit Id</value>
-        <value xml:lang="en">Visit Id</value>
+        <value xml:lang="en">Visit ID</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Réf. de la visite</value>
         <value xml:lang="it">Numero Visita</value>
@@ -1855,7 +1855,7 @@
         <value xml:lang="zh-TW">拜訪識別</value>
     </property>
     <property key="MarketingTrackingCodeVisitVisitorId">
-        <value xml:lang="en">Visitor Id</value>
+        <value xml:lang="en">Visitor ID</value>
         <value xml:lang="es">Código de visitante</value>
         <value xml:lang="fr">Réf. du visiteur</value>
         <value xml:lang="it">Codice Visitatore</value>
