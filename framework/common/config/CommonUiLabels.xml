@@ -8389,7 +8389,7 @@
         <value xml:lang="ar">دليل الطرف</value>
         <value xml:lang="cs">Id partnera</value>
         <value xml:lang="de">Akteur ID</value>
-        <value xml:lang="en">Party Id</value>
+        <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código del participante</value>
         <value xml:lang="fr">Réf. de la personne</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक</value>
@@ -10624,7 +10624,7 @@
         <value xml:lang="zh-TW">序號數</value>
     </property>
     <property key="CommonSeqId">
-        <value xml:lang="en">Sequence Id</value>
+        <value xml:lang="en">Sequence ID</value>
         <value xml:lang="nl">Volg ID</value>
         <value xml:lang="zh">序号</value>
     </property>

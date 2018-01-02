@@ -380,7 +380,7 @@
         <value xml:lang="zh-TW">運輸至</value>
     </property>
     <property key="ManufacturingShipmentId">
-        <value xml:lang="en">Shipment Id</value>
+        <value xml:lang="en">Shipment ID</value>
         <value xml:lang="es">Código de Envío</value>
         <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="it">Numero Spedizione</value>

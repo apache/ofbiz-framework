@@ -370,7 +370,7 @@
     </property>
     <property key="FormFieldTitle_productProductId">
         <value xml:lang="de">Produkt ID</value>
-        <value xml:lang="en">Product Id</value>
+        <value xml:lang="en">Product ID</value>
         <value xml:lang="fr">Code article</value>
         <value xml:lang="it">Codice prodotto</value>
         <value xml:lang="ja">製品ID</value>
@@ -647,7 +647,7 @@
     </property>
     <property key="FormFieldTitle_timesheetId">
         <value xml:lang="de">Zeiterfassungs ID</value>
-        <value xml:lang="en">Timesheet Id</value>
+        <value xml:lang="en">Timesheet ID</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Codice timbratura</value>
         <value xml:lang="ja">予定表ID</value>
@@ -686,7 +686,7 @@
     </property>
     <property key="FormFieldTitle_universalId">
         <value xml:lang="de">Universelle ID</value>
-        <value xml:lang="en">Universal Id</value>
+        <value xml:lang="en">Universal ID</value>
         <value xml:lang="fr">Réf. universelle</value>
         <value xml:lang="it">Codice universale</value>
         <value xml:lang="ja">汎用ID</value>
@@ -3842,7 +3842,7 @@
     </property>
     <property key="WorkEffortPartyId">
         <value xml:lang="de">Teilnehmer ID</value>
-        <value xml:lang="en">Party Id</value>
+        <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código del participante</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Codice soggetto</value>
@@ -5301,7 +5301,7 @@
     </property>
     <property key="WorkEffortWorkEffortId">
         <value xml:lang="de">Arbeitseinsatz ID</value>
-        <value xml:lang="en">WorkEffort Id</value>
+        <value xml:lang="en">WorkEffort ID</value>
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Numero impegno di lavoro</value>
@@ -5315,7 +5315,7 @@
     </property>
     <property key="WorkEffortWorkEffortIdEmpty">
         <value xml:lang="de">Arbeitseinsatz ID fehlt</value>
-        <value xml:lang="en">WorkEffort Id is empty</value>
+        <value xml:lang="en">WorkEffort ID is empty</value>
         <value xml:lang="es">El código del esfuerzo de trabajo está vacío</value>
         <value xml:lang="fr">La réf. de tâche est vide</value>
         <value xml:lang="it">Il codice impegno di lavoro è vuoto</value>

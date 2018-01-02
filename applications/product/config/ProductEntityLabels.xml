@@ -389,7 +389,7 @@
     </property>
     <property key="GoodIdentificationType.description.GOOGLE_ID">
         <value xml:lang="de">Google Id</value>
-        <value xml:lang="en">Google Id</value>
+        <value xml:lang="en">Google ID</value>
         <value xml:lang="fr">Identifiant Google</value>
         <value xml:lang="it">Codice Google</value>
         <value xml:lang="ja">Google ID</value>
