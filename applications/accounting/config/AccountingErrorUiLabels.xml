@@ -982,7 +982,7 @@
     <property key="worldPayEvents.problemsGettingInstId">
         <value xml:lang="de">Probleme beim Ermitteln der Inst Id</value>
         <value xml:lang="en">Problems Getting Inst Id</value>
-        <value xml:lang="fr">Problème de récupération de l'Inst Id</value>
+        <value xml:lang="fr">Problème de récupération de la ref. de "l'Inst"</value>
         <value xml:lang="hi-IN">Inst Id में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
         <value xml:lang="ja">導入IDの取得に問題があります。</value>
