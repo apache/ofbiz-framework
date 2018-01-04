@@ -99,7 +99,7 @@ dependencies {
     compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20170515.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:8.8.7'
-    compile 'com.ibm.icu:icu4j:60.1'
+    compile 'com.ibm.icu:icu4j:60.2'
     compile 'com.lowagie:itext:4.2.0'
     compile 'com.sun.mail:javax.mail:1.6.0'
     compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
