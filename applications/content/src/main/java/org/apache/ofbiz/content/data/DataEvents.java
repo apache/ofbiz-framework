@@ -58,7 +58,10 @@ public class DataEvents {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
     }
 
-    /** Streams any binary content data to the browser */
+    /**
+     * Streams any binary content data to the browser.
+     * <p>Supercedes {@link org.apache.ofbiz.content.data.DataEvents#serveImage(HttpServletRequest, HttpServletResponse) DataEvents#serveImage()}</p>
+     */
     public static String serveObjectData(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -222,8 +225,11 @@ public class DataEvents {
         return "success";
     }
 
-    /** Streams ImageDataResource data to the output. */
-    // TODO: remove this method in favor of serveObjectData
+    /**
+     * Streams ImageDataResource data to the output.
+     * <p>Superceded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse) DataEvents#serveObjectData}</p>
+     */
+    @Deprecated
     public static String serveImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ServletContext application = session.getServletContext();
