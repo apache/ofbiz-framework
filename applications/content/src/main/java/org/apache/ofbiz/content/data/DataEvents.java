@@ -60,7 +60,7 @@ public class DataEvents {
 
     /**
      * Streams any binary content data to the browser.
-     * <p>Supercedes {@link org.apache.ofbiz.content.data.DataEvents#serveImage(HttpServletRequest, HttpServletResponse) DataEvents#serveImage()}</p>
+     * <p>Supersedes {@link org.apache.ofbiz.content.data.DataEvents#serveImage(HttpServletRequest, HttpServletResponse) DataEvents#serveImage()}</p>
      */
     public static String serveObjectData(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -227,7 +227,7 @@ public class DataEvents {
 
     /**
      * Streams ImageDataResource data to the output.
-     * <p>Superceded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse) DataEvents#serveObjectData}</p>
+     * <p>Superseded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse) DataEvents#serveObjectData}</p>
      */
     @Deprecated
     public static String serveImage(HttpServletRequest request, HttpServletResponse response) {
