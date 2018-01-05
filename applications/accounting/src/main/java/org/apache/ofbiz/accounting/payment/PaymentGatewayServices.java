@@ -84,10 +84,10 @@ public class PaymentGatewayServices {
     private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals;
     private static int rounding;
-    public final static String resource = "AccountingUiLabels";
+    public static final String resource = "AccountingUiLabels";
     public static final String resourceError = "AccountingErrorUiLabels";
     public static final String resourceOrder = "OrderUiLabels";
-    
+
     static {
         decimals = UtilNumber.getBigDecimalScale("order.decimals");
         rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
@@ -1740,7 +1740,7 @@ public class PaymentGatewayServices {
                 authTrans = getAuthTransaction(paymentPref);
             } catch (GeneralException e) {
                 Debug.logError(e, "Error re-authorizing payment", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentReauthorizingError", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPaymentReauthorizingError", locale));
             }
         }
 
@@ -2074,7 +2074,7 @@ public class PaymentGatewayServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error updating payment status information", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentStatusUpdatingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPaymentStatusUpdatingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -2361,11 +2361,11 @@ public class PaymentGatewayServices {
                 // use input pay to party
                 partyIdTo = payTo;
             } else if (invoice != null) {
-                // ues the invoice partyIdFrom as the pay to party (which is who supplied the invoice)
+                // use the invoice partyIdFrom as the pay to party (which is who supplied the invoice)
                 partyIdTo = invoice.getString("partyIdFrom");
             } else {
                 // otherwise default to Company and print a big warning about this
-                partyIdTo = "Company";
+                partyIdTo = EntityUtilProperties.getPropertyValue("general", "ORGANIZATION_PARTY", "Company", delegator);
                 Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" +
                         paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
             }
@@ -3124,7 +3124,7 @@ public class PaymentGatewayServices {
         // prepare the auth context
         Map<String, Object> authContext = new HashMap<>();
         authContext.put("orderId", "_NA_");
-        authContext.put("orderItems", new LinkedList());
+        authContext.put("orderItems", new LinkedList<>());
         authContext.put("orderPaymentPreference", orderPaymentPref);
         authContext.put("creditCard", creditCard);
         authContext.put("billToParty", billToParty);
@@ -3391,7 +3391,7 @@ public class PaymentGatewayServices {
                 }
 
                 if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardManualAuthFailedError", locale));
                 }
             }
         }
