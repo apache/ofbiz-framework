@@ -1032,7 +1032,7 @@ public class PriceServices {
         int compare = 0;
 
         if ("PRIP_PRODUCT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
-            compare = productId.compareTo(productPriceCond.getString("condValue"));
+            compare = UtilMisc.toList(productId, virtualProductId).contains(productPriceCond.getString("condValue"))? 0: 1;
         } else if ("PRIP_PROD_CAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
             // if a ProductCategoryMember exists for this productId and the specified productCategoryId
             String productCategoryId = productPriceCond.getString("condValue");
