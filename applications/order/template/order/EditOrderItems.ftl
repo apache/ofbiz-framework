@@ -230,7 +230,11 @@ under the License.
                                   <td>&nbsp;</td>
                                   <td>&nbsp;</td>
                                   <td class="align-text">
-                                      <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                      <#if orderItemAdjustment.amountAlreadyIncluded?has_content>
+                                            <@ofbizCurrency amount=orderItemAdjustment.amountAlreadyIncluded isoCode=currencyUomId/>
+                                        <#else>
+                                          <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                      </#if>
                                   </td>
                                   <td colspan="3">&nbsp;</td>
                               </tr>

@@ -115,7 +115,13 @@ under the License.
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td align="right">
-                  <div style="font-size: xx-small;"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemAdjustmentTotal(orderItem, orderItemAdjustment) isoCode=currencyUomId/></div>
+                  <div style="font-size: xx-small;">
+                    <#if orderItemAdjustment.amountAlreadyIncluded?has_content>
+                      <@ofbizCurrency amount=orderItemAdjustment.amountAlreadyIncluded isoCode=currencyUomId/>
+                    <#else>
+                      <@ofbizCurrency amount=localOrderReadHelper.getOrderItemAdjustmentTotal(orderItem, orderItemAdjustment) isoCode=currencyUomId/>
+                    </#if>
+                  </div>
                 </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
