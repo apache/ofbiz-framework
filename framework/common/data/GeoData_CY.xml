@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="FA" geoCode="04" geoId="CY-04" geoName="Famagusta" geoTypeId="COUNTY"/>
+    <Geo abbreviation="KY" geoCode="06" geoId="CY-06" geoName="Kyrenia" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LA" geoCode="03" geoId="CY-03" geoName="Larnaca" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LI" geoCode="02" geoId="CY-02" geoName="Limassol" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NI" geoCode="01" geoId="CY-01" geoName="Nicosia" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PA" geoCode="05" geoId="CY-05" geoName="Paphos" geoTypeId="COUNTY"/>
+    
+    <GeoAssoc geoId="CYP" geoIdTo="CY-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CYP" geoIdTo="CY-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CYP" geoIdTo="CY-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CYP" geoIdTo="CY-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CYP" geoIdTo="CY-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CYP" geoIdTo="CY-05" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
