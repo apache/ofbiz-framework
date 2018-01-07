@@ -40,7 +40,7 @@
     </property>
     <property key="FormFieldTitle_calendarWeekId">
         <value xml:lang="de">Kalenderwoche</value>
-        <value xml:lang="en">Calendar Week Id</value>
+        <value xml:lang="en">Calendar Week ID</value>
         <value xml:lang="es">Código de semana</value>
         <value xml:lang="fr">Réf. du calendrier par semaine</value>
         <value xml:lang="it">Calendario settmanale</value>
@@ -68,7 +68,7 @@
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
         <value xml:lang="de">individuelle Kostenmethode</value>
-        <value xml:lang="en">Cost Custom Method Id</value>
+        <value xml:lang="en">Cost Custom Method ID</value>
         <value xml:lang="es">Código del método de cálculo </value>
         <value xml:lang="fr">Réf. de méthode de coût personnalisée</value>
         <value xml:lang="it">Metodo costo personalizzato</value>
@@ -83,7 +83,7 @@
     </property>
     <property key="FormFieldTitle_costGlAccountTypeId">
         <value xml:lang="de">Kontenart für Kosten</value>
-        <value xml:lang="en">Cost Gl Account Type Id</value>
+        <value xml:lang="en">Cost Gl Account Type ID</value>
         <value xml:lang="es">Código de asiento</value>
         <value xml:lang="fr">Réf. de type de compte de coût (GL)</value>
         <value xml:lang="it">Tipo conto contabilità generale</value>
@@ -303,7 +303,7 @@
     </property>
     <property key="FormFieldTitle_offsettingGlAccountTypeId">
         <value xml:lang="de">Verechnungskontenart</value>
-        <value xml:lang="en">Offsetting Gl Account Type Id</value>
+        <value xml:lang="en">Offsetting Gl Account Type ID</value>
         <value xml:lang="es">Código del asiento de desfase</value>
         <value xml:lang="fr">Réf. de décalage du type de compte (GL)</value>
         <value xml:lang="it">Tipo Intervallo Conto Contabilità Generale</value>
@@ -437,7 +437,7 @@
     </property>
     <property key="FormFieldTitle_ruleSeqId">
         <value xml:lang="de">Regel-Folgenummer</value>
-        <value xml:lang="en">Rule Seq Id</value>
+        <value xml:lang="en">Rule Seq ID</value>
         <value xml:lang="es">Número de secuencia de regla</value>
         <value xml:lang="fr">Réf. séq. de règle </value>
         <value xml:lang="it">Numero seq. regola</value>
@@ -494,7 +494,7 @@
     </property>
     <property key="FormFieldTitle_secondaryLocationSeqId">
         <value xml:lang="de">Zusätzlicher Lagerort</value>
-        <value xml:lang="en">Secondary Location Seq Id</value>
+        <value xml:lang="en">Secondary Location Seq ID</value>
         <value xml:lang="es">Número de secuencia de la ubicación secundaria</value>
         <value xml:lang="fr">Ref. séq. d'emplacement secondaire</value>
         <value xml:lang="it">Locazione secondaria</value>
@@ -1490,7 +1490,7 @@
     </property>
     <property key="ManufacturingCopyToProductId">
         <value xml:lang="de">An Produkt-Nr.</value>
-        <value xml:lang="en">To Product Id</value>
+        <value xml:lang="en">To Product ID</value>
         <value xml:lang="es">Código del producto destino</value>
         <value xml:lang="fr">Réf. à l'article</value>
         <value xml:lang="it">Al codice prodotto</value>
@@ -1905,10 +1905,10 @@
         <value xml:lang="fr">Modification de l'opération - réf</value>
         <value xml:lang="it">Aggiorna Codice Operazione</value>
         <value xml:lang="ja">経路制御タスクを編集 - ID</value>
-        <value xml:lang="pt-BR">Editar tarefa de rota - Id</value>
+        <value xml:lang="pt-BR">Editar tarefa de rota - ID</value>
         <value xml:lang="ro">Actualizare Cod Operatie</value>
         <value xml:lang="th">แก้ไขรหัสการทำงาน</value>
-        <value xml:lang="vi">Cập nhật tác vụ quy trình - Id</value>
+        <value xml:lang="vi">Cập nhật tác vụ quy trình - ID</value>
         <value xml:lang="zh">编辑规程任务 - 标识</value>
         <value xml:lang="zh-TW">編輯規程任務 - 識別</value>
     </property>
@@ -4645,7 +4645,7 @@
     </property>
     <property key="ManufacturingRoutingTaskId">
         <value xml:lang="de">Arbeitsgang-Nr.</value>
-        <value xml:lang="en">Routing Task Id</value>
+        <value xml:lang="en">Routing Task ID</value>
         <value xml:lang="es">Código de tarea</value>
         <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Codice Operazione</value>

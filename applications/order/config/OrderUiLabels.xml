@@ -57,7 +57,7 @@
     <property key="FormFieldTitle_autoOrderShoppingListId">
         <value xml:lang="ar">دليل قائمة تسوق أمر البيع/الشراء الأوتوماتيكي</value>
         <value xml:lang="de">Automatischer Auftrag Einkaufsliste ID</value>
-        <value xml:lang="en">Auto Order Shopping List Id</value>
+        <value xml:lang="en">Auto Order Shopping List ID</value>
         <value xml:lang="es">Código lista de compra automática</value>
         <value xml:lang="fr">Réf. de liste de commande automatique</value>
         <value xml:lang="it">Ordine Automatico Lista di Acquisto</value>
@@ -72,7 +72,7 @@
     <property key="FormFieldTitle_billToCustomerPartyId">
         <value xml:lang="ar">دليل طرف فوترة إلى العميل</value>
         <value xml:lang="de">Rechnung an Kunde Akteur ID</value>
-        <value xml:lang="en">Bill To Customer Party Id</value>
+        <value xml:lang="en">Bill To Customer Party ID</value>
         <value xml:lang="es">Facturar a cliente con código</value>
         <value xml:lang="fr">Réf. de facture client</value>
         <value xml:lang="it">Fattura Al Cliente</value>
@@ -102,12 +102,12 @@
     <property key="FormFieldTitle_carrierRoleTypeId">
         <value xml:lang="ar">دليل نوع حامل الدور</value>
         <value xml:lang="de">Spediteur Rollentyp ID</value>
-        <value xml:lang="en">Carrier Role Type Id</value>
+        <value xml:lang="en">Carrier Role Type ID</value>
         <value xml:lang="es">Código Rol de transportista</value>
         <value xml:lang="fr">Réf. de type de transporteur</value>
         <value xml:lang="it">Tipo Ruolo Corriere</value>
         <value xml:lang="ja">輸送ロール種類ID</value>
-        <value xml:lang="nl">Soort rol vervoerder Id</value>
+        <value xml:lang="nl">Soort rol vervoerder ID</value>
         <value xml:lang="pt-BR">Id de papel do transportador</value>
         <value xml:lang="ro">Tip Rol Curier</value>
         <value xml:lang="ru">Код типа роли перевозчика</value>
@@ -191,16 +191,16 @@
     <property key="FormFieldTitle_countryGeoId">
         <value xml:lang="ar">الدليل الجيوغرافي للدولة</value>
         <value xml:lang="de">Land Geo ID</value>
-        <value xml:lang="en">Country Geo Id</value>
+        <value xml:lang="en">Country Geo ID</value>
         <value xml:lang="es">Código País</value>
         <value xml:lang="fr">Réf. géographique de pays</value>
         <value xml:lang="it">Codice Nazione Geografia</value>
         <value xml:lang="ja">国位置ID</value>
-        <value xml:lang="nl">Land Id</value>
+        <value xml:lang="nl">Land ID</value>
         <value xml:lang="pt-BR">ID geográfico do país</value>
         <value xml:lang="ro">Cod Natiune Geografica</value>
         <value xml:lang="ru">Код страны</value>
-        <value xml:lang="th">Country Geo Id</value>
+        <value xml:lang="th">Country Geo ID</value>
         <value xml:lang="vi">Mã địa lý của Quốc gia</value>
         <value xml:lang="zh">国家地理标识</value>
         <value xml:lang="zh-TW">國別地理識別</value>
@@ -225,7 +225,7 @@
     <property key="FormFieldTitle_custRequestId">
         <value xml:lang="ar">دليل طلب العميل</value>
         <value xml:lang="de">Kundenanfrage-ID</value>
-        <value xml:lang="en">Cust Request Id</value>
+        <value xml:lang="en">Cust Request ID</value>
         <value xml:lang="fr">Réf. de demande client</value>
         <value xml:lang="it">Codice richiesta</value>
         <value xml:lang="ja">顧客リクエストID</value>
@@ -238,7 +238,7 @@
     <property key="FormFieldTitle_custRequestItemSeqId">
         <value xml:lang="ar">دليل تسلسل البند لطلب العميل</value>
         <value xml:lang="de">Kundenanfrage Element Seq. ID</value>
-        <value xml:lang="en">Cust Request Item Seq Id</value>
+        <value xml:lang="en">Cust Request Item Seq ID</value>
         <value xml:lang="es">Nº sec. petición de cliente</value>
         <value xml:lang="fr">Réf. séq. de ligne de demande client</value>
         <value xml:lang="it">Riga richiesta</value>
@@ -272,7 +272,7 @@
     <property key="FormFieldTitle_custRequestResolutionId">
         <value xml:lang="ar">دليل قرار طلب العميل</value>
         <value xml:lang="de">Kundenanfrage Lösung ID</value>
-        <value xml:lang="en">Cust Request Resolution Id</value>
+        <value xml:lang="en">Cust Request Resolution ID</value>
         <value xml:lang="es">Código Resolución de petición</value>
         <value xml:lang="fr">Réf. de résolution de demande client</value>
         <value xml:lang="it">Risoluzione della richiesta</value>
@@ -289,7 +289,7 @@
     <property key="FormFieldTitle_custRequestTypeId">
         <value xml:lang="ar">دليل نوع طلب العميل</value>
         <value xml:lang="de">Kundenanfragetyp ID</value>
-        <value xml:lang="en">Cust Request Type Id</value>
+        <value xml:lang="en">Cust Request Type ID</value>
         <value xml:lang="es">Código Tipo de petición</value>
         <value xml:lang="fr">Réf. de type de demande client</value>
         <value xml:lang="it">Tipo di richiesta</value>
@@ -436,7 +436,7 @@
     <property key="FormFieldTitle_firstAttemptOrderId">
         <value xml:lang="ar">دليل أمر البيع/الشراء لأول محاولة</value>
         <value xml:lang="de">Auftrag ID erster Versuch</value>
-        <value xml:lang="en">First Attempt Order Id</value>
+        <value xml:lang="en">First Attempt Order ID</value>
         <value xml:lang="es">Nº pedido primer intento</value>
         <value xml:lang="fr">Réf. de premier essai de commande</value>
         <value xml:lang="it">Primo Tentativo Numero Ordine</value>
@@ -453,7 +453,7 @@
     <property key="FormFieldTitle_fulfillContactMechId">
         <value xml:lang="ar">أكمل دليل طريقة الإتصال</value>
         <value xml:lang="de">Kontaktmechanismus ID</value>
-        <value xml:lang="en">Fulfill Contact Mech Id</value>
+        <value xml:lang="en">Fulfill Contact Mech ID</value>
         <value xml:lang="es">Código Mecanismo de contacto</value>
         <value xml:lang="fr">Remplir la réf. de coordonnées</value>
         <value xml:lang="it">Contatto Avanzamento</value>
@@ -738,7 +738,7 @@
     <property key="FormFieldTitle_orderHeaderId">
         <value xml:lang="ar">دليل رأس أمر البيع/الشراء</value>
         <value xml:lang="de">Auftragskopf ID</value>
-        <value xml:lang="en">Order Header Id</value>
+        <value xml:lang="en">Order Header ID</value>
         <value xml:lang="es">Código Cabecera de pedido</value>
         <value xml:lang="fr">Réf. d'entête de commande</value>
         <value xml:lang="it">Numero Testata Ordine</value>
@@ -772,7 +772,7 @@
     <property key="FormFieldTitle_orderItemSeqId">
         <value xml:lang="ar">دليل بند الأمر</value>
         <value xml:lang="de">Auftragsposition Seq. ID</value>
-        <value xml:lang="en">Order Item Seq Id</value>
+        <value xml:lang="en">Order Item Seq ID</value>
         <value xml:lang="es">Nº sec. ítem de pedido</value>
         <value xml:lang="fr">Réf. séq. de ligne de commande</value>
         <value xml:lang="it">Num.Seq. Riga Ordine</value>
@@ -804,7 +804,7 @@
     <property key="FormFieldTitle_orderStatusId">
         <value xml:lang="ar">دليل حالة أمر البيع/الشراء</value>
         <value xml:lang="de">Auftragsstatus ID</value>
-        <value xml:lang="en">Order Status Id</value>
+        <value xml:lang="en">Order Status ID</value>
         <value xml:lang="es">Código de estado del pedido</value>
         <value xml:lang="fr">Réf. status de commande</value>
         <value xml:lang="it">Stato Ordine</value>
@@ -821,7 +821,7 @@
     <property key="FormFieldTitle_orderTypeId">
         <value xml:lang="ar">دليل نوع أمر البيع/الشراء</value>
         <value xml:lang="de">Auftragstyp ID</value>
-        <value xml:lang="en">Order Type Id</value>
+        <value xml:lang="en">Order Type ID</value>
         <value xml:lang="es">Código de tipo del pedido</value>
         <value xml:lang="fr">Réf. de type de commande</value>
         <value xml:lang="it">Tipo Ordine</value>
@@ -855,12 +855,12 @@
     <property key="FormFieldTitle_originFacilityId">
         <value xml:lang="ar">دليل المنشأة الأصلية</value>
         <value xml:lang="de">Herkunftslager ID</value>
-        <value xml:lang="en">Origin Facility Id</value>
+        <value xml:lang="en">Origin Facility ID</value>
         <value xml:lang="es">Código Almacén de origen</value>
         <value xml:lang="fr">Réf. de lieu de stockage d'origine</value>
         <value xml:lang="it">Stabilimento Origine</value>
         <value xml:lang="ja">拠点ID(元)</value>
-        <value xml:lang="nl">Oorspronkelijke Faciliteit Id</value>
+        <value xml:lang="nl">Oorspronkelijke Faciliteit ID</value>
         <value xml:lang="pt-BR">ID do armazém de origem</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Код исходящего склада</value>
@@ -872,7 +872,7 @@
     <property key="FormFieldTitle_parentShoppingListId">
         <value xml:lang="ar">دليل قائمة التسوق الأم</value>
         <value xml:lang="de">Übergeordnete Einkaufsliste ID</value>
-        <value xml:lang="en">Parent Shopping List Id</value>
+        <value xml:lang="en">Parent Shopping List ID</value>
         <value xml:lang="es">Código Lista de compra precursora</value>
         <value xml:lang="fr">Réf. de liste d'achat parente</value>
         <value xml:lang="it">Lista di Acquisto Padre</value>
@@ -969,12 +969,12 @@
     <property key="FormFieldTitle_quoteItemSeqId">
         <value xml:lang="ar">دليل تسلسل بند عرض السعر</value>
         <value xml:lang="de">Angebot Position Seq. ID</value>
-        <value xml:lang="en">Quote Item Seq Id</value>
+        <value xml:lang="en">Quote Item Seq ID</value>
         <value xml:lang="es">Nº sec. ítem de presupuesto</value>
         <value xml:lang="fr">Réf. ligne de devis</value>
         <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
         <value xml:lang="ja">見積アイテム連番ID</value>
-        <value xml:lang="nl">Volgende Offerte Itemnr Id</value>
+        <value xml:lang="nl">Volgende Offerte Itemnr ID</value>
         <value xml:lang="pt-BR">ID da sequência de cotação do item</value>
         <value xml:lang="ro">Numar Secventa Linie Preventiv</value>
         <value xml:lang="ru">Посл. код поз. ценов. предложения</value>
@@ -1121,7 +1121,7 @@
     <property key="FormFieldTitle_requirementTypeId">
         <value xml:lang="ar">دليل نوع المتطلب</value>
         <value xml:lang="de">Bedarfstyp ID</value>
-        <value xml:lang="en">Requirement Type Id</value>
+        <value xml:lang="en">Requirement Type ID</value>
         <value xml:lang="es">Código Tipo de requisito</value>
         <value xml:lang="fr">Type de besoin</value>
         <value xml:lang="it">Tipo Fabbisogno</value>
@@ -1196,7 +1196,7 @@
     <property key="FormFieldTitle_returnHeaderTypeId">
         <value xml:lang="ar">دليل نوع رأس الإرجاع</value>
         <value xml:lang="de">Retouren-Art</value>
-        <value xml:lang="en">Return HeaderType Id</value>
+        <value xml:lang="en">Return HeaderType ID</value>
         <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>
         <value xml:lang="ja">返品ヘッダ種類</value>
@@ -1207,16 +1207,16 @@
         <value xml:lang="zh-TW">退貨標頭類型識別</value>
     </property>
     <property key="FormFieldTitle_returnItemSeqId">
-        <value xml:lang="de">Retourenposition Seq Id</value>
-        <value xml:lang="en">Return Item Seq Id</value>
+        <value xml:lang="de">Retourenposition Seq ID</value>
+        <value xml:lang="en">Return Item Seq ID</value>
         <value xml:lang="fr">Ref. ligne de retour</value>
-        <value xml:lang="nl">Retour Itemnr Id</value>
+        <value xml:lang="nl">Retour Itemnr ID</value>
         <value xml:lang="zh">退货明细序号</value>
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="ar">دليل تعداد قناة المبيعات</value>
-        <value xml:lang="de">Verkaufskanal Id</value>
-        <value xml:lang="en">Sales Channel Enum Id</value>
+        <value xml:lang="de">Verkaufskanal ID</value>
+        <value xml:lang="en">Sales Channel Enum ID</value>
         <value xml:lang="fr">Canal de vente</value>
         <value xml:lang="it">Canale di vendita</value>
         <value xml:lang="ja">販売取消ID</value>
@@ -1311,12 +1311,12 @@
     <property key="FormFieldTitle_shoppingListId">
         <value xml:lang="ar">دليل قائمة التسوق</value>
         <value xml:lang="de">Einkaufsliste ID</value>
-        <value xml:lang="en">Shopping List Id</value>
+        <value xml:lang="en">Shopping List ID</value>
         <value xml:lang="es">Código Lista de compra</value>
         <value xml:lang="fr">Réf. de liste d'achat</value>
         <value xml:lang="it">Numero Lista di Acquisto</value>
         <value xml:lang="ja">買い物リストID</value>
-        <value xml:lang="nl">Boodschappenlijst Id</value>
+        <value xml:lang="nl">Boodschappenlijst ID</value>
         <value xml:lang="pt-BR">ID de lista de compras</value>
         <value xml:lang="ro">Numar Lista de Cumparare</value>
         <value xml:lang="ru">Код списка покупок</value>
@@ -1328,7 +1328,7 @@
     <property key="FormFieldTitle_shoppingListItemSeqId">
         <value xml:lang="ar">دليل تسلسل بند قائمة التسوق</value>
         <value xml:lang="de">Folgenummer Einkaufslistenposition</value>
-        <value xml:lang="en">Shopping List Item Seq Id</value>
+        <value xml:lang="en">Shopping List Item Seq ID</value>
         <value xml:lang="fr">Ligne de liste d'achat</value>
         <value xml:lang="it">Seq. riga lista d'acquisto</value>
         <value xml:lang="ja">買い物リストアイテム連番ID</value>
@@ -1341,7 +1341,7 @@
     <property key="FormFieldTitle_shoppingListTypeId">
         <value xml:lang="ar">دليل نوع قائمة التسوق</value>
         <value xml:lang="de">Einkaufslistentyp ID</value>
-        <value xml:lang="en">Shopping List Type Id</value>
+        <value xml:lang="en">Shopping List Type ID</value>
         <value xml:lang="es">Código Tipo de lista de compra</value>
         <value xml:lang="fr">Réf. de type de liste d'achat</value>
         <value xml:lang="it">Tipo Lista di Acquisto</value>
@@ -1386,7 +1386,7 @@
     </property>
     <property key="FormFieldTitle_stateProvinceGeoId">
         <value xml:lang="de">Staat/Provinz Geo ID</value>
-        <value xml:lang="en">State Province Geo Id</value>
+        <value xml:lang="en">State Province Geo ID</value>
         <value xml:lang="es">Código de lugar Estado/Provincia</value>
         <value xml:lang="fr">Réf. géo. d'état/région</value>
         <value xml:lang="it">Codice Stato Provincia Geografia</value>
@@ -1395,7 +1395,7 @@
         <value xml:lang="pt-BR">ID da localização geográfica do Estado</value>
         <value xml:lang="ro">Cod Stat Provincie Geografica</value>
         <value xml:lang="ru">Код области</value>
-        <value xml:lang="th">State Province Geo Id</value>
+        <value xml:lang="th">State Province Geo ID</value>
         <value xml:lang="vi">Mã địa lý của Tỉnh/Thành phố</value>
         <value xml:lang="zh">省地理标识</value>
         <value xml:lang="zh-TW">州省地理識別</value>
@@ -1419,7 +1419,7 @@
     </property>
     <property key="FormFieldTitle_syncStatusId">
         <value xml:lang="de">Synchronisation Status ID</value>
-        <value xml:lang="en">Sync Status Id</value>
+        <value xml:lang="en">Sync Status ID</value>
         <value xml:lang="es">Código de estado de sincronización</value>
         <value xml:lang="fr">Réf. de statut de synchronisation</value>
         <value xml:lang="it">Stato Sincronizzazione</value>
@@ -4377,7 +4377,7 @@
         <value xml:lang="ro">EROARE: Nici-o promotie gasita cu acest Cod</value>
         <value xml:lang="ru">ОШИБКА: Нет акций с таким идентификатором</value>
         <value xml:lang="th">Error: ผิดพลาด !ไม่มีโปรโมชั่นของหมายเลขนี้</value>
-        <value xml:lang="vi">Rất tiếc : Không có khuyến mãi với Id</value>
+        <value xml:lang="vi">Rất tiếc : Không có khuyến mãi với ID</value>
         <value xml:lang="zh">错误：没有找到促销——标识</value>
         <value xml:lang="zh-TW">錯誤:沒有找到促銷識別</value>
     </property>
@@ -5460,7 +5460,7 @@
         <value xml:lang="zh-TW">細項群組</value>
     </property>
     <property key="OrderItemId">
-        <value xml:lang="de">Bestellpos. Id</value>
+        <value xml:lang="de">Bestellpos. ID</value>
         <value xml:lang="en">Ref</value>
         <value xml:lang="fr">N° ligne</value>
         <value xml:lang="zh">参考</value>
@@ -6735,7 +6735,7 @@
         <value xml:lang="ro">Nici-o returnare gasita cu Numarul Returnat</value>
         <value xml:lang="ru">Не найден возврат с кодом</value>
         <value xml:lang="th">ไม่พบผลตอบแทนด้วยรหัสผลตอบแทน</value>
-        <value xml:lang="vi">Không tìm thấy Hoàn trả với Id</value>
+        <value xml:lang="vi">Không tìm thấy Hoàn trả với ID</value>
         <value xml:lang="zh">没有找到退货，退货标识</value>
         <value xml:lang="zh-CN">根据退货标识找不到退货单</value>
         <value xml:lang="zh-TW">找不到退貨識別相關的退貨</value>
@@ -7979,7 +7979,7 @@
         <value xml:lang="ar">دليل الضبط لعرض السعر</value>
         <value xml:lang="de">Angebotsanpassung ID</value>
         <value xml:lang="de-CH">Offertanpassung ID</value>
-        <value xml:lang="en">Quote Adjustment Id</value>
+        <value xml:lang="en">Quote Adjustment ID</value>
         <value xml:lang="es">Código de ajuste</value>
         <value xml:lang="fr">Réf. d'ajustement de devis</value>
         <value xml:lang="it">Aggiustamento Preventivo</value>
@@ -8015,7 +8015,7 @@
         <value xml:lang="ar">دليل نوع ضبط عرض السعر</value>
         <value xml:lang="de">Angebotsanpassungstyp ID</value>
         <value xml:lang="de-CH">Offertanpassungstyp ID</value>
-        <value xml:lang="en">Quote Adjustment Type Id</value>
+        <value xml:lang="en">Quote Adjustment Type ID</value>
         <value xml:lang="es">Código del ajuste</value>
         <value xml:lang="fr">Réf. de type d'ajustement de devis</value>
         <value xml:lang="it">Tipo aggiustamento preventivo</value>
@@ -8233,7 +8233,7 @@
     </property>
     <property key="OrderOrderQuoteDeliverableTypeId">
         <value xml:lang="de">Liefertyp ID</value>
-        <value xml:lang="en">Deliverable Type Id</value>
+        <value xml:lang="en">Deliverable Type ID</value>
         <value xml:lang="es">Tipo de entrega</value>
         <value xml:lang="fr">Type de livrables</value>
         <value xml:lang="it">Tipo Consegna</value>
@@ -8512,7 +8512,7 @@
         <value xml:lang="ar">دليل تسلسل بند عرض السعر</value>
         <value xml:lang="de">Angebotsposition lfd.Nr.</value>
         <value xml:lang="de-CH">Offertelement Seq. ID</value>
-        <value xml:lang="en">Quote Item Seq Id</value>
+        <value xml:lang="en">Quote Item Seq ID</value>
         <value xml:lang="es">Nº sec. ítem</value>
         <value xml:lang="fr">Réf. séq. de ligne de devis</value>
         <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
@@ -8819,7 +8819,7 @@
         <value xml:lang="ar">دليل نوع مهارة عرض السعر</value>
         <value xml:lang="de">Angebot Kompetenztyp ID</value>
         <value xml:lang="de-CH">Offerte Kompetenztyp ID</value>
-        <value xml:lang="en">Quote Skill Type Id</value>
+        <value xml:lang="en">Quote Skill Type ID</value>
         <value xml:lang="es">Tipo de habilidad</value>
         <value xml:lang="fr">Réf. de compétence (devis)</value>
         <value xml:lang="it">Tipo Skill Preventivo</value>
@@ -8875,7 +8875,7 @@
         <value xml:lang="ar">دليل نوع عرض السعر</value>
         <value xml:lang="de">Angebotstyp ID</value>
         <value xml:lang="de-CH">Offerttyp ID</value>
-        <value xml:lang="en">Quote Type Id</value>
+        <value xml:lang="en">Quote Type ID</value>
         <value xml:lang="es">Código Tipo de presupuesto</value>
         <value xml:lang="fr">Réf. de type de devis</value>
         <value xml:lang="it">Tipo Preventivo</value>
@@ -8913,12 +8913,12 @@
         <value xml:lang="ar">دليل وحدة قياس عرض السعر</value>
         <value xml:lang="de">Angebot Maßeinheit ID</value>
         <value xml:lang="de-CH">Offerte Einheit ID</value>
-        <value xml:lang="en">Quote Uom Id</value>
+        <value xml:lang="en">Quote Uom ID</value>
         <value xml:lang="es">Unidad de medida</value>
         <value xml:lang="fr">Unité de mesure</value>
         <value xml:lang="it">UdM Preventivo</value>
         <value xml:lang="ja">見積単位ID</value>
-        <value xml:lang="nl">Offerte Uom Id</value>
+        <value xml:lang="nl">Offerte Uom ID</value>
         <value xml:lang="pt-BR">Unidade de medida</value>
     <!--value xml:lang="nl">UoM offerte</value to be checked -->
         <value xml:lang="ro">UdM Oferta</value>
@@ -8972,7 +8972,7 @@
         <value xml:lang="ar">دليل جهد العمل لعرض السعر</value>
         <value xml:lang="de">Angebotener Aufwand ID</value>
         <value xml:lang="de-CH">Offertarbeitseinsatz ID</value>
-        <value xml:lang="en">Quote Work Effort Id</value>
+        <value xml:lang="en">Quote Work Effort ID</value>
         <value xml:lang="es">Código Esfuerzo de trabajo del presupuesto</value>
         <value xml:lang="fr">Réf. d'activité de devis</value>
         <value xml:lang="it">Preventivo Impegno di Lavoro</value>
@@ -11880,7 +11880,7 @@
     <property key="OrderRequirementStatusId">
         <value xml:lang="ar">دليل حالة متطلب أمر البيع\الشراء</value>
         <value xml:lang="de">Auftrag Bedarf Status ID</value>
-        <value xml:lang="en">Order Requirement Status Id</value>
+        <value xml:lang="en">Order Requirement Status ID</value>
         <value xml:lang="es">Estado</value>
         <value xml:lang="fr">Réf. de statut d'un besoin</value>
         <value xml:lang="it">Stato Ordine Fabbisogno</value>
@@ -11960,7 +11960,7 @@
         <value xml:lang="it">Non è possibile trovare il reso</value>
         <value xml:lang="ja">返品はありません、ID:</value>
         <value xml:lang="pt-BR">Não foi possível encontrar devolução com ID</value>
-        <value xml:lang="vi">Không tìm thấy Hoàn trả với Id</value>
+        <value xml:lang="vi">Không tìm thấy Hoàn trả với ID</value>
         <value xml:lang="zh">无法找到退货，标识为</value>
         <value xml:lang="zh-TW">找不到退貨識別為</value>
     </property>
@@ -12012,7 +12012,7 @@
     <property key="OrderReturnEnumId">
         <value xml:lang="ar">دليل تعداد المسترجع</value>
         <value xml:lang="de">Retoure Seq. ID</value>
-        <value xml:lang="en">Return Enum Id</value>
+        <value xml:lang="en">Return Enum ID</value>
         <value xml:lang="es">Tipo de devolución</value>
         <value xml:lang="fr">Réf. type énum.</value>
         <value xml:lang="it">Tipo reso</value>
@@ -13394,7 +13394,7 @@
     <property key="OrderShipGroupSeqId">
         <value xml:lang="ar">دليل تسلسل مجموعة الشحن</value>
         <value xml:lang="de">Versandgruppe Seq. ID</value>
-        <value xml:lang="en">Ship Group Seq Id</value>
+        <value xml:lang="en">Ship Group Seq ID</value>
         <value xml:lang="es">Nº sec. grupo de envío</value>
         <value xml:lang="fr">Réf. seq. de groupe d'expédition</value>
         <value xml:lang="it">Gruppo spedizione</value>

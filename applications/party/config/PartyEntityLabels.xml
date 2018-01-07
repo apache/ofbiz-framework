@@ -1081,7 +1081,7 @@
     <property key="ContactMechType.description.INTERNAL_PARTYID">
         <value xml:lang="ar">ملاحظة طرف داخلية</value>
         <value xml:lang="cs">Interní poznámka</value>
-        <value xml:lang="de">Interne AKteur Id</value>
+        <value xml:lang="de">Interne AKteur ID</value>
         <value xml:lang="en">Internal Party Note</value>
         <value xml:lang="fr">Note Interne</value>
         <value xml:lang="ja">内部取引先連絡</value>

@@ -20,7 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="FormFieldTitle_accommodationMapId">
-        <value xml:lang="en">Accommodation Map Id</value>
+        <value xml:lang="en">Accommodation Map ID</value>
         <value xml:lang="fr">Réf. de plan de logement</value>
         <value xml:lang="it">Mappa alloggio</value>
         <value xml:lang="ja">設備配置ID</value>
@@ -29,7 +29,7 @@
         <value xml:lang="zh-TW">接待地圖示識別</value>
     </property>
     <property key="FormFieldTitle_accommodationSpotId">
-        <value xml:lang="en">Accommodation Spot Id</value>
+        <value xml:lang="en">Accommodation Spot ID</value>
         <value xml:lang="fr">Réf. de lieu de logement</value>
         <value xml:lang="it">Luogo alloggio</value>
         <value xml:lang="ja">設備地点ID</value>
@@ -104,7 +104,7 @@
     </property>
     <property key="FormFieldTitle_approvedByUserLoginId">
         <value xml:lang="de">Genehmigt von Benutzer ID</value>
-        <value xml:lang="en">Approved By User Login Id</value>
+        <value xml:lang="en">Approved By User Login ID</value>
         <value xml:lang="fr">Approuvé par</value>
         <value xml:lang="it">Approvato dall'utente</value>
         <value xml:lang="ja">承認ユーザID</value>
@@ -133,11 +133,11 @@
     </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="de">Klienten Akteur ID</value>
-        <value xml:lang="en">Client Party Id</value>
+        <value xml:lang="en">Client Party ID</value>
         <value xml:lang="fr">Code client</value>
         <value xml:lang="it">Codice soggetto cliente</value>
         <value xml:lang="ja">顧客取引先ID</value>
-        <value xml:lang="nl">Klant relatie Id</value>
+        <value xml:lang="nl">Klant relatie ID</value>
         <value xml:lang="ro">Client Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
         <value xml:lang="vi">Khách hàng</value>
@@ -342,7 +342,7 @@
         <value xml:lang="zh-TW">必須回複</value>
     </property>
     <property key="FormFieldTitle_newWorkEffortId">
-        <value xml:lang="en">New WorkEffort Id</value>
+        <value xml:lang="en">New WorkEffort ID</value>
         <value xml:lang="fr">Nvlle réf de tâche</value>
     </property>
     <property key="FormFieldTitle_orderTypeDescription">
@@ -573,7 +573,7 @@
     </property>
     <property key="FormFieldTitle_showAsEnumId">
         <value xml:lang="de">Zeige als Aufzählungs ID</value>
-        <value xml:lang="en">Show As Enum Id</value>
+        <value xml:lang="en">Show As Enum ID</value>
         <value xml:lang="fr">Montrer comme une ref. d'énumération </value>
         <value xml:lang="it">Mostra come enumerazione</value>
         <value xml:lang="ja">列挙IDとして表示</value>
@@ -583,11 +583,11 @@
     </property>
     <property key="FormFieldTitle_sourceReferenceId">
         <value xml:lang="de">Quellen Referenz ID</value>
-        <value xml:lang="en">Source Reference Id</value>
+        <value xml:lang="en">Source Reference ID</value>
         <value xml:lang="fr">Réf. de la source</value>
         <value xml:lang="it">Codice dell'origine</value>
         <value xml:lang="ja">ソース参照ID</value>
-        <value xml:lang="nl">Source Reference Id</value>
+        <value xml:lang="nl">Source Reference ID</value>
         <value xml:lang="ro">Cod Origine Referiment</value>
         <value xml:lang="th">รหัสข้อมูลแหล่งอ้างอิง</value>
         <value xml:lang="vi">Nguồn tham chiếu</value>
@@ -651,7 +651,7 @@
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Codice timbratura</value>
         <value xml:lang="ja">予定表ID</value>
-        <value xml:lang="nl">Urenstaat Id</value>
+        <value xml:lang="nl">Urenstaat ID</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
         <value xml:lang="vi">Khai báo công việc</value>
@@ -690,7 +690,7 @@
         <value xml:lang="fr">Réf. universelle</value>
         <value xml:lang="it">Codice universale</value>
         <value xml:lang="ja">汎用ID</value>
-        <value xml:lang="nl">Universal Id</value>
+        <value xml:lang="nl">Universal ID</value>
         <value xml:lang="ro">Cod Universal</value>
         <value xml:lang="th">รหัสทั้งหมด</value>
         <value xml:lang="vi">ID trên toàn hệ thống</value>
@@ -699,11 +699,11 @@
     </property>
     <property key="FormFieldTitle_workEffortAssocTypeId">
         <value xml:lang="de">Arbeitseinsatz Zuordnungstyp ID</value>
-        <value xml:lang="en">Work Effort Assoc Type Id</value>
+        <value xml:lang="en">Work Effort Assoc Type ID</value>
         <value xml:lang="fr">Type d'assoc. de la tâche</value>
         <value xml:lang="it">Tipo associazione impegno di lavoro</value>
         <value xml:lang="ja">作業成果関連付け種類ID</value>
-        <value xml:lang="nl">Activiteit Assoc Type Id</value>
+        <value xml:lang="nl">Activiteit Assoc Type ID</value>
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
         <value xml:lang="th">รหัสประเภกลุ่มงาน</value>
         <value xml:lang="vi">Kiểu kết hợp với Lượng giá nguồn lực</value>
@@ -712,7 +712,7 @@
     </property>
     <property key="FormFieldTitle_workEffortContentTypeId">
         <value xml:lang="de">Arbeitseinsatz Inhaltstyp ID</value>
-        <value xml:lang="en">Work Effort Content Type Id</value>
+        <value xml:lang="en">Work Effort Content Type ID</value>
         <value xml:lang="fr">Type de contenu de la tâche</value>
         <value xml:lang="it">Tipo di contenuto impegno di lavoro</value>
         <value xml:lang="ja">作業成果コンテンツタイプID</value>
@@ -723,12 +723,12 @@
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="de">Arbeitseinsatz ID</value>
-        <value xml:lang="en">Work Effort Id</value>
+        <value xml:lang="en">Work Effort ID</value>
         <value xml:lang="es">Código del esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Impegno di lavoro</value>
         <value xml:lang="ja">作業成果ID</value>
-        <value xml:lang="nl">Activiteit Id</value>
+        <value xml:lang="nl">Activiteit ID</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
         <value xml:lang="ru">Код задачи</value>
         <value xml:lang="th">รหัสงาน</value>
@@ -780,12 +780,12 @@
     </property>
     <property key="FormFieldTitle_workEffortParentId">
         <value xml:lang="de">Übergeordnete Arbeitseinsatz ID</value>
-        <value xml:lang="en">Work Effort Parent Id</value>
+        <value xml:lang="en">Work Effort Parent ID</value>
         <value xml:lang="es">Código del esfuerzo de trabajo precursor</value>
         <value xml:lang="fr">Tâche parente</value>
         <value xml:lang="it">Codice impegno di lavoro padre</value>
         <value xml:lang="ja">作業成果上位(親)ID</value>
-        <value xml:lang="nl">Activiteit Parent Id</value>
+        <value xml:lang="nl">Activiteit Parent ID</value>
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
         <value xml:lang="th">รหัสกลุ่มงาน</value>
         <value xml:lang="vi">Lượng giá nguồn lực cha</value>
@@ -793,11 +793,11 @@
         <value xml:lang="zh-TW">工作投入上級識別</value>
     </property>
     <property key="FormFieldTitle_workEffortPurposeTypeId">
-        <value xml:lang="en">Work Effort Purpose Type Id</value>
+        <value xml:lang="en">Work Effort Purpose Type ID</value>
         <value xml:lang="fr">Type de but de la tâche</value>
         <value xml:lang="it">Tipo di scopo impegno di lavoro</value>
         <value xml:lang="ja">作業成果目的種類ID</value>
-        <value xml:lang="nl">Soort actie doel Id</value>
+        <value xml:lang="nl">Soort actie doel ID</value>
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทเป้าหมายงาน</value>
         <value xml:lang="vi">Mục đích Lượng giá nguồn lực</value>
@@ -806,11 +806,11 @@
     </property>
     <property key="FormFieldTitle_workEffortTypeId">
         <value xml:lang="de">Arbeitseinsatz Typ ID</value>
-        <value xml:lang="en">Work Effort Type Id</value>
+        <value xml:lang="en">Work Effort Type ID</value>
         <value xml:lang="fr">Type de tâche</value>
         <value xml:lang="it">Tipo impegno di lavoro</value>
         <value xml:lang="ja">作業成果種類ID</value>
-        <value xml:lang="nl">Actie type Id</value>
+        <value xml:lang="nl">Actie type ID</value>
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทงาน</value>
         <value xml:lang="vi">Loại Lượng giá nguồn lực</value>
@@ -834,7 +834,7 @@
         <value xml:lang="fr">Type d'éxécution de demande de travail </value>
         <value xml:lang="it">Tipo di soddisfazione fabbisogno impegno di lavoro</value>
         <value xml:lang="ja">作業リクエスト執行種類ID</value>
-        <value xml:lang="nl">Work Req Fulf Type Id</value>
+        <value xml:lang="nl">Work Req Fulf Type ID</value>
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รหัสประเภทรายการงานที่สำเร็จ</value>
         <value xml:lang="vi">Id kiểu yêu cầu công việc (Work Req)</value>
@@ -2257,7 +2257,7 @@
         <value xml:lang="zh-TW">錯誤:不能更新指定的聯絡資訊,因為它沒有結合到指定的工作投入</value>
     </property>
     <property key="WorkEffortCommEventId">
-        <value xml:lang="en">Comm Event Id</value>
+        <value xml:lang="en">Comm Event ID</value>
         <value xml:lang="it">Evento comunicazioni</value>
         <value xml:lang="ja">通信イベントID</value>
         <value xml:lang="vi">Sự kiện truyền thông</value>
@@ -2575,7 +2575,7 @@
         <value xml:lang="ro">EROARE: Nu  este  posibila gasirea  activitatii cu codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти действие с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหากิจกรรมด้วยรหัส</value>
-        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Hoạt động với Id</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Hoạt động với ID</value>
         <value xml:lang="zh">错误: 无法找到行动，行动编号</value>
         <value xml:lang="zh-TW">錯誤: 無法找到行動,行動識別</value>
     </property>
@@ -2590,7 +2590,7 @@
         <value xml:lang="ro">Eroare: Nu este posibila gasirea Evenimentului cu Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти событие с таким ID</value>
         <value xml:lang="th">Error: ความผิดพลาด ! ไม่สามารถค้นหาเหตุการณ์ด้วยรหัส</value>
-        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Sự kiện với Id</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Sự kiện với ID</value>
         <value xml:lang="zh">错误: 无法找到事件，事件标识</value>
         <value xml:lang="zh-TW">錯誤: 無法找到事件,事件識別</value>
     </property>
@@ -2605,7 +2605,7 @@
         <value xml:lang="ro">EROARE: Nu este posibila gasirea Sarcinii cu  Codul</value>
         <value xml:lang="ru">ОШИБКА: не могу найти задание с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหาภารกิจด้วยรหัส</value>
-        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Tác vụ - Đầu việc với Id</value>
+        <value xml:lang="vi">Lỗi xảy ra: Không tìm thấy Tác vụ - Đầu việc với ID</value>
         <value xml:lang="zh">错误: 无法找到任务，任务编号</value>
         <value xml:lang="zh-TW">錯誤: 無法找到任務,任務識別</value>
     </property>
@@ -3847,7 +3847,7 @@
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Codice soggetto</value>
         <value xml:lang="ja">取引先ID</value>
-        <value xml:lang="nl">Party Id</value>
+        <value xml:lang="nl">Party ID</value>
         <value xml:lang="ro">Cod Subiecti</value>
         <value xml:lang="ru">ID участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>

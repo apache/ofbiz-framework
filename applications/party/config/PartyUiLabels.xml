@@ -55,7 +55,7 @@
     </property>
     <property key="FormFieldTitle_certProvisionId">
         <value xml:lang="de">Zertifikatsaussteller ID</value>
-        <value xml:lang="en">Cert Provision Id</value>
+        <value xml:lang="en">Cert Provision ID</value>
         <value xml:lang="fr">Disposition de certificat</value>
         <value xml:lang="hi-IN">प्रमाणपत्र प्रावधान क्रमांक</value>
         <value xml:lang="it">Fornitore certificato</value>
@@ -138,7 +138,7 @@
     <property key="FormFieldTitle_communicationEventId">
         <value xml:lang="ar">دليل الإتصال</value>
         <value xml:lang="de">Kommunikationsereignis ID</value>
-        <value xml:lang="en">Communication Event Id</value>
+        <value xml:lang="en">Communication Event ID</value>
         <value xml:lang="es">Código Evento de comunicación</value>
         <value xml:lang="fr">Evènement de communication</value>
         <value xml:lang="hi-IN">संचार घटना क्रमांक(communicationEventId)</value>
@@ -156,7 +156,7 @@
     <property key="FormFieldTitle_communicationEventPrpTypId">
         <value xml:lang="ar">دليل غرض الإتصال</value>
         <value xml:lang="de">Kommunikationsereignis Zweck ID</value>
-        <value xml:lang="en">Communication Event Purpose Type Id</value>
+        <value xml:lang="en">Communication Event Purpose Type ID</value>
         <value xml:lang="es">Código Propósito del evento de comunicación</value>
         <value xml:lang="fr">Type de but d'évènement de communication</value>
         <value xml:lang="hi-IN">संचार घटना प्रयोजन प्रकार का क्रमांक(communicationEventPrpTypId)</value>
@@ -192,7 +192,7 @@
     <property key="FormFieldTitle_communicationPartyId">
         <value xml:lang="ar">دليل طرف الإتصال</value>
         <value xml:lang="de">Kommunikationspartner ID</value>
-        <value xml:lang="en">Communication Party Id</value>
+        <value xml:lang="en">Communication Party ID</value>
         <value xml:lang="hi-IN">संचार पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto comuicazione</value>
         <value xml:lang="ja">通信取引先ID</value>
@@ -205,7 +205,7 @@
     <property key="FormFieldTitle_contactListId">
         <value xml:lang="ar">دليل قائمة الإتصال</value>
         <value xml:lang="de">Kontaktliste ID</value>
-        <value xml:lang="en">Contact List Id</value>
+        <value xml:lang="en">Contact List ID</value>
         <value xml:lang="es">Codigo Lista de contactos</value>
         <value xml:lang="fr">Liste de contact</value>
         <value xml:lang="hi-IN">संपर्क सूची क्रमांक</value>
@@ -241,7 +241,7 @@
     <property key="FormFieldTitle_contactListTypeId">
         <value xml:lang="ar">دليل نوع قائمة الإتصال</value>
         <value xml:lang="de">Kontaktliste Typ ID</value>
-        <value xml:lang="en">Contact List Type Id</value>
+        <value xml:lang="en">Contact List Type ID</value>
         <value xml:lang="es">Código Tipo Lista de contactos</value>
         <value xml:lang="fr">Type de liste</value>
         <value xml:lang="hi-IN">संपर्क सूची प्रकार का क्रमांक</value>
@@ -259,7 +259,7 @@
     <property key="FormFieldTitle_contactMechTypeId">
         <value xml:lang="ar">دليل نوع وسيلة الإتصال</value>
         <value xml:lang="de">Kontaktmechanismus Typ ID</value>
-        <value xml:lang="en">Contact Mech Type Id</value>
+        <value xml:lang="en">Contact Mech Type ID</value>
         <value xml:lang="es">Código Tipo Mecanismo de contacto</value>
         <value xml:lang="fr">Type de coordonnées</value>
         <value xml:lang="hi-IN">संपर्क यांत्रिक प्रकार का क्रमांक</value>
@@ -277,7 +277,7 @@
     <property key="FormFieldTitle_contentMimeTypeId">
         <value xml:lang="ar">دليل نوع المايم للمحتوى</value>
         <value xml:lang="de">Inhalt Mime Typ ID</value>
-        <value xml:lang="en">Content Mime Type Id</value>
+        <value xml:lang="en">Content Mime Type ID</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="hi-IN">सामग्री माइम प्रकार का क्रमांक(contentMimeTypeId)</value>
         <value xml:lang="it">Codice tipo contenuto mime</value>
@@ -357,7 +357,7 @@
         <value xml:lang="ar">دليل منشأة الوجهة</value>
         <value xml:lang="cs">ID polohy zařízení</value>
         <value xml:lang="de">Zieleinrichtung</value>
-        <value xml:lang="en">Destination Facility Id</value>
+        <value xml:lang="en">Destination Facility ID</value>
         <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="hi-IN">गंतव्य सुविधा क्रमांक(destinationFacilityId)</value>
         <value xml:lang="it">Stabilimento destinazione</value>
@@ -424,13 +424,13 @@
     <property key="FormFieldTitle_employmentStatusEnumId">
         <value xml:lang="ar">دليل قائمة حالة التوظيف</value>
         <value xml:lang="de">Beschäftigungsstatus</value>
-        <value xml:lang="en">Employment Status Enum Id</value>
+        <value xml:lang="en">Employment Status Enum ID</value>
         <value xml:lang="es">Estado de empleo</value>
         <value xml:lang="fr">Statut salarial</value>
         <value xml:lang="hi-IN">रोजगार स्थिति Enum क्रमांक</value>
         <value xml:lang="it">Stato Impiegato</value>
         <value xml:lang="ja">雇用ステータスID</value>
-        <value xml:lang="nl">Arbeidstatus Enum Id</value>
+        <value xml:lang="nl">Arbeidstatus Enum ID</value>
         <value xml:lang="pt-BR">Id de estado de emprego</value>
         <value xml:lang="ro">Statut Functionar</value>
         <value xml:lang="ru">Код перечисления статуса работника</value>
@@ -514,7 +514,7 @@
     <property key="FormFieldTitle_fromPartyId">
         <value xml:lang="ar">من دليل الطرف</value>
         <value xml:lang="de">Von Akteur ID</value>
-        <value xml:lang="en">From Party Id</value>
+        <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Código Participante origen</value>
         <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक से</value>
@@ -748,7 +748,7 @@
     <property key="FormFieldTitle_marketingCampaignId">
         <value xml:lang="ar">دليل حملة التسويق</value>
         <value xml:lang="de">Marketingkampagne ID</value>
-        <value xml:lang="en">Marketing Campaign Id</value>
+        <value xml:lang="en">Marketing Campaign ID</value>
         <value xml:lang="es">Código de campaña de marketing</value>
         <value xml:lang="fr">Campagne marketing</value>
         <value xml:lang="hi-IN">विपणन अभियान क्रमांक</value>
@@ -1033,7 +1033,7 @@
     <property key="FormFieldTitle_origCommEventId">
         <value xml:lang="ar">دليل إتصال المصدر</value>
         <value xml:lang="de">Herkunft Kommunikationsereignis ID</value>
-        <value xml:lang="en">Orig Comm Event Id</value>
+        <value xml:lang="en">Orig Comm Event ID</value>
         <value xml:lang="es">Código Origen de evento de comunicación</value>
         <value xml:lang="fr">Origine d'évènement de communication</value>
         <value xml:lang="hi-IN">मूल संचार घटना क्रमांक</value>
@@ -1049,7 +1049,7 @@
     <property key="FormFieldTitle_originContactMechId">
         <value xml:lang="ar">دليل وسيلة إتصال المصدر</value>
         <value xml:lang="de">Kontaktherkunft ID</value>
-        <value xml:lang="en">Origin Contact Mech Id</value>
+        <value xml:lang="en">Origin Contact Mech ID</value>
         <value xml:lang="fr">Coordonnées d'origine</value>
         <value xml:lang="hi-IN">मूल संपर्क यांत्रिक क्रमांक</value>
         <value xml:lang="it">Contatto origine</value>
@@ -1126,7 +1126,7 @@
         <value xml:lang="ar">دليل الإتصال الأم</value>
         <value xml:lang="cs">Id rodičovské události</value>
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
-        <value xml:lang="en">Parent Comm Event Id</value>
+        <value xml:lang="en">Parent Comm Event ID</value>
         <value xml:lang="es">Codigo Precursor del evento de comunicación</value>
         <value xml:lang="fr">Evènement de communication de parent</value>
         <value xml:lang="hi-IN">उच्च(Parent) संचार घटना क्रमांक</value>
@@ -1143,7 +1143,7 @@
         <value xml:lang="ar">دليل المجموعة الأم</value>
         <value xml:lang="cs">ID rodičovského partnera</value>
         <value xml:lang="de">Übergeordnete Gruppe ID</value>
-        <value xml:lang="en">Parent Group Id</value>
+        <value xml:lang="en">Parent Group ID</value>
         <value xml:lang="es">Código Precursos de grupo</value>
         <value xml:lang="fr">Groupe parent</value>
         <value xml:lang="hi-IN">उच्च(Parent) समूह क्रमांक</value>
@@ -1162,7 +1162,7 @@
         <value xml:lang="ar">دليل نوع الوالد</value>
         <value xml:lang="cs">ID typu rodiče</value>
         <value xml:lang="de">Übergeordneter Typ ID</value>
-        <value xml:lang="en">Parent Type Id</value>
+        <value xml:lang="en">Parent Type ID</value>
         <value xml:lang="es">Código Precursos de tipo</value>
         <value xml:lang="fr">Type parent</value>
         <value xml:lang="hi-IN">उच्च(Parent) प्रकार का क्रमांक</value>
@@ -1181,7 +1181,7 @@
         <value xml:lang="ar">دليل مجموعة التصنيف للطرف</value>
         <value xml:lang="cs">Id klasifikační skupiny partnera</value>
         <value xml:lang="de">Akteur Klassifizierungsgruppe ID</value>
-        <value xml:lang="en">Party Classification Group Id</value>
+        <value xml:lang="en">Party Classification Group ID</value>
         <value xml:lang="es">Código Grupo de clasificación</value>
         <value xml:lang="fr">Classification d'acteur</value>
         <value xml:lang="hi-IN">पार्टी वर्गीकरण समूह क्रमांक</value>
@@ -1199,7 +1199,7 @@
     <property key="FormFieldTitle_partyClassificationTypeId">
         <value xml:lang="ar">دليل نوع تصنيف الطرف</value>
         <value xml:lang="de">Akteur Klassifizierungstyp ID</value>
-        <value xml:lang="en">Party Classification Type Id</value>
+        <value xml:lang="en">Party Classification Type ID</value>
         <value xml:lang="es">Codigo Tipo de clasificación</value>
         <value xml:lang="fr">Type de classification d'acteur</value>
         <value xml:lang="hi-IN">पार्टी वर्गीकरण प्रकार का क्रमांक</value>
@@ -1217,7 +1217,7 @@
     <property key="FormFieldTitle_partyContentTypeId">
         <value xml:lang="ar">دليل نوع المحتوى الأم</value>
         <value xml:lang="de">Übergeordnete Kontakttyp ID</value>
-        <value xml:lang="en">Parent Content Type Id</value>
+        <value xml:lang="en">Parent Content Type ID</value>
         <value xml:lang="fr">Type de contenu parent</value>
         <value xml:lang="hi-IN">उच्च(Parent) सामग्री(content) प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo contenuto padre</value>
@@ -1311,7 +1311,7 @@
     <property key="FormFieldTitle_partyInvitationId">
         <value xml:lang="ar">دليل دعوة الطرف</value>
         <value xml:lang="de">Akteur Einladung ID</value>
-        <value xml:lang="en">Party Invitation Id</value>
+        <value xml:lang="en">Party Invitation ID</value>
         <value xml:lang="es">Código Invitación de participante</value>
         <value xml:lang="fr">Invitation d'acteur</value>
         <value xml:lang="hi-IN">पार्टी निमंत्रण क्रमांक</value>
@@ -1345,7 +1345,7 @@
     <property key="FormFieldTitle_partyRelationshipTypeId">
         <value xml:lang="ar">دليل نوع علاقة الطرف</value>
         <value xml:lang="de">Akteur Beziehungstyp ID</value>
-        <value xml:lang="en">Party Relationship Type Id</value>
+        <value xml:lang="en">Party Relationship Type ID</value>
         <value xml:lang="es">Código de relación</value>
         <value xml:lang="fr">Type de relation</value>
         <value xml:lang="hi-IN">पार्टी के संबंध प्रकार का क्रमांक</value>
@@ -1364,7 +1364,7 @@
         <value xml:lang="ar">دليل ضريبة الطرف</value>
         <value xml:lang="cs">DIČ</value>
         <value xml:lang="de">Akteur Steuer ID</value>
-        <value xml:lang="en">Party Tax Id</value>
+        <value xml:lang="en">Party Tax ID</value>
         <value xml:lang="es">CIF/NIF</value>
         <value xml:lang="fr">Taxe d'acteur</value>
         <value xml:lang="hi-IN">पार्टी कर(tax) क्रमांक</value>
@@ -1383,7 +1383,7 @@
         <value xml:lang="ar">دليل نوع الطرف</value>
         <value xml:lang="cs">Typ partnera ID</value>
         <value xml:lang="de">Gruppen Typ ID</value>
-        <value xml:lang="en">Party Type Id</value>
+        <value xml:lang="en">Party Type ID</value>
         <value xml:lang="hi-IN">पार्टी के प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo soggetto</value>
         <value xml:lang="ja">取引先種類ID</value>
@@ -1511,7 +1511,7 @@
         <value xml:lang="ar">دليل وسيلة الإتصال المفضلة</value>
         <value xml:lang="cs">Preferovaný způsob kontaktu</value>
         <value xml:lang="de">Bevorzugter Kontaktmechanismus ID</value>
-        <value xml:lang="en">Preferred Contact Mech Id</value>
+        <value xml:lang="en">Preferred Contact Mech ID</value>
         <value xml:lang="es">Código Mecanismo de Contacto preferido</value>
         <value xml:lang="fr">Coordonnées par défault</value>
         <value xml:lang="hi-IN">पसंदीदा संपर्क यांत्रिक क्रमांक</value>
@@ -1530,7 +1530,7 @@
         <value xml:lang="ar">دليل العملة المفضلة</value>
         <value xml:lang="cs">ID preferované měny</value>
         <value xml:lang="de">Bevorzugte Währungseinheit ID</value>
-        <value xml:lang="en">Preferred Currency Uom Id</value>
+        <value xml:lang="en">Preferred Currency Uom ID</value>
         <value xml:lang="es">Código de moneda preferida</value>
         <value xml:lang="fr">Devise par défaut</value>
         <value xml:lang="hi-IN">पसंदीदा मुद्रा माप की इकाई(Uom) क्रमांक</value>
@@ -1548,7 +1548,7 @@
     <property key="FormFieldTitle_quickAssignPartyId">
         <value xml:lang="ar">تعيين سريع لدليل طرف</value>
         <value xml:lang="de">Akteur ID rasch zuweisen</value>
-        <value xml:lang="en">Quick Assign Party Id</value>
+        <value xml:lang="en">Quick Assign Party ID</value>
         <value xml:lang="fr">Assoc. rapide de l'acteur</value>
         <value xml:lang="hi-IN">जल्दी पार्टी क्रमांक आवंटित करे</value>
         <value xml:lang="it">Assegna Velocemente Soggetto</value>
@@ -1577,7 +1577,7 @@
     <property key="FormFieldTitle_residenceStatusEnumId">
         <value xml:lang="ar">دليل قائمة حالة الإقامة</value>
         <value xml:lang="de">Wohnsitzstatus</value>
-        <value xml:lang="en">Residence Status Enum Id</value>
+        <value xml:lang="en">Residence Status Enum ID</value>
         <value xml:lang="es">Estado de residencia</value>
         <value xml:lang="fr">Statut d'habitation</value>
         <value xml:lang="hi-IN">निवास स्थिति Enum क्रमांक</value>
@@ -1595,7 +1595,7 @@
     <property key="FormFieldTitle_roleTypeId">
         <value xml:lang="ar">تعريف نوع الدور</value>
         <value xml:lang="de">Rolle Typ ID</value>
-        <value xml:lang="en">Role Type Id</value>
+        <value xml:lang="en">Role Type ID</value>
         <value xml:lang="es">Codigo Tipo de rol</value>
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="hi-IN">भूमिका प्रकार क्रमांक</value>
@@ -1836,7 +1836,7 @@
         <value xml:lang="ar">إلى دليل الطرف</value>
         <value xml:lang="cs">K partnerovi s ID</value>
         <value xml:lang="de">Empfänger ID</value>
-        <value xml:lang="en">To Party Id</value>
+        <value xml:lang="en">To Party ID</value>
         <value xml:lang="fr">Acteur destinataire</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
         <value xml:lang="it">Al soggetto</value>
@@ -4304,13 +4304,13 @@
     <property key="PartyClassificationGroupId">
         <value xml:lang="ar">دليل مجموعة التصنيف</value>
         <value xml:lang="de">Klassifizierungsgruppe ID</value>
-        <value xml:lang="en">Classification Group Id</value>
+        <value xml:lang="en">Classification Group ID</value>
         <value xml:lang="es">Grupo de clasificación</value>
         <value xml:lang="fr">Classification</value>
         <value xml:lang="hi-IN">वर्गीकरण समूह क्रमांक</value>
         <value xml:lang="it">Codice gruppo classificazione</value>
         <value xml:lang="ja">分類グループID</value>
-        <value xml:lang="nl">Classificatien Groep Id</value>
+        <value xml:lang="nl">Classificatien Groep ID</value>
         <value xml:lang="pt-BR">Id de grupo de classificação</value>
         <value xml:lang="ro">Cod Grup Clasificari</value>
         <value xml:lang="ru">Код группы классификации</value>
@@ -6348,7 +6348,7 @@
         <value xml:lang="ro">Actualizare Cod Grup De Siguranta </value>
         <value xml:lang="ru">Изменить группу безопасности с кодом</value>
         <value xml:lang="th">แก้ไขกลุ่มความปลอดภัยกับรหัส</value>
-        <value xml:lang="vi">Cập nhật nhóm phân quyền với Id</value>
+        <value xml:lang="vi">Cập nhật nhóm phân quyền với ID</value>
         <value xml:lang="zh">编辑安全组：标识</value>
         <value xml:lang="zh-TW">修改安全群組識別</value>
     </property>
@@ -10475,7 +10475,7 @@
         <value xml:lang="ro">Il Subiect cu Cod</value>
         <value xml:lang="ru">участник с кодом </value>
         <value xml:lang="th">ของกลุ่มผู้ใช้กับรหัส</value>
-        <value xml:lang="vi">của Tác nhân với Id</value>
+        <value xml:lang="vi">của Tác nhân với ID</value>
         <value xml:lang="zh">会员，标识 </value>
         <value xml:lang="zh-TW">的團體識別為 </value>
     </property>
@@ -10772,7 +10772,7 @@
         <value xml:lang="ro">Permise pentru Grupul De Siguranta cu Cod</value>
         <value xml:lang="ru">Права для группы безопасности с кодом</value>
         <value xml:lang="th">การอนุญาตสำหรับกลุ่มความปลอดภัยกับรหัส</value>
-        <value xml:lang="vi">Quyền dành cho nhóm phân quyền với Id</value>
+        <value xml:lang="vi">Quyền dành cho nhóm phân quyền với ID</value>
         <value xml:lang="zh">安全组的权限，标识</value>
         <value xml:lang="zh-TW">安全群組的權限其識別為 </value>
     </property>
@@ -11326,7 +11326,7 @@
         <value xml:lang="ro">Nu gaseste Tip Functie Contact cu Cod</value>
         <value xml:lang="ru">Назначение контакта не найдено по идентификатору</value>
         <value xml:lang="th">ไม่พบรหัสวัตถุประสงค์ในการติดต่อ</value>
-        <value xml:lang="vi">Loại mục đích liên hệ không tìm thấy với Id</value>
+        <value xml:lang="vi">Loại mục đích liên hệ không tìm thấy với ID</value>
         <value xml:lang="zh">找不到联系目的类型：标识</value>
         <value xml:lang="zh-TW">沒有聯絡目的類型識別</value>
     </property>
@@ -12034,7 +12034,7 @@
     <property key="PartySegmentGroupId">
         <value xml:lang="ar">دليل مجموعة الشريحة</value>
         <value xml:lang="de">Segmentgruppe ID</value>
-        <value xml:lang="en">Segment Group Id</value>
+        <value xml:lang="en">Segment Group ID</value>
         <value xml:lang="es">Código Grupo de segmento</value>
         <value xml:lang="fr">Groupe de segmentation</value>
         <value xml:lang="hi-IN">अनुभाग समूह क्रमांक</value>
@@ -12052,7 +12052,7 @@
     <property key="PartySegmentGroupProductStoreId">
         <value xml:lang="ar">دليل المتجر</value>
         <value xml:lang="de">Lager ID</value>
-        <value xml:lang="en">Product Store Id</value>
+        <value xml:lang="en">Product Store ID</value>
         <value xml:lang="es">Tienda</value>
         <value xml:lang="fr">Centre de profit (grp de segment.)</value>
         <value xml:lang="hi-IN">उत्पाद स्टोर क्रमांक</value>
@@ -12070,7 +12070,7 @@
     <property key="PartySegmentGroupTypeId">
         <value xml:lang="ar">دليل نوع الشريحة</value>
         <value xml:lang="de">Segment Typ ID</value>
-        <value xml:lang="en">Segment Type Id</value>
+        <value xml:lang="en">Segment Type ID</value>
         <value xml:lang="es">Tipo de segmento</value>
         <value xml:lang="fr">Type de segmentation</value>
         <value xml:lang="hi-IN">अनुभाग प्रकार क्रमांक</value>
@@ -12307,7 +12307,7 @@
     <property key="PartyServicemgntCustRequestId">
         <value xml:lang="ar">دليل طلب إدارة خدمة العميل</value>
         <value xml:lang="de">Service-Management Kundenanfrage ID</value>
-        <value xml:lang="en">Service management Customer Request Id</value>
+        <value xml:lang="en">Service management Customer Request ID</value>
         <value xml:lang="es">Gestión de servicios, Código de petición de cliente</value>
         <value xml:lang="fr">Demande de service</value>
         <value xml:lang="hi-IN">सेवा प्रबंधन ग्राहक अनुरोध क्रमांक</value>
@@ -13193,7 +13193,7 @@
         <value xml:lang="ar">دليل النوع</value>
         <value xml:lang="cs">Typ partnera</value>
         <value xml:lang="de">Akteur Typ ID</value>
-        <value xml:lang="en">Party Type Id</value>
+        <value xml:lang="en">Party Type ID</value>
         <value xml:lang="es">Código Tipo de participante</value>
         <value xml:lang="fr">Type identifiant</value>
         <value xml:lang="hi-IN">पार्टी के प्रकार का क्रमांक</value>
@@ -13448,7 +13448,7 @@
         <value xml:lang="ro">Utilizzatori Login pe Grup De Siguranta cu Cod</value>
         <value xml:lang="ru">Имена пользователей для группы безопасности с кодом</value>
         <value xml:lang="th">การเข้าใช้ระบบของผู้ใช้เพื่อความปลอดภัยด้วยรหัสนี้</value>
-        <value xml:lang="vi">Tên truy nhập cho nhóm phân quyền với Id</value>
+        <value xml:lang="vi">Tên truy nhập cho nhóm phân quyền với ID</value>
         <value xml:lang="zh">安全组用户登录，标识</value>
         <value xml:lang="zh-TW">安全群組使用者登入其識別為</value>
     </property>
@@ -13722,7 +13722,7 @@
     <property key="PartyVisitId">
         <value xml:lang="ar">دليل الزيارة</value>
         <value xml:lang="cs">Id návštěvy</value>
-        <value xml:lang="de">Besuchs Id</value>
+        <value xml:lang="de">Besuchs ID</value>
         <value xml:lang="en">Visit ID</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Ident. connexion</value>

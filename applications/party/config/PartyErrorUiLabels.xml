@@ -22,7 +22,7 @@
     <property key="commeventservices.communication_event_from_contact_mech_must_be_email">
         <value xml:lang="cs">Chyba: Komunikační událost musí mít jako odesílatele uvedenu emailovou adresu.</value>
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
-        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>
+        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event ID</value>
         <value xml:lang="es">Error: Los eventos de comunicación deben tener un e-mail asociado</value>
         <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un courriel pour évènement de communication</value>
         <value xml:lang="hi-IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
@@ -44,7 +44,7 @@
         <value xml:lang="hi-IN">त्रुटि: संचार घटना(event) एक ईमेल संचार नहीं है और संचार घटना(event) क्रमांक के लिए ईमेल नहीं किया जा सकता है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non è una comunicazione email e non può essere inviata email per l'evento comunicazioni</value>
         <value xml:lang="ja">エラー: 通信イベントはEメールではないためEメールを受け取ることはできません。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie is geen email communicatie en kan niet gemaild worden voor communicatie event Id</value>
+        <value xml:lang="nl">Fout: Communicatie is geen email communicatie en kan niet gemaild worden voor communicatie event ID</value>
         <value xml:lang="pt-BR">ERRO: A comunicação não é um e-mail e não pode ser enviado para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii nu este un email de comunicatie si nu poate fi emailed pentru codul  evenimentului comunicatii</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не является электронной почтой и не может быть отправлено для кода события </value>
@@ -54,13 +54,13 @@
     </property>
     <property key="commeventservices.communication_event_not_found_failure">
         <value xml:lang="de">FEHLER: Kommunikationsereignis nicht gefunden mit der Kommunikationsereignis ID</value>
-        <value xml:lang="en">ERROR: Communication Event not found for communication event Id</value>
+        <value xml:lang="en">ERROR: Communication Event not found for communication event ID</value>
         <value xml:lang="es">ERROR: No se ha encontrado una comunicación con dicho código</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas trouvé pour cette réf.</value>
         <value xml:lang="hi-IN">त्रुटि: संचार घटना(event) क्रमांक के लिए संचार घटना(event) नहीं मिला है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non trovato per l'evento comunicazione con codice evento</value>
         <value xml:lang="ja">エラー: 通信イベントが見つかりません。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie event niet gevonden voor deze communicatie Id</value>
+        <value xml:lang="nl">Fout: Communicatie event niet gevonden voor deze communicatie ID</value>
         <value xml:lang="pt-BR">ERRO: Evento de comunicação não encontrado para ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatie negasit pentru evenimentul comunicatie cu cod eveniment</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не найдено для кода события</value>
@@ -86,13 +86,13 @@
     </property>
     <property key="commeventservices.communication_event_to_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus an" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
-        <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event Id</value>
+        <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event ID</value>
         <value xml:lang="es">ERROR: La comunicación debe tener especificado un mecanismo de contacto</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication doit avoir une coordonnée destinataire qui soit un courriel pour réf. d'évènement de communication</value>
         <value xml:lang="hi-IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che ha un email per l'evento comunicazioni</value>
         <value xml:lang="ja">エラー: 通信イベントはEメールの連絡方法(先)を持つ必要があります。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie event moet een 'naar' adres hebben dat een email is voor communicatie event Id</value>
+        <value xml:lang="nl">Fout: Communicatie event moet een 'naar' adres hebben dat een email is voor communicatie event ID</value>
         <value xml:lang="pt-BR">ERRO: O evento de comunicação deve ter um mecanismo de contato associado que seja um e-mail para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Evenimentul Comunicatii Trebbie sa aibe un contact mech ca si un email pentru codul eveniment comunicatii</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие должно иметь способ связи эл. почту для кода коммуникационного события</value>

@@ -131,11 +131,11 @@
         <value xml:lang="ar">دليل العملية الحسابية</value>
         <value xml:lang="cs">ID transakčního účtu</value>
         <value xml:lang="de">Buchungs-Id</value>
-        <value xml:lang="en">Account Transaction Id</value>
+        <value xml:lang="en">Account Transaction ID</value>
         <value xml:lang="fr">Réf transaction</value>
         <value xml:lang="hi-IN">लेखा गतिविधि क्रमांक</value>
         <value xml:lang="ja">アカウントトランザクションID</value>
-        <value xml:lang="nl">Transactie Id</value>
+        <value xml:lang="nl">Transactie ID</value>
         <value xml:lang="pt">Id da transação de Conta</value>
         <value xml:lang="vi">Mã Bút toán</value>
         <value xml:lang="zh">账户交易标识</value>
@@ -278,7 +278,7 @@
     <property key="AccountingActualCurrencyUomId">
         <value xml:lang="ar">دليل العملة الفعلية</value>
         <value xml:lang="de">Ist-Währung</value>
-        <value xml:lang="en">Actual Currency Uom Id</value>
+        <value xml:lang="en">Actual Currency Uom ID</value>
         <value xml:lang="fr">Réf. UOM de la devise réelle</value>
         <value xml:lang="hi-IN">वास्तविक मुद्रा माप की इकाई क्रमांक</value>
         <value xml:lang="it">Attuale Udm Valuta</value>
@@ -737,7 +737,7 @@
     <property key="AccountingAgreementItemSeqId">
         <value xml:lang="ar">دليل التسلسل لبند الإتفاقية</value>
         <value xml:lang="de">Vereinbarungs-Positions-Nr.</value>
-        <value xml:lang="en">Agreement Item Seq Id</value>
+        <value xml:lang="en">Agreement Item Seq ID</value>
         <value xml:lang="es">Id elemento secuencia de acuerdo</value>
         <value xml:lang="fr">No séq. du point d'accord</value>
         <value xml:lang="hi-IN">अनुबंध वस्तु का अनुक्रम क्रमांक</value>
@@ -787,7 +787,7 @@
     <property key="AccountingAgreementItemTypeId">
         <value xml:lang="ar">دليل نوع بند الإتفاقية</value>
         <value xml:lang="de">Vereinbarungs-Positions-Art</value>
-        <value xml:lang="en">Agreement Item Type Id</value>
+        <value xml:lang="en">Agreement Item Type ID</value>
         <value xml:lang="es">Id tipo de elemento de acuerdo</value>
         <value xml:lang="fr">Réf. de type de point d'accord commercial</value>
         <value xml:lang="hi-IN">अनुबंध मद प्रकार क्रमांक</value>
@@ -855,7 +855,7 @@
     <property key="AccountingAgreementTermId">
         <value xml:lang="ar">دليل بند الإتفاقية</value>
         <value xml:lang="de">Vereinbarungsart</value>
-        <value xml:lang="en">Agreement Term Id</value>
+        <value xml:lang="en">Agreement Term ID</value>
         <value xml:lang="es">Id término de acuerdo</value>
         <value xml:lang="fr">Réf. du terme de l'accord commecial</value>
         <value xml:lang="hi-IN">अनुबंध अवधि क्रमांक</value>
@@ -891,7 +891,7 @@
     <property key="AccountingAgreementTypeId">
         <value xml:lang="ar">دليل نوع الإتفاقية</value>
         <value xml:lang="de">Vereinbarungsart</value>
-        <value xml:lang="en">Agreement Type Id</value>
+        <value xml:lang="en">Agreement Type ID</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
         <value xml:lang="fr">Réf de type d'accord commercial</value>
         <value xml:lang="hi-IN">अनुबंध प्रकार क्रमांक</value>
@@ -3192,7 +3192,7 @@
         <value xml:lang="ar">لا يمكن إيجاد الحساب ذي الدليل</value>
         <value xml:lang="de">Hauptkonto konnte nicht gefunden werden</value>
         <value xml:lang="en">Could not find GlAccount with ID</value>
-        <value xml:lang="es">No fue posible encontrar la cuenta de LM con el Id</value>
+        <value xml:lang="es">No fue posible encontrar la cuenta de LM con el ID</value>
         <value xml:lang="fr">Pas trouvé le compte comptable correspondant à cette réf.</value>
         <value xml:lang="hi-IN">इस क्रमांक(Id) के साथ  सामान्य बही खाता (GlAccount) नहीं मिला</value>
         <value xml:lang="it">Non trovato Conto Gl con Codice</value>
@@ -3202,7 +3202,7 @@
         <value xml:lang="ro">Nu gaseste Contul Gl cu Codul</value>
         <value xml:lang="ru">Невозможно найти счет ГК с кодом</value>
         <value xml:lang="th">ไม่สามารถหาบัญชีแยกประเภททั่วไปด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Tài khoản sổ cái có Id</value>
+        <value xml:lang="vi">Không tìm thấy Tài khoản sổ cái có ID</value>
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
         <value xml:lang="zh-TW">沒有在總帳科目中找到相應的識別</value>
     </property>
@@ -4489,7 +4489,7 @@
     <property key="AccountingDepositSlipId">
         <value xml:lang="ar">دليل سند الإيداع</value>
         <value xml:lang="de">Einzahlungsschein-Nr.</value>
-        <value xml:lang="en">Deposit Slip Id</value>
+        <value xml:lang="en">Deposit Slip ID</value>
         <value xml:lang="fr">Réf. récépissé de dépôt</value>
         <value xml:lang="ja">預入伝票ID</value>
         <value xml:lang="pt">ID de comprovante de Depósito</value>
@@ -5361,7 +5361,7 @@
     <property key="AccountingExternalAccountId">
         <value xml:lang="ar">دليل حساب محاسبي خارجي</value>
         <value xml:lang="de">Externe Konten-Nr.</value>
-        <value xml:lang="en">Accounting External Account Id</value>
+        <value xml:lang="en">Accounting External Account ID</value>
         <value xml:lang="es">Id de cuenta de contable externa</value>
         <value xml:lang="fr">Réf. du compte externe</value>
         <value xml:lang="hi-IN">बाहरी लेखा खाता क्रमांक</value>
@@ -5371,7 +5371,7 @@
         <value xml:lang="pt">ID de conta de Contabilidade Externa</value>
         <value xml:lang="ro">Nr.Cont Contabil Extern</value>
         <value xml:lang="ru">Код внешнего счета</value>
-        <value xml:lang="th">Accounting External Account Id</value>
+        <value xml:lang="th">Accounting External Account ID</value>
         <value xml:lang="vi">Id Tài khoản kế toán ngoài</value>
         <value xml:lang="zh">财务外部账户标识</value>
         <value xml:lang="zh-TW">財務外部科目識別</value>
@@ -6022,7 +6022,7 @@
     <property key="AccountingFixedAssetClassEnumId">
         <value xml:lang="ar">دليل تعداد صنف الأصل الثابت</value>
         <value xml:lang="de">Anlagen-Klasse</value>
-        <value xml:lang="en">Fixed Asset Class Enum Id</value>
+        <value xml:lang="en">Fixed Asset Class Enum ID</value>
         <value xml:lang="fr">Réf. de la classe d'actif immobilisé</value>
         <value xml:lang="hi-IN">अचल संपत्ति वर्ग Enum क्रमांक</value>
         <value xml:lang="it">Classe cespite</value>
@@ -6102,7 +6102,7 @@
         <value xml:lang="ar">دليل أصل ثابت</value>
         <value xml:lang="cs">Kód dlouhodobého majetku</value>
         <value xml:lang="de">Anlage ID</value>
-        <value xml:lang="en">Fixed Asset Id</value>
+        <value xml:lang="en">Fixed Asset ID</value>
         <value xml:lang="es">Id Activo Fijo</value>
         <value xml:lang="fr">Réf. de l'immobilisation</value>
         <value xml:lang="hi-IN">अचल संपत्ति क्रमांक</value>
@@ -6172,8 +6172,8 @@
     </property>
     <property key="AccountingFixedAssetIdentTypeId">
         <value xml:lang="ar">نوع التعريف لدليل الأصل الثابت</value>
-        <value xml:lang="de">Identifikationsart Id</value>
-        <value xml:lang="en">Fixed Asset Ident Type Id</value>
+        <value xml:lang="de">Identifikationsart ID</value>
+        <value xml:lang="en">Fixed Asset Ident Type ID</value>
         <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
         <value xml:lang="hi-IN">अचल संपत्ति पहचान प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo identificazione cespite</value>
@@ -6384,7 +6384,7 @@
     <property key="AccountingFixedAssetMaintSeqId">
         <value xml:lang="ar">الدليل المتسلسل لصيانة الأصل الثابت</value>
         <value xml:lang="de">Anlagenwartungsreihenfolge</value>
-        <value xml:lang="en">Fixed Asset Maint Seq Id</value>
+        <value xml:lang="en">Fixed Asset Maint Seq ID</value>
         <value xml:lang="fr">Réf. de maintenance de la classe d'actif immobilisé</value>
         <value xml:lang="hi-IN">अचल संपत्ति रखरखाव अनुक्रम क्रमांक</value>
         <value xml:lang="it">Riga manutenzione cespite</value>
@@ -6465,7 +6465,7 @@
     <property key="AccountingFixedAssetManufacturerId">
         <value xml:lang="ar">دليل صانع/مصنع الأصل الثابت</value>
         <value xml:lang="de">Anlagen-Herstellernummer</value>
-        <value xml:lang="en">Fixed Asset Manufacturer Id</value>
+        <value xml:lang="en">Fixed Asset Manufacturer ID</value>
         <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
         <value xml:lang="hi-IN">अचल संपत्ति निर्माता क्रमांक</value>
         <value xml:lang="it">Produttore cespite</value>
@@ -7491,8 +7491,8 @@
         <value xml:lang="zh-TW">繼承的值</value>
     </property>
     <property key="AccountingInstanceOfProductId">
-        <value xml:lang="de">Instanz der Produkt Id</value>
-        <value xml:lang="en">Instance Of Product Id</value>
+        <value xml:lang="de">Instanz der Produkt ID</value>
+        <value xml:lang="en">Instance Of Product ID</value>
         <value xml:lang="fr">Instance de réf. d'article</value>
         <value xml:lang="hi-IN">उत्पाद क्रमांक से दृष्टांत</value>
         <value xml:lang="it">Istanza del prodotto</value>
@@ -8194,7 +8194,7 @@
         <value xml:lang="ar">الفاتورة تتجاوز دليل مصروف حساب GL</value>
         <value xml:lang="cs">Změna nákladového účtu faktury</value>
         <value xml:lang="de">Aufwandskonto für Rechnung überschreiben</value>
-        <value xml:lang="en">Invoice Override Expense Gl Account Id</value>
+        <value xml:lang="en">Invoice Override Expense Gl Account ID</value>
         <value xml:lang="fr">Remplace la réf. de compte de frais pour la facture</value>
         <value xml:lang="hi-IN">चालान अधिरोहण खर्च जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Sovrapponi Conto Spese GL Fattura</value>
@@ -10548,7 +10548,7 @@
     <property key="AccountingOrderPaymentPreferenceId">
         <value xml:lang="ar">الدليل المفضل للدفعة المحاسبية لأمر البيع/الشراء</value>
         <value xml:lang="de">Buchungsauftrags-Zahlungspräferenz-Nr.</value>
-        <value xml:lang="en">Accounting Order Payment Preference Id</value>
+        <value xml:lang="en">Accounting Order Payment Preference ID</value>
         <value xml:lang="es">Id Preferencia de pago de orden contable</value>
         <value xml:lang="fr">Id de la préférence de paiement associée à la commande</value>
         <value xml:lang="hi-IN">लेखांकन आदेश भुगतान प्रेफेरेंस क्रमांक(AccountingOrderPaymentPreferenceId)</value>
@@ -10558,7 +10558,7 @@
         <value xml:lang="pt">ID de preferência de pagamento de pedido da contabilidade</value>
         <value xml:lang="ro">Cod Preferinta Ordin de Plata Contabil</value>
         <value xml:lang="ru">Учетный код предпочтения платежа по заказу</value>
-        <value xml:lang="th">Accounting Order Payment Preference Id</value>
+        <value xml:lang="th">Accounting Order Payment Preference ID</value>
         <value xml:lang="vi">Mã tham chiếu của Thanh toán cho đặt hàng</value>
         <value xml:lang="zh">财务定单支付引用标识</value>
         <value xml:lang="zh-TW">財務訂單支付參考識別</value>
@@ -10612,8 +10612,8 @@
     </property>
     <property key="AccountingOrgPartyId">
         <value xml:lang="ar">دليل طرف المنظمة</value>
-        <value xml:lang="de">Org. Akteur Id</value>
-        <value xml:lang="en">Org Party Id</value>
+        <value xml:lang="de">Org. Akteur ID</value>
+        <value xml:lang="en">Org Party ID</value>
         <value xml:lang="fr">Réf. d'org.</value>
         <value xml:lang="hi-IN">संगठन पार्टी क्रमांक</value>
         <value xml:lang="it">Organizzazione</value>
@@ -10629,7 +10629,7 @@
         <value xml:lang="ar">دليل طرف المنظمة</value>
         <value xml:lang="cs">Organizační složka</value>
         <value xml:lang="de">Akteur ID (Org.)</value>
-        <value xml:lang="en">Organization Party Id</value>
+        <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur de type Organisation</value>
         <value xml:lang="hi-IN">संगठन पार्टी क्रमांक</value>
@@ -10659,13 +10659,13 @@
     </property>
     <property key="AccountingOverrideRevenueGlAccountId">
         <value xml:lang="de">Ertragskonto überschreiben</value>
-        <value xml:lang="en">Override Revenue Gl Account Id</value>
+        <value xml:lang="en">Override Revenue Gl Account ID</value>
         <value xml:lang="es">Anular Id Ingreso de cuenta de LM</value>
         <value xml:lang="fr">Substituer compte comptable pour les ventes</value>
         <value xml:lang="hi-IN">राजस्व जीएल(Gl) खाता क्रमांक को अधिरोहण</value>
         <value xml:lang="it">Sostituzione Conto Profitti Gl</value>
         <value xml:lang="ja">上書収入GL勘定ID</value>
-        <value xml:lang="nl">Verander Revenue Gb-rekening Id</value>
+        <value xml:lang="nl">Verander Revenue Gb-rekening ID</value>
         <value xml:lang="pt">Sobrescrever ID da receira na conta razão</value>
         <value xml:lang="ro">Substituire Cont Profit Gl</value>
         <value xml:lang="ru">Основной счет доходов</value>
@@ -11618,7 +11618,7 @@
     <property key="AccountingPaymentGatewayConfigId">
         <value xml:lang="ar">دليل اعدادات بوابة الدفع</value>
         <value xml:lang="de">Zahlungs-Schnittstellen-Id</value>
-        <value xml:lang="en">Payment Gateway Config Id</value>
+        <value xml:lang="en">Payment Gateway Config ID</value>
         <value xml:lang="fr">Réf. config. passerelle de paiement</value>
         <value xml:lang="hi-IN">भुगतान गेटवे विन्यास क्रमांक</value>
         <value xml:lang="it">Codice configurazione gateway pagamenti</value>
@@ -11645,7 +11645,7 @@
     <property key="AccountingPaymentGatewayConfigTypeId">
         <value xml:lang="ar">دليل نوع اعدادات بوابة الدفع</value>
         <value xml:lang="de">Schnittstellentyp</value>
-        <value xml:lang="en">Payment Gateway Config Type Id</value>
+        <value xml:lang="en">Payment Gateway Config Type ID</value>
         <value xml:lang="fr">Type de configuration de passerelle de paiment</value>
         <value xml:lang="hi-IN">भुगतान गेटवे विन्यास प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo configurazione gateway pagamenti</value>
@@ -11709,7 +11709,7 @@
     </property>
     <property key="AccountingPaymentGatewayResponseId">
         <value xml:lang="de">Antwort-Id des Zahlungs-Gateways</value>
-        <value xml:lang="en">Accounting Payment Gateway Response Id</value>
+        <value xml:lang="en">Accounting Payment Gateway Response ID</value>
         <value xml:lang="es">Id Respuesta Puerta de Pago Contable</value>
         <value xml:lang="fr">Réf. de la réponse du terminal de paiement</value>
         <value xml:lang="hi-IN">लेखांकन भुगतान गेटवे प्रतिक्रिया क्रमांक</value>
@@ -11719,7 +11719,7 @@
         <value xml:lang="pt">ID de resposta da contabilidade do Gateway de pagamento</value>
         <value xml:lang="ro">Cod Raspuns Gateway Plata Contabila</value>
         <value xml:lang="ru">Учетный код ответа платежного шлюза</value>
-        <value xml:lang="th">Accounting Payment Gateway Response Id</value>
+        <value xml:lang="th">Accounting Payment Gateway Response ID</value>
         <value xml:lang="vi">Id phản hồi của cổng thanh toán kế toán</value>
         <value xml:lang="zh">财务支付网关响应编号</value>
         <value xml:lang="zh-TW">財務支付閘道回應識別</value>
@@ -11740,7 +11740,7 @@
     <property key="AccountingPaymentGroupId">
         <value xml:lang="ar">دليل مجموعة الدفع</value>
         <value xml:lang="de">Zahlungsgruppen-Nr.</value>
-        <value xml:lang="en">Payment Group Id</value>
+        <value xml:lang="en">Payment Group ID</value>
         <value xml:lang="fr">Réf. grp. de paiement</value>
         <value xml:lang="hi-IN">भुगतान समूह क्रमांक</value>
         <value xml:lang="ja">支払グループID</value>
@@ -11961,7 +11961,7 @@
     <property key="AccountingPaymentMethodId">
         <value xml:lang="ar">دليل طريقة الدفع</value>
         <value xml:lang="de">Zahlungsmethode</value>
-        <value xml:lang="en">Payment Method Id</value>
+        <value xml:lang="en">Payment Method ID</value>
         <value xml:lang="es">Id Metodo de Pago</value>
         <value xml:lang="fr">Méthode de paiement</value>
         <value xml:lang="hi-IN">भुगतान तरीका क्रमांक</value>
@@ -12093,8 +12093,8 @@
     </property>
     <property key="AccountingPaymentPreferenceId">
         <value xml:lang="ar">دليل الدفع المفضل</value>
-        <value xml:lang="de">Zahlungspräferenz Id</value>
-        <value xml:lang="en">Payment Preference Id</value>
+        <value xml:lang="de">Zahlungspräferenz ID</value>
+        <value xml:lang="en">Payment Preference ID</value>
         <value xml:lang="es">Id Preferencia de Pago</value>
         <value xml:lang="fr">Préférence de paiement</value>
         <value xml:lang="hi-IN">भुगतान प्रेफेरेंस क्रमांक</value>
@@ -12104,7 +12104,7 @@
         <value xml:lang="pt">ID de Preferência de Pagamento</value>
         <value xml:lang="ro">Codice Preferinte Plata</value>
         <value xml:lang="ru">Код предпочтения платежа</value>
-        <value xml:lang="th">Payment Preference Id</value>
+        <value xml:lang="th">Payment Preference ID</value>
         <value xml:lang="vi">Id tham chiếu thanh toán</value>
         <value xml:lang="zh">支付优先方法标识</value>
         <value xml:lang="zh-TW">支付偏好方法識別</value>
@@ -14991,7 +14991,7 @@
     <property key="AccountingTermTypeId">
         <value xml:lang="ar">دليل نوع الشرط</value>
         <value xml:lang="de">Vereinbarungsart</value>
-        <value xml:lang="en">Term Type Id</value>
+        <value xml:lang="en">Term Type ID</value>
         <value xml:lang="es">Id TipoTérmino</value>
         <value xml:lang="fr">Type de terme</value>
         <value xml:lang="hi-IN">शर्त प्रकार क्रमांक</value>
@@ -15112,7 +15112,7 @@
     <property key="AccountingToPartyId">
         <value xml:lang="ar">إلى دليل الطرف</value>
         <value xml:lang="de">An Akteur ID</value>
-        <value xml:lang="en">To Party Id</value>
+        <value xml:lang="en">To Party ID</value>
         <value xml:lang="es">Id a grupo</value>
         <value xml:lang="fr">A l'acteur réf.</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
@@ -16466,8 +16466,8 @@
         <value xml:lang="zh-TW">隱藏幣種下拉清單</value>
     </property>
     <property key="AccountingWorldPayInstId">
-        <value xml:lang="de">WorldPay Instanz Id</value>
-        <value xml:lang="en">WorldPay instance Id</value>
+        <value xml:lang="de">WorldPay Instanz ID</value>
+        <value xml:lang="en">WorldPay instance ID</value>
         <value xml:lang="fr">Instance WorldPay</value>
         <value xml:lang="hi-IN">WorldPay दृष्टांत क्रमांक</value>
         <value xml:lang="it">Id Istanza WorldPay</value>
@@ -16480,7 +16480,7 @@
     <property key="AccountingWorldPayLangId">
         <value xml:lang="ar">دليل لغة المتسوق</value>
         <value xml:lang="de">Sprach-Id</value>
-        <value xml:lang="en">Shopper language Id</value>
+        <value xml:lang="en">Shopper language ID</value>
         <value xml:lang="fr">Langue du magasin</value>
         <value xml:lang="hi-IN">दुकानदार भाषा क्रमांक</value>
         <value xml:lang="it">Id Lingua negozio</value>
@@ -16846,7 +16846,7 @@
     <property key="FormFieldTitle_accountCurrencyUomId">
         <value xml:lang="ar">دليل وحدة القياس لعملة الحساب</value>
         <value xml:lang="de">Währung</value>
-        <value xml:lang="en">Account Currency Uom Id</value>
+        <value xml:lang="en">Account Currency Uom ID</value>
         <value xml:lang="es">Id UM moneda de cuenta</value>
         <value xml:lang="fr">Unité de la monnaie</value>
         <value xml:lang="hi-IN">खाता मुद्रा माप की इकाई(Uom) क्रमांक</value>
@@ -16899,8 +16899,8 @@
     </property>
     <property key="FormFieldTitle_acctgTransEntrySeqId">
         <value xml:lang="ar">الدليل تسلسل قيد العملية المحاسبية</value>
-        <value xml:lang="de">Buchungseintrag Seq Id</value>
-        <value xml:lang="en">Acctg Trans Entry Seq Id</value>
+        <value xml:lang="de">Buchungseintrag Seq ID</value>
+        <value xml:lang="en">Acctg Trans Entry Seq ID</value>
         <value xml:lang="es">Id Sec Entrada Trans Contable</value>
         <value xml:lang="fr">Séq. enreg. comptable</value>
         <value xml:lang="hi-IN">खाता गतिविधि प्रवेश अनुक्रम क्रमांक</value>
@@ -16910,15 +16910,15 @@
         <value xml:lang="pt">ID de sequência de registro contábil</value>
         <value xml:lang="ro">Nr.Tranzactie Contabila</value>
         <value xml:lang="ru">Код эл-та бух. провод.</value>
-        <value xml:lang="th">Acctg Trans Entry Seq Id</value>
+        <value xml:lang="th">Acctg Trans Entry Seq ID</value>
         <value xml:lang="vi">Thứ tự điểm nhập</value>
         <value xml:lang="zh">财务交易记录序号</value>
         <value xml:lang="zh-TW">財務交易記錄序號</value>
     </property>
     <property key="FormFieldTitle_acctgTransEntryTypeId">
         <value xml:lang="ar">دليل نوع قيد العملية المحاسبية</value>
-        <value xml:lang="de">Buchungseintrag Typ Id</value>
-        <value xml:lang="en">Acctg Trans Entry Type Id</value>
+        <value xml:lang="de">Buchungseintrag Typ ID</value>
+        <value xml:lang="en">Acctg Trans Entry Type ID</value>
         <value xml:lang="es">Id Tipo Entrada Trans Contable</value>
         <value xml:lang="fr">Type enreg. comptable</value>
         <value xml:lang="hi-IN">खाता गतिविधि प्रवेश प्रकार क्रमांक</value>
@@ -16928,15 +16928,15 @@
         <value xml:lang="pt">ID de tipo de registro de transação contábil</value>
         <value xml:lang="ro">Tip Tranzactie Contabila</value>
         <value xml:lang="ru">Тип эл-та. бух. провод.</value>
-        <value xml:lang="th">Acctg Trans Entry Type Id</value>
+        <value xml:lang="th">Acctg Trans Entry Type ID</value>
         <value xml:lang="vi">Loại điểm nhập Bút toán kế toán</value>
         <value xml:lang="zh">财务交易记录类型标识</value>
         <value xml:lang="zh-TW">財務交易記錄型態識別</value>
     </property>
     <property key="FormFieldTitle_acctgTransId">
         <value xml:lang="ar">دليل العمليات المحاسبية</value>
-        <value xml:lang="de">Buchungs Id</value>
-        <value xml:lang="en">Acctg Trans Id</value>
+        <value xml:lang="de">Buchungs ID</value>
+        <value xml:lang="en">Acctg Trans ID</value>
         <value xml:lang="es">Id Tansacción Contable</value>
         <value xml:lang="fr">Réf. enreg. comptable</value>
         <value xml:lang="hi-IN">गतिविधि खाता क्रमांक</value>
@@ -16946,7 +16946,7 @@
         <value xml:lang="pt">ID de transação contábil</value>
         <value xml:lang="ro">Nr.Tranzactie Contabila</value>
         <value xml:lang="ru">Проводка</value>
-        <value xml:lang="th">Acctg Trans Id</value>
+        <value xml:lang="th">Acctg Trans ID</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">财务交易标识</value>
         <value xml:lang="zh-TW">財務交易識別</value>
@@ -16965,8 +16965,8 @@
     </property>
     <property key="FormFieldTitle_acctgTransTypeId">
         <value xml:lang="ar">دليل نوع العمليات المحاسبية</value>
-        <value xml:lang="de">Buchungstyp Id</value>
-        <value xml:lang="en">Acctg Trans Type Id</value>
+        <value xml:lang="de">Buchungstyp ID</value>
+        <value xml:lang="en">Acctg Trans Type ID</value>
         <value xml:lang="es">Id Tipo Tans Contable</value>
         <value xml:lang="fr">Type enreg. comptable</value>
         <value xml:lang="hi-IN">गतिविधि खाता प्रकार क्रमांक</value>
@@ -16975,7 +16975,7 @@
         <value xml:lang="nl">Transactietype ID</value>
         <value xml:lang="pt">ID de tipo de transação contábil</value>
         <value xml:lang="ru">Тип бух. провод.</value>
-        <value xml:lang="th">Acctg Trans Type Id</value>
+        <value xml:lang="th">Acctg Trans Type ID</value>
         <value xml:lang="vi">Kiểu Bút toán</value>
         <value xml:lang="zh">财务交易类型标识</value>
         <value xml:lang="zh-TW">財務交易型態識別</value>
@@ -16983,7 +16983,7 @@
     <property key="FormFieldTitle_acquireOrderId">
         <value xml:lang="ar">دليل حصول أمر البيع/الشراء</value>
         <value xml:lang="de">Auftragsnummer der Anschaffung</value>
-        <value xml:lang="en">Acquire Order Id</value>
+        <value xml:lang="en">Acquire Order ID</value>
         <value xml:lang="fr">Obtenir une réf. de commande</value>
         <value xml:lang="hi-IN">प्राप्त आदेश क्रमांक</value>
         <value xml:lang="it">Numero Ordine Acquisito</value>
@@ -16996,7 +16996,7 @@
     <property key="FormFieldTitle_acquireOrderItemSeqId">
         <value xml:lang="ar">دليل تسلسل وحدة أمر البيع/الشراء</value>
         <value xml:lang="de">Auftragspositionsnummer der Anschaffung</value>
-        <value xml:lang="en">Acquire Order Item Seq Id</value>
+        <value xml:lang="en">Acquire Order Item Seq ID</value>
         <value xml:lang="fr">Obtenir une réf. séq. de ligne de commande</value>
         <value xml:lang="hi-IN">प्राप्त आदेश मद अनुक्रम क्रमांक</value>
         <value xml:lang="it">Numero Riga Ordine Acquisito</value>
@@ -17084,7 +17084,7 @@
         <value xml:lang="zh-TW">增加調查回應</value>
     </property>
     <property key="FormFieldTitle_agreementContentTypeId">
-        <value xml:lang="en">Agreement Content Type Id</value>
+        <value xml:lang="en">Agreement Content Type ID</value>
         <value xml:lang="fr">Type de contenu</value>
     </property>
     <property key="FormFieldTitle_agreementDate">
@@ -17143,8 +17143,8 @@
     </property>
     <property key="FormFieldTitle_agreementItemSeqId">
         <value xml:lang="ar">دليل تسلسل وحدة الإتفاقية</value>
-        <value xml:lang="de">Vereinbarungsposition Seq Id</value>
-        <value xml:lang="en">Agreement Item Seq Id</value>
+        <value xml:lang="de">Vereinbarungsposition Seq ID</value>
+        <value xml:lang="en">Agreement Item Seq ID</value>
         <value xml:lang="fr">No séq. du point d'accord</value>
         <value xml:lang="hi-IN">अनुबंध मद अनुक्रम क्रमांक</value>
         <value xml:lang="it">Riga contratto</value>
@@ -17168,8 +17168,8 @@
     </property>
     <property key="FormFieldTitle_agreementItemTypeId">
         <value xml:lang="ar">دليل نوع وحدة الإتفاقية</value>
-        <value xml:lang="de">Vereinbarungsposition Typ Id</value>
-        <value xml:lang="en">Agreement Item Type Id</value>
+        <value xml:lang="de">Vereinbarungsposition Typ ID</value>
+        <value xml:lang="en">Agreement Item Type ID</value>
         <value xml:lang="fr">Type de point d'accord</value>
         <value xml:lang="hi-IN">अनुबंध मद प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo riga contratto</value>
@@ -17199,8 +17199,8 @@
     </property>
     <property key="FormFieldTitle_agreementTypeId">
         <value xml:lang="ar">دليل نوع الإتفاقية</value>
-        <value xml:lang="de">Vereinbarungstyp Id</value>
-        <value xml:lang="en">Agreement Type Id</value>
+        <value xml:lang="de">Vereinbarungstyp ID</value>
+        <value xml:lang="en">Agreement Type ID</value>
         <value xml:lang="fr">Réf de type d'accord</value>
         <value xml:lang="hi-IN">अनुबंध प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo contratto</value>
@@ -17282,7 +17282,7 @@
     <property key="FormFieldTitle_amountUomId">
         <value xml:lang="ar">دليل وحدة قياس المبلغ</value>
         <value xml:lang="de">Masseinheit Menge</value>
-        <value xml:lang="en">Amount Uom Id</value>
+        <value xml:lang="en">Amount Uom ID</value>
         <value xml:lang="es">Id Cantidad UM</value>
         <value xml:lang="fr">Unité du montant</value>
         <value xml:lang="hi-IN">राशि इकाई माप की(Uom) क्रमांक</value>
@@ -17541,7 +17541,7 @@
     <property key="FormFieldTitle_classEnumId">
         <value xml:lang="ar">دليل صنف التعداد</value>
         <value xml:lang="de">Kategorieaufzählungs-ID</value>
-        <value xml:lang="en">Class Enum Id</value>
+        <value xml:lang="en">Class Enum ID</value>
         <value xml:lang="es">Id Clase de enumeración</value>
         <value xml:lang="fr">Réf. énumération</value>
         <value xml:lang="hi-IN">वर्ग Enum क्रमांक</value>
@@ -17551,14 +17551,14 @@
         <value xml:lang="pt">ID de enumeração de classe</value>
         <value xml:lang="ro">Cod Clasa</value>
         <value xml:lang="ru">Класс</value>
-        <value xml:lang="th">Class Enum Id</value>
+        <value xml:lang="th">Class Enum ID</value>
         <value xml:lang="vi">Id liệt kê phân lớp</value>
         <value xml:lang="zh">类枚举标识</value>
         <value xml:lang="zh-TW">類別列舉識別</value>
     </property>
     <property key="FormFieldTitle_clientId">
         <value xml:lang="ar">دليل العميل</value>
-        <value xml:lang="de">Kunden Id</value>
+        <value xml:lang="de">Kunden ID</value>
         <value xml:lang="en">Client ID</value>
         <value xml:lang="fr">Client</value>
         <value xml:lang="hi-IN">ग्राहक क्रमांक</value>
@@ -17694,8 +17694,8 @@
     </property>
     <property key="FormFieldTitle_creditGlAccountId">
         <value xml:lang="ar">دليل حساب GL الدائن</value>
-        <value xml:lang="de">Kredit Hauptbuchkonto Id</value>
-        <value xml:lang="en">Credit Gl Account Id</value>
+        <value xml:lang="de">Kredit Hauptbuchkonto ID</value>
+        <value xml:lang="en">Credit Gl Account ID</value>
         <value xml:lang="es">Id Cuenta de LM Crédito</value>
         <value xml:lang="fr">Compte de crédit</value>
         <value xml:lang="hi-IN">जमा जीएल(Gl) खाता क्रमांक</value>
@@ -17712,8 +17712,8 @@
     </property>
     <property key="FormFieldTitle_customTimePeriodId">
         <value xml:lang="ar">دليل الفترة الزمنية المخصصة</value>
-        <value xml:lang="de">benutzerdefinierter Zeitraum Id</value>
-        <value xml:lang="en">Custom Time Period Id</value>
+        <value xml:lang="de">benutzerdefinierter Zeitraum ID</value>
+        <value xml:lang="en">Custom Time Period ID</value>
         <value xml:lang="fr">Réf. d'exercice spécifique</value>
         <value xml:lang="hi-IN">कस्टम समय अवधि क्रमांक</value>
         <value xml:lang="it">Periodo fiscale personalizzato</value>
@@ -17878,8 +17878,8 @@
     </property>
     <property key="FormFieldTitle_debitGlAccountId">
         <value xml:lang="ar">دليل حساب GL المدين</value>
-        <value xml:lang="de">Soll Hauptbuchkonto Id</value>
-        <value xml:lang="en">Debit Gl Account Id</value>
+        <value xml:lang="de">Soll Hauptbuchkonto ID</value>
+        <value xml:lang="en">Debit Gl Account ID</value>
         <value xml:lang="es">Id Cuenta de LM Débito</value>
         <value xml:lang="fr">Compte de débit</value>
         <value xml:lang="hi-IN">नामे जीएल(Gl) खाता क्रमांक</value>
@@ -17897,7 +17897,7 @@
     <property key="FormFieldTitle_defaultGlAccountId">
         <value xml:lang="ar">دليل حساب GL الإفتراضي</value>
         <value xml:lang="de">Standard HB-Konto ID</value>
-        <value xml:lang="en">Default Gl Account Id</value>
+        <value xml:lang="en">Default Gl Account ID</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
         <value xml:lang="fr">Réf. de compte par défaut</value>
         <value xml:lang="hi-IN">डिफ़ॉल्ट जीएल(Gl) खाता क्रमांक</value>
@@ -18059,8 +18059,8 @@
         <value xml:lang="zh-TW">收件者</value>
     </property>
     <property key="FormFieldTitle_emplPositionTypeId">
-        <value xml:lang="de">Angestelltenposition Typ Id</value>
-        <value xml:lang="en">Empl Position Type Id</value>
+        <value xml:lang="de">Angestelltenposition Typ ID</value>
+        <value xml:lang="en">Empl Position Type ID</value>
         <value xml:lang="fr">Réf. de type de position employé</value>
         <value xml:lang="hi-IN">कर्मचारी स्थिति(Position) प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo posizione impiegato</value>
@@ -18097,8 +18097,8 @@
     </property>
     <property key="FormFieldTitle_errorGlJournalId">
         <value xml:lang="ar">خطأ في دليل GL دفتر اليومية</value>
-        <value xml:lang="de">Fehler Hauptbuch Journal Id</value>
-        <value xml:lang="en">Error Gl Journal Id</value>
+        <value xml:lang="de">Fehler Hauptbuch Journal ID</value>
+        <value xml:lang="en">Error Gl Journal ID</value>
         <value xml:lang="fr">Réf. de journal d'erreur (GL)</value>
         <value xml:lang="hi-IN">त्रुटि जीएल(Gl) जर्नल क्रमांक</value>
         <value xml:lang="it">Numero Giornale Errori Gl</value>
@@ -18127,8 +18127,8 @@
     </property>
     <property key="FormFieldTitle_externalAccountId">
         <value xml:lang="ar">دليل الحساب الخارجي</value>
-        <value xml:lang="de">Externe Konto Id</value>
-        <value xml:lang="en">External Account Id</value>
+        <value xml:lang="de">Externe Konto ID</value>
+        <value xml:lang="en">External Account ID</value>
         <value xml:lang="fr">Compte externe</value>
         <value xml:lang="hi-IN">बाहरी खाता क्रमांक</value>
         <value xml:lang="ja">外部アカウントID</value>
@@ -18139,8 +18139,8 @@
     </property>
     <property key="FormFieldTitle_finAccountAuthId">
         <value xml:lang="ar">دليل ترخيص الحساب المالي</value>
-        <value xml:lang="de">Finanzkonto Autorisierung Id</value>
-        <value xml:lang="en">Fin Account Auth Id</value>
+        <value xml:lang="de">Finanzkonto Autorisierung ID</value>
+        <value xml:lang="en">Fin Account Auth ID</value>
         <value xml:lang="fr">Réf. d'autorisation de compte financier</value>
         <value xml:lang="hi-IN">वित्तीय खाता पहचान क्रमांक</value>
         <value xml:lang="it">Autorizzazione Conto Finanziario</value>
@@ -18148,7 +18148,7 @@
         <value xml:lang="nl">Fin.rekening Auth.Code</value>
         <value xml:lang="pt">ID de autorização de conta financeira</value>
         <value xml:lang="ru">Код автор. фин. счета</value>
-        <value xml:lang="th">Fin Account Auth Id</value>
+        <value xml:lang="th">Fin Account Auth ID</value>
         <value xml:lang="vi">Id tài khoản tài chính xác nhận</value>
         <value xml:lang="zh">金融账户授权标识</value>
         <value xml:lang="zh-TW">金融帳戶授權識別</value>
@@ -18171,8 +18171,8 @@
     </property>
     <property key="FormFieldTitle_finAccountId">
         <value xml:lang="ar">دليل الحساب المالي</value>
-        <value xml:lang="de">Finanzkonto Id</value>
-        <value xml:lang="en">Fin Account Id</value>
+        <value xml:lang="de">Finanzkonto ID</value>
+        <value xml:lang="en">Fin Account ID</value>
         <value xml:lang="fr">Réf. du compte financier</value>
         <value xml:lang="hi-IN">वित्तीय खाता क्रमांक</value>
         <value xml:lang="it">Conto Finanziario</value>
@@ -18219,8 +18219,8 @@
     </property>
     <property key="FormFieldTitle_finAccountTransId">
         <value xml:lang="ar">دليل عمليات الحساب المالي</value>
-        <value xml:lang="de">Finanzkonto Trans Id</value>
-        <value xml:lang="en">Fin Account Trans Id</value>
+        <value xml:lang="de">Finanzkonto Trans ID</value>
+        <value xml:lang="en">Fin Account Trans ID</value>
         <value xml:lang="es">Id Trans Cuenta Fin</value>
         <value xml:lang="fr">Réf. de transaction financière</value>
         <value xml:lang="hi-IN">वित्तीय गतिविधि खाता क्रमांक</value>
@@ -18249,8 +18249,8 @@
     </property>
     <property key="FormFieldTitle_finAccountTransTypeId">
         <value xml:lang="ar">دليل نوع عمليات الحساب المالي</value>
-        <value xml:lang="de">Finanzkonto Trans Typ Id</value>
-        <value xml:lang="en">Fin Account Trans Type Id</value>
+        <value xml:lang="de">Finanzkonto Trans Typ ID</value>
+        <value xml:lang="en">Fin Account Trans Type ID</value>
         <value xml:lang="fr">Réf. type de tranfert de compte financier</value>
         <value xml:lang="hi-IN">वित्तीय गतिविधि खाता प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Transazione Conto Finanziario</value>
@@ -18277,8 +18277,8 @@
     </property>
     <property key="FormFieldTitle_finAccountTypeId">
         <value xml:lang="ar">دليل نوع الحساب المالي</value>
-        <value xml:lang="de">Finanzkonto Typ Id</value>
-        <value xml:lang="en">Fin Account Type Id</value>
+        <value xml:lang="de">Finanzkonto Typ ID</value>
+        <value xml:lang="en">Fin Account Type ID</value>
         <value xml:lang="fr">Réf. type de compte financier</value>
         <value xml:lang="hi-IN">वित्तीय खाता प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Conto Finanziario</value>
@@ -18342,13 +18342,13 @@
     <property key="FormFieldTitle_fixedAssetId">
         <value xml:lang="ar">دليل الأصل الثابت</value>
         <value xml:lang="de">Anlage ID</value>
-        <value xml:lang="en">Fixed Asset Id</value>
+        <value xml:lang="en">Fixed Asset ID</value>
         <value xml:lang="es">Código Activo fijo</value>
         <value xml:lang="fr">Réf. immobilisation</value>
         <value xml:lang="hi-IN">अचल संपत्ति क्रमांक</value>
         <value xml:lang="it">Codice cespite</value>
         <value xml:lang="ja">固定資産ID</value>
-        <value xml:lang="nl">Vast gestelde waarde Id</value>
+        <value xml:lang="nl">Vast gestelde waarde ID</value>
         <value xml:lang="pt">ID de ativo fixo</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="ru">Код основных фондов</value>
@@ -18378,7 +18378,7 @@
     <property key="FormFieldTitle_fixedAssetTypeId">
         <value xml:lang="ar">دليل نوع الأصل الثابت</value>
         <value xml:lang="de">Anlagen-Art</value>
-        <value xml:lang="en">Fixed Asset Type Id</value>
+        <value xml:lang="en">Fixed Asset Type ID</value>
         <value xml:lang="es">Id tipo fijado</value>
         <value xml:lang="fr">Type d'immobilisation</value>
         <value xml:lang="hi-IN">अचल संपत्ति प्रकार क्रमांक</value>
@@ -18534,8 +18534,8 @@
     </property>
     <property key="FormFieldTitle_glAccountCategoryId">
         <value xml:lang="ar">دليل فئة حساب GL</value>
-        <value xml:lang="de">Hauptbuchkonto Kategorie Id</value>
-        <value xml:lang="en">GL Account Category Id</value>
+        <value xml:lang="de">Hauptbuchkonto Kategorie ID</value>
+        <value xml:lang="en">GL Account Category ID</value>
         <value xml:lang="fr">Réf. de catégorie de cpt. GL</value>
         <value xml:lang="hi-IN">जीएल(Gl) खाता श्रेणी क्रमांक</value>
         <value xml:lang="ja">GL勘定カテゴリID</value>
@@ -18570,8 +18570,8 @@
     </property>
     <property key="FormFieldTitle_glAccountCategoryTypeId">
         <value xml:lang="ar">دليل نوع فئة حساب GL</value>
-        <value xml:lang="de">Hauptbuchkonto Kategorie Typ Id</value>
-        <value xml:lang="en">GL Account Category Type Id</value>
+        <value xml:lang="de">Hauptbuchkonto Kategorie Typ ID</value>
+        <value xml:lang="en">GL Account Category Type ID</value>
         <value xml:lang="fr">Réf. de type de catégorie de compte GL</value>
         <value xml:lang="hi-IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
         <value xml:lang="ja">GL勘定カテゴリ種類ID</value>
@@ -18582,8 +18582,8 @@
     </property>
     <property key="FormFieldTitle_glAccountClassId">
         <value xml:lang="ar">دليل صنف حساب GL</value>
-        <value xml:lang="de">Hauptbuchkonto Klasse Id</value>
-        <value xml:lang="en">Gl Account Class Id</value>
+        <value xml:lang="de">Hauptbuchkonto Klasse ID</value>
+        <value xml:lang="en">Gl Account Class ID</value>
         <value xml:lang="es">Id Clase de Cuenta LM</value>
         <value xml:lang="fr">Classe de comptes</value>
         <value xml:lang="hi-IN">जीएल(Gl) खाता वर्ग क्रमांक</value>
@@ -18593,15 +18593,15 @@
         <value xml:lang="pt">ID da classe de conta razão</value>
         <value xml:lang="ro">Cod Clasa Cont Gl</value>
         <value xml:lang="ru">Код класса счета ГК</value>
-        <value xml:lang="th">Gl Account Class Id</value>
+        <value xml:lang="th">Gl Account Class ID</value>
         <value xml:lang="vi">Id lớp</value>
         <value xml:lang="zh">总账账户类标识</value>
         <value xml:lang="zh-TW">總帳科目類別識別</value>
     </property>
     <property key="FormFieldTitle_glAccountId">
         <value xml:lang="ar">دليل حساب GL</value>
-        <value xml:lang="de">Hauptbuchkonto Id</value>
-        <value xml:lang="en">Gl Account Id</value>
+        <value xml:lang="de">Hauptbuchkonto ID</value>
+        <value xml:lang="en">Gl Account ID</value>
         <value xml:lang="es">Id Cuenta LM</value>
         <value xml:lang="fr">Réf. de compte</value>
         <value xml:lang="hi-IN">जीएल(Gl)खाता क्रमांक</value>
@@ -18630,8 +18630,8 @@
     </property>
     <property key="FormFieldTitle_glAccountTypeId">
         <value xml:lang="ar">دليل نوع حساب GL</value>
-        <value xml:lang="de">Hauptbuchkonto Typ Id</value>
-        <value xml:lang="en">Gl Account Type Id</value>
+        <value xml:lang="de">Hauptbuchkonto Typ ID</value>
+        <value xml:lang="en">Gl Account Type ID</value>
         <value xml:lang="es">Id Tipo Cuenta LM</value>
         <value xml:lang="fr">Type du compte comptable</value>
         <value xml:lang="hi-IN">जीएल(Gl)खाता प्रकार क्रमांक</value>
@@ -18660,8 +18660,8 @@
     </property>
     <property key="FormFieldTitle_glFiscalTypeId">
         <value xml:lang="ar">دليل نوع GL المالي</value>
-        <value xml:lang="de">Steuer Hauptbuch Typ Id</value>
-        <value xml:lang="en">Fiscal Gl Type Id</value>
+        <value xml:lang="de">Steuer Hauptbuch Typ ID</value>
+        <value xml:lang="en">Fiscal Gl Type ID</value>
         <value xml:lang="es">Id Tipo Fiscal LM</value>
         <value xml:lang="fr">Type fiscal du Grand Livre</value>
         <value xml:lang="hi-IN">वित्तीय जीएल(Gl)प्रकार क्रमांक</value>
@@ -18691,14 +18691,14 @@
     <property key="FormFieldTitle_glJournalId">
         <value xml:lang="ar">دليل GL دفتر اليومية</value>
         <value xml:lang="de">Hauptbuch Journal ID</value>
-        <value xml:lang="en">Gl Journal Id</value>
+        <value xml:lang="en">Gl Journal ID</value>
         <value xml:lang="fr">Réf. journal du Grand Livre</value>
         <value xml:lang="hi-IN">जीएल(Gl) जर्नल क्रमांक</value>
         <value xml:lang="it">Giornale</value>
         <value xml:lang="ja">GLジャーナルID</value>
         <value xml:lang="nl">ID GB-journaal</value>
         <value xml:lang="pt">ID de Diário contábil</value>
-        <value xml:lang="th">Gl Journal Id</value>
+        <value xml:lang="th">Gl Journal ID</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">总账日记账标识</value>
         <value xml:lang="zh-TW">總帳日記帳識別</value>
@@ -18718,8 +18718,8 @@
     </property>
     <property key="FormFieldTitle_glReconciliationId">
         <value xml:lang="ar">دليل تسوية GL</value>
-        <value xml:lang="de">Hauptbuch Abgleich Id</value>
-        <value xml:lang="en">Gl Reconciliation Id</value>
+        <value xml:lang="de">Hauptbuch Abgleich ID</value>
+        <value xml:lang="en">Gl Reconciliation ID</value>
         <value xml:lang="fr">Réf. de réconciliation(GL)</value>
         <value xml:lang="hi-IN">जीएल(Gl) मिलाप क्रमांक</value>
         <value xml:lang="it">Numero Riconcilazione Gl</value>
@@ -18744,8 +18744,8 @@
     </property>
     <property key="FormFieldTitle_glResourceTypeId">
         <value xml:lang="ar">دليل نوع GL المورد</value>
-        <value xml:lang="de">Hauptbuch Mittel Typ Id</value>
-        <value xml:lang="en">Gl Resource Type Id</value>
+        <value xml:lang="de">Hauptbuch Mittel Typ ID</value>
+        <value xml:lang="en">Gl Resource Type ID</value>
         <value xml:lang="es">Id Tipo de Recurso LM</value>
         <value xml:lang="fr">Type de la ressource du Grand Livre</value>
         <value xml:lang="hi-IN">जीएल(Gl) संसाधन प्रकार क्रमांक</value>
@@ -18772,8 +18772,8 @@
         <value xml:lang="zh-TW">總帳交易</value>
     </property>
     <property key="FormFieldTitle_glXbrlClassId">
-        <value xml:lang="de">Hauptbuch Xbrl Klassen Id</value>
-        <value xml:lang="en">Gl Xbrl Class Id</value>
+        <value xml:lang="de">Hauptbuch Xbrl Klassen ID</value>
+        <value xml:lang="en">Gl Xbrl Class ID</value>
         <value xml:lang="es">Id Clase Xbrl LM</value>
         <value xml:lang="fr">Classe XBRL du Grand Livre</value>
         <value xml:lang="hi-IN">जीएल(Gl) Xbrl वर्ग क्रमांक</value>
@@ -18782,15 +18782,15 @@
         <value xml:lang="nl">ID klasse GB-XBRL</value>
         <value xml:lang="pt">ID de Classe XBRL Contábil</value>
         <value xml:lang="ro">Cod Clasa Xbrl Gl</value>
-        <value xml:lang="ru">Gl Xbrl Class Id</value>
-        <value xml:lang="th">Gl Xbrl Class Id</value>
+        <value xml:lang="ru">Gl Xbrl Class ID</value>
+        <value xml:lang="th">Gl Xbrl Class ID</value>
         <value xml:lang="vi">Id lớp Xbrl</value>
         <value xml:lang="zh">总账可扩展商业报告语言类标识</value>
         <value xml:lang="zh-TW">總帳XBRL類別識別</value>
     </property>
     <property key="FormFieldTitle_groupId">
         <value xml:lang="ar">دليل المجموعة</value>
-        <value xml:lang="de">Gruppe Id</value>
+        <value xml:lang="de">Gruppe ID</value>
         <value xml:lang="en">Group ID</value>
         <value xml:lang="fr">Groupe</value>
         <value xml:lang="hi-IN">समूह क्रमांक</value>
@@ -18815,8 +18815,8 @@
     </property>
     <property key="FormFieldTitle_groupStatusId">
         <value xml:lang="ar">دليل حالة المجموعة</value>
-        <value xml:lang="de">Gruppe Status Id</value>
-        <value xml:lang="en">Group Status Id</value>
+        <value xml:lang="de">Gruppe Status ID</value>
+        <value xml:lang="en">Group Status ID</value>
         <value xml:lang="fr">Réf. de groupe de statuts</value>
         <value xml:lang="hi-IN">समूह स्थिति क्रमांक</value>
         <value xml:lang="it">Stato Gruppo</value>
@@ -18871,7 +18871,7 @@
     </property>
     <property key="FormFieldTitle_instanceOfProductId">
         <value xml:lang="de">Beispiel für Produkt ID</value>
-        <value xml:lang="en">Instance Of Product Id</value>
+        <value xml:lang="en">Instance Of Product ID</value>
         <value xml:lang="es">Id Instacia de producto</value>
         <value xml:lang="fr">Instance du produit réf.</value>
         <value xml:lang="hi-IN">उत्पाद क्रमांक से दृष्टांत</value>
@@ -18882,7 +18882,7 @@
         <value xml:lang="ro">Instanta de Cod Produs</value>
         <value xml:lang="ru">Экземпляр продукта</value>
         <value xml:lang="th">แทนที่รหัสสินค้า</value>
-        <value xml:lang="vi">Khởi tạo của sản phẩm Id</value>
+        <value xml:lang="vi">Khởi tạo của sản phẩm ID</value>
         <value xml:lang="zh">产品标识的实例</value>
         <value xml:lang="zh-TW">產品識別的實例</value>
     </property>
@@ -19023,8 +19023,8 @@
     </property>
     <property key="FormFieldTitle_invoiceParentTypeId">
         <value xml:lang="ar">دليل نوع الفاتورة الأم</value>
-        <value xml:lang="de">Übergeordneter Rechnungstyp Id</value>
-        <value xml:lang="en">Invoice Parent Type Id</value>
+        <value xml:lang="de">Übergeordneter Rechnungstyp ID</value>
+        <value xml:lang="en">Invoice Parent Type ID</value>
         <value xml:lang="fr">Réf. de type de facture parent</value>
         <value xml:lang="hi-IN">चालन पेरेंट प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo fattura padre</value>
@@ -19072,8 +19072,8 @@
     </property>
     <property key="FormFieldTitle_invoiceTermId">
         <value xml:lang="ar">دليل شرط الفاتورة</value>
-        <value xml:lang="de">Rechnungsdatum Id</value>
-        <value xml:lang="en">Invoice Term Id</value>
+        <value xml:lang="de">Rechnungsdatum ID</value>
+        <value xml:lang="en">Invoice Term ID</value>
         <value xml:lang="fr">Terme sur facture</value>
         <value xml:lang="hi-IN">चालान शर्त क्रमांक</value>
         <value xml:lang="ja">請求条件ID</value>
@@ -19250,7 +19250,7 @@
     </property>
     <property key="FormFieldTitle_locatedAtFacilityId">
         <value xml:lang="de">Standort</value>
-        <value xml:lang="en">Located At Facility Id</value>
+        <value xml:lang="en">Located At Facility ID</value>
         <value xml:lang="fr">Situé dans le magasin réf.</value>
         <value xml:lang="hi-IN">सुविधा क्रमांक(FacilityId) पर स्थित</value>
         <value xml:lang="it">Ubicato Nello Stabilimento</value>
@@ -19260,13 +19260,13 @@
         <value xml:lang="ro">Pozitionat in Compartimentul</value>
         <value xml:lang="ru">Расположен на объекте</value>
         <value xml:lang="th">ที่ตั้งที่รหัสคลังสินค้า</value>
-        <value xml:lang="vi">Đặt tại Kho với Id</value>
+        <value xml:lang="vi">Đặt tại Kho với ID</value>
         <value xml:lang="zh">位于场所标识</value>
         <value xml:lang="zh-TW">位於場所識別</value>
     </property>
     <property key="FormFieldTitle_locatedAtLocationSeqId">
         <value xml:lang="de">Lagerplatz</value>
-        <value xml:lang="en">Located At Location Seq Id</value>
+        <value xml:lang="en">Located At Location Seq ID</value>
         <value xml:lang="fr">Situé dans l'emplacement réf.</value>
         <value xml:lang="hi-IN">स्थान अनुक्रम क्रमांक(LocationSeqId) पर स्थित</value>
         <value xml:lang="it">Ubicato Alla Locazione</value>
@@ -19275,7 +19275,7 @@
         <value xml:lang="pt">Localizado na localização de ID de sequência</value>
         <value xml:lang="ro">Pozitionat in Locatia</value>
         <value xml:lang="ru">Послед. код местонахождения</value>
-        <value xml:lang="th">Located At Location Seq Id</value>
+        <value xml:lang="th">Located At Location Seq ID</value>
         <value xml:lang="vi">Đặt tại Địa điểm số thứ tự</value>
         <value xml:lang="zh">位于地点顺序编号</value>
         <value xml:lang="zh-TW">位於地點順序識別</value>
@@ -19320,8 +19320,8 @@
     </property>
     <property key="FormFieldTitle_maintHistSeqId">
         <value xml:lang="ar">دليل تسلسل تاريخ الصيانة</value>
-        <value xml:lang="de">Historie Seq Id</value>
-        <value xml:lang="en">Maint Hist Seq Id</value>
+        <value xml:lang="de">Historie Seq ID</value>
+        <value xml:lang="en">Maint Hist Seq ID</value>
         <value xml:lang="es">Id Sec Hist Mant</value>
         <value xml:lang="fr">Séquence historique de maintenance</value>
         <value xml:lang="hi-IN">रखरखाव इतिहास अनुक्रम क्रमांक(MaintHistSeqId)</value>
@@ -19331,7 +19331,7 @@
         <value xml:lang="pt">ID dequência de histórico de manutenção</value>
         <value xml:lang="ro">Secventa Intretinere</value>
         <value xml:lang="ru">Ист. обсл. код</value>
-        <value xml:lang="th">Maint Hist Seq Id</value>
+        <value xml:lang="th">Maint Hist Seq ID</value>
         <value xml:lang="vi">Id thứ tự lịch sử bảo trì</value>
         <value xml:lang="zh">维修保养历史记录序号编号</value>
         <value xml:lang="zh-TW">維修保養歷史記錄序號識別</value>
@@ -19382,7 +19382,7 @@
     </property>
     <property key="FormFieldTitle_merchantId">
         <value xml:lang="ar">دليل التاجر</value>
-        <value xml:lang="de">Verkäufer Id</value>
+        <value xml:lang="de">Verkäufer ID</value>
         <value xml:lang="en">Merchant ID</value>
         <value xml:lang="fr">Revendeur</value>
         <value xml:lang="hi-IN">व्यापारी क्रमांक</value>
@@ -19588,8 +19588,8 @@
         <value xml:lang="zh-TW">訂單識別字首</value>
     </property>
     <property key="FormFieldTitle_orderPaymentPreferenceId">
-        <value xml:lang="de">Bestell-Zahlungspräferenz Id</value>
-        <value xml:lang="en">Order Payment Preference Id</value>
+        <value xml:lang="de">Bestell-Zahlungspräferenz ID</value>
+        <value xml:lang="en">Order Payment Preference ID</value>
         <value xml:lang="es">Id preferencia orden de pago</value>
         <value xml:lang="fr">Préférence de paiement pour la commande</value>
         <value xml:lang="hi-IN">आदेश भुगतान प्रेफेरेंस क्रमांक(AccountingOrderPaymentPreferenceId)</value>
@@ -19599,7 +19599,7 @@
         <value xml:lang="pt">ID de preferência de pagamento de pedido</value>
         <value xml:lang="ro">Cod Id Preferinta Comanda Plata</value>
         <value xml:lang="ru">Код предпочтения платежа по заказу</value>
-        <value xml:lang="th">Order Payment Preference Id</value>
+        <value xml:lang="th">Order Payment Preference ID</value>
         <value xml:lang="vi">Id tham chiếu thanh toán</value>
         <value xml:lang="zh">定单支付优先方法标识</value>
         <value xml:lang="zh-TW">訂單支付偏好方法識別</value>
@@ -19624,8 +19624,8 @@
     </property>
     <property key="FormFieldTitle_organizationPartyId">
         <value xml:lang="cs">Organizační složka</value>
-        <value xml:lang="de">Organisation Akteur Id</value>
-        <value xml:lang="en">Organization Party Id</value>
+        <value xml:lang="de">Organisation Akteur ID</value>
+        <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur organisation</value>
         <value xml:lang="hi-IN">संगठन पार्टी क्रमांक</value>
@@ -19655,8 +19655,8 @@
     </property>
     <property key="FormFieldTitle_origCurrencyUomId">
         <value xml:lang="ar">دليل عملة وحدة القياس الأصلية</value>
-        <value xml:lang="de">Ursprungswährung Id</value>
-        <value xml:lang="en">Orig Currency Uom Id</value>
+        <value xml:lang="de">Ursprungswährung ID</value>
+        <value xml:lang="en">Orig Currency Uom ID</value>
         <value xml:lang="fr">Devise originale</value>
         <value xml:lang="hi-IN">मूल मुद्रा माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Valuta di origine</value>
@@ -19698,8 +19698,8 @@
     </property>
     <property key="FormFieldTitle_overrideGlAccountId">
         <value xml:lang="ar">دليل حساب GL التجاوز</value>
-        <value xml:lang="de">Übersteuere Hauptbuchkonto Id</value>
-        <value xml:lang="en">Override Gl Account Id</value>
+        <value xml:lang="de">Übersteuere Hauptbuchkonto ID</value>
+        <value xml:lang="en">Override Gl Account ID</value>
         <value xml:lang="es">Id Sobrecarga Cuenta de LM</value>
         <value xml:lang="fr">Remplacer le compte comptable</value>
         <value xml:lang="hi-IN">जीएल(Gl) खाता क्रमांक को अधिरोहणकरे</value>
@@ -19716,8 +19716,8 @@
     </property>
     <property key="FormFieldTitle_ownerPartyId">
         <value xml:lang="ar">دليل طرف المالك</value>
-        <value xml:lang="de">Besitzer Akteur Id</value>
-        <value xml:lang="en">Owner Party Id</value>
+        <value xml:lang="de">Besitzer Akteur ID</value>
+        <value xml:lang="en">Owner Party ID</value>
         <value xml:lang="fr">Réf. de l'acteur propriétaire</value>
         <value xml:lang="hi-IN">स्वामी पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto Proprietario</value>
@@ -19766,7 +19766,7 @@
     <property key="FormFieldTitle_parentFixedAssetId">
         <value xml:lang="ar">دليل الأصل الثابت الأم</value>
         <value xml:lang="de">Übergeordnete Anlage</value>
-        <value xml:lang="en">Fixed Asset Parent Id</value>
+        <value xml:lang="en">Fixed Asset Parent ID</value>
         <value xml:lang="es">Id Padre Activo Fijo</value>
         <value xml:lang="fr">Immobilisation parente</value>
         <value xml:lang="hi-IN">अचल संपत्ति पेरेंट क्रमांक</value>
@@ -19784,7 +19784,7 @@
     <property key="FormFieldTitle_parentGlAccountId">
         <value xml:lang="ar">دليل حساب GL الأم</value>
         <value xml:lang="de">Übergeordnete Hauptbuchungskonten-ID</value>
-        <value xml:lang="en">Parent Gl Account Id</value>
+        <value xml:lang="en">Parent Gl Account ID</value>
         <value xml:lang="es">Id Padre Cuenta de LM</value>
         <value xml:lang="fr">Compte parent</value>
         <value xml:lang="hi-IN">पेरेंट जीएल(Gl) खाता क्रमांक</value>
@@ -19802,7 +19802,7 @@
     <property key="FormFieldTitle_parentInvoiceId">
         <value xml:lang="ar">دليل الفاتورة الأم</value>
         <value xml:lang="de">Übergeordnete Rechnungs-Nr.</value>
-        <value xml:lang="en">Parent Invoice Id</value>
+        <value xml:lang="en">Parent Invoice ID</value>
         <value xml:lang="fr">Réf. de facture parente</value>
         <value xml:lang="hi-IN">पेरेंट चालान क्रमांक</value>
         <value xml:lang="it">Fattura Principale</value>
@@ -19818,8 +19818,8 @@
     </property>
     <property key="FormFieldTitle_parentInvoiceItemSeqId">
         <value xml:lang="ar">دليل تسلسل بند الفاتورة الأم</value>
-        <value xml:lang="de">Übergeordnete Rechnungsposition Seq Id</value>
-        <value xml:lang="en">Parent Invoice Item Seq Id</value>
+        <value xml:lang="de">Übergeordnete Rechnungsposition Seq ID</value>
+        <value xml:lang="en">Parent Invoice Item Seq ID</value>
         <value xml:lang="fr">Réf. de ligne de facturation parente</value>
         <value xml:lang="hi-IN">पेरेंट चालान मद अनुक्रम क्रमांक</value>
         <value xml:lang="it">Riga Fattura Principale</value>
@@ -19835,8 +19835,8 @@
     </property>
     <property key="FormFieldTitle_parentPeriodId">
         <value xml:lang="ar">دليل الفترة الأم</value>
-        <value xml:lang="de">Übergeordnete Periode Id</value>
-        <value xml:lang="en">Parent Period Id</value>
+        <value xml:lang="de">Übergeordnete Periode ID</value>
+        <value xml:lang="en">Parent Period ID</value>
         <value xml:lang="fr">Réf. de période parente</value>
         <value xml:lang="hi-IN">पेरेंट अवधि क्रमांक</value>
         <value xml:lang="it">Periodo Fiscale Padre</value>
@@ -19861,8 +19861,8 @@
     </property>
     <property key="FormFieldTitle_paymentApplicationId">
         <value xml:lang="ar">دليل التطبيق الأم</value>
-        <value xml:lang="de">Zahlungszuordnung Id</value>
-        <value xml:lang="en">Payment Application Id</value>
+        <value xml:lang="de">Zahlungszuordnung ID</value>
+        <value xml:lang="en">Payment Application ID</value>
         <value xml:lang="fr">Réf. de l'application de paiement</value>
         <value xml:lang="hi-IN">भुगतान अनुप्रयोग क्रमांक</value>
         <value xml:lang="ja">支払申請ID</value>
@@ -19909,8 +19909,8 @@
     </property>
     <property key="FormFieldTitle_paymentGatewayResponseId">
         <value xml:lang="ar">دليل استجابة بوابة الدفعة</value>
-        <value xml:lang="de">Zahlungsgateway Antwort Id</value>
-        <value xml:lang="en">Payment Gateway Response Id</value>
+        <value xml:lang="de">Zahlungsgateway Antwort ID</value>
+        <value xml:lang="en">Payment Gateway Response ID</value>
         <value xml:lang="es">Id Respuesta de Puerta de Pago</value>
         <value xml:lang="fr">Réf. réponse du terminal de paiement</value>
         <value xml:lang="hi-IN">भुगतान गेटवे प्रतिक्रिया क्रमांक(PaymentGatewayResponseId)</value>
@@ -19926,8 +19926,8 @@
     </property>
     <property key="FormFieldTitle_paymentGroupId">
         <value xml:lang="ar">دليل مجموعة الدفع</value>
-        <value xml:lang="de">Zahlungsgruppe Id</value>
-        <value xml:lang="en">Payment Group Id</value>
+        <value xml:lang="de">Zahlungsgruppe ID</value>
+        <value xml:lang="en">Payment Group ID</value>
         <value xml:lang="fr">Réf. du groupe de paiement</value>
         <value xml:lang="hi-IN">भुगतान समूह क्रमांक</value>
         <value xml:lang="ja">支払グループID</value>
@@ -19962,8 +19962,8 @@
     </property>
     <property key="FormFieldTitle_paymentGroupTypeId">
         <value xml:lang="ar">دليل نوع مجموعة الدفع</value>
-        <value xml:lang="de">Zahlungsgruppe Typ Id</value>
-        <value xml:lang="en">Payment Group Type Id</value>
+        <value xml:lang="de">Zahlungsgruppe Typ ID</value>
+        <value xml:lang="en">Payment Group Type ID</value>
         <value xml:lang="fr">Réf. du type de groupe de paiement</value>
         <value xml:lang="hi-IN">भुगतान समूह प्रकार क्रमांक</value>
         <value xml:lang="ja">支払グループ種類ID</value>
@@ -19974,7 +19974,7 @@
     </property>
     <property key="FormFieldTitle_paymentId">
         <value xml:lang="ar">دليل الدفعة</value>
-        <value xml:lang="de">Zahlung Id</value>
+        <value xml:lang="de">Zahlung ID</value>
         <value xml:lang="en">Payment ID</value>
         <value xml:lang="es">Id Pago</value>
         <value xml:lang="fr">Réf. du paiement</value>
@@ -19993,7 +19993,7 @@
     <property key="FormFieldTitle_paymentMethodId">
         <value xml:lang="ar">دليل طريقة الدفع</value>
         <value xml:lang="de">Zahlungsmethode ID</value>
-        <value xml:lang="en">Payment Method Id</value>
+        <value xml:lang="en">Payment Method ID</value>
         <value xml:lang="es">Id Método de Pago</value>
         <value xml:lang="fr">Méthode de paiement</value>
         <value xml:lang="hi-IN">भुगतान तरीका क्रमांक</value>
@@ -20028,8 +20028,8 @@
     </property>
     <property key="FormFieldTitle_paymentParentTypeId">
         <value xml:lang="ar">دليل نوع الدفعة الأم</value>
-        <value xml:lang="de">Übergeordnete Zahlungsart Id</value>
-        <value xml:lang="en">Payment Parent Type Id</value>
+        <value xml:lang="de">Übergeordnete Zahlungsart ID</value>
+        <value xml:lang="en">Payment Parent Type ID</value>
         <value xml:lang="fr">Réf. de type de paiement parent</value>
         <value xml:lang="hi-IN">भुगतान पेरेंट प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo pagamento padre</value>
@@ -20077,18 +20077,18 @@
     </property>
     <property key="FormFieldTitle_paymentServiceTypeEnumId">
         <value xml:lang="ar">دليل تعداد نوع خدمة الدفع</value>
-        <value xml:lang="de">Zahlung Service Typ Enum Id</value>
-        <value xml:lang="en">Payment Service Type Enum Id</value>
+        <value xml:lang="de">Zahlung Service Typ Enum ID</value>
+        <value xml:lang="en">Payment Service Type Enum ID</value>
         <value xml:lang="es">Id Tipo Enum Sevicio de Pago</value>
         <value xml:lang="fr">Type de service de paiement</value>
         <value xml:lang="hi-IN">भुगतान सेवा प्रकार Enum क्रमांक(PaymentServiceTypeEnumId)</value>
         <value xml:lang="it">Tipo Servizio Pagamento</value>
         <value xml:lang="ja">支払サービス種類ID</value>
-        <value xml:lang="nl">Betaalservice Type Enum Id</value>
+        <value xml:lang="nl">Betaalservice Type Enum ID</value>
         <value xml:lang="pt">ID de tipo de serviço de Pagamento</value>
         <value xml:lang="ro">Tip Serviciu Plata</value>
         <value xml:lang="ru">Тип платежной службы</value>
-        <value xml:lang="th">Payment Service Type Enum Id</value>
+        <value xml:lang="th">Payment Service Type Enum ID</value>
         <value xml:lang="vi">Id liệt kê kiểu dịch vụ</value>
         <value xml:lang="zh">支付服务类型枚举标识</value>
         <value xml:lang="zh-TW">支付服務類型列舉識別</value>
@@ -20131,8 +20131,8 @@
     </property>
     <property key="FormFieldTitle_performedByPartyId">
         <value xml:lang="ar">نفذت عن طرير دليل الطرف</value>
-        <value xml:lang="de">Ausgeführt von Akteur Id</value>
-        <value xml:lang="en">Performed By Party Id</value>
+        <value xml:lang="de">Ausgeführt von Akteur ID</value>
+        <value xml:lang="en">Performed By Party ID</value>
         <value xml:lang="fr">Accompli par l'acteur (Réf.)</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक द्वारा प्रदर्शन</value>
         <value xml:lang="it">Eseguito Dal Soggetto</value>
@@ -20159,8 +20159,8 @@
     </property>
     <property key="FormFieldTitle_period1GlFiscalTypeId">
         <value xml:lang="ar">دليل نوع GL المالي للفترة1</value>
-        <value xml:lang="de">Periode 1 Hauptbuch Steuer Typ Id</value>
-        <value xml:lang="en">Period1 Gl Fiscal Type Id</value>
+        <value xml:lang="de">Periode 1 Hauptbuch Steuer Typ ID</value>
+        <value xml:lang="en">Period1 Gl Fiscal Type ID</value>
         <value xml:lang="fr">Réf. de type d'exercice 1</value>
         <value xml:lang="hi-IN">अवधि1 जीएल(Gl) वित्तीय प्रकार क्रमांक</value>
         <value xml:lang="it">Periodo 1 Tipo Fiscale Gl</value>
@@ -20197,8 +20197,8 @@
     </property>
     <property key="FormFieldTitle_period2GlFiscalTypeId">
         <value xml:lang="ar">دليل نوع GL المالي للفترة2</value>
-        <value xml:lang="de">Periode 2 Hauptbuch Steuer Typ Id</value>
-        <value xml:lang="en">Period2 Gl Fiscal Type Id</value>
+        <value xml:lang="de">Periode 2 Hauptbuch Steuer Typ ID</value>
+        <value xml:lang="en">Period2 Gl Fiscal Type ID</value>
         <value xml:lang="fr">Réf. de type d'exercice 2</value>
         <value xml:lang="hi-IN">अवधि2 जीएल(Gl) वित्तीय प्रकार क्रमांक</value>
         <value xml:lang="it">Periodo 2 Tipo Fiscale Gl</value>
@@ -20249,8 +20249,8 @@
     </property>
     <property key="FormFieldTitle_periodTypeId">
         <value xml:lang="ar">دليل نوع الفترة</value>
-        <value xml:lang="de">Periode Typ Id</value>
-        <value xml:lang="en">Period Type Id</value>
+        <value xml:lang="de">Periode Typ ID</value>
+        <value xml:lang="en">Period Type ID</value>
         <value xml:lang="fr">Réf. de type d'exercice</value>
         <value xml:lang="hi-IN">अवधि प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Periodo Fiscale</value>
@@ -20264,7 +20264,7 @@
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="ar">دليل الرصد إلى حساب GL</value>
         <value xml:lang="de">auf Hauptbuchkonto-Nr. buchen</value>
-        <value xml:lang="en">Post To Gl Account Id</value>
+        <value xml:lang="en">Post To Gl Account ID</value>
         <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
         <value xml:lang="hi-IN">जीएल(Gl) खाता क्रमांक में पोस्ट करे</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
@@ -20497,7 +20497,7 @@
     <property key="FormFieldTitle_purchaseCostUomId">
         <value xml:lang="ar">دليل وحدة قياس تكلفة الشراء</value>
         <value xml:lang="de">Anschaffungskosten Einheit</value>
-        <value xml:lang="en">Purchase Cost Uom Id</value>
+        <value xml:lang="en">Purchase Cost Uom ID</value>
         <value xml:lang="fr">Réf. de mesure de coût d'achat</value>
         <value xml:lang="hi-IN">क्रय मूल्य माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Udm Costo d'Acquisto</value>
@@ -20510,7 +20510,7 @@
     <property key="FormFieldTitle_purchaseOrderId">
         <value xml:lang="ar">دليل أمر الشراء</value>
         <value xml:lang="de">Bestellungs-ID</value>
-        <value xml:lang="en">Purchase Order Id</value>
+        <value xml:lang="en">Purchase Order ID</value>
         <value xml:lang="es">Id Orden de Compra</value>
         <value xml:lang="fr">Réf. commande d'achat</value>
         <value xml:lang="hi-IN">क्रय आदेश क्रमांक</value>
@@ -20589,7 +20589,7 @@
     <property key="FormFieldTitle_rateCurrencyUomId">
         <value xml:lang="ar">دليل وحدة قياس نسبة العملة</value>
         <value xml:lang="de">Preis Währungseinheit</value>
-        <value xml:lang="en">Rate Currency Uom Id</value>
+        <value xml:lang="en">Rate Currency Uom ID</value>
         <value xml:lang="fr">Réf. de taux monétaire</value>
         <value xml:lang="hi-IN">मुद्रा दर माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Valuta del Tasso</value>
@@ -20614,8 +20614,8 @@
     </property>
     <property key="FormFieldTitle_rateTypeId">
         <value xml:lang="ar">دليل نوع النسبة</value>
-        <value xml:lang="de">Preistyp Id</value>
-        <value xml:lang="en">Rate Type Id</value>
+        <value xml:lang="de">Preistyp ID</value>
+        <value xml:lang="en">Rate Type ID</value>
         <value xml:lang="fr">Réf. type de taux</value>
         <value xml:lang="hi-IN">दर प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Tasso</value>
@@ -20642,8 +20642,8 @@
     </property>
     <property key="FormFieldTitle_readingReasonEnumId">
         <value xml:lang="ar">دليل تعداد سبب القراءة</value>
-        <value xml:lang="de">Lesegrund Enum Id</value>
-        <value xml:lang="en">Reading Reason Enum Id</value>
+        <value xml:lang="de">Lesegrund Enum ID</value>
+        <value xml:lang="en">Reading Reason Enum ID</value>
         <value xml:lang="fr">Réf. de motivation de lecture</value>
         <value xml:lang="hi-IN">पठन(Reading) रीज़न Enum क्रमांक</value>
         <value xml:lang="it">Motivazione Lettura</value>
@@ -20685,8 +20685,8 @@
     </property>
     <property key="FormFieldTitle_reconcileStatusId">
         <value xml:lang="ar">دليل حالة التسوية</value>
-        <value xml:lang="de">Abgleichstatus Id</value>
-        <value xml:lang="en">Reconcile Status Id</value>
+        <value xml:lang="de">Abgleichstatus ID</value>
+        <value xml:lang="en">Reconcile Status ID</value>
         <value xml:lang="es">Id Status Reconciliación</value>
         <value xml:lang="fr">Statut de rapprochement</value>
         <value xml:lang="hi-IN">मिलान स्थिति(Status) क्रमांक</value>
@@ -20772,8 +20772,8 @@
     </property>
     <property key="FormFieldTitle_refundPaymentMethodId">
         <value xml:lang="ar">دليل طريقة رد الدفعة</value>
-        <value xml:lang="de">Erstattungsmethode Id</value>
-        <value xml:lang="en">Refund Payment Method Id</value>
+        <value xml:lang="de">Erstattungsmethode ID</value>
+        <value xml:lang="en">Refund Payment Method ID</value>
         <value xml:lang="fr">Réf. de méthode de remboursement</value>
         <value xml:lang="hi-IN">वापसी भुगतान तरीका क्रमांक</value>
         <value xml:lang="it">Metodo di Pagamento Resi</value>
@@ -20822,8 +20822,8 @@
     </property>
     <property key="FormFieldTitle_replenishPaymentId">
         <value xml:lang="ar">دليل نقص الدفعة</value>
-        <value xml:lang="de">Auffüll-Zahlung Id</value>
-        <value xml:lang="en">Replenish Payment Id</value>
+        <value xml:lang="de">Auffüll-Zahlung ID</value>
+        <value xml:lang="en">Replenish Payment ID</value>
         <value xml:lang="fr">Réf. de remboursement</value>
         <value xml:lang="hi-IN">Replenish भुगतान क्रमांक</value>
         <value xml:lang="it">Pagamento Rifornimento</value>
@@ -20932,8 +20932,8 @@
     </property>
     <property key="FormFieldTitle_salesOpportunityId">
         <value xml:lang="ar">دليل فرصة المبيعات</value>
-        <value xml:lang="de">Absatzmöglichkeit Id</value>
-        <value xml:lang="en">Sales Opportunity Id</value>
+        <value xml:lang="de">Absatzmöglichkeit ID</value>
+        <value xml:lang="en">Sales Opportunity ID</value>
         <value xml:lang="fr">Réf. d'opportunité de vente</value>
         <value xml:lang="hi-IN">बिक्री अवसर क्रमांक</value>
         <value xml:lang="it">Numero Opportunità di Vendita</value>
@@ -20958,8 +20958,8 @@
     </property>
     <property key="FormFieldTitle_scheduleWorkEffortId">
         <value xml:lang="ar">جدولة دليل جهد عمل</value>
-        <value xml:lang="de">Geplanter Arbeitseinsatz Id</value>
-        <value xml:lang="en">Schedule Work Effort Id</value>
+        <value xml:lang="de">Geplanter Arbeitseinsatz ID</value>
+        <value xml:lang="en">Schedule Work Effort ID</value>
         <value xml:lang="es">Id Planificación de esfuerzo de trabajo</value>
         <value xml:lang="fr">Planifier l'activité de réf.</value>
         <value xml:lang="hi-IN">अनुसूची कार्य प्रयास क्रमांक(WorkEffortId)</value>
@@ -21037,7 +21037,7 @@
     </property>
     <property key="FormFieldTitle_sourceId">
         <value xml:lang="ar">دليل المصدر</value>
-        <value xml:lang="de">Quelle Id</value>
+        <value xml:lang="de">Quelle ID</value>
         <value xml:lang="en">Source ID</value>
         <value xml:lang="fr">Réf. source</value>
         <value xml:lang="hi-IN">स्रोत क्रमांक(SourceId)</value>
@@ -21099,8 +21099,8 @@
     </property>
     <property key="FormFieldTitle_taxAuthorityRateSeqId">
         <value xml:lang="ar">دليل تسلسل نسبة المصلحة الضريبية</value>
-        <value xml:lang="de">Steuerbehörde Preis Seq Id</value>
-        <value xml:lang="en">Tax Authority Rate Seq Id</value>
+        <value xml:lang="de">Steuerbehörde Preis Seq ID</value>
+        <value xml:lang="en">Tax Authority Rate Seq ID</value>
         <value xml:lang="es">Id Secuencia Tarifa de Autoridad Fiscal</value>
         <value xml:lang="fr">Séquence de taux de taxation</value>
         <value xml:lang="hi-IN">टैक्स प्राधिकरण दर अनुक्रम क्रमांक</value>
@@ -21242,13 +21242,13 @@
     <property key="FormFieldTitle_termTypeId">
         <value xml:lang="ar">دليل نوع الشرط</value>
         <value xml:lang="de">Konditionsart</value>
-        <value xml:lang="en">Term Type Id</value>
+        <value xml:lang="en">Term Type ID</value>
         <value xml:lang="fr">Réf. de type de terme</value>
         <value xml:lang="hi-IN">शर्त प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Termine di Pagamento</value>
         <value xml:lang="ja">条件種類ID</value>
         <value xml:lang="nl">ID conditytype</value>
-        <value xml:lang="pt">Prazo Tipo Id</value>
+        <value xml:lang="pt">Prazo Tipo ID</value>
         <value xml:lang="th">รหัสประเภทช่วงเวลาที่กำหนด</value>
         <value xml:lang="vi">Kiểu điều khoản</value>
         <value xml:lang="zh">条件类型标识</value>
@@ -21309,7 +21309,7 @@
     <property key="FormFieldTitle_theirAcctgTransId">
         <value xml:lang="ar">دليل العمليات الحسابية لهم</value>
         <value xml:lang="de">Ihre Transaktionsnummer</value>
-        <value xml:lang="en">Their Acctg Trans Id</value>
+        <value xml:lang="en">Their Acctg Trans ID</value>
         <value xml:lang="fr">Leur réf. de transcation comptable</value>
         <value xml:lang="hi-IN">उनका खाता गतिविधि क्रमांक</value>
         <value xml:lang="it">Loro Numero Transazione Contabilità</value>
@@ -21349,8 +21349,8 @@
     </property>
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="ar">دليل قيد وقتي</value>
-        <value xml:lang="de">Zeiteintrag Id</value>
-        <value xml:lang="en">Time Entry Id</value>
+        <value xml:lang="de">Zeiteintrag ID</value>
+        <value xml:lang="en">Time Entry ID</value>
         <value xml:lang="fr">Réf. de date d'écriture</value>
         <value xml:lang="hi-IN">समय प्रवेश क्रमांक(TimeEntryId)</value>
         <value xml:lang="it">Riga Timbratura</value>
@@ -21377,8 +21377,8 @@
     </property>
     <property key="FormFieldTitle_timesheetPartyId">
         <value xml:lang="ar">دليل طرف ورقة التوقيت</value>
-        <value xml:lang="de">Zeiterfassung Akteur Id</value>
-        <value xml:lang="en">Timesheet Party Id</value>
+        <value xml:lang="de">Zeiterfassung Akteur ID</value>
+        <value xml:lang="en">Timesheet Party ID</value>
         <value xml:lang="fr">Réf de feuille d'activité d'un acteur</value>
         <value xml:lang="hi-IN">Timesheet पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto Timbratura</value>
@@ -21410,7 +21410,7 @@
     <property key="FormFieldTitle_toTaxAuthGeoId">
         <value xml:lang="ar">الدليل الجغرافي إلى مصلحة الضرائب</value>
         <value xml:lang="de">Empfänger Steuerbehörde Standort</value>
-        <value xml:lang="en">To Tax Auth Geo Id</value>
+        <value xml:lang="en">To Tax Auth Geo ID</value>
         <value xml:lang="es">Id para Área de Autoridad Fiscal</value>
         <value xml:lang="fr">Vers la zone de taxation</value>
         <value xml:lang="hi-IN">टैक्स प्राधिकरण भू क्रमांक को</value>
@@ -21420,15 +21420,15 @@
         <value xml:lang="pt">ID da GEO da autoridade tributária de destino</value>
         <value xml:lang="ro">La Codul Geografia Autoritate Taxe</value>
         <value xml:lang="ru">На террит. налог. органа</value>
-        <value xml:lang="th">To Tax Auth Geo Id</value>
+        <value xml:lang="th">To Tax Auth Geo ID</value>
         <value xml:lang="vi">Đến Mã địa lý cơ quan thuế</value>
         <value xml:lang="zh">到税务机构地理标识</value>
         <value xml:lang="zh-TW">到稅務機構地理識別</value>
     </property>
     <property key="FormFieldTitle_toTaxAuthPartyId">
         <value xml:lang="ar">دليل الطرف إلى مصلحة الضرائب</value>
-        <value xml:lang="de">Empfänger Steuerbehörde Akteur Id</value>
-        <value xml:lang="en">To Tax Auth Party Id</value>
+        <value xml:lang="de">Empfänger Steuerbehörde Akteur ID</value>
+        <value xml:lang="en">To Tax Auth Party ID</value>
         <value xml:lang="es">Id Grupo para Autoridad Fiscal</value>
         <value xml:lang="fr">Vers l'administration fiscale (acteur réf.)</value>
         <value xml:lang="hi-IN">टैक्स प्राधिकरण पार्टी क्रमांक को</value>
@@ -21485,8 +21485,8 @@
     </property>
     <property key="FormFieldTitle_transCodeEnumId">
         <value xml:lang="ar">دليل تعداد رمز العمليات</value>
-        <value xml:lang="de">Transactionscode Enum Id</value>
-        <value xml:lang="en">Trans Code Enum Id</value>
+        <value xml:lang="de">Transactionscode Enum ID</value>
+        <value xml:lang="en">Trans Code Enum ID</value>
         <value xml:lang="es">Id Enum Código de Trans</value>
         <value xml:lang="fr">Réf. code de transaction</value>
         <value xml:lang="hi-IN">गतिविधि कोड Enum क्रमांक</value>
@@ -21496,7 +21496,7 @@
         <value xml:lang="pt">ID de enumeração do código da transação</value>
         <value xml:lang="ro">Numero Cod Tranzactie</value>
         <value xml:lang="ru">Код транзакции</value>
-        <value xml:lang="th">Trans Code Enum Id</value>
+        <value xml:lang="th">Trans Code Enum ID</value>
         <value xml:lang="vi">Liệt kê mã Bút toán</value>
         <value xml:lang="zh">交易代码枚举标识</value>
         <value xml:lang="zh-TW">交易識別列舉識別</value>
@@ -21596,7 +21596,7 @@
     </property>
     <property key="FormFieldTitle_userId">
         <value xml:lang="ar">دليل المستخدم</value>
-        <value xml:lang="de">Benutzer Id</value>
+        <value xml:lang="de">Benutzer ID</value>
         <value xml:lang="en">User ID</value>
         <value xml:lang="fr">Identifiant</value>
         <value xml:lang="hi-IN">उपयोगकर्ता क्रमांक(userId)</value>
