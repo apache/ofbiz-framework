@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AZ" geoCode="A" geoId="EC-A" geoName="Azuay" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BO" geoCode="B" geoId="EC-B" geoName="Bolívar" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CR" geoCode="C" geoId="EC-C" geoName="Carchi" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CN" geoCode="F" geoId="EC-F" geoName="Cañar" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CB" geoCode="H" geoId="EC-H" geoName="Chimborazo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CT" geoCode="X" geoId="EC-X" geoName="Cotopaxi" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="EO" geoCode="O" geoId="EC-O" geoName="El Oro" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ES" geoCode="E" geoId="EC-E" geoName="Esmeraldas" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="GA" geoCode="W" geoId="EC-W" geoName="Galápagos" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="GY" geoCode="G" geoId="EC-G" geoName="Guayas" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="IM" geoCode="I" geoId="EC-I" geoName="Imbabura" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LJ" geoCode="L" geoId="EC-L" geoName="Loja" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LR" geoCode="R" geoId="EC-R" geoName="Los Ríos" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="MN" geoCode="M" geoId="EC-M" geoName="Manabí" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="MS" geoCode="S" geoId="EC-S" geoName="Morona Santiago" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NA" geoCode="N" geoId="EC-N" geoName="Napo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="OR" geoCode="D" geoId="EC-D" geoName="Orellana" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PA" geoCode="Y" geoId="EC-Y" geoName="Pastaza" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PC" geoCode="P" geoId="EC-P" geoName="Pichincha" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SE" geoCode="SE" geoId="EC-SE" geoName="Santa Elena" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SD" geoCode="SD" geoId="EC-SD" geoName="Santo Domingo de los Tsáchilas" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SU" geoCode="U" geoId="EC-U" geoName="Sucumbíos" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="TU" geoCode="T" geoId="EC-T" geoName="Tungurahua" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ZC" geoCode="Z" geoId="EC-Z" geoName="Zamora Chinchipe" geoTypeId="PROVINCE"/>
+    
+    <GeoAssoc geoId="ECU" geoIdTo="EC-A" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-B" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-C" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-F" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-H" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-X" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-O" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-E" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-W" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-G" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-I" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-L" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-R" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-M" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-S" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-N" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-D" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-Y" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-P" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-SE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-SD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-U" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-T" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ECU" geoIdTo="EC-Z" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
