@@ -227,7 +227,7 @@
         <value xml:lang="zh-TW">缺少組織名稱</value>
     </property>
     <property key="SetupOrganizationPartyId">
-        <value xml:lang="en">Organization Party Id</value>
+        <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="it">Soggetto organizzazione</value>
         <value xml:lang="ja">組織取引先ID</value>
         <value xml:lang="pt-BR">Id da Organização</value>

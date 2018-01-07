@@ -63,7 +63,7 @@
         <value xml:lang="en">Required Field Missing : Contact Mech Type Id.</value>
     </property>
     <property key="facility.containerId">
-        <value xml:lang="en">Required Field Missing : Container Id</value>
+        <value xml:lang="en">Required Field Missing : Container ID</value>
     </property>
     <property key="facility.emailAddress">
         <value xml:lang="en">Required Field Missing : Email Address.</value>

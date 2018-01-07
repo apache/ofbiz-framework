@@ -185,7 +185,7 @@
     </property>
     <property key="FormFieldTitle_entityGroupId">
         <value xml:lang="de">Entität Gruppen ID</value>
-        <value xml:lang="en">Entity Group Id</value>
+        <value xml:lang="en">Entity Group ID</value>
         <value xml:lang="fr">Réf du groupe d'entité</value>
         <value xml:lang="it">Gruppo entità</value>
         <value xml:lang="ja">エンティテイグループID</value>
@@ -196,7 +196,7 @@
     </property>
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="de">Entität Synch. ID</value>
-        <value xml:lang="en">Entity Sync Id</value>
+        <value xml:lang="en">Entity Sync ID</value>
         <value xml:lang="fr">Réf. de synchro. d'entités</value>
         <value xml:lang="it">Codice entità Sincr.</value>
         <value xml:lang="ja">エンティテイ同期ID</value>
@@ -354,7 +354,7 @@
     </property>
     <property key="FormFieldTitle_runStatusId">
         <value xml:lang="de">Laufzeitstatus ID</value>
-        <value xml:lang="en">Run Status Id</value>
+        <value xml:lang="en">Run Status ID</value>
         <value xml:lang="fr">Réf. de statut en cours</value>
         <value xml:lang="it">Stato Esecuzione</value>
         <value xml:lang="ja">実行ステータスID</value>
