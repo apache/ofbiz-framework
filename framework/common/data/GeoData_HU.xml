@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="BA" geoCode="BA" geoId="HU-BA" geoName="Baranya" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BZ" geoCode="BZ" geoId="HU-BZ" geoName="Borsod-Abaúj-Zemplén" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BU" geoCode="BU" geoId="HU-BU" geoName="Budapest" geoTypeId="CITY"/>
+    <Geo abbreviation="BK" geoCode="BK" geoId="HU-BK" geoName="Bács-Kiskun" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BE" geoCode="BE" geoId="HU-BE" geoName="Békés" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BC" geoCode="BC" geoId="HU-BC" geoName="Békéscsaba" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CS" geoCode="CS" geoId="HU-CS" geoName="Csongrád" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DE" geoCode="DE" geoId="HU-DE" geoName="Debrecen" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="DU" geoCode="DU" geoId="HU-DU" geoName="Dunaújváros" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="EG" geoCode="EG" geoId="HU-EG" geoName="Eger" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="FE" geoCode="FE" geoId="HU-FE" geoName="Fejér" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GY" geoCode="GY" geoId="HU-GY" geoName="Győr" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="GS" geoCode="GS" geoId="HU-GS" geoName="Győr-Moson-Sopron" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HB" geoCode="HB" geoId="HU-HB" geoName="Hajdú-Bihar" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HE" geoCode="HE" geoId="HU-HE" geoName="Heves" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HV" geoCode="HV" geoId="HU-HV" geoName="Hódmezővásárhely" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="JN" geoCode="JN" geoId="HU-JN" geoName="Jász-Nagykun-Szolnok" geoTypeId="COUNTY"/>
+    <Geo abbreviation="KV" geoCode="KV" geoId="HU-KV" geoName="Kaposvár" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="KM" geoCode="KM" geoId="HU-KM" geoName="Kecskemét" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="KE" geoCode="KE" geoId="HU-KE" geoName="Komárom-Esztergom" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MI" geoCode="MI" geoId="HU-MI" geoName="Miskolc" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NK" geoCode="NK" geoId="HU-NK" geoName="Nagykanizsa" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NY" geoCode="NY" geoId="HU-NY" geoName="Nyíregyháza" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NO" geoCode="NO" geoId="HU-NO" geoName="Nógrád" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PE" geoCode="PE" geoId="HU-PE" geoName="Pest" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PS" geoCode="PS" geoId="HU-PS" geoName="Pécs" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ST" geoCode="ST" geoId="HU-ST" geoName="Salgótarján" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SO" geoCode="SO" geoId="HU-SO" geoName="Somogy" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SN" geoCode="SN" geoId="HU-SN" geoName="Sopron" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SZ" geoCode="SZ" geoId="HU-SZ" geoName="Szabolcs-Szatmár-Bereg" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SD" geoCode="SD" geoId="HU-SD" geoName="Szeged" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SS" geoCode="SS" geoId="HU-SS" geoName="Szekszárd" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SK" geoCode="SK" geoId="HU-SK" geoName="Szolnok" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SH" geoCode="SH" geoId="HU-SH" geoName="Szombathely" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SF" geoCode="SF" geoId="HU-SF" geoName="Székesfehérvár" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TB" geoCode="TB" geoId="HU-TB" geoName="Tatabánya" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TO" geoCode="TO" geoId="HU-TO" geoName="Tolna" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VA" geoCode="VA" geoId="HU-VA" geoName="Vas" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VM" geoCode="VM" geoId="HU-VM" geoName="Veszprém" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="VE" geoCode="VE" geoId="HU-VE" geoName="Veszprém" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ZA" geoCode="ZA" geoId="HU-ZA" geoName="Zala" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ZE" geoCode="ZE" geoId="HU-ZE" geoName="Zalaegerszeg" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ER" geoCode="ER" geoId="HU-ER" geoName="Érd" geoTypeId="COUNTY_CITY"/>
+    
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BZ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BU" geoAssocTypeId="COUNTY_SEAT"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-BC" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-CS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-DE" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-DU" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-EG" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-FE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-GY" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-GS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-HB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-HE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-HV" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-JN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-KV" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-KM" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-KE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-MI" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-NK" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-NY" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-NO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-PE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-PS" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-ST" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SN" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SZ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SD" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SS" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SK" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SH" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-SF" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-TB" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-TO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-VA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-VM" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-VE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-ZA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-ZE" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="HUN" geoIdTo="HU-ER" geoAssocTypeId="COUNTY_CITY"/>
+</entity-engine-xml>
