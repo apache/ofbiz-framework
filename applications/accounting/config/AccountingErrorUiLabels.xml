@@ -980,11 +980,11 @@
         <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstId">
-        <value xml:lang="de">Probleme beim Ermitteln der Inst Id</value>
-        <value xml:lang="en">Problems Getting Inst Id</value>
+        <value xml:lang="de">Probleme beim Ermitteln der Inst ID</value>
+        <value xml:lang="en">Problems Getting Inst ID</value>
         <value xml:lang="fr">Problème de récupération de l'Inst Id</value>
         <value xml:lang="hi-IN">Inst Id में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
+        <value xml:lang="it">Problema nel ricavare il parametro Inst ID</value>
         <value xml:lang="ja">導入IDの取得に問題があります。</value>
         <value xml:lang="pt">Problemas ao obter ID de inst</value>
         <value xml:lang="zh">获取实例标识时出错</value>
