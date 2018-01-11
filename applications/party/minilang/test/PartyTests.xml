@@ -1228,7 +1228,7 @@ under the License.
     <simple-method method-name="testUpdatePartyGroup" short-description="Test the service to update party group" login-required="false">
         <set field="serviceCtx.partyId" value="TestGroup-1"/>
         <set field="serviceCtx.groupName" value="Test Party Group"/>
-        <set field="serviceCtx.logoImageUrl" value="http://ofbiz.apache.org/images/ofbiz_logo.png"/>
+        <set field="serviceCtx.logoImageUrl" value="/themes/common/webapp/images/ofbiz_logo.png"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -1241,7 +1241,7 @@ under the License.
         <assert>
             <not><if-empty field="partyGroup"/></not>
             <if-compare field="partyGroup.groupName" operator="equals" value="Test Party Group"/>
-            <if-compare field="partyGroup.logoImageUrl" operator="equals" value="http://ofbiz.apache.org/images/ofbiz_logo.png"/>
+            <if-compare field="partyGroup.logoImageUrl" operator="equals" value="/themes/common/webapp/images/ofbiz_logo.png"/>
         </assert>
         <check-errors/>
     </simple-method>
