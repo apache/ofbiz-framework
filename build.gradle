@@ -145,7 +145,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.11.2'
 
     // ofbiz unit-test compile libs
-    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile 'org.mockito:mockito-core:2.13.0'
 
     // ofbiz runtime libs
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
