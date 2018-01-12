@@ -31,7 +31,7 @@ under the License.
 
     <theme-properties>
         <!--header image -->
-        <property name="VT_HDR_IMAGE_Url" value="/images/ofbiz_logo.png"/>
+        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
         <!--template location-->
         <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
