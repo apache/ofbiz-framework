@@ -609,7 +609,7 @@
     </property>
     <property key="FacilityShipmentDhlAccessUserId">
         <value xml:lang="de">Ihre DHL ShipIT Benutzerkennung</value>
-        <value xml:lang="en">Your DHL ShipIT User ID</value>
+        <value xml:lang="en">Your DHL ShipIT User Id</value>
         <value xml:lang="it">Il tuo id utente DHL ShipIT</value>
         <value xml:lang="ja">DHL ShipIT ユーザID</value>
         <value xml:lang="vi">Mã người dùng gửi hàng qua DHL</value>
@@ -1633,8 +1633,8 @@
         <value xml:lang="zh-TW">從出貨獲取出貨閘道配置(getShipmentGatewayConfigFromShipment)中出錯:${errorString}</value>
     </property>
     <property key="FacilityShipmentGatewayConfigId">
-        <value xml:lang="de">Lieferportal Konfigurations ID</value>
-        <value xml:lang="en">Shipment Gateway Config ID</value>
+        <value xml:lang="de">Lieferportal Konfigurations Id</value>
+        <value xml:lang="en">Shipment Gateway Config Id</value>
         <value xml:lang="it">Codice configurazione gateway spedizione</value>
         <value xml:lang="ja">発送ゲートウェイ設定ID</value>
         <value xml:lang="vi">Id cấu hình cổng chuyển vận</value>
@@ -1651,8 +1651,8 @@
         <value xml:lang="zh-TW">出貨閘道配置類型描述</value>
     </property>
     <property key="FacilityShipmentGatewayConfigTypeId">
-        <value xml:lang="de">Lieferportal Konfigurations Typ ID</value>
-        <value xml:lang="en">Shipment Gateway Config Type ID</value>
+        <value xml:lang="de">Lieferportal Konfigurations Typ Id</value>
+        <value xml:lang="en">Shipment Gateway Config Type Id</value>
         <value xml:lang="it">Tipo configurazione gateway spedizione</value>
         <value xml:lang="ja">発送ゲートウェイ設定種類ID</value>
         <value xml:lang="vi">Id loại</value>
@@ -1858,8 +1858,8 @@
         <value xml:lang="zh-TW">訪問密碼</value>
     </property>
     <property key="FacilityShipmentUpsAccessUserId">
-        <value xml:lang="de">Zugang Benutzer ID</value>
-        <value xml:lang="en">Access User ID</value>
+        <value xml:lang="de">Zugang Benutzer Id</value>
+        <value xml:lang="en">Access User Id</value>
         <value xml:lang="it">Id utente d'accesso</value>
         <value xml:lang="ja">アクセスユーザID</value>
         <value xml:lang="vi">Id người dùng</value>
@@ -2879,7 +2879,7 @@
     </property>
     <property key="FacilityShipmentUspsAccessUserId">
         <value xml:lang="de">Zugang Benutzerkennung</value>
-        <value xml:lang="en">Access User ID</value>
+        <value xml:lang="en">Access User Id</value>
         <value xml:lang="it">Id utente d'accesso</value>
         <value xml:lang="ja">アクセスユーザID</value>
         <value xml:lang="zh">访问用户标识</value>
@@ -3524,7 +3524,7 @@
     </property>
     <property key="FormFieldTitle_agreementItemSeqId">
         <value xml:lang="de">Vereinbarungsselement Seq. ID</value>
-        <value xml:lang="en">Agreement Item Seq ID</value>
+        <value xml:lang="en">Agreement Item Seq Id</value>
         <value xml:lang="es">Código de secuenca del ítem del acuerdo</value>
         <value xml:lang="fr">Réf. séq. d'un point d'accord commercial</value>
         <value xml:lang="it">N.Seq. Riga Accordo</value>
@@ -3907,7 +3907,7 @@
     </property>
     <property key="FormFieldTitle_availableTimeUomId">
         <value xml:lang="de">Verfügbare Zeit Einheit ID</value>
-        <value xml:lang="en">Available Time Uom ID</value>
+        <value xml:lang="en">Available Time Uom Id</value>
         <value xml:lang="es">Unidad de medida de tiempo disponible</value>
         <value xml:lang="fr">Réf. d'unité de temps disponible</value>
         <value xml:lang="it">Udm tempo a disposizione</value>
@@ -3998,7 +3998,7 @@
     <property key="FormFieldTitle_caContentAssocTypeId">
         <value xml:lang="ar">تعريف نوع الارتباط</value>
         <value xml:lang="de">Inhalt Zuordnungstyp ID</value>
-        <value xml:lang="en">Content Assoc Type ID</value>
+        <value xml:lang="en">Content Assoc Type Id</value>
         <value xml:lang="es">Código Asociación de contenido</value>
         <value xml:lang="fr">Réf. de type de contenu associé</value>
         <value xml:lang="it">Tipo associazione contenuto</value>
@@ -4064,12 +4064,12 @@
     </property>
     <property key="FormFieldTitle_carrierPartyId">
         <value xml:lang="de">Transportunternehmen Akteur ID</value>
-        <value xml:lang="en">Carrier Party ID</value>
+        <value xml:lang="en">Carrier Party Id</value>
         <value xml:lang="es">Código de participante del transportista</value>
         <value xml:lang="fr">Réf. de transporteur (acteur)</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="ja">運送業者取引先ID</value>
-        <value xml:lang="nl">Vervoerder ID</value>
+        <value xml:lang="nl">Vervoerder Id</value>
         <value xml:lang="ro">Cod Curier</value>
         <value xml:lang="ru">Код перевозчика</value>
         <value xml:lang="th">รหัสกลุ่มผู้ส่ง</value>
@@ -4150,7 +4150,7 @@
     <property key="FormFieldTitle_characterSetId">
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
         <value xml:lang="de">Zeichensatz ID</value>
-        <value xml:lang="en">Character Set ID</value>
+        <value xml:lang="en">Character Set Id</value>
         <value xml:lang="es">Código del conjunto de caracteres</value>
         <value xml:lang="fr">Ensemble de caractères [Réf.]</value>
         <value xml:lang="it">Set di Caratteri</value>
@@ -4236,7 +4236,7 @@
     </property>
     <property key="FormFieldTitle_companyPartyId">
         <value xml:lang="de">Unternehmen Akteur ID</value>
-        <value xml:lang="en">Comp. Party ID</value>
+        <value xml:lang="en">Comp. Party Id</value>
         <value xml:lang="es">Código de participante de la empresa</value>
         <value xml:lang="fr">Réf. de l'entreprise</value>
         <value xml:lang="it">Az.</value>
@@ -4290,7 +4290,7 @@
     </property>
     <property key="FormFieldTitle_configTypeId">
         <value xml:lang="de">Konfiguration Typ ID</value>
-        <value xml:lang="en">Config Type ID</value>
+        <value xml:lang="en">Config Type Id</value>
         <value xml:lang="es">Código Tipo de configuración</value>
         <value xml:lang="fr">Réf. de type de configuration</value>
         <value xml:lang="it">Tipo Configurazione</value>
@@ -4326,7 +4326,7 @@
     </property>
     <property key="FormFieldTitle_correspondingProductId">
         <value xml:lang="de">Dazugehörige Produkt ID</value>
-        <value xml:lang="en">Corresponding Product ID</value>
+        <value xml:lang="en">Corresponding Product Id</value>
         <value xml:lang="es">Código de producto correspondiente</value>
         <value xml:lang="fr">Réf. d'article correspondant</value>
         <value xml:lang="it">Codice prodotto corrispondente</value>
@@ -4354,7 +4354,7 @@
     </property>
     <property key="FormFieldTitle_costComponentCalcId">
         <value xml:lang="de">Kostenkomponente Kalkulation ID</value>
-        <value xml:lang="en">Cost Component Calc ID</value>
+        <value xml:lang="en">Cost Component Calc Id</value>
         <value xml:lang="es">Código Cálculo de componente de coste</value>
         <value xml:lang="fr">Réf. de calcul de coût de composant</value>
         <value xml:lang="it">Codice Costo Componente Calcolo</value>
@@ -4368,7 +4368,7 @@
     </property>
     <property key="FormFieldTitle_costComponentId">
         <value xml:lang="de">Kostenkomponente ID</value>
-        <value xml:lang="en">Cost Component ID</value>
+        <value xml:lang="en">Cost Component Id</value>
         <value xml:lang="es">Código Componente de coste</value>
         <value xml:lang="fr">Réf. de coût de composant</value>
         <value xml:lang="it">Codice Costo Componente</value>
@@ -4382,7 +4382,7 @@
     </property>
     <property key="FormFieldTitle_costComponentTypeId">
         <value xml:lang="de">Kostenkomponente Typ ID</value>
-        <value xml:lang="en">Cost Component Type ID</value>
+        <value xml:lang="en">Cost Component Type Id</value>
         <value xml:lang="es">Código Tipo del componente de coste</value>
         <value xml:lang="fr">Réf. de type de coût de composant</value>
         <value xml:lang="it">Tipo Costo Componente</value>
@@ -4410,7 +4410,7 @@
     </property>
     <property key="FormFieldTitle_costUomId">
         <value xml:lang="de">Kosten Einheit ID</value>
-        <value xml:lang="en">Cost Uom ID</value>
+        <value xml:lang="en">Cost Uom Id</value>
         <value xml:lang="es">Unidad de medida del coste</value>
         <value xml:lang="fr">Unité de mesure de coût [Réf.]</value>
         <value xml:lang="it">Udm Costo</value>
@@ -4436,7 +4436,7 @@
     </property>
     <property key="FormFieldTitle_creditCardEnumId">
         <value xml:lang="de">Kreditkarte Aufzählung ID</value>
-        <value xml:lang="en">Credit Card Enum ID</value>
+        <value xml:lang="en">Credit Card Enum Id</value>
         <value xml:lang="es">Código Tipo tarjeta de crédito</value>
         <value xml:lang="fr">Réf. de type de carte de crédit</value>
         <value xml:lang="it">Tipo Carta di Credito</value>
@@ -4460,7 +4460,7 @@
     </property>
     <property key="FormFieldTitle_custRequestCategoryId">
         <value xml:lang="de">Kundenanfrage Kategorie ID</value>
-        <value xml:lang="en">Cust Request Category ID</value>
+        <value xml:lang="en">Cust Request Category Id</value>
         <value xml:lang="es">Código Categoría de petición</value>
         <value xml:lang="fr">Réf. de la catégorie de demande client</value>
         <value xml:lang="it">Codice categoria richiesta cliente</value>
@@ -4565,7 +4565,7 @@
     </property>
     <property key="FormFieldTitle_defaultConfigOptionId">
         <value xml:lang="de">Standard Konfigurationsoption ID</value>
-        <value xml:lang="en">Default Config Option ID</value>
+        <value xml:lang="en">Default Config Option Id</value>
         <value xml:lang="es">Código Opción de configuración por defecto</value>
         <value xml:lang="fr">Réf. d'option de configuration par défaut</value>
         <value xml:lang="it">Opzione di Default Configurazione</value>
@@ -4577,7 +4577,7 @@
     </property>
     <property key="FormFieldTitle_defaultCurrencyUomId">
         <value xml:lang="de">Standard Währungseinheit ID</value>
-        <value xml:lang="en">Default Currency Uom ID</value>
+        <value xml:lang="en">Default Currency Uom Id</value>
         <value xml:lang="es">Moneda por defecto</value>
         <value xml:lang="fr">Réf. de monnaie par défaut</value>
         <value xml:lang="it">Codice Valuta di Default</value>
@@ -4619,7 +4619,7 @@
     </property>
     <property key="FormFieldTitle_defaultSalesChannelEnumId">
         <value xml:lang="de">Standard Verkaufskanal Aufzählung ID</value>
-        <value xml:lang="en">Default Sales Channel Enum ID</value>
+        <value xml:lang="en">Default Sales Channel Enum Id</value>
         <value xml:lang="es">Código Canal de venta por defecto</value>
         <value xml:lang="fr">Réf. de canal de vente par défaut</value>
         <value xml:lang="it">Scelta Canale di Vendita di Default</value>
@@ -4707,7 +4707,7 @@
     </property>
     <property key="FormFieldTitle_digProdUploadCategoryId">
         <value xml:lang="de">Digitales Produkt Hochladen Kategorie ID</value>
-        <value xml:lang="en">Dig Prod Upload Category ID</value>
+        <value xml:lang="en">Dig Prod Upload Category Id</value>
         <value xml:lang="es">Categoría de carga producto digital</value>
         <value xml:lang="fr">Catégorie de téléchargement d'articles numériques [Réf.]</value>
         <value xml:lang="it">Codice categoria caricamento prodotti digitali</value>
@@ -4858,14 +4858,14 @@
     </property>
     <property key="FormFieldTitle_excludeGeoId">
         <value xml:lang="de">Geo ID ausschliessen</value>
-        <value xml:lang="en">Excl. Geo ID</value>
+        <value xml:lang="en">Excl. Geo Id</value>
         <value xml:lang="es">Excl. lugar</value>
         <value xml:lang="fr">Excl. lieu [Réf.]</value>
         <value xml:lang="it">Esc. Geo.</value>
         <value xml:lang="ja">除外位置ID</value>
         <value xml:lang="ru">Исключать территорию</value>
         <value xml:lang="th">แยกออกจากรหัสโครงสร้าง</value>
-        <value xml:lang="vi">Không tính dịa điểm Địa lý ID</value>
+        <value xml:lang="vi">Không tính dịa điểm Địa lý Id</value>
         <value xml:lang="zh">排除地理标识</value>
         <value xml:lang="zh-TW">排除地理識別</value>
     </property>
@@ -4899,7 +4899,7 @@
     </property>
     <property key="FormFieldTitle_externalSubscriptionId">
         <value xml:lang="de">Externe Abonnement ID</value>
-        <value xml:lang="en">External Subscription ID</value>
+        <value xml:lang="en">External Subscription Id</value>
         <value xml:lang="es">Código Suscripción externa</value>
         <value xml:lang="fr">Réf. d'abonnement externe</value>
         <value xml:lang="it">Abbonamento n. esterno</value>
@@ -4913,7 +4913,7 @@
     </property>
     <property key="FormFieldTitle_facilityGroupId">
         <value xml:lang="de">Einrichtungsgruppe ID</value>
-        <value xml:lang="en">Facility Group ID</value>
+        <value xml:lang="en">Facility Group Id</value>
         <value xml:lang="es">Código Grupo de almacén</value>
         <value xml:lang="fr">Réf. de groupe de lieux de stockage</value>
         <value xml:lang="it">Gruppo Stabilimento</value>
@@ -4937,7 +4937,7 @@
     </property>
     <property key="FormFieldTitle_facilityGroupTypeId">
         <value xml:lang="de">Einrichtungsgruppe Typ ID</value>
-        <value xml:lang="en">Facility Group Type ID</value>
+        <value xml:lang="en">Facility Group Type Id</value>
         <value xml:lang="es">Código Tipo grupo de almacén</value>
         <value xml:lang="fr">Réf. de type de groupe de lieux de stockage</value>
         <value xml:lang="it">Tipo Gruppo Stabilimento</value>
@@ -4954,7 +4954,7 @@
         <value xml:lang="fr">Lieu de stockage [Réf.]</value>
         <value xml:lang="it">Codice stabilimento</value>
         <value xml:lang="ja">拠点ID</value>
-        <value xml:lang="nl">Faciliteit ID</value>
+        <value xml:lang="nl">Faciliteit Id</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Код объекта</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
@@ -4990,7 +4990,7 @@
     </property>
     <property key="FormFieldTitle_facilityTypeId">
         <value xml:lang="de">Einrichtungstyp ID</value>
-        <value xml:lang="en">Facility Type ID</value>
+        <value xml:lang="en">Facility Type Id</value>
         <value xml:lang="es">Código Tipo de almacén</value>
         <value xml:lang="fr">Réf. de type de stockage</value>
         <value xml:lang="it">Tipo Stabilimento</value>
@@ -5189,7 +5189,7 @@
     </property>
     <property key="FormFieldTitle_includeGeoId">
         <value xml:lang="de">Enthält Geo ID</value>
-        <value xml:lang="en">Incl. Geo ID</value>
+        <value xml:lang="en">Incl. Geo Id</value>
         <value xml:lang="es">Incl. lugar</value>
         <value xml:lang="fr">Inclure ref. de zone géo.</value>
         <value xml:lang="it">Inc. Geo.</value>
@@ -5239,7 +5239,7 @@
     </property>
     <property key="FormFieldTitle_intervalMeterTypeId">
         <value xml:lang="de">Intervall Messungstyp ID</value>
-        <value xml:lang="en">Interval Meter Type ID</value>
+        <value xml:lang="en">Interval Meter Type Id</value>
         <value xml:lang="es">Código Tipo de medida por intervalos</value>
         <value xml:lang="fr">Réf. de type de mesure d'intervalle</value>
         <value xml:lang="it">Tipo Contatore Intervallo</value>
@@ -5265,7 +5265,7 @@
     </property>
     <property key="FormFieldTitle_intervalUomId">
         <value xml:lang="de">Intervall Einheit ID</value>
-        <value xml:lang="en">Interval Uom ID</value>
+        <value xml:lang="en">Interval Uom Id</value>
         <value xml:lang="es">Código UDM intervalo</value>
         <value xml:lang="fr">Réf. d'unité de mesure (intervalle)</value>
         <value xml:lang="it">Udm Intervallo</value>
@@ -5278,7 +5278,7 @@
     </property>
     <property key="FormFieldTitle_inventoryFacilityId">
         <value xml:lang="de">Lagereinrichtung ID</value>
-        <value xml:lang="en">Inventory Facility ID</value>
+        <value xml:lang="en">Inventory Facility Id</value>
         <value xml:lang="es">Código Almacén inventario</value>
         <value xml:lang="fr">Réf. d'inventaire de lieu de stockage</value>
         <value xml:lang="it">Codice Stabilimento Inventario</value>
@@ -5293,7 +5293,7 @@
     </property>
     <property key="FormFieldTitle_inventoryItemDetailSeqId">
         <value xml:lang="de">Bestandsposition Detail Seq. ID</value>
-        <value xml:lang="en">Inventory Item Detail Seq ID</value>
+        <value xml:lang="en">Inventory Item Detail Seq Id</value>
         <value xml:lang="es">Nº sec. detalle ítem de inventario</value>
         <value xml:lang="fr">Réf. séq. de détail de ligne de stock</value>
         <value xml:lang="it">N.Seq. Dettaglio Riga Inventario</value>
@@ -5306,7 +5306,7 @@
     <property key="FormFieldTitle_inventoryItemId">
         <value xml:lang="ar">دليل بند الجرد</value>
         <value xml:lang="de">Bestandsposition ID</value>
-        <value xml:lang="en">Inventory Item ID</value>
+        <value xml:lang="en">Inventory Item Id</value>
         <value xml:lang="es">Id Elemento de Inventario</value>
         <value xml:lang="fr">Réf. de la ligne de stock</value>
         <value xml:lang="it">Numero Riga Inventario</value>
@@ -5321,7 +5321,7 @@
     </property>
     <property key="FormFieldTitle_inventoryItemLabelId">
         <value xml:lang="de">Bestandsposition Etikette ID</value>
-        <value xml:lang="en">Inventory Item Label ID</value>
+        <value xml:lang="en">Inventory Item Label Id</value>
         <value xml:lang="es">Código Etiqueta ítem de inventario</value>
         <value xml:lang="fr">Réf. d'étiquette de ligne de stock</value>
         <value xml:lang="it">Codice Etichetta Riga Inventario</value>
@@ -5333,7 +5333,7 @@
     </property>
     <property key="FormFieldTitle_inventoryItemLabelTypeId">
         <value xml:lang="de">Bestandsposition Etikettentyp ID</value>
-        <value xml:lang="en">Inventory Item Label Type ID</value>
+        <value xml:lang="en">Inventory Item Label Type Id</value>
         <value xml:lang="es">Código Tipo de etiqueta ítem de inventario</value>
         <value xml:lang="fr">Réf. de type d'étiquette de ligne de stock</value>
         <value xml:lang="it">Tipo Etichetta Riga</value>
@@ -5344,8 +5344,8 @@
         <value xml:lang="zh-TW">庫存細項標簽類型識別</value>
     </property>
     <property key="FormFieldTitle_inventoryItemTypeId">
-        <value xml:lang="de">Bestand Type ID</value>
-        <value xml:lang="en">Inventory Item Type ID</value>
+        <value xml:lang="de">Bestand Type Id</value>
+        <value xml:lang="en">Inventory Item Type Id</value>
         <value xml:lang="it">Tipo riga inventario</value>
         <value xml:lang="ja">在庫アイテム種類ID</value>
         <value xml:lang="vi">Kiểu</value>
@@ -5354,7 +5354,7 @@
     </property>
     <property key="FormFieldTitle_inventoryTransferId">
         <value xml:lang="de">Bestandstransfer ID</value>
-        <value xml:lang="en">Inventory Transfer ID</value>
+        <value xml:lang="en">Inventory Transfer Id</value>
         <value xml:lang="es">Código Transferencia de inventario</value>
         <value xml:lang="fr">Réf. de transfert d'inventaire</value>
         <value xml:lang="it">Numero Trasferimento Inventario</value>
@@ -5493,7 +5493,7 @@
     </property>
     <property key="FormFieldTitle_itemIssuanceId">
         <value xml:lang="de">Position Ausgabe ID</value>
-        <value xml:lang="en">Item Issuance ID</value>
+        <value xml:lang="en">Item Issuance Id</value>
         <value xml:lang="es">Código de emisión de ítem</value>
         <value xml:lang="fr">Réf. de prélèvement d'article</value>
         <value xml:lang="it">Numero Riga Prelievo</value>
@@ -5505,7 +5505,7 @@
     </property>
     <property key="FormFieldTitle_itemStatusId">
         <value xml:lang="de">Position Status ID</value>
-        <value xml:lang="en">Item Status ID</value>
+        <value xml:lang="en">Item Status Id</value>
         <value xml:lang="es">Código de estado de ítem</value>
         <value xml:lang="fr">Réf. de statut</value>
         <value xml:lang="it">Codice Stato Riga</value>
@@ -5602,7 +5602,7 @@
     </property>
     <property key="FormFieldTitle_linkSeqId">
         <value xml:lang="de">Link Seq. ID</value>
-        <value xml:lang="en">Link Seq ID</value>
+        <value xml:lang="en">Link Seq Id</value>
         <value xml:lang="es">Nº sec. enlace</value>
         <value xml:lang="fr">Réf. séq. de lien</value>
         <value xml:lang="it">Sequenza Link</value>
@@ -5629,7 +5629,7 @@
     </property>
     <property key="FormFieldTitle_locationSeqId">
         <value xml:lang="de">Standort Seq. ID</value>
-        <value xml:lang="en">Location Seq ID</value>
+        <value xml:lang="en">Location Seq Id</value>
         <value xml:lang="es">Nº sec. ubicación</value>
         <value xml:lang="fr">Réf. séq. d'emplacement</value>
         <value xml:lang="it">Seq. Posizione</value>
@@ -5654,7 +5654,7 @@
     </property>
     <property key="FormFieldTitle_locationTypeEnumId">
         <value xml:lang="de">Standorttyp Aufzählung ID</value>
-        <value xml:lang="en">Location Type Enum ID</value>
+        <value xml:lang="en">Location Type Enum Id</value>
         <value xml:lang="es">Tipo de ubicación</value>
         <value xml:lang="fr">Réf. de type d'emplacement</value>
         <value xml:lang="it">Tipo Posizione</value>
@@ -5694,7 +5694,7 @@
     </property>
     <property key="FormFieldTitle_maintTemplateWorkEffortId">
         <value xml:lang="de">Wartung Vorlage Arbeitseinsatz ID</value>
-        <value xml:lang="en">Maint Template Work Effort ID</value>
+        <value xml:lang="en">Maint Template Work Effort Id</value>
         <value xml:lang="es">Código Esfuerzo de trabajo plantilla manto.</value>
         <value xml:lang="fr">Réf. maint. de canevas d'activité</value>
         <value xml:lang="it">Manutenzione Template Impegno di Lavoro</value>
@@ -5733,7 +5733,7 @@
     </property>
     <property key="FormFieldTitle_manufacturerPartyId">
         <value xml:lang="de">Hersteller Akteur ID</value>
-        <value xml:lang="en">Manufacturer Party ID</value>
+        <value xml:lang="en">Manufacturer Party Id</value>
         <value xml:lang="es">Código de participante del fabricante</value>
         <value xml:lang="fr">Réf. de fabricant</value>
         <value xml:lang="it">Codice Soggetto Produttore</value>
@@ -5760,7 +5760,7 @@
     </property>
     <property key="FormFieldTitle_maxLifeTimeUomId">
         <value xml:lang="de">Maximale Lebensdauer Zeiteinheit ID</value>
-        <value xml:lang="en">Max Life Time Uom ID</value>
+        <value xml:lang="en">Max Life Time Uom Id</value>
         <value xml:lang="es">UDM tiempo de vida máximo</value>
         <value xml:lang="fr">Unité de temps disponible [Réf.]</value>
         <value xml:lang="it">Udm massimo tempo di vita</value>
@@ -5812,7 +5812,7 @@
     </property>
     <property key="FormFieldTitle_maximumAmountUomId">
         <value xml:lang="de">Maximum Betrag Währungseinheit ID</value>
-        <value xml:lang="en">Maximum Amount Uom ID</value>
+        <value xml:lang="en">Maximum Amount Uom Id</value>
         <value xml:lang="es">UDM Cantidad máxima</value>
         <value xml:lang="fr">Unité de mesure de montant maxi [Réf.]</value>
         <value xml:lang="it">Udm Importo Massimo</value>
@@ -5840,7 +5840,7 @@
     </property>
     <property key="FormFieldTitle_meterUomId">
         <value xml:lang="de">Messung Einheit ID</value>
-        <value xml:lang="en">Meter Uom ID</value>
+        <value xml:lang="en">Meter Uom Id</value>
         <value xml:lang="es">UDM del medidor</value>
         <value xml:lang="fr">Réf. d'unité de mesure</value>
         <value xml:lang="it">Udm Contatore</value>
@@ -5956,7 +5956,7 @@
     </property>
     <property key="FormFieldTitle_needTypeId">
         <value xml:lang="de">Bedarfstyp ID</value>
-        <value xml:lang="en">Need Type ID</value>
+        <value xml:lang="en">Need Type Id</value>
         <value xml:lang="es">Código del tipo requerido</value>
         <value xml:lang="fr">Réf. de type nécessaire</value>
         <value xml:lang="it">Tipo Necessario</value>
@@ -6095,7 +6095,7 @@
     </property>
     <property key="FormFieldTitle_originatedFromPartyId">
         <value xml:lang="de">Herkunft von Akteur ID</value>
-        <value xml:lang="en">Originated From Party ID</value>
+        <value xml:lang="en">Originated From Party Id</value>
         <value xml:lang="es">Código Participante emisor</value>
         <value xml:lang="fr">Provenant de la réf. d'acteur</value>
         <value xml:lang="it">Originato Dal Soggetto</value>
@@ -6109,7 +6109,7 @@
     </property>
     <property key="FormFieldTitle_originatedFromRoleTypeId">
         <value xml:lang="de">Herkunft von Rolle Typ ID</value>
-        <value xml:lang="en">Originated From Role Type ID</value>
+        <value xml:lang="en">Originated From Role Type Id</value>
         <value xml:lang="es">Cödigo Tipo rol emisor</value>
         <value xml:lang="fr">Provenant de la réf. de type de rôle</value>
         <value xml:lang="it">Originato Dal Tipo Ruolo</value>
@@ -6123,7 +6123,7 @@
     </property>
     <property key="FormFieldTitle_overrideOrgPartyId">
         <value xml:lang="de">Organisation Akteur ID übersteuern</value>
-        <value xml:lang="en">Override Org Party ID</value>
+        <value xml:lang="en">Override Org Party Id</value>
         <value xml:lang="es">Reemplazar código de participante original</value>
         <value xml:lang="fr">Remplacer la réf. originelle d'acteur</value>
         <value xml:lang="it">Sostituisce Organizzazione</value>
@@ -6161,7 +6161,7 @@
     </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="de">Übergeordnete Einrichtungsgruppe ID</value>
-        <value xml:lang="en">Parent Facility Group ID</value>
+        <value xml:lang="en">Parent Facility Group Id</value>
         <value xml:lang="es">Código Grupo almacén precursor</value>
         <value xml:lang="fr">Réf. de groupe de lieux de stockage parent</value>
         <value xml:lang="it">Gruppo Stabilimento Padre</value>
@@ -6173,7 +6173,7 @@
     </property>
     <property key="FormFieldTitle_parentFacilityId">
         <value xml:lang="de">Übergeordnete Einrichtung ID</value>
-        <value xml:lang="en">Parent Facility ID</value>
+        <value xml:lang="en">Parent Facility Id</value>
         <value xml:lang="es">Código Almacén precursor</value>
         <value xml:lang="fr">Lieu de stockage parent [Réf.]</value>
         <value xml:lang="it">Stabilimento padre</value>
@@ -6184,7 +6184,7 @@
     </property>
     <property key="FormFieldTitle_partyNeedId">
         <value xml:lang="de">Akteur Bedarf ID</value>
-        <value xml:lang="en">Party Need ID</value>
+        <value xml:lang="en">Party Need Id</value>
         <value xml:lang="es">Código Participante con necesidad</value>
         <value xml:lang="fr">Réf. de l'acteur nécessaire</value>
         <value xml:lang="it">Necessario Soggetto</value>
@@ -6197,7 +6197,7 @@
     </property>
     <property key="FormFieldTitle_payToPartyId">
         <value xml:lang="de">Zahlung an Akteur ID</value>
-        <value xml:lang="en">Pay To Party ID</value>
+        <value xml:lang="en">Pay To Party Id</value>
         <value xml:lang="es">Pagar a Código Participante</value>
         <value xml:lang="fr">Réf. de paiement à un acteur</value>
         <value xml:lang="it">Pagare al Soggetto</value>
@@ -6239,7 +6239,7 @@
     </property>
     <property key="FormFieldTitle_physicalInventoryId">
         <value xml:lang="de">Physikalischer Bestand ID</value>
-        <value xml:lang="en">Physical Inventory ID</value>
+        <value xml:lang="en">Physical Inventory Id</value>
         <value xml:lang="es">Código inventario físico</value>
         <value xml:lang="fr">Réf. d'inventaire physique</value>
         <value xml:lang="it">Numero Inventario Fisico</value>
@@ -6289,7 +6289,7 @@
     </property>
     <property key="FormFieldTitle_priceBreakId">
         <value xml:lang="de">Preissprung ID</value>
-        <value xml:lang="en">Price Break ID</value>
+        <value xml:lang="en">Price Break Id</value>
         <value xml:lang="es">Código precio promo</value>
         <value xml:lang="fr">Réf. de rupture par prix</value>
         <value xml:lang="it">Intervalli Prezzo</value>
@@ -6315,7 +6315,7 @@
     </property>
     <property key="FormFieldTitle_primaryParentCategoryId">
         <value xml:lang="de">Primäre übergeordnete Kategorie ID</value>
-        <value xml:lang="en">Primary Parent Category ID</value>
+        <value xml:lang="en">Primary Parent Category Id</value>
         <value xml:lang="es">Código Categoría primaria</value>
         <value xml:lang="fr">Réf. de première catégorie parente</value>
         <value xml:lang="it">Categoria Primaria Padre</value>
@@ -6329,7 +6329,7 @@
     </property>
     <property key="FormFieldTitle_primaryParentGroupId">
         <value xml:lang="de">Primäre übergeordnete Gruppen ID</value>
-        <value xml:lang="en">Primary Parent Group ID</value>
+        <value xml:lang="en">Primary Parent Group Id</value>
         <value xml:lang="es">Código Grupo precursor</value>
         <value xml:lang="fr">Réf. groupe parent primaire</value>
         <value xml:lang="it">Gruppo Primario Padre</value>
@@ -6341,7 +6341,7 @@
     </property>
     <property key="FormFieldTitle_primaryProductCategoryId">
         <value xml:lang="de">Primäre Produktkategorie ID</value>
-        <value xml:lang="en">Primary Product Category ID</value>
+        <value xml:lang="en">Primary Product Category Id</value>
         <value xml:lang="es">Código Categoría de producto primaria</value>
         <value xml:lang="fr">Réf. de première catégorie</value>
         <value xml:lang="it">Codice categoria primaria prodotto</value>
@@ -6355,7 +6355,7 @@
     </property>
     <property key="FormFieldTitle_primaryStoreGroupId">
         <value xml:lang="de">Primäre Laden ID</value>
-        <value xml:lang="en">Primary Store Group ID</value>
+        <value xml:lang="en">Primary Store Group Id</value>
         <value xml:lang="es">Código Tienda primaria</value>
         <value xml:lang="fr">Réf. de Groupe de centre de profit</value>
         <value xml:lang="it">Gruppo Negozio Primario</value>
@@ -6389,7 +6389,7 @@
     </property>
     <property key="FormFieldTitle_prodCatContentTypeId">
         <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>
-        <value xml:lang="en">Prod Cat Content Type ID</value>
+        <value xml:lang="en">Prod Cat Content Type Id</value>
         <value xml:lang="es">Código Tipo de contenido catálogo de productos</value>
         <value xml:lang="fr">Réf. de type de catégorie de contenu de produit</value>
         <value xml:lang="it">Tipo di contenuto</value>
@@ -6403,7 +6403,7 @@
     </property>
     <property key="FormFieldTitle_prodCatalogCategoryTypeId">
         <value xml:lang="de">Produktkatalog Kategorie Typ ID</value>
-        <value xml:lang="en">Product Catalog Category Type ID</value>
+        <value xml:lang="en">Product Catalog Category Type Id</value>
         <value xml:lang="es">Código Categoría de catálogo de productos</value>
         <value xml:lang="fr">Réf. de type de catalogue</value>
         <value xml:lang="it">Tipo Categoria Catalogo Prodotto</value>
@@ -6458,7 +6458,7 @@
     </property>
     <property key="FormFieldTitle_productCategoryId">
         <value xml:lang="de">Produktkategorie ID</value>
-        <value xml:lang="en">Product Category ID</value>
+        <value xml:lang="en">Product Category Id</value>
         <value xml:lang="es">Código Categoría de productos</value>
         <value xml:lang="fr">Catégorie [Réf.]</value>
         <value xml:lang="it">Categoria prodotti</value>
@@ -6472,7 +6472,7 @@
     </property>
     <property key="FormFieldTitle_productCategoryTypeId">
         <value xml:lang="de">Produktkategorie Typ ID</value>
-        <value xml:lang="en">Product Category Type ID</value>
+        <value xml:lang="en">Product Category Type Id</value>
         <value xml:lang="es">Código Tipo de categoría de productos</value>
         <value xml:lang="fr">Réf. de type de catégorie</value>
         <value xml:lang="it">Tipo categoria prodotto</value>
@@ -6500,7 +6500,7 @@
     </property>
     <property key="FormFieldTitle_productContentTypeId">
         <value xml:lang="de">Produkt Inhalt Typ ID</value>
-        <value xml:lang="en">Product Content Type ID</value>
+        <value xml:lang="en">Product Content Type Id</value>
         <value xml:lang="es">Código Tipo de contenido de producto</value>
         <value xml:lang="fr">Réf. de type de contenu de produit</value>
         <value xml:lang="it">Tipo Contenuto Prodotto</value>
@@ -6514,7 +6514,7 @@
     </property>
     <property key="FormFieldTitle_productFeatureCategoryId">
         <value xml:lang="de">Produktmerkmal Kategorie ID</value>
-        <value xml:lang="en">Product Feature Category ID</value>
+        <value xml:lang="en">Product Feature Category Id</value>
         <value xml:lang="es">Código Categoría de característica de producto</value>
         <value xml:lang="fr">Catégorie de caractéristique d'article [Réf.]</value>
         <value xml:lang="it">Categoria Caratteristica Prodotto</value>
@@ -6528,7 +6528,7 @@
     </property>
     <property key="FormFieldTitle_productFeatureGroupId">
         <value xml:lang="de">Produktmerkmalgruppe ID</value>
-        <value xml:lang="en">Product Feature Group ID</value>
+        <value xml:lang="en">Product Feature Group Id</value>
         <value xml:lang="es">Código Grupo de características de producto</value>
         <value xml:lang="fr">Réf. de groupe de caractéristiques de produit</value>
         <value xml:lang="it">Gruppo Caratteristica Prodotto</value>
@@ -6553,7 +6553,7 @@
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
         <value xml:lang="de">Produktmerkmal ID</value>
-        <value xml:lang="en">Product Feature ID</value>
+        <value xml:lang="en">Product Feature Id</value>
         <value xml:lang="es">Código Característica de producto</value>
         <value xml:lang="fr">Réf. de caractéristique d'article</value>
         <value xml:lang="it">Codice caratteristica prodotto</value>
@@ -6578,7 +6578,7 @@
     </property>
     <property key="FormFieldTitle_productFeatureTypeId">
         <value xml:lang="de">Produktmerkmal Typ ID</value>
-        <value xml:lang="en">Product Feature Type ID</value>
+        <value xml:lang="en">Product Feature Type Id</value>
         <value xml:lang="es">Código Tipo de característica de producto</value>
         <value xml:lang="fr">Réf. de type de caractéristique d'article</value>
         <value xml:lang="it">Tipo caratteristica prodotto</value>
@@ -6592,7 +6592,7 @@
     </property>
     <property key="FormFieldTitle_productGeoEnumId">
         <value xml:lang="de">Produkt Geo Aufzählung ID</value>
-        <value xml:lang="en">Product Geo Enum ID</value>
+        <value xml:lang="en">Product Geo Enum Id</value>
         <value xml:lang="es">Código Lugar de producto</value>
         <value xml:lang="fr">Réf. géo. d'énum. de produit</value>
         <value xml:lang="it">Tipo Geografica Prodotto</value>
@@ -6621,7 +6621,7 @@
     </property>
     <property key="FormFieldTitle_productMaintTypeId">
         <value xml:lang="de">Produktwartung Typ ID</value>
-        <value xml:lang="en">Product Maint Type ID</value>
+        <value xml:lang="en">Product Maint Type Id</value>
         <value xml:lang="es">Código Tipo de mantenimiento de producto</value>
         <value xml:lang="fr">Réf. de type maintenance de produit</value>
         <value xml:lang="it">Tipo manutenzione prodotto</value>
@@ -6635,7 +6635,7 @@
     </property>
     <property key="FormFieldTitle_productMeterTypeId">
         <value xml:lang="de">Produkt Messungstyp ID</value>
-        <value xml:lang="en">Product Meter Type ID</value>
+        <value xml:lang="en">Product Meter Type Id</value>
         <value xml:lang="es">Código Tipo de medidor de producto</value>
         <value xml:lang="fr">Réf. de type de métrage de produit</value>
         <value xml:lang="it">Tipo Contatore Prodotto</value>
@@ -6649,7 +6649,7 @@
     </property>
     <property key="FormFieldTitle_productPricePurposeId">
         <value xml:lang="de">Produktpreis Zweck ID</value>
-        <value xml:lang="en">Product Price Purpose ID</value>
+        <value xml:lang="en">Product Price Purpose Id</value>
         <value xml:lang="es">Código Propósito de precio de producto</value>
         <value xml:lang="fr">Réf. d'objectif de prix</value>
         <value xml:lang="it">Codice Funzione Prezzo Prodotto</value>
@@ -6663,7 +6663,7 @@
     </property>
     <property key="FormFieldTitle_productPromoActionSeqId">
         <value xml:lang="de">Produktaktion Vorgehen Seq. ID </value>
-        <value xml:lang="en">Product Promo Action Seq ID</value>
+        <value xml:lang="en">Product Promo Action Seq Id</value>
         <value xml:lang="es">Código Acción de promoción de producto</value>
         <value xml:lang="fr">Réf. séq. d'action de promotion</value>
         <value xml:lang="it">Codice Sequenza Azione Promozione Prodotto</value>
@@ -6677,7 +6677,7 @@
     </property>
     <property key="FormFieldTitle_productPromoCodeId">
         <value xml:lang="de">Produktaktion Code ID</value>
-        <value xml:lang="en">Product Promo Code ID</value>
+        <value xml:lang="en">Product Promo Code Id</value>
         <value xml:lang="es">Código Identificador de promocion de producto</value>
         <value xml:lang="fr">Réf. de code de promotion produit</value>
         <value xml:lang="it">Codice promozione</value>
@@ -6691,7 +6691,7 @@
     </property>
     <property key="FormFieldTitle_productPromoId">
         <value xml:lang="de">Produktaktion ID</value>
-        <value xml:lang="en">Product Promo ID</value>
+        <value xml:lang="en">Product Promo Id</value>
         <value xml:lang="es">Código Promoción de producto</value>
         <value xml:lang="fr">Réf. de promotion</value>
         <value xml:lang="it">Codice promozione</value>
@@ -6706,7 +6706,7 @@
     </property>
     <property key="FormFieldTitle_productPromoRuleId">
         <value xml:lang="de">Produktaktion Regel ID</value>
-        <value xml:lang="en">Product Promo Rule ID</value>
+        <value xml:lang="en">Product Promo Rule Id</value>
         <value xml:lang="es">Código Regla de promoción de producto</value>
         <value xml:lang="fr">Réf. de règle de promotion</value>
         <value xml:lang="it">Codice Regola Promozione Prodotto</value>
@@ -6720,7 +6720,7 @@
     </property>
     <property key="FormFieldTitle_productStoreGroupId">
         <value xml:lang="de">Produkt Ladengruppe ID</value>
-        <value xml:lang="en">Product Store Group ID</value>
+        <value xml:lang="en">Product Store Group Id</value>
         <value xml:lang="es">Código Grupo de tiendas</value>
         <value xml:lang="fr">Réf. de groupe de centre de profit</value>
         <value xml:lang="it">Gruppo Negozio</value>
@@ -6770,12 +6770,12 @@
     <property key="FormFieldTitle_productStoreId">
         <value xml:lang="ar">تعريف المتجر</value>
         <value xml:lang="de">Produkt Laden ID</value>
-        <value xml:lang="en">Product Store ID</value>
+        <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Código de tienda</value>
         <value xml:lang="fr">Centre de profit [Réf.]</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="ja">製品店舗ID</value>
-        <value xml:lang="nl">Product Winkel ID</value>
+        <value xml:lang="nl">Product Winkel Id</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Код торг. т. продукта</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
@@ -6785,7 +6785,7 @@
     </property>
     <property key="FormFieldTitle_productStoreShipMethId">
         <value xml:lang="de">Produkt Läden Liefermethode ID</value>
-        <value xml:lang="en">Product Store Ship Meth ID</value>
+        <value xml:lang="en">Product Store Ship Meth Id</value>
         <value xml:lang="es">Código Método de envío de tienda</value>
         <value xml:lang="fr">Réf. de méthode d'expédition</value>
         <value xml:lang="it">Negozio Metodo di Spedizione</value>
@@ -6894,8 +6894,8 @@
         <value xml:lang="zh-TW">採購開始日期</value>
     </property>
     <property key="FormFieldTitle_purchaseSurveyId">
-        <value xml:lang="de">Kaufbewertung ID</value>
-        <value xml:lang="en">Purchase Survey ID</value>
+        <value xml:lang="de">Kaufbewertung Id</value>
+        <value xml:lang="en">Purchase Survey Id</value>
         <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Sondaggio acquisti</value>
         <value xml:lang="ja">購入時評価ID</value>
@@ -6931,7 +6931,7 @@
     </property>
     <property key="FormFieldTitle_quantityBreakId">
         <value xml:lang="de">Mengenstaffel ID</value>
-        <value xml:lang="en">Quantity Break ID</value>
+        <value xml:lang="en">Quantity Break Id</value>
         <value xml:lang="es">Código Partir cantidad</value>
         <value xml:lang="fr">Réf. de rupture par quantité</value>
         <value xml:lang="it">Intervalli Quantità</value>
@@ -7019,7 +7019,7 @@
     </property>
     <property key="FormFieldTitle_quantityUomId">
         <value xml:lang="de">Menge Einheit ID</value>
-        <value xml:lang="en">Quantity Uom ID</value>
+        <value xml:lang="en">Quantity Uom Id</value>
         <value xml:lang="es">UDM de la cantidad</value>
         <value xml:lang="fr">Réf. d'unité de mesure de quantité</value>
         <value xml:lang="it">Udm Quantità</value>
@@ -7033,7 +7033,7 @@
     </property>
     <property key="FormFieldTitle_quoteAdjustmentId">
         <value xml:lang="de">Angebot Anpassung ID</value>
-        <value xml:lang="en">Quote Adjustment ID</value>
+        <value xml:lang="en">Quote Adjustment Id</value>
         <value xml:lang="es">Código Ajuste de presupuesto</value>
         <value xml:lang="fr">Réf. d'ajustement de devis</value>
         <value xml:lang="it">Codice Aggiustamento Preventivo</value>
@@ -7047,7 +7047,7 @@
     </property>
     <property key="FormFieldTitle_reasonEnumId">
         <value xml:lang="de">Grund Aufzählung ID</value>
-        <value xml:lang="en">Reason Enum ID</value>
+        <value xml:lang="en">Reason Enum Id</value>
         <value xml:lang="es">Código de razón</value>
         <value xml:lang="fr">Réf. motif énum.</value>
         <value xml:lang="it">Motivazione</value>
@@ -7071,7 +7071,7 @@
     </property>
     <property key="FormFieldTitle_receivedByUserLoginId">
         <value xml:lang="de">Erhalten von Benutzeranmeldung ID</value>
-        <value xml:lang="en">Received By User Login ID</value>
+        <value xml:lang="en">Received By User Login Id</value>
         <value xml:lang="es">Recibido por usuario</value>
         <value xml:lang="fr">Reçu par l'identifiant de connexion</value>
         <value xml:lang="it">Ricevuto dall'Utente</value>
@@ -7083,12 +7083,12 @@
     </property>
     <property key="FormFieldTitle_recurrenceInfoId">
         <value xml:lang="de">Wiederholung Info ID</value>
-        <value xml:lang="en">Recurrence Info ID</value>
+        <value xml:lang="en">Recurrence Info Id</value>
         <value xml:lang="es">Código Información de repetición</value>
         <value xml:lang="fr">Réf. d'information récurrente</value>
         <value xml:lang="it">Informazioni ricorrenti</value>
         <value xml:lang="ja">繰り返し情報ID</value>
-        <value xml:lang="nl">Herhaling Info ID</value>
+        <value xml:lang="nl">Herhaling Info Id</value>
         <value xml:lang="ro">Informatii Recurente</value>
         <value xml:lang="ru">Код информации о возврате</value>
         <value xml:lang="th">รหัสการคืนข้อมูล</value>
@@ -7148,8 +7148,8 @@
         <value xml:lang="zh-TW">重複計數</value>
     </property>
     <property key="FormFieldTitle_replenishMethodEnumId">
-        <value xml:lang="de">Nachbestellung Methode ID</value>
-        <value xml:lang="en">Replenish Method Enum ID</value>
+        <value xml:lang="de">Nachbestellung Methode Id</value>
+        <value xml:lang="en">Replenish Method Enum Id</value>
         <value xml:lang="fr">réf. de méthode de reconstitution de stock</value>
         <value xml:lang="it">Metodo rifornimento</value>
         <value xml:lang="ja">補充方法ID</value>
@@ -7310,7 +7310,7 @@
     </property>
     <property key="FormFieldTitle_requirementMethodEnumId">
         <value xml:lang="de">Aufzählung des Bedarfs</value>
-        <value xml:lang="en">Requirement Method Enum ID</value>
+        <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Tipo de método de requisito</value>
         <value xml:lang="fr">Méthode retenue pour le réapprovisionnement [Réf.]</value>
         <value xml:lang="it">Richiesta Scelta Tipo Metodo Fabbisogno</value>
@@ -7340,7 +7340,7 @@
     </property>
     <property key="FormFieldTitle_reserveOrderEnumId">
         <value xml:lang="de">Art der Auftragsreservierung</value>
-        <value xml:lang="en">Reserve Order Enum ID</value>
+        <value xml:lang="en">Reserve Order Enum Id</value>
         <value xml:lang="es">Orden de reserva</value>
         <value xml:lang="fr">Ordre de réservation [Réf.]</value>
         <value xml:lang="it">Scegli Tipo Riservamento Ordine</value>
@@ -7407,7 +7407,7 @@
     </property>
     <property key="FormFieldTitle_returnItemSeqId">
         <value xml:lang="de">Retourenposition Seq. ID</value>
-        <value xml:lang="en">Return Item Seq ID</value>
+        <value xml:lang="en">Return Item Seq Id</value>
         <value xml:lang="es">Nº sec. ítem de devolución</value>
         <value xml:lang="fr">Réf. séq. de retour d'article</value>
         <value xml:lang="it">Numero Riga Reso</value>
@@ -7572,7 +7572,7 @@
     </property>
     <property key="FormFieldTitle_shipGroupSeqId">
         <value xml:lang="de">Liefergruppe Seq. ID</value>
-        <value xml:lang="en">Ship Group Seq ID</value>
+        <value xml:lang="en">Ship Group Seq Id</value>
         <value xml:lang="es">Código grupo de envío</value>
         <value xml:lang="fr">Réf. séq. de groupe d'expédition</value>
         <value xml:lang="it">Gruppo Spedizione</value>
@@ -7598,7 +7598,7 @@
     </property>
     <property key="FormFieldTitle_shipmentCostEstimateId">
         <value xml:lang="de">Lieferung Kostenschätzung ID</value>
-        <value xml:lang="en">Shipment Cost Estimate ID</value>
+        <value xml:lang="en">Shipment Cost Estimate Id</value>
         <value xml:lang="es">Código Estimación de coste de envío</value>
         <value xml:lang="fr">Réf. de coût estimé d'expédition</value>
         <value xml:lang="it">Costo Stimato Spedizione</value>
@@ -7611,7 +7611,7 @@
     </property>
     <property key="FormFieldTitle_shipmentItemSeqId">
         <value xml:lang="de">Lieferposition Seq. ID</value>
-        <value xml:lang="en">Shipment Item Seq ID</value>
+        <value xml:lang="en">Shipment Item Seq Id</value>
         <value xml:lang="es">Nº sec. ítem de envío</value>
         <value xml:lang="fr">Réf. séq. de ligne d'expédition</value>
         <value xml:lang="it">Numero Seq Riga Spedizione</value>
@@ -7623,7 +7623,7 @@
     </property>
     <property key="FormFieldTitle_shipmentMethodTypeId">
         <value xml:lang="de">Liefermethodentyp</value>
-        <value xml:lang="en">Shipment Method Type ID</value>
+        <value xml:lang="en">Shipment Method Type Id</value>
         <value xml:lang="es">Código Tipo de método de envío</value>
         <value xml:lang="fr">Réf. de méthode d'expédition</value>
         <value xml:lang="it">Metodo di spedizione</value>
@@ -7638,7 +7638,7 @@
     </property>
     <property key="FormFieldTitle_shipmentPackageSeqId">
         <value xml:lang="de">Lieferpaket Seq. ID</value>
-        <value xml:lang="en">Shipment Package Seq ID</value>
+        <value xml:lang="en">Shipment Package Seq Id</value>
         <value xml:lang="es">Nº sec. bulto</value>
         <value xml:lang="fr">Réf. séq. de paquet d'expédition</value>
         <value xml:lang="it">Numero Sequenza Pacco Spedizione</value>
@@ -7652,7 +7652,7 @@
     </property>
     <property key="FormFieldTitle_shipmentRouteSegmentId">
         <value xml:lang="de">Lieferweg Abschnitt ID</value>
-        <value xml:lang="en">Shipment Route Segment ID</value>
+        <value xml:lang="en">Shipment Route Segment Id</value>
         <value xml:lang="es">Código Segmento de ruta de envío</value>
         <value xml:lang="fr">Réf. de segment de trajet d'expédition</value>
         <value xml:lang="it">Codice Segmento Percorso Spedizione</value>
@@ -7665,8 +7665,8 @@
         <value xml:lang="zh-TW">貨運路線分區識別</value>
     </property>
     <property key="FormFieldTitle_shipmentTypeId">
-        <value xml:lang="de">Lieferung Typ ID</value>
-        <value xml:lang="en">Shipment Type ID</value>
+        <value xml:lang="de">Lieferung Typ Id</value>
+        <value xml:lang="en">Shipment Type Id</value>
         <value xml:lang="fr">Réf. de type d'expédition</value>
         <value xml:lang="it">Tipo spedizione</value>
         <value xml:lang="ja">発送種類ID</value>
@@ -7877,7 +7877,7 @@
     </property>
     <property key="FormFieldTitle_subscriptionResourceId">
         <value xml:lang="de">Abonnement Ressource ID</value>
-        <value xml:lang="en">Subscription Resource ID</value>
+        <value xml:lang="en">Subscription Resource Id</value>
         <value xml:lang="es">Cödigo Fuente de suscripción</value>
         <value xml:lang="fr">Réf. de ressource d'abonnement</value>
         <value xml:lang="it">Risorsa abbonamento</value>
@@ -7917,7 +7917,7 @@
       </property-->
     <property key="FormFieldTitle_supplierPrefOrderId">
         <value xml:lang="de">Lieferant präferierte Auftragsnummer ID</value>
-        <value xml:lang="en">Supplier Pref Order ID</value>
+        <value xml:lang="en">Supplier Pref Order Id</value>
         <value xml:lang="es">Tipo de proveedor</value>
         <value xml:lang="fr">Réf. de fournisseur préféré</value>
         <value xml:lang="it">Preferenze Fornitore Numero Ordine</value>
@@ -7931,7 +7931,7 @@
     </property>
     <property key="FormFieldTitle_supplierProductId">
         <value xml:lang="de">Lieferant Produkt ID</value>
-        <value xml:lang="en">Supplier Product ID</value>
+        <value xml:lang="en">Supplier Product Id</value>
         <value xml:lang="es">Código de producto del proveedor</value>
         <value xml:lang="fr">Réf. de l'article chez le fournisseur </value>
         <value xml:lang="it">Codice prodotto fornitore</value>
@@ -7959,7 +7959,7 @@
     </property>
     <property key="FormFieldTitle_supplierRatingTypeId">
         <value xml:lang="de">Lieferant Bewertungstyp ID</value>
-        <value xml:lang="en">Supplier Rating Type ID</value>
+        <value xml:lang="en">Supplier Rating Type Id</value>
         <value xml:lang="es">Código Tipo de valoración de proveedor</value>
         <value xml:lang="fr">Réf. de type d'évaluation par l'utilisateur</value>
         <value xml:lang="it">Tipo Valutazione Fornitore</value>
@@ -7987,7 +7987,7 @@
     </property>
     <property key="FormFieldTitle_targetTypeEnumId">
         <value xml:lang="de">Zieltyp Aufzählung ID</value>
-        <value xml:lang="en">Target Type Enum ID</value>
+        <value xml:lang="en">Target Type Enum Id</value>
         <value xml:lang="es">Código Tipo de destino</value>
         <value xml:lang="fr">Réf. de type de cible énum.</value>
         <value xml:lang="it">Tipo Destinazione</value>
@@ -8188,7 +8188,7 @@
     </property>
     <property key="FormFieldTitle_useRoleTypeId">
         <value xml:lang="de">Verwende Rollentyp ID</value>
-        <value xml:lang="en">Use Role Type ID</value>
+        <value xml:lang="en">Use Role Type Id</value>
         <value xml:lang="es">Usar código de tipo de rol</value>
         <value xml:lang="fr">Utiliser la ref. de type de rôle</value>
         <value xml:lang="it">Usa tipo ruolo</value>
@@ -8216,7 +8216,7 @@
     </property>
     <property key="FormFieldTitle_useTimeUomId">
         <value xml:lang="de">Verwendungszeit Einheit ID</value>
-        <value xml:lang="en">Use Time Uom ID</value>
+        <value xml:lang="en">Use Time Uom Id</value>
         <value xml:lang="es">Usar UDM de tiempo</value>
         <value xml:lang="fr">Utiliser la ref. d'unité de mesure du temps</value>
         <value xml:lang="it">Uso dell'unità di misura del tempo</value>
@@ -8254,7 +8254,7 @@
     </property>
     <property key="FormFieldTitle_varianceReasonId">
         <value xml:lang="de">Varianz Grund ID</value>
-        <value xml:lang="en">Variance Reason ID</value>
+        <value xml:lang="en">Variance Reason Id</value>
         <value xml:lang="es">Código razón de variación</value>
         <value xml:lang="fr">Motif de la variation [Réf.]</value>
         <value xml:lang="it">Motivazione Varianza</value>
@@ -8268,21 +8268,21 @@
     </property>
     <property key="FormFieldTitle_vatTaxAuthGeoId">
         <value xml:lang="de">Mehrwertsteuerbehörde Geo ID</value>
-        <value xml:lang="en">Vat Tax Auth Geo ID</value>
+        <value xml:lang="en">Vat Tax Auth Geo Id</value>
         <value xml:lang="es">Lugar de la autoridad tributaria</value>
         <value xml:lang="fr">Réf. de zone de TVA</value>
         <value xml:lang="it">Autorità Tasse IVA Geografia</value>
         <value xml:lang="ja">消費税税務機関位置ID</value>
         <value xml:lang="ro">Autoritate Taxe IVA Geografia</value>
         <value xml:lang="ru">Страна налогового органа по НДС</value>
-        <value xml:lang="th">Vat Tax Auth Geo ID</value>
+        <value xml:lang="th">Vat Tax Auth Geo Id</value>
         <value xml:lang="vi">Id Địa lý cơ quan Thuế giá trị gia tăng</value>
         <value xml:lang="zh">增值税税务机关地区标识</value>
         <value xml:lang="zh-TW">增值稅稅務機關地區識別</value>
     </property>
     <property key="FormFieldTitle_vatTaxAuthPartyId">
         <value xml:lang="de">Mehrwertsteuerbehörde Akteur ID</value>
-        <value xml:lang="en">Vat Tax Auth Party ID</value>
+        <value xml:lang="en">Vat Tax Auth Party Id</value>
         <value xml:lang="es">Código de la autoridad tributaria de IVA</value>
         <value xml:lang="fr">Réf. de centre de collecte de TVA</value>
         <value xml:lang="it">Autorità Tasse IVA Soggetto</value>
@@ -8296,7 +8296,7 @@
     </property>
     <property key="FormFieldTitle_vendorPartyId">
         <value xml:lang="de">Anbieter Akteur ID</value>
-        <value xml:lang="en">Vendor Party ID</value>
+        <value xml:lang="en">Vendor Party Id</value>
         <value xml:lang="es">Código de proveedor</value>
         <value xml:lang="fr">Réf. du vendeur</value>
         <value xml:lang="it">Soggetto Fornitore</value>
@@ -8341,7 +8341,7 @@
     </property>
     <property key="FormFieldTitle_weightBreakId">
         <value xml:lang="de">Gewicht Sprung ID</value>
-        <value xml:lang="en">Weight Break ID</value>
+        <value xml:lang="en">Weight Break Id</value>
         <value xml:lang="es">Código de separación de peso</value>
         <value xml:lang="fr">Réf. de rupture par poids</value>
         <value xml:lang="it">Intervalli Peso</value>
@@ -8367,7 +8367,7 @@
     </property>
     <property key="FormFieldTitle_workEffortGoodStdTypeId">
         <value xml:lang="de">Arbeitseinsatz Produkt Standarttyp ID</value>
-        <value xml:lang="en">Work Effort Good Std Type ID</value>
+        <value xml:lang="en">Work Effort Good Std Type Id</value>
         <value xml:lang="es">Código Tipo de asociación del producto al esfuerzo de trabajo</value>
         <value xml:lang="fr">Réf. de type de tâche pour bien std.</value>
         <value xml:lang="it">Tipo Standard Impegno di Lavoro</value>
@@ -12518,7 +12518,7 @@
     </property>
     <property key="ProductAddPartyId">
         <value xml:lang="de">Akteur ID hinzufügen</value>
-        <value xml:lang="en">Add Party ID</value>
+        <value xml:lang="en">Add Party Id</value>
         <value xml:lang="es">Añadir Código de Participante</value>
         <value xml:lang="fr">Ajouter une réf. d'acteur</value>
         <value xml:lang="it">Aggiungi codice soggetto</value>
@@ -12684,7 +12684,7 @@
         <value xml:lang="ro">Adauga Caracteristica Produs cu Cod</value>
         <value xml:lang="ru">Добавить особенность продукта с кодом</value>
         <value xml:lang="th">เพิ่มลักษณะสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Thêm Tính năng sản phẩm với ID</value>
+        <value xml:lang="vi">Thêm Tính năng sản phẩm với Id</value>
         <value xml:lang="zh">添加产品特征，标识</value>
         <value xml:lang="zh-TW">增加產品特性識別</value>
     </property>
@@ -12712,7 +12712,7 @@
         <value xml:lang="ro">Adauga Caracteristica Produs cu Tip si Cod</value>
         <value xml:lang="ru">Добавить особенность продукта с типом и кодом</value>
         <value xml:lang="th">เพิ่มลักษณะสินค้าด้วยประเภทและรหัส</value>
-        <value xml:lang="vi">Thêm Tính năng sản phẩm với Kiểu và Mã ID</value>
+        <value xml:lang="vi">Thêm Tính năng sản phẩm với Kiểu và Mã Id</value>
         <value xml:lang="zh">添加产品特征：类型和标识代码</value>
         <value xml:lang="zh-TW">增加產品特性類型和識別號碼</value>
     </property>
@@ -13164,7 +13164,7 @@
     </property>
     <property key="ProductAmountUomTypeId">
         <value xml:lang="de">Betrag Währungseinheit Typ ID</value>
-        <value xml:lang="en">Amount Uom Type ID</value>
+        <value xml:lang="en">Amount Uom Type Id</value>
         <value xml:lang="es">Moneda del Importe</value>
         <value xml:lang="fr">Type d'unité de mesure de montant [Réf.]</value>
         <value xml:lang="it">Udm Importo</value>
@@ -13186,7 +13186,7 @@
         <value xml:lang="ro">Si Aplica Caracteristicile la Produsul cu Cod</value>
         <value xml:lang="ru">и применить особенности к продукту с кодом</value>
         <value xml:lang="th">และใช้ลักษณะไปยังสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Và áp dụng Đặc tính SP gia tăng tới Sản phẩm có ID</value>
+        <value xml:lang="vi">Và áp dụng Đặc tính SP gia tăng tới Sản phẩm có Id</value>
         <value xml:lang="zh">并把特征应用到产品：标识</value>
         <value xml:lang="zh-TW">並把特性應用到產品識別</value>
     </property>
@@ -15443,18 +15443,18 @@
         <value xml:lang="zh-TW">把產品分類成員複製到另一個分類</value>
     </property>
     <property key="ProductCostComponentCalcId">
-        <value xml:lang="de">Kostenkomponente Kalkulations ID</value>
-        <value xml:lang="en">Cost Component Calc ID</value>
+        <value xml:lang="de">Kostenkomponente Kalkulations Id</value>
+        <value xml:lang="en">Cost Component Calc Id</value>
         <value xml:lang="zh">成本组成计算标识</value>
     </property>
     <property key="ProductCostComponentCalcs">
         <value xml:lang="en">Cost Component Calcs</value>
     </property>
     <property key="ProductCostGlAccountTypeId">
-        <value xml:lang="de">Kosten Hauptbuch Konto Typ ID</value>
-        <value xml:lang="en">Cost Gl Account Type ID</value>
+        <value xml:lang="de">Kosten Hauptbuch Konto Typ Id</value>
+        <value xml:lang="en">Cost Gl Account Type Id</value>
         <value xml:lang="zh">成本总账账户类型标识</value>
-        <value xml:lang="zh-TW">Cost Gl Account Type ID</value>
+        <value xml:lang="zh-TW">Cost Gl Account Type Id</value>
     </property>
     <property key="ProductCostPrice">
         <value xml:lang="de">Kosten Preis</value>
@@ -15492,7 +15492,7 @@
         <value xml:lang="ro">Negasit Compartiment cu Cod</value>
         <value xml:lang="ru">Невозможно найти объект с кодом</value>
         <value xml:lang="th">ไม่พบคลังสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Chi nhánh / Cơ sở nào với ID</value>
+        <value xml:lang="vi">Không tìm thấy Chi nhánh / Cơ sở nào với Id</value>
         <value xml:lang="zh">没有找到场所——标识</value>
         <value xml:lang="zh-TW">沒有找到場所識別</value>
     </property>
@@ -15506,13 +15506,13 @@
         <value xml:lang="ro">Negasit Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти продукт с кодом</value>
         <value xml:lang="th">ไม่สามารถพบสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy sản phẩm với ID</value>
+        <value xml:lang="vi">Không tìm thấy sản phẩm với Id</value>
         <value xml:lang="zh">没有找到产品——标识</value>
         <value xml:lang="zh-TW">沒有找到產品識別</value>
     </property>
     <property key="ProductCouldNotFindProductCatalogWithId">
         <value xml:lang="de">Produktkatalog nicht gefunden mit der ID</value>
-        <value xml:lang="en">Could not Find Product Catalog with ID</value>
+        <value xml:lang="en">Could not Find Product Catalog with Id</value>
         <value xml:lang="es">No se encontró el catálogo con el código</value>
         <value xml:lang="fr">Aucun catalogue avec cette réf.</value>
         <value xml:lang="it">Non Trovata Catalogo Prodotti con Codice</value>
@@ -15520,13 +15520,13 @@
         <value xml:lang="ro">Negasit Catalog Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти каталог продуктов с кодом</value>
         <value xml:lang="th">ไม่สามารถพบหมวดหมู่สินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Phân loại Trình diễn với ID</value>
+        <value xml:lang="vi">Không tìm thấy Phân loại Trình diễn với Id</value>
         <value xml:lang="zh">没有找到产品目录——标识</value>
         <value xml:lang="zh-TW">沒有找到產品型錄識別</value>
     </property>
     <property key="ProductCouldNotFindProductCategoryWithId">
         <value xml:lang="de">Produktkategorie nicht gefunden mit der ID</value>
-        <value xml:lang="en">Could not Find Product Category with ID</value>
+        <value xml:lang="en">Could not Find Product Category with Id</value>
         <value xml:lang="es">No se pudo encontrar Categoría de Producto con el Código</value>
         <value xml:lang="fr">Impossible de trouver la catégorie d'article avec cette réf.</value>
         <value xml:lang="it">Non Trovata Categoria Prodotto con Codice</value>
@@ -15534,7 +15534,7 @@
         <value xml:lang="ro">Negasita Categoriea Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти категорию продуктов с кодом</value>
         <value xml:lang="th">ไม่สามารถพบหมวดหมู่สินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Phân loại Quản lý với ID</value>
+        <value xml:lang="vi">Không tìm thấy Phân loại Quản lý với Id</value>
         <value xml:lang="zh">没有找到产品分类——标识</value>
         <value xml:lang="zh-TW">沒有找到產品分類識別</value>
     </property>
@@ -15548,7 +15548,7 @@
         <value xml:lang="ro">Negasita Linea Configuratie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти элемент конфигурации продукта с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรายการสร้างสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy 'Sản phẩm tùy chỉnh được' với ID</value>
+        <value xml:lang="vi">Không tìm thấy 'Sản phẩm tùy chỉnh được' với Id</value>
         <value xml:lang="zh">没有找到产品配置明细——标识</value>
         <value xml:lang="zh-TW">沒有找到產品配置細項識別</value>
     </property>
@@ -15562,7 +15562,7 @@
         <value xml:lang="ro">Negasita Linie Configuratie cu Cod</value>
         <value xml:lang="ru">Невозможно найти элемент конфигурации с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรายการสร้างด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy 'Sản phẩm tùy chỉnh được' với ID</value>
+        <value xml:lang="vi">Không tìm thấy 'Sản phẩm tùy chỉnh được' với Id</value>
         <value xml:lang="zh">没有找到配置明细，标识</value>
         <value xml:lang="zh-TW">沒有找到配置細項識別</value>
     </property>
@@ -15576,7 +15576,7 @@
         <value xml:lang="ro">Negasit Tip Caracteristica Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти тип особенности продукта с кодом</value>
         <value xml:lang="th">ไม่สามารถพบประเภทลักษณะสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy 'Loại Đặc tính SP gia tăng' với ID</value>
+        <value xml:lang="vi">Không tìm thấy 'Loại Đặc tính SP gia tăng' với Id</value>
         <value xml:lang="zh">没有找到产品特征类型——标识</value>
         <value xml:lang="zh-TW">沒有找到產品特性類型識別</value>
     </property>
@@ -15590,7 +15590,7 @@
         <value xml:lang="ro">Negasit Cod Promotie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти код акции с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรหัสโปรโมชันสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Mã sản phẩm khuyến mãi với ID</value>
+        <value xml:lang="vi">Không tìm thấy Mã sản phẩm khuyến mãi với Id</value>
         <value xml:lang="zh">没有找到产品促销代码——标识</value>
         <value xml:lang="zh-TW">沒有找到產品促銷識別號碼</value>
     </property>
@@ -15604,7 +15604,7 @@
         <value xml:lang="ro">Negasit Promotie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти акцию с кодом</value>
         <value xml:lang="th">ไม่สามารถพบสินค้าโปรโมชันด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Sản phẩm khuyến mãi với ID</value>
+        <value xml:lang="vi">Không tìm thấy Sản phẩm khuyến mãi với Id</value>
         <value xml:lang="zh">没有找到产品促销——标识</value>
         <value xml:lang="zh-TW">沒有找到產品促銷識別</value>
     </property>
@@ -15618,7 +15618,7 @@
         <value xml:lang="ro">Negasita Expediere cu Numar</value>
         <value xml:lang="ru">Невозможно найти поставку с кодом</value>
         <value xml:lang="th">ไม่สามารถพบการขนส่งด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Chuyển vận với ID</value>
+        <value xml:lang="vi">Không tìm thấy Chuyển vận với Id</value>
         <value xml:lang="zh">没有找到货运——标识</value>
         <value xml:lang="zh-TW">沒有找到貨運識別</value>
     </property>
@@ -16107,7 +16107,7 @@
     </property>
     <property key="ProductCurrencyUomId">
         <value xml:lang="de">Währungseinheit ID</value>
-        <value xml:lang="en">Currency Uom ID</value>
+        <value xml:lang="en">Currency Uom Id</value>
         <value xml:lang="es">Código de UDM de Moneda</value>
         <value xml:lang="fr">Réf. du symbole de la monnaie</value>
         <value xml:lang="it">Valuta</value>
@@ -16302,8 +16302,8 @@
         <value xml:lang="zh-TW">預設序號</value>
     </property>
     <property key="ProductDefaultShipmentBoxTypeId">
-        <value xml:lang="de">Standard Versandbox Typ ID</value>
-        <value xml:lang="en">Default Shipment Box Type ID</value>
+        <value xml:lang="de">Standard Versandbox Typ Id</value>
+        <value xml:lang="en">Default Shipment Box Type Id</value>
         <value xml:lang="fr">Réf. de carton d'emballage par défaut</value>
         <value xml:lang="it">Default tipo scatola di spedizione</value>
         <value xml:lang="ja">デフォルト発送箱種類ID</value>
@@ -16369,7 +16369,7 @@
     </property>
     <property key="ProductDepthUomId">
         <value xml:lang="de">Tiefe Einheit ID</value>
-        <value xml:lang="en">Depth Uom ID</value>
+        <value xml:lang="en">Depth Uom Id</value>
         <value xml:lang="es">Código de la UDM de la profundidad</value>
         <value xml:lang="fr">Unité de mesure de profondeur [Réf.]</value>
         <value xml:lang="it">UdM Profondità</value>
@@ -16453,7 +16453,7 @@
     </property>
     <property key="ProductDestinationPhoneNumberId">
         <value xml:lang="de">Ziel Telefonnummer ID</value>
-        <value xml:lang="en">Destination Phone Number ID</value>
+        <value xml:lang="en">Destination Phone Number Id</value>
         <value xml:lang="es">Código del número de teléfono del destino</value>
         <value xml:lang="fr">N° de tél. de destination</value>
         <value xml:lang="it">Numero Telefono Destinazione</value>
@@ -16467,7 +16467,7 @@
     </property>
     <property key="ProductDestinationPostalAddressId">
         <value xml:lang="de">Ziel Postadresse ID</value>
-        <value xml:lang="en">Destination Postal Address ID</value>
+        <value xml:lang="en">Destination Postal Address Id</value>
         <value xml:lang="es">Código de la dirección postal del destino</value>
         <value xml:lang="fr">Adresse de destination</value>
         <value xml:lang="it">Indirizzo Postale Destinazione</value>
@@ -16531,8 +16531,8 @@
         <value xml:lang="zh-TW">範例: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
     </property>
     <property key="ProductDiameterUomId">
-        <value xml:lang="de">Durchmesser Einheit ID</value>
-        <value xml:lang="en">Diameter Uom ID</value>
+        <value xml:lang="de">Durchmesser Einheit Id</value>
+        <value xml:lang="en">Diameter Uom Id</value>
         <value xml:lang="it">Udm diametero</value>
         <value xml:lang="ja">倍率単位ID</value>
         <value xml:lang="vi">Đơn vị tính đường kính</value>
@@ -16872,7 +16872,7 @@
         <value xml:lang="ro">Actualizeaza Produs cu Cod Produs</value>
         <value xml:lang="ru">Редактировать продукт с кодом</value>
         <value xml:lang="th">แก้ไขสินค้าด้วยรหัสสินค้า</value>
-        <value xml:lang="vi">Chỉnh sửa sản phẩm với ID</value>
+        <value xml:lang="vi">Chỉnh sửa sản phẩm với Id</value>
         <value xml:lang="zh">编辑产品：产品标识</value>
         <value xml:lang="zh-TW">產品修改, 產品識別</value>
     </property>
@@ -17134,14 +17134,14 @@
     </property>
     <property key="ProductEstimatedArrivalWorkEffId">
         <value xml:lang="de">Voraussichtlicher Ankunft Arbeitseinsatz</value>
-        <value xml:lang="en">Estimated Arrival Work Eff ID</value>
+        <value xml:lang="en">Estimated Arrival Work Eff Id</value>
         <value xml:lang="es">Código del Esfuerzo de trabajo llegada estimada</value>
         <value xml:lang="fr">Réf. tâche de réception</value>
         <value xml:lang="it">Impegno di Lavoro Arrivo Stimato</value>
         <value xml:lang="ja">見積納品作業成果ID</value>
         <value xml:lang="ro">Sarcina de Lucru Sosire Stimata</value>
         <value xml:lang="ru">Действие оценочного прибытия</value>
-        <value xml:lang="th">Estimated Arrival Work Eff ID</value>
+        <value xml:lang="th">Estimated Arrival Work Eff Id</value>
         <value xml:lang="vi">Lượng giá nguồn lực id</value>
         <value xml:lang="zh">预计到达 人工服务标识</value>
         <value xml:lang="zh-TW">預估到達工作投入識別</value>
@@ -17258,7 +17258,7 @@
     </property>
     <property key="ProductEstimatedShipWorkEffId">
         <value xml:lang="de">Voraussichtlicher Lieferung Arbeitseinsatz ID</value>
-        <value xml:lang="en">Estimated Ship Work Eff ID</value>
+        <value xml:lang="en">Estimated Ship Work Eff Id</value>
         <value xml:lang="es">Esfuerzo de trabajo de envío estimado</value>
         <value xml:lang="fr">Réf. de tâche d'expédition</value>
         <value xml:lang="it">Impegno di Lavoro Spedizione Stimata</value>
@@ -18334,7 +18334,7 @@
         <value xml:lang="ro">Cauta Produs cu Valoare Cod</value>
         <value xml:lang="ru">Искать продукт с кодом</value>
         <value xml:lang="th">ค้นหาสินค้าด้วยค่ารหัส</value>
-        <value xml:lang="vi">Tìm sản phẩm với ID</value>
+        <value xml:lang="vi">Tìm sản phẩm với Id</value>
         <value xml:lang="zh">查找产品：标识值</value>
         <value xml:lang="zh-TW">產品查詢, 產品識別</value>
     </property>
@@ -18779,10 +18779,10 @@
         <value xml:lang="zh-TW">成品收據</value>
     </property>
     <property key="ProductGracePeriodUomId">
-        <value xml:lang="de">Karenzzeit UOM ID</value>
-        <value xml:lang="en">Grace Period UOM ID</value>
+        <value xml:lang="de">Karenzzeit UOM Id</value>
+        <value xml:lang="en">Grace Period UOM Id</value>
         <value xml:lang="zh">免息期度量单位标识</value>
-        <value xml:lang="zh-TW">Grace Period UOM ID</value>
+        <value xml:lang="zh-TW">Grace Period UOM Id</value>
     </property>
     <property key="ProductGrams">
         <value xml:lang="de">Gramm</value>
@@ -18944,7 +18944,7 @@
     </property>
     <property key="ProductHeightUomId">
         <value xml:lang="de">Höhe Einheit ID</value>
-        <value xml:lang="en">Height Uom ID</value>
+        <value xml:lang="en">Height Uom Id</value>
         <value xml:lang="es">Código de UDM de altura</value>
         <value xml:lang="fr">Unité de mesure de hauteur</value>
         <value xml:lang="it">Udm Altezza</value>
@@ -19056,7 +19056,7 @@
         <value xml:lang="ro">Cod Identificare </value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัสโค๊ด</value>
-        <value xml:lang="vi">Mã ID</value>
+        <value xml:lang="vi">Mã Id</value>
         <value xml:lang="zh">标识代码</value>
         <value xml:lang="zh-TW">識別號碼</value>
     </property>
@@ -19719,7 +19719,7 @@
     </property>
     <property key="ProductInventoryItemId">
         <value xml:lang="de">Bestandsposition ID</value>
-        <value xml:lang="en">Inventory Item ID</value>
+        <value xml:lang="en">Inventory Item Id</value>
         <value xml:lang="es">Código de artículo de inventario</value>
         <value xml:lang="fr">Réf. de ligne de stock</value>
         <value xml:lang="it">Numero Riga Inventario</value>
@@ -20852,7 +20852,7 @@
         <value xml:lang="ja">ロットID</value>
         <value xml:lang="ro">Numar Lot</value>
         <value xml:lang="ru">Код лота</value>
-        <value xml:lang="th">Lot ID</value>
+        <value xml:lang="th">Lot Id</value>
         <value xml:lang="vi">Id Lô</value>
         <value xml:lang="zh">彩票标识</value>
         <value xml:lang="zh-TW">貨批識別</value>
@@ -22237,9 +22237,9 @@
     </property>
     <property key="ProductNoFacility">
         <value xml:lang="de">Kein Lager</value>
-        <value xml:lang="en">If there is no facility, you need to create one</value>
+        <value xml:lang="en">no Facility</value>
         <value xml:lang="es">No almacén</value>
-        <value xml:lang="fr">S'il n' y a aucun lieu de stockage, vous devez en créer un.</value>
+        <value xml:lang="fr">Aucun lieu de stockage</value>
         <value xml:lang="it">nessuna Stabilimento</value>
         <value xml:lang="ja">拠点はありません</value>
         <value xml:lang="ro">Nici-un Compartiment</value>
@@ -22734,7 +22734,7 @@
         <value xml:lang="ro">Nu a fost gasit nici-un produs cu Codul</value>
         <value xml:lang="ru">Невозможно найти продукт с кодом</value>
         <value xml:lang="th">ไม่สามารถพบสินค้าด้วยรหัส</value>
-        <value xml:lang="vi">Không tìm thấy Sản phẩm có ID</value>
+        <value xml:lang="vi">Không tìm thấy Sản phẩm có Id</value>
         <value xml:lang="zh">没有找到产品，标识</value>
         <value xml:lang="zh-TW">沒有找到產品識別</value>
     </property>
@@ -23225,10 +23225,10 @@
         <value xml:lang="zh-TW">製造商給的識別 </value>
     </property>
     <property key="ProductOffsettingGlAccountTypeId">
-        <value xml:lang="de">Ausgleichskonto Typ ID</value>
-        <value xml:lang="en">Off Setting GL Account Type ID</value>
+        <value xml:lang="de">Ausgleichskonto Typ Id</value>
+        <value xml:lang="en">Off Setting GL Account Type Id</value>
         <value xml:lang="zh">抵扣总账账户类型标识</value>
-        <value xml:lang="zh-TW">Off Setting GL Account Type ID</value>
+        <value xml:lang="zh-TW">Off Setting GL Account Type Id</value>
     </property>
     <property key="ProductOneInventoryFacility">
         <value xml:lang="de">Eine Lagereinrichtung</value>
@@ -23599,7 +23599,7 @@
     </property>
     <property key="ProductOriginPhoneNumberId">
         <value xml:lang="de">Herkunft Telefonnummer ID</value>
-        <value xml:lang="en">Origin Phone Number ID</value>
+        <value xml:lang="en">Origin Phone Number Id</value>
         <value xml:lang="es">N° de teléfono de origen</value>
         <value xml:lang="fr">N° de tél de l'expéditeur</value>
         <value xml:lang="it">Numero Telefono Origine</value>
@@ -23613,7 +23613,7 @@
     </property>
     <property key="ProductOriginPostalAddressId">
         <value xml:lang="de">Herkunft Postadresse ID</value>
-        <value xml:lang="en">Origin Postal Address ID</value>
+        <value xml:lang="en">Origin Postal Address Id</value>
         <value xml:lang="es">Dirección postal de origen</value>
         <value xml:lang="fr">Adresse postale de l'expéditeur</value>
         <value xml:lang="it">Indirizzo Postale Origine</value>
@@ -24948,7 +24948,7 @@
     </property>
     <property key="ProductPrimaryShipGroupSeqId">
         <value xml:lang="de">Primäre Liefergruppe Seq. ID</value>
-        <value xml:lang="en">Primary Ship Group Seq ID</value>
+        <value xml:lang="en">Primary Ship Group Seq Id</value>
         <value xml:lang="es">Código de secuencia del grupo primario de envío</value>
         <value xml:lang="fr">N° du 1er groupe d'expédition</value>
         <value xml:lang="it">Numero Sequenza Gruppo Spedizione Primario</value>
@@ -24975,7 +24975,7 @@
     </property>
     <property key="ProductProdCatContentTypeId">
         <value xml:lang="de">Produktkategorie Inhalttyp ID</value>
-        <value xml:lang="en">Prod Cat Content Type ID</value>
+        <value xml:lang="en">Prod Cat Content Type Id</value>
         <value xml:lang="es">Tipo de contenido de Categoría</value>
         <value xml:lang="fr">Type de contenu de catégorie</value>
         <value xml:lang="it">Tipo Contenuto Prodotto Categoria</value>
@@ -25118,7 +25118,7 @@
     </property>
     <property key="ProductProductConfigItemContentTypeId">
         <value xml:lang="de">Produkt Konfigurationsposition Inhalttyp ID</value>
-        <value xml:lang="en">Product Config Item Content Type ID</value>
+        <value xml:lang="en">Product Config Item Content Type Id</value>
         <value xml:lang="es">Código de tipo de contenido de artículo de configuración de producto</value>
         <value xml:lang="fr">Type de contenu pour une ligne de configuration d'article</value>
         <value xml:lang="it">Tipo Contenuto Configurazione Riga Prodotto</value>
@@ -25132,7 +25132,7 @@
     </property>
     <property key="ProductProductContentTypeId">
         <value xml:lang="de">Produkt Inhalttyp ID</value>
-        <value xml:lang="en">Product Content Type ID</value>
+        <value xml:lang="en">Product Content Type Id</value>
         <value xml:lang="es">Código de tipo de configuración de producto</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto Prodotto</value>
@@ -25345,7 +25345,7 @@
     </property>
     <property key="ProductProductNameId">
         <value xml:lang="de">Produktname ID</value>
-        <value xml:lang="en">Product Name ID</value>
+        <value xml:lang="en">Product Name Id</value>
         <value xml:lang="es">Código del nombre de producto</value>
         <value xml:lang="fr">Réf. nom de l'article</value>
         <value xml:lang="it">Nome Prodotto</value>
@@ -25389,7 +25389,7 @@
         <value xml:lang="ro">Nu gaseste Produs pe Cod Produs</value>
         <value xml:lang="ru">Продукт не найдет по Product ID</value>
         <value xml:lang="th">ไม่พบสินค้าจากรหัสสินค้านี้</value>
-        <value xml:lang="vi">Sản phẩm không tìm thấy với ID</value>
+        <value xml:lang="vi">Sản phẩm không tìm thấy với Id</value>
         <value xml:lang="zh">没有找到产品——产品标识</value>
         <value xml:lang="zh-TW">沒有找到產品識別</value>
     </property>
@@ -25403,7 +25403,7 @@
         <value xml:lang="ro">Produs negasit cu Cod Produs</value>
         <value xml:lang="ru">Продукт не найден с кодом</value>
         <value xml:lang="th">ไม่พบสินค้าด้วยรหัสสินค้า</value>
-        <value xml:lang="vi">Sản phẩm không tìm thấy với ID</value>
+        <value xml:lang="vi">Sản phẩm không tìm thấy với Id</value>
         <value xml:lang="zh">没有找到产品，产品标识</value>
         <value xml:lang="zh-TW">沒有找到產品識別</value>
     </property>
@@ -25611,7 +25611,7 @@
     </property>
     <property key="ProductProductStoreGroupId">
         <value xml:lang="de">Ladengruppe ID</value>
-        <value xml:lang="en">Product Store Group ID</value>
+        <value xml:lang="en">Product Store Group Id</value>
         <value xml:lang="es">Código del grupo de tiendas de productos</value>
         <value xml:lang="fr">Réf. Groupe de centres de profit</value>
         <value xml:lang="it">Gruppo Negozio</value>
@@ -26572,7 +26572,7 @@
     </property>
     <property key="ProductQuantityBreakId">
         <value xml:lang="de">Mengenstaffel ID</value>
-        <value xml:lang="en">Quantity Break ID</value>
+        <value xml:lang="en">Quantity Break Id</value>
         <value xml:lang="es">Código separación de cantidad</value>
         <value xml:lang="fr">Réf. rupture en quantité</value>
         <value xml:lang="it">Intervallo quantità</value>
@@ -27532,7 +27532,7 @@
     </property>
     <property key="ProductRequirementMethodEnumId">
         <value xml:lang="de">Bedarfsmethode Aufzählung ID</value>
-        <value xml:lang="en">Requirement Method Enum ID</value>
+        <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Código de enumeración de método de requisito</value>
         <value xml:lang="fr">Méthode de réapprovisionnement</value>
         <value xml:lang="it">Tipo Metodo Fabbisogno</value>
@@ -28901,7 +28901,7 @@
     </property>
     <property key="ProductShipmentCostEstimateId">
         <value xml:lang="de">Kosten Schätzung ID</value>
-        <value xml:lang="en">Cost Estimate ID</value>
+        <value xml:lang="en">Cost Estimate Id</value>
         <value xml:lang="es">Código estimación de coste</value>
         <value xml:lang="fr">Réf. estimation du coût</value>
         <value xml:lang="it">Costo stimato</value>
@@ -29028,7 +29028,7 @@
     </property>
     <property key="ProductShipmentItemSeqId">
         <value xml:lang="de">Lieferposition Seq. ID</value>
-        <value xml:lang="en">Shipment Item Seq ID</value>
+        <value xml:lang="en">Shipment Item Seq Id</value>
         <value xml:lang="es">Secuencia del artículo de envío</value>
         <value xml:lang="fr">Ligne d'expédition</value>
         <value xml:lang="it">Numero Seq Riga Spedizione</value>
@@ -29136,7 +29136,7 @@
         <value xml:lang="ro">Expedierea cu codul Id nu a fost gasita ProductShipmentPlan=Plan de Expediere </value>
         <value xml:lang="ru">Не найдена поставка с кодом </value>
         <value xml:lang="th">ไม่พบการขนส่งด้วยรหัส </value>
-        <value xml:lang="vi">Chuyển vận không tìm thấy với ID</value>
+        <value xml:lang="vi">Chuyển vận không tìm thấy với Id</value>
         <value xml:lang="zh">没有找到货运，标识 </value>
         <value xml:lang="zh-TW">沒有找到貨運識別 </value>
     </property>
@@ -29368,7 +29368,7 @@
     </property>
     <property key="ProductShipmentTypeId">
         <value xml:lang="de">Liefertyp ID</value>
-        <value xml:lang="en">Shipment type ID</value>
+        <value xml:lang="en">Shipment type Id</value>
         <value xml:lang="es">Código de tipo de envío</value>
         <value xml:lang="fr">Réf. de type d'expédition</value>
         <value xml:lang="it">Tipo Spedizione</value>
@@ -30418,7 +30418,7 @@
     </property>
     <property key="ProductSupplierPrefOrderId">
         <value xml:lang="de">Lieferant präferierte Auftrags-ID</value>
-        <value xml:lang="en">Supplier pref order ID</value>
+        <value xml:lang="en">Supplier pref order Id</value>
         <value xml:lang="es">Código de pedido preferente del proveedor</value>
         <value xml:lang="fr">Réf. d'ordre de préférence du fournisseur</value>
         <value xml:lang="it">Codice Fornitore preferito ordine</value>
@@ -30432,7 +30432,7 @@
     </property>
     <property key="ProductSupplierProductId">
         <value xml:lang="de">Lieferant Produkt ID</value>
-        <value xml:lang="en">Supplier product ID</value>
+        <value xml:lang="en">Supplier product Id</value>
         <value xml:lang="es">Código de producto para el proveedor</value>
         <value xml:lang="fr">Réf. chez le fournisseur</value>
         <value xml:lang="it">Codice prodotto fornitore</value>
@@ -30460,7 +30460,7 @@
     </property>
     <property key="ProductSupplierRatingTypeId">
         <value xml:lang="de">Produktlieferant Bewertung Typ ID</value>
-        <value xml:lang="en">Product supplier rating type ID</value>
+        <value xml:lang="en">Product supplier rating type Id</value>
         <value xml:lang="es">Código de tipo de valoración para el proveedor de productos</value>
         <value xml:lang="fr">Réf. de type de classement du fournisseur</value>
         <value xml:lang="it">Tipo classifica Prodotto Fornitore</value>
@@ -30698,7 +30698,7 @@
     </property>
     <property key="ProductTextDataResourceId">
         <value xml:lang="de">Text Data Ressource ID</value>
-        <value xml:lang="en">Text Data Resource ID</value>
+        <value xml:lang="en">Text Data Resource Id</value>
         <value xml:lang="es">Código del texto del recurso de datos</value>
         <value xml:lang="fr">Réf. de la ressource texte</value>
         <value xml:lang="it">Codice Testo Risorsa Dati</value>
@@ -31279,7 +31279,7 @@
         <value xml:lang="zh-TW">未知; 請指定類型</value>
     </property>
     <property key="ProductUomId">
-        <value xml:lang="de">Maßeinheit ID</value>
+        <value xml:lang="de">Maßeinheit Id</value>
         <value xml:lang="en">Uom ID</value>
         <value xml:lang="es">Código de UDM</value>
         <value xml:lang="fr">Réf. de l'unité de mesure</value>
@@ -32131,7 +32131,7 @@
         <value xml:lang="zh-TW">重量</value>
     </property>
     <property key="ProductWeightBreakId">
-        <value xml:lang="de">Gewichtstaffel ID</value>
+        <value xml:lang="de">Gewichtstaffel Id</value>
         <value xml:lang="en">WeightBreakId</value>
         <value xml:lang="es">Código separación peso</value>
         <value xml:lang="fr">Réf. de rupture par poids</value>
@@ -32169,7 +32169,7 @@
     </property>
     <property key="ProductWeightUomId">
         <value xml:lang="de">Gewicht Einheit ID</value>
-        <value xml:lang="en">Weight Uom ID</value>
+        <value xml:lang="en">Weight Uom Id</value>
         <value xml:lang="es">UDM de peso</value>
         <value xml:lang="fr">Unité de mesure du poids</value>
         <value xml:lang="it">UdM Peso</value>
@@ -32209,7 +32209,7 @@
     </property>
     <property key="ProductWidthUomId">
         <value xml:lang="de">Breite Einheit ID</value>
-        <value xml:lang="en">Width Uom ID</value>
+        <value xml:lang="en">Width Uom Id</value>
         <value xml:lang="es">UDM de ancho</value>
         <value xml:lang="fr">Unité de mesure de largeur</value>
         <value xml:lang="it">UdM Larghezza</value>
