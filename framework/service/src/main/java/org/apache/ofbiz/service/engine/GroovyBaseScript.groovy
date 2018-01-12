@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.engine
 
+import java.util.Map
+
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
@@ -25,6 +27,7 @@ import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.ExecutionServiceException
+import org.apache.ofbiz.entity.GenericValue
 
 abstract class GroovyBaseScript extends Script {
     public static final String module = GroovyBaseScript.class.getName()
@@ -71,6 +74,10 @@ abstract class GroovyBaseScript extends Script {
 
     EntityQuery select(Set<String> fields) {
         return EntityQuery.use(binding.getVariable('delegator')).select(fields)
+    }
+
+    GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) {
+        return binding.getVariable('delegator').findOne(entityName, fields, useCache)
     }
 
     def success(String message) {
