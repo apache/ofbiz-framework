@@ -38,7 +38,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.FormFieldTitle_contentId}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CONTENT_ID!}" name="SEARCH_CONTENT_ID" id="SEARCH_CONTENT_ID" fieldFormName="LookupContent"/>
+              <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CONTENT_ID!}" formName="advToKeyWordSearchForm" name="SEARCH_CONTENT_ID" id="SEARCH_CONTENT_ID" fieldFormName="LookupContent"/>
             </div>
           </td>
         </tr>

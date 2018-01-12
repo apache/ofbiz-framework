@@ -20,9 +20,6 @@
 
 findResult = from("Facility").queryList()
 findResultSize = findResult.size()
-if (findResultSize == 0) {
-    context.showScreen = "none"
-}
 if (findResultSize == 1) {
     context.showScreen = "one"
     context.facility = findResult.get(0)
