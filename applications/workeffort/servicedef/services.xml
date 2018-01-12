@@ -767,65 +767,10 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateWorkEffortContactMech" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortContactMech" auth="true">
-        <description>Update WorkEffortContactMech</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <auto-attributes entity-name="WorkEffortContactMech" mode="IN" include="nonpk" optional="true"/>
-        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
-        <attribute name="workEffortId" mode="IN" type="String" optional="false"></attribute>
-        <attribute name="contactMechTypeId" mode="IN" type="String" optional="true"></attribute>
-        <attribute name="infoString" mode="IN" type="String" optional="true"></attribute>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
-    </service>
     <service name="deleteWorkEffortContactMech" engine="entity-auto" default-entity-name="WorkEffortContactMech" invoke="delete" auth="true">
         <description>Delete WorkEffortContactMech</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-    <service name="createWorkEffortPostalAddress" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortPostalAddress">
-        <description>Create WorkEffort PostalAddress</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
-        <implements service="createPostalAddress"/>
-        <implements service="createPartyPostalAddress"/>
-        <implements service="createWorkEffortContactMech"/>
-    </service>
-    <service name="updateWorkEffortPostalAddress" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortPostalAddress">
-        <description>Update WorkEffort PostalAddress</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <implements service="updatePostalAddress"/>
-        <implements service="updateWorkEffortContactMech"/>
-    </service>
-    <service name="createWorkEffortTelecomNumber" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortTelecomNumber">
-        <description>Create WorkEffort TelecomNumber</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
-        <implements service="createTelecomNumber"/>
-        <implements service="createPartyTelecomNumber"/>
-        <implements service="createWorkEffortContactMech"/>
-    </service>
-    <service name="updateWorkEffortTelecomNumber" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortTelecomNumber">
-        <description>Update WorkEffort TelecomNumber</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <implements service="updateTelecomNumber"/>
-        <implements service="updateWorkEffortContactMech"/>
-    </service>
-    <service name="createWorkEffortEmailAddress" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortEmailAddress">
-        <description>Create WorkEffort Email Address</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
-        <implements service="createWorkEffortContactMech"/>
-    </service>
-    <service name="updateWorkEffortEmailAddress" engine="simple"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortEmailAddress">
-        <description>Update WorkEffort Email Address</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <implements service="updateWorkEffortContactMech"/>
     </service>
 
     <!--WorkEffortInventoryProduced Services   -->
