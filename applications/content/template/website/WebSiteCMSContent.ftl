@@ -154,11 +154,14 @@
     <form name="cmsform" enctype="multipart/form-data" method="post" action="<@ofbizUrl>${formAction}</@ofbizUrl>" style="margin: 0;">
         <#if (content?has_content)>
             <input type="hidden" name="dataResourceId" value="${(dataResource.dataResourceId)!}"/>
-            <input type="hidden" name="contentId" value="${content.contentId}"/>
+            <input type="hidden" name="contentIdTo" value="${content.contentId}"/>
 
             <#list requestParameters.keySet() as paramName>
-                <#if (paramName == 'contentIdFrom' || paramName == 'contentAssocTypeId' || paramName == 'fromDate')>
-                    <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
+                <#if paramName == 'contentIdFrom'>
+                  <input type="hidden" name="contentId" value="${requestParameters.get(paramName)}"/>
+                </#if>
+                <#if (paramName == 'contentAssocTypeId' || paramName == 'fromDate')>
+                  <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
                 </#if>
             </#list>
         <#else>

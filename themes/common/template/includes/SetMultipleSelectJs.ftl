@@ -26,12 +26,10 @@ under the License.
           multiple.attr('title', '${asm_title}');
       </#if>
 
-        // use asmSelect in Widget Forms
-        multiple.asmSelect({
-            addItemTarget: 'top',
-            sortable: ${asm_sortable!'false'},
-            removeLabel: '${uiLabelMap.CommonRemove!'Remove'}'
-            //, debugMode: true
+        multiple.select2({
+          tags: true,
+          multiple: true,
+          lang: '${userLogin.lastLocale!"en"}'
         });
 
       <#if asm_relatedField??> <#-- can be used without related field -->

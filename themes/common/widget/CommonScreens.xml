@@ -126,6 +126,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.select2.getFilePath(initialLocaleComplete)}" global="true" />
                 <!-- Jgrowl -->
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/Readmore.js-master/readmore.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js" global="true"/>
@@ -430,7 +431,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true"/>
 
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/select2/js/select2-4.0.6.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js" global="true"/>
@@ -440,7 +441,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-migrate-3.0.0.min.js" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/jquery-3.2.1.min.js" global="true"/>
                     <!-- jQuery CSSs -->
-                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/select2/css/select2-4.0.6.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css" global="true" />
 
