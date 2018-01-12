@@ -1011,24 +1011,15 @@ public final class UtilHttp {
         }
 
         // create the streams
-        OutputStream out = response.getOutputStream();
-        InputStream in = new ByteArrayInputStream(bytes);
 
         // stream the content
-        try {
+        try (OutputStream out = response.getOutputStream();
+                InputStream in = new ByteArrayInputStream(bytes)) {
             streamContent(out, in, bytes.length);
+            out.flush();
         } catch (IOException e) {
-            in.close();
-            out.close(); // should we close the ServletOutputStream on error??
             throw e;
         }
-
-        // close the input stream
-        in.close();
-
-        // close the servlet output stream
-        out.flush();
-        out.close();
     }
 
     public static void streamContentToBrowser(HttpServletResponse response, byte[] bytes, String contentType) throws IOException {
@@ -1060,17 +1051,12 @@ public final class UtilHttp {
         }
 
         // stream the content
-        OutputStream out = response.getOutputStream();
-        try {
+        try (OutputStream out = response.getOutputStream()) {
             streamContent(out, in, length);
+            out.flush();
         } catch (IOException e) {
-            out.close();
             throw e;
         }
-
-        // close the servlet output stream
-        out.flush();
-        out.close();
     }
 
     public static void streamContentToBrowser(HttpServletResponse response, InputStream in, int length, String contentType) throws IOException {
