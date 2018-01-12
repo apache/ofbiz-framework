@@ -301,7 +301,7 @@
         <value xml:lang="zh-TW">編輯一個部落格</value>
     </property>
     <property key="ContentBlogEntryId">
-        <value xml:lang="da">Blog indlæg id</value>
+        <value xml:lang="da">Blog indlæg ID</value>
         <value xml:lang="en">Blog entry ID</value>
         <value xml:lang="fr">Réf. de note de blog</value>
         <value xml:lang="it">Voce blog</value>
@@ -767,7 +767,7 @@
         <value xml:lang="zh-TW">對應${parameters.rootInstanceContentId}的實例compdoc內容已經存在</value>
     </property>
     <property key="ContentCompDocParentContentId">
-        <value xml:lang="da">Forældre inholds id</value>
+        <value xml:lang="da">Forældre inholds ID</value>
         <value xml:lang="de">Übergeordneter Inhalt</value>
         <value xml:lang="en">Parent Content ID</value>
         <value xml:lang="fr">Contenu parent</value>
@@ -3819,7 +3819,7 @@
     </property>
     <property key="FormFieldTitle_amountBaseUomId">
         <value xml:lang="ar">تعريف وحدة قياس قاعدة المبلغ</value>
-        <value xml:lang="da">Basisbeløb enheds id</value>
+        <value xml:lang="da">Basisbeløb enheds ID</value>
         <value xml:lang="de">Basisbetrag Einheit ID</value>
         <value xml:lang="en">Amount Base Uom ID</value>
         <value xml:lang="fr">Unité de mesure de qantité de base</value>
@@ -4228,7 +4228,7 @@
         <value xml:lang="zh-TW">內容修改序號</value>
     </property>
     <property key="FormFieldTitle_contentStatusId">
-        <value xml:lang="da">Status id</value>
+        <value xml:lang="da">Status ID</value>
         <value xml:lang="en">Status ID</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="ja">ステータスID</value>
@@ -4432,7 +4432,7 @@
         <value xml:lang="zh-TW">令已存在的失效</value>
     </property>
     <property key="FormFieldTitle_decoratorContentId">
-        <value xml:lang="da">Dekoratør indholds id</value>
+        <value xml:lang="da">Dekoratør indholds ID</value>
         <value xml:lang="en">Decorator Content ID</value>
         <value xml:lang="fr">Ressource de décorateur</value>
         <value xml:lang="it">Decoratore contenuto</value>
@@ -4459,7 +4459,7 @@
     </property>
     <property key="FormFieldTitle_drCharacterSetId">
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
-        <value xml:lang="da">Tegnsæt id</value>
+        <value xml:lang="da">Tegnsæt ID</value>
         <value xml:lang="de">Zeichensatz ID</value>
         <value xml:lang="en">Character Set ID</value>
         <value xml:lang="fr">Jeu de caractères</value>
@@ -4490,7 +4490,7 @@
     </property>
     <property key="FormFieldTitle_drDataResourceTypeId">
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
-        <value xml:lang="da">Dr dataressourctype id</value>
+        <value xml:lang="da">Dr dataressourctype ID</value>
         <value xml:lang="de">Datenressourcentyp ID (dr)</value>
         <value xml:lang="en">Dr Data Resource Type ID</value>
         <value xml:lang="fr">Type de ressource de données (Dr)</value>
@@ -4521,7 +4521,7 @@
     </property>
     <property key="FormFieldTitle_drDataTemplateTypeId">
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
-        <value xml:lang="da">Dr dataskabelontype id</value>
+        <value xml:lang="da">Dr dataskabelontype ID</value>
         <value xml:lang="de">Datenvorlagetyp ID (Dr)</value>
         <value xml:lang="en">Dr Data Template Type ID</value>
         <value xml:lang="fr">Type de modèle de données (Dr)</value>
@@ -4552,7 +4552,7 @@
     </property>
     <property key="FormFieldTitle_drMimeTypeId">
         <value xml:lang="ar">تعريف نوع  Mime</value>
-        <value xml:lang="da">Dr Mime type id</value>
+        <value xml:lang="da">Dr Mime type ID</value>
         <value xml:lang="de">Mime Typ ID (Dr)</value>
         <value xml:lang="en">Dr Mime Type ID</value>
         <value xml:lang="es">Tipo de documento</value>
@@ -4603,7 +4603,7 @@
     </property>
     <property key="FormFieldTitle_durationUomId">
         <value xml:lang="ar">تعريف وحدة قياس المدة</value>
-        <value xml:lang="da">Varighed enheds id</value>
+        <value xml:lang="da">Varighed enheds ID</value>
         <value xml:lang="de">Dauer Einheit ID</value>
         <value xml:lang="en">Duration Uom ID</value>
         <value xml:lang="fr">Durée UOM</value>
@@ -4652,7 +4652,7 @@
         <value xml:lang="zh-TW">啟用Https</value>
     </property>
     <property key="FormFieldTitle_enumTypeId">
-        <value xml:lang="da">Nummereringstype id</value>
+        <value xml:lang="da">Nummereringstype ID</value>
         <value xml:lang="en">Enum Type ID</value>
         <value xml:lang="fr">Type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
@@ -4663,7 +4663,7 @@
         <value xml:lang="zh-TW">列舉類型識別</value>
     </property>
     <property key="FormFieldTitle_existContentId">
-        <value xml:lang="da">Eksisterende indholds id</value>
+        <value xml:lang="da">Eksisterende indholds ID</value>
         <value xml:lang="de">Vorhander Inhalt</value>
         <value xml:lang="en">Existing Content ID</value>
         <value xml:lang="fr">Document existant</value>
@@ -4676,7 +4676,7 @@
     </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
-        <value xml:lang="da">Filendelse id</value>
+        <value xml:lang="da">Filendelse ID</value>
         <value xml:lang="de">Dateierweiterung ID</value>
         <value xml:lang="en">File Extension ID</value>
         <value xml:lang="fr">Extension de fichier</value>
@@ -4821,7 +4821,7 @@
         <value xml:lang="zh-TW">論壇</value>
     </property>
     <property key="FormFieldTitle_ftlContentId">
-        <value xml:lang="da">Ftl indholds id</value>
+        <value xml:lang="da">Ftl indholds ID</value>
         <value xml:lang="en">Ftl Content ID</value>
         <value xml:lang="it">Contenuto ftl</value>
         <value xml:lang="ja">FTLコンテンツID</value>
@@ -4989,7 +4989,7 @@
     </property>
     <property key="FormFieldTitle_instanceOfContentId">
         <value xml:lang="ar">كينونة لتعريف المحتوى</value>
-        <value xml:lang="da">Forekomst af indholds id</value>
+        <value xml:lang="da">Forekomst af indholds ID</value>
         <value xml:lang="de">Instanz von Inhalt ID</value>
         <value xml:lang="en">Instance Of Content ID</value>
         <value xml:lang="es">Código Instancia de contenido</value>
@@ -5024,7 +5024,7 @@
     </property>
     <property key="FormFieldTitle_itemContentId">
         <value xml:lang="ar">تعريف محتوى البند</value>
-        <value xml:lang="da">Punkt indholds id</value>
+        <value xml:lang="da">Punkt indholds ID</value>
         <value xml:lang="de">Position Inhalt ID</value>
         <value xml:lang="en">Item Content ID</value>
         <value xml:lang="fr">Contenu d'article</value>
@@ -5161,7 +5161,7 @@
     </property>
     <property key="FormFieldTitle_metaDataPredicateId">
         <value xml:lang="ar">تعريف توقع الميتا معلومات</value>
-        <value xml:lang="da">Metadata prædikat id</value>
+        <value xml:lang="da">Metadata prædikat ID</value>
         <value xml:lang="de">Metadaten Prädikat ID</value>
         <value xml:lang="en">Meta Data Predicate ID</value>
         <value xml:lang="fr">Prédicat de méta-données</value>
@@ -5191,7 +5191,7 @@
     </property>
     <property key="FormFieldTitle_mimeTypeId">
         <value xml:lang="ar">نعريف نوع المايم</value>
-        <value xml:lang="da">Mime type id</value>
+        <value xml:lang="da">Mime type ID</value>
         <value xml:lang="de">Mimetyp ID</value>
         <value xml:lang="en">Mime Type ID</value>
         <value xml:lang="es">Tipo MIME</value>
@@ -5238,7 +5238,7 @@
     </property>
     <property key="FormFieldTitle_newDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات جديد</value>
-        <value xml:lang="da">Nyt dataressource id</value>
+        <value xml:lang="da">Nyt dataressource ID</value>
         <value xml:lang="de">Neue Datenressource ID</value>
         <value xml:lang="en">New Data Resource ID</value>
         <value xml:lang="fr">Nouvelle ressource de données</value>
@@ -5272,7 +5272,7 @@
     </property>
     <property key="FormFieldTitle_oldDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات قديم</value>
-        <value xml:lang="da">Gammelt dataressource id</value>
+        <value xml:lang="da">Gammelt dataressource ID</value>
         <value xml:lang="de">Alte Datenressource ID</value>
         <value xml:lang="en">Old Data Resource ID</value>
         <value xml:lang="fr">Ancienne ressource de données</value>
@@ -5288,7 +5288,7 @@
     </property>
     <property key="FormFieldTitle_ownerContentId">
         <value xml:lang="ar">تعريف صاحب المحتوى</value>
-        <value xml:lang="da">Ejer indholds id</value>
+        <value xml:lang="da">Ejer indholds ID</value>
         <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content ID</value>
         <value xml:lang="es">Código del propietario</value>
@@ -5322,7 +5322,7 @@
     </property>
     <property key="FormFieldTitle_parentCategoryId">
         <value xml:lang="ar">تعريف فئة الوالد</value>
-        <value xml:lang="da">Forældre katagori id</value>
+        <value xml:lang="da">Forældre katagori ID</value>
         <value xml:lang="de">Übergeordnete Kategorie ID</value>
         <value xml:lang="en">Parent Category ID</value>
         <value xml:lang="fr">Catégorie parente</value>
@@ -5388,7 +5388,7 @@
     </property>
     <property key="FormFieldTitle_privilegeEnumId">
         <value xml:lang="ar">تعريف تعداد الأفضلية</value>
-        <value xml:lang="da">Privilegie numerisk id</value>
+        <value xml:lang="da">Privilegie numerisk ID</value>
         <value xml:lang="de">Privileg Aufzählung ID</value>
         <value xml:lang="en">Privilege Enum ID</value>
         <value xml:lang="es">Tipo privilegio</value>
@@ -5446,7 +5446,7 @@
     </property>
     <property key="FormFieldTitle_referenceId">
         <value xml:lang="ar">تعريف المرجع</value>
-        <value xml:lang="da">Reference id</value>
+        <value xml:lang="da">Reference ID</value>
         <value xml:lang="de">Referenz ID</value>
         <value xml:lang="en">Reference ID</value>
         <value xml:lang="fr">Référence</value>
@@ -5461,7 +5461,7 @@
     </property>
     <property key="FormFieldTitle_relatedDetailId">
         <value xml:lang="ar">تعريف تفصيل المرجع</value>
-        <value xml:lang="da">Relateret detail id</value>
+        <value xml:lang="da">Relateret detail ID</value>
         <value xml:lang="de">Zugehöriges Detail ID</value>
         <value xml:lang="en">Related Detail ID</value>
         <value xml:lang="fr">Détail lié</value>
@@ -5662,7 +5662,7 @@
     </property>
     <property key="FormFieldTitle_surveyId">
         <value xml:lang="ar">تعريف التصويت</value>
-        <value xml:lang="da">Rundspørge id</value>
+        <value xml:lang="da">Rundspørge ID</value>
         <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey ID</value>
         <value xml:lang="es">Código de encuesta</value>
@@ -5680,7 +5680,7 @@
     </property>
     <property key="FormFieldTitle_surveyMultiRespColId">
         <value xml:lang="ar">تعريف عمود متعدد الجواب لتصويت</value>
-        <value xml:lang="da">Rundspørge multisvar kolonne id</value>
+        <value xml:lang="da">Rundspørge multisvar kolonne ID</value>
         <value xml:lang="de">Befragung Mehrfachantwort Kolonne ID</value>
         <value xml:lang="en">Survey Multi Resp Col ID</value>
         <value xml:lang="fr">Colonne (sondage multi réponse)</value>
@@ -5695,7 +5695,7 @@
     </property>
     <property key="FormFieldTitle_surveyMultiRespId">
         <value xml:lang="ar">تعريف جواب متعدد لتصويت</value>
-        <value xml:lang="da">Rundspørge multisvar id</value>
+        <value xml:lang="da">Rundspørge multisvar ID</value>
         <value xml:lang="de">Befragung Mehrfachantwort ID</value>
         <value xml:lang="en">Survey Multi Resp ID</value>
         <value xml:lang="fr">Sondage multi réponse</value>
@@ -5727,7 +5727,7 @@
     </property>
     <property key="FormFieldTitle_surveyPageSeqId">
         <value xml:lang="ar">تعريف تسلسل صفحة تصويت</value>
-        <value xml:lang="da">Rundspørge sidesekvens id</value>
+        <value xml:lang="da">Rundspørge sidesekvens ID</value>
         <value xml:lang="de">Befragungsseite Seq. ID</value>
         <value xml:lang="en">Survey Page Seq ID</value>
         <value xml:lang="fr">Séq. de page de sondage</value>
@@ -5742,7 +5742,7 @@
     </property>
     <property key="FormFieldTitle_surveyQuestionCategoryId">
         <value xml:lang="ar">تعريف فئة سؤال تصويت</value>
-        <value xml:lang="da">Rundspørge spørgsmålskategori id</value>
+        <value xml:lang="da">Rundspørge spørgsmålskategori ID</value>
         <value xml:lang="de">Befragung Fragenkategorie ID</value>
         <value xml:lang="en">Survey Question Category ID</value>
         <value xml:lang="fr">Catégorie de question (sondage)</value>
@@ -5757,7 +5757,7 @@
     </property>
     <property key="FormFieldTitle_surveyQuestionTypeId">
         <value xml:lang="ar">تعريف نوع سؤال تصويت</value>
-        <value xml:lang="da">Rundspørge spørgsmålstype id</value>
+        <value xml:lang="da">Rundspørge spørgsmålstype ID</value>
         <value xml:lang="de">Befragung Fragentyp ID</value>
         <value xml:lang="en">Survey Question Type ID</value>
         <value xml:lang="fr">Type de question (sondage)</value>
@@ -5772,7 +5772,7 @@
     </property>
     <property key="FormFieldTitle_surveyResponseId">
         <value xml:lang="ar">تعريف جواب تصويت</value>
-        <value xml:lang="da">Rundspørge svar id</value>
+        <value xml:lang="da">Rundspørge svar ID</value>
         <value xml:lang="de">Befragung Antwort ID</value>
         <value xml:lang="en">Survey Response ID</value>
         <value xml:lang="fr">Réponse au sondage</value>
@@ -5817,7 +5817,7 @@
     </property>
     <property key="FormFieldTitle_templateDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات نموذج</value>
-        <value xml:lang="da">Skabelon dataressource id</value>
+        <value xml:lang="da">Skabelon dataressource ID</value>
         <value xml:lang="de">Vorlage Datenressource ID</value>
         <value xml:lang="en">Template Data Resource ID</value>
         <value xml:lang="es">Código Plantilla de fuente de datos</value>
@@ -5938,7 +5938,7 @@
         <value xml:lang="zh-TW">視覺主題集合</value>
     </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
-        <value xml:lang="da">Web side indholdstype id</value>
+        <value xml:lang="da">Web side indholdstype ID</value>
         <value xml:lang="de">Webseite Inhaltstyp ID</value>
         <value xml:lang="en">Web Site Content Type ID</value>
         <value xml:lang="fr">Type de contenu de site Web</value>
@@ -5953,7 +5953,7 @@
     </property>
     <property key="FormFieldTitle_webSiteId">
         <value xml:lang="ar">تعريف موقع الويب</value>
-        <value xml:lang="da">Web side id</value>
+        <value xml:lang="da">Web side ID</value>
         <value xml:lang="de">Webseite ID</value>
         <value xml:lang="en">Web Site ID</value>
         <value xml:lang="es">Código del sitio web</value>

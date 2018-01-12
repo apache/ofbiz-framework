@@ -1079,7 +1079,7 @@
     <property key="OrderErrorCreateReturnHeaderWithoutId">
         <value xml:lang="ar">خلق الإسترجاع لم يرد دليل مسترجع صحيح</value>
         <value xml:lang="de">Bei der Erstellung der Retoure wurde keine gültige Retouren-Id zurückgegeben</value>
-        <value xml:lang="en">Create return did not return a valid return id</value>
+        <value xml:lang="en">Create return did not return a valid return ID</value>
         <value xml:lang="fr">La création du retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione testata reso non ha ristituito in numero di reso</value>
         <value xml:lang="ja">返品作成が有効な返品IDを戻しませんでした</value>
@@ -1089,7 +1089,7 @@
     <property key="OrderErrorCreateReturnItemWithoutId">
         <value xml:lang="ar">خلق الإسترجاع لم يرد دليل تسلسلي صحيح</value>
         <value xml:lang="de">Bei der Erstellung der Retourenposition wurde keine gültige Sequenz-Id zurückgegeben</value>
-        <value xml:lang="en">Create return item did not return a valid sequence id</value>
+        <value xml:lang="en">Create return item did not return a valid sequence ID</value>
         <value xml:lang="fr">La création d'une ligne de retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione riga reso non ha ristituito un numero di riga reso</value>
         <value xml:lang="ja">返品アイテム作成が有効な連番IDを戻しませんでした</value>
