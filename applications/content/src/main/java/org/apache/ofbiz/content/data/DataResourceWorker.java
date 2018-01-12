@@ -30,6 +30,8 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -49,7 +51,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -1100,7 +1101,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
-                return UtilMisc.toMap("stream", new ByteArrayInputStream(FileUtils.readFileToByteArray(file)), "length", Long.valueOf(file.length()));
+                return UtilMisc.toMap("stream", Files.newInputStream(file.toPath(), StandardOpenOption.READ), "length", Long.valueOf(file.length()));
             }
             throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
 
