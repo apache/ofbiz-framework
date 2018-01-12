@@ -36,7 +36,7 @@ under the License.
         <property name="VT_NAV_CLOSE_TMPLT" value="component://tomahawk/template/AppBarClose.ftl"/>
         <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
         <!--header image -->
-        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
+        <property name="VT_HDR_IMAGE_URL" value="/themes/common/webapp/images/ofbiz_logo.png"/>
         <!--javascript lib-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/tomahawk/js/dropdown.js"/>
         <!--Css style-->
