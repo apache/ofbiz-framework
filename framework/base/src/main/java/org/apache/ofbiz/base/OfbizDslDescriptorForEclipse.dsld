@@ -19,22 +19,22 @@
 
 contribute(currentType(subType('groovy.lang.Script'))) {
     property name : 'parameters', type : 'java.util.Map'
-	property name: 'context', type: 'java.util.Map'
-	property name: 'delegator', type: 'org.apache.ofbiz.entity.Delegator'
-	property name: 'dispatcher', type: 'org.apache.ofbiz.service.LocalDispatcher'
+    property name: 'context', type: 'java.util.Map'
+    property name: 'delegator', type: 'org.apache.ofbiz.entity.Delegator'
+    property name: 'dispatcher', type: 'org.apache.ofbiz.service.LocalDispatcher'
 
-	method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
-	method name: 'makeValue', type: 'java.util.Map', params: [entityName: 'String']
-	method name: 'findOne', type: 'java.util.Map', params: [entityName: 'String', inputMap: 'java.util.Map']
-	method name: 'findList', type: 'java.util.List', params: [entityName: 'String', inputMap: 'java.util.Map']
-	method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.util.Set']
-	method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']
-	method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.lang.Object']
-	method name: 'success', type: 'def', params: [message: 'String']
-	method name: 'failure', type: 'java.util.Map', params: [message: 'String']
-	method name: 'error', type: 'def', params: [message: 'String']
-	method name: 'logInfo', type: 'void', params: [message: 'String']
-	method name: 'logWarning', type: 'void', params: [message: 'String']
-	method name: 'logError', type: 'void', params: [message: 'String']
-	method name: 'logVerbose', type: 'void', params: [message: 'String']
+    method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
+    method name: 'makeValue', type: 'java.util.Map', params: [entityName: 'String']
+    method name: 'findOne', type: 'java.util.Map', params: [entityName: 'String', inputMap: 'java.util.Map']
+    method name: 'findList', type: 'java.util.List', params: [entityName: 'String', inputMap: 'java.util.Map']
+    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.util.Set']
+    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']
+    method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.lang.Object']
+    method name: 'success', type: 'def', params: [message: 'String']
+    method name: 'failure', type: 'java.util.Map', params: [message: 'String']
+    method name: 'error', type: 'def', params: [message: 'String']
+    method name: 'logInfo', type: 'void', params: [message: 'String']
+    method name: 'logWarning', type: 'void', params: [message: 'String']
+    method name: 'logError', type: 'void', params: [message: 'String']
+    method name: 'logVerbose', type: 'void', params: [message: 'String']
 }
