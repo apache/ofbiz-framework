@@ -380,7 +380,6 @@ public class ProductSearchSession {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
-        ProductSearchSession.processSearchParameters(requestParams, request);
 
         // get the current productStoreId
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
@@ -513,11 +512,6 @@ public class ProductSearchSession {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
-            // even if already run, check the VIEW_SIZE and VIEW_INDEX again, just for kicks
-            ProductSearchOptions productSearchOptions = getProductSearchOptions(request.getSession());
-            productSearchOptions.setViewIndex((String) parameters.get("VIEW_INDEX"));
-            productSearchOptions.setViewSize((String) parameters.get("VIEW_SIZE"));
-            productSearchOptions.setPaging((String) parameters.get("PAGING"));
             return;
         }
         request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
