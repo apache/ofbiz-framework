@@ -109,4 +109,23 @@ public final class JsLanguageFilesMapping {
             return dateTime.defaultDateTime;
         }
     }
+
+    public static class select2 {
+        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static String defaultSelect2 = "/common/js/jquery/plugins/select2/js/i18n/en.js";
+
+        static {
+            <#list select2.keySet() as select2Files>
+              <#assign filePath = select2.get(select2Files)! />
+            localeFiles.put("${select2Files}", "${filePath}");
+            </#list>
+        }
+
+        public static String getFilePath(String locale) {
+            if (select2.localeFiles.containsKey(locale)) {
+                return select2.localeFiles.get(locale);
+            }
+            return select2.defaultSelect2;
+        }
+    }
 }

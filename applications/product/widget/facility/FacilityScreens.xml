@@ -31,12 +31,45 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h3" text="${uiLabelMap.ProductOnlyOneFacility}"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showScreen" value="none" operator="equals"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                                <section>
+                                                    <widgets>
+                                                        <container style="button-bar">
+                                                            <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
+                                                                <parameter param-name="facilityId"/>
+                                                                <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
+                                                            </link>
+                                                        </container>
+                                                        <label style="h1">${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
+                                                        <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <label style="h1">${uiLabelMap.ProductNewFacility}"</label>
+                                                        <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
+                                                    </fail-widgets>
+                                                </section>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                            </fail-widgets>
+                                        </section>
+                                    </widgets>
+                                </section>
                                 <section>
                                     <condition>
                                         <if-compare field="showScreen" value="one" operator="equals"/>

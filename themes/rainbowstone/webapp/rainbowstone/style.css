@@ -1904,3 +1904,13 @@ html > /**/ body .jstree-default a {
 }
 
 /*end addon modification generic-portlet*/
+
+
+/*The Custom css for SELECT 2*/
+.select2-container--default .select2-selection--multiple{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    min-height: unset !important;
+}
