@@ -1092,10 +1092,8 @@ public final class UtilHttp {
         int bufferSize = EntityUtilProperties.getPropertyAsInteger("content", "stream.buffersize", 8192);
         byte[] buffer = new byte[bufferSize];
         int read = 0;
-        try (
-                BufferedOutputStream bos = new BufferedOutputStream(out, bufferSize);
-                BufferedInputStream bis = new BufferedInputStream(in, bufferSize);
-        ) {
+        try (BufferedOutputStream bos = new BufferedOutputStream(out, bufferSize);
+                BufferedInputStream bis = new BufferedInputStream(in, bufferSize)) {
             while ((read = bis.read(buffer, 0, buffer.length)) != -1) {
                 bos.write(buffer, 0, read);
             }
