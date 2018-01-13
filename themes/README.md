@@ -243,7 +243,7 @@ The blue light theme has been these properties in VisualThemeRessource :
     <VisualTheme visualThemeId="BLUELIGHT" visualThemeSetId="BACKOFFICE" description="BlueLight Theme: breadcrumbs, drop-down menus and rounded corners"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAME" resourceValue="BLUELIGHT" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.png" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/themes/common/webapp/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/bluelight/screenshot.jpg" sequenceId="01"/>
 
     <!-- CSS references -->
