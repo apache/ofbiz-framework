@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo geoCode="04" geoId="KP-04" geoName="Chagang-do" geoTypeId="PROVINCE"/>
+    <Geo geoCode="09" geoId="KP-09" geoName="Hamgyǒng-bukto" geoTypeId="PROVINCE"/>
+    <Geo geoCode="08" geoId="KP-08" geoName="Hamgyǒng-namdo" geoTypeId="PROVINCE"/>
+    <Geo geoCode="06" geoId="KP-06" geoName="Hwanghae-bukto" geoTypeId="PROVINCE"/>
+    <Geo geoCode="05" geoId="KP-05" geoName="Hwanghae-namdo" geoTypeId="PROVINCE"/>
+    <Geo geoCode="07" geoId="KP-07" geoName="Kangwǒn-do" geoTypeId="PROVINCE"/>
+    <Geo geoCode="14" geoId="KP-14" geoName="Namp’o" geoTypeId="CITY"/>
+    <Geo geoCode="03" geoId="KP-03" geoName="P'yǒngan-bukto" geoTypeId="PROVINCE"/>
+    <Geo geoCode="02" geoId="KP-02" geoName="P'yǒngan-namdo" geoTypeId="PROVINCE"/>
+    <Geo geoCode="01" geoId="KP-01" geoName="P'yǒngyang" geoTypeId="CITY"/>
+    <Geo geoCode="13" geoId="KP-13" geoName="Rasǒn" geoTypeId="CITY"/>
+    <Geo geoCode="10" geoId="KP-10" geoName="Ryanggang-do" geoTypeId="PROVINCE"/>
+
+    <GeoAssoc geoId="PRK" geoIdTo="KP-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-09" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-14" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-01" geoAssocTypeId="COUNTY_SEAT"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-13" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="PRK" geoIdTo="KP-10" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
