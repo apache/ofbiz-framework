@@ -453,10 +453,8 @@ under the License.
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">
             <log level="info" message="Calling map procs"/>
-            <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
-                processor-name="updateContactMech" in-map-name="parameters" out-map-name="context"/>
-            <to-string field="context.contactMechId"/>
             <log level="info" message="Calling generic updateContactMech method"/>
+            <set-service-fields service-name="updateContactMech" map="parameters" to-map="context"/>
             <call-service service-name="updateContactMech" in-map-name="context">
                 <default-message property="PartyContactMechanismSuccessfullyUpdated" resource="PartyUiLabels"/>
                 <result-to-field result-name="contactMechId" field="newWorkEffortContactMech.contactMechId"/>
@@ -481,7 +479,7 @@ under the License.
     <simple-method method-name="createWorkEffortPostalAddress" short-description="Create a PostalAddress for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
         <log level="info" message="Creating postal address"/>
-        <if-not-empty field="parameters.addToParty">
+        <if-not-empty field="parameters.partyId">
             <call-map-processor xml-resource="component://party/minilang/contact/PartyContactMechMapProcs.xml"
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyPostalAddress" in-map-name="context">
@@ -490,8 +488,7 @@ under the License.
             </call-service>
             <log level="info" message="Party ContactMech created"/>
             <else>
-                <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
-                    processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
+                <set-service-fields service-name="createPostalAddress" map="parameters" to-map="context"/>
                 <call-service in-map-name="context" service-name="createPostalAddress">
                     <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
@@ -512,28 +509,30 @@ under the License.
 
     <simple-method method-name="updateWorkEffortPostalAddress" short-description="Update a PostalAddress for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
-        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
-                processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
+        <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="context"/>
         <call-service in-map-name="context" service-name="updatePostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+            <result-to-field result-name="oldContactMechId" field="oldContactMechId"/>
         </call-service>
         <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>
         <set from-field="newValue.contactMechId"  field="context2.newContactMechId"/>
         <set field="context2.contactMechTypeId" value="POSTAL_ADDRESS"/>
+        <set field="context2.fromDate" from-field="parameters.fromDate"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-result field="oldContactMechId" result-name="oldContactMechId"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortTelecomNumber" short-description="Create a TelecomNumber for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
         <log level="info" message="Creating telecom number"/>
-        <if-not-empty field="parameters.addToParty">
+        <if-not-empty field="parameters.partyId">
             <call-map-processor xml-resource="component://party/minilang/contact/PartyContactMechMapProcs.xml"
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyTelecomNumber" in-map-name="context">
@@ -542,8 +541,7 @@ under the License.
             </call-service>
             <log level="info" message="Party ContactMech created"/>
             <else>
-                <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
-                    processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
+                <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="context"/>
                 <call-service in-map-name="context" service-name="createTelecomNumber">
                     <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
@@ -563,17 +561,18 @@ under the License.
 
     <simple-method method-name="updateWorkEffortTelecomNumber" short-description="Update a TelecomNumber for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
-        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
-                processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
+        <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="context"/>
         <call-service in-map-name="context" service-name="updateTelecomNumber">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+            <result-to-field result-name="oldContactMechId" field="oldContactMechId"/>
         </call-service>
 
         <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>
         <set from-field="newValue.contactMechId"  field="context2.newContactMechId"/>
         <set field="context2.contactMechTypeId" value="TELECOM_NUMBER"/>
+        <set field="context2.fromDate" from-field="parameters.fromDate"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
@@ -581,12 +580,11 @@ under the License.
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-result field="oldContactMechId" result-name="oldContactMechId"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortEmailAddress" short-description="Create an email address for WorkEffort">
-        <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
-            processor-name="emailAddress" in-map-name="parameters" out-map-name="cwecmMap"/>
-        <check-errors/>
+        <set-service-fields service-name="createWorkEffortContactMech" map="parameters" to-map="cwecmMap"/>
         <set field="cwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createWorkEffortContactMech" in-map-name="cwecmMap">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
@@ -595,9 +593,7 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="updateWorkEffortEmailAddress" short-description="Update an email address for WorkEffort">
-        <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
-            processor-name="emailAddress" in-map-name="parameters" out-map-name="uwecmMap"/>
-        <check-errors/>
+        <set-service-fields service-name="createWorkEffortContactMech" map="parameters" to-map="uwecmMap"/>
         <set field="uwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateWorkEffortContactMech" in-map-name="uwecmMap">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
