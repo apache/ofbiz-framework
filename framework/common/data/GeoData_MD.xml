@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AN" geoCode="AN" geoId="MD-AN" geoName="Anenii Noi" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BS" geoCode="BS" geoId="MD-BS" geoName="Basarabeasca" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BD" geoCode="BD" geoId="MD-BD" geoName="Bender [Tighina]" geoTypeId="CITY"/>
+    <Geo abbreviation="BR" geoCode="BR" geoId="MD-BR" geoName="Briceni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BA" geoCode="BA" geoId="MD-BA" geoName="Bălți" geoTypeId="CITY"/>
+    <Geo abbreviation="CA" geoCode="CA" geoId="MD-CA" geoName="Cahul" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CT" geoCode="CT" geoId="MD-CT" geoName="Cantemir" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CU" geoCode="CU" geoId="MD-CU" geoName="Chișinău" geoTypeId="CITY"/>
+    <Geo abbreviation="CM" geoCode="CM" geoId="MD-CM" geoName="Cimișlia" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CR" geoCode="CR" geoId="MD-CR" geoName="Criuleni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CL" geoCode="CL" geoId="MD-CL" geoName="Călărași" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CS" geoCode="CS" geoId="MD-CS" geoName="Căușeni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DO" geoCode="DO" geoId="MD-DO" geoName="Dondușeni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DR" geoCode="DR" geoId="MD-DR" geoName="Drochia" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DU" geoCode="DU" geoId="MD-DU" geoName="Dubăsari" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ED" geoCode="ED" geoId="MD-ED" geoName="Edineț" geoTypeId="COUNTY"/>
+    <Geo abbreviation="FL" geoCode="FL" geoId="MD-FL" geoName="Florești" geoTypeId="COUNTY"/>
+    <Geo abbreviation="FA" geoCode="FA" geoId="MD-FA" geoName="Fălești" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GL" geoCode="GL" geoId="MD-GL" geoName="Glodeni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GA" geoCode="GA" geoId="MD-GA" geoName="Găgăuzia" geoTypeId="TERRITORY"/>
+    <Geo abbreviation="HI" geoCode="HI" geoId="MD-HI" geoName="Hîncești" geoTypeId="COUNTY"/>
+    <Geo abbreviation="IA" geoCode="IA" geoId="MD-IA" geoName="Ialoveni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LE" geoCode="LE" geoId="MD-LE" geoName="Leova" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NI" geoCode="NI" geoId="MD-NI" geoName="Nisporeni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="OC" geoCode="OC" geoId="MD-OC" geoName="Ocnița" geoTypeId="COUNTY"/>
+    <Geo abbreviation="OR" geoCode="OR" geoId="MD-OR" geoName="Orhei" geoTypeId="COUNTY"/>
+    <Geo abbreviation="RE" geoCode="RE" geoId="MD-RE" geoName="Rezina" geoTypeId="COUNTY"/>
+    <Geo abbreviation="RI" geoCode="RI" geoId="MD-RI" geoName="Rîșcani" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SO" geoCode="SO" geoId="MD-SO" geoName="Soroca" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ST" geoCode="ST" geoId="MD-ST" geoName="Strășeni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SN" geoCode="SN" geoId="MD-SN" geoName="Stînga Nistrului" geoTypeId="TERRITORY"/>
+    <Geo abbreviation="SI" geoCode="SI" geoId="MD-SI" geoName="Sîngerei" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TA" geoCode="TA" geoId="MD-TA" geoName="Taraclia" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TE" geoCode="TE" geoId="MD-TE" geoName="Telenești" geoTypeId="COUNTY"/>
+    <Geo abbreviation="UN" geoCode="UN" geoId="MD-UN" geoName="Ungheni" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SD" geoCode="SD" geoId="MD-SD" geoName="Șoldănești" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SV" geoCode="SV" geoId="MD-SV" geoName="Ștefan Vodă" geoTypeId="COUNTY"/>
+    
+    <GeoAssoc geoId="MDA" geoIdTo="MD-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-BS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-BD" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-BR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-BA" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CU" geoAssocTypeId="COUNTY_CITY"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-CS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-DO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-DR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-DU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-ED" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-FL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-FA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-GL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-HI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-IA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-LE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-NI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-OC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-OR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-RE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-RI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-SO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-ST" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-SN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-SI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-TA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-TE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-UN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-SD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MDA" geoIdTo="MD-SV" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
