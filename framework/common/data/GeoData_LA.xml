@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AT" geoCode="AT" geoId="LA-AT" geoName="Attapu" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BK" geoCode="BK" geoId="LA-BK" geoName="Bokèo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BL" geoCode="BL" geoId="LA-BL" geoName="Bolikhamxai" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CH" geoCode="CH" geoId="LA-CH" geoName="Champasak" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="HO" geoCode="HO" geoId="LA-HO" geoName="Houaphan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="KH" geoCode="KH" geoId="LA-KH" geoName="Khammouan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LM" geoCode="LM" geoId="LA-LM" geoName="Louang Namtha" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LP" geoCode="LP" geoId="LA-LP" geoName="Louangphabang" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="OU" geoCode="OU" geoId="LA-OU" geoName="Oudômxai" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PH" geoCode="PH" geoId="LA-PH" geoName="Phôngsali" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SL" geoCode="SL" geoId="LA-SL" geoName="Salavan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SV" geoCode="SV" geoId="LA-SV" geoName="Savannakhét" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="VT" geoCode="VT" geoId="LA-VT" geoName="Viangchan" geoTypeId="GROUP"/>
+    <Geo abbreviation="VI" geoCode="VI" geoId="LA-VI" geoName="Viangchan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="XA" geoCode="XA" geoId="LA-XA" geoName="Xaignabouli" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="XS" geoCode="XS" geoId="LA-XS" geoName="Xaisômboun" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="XI" geoCode="XI" geoId="LA-XI" geoName="Xiangkhouang" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="XE" geoCode="XE" geoId="LA-XE" geoName="Xékong" geoTypeId="PROVINCE"/>
+    
+    <GeoAssoc geoId="LAO" geoIdTo="LA-AT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-BK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-BL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-CH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-HO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-KH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-LM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-LP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-OU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-PH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-SL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-SV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-VT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-VI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-XA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-XS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-XI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="LAO" geoIdTo="LA-XE" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
