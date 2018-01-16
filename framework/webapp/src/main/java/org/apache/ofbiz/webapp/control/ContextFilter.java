@@ -206,7 +206,7 @@ public class ContextFilter implements Filter {
                     value = ExternalLoginKeysManager.createJwt(externalServerUserLoginId, dnsName, webAppName , timeToLive);
                 }
                 if (value != null) return value;
-                return super.getHeader("Authorisation");
+                return super.getHeader(name); // Here name is always "Authorisation"
             }
         };
         // we're done checking; continue on
