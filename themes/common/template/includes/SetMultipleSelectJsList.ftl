@@ -31,7 +31,7 @@ under the License.
               multiple.select2({
                 tags: true,
                 multiple: true,
-                lang: '${userLogin.lastLocale!"en"}'
+                lang: <#if userLogin??>'${userLogin.lastLocale!"en"}'<#else>"en"</#if>
               });
 
               <#if row.asm_relatedField??> <#-- can be used without related field -->
