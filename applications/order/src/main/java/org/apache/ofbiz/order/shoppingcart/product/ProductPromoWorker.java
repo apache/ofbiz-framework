@@ -233,10 +233,8 @@ public final class ProductPromoWorker {
                 }
             }
 
-            Iterator<GenericValue> prodCatalogPromoAppls = UtilMisc.toIterator(productStorePromoApplsList);
-            while (prodCatalogPromoAppls != null && prodCatalogPromoAppls.hasNext()) {
-                GenericValue prodCatalogPromoAppl = prodCatalogPromoAppls.next();
-                if (UtilValidate.isNotEmpty(prodCatalogPromoAppl.getString("manualOnly")) && "Y".equals(prodCatalogPromoAppl.getString("manualOnly"))) {
+            for (GenericValue prodCatalogPromoAppl : productStorePromoApplsList) {
+                if ("Y".equals(prodCatalogPromoAppl.getString("manualOnly"))) {
                     // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Skipping promotion with id [" + prodCatalogPromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
