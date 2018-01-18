@@ -542,6 +542,7 @@ public class CommunicationEventServices {
         String contentType = (String) context.get("contentType");
         String statusId = (String) context.get("statusId");
         String orderId = (String) context.get("orderId");
+        String returnId = (String) context.get("returnId");
         if (statusId == null) {
             statusId = "COM_PENDING";
         }
@@ -593,6 +594,9 @@ public class CommunicationEventServices {
         commEventMap.put("contentMimeTypeId", contentType);
         if (UtilValidate.isNotEmpty(orderId)) {
             commEventMap.put("orderId", orderId);
+        }
+        if (UtilValidate.isNotEmpty(returnId)) {
+            commEventMap.put("returnId", returnId);
         }
 
         Map<String, Object> createResult;

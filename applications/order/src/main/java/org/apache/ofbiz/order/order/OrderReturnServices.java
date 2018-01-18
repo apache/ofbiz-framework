@@ -277,6 +277,7 @@ public class OrderReturnServices {
                 sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
                 sendMap.put("sendTo", emailAddress);
                 sendMap.put("partyId", returnHeader.getString("fromPartyId"));
+                sendMap.put("returnId", returnId);
 
                 sendMap.put("userLogin", userLogin);
 

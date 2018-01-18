@@ -746,6 +746,7 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="action" type="String" mode="IN" optional="true"/><!-- to indicate any special action like: REPLY, REPLYALL, FORWARD or empty for no special action-->
         <override name="headerString" allow-html="any"/>
@@ -899,6 +900,7 @@ under the License.
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT"/>
     </service>
     <service name="updateCommEventAfterEmail" engine="java"
