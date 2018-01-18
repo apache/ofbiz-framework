@@ -474,4 +474,13 @@ under the License.
         <description>Delete a ReturnType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    
+    <service name="createCommunicationEventReturn" default-entity-name="CommunicationEventReturn" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Communication Event Return</description>
+        <auto-attributes entity-name="CommunicationEventReturn" include="pk" mode="IN"/>
+    </service>
+    <service name="removeCommunicationEventReturn" default-entity-name="CommunicationEventReturn" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a Communication Event Return</description>
+        <auto-attributes entity-name="CommunicationEventReturn" include="pk" mode="IN"/>
+    </service>
 </services>

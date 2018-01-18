@@ -1651,7 +1651,19 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </view-link>
     </view-entity>
-
+    
+    <view-entity entity-name="CommunicationEventAndReturn"
+                 package-name="org.apache.ofbiz.return.communication"
+                 title="Communication Event And Return View Entity">
+      <member-entity entity-alias="CR" entity-name="CommunicationEventReturn"/>
+      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+      <alias-all entity-alias="CR"/>
+      <alias-all entity-alias="CE"/>
+      <view-link entity-alias="CR" rel-entity-alias="CE">
+        <key-map field-name="communicationEventId"/>
+      </view-link>
+    </view-entity>
+    
     <view-entity entity-name="OrderItemAndShipGrpInvResAndItemSum"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"

@@ -101,6 +101,7 @@ public class EmailServices {
         Delegator delegator = ctx.getDelegator();
         String communicationEventId = (String) context.get("communicationEventId");
         String orderId = (String) context.get("orderId");
+        String returnId = (String) context.get("returnId");
         Locale locale = (Locale) context.get("locale");
         if (communicationEventId != null) {
             Debug.logInfo("SendMail Running, for communicationEventId : " + communicationEventId, module);
@@ -120,6 +121,9 @@ public class EmailServices {
         
         if (UtilValidate.isNotEmpty(orderId)) {
             results.put("orderId", orderId);
+        }
+        if (UtilValidate.isNotEmpty(returnId)) {
+            results.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(body)) {
             body = FlexibleStringExpander.expandString(body, context);
@@ -476,6 +480,7 @@ public class EmailServices {
             partyId = (String) bodyParameters.get("partyId");
         }
         String orderId = (String) bodyParameters.get("orderId");
+        String returnId = (String) serviceContext.get("returnId");
         String custRequestId = (String) bodyParameters.get("custRequestId");
         
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
@@ -602,6 +607,9 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(orderId)) {
             serviceContext.put("orderId", orderId);
         }            
+        if (UtilValidate.isNotEmpty(returnId)) {
+            serviceContext.put("returnId", returnId);
+        }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             serviceContext.put("custRequestId", custRequestId);
         }            
@@ -642,6 +650,9 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(orderId)) {
             result.put("orderId", orderId);
         }            
+        if (UtilValidate.isNotEmpty(returnId)) {
+            result.put("returnId", returnId);
+        }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             result.put("custRequestId", custRequestId);
         }            

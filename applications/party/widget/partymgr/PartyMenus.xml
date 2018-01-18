@@ -614,6 +614,9 @@
         <menu-item name="FindCommunicationByOrder" title="${uiLabelMap.PartyFindCommunicationsByOrder}">
             <link target="FindCommunicationByOrder"/>
         </menu-item>
+        <menu-item name="FindCommunicationByReturn" title="${uiLabelMap.PartyFindCommunicationsByReturn}">
+            <link target="FindCommunicationByReturn"/>
+        </menu-item>
         <menu-item name="UpdateCommOrders" title="${uiLabelMap.OrderOrders}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="UpdateCommOrders">
@@ -623,6 +626,12 @@
         <menu-item name="UpdateCommProducts" title="${uiLabelMap.ProductProducts}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="UpdateCommProducts">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </link>
+        </menu-item>
+        <menu-item name="UpdateCommReturns" title="${uiLabelMap.Return}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="UpdateCommReturns">
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>

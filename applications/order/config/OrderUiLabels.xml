@@ -9072,6 +9072,9 @@
         <value xml:lang="zh-CN">退货单</value>
         <value xml:lang="zh-TW">退貨</value>
     </property>
+    <property key="OrderReturnHeaderType">
+        <value xml:lang="en">Return Header Type</value>
+    </property>
     <property key="OrderOrderShortcuts">
         <value xml:lang="ar">اختصارات</value>
         <value xml:lang="de">Abkürzungen</value>

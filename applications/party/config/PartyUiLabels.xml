@@ -3120,6 +3120,10 @@
         <value xml:lang="zh">添加沟通事件产品</value>
         <value xml:lang="zh-TW">增加通訊事件產品</value>
     </property>
+    <property key="PartyAddCommEventReturn">
+        <value xml:lang="en">Add Communication Event Return</value>
+        <value xml:lang="hi-IN">संचार घटना रिटर्न जोड़ें</value>
+    </property>
     <property key="PartyAddListToCart">
         <value xml:lang="ar">إضافة القائمة للسلة</value>
         <value xml:lang="de">Liste zum Einkaufswagen hinzufügen</value>
@@ -4567,6 +4571,10 @@
         <value xml:lang="vi">Mục đích liên lạc</value>
         <value xml:lang="zh">沟通事件目的</value>
         <value xml:lang="zh-TW">通訊事件目的</value>
+    </property>
+    <property key="PartyCommEventReturns">
+        <value xml:lang="en">Communication Event Returns</value>
+        <value xml:lang="hi-IN">संचार घटना रिटर्न</value>
     </property>
     <property key="PartyCommEventRoles">
         <value xml:lang="ar">أدوار الإتصال</value>
@@ -6843,6 +6851,10 @@
         <value xml:lang="vi">Tìm truyền thông theo đơn hàng</value>
         <value xml:lang="zh">按订单查找沟通</value>
         <value xml:lang="zh-TW">按訂單查詢通訊</value>
+    </property>
+    
+    <property key="PartyFindCommunicationsByReturn">
+        <value xml:lang="en">Find Communications by Return</value>
     </property>
     <property key="PartyFindParty">
         <value xml:lang="ar">إيجاد الطرف</value>
@@ -9936,6 +9948,10 @@
         <value xml:lang="vi">Các đơn hàng gần nhất</value>
         <value xml:lang="zh">订单——上次</value>
         <value xml:lang="zh-TW">訂單——上次</value>
+    </property>
+    <property key="PartyReturnAdd">
+        <value xml:lang="en">Return Add</value>
+        <value xml:lang="hi-IN">वापसी जोड़ें</value>
     </property>
     <property key="PartyOrganizationParty">
         <value xml:lang="ar">طرف المنظمة</value>
@@ -13604,6 +13620,11 @@
         <value xml:lang="vi">Xem sản phẩm truyền thông</value>
         <value xml:lang="zh">浏览沟通产品</value>
         <value xml:lang="zh-TW">檢視通訊產品</value>
+    </property>
+    
+    <property key="PartyViewCommReturns">
+        <value xml:lang="en">View Communication Returns</value>
+        <value xml:lang="hi-IN">संचार रिटर्न देखें</value>
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="ar">إستعراض الإتصال</value>

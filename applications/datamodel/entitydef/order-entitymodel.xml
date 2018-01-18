@@ -2755,6 +2755,21 @@ under the License.
             <key-map field-name="contactMechPurposeTypeId"/>
         </relation>
     </entity>
+    
+    <entity entity-name="CommunicationEventReturn"
+            package-name="org.apache.ofbiz.order.return"
+            title="Communication Event Return Entity">
+      <field name="returnId" type="id"></field>
+      <field name="communicationEventId" type="id"></field>
+      <prim-key field="returnId"/>
+      <prim-key field="communicationEventId"/>
+      <relation type="one" fk-name="COMEV_ORDER_RETURN" rel-entity-name="ReturnHeader">
+        <key-map field-name="returnId"/>
+      </relation>
+      <relation type="one" fk-name="COMEV_RETURN_CMEV" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.apache.ofbiz.order.shoppingcart -->

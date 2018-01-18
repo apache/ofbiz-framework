@@ -732,6 +732,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindCommunicationByOrder"/>
     </request-map>
+    <request-map uri="FindCommunicationByReturn">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCommunicationByReturn"/>
+    </request-map>
     <request-map uri="editRequestFromCommEvent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRequestFromCommEvent" save-last-view="true"/>
@@ -1125,6 +1129,22 @@ under the License.
         <response name="success" type="view" value="UpdateCommOrders"/>
         <response name="error" type="view" value="UpdateCommOrders"/>
     </request-map>
+    <request-map uri="UpdateCommReturns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdateCommReturns"/>
+    </request-map>
+    <request-map uri="createCommunicationEventReturn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEventReturn"/>
+        <response name="success" type="view" value="UpdateCommReturns"/>
+        <response name="error" type="view" value="UpdateCommReturns"/>
+    </request-map>
+    <request-map uri="deleteCommunicationEventReturn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommunicationEventReturn"/>
+        <response name="success" type="view" value="UpdateCommReturns"/>
+        <response name="error" type="view" value="UpdateCommReturns"/>
+    </request-map>
 
     <!-- Product communication event requests -->
     <request-map uri="UpdateCommProducts">
@@ -1345,6 +1365,7 @@ under the License.
     <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListPartyCommEvents"/>
     <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListUnknownPartyComms"/>
     <view-map name="FindCommunicationByOrder" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationByOrder"/>
+    <view-map name="FindCommunicationByReturn" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationByReturn"/>
     <view-map name="MyCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PartyCommunicationEvents"/>
     <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationEvents"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommunicationEvent"/>
@@ -1428,6 +1449,7 @@ under the License.
     <view-map name="AddAccountRelatedContact" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateAccountRelatedContact"/>
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
+    <view-map name="UpdateCommReturns" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommReturns"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
  
     <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
