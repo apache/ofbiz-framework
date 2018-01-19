@@ -63,6 +63,7 @@ under the License.
     <GeoAssoc geoId="IND" geoIdTo="IN-BR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-CH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IND" geoIdTo="IN-DL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-DN" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-DD" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-GA" geoAssocTypeId="REGIONS"/>
@@ -80,13 +81,13 @@ under the License.
     <GeoAssoc geoId="IND" geoIdTo="IN-ML" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-MZ" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-NL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IND" geoIdTo="IN-DL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-OR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-PY" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-PB" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-RJ" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-SK" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-TN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IND" geoIdTo="IN-TG" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-TR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-UP" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-UT" geoAssocTypeId="REGIONS"/>
