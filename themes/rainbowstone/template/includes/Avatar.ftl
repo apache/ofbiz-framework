@@ -31,13 +31,9 @@ under the License.
             <img src="/rainbowstone/images/avatar.svg" alt="user">
         </#if>
             <div id="user-name" <#if userLogin.partyId??>onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'"</#if>>
-                <#if person?exists>
-                    <#if person.firstName??>
-                <span>${person.firstName}</span>
-                <span>${person.lastName?upper_case}</span>
-                    <#else>
-                <span>${userLogin.userLoginId}</span>
-                    </#if>
+                <#if (person.firstName)?? && (person.lastName)??>
+                    <span>${person.firstName}</span>
+                    <span>${person.lastName?upper_case}</span>
                 <#else>
                     <span>${userLogin.userLoginId}</span>
                 </#if>
