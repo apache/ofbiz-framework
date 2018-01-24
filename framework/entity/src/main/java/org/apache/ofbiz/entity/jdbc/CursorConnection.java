@@ -25,8 +25,6 @@ import java.sql.Statement;
 
 import org.apache.ofbiz.base.util.Debug;
 
-import com.healthmarketscience.jackcess.util.CustomLinkResolver;
-
 
 public class CursorConnection extends AbstractCursorHandler {
 
