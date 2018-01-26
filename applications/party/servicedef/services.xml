@@ -939,7 +939,8 @@ under the License.
 
     <service name="setCommEventComplete" engine="java"
         location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
-        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
+        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service,
+            set datetimeEnded to now if not defined</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>

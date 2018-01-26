@@ -508,17 +508,27 @@ public class CommunicationEventServices {
 
     public static Map<String, Object> setCommEventComplete(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String communicationEventId = (String) context.get("communicationEventId");
         String partyIdFrom = (String) context.get("partyIdFrom");
 
         try {
+            GenericValue communicationEvent = delegator.findOne("CommunicationEvent", true, "communicationEventId", communicationEventId);
+            if (communicationEvent == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage("PartyUiLabels", "PartyCommunicationEventNotFound",
+                        UtilMisc.toMap("communicationEventId", communicationEventId), (Locale) context.get("locale")));
+            }
+            Timestamp endDate = communicationEvent.getTimestamp("datetimeEnded");
+            if (endDate == null) {
+                endDate = UtilDateTime.nowTimestamp();
+            }
             Map<String, Object> result = dispatcher.runSync("updateCommunicationEvent", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId,
-                    "partyIdFrom", partyIdFrom, "statusId", "COM_COMPLETE", "userLogin", userLogin));
+                    "partyIdFrom", partyIdFrom, "statusId", "COM_COMPLETE", "datetimeEnded", endDate, "userLogin", userLogin));
             if (ServiceUtil.isError(result)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
-        } catch (GenericServiceException esx) {
+        } catch (GeneralException esx) {
             return ServiceUtil.returnError(esx.getMessage());
         }
 
