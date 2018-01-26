@@ -4682,14 +4682,15 @@
         <value xml:lang="zh-TW">通訊事件</value>
     </property>
     <property key="PartyCommunicationEventNotFound">
-        <value xml:lang="ar">دليل الإتصال: ${parameters.commnicationEventId} غير موجود</value>
+        <value xml:lang="ar">دليل الإتصال: ${parameters.communicationEventId} غير موجود</value>
         <value xml:lang="de">Kommunikationsereignis ID: ${parameters.communicationEventId} nicht gefunden</value>
-        <value xml:lang="en">Communication Event ID: ${parameters.commnicationEventId} not found</value>
-        <value xml:lang="it">Evento comunicazioni: ${parameters.commnicationEventId} non trovato</value>
-        <value xml:lang="ja">通信イベントID: ${parameters.commnicationEventId} が見つかません</value>
-        <value xml:lang="vi">Sự kiện liên lạc: ${parameters.commnicationEventId} không tìm thấy</value>
-        <value xml:lang="zh">沟通事件标识：没有找到${parameters.commnicationEventId}</value>
-        <value xml:lang="zh-TW">通訊事件識別:沒有找到${parameters.commnicationEventId}</value>
+        <value xml:lang="en">Communication Event ID: ${parameters.communicationEventId} not found</value>
+        <value xml:lang="fr">Id d'événement de communication: ${parameters.communicationEventId} non trouvé</value>
+        <value xml:lang="it">Evento comunicazioni: ${parameters.communicationEventId} non trovato</value>
+        <value xml:lang="ja">通信イベントID: ${parameters.communicationEventId} が見つかません</value>
+        <value xml:lang="vi">Sự kiện liên lạc: ${parameters.communicationEventId} không tìm thấy</value>
+        <value xml:lang="zh">沟通事件标识：没有找到${parameters.communicationEventId}</value>
+        <value xml:lang="zh-TW">通訊事件識別:沒有找到${parameters.communicationEventId}</value>
     </property>
     <property key="PartyCommunications">
         <value xml:lang="ar">إتصالات</value>
