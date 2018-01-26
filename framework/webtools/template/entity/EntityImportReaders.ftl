@@ -23,7 +23,7 @@ under the License.
   <form method="post" action="<@ofbizUrl>entityImportReaders</@ofbizUrl>">
     Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):<br />
     <input type="text" size="60" name="readers" value="${readers?default("seed")}"/><br />
-    <label><input type="checkbox" name="mostlyInserts" <#if mostlyInserts??>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsMostlyInserts}</label><br />
+    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsOnlyInserts}</label><br />
     <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsMaintainTimestamps}</label><br />
     <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsCreateDummyFks}</label><br />
     <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsCheckDataOnly}</label>R<br />

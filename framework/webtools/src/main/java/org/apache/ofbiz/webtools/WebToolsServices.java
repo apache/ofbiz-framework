@@ -114,7 +114,7 @@ public class WebToolsServices {
         String fmfilename = (String)context.get("fmfilename");
         String fulltext = (String)context.get("fulltext");
         boolean isUrl = (String)context.get("isUrl") != null;
-        String mostlyInserts = (String)context.get("mostlyInserts");
+        String onlyInserts = (String)context.get("onlyInserts");
         String maintainTimeStamps = (String)context.get("maintainTimeStamps");
         String createDummyFks = (String)context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
@@ -176,7 +176,7 @@ public class WebToolsServices {
         // #############################
         if (fulltext != null || url != null) {
             try {
-                Map<String, Object> inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts,
+                Map<String, Object> inputMap = UtilMisc.toMap("onlyInserts", onlyInserts,
                                               "createDummyFks", createDummyFks,
                                               "checkDataOnly", checkDataOnly,
                                               "maintainTimeStamps", maintainTimeStamps,
@@ -216,7 +216,7 @@ public class WebToolsServices {
         List<String> messages = new LinkedList<String>();
 
         String path = (String) context.get("path");
-        String mostlyInserts = (String) context.get("mostlyInserts");
+        String onlyInserts = (String) context.get("onlyInserts");
         String maintainTimeStamps = (String) context.get("maintainTimeStamps");
         String createDummyFks = (String) context.get("createDummyFks");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
@@ -255,7 +255,7 @@ public class WebToolsServices {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = new LinkedList<File>();
                     for (File f: files) {
-                        Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts,
+                        Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("onlyInserts", onlyInserts,
                                 "createDummyFks", createDummyFks,
                                 "checkDataOnly", checkDataOnly,
                                 "maintainTimeStamps", maintainTimeStamps,
@@ -318,7 +318,7 @@ public class WebToolsServices {
         String overrideGroup = (String) context.get("overrideGroup");
         boolean useDummyFks = "true".equals(context.get("createDummyFks"));
         boolean maintainTxs = "true".equals(context.get("maintainTimeStamps"));
-        boolean tryInserts = "true".equals(context.get("mostlyInserts"));
+        boolean tryInserts = "true".equals(context.get("onlyInserts"));
         boolean checkDataOnly = "true".equals(context.get("checkDataOnly"));
         Locale locale = (Locale) context.get("locale");
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
@@ -432,7 +432,7 @@ public class WebToolsServices {
         if (url == null && xmltext == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportNoXmlFileOrTextSpecified", locale));
         }
-        boolean mostlyInserts = (String) context.get("mostlyInserts") != null;
+        boolean onlyInserts = (String) context.get("onlyInserts") != null;
         boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
@@ -446,7 +446,7 @@ public class WebToolsServices {
         long rowProcessed = 0;
         try {
             EntitySaxReader reader = new EntitySaxReader(delegator);
-            reader.setUseTryInsertMethod(mostlyInserts);
+            reader.setUseTryInsertMethod(onlyInserts);
             reader.setMaintainTxStamps(maintainTimeStamps);
             reader.setTransactionTimeout(txTimeout.intValue());
             reader.setCreateDummyFks(createDummyFks);
