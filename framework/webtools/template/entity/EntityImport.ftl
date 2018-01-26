@@ -27,7 +27,7 @@ under the License.
     ${uiLabelMap.WebtoolsAbsoluteFTLFilename}:<br />
     <input type="text" size="40" name="fmfilename" value="${fmfilename!}"/><br />
     <label><input type="checkbox" name="isUrl" <#if isUrl??>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}</label><br />
-    <label><input type="checkbox" name="mostlyInserts" <#if mostlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</label><br />
+    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsOnlyInserts}</label><br />
     <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</label><br />
     <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label><br />
     <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label><br />

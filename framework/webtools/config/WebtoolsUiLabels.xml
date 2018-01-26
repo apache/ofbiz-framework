@@ -3656,6 +3656,11 @@
         <value xml:lang="zh">大部分是插入？</value>
         <value xml:lang="zh-TW">大部分是插入？</value>
     </property>
+    <property key="WebtoolsOnlyInserts">
+        <value xml:lang="de">Nur Einfügungen?</value>
+        <value xml:lang="en">Only Inserts?</value>
+        <value xml:lang="fr">Seulement des insertions ?</value>
+    </property>
     <property key="WebtoolsMyCertificates">
         <value xml:lang="de">Meine Zertifikate</value>
         <value xml:lang="en">My Certificates</value>
