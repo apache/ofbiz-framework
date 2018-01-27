@@ -529,4 +529,51 @@ under the License.
         </field>
         <field name="shoppingListTypeId"><display-entity entity-name="ShoppingListType" also-hidden="true"/></field>
     </form>
+    
+    <form name="LookupReturnHeader" target="LookupReturnHeader" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ReturnHeader" default-field-type="find" map-name="parameters"/>
+        <field name="returnId"><text-find/></field>
+        <field name="returnHeaderTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ReturnHeaderType" key-field-name="returnHeaderTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListLookupReturnHeader" title="" type="list" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupReturnHeader">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="ReturnHeader"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ReturnHeader" default-field-type="display"/>
+        <field name="returnId" widget-style="buttontext">
+            <hyperlink target-type="plain" also-hidden="true" description="${returnId}" target="javascript:set_value('${returnId}')"/>
+        </field>
+        <field name="returnHeaderTypeId"><display-entity entity-name="ReturnHeaderType" also-hidden="true"/></field>
+    </form>
 </forms>

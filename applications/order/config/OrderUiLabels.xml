@@ -16057,4 +16057,7 @@
         <value xml:lang="zh">更新便笺</value>
         <value xml:lang="zh-TW">更新便箋</value>
     </property>
+    <property key="PageTitleLookupReturnHeader">
+        <value xml:lang="en">Lookup Return Header</value>
+    </property>
 </resource>

@@ -190,7 +190,7 @@ under the License.
             <lookup target-form-name="LookupOrderHeader"/>
         </field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment"/></field>
-        <field name="returnId"><text/></field>
+        <field name="returnId"><lookup target-form-name="LookupReturnHeader"/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
