@@ -373,7 +373,12 @@ under the License.
                   </td>
                 </tr>
                 <#list purchaseOrderItems as orderItem>
-                  <#assign defaultQuantity = orderItem.quantity - receivedQuantities[orderItem.orderItemSeqId]?double/>
+                    <#if orderItem.cancelQuantity?has_content>
+                      <#assign cancelQuantity = orderItem.cancelQuantity>
+                    <#else>
+                      <#assign cancelQuantity = 0>
+                    </#if>
+                  <#assign defaultQuantity = orderItem.quantity - cancelQuantity - receivedQuantities[orderItem.orderItemSeqId]?double/>
                   <#assign itemCost = orderItem.unitPrice?default(0)/>
                   <#assign salesOrderItem = salesOrderItems[orderItem.orderItemSeqId]!/>
                   <#if shipment?has_content>

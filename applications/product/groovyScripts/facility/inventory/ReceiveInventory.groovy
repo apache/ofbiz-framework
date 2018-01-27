@@ -130,7 +130,7 @@ if (purchaseOrder) {
     } else {
         purchaseOrderItems = purchaseOrder.getRelated("OrderItem", null, null, false)
     }
-    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED")])
+    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, ["ITEM_CANCELLED", "ITEM_COMPLETED"])])
 }
 // convert the unit prices to that of the facility owner's currency
 orderCurrencyUnitPriceMap = [:]
