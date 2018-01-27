@@ -1100,7 +1100,7 @@ under the License.
     
     <form name="AddCommReturn" type="single" target="createCommunicationEventReturn" header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
-        <field name="returnId"><text/></field>
+        <field name="returnId"><lookup target-form-name="LookupReturnHeader"/></field>
         <field name="submitButton" title="${uiLabelMap.PartyReturnAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
