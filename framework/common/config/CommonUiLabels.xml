@@ -4882,6 +4882,11 @@
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须具有下列权限之一：${primaryPermission}_${mainAction}、${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="zh-TW">安全錯誤:要執行${resourceDescription},你必須具有下列權限之一:${primaryPermission}_${mainAction}、${primaryPermission}_ADMIN${altPermissionList}</value>
     </property>
+    <property key="CommonCallingMethodPermissionError">
+        <value xml:lang="de">Sicherheitsfehler: Um ${callingMethodName} ausführen zu können, müssen Sie folgende Berechtigung besitzen: ${permission}</value>
+        <value xml:lang="en">Security Error: to run ${callingMethodName} you must have the ${permission} permission.</value>
+        <value xml:lang="fr">Erreur sécurité : l'appel à ${callingMethodName} ne peut se faire car nous n'avez pas la permission ${permission}.</value>
+    </property>
     <property key="CommonGenericServiceErrorMessage">
         <value xml:lang="ar">خطأ في تشغيل الخدمة</value>
         <value xml:lang="cs">Chyba při spouštění služby</value>
