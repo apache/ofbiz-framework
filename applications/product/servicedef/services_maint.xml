@@ -25,22 +25,22 @@ under the License.
     <version>1.0</version>
 
     <!-- Product Category Maintenance Services -->
-    <service name="copyCategoryProductMembers" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
+    <service name="copyCategoryProductMembers" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="copyCategoryProductMembers" auth="true">
         <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="productCategoryIdTo" type="String" mode="IN" optional="false"/>
         <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="recurse" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="expireAllCategoryProductMembers" engine="simple"
-            location="component://product/minilang/product/category/CategoryServices.xml" invoke="expireAllCategoryProductMembers" auth="true">
+    <service name="expireAllCategoryProductMembers" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="expireAllCategoryProductMembers" auth="true">
         <description>Expire All Product Members in a Category optionally using the thruDate specified as the expire date (now timestamp used by default)</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    <service name="removeExpiredCategoryProductMembers" engine="simple"
-            location="component://product/minilang/product/category/CategoryServices.xml" invoke="removeExpiredCategoryProductMembers" auth="true">
+    <service name="removeExpiredCategoryProductMembers" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removeExpiredCategoryProductMembers" auth="true">
         <description>Remove All Expired Product Members in a Category, optionally uses the valid date instead of now to determine if the member has expired</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
