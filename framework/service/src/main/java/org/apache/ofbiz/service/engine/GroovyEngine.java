@@ -96,6 +96,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
 
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         gContext.put("dctx", dctx);
+        gContext.put("security", dctx.getSecurity());
         gContext.put("dispatcher", dctx.getDispatcher());
         gContext.put("delegator", dispatcher.getDelegator());
         try {
