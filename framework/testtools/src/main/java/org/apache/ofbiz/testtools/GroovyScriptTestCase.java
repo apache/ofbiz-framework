@@ -20,12 +20,14 @@ package org.apache.ofbiz.testtools;
 
 import groovy.util.GroovyTestCase;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 public class GroovyScriptTestCase extends GroovyTestCase {
 
     public Delegator delegator;
     public LocalDispatcher dispatcher;
+    public Security security;
 
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
@@ -39,5 +41,11 @@ public class GroovyScriptTestCase extends GroovyTestCase {
     }
     public void setDispatcher(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
+    }
+    public void setSecurity(Security security) {
+        this.security = security;
+    }
+    public Security getSecurity() {
+        return security;
     }
 }

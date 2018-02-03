@@ -34,4 +34,8 @@ class BaseTest extends GroovyScriptTestCase {
     void testDispatcher() {
         assert dispatcher
     }
+
+    void testSecurity() {
+        assert security
+    }
 }

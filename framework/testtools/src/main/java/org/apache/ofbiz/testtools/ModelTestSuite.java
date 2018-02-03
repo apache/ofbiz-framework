@@ -202,6 +202,7 @@ public class ModelTestSuite {
         } else if (test instanceof GroovyScriptTestCase) {
             ((GroovyScriptTestCase)test).setDelegator(delegator);
             ((GroovyScriptTestCase)test).setDispatcher(dispatcher);
+            ((GroovyScriptTestCase)test).setSecurity(dispatcher.getSecurity());
         }
     }
 }
