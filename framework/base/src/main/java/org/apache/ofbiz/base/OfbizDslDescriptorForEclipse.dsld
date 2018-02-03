@@ -22,6 +22,7 @@ contribute(currentType(subType('groovy.lang.Script'))) {
     property name: 'context', type: 'java.util.Map'
     property name: 'delegator', type: 'org.apache.ofbiz.entity.Delegator'
     property name: 'dispatcher', type: 'org.apache.ofbiz.service.LocalDispatcher'
+    property name: 'security', type: 'org.apache.ofbiz.security.Security'
 
     method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
     method name: 'makeValue', type: 'java.util.Map', params: [entityName: 'String']
