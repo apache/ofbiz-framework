@@ -18,11 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-component name="securityext"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <classpath type="dir" location="config"/>
-    
-    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-</ofbiz-component>
+<entity-engine-xml>
+    <!-- Common Ext security -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="COMMONEXT_PUBLMSG"/>
+
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SETUP_ADMIN"/>
+
+</entity-engine-xml>
