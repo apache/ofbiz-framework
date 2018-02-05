@@ -28,21 +28,8 @@ under the License.
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/AccountingSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingPortletData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/PaymentGatewayConfData.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/AccountingScheduledServiceData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/GeneralChartOfAccountsDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrganizationDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/GlSetupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/FinAccountDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/TaxAuthorityDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/AcctgTransactionDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/InvoicePaymentsDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/AccountingUserDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/AssetMaintDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/BudgetDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/StandardCostingDemoData.xml"/>
 
     <!-- General Payment Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>

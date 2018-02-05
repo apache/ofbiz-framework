@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Content Manager security -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="CONTENTMGR_ADMIN"/>
+
+    <!-- Content ROLE security -->
+    <SecurityGroup groupId="CONTENT_USER" groupName="Content User" description="Content user group; all limited content permissions."/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="CONTENT_USER" permissionId="OFBTOOLS_VIEW"/>
+
+    <!-- User Demo Data -->
+    <Party partyId="BLOG_GUEST" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="BLOG_GUEST" lastName="Guest" firstName="Blog"/>
+    <UserLogin userLoginId="blog_guest" partyId="BLOG_GUEST"/>
+    <PartyRole partyId="BLOG_GUEST" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_GUEST" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="BLOG_ADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="BLOG_ADMIN" lastName="Admin" firstName="Blog"/>
+    <UserLogin userLoginId="blog_admin" partyId="BLOG_ADMIN"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_PUBLISHER"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_ADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="BLOG_AUTHOR" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="BLOG_AUTHOR" lastName="Author" firstName="Blog"/>
+    <UserLogin userLoginId="blog_author" partyId="BLOG_AUTHOR"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="CONTENT_PUBLISHER"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_AUTHOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="BLOG_EDITOR" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="BLOG_EDITOR" lastName="Editor" firstName="Blog"/>
+    <UserLogin userLoginId="blog_editor" partyId="BLOG_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_PUBLISHER"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_EDITOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <ContactMech contactMechId="ADMIN_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="AUTHOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="EDITOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="GUEST_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <!-- Blog Publish Point Demo Data -->
+    <Content contentId="BLOGROOTBIGAL"  contentTypeId="WEB_SITE_PUB_PT"
+             ownerContentId="BLOGROOT"
+             contentName="Big Al"
+             description="Big Al"
+             childBranchCount="1"
+             childLeafCount="1"
+             createdByUserLogin="admin"
+             lastModifiedByUserLogin="admin"
+             createdDate="2007-01-22 17:32:31.285"
+             lastModifiedDate="2007-01-22 17:32:31.291"/>
+
+    <ContentAssoc
+            contentId="BLOGROOT"
+            contentIdTo="BLOGROOTBIGAL"
+            contentAssocTypeId="SUB_CONTENT"
+            fromDate="2004-11-22 17:32:33.987"
+            createdByUserLogin="admin"
+            lastModifiedByUserLogin="admin"
+            createdDate="2007-01-22 17:32:33.988"
+            lastModifiedDate="2007-01-22 17:32:33.988"/>
+
+    <Content contentId="BLOGROOTMADMAX"  contentTypeId="WEB_SITE_PUB_PT"
+             ownerContentId="BLOGROOT"
+             contentName="Mad Max"
+             description="Mad Max"
+             childBranchCount="1"
+             childLeafCount="1"
+             createdByUserLogin="admin"
+             lastModifiedByUserLogin="admin"
+             createdDate="2007-01-22 17:32:31.285"
+             lastModifiedDate="2007-01-22 17:32:31.291"/>
+
+    <ContentAssoc
+            contentId="BLOGROOT"
+            contentIdTo="BLOGROOTMADMAX"
+            contentAssocTypeId="SUB_CONTENT"
+            fromDate="2004-11-22 17:32:33.987"
+            createdByUserLogin="admin"
+            lastModifiedByUserLogin="admin"
+            createdDate="2007-01-22 17:32:33.988"
+            lastModifiedDate="2007-01-22 17:32:33.988"/>
+
+    <!-- Blog Users Demo Data -->
+    <Party partyId="BLOGUSER_ADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_ADMIN" lastName="Blog" firstName="Admin"/>
+    <UserLogin userLoginId="blog_admin" partyId="BLOGUSER_ADMIN" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_ADMIN" roleTypeId="CONTENT_ADMIN"/>
+    <PartyStatus partyId="BLOGUSER_ADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="BLOGUSER_ADMIN" roleTypeId="CONTENT_ADMIN" contentId="BLOGROOT" fromDate="2004-03-27 09:37:40.989"/>
+    <UserLoginSecurityGroup userLoginId="blog_admin" groupId="FULLADMIN" fromDate="2004-09-15 00:00:00.000"/>
+
+    <Party partyId="BLOGUSER_EDITOR" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_EDITOR" lastName="Blog" firstName="Editor"/>
+    <UserLogin userLoginId="blog_editor" partyId="BLOGUSER_EDITOR" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_EDITOR" roleTypeId="CONTENT_ADMIN"/>
+    <PartyStatus partyId="BLOGUSER_EDITOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="BLOGUSER_EDITOR" roleTypeId="CONTENT_ADMIN" contentId="BLOGROOT" fromDate="2004-03-27 09:37:40.989"/>
+    <UserLoginSecurityGroup userLoginId="blog_editor" groupId="FULLADMIN"  fromDate="2004-09-15 00:00:00.000"/>
+
+    <Party partyId="BLOGUSER_USER" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_USER" lastName="Blog" firstName="User"/>
+    <UserLogin userLoginId="blog_user" partyId="BLOGUSER_USER" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="BLOGUSER_USER" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="BLOGUSER_GUEST" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-10-20 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-10-20 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_GUEST" lastName="Blog" firstName="Guest"/>
+    <PartyStatus partyId="BLOGUSER_GUEST" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="blog_guest" partyId="BLOGUSER_GUEST" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+
+    <Party partyId="AUTHOR_BIGAL" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="AUTHOR_BIGAL" lastName="Al" firstName="Big"/>
+    <UserLogin userLoginId="bigal" partyId="AUTHOR_BIGAL" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="AUTHOR_BIGAL" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="AUTHOR_BIGAL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="AUTHOR_BIGAL" roleTypeId="CONTENT_AUTHOR" contentId="BLOGROOTBIGAL" fromDate="2004-03-27 09:37:40.989"/>
+    <ContentPurpose contentId="BLOGROOTBIGAL" contentPurposeTypeId="ARTICLE"/>
+    <UserLoginSecurityGroup userLoginId="bigal" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
+    <!-- Updating BLOGROOTBIGAL with bigal as creator so that he will be found as "owner" for subrecords.
+         This is used in a screen permission test.
+         -->
+    <Party partyId="BLOG_USERS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_EDITORS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_ADMINS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_AUTHORS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_PUBLISHERS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+
+    <DataSource dataSourceId="BLOG_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="Blog Site"/>
+
+    <PartyRole partyId="BLOG_USERS" roleTypeId="CONTENT_USER"/>
+    <PartyRole partyId="BLOG_EDITORS" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="BLOG_ADMINS" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="CONTENT_ADMIN"/>
+
+    <PartyStatus partyId="BLOG_USERS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_EDITORS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_ADMINS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_AUTHORS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_PUBLISHERS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <UserLogin userLoginId="blog_guest" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_admin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_author" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_editor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+
+    <Content contentId="BLOGROOTBIGAL"
+             createdByUserLogin="bigal"
+             lastModifiedByUserLogin="bigal"
+             createdDate="2004-10-16 17:32:31.285"
+             lastModifiedDate="2004-10-16 17:32:31.291"/>
+
+    <Party partyId="AUTHOR_MADMAX" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="AUTHOR_MADMAX" lastName="Max" firstName="Mad"/>
+    <UserLogin userLoginId="madmax" partyId="AUTHOR_MADMAX" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="AUTHOR_MADMAX" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="AUTHOR_MADMAX" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="AUTHOR_MADMAX" roleTypeId="CONTENT_AUTHOR" contentId="BLOGROOTMADMAX" fromDate="2004-03-27 09:37:40.989"/>
+    <ContentPurpose contentId="BLOGROOTMADMAX" contentPurposeTypeId="ARTICLE"/>
+    <UserLoginSecurityGroup userLoginId="madmax" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
+    <!-- Updating biBLOGROOTMADMAXgal with madmax as creator so that he will be found as "owner" for subrecords.
+         This is used in a screen permission test.
+         -->
+    <Content contentId="BLOGROOTMADMAX"
+             createdByUserLogin="madmax"
+             lastModifiedByUserLogin="madmax"
+             createdDate="2004-10-16 17:32:31.285"
+             lastModifiedDate="2004-10-16 17:32:31.291"/>
+
+    <!-- Blog Entry Demo Data -->
+    <DataResource dataResourceId="BLG10000" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" isPublic="Y" createdByUserLogin="admin" createdDate="2004-01-16 01:24:06.522" lastModifiedByUserLogin="admin" lastModifiedDate="2010-09-26 13:13:32.482" mimeTypeId="application/octet-stream" statusId="CTNT_PUBLISHED"/>
+    <DataResource dataResourceId="BLG10001" dataResourceTypeId="OFBIZ_FILE_BIN" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="image/jpeg" objectInfo="plugins/ecommerce/data/cutekid.jpg" isPublic="Y" createdDate="2007-01-23 16:46:22.843" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.843" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:46:22.984" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.671" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10003" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:47:49.343" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.343" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10004" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:50:38.171" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.171" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10005" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:52:11.421" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.421" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10006" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="text/html" createdDate="2007-01-23 16:58:31.093" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.093" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10007" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:58:31.734" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.734" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10008" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:00:46.234" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.234" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10009" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="text/html" createdDate="2007-01-23 17:07:12.25" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.25" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10010" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:07:12.625" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.625" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10000" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLOG_TPL_TOPLEFT" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" childBranchCount="1" createdDate="2007-01-23 16:46:21.453" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:37.453" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10001" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10000" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:21.453" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.562" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10002" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10001" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:22.906" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.906" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10003" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10002" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:23.031" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:23.031" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10004" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10003" statusId="CTNT_PUBLISHED" contentName="RE:Cute Kid " description="You got that right." childBranchCount="1" createdDate="2007-01-23 16:47:49.375" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.375" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10005" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10004" statusId="CTNT_PUBLISHED" contentName="Chopped liver?" description="What am I - chopped liver?" childBranchCount="1" createdDate="2007-01-23 16:50:38.296" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.296" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10006" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10005" statusId="CTNT_PUBLISHED" contentName="Chopped liver?" description="Look like your father" childBranchCount="0" createdDate="2007-01-23 16:52:11.437" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.437" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10007" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10006" statusId="CTNT_PUBLISHED" contentName="2008 Elections " description="2008 Elections more like a reality show." childBranchCount="1" createdDate="2007-01-23 16:58:31.265" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.265" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10008" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10007" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:58:31.75" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.75" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10009" contentTypeId="DOCUMENT" ownerContentId="BLG10007" dataResourceId="BLG10008" statusId="CTNT_PUBLISHED" contentName="RE:2008 Elections " description="I agree - lets go back to drafting candidates." childBranchCount="0" createdDate="2007-01-23 17:00:46.421" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.421" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10010" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10009" statusId="CTNT_PUBLISHED" contentName="Next Linus" description="David Jones - next Linux Torvalds" createdDate="2007-01-23 17:07:12.296" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.296" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10011" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10010" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:07:12.687" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.687" lastModifiedByUserLogin="madmax"/>
+    <ElectronicText dataResourceId="BLG10000">
+
+        <textData><![CDATA[Hey, if I write this stuff for free, I sure as heck am going to put my kid's picture up there if I want to.
+
+<p/>
+
+This is an example of a complex blog entry that uses the screen widgets to combine text and images.
+
+
+
+If you want to see what the editing environment look like, log in as "bigal/ofbiz".
+
+]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10002" textData="Cutest kid in the whole world.  This section is the &quot;SUMMARY&quot; section. It is stored separately from the main content."/>
+
+    <ElectronicText dataResourceId="BLG10003">
+
+        <textData><![CDATA[This certainly is the cutest kid I have ever seen.
+
+
+
+- Maxwell's (Cutest Kid in the World) mother]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10004">
+
+        <textData><![CDATA[So what am I - chopped liver? How come I can't upload my picture?
+
+
+
+- Joseph (Max's baby brother - age 7 months)]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10005">
+
+        <textData><![CDATA[Sorry dear, but you look too much like your father. Hopefully, you get something from him that may lessen the handicap with which you have been saddled. :0(
+
+
+
+- Mom]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10006" textData="Our leaders have long since stopped being leaders and become moral barometers instead, and believe me there is a storm a`comin. I can understand rich Americans voting for rich politicians because they share a common interest. What I can&apos;t understand is middle class Americans voting for rich politicians in the hopes that they can hold on to the little bit more money they have than the Democrats. What is even sadder is the less well-off who vote for some good-looking joe who has no more in common with them than the man-in-the-moon because it makes them feel like they are like him - reality TV."/>
+
+    <ElectronicText dataResourceId="BLG10007" textData="The 2008 Elections more like a reality show than anything meaningful."/>
+
+    <ElectronicText dataResourceId="BLG10008" textData="I think one requirement for attaining the office of President should be that you don&apos;t want it. That you are drafted by the will of the people and dragged kicking and screaming to the position should be the process."/>
+
+    <ElectronicText dataResourceId="BLG10009">
+
+        <textData><![CDATA[This is not any kind of hero worship; it is pragmatic marketing. You need a profile to attach to dynamic movements, if for no reason other than to pick fights with your competion - "our icon is more enigmatic than your icon". You need someone for publications to write articles about and "the next Linus Torvalds" is just the sort of catch phrase they would pick up on.
+
+<p/>
+
+David won't like it. He will probably delete this seed data from the DB, but it is not really about him. He gave up his right to privacy when he chose to pursue the glamorous life of an open source software developer. We could choose someone else, but no one else knows enough about OFBiz to do the interviews.]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10010" textData="Considering how much more valuable ERP software is than operating system, lets crown David Jones OSS king of the hill and milk it for all it is worth."/>
+
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.218" mapKey="MAIN" createdDate="2007-01-23 16:46:38.593" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.593" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.796" mapKey="MAIN" createdDate="2007-01-23 16:46:22.796" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.796" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10002" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.953" mapKey="IMAGE" createdDate="2007-01-23 16:46:22.953" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.953" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10003" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:23.109" mapKey="SUMMARY" createdDate="2007-01-23 16:46:23.109" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:23.109" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10004" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:47:49.406" createdDate="2007-01-23 16:47:49.406" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.406" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10004" contentIdTo="BLG10005" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:50:38.515" createdDate="2007-01-23 16:50:38.515" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.515" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10005" contentIdTo="BLG10006" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:52:11.5" createdDate="2007-01-23 16:52:11.5" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.5" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10007" contentIdTo="BLG10008" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:58:31.812" mapKey="SUMMARY" createdDate="2007-01-23 16:58:31.812" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.812" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLG10007" contentIdTo="BLG10009" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 17:00:46.515" createdDate="2007-01-23 17:00:46.515" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.515" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10010" contentIdTo="BLG10011" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 17:07:12.734" mapKey="SUMMARY" createdDate="2007-01-23 17:07:12.734" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.734" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLOGROOTBIGAL" contentIdTo="BLG10000" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 16:46:22.218" createdDate="2007-01-23 16:46:22.218" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.359" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLOGROOTMADMAX" contentIdTo="BLG10007" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 16:58:31.656" createdDate="2007-01-23 16:58:31.656" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.656" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLOGROOTMADMAX" contentIdTo="BLG10010" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 17:07:12.578" createdDate="2007-01-23 17:07:12.578" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.578" lastModifiedByUserLogin="madmax"/>
+
+
+    <ContentPurpose contentId="BLG10000" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10001" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10002" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10003" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10004" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10005" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10006" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10007" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10008" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10009" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10010" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10011" contentPurposeTypeId="ARTICLE"/>
+
+    <!-- WebSite Publish Point Data -->
+    <Content contentId="CONTENT_SITE" contentTypeId="WEB_SITE_PUB_PT" contentName="WebStore" description="Ecommerce Webstore"/>
+    <Content contentId="FORUM_1" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 1" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FORUM_1" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin"/>
+
+    <Content contentId="FORMUM_2" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 2" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FORMUM_2" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin"/>
+
+    <ContentPurpose contentId="CONTENT_SITE" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="CONTENT_SITE" contentPurposeTypeId="RESPONSE"/>
+
+    <!-- CompDoc Demo Data -->
+    <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions." groupName="CompDoc Admin"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
+
+    <RoleType roleTypeId="APPROVER" description="Approver"/>
+    <RoleType roleTypeId="REVIEWER" description="Reviewer"/>
+    <Party partyId="approver" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person firstName="Robert" lastName="Smith" partyId="approver" personalTitle="Captain"/>
+    <PartyRole partyId="approver" roleTypeId="APPROVER"/>
+    <PartyRole partyId="approver" roleTypeId="REVIEWER"/>
+    <PartyRole partyId="admin" roleTypeId="APPROVER"/>
+    <PartyStatus partyId="approver" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="approver" partyId="approver"/>
+    <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>
+
+
+    <DataResource dataResourceId="DR1103b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1105b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
+
+    <DataResource dataResourceId="DR1103a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1105a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
+
+    <DataResource dataResourceId="DR1101"  mimeTypeId="application/pdf" dataResourceName="Letter of inquiry"/>
+    <DataResource dataResourceId="DR1102"  mimeTypeId="application/pdf" dataResourceName="POA Contract"/>
+    <DataResource dataResourceId="DR1103"  mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1104"  mimeTypeId="application/pdf" dataResourceName="1st Quarter Review"/>
+    <DataResource dataResourceId="DR1105"  mimeTypeId="application/pdf" dataResourceName="2nd Quarter Review"/>
+    <DataResource dataResourceId="DR1106"  mimeTypeId="application/pdf" dataResourceName="3rd Quarter Review"/>
+    <DataResource dataResourceId="DR1107"  mimeTypeId="application/pdf" dataResourceName="4th Quarter Review"/>
+    <DataResource dataResourceId="DR1108"  mimeTypeId="application/pdf" dataResourceName="Phase I Budget"/>
+    <DataResource dataResourceId="DR1109"  mimeTypeId="application/pdf" dataResourceName="Phase II Budget"/>
+    <DataResource dataResourceId="DR1110"  mimeTypeId="application/pdf" dataResourceName="IJK 4988"/>
+    <DataResource dataResourceId="DR1111"  mimeTypeId="application/pdf" dataResourceName="ABC 123"/>
+    <DataResource dataResourceId="DR1112"  mimeTypeId="application/pdf" dataResourceName="Yearly Review"/>
+    <DataResource dataResourceId="DR1113"  mimeTypeId="application/pdf" dataResourceName="Miscellaneous Notes"/>
+    <DataResource dataResourceId="DR1114"  mimeTypeId="application/pdf" dataResourceName="Disclosure Agreement"/>
+    <DataResource dataResourceId="DR1115"  mimeTypeId="application/pdf" dataResourceName="Performance Review"/>
+    <DataResource dataResourceId="DR1116"  mimeTypeId="application/pdf" dataResourceName="Other Upload"/>
+
+    <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
+    <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"  ownerContentId=""/>
+
+
+    <Content contentId="CDT1101" dataResourceId="DR1101" contentTypeId="TEMPLATE" contentName="Letter of inquiry"/>
+    <Content contentId="CDT1102" dataResourceId="DR1102" contentTypeId="TEMPLATE" contentName="POA Contract"/>
+    <Content contentId="CDT1103" dataResourceId="DR1103" contentTypeId="TEMPLATE" contentName="Personal Profile"/>
+    <Content contentId="CDT1104" dataResourceId="DR1104" contentTypeId="TEMPLATE" contentName="1st Quarter Review"/>
+    <Content contentId="CDT1105" dataResourceId="DR1105" contentTypeId="TEMPLATE" contentName="2nd Quarter Review"/>
+    <Content contentId="CDT1106" dataResourceId="DR1106" contentTypeId="TEMPLATE" contentName="3rd Quarter Review"/>
+    <Content contentId="CDT1107" dataResourceId="DR1107" contentTypeId="TEMPLATE" contentName="4th Quarter Review"/>
+    <Content contentId="CDT1108" dataResourceId="DR1108" contentTypeId="TEMPLATE" contentName="Phase I Budget"/>
+    <Content contentId="CDT1109" dataResourceId="DR1109" contentTypeId="TEMPLATE" contentName="Phase II Budget"/>
+    <Content contentId="CDT1110" dataResourceId="DR1110" contentTypeId="TEMPLATE" contentName="IJK 4988"/>
+    <Content contentId="CDT1111" dataResourceId="DR1111" contentTypeId="TEMPLATE" contentName="ABC 123"/>
+    <Content contentId="CDT1112" dataResourceId="DR1112" contentTypeId="TEMPLATE" contentName="Yearly Review"/>
+    <Content contentId="CDT1113" dataResourceId="DR1113" contentTypeId="TEMPLATE" contentName="Miscellaneous Notes"/>
+    <Content contentId="CDT1114" dataResourceId="DR1114" contentTypeId="TEMPLATE" contentName="Disclosure Agreement"/>
+    <Content contentId="CDT1115" dataResourceId="DR1115" contentTypeId="TEMPLATE" contentName="Performance Review"/>
+    <Content contentId="CDT1116" dataResourceId="DR1116" contentTypeId="TEMPLATE" contentName="Other Upload"/>
+
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1101" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0010"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1102" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0030"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1104" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0040"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1106" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0060"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1107" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0070"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1108" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0080"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1109" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0090"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1110" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0100"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1111" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0110"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1112" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0120"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1113" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0130"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1114" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0140"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1115" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0150"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1116" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0160"/>
+
+    <!-- sample instances CDT CDT1201 -->
+    <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"  ownerContentId=""/>
+    <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"  ownerContentId=""/>
+    <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"  ownerContentId=""/>
+
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDI1201" contentAssocTypeId="INSTANCE" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
+    <ContentAssoc contentIdTo="CDI1201" contentId="CDI1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="00130"/>
+    <ContentAssoc contentIdTo="CDI1201" contentId="CDI1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
+
+    <!-- sample revision entries for CDT CDT1201 -->
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000002"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1101"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1102"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1103"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1104"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1105"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1106"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1107"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1108"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1109"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1110"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1111"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1112"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1113"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1114"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1115"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1116"/>
+
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000004"/>
+
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000005"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000005" itemContentId="CDI1103" newDataResourceId="DR1103a"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000006"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000006" itemContentId="CDI1105" newDataResourceId="DR1105a"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000009"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000009" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000010"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000010" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000013"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000013" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000014" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+
+    <!-- sample approval entries for CDT CD0001 -->
+    <ContentApproval contentApprovalId="CA0101" contentId="CDT1201" contentRevisionSeqId="000002" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0102" contentId="CDT1201" contentRevisionSeqId="000002" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0103" contentId="CDT1201" contentRevisionSeqId="000002" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0104" contentId="CDT1201" contentRevisionSeqId="000002" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0111" contentId="CDT1201" contentRevisionSeqId="000004" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0112" contentId="CDT1201" contentRevisionSeqId="000004" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0113" contentId="CDT1201" contentRevisionSeqId="000004" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0114" contentId="CDT1201" contentRevisionSeqId="000004" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0121" contentId="CDT1201" contentRevisionSeqId="000013" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0122" contentId="CDT1201" contentRevisionSeqId="000013" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0123" contentId="CDT1201" contentRevisionSeqId="000013" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0124" contentId="CDT1201" contentRevisionSeqId="000013" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0221" contentId="CDI1201" contentRevisionSeqId="000010" partyId="admin" sequenceNum="10" approvalStatusId="CNTAP_APPROVED"/>
+    <ContentApproval contentApprovalId="CA0122" contentId="CDI1201" contentRevisionSeqId="000010" partyId="approver" sequenceNum="20" approvalStatusId="CNTAP_APPROVED"/>
+    <ContentApproval contentApprovalId="CA0123" contentId="CDI1201" contentRevisionSeqId="000010" roleTypeId="APPROVER" sequenceNum="30" approvalStatusId="CNTAP_SOFT_REJ"/>
+    <ContentApproval contentApprovalId="CA0124" contentId="CDI1201" contentRevisionSeqId="000010" roleTypeId="REVIEWER" sequenceNum="40" approvalStatusId="CNTAP_READY"/>
+
+    <!-- Forum Demo Data -->
+    <!-- ForumGroups -->
+    <Content contentId="WebStoreFORUM" contentTypeId="FORUM_ROOT" contentName="WebStore Forum Root" description="Ecommerce Forums" childBranchCount="3"/>
+    <ContentPurpose contentId="WebStoreFORUM" contentPurposeTypeId="ARTICLE"/><!-- do we need this? -->
+    <ContentPurpose contentId="WebStoreFORUM" contentPurposeTypeId="RESPONSE"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_PUBLISHER" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_EDITOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_AUTHOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_ADMIN" fromDate="2004-04-01 12:00:00.000"/>
+
+    <!-- forums -->
+    <Content contentId="ASK" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" contentName="Ask the Experts" description="Ask the Experts" childBranchCount="0"/>
+    <ContentAssoc contentIdTo="ASK" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="ASK" attrName="publishOperation" attrValue="HAS_USER_ROLE"/><!-- do we need this? -->
+
+    <Content contentId="GIZMOS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_PUBLISHED" contentName="Gizmos" description="Gizmos" childBranchCount="3" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="GIZMOS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="GIZMOS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
+
+    <Content contentId="WIDGETS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_IN_PROGRESS" contentName="Widgets" description="Widgets" childBranchCount="0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="WIDGETS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="WIDGETS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
+
+    <!-- Threads -->
+    <Content contentId="thread10021" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="TEMPLATE_TEXT_ONLY" statusId="CTNT_PUBLISHED" contentName="This is a Thread" description="Gizmo useless?" childBranchCount="2" createdDate="2006-05-02 13:36:31.937" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="thread10021" contentId="GIZMOS" contentAssocTypeId="PUBLISH_LINK" fromDate="2006-05-02 13:36:32.036" createdDate="2006-05-02 13:36:32.055" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.055" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="thread10021" contentPurposeTypeId="ARTICLE"/>
+    <!-- Messages -->
+    <DataResource dataResourceId="msg10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 13:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002" statusId="CTNT_PUBLISHED" contentName="This is a message" description="Gizmo useless?" childBranchCount="1" createdDate="2006-05-02 13:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002" contentPurposeTypeId="MAIN_ARTICLE"/>
+    <ContentAssoc contentIdTo="msg10002" contentId="thread10021" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 13:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 13:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="msg10002">
+        <textData><![CDATA[
+        It is well known that a Gizmo is of no use to anybody. However everybody wants it, why is that?
+        Does anyone have any sensible thoughts on this? As usual I do not know.
+            ]]></textData>
+    </ElectronicText>
+    <!-- Responses -->
+    <DataResource dataResourceId="msg10002a" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 14:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002a" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002a" statusId="CTNT_PUBLISHED" contentName="This is a reponse" description="re1:Gizmo useless?" childBranchCount="0" createdDate="2006-05-02 14:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="msg10002a" contentId="msg10002" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 14:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 14:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002a" contentPurposeTypeId="RESPONSE"/>
+    <ElectronicText dataResourceId="msg10002a">
+        <textData><![CDATA[
+        A very good question and i am really surprised that you ask the question. Do you live? It is well known that
+        people love gizmos and want to have every day a new one! They show off with them to prove they are better in life
+        than other people who have less beautiful gizmos.
+            ]]></textData>
+    </ElectronicText>
+
+    <DataResource dataResourceId="msg10002b" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 15:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002b" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002b" statusId="CTNT_PUBLISHED" contentName="This is a reponse" description="re2:Gizmo useless?" childBranchCount="0" createdDate="2006-05-02 15:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="msg10002b" contentId="thread10021" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 15:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 15:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002b" contentPurposeTypeId="RESPONSE"/>
+    <ElectronicText dataResourceId="msg10002b">
+        <textData><![CDATA[
+        Why so many people do not know that people love gizmo's? Probably because they do not have one and do not know how
+        much pleasure it gives?
+            ]]></textData>
+    </ElectronicText>
+
+
+
+</entity-engine-xml>

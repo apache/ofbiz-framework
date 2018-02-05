@@ -35,10 +35,6 @@ under the License.
     
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/CatalogSystemPropertyData.xml"/>
-    
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductSecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/FacilitySecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_facility.xml"/>

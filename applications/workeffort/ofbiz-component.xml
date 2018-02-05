@@ -28,10 +28,7 @@ under the License.
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WorkEffortTypeData.xml"/>
-    
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/WorkEffortSecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/WorkEffortDemoData.xml"/>
-    
+
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_timesheet.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_workeffort.xml"/>

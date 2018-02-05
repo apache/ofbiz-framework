@@ -34,16 +34,6 @@ under the License.
     
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderSystemPropertyData.xml"/>
-    
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderSecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoUser.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderQuoteDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalShipping.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoShipping.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderPeopleData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderTestData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cart.xml"/>
