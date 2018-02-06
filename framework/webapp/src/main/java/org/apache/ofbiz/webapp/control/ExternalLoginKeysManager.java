@@ -181,6 +181,7 @@ public class ExternalLoginKeysManager {
 
         String externalServerUserLoginId = request.getParameter(EXTERNAL_SERVER_LOGIN_KEY);
         if (externalServerUserLoginId == null) return "success"; // Nothing to do here
+        if (!"Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator))) return "success"; // The target server does not allow external login by default
 
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -313,7 +314,7 @@ public class ExternalLoginKeysManager {
     public static String getExternalServerName(HttpServletRequest request) {
         String reportingServerName = "";
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (delegator != null && "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "Y", delegator))) {
+        if (delegator != null && "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator))) {
             reportingServerName = EntityUtilProperties.getPropertyValue("security", "external-server-name", "localhost:8443", delegator);
             String reportingServerQuery = EntityUtilProperties.getPropertyValue("security", "external-server-query", "/catalog/control/", delegator);
             reportingServerName = "https://" + reportingServerName + reportingServerQuery;
