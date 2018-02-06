@@ -622,12 +622,13 @@ public class LoginWorker {
         RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
         rh.runBeforeLogoutEvents(request, response);
 
-
         // invalidate the security group list cache
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         doBasicLogout(userLogin, request, response);
-
+        
+        //autoLogoutFromAllBackendSessions(userLogin, request, response);
+        // TODO check why, seems no sense
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -718,6 +719,14 @@ public class LoginWorker {
         return UtilHttp.getApplicationName(request) + ".autoUserLoginId";
     }
 
+    protected static String getAutoLoginCookieName(String webappName) {
+        return webappName + ".autoUserLoginId";
+    }
+    
+    /**
+    * @deprecated Moved to {@link org.apache.ofbiz.webapp.control.LoginWorker#getAutoUserLoginId(HttpServletRequest request, String webappName) String}
+    */
+   @Deprecated
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -734,12 +743,31 @@ public class LoginWorker {
         }
         return autoUserLoginId;
     }
+    
+    public static String getAutoUserLoginId(HttpServletRequest request, String webappName) {
+        String autoUserLoginId = null;
+        Cookie[] cookies = request.getCookies();
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+        }
+        if (cookies != null) {
+            for (Cookie cookie: cookies) {
+                String cookieName = (webappName != null) ? getAutoLoginCookieName(webappName) : getAutoLoginCookieName(request);
+                if (cookie.getName().equals(cookieName)) {
+                    autoUserLoginId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        return autoUserLoginId;
+    }
+
 
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
 
-        return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
+        return autoLoginCheck(delegator, session, getAutoUserLoginId(request, null));
     }
 
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
@@ -791,6 +819,34 @@ public class LoginWorker {
             request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE);
             return logout(request, response);
         }
+        return "success";
+    }
+
+    public static String autoLogoutFromAllBackendSessions(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+
+        // remove all the autoLoginCookies but if in ecommerce/ecomseo and webpos (it's done manually there, not sure for webpos TODO: check)
+        Cookie[] cookies = request.getCookies();
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+        }
+        if (cookies != null && userLogin != null) {
+            for (Cookie autoLoginCookie: cookies) {
+                if (autoLoginCookie.getName().contains("autoUserLoginId")
+                        && !(autoLoginCookie.getName().contains("ecommerce") 
+                        || autoLoginCookie.getName().contains("ecomseo") 
+                        || autoLoginCookie.getName().contains("webpos")))
+                autoLoginCookie.setMaxAge(0);
+                autoLoginCookie.setPath("/");
+                response.addCookie(autoLoginCookie);
+            }
+        }
+        
+        // remove the session attributes
+        session.removeAttribute("autoUserLogin");
+        session.removeAttribute("autoName");
+
+        request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE); // TODO check it's useful
         return "success";
     }
 
