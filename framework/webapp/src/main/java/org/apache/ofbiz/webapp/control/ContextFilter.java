@@ -202,7 +202,7 @@ public class ContextFilter implements Filter {
                     String webAppName = UtilHttp.getApplicationName(httpRequest);
                     String dnsName = ExternalLoginKeysManager.getExternalServerName(httpRequest);
                     long timeToLive = ExternalLoginKeysManager.getJwtTokenTimeToLive(httpRequest);
-                    // We would need a Bearer token (in Authorisation request header) if we were using Oauth2, here we don't, so no Bearer 
+                    // We would need a Bearer token (in Authorization request header) if we were using Oauth2, here we don't, so no Bearer 
                     value = ExternalLoginKeysManager.createJwt(externalServerUserLoginId, dnsName, webAppName , timeToLive);
                 }
                 if (value != null) return value;

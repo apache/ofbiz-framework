@@ -37,6 +37,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.WebAppUtil;
@@ -45,7 +46,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * This class manages the authentication tokens that provide single sign-on authentication to the OFBiz applications.
@@ -199,9 +199,9 @@ public class ExternalLoginKeysManager {
                     LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
                 }
 
-                String authorisationHeader = request.getHeader("Authorisation");
-                if (authorisationHeader != null) {
-                    boolean jwtOK = checkJwt(authorisationHeader, userLogin.getString("userLoginId"), getExternalServerName(request), UtilHttp.getApplicationName(request));
+                String authorizationHeader = request.getHeader("Authorization");
+                if (authorizationHeader != null) {
+                    boolean jwtOK = checkJwt(authorizationHeader, userLogin.getString("userLoginId"), getExternalServerName(request), UtilHttp.getApplicationName(request));
                     if (!jwtOK) {
                         Debug.logWarning("*** There was a problem with the JWT token, loging out the current user: " + externalServerUserLoginId, module);
                         LoginWorker.logout(request, response);
