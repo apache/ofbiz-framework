@@ -191,19 +191,23 @@ public class ContextFilter implements Filter {
         HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(httpRequest) {
             @Override
             public String getHeader(String name) {
-                String externalServerUserLoginId = request.getParameter(ExternalLoginKeysManager.EXTERNAL_SERVER_LOGIN_KEY);
+                String sourceWebappName = request.getParameter(ExternalLoginKeysManager.SOURCE_SERVER_WEBAPP_NAME);
                 String value = null;
-                if (externalServerUserLoginId != null) {
-                    // ExternalLoginKeysManager .createJwt() arguments in order:
-                    // id an Id, I suggest userLoginId
-                    // issuer is who/what issued the token. I suggest the server DNS
-                    // subject is the subject of the token. I suggest the destination webapp
-                    // timeToLive is the token maximum duration
-                    String webAppName = UtilHttp.getApplicationName(httpRequest);
-                    String dnsName = ExternalLoginKeysManager.getExternalServerName(httpRequest);
-                    long timeToLive = ExternalLoginKeysManager.getJwtTokenTimeToLive(httpRequest);
-                    // We would need a Bearer token (in Authorization request header) if we were using Oauth2, here we don't, so no Bearer 
-                    value = ExternalLoginKeysManager.createJwt(externalServerUserLoginId, dnsName, webAppName , timeToLive);
+                if (sourceWebappName != null) {
+                    HttpServletRequest httpRequest = (HttpServletRequest) request;
+                    String userLoginId = LoginWorker.getAutoUserLoginId(httpRequest, sourceWebappName);
+                    if (userLoginId != null) { // At this stage the user must be logged in. But safer to check because we can't grab it from the session here.
+                            // ExternalLoginKeysManager.createJwt() arguments in order:
+                            // id an Id, here userLoginId
+                            // issuer is who/what issued the token, here the server URL
+                            // subject is the subject of the token, here the target webapp
+                            // timeToLive is the token maximum duration, default 30 seconds
+                            String targetWebAppName = UtilHttp.getApplicationName(httpRequest);
+                            String targetServerUrl = ExternalLoginKeysManager.getTargetServerUrl(httpRequest);
+                            long timeToLive = ExternalLoginKeysManager.getJwtTokenTimeToLive(httpRequest);
+                            // We would need a Bearer token (in Authorization request header) if we were using Oauth2, here we don't, so no Bearer 
+                            value = ExternalLoginKeysManager.createJwt(userLoginId, targetServerUrl, targetWebAppName , timeToLive);
+                    }
                 }
                 if (value != null) return value;
                 return super.getHeader(name);

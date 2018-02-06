@@ -43,9 +43,13 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 /**
  * This class manages the authentication tokens that provide single sign-on authentication to the OFBiz applications.
@@ -55,7 +59,7 @@ public class ExternalLoginKeysManager {
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     // This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object
     private static final Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<>();
-    public static final String EXTERNAL_SERVER_LOGIN_KEY = "externalServerLoginKey";
+    public static final String SOURCE_SERVER_WEBAPP_NAME = "sourceServerWebappName";
     // This works the same way than externalLoginKey but between 2 servers, not 2 webapps on the same server. 
     // The Single Sign On (SSO) is ensured by a JWT token, then all is handled as normal by a session on the reached server. 
     // The servers may or may not share a database but the 2 loginUserIds must be the same.
@@ -175,23 +179,37 @@ public class ExternalLoginKeysManager {
     }
     
     public static String externalServerLoginCheck(HttpServletRequest request, HttpServletResponse response) {
-
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
 
-        String externalServerUserLoginId = request.getParameter(EXTERNAL_SERVER_LOGIN_KEY);
-        if (externalServerUserLoginId == null) return "success"; // Nothing to do here
-        if (!"Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator))) return "success"; // The target server does not allow external login by default
-
-        GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
+        // The target server does not allow external login by default
+        boolean useExternalServer = "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator));
+        String sourceWebappName = request.getParameter(SOURCE_SERVER_WEBAPP_NAME); 
+        if (!useExternalServer || sourceWebappName == null) return "success"; // Nothing to do here
 
         try {
-            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", externalServerUserLoginId).queryOne();
+            String userLoginId = null;
+            String authorizationHeader = request.getHeader("Authorization");
+            if (authorizationHeader != null) {
+                Claims claims = returnsClaims(authorizationHeader);
+                userLoginId = getSourceUserLoginId(claims );
+                boolean jwtOK = checkJwt(authorizationHeader, userLoginId, getTargetServerUrl(request), UtilHttp.getApplicationName(request));
+                if (!jwtOK) {
+                    // Something unexpected happened here
+                    Debug.logWarning("*** There was a problem with the JWT token, not signin in the user login " + userLoginId, module);
+                    return "success";
+                }
+            } else {
+                // Nothing to do here
+                return "success";
+            }
+
+            
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (userLogin != null) {
-                //to check it's the right tenant
-                //in case username and password are the same in different tenants
+                // Check it's the right tenant in case username and password are the same in different tenants
+                // TODO : not sure this is really useful in the case of external server, should not hurt anyway
                 LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-                delegator = (Delegator) request.getAttribute("delegator");
                 String oldDelegatorName = delegator.getDelegatorName();
                 ServletContext servletContext = session.getServletContext();
                 if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
@@ -199,44 +217,15 @@ public class ExternalLoginKeysManager {
                     dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
                     LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
                 }
-
-                String authorizationHeader = request.getHeader("Authorization");
-                if (authorizationHeader != null) {
-                    boolean jwtOK = checkJwt(authorizationHeader, userLogin.getString("userLoginId"), getExternalServerName(request), UtilHttp.getApplicationName(request));
-                    if (!jwtOK) {
-                        Debug.logWarning("*** There was a problem with the JWT token, loging out the current user: " + externalServerUserLoginId, module);
-                        LoginWorker.logout(request, response);
-                        return "success";
-                    }
-                } else {
-                    // Something weird happened here => logout current user
-                    Debug.logWarning("*** There was a problem with the JWT token, loging out the current user: " + externalServerUserLoginId, module);
-                    LoginWorker.logout(request, response);
-                    return "success";
-                }
-
-                // if the user is already logged in and the login is different, logout the other user
-                if (currentUserLogin != null) {
-                    if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
-                        // is the same user, just carry on...
-                        return "success";
-                    }
-
-                    // logout the current user and login the new user...
-                    LoginWorker.logout(request, response);
-                    // ignore the return value; even if the operation failed we want to set the new UserLogin
-                }
-
-                //connect
                 String enabled = userLogin.getString("enabled");
                 if (enabled == null || "Y".equals(enabled)) {
                     userLogin.set("hasLoggedOut", "N");
                     userLogin.store();
                 }
-                LoginWorker.doBasicLogin(userLogin, request);
             } else {
-                Debug.logWarning("Could not find userLogin for external login key: " + externalServerUserLoginId, module);
+                Debug.logWarning("*** There was a problem with the JWT token. Could not find userLogin " + userLoginId, module);
             }
+            LoginWorker.doBasicLogin(userLogin, request);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get autoUserLogin information: " + e.getMessage(), module);
         }
@@ -264,11 +253,11 @@ public class ExternalLoginKeysManager {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder().setId(id)
-                                    .setIssuedAt(now)
-                                    .setSubject(subject)
-                                    .setIssuer(issuer)
-                                    .setIssuedAt(now)
-                                    .signWith(signatureAlgorithm, signingKey);
+                .setIssuedAt(now)
+                .setSubject(subject)
+                .setIssuer(issuer)
+                .setIssuedAt(now)
+                .signWith(signatureAlgorithm, signingKey);
 
         //if it has been specified, let's add the expiration date, this should always be true
         if (ttlMillis >= 0) {
@@ -292,15 +281,7 @@ public class ExternalLoginKeysManager {
      */
     private static boolean checkJwt(String jwt, String id, String issuer, String subject) {
         //The JWT signature algorithm is using this to sign the token
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
-
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(ExternalServerJwtMasterSecretKey);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
-        //This line will throw a SignatureException if it is not a signed JWS (as expected) or has been tampered
-        Claims claims = Jwts.parser()
-           .setSigningKey(signingKey)
-           .parseClaimsJws(jwt).getBody();
+        Claims claims = returnsClaims(jwt);
 
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -311,15 +292,41 @@ public class ExternalLoginKeysManager {
                 && claims.getExpiration().after(now);
     }
 
-    public static String getExternalServerName(HttpServletRequest request) {
-        String reportingServerName = "";
+    /**
+     * @param jwt a JWT token
+     * @return claims the claims
+     * @throws ExpiredJwtException
+     * @throws UnsupportedJwtException
+     * @throws MalformedJwtException
+     * @throws SignatureException
+     * @throws IllegalArgumentException
+     */
+    private static Claims returnsClaims(String jwt) throws ExpiredJwtException, UnsupportedJwtException,
+            MalformedJwtException, SignatureException, IllegalArgumentException {
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
+
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(ExternalServerJwtMasterSecretKey);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+        //This line will throw a SignatureException if it is not a signed JWS (as expected) or has been tampered
+        Claims claims = Jwts.parser()
+           .setSigningKey(signingKey)
+           .parseClaimsJws(jwt).getBody();
+        return claims;
+    }
+
+    private static String getSourceUserLoginId(Claims claims) {
+        return claims.getId();
+    }
+    
+    public static String getTargetServerUrl(HttpServletRequest request) {
+        String targetServerUrl = "";
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (delegator != null && "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator))) {
-            reportingServerName = EntityUtilProperties.getPropertyValue("security", "external-server-name", "localhost:8443", delegator);
-            String reportingServerQuery = EntityUtilProperties.getPropertyValue("security", "external-server-query", "/catalog/control/", delegator);
-            reportingServerName = "https://" + reportingServerName + reportingServerQuery;
+            targetServerUrl = EntityUtilProperties.getPropertyValue("security", "external-server-name", "localhost:8443", delegator);
+            targetServerUrl = "https://" + targetServerUrl;
         }
-        return reportingServerName;
+        return targetServerUrl;
     }
     
     public static long getJwtTokenTimeToLive(HttpServletRequest request) {
