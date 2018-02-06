@@ -56,80 +56,15 @@ under the License.
             <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         </if-empty>
 
-        <!-- check permission -->
-        <if>
-            <condition>
-                <or>
-                    <!-- Permission checks include _ADMIN -->
-                    <if-has-permission permission="${primaryPermission}" action="_${mainAction}"/>
-                    <if-has-permission permission="${altPermission}" action="_${mainAction}"/>
-                </or>
-            </condition>
-            <then>
-                <set field="hasPermission" type="Boolean" value="true"/>
-                <field-to-result field="hasPermission"/>
-            </then>
-            <else>
-                <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field="failMessage"/>
-                <set field="hasPermission" type="Boolean" value="false"/>
-                <field-to-result field="hasPermission"/>
-                <field-to-result field="failMessage"/>
-            </else>
-        </if>
-    </simple-method>
+        <log level="warning" message="This simple-method-call is deprecated! Please use a service-call of genericBasePermissionCheck instead."/>
+        <set field="inParams.altPermission" from-field="altPermission"/>
+        <set field="inParams.mainAction" from-field="parameters.mainAction"/>
+        <set field="inParams.primaryPermission" from-field="primaryPermission"/>
+        <set field="inParams.resourceDescription" from-field="parameters.resourceDescription"/>
+        <call-service service-name="genericBasePermissionCheck" in-map-name="inParams">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <field-to-result field="hasPermission"/>
 
-    <simple-method method-name="getAllCrudPermissions" short-description="Get All CRUD and View Permissions">
-        <if-empty field="primaryPermission">
-            <set field="primaryPermission" from-field="parameters.primaryPermission"/>
-            <if-empty field="primaryPermission">
-                <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionPrimaryPermissionMissing"/></add-error>
-            </if-empty>
-        </if-empty>
-        <check-errors/>
-        <set field="hasCreatePermission" value="false" type="Boolean"/>
-        <set field="hasUpdatePermission" value="false" type="Boolean"/>
-        <set field="hasDeletePermission" value="false" type="Boolean"/>
-        <set field="hasViewPermission" value="false" type="Boolean"/>
-        <log level="info" message="Getting all CRUD permissions for ${primaryPermission}"/>
-        <if-has-permission permission="${primaryPermission}" action="_CREATE">
-            <set field="hasCreatePermission" value="true" type="Boolean"/>
-        </if-has-permission>
-        <if-has-permission permission="${primaryPermission}" action="_UPDATE">
-            <set field="hasUpdatePermission" value="true" type="Boolean"/>
-        </if-has-permission>
-        <if-has-permission permission="${primaryPermission}" action="_DELETE">
-            <set field="hasDeletePermission" value="true" type="Boolean"/>
-        </if-has-permission>
-        <if-has-permission permission="${primaryPermission}" action="_VIEW">
-            <set field="hasViewPermission" value="true" type="Boolean"/>
-        </if-has-permission>
-        <if-empty field="altPermission">
-            <set field="altPermission" from-field="parameters.altPermission"/>
-        </if-empty>
-        <if-not-empty field="altPermission">
-            <log level="info" message="Getting all CRUD permissions for ${altPermission}"/>
-            <if-has-permission permission="${altPermission}" action="_CREATE">
-                <set field="hasCreatePermission" value="true" type="Boolean"/>
-            </if-has-permission>
-            <if-has-permission permission="${altPermission}" action="_UPDATE">
-                <set field="hasUpdatePermission" value="true" type="Boolean"/>
-            </if-has-permission>
-            <if-has-permission permission="${altPermission}" action="_DELETE">
-                <set field="hasDeletePermission" value="true" type="Boolean"/>
-            </if-has-permission>
-            <if-has-permission permission="${altPermission}" action="_VIEW">
-                <set field="hasViewPermission" value="true" type="Boolean"/>
-            </if-has-permission>
-        </if-not-empty>
-        <field-to-result field="hasCreatePermission"/>
-        <field-to-result field="hasUpdatePermission"/>
-        <field-to-result field="hasDeletePermission"/>
-        <field-to-result field="hasViewPermission"/>
     </simple-method>
-
-    <simple-method method-name="visualThemePermissionCheck" short-description="Visual Theme permission logic">
-        <set field="primaryPermission" value="VISUALTHEME"/>
-        <call-simple-method method-name="genericBasePermissionCheck"/>
-    </simple-method>
-
 </simple-methods>

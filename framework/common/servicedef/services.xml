@@ -30,8 +30,8 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="commonGetAllCrudPermissions" engine="simple"
-        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions" auth="false">
+    <service name="commonGetAllCrudPermissions" engine="groovy"
+        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="getAllCrudPermissions" auth="false">
         <description>Returns all CRUD and View Permissions</description>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -424,8 +424,8 @@ under the License.
     </service>
 
     <!-- common permission services -->
-    <service name="genericBasePermissionCheck" engine="simple"
-             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+    <service name="genericBasePermissionCheck" engine="groovy"
+             location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -569,8 +569,8 @@ under the License.
     </service>
 
     <!-- ==============Permission Checking Service============= -->
-    <service name="visualThemePermissionCheck" engine="simple"
-        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="visualThemePermissionCheck">
+    <service name="visualThemePermissionCheck" engine="groovy"
+        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="visualThemePermissionCheck">
         <description>Visual Theme Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
