@@ -73,7 +73,7 @@ public class CheckOutEvents {
     }
 
     public static String setCheckOutPages(HttpServletRequest request, HttpServletResponse response) {
-        if ("error".equals(CheckOutEvents.cartNotEmpty(request, response)) == true) {
+        if ("error".equals(CheckOutEvents.cartNotEmpty(request, response))) {
             return "error";
         }
 
@@ -96,13 +96,13 @@ public class CheckOutEvents {
             } catch (CartItemModifyException e) {
                 Debug.logError(e, module);
             }
-        } else if ("shippingoptions".equals(curPage) == true) {
+        } else if ("shippingoptions".equals(curPage)) {
             //remove empty ship group
             cart.cleanUpShipGroups();
         }
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
-        if ("shippingaddress".equals(curPage) == true) {
+        if ("shippingaddress".equals(curPage)) {
             // Set the shipping address options
             String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
 
@@ -148,7 +148,7 @@ public class CheckOutEvents {
                 // No errors so push the user onto the next page
                 curPage = "shippingoptions";
             }
-        } else if ("shippingoptions".equals(curPage) == true) {
+        } else if ("shippingoptions".equals(curPage)) {
             // Set the general shipping options
             String shippingMethod = request.getParameter("shipping_method");
             String shippingInstructions = request.getParameter("shipping_instructions");
@@ -169,7 +169,7 @@ public class CheckOutEvents {
                 // No errors so push the user onto the next page
                 curPage = "payment";
             }
-        } else if ("payment".equals(curPage) == true) {
+        } else if ("payment".equals(curPage)) {
             // Set the payment options
             Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
 
