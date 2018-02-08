@@ -183,7 +183,7 @@ public class ExternalLoginKeysManager {
         HttpSession session = request.getSession();
 
         // The target server does not allow external login by default
-        boolean useExternalServer = "Y".equals(EntityUtilProperties.getPropertyValue("security", "use-external-server", "N", delegator));
+        boolean useExternalServer = EntityUtilProperties.getPropertyAsBoolean("security", "use-external-server", false);
         String sourceWebappName = request.getParameter(SOURCE_SERVER_WEBAPP_NAME); 
         if (!useExternalServer || sourceWebappName == null) return "success"; // Nothing to do here
 
