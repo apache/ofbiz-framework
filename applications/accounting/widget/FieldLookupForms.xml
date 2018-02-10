@@ -127,7 +127,7 @@ under the License.
         <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountClass">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="sequenceNum"/>
                 </entity-options>
             </drop-down>
         </field>
