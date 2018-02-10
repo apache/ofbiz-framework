@@ -2104,6 +2104,7 @@ under the License.
       <field name="parentClassId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="isAssetClass" type="indicator"></field>
+      <field name="sequenceNum" type="numeric"></field>
       <prim-key field="glAccountClassId"/>
       <relation type="one" fk-name="GLACTCLS_PAR" title="Parent" rel-entity-name="GlAccountClass">
         <key-map field-name="parentClassId" rel-field-name="glAccountClassId"/>

@@ -127,7 +127,7 @@ under the License.
         <field name="glAccountClassId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="GlAccountClass">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="sequenceNum"/>
                 </entity-options>
             </drop-down>
         </field>
