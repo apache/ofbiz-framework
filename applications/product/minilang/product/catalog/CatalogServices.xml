@@ -412,7 +412,7 @@ under the License.
                 </call-class-method>
             </then>
             <else>
-                <set field="imageUrl" value="/themes/common/webapp${parameters.imageUrl}"/>
+                <set field="imageUrl" value="/themes/common-theme/webapp${parameters.imageUrl}"/>
                 <call-class-method method-name="fromOfbizHomePath" class-name="org.apache.ofbiz.base.util.UtilURL" ret-field="url">
                    <string value="${imageUrl}"/>
                 </call-class-method>

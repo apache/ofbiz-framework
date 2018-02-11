@@ -22,9 +22,9 @@ under the License.
 # ==== Catalog Application Properties ====
 <!-- 
 # Image upload path on the server
-catalog.properties setting is: image.server.path=${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/${tenantId}
+catalog.properties setting is: image.server.path=${sys:getProperty('ofbiz.home')}/themes/common-theme/webapp/images/${tenantId}
 -->
-    <SystemProperty systemResourceId="catalog" systemPropertyId="image.server.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/${tenantId}"
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.server.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/themes/common-theme/webapp/images/${tenantId}"
     description="Image upload path on the server."
     />
     
@@ -78,9 +78,9 @@ catalog.properties setting is: reactivate.product.from.receipt=Y
     
 <!-- 
 # Image upload path on the image management
-catalog.properties setting is: image.management.path=${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/products/management
+catalog.properties setting is: image.management.path=${sys:getProperty('ofbiz.home')}/themes/common-theme/webapp/images/products/management
 -->
-    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/products/management"
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/themes/common-theme/webapp/images/products/management"
     description="Image upload path for image management."
     />
     
