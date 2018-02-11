@@ -183,13 +183,10 @@ public final class UtilNumber {
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String file, String property) {
-        if (UtilValidate.isEmpty(file)) {
+        if (UtilValidate.isEmpty(file) || UtilValidate.isEmpty(property)) {
             return DEFAULT_BD_SCALE;
         }
-        if (UtilValidate.isEmpty(property)) {
-            return DEFAULT_BD_SCALE;
-        }
-
+        
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
             try {
@@ -217,10 +214,7 @@ public final class UtilNumber {
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (BigDecimal.ROUND_HALF_UP)
      */
     public static int getBigDecimalRoundingMode(String file, String property) {
-        if (UtilValidate.isEmpty(file)) {
-            return DEFAULT_BD_SCALE;
-        }
-        if (UtilValidate.isEmpty(property)) {
+        if (UtilValidate.isEmpty(file) || UtilValidate.isEmpty(property)) {
             return DEFAULT_BD_ROUNDING_MODE;
         }
 
