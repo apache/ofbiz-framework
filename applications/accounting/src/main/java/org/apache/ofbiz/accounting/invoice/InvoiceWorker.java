@@ -20,6 +20,7 @@ package org.apache.ofbiz.accounting.invoice;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,9 +53,9 @@ public final class InvoiceWorker {
     public static final String module = InvoiceWorker.class.getName();
     private static final BigDecimal ZERO = BigDecimal.ZERO;
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    private static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    private static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
 
     private InvoiceWorker () {}
 

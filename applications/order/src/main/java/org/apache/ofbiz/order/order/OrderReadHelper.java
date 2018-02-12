@@ -19,6 +19,7 @@
 package org.apache.ofbiz.order.order;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,10 +67,10 @@ public class OrderReadHelper {
 
     // scales and rounding modes for BigDecimal math
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
     public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);
     public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);
 

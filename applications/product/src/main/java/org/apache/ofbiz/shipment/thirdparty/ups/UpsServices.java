@@ -90,7 +90,7 @@ public class UpsServices {
         }
     }
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
     public static final MathContext generalRounding = new MathContext(10);
     public static final int returnServiceCode = 8;
     public static final String dateFormatString = "yyyyMMdd";

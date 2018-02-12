@@ -20,6 +20,7 @@ package org.apache.ofbiz.shipment.weightPackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class WeightPackageSession implements Serializable {
     private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
     private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
 
     public WeightPackageSession() {
     }

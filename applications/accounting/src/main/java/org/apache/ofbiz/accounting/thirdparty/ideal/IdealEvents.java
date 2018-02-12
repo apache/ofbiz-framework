@@ -66,7 +66,7 @@ public class IdealEvents {
     public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String module = IdealEvents.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
 
     /** Initiate iDEAL Request */
     public static String callIdeal(HttpServletRequest request, HttpServletResponse response) {

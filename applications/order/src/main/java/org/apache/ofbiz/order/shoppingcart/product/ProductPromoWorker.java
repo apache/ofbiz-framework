@@ -77,7 +77,7 @@ public final class ProductPromoWorker {
     private static final String resource_error = "OrderErrorUiLabels";
 
     private static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    private static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
 
     private static final MathContext generalRounding = new MathContext(10);
 
