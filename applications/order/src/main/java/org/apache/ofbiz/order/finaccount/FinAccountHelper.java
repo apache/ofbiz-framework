@@ -20,6 +20,7 @@
 package org.apache.ofbiz.order.finaccount;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +49,7 @@ public class FinAccountHelper {
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
       */
      public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
-     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("finaccount.rounding");
+     public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
      public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
      public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
@@ -76,7 +77,7 @@ public class FinAccountHelper {
       * @return the new value in a BigDecimal field
       * @throws GenericEntityException
       */
-     public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, int rounding) throws GenericEntityException {
+     public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, RoundingMode rounding) throws GenericEntityException {
           if ((transactions != null) && (transactions.size() == 1)) {
               GenericValue firstEntry = transactions.get(0);
               if (firstEntry.get(fieldName) != null) {

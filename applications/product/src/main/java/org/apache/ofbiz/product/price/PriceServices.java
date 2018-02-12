@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.price;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class PriceServices {
 
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
 
     /**
      * <p>Calculates the price of a product from pricing rules given the following input, and of course access to the database:</p>

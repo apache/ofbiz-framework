@@ -19,6 +19,7 @@
 package org.apache.ofbiz.minilang.method.otherops;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
@@ -109,21 +110,21 @@ public final class Calculate extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String roundingModeString = roundingModeFse.expandString(methodContext.getEnvMap());
-        int roundingMode = BigDecimal.ROUND_HALF_EVEN;
+        RoundingMode roundingMode = RoundingMode.HALF_EVEN;
         if ("Ceiling".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_CEILING;
+            roundingMode = RoundingMode.CEILING;
         } else if ("Floor".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_FLOOR;
+            roundingMode = RoundingMode.FLOOR;
         } else if ("Up".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_UP;
+            roundingMode = RoundingMode.UP;
         } else if ("Down".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_DOWN;
+            roundingMode = RoundingMode.DOWN;
         } else if ("HalfUp".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_HALF_UP;
+            roundingMode = RoundingMode.HALF_UP;
         } else if ("HalfDown".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_HALF_DOWN;
+            roundingMode = RoundingMode.HALF_DOWN;
         } else if ("Unnecessary".equals(roundingModeString)) {
-            roundingMode = BigDecimal.ROUND_UNNECESSARY;
+            roundingMode = RoundingMode.UNNECESSARY;
         }
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
@@ -196,7 +197,7 @@ public final class Calculate extends MethodOperation {
      * Interface for &lt;calculate&gt; sub-element implementations.
      */
     public interface SubCalc {
-        BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException;
+        BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException;
     }
 
     /**
@@ -253,7 +254,7 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
             BigDecimal resultValue = BigDecimal.ZERO.setScale(scale, roundingMode);
             boolean isFirst = true;
             Object fieldObj = fieldFma.get(methodContext.getEnvMap());
@@ -323,7 +324,7 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
             String valueStr = valueFse.expandString(methodContext.getEnvMap());
             Locale locale = methodContext.getLocale();
             if (locale == null)
@@ -344,7 +345,7 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
             throw new MiniLangRuntimeException("Invalid calculate sub-element.", this);
         }
     }

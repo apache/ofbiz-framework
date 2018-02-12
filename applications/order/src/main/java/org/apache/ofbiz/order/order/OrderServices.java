@@ -19,6 +19,7 @@
 package org.apache.ofbiz.order.order;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +37,8 @@ import java.util.concurrent.Callable;
 
 import javax.transaction.Transaction;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.fop.apps.MimeConstants;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
@@ -83,9 +86,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 import com.ibm.icu.util.Calendar;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.fop.apps.MimeConstants;
-
 /**
  * Order Processing Services
  */
@@ -112,9 +112,9 @@ public class OrderServices {
         purchaseAttributeRoleMap.put("supplierAgentPartyId", "SUPPLIER_AGENT");
     }
     public static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
     public static final int orderDecimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final int orderRounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final RoundingMode orderRounding = UtilNumber.getRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(taxDecimals, taxRounding);
 
 

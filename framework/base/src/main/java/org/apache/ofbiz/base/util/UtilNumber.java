@@ -20,6 +20,7 @@
 package org.apache.ofbiz.base.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -34,7 +35,7 @@ public final class UtilNumber {
 
     // default scale and rounding mode for BigDecimals
     private static final int DEFAULT_BD_SCALE = 2;
-    private static final int DEFAULT_BD_ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
+    private static final RoundingMode DEFAULT_BD_ROUNDING_MODE = RoundingMode.HALF_UP;
 
     // ICU4J rule sets for the en_US locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
@@ -192,6 +193,7 @@ public final class UtilNumber {
             try {
                 scale = Integer.parseInt(value);
             } catch (NumberFormatException e) {
+                Debug.logWarning(e, e.getMessage(), module);
             }
         if (scale == -1) {
             Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", module);
@@ -211,57 +213,77 @@ public final class UtilNumber {
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
      * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
-     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (BigDecimal.ROUND_HALF_UP)
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
+     * @deprecated Use {@link #getRoundingMode(String,String)} instead
      */
-    public static int getBigDecimalRoundingMode(String file, String property) {
+    public static int  getBigDecimalRoundingMode(String file, String property) {
+        return getRoundingMode(file, property).ordinal();
+    }
+
+    /**
+     * As above, but use the default properties file
+     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
+     * @deprecated Use {@link #getRoundingMode(String)} instead
+     */
+    public static int getBigDecimalRoundingMode(String property) {
+        return getRoundingMode(arithmeticPropertiesFile, property).ordinal();
+    }
+
+    /**
+     * Method to get BigDecimal rounding mode from a property
+     * @param   file     - Name of the property file
+     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
+     */
+    public static RoundingMode getRoundingMode(String file, String property) {
         if (UtilValidate.isEmpty(file) || UtilValidate.isEmpty(property)) {
             return DEFAULT_BD_ROUNDING_MODE;
         }
 
         String value = UtilProperties.getPropertyValue(file, property);
-        int mode = roundingModeFromString(value);
-        if (mode == -1) {
+        RoundingMode mode = roundingModeFromString(value);
+        if (mode == null) {
             Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of " + DEFAULT_BD_SCALE + ".", module);
             return DEFAULT_BD_ROUNDING_MODE;
         }
         return mode;
     }
-
     /**
      * As above, but use the default properties file
      */
-    public static int getBigDecimalRoundingMode(String property) {
-        return getBigDecimalRoundingMode(arithmeticPropertiesFile, property);
+    public static RoundingMode getRoundingMode(String property) {
+        return getRoundingMode(arithmeticPropertiesFile, property);
     }
 
     /**
-     * Method to get the BigDecimal rounding mode int value from a string name.
+     * Method to get the RoundingMode rounding mode int value from a string name.
      * @param   value - The name of the mode (e.g., "ROUND_HALF_UP")
-     * @return  int - The int value of the mode (e.g, BigDecimal.ROUND_HALF_UP) or -1 if the input was bad.
+     * @return  RoundingMode - The int value of the mode (e.g, RoundingMode.HALF_UP) or null if the input was bad.
      */
-    public static int roundingModeFromString(String value) {
+    public static RoundingMode roundingModeFromString(String value) {
         if (value == null) {
-            return -1;
+            return null;
         }
         value = value.trim();
         if ("ROUND_HALF_UP".equals(value)) {
-            return BigDecimal.ROUND_HALF_UP;
+            return RoundingMode.HALF_UP;
         } else if ("ROUND_HALF_DOWN".equals(value)) {
-            return BigDecimal.ROUND_HALF_DOWN;
+            return RoundingMode.HALF_DOWN;
         } else if ("ROUND_HALF_EVEN".equals(value)) {
-            return BigDecimal.ROUND_HALF_EVEN;
+            return RoundingMode.HALF_EVEN;
         } else if ("ROUND_UP".equals(value)) {
-            return BigDecimal.ROUND_UP;
+            return RoundingMode.UP;
         } else if ("ROUND_DOWN".equals(value)) {
-            return BigDecimal.ROUND_DOWN;
+            return RoundingMode.DOWN;
         } else if ("ROUND_CEILING".equals(value)) {
-            return BigDecimal.ROUND_CEILING;
+            return RoundingMode.CEILING;
         } else if ("ROUND_FLOOR".equals(value)) {
-            return BigDecimal.ROUND_FLOOR;
+            return RoundingMode.FLOOR;
         } else if ("ROUND_UNNECCESSARY".equals(value)) {
-            return BigDecimal.ROUND_UNNECESSARY;
+            return RoundingMode.UNNECESSARY;
         }
-        return -1;
+        return null;
     }
 
     /**
@@ -313,8 +335,33 @@ public final class UtilNumber {
      * @param scale     How many places after the decimal to include
      * @param roundingMode  The BigDecimal rounding mode to apply
      * @return          The formatted string or "" if there were errors.
+     * @deprecated Use {@link #toPercentString(Number number, int scale, RoundingMode roundingMode)} instead
+     * 
      */
     public static String toPercentString(Number number, int scale, int roundingMode) {
+        // convert to BigDecimal
+        if (!(number instanceof BigDecimal)) {
+            number = new BigDecimal(number.doubleValue());
+        }
+
+        // cast it so we can use BigDecimal methods
+        BigDecimal bd = (BigDecimal) number;
+
+        // multiply by 100 and set the scale
+        bd = bd.multiply(new BigDecimal(100.0)).setScale(scale, roundingMode);
+
+        return (bd.toString() + "%");
+    }
+
+    /**
+     * Method to turn a number such as "0.9853" into a nicely formatted percent, "98.53%".
+     *
+     * @param number    The number object to format
+     * @param scale     How many places after the decimal to include
+     * @param roundingMode  the RoundingMode rounding mode to apply
+     * @return          The formatted string or "" if there were errors.
+     */
+    public static String toPercentString(Number number, int scale, RoundingMode roundingMode) {
         // convert to BigDecimal
         if (!(number instanceof BigDecimal)) {
             number = new BigDecimal(number.doubleValue());

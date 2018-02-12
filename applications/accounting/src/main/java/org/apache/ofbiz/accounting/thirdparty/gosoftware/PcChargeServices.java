@@ -20,6 +20,7 @@ package org.apache.ofbiz.accounting.thirdparty.gosoftware;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class PcChargeServices {
 
     public static final String module = PcChargeServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {

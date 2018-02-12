@@ -20,6 +20,7 @@ package org.apache.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +50,7 @@ public final class PaymentWorker {
 
     public static final String module = PaymentWorker.class.getName();
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
 
     private PaymentWorker() {}
 

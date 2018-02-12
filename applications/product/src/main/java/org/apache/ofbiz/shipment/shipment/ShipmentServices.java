@@ -19,6 +19,7 @@
 package org.apache.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -60,7 +61,7 @@ public class ShipmentServices {
     public static final String resource = "ProductUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
     public static Map<String, Object> createShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {

@@ -90,10 +90,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     // scales and rounding modes for BigDecimal math
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO;
     public static final MathContext generalRounding = new MathContext(10);
 
