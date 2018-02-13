@@ -39,7 +39,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
- * Utility class for doing SHA-1/MD5/PBKDF2 One-Way Hash Encryption
+ * Utility class for doing SHA-1/PBKDF2 One-Way Hash Encryption
  *
  */
 public class HashCrypt {
