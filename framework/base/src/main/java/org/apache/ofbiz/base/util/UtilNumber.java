@@ -203,7 +203,9 @@ public final class UtilNumber {
     }
 
     /**
-     * As above, but use the default properties file
+     * Method to get BigDecimal scale factor from a property. Use the default arithmeticPropertiesFile properties file
+     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.decimals")
+     * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String property) {
         return getBigDecimalScale(arithmeticPropertiesFile, property);
@@ -221,7 +223,7 @@ public final class UtilNumber {
     }
 
     /**
-     * As above, but use the default properties file
+     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
      * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
@@ -250,7 +252,9 @@ public final class UtilNumber {
         return mode;
     }
     /**
-     * As above, but use the default properties file
+     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
+     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
      */
     public static RoundingMode getRoundingMode(String property) {
         return getRoundingMode(arithmeticPropertiesFile, property);
@@ -259,7 +263,7 @@ public final class UtilNumber {
     /**
      * Method to get the RoundingMode rounding mode int value from a string name.
      * @param   value - The name of the mode (e.g., "ROUND_HALF_UP")
-     * @return  RoundingMode - The int value of the mode (e.g, RoundingMode.HALF_UP) or null if the input was bad.
+     * @return  RoundingMode - The rounding mode value of the mode (e.g, RoundingMode.HALF_UP) or null if the input was bad.
      */
     public static RoundingMode roundingModeFromString(String value) {
         if (value == null) {
