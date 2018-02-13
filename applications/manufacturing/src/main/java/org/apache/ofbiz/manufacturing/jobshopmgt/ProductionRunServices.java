@@ -19,6 +19,7 @@
 package org.apache.ofbiz.manufacturing.jobshopmgt;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,17 +70,9 @@ public class ProductionRunServices {
     public static final String resourceOrder = "OrderErrorUiLabels";
     public static final String resourceProduct = "ProductUiLabels";    
 
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static BigDecimal ONE = BigDecimal.ONE;
-    private static int decimals = -1;
-    private static int rounding = -1;
-    static {
-        decimals = UtilNumber.getBigDecimalScale("order.decimals");
-        rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-        // set zero to the proper scale
-        ZERO = ZERO.setScale(decimals);
-        ONE = ONE.setScale(decimals);
-    }
+    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
     /**
      * Cancels a ProductionRun.

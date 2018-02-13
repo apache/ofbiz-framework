@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
@@ -81,22 +82,12 @@ public class PaymentGatewayServices {
     public static final String REFUND_SERVICE_TYPE = "PRDS_PAY_REFUND";
     public static final String CREDIT_SERVICE_TYPE = "PRDS_PAY_CREDIT";
     private static final int TX_TIME = 300;
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int decimals;
-    private static int rounding;
+    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
     public static final String resource = "AccountingUiLabels";
     public static final String resourceError = "AccountingErrorUiLabels";
     public static final String resourceOrder = "OrderUiLabels";
-
-    static {
-        decimals = UtilNumber.getBigDecimalScale("order.decimals");
-        rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-
-        // set zero to the proper scale
-        if (decimals != -1) {
-            ZERO = ZERO.setScale(decimals);
-        }
-    }
 
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans

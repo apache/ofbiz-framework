@@ -94,7 +94,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO;
     public static final MathContext generalRounding = new MathContext(10);
 
 
@@ -2676,7 +2675,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Returns the tax amount from the cart object. */
     public BigDecimal getTotalSalesTax() {
-        BigDecimal totalTax = ZERO;
+        BigDecimal totalTax = BigDecimal.ZERO;
         for (int i = 0; i < shipInfo.size(); i++) {
             CartShipInfo csi = this.getShipInfo(i);
             totalTax = totalTax.add(csi.getTotalTax(this)).setScale(taxCalcScale, taxRounding);
@@ -4858,7 +4857,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         public BigDecimal getTotal() {
-            BigDecimal shipItemTotal = ZERO;
+            BigDecimal shipItemTotal = BigDecimal.ZERO;
             for (CartShipItemInfo info : shipItemInfo.values()) {
                 shipItemTotal = shipItemTotal.add(info.getItemSubTotal());
             }
@@ -4872,7 +4871,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             public BigDecimal quantity = BigDecimal.ZERO;
 
             public BigDecimal getItemTax(ShoppingCart cart) {
-                BigDecimal itemTax = ZERO;
+                BigDecimal itemTax = BigDecimal.ZERO;
 
                 for (int i = 0; i < itemTaxAdj.size(); i++) {
                     GenericValue v = itemTaxAdj.get(i);
@@ -4968,7 +4967,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         public List<GenericValue> makeOrderPaymentInfos(Delegator delegator, ShoppingCart cart) {
-            BigDecimal maxAmount = ZERO;
+            BigDecimal maxAmount = BigDecimal.ZERO;
             GenericValue valueObj = this.getValueObject(delegator);
             List<GenericValue> values = new LinkedList<>();
             if (valueObj != null) {

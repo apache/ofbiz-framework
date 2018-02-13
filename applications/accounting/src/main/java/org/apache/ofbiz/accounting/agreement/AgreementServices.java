@@ -20,6 +20,7 @@
 package org.apache.ofbiz.accounting.agreement;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -45,16 +46,9 @@ public class AgreementServices {
 
     public static final String module = AgreementServices.class.getName();
     // set some BigDecimal properties
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int decimals = -1;
-    private static int rounding = -1;
-    static {
-        decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-        rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-
-        // set zero to the proper scale
-        if (decimals != -1) ZERO = ZERO.setScale(decimals, rounding);
-    }
+    public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
     public static final String resource = "AccountingUiLabels";
 
     /**
