@@ -213,7 +213,7 @@ public final class UtilNumber {
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
      * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
-     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String,String)} instead
      */
     public static int  getBigDecimalRoundingMode(String file, String property) {
@@ -223,7 +223,7 @@ public final class UtilNumber {
     /**
      * As above, but use the default properties file
      * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
-     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
      */
     public static int getBigDecimalRoundingMode(String property) {
