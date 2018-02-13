@@ -20,6 +20,7 @@
 package org.apache.ofbiz.order.order;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -74,18 +75,9 @@ public class OrderReturnServices {
     public static final String resourceProduct = "ProductUiLabels";
 
     //  set some BigDecimal properties
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int decimals = -1;
-    private static int rounding = -1;
-    static {
-        decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-        rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-
-        // set zero to the proper scale
-        if (decimals != -1) {
-            ZERO = ZERO.setScale(decimals);
-        }
-    }
+    public static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    public static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
     // locate the return item's initial inventory item cost
     public static Map<String, Object> getReturnItemInitialCost(DispatchContext dctx, Map<String, ? extends Object> context) {

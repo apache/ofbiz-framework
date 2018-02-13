@@ -51,7 +51,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 public final class InvoiceWorker {
 
     public static final String module = InvoiceWorker.class.getName();
-    private static final BigDecimal ZERO = BigDecimal.ZERO;
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
     private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
@@ -109,7 +108,7 @@ public final class InvoiceWorker {
         }
         BigDecimal amount = invoiceItem.getBigDecimal("amount");
         if (amount == null) {
-            amount = ZERO;
+            amount = BigDecimal.ZERO;
         }
         return quantity.multiply(amount).setScale(decimals, rounding);
     }
@@ -126,7 +125,7 @@ public final class InvoiceWorker {
     }
 
     public static BigDecimal getInvoiceTaxTotal(GenericValue invoice) {
-        BigDecimal taxTotal = ZERO;
+        BigDecimal taxTotal = BigDecimal.ZERO;
         Map<String, Set<String>> taxAuthPartyAndGeos = InvoiceWorker.getInvoiceTaxAuthPartyAndGeos(invoice);
         for (Map.Entry<String, Set<String>> taxAuthPartyGeos : taxAuthPartyAndGeos.entrySet()) {
             String taxAuthPartyId = taxAuthPartyGeos.getKey();
@@ -161,7 +160,7 @@ public final class InvoiceWorker {
       * @return Return the total amount of the invoice
       */
      public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
-        BigDecimal invoiceTotal = ZERO;
+        BigDecimal invoiceTotal = BigDecimal.ZERO;
         BigDecimal invoiceTaxTotal = InvoiceWorker.getInvoiceTaxTotal(invoice);
 
         List<GenericValue> invoiceItems = null;
@@ -407,7 +406,7 @@ public final class InvoiceWorker {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
 
-        BigDecimal invoiceApplied = ZERO;
+        BigDecimal invoiceApplied = BigDecimal.ZERO;
         List<GenericValue> paymentApplications = null;
 
         // lookup payment applications which took place before the asOfDateTime for this invoice
@@ -488,7 +487,7 @@ public final class InvoiceWorker {
      * @return the applied total as BigDecimal
      */
     public static BigDecimal getInvoiceItemApplied(GenericValue invoiceItem) {
-        BigDecimal invoiceItemApplied = ZERO;
+        BigDecimal invoiceItemApplied = BigDecimal.ZERO;
         List<GenericValue> paymentApplications = null;
         try {
             paymentApplications = invoiceItem.getRelated("PaymentApplication", null, null, false);
@@ -530,7 +529,7 @@ public final class InvoiceWorker {
             if (UtilValidate.isNotEmpty(acctgTransEntries)) {
                 GenericValue acctgTransEntry = (acctgTransEntries.get(0)).getRelated("AcctgTransEntry", null, null, false).get(0);
                 BigDecimal origAmount = acctgTransEntry.getBigDecimal("origAmount");
-                if (origAmount.compareTo(ZERO) == 1) {
+                if (origAmount.compareTo(BigDecimal.ZERO) == 1) {
                     conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
                 }
             }
@@ -591,7 +590,7 @@ public final class InvoiceWorker {
      */
     @Deprecated
     public static Map<String, Object> getInvoiceTaxByTaxAuthGeoAndParty(GenericValue invoice) {
-        BigDecimal taxGrandTotal = ZERO;
+        BigDecimal taxGrandTotal = BigDecimal.ZERO;
         List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = new LinkedList<>();
         List<GenericValue> invoiceItems = null;
         if (invoice != null) {
@@ -623,16 +622,16 @@ public final class InvoiceWorker {
                         //get all records for invoices filtered by taxAuthGeoId and taxAurhPartyId
                         List<GenericValue> invoiceItemsByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(invoiceItems, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
                         if (UtilValidate.isNotEmpty(invoiceItemsByTaxAuthGeoAndPartyIds)) {
-                            BigDecimal totalAmount = ZERO;
+                            BigDecimal totalAmount = BigDecimal.ZERO;
                             //Now for each invoiceItem record get and add amount.
                             for (GenericValue invoiceItem : invoiceItemsByTaxAuthGeoAndPartyIds) {
                                 BigDecimal amount = invoiceItem.getBigDecimal("amount");
                                 if (amount == null) {
-                                    amount = ZERO;
+                                    amount = BigDecimal.ZERO;
                                 }
                                 totalAmount = totalAmount.add(amount).setScale(taxDecimals, taxRounding);
                             }
-                            totalAmount = totalAmount.setScale(UtilNumber.getBigDecimalScale("salestax.calc.decimals"), UtilNumber.getBigDecimalRoundingMode("salestax.rounding"));
+                            totalAmount = totalAmount.setScale(UtilNumber.getBigDecimalScale("salestax.calc.decimals"), UtilNumber.getRoundingMode("salestax.rounding"));
                             taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
                             taxGrandTotal = taxGrandTotal.add(totalAmount);
                         }
@@ -737,13 +736,13 @@ public final class InvoiceWorker {
      */
     private static BigDecimal getTaxTotalForInvoiceItems(List<GenericValue> taxInvoiceItems) {
         if (taxInvoiceItems == null) {
-            return ZERO;
+            return BigDecimal.ZERO;
         }
-        BigDecimal taxTotal = ZERO;
+        BigDecimal taxTotal = BigDecimal.ZERO;
         for (GenericValue taxInvoiceItem : taxInvoiceItems) {
             BigDecimal amount = taxInvoiceItem.getBigDecimal("amount");
             if (amount == null) {
-                amount = ZERO;
+                amount = BigDecimal.ZERO;
             }
             BigDecimal quantity = taxInvoiceItem.getBigDecimal("quantity");
             if (quantity == null) {

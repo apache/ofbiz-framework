@@ -36,8 +36,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class WeightPackageServices {
 
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-
     public static Map<String, Object> setPackageInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
@@ -59,13 +57,13 @@ public class WeightPackageServices {
             }
         }
         // Check package weight, it must be greater than ZERO
-        if (UtilValidate.isEmpty(packageWeight) || packageWeight.compareTo(ZERO) <= 0) {
+        if (UtilValidate.isEmpty(packageWeight) || packageWeight.compareTo(BigDecimal.ZERO) <= 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorPackageWeightCannotBeNullOrZero", locale));
         }
         try {
             // Checked no of packages, it should not be greater than ordered quantity
             List<GenericValue> orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "statusId", "ITEM_APPROVED").queryList();
-            BigDecimal orderedItemQty = ZERO;
+            BigDecimal orderedItemQty = BigDecimal.ZERO;
             for (GenericValue orderItem : orderItems) {
                 orderedItemQty = orderedItemQty.add(orderItem.getBigDecimal("quantity"));
             }
@@ -104,7 +102,7 @@ public class WeightPackageServices {
         }
 
         // Check package weight, it must be greater than ZERO
-        if (UtilValidate.isEmpty(packageWeight) || packageWeight.compareTo(ZERO) <= 0) {
+        if (UtilValidate.isEmpty(packageWeight) || packageWeight.compareTo(BigDecimal.ZERO) <= 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorPackageWeightCannotBeNullOrZero", locale));
         }
 
@@ -139,7 +137,7 @@ public class WeightPackageServices {
         BigDecimal newEstimatedShippingCost = (BigDecimal) context.get("newEstimatedShippingCost");
 
         if (UtilValidate.isEmpty(newEstimatedShippingCost)) {
-            newEstimatedShippingCost = ZERO;
+            newEstimatedShippingCost = BigDecimal.ZERO;
         }
 
         weightPackageSession.setDimensionUomId(dimensionUomId);
