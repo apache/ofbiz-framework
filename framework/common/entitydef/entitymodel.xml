@@ -658,6 +658,37 @@ under the License.
       <prim-key field="userPrefGroupTypeId"/>
     </entity>
 
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.common.screen -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="CustomScreen"
+        package-name="org.apache.ofbiz.common.screen"
+        default-resource-name="CommonEntityLabels"
+        title="Custom Screen Entity">
+        <field name="customScreenId" type="id"/>
+        <field name="customScreenTypeId" type="id"/>
+        <field name="customScreenName" type="long-varchar"/>
+        <field name="customScreenLocation" type="long-varchar"/>
+        <field name="description" type="description"/>
+        <prim-key field="customScreenId"/>
+        <relation type="one" fk-name="CSCR_TO_TYPE" rel-entity-name="CustomScreenType">
+            <key-map field-name="customScreenTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="CustomScreenType"
+        package-name="org.apache.ofbiz.common.screen"
+        title="Custom Screen Type Entity">
+        <field name="customScreenTypeId" type="id"/>
+        <field name="parentTypeId" type="id"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="customScreenTypeId"/>
+        <relation type="many" fk-name="CSCR_TYPE_CHILD" title="Child" rel-entity-name="CustomScreenType">
+            <key-map field-name="customScreenTypeId" rel-field-name="parentTypeId"/>
+        </relation>
+    </entity>
+
     <!-- ============================ -->
     <!-- org.apache.ofbiz.common.theme -->
     <!-- ============================ -->

@@ -2825,6 +2825,10 @@
         <value xml:lang="zh">缺省组织机构</value>
         <value xml:lang="zh-TW">預設組織機構團體代號</value>
     </property>
+    <property key="CommonDefaultScreen">
+        <value xml:lang="en">Default Screen</value>
+        <value xml:lang="fr">Écran par défault</value>
+    </property>
     <property key="CommonDeferred">
         <value xml:lang="ar">مؤجل</value>
         <value xml:lang="cs">Odložený</value>
@@ -13847,6 +13851,14 @@
         <value xml:lang="vi">Mã tình trạng hiện tại</value>
         <value xml:lang="zh">当前状态标识</value>
         <value xml:lang="zh-TW">目前狀態識別</value>
+    </property>
+    <property key="FormFieldTitle_customScreenId">
+        <value xml:lang="en">Custom screen</value>
+        <value xml:lang="fr">Écran dédié</value>
+    </property>
+    <property key="FormFieldTitle_customScreenTypeId">
+        <value xml:lang="en">custom screen type</value>
+        <value xml:lang="fr">Type d'écran dédié</value>
     </property>
     <property key="FormFieldTitle_deleteButton">
         <value xml:lang="ar">حذف</value>
