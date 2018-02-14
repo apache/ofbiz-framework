@@ -208,7 +208,7 @@ public class ExternalLoginKeysManager {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (userLogin != null) {
                 // Check it's the right tenant in case username and password are the same in different tenants
-                // TODO : not sure this is really useful in the case of external server, should not hurt anyway
+                // Not sure this is really useful in the case of external server, should not hurt anyway
                 LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
                 String oldDelegatorName = delegator.getDelegatorName();
                 ServletContext servletContext = session.getServletContext();
