@@ -26,7 +26,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -54,7 +53,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
     public final static String module = CatalogUrlSeoTransform.class.getName();
 
-    public String getStringArg(Map args, String key) {
+    public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
@@ -68,17 +67,16 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         return null;
     }
 
-    public boolean checkArg(Map args, String key, boolean defaultValue) {
+    public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
-        } else {
-            Object o = args.get(key);
-            if (o instanceof SimpleScalar) {
-                SimpleScalar s = (SimpleScalar) o;
-                return "true".equalsIgnoreCase(s.getAsString());
-            }
-            return defaultValue;
         }
+        Object o = args.get(key);
+        if (o instanceof SimpleScalar) {
+            SimpleScalar s = (SimpleScalar) o;
+            return "true".equalsIgnoreCase(s.getAsString());
+        }
+        return defaultValue;
     }
 
     @Override
@@ -171,9 +169,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (TemplateModelException e) {
-                    throw new IOException(e.getMessage());
-                } catch (GenericEntityException e) {
+                } catch (TemplateModelException | GenericEntityException e) {
                     throw new IOException(e.getMessage());
                 }
             }
