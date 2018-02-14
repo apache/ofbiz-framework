@@ -628,7 +628,6 @@ public class LoginWorker {
         doBasicLogout(userLogin, request, response);
         
         //autoLogoutFromAllBackendSessions(userLogin, request, response);
-        // TODO check why, seems no sense
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -846,7 +845,7 @@ public class LoginWorker {
         session.removeAttribute("autoUserLogin");
         session.removeAttribute("autoName");
 
-        request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE); // TODO check it's useful
+        request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE);
         return "success";
     }
 
