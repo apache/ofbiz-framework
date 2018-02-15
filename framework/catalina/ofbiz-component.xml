@@ -148,7 +148,6 @@ under the License.
             <property name="keystoreType" value="JKS"/>
             <property name="keyAlias" value="ofbiz"/>
             <property name="keyPass" value="changeit"/>
-            <property name="ciphers" value="HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5"/>
         </property>
     </container>
     <container name="catalina-container-test" loaders="test" class="org.apache.ofbiz.catalina.container.CatalinaContainer">
@@ -207,7 +206,6 @@ under the License.
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
             <property name="keystorePass" value="changeit"/>
             <property name="keystoreType" value="JKS"/>
-            <property name="ciphers" value="HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5"/>
         </property>
     </container>
     <!--
