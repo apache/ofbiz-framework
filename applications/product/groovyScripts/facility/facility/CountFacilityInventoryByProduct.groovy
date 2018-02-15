@@ -181,7 +181,8 @@ if (action) {
             checkTime = UtilDateTime.toTimestamp(cal.getTime())
             searchParameterString += "&monthsInPastLimit=" + monthsInPastLimitStr
         } catch (Exception e) {
-            // Ignore
+            Debug.logError(e, "Caught an exception : " + e.toString(), module)
+            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
         }
     }
 
@@ -278,7 +279,8 @@ if (action) {
                         try {
                             salesUsageQuantity += salesUsageItem.getDouble("quantity").doubleValue()
                         } catch (Exception e) {
-                            // Ignore
+                            Debug.logError(e, "Caught an exception : " + e.toString(), module)
+                            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
                         }
                     }
                 }
@@ -299,7 +301,8 @@ if (action) {
                         try {
                             productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue()
                         } catch (Exception e) {
-                            // Ignore
+                            Debug.logError(e, "Caught an exception : " + e.toString(), module)
+                            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
                         }
                     }
                 }
