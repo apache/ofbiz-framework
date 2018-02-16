@@ -60,6 +60,19 @@ under the License.
         </auto-attributes>
     </service>
 
+    <service name="createPartyPrefDocTypeTpl" default-entity-name="PartyPrefDocTypeTpl" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a documentType preference for a party (organization)</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="partyPrefDocTypeTplId" type="String" mode="OUT"/>
+        <override name="partylId" mode="IN" optional="false"/>
+    </service>
+    <service name="expirePartyPrefDocTypeTpl" default-entity-name="PartyPrefDocTypeTpl" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a documentType preference for a party (organization)</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <service name="getPartyAccountingPreferences" default-entity-name="PartyAcctgPreference" engine="groovy"
             location="component://accounting/groovyScripts/admin/AcctgAdminServices.groovy" invoke="getPartyAccountingPreferences" auth="true">
         <description>Get accounting preferences for a party (organization)</description>

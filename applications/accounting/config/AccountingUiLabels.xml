@@ -542,6 +542,10 @@
         <value xml:lang="zh">添加会员总账账户</value>
         <value xml:lang="zh-TW">增加團體總帳科目</value>
     </property>
+    <property key="AccountingAddPartyPrefDocTypeTpl">
+        <value xml:lang="en">Add document type template</value>
+        <value xml:lang="fr">Ajouter un modèle pour le type de document</value>
+    </property>
     <property key="AccountingAddPaymentGroupMember">
         <value xml:lang="ar">إضافة عضو لمجموعة الدفعات</value>
         <value xml:lang="de">Zahlungsgruppen-Mitglied hinzufügen</value>
@@ -4549,6 +4553,10 @@
         <value xml:lang="vi">Diễn giải</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh-TW">描述</value>
+    </property>
+    <property key="AccountingDocumentTypeTemplate">
+        <value xml:lang="en">Doc. Type template</value>
+        <value xml:lang="fr">Modèle de type de doc.</value>
     </property>
     <property key="AccountingDueDate">
         <value xml:lang="ar">تعديل الدفعة</value>
@@ -15435,6 +15443,18 @@
         <value xml:lang="vi">Tổng số lượng sẵn có</value>
         <value xml:lang="zh">现存数量合计</value>
         <value xml:lang="zh-TW">現存數量合計</value>
+    </property>
+    <property key="AccountingTplInvoiceType">
+        <value xml:lang="en">Template for invoice</value>
+        <value xml:lang="fr">Modèle pour facture</value>
+    </property>
+    <property key="AccountingTplOrderType">
+        <value xml:lang="en">Template for order</value>
+        <value xml:lang="fr">Modèle pour commande</value>
+    </property>
+    <property key="AccountingTplQuoteType">
+        <value xml:lang="en">Template for quote</value>
+        <value xml:lang="fr">Modèle pour devis</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="ar">لقد تم رصد العملية سابقا</value>

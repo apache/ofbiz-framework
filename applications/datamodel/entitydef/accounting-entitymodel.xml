@@ -2489,6 +2489,45 @@ under the License.
             <key-map field-name="oldOrderSequenceEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
+    <entity entity-name="PartyPrefDocTypeTpl"
+            package-name="org.apache.ofbiz.accounting.ledger"
+            title="Party (organization) preferences for document type template">
+        <field name="partyPrefDocTypeTplId" type="id"/>
+        <field name="partyId" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="invoiceTypeId" type="id"/>
+        <field name="orderTypeId" type="id"/>
+        <field name="quoteTypeId" type="id"/>
+        <field name="customScreenId" type="id"/>
+        <prim-key field="partyPrefDocTypeTplId"/>
+        <relation type="one" rel-entity-name="Party" fk-name="PAPDTT_TO_PTY">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" rel-entity-name="PartyAcctgPreference" fk-name="PAPDTT_TO_PAP">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" rel-entity-name="InvoiceType" fk-name="PAPDTT_TO_INVT">
+            <key-map field-name="invoiceTypeId"/>
+        </relation>
+        <relation type="one" rel-entity-name="QuoteType" fk-name="PAPDTT_TO_QUOT">
+            <key-map field-name="quoteTypeId"/>
+        </relation>
+        <relation type="one" rel-entity-name="OrderType" fk-name="PAPDTT_TO_ORDT">
+            <key-map field-name="orderTypeId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="PartyPrefDocTypeTplAndCustomScreen"
+                 package-name="org.apache.ofbiz.accounting.ledger"
+                 title="Party (organization) accounting preferences for document type template and custom screen view">
+        <member-entity entity-alias="PAP" entity-name="PartyPrefDocTypeTpl"/>
+        <member-entity entity-alias="CS" entity-name="CustomScreen"/>
+        <alias-all entity-alias="PAP"/>
+        <alias-all entity-alias="CS"/>
+        <view-link entity-alias="PAP" rel-entity-alias="CS" rel-optional="true">
+            <key-map field-name="customScreenId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="ProductAverageCost"
             package-name="org.apache.ofbiz.accounting.ledger"
             title="Running tally of average cost">

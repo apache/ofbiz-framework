@@ -34,6 +34,11 @@ under the License.
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
             </hyperlink>
         </field>
+        <field name="documentTypeTpl" title=" " use-when="hasBasicPermission" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.AccountingDocumentTypeTemplate}" target="ListPartyPrefDocTypeTpl">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
         <field name="importexport" title=" " use-when="hasBasicPermission" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonImportExport}" target="ImportExport">
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
@@ -379,6 +384,86 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+    </form>
+
+    <form name="ListPartyPrefDocTypeTpl" type="list" title="" target="expirePartyPrefDocTypeTpl"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <actions>
+            <set field="sortField" from-field="parameters.sortField" default-value="-partyPrefDocTypeTplId"/>
+            <entity-condition entity-name="PartyPrefDocTypeTplAndCustomScreen">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+                <order-by field-name="${sortField}"/>
+            </entity-condition>
+        </actions>
+        <field name="partyPrefDocTypeTplId"><hidden/></field>
+        <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
+        <field name="quoteTypeId" sort-field="true"><display-entity entity-name="QuoteType"/></field>
+        <field name="orderTypeId" sort-field="true"><display-entity entity-name="OrderType"/></field>
+        <field name="customScreenId" sort-field="true" use-when="customScreenId != null"><display-entity entity-name="CustomScreen"/></field>
+        <field name="customScreenId" sort-field="true" use-when="customScreenId == null"><display description="${uiLabelMap.CommonDefaultScreen}"/></field>
+        <field name="fromDate" sort-field="true"><display type="date"/></field>
+        <field name="thruDate" use-when="thruDate != null"><display type="date"/></field>
+        <field name="thruDate" use-when="thruDate == null"><date-time type="date"/></   field>
+        <field name="expire" use-when="thruDate != null"><display description="-"/></field>
+        <field name="expire" use-when="thruDate == null"><submit/></field>
+    </form>
+
+    <form name="SelectPartyPrefDocTypeTpl" type="single" target="ListPartyPrefDocTypeTpl" title="" >
+        <field name="partyId"><hidden/></field>
+        <field name="documentType" title="">
+            <drop-down >
+                <option key="InvoiceType" description="${uiLabelMap.AccountingTplInvoiceType}"/>
+                <option key="QuoteType" description="${uiLabelMap.AccountingTplQuoteType}"/>
+                <option key="OrderType" description="${uiLabelMap.AccountingTplOrderType}"/>
+            </drop-down>
+        </field>
+        <field name="selectButton"><submit/></field>
+    </form>
+    <form name="AddPartyPrefDocTypeTpl" type="single" target="createPartyPrefDocTypeTpl" title="" >
+        <actions>
+            <script location="component://common/groovyScripts/ChildrenCustomScreenTypes.groovy"/>
+        </actions>
+        <field name="partyId"><hidden/></field>
+        <field name="fromDate"><date-time type="date"/></field>
+        <field name="customScreenId">
+            <drop-down>
+                <option key="" description="${uiLabelMap.CommonDefaultScreen}"/>
+                <entity-options entity-name="CustomScreen" description="${description}">
+                    <entity-constraint name="customScreenTypeId" operator="in" env-name="customScreenTypeIds"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit/></field>
+    </form>
+    <form name="AddPartyPrefInvoiceTypeTpl" extends="AddPartyPrefDocTypeTpl" >
+        <actions>
+            <set field="customScreenTypeId" value="CST_INVOICE_TPL" global="true"/>
+            <call-parent-actions/>
+        </actions>
+        <field name="invoiceTypeId">
+            <drop-down><entity-options entity-name="InvoiceType" description="${description}"/></drop-down>
+        </field>
+        <sort-order><sort-field name="invoiceTypeId"/></sort-order>
+    </form>
+    <form name="AddPartyPrefQuoteTypeTpl" extends="AddPartyPrefDocTypeTpl" >
+        <actions>
+            <set field="customScreenTypeId" value="CST_QUOTE_TPL"/>
+            <call-parent-actions/>
+        </actions>
+        <field name="quoteTypeId">
+            <drop-down><entity-options entity-name="QuoteType" description="${description}"/></drop-down>
+        </field>
+        <sort-order><sort-field name="quoteTypeId"/></sort-order>
+    </form>
+    <form name="AddPartyPrefOrderTypeTpl" extends="AddPartyPrefDocTypeTpl" >
+        <actions>
+            <set field="customScreenTypeId" value="CST_ORDER_TPL"/>
+            <call-parent-actions/>
+        </actions>
+        <field name="orderTypeId">
+            <drop-down><entity-options entity-name="OrderType" description="${description}"/></drop-down>
+        </field>
+        <sort-order><sort-field name="orderTypeId"/></sort-order>
     </form>
 
     <!-- forms for managing FX rates -->

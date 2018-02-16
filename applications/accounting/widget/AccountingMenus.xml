@@ -1013,6 +1013,11 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
+        <menu-item name="PartyPrefDocTypeTpl" title="${uiLabelMap.AccountingDocumentTypeTemplate}">
+            <link target="ListPartyPrefDocTypeTpl">
+                <parameter param-name="partyId" from-field="organizationPartyId"/>
+            </link>
+        </menu-item>
         <menu-item name="SetupGlJournals" title="${uiLabelMap.AccountingGlJournals}">
             <link target="SetupGlJournals">
                 <parameter param-name="organizationPartyId"/>
