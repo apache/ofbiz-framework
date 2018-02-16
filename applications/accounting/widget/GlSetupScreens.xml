@@ -221,6 +221,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ListPartyPrefDocTypeTpl">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingPreference"/>
+                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPreference"/>
+                <set field="tabButtonItem" value="PartyPrefDocTypeTpl"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+                <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <set field="partyId" from-field="organizationPartyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListPartyPrefDocTypeTpl" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <screenlet title="${uiLabelMap.AccountingAddPartyPrefDocTypeTpl}">
+                            <section>
+                                <condition><if-empty field="parameters.documentType"/></condition>
+                                <widgets><include-form name="SelectPartyPrefDocTypeTpl" location="component://accounting/widget/GlSetupForms.xml"/></widgets>
+                                <fail-widgets><include-form name="AddPartyPref${parameters.documentType}Tpl" location="component://accounting/widget/GlSetupForms.xml"/></fail-widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="SetupGlJournals">
         <section>
             <actions>

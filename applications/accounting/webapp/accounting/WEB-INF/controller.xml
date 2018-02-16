@@ -1541,12 +1541,24 @@ under the License.
         <response name="success" type="view" value="PartyAcctgPreference"/>
         <response name="error" type="view" value="PartyAcctgPreference"/>
     </request-map>
-
     <request-map uri="updatePartyAcctgPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePartyAcctgPreference"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
         <response name="error" type="view" value="PartyAcctgPreference"/>
+    </request-map>
+    <request-map uri="ListPartyPrefDocTypeTpl"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyPrefDocTypeTpl"/></request-map>
+    <request-map uri="createPartyPrefDocTypeTpl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyPrefDocTypeTpl"/>
+        <response name="success" type="view" value="ListPartyPrefDocTypeTpl"/>
+        <response name="error" type="view" value="ListPartyPrefDocTypeTpl"/>
+    </request-map>
+    <request-map uri="expirePartyPrefDocTypeTpl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="expirePartyPrefDocTypeTpl"/>
+        <response name="success" type="view" value="ListPartyPrefDocTypeTpl"/>
+        <response name="error" type="view" value="ListPartyPrefDocTypeTpl"/>
     </request-map>
 
     <request-map uri="GlAccountAssignment">
@@ -2743,6 +2755,7 @@ under the License.
     <view-map name="AddCompany" type="screen" page="component://accounting/widget/GlSetupScreens.xml#AddCompany"/>
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/GlSetupScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/GlSetupScreens.xml#PartyAcctgPreference"/>
+    <view-map name="ListPartyPrefDocTypeTpl" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListPartyPrefDocTypeTpl"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>
     <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/GlSetupScreens.xml#SetupGlJournals"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ViewFXConversions"/>

@@ -860,6 +860,11 @@ under the License.
     <CustomMethod customMethodId="SECURE_RELEASE_OFBIZ" customMethodTypeId="CC_RELEASE" customMethodName="ofbScRelease" description="SecurePay payment release"/>
     <CustomMethod customMethodId="SECURE_CREDIT_OFBIZ" customMethodTypeId="CC_CREDIT" customMethodName="ofbScCCCredit" description="SecurePay Credit Card"/>
 
+    <!-- CustomScreenType available for official template document-->
+    <CustomScreenType customScreenTypeId="CST_INVOICE_TPL" description="Invoice types template"/>
+    <CustomScreenType customScreenTypeId="CST_ORDER_TPL" description="Order types template"/>
+    <CustomScreenType customScreenTypeId="CST_QUOTE_TPL" description="Quote types template"/>
+
     <!-- Credit Cart Types -->
     <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Visa" enumCode="Visa" enumId="CCT_VISA" sequenceId="01" enumTypeId="CREDIT_CARD_TYPE"/>
