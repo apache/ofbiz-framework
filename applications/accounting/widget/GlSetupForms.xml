@@ -403,7 +403,7 @@ under the License.
         <field name="customScreenId" sort-field="true" use-when="customScreenId == null"><display description="${uiLabelMap.CommonDefaultScreen}"/></field>
         <field name="fromDate" sort-field="true"><display type="date"/></field>
         <field name="thruDate" use-when="thruDate != null"><display type="date"/></field>
-        <field name="thruDate" use-when="thruDate == null"><date-time type="date"/></   field>
+        <field name="thruDate" use-when="thruDate == null"><date-time type="date"/></field>
         <field name="expire" use-when="thruDate != null"><display description="-"/></field>
         <field name="expire" use-when="thruDate == null"><submit/></field>
     </form>
