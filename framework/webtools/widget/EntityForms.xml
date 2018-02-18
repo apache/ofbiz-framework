@@ -63,6 +63,7 @@ under the License.
                <parameter param-name="entityName"/>
             </hyperlink>
         </field>
+        <field name="title"><display/></field>
         <field name="actions" title=" ">
             <include-menu name="ListEntitiesAction" location="component://webtools/widget/Menus.xml"/>
         </field>
