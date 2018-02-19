@@ -1856,17 +1856,23 @@ under the License.
                 <set field="debitEntry.partyId" from-field="invoice.partyIdFrom"/>
                 <set field="debitEntry.roleTypeId" from-field="transPartyRoleTypeId"/>
                 <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
+                <!-- glAccountTypeId is overloaded. For sales and purchase invoices, it has the invoiceItemTypeId,
+                and the getGlAccountFromAccountType service knows that -->
                 <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
                 <set field="debitEntry.origAmount" from-field="amountFromInvoice"/>
                 <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
+
             <!-- debit entry for SALES_TAX-->
+            <set field="invoiceTaxTotal" type="BigDecimal" value="0"/>
+
             <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
+
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
                 <iterate list="taxAuthGeoIds" entry="taxAuthGeoId">
                     <clear-field field="debitEntry"/>
@@ -1883,9 +1889,18 @@ under the License.
                     <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                     <set field="debitEntry.partyId" from-field="taxAuthPartyId"/>
                     <set field="debitEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                    <set field="debitEntry.glAccountTypeId" from-field="TAX_ACCOUNT"/>
+
                     <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                    <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                        <calcop operator="add">
+                            <calcop operator="get" field="invoiceTaxTotal"/>
+                            <calcop operator="get" field="taxAmount"/>
+                        </calcop>
+                    </calculate>
                 </iterate>
             </iterate-map>
+
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
             <clear-field field="debitEntry"/>
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
@@ -1897,7 +1912,14 @@ under the License.
             </call-class-method>
             <set field="debitEntry.origAmount" from-field="taxAmount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+            <set field="debitEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
             <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+            <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                    <calcop operator="get" field="taxAmount"/>
+                </calcop>
+            </calculate>
 
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
@@ -2017,6 +2039,8 @@ under the License.
                 <set field="debitEntry.partyId" from-field="invoice.partyIdFrom"/>
                 <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
                 <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
+                <!-- glAccountTypeId is overloaded. For sales and purchase invoices, it has the invoiceItemTypeId,
+                and the getGlAccountFromAccountType service knows that -->
                 <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
                 <if-compare field="amountFromOrder" operator="greater" value="0" type="BigDecimal">
@@ -2030,6 +2054,7 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
             <!-- debit entry for SALES_TAX-->
+            <set field="invoiceTaxTotal" type="BigDecimal" value="0"/>
             <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
@@ -2050,7 +2075,14 @@ under the License.
                     <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                     <set field="debitEntry.partyId" from-field="taxAuthPartyId"/>
                     <set field="debitEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                    <set field="debitEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
                     <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                    <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                        <calcop operator="add">
+                            <calcop operator="get" field="invoiceTaxTotal"/>
+                            <calcop operator="get" field="taxAmount"/>
+                        </calcop>
+                    </calculate>
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
@@ -2071,9 +2103,16 @@ under the License.
                     <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
                     <set field="debitEntry.origAmount" from-field="taxAmount"/>
                     <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                    <set field="debitEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
                     <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                    <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                        <calcop operator="add">
+                            <calcop operator="get" field="invoiceTaxTotal"/>
+                            <calcop operator="get" field="taxAmount"/>
+                        </calcop>
+                    </calculate>
                 </then>
-            </if>               
+            </if>
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -2171,6 +2210,8 @@ under the License.
                 <!-- Credit -->
                 <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                 <set field="creditEntry.debitCreditFlag" value="C"/>
+                <!-- glAccountTypeId is overloaded. For sales and purchase invoices, it has the invoiceItemTypeId,
+                and the getGlAccountFromAccountType service knows that -->
                 <set field="creditEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
                 <set field="creditEntry.productId" from-field="invoiceItem.productId"/>
@@ -2185,6 +2226,7 @@ under the License.
             </iterate>
 
             <!-- credit entry for SALES_TAX-->
+            <set field="invoiceTaxTotal" type="BigDecimal" value="0"/>
             <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
                 <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
@@ -2218,6 +2260,12 @@ under the License.
                         </else>
                     </if-not-empty>
                     <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+                    <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                        <calcop operator="add">
+                            <calcop operator="get" field="invoiceTaxTotal"/>
+                            <calcop operator="get" field="taxAmount"/>
+                        </calcop>
+                    </calculate>
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
@@ -2234,6 +2282,12 @@ under the License.
                 <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="creditEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+                <calculate field="invoiceTaxTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="add">
+                        <calcop operator="get" field="invoiceTaxTotal"/>
+                        <calcop operator="get" field="taxAmount"/>
+                    </calcop>
+                </calculate>
             </if-compare>
 
             <!-- Debit -->
@@ -2241,10 +2295,6 @@ under the License.
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-            <call-class-method method-name="getInvoiceTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
-                    ret-field="invoiceTaxTotal">
-                <field field="invoice" type="GenericValue"/>
-            </call-class-method>
             <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add">
                     <calcop operator="get" field="totalOrigAmount"/>
