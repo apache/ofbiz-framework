@@ -43,6 +43,7 @@ import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.KeyStoreUtil;
@@ -513,7 +514,9 @@ public class LoginWorker {
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error setting user preference", module);
             }
-
+            // start with a clean state, in case the user has quit the session w/o login out
+            autoLogoutCleanCookies(userLogin, request, response);
+            
             // finally do the main login routine to set everything else up in the session, etc
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
@@ -627,7 +630,7 @@ public class LoginWorker {
 
         doBasicLogout(userLogin, request, response);
         
-        //autoLogoutFromAllBackendSessions(userLogin, request, response);
+        autoLogoutCleanCookies(userLogin, request, response);
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -820,27 +823,27 @@ public class LoginWorker {
         }
         return "success";
     }
-
-    public static String autoLogoutFromAllBackendSessions(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
+    
+    // Removes all the autoLoginCookies but if the webapp requires keeping it
+public static String autoLogoutCleanCookies(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
-        // remove all the autoLoginCookies but if in ecommerce/ecomseo and webpos (it's done manually there, not sure for webpos TODO: check)
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
         }
         if (cookies != null && userLogin != null) {
             for (Cookie autoLoginCookie: cookies) {
-                if (autoLoginCookie.getName().contains("autoUserLoginId")
-                        && !(autoLoginCookie.getName().contains("ecommerce") 
-                        || autoLoginCookie.getName().contains("ecomseo") 
-                        || autoLoginCookie.getName().contains("webpos")))
-                autoLoginCookie.setMaxAge(0);
-                autoLoginCookie.setPath("/");
-                response.addCookie(autoLoginCookie);
+                String autoLoginName = autoLoginCookie.getName().replace(".autoUserLoginId", "");
+                WebappInfo webappInfo = ComponentConfig.getWebappInfo("default-server", autoLoginName);
+                if (webappInfo != null && !webappInfo.getKeepAutologinCookie()) {
+                    autoLoginCookie.setMaxAge(0);
+                    autoLoginCookie.setPath("/");
+                    response.addCookie(autoLoginCookie);
+                }
             }
         }
-        
+
         // remove the session attributes
         session.removeAttribute("autoUserLogin");
         session.removeAttribute("autoName");
