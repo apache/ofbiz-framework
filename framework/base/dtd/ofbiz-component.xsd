@@ -251,6 +251,20 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="keep-autologin-cookie" default="false">
+            <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines if the webapp uses the auto login feature which keeps a memory of the user last visit.
+                        This allows an user easier login by showing his/her username.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="virtual-host">
         <xs:complexType>
