@@ -118,7 +118,8 @@ public class CheckOutEvents {
                     shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
                 }
                 String supplierPartyId = (String) request.getAttribute(shipGroupIndex + "_supplierPartyId");
-                Map<String, ? extends Object> callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
+                String supplierAgreementId = (String) request.getAttribute(shipGroupIndex + "_supplierAgreementId");
+                Map<String, ? extends Object> callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId, supplierAgreementId);
                 ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             }
 
@@ -835,6 +836,7 @@ public class CheckOutEvents {
                         }
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
+                    String supplierAgreementId = request.getParameter(shipGroupIndex + "_supplierAgreementId");
                     if (UtilValidate.isNotEmpty(facilityId)) {
                         cart.setShipGroupFacilityId(shipGroupIndex, facilityId);
                     }
@@ -845,7 +847,7 @@ public class CheckOutEvents {
                     } else {
                         cart.setShipToCustomerPartyId(request.getParameter("orderPartyId"));
                     }
-                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
+                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId, supplierAgreementId);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
                 // set the options

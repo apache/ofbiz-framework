@@ -190,6 +190,13 @@ under the License.
                           <option value="${supplier.partyId}"<#if supplierPartyId??><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                         </#list>
                       </select>
+                      ${uiLabelMap.AccountingAgreement}:
+                      <select name="${shipGroupIndex?default("0")}_supplierAgreementId">
+                        <option value=""></option>
+                        <#list supplierAgreements as agreement>
+                          <option value="${agreement.agreementId}"<#if supplierAgreementId??><#if agreement.agreementId == supplierAgreementId> selected="selected"</#if></#if>>${agreement.description}</option>
+                        </#list>
+                      </select>
                       ${uiLabelMap.ProductReserveInventoryFromFacility}:
                       <select name="${shipGroupIndex?default("0")}_shipGroupFacilityId">
                         <option value=""></option>

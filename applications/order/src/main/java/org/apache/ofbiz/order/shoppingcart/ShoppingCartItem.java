@@ -251,7 +251,9 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (supplierProduct != null) {
             newItem.setSupplierProductId(supplierProduct.getString("supplierProductId"));
             newItem.setName(getPurchaseOrderItemDescription(product, supplierProduct, cart.getLocale(), dispatcher));
-            newItem.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
+            if (newItem.getBasePrice().compareTo(BigDecimal.ZERO) == 0) {
+                newItem.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
+            }
         } else {
             newItem.setName(product.getString("internalName"));
         }
@@ -1088,6 +1090,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                 if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                     priceContext.put("currencyUomId", cart.getCurrency());
+                    priceContext.put("agreementId", cart.getAgreementId());
                     Map<String, Object> priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(priceResult);

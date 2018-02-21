@@ -388,6 +388,7 @@ under the License.
       <field name="originFacilityId" type="id"></field>
       <field name="webSiteId" type="id"></field>
       <field name="productStoreId" type="id"></field>
+      <field name="agreementId" type="id"/>
       <field name="terminalId" type="id-long"></field>
       <field name="transactionId" type="id-long"></field>
       <field name="autoOrderShoppingListId" type="id"></field>
@@ -859,6 +860,7 @@ under the License.
       <field name="shipGroupSeqId" type="id"></field>
       <field name="shipmentMethodTypeId" type="id" enable-audit-log="true"></field>
       <field name="supplierPartyId" type="id"></field>
+      <field name="supplierAgreementId" type="id"/>
       <field name="vendorPartyId" type="id"><description>For use with multi-vendor stores, order will be split so that each ship group is associated with only one vendor (only if applicable)</description></field>
       <field name="carrierPartyId" type="id" enable-audit-log="true"></field>
       <field name="carrierRoleTypeId" type="id"></field>
@@ -881,6 +883,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_SPRTY" title="Supplier" rel-entity-name="Party">
         <key-map field-name="supplierPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITSG_SAGR" title="Supplier" rel-entity-name="Agreement">
+        <key-map field-name="supplierAgreementId" rel-field-name="agreementId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_VPRTY" title="Vendor" rel-entity-name="Party">
         <key-map field-name="vendorPartyId" rel-field-name="partyId"/>

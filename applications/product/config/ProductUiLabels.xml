@@ -13019,6 +13019,10 @@
         <value xml:lang="zh">合同</value>
         <value xml:lang="zh-TW">合約</value>
     </property>
+    <property key="ProductAgreementUse">
+        <value xml:lang="en">Product agreement use</value>
+        <value xml:lang="fr">Accord produit utilisé</value>
+    </property>
     <property key="ProductAisle">
         <value xml:lang="de">Gang</value>
         <value xml:lang="en">Aisle</value>

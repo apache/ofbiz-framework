@@ -58,6 +58,7 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.product.product.ProductSearch;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -282,10 +283,8 @@ public final class ProductPromoWorker {
             List<GenericValue> agreementPromoApplsList = agreementItem.getRelated("AgreementPromoAppl", null, UtilMisc.toList("sequenceNum"), true);
             agreementPromoApplsList = EntityUtil.filterByDate(agreementPromoApplsList, nowTimestamp);
 
-            if (UtilValidate.isEmpty(agreementPromoApplsList)) {
-                if (Debug.verboseOn()) {
+            if (Debug.verboseOn() && UtilValidate.isEmpty(agreementPromoApplsList)) {
                     Debug.logVerbose("Not doing promotions, none applied to agreement with ID " + agreementId, module);
-                }
             }
 
             Iterator<GenericValue> agreementPromoAppls = UtilMisc.toIterator(agreementPromoApplsList);

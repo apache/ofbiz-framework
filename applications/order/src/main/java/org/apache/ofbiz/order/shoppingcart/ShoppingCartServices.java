@@ -210,6 +210,7 @@ public class ShoppingCartServices {
         cart.setOrderStatusId(orderHeader.getString("statusId"));
         cart.setOrderStatusString(currentStatusString);
         cart.setFacilityId(orderHeader.getString("originFacilityId"));
+        cart.setAgreementId(orderHeader.getString("agreementId"));
 
         try {
             cart.setUserLogin(userLogin, dispatcher);
