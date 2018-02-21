@@ -192,6 +192,16 @@ under the License.
                   </#if>
               </td>
             </tr>
+            <#if orderHeader.agreementId?has_content>
+            <tr><td colspan="3"><hr /></td></tr>
+            <tr>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.AccountingAgreement}</td>
+              <td width="5%">&nbsp;</td>
+              <td valign="top" width="80%">
+                    <a href="<@ofbizUrl>/accounting/control/EditAgreement?agreementId=${orderHeader.agreementId}</@ofbizUrl>" class="buttontext">${orderHeader.agreementId}</a>
+              </td>
+            </tr>
+            </#if>
             <#if (orderItem.cancelBackOrderDate)??>
               <tr><td colspan="3"><hr /></td></tr>
               <tr>

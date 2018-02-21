@@ -537,6 +537,17 @@ under the License.
                 ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, shipGroup.supplierPartyId, false)!shipGroup.supplierPartyId}
               </td>
             </tr>
+            <#if shipGroup.supplierAgreementId??>
+            <tr>
+              <td align="right" valign="top" width="15%">
+                  <span class="label">&nbsp;${uiLabelMap.AccountingAgreement}</span>
+              </td>
+              <td width="5">&nbsp;</td>
+              <td valign="top" width="80%">
+                  ${shipGroup.supplierAgreementId}
+              </td>
+            </tr>
+            </#if>
           </#if>
   
           <#-- This section appears when Shipment of order is in picked status and its items are packed,this case comes when new shipping estimates based on weight of packages are more than or less than default percentage (defined in shipment.properties) of original shipping estimate-->

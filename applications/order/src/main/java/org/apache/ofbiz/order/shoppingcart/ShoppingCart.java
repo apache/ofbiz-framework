@@ -2369,6 +2369,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return csi.supplierPartyId;
     }
 
+    /** Sets the supplier agreement for the given ship group (drop shipment). */
+    public void setSupplierAgreementId(int idx, String supplierAgreementId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        csi.supplierAgreementId = supplierAgreementId;
+    }
+
+    /** Returns the supplier Agreement for the given ship group (drop shipment). */
+    public String getSupplierAgreementId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.supplierAgreementId;
+    }
+
     /** Sets the shipping instructions. */
     public void setShippingInstructions(int idx, String shippingInstructions) {
         CartShipInfo csi = this.getShipInfo(idx);
@@ -4337,6 +4349,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 shipInfo = this.shipInfo.get(newShipGroupIndex);
             }
             shipInfo.supplierPartyId = supplierPartyId;
+            shipInfo.supplierAgreementId = null;
 
             Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.checkMap(supplierPartyEntry.getValue());
             for (Entry<ShoppingCartItem, Map<Integer, BigDecimal>> cartItemEntry : supplierCartItems.entrySet()) {
@@ -4578,6 +4591,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public String telecomContactMechId = null;
         public String shipmentMethodTypeId = null;
         public String supplierPartyId = null;
+        public String supplierAgreementId = null;
         public String carrierRoleTypeId = null;
         public String carrierPartyId = null;
         private String facilityId = null;
@@ -4616,6 +4630,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
+        public String getSupplierAgreementId() { return supplierAgreementId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
         public BigDecimal getShipEstimate() { return shipEstimate; }
 
@@ -4673,6 +4688,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             shipGroup.set("carrierRoleTypeId", carrierRoleTypeId);
             shipGroup.set("carrierPartyId", carrierPartyId);
             shipGroup.set("supplierPartyId", supplierPartyId);
+            shipGroup.set("supplierAgreementId", supplierAgreementId);
             shipGroup.set("shippingInstructions", shippingInstructions);
             shipGroup.set("giftMessage", giftMessage);
             shipGroup.set("contactMechId", this.internalContactMechId);

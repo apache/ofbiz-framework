@@ -323,6 +323,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
 
         <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>

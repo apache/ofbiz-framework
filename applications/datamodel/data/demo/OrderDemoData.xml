@@ -869,6 +869,24 @@ under the License.
     <ContentAssoc contentId="SV-1001-ALT" contentIdTo="CSV-1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
     <ProductContent productId="SV-1001" contentId="SV-1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
 
+    <!-- test for product shipped from drop shipment and with agreement to resolve the purchase price
+       To test: create a sales order for DemoCustomer with the product DS-100
+       On shipping plan, select DemoSupplier as supplier and agreement DS-1000-PURCH as supplier agreement
+       When the order will be create, the purchase order create will be haave unit price 8 instead 9.
+    -->
+    <Product productId="DS-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="PROMOTIONS" productName="Drop ship product" internalName="drop ship" description="product shipped from drop shipment and with agreement to resolve the purchase price" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" requirementMethodEnumId="PRODRQM_DS"/>
+    <ProductPrice productId="DS-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="10" />
+    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" supplierProductId="DS-1000_A" supplierProductName="Drop SP" availableFromDate="2005-01-01 00:00:00.000" canDropShip="Y"/>
+    <ProductCategoryMember productCategoryId="200" productId="DS-1000" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
+    <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
+    <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+    <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000"/>
+    <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
+    <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+    <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
+
     <!-- test for the configurable product type which is received to- and shipped from inventory-->
     <Product productId="CFSV1001" productTypeId="AGGREGATED_SERVICE" primaryProductCategoryId="SERV-001" productName="Scanning book service" internalName="The configurable product type which is received to- and shipped from inventory" description="The configurable product type which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="SCAN_TYPE" productTypeId="SERVICE_PRODUCT" productName="Scanning Type" internalName="Scanning Type" description="Scanning Type" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>

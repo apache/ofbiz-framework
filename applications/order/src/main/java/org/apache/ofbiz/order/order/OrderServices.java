@@ -477,6 +477,7 @@ public class OrderServices {
                 "orderDate", orderDate, "entryDate", nowTimestamp,
                 "statusId", initialStatus, "billingAccountId", billingAccountId);
         orderHeaderMap.put("orderName", context.get("orderName"));
+        orderHeaderMap.put("agreementId", context.get("agreementId"));
         if (isImmediatelyFulfilled) {
             // also flag this order as needing inventory issuance so that when it is set to complete it will be issued immediately (needsInventoryIssuance = Y)
             orderHeaderMap.put("needsInventoryIssuance", "Y");
@@ -4980,6 +4981,7 @@ public class OrderServices {
                         cart.setBillToCustomerPartyId(cart.getBillFromVendorPartyId()); //Company
                         cart.setBillFromVendorPartyId(supplierPartyId);
                         cart.setOrderPartyId(supplierPartyId);
+                        cart.setAgreementId(shipGroup.getString("supplierAgreementId"));
                         // Get the items associated to it and create po
                         List<GenericValue> items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId"));
                         if (UtilValidate.isNotEmpty(items)) {
@@ -5009,6 +5011,8 @@ public class OrderServices {
 
                         // If there are indeed items to drop ship, then create the purchase order
                         if (UtilValidate.isNotEmpty(cart.items())) {
+                            //resolve supplier promotion
+                            ProductPromoWorker.doPromotions(cart, dispatcher);
                             // set checkout options
                             cart.setDefaultCheckoutOptions(dispatcher);
                             // the shipping address is the one of the customer

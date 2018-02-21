@@ -599,6 +599,7 @@ public class CheckOutHelper {
         }
         context.put("webSiteId", webSiteId);
         context.put("originOrderId", originOrderId);
+        context.put("agreementId", cart.getAgreementId());
 
         // need the partyId; don't use userLogin in case of an order via order mgr
         String partyId = this.cart.getPartyId();
@@ -1378,10 +1379,12 @@ public class CheckOutHelper {
      *
      * @param shipGroupIndex The index of the ship group in the cart
      * @param shippingContactMechId The identifier of the contact
+     * @param supplierPartyId The identifier of the supplier to use for the drop shipment
+     * @param supplierAgreementId The identifier of the agreement with the supplier
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map<String, Object> finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId) {
+    public Map<String, Object> finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId, String supplierAgreementId) {
         Map<String, Object> result;
         String errMsg=null;
         //Verify the field is valid
@@ -1389,6 +1392,9 @@ public class CheckOutHelper {
             this.cart.setShippingContactMechId(shipGroupIndex, shippingContactMechId);
             if (UtilValidate.isNotEmpty(supplierPartyId)) {
                 this.cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
+                if (UtilValidate.isNotEmpty(supplierAgreementId)) {
+                    this.cart.setSupplierAgreementId(shipGroupIndex, supplierAgreementId);
+                }
             }
             result = ServiceUtil.returnSuccess();
         } else {

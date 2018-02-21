@@ -1105,7 +1105,7 @@ under the License.
         <field-to-result field="parameters.paymentMethodId" result-name="paymentMethodId"/>
     </simple-method>
 
-    <simple-method method-name="setUnitPriceAsLastPrice" short-description="Set unitPrice as lastPrice on create purchase order, edit purchase order items and on receive inventory against a purchase order">
+    <simple-method method-name="setUnitPriceAsLastPrice" short-description="Set unitPrice as lastPrice on create purchase order, edit purchase order items and on receive inventory against a purchase order, but only if the order price didn't come from an agreement">
         <if>
             <condition>
                 <and>
@@ -1158,6 +1158,11 @@ under the License.
                         </and>
                     </condition>
                     <then>
+                        <entity-one entity-name="OrderHeader" value-field="order"/>
+                        <!--Do not update lastPrice if an agreement has been used on the order -->
+                        <if-not-empty field="order.agreementId"><!--TODO replace by orderPItemPriceInfo analyse when it will support agreement-->
+                            <return/>
+                        </if-not-empty>
                         <entity-and entity-name="OrderItem" list="orderItems">
                             <field-map field-name="orderId" from-field="parameters.orderId"/>
                         </entity-and>

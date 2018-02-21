@@ -40,6 +40,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -1218,13 +1219,76 @@ public class PriceServices {
 
         GenericValue product = (GenericValue)context.get("product");
         String productId = product.getString("productId");
+        String agreementId = (String)context.get("agreementId");
         String currencyUomId = (String)context.get("currencyUomId");
         String partyId = (String)context.get("partyId");
         BigDecimal quantity = (BigDecimal)context.get("quantity");
         Locale locale = (Locale)context.get("locale");
 
         // a) Get the Price from the Agreement* data model
-        // TODO: Implement this
+        if (Debug.infoOn()) Debug.logInfo("Try to resolve purchase price from agreement " + agreementId, module);
+        if (UtilValidate.isNotEmpty(agreementId)) {
+            //TODO Search before if agreement is associate to SupplierProduct.
+            //confirm that agreement is price application on purchase type and contains a value for the product
+            EntityCondition cond = EntityCondition.makeCondition(
+                    UtilMisc.toList(
+                            EntityExpr.makeCondition("agreementId", agreementId),
+                            EntityExpr.makeCondition("agreementItemTypeId", "AGREEMENT_PRICING_PR"),
+                            EntityExpr.makeCondition("agreementTypeId", "PURCHASE_AGREEMENT"),
+                            EntityExpr.makeCondition("productId", productId)));
+            try {
+                List<GenericValue> agreementPrices = delegator.findList("AgreementItemAndProductAppl", cond, UtilMisc.toSet("price", "currencyUomId"), null, null, true);
+                if (UtilValidate.isNotEmpty(agreementPrices)) {
+                    GenericValue priceFound = null;
+                    //resolve price on given currency. If not define, try to convert a present price
+                    priceFound = EntityUtil.getFirst(EntityUtil.filterByAnd(agreementPrices, UtilMisc.toMap("currencyUomId", currencyUomId)));
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("             AgreementItem " + agreementPrices, module);
+                        Debug.logInfo("             currencyUomId " + currencyUomId, module);
+                        Debug.logInfo("             priceFound " + priceFound, module);
+                    }
+                    if (priceFound == null) {
+                        priceFound = EntityUtil.getFirst(agreementPrices);
+                        try {
+                            Map<String, Object> priceConvertMap = UtilMisc.toMap("uomId", priceFound.getString("currencyUomId"), "uomIdTo", currencyUomId,
+                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , Long.valueOf(2) , "defaultRoundingMode" , "HalfUp");
+                            Map<String, Object> priceResults = dispatcher.runSync("convertUom", priceConvertMap);
+                            if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
+                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , module);
+                            } else {
+                                price = (BigDecimal) priceResults.get("convertedValue");
+                                validPriceFound = true;
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                        }
+                    } else {
+                        price = priceFound.getBigDecimal("price");
+                        validPriceFound = true;
+                    }
+                }
+                if (validPriceFound) {
+                    GenericValue agreement = delegator.findOne("Agreement", true, UtilMisc.toMap("agreementId", agreementId));
+                    StringBuilder priceInfoDescription = new StringBuilder();
+                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductAgreementUse", locale));
+                    priceInfoDescription.append("[");
+                    priceInfoDescription.append(agreementId);
+                    priceInfoDescription.append("] ");
+                    priceInfoDescription.append(agreement.get("description"));
+                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");
+                    // make sure description is <= than 250 chars
+                    String priceInfoDescriptionString = priceInfoDescription.toString();
+                    if (priceInfoDescriptionString.length() > 250) {
+                        priceInfoDescriptionString = priceInfoDescriptionString.substring(0, 250);
+                    }
+                    orderItemPriceInfo.set("description", priceInfoDescriptionString);
+                    orderItemPriceInfos.add(orderItemPriceInfo);
+                }
+            } catch (GenericEntityException gee) {
+                Debug.logError(gee, module);
+                return ServiceUtil.returnError(gee.getMessage());
+            }
+        }
 
         // b) If no price can be found, get the lastPrice from the SupplierProduct entity
         if (!validPriceFound) {
