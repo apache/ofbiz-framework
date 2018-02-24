@@ -1250,7 +1250,6 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="inventoryItemLabelTypeId" optional="false"/>
     </service>
     <service name="updateInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="entity-auto" invoke="update" auth="true">
         <description>Update an InventoryItemLabel</description>
