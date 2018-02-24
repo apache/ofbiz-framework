@@ -63,13 +63,16 @@ public final class EntityEcaRule implements java.io.Serializable {
         ArrayList<Object> actionsAndSets = new ArrayList<Object>();
         for (Element element: UtilXml.childElementList(eca)) {
             if ("condition".equals(element.getNodeName())) {
-                EntityEcaCondition ecaCond = new EntityEcaCondition(element, true);
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, true, false);
                 conditions.add(ecaCond);
                 conditionFieldNames.addAll(ecaCond.getFieldNames());
             } else if ("condition-field".equals(element.getNodeName())) {
-                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false);
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false, false);
                 conditions.add(ecaCond);
                 conditionFieldNames.addAll(ecaCond.getFieldNames());
+            } else if ("condition-service".equals(element.getNodeName())) {
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false, true);
+                conditions.add(ecaCond);
             } else if ("action".equals(element.getNodeName())) {
                 actionsAndSets.add(new EntityEcaAction(element));
             } else if ("set".equals(element.getNodeName())) {
@@ -144,13 +147,12 @@ public final class EntityEcaRule implements java.io.Serializable {
             }
         }
 
-
         Map<String, Object> context = new HashMap<String, Object>();
         context.putAll(value);
 
         boolean allCondTrue = true;
         for (EntityEcaCondition ec: conditions) {
-            if (!ec.eval(dctx, value)) {
+            if (!ec.eval(dctx, value, context)) {
                 allCondTrue = false;
                 break;
             }
