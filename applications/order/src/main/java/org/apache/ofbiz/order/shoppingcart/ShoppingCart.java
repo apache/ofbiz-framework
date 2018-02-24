@@ -56,6 +56,8 @@ import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
@@ -3918,27 +3920,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<GenericValue> allInfos = new LinkedList<>();
         for (ShoppingCartItem item : this) {
             List<String> responses = UtilGenerics.checkList(item.getAttribute("surveyResponses"));
-            GenericValue response = null;
             if (responses != null) {
-                for (String responseId : responses) {
-                    try {
-                        response = this.getDelegator().findOne("SurveyResponse", UtilMisc.toMap("surveyResponseId", responseId), false);
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to obtain SurveyResponse record for ID : " + responseId, module);
+                try {
+                    List<GenericValue> surveyResponses = EntityQuery.use(getDelegator()).from("SurveyResponse").where(EntityCondition.makeCondition("surveyResponseId", EntityOperator.IN, responses)).queryList();
+                    if (surveyResponses != null) {
+                        for (GenericValue surveyResponse : surveyResponses) {
+                            surveyResponse.set("orderItemSeqId", item.getOrderItemSeqId());
+                            allInfos.add(surveyResponse);
+                        }
                     }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Unable to obtain SurveyResponse record", module);
                 }
-             // this case is executed when user selects "Create as new Order" for Gift cards
-             } else {
-                 String surveyResponseId = (String) item.getAttribute("surveyResponseId");
-                 try {
-                     response = this.getDelegator().findOne("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId), false);
-                 } catch (GenericEntityException e) {
-                     Debug.logError(e, "Unable to obtain SurveyResponse record for ID : " + surveyResponseId, module);
-                 }
-            }
-            if (response != null) {
-                response.set("orderItemSeqId", item.getOrderItemSeqId());
-                allInfos.add(response);
             }
         }
         return allInfos;
