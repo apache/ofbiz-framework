@@ -117,8 +117,102 @@ function bindObservers(bind_element) {
         if (!confirm(confirmMessage)) {
             e.preventDefault();
         }
-    })
+    });
+    jQuery(bind_element).find("[data-lookup-presentation]").each(function(){
+        var element = jQuery(this);
+        var form = element.form();
+        var formName = form.attr("name");
+        if (!formName) {
+            console.log("Developer: For lookups to work you must provide a form name!");
+            return;
+        }
+        var presentation = element.data("lookup-presentation");
+        var ajaxEnabled = element.data("lookup-ajax-enabled");
+        var ajaxUrl = element.data("lookup-ajax-url");
+        var showDescription = element.data("lookup-show-description");
 
+        var defaultMinLength = element.data("lookup-default-minlength");
+        var defaultDelay = element.data("lookup-default-delay");
+        var descriptionFieldName = element.data("lookup-description-field");
+
+        if (presentation && presentation === "window" && descriptionFieldName) {
+            var descriptionField = form.find("input[name=" + descriptionFieldName+"]").get(0);
+            var fieldFormname = element.data("lookup-field-formname");
+            var lookupArgs = element.data("lookup-args");
+            var args = [];
+            if (lookupArgs){
+                jQuery.each(lookupArgs.split(', '), function (index, value) {
+                    var argValue = form.find("input[name=" + value + "]").get(0).value;
+                    args.push(argValue);
+                });
+            }
+
+            var argList = [this, descriptionField, fieldFormname, presentation];
+            argList = argList.concat(args);
+            var $a = jQuery("<a/>").one("click", function () {
+                call_fieldlookup3.apply(null, argList);
+            });
+            element.parent().append($a);
+
+        } else if (presentation && presentation === "window"){
+            var fieldFormname = element.data("lookup-field-formname");
+            var lookupArgs = element.data("lookup-args");
+            var args = [];
+            if (lookupArgs){
+                jQuery.each(lookupArgs.split(', '), function (index, value) {
+                    var argValue = form.find("input[name=" + value + "]").get(0).value;
+                    args.push(argValue);
+                });
+            }
+
+            var argList = [this, fieldFormname, presentation];
+            argList = argList.concat(args);
+            var $a = jQuery("<a/>").one("click", function () {
+                call_fieldlookup2.apply(null, argList);
+            });
+            element.parent(".field-lookup").append($a);
+        } else {
+            var lookupOptionalTarget = element.data("lookup-optional-target");
+            var dialogOptionalTarget = undefined;
+            if (lookupOptionalTarget)
+                dialogOptionalTarget = form.find("input[name=" + element.data("lookup-optional-target")+"]").get(0);
+            var lookupArgs = element.data("lookup-args");
+            var args = [];
+            if (lookupArgs){
+                jQuery.each(lookupArgs.split(', '), function (index, value) {
+                    var argElement = form.find("input[name=" + value + "]").get(0);
+                    args.push(argElement);
+                });
+            }
+
+            var options = {
+                requestUrl : element.data("lookup-request-url"),
+                inputFieldId : this.id,
+                dialogTarget : this,
+                dialogOptionalTarget : dialogOptionalTarget,
+                formName : formName,
+                width : element.data("lookup-width"),
+                height : element.data("lookup-height"),
+                position : element.data("lookup-position"),
+                modal : element.data("lookup-modal"),
+                ajaxUrl : ajaxUrl,
+                showDescription : showDescription,
+                presentation : presentation,
+                defaultMinLength : defaultMinLength,
+                defaultDelay : defaultDelay,
+                args : args
+            };
+            new Lookup(options).init();
+        }
+        element.siblings(".clearField").on("click", function (){
+            element.val("");
+            jQuery('#' + element.attr('id') + '_lookupDescription').html('');
+        });
+
+        if (ajaxEnabled && presentation && presentation == "window"){
+            ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, defaultDelay);
+        }
+    });
 }
 
 /* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:

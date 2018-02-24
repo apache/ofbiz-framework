@@ -891,6 +891,7 @@ text-decoration: underline;
     margin-top: 0.3em;
     width: 16px; /* Setting must be in px */
     height: 16px; /* Setting must be in px */
+    cursor: pointer;
 }
 
 /* --------------------------- */

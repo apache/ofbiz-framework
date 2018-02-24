@@ -2182,17 +2182,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             lookupPresentation = "";
         }
         String lookupHeight = lookupField.getLookupHeight();
-        if (UtilValidate.isEmpty(lookupHeight)) {
-            lookupHeight = "";
-        }
         String lookupWidth = lookupField.getLookupWidth();
-        if (UtilValidate.isEmpty(lookupWidth)) {
-            lookupWidth = "";
-        }
         String lookupPosition = lookupField.getLookupPosition();
-        if (UtilValidate.isEmpty(lookupPosition)) {
-            lookupPosition = "";
-        }
         String fadeBackground = lookupField.getFadeBackground();
         if (UtilValidate.isEmpty(fadeBackground)) {
             fadeBackground = "false";
@@ -2262,12 +2253,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" presentation=\"");
         sr.append(lookupPresentation);
-        sr.append("\" height=\"");
-        sr.append(lookupHeight);
-        sr.append("\" width=\"");
-        sr.append(lookupWidth);
-        sr.append("\" position=\"");
-        sr.append(lookupPosition);
+        if (UtilValidate.isNotEmpty(lookupHeight)) {
+            sr.append("\" height=\"");
+            sr.append(lookupHeight);
+        }
+        if (UtilValidate.isNotEmpty(lookupWidth)) {
+            sr.append("\" width=\"");
+            sr.append(lookupWidth);
+        }
+        if (UtilValidate.isNotEmpty(lookupPosition)) {
+            sr.append("\" position=\"");
+            sr.append(lookupPosition);
+        }
         sr.append("\" fadeBackground=\"");
         sr.append(fadeBackground);
         sr.append("\" clearText=\"");

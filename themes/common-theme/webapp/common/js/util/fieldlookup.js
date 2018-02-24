@@ -192,6 +192,8 @@ var Lookup = function(options) {
         defaultDelay : options.defaultDelay || "",
         args : options.args || ""
     }
+    if (options.showDescription)
+        options.showDescription = options.showDescription.toString();
 
     function _init() {
         _lookupId = GLOBAL_LOOKUP_REF.createNextKey();
@@ -324,6 +326,7 @@ var Lookup = function(options) {
             success : function(data) {
                 _lookupContainer.html(data);
                 new ButtonModifier(_lookupId).modifyLookupLinks();
+                bindObservers("#" + _lookupId);
             },
 
             error : function(xhr, reason, exception) {
