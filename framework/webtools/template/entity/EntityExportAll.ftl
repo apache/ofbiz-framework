@@ -27,10 +27,40 @@ under the License.
     </#list>
 </#if>
 <hr />
-<form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" size="60" name="outpath" value="${outpath!}" /><br />
-    ${uiLabelMap.CommonFromDate}: <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/><br/>
-    ${uiLabelMap.WebtoolsTimeoutSeconds}: <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/><br />
-    <br />
-    <input type="submit" value="${uiLabelMap.WebtoolsExport}" />
+<form class="basic-form" method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            </tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsOutputDirectory}</label>
+                </td>
+                <td>
+                    <input type="text" size="25" name="outpath" value="${outpath!}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.CommonFromDate}</label>
+                </td>
+                <td>
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    ${uiLabelMap.WebtoolsTimeoutSeconds}: 
+                </td>
+                <td>
+                <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/>
+                </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                    </td>
+                    <td colspan="4">
+                        <input type="submit" value="${uiLabelMap.WebtoolsExport}" />
+                        </td>
+                </tr>
+            </tbody>
+        </table>
 </form>
