@@ -60,9 +60,21 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="statusId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingStatusId"/>
+            </type-validate>
+        </attribute>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
@@ -76,6 +88,11 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="reason" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
@@ -84,6 +101,11 @@ under the License.
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffort">
         <description>Delete a WorkEffort Entity</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="copyWorkEffort" engine="simple" auth="true" transaction-timeout="300"
@@ -92,6 +114,9 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
             <description>The ID of the WorkEffort to copy from.</description>
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSourceWorkEffortId"/>
+            </type-validate>
         </attribute>
         <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
             <description>The ID of the WorkEffort copy. If empty a new WorkEffort ID will be created.</description>
@@ -111,7 +136,11 @@ under the License.
         <attribute name="excludeExpiredRelations" mode="IN" type="String" optional="true">
             <description>Exclude expired WorkEffort related values from copying (Y/N). Used only when copyRelatedValues = Y.</description>
         </attribute>
-        <attribute name="workEffortId" mode="OUT" type="String" optional="false" />
+        <attribute name="workEffortId" mode="OUT" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
     </service>
 
     <service name="duplicateWorkEffort" engine="simple"
@@ -121,7 +150,11 @@ under the License.
             sequenceId of the statusTypeId</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
-        <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false">
+        <type-validate>
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingOldWorkEffortTypeId"/>
+        </type-validate>
+        </attribute>
         <attribute name="duplicateWorkEffortAssocs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateWorkEffortContents" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateWorkEffortNotes" type="String" mode="IN" optional="true"/>
@@ -154,7 +187,26 @@ under the License.
             <exclude field-name="statusDateTime"/>
         </auto-attributes>
         <override name="fromDate" mode="INOUT" optional="true"/>
-        <override name="statusId" optional="false"/>
+        <override name="partyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </override>
+        <override name="roleTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </override>
+        <override name="statusId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingStatusId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updatePartyToWorkEffortAssignment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
         location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updatePartyToWorkEffortAssignment">
@@ -164,38 +216,126 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="statusDateTime"/>
         </auto-attributes>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="partyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </override>
+        <override name="roleTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deletePartyToWorkEffortAssignment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
         location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deletePartyToWorkEffortAssignment">
         <description>delete/set the thrudate on the WorkEffortPartyAssignment Entity to today</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="partyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </override>
+        <override name="roleTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="unassignPartyFromWorkEffort" default-entity-name="WorkEffortPartyAssignment" engine="entity-auto" invoke="delete">
         <description>Delete a WorkEffortPartyAssignment Entity</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="partyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </override>
+        <override name="roleTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="quickAssignPartyToWorkEffort" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="quickAssignPartyToWorkEffort">
         <description>Quick Assign Party To WorkEffort as Owner</description>
-        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuickAssignPartyId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="quickAssignPartyToWorkEffortWithRole" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="quickAssignPartyToWorkEffortWithRole">
         <description>Quick Assign Party To WorkEffort as Owner</description>
-        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuickAssignPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
     </service>
     <service name="createWorkEffortNote" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortNote" auth="true">
         <description>Create a WorkEffort Note</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="noteInfo" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingNoteInfo"/>
+            </type-validate>
+        </attribute>
         <attribute name="noteParty" type="String" mode="IN" optional="true"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
         <attribute name="internalNote" type="String" mode="IN" optional="true"/>
@@ -204,22 +344,42 @@ under the License.
     <service name="updateWorkEffortNote" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortNote" auth="true">
         <description>Update a WorkEffort Note</description>
-        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteId" type="String" mode="IN" optional="false"/>
-        <attribute name="internalNote" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="noteId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingNoteInfo"/>
+            </type-validate>
+        </attribute>
+        <attribute name="internalNote" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldInternalNote"/>
+            </type-validate>
+        </attribute>
         <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
     </service>
     <!-- Services for finding Assigned WorkEfforts -->
     <service name="getWorkEffortAssignedEventsForRole" engine="java"
             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRole">
         <description>Get the active WorkEffort Events where the logged in user is assigned in the specidied role.</description>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
         <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedEventsForRoleOfAllParties" engine="java"
             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRoleOfAllParties">
         <description>Get the active WorkEffort Events in the specified role for all the parties.</description>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
         <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedTasks" engine="java"
@@ -277,9 +437,21 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
         <attribute name="workEffortTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="start" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="numPeriods" type="java.lang.Integer" mode="IN" optional="false"/>
-        <attribute name="periodType" type="java.lang.Integer" mode="IN" optional="false"/>
+        <attribute name="start" type="java.sql.Timestamp" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingStart"/>
+            </type-validate>
+        </attribute>
+        <attribute name="numPeriods" type="java.lang.Integer" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingNumPeriods"/>
+            </type-validate>
+        </attribute>
+        <attribute name="periodType" type="java.lang.Integer" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingNumPeriodType"/>
+            </type-validate>
+        </attribute>
         <attribute name="filterOutCanceledEvents" type="java.lang.Boolean" mode="IN" optional="true"/>
         <attribute name="entityExprList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="periods" type="java.util.List" mode="OUT" optional="false"/>
@@ -299,7 +471,11 @@ under the License.
             incoming - incomingProductionRunList, estimatedQuantityTotal.  Shows quantity of product to be produced.
             outgoing - outgoingProductionRunList, estimatedQuantityTotal.  Shows quantity of product to be consumed.
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingProductId"/>
+            </type-validate>
+        </attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="summaryInByFacility" type="Map" mode="OUT" optional="false"/>
         <attribute name="summaryOutByFacility" type="Map" mode="OUT" optional="false"/>
@@ -313,6 +489,21 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="workEffortAssocTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortAssocTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdFrom" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdFrom"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdTo" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdTo"/>
+            </type-validate>
+        </override>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateWorkEffortAssoc" default-entity-name="WorkEffortAssoc" engine="entity-auto" invoke="update">
@@ -323,6 +514,26 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortAssocTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortAssocTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdFrom" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdFrom"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdTo" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdTo"/>
+            </type-validate>
+        </override>
     </service>
     <service name="removeWorkEffortAssoc" engine="entity-auto" default-entity-name="WorkEffortAssoc" invoke="delete">
         <description>
@@ -331,6 +542,26 @@ under the License.
         </description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortAssocTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortAssocTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdFrom" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdFrom"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdTo" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdTo"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="copyWorkEffortAssocs" engine="simple" auth="true" transaction-timeout="300"
@@ -339,6 +570,9 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
             <description>The ID of the WorkEffort to copy the associations from.</description>
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSourceWorkEffortId"/>
+            </type-validate>
         </attribute>
         <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
             <description>The ID of the WorkEffort to copy the associations to.</description>
@@ -376,6 +610,16 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortName"/>
             </type-validate>
         </override>
+        <override name="workEffortAssocTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortAssocTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortIdFrom" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortIdFrom"/>
+            </type-validate>
+        </override>
         <override name="workEffortTypeId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortTypeId"/>
@@ -399,6 +643,21 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
+        <override name="productId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingProductId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortGoodStdTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortGoodStdTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortGoodStandard" engine="entity-auto" default-entity-name="WorkEffortGoodStandard" invoke="update">
         <description>
@@ -408,12 +667,52 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="productId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingProductId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortGoodStdTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortGoodStdTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="removeWorkEffortGoodStandard" engine="entity-auto" default-entity-name="WorkEffortGoodStandard" invoke="delete">
         <description>Remove a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
             for routing it's the link between Manufactured Product with its routings
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="productId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingProductId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortGoodStdTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortGoodStdTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="assignInventoryToWorkEffort" default-entity-name="WorkEffortInventoryAssign" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="assignInventoryToWorkEffort" auth="true">
@@ -421,6 +720,16 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryItemId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingInventoryItemId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createCommunicationEventWorkEff" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true">
         <description>Creates a CommunicationEvent entity and CommunicationEventWorkEff</description>
@@ -434,11 +743,31 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
+        <override name="communicationEventId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCommunicationEventId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteCommunicationEventWorkEff" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteCommunicationEventWorkEff" auth="true">
         <description>Deletes CommunicationEventWorkEff</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CommunicationEventWorkEff"/>
+        <override name="communicationEventId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCommunicationEventId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="create" auth="true">
         <description>Creates a CustRequestWorkEffort</description>
@@ -449,11 +778,26 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
             </type-validate>
         </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
         <override name="description" allow-html="any"/>
     </service>
     <service name="deleteWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="delete" auth="true">
         <description>Deletes a CustRequestWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
+        <override name="custRequestId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortRequestItemAndRequestItem" engine="group" location="createWorkEffortRequestItemAndRequestItem" invoke="" auth="true">
         <description>Creates a CustRequestItem entity and CustRequestItemWorkEffort</description>
@@ -461,6 +805,21 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="OUT" optional="true"/>
+        <override name="custRequestId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
+            </type-validate>
+        </override>
+        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortRequestItem" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a CustRequestItemWorkEffort</description>
@@ -468,10 +827,40 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="IN" optional="true"/>
+        <override name="custRequestId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
+            </type-validate>
+        </override>
+        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortRequestItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Deletes a CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
+        <override name="custRequestId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
+            </type-validate>
+        </override>
+        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="checkCustRequestItemExists" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="checkCustRequestItemExists" auth="true">
         <description>Checks to see if a CustRequestItem exists</description>
@@ -488,10 +877,25 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuoteId"/>
             </type-validate>
         </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortQuote" default-entity-name="QuoteWorkEffort" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes a QuoteWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="quoteId" optional="false" mode="INOUT">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuoteId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="createWorkRequirementFulfillment" engine="entity-auto" default-entity-name="WorkRequirementFulfillment" auth="true" invoke="create">
@@ -513,6 +917,16 @@ under the License.
     <service name="deleteWorkRequirementFulfillment" engine="entity-auto" default-entity-name="WorkRequirementFulfillment" auth="true" invoke="delete">
         <description>Deletes a WorkRequirementFulfillment</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="WorkRequirementFulfillment"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
+        <override name="requirementTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementTypeId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="createShoppingListWorkEffort" engine="entity-auto" default-entity-name="ShoppingListWorkEffort" invoke="create" auth="true">
@@ -521,10 +935,25 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="ShoppingListWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="ShoppingList"/>
         <override name="shoppingListId" optional="true" mode="INOUT"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteShoppingListWorkEffort" engine="entity-auto" default-entity-name="ShoppingListWorkEffort" invoke="delete" auth="true">
         <description>Deletes a ShoppingListWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="ShoppingListWorkEffort"/>
+        <override name="shoppingListId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingShoppingListId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="createOrderHeaderWorkEffort" engine="entity-auto" default-entity-name="OrderHeaderWorkEffort" auth="true" invoke="create">
@@ -533,15 +962,34 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="OrderHeaderWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="OrderHeader"/>
         <override name="orderId" optional="true" mode="INOUT"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteOrderHeaderWorkEffort" default-entity-name="OrderHeaderWorkEffort" engine="entity-auto" auth="true" invoke="deleteOrderHeaderWorkEffort">
         <description>Deletes a OrderHeaderWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="orderId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingOrderId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="setWorkEffortFixedAssetAssign" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="setWorkEffortFixedAssetAssign" auth="true">
         <description>Based on task's estimate dates, write assign entries for the fixed asset the task is assigned to</description>
-        <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="false" type="String">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
     </service>
     <!-- WorkEffort-FixedAsset management services -->
     <service name="createWorkEffortFixedAssetStd" engine="simple" auth="true"
@@ -553,6 +1001,16 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fixedAssetTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortFixedAssetStd" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetStd" invoke="update">
@@ -560,6 +1018,16 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fixedAssetTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="removeWorkEffortFixedAssetStd" engine="simple" auth="true"
             default-entity-name="WorkEffortFixedAssetStd"
@@ -569,6 +1037,16 @@ under the License.
             and a fixed asset (type)</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="fixedAssetTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortFixedAssetAssign" engine="simple" auth="true"
             default-entity-name="WorkEffortFixedAssetAssign"
@@ -580,6 +1058,16 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true" mode="IN"/>
+        <override name="fixedAssetId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortFixedAssetAssign" engine="entity-auto" auth="true"
             default-entity-name="WorkEffortFixedAssetAssign" invoke="update">
@@ -587,6 +1075,21 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fixedAssetId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetId"/>
+            </type-validate>
+        </override>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="removeWorkEffortFixedAssetAssign" engine="simple" auth="true"
             default-entity-name="WorkEffortFixedAssetAssign"
@@ -596,6 +1099,21 @@ under the License.
             and a work effort (e.g. a production run task)</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="fixedAssetId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFixedAssetId"/>
+            </type-validate>
+        </override>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- work effort content services -->
@@ -605,18 +1123,73 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
+        <override name="contentId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContentId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortContentTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortContentTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortContent" engine="entity-auto" invoke="update" default-entity-name="WorkEffortContent" auth="true">
         <description>Update a Work Effort Content</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="contentId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContentId"/>
+            </type-validate>
+        </override>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortContentTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortContentTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortContent" engine="entity-auto" invoke="delete" default-entity-name="WorkEffortContent" auth="true">
         <description>Delete a Work Effort Content</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="contentId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContentId"/>
+            </type-validate>
+        </override>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortContentTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortContentTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- simple use content services -->
@@ -661,12 +1234,42 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="reviewDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingReviewDate"/>
+            </type-validate>
+        </override>
+        <override name="userLoginId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingUserLoginId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortReview" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortReview" auth="true">
         <description>Remove a Work Effort Review</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="WorkEffortReview" include="pk" mode="IN" optional="false"/>
+        <override name="reviewDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingReviewDate"/>
+            </type-validate>
+        </override>
+        <override name="userLoginId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingUserLoginId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <service name="indexWorkEffortKeywords" engine="simple"
@@ -674,6 +1277,11 @@ under the License.
         <description>Index the Keywords for a WorkEffort</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortKeyword" default-entity-name="WorkEffortKeyword" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeyword" auth="true">
@@ -681,12 +1289,32 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="keyword" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingKeyword"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortKeyword" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortKeyword" auth="true">
         <description>Remove a Work Effort Keyword</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="WorkEffortKeyword" include="pk" mode="IN" optional="false"/>
+        <override name="keyword" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingKeyword"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="createWorkEffortKeywords" default-entity-name="WorkEffortKeyword" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeywords" auth="true">
@@ -694,12 +1322,27 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="keyword" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingKeyword"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortKeywords" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortKeywords" auth="true">
         <description>Remove all Work Effort Keyword</description>
         <permission-service service-name="workEffortManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="WorkEffort" include="pk" mode="IN" optional="false"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- Permission Services -->
@@ -724,15 +1367,45 @@ under the License.
         <description>Create WorkEffortSkillStandard</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="skillTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSkillTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortSkillStandard" engine="entity-auto" default-entity-name="WorkEffortSkillStandard" invoke="update" auth="true">
         <description>Update WorkEffortSkillStandard</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="skillTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSkillTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortSkillStandard" engine="entity-auto" default-entity-name="WorkEffortSkillStandard" invoke="delete" auth="true">
         <description>Delete WorkEffortSkillStandard</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="skillTypeId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSkillTypeId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- WorkEffort Attribute Services -->
@@ -741,17 +1414,47 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="attrName" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingAttrName"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>Update a WorkEffort Attribute</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="attrName" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingAttrName"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a WorkEffort Attribute</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="attrName" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingAttrName"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- WorkEffort Contact Mech Services -->
@@ -761,7 +1464,11 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="WorkEffortContactMech" mode="IN" include="nonpk" optional="true"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
-        <attribute name="workEffortId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="workEffortId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
         <attribute name="contactMechTypeId" mode="IN" type="String" optional="true"/>
         <attribute name="infoString" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -833,11 +1540,41 @@ under the License.
         <description>Create WorkEffortInventoryProduced</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <override name="inventoryItemId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingInventoryItemId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortInventoryProduced" engine="entity-auto" default-entity-name="WorkEffortInventoryProduced" invoke="delete" auth="true">
         <description>Delete WorkEffortInventoryProduced</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="contactMechId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContactMechId"/>
+            </type-validate>
+        </override>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
+        <override name="inventoryItemId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingInventoryItemId"/>
+            </type-validate>
+        </override>
     </service>
 
     <!-- WorkEffort iCalendar Services -->
@@ -846,17 +1583,32 @@ under the License.
         <permission-service service-name="workEffortICalendarPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="update" auth="true">
         <description>Update WorkEffort iCalendar Data</description>
         <permission-service service-name="workEffortICalendarPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete WorkEffort iCalendar Data</description>
         <permission-service service-name="workEffortICalendarPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="workEffortICalendarPermission" engine="simple"
              location="component://workeffort/minilang/permission/WorkEffortPermissionServices.xml" invoke="workEffortICalendarPermission">
@@ -868,7 +1620,11 @@ under the License.
              location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="getICalWorkEfforts">
         <description>Get iCalendar Work Efforts</description>
         <!-- No permission checking - the servlet handles that -->
-        <attribute type="String" mode="IN" name="workEffortId" optional="false"/>
+        <attribute type="String" mode="IN" name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </attribute>
         <attribute type="String" mode="IN" name="workEffortTypeId" optional="true"/>
         <attribute type="List" mode="OUT" name="workEfforts"/>
     </service>
@@ -876,7 +1632,11 @@ under the License.
              location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUrl">
         <description>Get Party iCalendar URL</description>
         <!-- No permission checking - the servlet handles that -->
-        <attribute type="String" mode="IN" name="partyId" optional="false"/>
+        <attribute type="String" mode="IN" name="partyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
         <attribute type="String" mode="OUT" name="iCalUrl" optional="true"/>
     </service>
 
@@ -887,17 +1647,42 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="sequenceId" mode="OUT"/>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="update" auth="true">
         <description>Update a WorkEffort Event Reminder</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="sequenceId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSequenceId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="deleteWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a WorkEffort Event Reminder</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="sequenceId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSequenceId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="processWorkEffortEventReminders" engine="java"
             location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
@@ -916,11 +1701,41 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="surveyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSurveyId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateWorkEffortSurveyAppl" default-entity-name="WorkEffortSurveyAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a WorkEffort Survey</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+            </type-validate>
+        </override>
+        <override name="surveyId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSurveyId"/>
+            </type-validate>
+        </override>
+        <override name="workEffortId" optional="false">
+            <type-validate>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
+            </type-validate>
+        </override>
     </service>
 </services>
