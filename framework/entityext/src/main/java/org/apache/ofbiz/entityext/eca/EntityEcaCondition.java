@@ -21,6 +21,7 @@ package org.apache.ofbiz.entityext.eca;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -28,7 +29,11 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.w3c.dom.Element;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * EntityEcaCondition
@@ -38,13 +43,20 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
     public static final String module = EntityEcaCondition.class.getName();
 
-    private final String lhsValueName, rhsValueName;
-    private final String operator;
-    private final String compareType;
-    private final String format;
-    private final boolean constant;
+    protected String lhsValueName = null;
+    protected String rhsValueName = null;
+    protected String operator = null;
+    protected String compareType = null;
+    protected String format = null;
+    protected boolean constant = false;
+    protected boolean isService = false;
+    protected String conditionService = null;
 
-    public EntityEcaCondition(Element condition, boolean constant) {
+    public EntityEcaCondition(Element condition, boolean constant, boolean isService) {
+        if (isService) {
+            this.isService = isService;
+            this.conditionService = condition.getAttribute("service-name");
+        } else {
         this.lhsValueName = condition.getAttribute("field-name");
         this.constant = constant;
         if (constant) {
@@ -55,14 +67,35 @@ public final class EntityEcaCondition implements java.io.Serializable {
         this.operator = condition.getAttribute("operator");
         this.compareType = condition.getAttribute("type");
         this.format = condition.getAttribute("format");
+        }
     }
 
-    public boolean eval(DispatchContext dctx, GenericEntity value) throws GenericEntityException {
+    public boolean eval(DispatchContext dctx, GenericEntity value, Map<String, Object> context) throws GenericEntityException {
         if (dctx == null || value == null || dctx.getClassLoader() == null) {
             throw new GenericEntityException("Cannot have null Value or DispatchContext!");
         }
 
         if (Debug.verboseOn()) Debug.logVerbose(this.toString(), module);
+
+        // condition-service; run the service and return the reply result
+        if (isService) {
+            try {
+                LocalDispatcher dispatcher = dctx.getDispatcher();
+                Map<String, Object> conditionServiceResult = dispatcher.runSync(conditionService,
+                        UtilMisc.<String, Object>toMap("serviceContext", context, "userLogin", context.get("userLogin")));
+
+                Boolean conditionReply = Boolean.FALSE;
+                if (ServiceUtil.isError(conditionServiceResult)) {
+                    Debug.logError("Error in condition-service : " +
+                            ServiceUtil.getErrorMessage(conditionServiceResult), module);
+                } else {
+                    conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
+                }
+                return conditionReply.booleanValue();
+            } catch (GenericServiceException gse) {
+                throw new GenericEntityException("Error in calling condition service "+conditionService+". "+gse.getMessage());
+            }
+        }
 
         Object lhsValue = value.get(lhsValueName);
 
@@ -110,6 +143,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
+        if (UtilValidate.isNotEmpty(conditionService)) buf.append("[").append(conditionService).append("]");
         if (UtilValidate.isNotEmpty(lhsValueName)) buf.append("[").append(lhsValueName).append("]");
         if (UtilValidate.isNotEmpty(operator)) buf.append("[").append(operator).append("]");
         if (UtilValidate.isNotEmpty(rhsValueName)) buf.append("[").append(rhsValueName).append("]");
@@ -136,12 +170,14 @@ public final class EntityEcaCondition implements java.io.Serializable {
         if (obj instanceof EntityEcaCondition) {
             EntityEcaCondition other = (EntityEcaCondition) obj;
 
+            if (!UtilValidate.areEqual(this.conditionService, other.conditionService)) return false;
             if (!UtilValidate.areEqual(this.lhsValueName, other.lhsValueName)) return false;
             if (!UtilValidate.areEqual(this.rhsValueName, other.rhsValueName)) return false;
             if (!UtilValidate.areEqual(this.operator, other.operator)) return false;
             if (!UtilValidate.areEqual(this.compareType, other.compareType)) return false;
             if (!UtilValidate.areEqual(this.format, other.format)) return false;
             if (this.constant != other.constant) return false;
+            if (this.isService != other.isService) return false;
 
             return true;
         } else {
