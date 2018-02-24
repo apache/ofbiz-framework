@@ -4501,6 +4501,108 @@
         <value xml:lang="zh">需求日期</value>
         <value xml:lang="zh-TW">請求日期</value>
     </property>
+    <property key="WorkEffortRequiredFieldMissingAttrName">
+        <value xml:lang="en">Required Field Missing : Attribute Name.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingCommunicationEventId">
+        <value xml:lang="en">Required Field Missing : Communication Event Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingContactMechId">
+        <value xml:lang="en">Required Field Missing : Contact Mech Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingContentId">
+        <value xml:lang="en">Required Field Missing : Content Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingCustRequestItemSeqId">
+        <value xml:lang="en">Required Field Missing : Cust Request Item Seq Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingFixedAssetId">
+        <value xml:lang="en">Required Field Missing : Fixed Asset Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingFixedAssetTypeId">
+        <value xml:lang="en">Required Field Missing : Fixed Asset Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingFromDate">
+        <value xml:lang="en">Required Field Missing : From Date.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingInternalNote">
+        <value xml:lang="en">Required Field Missing : Internal Note.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingInventoryItemId">
+        <value xml:lang="en">Required Field Missing : Inventory Item Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingKeyword">
+        <value xml:lang="en">Required Field Missing : Keyword.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingNoteInfo">
+        <value xml:lang="en">Required Field Missing : Note Info.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingNumPeriods">
+        <value xml:lang="en">Required Field Missing : Num Periods.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingOldWorkEffortTypeId">
+        <value xml:lang="en">Required Field Missing : Old WorkEffort Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingOrderId">
+        <value xml:lang="en">Required Field Missing : Order Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingPartyId">
+        <value xml:lang="en">Required Field Missing : Party Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingNumPeriodType">
+        <value xml:lang="en">Required Field Missing : Period Type.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingProductId">
+        <value xml:lang="en">Required Field Missing : Product Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingQuickAssignPartyId">
+        <value xml:lang="en">Required Field Missing : Quick Assign Party Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingReviewDate">
+        <value xml:lang="en">Required Field Missing : Review Date.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingRoleTypeId">
+        <value xml:lang="en">Required Field Missing : Role Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingSequenceId">
+        <value xml:lang="en">Required Field Missing : Sequence Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingSkillTypeId">
+        <value xml:lang="en">Required Field Missing : Shopping List Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingShoppingListId">
+        <value xml:lang="en">Required Field Missing : Skill Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingStart">
+        <value xml:lang="en">Required Field Missing : Start.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingSourceWorkEffortId">
+        <value xml:lang="en">Required Field Missing : Source WorkEffort Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingStatusId">
+        <value xml:lang="en">Required Field Missing : Status Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingSurveyId">
+        <value xml:lang="en">Required Field Missing : Survey Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingUserLoginId">
+        <value xml:lang="en">Required Field Missing : User Login Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortAssocTypeId">
+        <value xml:lang="en">Required Field Missing : Work Effort Assoc Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortContentTypeId">
+        <value xml:lang="en">Required Field Missing : Work Effort Content Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortGoodStdTypeId">
+        <value xml:lang="en">Required Field Missing : Work Effort Good Std Type Id.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortIdFrom">
+        <value xml:lang="en">Required Field Missing : Work Effort Id From.</value>
+    </property>
+    <property key="WorkEffortRequiredFieldMissingWorkEffortIdTo">
+        <value xml:lang="en">Required Field Missing : Work Effort Id To.</value>
+    </property>
     <property key="WorkEffortRequirementId">
         <value xml:lang="en">Requirement ID</value>
         <value xml:lang="es">Código del requerimiento</value>
