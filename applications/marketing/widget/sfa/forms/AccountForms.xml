@@ -137,10 +137,24 @@ under the License.
             <set field="relatedCompanyPartyId" from-field="relatedCompanies[0].partyIdFrom" type="Object"/>
             <set field="existRelationship" from-field="existRelationships[0]"/>
         </row-actions>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink description="${partyName} [${partyId}]" target="viewprofile" >
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="roleTypeId!=null&amp;${roleTypeId=='ACCOUNT'}">
+            <hyperlink description="${partyName} [${partyId}]" target="ViewAccountProfile">
                 <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="roleTypeId!=null&amp;${roleTypeId=='CONTACT'}">
+            <hyperlink description="${partyName} [${partyId}]" target="ViewContactProfile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="roleTypeId!=null&amp;${roleTypeId=='LEAD'}">
+            <hyperlink description="${partyName} [${partyId}]" target="ViewLeadProfile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="roleTypeId!=null&amp;${roleTypeId=='ACCOUNT_LEAD'}">
+            <hyperlink description="${partyName} [${partyId}]" target="ViewAccountLeadProfile">
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="emailAddress"><display description="${emailAddresses[0].infoString}"/></field>
