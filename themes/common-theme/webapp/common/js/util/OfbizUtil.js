@@ -149,7 +149,7 @@ function bindObservers(bind_element) {
 
             var argList = [this, descriptionField, fieldFormname, presentation];
             argList = argList.concat(args);
-            var $a = jQuery("<a/>").one("click", function () {
+            var $a = jQuery("<a/>").on("click", function () {
                 call_fieldlookup3.apply(null, argList);
             });
             element.parent().append($a);
@@ -167,7 +167,7 @@ function bindObservers(bind_element) {
 
             var argList = [this, fieldFormname, presentation];
             argList = argList.concat(args);
-            var $a = jQuery("<a/>").one("click", function () {
+            var $a = jQuery("<a/>").on("click", function () {
                 call_fieldlookup2.apply(null, argList);
             });
             element.parent(".field-lookup").append($a);
