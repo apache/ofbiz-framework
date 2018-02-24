@@ -32,7 +32,7 @@ if (roleTypeAndParty) {
             context.partyId = parameters.partyId
         }
     } else if ("ACCOUNT_LEAD".equals(roleTypeId)) {
-        context.leadDescription = roleTypeAndParty.description
+        context.accountLeadDescription = roleTypeAndParty.description
         partyRelationships = from("PartyRelationship").where("partyIdFrom", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryFirst()
         if (partyRelationships) {
             context.partyGroupId = parameters.partyId

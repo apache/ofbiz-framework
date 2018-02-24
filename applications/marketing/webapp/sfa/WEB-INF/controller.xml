@@ -64,6 +64,14 @@ under the License.
     </request-map>
 
     <!-- Account Entry Requests -->
+    <request-map uri="ViewAccountProfile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewAccountProfile" save-home-view="true"/>
+    </request-map>
+    <request-map uri="ViewAccountLeadProfile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewAccountLeadProfile" save-home-view="true"/>
+    </request-map>
     <request-map uri="FindAccounts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindAccounts" save-home-view="true"/>
@@ -84,6 +92,10 @@ under the License.
     </request-map>
 
     <!-- Lead Requests -->
+    <request-map uri="ViewLeadProfile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewLeadProfile" save-home-view="true"/>
+    </request-map>
     <request-map uri="FindLeads">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindLeads" save-home-view="true"/>
@@ -159,6 +171,10 @@ under the License.
         <response name="success" type="view" value="AddRelatedCompany"/>
     </request-map>
     <!-- Contact Requests -->
+    <request-map uri="ViewContactProfile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewContactProfile" save-home-view="true"/>
+    </request-map>
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindContacts" save-home-view="true"/>
@@ -284,6 +300,10 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
+    <view-map name="ViewLeadProfile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewLeadProfile"/>
+    <view-map name="ViewAccountProfile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewAccountProfile"/>
+    <view-map name="ViewContactProfile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewContactProfile"/>
+    <view-map name="ViewAccountLeadProfile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewAccountLeadProfile"/>
     <view-map name="main" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#main"/>
     <view-map name="viewprofile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewProfile"/>
     <view-map name="ViewPartiesCreatedByVCard" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewPartiesCreatedByVCard"/>

@@ -276,6 +276,7 @@
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editperson">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="DONE_PAGE" from-field="DONE_PAGE"/>
             </link>
         </menu-item>
     </menu>
@@ -320,6 +321,7 @@
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editpartygroup">
                 <parameter param-name="partyId" from-field="party.partyId"/>
+                <parameter param-name="DONE_PAGE" from-field="DONE_PAGE"/>
             </link>
         </menu-item>
     </menu>
