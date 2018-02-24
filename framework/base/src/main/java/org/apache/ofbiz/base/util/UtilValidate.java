@@ -1209,14 +1209,14 @@ public final class UtilValidate {
 
     /** Checks to see if the cc number is a valid Master Card number
      *
-     * @param cc a string representing a credit card number; Sample number: 5500 0000 0000 0004(16 digits)
+     * @param cc a string representing a credit card number; MasterCard numbers either start with the numbers 51 through 55 or with the numbers 2221 through 2720. All have 16 digits; Sample number: 5500 0000 0000 0004(16 digits)
      * @return true, if the credit card number is a valid MasterCard  number, false otherwise
      */
     public static boolean isMasterCard(String cc) {
-        int firstdig = Integer.parseInt(cc.substring(0, 1));
-        int seconddig = Integer.parseInt(cc.substring(1, 2));
+        int first2digs = Integer.parseInt(cc.substring(0, 2));
+        int first4digs = Integer.parseInt(cc.substring(0, 4));
 
-        if ((cc.length() == 16) && (firstdig == 5) && ((seconddig >= 1) && (seconddig <= 5))) {
+        if ((Integer.compare(cc.length(), 16) == 0) && ((first2digs >= 51 && first2digs <= 55) || (first4digs >= 2221 && first4digs <= 2720))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1261,13 +1261,14 @@ public final class UtilValidate {
     }
 
     /** Checks to see if the cc number is a valid Discover number
-     *   @param    cc - a string representing a credit card number; Sample number: 6011000000000004(16 digits)
+     *   @param    cc - a string representing a credit card number; Discover card numbers begin with 6011 or 65. All have 16 digits; Sample number: 6011000000000004(16 digits)
      *   @return  true, if the credit card number is a valid Discover card number, false otherwise
      */
     public static boolean isDiscover(String cc) {
         String first4digs = cc.substring(0, 4);
+        String first2digs = cc.substring(0, 2);
 
-        if ((cc.length() == 16) && ("6011".equals(first4digs))) {
+        if ((Integer.compare(cc.length(), 16) == 0) && ("6011".equals(first4digs) || "65".equals(first2digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1287,19 +1288,14 @@ public final class UtilValidate {
     }
 
     /** Checks to see if the cc number is a valid JCB number
-     *   @param     cc - a string representing a credit card number; Sample number: 3088000000000009(16 digits)
+     *   @param     cc - a string representing a credit card number; JCB cards beginning with 2131 or 1800 have 15 digits. JCB cards beginning with 35 have 16 digits;Sample number: 3088000000000009(16 digits)
      *   @return  true, if the credit card number is a valid JCB card number, false otherwise
      */
     public static boolean isJCB(String cc) {
         String first4digs = cc.substring(0, 4);
+        String first2digs = cc.substring(0, 2);
 
-        if ((cc.length() == 16) &&
-            ("3088".equals(first4digs) ||
-                "3096".equals(first4digs) ||
-                "3112".equals(first4digs) ||
-                "3158".equals(first4digs) ||
-                "3337".equals(first4digs) ||
-                "3528".equals(first4digs))) {
+        if(((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
             return isCreditCard(cc);
         }
         return false;
