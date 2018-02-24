@@ -347,6 +347,304 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewLeadProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="profile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="parameters.roleTypeId" value="LEAD"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
+
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
+                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <set field="parameters.partyId" from-field="partyId"/>
+                <set field="parameters.partyGroupId" from-field="partyGroupId"/>
+                <set field="DONE_PAGE" value="ViewLeadProfile"/>
+            </actions>
+            <widgets>
+                <include-screen name="LeadProfile"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewContactProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="profile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="parameters.roleTypeId" value="CONTACT"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
+
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
+                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <set field="parameters.partyId" from-field="partyId"/>
+                <set field="parameters.partyGroupId" from-field="partyGroupId"/>
+                <set field="DONE_PAGE" value="ViewContactProfile"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewContactProfile" text="${uiLabelMap.PartyHideOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewContactProfile" text="${uiLabelMap.PartyShowOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                                <parameter param-name="SHOW_OLD" value="true"/>
+                                            </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="contactDescription"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="partyRelAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                            </section>
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewAccountProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="profile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="parameters.roleTypeId" value="ACCOUNT"/>
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
+
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
+                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <set field="parameters.partyId" from-field="partyId"/>
+                <set field="parameters.partyGroupId" from-field="partyGroupId"/>
+                <set field="DONE_PAGE" value="ViewAccountProfile"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewAccountProfile" text="${uiLabelMap.PartyHideOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewAccountProfile" text="${uiLabelMap.PartyShowOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                                <parameter param-name="SHOW_OLD" value="true"/>
+                                            </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="accountDescription"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="partyRelContacts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
+                                        </container>
+                                        <container style="profile-bottom">
+                                            <include-screen name="PartySalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewAccountLeadProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="profile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="parameters.roleTypeId" value="ACCOUNT_LEAD"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
+
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
+                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <set field="parameters.partyId" from-field="partyId"/>
+                <set field="parameters.partyGroupId" from-field="partyGroupId"/>
+                <set field="DONE_PAGE" value="ViewAccountLeadProfile"/>
+            </actions>
+            <widgets>
+                <include-screen name="LeadProfile"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LeadProfile">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewAccountLeadProfile" text="${uiLabelMap.PartyHideOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="ViewAccountLeadProfile" text="${uiLabelMap.PartyShowOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                                <parameter param-name="SHOW_OLD" value="true"/>
+                                            </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <or>
+                                                <not><if-empty field="leadDescription"/></not>
+                                                <not><if-empty field="accountLeadDescription"/></not>
+                                            </or>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <container style="profile-left">
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <condition>
+                                                    <not><if-empty field="partyGroupId"/></not>
+                                                </condition>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyGroupId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="partyRelContacts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                        <container style="profile-right">
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="PartySalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="ViewPartiesCreatedByVCard">
         <section>
             <widgets>
