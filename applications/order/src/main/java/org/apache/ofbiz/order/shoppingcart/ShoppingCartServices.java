@@ -507,7 +507,7 @@ public class ShoppingCartServices {
                 }
                 // attach surveyResponseId for each item
                 if (UtilValidate.isNotEmpty(surveyResponseResult)){
-                    cartItem.setAttribute("surveyResponseId",surveyResponseResult.get("surveyResponseId"));
+                    cartItem.setAttribute("surveyResponses", UtilMisc.toList(surveyResponseResult.get("surveyResponseId")));
                 }
                 // attach addition item information
                 cartItem.setStatusId(item.getString("statusId"));
