@@ -612,69 +612,50 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 Parameter: tabindex, String, optional - HTML tabindex number.
 Parameter: delegatorName, String, optional - name of the delegator in context.
 -->
-<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
+<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
   <#if Static["org.apache.ofbiz.widget.model.ModelWidget"].widgetBoundaryCommentsEnabled(context)><#-- context is always null here, but this is handled in widgetBoundaryCommentsEnabled -->
   <!-- @renderLookupField -->
+  </#if>
+  <#if (!showDescription?has_content)>
+    <#local showDescription = "false" />
+    <#if "Y" == modelTheme.getLookupShowDescription()>
+      <#local showDescription = "true" />
+    </#if>
   </#if>
   <#if (!ajaxUrl?has_content) && ajaxEnabled?has_content && ajaxEnabled>
     <#local ajaxUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, fieldFormName)/>
     <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
   </#if>
-  <#if (!showDescription?has_content)>
-    <#local showDescriptionProp = modelTheme.getLookupShowDescription()>
-    <#if "Y" == showDescriptionProp>
-      <#local showDescription = "true" />
-    <#else>
-      <#local showDescription = "false" />
-    </#if>
-  </#if>
-  <#if (!position?has_content)>
-    <#local position = modelTheme.getLookupPosition()>
-  </#if>
-  <#if (!width?has_content)>
-    <#local width = modelTheme.getLookupWidth()>
-  </#if>
-  <#if (!height?has_content)>
-    <#local height = modelTheme.getLookupHeight()>
-  </#if>
-  <#if ajaxEnabled?has_content && ajaxEnabled>
-    <script type="text/javascript">
-      jQuery(document).ready(function(){
-        if (!jQuery('form[name="${formName}"]').length) {
-          alert("Developer: for lookups to work you must provide a form name!")
-        }
-      });
-    </script>
+  <#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && "window" == presentation)>
+    <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
   </#if>
   <span class="field-lookup">
     <#if size?has_content && size=="0">
-      <input type="hidden" <#if name?has_content> name="${name}"/></#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      <input type="hidden" <#if name?has_content> name="${name}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#else>
       <input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/>
         <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
-        <#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#if>
+        <#if autocomplete?has_content> autocomplete="off"</#if><#rt/>
+    </#if>
+      data-lookup-ajax-enabled="<#if ajaxEnabled?has_content>${ajaxEnabled?string}<#else>false</#if>" <#rt/>
+      data-lookup-presentation="${presentation!}" <#rt>
     <#if presentation?has_content && descriptionFieldName?has_content && "window" == presentation>
-      <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},document.${formName?html}.${descriptionFieldName},'${fieldFormName}', '${presentation}'<#rt/>
+      data-lookup-field-formname="${fieldFormName}" data-lookup-form-name="${formName?html}" <#if descriptionFieldName?has_content>data-lookup-description-field="${descriptionFieldName}"</#if> <#rt>
       <#if targetParameterIter?has_content>
-        <#list targetParameterIter as item>
-          ,document.${formName}.${item}.value<#rt>
-        </#list>
+        <#assign args = "${targetParameterIter?join(', ')}">
       </#if>
-      );"></a><#rt>
+      data-lookup-args="${args!}" <#rt>
     <#elseif presentation?has_content && "window" == presentation>
-      <a href="javascript:call_fieldlookup2(document.${formName?html}.${name?html},'${fieldFormName}', '${presentation}'<#rt/>
+      data-lookup-field-formname="${fieldFormName}" <#rt>
       <#if targetParameterIter?has_content>
-        <#list targetParameterIter as item>
-          ,document.${formName}.${item}.value<#rt>
-        </#list>
+        <#assign args = "${targetParameterIter?join(', ')}">
       </#if>
-      );"></a><#rt>
+      data-lookup-args="${args!}" <#rt>
     <#else>
       <#if ajaxEnabled?has_content && ajaxEnabled>
         <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
         <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
-        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
         <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && "true" == showDescription>
             <#local ajaxUrl = ajaxUrl + "&amp;searchValueFieldName=" + descriptionFieldName />
@@ -683,63 +664,28 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
           </#if>
         </#if>
       </#if>
-      <script type="text/javascript">
-        jQuery(document).ready(function(){
-          var options = {
-            requestUrl : "${fieldFormName}",
-            inputFieldId : "${id}",
-            dialogTarget : document.${formName?html}.${name?html},
-            dialogOptionalTarget : <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>,
-            formName : "${formName?html}",
-            width : "${width}",
-            height : "${height}",
-            position : "${position}",
-            modal : "${fadeBackground}",
-            ajaxUrl : <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}"<#else>""</#if>,
-            showDescription : <#if ajaxEnabled?has_content && ajaxEnabled>"${showDescription}"<#else>false</#if>,
-            presentation : "${presentation!}",
-            defaultMinLength : "${defaultMinLength!2}",
-            defaultDelay : "${defaultDelay!300}",
-            args :
-              <#rt/>
-                <#if targetParameterIter?has_content>
-                  <#assign isFirst = true>
-                  <#lt/>[<#rt/>
-                  <#list targetParameterIter as item>
-                    <#if isFirst>
-                      <#lt/>document.${formName}.${item}<#rt/>
-                      <#assign isFirst = false>
-                    <#else>
-                      <#lt/> ,document.${formName}.${item}<#rt/>
-                    </#if>
-                  </#list>
-                  <#lt/>]<#rt/>
-                <#else>[]
-                </#if>
-                <#lt/>
-          };
-          new Lookup(options).init();
-        });
-      </script>
+      data-lookup-request-url="${fieldFormName}" data-lookup-form-name="${formName?html}" <#rt>
+      data-lookup-optional-target="<#if descriptionFieldName?has_content>${descriptionFieldName}</#if>" <#rt>
+      data-lookup-width="${width}" data-lookup-height="${height}" data-lookup-position="${position}" <#rt>
+      data-lookup-modal="${fadeBackground}" <#rt>
+      data-lookup-show-description=<#if ajaxEnabled?has_content && ajaxEnabled>"${showDescription}"<#else>"false"</#if> <#rt>
+      data-lookup-default-minlength="${defaultMinLength!2}" <#rt>
+      data-lookup-default-delay="${defaultDelay!300}" <#rt>
+      <#if targetParameterIter?has_content>
+        <#assign args = "${targetParameterIter?join(', ')}">
+      </#if>
+      data-lookup-args="${args!}"
     </#if>
+    data-lookup-ajax-url="${ajaxUrl}" <#rt>
+    /><#rt/>
     <#if readonly?has_content && readonly>
-      <a id="${id}_clear" 
-        style="background:none;margin-left:5px;margin-right:15px;" 
-        class="clearField" 
-        href="javascript:void(0);" 
-        onclick="javascript:document.${formName}.${name}.value='';
-          jQuery('#' + jQuery('#${id}_clear').next().attr('id').replace('_button','') + '_${id}_lookupDescription').html('');
-          <#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">
+      <a id="${id}_clear"
+        style="background:none;margin-left:5px;margin-right:15px;"
+        class="clearField">
           <#if clearText?has_content>${clearText}<#else>${uiLabelMap.CommonClear}</#if>
       </a>
     </#if>
   </span>
-  <#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && "window" == presentation)>
-    <#if ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
-      <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
-    </#if>
-    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription}, ${defaultMinLength!2}, ${defaultDelay!300});</script><#t/>
-  </#if>
 </#macro>
 
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel>
