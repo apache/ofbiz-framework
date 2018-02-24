@@ -5971,4 +5971,16 @@
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
         <value xml:lang="zh-TW">新建一個資料實體 ${entityName} :輸入值,然後點擊新建.</value>
     </property>
+    <property key="WebtoolsReaderImportNotice">
+        <value xml:lang="de">Eingabe Readers (Komma getrennt,keine Leerzeichen; aus entityengine.xml und ofbiz-component.xml Dateien; common ones include seed,ext,demo)</value>
+        <value xml:lang="en">Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo)</value>
+    </property>
+    <property key="WebtoolsSearchLocName">
+        <value xml:lang="de">Ort/Namen Suchen</value>
+        <value xml:lang="en">Search Names/Locations</value>
+    </property>
+    <property key="WebtoolsType">
+        <value xml:lang="de">Typ</value>
+        <value xml:lang="en">Type</value>
+    </property>
 </resource>

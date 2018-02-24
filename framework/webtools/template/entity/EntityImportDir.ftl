@@ -21,17 +21,53 @@ under the License.
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
 <hr />
 
-  <form method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsAbsolutePath}:<br />
-    <input type="text" size="60" name="path" value="${path!}"/><br />
-    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsOnlyInserts}</label><br />
-    <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</label><br />
-    <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label><br />
-    <label><input type="checkbox" name="deleteFiles" <#if (deleteFiles??)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</label><br />
-    <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label><br />
-    ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
-    ${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/><br />
-    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
+  <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsAbsolutePath}:</label>
+                </td>
+                <td>
+                    <input type="text" size="60" name="path" value="${path!}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                </td>
+                <td>
+                    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsOnlyInserts}</label>
+                    <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</label>
+                    <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label>
+                    <label><input type="checkbox" name="deleteFiles" <#if (deleteFiles??)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</label>
+                    <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsTimeoutSeconds}</label>
+                </td>
+                <td>
+                    <input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsPause}</label>
+                </td>
+                <td>
+                    <input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                </td>
+                <td colspan="4">
+                    <input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
   </form>
   <#if messages??>
     <hr />

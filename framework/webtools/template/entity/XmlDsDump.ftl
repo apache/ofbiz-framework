@@ -85,13 +85,19 @@ under the License.
         <td class="label">${StringUtil.wrapString(uiLabelMap.WebtoolsOutToBrowser)}</td>
         <td><input type="checkbox" name="tobrowser"<#if tobrowser?has_content> checked="checked"</#if> /></td>
       </tr>
-    </table>
-    <br />
-    <@displayButtonBar/>
-      <div>${uiLabelMap.WebtoolsEntitySyncDump}:
-        <input type="text" name="entitySyncId" size="30" value="${entitySyncId!}"/>
-      </div>
-      ${uiLabelMap.WebtoolsPreConfiguredSet}:
+        <tr>
+        <td class="label"></td>
+    <td><@displayButtonBar/></td>
+    </tr>
+    <tr>
+      <td class="label"><label>${uiLabelMap.WebtoolsEntitySyncDump}</label></td>
+        <td><input type="text" name="entitySyncId" size="30" value="${entitySyncId!}"/></td>
+        </tr>
+        <tr>
+        <td class="label">
+      <label>${uiLabelMap.WebtoolsPreConfiguredSet}:<label>
+      </td>
+      <td>
       <select name="preConfiguredSetName">
         <option value="">${uiLabelMap.CommonNone}</option>
         <option value="CatalogExport">${uiLabelMap.WebtoolsPreConfiguredSet1}</option>
@@ -100,9 +106,12 @@ under the License.
         <option value="Product3">${uiLabelMap.WebtoolsPreConfiguredSet4}</option>
         <option value="Product4">${uiLabelMap.WebtoolsPreConfiguredSet5}</option>
       </select>
+      </td>
+      </tr>
+        </table>
       <br />
 
-      <p>${uiLabelMap.WebtoolsEntityNames}:</p>
+      <h2>${uiLabelMap.WebtoolsEntityNames}:</h2>
       <table>
         <tr>
           <#assign entCount = 0>

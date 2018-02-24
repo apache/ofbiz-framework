@@ -21,23 +21,76 @@ under the License.
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
 <hr />
 
-  <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsAbsoluteFileNameOrUrl}:<br />
-    <input type="text" size="60" name="filename" value="${filename!}"/><br />
-    ${uiLabelMap.WebtoolsAbsoluteFTLFilename}:<br />
-    <input type="text" size="40" name="fmfilename" value="${fmfilename!}"/><br />
-    <label><input type="checkbox" name="isUrl" <#if isUrl??>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}</label><br />
-    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsOnlyInserts}</label><br />
-    <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</label><br />
-    <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label><br />
-    <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label><br />
-    ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
-    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
+  <form class="basic-form" method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsAbsoluteFileNameOrUrl}</label>
+                </td>
+                <td>
+                    <input type="text" size="60" name="filename" value="${filename!}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsAbsoluteFTLFilename}</label>
+                </td>
+                <td>
+                    <input type="text" size="40" name="fmfilename" value="${fmfilename!}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                </td>
+                <td>
+                    <label><input type="checkbox" name="isUrl" <#if isUrl??>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}</label>
+                    <label><input type="checkbox" name="onlyInserts" <#if onlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsOnlyInserts}</label>
+                    <label><input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</label>
+                    <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label>
+                    <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label>
+                </td>
+            </tr>
+            <tr>
+                 <td class="label">
+                    <label>${uiLabelMap.WebtoolsTimeoutSeconds}</label>
+                </td>
+                <td>
+                    <input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/>
+                </td>
+           </tr>
+           <tr>
+                <td class="label">
+                </td>
+                <td colspan="4">
+                    <input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/>
+                </td>
+           </tr>
+        </tbody>
+    </table>
   </form>
-  <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsCompleteXMLDocument}:<br />
-    <textarea rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>\n</entity-engine-xml>")}</textarea>
-    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/></div>
+  <form class="basic-form" method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsCompleteXMLDocument}</label>
+                </td>
+                <td>
+                    <textarea rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>\n</entity-engine-xml>")}</textarea>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+                <td class="label">
+                </td>
+                <td colspan="4">
+                    <input type="submit" value="${uiLabelMap.WebtoolsImportText}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
   </form>
   <#if messages??>
       <hr />
