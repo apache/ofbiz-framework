@@ -26,10 +26,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
@@ -44,6 +46,8 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.service.LocalDispatcher;
 
 /**
  * InvoiceWorker - Worker methods of invoices
@@ -111,6 +115,50 @@ public final class InvoiceWorker {
             amount = BigDecimal.ZERO;
         }
         return quantity.multiply(amount).setScale(decimals, rounding);
+    }
+
+    /**
+     * Method to return the invoice item description with following step
+     * 1. take the item description field
+     * 2. if tax associate, resolve the taxAuthorityRateProduct description
+     * 3. if product associate, call content wrapper to resolve PRODUCT_NAME or take the brandName
+     * 4. take the item Type line description
+     * @param dispatcher
+     * @param invoiceItem
+     * @param locale
+     * @return the item description
+     * @throws GenericEntityException
+     */
+    public static String getInvoiceItemDescription(LocalDispatcher dispatcher, GenericValue invoiceItem, Locale locale) throws GenericEntityException {
+        Delegator delegator = invoiceItem.getDelegator();
+        String description = invoiceItem.getString("description");
+        if (UtilValidate.isEmpty(description)) {
+            String taxAuthorityRateSeqId = invoiceItem.getString("taxAuthorityRateSeqId");
+            if (UtilValidate.isNotEmpty(taxAuthorityRateSeqId)) {
+                GenericValue taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", true);
+                if (taxRate != null) {
+                    description = (String) taxRate.get("description", locale);
+                }
+            }
+        }
+        if (UtilValidate.isEmpty(description)) {
+            String productId = invoiceItem.getString("productId");
+            if (UtilValidate.isNotEmpty(productId)) {
+                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
+                ProductContentWrapper productContentWrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
+                StringUtil.StringWrapper stringWrapper = productContentWrapper.get("PRODUCT_NAME", "html");
+                if (stringWrapper != null) {
+                    description = stringWrapper.toString();
+                }
+                if (UtilValidate.isEmpty(description)) {
+                    description = product.getString("brandName");
+                }
+            }
+        }
+        if (UtilValidate.isEmpty(description)) {
+            description = (String) invoiceItem.getRelatedOne("InvoiceItemType", true).get("description",locale);
+        }
+        return description;
     }
 
     /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
