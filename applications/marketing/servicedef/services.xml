@@ -158,14 +158,11 @@ under the License.
     </service>
 
     <!-- ContactList Services -->
-    <service name="createContactList" default-entity-name="ContactList" engine="simple"
-            location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="createContactList" auth="true">
+    <service name="createContactList" default-entity-name="ContactList" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ContactList record</description>
         <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="contactListTypeId" optional="false"/>
-        <override name="contactListName" optional="false"/>
     </service>
     <service name="updateContactList" default-entity-name="ContactList" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ContactList record</description>
