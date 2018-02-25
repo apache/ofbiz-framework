@@ -20,20 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <!-- ContactList methods -->
-    <simple-method method-name="createContactList" short-description="Create an ContactList">
-        <make-value entity-name="ContactList" value-field="newEntity"/>
-        <if-empty field="parameters.contactListId">
-            <sequenced-id sequence-name="ContactList" field="newEntity.contactListId"/>
-            <else>
-                <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
-            </else>
-        </if-empty>
-        <field-to-result field="newEntity.contactListId" result-name="contactListId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <!-- ContactListParty methods -->
     <simple-method method-name="inlineCheckContactListMechType" short-description="inlineCheckContactListMechType">
         <!-- check the preferredContactMechId, make sure it is the right type -->
