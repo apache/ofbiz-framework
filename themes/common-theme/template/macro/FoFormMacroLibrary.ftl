@@ -57,7 +57,7 @@ under the License.
 
 <#macro renderDateTimeField name className alert title value size maxlength step timeValues id event action dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex=""><@makeBlock className value /></#macro>
 
-<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex firstInList="" currentValue="">
+<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignorease fullSearch conditionGroup tabindex firstInList="" currentValue="">
 <#if currentValue?has_content && firstInList?has_content>
 <@makeBlock "" explicitDescription />
 <#else>
@@ -67,13 +67,13 @@ under the License.
 </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id allChecked currentValue name event action tabindex><@makeBlock "" "" /></#macro>
-<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action tabindex><@makeBlock "" "" /></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex><@makeBlock "" "" /></#macro>
+<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex><@makeBlock "" "" /></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
-<#macro renderHiddenField name value id event action><!--hidden--></#macro>
+<#macro renderHiddenField name conditionGroup value id event action><!--hidden--></#macro>
 <#macro renderIgnoredField><!--ignore--></#macro>
 
 <#macro renderFieldTitle style title id fieldHelpText="" for=""><fo:block <@getFoStyle style/>>${title?default("")?replace("&nbsp;", " ")}</fo:block></#macro>
@@ -121,16 +121,16 @@ under the License.
 
 <#macro renderFormatEmptySpace> <@makeBlock "" " " /><!--space--></#macro>
 
-<#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase tabindex><@makeBlock className value/></#macro>
+<#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase conditionGroup tabindex><@makeBlock className value/></#macro>
 
-<#macro renderDateFindField className alert name localizedInputTitle value value2 size maxlength dateType formName defaultDateTimeString imgSrc localizedIconTitle titleStyle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty tabindex>
+<#macro renderDateFindField className alert name localizedInputTitle value value2 size maxlength dateType formName defaultDateTimeString imgSrc localizedIconTitle titleStyle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty conditionGroup tabindex>
 <@makeBlock className value />
 </#macro>
-<#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru tabindex>
+<#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru conditionGroup tabindex>
 <@makeBlock className value />
 </#macro>
 
-<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default"></#macro>
+<#macro renderLookupField name formName fieldFormName conditionGroup className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width="" height="" position="" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default"></#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete tabindex><@makeBlock className value /></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete tabindex><@makeBlock className "" /></#macro>

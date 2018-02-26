@@ -218,11 +218,19 @@ public class FindServices {
         Set<String> processed = new LinkedHashSet<>();
         Set<String> keys = new LinkedHashSet<>();
         Map<String, ModelField> fieldMap = new LinkedHashMap<>();
+        /**
+         * When inputFields contains several xxxx_grp, yyyy_grp ... values,
+         * Corresponding conditions will grouped by an {@link EntityOperator.AND} then all added to final
+         * condition grouped by an {@link EntityOperator.OR}
+         * That will allow union of search criteria, instead of default intersection.
+         */
+        Map<String, List<EntityCondition>> savedGroups = new LinkedHashMap();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }
         List<EntityCondition> result = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
+            String currentGroup = null;
             String parameterName = entry.getKey();
             if (processed.contains(parameterName)) {
                 continue;
@@ -237,7 +245,15 @@ public class FindServices {
             } else if (parameterName.endsWith("_value")) {
                 fieldName = parameterName.substring(0, parameterName.length() - 6);
             }
-            String key = fieldName.concat("_ic");
+
+            String key = fieldName.concat("_grp");
+            if (parameters.containsKey(key)) {
+                if (parameters.containsKey(key)) {
+                    keys.add(key);
+                }
+                currentGroup = (String) parameters.get(key);
+            }
+            key = fieldName.concat("_ic");
             if (parameters.containsKey(key)) {
                 keys.add(key);
                 ignoreCase = "Y".equals(parameters.get(key));
@@ -272,11 +288,28 @@ public class FindServices {
             if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
-            result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
+            if (UtilValidate.isNotEmpty(currentGroup)){
+                List<EntityCondition> groupedConditions = new LinkedList<>();
+                if(savedGroups.get(currentGroup) != null) {
+                    groupedConditions.addAll(savedGroups.get(currentGroup));
+                }
+                groupedConditions.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
+                savedGroups.put(currentGroup, groupedConditions);
+            } else {
+                result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
+            }
+
             for (String mapKey : keys) {
                 queryStringMap.put(mapKey, parameters.get(mapKey));
             }
         }
+        //Add OR-grouped conditions
+        List<EntityCondition> orConditions = new LinkedList<>();
+        for (String groupedConditions : savedGroups.keySet()) {
+            orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
+        }
+        if (orConditions.size() > 0) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
+
         return result;
     }
 

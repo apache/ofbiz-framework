@@ -925,6 +925,16 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="condition-group">
+                <xs:annotation>
+                    <xs:documentation>
+                        The condition-group regroup search criterias together.
+                        Each group member will be gathered with AND operator
+                        Every defined groups will be joined each other with OR operator
+                        Any ungrouped condition will be added with AND operator
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 

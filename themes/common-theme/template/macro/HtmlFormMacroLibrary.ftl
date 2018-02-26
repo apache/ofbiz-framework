@@ -207,7 +207,10 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderDropDownField name className alert id formName otherFieldName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="">
+<#macro renderDropDownField name className alert id formName otherFieldName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <span class="ui-widget">
     <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>>
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
@@ -249,7 +252,10 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id name action allChecked="" currentValue=""  event="" tabindex="">
+<#macro renderCheckField items className alert id name action conditionGroup allChecked="" currentValue=""  event="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
@@ -261,7 +267,10 @@ under the License.
   </#list>
 </#macro>
 
-<#macro renderRadioField items className alert name action currentValue="" noCurrentSelectedKey="" event="" tabindex="">
+<#macro renderRadioField items className alert name action conditionGroup currentValue="" noCurrentSelectedKey="" event="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
@@ -293,7 +302,10 @@ under the License.
   <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
 </#macro>
 
-<#macro renderHiddenField name value="" id="" event="" action="">
+<#macro renderHiddenField name conditionGroup value="" id="" event="" action="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if><#if id?has_content> id="${id}"</#if><#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
 </#macro>
 
@@ -449,7 +461,10 @@ under the License.
 
 <#macro renderFormatEmptySpace>&nbsp;</#macro>
 
-<#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="">
+<#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase conditionGroup value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <#if opEquals?has_content>
     <select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
       <option value="equals"<#if defaultOption=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
@@ -472,7 +487,10 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
+<#macro renderDateFindField className alert name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty conditionGroup localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <span class="view-calendar">
     <input id="${name?html}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if dateType != "time">
@@ -550,7 +568,10 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderRangeFindField className alert value defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals defaultOptionThru name="" size="" maxlength="" autocomplete="" titleStyle="" value2="" tabindex="">
+<#macro renderRangeFindField className alert value defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals defaultOptionThru conditionGroup name="" size="" maxlength="" autocomplete="" titleStyle="" value2="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <input type="text" <@renderClass className alert /> <#if name?has_content>name="${name}_fld0_value"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
   <#if titleStyle?has_content>
     <span class="${titleStyle}" ><#rt/>
@@ -612,7 +633,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 Parameter: tabindex, String, optional - HTML tabindex number.
 Parameter: delegatorName, String, optional - name of the delegator in context.
 -->
-<#macro renderLookupField name formName fieldFormName className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
+<#macro renderLookupField name formName fieldFormName conditionGroup className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
   <#if Static["org.apache.ofbiz.widget.model.ModelWidget"].widgetBoundaryCommentsEnabled(context)><#-- context is always null here, but this is handled in widgetBoundaryCommentsEnabled -->
   <!-- @renderLookupField -->
   </#if>
@@ -628,6 +649,9 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   </#if>
   <#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && "window" == presentation)>
     <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
+  </#if>
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <span class="field-lookup">
     <#if size?has_content && size=="0">
