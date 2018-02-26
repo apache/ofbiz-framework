@@ -111,6 +111,7 @@ public class ModelFormFieldBuilder {
     private String widgetStyle = "";
     private String parentFormName = "";
     private String tabindex = "";
+    private String conditionGroup = "";
 
     public ModelFormFieldBuilder() {
     }
@@ -162,6 +163,7 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = fieldElement.getAttribute("widget-style");
         this.parentFormName = fieldElement.getAttribute("form-name");
         this.tabindex = fieldElement.getAttribute("tabindex");
+        this.conditionGroup = fieldElement.getAttribute("condition-group");
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
@@ -277,6 +279,7 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = modelFormField.getWidgetStyle();
         this.parentFormName = modelFormField.getParentFormName();
         this.tabindex = modelFormField.getTabindex();
+        this.conditionGroup = modelFormField.getConditionGroup();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -318,6 +321,7 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
+        this.conditionGroup = builder.getConditionGroup();
     }
 
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
@@ -492,6 +496,10 @@ public class ModelFormFieldBuilder {
 
     public String getTabindex() {
         return tabindex;
+    }
+
+    public String getConditionGroup() {
+        return conditionGroup;
     }
 
     private boolean induceFieldInfo(ModelForm modelForm, String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -810,6 +818,9 @@ public class ModelFormFieldBuilder {
         if (UtilValidate.isNotEmpty(builder.getTabindex())) {
             this.tabindex = builder.getTabindex();
         }
+        if (UtilValidate.isNotEmpty(builder.getConditionGroup())) {
+            this.conditionGroup = builder.getConditionGroup();
+        }
         this.encodeOutput = builder.getEncodeOutput();
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
@@ -998,6 +1009,10 @@ public class ModelFormFieldBuilder {
     }
     public ModelFormFieldBuilder setTabindex(String tabindex) {
         this.tabindex = tabindex;
+        return this;
+    }
+    public ModelFormFieldBuilder setConditionGroup(String conditionGroup) {
+        this.conditionGroup = conditionGroup;
         return this;
     }
 }

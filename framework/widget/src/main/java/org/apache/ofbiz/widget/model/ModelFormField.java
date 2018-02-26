@@ -144,6 +144,7 @@ public class ModelFormField {
     private final String widgetStyle;
     private final String parentFormName;
     private final String tabindex;
+    private final String conditionGroup;
 
     private ModelFormField(ModelFormFieldBuilder builder) {
         this.action = builder.getAction();
@@ -197,6 +198,7 @@ public class ModelFormField {
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
+        this.conditionGroup = builder.getConditionGroup();
     }
 
     public FlexibleStringExpander getAction() {
@@ -446,6 +448,10 @@ public class ModelFormField {
 
     public String getTabindex() {
         return tabindex;
+    }
+
+    public String getConditionGroup() {
+        return conditionGroup;
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {

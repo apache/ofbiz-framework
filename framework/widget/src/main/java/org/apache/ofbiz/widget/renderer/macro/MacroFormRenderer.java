@@ -774,6 +774,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
@@ -1000,6 +1001,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(ignoreCase);
         sr.append("\" fullSearch=\"");
         sr.append(fullSearch);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" />");
@@ -1014,6 +1017,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
         ModelFormField modelFormField = checkField.getModelFormField();
         String currentValue = modelFormField.getEntry(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         Boolean allChecked = checkField.isAllChecked(context);
         String id = modelFormField.getCurrentContainerId(context);
         String className = "";
@@ -1051,6 +1055,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(alert);
         sr.append("\" id=\"");
         sr.append(id);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" allChecked=");
         sr.append((allChecked != null ? Boolean.toString(allChecked) : "\"\""));
         sr.append(" currentValue=\"");
@@ -1076,6 +1082,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = radioField.getModelFormField();
         List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         String className = "";
         String alert = "false";
         String name = modelFormField.getParameterName(context);
@@ -1123,6 +1130,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (action != null) {
             sr.append(action);
         }
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" />");
@@ -1243,12 +1252,15 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderHiddenField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
         String name = modelFormField.getParameterName(context);
         String action = modelFormField.getAction(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         String event = modelFormField.getEvent();
         String id = modelFormField.getCurrentContainerId(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
         sr.append(" name=\"");
         sr.append(name);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" value=\"");
         sr.append(value);
         sr.append("\" id=\"");
@@ -1788,6 +1800,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderTextFindField(Appendable writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
         ModelFormField modelFormField = textFindField.getModelFormField();
         String defaultOption = textFindField.getDefaultOption(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         String className = "";
         String alert = "false";
         String opEquals = "";
@@ -1869,6 +1882,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(ignoreCase);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
@@ -1882,6 +1897,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String opGreaterThanEquals = UtilProperties.getMessage("conditionalUiLabels", "greater_than_equals", locale);
         String opLessThan = UtilProperties.getMessage("conditionalUiLabels", "less_than", locale);
         String opLessThanEquals = UtilProperties.getMessage("conditionalUiLabels", "less_than_equals", locale);
+        String conditionGroup = modelFormField.getConditionGroup();
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -1950,6 +1966,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(value2);
         sr.append("\" defaultOptionThru=\"");
         sr.append(defaultOptionThru);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" />");
@@ -1968,6 +1986,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String opUpToDay = UtilProperties.getMessage("conditionalUiLabels", "up_to_day", locale);
         String opUpThruDay = UtilProperties.getMessage("conditionalUiLabels", "up_thru_day", locale);
         String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
+        String conditionGroup = modelFormField.getConditionGroup();
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
@@ -2066,6 +2085,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(defaultDateTimeString);
         sr.append("\" imgSrc=\"");
         sr.append(imgSrc.toString());
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" localizedIconTitle=\"");
         sr.append(localizedIconTitle);
         sr.append("\" titleStyle=\"");
@@ -2102,6 +2123,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderLookupField(Appendable writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
         String lookupFieldFormName = lookupField.getFormName(context);
+        String conditionGroup = modelFormField.getConditionGroup();
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -2275,6 +2297,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(isInitiallyCollapsed));
         sr.append("\" lastViewName=\"");
         sr.append(lastViewName);
+        sr.append("\" conditionGroup=\"");
+        sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" delegatorName=\"");
