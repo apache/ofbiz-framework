@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro lookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" readonly="" autocomplete="" descriptionFieldName="" formName="" fieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position="topleft" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" tabindex="">
+<#macro lookupField conditionGroup="" className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" readonly="" autocomplete="" descriptionFieldName="" formName="" fieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position="topleft" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" tabindex="">
   <#if (!ajaxEnabled?has_content)>
     <#assign javascriptEnabled = Static["org.apache.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
     <#if (javascriptEnabled)>
@@ -32,7 +32,7 @@ under the License.
   <#else>
     <#local readonly = false />
   </#if>
-  <@renderLookupField name formName fieldFormName className alert value size maxlength id event action readonly autocomplete descriptionFieldName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed tabindex/>
+  <@renderLookupField name formName fieldFormName conditionGroup className alert value size maxlength id event action readonly autocomplete descriptionFieldName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed tabindex/>
 </#macro>
 
 <#macro nextPrev commonUrl="" ajaxEnabled=false javaScriptEnabled=false paginateStyle="nav-pager" paginateFirstStyle="nav-first" viewIndex=0 highIndex=0 listSize=0 viewSize=1 ajaxFirstUrl="" firstUrl="" paginateFirstLabel="" paginatePreviousStyle="nav-previous" ajaxPreviousUrl="" previousUrl="" paginatePreviousLabel="" pageLabel="" ajaxSelectUrl="" selectUrl="" ajaxSelectSizeUrl="" selectSizeUrl="" commonDisplaying="" paginateNextStyle="nav-next" ajaxNextUrl="" nextUrl="" paginateNextLabel="" paginateLastStyle="nav-last" ajaxLastUrl="" lastUrl="" paginateLastLabel="" paginateViewSizeLabel="" >
