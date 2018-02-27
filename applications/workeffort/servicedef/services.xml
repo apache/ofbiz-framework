@@ -968,7 +968,7 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="deleteOrderHeaderWorkEffort" default-entity-name="OrderHeaderWorkEffort" engine="entity-auto" auth="true" invoke="deleteOrderHeaderWorkEffort">
+    <service name="deleteOrderHeaderWorkEffort" default-entity-name="OrderHeaderWorkEffort" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes a OrderHeaderWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="orderId" optional="false">
