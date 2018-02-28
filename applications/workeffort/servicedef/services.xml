@@ -788,7 +788,7 @@ under the License.
     <service name="deleteWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="delete" auth="true">
         <description>Deletes a CustRequestWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
-        <override name="custRequestId" optional="false" mode="INOUT">
+        <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
             </type-validate>
@@ -805,12 +805,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="OUT" optional="true"/>
-        <override name="custRequestId" optional="false" mode="INOUT">
+        <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
             </type-validate>
         </override>
-        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+        <override name="custRequestItemSeqId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
             </type-validate>
@@ -827,12 +827,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="IN" optional="true"/>
-        <override name="custRequestId" optional="false" mode="INOUT">
+        <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
             </type-validate>
         </override>
-        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+        <override name="custRequestItemSeqId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
             </type-validate>
@@ -846,12 +846,12 @@ under the License.
     <service name="deleteWorkEffortRequestItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Deletes a CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
-        <override name="custRequestId" optional="false" mode="INOUT">
+        <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
             </type-validate>
         </override>
-        <override name="custRequestItemSeqId" optional="false" mode="INOUT">
+        <override name="custRequestItemSeqId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestItemSeqId"/>
             </type-validate>
@@ -886,7 +886,7 @@ under the License.
     <service name="deleteWorkEffortQuote" default-entity-name="QuoteWorkEffort" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes a QuoteWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <override name="quoteId" optional="false" mode="INOUT">
+        <override name="quoteId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingQuoteId"/>
             </type-validate>
