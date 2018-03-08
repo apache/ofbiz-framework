@@ -1,0 +1,8 @@
+= Accounting
+
+The OFBiz accounting system is a core application component and has most of the
+modern features you would expect in a general purpose double-entry accounting
+system. However, OFBiz goes beyond that by integrating the accounting
+functionality with other core components including party, product and order
+management. This makes the system as a whole robust and integrated to provide
+more value than a plain accounting system.
