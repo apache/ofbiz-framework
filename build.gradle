@@ -18,6 +18,7 @@
  */
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
+import org.asciidoctor.gradle.AsciidoctorTask
 
 /* ========================================================
  * Project setup
@@ -27,13 +28,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-      classpath "at.bxm.gradleplugins:gradle-svntools-plugin:latest.release"
+        classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.7'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
+apply plugin: 'org.asciidoctor.convert'
 
 apply from: 'common.gradle'
 
@@ -309,6 +313,7 @@ if (project.hasProperty('enableOwasp')) {
 
 // ========== Task group labels ==========
 def cleanupGroup = 'Cleaning'
+def docsGroup = 'Documentation'
 def ofbizServer = 'OFBiz Server'
 def ofbizPlugin = 'OFBiz Plugin'
 def sysadminGroup = 'System Administration'
@@ -477,6 +482,36 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     doLast {
         delete("${rootDir}/runtime/tmp/tmpFilteredTenantData.xml")
         delete("${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml")
+    }
+}
+
+// ========== Documentation tasks ==========
+tasks.withType(AsciidoctorTask) { task ->
+    backends 'html5', 'pdf'
+    attributes toc: ''
+}
+
+task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
+    description 'Generate OFBiz documentation manual'
+    sourceDir "${rootDir}/docs/asciidoc"
+    outputDir file("${buildDir}/asciidoc/ofbiz")
+}
+
+task generatePluginDocumentation(group: docsGroup) {
+    description 'Generate plugin documentation. Expects pluginId flag'
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+    }
+    iterateOverActiveComponents { component ->
+        if(project.hasProperty('pluginId')) {
+            def pluginAsciidoc = task "${component.name}" (type: AsciidoctorTask) {
+                sourceDir file("${component}/src/docs/asciidoc")
+                outputDir file("${buildDir}/asciidoc/${component.name}")
+            }
+            dependsOn pluginAsciidoc
+        }
     }
 }
 
