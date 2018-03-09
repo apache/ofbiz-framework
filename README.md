@@ -273,6 +273,14 @@ You can also offset the port, for example:
 
 `gradlew "ofbizBackground --start --portoffset 10000"`
 
+#### Passing JVM runtime options to OFBiz
+
+You can pass JVM runtime options by specifying the project property `-PjvmArgs`.
+
+`gradlew ofbiz -PjvmArgs="-Xms1024M -Xmx2048M" -Dsome.parameter=hello`
+
+If you do not specify `jvmArgs`, a default of `-Xms128M -Xmx1024M` is set.
+
 * * * * * * * * * * * *
 
 ### Data loading tasks
