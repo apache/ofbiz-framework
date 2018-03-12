@@ -499,7 +499,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
     </datasource>
-    <datasource name="localpostolap"
+    <datasource name="localpostgresolap"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
             field-type-name="postgres"
@@ -535,7 +535,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
     </datasource>
-    <datasource name="localposttenant"
+    <datasource name="localpostgrestenant"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
             field-type-name="postgres"
