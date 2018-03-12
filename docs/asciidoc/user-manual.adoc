@@ -37,4 +37,7 @@ architectural concepts of the framework.
 
 ==== Plugins
 
+== Core Business Applications
+
 include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+1]
+include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+1]
