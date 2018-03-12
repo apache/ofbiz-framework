@@ -173,8 +173,8 @@ public class UtilCodec {
 
         public String decode(String original) {
             try {
-                String canonical = canonicalize(original);
-                return URLDecoder.decode(canonical, "UTF-8");
+                canonicalize(original);
+                return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, module);
                 return null;
