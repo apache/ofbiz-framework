@@ -232,12 +232,12 @@ public class LoginServices {
                                 userLogin.set("hasLoggedOut", "N");
                             }
 
-                            // reset failed login count if necessry
+                            // reset failed login count if necessary
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
                             if (currentFailedLogins != null && currentFailedLogins.longValue() > 0) {
                                 userLogin.set("successiveFailedLogins", Long.valueOf(0));
                             } else if (!hasLoggedOut) {
-                                // successful login & no loggout flag, no need to change anything, so don't do the store
+                                // successful login & no logout flag, no need to change anything, so don't do the store
                                 doStore = false;
                             }
 
@@ -709,7 +709,8 @@ public class LoginServices {
         } else {
             userLoginToUpdate.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(getHashType(), null, newPassword) : newPassword, false);
             userLoginToUpdate.set("passwordHint", passwordHint, false);
-            userLoginToUpdate.set("requirePasswordChange", "N");
+            // optional parameter in service definition "requirePasswordChange" to update a password to a new generated value that has to be changed by the user
+            userLoginToUpdate.set("requirePasswordChange", ("Y".equals(context.get("requirePasswordChange")) ? "Y" : "N"));
 
             try {
                 userLoginToUpdate.store();
