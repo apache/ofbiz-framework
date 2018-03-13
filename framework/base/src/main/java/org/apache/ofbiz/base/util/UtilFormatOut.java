@@ -210,6 +210,18 @@ public final class UtilFormatOut {
         return percentageDecimalFormat.format(percentage);
     }
 
+    /** Formats a BigDecimal value 1:1 into a percentage string (e.g. 10 to 10% instead of 0,1 to 10%)
+     * @param percentage The percentage Decimal to be formatted
+     * @return A String with the formatted percentage
+     */
+    public static String formatPercentageRate(BigDecimal percentage, boolean negate) {
+        if (percentage == null) return "";
+        if (negate) {
+            return percentageDecimalFormat.format(percentage.divide(BigDecimal.valueOf(-100)));
+        }
+        return percentageDecimalFormat.format(percentage.divide(BigDecimal.valueOf(100)));
+    }
+
     /** Formats an Long representing a quantity into a string
      * @param quantity The quantity Long to be formatted
      * @return A String with the formatted quantity
