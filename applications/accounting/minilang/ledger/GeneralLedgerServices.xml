@@ -2404,6 +2404,7 @@ under the License.
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="OUTGOING_PAYMENT"/>
             <set field="createAcctgTransAndEntriesInMap.partyId" from-field="partyId"/>
             <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="payment.paymentId"/>
+            <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="payment.effectiveDate"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
@@ -2648,6 +2649,7 @@ under the License.
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PAYMENT_APPL"/>
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="payment.effectiveDate"/>
         <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentApplication.paymentId"/>
         <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="paymentApplication.invoiceId"/>
         <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
