@@ -408,6 +408,7 @@ under the License.
         <attribute name="newPassword" type="String" mode="IN" optional="true"/>
         <attribute name="newPasswordVerify" type="String" mode="IN" optional="true"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
+        <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin"
