@@ -494,7 +494,7 @@ public class EmailServices {
 
         ScreenStringRenderer screenStringRenderer = null;
         try {
-            screenStringRenderer = new MacroScreenRenderer("screen", visualTheme.getModelTheme().getScreenRendererLocation("screen"));
+            screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screen");
         } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
@@ -543,9 +543,9 @@ public class EmailServices {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
                     if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
-                        foScreenStringRenderer = new MacroScreenRenderer("screentext", visualTheme.getModelTheme().getScreenRendererLocation("screentext"));
+                        foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screentext");
                     }else{
-                        foScreenStringRenderer = new MacroScreenRenderer("screenfop", visualTheme.getModelTheme().getScreenRendererLocation("screenfop"));
+                        foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screenfop");
                     } 
                     ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
