@@ -494,24 +494,42 @@ tasks.withType(AsciidoctorTask) { task ->
     attributes toc: ''
 }
 
+task deleteOfbizDocumentation {
+    doFirst { delete "${buildDir}/asciidoc/ofbiz" }
+}
+
+task deletePluginDocumentation {
+    def activeComponents = []
+    iterateOverActiveComponents { component ->
+        activeComponents.add(component.name)
+    }
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+        if(!activeComponents.contains(pluginId)) {
+            throw new GradleException("Could not find plugin with id ${pluginId}")
+        }
+        delete "${buildDir}/asciidoc/${pluginId}"
+    }
+}
+
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
+    dependsOn deleteOfbizDocumentation
     description 'Generate OFBiz documentation manual'
     sourceDir "${rootDir}/docs/asciidoc"
     outputDir file("${buildDir}/asciidoc/ofbiz")
 }
 
 task generatePluginDocumentation(group: docsGroup) {
+    dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
-    doFirst {
-        if (!project.hasProperty('pluginId')) {
-            throw new GradleException('Missing property \"pluginId\"')
-        }
-    }
     iterateOverActiveComponents { component ->
-        if(project.hasProperty('pluginId')) {
-            def pluginAsciidoc = task "${component.name}" (type: AsciidoctorTask) {
+        if (project.hasProperty('pluginId') && component.name == pluginId) {
+            def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
                 sourceDir file("${component}/src/docs/asciidoc")
                 outputDir file("${buildDir}/asciidoc/${component.name}")
+                mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
         }
