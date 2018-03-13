@@ -80,6 +80,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     protected boolean widgetCommentsEnabled = false;
     private int screenLetsIdCounter = 1;
 
+    public MacroScreenRenderer(ModelTheme theme, String modelTemplateName) throws TemplateException, IOException {
+        this(theme.getType(modelTemplateName), theme.getScreenRendererLocation(modelTemplateName));
+    }
+
     public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         rendererName = name;
