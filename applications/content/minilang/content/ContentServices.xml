@@ -71,23 +71,26 @@
     </simple-method>
     <simple-method method-name="removeContentAndRelated" short-description="Remove a Content Record, related resource(s) and assocs.">
         <entity-one entity-name="Content" value-field="content"/> 
-        <remove-related value-field="content" relation-name="ContentRole"/>
-        <remove-related value-field="content" relation-name="ContentKeyword"/>
-        <remove-related value-field="content" relation-name="FromContentAssoc"/>
-        <remove-related value-field="content" relation-name="ToContentAssoc"/>
-        <remove-value value-field="content"/>
-        <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-        <if-not-empty field="dataResource">
-            <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
-            <if-not-empty field="imageDataResource">
-                <remove-value value-field="imageDataResource"/>
+        <if-not-empty field="content">
+            <remove-related value-field="content" relation-name="ContentAttribute"/>
+            <remove-related value-field="content" relation-name="ContentRole"/>
+            <remove-related value-field="content" relation-name="ContentKeyword"/>
+            <remove-related value-field="content" relation-name="FromContentAssoc"/>
+            <remove-related value-field="content" relation-name="ToContentAssoc"/>
+            <remove-value value-field="content"/>
+            <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
+            <if-not-empty field="dataResource">
+                <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
+                <if-not-empty field="imageDataResource">
+                    <remove-value value-field="imageDataResource"/>
+                </if-not-empty>
+                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
+                <if-not-empty field="electronicText">
+                    <remove-value value-field="electronicText"/>
+                </if-not-empty>
+                <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
+                <remove-value value-field="dataResource"/>
             </if-not-empty>
-            <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
-            <if-not-empty field="electronicText">
-                <remove-value value-field="electronicText"/>
-            </if-not-empty>
-            <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
-            <remove-value value-field="dataResource"/>
         </if-not-empty>
     </simple-method>
 
@@ -877,7 +880,7 @@
             <condition>
                 <or>
                     <if-empty field="parameters.contentId"/>
-                    <if-compare operator="equals" value="null" field="parameters.contentId"></if-compare>
+                    <if-compare operator="equals" value="null" field="parameters.contentId"/>
                 </or>
             </condition>
             <then>
