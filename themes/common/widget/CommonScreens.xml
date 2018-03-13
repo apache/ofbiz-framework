@@ -564,7 +564,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ChangePassword.ftl"/>
+                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC" default-value="component://common-theme/template/ChangePassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -584,7 +584,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ForgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC" default-value="component://common-theme/template/ForgotPassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -614,7 +614,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common-theme/template/GetSecurityQuestion.ftl"/>
+                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC" default-value="component://common-theme/template/GetSecurityQuestion.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -634,7 +634,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common-theme/template/ForgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC" default-value="component://common-theme/template/ForgotPassword.ftl"/>
                             </actions>
                             <widgets />
                          </section>
