@@ -1057,11 +1057,11 @@ function getJSONuiLabel(uiResource, errUiLabel) {
             type: "POST",
             data: {"requiredLabel" : requiredLabelStr},
             success: function(data) {
-                returnVal = data[0];
+                returnVal = data;
             }
         });
     }
-    return returnVal;
+    return returnVal[arguments[0]];
 }
 
 /**
@@ -1194,5 +1194,69 @@ function submitPagination(obj, url) {
             obj.href = url;
             return true;
         }
+    }
+}
+
+function getJwtToken(webAppName) {
+    var JwtToken = "";
+    var userLoginId = getAutoUserLoginId(webAppName);
+
+    if (userLoginId != null && userLoginId != "") {
+        jQuery.ajax({
+            url: "getJwtToken",
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {"userLoginId" : userLoginId},
+            success: function(data) {
+                JwtToken = data;
+            },
+            error: function(textStatus, errorThrown){
+                alert('Failure, errorThrown: ' + errorThrown);
+            }
+        });
+    }
+    return JwtToken;
+}
+
+function getAutoUserLoginId(webAppName) {
+    var userLoginId = ""
+        jQuery.ajax({
+            url: "getAutoUserLoginId",
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {"webAppName" : webAppName},
+            success: function(data) {
+                userLoginId = data;
+            },
+            error: function(textStatus, errorThrown){
+                alert('Failure, errorThrown: ' + errorThrown);
+            }
+        });
+    return userLoginId;
+}
+
+//POST, or GET necessary ?
+function sendJwtToken(webAppName, targetUrl) {
+    var redirectUrl = targetUrl;
+    var jwtToken = getJwtToken(webAppName); 
+    if (jwtToken != null && jwtToken != "") {
+        jQuery.ajax({
+            url: targetUrl,
+            async: false,
+            type: 'POST',
+//            ContentType: 'text/plain',
+//            xhrFields: {withCredentials: true},
+//            beforeSend: function (request) {
+//                request.setRequestHeader("Access-Control-Allow-Origin", "https://localhost"); // TODO check this is OK (it allows all) 
+//                request.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, X-Requested-By, Content-Type, Accept, Authorization");
+//                request.setRequestHeader("Access-Control-Allow-Credentials", "true");
+//            },
+            headers: { 'Content-Type': 'text/plain', "Authorization" : jwtToken},
+            success: function(data, textStatus, XMLHttpRequest){
+                window.location.href = redirectUrl;
+            }
+        });
     }
 }
