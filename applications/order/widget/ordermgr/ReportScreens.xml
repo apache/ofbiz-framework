@@ -26,7 +26,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
-                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
