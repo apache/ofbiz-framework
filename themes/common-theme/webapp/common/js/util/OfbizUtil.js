@@ -1057,11 +1057,11 @@ function getJSONuiLabel(uiResource, errUiLabel) {
             type: "POST",
             data: {"requiredLabel" : requiredLabelStr},
             success: function(data) {
-                returnVal = data[0];
+                returnVal = data;
             }
         });
     }
-    return returnVal;
+    return returnVal[arguments[0]];
 }
 
 /**
