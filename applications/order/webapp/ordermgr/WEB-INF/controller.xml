@@ -1719,12 +1719,6 @@ under the License.
         <response name="success" type="request" value="updateShipGroupShipInfo"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
-    <request-map uri="getAssociatedStateList">
-        <security https="true" auth="false"/>
-        <event type="service" invoke="getAssociatedStateList"/>
-        <response name="success" type="request" value="json"/>
-        <response name="error" type="request" value="json"/>
-    </request-map>
 
     <!-- UPS carrier requests -->
     <request-map uri="upsEmailReturnLabelOrder">
