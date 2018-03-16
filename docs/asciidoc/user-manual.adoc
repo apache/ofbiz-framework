@@ -1,4 +1,5 @@
 = Apache OFBiz User Manual
+:sectnums:
 
 == Introduction to OFBiz
 
