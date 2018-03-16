@@ -125,6 +125,6 @@ This section of the manual will describe each core business application
 starting with a high level overview of design and purpose down to the details
 of how to achieve common tasks. 
 
-include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+1]
+include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+2]
 
-include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+1]
+include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+2]
