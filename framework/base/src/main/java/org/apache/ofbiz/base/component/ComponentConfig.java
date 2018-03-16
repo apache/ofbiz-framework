@@ -316,7 +316,8 @@ public final class ComponentConfig {
         WebappInfo webappInfo = null;
         List<WebappInfo> webappsInfo = getAppBarWebInfos(serverName);
         for(WebappInfo currApp : webappsInfo) {
-            if (webAppName.equals(currApp.getName())) {
+            String currWebAppName = currApp.getMountPoint().replace("/", "").replace("*", "");
+            if (webAppName.equals(currWebAppName)) {
                 webappInfo = currApp;
                 break;
             }
@@ -942,6 +943,10 @@ public final class ComponentConfig {
 
         public String getName() {
             return name;
+        }
+
+        public String getMountPoint() {
+            return mountPoint;
         }
 
         public String getTitle() {
