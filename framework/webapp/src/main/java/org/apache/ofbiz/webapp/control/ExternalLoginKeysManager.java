@@ -32,7 +32,6 @@ import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -186,18 +185,13 @@ public class ExternalLoginKeysManager {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
 
-        // The target server does not allow external login by default
-        boolean useExternalServer = EntityUtilProperties.getPropertyAsBoolean("security", "use-external-server", false);
-        String sourceWebappName = request.getParameter(SOURCE_SERVER_WEBAPP_NAME); 
-        if (!useExternalServer || sourceWebappName == null) return "success"; // Nothing to do here
-
         try {
             String userLoginId = null;
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader != null) {
                 Claims claims = returnsClaims(authorizationHeader);
                 userLoginId = getSourceUserLoginId(claims );
-                boolean jwtOK = checkJwt(authorizationHeader, userLoginId, getTargetServerUrl(request), UtilHttp.getApplicationName(request));
+                boolean jwtOK = checkJwt(authorizationHeader, userLoginId, "", "");
                 if (!jwtOK) {
                     // Something unexpected happened here
                     Debug.logWarning("*** There was a problem with the JWT token, not signin in the user login " + userLoginId, module);
@@ -234,6 +228,9 @@ public class ExternalLoginKeysManager {
             Debug.logError(e, "Cannot get autoUserLogin information: " + e.getMessage(), module);
         }
 
+        // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
+        LoginWorker.autoLoginSet(request, response);
+        
         return "success";
     }
     
