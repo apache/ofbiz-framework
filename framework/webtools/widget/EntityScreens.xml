@@ -37,10 +37,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EntitySQLCommand" location="component://webtools/widget/EntityForms.xml"/>
-                        <platform-specific>
-                            <html><html-template location="component://webtools/template/entity/EntitySQLProcessor.ftl"/></html>
-                        </platform-specific>
+                        <screenlet>
+                            <include-form name="EntitySQLCommand" location="component://webtools/widget/EntityForms.xml"/>
+                        </screenlet>
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntitySQLProcessor.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -484,9 +488,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/template/entity/ConnectionPoolStatus.ftl"/></html>
-                        </platform-specific>
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/ConnectionPoolStatus.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
