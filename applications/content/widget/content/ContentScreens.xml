@@ -299,7 +299,9 @@ under the License.
                         <screenlet id="AddContentRolePanel" title="${uiLabelMap.PageTitleAddRole}" collapsible="true">
                             <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
-                        <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -323,7 +325,9 @@ under the License.
                         <screenlet id="AddContentPurposePanel" title="${uiLabelMap.PageTitleAddPurpose}" collapsible="true">
                             <include-form name="AddContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
-                        <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -347,7 +351,9 @@ under the License.
                         <screenlet id="AddContentAttributePanel" title="${uiLabelMap.PageTitleAddAttribute}" collapsible="true">
                             <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
-                        <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -407,7 +413,9 @@ under the License.
                         <screenlet id="AddContentMetaDataPanel" title="${uiLabelMap.PageTitleAddMetaData}" collapsible="true">
                             <include-form name="AddContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
-                        <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -431,7 +439,9 @@ under the License.
                         <screenlet id="AddWorkEffortContentPanel" title="${uiLabelMap.PageTitleAddWorkEffort}" collapsible="true">
                             <include-form name="AddWorkEffortContent" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
-                        <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
