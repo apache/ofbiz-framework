@@ -33,7 +33,9 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.NewSecurityGroup}"/>
                         </container>
-                        <include-form name="CreateSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                            <include-form name="CreateSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -54,7 +56,9 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.CreateUserLogin}"/>
                         </container>
-                        <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                            <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -261,7 +265,9 @@ under the License.
                         <container style="button-bar">
                             <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
                         </container>
-                        <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -286,7 +292,9 @@ under the License.
                         <container style="button-bar">
                             <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
                         </container>
-                        <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
