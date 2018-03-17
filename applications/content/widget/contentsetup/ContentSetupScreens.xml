@@ -35,7 +35,9 @@ under the License.
                         <screenlet id="ContentTypePanel" title="${uiLabelMap.PageTitleEditContentType}" collapsible="true">
                             <include-form name="AddContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -55,7 +57,9 @@ under the License.
                         <screenlet id="ContentTypeAttrPanel" title="${uiLabelMap.PageTitleEditContentAttribute}" collapsible="true">
                             <include-form name="AddContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -75,7 +79,9 @@ under the License.
                         <screenlet id="ContentAssocTypePanel" title="${uiLabelMap.PageTitleEditContentAssoc}" collapsible="true">
                             <include-form name="AddContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -95,7 +101,9 @@ under the License.
                         <screenlet id="ContentPurposeTypePanel" title="${uiLabelMap.PageTitleEditContentPurpose}" collapsible="true">
                             <include-form name="AddContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -115,7 +123,9 @@ under the License.
                         <screenlet id="ContentAssocPredicatePanel" title="${uiLabelMap.PageTitleEditContentAssocPredicate}" collapsible="true">
                             <include-form name="AddContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -135,7 +145,9 @@ under the License.
                         <screenlet id="ContentPurposeOperationPanel" title="${uiLabelMap.PageTitleEditContentPurposeOperation}" collapsible="true">
                             <include-form name="AddContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -177,7 +189,9 @@ under the License.
                         <screenlet id="ContentOperationPanel" title="${uiLabelMap.PageTitleEditContentOperation}" collapsible="true">
                             <include-form name="AddContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        <screenlet>
+                          <include-form name="UpdateContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
