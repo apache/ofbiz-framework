@@ -54,7 +54,7 @@ function call_fieldlookup3(view_name) {
 
 <#-- ============================================================= -->
 <br />
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class="form-table">
   <tr>
     <td width='100%'>
       <form name="userform" method="post" action="<@ofbizUrl>UserPermissions</@ofbizUrl>" >
@@ -79,8 +79,9 @@ function call_fieldlookup3(view_name) {
   <tr>
     <td width='100%'>
       <form name="siteRoleForm" method="post" action="<@ofbizUrl>updateSiteRoles</@ofbizUrl>">
-      <table width='100%' border='0' cellspacing='0' cellpadding='4' class='boxoutside'>
+      <table width='100%' border='0' cellspacing='0' cellpadding='4' >
         <tr>
+            <td class="label"/>
             <td class="">${uiLabelMap.ContentWebSite}</td>
             <#list blogRoleIdList as roleTypeId>
               <td class="">${roleTypeId}</td>
@@ -103,6 +104,7 @@ function call_fieldlookup3(view_name) {
           <#assign rowCount=rowCount + 1/>
         </#list>
           <tr>
+            <td class="label"/>
             <td>
               <div class="smallSubmit" ><a href="javascript:submitRows('${rowCount!}')">${uiLabelMap.CommonUpdate}</a></div>
             </td>

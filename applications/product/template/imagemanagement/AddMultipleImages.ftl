@@ -17,14 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<form id="addMultipleImagesForm" name="addMultipleImagesForm" method="post" action="<@ofbizUrl>addImageForProduct</@ofbizUrl>" enctype="multipart/form-data">
-<br/>
-<div class="label">${uiLabelMap.ProductProductId} <@htmlTemplate.lookupField name="productId" id="productId" formName="addMultipleImagesForm" fieldFormName="LookupProduct"/></div>
-<br/>
-<br/>
+<form class="basic-form" id="addMultipleImagesForm" name="addMultipleImagesForm" method="post" action="<@ofbizUrl>addImageForProduct</@ofbizUrl>" enctype="multipart/form-data">
   <table>
     <tbody>
       <tr>
+    <td class="label"><label>${uiLabelMap.ProductProductId}</label></td>
+    <td><@htmlTemplate.lookupField name="productId" id="productId" formName="addMultipleImagesForm" fieldFormName="LookupProduct"/></td>
+    </tr>
+      <tr>
+        <td class="label"/>
         <td>
             <select name="imageResize" >
                 <#list productFeatures as productFeature>
@@ -35,36 +36,47 @@ under the License.
         </td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageOne"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageTwo"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageThree"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageFour"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageFive"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageSix"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageSeven"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageEight"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageNine"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="file" size="20" name="additionalImageTen"/></td>
       </tr>
       <tr>
+        <td class="label"/>
         <td><input type="submit" value='${uiLabelMap.CommonUpload}'/></td>
       </tr>
     </tbody>

@@ -21,7 +21,7 @@ under the License.
     <h3>${uiLabelMap.CommonAdvancedSearch}</h3>
   </div>
   <div class="screenlet-body">
-    <form name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>ContentSearchResults</@ofbizUrl>" style="margin: 0;">
+    <form class="basic-form" name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>ContentSearchResults</@ofbizUrl>" style="margin: 0;">
       <input type="hidden" name="VIEW_SIZE" value="25"/>
       <table class="basic-table" cellspacing="0">
         <tr>
