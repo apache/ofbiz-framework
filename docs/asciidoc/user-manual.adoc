@@ -18,6 +18,9 @@ under the License.
 ////
 = Apache OFBiz User Manual
 :sectnums:
+:imagesdir: ./images
+
+image::OFBiz-Logo-250w.png[Apache OFBiz Logo, align="center"]
 
 == Introduction to OFBiz
 
