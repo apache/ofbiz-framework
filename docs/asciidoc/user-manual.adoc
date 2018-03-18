@@ -17,10 +17,16 @@ specific language governing permissions and limitations
 under the License.
 ////
 = Apache OFBiz User Manual
+The Apache OFBiz Project
+Release 17.12:
+:doctype: book
 :sectnums:
+:toc:
+:toclevels: 5
 :imagesdir: ./images
-
-image::OFBiz-Logo-250w.png[Apache OFBiz Logo, align="center"]
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+endif::[]
 
 == Introduction to OFBiz
 
