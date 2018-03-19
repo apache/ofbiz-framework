@@ -537,6 +537,14 @@ public class HttpClient {
                 Debug.logWarning(ioe.getCause(), module);
                 return sendHttpRequestStream(method, true);
             }
+            if ((con instanceof HttpURLConnection)) {
+                try {
+                    in = ((HttpURLConnection) con).getErrorStream();
+                } catch (Exception ioerror) {
+                    throw new HttpClientException("IO Error processing request", ioerror);
+                }
+                return in;
+            }
             throw new HttpClientException("IO Error processing request", ioe);
         } catch (RuntimeException e) {
             throw e;
