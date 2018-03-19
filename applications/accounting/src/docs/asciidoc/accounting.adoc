@@ -28,3 +28,4 @@ integrated to provide more value than a plain accounting system.
 
 include::_include/acc-intro.adoc[leveloffset=+1]
 
+include::_include/acc-agreements.adoc[leveloffset=+1]
