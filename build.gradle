@@ -31,6 +31,8 @@ buildscript {
         classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.7'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+        // asciidoctorj-pdf bug workaround - override jruby. See OFBIZ-9873
+        classpath 'org.jruby:jruby-complete:9.1.13.0'
     }
 }
 apply plugin: 'java'
