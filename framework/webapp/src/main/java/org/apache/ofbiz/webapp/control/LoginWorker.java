@@ -825,7 +825,7 @@ public class LoginWorker {
     }
     
     // Removes all the autoLoginCookies but if the webapp requires keeping it
-public static String autoLogoutCleanCookies(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
+    public static String autoLogoutCleanCookies(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
         Cookie[] cookies = request.getCookies();
