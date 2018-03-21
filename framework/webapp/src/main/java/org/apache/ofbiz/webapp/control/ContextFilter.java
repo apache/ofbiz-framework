@@ -28,7 +28,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -188,33 +187,8 @@ public class ContextFilter implements Filter {
             }
         }
 
-        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(httpRequest) {
-            @Override
-            public String getHeader(String name) {
-                String sourceWebappName = request.getParameter(ExternalLoginKeysManager.SOURCE_SERVER_WEBAPP_NAME);
-                String value = null;
-                if (sourceWebappName != null) {
-                    HttpServletRequest httpRequest = (HttpServletRequest) request;
-                    String userLoginId = LoginWorker.getAutoUserLoginId(httpRequest, sourceWebappName);
-                    if (userLoginId != null) { // At this stage the user must be logged in. But safer to check because we can't grab it from the session here.
-                            // ExternalLoginKeysManager.createJwt() arguments in order:
-                            // id an Id, here userLoginId
-                            // issuer is who/what issued the token, here the server URL
-                            // subject is the subject of the token, here the target webapp
-                            // timeToLive is the token maximum duration, default 30 seconds
-                            String targetWebAppName = UtilHttp.getApplicationName(httpRequest);
-                            String targetServerUrl = ExternalLoginKeysManager.getTargetServerUrl(httpRequest);
-                            long timeToLive = ExternalLoginKeysManager.getJwtTokenTimeToLive(httpRequest);
-                            // We would need a Bearer token (in Authorization request header) if we were using Oauth2, here we don't, so no Bearer 
-                            value = ExternalLoginKeysManager.createJwt(userLoginId, targetServerUrl, targetWebAppName , timeToLive);
-                    }
-                }
-                if (value != null) return value;
-                return super.getHeader(name);
-            }
-        };
         // we're done checking; continue on
-        chain.doFilter(wrapper, httpResponse);
+        chain.doFilter(request, httpResponse);
     }
 
     /**
