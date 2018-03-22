@@ -26,15 +26,15 @@ import org.apache.ofbiz.testtools.GroovyScriptTestCase
 class FileUtilTests extends GroovyScriptTestCase {
 
     /**
-     * Test FileUtil zipFileStream and unzipFileToFolder methods, using README.md
+     * Test FileUtil zipFileStream and unzipFileToFolder methods, using README.adoc
      */
     void testZipReadme() {
         String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp")
-        String zipName = 'README.md.zip'
+        String zipName = 'README.adoc.zip'
         String fileName = 'README.adoc'
         File originalReadme = new File(fileName)
 
-        //validate zipStream from README.md is not null
+        //validate zipStream from README.adoc is not null
         def zipStream = FileUtil.zipFileStream(originalReadme.newInputStream(), fileName)
         assert zipStream
 
@@ -52,7 +52,7 @@ class FileUtilTests extends GroovyScriptTestCase {
         out.close()
         zipStream.close()
 
-        //ensure no README.md exist in tmp folder
+        //ensure no README.adoc exist in tmp folder
         File readme = new File(zipFilePath, fileName)
         if (readme.exists()) readme.delete()
 
