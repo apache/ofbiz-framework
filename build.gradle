@@ -144,7 +144,6 @@ dependencies {
     compile 'org.zapodot:jackson-databind-java-optional:2.6.1'
     compile 'oro:oro:2.0.8'
     compile 'wsdl4j:wsdl4j:1.6.3'
-    compile 'io.jsonwebtoken:jjwt:0.9.0'
     compile 'org.jsoup:jsoup:1.11.2'
 
     // ofbiz unit-test compile libs
