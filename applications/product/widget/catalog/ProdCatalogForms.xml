@@ -166,7 +166,7 @@ under the License.
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
-            <display-entity entity-name="ProductCategory" also-hidden="true" cache="true">
+            <display-entity entity-name="ProductCategory" description="${categoryName}" also-hidden="true" cache="true">
                 <sub-hyperlink link-style="buttontext" target="EditCategory" description="${productCategoryId}">
                     <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>
