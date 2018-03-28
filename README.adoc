@@ -61,12 +61,11 @@ environment variable.
 http://www.oracle.com/technetwork/java/javase/downloads/index.html[JDK download]
 
 [[quick-start]]
+// tag::quickstart[]
 == Quick start
 
 To quickly install and fire-up OFBiz, please follow the below instructions from
-the command line at the OFBiz top level directory (folder)
-
-In case of problems visit our link:#further-reading[Further reading section]
+the command line at the OFBiz top level directory (folder).
 
 [[prepare-ofbiz]]
 === Prepare OFBiz:
@@ -103,6 +102,11 @@ https://localhost:8443/accounting[Accounting Back Office]
 https://localhost:8443/webtools[Administrator interface]
 
 You can log in with the user *admin* and password *ofbiz*.
+
+// end::quickstart[]
+
+[NOTE]
+In case of problems visit our link:#further-reading[Further reading section].
 
 [[security]]
 == Security
