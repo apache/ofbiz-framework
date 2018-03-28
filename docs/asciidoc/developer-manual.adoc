@@ -20,8 +20,10 @@ under the License.
 The Apache OFBiz Project
 Release 17.12
 :doctype: book
+:experimental:
 :icons: font
 :sectnums:
+:chapter-label:
 :toc:
 :toclevels: 5
 :imagesdir: ./images
@@ -251,6 +253,18 @@ displays search results.
 == Core APIs
 
 == Development environment
+
+=== Setup your environment
+
+==== Java SE
+
+==== IDE
+
+===== Eclipse
+
+===== Intellij Idea
+
+==== Database
 
 === Web tools
 
