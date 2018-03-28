@@ -65,7 +65,7 @@ under the License.
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="partyPrefDocTypeTplId" type="String" mode="OUT"/>
-        <override name="partylId" mode="IN" optional="false"/>
+        <override name="partyId" mode="IN" optional="false"/>
     </service>
     <service name="expirePartyPrefDocTypeTpl" default-entity-name="PartyPrefDocTypeTpl" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire a documentType preference for a party (organization)</description>
