@@ -71,7 +71,7 @@ under the License.
 
     <form name="EntitySQLCommand" target="EntitySQLProcessor">
         <field name="group" title="${uiLabelMap.CommonGroup}">
-            <drop-down allow-empty="false">
+            <drop-down no-current-selected-key="org.apache.ofbiz">
                 <list-options list-name="groups" key-name="group" description="${group}"/>
             </drop-down>
         </field>
