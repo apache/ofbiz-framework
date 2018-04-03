@@ -5520,8 +5520,8 @@
     <property key="WorkEffortRequiredFieldMissingWorkEffortId">
         <value xml:lang="en">Required Field Missing : WorkEffort Id.</value>
     </property>
-    <property key="WorkEffortRequiredFieldMissingRequirementTypeId">
-        <value xml:lang="en">Required Field Missing : Requirement Type Id.</value>
+    <property key="WorkEffortRequiredFieldMissingRequirementId">
+        <value xml:lang="en">Required Field Missing : Requirement Id.</value>
     </property>
     <property key="WorkEffortRequiredFieldMissingContactMechTypeId">
         <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>

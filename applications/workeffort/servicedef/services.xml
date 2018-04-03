@@ -908,9 +908,9 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
             </type-validate>
         </override>
-        <override name="requirementTypeId" optional="false">
+        <override name="requirementId" optional="false">
             <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementTypeId"/>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementId"/>
             </type-validate>
         </override>
     </service>
@@ -922,9 +922,9 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
             </type-validate>
         </override>
-        <override name="requirementTypeId" optional="false">
+        <override name="requirementId" optional="false">
             <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementTypeId"/>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementId"/>
             </type-validate>
         </override>
     </service>
