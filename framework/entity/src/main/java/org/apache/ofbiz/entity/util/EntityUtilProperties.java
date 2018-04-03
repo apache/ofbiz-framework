@@ -57,8 +57,6 @@ public final class EntityUtilProperties implements Serializable {
         results.put("value", "");
 
         if (UtilValidate.isEmpty(resource) || UtilValidate.isEmpty(name)) {
-            results.put("isExistInDb", "N");
-            results.put("value", "");
             return results;
         }
         resource = resource.replace(".properties", "");
@@ -72,12 +70,6 @@ public final class EntityUtilProperties implements Serializable {
                 //property exists in database
                 results.put("isExistInDb", "Y");
                 results.put("value", (systemProperty.getString("systemPropertyValue") != null) ? systemProperty.getString("systemPropertyValue") : "");
-                return results;
-            } else {
-                //property does not exists in database
-                results.put("isExistInDb", "N");
-                results.put("value", "");
-                return results;
             }
         } catch (GenericEntityException e) {
             Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), module);
