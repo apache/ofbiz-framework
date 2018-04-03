@@ -210,8 +210,11 @@ public class FinAccountServices {
             Timestamp now = UtilDateTime.nowTimestamp();
 
             // now use our values
-            String finAccountCode = FinAccountHelper.getNewFinAccountCode(accountCodeLength.intValue(), delegator);
-            inContext.put("finAccountCode", finAccountCode);
+            String finAccountCode = null;
+            if (UtilValidate.isNotEmpty(accountCodeLength)) {
+                finAccountCode = FinAccountHelper.getNewFinAccountCode(accountCodeLength.intValue(), delegator);
+                inContext.put("finAccountCode", finAccountCode);
+            }
 
             // with pin codes, the account code becomes the ID and the pin becomes the code
             if ("Y".equalsIgnoreCase(requirePinCode)) {
