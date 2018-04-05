@@ -213,6 +213,12 @@ For details, see framework/resources/fonts/NotoSans/.
 
 =========================================================================
 
+This product bundles the "Quicksand" fonts, which is available
+under the "SIL OFL License 1.1" license.
+For details, see themes/rainbowstone/webapp/rainbowstone/fonts/quicksand
+
+=========================================================================
+
 This product bundles "timezones" files, which are available in the "Public Domain".
 For details, see themes/common/webapp/common/js/plugins/date/timezones.
 
