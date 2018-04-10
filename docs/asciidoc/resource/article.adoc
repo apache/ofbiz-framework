@@ -1,0 +1,4 @@
+# tag::tagname[]
+This should be included!
+# end::tagname[]
+This text will not be included!
