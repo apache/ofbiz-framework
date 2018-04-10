@@ -202,23 +202,6 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="LDAP_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="WEB_ADDRESS"/>
 
-    <PortletCategory portletCategoryId="EVENTSTASKS" description="Events and Tasks"/>
-    
-    <PortalPortlet portalPortletId="Calendar"
-        portletName="Event Calendar"
-        screenName="Calendar"
-        screenLocation="component://workeffort/widget/CalendarScreens.xml"
-        description="My Calendar"
-        editFormName="EditCalendar"
-        editFormLocation="component://workeffort/widget/CalendarForms.xml"
-        screenshot="/images/portlets/Calendar.png"/>
-    <PortletPortletCategory portalPortletId="Calendar" portletCategoryId="EVENTSTASKS"/>
-    <DataResource dataResourceId="HELP_Calendar" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/workeffort/data/helpdata/HELP_PORTLET_CALENDAR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_Calendar" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_Calendar" statusId="CTNT_IN_PROGRESS" 
-        contentName="Help portlet Calendar" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_MYPORTAL" contentIdTo="HELP_Calendar" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
-
     <!-- Work Effort security -->
     <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>
     <SecurityPermission description="Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_CREATE"/>

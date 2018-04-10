@@ -29,6 +29,7 @@ under the License.
 
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHttpErrorData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentPortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WebtoolsHelpData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
