@@ -2101,16 +2101,4 @@ mimeTypeId="text/html" createdDate="2004-08-06 11:40:15.818"/>
     <Content contentId="NOTEXTFOUND" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="NOTEXTFOUND" contentName="No Text Found" description="No Text Found"
 createdDate="2004-08-06 11:40:15.818"/>
 
-    <!-- content help data -->
-    <Content contentId="HELP_MYPORTAL"/><!--  portlets are in most components -->
-    <Content contentId="HELP_ROOT"/><!-- should be in the first application loaded -->
-    <!-- content protlet data -->
-    <PortletCategory portletCategoryId="CONTENT" description="CMS Portlets"/>
-
-    <PortalPortlet portalPortletId="showContent"
-        portletName="Show Content" description="Shows a content in a Portal page"
-        screenName="ShowContentPortlet" screenLocation="component://content/widget/content/ContentScreens.xml"
-        editFormName="EditShowContentPortlet" editFormLocation="component://content/widget/content/ContentForms.xml"/>
-    <PortletPortletCategory portalPortletId="showContent" portletCategoryId="CONTENT"/>
-
 </entity-engine-xml>

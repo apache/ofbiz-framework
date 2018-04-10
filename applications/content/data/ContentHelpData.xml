@@ -20,6 +20,8 @@ under the License.
 <entity-engine-xml>
 
     <!-- content help data -->
+    <Content contentId="HELP_MYPORTAL"/><!--  portlets are in most components -->
+    <Content contentId="HELP_ROOT"/><!-- should be in the first application loaded -->
     <PortletCategory portletCategoryId="REPORT" description="Reports"/>
     <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content application -->
 
