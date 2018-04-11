@@ -65,7 +65,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                                <container>
+                                <container style="button-bar">
                                     <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
                                 </container>
                                 <decorator-section-include name="body"/>
