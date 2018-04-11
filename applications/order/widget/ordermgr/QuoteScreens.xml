@@ -387,7 +387,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListAttributes}">
-                            <container>
+                            <container style="basic-nav">
                                 <link target="EditQuoteAttribute" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext">
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
@@ -442,7 +442,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListCoefficients}">
-                            <container>
+                            <container style="basic-nav">
                                 <link target="EditQuoteCoefficient" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext">
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
@@ -543,7 +543,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListAdjustments}">
-                            <container>
+                            <container style="basic-nav">
                                 <link target="autoCreateQuoteAdjustments" text="${uiLabelMap.OrderRunStorePromotions}" style="buttontext">
                                     <parameter param-name="quoteId"/>
                                 </link>
