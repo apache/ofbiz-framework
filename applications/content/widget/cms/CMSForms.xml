@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -397,11 +397,11 @@ under the License.
             use-when="&quot;${caContentIdTo}&quot;.length()==0" >
             <text />
         </field>
-        <field name="caMapKey" position="2"
+        <field name="caMapKey" position="1"
             use-when="&quot;${caMapKey}&quot;.length()==0" >
             <text />
         </field>
-        <field name="caMapKey" position="2"
+        <field name="caMapKey" position="1"
             use-when="&quot;${caMapKey}&quot;.length()>0" >
             <text />
         </field>
@@ -426,10 +426,10 @@ under the License.
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()==0">
             <date-time default-value="${nowTimestamp}"/>
         </field>
-        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2" use-when="&quot;${caThruDate}&quot;.length()>0">
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="&quot;${caThruDate}&quot;.length()>0">
             <date-time/>
         </field>
-        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2" use-when="&quot;${caThruDate}&quot;.length()==0">
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="&quot;${caThruDate}&quot;.length()==0">
             <date-time/>
         </field>
         <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="h1" map-name="dummy">
