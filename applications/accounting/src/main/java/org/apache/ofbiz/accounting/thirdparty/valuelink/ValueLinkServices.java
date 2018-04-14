@@ -1071,7 +1071,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfill", locale));
+                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
         }
 
         // get the response answers
@@ -1316,7 +1316,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfill", locale));
+                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
         }
 
         // get the response answers

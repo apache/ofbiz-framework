@@ -775,11 +775,11 @@ public class GiftCertificateServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotFulfill", locale));
+                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
         }
         if (surveyResponse == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotFulfill", locale));
+                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
         }
 
         // get the response answers
