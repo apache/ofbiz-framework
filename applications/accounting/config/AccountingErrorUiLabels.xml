@@ -461,6 +461,9 @@
         <value xml:lang="zh">没有产品与订单明细关联，无法应用礼品卡</value>
         <value xml:lang="zh-TW">沒有產品與訂單細項結合,無法使用禮物卡</value>
     </property>
+    <property key="AccountingGiftCerticateNumberCannotFulfillFromSurvey">
+        <value xml:lang="en">Unable to get survey response; cannot fulfill gift card reload</value>
+    </property>
     <property key="AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers">
         <value xml:lang="de">Kann keine Umfrageantworten von Umfrageantwort ermitteln; kann Geschenkkarte nicht verarbeiten</value>
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card</value>
