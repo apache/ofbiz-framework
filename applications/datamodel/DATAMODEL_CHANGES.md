@@ -16,6 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
 Apache OFBiz® Data Model Changes
 =============
 Apache OFBiz follows **The Universal Data Model** by **Len Silverston**, with a grain of salt.
@@ -23,13 +24,13 @@ Apache OFBiz follows **The Universal Data Model** by **Len Silverston**, with a 
 The following file contains information about the data model changes in the Apache OFBiz.
 The detailed description of migration scripts specified here can be found at [Revisions Requiring Data Migration - upgrade ofbiz](https://cwiki.apache.org/confluence/x/LoBr) page.
 
-##Changes with OFBiz 17
+# Changes with OFBiz 17
 Field types "id-ne", "id-long-ne" & "id-vlong-ne" has been removed. Use "id", "id-long" and "id-vlong" instead (detailed description at [OFBIZ-9351](https://issues.apache.org/jira/browse/OFBIZ-9351)).
 
-###Entity Changes
+## Entity Changes
 No changes
 
-###Field Changes
+## Field Changes
 
 | Entity  | Field  | Action | IsPK | Revision |
 |:------------- |:---------------:|:---------------:|:---------------:| -------------:|
@@ -43,17 +44,17 @@ No changes
 | SecurityGroupPermission | fromDate | Added | Yes | R1812383 |
 | SecurityGroupPermission | thruDate | Added | No | R1812383 |
 
-###Migration Scripts
-1. Updated sql-type for date-time and time field in fieldtypemysql.xml file  
-R1793300 "Update msyql sql-type for datetime field-type to support Fractional Seconds in Time Values    
-Please upgrade mysql to at least 5.6.4 or higher.  
-After upgrade run 'generateMySqlFileWithAlterTableForTimestamps' service, groupName is required field for this service,  
-It will generate sql file with alter query statement for date-time and time field at location "${ofbiz.home}/runtime/tempfiles/<groupName>.sql"  
-You can use execute sql statement from any of the mysql batch command.    
-    
-##Changes between OFBiz 9 to OFBiz 16
+## Migration Scripts
+1. Updated sql-type for date-time and time field in fieldtypemysql.xml file
+R1793300 "Update msyql sql-type for datetime field-type to support Fractional Seconds in Time Values
+Please upgrade mysql to at least 5.6.4 or higher.
+After upgrade run 'generateMySqlFileWithAlterTableForTimestamps' service, groupName is required field for this service,
+It will generate sql file with alter query statement for date-time and time field at location "${ofbiz.home}/runtime/tempfiles/<groupName>.sql"
+You can use execute sql statement from any of the mysql batch command.
 
-###Entity Changes
+# Changes between OFBiz 9 to OFBiz 16
+
+## Entity Changes
 **Added 77 new entities**
 
 1. JobRequisition
@@ -145,237 +146,238 @@ You can use execute sql statement from any of the mysql batch command.
 8. WorkEffortAssignmentRate
 
 
-###Field Changes
+## Field Changes
+
 | Entity  | Field  | Action | IsPK | Revision |
-|:------------- |:---------------:|:---------------:|:---------------:| -------------:|
-| AcctgTransAttribute | attrDescription | Added | No| |
-| AcctgTransEntry | inventoryItemId | Added | No| |
-| AcctgTransTypeAttr | description | Added | No| |
-| BenefitType | parentTypeId | Added | No| |
-| BenefitType | hasTable | Added | No| |
-| BudgetAttribute | attrDescription | Added | No| |
-| BudgetItemAttribute | attrDescription | Added | No| |
-| BudgetItemTypeAttr | description | Added | No| |
-| BudgetStatus | changeByUserLoginId | Added | No| |
-| BudgetTypeAttr | description | Added | No| |
-| CommunicationEventRole | statusId | Added | No| |
-| CommunicationEventType | contactMechTypeId | Added | No| |
-| ContactListCommStatus | partyId | Added | No| |
-| ContactListCommStatus | messageId | Added | No| |
-| ContactListCommStatus | changeByUserLoginId | Added | No| |
-| ContactMechAttribute | attrDescription | Added | No| |
-| ContactMechTypeAttr | description | Added | No| |
-| DeductionType | parentTypeId | Added | No| |
-| DeductionType | hasTable | Added | No| |
-| DocumentAttribute | attrDescription | Added | No| |
-| DocumentTypeAttr | description | Added | No| |
-| EmploymentApp | approverPartyId | Added | No| |
-| EmploymentApp | jobRequisitionId | Added | No| |
-| EmploymentAppSourceType | parentTypeId | Added | No| |
-| EmploymentAppSourceType | hasTable | Added | No| |
-| EmplPositionClassType | parentTypeId | Added | No| |
-| EmplPositionClassType | hasTable | Added | No| |
-| EmplPositionType | parentTypeId | Added | No| |
-| EmplPositionType | hasTable | Added | No| |
-| EmplPositionType | partyId | Removed | No| |
-| EmplPositionType | roleTypeId | Removed | No| |
-| FinAccountAttribute | attrDescription | Added | No| |
-| FinAccountTransAttribute | attrDescription | Added | No| |
-| FinAccountTrans | glReconciliationId | Added | No| |
-| FinAccountTrans | statusId | Added | No| |
-| FinAccountTransTypeAttr | description | Added | No| |
-| FinAccountTypeAttr | description | Added | No| |
-| FinAccountStatus | changeByUserLoginId | Added | No| |
-| FixedAsset | acquireOrderId | Added | No| |
-| FixedAsset | acquireOrderItemSeqId | Added | No| |
-| FixedAssetAttribute | attrDescription | Added | No| |
-| FixedAssetTypeAttr | description | Added | No| |
-| GlAccount | externalId | Added | No| |
-| GlAccount | openingBalance | Added | No| |
-| GlReconciliation | createdDate | Added | No| |
-| GlReconciliation | lastModifiedDate | Added | No| |
-| GlReconciliation | statusId | Added | No| |
-| GlReconciliation | openingBalance | Added | No| |
-| InventoryItemAttribute | attrDescription | Added | No| |
-| InventoryItemStatus | changeByUserLoginId | Added | No| |
-| InventoryItemTypeAttr | description | Added | No| |
-| InvoiceAttribute | attrDescription | Added | No| |
-| InvoiceItemAttribute | attrDescription | Added | No| |
-| InvoiceItemTypeAttr | description | Added | No| |
-| InvoiceStatus | changeByUserLoginId | Added | No| |
-| InvoiceTypeAttr | description | Added | No| |
-| InvoiceTermAttribute | attrDescription | Added | No| |
-| JobSandbox | currentRetryCount | Added | No| |
-| JobSandbox | tempExprId | Added | No| |
-| JobSandbox | currentRecurrenceCount | Added | No| |
-| JobSandbox | maxRecurrenceCount | Added | No| |
-| JobSandbox | jobResult | Added | No| |
-| OrderAdjustment | amountAlreadyIncluded | Added | No| |
-| OrderAdjustment | isManual | Added | No| |
-| OrderAdjustment | oldPercentage | Added | No| |
-| OrderAdjustment | oldAmountPerQuantity | Added | No| |
-| OrderAdjustment | lastModifiedDate | Added | No| |
-| OrderAdjustment | lastModifiedByUserLogin | Added | No| |
-| OrderAdjustmentAttribute | attrDescription | Added | No| |
-| OrderAdjustmentTypeAttr | description | Added | No| |
-| OrderAttribute | attrDescription | Added | No| |
-| OrderItem | supplierProductId | Added | No| |
-| OrderItem | cancelBackOrderDate | Added | No| |
-| OrderItem | changeByUserLoginId | Added | No| |
-| OrderItemAttribute | attrDescription | Added | No| |
-| OrderItemShipGroup | facilityId | Added | No| |
-| OrderItemShipGroup | estimatedShipDate | Added | No| |
-| OrderItemShipGroup | estimatedDeliveryDate | Added | No| |
-| OrderItemShipGrpInvRes | priority | Added | No| |
-| OrderItemShipGrpInvRes | oldPickStartDate | Added | No| |
-| OrderItemTypeAttr | description | Added | No| | 
-| OrderTermAttribute | attrDescription | Added | No| |
-| OrderPaymentPreference | track2 | Added | No| |
-| OrderPaymentPreference | swipedFlag | Added | No| |
-| OrderPaymentPreference | lastModifiedDate | Added | No| |
-| OrderPaymentPreference | lastModifiedByUserLogin | Added | No| |
-| OrderShipment | shipGroupSeqId | Added | No| |
-| OrderTypeAttr | description | Added | No| |
-| PartyAcctgPreference | orderSequenceEnumId | Removed | No| |
-| PartyAcctgPreference | quoteSequenceEnumId | Removed | No| |
-| PartyAcctgPreference | invoiceSequenceEnumId | Removed | No| |
-| PartyAcctgPreference | oldOrderSequenceEnumId | Added | No| |
-| PartyAcctgPreference | oldQuoteSequenceEnumId | Added | No| |
-| PartyAcctgPreference | oldInvoiceSequenceEnumId | Added | No| |
-| PartyAcctgPreference | orderSeqCustMethId | Added | No| |
-| PartyQual | infoString | Removed | No| |
-| PartyQual | institutionInternalId | Removed | No| |
-| PartyQual | institutionPartyId | Removed | No| |
-| PartyQual | partyQualId | Removed | No| |
-| PartyRate | percentageUsed | Added | No| |
-| PartyRate | rate | Removed | No| |
-| PartyResume | contentId | Added | No| |
-| PaymentAttribute | attrDescription | Added | No| |
-| PaymentGatewayResponse | gatewayCvResult | Added | No| |
-| PaymentMethod | finAccountId | Added | No| |
-| PaymentTypeAttr | description | Added | No| |
-| PerfRatingType | parentTypeId | Added | No| |
-| PerfRatingType | hasTable | Added | No| |
-| PerfReview | payHistoryRoleTypeIdTo | Removed | No| |
-| PerfReview | payHistoryRoleTypeIdFrom | Removed | No| |
-| PerfReview | payHistoryPartyIdTo | Removed | No| |
-| PerfReview | payHistoryPartyIdFrom | Removed | No| |
-| PerfReview | payHistoryFromDate | Removed | No| |
-| PerfReviewItemType | parentTypeId | Added | No| |
-| PerfReviewItemType | hasTable | Added | No| |
-| PersonTraining | trainingRequestId | Added | No| |
-| PersonTraining | workEffortId | Added | No| |
-| PersonTraining | approverId | Added | No| |
-| PersonTraining | approvalStatus | Added | No| |
-| PersonTraining | reason | Added | No| |
-| PostalAddress | houseNumber | Added | No| |
-| PostalAddress | houseNumberExt | Added | No| |
-| PostalAddress | cityGeoId | Added | No| |
-| PostalAddress | municipalityGeoId | Added | No| |
-| PostalAddress | geoPointId | Added | No| |
-| PosTerminal | terminalName | Added | No| |
-| PosTerminalInternTx | reasonEnumId | Added | No| |
-| Product | releaseDate | Added | No| |
-| Product | originalImageUrl | Added | No| |
-| Product | inventoryItemTypeId | Added | No| |
-| Product | shippingWeight | Added | No| |
-| Product | productWeight | Added | No| |
-| Product | diameterUomId | Added | No| |
-| Product | productDiameter | Added | No| |
-| Product | virtualVariantMethodEnum | Added | No| |
-| Product | defaultShipmentBoxTypeId | Added | No| |
-| Product | lotIdFilledIn | Added | No| |
-| Product | orderDecimalQuantity | Added | No| |
-| Product | weight | Removed | No| |
-| Product | taxCategory | Removed | No| |
-| Product | taxVatCode | Removed | No| |
-| Product | taxDutyCode | Removed | No| |
-| ProductAttribute | attrDescription | Added | No| |
-| ProductAverageCost | productAverageCostTypeId | Added | No| |
-| ProductAverageCost | facilityId | Added | No| |
-| ProductContent | sequenceNum | Added | No| |
-| ProductKeyword | keywordTypeId | Added | No| |
-| ProductKeyword | statusId | Added | No| |
-| ProductRole | sequenceNum | Added | No| |
-| ProductStore | balanceResOnOrderCreation | Added | No| |
-| ProductStore | defaultTimeZoneString | Added | No| |
-| ProductStore | oldStyleSheet | Added | No| |
-| ProductStore | oldHeaderLogo | Added | No| |
-| ProductStore | oldHeaderRightBackground | Added | No| |
-| ProductStore | oldHeaderMiddleBackground | Added | No| |
-| ProductStore | styleSheet | Removed | No| |
-| ProductStore | headerLogo | Removed | No| |
-| ProductStore | headerRightBackground | Removed | No| |
-| ProductStore | headerMiddleBackground | Removed | No| |
-| ProductStorePaymentSetting | paymentCustomMethodId | Added | No| |
-| ProductStorePaymentSetting | paymentGatewayConfigId | Added | No| |
-| ProductStoreShipmentMeth | shipmentCustomMethodId | Added | No| |
-| ProductStoreShipmentMeth | shipmentGatewayConfigId | Added | No| |
-| ProductStoreShipmentMeth | allowancePercent | Added | No| |
-| ProductStoreShipmentMeth | minimumPrice | Added | No| |
-| ProductTypeAttribute | attrDescription | Added | No|
-| QuoteAdjustment | lastModifiedDate | Added | No| |
-| QuoteAdjustment | lastModifiedByUserLogin | Added | No| |
-| QuoteAttribute | attrDescription | Added | No| |
-| QuoteItem | leadTimeDays | Added | No| |
-| QuoteRole | fromDate | Added | Yes| |
-| QuoteRole | thruDate | Added | No| |
-| QuoteTerm | termDays | Added | No| |
-| QuoteTerm | textValue | Added | No| |
-| QuoteTerm | description | Added | No| |
-| QuoteTermAttribute | attrDescription | Added | No| |
-| QuoteTypeAttr | description | Added | No| |
-| RequirementAttribute | changeByUserLoginId | Added | No| |
-| RequirementStatus | changeByUserLoginId | Added | No| |
-| ResponsibilityType | parentTypeId | Added | No| |
-| ResponsibilityType | hasTable | Added | No| |
-| ReturnAdjustment | createdByUserLoginId | Added | No| |
-| ReturnAdjustment | lastModifiedDate | Added | No| |
-| ReturnAdjustment | lastModifiedByUserLogin | Added | No| |
-| ReturnHeader | supplierRmaId | Added | No| |
-| ReturnItemResponse | finAccountTransId | Added | No| |
-| ReturnStatus | changeByUserLoginId | Added | No| |
-| SalaryStep | fromDate | Added | Yes| |
-| SalaryStep | thruDate | Added | No| |
-| SalaryStep | createdByUserLoginId | Added | No| |
-| SalaryStep | lastModifiedByUserLogin | Added | No| |
-| SalesOpportunity | nextStepDate | Added | No| |
-| ServiceSemaphore | lockedByInstanceId | Added | No| |
-| ShoppingListItem | modifiedPrice | Added | No| |
-| SkillType | parentTypeId | Added | No| |
-| SkillType | hasTable | Added | No| |
-| SupplierProduct | shippingPrice | Added | No| |
-| SupplierProduct | supplierCommissionPerc | Removed | No| |
-| TaxAuthorityRateProduct | isTaxInShippingPrice | Added | No| |
-| TerminationType | parentTypeId | Added | No| |
-| TerminationType | hasTable | Added | No| |
-| TestingNodeMember | extendFromDate | Added | No| |
-| TestingNodeMember | extendThruDate | Added | No| |
-| TimeEntry | planHour | Added | No| |
-| Timesheet | approvedByUserLoginId | Added | No| |
-| TrainingClassType | parentTypeId | Added | No| |
-| TrainingClassType | hasTable | Added | No| |
-| UnemploymentClaim | thruDate | Added | No| |
-| UserLogin | externalAuthId | Added | No| |
-| UserLogin | userLdapDn | Added | No| |
-| UserLogin | disabledBy | Added | No| |
-| ValueLinkKey | createdByUserLogin | Added | No| |
-| WebSite | visualThemeSetId | Added | No| |
-| WebSite | hostedPathAlias | Added | No| |
-| WebSite | isDefault | Added | No| |
-| WebSite | displayMaintenancePage | Added | No| |
+|:------------- |:---------------:|:---------------:|:---------------:|:---------------:|
+| AcctgTransAttribute | attrDescription | Added | No | NA |
+| AcctgTransEntry | inventoryItemId | Added | No | NA |
+| AcctgTransTypeAttr | description | Added | No | NA |
+| BenefitType | parentTypeId | Added | No | NA |
+| BenefitType | hasTable | Added | No | NA |
+| BudgetAttribute | attrDescription | Added | No | NA |
+| BudgetItemAttribute | attrDescription | Added | No | NA |
+| BudgetItemTypeAttr | description | Added | No | NA |
+| BudgetStatus | changeByUserLoginId | Added | No | NA |
+| BudgetTypeAttr | description | Added | No | NA |
+| CommunicationEventRole | statusId | Added | No | NA |
+| CommunicationEventType | contactMechTypeId | Added | No | NA |
+| ContactListCommStatus | partyId | Added | No | NA |
+| ContactListCommStatus | messageId | Added | No | NA |
+| ContactListCommStatus | changeByUserLoginId | Added | No | NA |
+| ContactMechAttribute | attrDescription | Added | No | NA |
+| ContactMechTypeAttr | description | Added | No | NA |
+| DeductionType | parentTypeId | Added | No | NA |
+| DeductionType | hasTable | Added | No | NA |
+| DocumentAttribute | attrDescription | Added | No | NA |
+| DocumentTypeAttr | description | Added | No | NA |
+| EmploymentApp | approverPartyId | Added | No | NA |
+| EmploymentApp | jobRequisitionId | Added | No | NA |
+| EmploymentAppSourceType | parentTypeId | Added | No | NA |
+| EmploymentAppSourceType | hasTable | Added | No | NA |
+| EmplPositionClassType | parentTypeId | Added | No | NA |
+| EmplPositionClassType | hasTable | Added | No | NA |
+| EmplPositionType | parentTypeId | Added | No | NA |
+| EmplPositionType | hasTable | Added | No | NA |
+| EmplPositionType | partyId | Removed | No | NA |
+| EmplPositionType | roleTypeId | Removed | No | NA |
+| FinAccountAttribute | attrDescription | Added | No | NA |
+| FinAccountTransAttribute | attrDescription | Added | No | NA |
+| FinAccountTrans | glReconciliationId | Added | No | NA |
+| FinAccountTrans | statusId | Added | No | NA |
+| FinAccountTransTypeAttr | description | Added | No | NA |
+| FinAccountTypeAttr | description | Added | No | NA |
+| FinAccountStatus | changeByUserLoginId | Added | No | NA |
+| FixedAsset | acquireOrderId | Added | No | NA |
+| FixedAsset | acquireOrderItemSeqId | Added | No | NA |
+| FixedAssetAttribute | attrDescription | Added | No | NA |
+| FixedAssetTypeAttr | description | Added | No | NA |
+| GlAccount | externalId | Added | No | NA |
+| GlAccount | openingBalance | Added | No | NA |
+| GlReconciliation | createdDate | Added | No | NA |
+| GlReconciliation | lastModifiedDate | Added | No | NA |
+| GlReconciliation | statusId | Added | No | NA |
+| GlReconciliation | openingBalance | Added | No | NA |
+| InventoryItemAttribute | attrDescription | Added | No | NA |
+| InventoryItemStatus | changeByUserLoginId | Added | No | NA |
+| InventoryItemTypeAttr | description | Added | No | NA |
+| InvoiceAttribute | attrDescription | Added | No | NA |
+| InvoiceItemAttribute | attrDescription | Added | No | NA |
+| InvoiceItemTypeAttr | description | Added | No | NA |
+| InvoiceStatus | changeByUserLoginId | Added | No | NA |
+| InvoiceTypeAttr | description | Added | No | NA |
+| InvoiceTermAttribute | attrDescription | Added | No | NA |
+| JobSandbox | currentRetryCount | Added | No | NA |
+| JobSandbox | tempExprId | Added | No | NA |
+| JobSandbox | currentRecurrenceCount | Added | No | NA |
+| JobSandbox | maxRecurrenceCount | Added | No | NA |
+| JobSandbox | jobResult | Added | No | NA |
+| OrderAdjustment | amountAlreadyIncluded | Added | No | NA |
+| OrderAdjustment | isManual | Added | No | NA |
+| OrderAdjustment | oldPercentage | Added | No | NA |
+| OrderAdjustment | oldAmountPerQuantity | Added | No | NA |
+| OrderAdjustment | lastModifiedDate | Added | No | NA |
+| OrderAdjustment | lastModifiedByUserLogin | Added | No | NA |
+| OrderAdjustmentAttribute | attrDescription | Added | No | NA |
+| OrderAdjustmentTypeAttr | description | Added | No | NA |
+| OrderAttribute | attrDescription | Added | No | NA |
+| OrderItem | supplierProductId | Added | No | NA |
+| OrderItem | cancelBackOrderDate | Added | No | NA |
+| OrderItem | changeByUserLoginId | Added | No | NA |
+| OrderItemAttribute | attrDescription | Added | No | NA |
+| OrderItemShipGroup | facilityId | Added | No | NA |
+| OrderItemShipGroup | estimatedShipDate | Added | No | NA |
+| OrderItemShipGroup | estimatedDeliveryDate | Added | No | NA |
+| OrderItemShipGrpInvRes | priority | Added | No | NA |
+| OrderItemShipGrpInvRes | oldPickStartDate | Added | No | NA |
+| OrderItemTypeAttr | description | Added | No | NA |
+| OrderTermAttribute | attrDescription | Added | No | NA |
+| OrderPaymentPreference | track2 | Added | No | NA |
+| OrderPaymentPreference | swipedFlag | Added | No | NA |
+| OrderPaymentPreference | lastModifiedDate | Added | No | NA |
+| OrderPaymentPreference | lastModifiedByUserLogin | Added | No | NA |
+| OrderShipment | shipGroupSeqId | Added | No | NA |
+| OrderTypeAttr | description | Added | No | NA |
+| PartyAcctgPreference | orderSequenceEnumId | Removed | No | NA |
+| PartyAcctgPreference | quoteSequenceEnumId | Removed | No | NA |
+| PartyAcctgPreference | invoiceSequenceEnumId | Removed | No | NA |
+| PartyAcctgPreference | oldOrderSequenceEnumId | Added | No | NA |
+| PartyAcctgPreference | oldQuoteSequenceEnumId | Added | No | NA |
+| PartyAcctgPreference | oldInvoiceSequenceEnumId | Added | No | NA |
+| PartyAcctgPreference | orderSeqCustMethId | Added | No | NA |
+| PartyQual | infoString | Removed | No | NA |
+| PartyQual | institutionInternalId | Removed | No | NA |
+| PartyQual | institutionPartyId | Removed | No | NA |
+| PartyQual | partyQualId | Removed | No | NA |
+| PartyRate | percentageUsed | Added | No | NA |
+| PartyRate | rate | Removed | No | NA |
+| PartyResume | contentId | Added | No | NA |
+| PaymentAttribute | attrDescription | Added | No | NA |
+| PaymentGatewayResponse | gatewayCvResult | Added | No | NA |
+| PaymentMethod | finAccountId | Added | No | NA |
+| PaymentTypeAttr | description | Added | No | NA |
+| PerfRatingType | parentTypeId | Added | No | NA |
+| PerfRatingType | hasTable | Added | No | NA |
+| PerfReview | payHistoryRoleTypeIdTo | Removed | No | NA |
+| PerfReview | payHistoryRoleTypeIdFrom | Removed | No | NA |
+| PerfReview | payHistoryPartyIdTo | Removed | No | NA |
+| PerfReview | payHistoryPartyIdFrom | Removed | No | NA |
+| PerfReview | payHistoryFromDate | Removed | No | NA |
+| PerfReviewItemType | parentTypeId | Added | No | NA |
+| PerfReviewItemType | hasTable | Added | No | NA |
+| PersonTraining | trainingRequestId | Added | No | NA |
+| PersonTraining | workEffortId | Added | No | NA |
+| PersonTraining | approverId | Added | No | NA |
+| PersonTraining | approvalStatus | Added | No | NA |
+| PersonTraining | reason | Added | No | NA |
+| PostalAddress | houseNumber | Added | No | NA |
+| PostalAddress | houseNumberExt | Added | No | NA |
+| PostalAddress | cityGeoId | Added | No | NA |
+| PostalAddress | municipalityGeoId | Added | No | NA |
+| PostalAddress | geoPointId | Added | No | NA |
+| PosTerminal | terminalName | Added | No | NA |
+| PosTerminalInternTx | reasonEnumId | Added | No | NA |
+| Product | releaseDate | Added | No | NA |
+| Product | originalImageUrl | Added | No | NA |
+| Product | inventoryItemTypeId | Added | No | NA |
+| Product | shippingWeight | Added | No | NA |
+| Product | productWeight | Added | No | NA |
+| Product | diameterUomId | Added | No | NA |
+| Product | productDiameter | Added | No | NA |
+| Product | virtualVariantMethodEnum | Added | No | NA |
+| Product | defaultShipmentBoxTypeId | Added | No | NA |
+| Product | lotIdFilledIn | Added | No | NA |
+| Product | orderDecimalQuantity | Added | No | NA |
+| Product | weight | Removed | No | NA |
+| Product | taxCategory | Removed | No | NA |
+| Product | taxVatCode | Removed | No | NA |
+| Product | taxDutyCode | Removed | No | NA |
+| ProductAttribute | attrDescription | Added | No | NA |
+| ProductAverageCost | productAverageCostTypeId | Added | No | NA |
+| ProductAverageCost | facilityId | Added | No | NA |
+| ProductContent | sequenceNum | Added | No | NA |
+| ProductKeyword | keywordTypeId | Added | No | NA |
+| ProductKeyword | statusId | Added | No | NA |
+| ProductRole | sequenceNum | Added | No | NA |
+| ProductStore | balanceResOnOrderCreation | Added | No | NA |
+| ProductStore | defaultTimeZoneString | Added | No | NA |
+| ProductStore | oldStyleSheet | Added | No | NA |
+| ProductStore | oldHeaderLogo | Added | No | NA |
+| ProductStore | oldHeaderRightBackground | Added | No | NA |
+| ProductStore | oldHeaderMiddleBackground | Added | No | NA |
+| ProductStore | styleSheet | Removed | No | NA |
+| ProductStore | headerLogo | Removed | No | NA |
+| ProductStore | headerRightBackground | Removed | No | NA |
+| ProductStore | headerMiddleBackground | Removed | No | NA |
+| ProductStorePaymentSetting | paymentCustomMethodId | Added | No | NA |
+| ProductStorePaymentSetting | paymentGatewayConfigId | Added | No | NA |
+| ProductStoreShipmentMeth | shipmentCustomMethodId | Added | No | NA |
+| ProductStoreShipmentMeth | shipmentGatewayConfigId | Added | No | NA |
+| ProductStoreShipmentMeth | allowancePercent | Added | No | NA |
+| ProductStoreShipmentMeth | minimumPrice | Added | No | NA |
+| ProductTypeAttribute | attrDescription | Added | No | NA |
+| QuoteAdjustment | lastModifiedDate | Added | No | NA |
+| QuoteAdjustment | lastModifiedByUserLogin | Added | No | NA |
+| QuoteAttribute | attrDescription | Added | No | NA |
+| QuoteItem | leadTimeDays | Added | No | NA |
+| QuoteRole | fromDate | Added | Yes | NA |
+| QuoteRole | thruDate | Added | No | NA |
+| QuoteTerm | termDays | Added | No | NA |
+| QuoteTerm | textValue | Added | No | NA |
+| QuoteTerm | description | Added | No | NA |
+| QuoteTermAttribute | attrDescription | Added | No | NA |
+| QuoteTypeAttr | description | Added | No | NA |
+| RequirementAttribute | changeByUserLoginId | Added | No | NA |
+| RequirementStatus | changeByUserLoginId | Added | No | NA |
+| ResponsibilityType | parentTypeId | Added | No | NA |
+| ResponsibilityType | hasTable | Added | No | NA |
+| ReturnAdjustment | createdByUserLoginId | Added | No | NA |
+| ReturnAdjustment | lastModifiedDate | Added | No | NA |
+| ReturnAdjustment | lastModifiedByUserLogin | Added | No | NA |
+| ReturnHeader | supplierRmaId | Added | No | NA |
+| ReturnItemResponse | finAccountTransId | Added | No | NA |
+| ReturnStatus | changeByUserLoginId | Added | No | NA |
+| SalaryStep | fromDate | Added | Yes | NA |
+| SalaryStep | thruDate | Added | No | NA |
+| SalaryStep | createdByUserLoginId | Added | No | NA |
+| SalaryStep | lastModifiedByUserLogin | Added | No | NA |
+| SalesOpportunity | nextStepDate | Added | No | NA |
+| ServiceSemaphore | lockedByInstanceId | Added | No | NA |
+| ShoppingListItem | modifiedPrice | Added | No | NA |
+| SkillType | parentTypeId | Added | No | NA |
+| SkillType | hasTable | Added | No | NA |
+| SupplierProduct | shippingPrice | Added | No | NA |
+| SupplierProduct | supplierCommissionPerc | Removed | No | NA |
+| TaxAuthorityRateProduct | isTaxInShippingPrice | Added | No | NA |
+| TerminationType | parentTypeId | Added | No | NA |
+| TerminationType | hasTable | Added | No | NA |
+| TestingNodeMember | extendFromDate | Added | No | NA |
+| TestingNodeMember | extendThruDate | Added | No | NA |
+| TimeEntry | planHour | Added | No | NA |
+| Timesheet | approvedByUserLoginId | Added | No | NA |
+| TrainingClassType | parentTypeId | Added | No | NA |
+| TrainingClassType | hasTable | Added | No | NA |
+| UnemploymentClaim | thruDate | Added | No | NA |
+| UserLogin | externalAuthId | Added | No | NA |
+| UserLogin | userLdapDn | Added | No | NA |
+| UserLogin | disabledBy | Added | No | NA |
+| ValueLinkKey | createdByUserLogin | Added | No | NA |
+| WebSite | visualThemeSetId | Added | No | NA |
+| WebSite | hostedPathAlias | Added | No | NA |
+| WebSite | isDefault | Added | No | NA |
+| WebSite | displayMaintenancePage | Added | No | NA |
 | WebSitePathAlias| fromDate | Added | Yes | R1738588 |
 | WebSitePathAlias| thruDate | Added | No | R1738588 |
-| WorkEffort | tempExprId | Added | No| |
-| WorkEffort | sequenceNum | Added | No| |
-| WorkEffortAttribute | attrDescription | Added | No| |
-| WorkEffortAssocAttribute | attrDescription | Added | No| |
-| WorkEffortAssocTypeAttr | description | Added | No| |
-| WorkEffortContactMech | fromDate | Added | Yes| |
-| WorkEffortContactMech | thruDate | Added | No| |
-| WorkEffortFixedAssetAssign | availabilityStatusId | Added | No| |
-| WorkEffortPartyAssignment | assignedByUserLoginId | Added | No| |
-| WorkEffortPurposeType | parentTypeId | Added | No| |
-| WorkEffortStatus | reason | Added | No| |
-| WorkEffortTypeAttr | description | Added | No| |
-| WorkOrderItemFulfillment | shipGroupSeqId | Added | No| |
+| WorkEffort | tempExprId | Added | No | NA |
+| WorkEffort | sequenceNum | Added | No | NA |
+| WorkEffortAttribute | attrDescription | Added | No | NA |
+| WorkEffortAssocAttribute | attrDescription | Added | No | NA |
+| WorkEffortAssocTypeAttr | description | Added | No | NA |
+| WorkEffortContactMech | fromDate | Added | Yes | NA |
+| WorkEffortContactMech | thruDate | Added | No | NA |
+| WorkEffortFixedAssetAssign | availabilityStatusId | Added | No | NA |
+| WorkEffortPartyAssignment | assignedByUserLoginId | Added | No | NA |
+| WorkEffortPurposeType | parentTypeId | Added | No | NA |
+| WorkEffortStatus | reason | Added | No | NA |
+| WorkEffortTypeAttr | description | Added | No | NA |
+| WorkOrderItemFulfillment | shipGroupSeqId | Added | No | NA |
