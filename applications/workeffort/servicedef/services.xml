@@ -88,14 +88,14 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="workEffortId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
             </type-validate>
         </override>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
-        <attribute name="reason" type="String" mode="IN" optional="true"/>
-        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="deleteWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffort">
@@ -113,10 +113,10 @@ under the License.
         <description>Copies an existing WorkEffort to a new WorkEffort.</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
-            <description>The ID of the WorkEffort to copy from.</description>
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSourceWorkEffortId"/>
             </type-validate>
+            <description>The ID of the WorkEffort to copy from.</description>
         </attribute>
         <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
             <description>The ID of the WorkEffort copy. If empty a new WorkEffort ID will be created.</description>
@@ -569,10 +569,10 @@ under the License.
         <description>Copies WorkEffortAssocs from one WorkEffort to another WorkEffort. Only child WorkEffort associations will be copied.</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
-            <description>The ID of the WorkEffort to copy the associations from.</description>
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingSourceWorkEffortId"/>
             </type-validate>
+            <description>The ID of the WorkEffort to copy the associations from.</description>
         </attribute>
         <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
             <description>The ID of the WorkEffort to copy the associations to.</description>
