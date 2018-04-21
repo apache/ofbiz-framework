@@ -104,7 +104,7 @@ under the License.
     <Uom abbreviation="MGA" description="Malagascy Ariary" uomId="MGA" numericCode="969" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MNT" description="Mongolian Tugrik" uomId="MNT" numericCode="496" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MOP" description="Macao Pataca" uomId="MOP" numericCode="446" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MRO" description="Mauritanian Ouguiya" uomId="MRO" numericCode="478" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="MRU" description="Mauritanian Ouguiya" uomId="MRU" numericCode="929" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MUR" description="Mauritius Rupee" uomId="MUR" numericCode="480" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MVR" description="Maldive Rufiyaa" uomId="MVR" numericCode="462" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MWK" description="Malawi Kwacha" uomId="MWK" numericCode="454" uomTypeId="CURRENCY_MEASURE"/>
@@ -140,7 +140,7 @@ under the License.
     <Uom abbreviation="SLL" description="Leone" uomId="SLL" numericCode="694" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SOS" description="Somalian Shilling" uomId="SOS" numericCode="706" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SRD" description="Surinam Dollar" uomId="SRD" numericCode="968" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="STD" description="Sao Tome / Principe Dobra" uomId="STD" numericCode="678" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="STN" description="Sao Tome and Principe Dobra" uomId="STN" numericCode="930" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SVC" description="El Salvador Colon" uomId="SVC" numericCode="222" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SYP" description="Syrian Pound" uomId="SYP" numericCode="760" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SZL" description="Swaziland Lilangeni" uomId="SZL" numericCode="748" uomTypeId="CURRENCY_MEASURE"/>
@@ -157,8 +157,8 @@ under the License.
     <Uom abbreviation="UGX" description="Ugandan Shilling" uomId="UGX" numericCode="800" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="USD" description="United States Dollar" uomId="USD" numericCode="840" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UYU" description="Uruguay Peso" uomId="UYU" numericCode="858" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="UYI" description="Uruguay Peso en Unidades Indexadas (UI)" uomId="UYI" numericCode="940" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="VEF" description="Venezuelan Bolívar" uomId="VEF" numericCode="937" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="UYI" description="Uruguay Peso en Unidades Indexadas MRU(UI)" uomId="UYI" numericCode="940" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="VES" description="Venezuelan Bolívar Soberano" uomId="VES" numericCode="928" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="VND" description="Vietnamese Dong" uomId="VND" numericCode="704" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="VUV" description="Vanuatu Vatu" uomId="VUV" numericCode="548" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="WST" description="Samoan Tala" uomId="WST" numericCode="882" uomTypeId="CURRENCY_MEASURE"/>
