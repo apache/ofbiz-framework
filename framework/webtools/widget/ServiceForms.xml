@@ -105,7 +105,7 @@ under the License.
                 <parameter param-name="jobId"/>
             </hyperlink>
         </field>
-        <field name="resetButton" title=" " use-when="'SERVICE_CRASHED'.equals(statusId)" widget-style="buttontext">
+        <field name="resetButton" title=" " use-when="'SERVICE_CRASHED' == statusId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsResetJob}" target="resetJob">
                 <parameter param-name="jobId"/>
             </hyperlink>
