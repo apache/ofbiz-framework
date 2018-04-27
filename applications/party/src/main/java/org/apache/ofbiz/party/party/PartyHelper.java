@@ -19,21 +19,13 @@
 
 package org.apache.ofbiz.party.party;
 
-import java.util.List;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityTypeUtil;
-import org.apache.ofbiz.entity.util.EntityUtil;
 
 /**
  * PartyHelper
@@ -107,36 +99,5 @@ public class PartyHelper {
             result.append(partyValue.getString("groupName"));
         }
         return result.toString();
-    }
-
-
-    public static List<GenericValue> getPartyIdentificationByType(GenericValue party, String partyIdentificationTypeId) {
-        Delegator delegator = party.getDelegator();
-
-        GenericValue partyIdentificationType = null;
-        try {
-            partyIdentificationType = EntityQuery.use(delegator).from("PartyIdentificationType")
-                    .where("partyIdentificationTypeId", partyIdentificationTypeId).cache().queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding PartyIdentificationType in getPartyIdentificationByType", module);
-        }
-        List<GenericValue> childPartyIdentificationTypes = EntityTypeUtil.getDescendantTypes(partyIdentificationType);
-        List<String> childPartyIdentificationTypeIds = null;
-        if (UtilValidate.isNotEmpty(childPartyIdentificationTypes)) {
-            childPartyIdentificationTypeIds = EntityUtil.getFieldListFromEntityList(childPartyIdentificationTypes, "partyIdentificationTypeId", true);
-        } else {
-            childPartyIdentificationTypeIds = UtilMisc.toList(partyIdentificationTypeId);
-        }
-        EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityExpr.makeCondition("partyId", party.get("partyId")),
-                EntityExpr.makeCondition("partyIdentificationTypeId", EntityJoinOperator.IN, childPartyIdentificationTypeIds)
-        ));
-        List<GenericValue> partyIdentifications = null;
-        try {
-            partyIdentifications = EntityQuery.use(delegator).from("PartyIdentification").where(condition).cache().queryList();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding PartyIdentification in getPartyIdentificationByType", module);
-        }
-        return partyIdentifications;
     }
 }

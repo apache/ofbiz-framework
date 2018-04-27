@@ -34,7 +34,7 @@ under the License.
         <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
     </#if>
 
-    <#if sendingPartyTaxId?? || phone?? || email?? || website?? || eftAccount?? || fiscalIdentifications??>
+    <#if sendingPartyTaxId?? || phone?? || email?? || website?? || eftAccount??>
     <fo:list-block provisional-distance-between-starts=".5in">
         <#if sendingPartyTaxId??>
         <fo:list-item>
@@ -101,18 +101,6 @@ under the License.
                 <fo:block>${eftAccount.accountNumber!}</fo:block>
             </fo:list-item-body>
         </fo:list-item>
-        </#if>
-        <#if fiscalIdentifications??>
-            <#list fiscalIdentifications as fiscalIdentification>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${fiscalIdentification.get('description', locale)}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${fiscalIdentification.idValue!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
-             </#list>
         </#if>
     </fo:list-block>
     </#if>
