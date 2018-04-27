@@ -20,8 +20,6 @@
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.UtilNumber
-import org.apache.ofbiz.party.party.PartyHelper
-import org.apache.ofbiz.party.party.PartyWorker
 
 import java.text.DateFormat
 
@@ -51,12 +49,7 @@ if (invoice) {
     context.billToParty = billToParty
     sendingParty = InvoiceWorker.getSendFromParty(invoice)
     context.sendingParty = sendingParty
-    shippingAddress = InvoiceWorker.getShippingAddress(invoice)
-    context.shippingAddress = shippingAddress
 
-    if (sendingParty) {
-        List fiscalIdentifications = PartyHelper.getPartyIdentificationByType(sendingParty, "LEGAL_IDENTIFICATION")
-    }
     if (currency && !invoice.getString("currencyUomId").equals(currency)) {
         conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
         invoice.currencyUomId = currency
