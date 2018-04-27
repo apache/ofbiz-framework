@@ -316,6 +316,31 @@ public final class InvoiceWorker {
     }
 
     /**
+      * Method to obtain the shipping address from an invoice
+      * first resolve from InvoiceContactMech and if not found try from Shipment if present
+      * @param invoice GenericValue object of the Invoice
+      * @return GenericValue object of the PostalAddress
+      */
+    public static GenericValue getShippingAddress(GenericValue invoice) {
+        GenericValue postalAddress = getInvoiceAddressByType(invoice, "SHIPPING_LOCATION", false);
+        Delegator delegator = invoice.getDelegator();
+        if (postalAddress == null) {
+            try {
+                GenericValue shipmentView = EntityQuery.use(delegator).from("InvoiceItemAndShipmentView")
+                        .where("invoiceId", invoice.get("invoiceId")).queryFirst();
+                if (shipmentView != null) {
+                    GenericValue shipment = EntityQuery.use(delegator).from("Shipment")
+                        .where("shipmentId", shipmentView.get("shipmentId")).queryOne();
+                    postalAddress = shipment.getRelatedOne("DestinationPostalAddress");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError("Touble getting ContactMech entity from OISG", module);
+            }
+        }
+        return postalAddress;
+    }
+
+    /**
       * Method to obtain the billing address for an invoice
       * @param invoice GenericValue object of the Invoice
       * @return GenericValue object of the PostalAddress
