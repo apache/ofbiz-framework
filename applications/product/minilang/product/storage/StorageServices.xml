@@ -53,27 +53,4 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
-
-    <!-- Facility Role Services -->
-    <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">
-        <entity-one entity-name="FacilityParty" value-field="lookedUpValue"/>
-        <now-timestamp field="thruDate"/>
-        <set field="lookedUpValue.thruDate" from-field="thruDate"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="removePartyFromFacilityGroup" short-description="Remove Party From FacilityGroup">
-        <make-value entity-name="FacilityGroupRole" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteFacilityContent" short-description="Delete Content From Facility">
-        <make-value entity-name="FacilityContent" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <now-timestamp field="lookedUpValue.thruDate"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
 </simple-methods>
