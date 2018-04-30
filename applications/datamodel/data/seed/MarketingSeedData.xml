@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <StatusType description="Marketing Campaign" statusTypeId="MKTG_CAMP_STATUS" hasTable="N" parentTypeId=""/>
+    <StatusType description="Marketing Campaign" statusTypeId="MKTG_CAMP_STATUS" hasTable="N"/>
     <StatusItem description="Planned" sequenceId="01" statusCode="PLANNED" statusId="MKTG_CAMP_PLANNED" statusTypeId="MKTG_CAMP_STATUS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="MKTG_CAMP_APPROVED" statusTypeId="MKTG_CAMP_STATUS"/>
     <StatusItem description="In Progress" sequenceId="03" statusCode="INPROGRESS" statusId="MKTG_CAMP_INPROGRESS" statusTypeId="MKTG_CAMP_STATUS"/>
@@ -36,7 +36,7 @@ under the License.
     <ContactListType contactListTypeId="NEWSLETTER" description="Newsletter"/>
     <ContactListType contactListTypeId="ANNOUNCEMENT" description="Announcement"/>
 
-    <StatusType description="Contact List Party" statusTypeId="CONTACTLST_PARTY" hasTable="N" parentTypeId=""/>
+    <StatusType description="Contact List Party" statusTypeId="CONTACTLST_PARTY" hasTable="N"/>
     <StatusItem description="Pending Acceptance" sequenceId="01" statusCode="PENDING" statusId="CLPT_PENDING" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="CLPT_ACCEPTED" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="CLPT_REJECTED" statusTypeId="CONTACTLST_PARTY"/>
@@ -68,7 +68,7 @@ under the License.
     <TrackingCodeType trackingCodeTypeId="EXTERNAL" description="External"/>
     <TrackingCodeType trackingCodeTypeId="PARTNER_MGD" description="Partner Managed"/>
 
-    <EnumerationType description="Tracking Code Source" enumTypeId="TRACKINGCODE_SRC" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Tracking Code Source" enumTypeId="TRACKINGCODE_SRC" hasTable="N"/>
     <Enumeration description="Cookie" enumCode="COOKIE" enumId="TKCDSRC_COOKIE" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>
     <Enumeration description="URL Parameter" enumCode="URL_PARAM" enumId="TKCDSRC_URL_PARAM" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>
 
@@ -88,7 +88,7 @@ under the License.
     <DataSource dataSourceId="EMAIL" dataSourceTypeId="LEAD_SOURCE" description="Email"/>
     <DataSource dataSourceId="CAMPAIGN" dataSourceTypeId="LEAD_SOURCE" description="Campaign"/>
 
-    <StatusType parentTypeId="PARTY_STATUS" hasTable="" statusTypeId="LEAD_STATUS" description="Lead Status"/>
+    <StatusType parentTypeId="PARTY_STATUS" statusTypeId="LEAD_STATUS" description="Lead Status"/>
     <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="LEAD_ASSIGNED" statusTypeId="LEAD_STATUS"/>
     <StatusItem description="Converted" sequenceId="02" statusCode="CONVERTED" statusId="LEAD_CONVERTED" statusTypeId="LEAD_STATUS"/>
     <StatusItem description="Qualified" sequenceId="03" statusCode="QUALIFIED" statusId="LEAD_QUALIFIED" statusTypeId="LEAD_STATUS"/>
@@ -100,5 +100,5 @@ under the License.
 
     <EnumerationType enumTypeId="SLSOPP_TYP_ENUM" description="Sales Opportunity Type"/>
 
-    <PartyIdentificationType description="VCard reference origin" partyIdentificationTypeId="VCARD_FN_ORIGIN" parentTypeId=""/>
+    <PartyIdentificationType description="VCard reference origin" partyIdentificationTypeId="VCARD_FN_ORIGIN"/>
 </entity-engine-xml>

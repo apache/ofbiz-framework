@@ -23,9 +23,9 @@ under the License.
     <EnumerationType enumTypeId="SECURITY_QUESTION" description="Security Question"/>
     <EnumerationType enumTypeId="SQ_CUSTOM" parentTypeId="SECURITY_QUESTION" description="Custom Security Question"/>
     <EnumerationType enumTypeId="SQ_STANDARD" parentTypeId="SECURITY_QUESTION" description="Standard Security Question"/>
-    <Enumeration enumId="SQ_STD_NCKNM" enumTypeId="SQ_STANDARD" enumCode="" sequenceId="0" description="What is your nick name"/>
-    <Enumeration enumId="SQ_STD_MOTNM" enumTypeId="SQ_STANDARD" enumCode="" sequenceId="1" description="What is your mother's maiden name"/>
-    <Enumeration enumId="SQ_STD_FAVTCH" enumTypeId="SQ_STANDARD" enumCode="" sequenceId="2" description="What is your favorite teacher's name"/>
-    <Enumeration enumId="SQ_STD_PETNM" enumTypeId="SQ_STANDARD" enumCode="" sequenceId="2" description="What is your pet's name"/>
-    <Enumeration enumId="SQ_STD_BSTFRND" enumTypeId="SQ_STANDARD" enumCode="" sequenceId="3" description="Who is your best childhood friend"/>
+    <Enumeration enumId="SQ_STD_NCKNM" enumTypeId="SQ_STANDARD" sequenceId="0" description="What is your nick name"/>
+    <Enumeration enumId="SQ_STD_MOTNM" enumTypeId="SQ_STANDARD" sequenceId="1" description="What is your mother's maiden name"/>
+    <Enumeration enumId="SQ_STD_FAVTCH" enumTypeId="SQ_STANDARD" sequenceId="2" description="What is your favorite teacher's name"/>
+    <Enumeration enumId="SQ_STD_PETNM" enumTypeId="SQ_STANDARD" sequenceId="2" description="What is your pet's name"/>
+    <Enumeration enumId="SQ_STD_BSTFRND" enumTypeId="SQ_STANDARD" sequenceId="3" description="Who is your best childhood friend"/>
 </entity-engine-xml>

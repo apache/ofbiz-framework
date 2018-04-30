@@ -40,7 +40,7 @@ under the License.
     <!-- Default routing -->
     <!-- used when no explicit routing is associated to a product -->
     <WorkEffort workEffortId="DEFAULT_ROUTING" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Default Routing" description="Default Routing" revisionNumber="1" quantityToProduce="0"/>
-    <WorkEffort workEffortId="DEFAULT_TASK" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Default Routing Task" description="Default Routing Task" revisionNumber="1" fixedAssetId="" estimatedMilliSeconds="0" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="DEFAULT_TASK" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Default Routing Task" description="Default Routing Task" revisionNumber="1" estimatedMilliSeconds="0" estimatedSetupMillis="0"/>
     <WorkEffortAssoc workEffortIdFrom="DEFAULT_ROUTING" workEffortIdTo="DEFAULT_TASK" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2004-09-24 15:09:38.736"/>
 
     <!-- Formulae -->

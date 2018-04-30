@@ -19,18 +19,18 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
-    <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
+    <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
+    <WorkEffortAssocType description="Dependency" hasTable="N" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
     <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>
     <WorkEffortAssocType description="Precedency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_PRECEDENCY"/>
-    <WorkEffortAssocType description="Template of" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
+    <WorkEffortAssocType description="Template of" hasTable="N" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
 
     <!-- For Routing definition, (workEffort Template) -->
-    <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
+    <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" workEffortAssocTypeId="ROUTING_COMPONENT"/>
 
-    <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media"/>
+    <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media"/>
+    <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media"/>
 
     <WorkEffortPurposeType description="Production Run" workEffortPurposeTypeId="WEPT_PRODUCTION_RUN"/>
     <WorkEffortPurposeType description="Maintenance" workEffortPurposeTypeId="WEPT_MAINTENANCE"/>
@@ -49,26 +49,26 @@ under the License.
     <WorkEffortPurposeType description="Phone Call" workEffortPurposeTypeId="WEPT_TASK_PHONE_CALL"/>
     <WorkEffortPurposeType description="Email" workEffortPurposeTypeId="WEPT_TASK_EMAIL"/>
 
-    <WorkEffortType description="Routing" hasTable="N" parentTypeId="" workEffortTypeId="ROUTING"/>
-    <WorkEffortType description="Routing Task" hasTable="N" parentTypeId="" workEffortTypeId="ROU_TASK"/>
-    <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
-    <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
-    <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
-    <WorkEffortType description="Event" hasTable="N" parentTypeId="" workEffortTypeId="EVENT"/>
+    <WorkEffortType description="Routing" hasTable="N" workEffortTypeId="ROUTING"/>
+    <WorkEffortType description="Routing Task" hasTable="N" workEffortTypeId="ROU_TASK"/>
+    <WorkEffortType description="Production Run Header" hasTable="N" workEffortTypeId="PROD_ORDER_HEADER"/>
+    <WorkEffortType description="Production Run Task" hasTable="N" workEffortTypeId="PROD_ORDER_TASK"/>
+    <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" workEffortTypeId="ASSET_USAGE"/>
+    <WorkEffortType description="Event" hasTable="N" workEffortTypeId="EVENT"/>
 
     <WorkEffortType description="Inbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_INBOUND"/>
     <WorkEffortType description="Outbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_OUTBOUND"/>
 
     <!-- ProductionRun Inventory assignment status -->
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N" parentTypeId=""/>
-    <WorkEffortGoodStandardType workEffortGoodStdTypeId="GENERAL_SALES" description="Product to Represent General Sales of the WorkEffort" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N"/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N"/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N"/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N"/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="GENERAL_SALES" description="Product to Represent General Sales of the WorkEffort" hasTable="N"/>
 
     <!-- Enumeration -->
-    <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N" parentTypeId=""/>
-    <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N"/>
+    <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N"/>
 
     <EnumerationType description="Work Effort Expectation" enumTypeId="WORK_EFF_EXPECT" hasTable="N" parentTypeId="WORK_EFFORT"/>
     <Enumeration description="For Your Information" enumCode="FYI" enumId="WEE_FYI" sequenceId="01" enumTypeId="WORK_EFF_EXPECT"/>
@@ -86,15 +86,15 @@ under the License.
     <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
     <Enumeration description="Very restricted, confidential access" enumCode="CONFIDENTIAL" enumId="WES_CONFIDENTIAL" sequenceId="03" enumTypeId="WORK_EFF_SCOPE"/>
 
-    <EnumerationType description="Calendar Type" enumTypeId="CALENDAR_TYPE" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Calendar Type" enumTypeId="CALENDAR_TYPE" hasTable="N"/>
     <Enumeration description="Personal Calendar" enumCode="PERSONAL" enumId="CAL_PERSONAL" sequenceId="01" enumTypeId="CALENDAR_TYPE"/>
     <Enumeration description="Manufacturing Calendar" enumCode="MANUFACTURING" enumId="CAL_MANUFACTURING" sequenceId="02" enumTypeId="CALENDAR_TYPE"/>
     <Enumeration description="None" enumId="CAL_NONE" sequenceId="03" enumTypeId="CALENDAR_TYPE"/>
 
     <!-- workeffort status -->
-    <StatusType description="WorkEffort Asset" hasTable="N" parentTypeId="" statusTypeId="WORK_EFF_ASSET_STTS"/>
-    <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/>
-    <StatusType description="Workeffort" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_STATUS"/>
+    <StatusType description="WorkEffort Asset" hasTable="N" statusTypeId="WORK_EFF_ASSET_STTS"/>
+    <StatusType description="WorkEffort Assignment" hasTable="N" statusTypeId="WORK_EFFORT_ASSIGN"/>
+    <StatusType description="Workeffort" hasTable="N" statusTypeId="WORK_EFFORT_STATUS"/>
 
     <StatusType description="Calendar" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="CALENDAR_STATUS"/>
     <StatusItem description="In Planning" sequenceId="01" statusCode="IN_PLANNING" statusId="CAL_IN_PLANNING" statusTypeId="CALENDAR_STATUS"/>
@@ -134,7 +134,7 @@ under the License.
     <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
     <StatusValidChange statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
 
-    <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusType description="Timesheet" hasTable="N" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="TIMESHEET_APPROVED" statusTypeId="TIMESHEET_STATUS"/>
@@ -179,14 +179,14 @@ under the License.
     <StatusValidChange statusId="ROU_ACTIVE" statusIdTo="ROU_INACTIVE" transitionName="Inactive"/>
     <StatusValidChange statusId="ROU_INACTIVE" statusIdTo="ROU_ACTIVE" transitionName="Active"/>
 
-    <!--  <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
-    <StatusType description="Work Effort Good Standard Status" hasTable="N" parentTypeId="" statusTypeId="WEFG_STATUS"/>
+    <!--  <StatusType description="WorkEffort Assignment" hasTable="N" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
+    <StatusType description="Work Effort Good Standard Status" hasTable="N" statusTypeId="WEFG_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="WEGS_CREATED" statusTypeId="WEFG_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="WEGS_COMPLETED" statusTypeId="WEFG_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="WEGS_CANCELLED" statusTypeId="WEFG_STATUS"/>
 
     <!-- WorkEffort Review Status -->
-    <StatusType description="WorkEffort Review" hasTable="N" parentTypeId="" statusTypeId="WEFF_REVIEW_STTS"/>
+    <StatusType description="WorkEffort Review" hasTable="N" statusTypeId="WEFF_REVIEW_STTS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="WERV_PENDING" statusTypeId="WEFF_REVIEW_STTS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="WERV_APPROVED" statusTypeId="WEFF_REVIEW_STTS"/>
     <StatusItem description="Deleted" sequenceId="99" statusCode="DELETED" statusId="WERV_DELETED" statusTypeId="WEFF_REVIEW_STTS"/>

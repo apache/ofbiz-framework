@@ -80,7 +80,7 @@
         portletName="Sales by store report"
         screenName="OrderReportSalesByStore"
         screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
-        description=""/>
+       />
     <PortletPortletCategory portalPortletId="SalesByStore" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="SalesByStore" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
 
@@ -88,7 +88,7 @@
         portletName="Order Report Open OrderItems"
         screenName="OrderReportOpenOrderItems"
         screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
-        description=""/>
+       />
     <PortletPortletCategory portalPortletId="OpenOrderItems" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OpenOrderItems" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
 
@@ -96,7 +96,7 @@
         portletName="Order Report Purchases By Organization"
         screenName="OrderReportPurchasesByOrganization"
         screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
-        description=""/>
+       />
     <PortletPortletCategory portalPortletId="PurchasesByOrg" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PurchasesByOrg" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
 
@@ -104,7 +104,7 @@
         portletName="Order Report Purchases By Product"
         screenName="OrderReportPurchasesByProduct"
         screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
-        description=""/>
+       />
     <PortletPortletCategory portalPortletId="PurchasesByProduct" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PurchasesByProduct" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
 
@@ -112,7 +112,7 @@
         portletName="Order Report Purchases By PaymentMethod"
         screenName="OrderReportPurchasesByPaymentMethod"
         screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
-        description=""/>
+       />
     <PortletPortletCategory portalPortletId="PurchByPaymMeth" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PurchByPaymMeth" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
     <PortalPortlet portalPortletId="ListPurchaseOrders"

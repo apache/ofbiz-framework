@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <EnumerationType description="Entity Sync Include Application Type" enumTypeId="ENTSYNC_INC_APPL" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Entity Sync Include Application Type" enumTypeId="ENTSYNC_INC_APPL" hasTable="N"/>
     <Enumeration description="Include" enumCode="INCLUDE" enumId="ESIA_INCLUDE" sequenceId="01" enumTypeId="ENTSYNC_INC_APPL"/>
     <Enumeration description="Exclude" enumCode="EXCLUDE" enumId="ESIA_EXCLUDE" sequenceId="02" enumTypeId="ENTSYNC_INC_APPL"/>
     <Enumeration description="Always Include" enumCode="ALWAYS" enumId="ESIA_ALWAYS" sequenceId="03" enumTypeId="ENTSYNC_INC_APPL"/>
 
     <!-- Entity Sync Run Status -->
-    <StatusType description="Entity Sync Run" hasTable="N" parentTypeId="" statusTypeId="ENTSYNC_RUN"/>
+    <StatusType description="Entity Sync Run" hasTable="N" statusTypeId="ENTSYNC_RUN"/>
     <StatusItem description="Not Started" sequenceId="01" statusCode="NOT_STARTED" statusId="ESR_NOT_STARTED" statusTypeId="ENTSYNC_RUN"/>
     <StatusItem description="Running" sequenceId="02" statusCode="RUNNING" statusId="ESR_RUNNING" statusTypeId="ENTSYNC_RUN"/>
     <StatusItem description="Offline Pending" sequenceId="03" statusCode="PENDING" statusId="ESR_PENDING" statusTypeId="ENTSYNC_RUN"/>

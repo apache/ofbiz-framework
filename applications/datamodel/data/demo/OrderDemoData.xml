@@ -124,13 +124,13 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CRQ_CREATE"/>
 
     <!-- Order Demo User Data -->
-    <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="DemoRepStore" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="DemoRepStore" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="supplier" fromDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoCustomer"/>
@@ -209,20 +209,20 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveGCProcessor" paymentCustomMethodId="GIFT_AUTH_ALWAYSAPPR"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testGCRelease" paymentCustomMethodId="GIFT_RELEASE_TEST"/>
 
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     <!-- Example PayPal Payflow Pro Express Checkout Setup
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="" paymentCustomMethodId="PAYPAL_REFUND_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentCustomMethodId="PAYPAL_AUTH_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentCustomMethodId="PAYPAL_AUTH_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentCustomMethodId="PAYPAL_CAPTURE_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentCustomMethodId="PAYPAL_REFUND_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentCustomMethodId="PAYPAL_CAPTURE_PFP" paymentGatewayConfigId="PAYFLOWPRO_CONFIG"/>
     -->
     <!-- Example Standard PayPal Express Checkout Setup
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="" paymentCustomMethodId="PAYPAL_REFUND" paymentGatewayConfigId="PAYPAL_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentCustomMethodId="PAYPAL_AUTH" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentCustomMethodId="PAYPAL_REFUND" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentCustomMethodId="PAYPAL_CAPTURE" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     -->
     <!-- Example Orbital Gateway Settings
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="orbitalCCAuth" paymentCustomMethodId="CC_AUTH_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
@@ -232,10 +232,10 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="orbitalCCRelease" paymentCustomMethodId="CC_RELEASE_ORBITAL" paymentGatewayConfigId="ORBITAL_CONFIG"/>
     -->
 
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="WORLDPAY_CONFIG"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_BILLACT" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentGatewayConfigId="WORLDPAY_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_BILLACT" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL"/>
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice" subject="OFBiz Demo - Your Order Is Complete #${orderId}" fromAddress="ofbiztest@example.com"/>
@@ -1056,24 +1056,24 @@ under the License.
                         productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
 
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-1" quantity="1.0" reason=""/>
+                  productIdTo="GZ-1006-1" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-2" quantity="1.0" reason=""/>
+                  productIdTo="GZ-1006-2" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-3" quantity="1.0" reason=""/>
+                  productIdTo="GZ-1006-3" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-4" quantity="1.0" reason=""/>
+                  productIdTo="GZ-1006-4" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="GZ-1006"
-                  productIdTo="GZ-1006-5" quantity="1.0" reason=""/>
+                  productIdTo="GZ-1006-5" quantity="1.0"/>
 
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-B3" quantity="1.0" reason=""/>
+                  productIdTo="WG-9943-B3" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-B4" quantity="1.0" reason=""/>
+                  productIdTo="WG-9943-B4" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-S3" quantity="1.0" reason=""/>
+                  productIdTo="WG-9943-S3" quantity="1.0"/>
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="WG-9943"
-                  productIdTo="WG-9943-S4" quantity="1.0" reason=""/>
+                  productIdTo="WG-9943-S4" quantity="1.0"/>
 
     <ProductAssoc fromDate="2001-05-13 12:00:00.0" productAssocTypeId="PRODUCT_UPGRADE" productId="WG-5569"
                   productIdTo="WG-9943" quantity="1.0" reason="A little bit more expensive, but worth every penny!"/>
@@ -2253,8 +2253,7 @@ under the License.
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
-                titleOnCard="" firstNameOnCard="DEMO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="9015"/>
+    <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
 
     <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
@@ -2280,8 +2279,7 @@ under the License.
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
-                titleOnCard="" firstNameOnCard="EURO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="EUROCUSTOMER"/>
+    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="EURO" lastNameOnCard="CUSTOMER" contactMechId="EUROCUSTOMER"/>
 
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
@@ -2307,15 +2305,14 @@ under the License.
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
-    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard=""
-                titleOnCard="" firstNameOnCard="FRENCH" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="FRENCHCUSTOMER"/>
+    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2020" firstNameOnCard="FRENCH" lastNameOnCard="CUSTOMER" contactMechId="FRENCHCUSTOMER"/>
 
     <PartyTaxAuthInfo partyId="FrenchCustomer" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2001-05-13 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/>
     <!--PartyTaxAuthInfo partyId="Company" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2014-01-01 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/-->
 
     <!--Demo data for a sales order -->
-    <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" orderName="" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
-    <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" correspondingPoId="" statusId="ITEM_APPROVED"/>
+    <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
+    <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9000" orderId="DEMO10090" orderItemSeqId="00001" productPriceRuleId="9000" productPriceActionSeqId="01" modifyAmount="-9.600" description="[PRODUCT_CATEGORY_IDIsPROMOTIONS] [list:48.0;avgCost:48.0;margin:0.0] [type:PRICE_POL]"/>
 
     <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
@@ -2328,7 +2325,7 @@ under the License.
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
 
-    <OrderItemShipGroup orderId="DEMO10090" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" giftMessage="" isGift="N"/>
+    <OrderItemShipGroup orderId="DEMO10090" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
     <OrderItemShipGroupAssoc orderId="DEMO10090" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.0"/>
     <OrderItemShipGrpInvRes orderId="DEMO10090" shipGroupSeqId="00001" orderItemSeqId="00001" inventoryItemId="9001" reserveOrderEnumId="INVRO_FIFO_REC" quantity="2.0" quantityNotAvailable="0.0" reservedDatetime="2008-04-23 16:49:31.474" createdDatetime="2008-04-23 16:49:31.474" promisedDatetime="2008-05-08 16:49:27.392" priority="2"/>
 
@@ -2421,8 +2418,8 @@ under the License.
 
     <!--Demo Sales Order for Accounting-->
     <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09"/>
-    <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" correspondingPoId="" statusId="ITEM_COMPLETED"/>
-    <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" correspondingPoId="" statusId="ITEM_COMPLETED"/>
+    <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
+    <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>

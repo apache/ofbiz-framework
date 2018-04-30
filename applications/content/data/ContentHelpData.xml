@@ -28,8 +28,8 @@ under the License.
     <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
 
     <!-- system document root used in content -> navigate -->
-    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
-    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT"/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 
     <!-- show help on the system document root -->
     <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
