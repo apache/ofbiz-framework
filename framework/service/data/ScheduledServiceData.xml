@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- scheduled service status codes -->
-    <StatusType description="Scheduled Service" hasTable="N" parentTypeId="" statusTypeId="SERVICE_STATUS"/>
+    <StatusType description="Scheduled Service" hasTable="N" statusTypeId="SERVICE_STATUS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="SERVICE_PENDING" statusTypeId="SERVICE_STATUS"/>
     <StatusItem description="Queued" sequenceId="02" statusCode="QUEUED" statusId="SERVICE_QUEUED" statusTypeId="SERVICE_STATUS"/>
     <StatusItem description="Running" sequenceId="05" statusCode="RUNNING" statusId="SERVICE_RUNNING" statusTypeId="SERVICE_STATUS"/>

@@ -189,10 +189,10 @@ under the License.
     <PartyStatus partyId="BLOG_AUTHORS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyStatus partyId="BLOG_PUBLISHERS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
-    <UserLogin userLoginId="blog_guest" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="blog_admin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="blog_author" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
-    <UserLogin userLoginId="blog_editor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_guest" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="blog_admin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="blog_author" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="blog_editor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
 
     <Content contentId="BLOGROOTBIGAL"
              createdByUserLogin="bigal"
@@ -390,7 +390,7 @@ David won't like it. He will probably delete this seed data from the DB, but it 
     <DataResource dataResourceId="DR1116"  mimeTypeId="application/pdf" dataResourceName="Other Upload"/>
 
     <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
-    <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"  ownerContentId=""/>
+    <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"/>
 
 
     <Content contentId="CDT1101" dataResourceId="DR1101" contentTypeId="TEMPLATE" contentName="Letter of inquiry"/>
@@ -428,9 +428,9 @@ David won't like it. He will probably delete this seed data from the DB, but it 
     <ContentAssoc contentIdTo="CDT1201" contentId="CDT1116" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0160"/>
 
     <!-- sample instances CDT CDT1201 -->
-    <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"  ownerContentId=""/>
-    <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"  ownerContentId=""/>
-    <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"  ownerContentId=""/>
+    <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"/>
+    <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"/>
+    <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"/>
 
     <ContentAssoc contentIdTo="CDT1201" contentId="CDI1201" contentAssocTypeId="INSTANCE" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
     <ContentAssoc contentIdTo="CDI1201" contentId="CDI1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="00130"/>

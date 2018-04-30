@@ -38,9 +38,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="SFA_ADMIN"/>
 
     <!-- SFA System Property Data -->
-    <SystemProperty systemResourceId="sfa" systemPropertyId="save.outgoing.directory" systemPropertyValue=""
-                    description="If the save.outgoing.directory is specified the file will be saved there, else it will be saved under OFBIZ_HOME"
-    />
+    <SystemProperty systemResourceId="sfa" systemPropertyId="save.outgoing.directory" description="If the save.outgoing.directory is specified the file will be saved there, else it will be saved under OFBIZ_HOME"/>
 
     <!-- SFA Demo Data -->
     <!-- demo accounts -->

@@ -40,8 +40,7 @@ under the License.
     <PortalPortlet portalPortletId="PartyIdentifications" portletName="Party Identification"
         screenName="PartyIdentifications"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Identification associate to a party"
-        screenshot=""/>
+        description="Identification associate to a party"/>
     <PortletPortletCategory portalPortletId="PartyIdentifications" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings"

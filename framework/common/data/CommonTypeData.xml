@@ -52,7 +52,7 @@ under the License.
     <Enumeration enumId="_NA_" enumTypeId="_NA_" enumCode="_NA_" sequenceId="0" description="Not Applicable"/>
     <Enumeration enumId="_00_" enumTypeId="_NA_" enumCode="_00_" sequenceId="0" description="Not Applicable"/>
 
-    <EnumerationType description="Thesaurus Relationship Type" enumTypeId="KW_THES_REL" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Thesaurus Relationship Type" enumTypeId="KW_THES_REL" hasTable="N"/>
     <Enumeration description="Used For" enumCode="UF" enumId="KWTR_UF" sequenceId="01" enumTypeId="KW_THES_REL"/>
     <Enumeration description="Use Instead" enumCode="USE" enumId="KWTR_USE" sequenceId="02" enumTypeId="KW_THES_REL"/>
     <Enumeration description="Correct Spelling" enumCode="CS" enumId="KWTR_CS" sequenceId="03" enumTypeId="KW_THES_REL"/>
@@ -65,22 +65,22 @@ under the License.
     <Enumeration description="Lang: French" enumCode="LANG_FR" enumId="KWTR_LANG_FR" sequenceId="22" enumTypeId="KW_THES_REL"/>
 
     <!-- sync status -->
-    <StatusType description="Synchronize" hasTable="N" parentTypeId="" statusTypeId="SYNCHRONIZE_STATUS"/>
+    <StatusType description="Synchronize" hasTable="N" statusTypeId="SYNCHRONIZE_STATUS"/>
     <StatusItem description="Not-Synchronized" sequenceId="01" statusCode="NOT_SYNCHRONIZED" statusId="NOT_SYNCHRONIZED" statusTypeId="SYNCHRONIZE_STATUS"/>
     <StatusItem description="Synchronized" sequenceId="02" statusCode="SYNCHRONIZED" statusId="SYNCHRONIZED" statusTypeId="SYNCHRONIZE_STATUS"/>
 
-    <UomType description="Currency" hasTable="N" parentTypeId="" uomTypeId="CURRENCY_MEASURE"/>
-    <UomType description="Data Size" hasTable="N" parentTypeId="" uomTypeId="DATA_MEASURE"/>
-    <UomType description="Data Speed" hasTable="N" parentTypeId="" uomTypeId="DATASPD_MEASURE"/>
-    <UomType description="Time/Frequency" hasTable="N" parentTypeId="" uomTypeId="TIME_FREQ_MEASURE"/>
-    <UomType description="Length" hasTable="N" parentTypeId="" uomTypeId="LENGTH_MEASURE"/>
-    <UomType description="Area" hasTable="N" parentTypeId="" uomTypeId="AREA_MEASURE"/>
-    <UomType description="Liquid Volume" hasTable="N" parentTypeId="" uomTypeId="VOLUME_LIQ_MEASURE"/>
-    <UomType description="Dry Volume" hasTable="N" parentTypeId="" uomTypeId="VOLUME_DRY_MEASURE"/>
-    <UomType description="Weight" hasTable="N" parentTypeId="" uomTypeId="WEIGHT_MEASURE"/>
-    <UomType description="Energy" hasTable="N" parentTypeId="" uomTypeId="ENERGY_MEASURE"/>
-    <UomType description="Temperature" hasTable="N" parentTypeId="" uomTypeId="TEMP_MEASURE"/>
-    <UomType description="Other" hasTable="N" parentTypeId="" uomTypeId="OTHER_MEASURE"/>
+    <UomType description="Currency" hasTable="N" uomTypeId="CURRENCY_MEASURE"/>
+    <UomType description="Data Size" hasTable="N" uomTypeId="DATA_MEASURE"/>
+    <UomType description="Data Speed" hasTable="N" uomTypeId="DATASPD_MEASURE"/>
+    <UomType description="Time/Frequency" hasTable="N" uomTypeId="TIME_FREQ_MEASURE"/>
+    <UomType description="Length" hasTable="N" uomTypeId="LENGTH_MEASURE"/>
+    <UomType description="Area" hasTable="N" uomTypeId="AREA_MEASURE"/>
+    <UomType description="Liquid Volume" hasTable="N" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <UomType description="Dry Volume" hasTable="N" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <UomType description="Weight" hasTable="N" uomTypeId="WEIGHT_MEASURE"/>
+    <UomType description="Energy" hasTable="N" uomTypeId="ENERGY_MEASURE"/>
+    <UomType description="Temperature" hasTable="N" uomTypeId="TEMP_MEASURE"/>
+    <UomType description="Other" hasTable="N" uomTypeId="OTHER_MEASURE"/>
 
     <!-- User preferences seed data -->
     <UserPrefGroupType userPrefGroupTypeId="GLOBAL_PREFERENCES" description="Global preferences"/>

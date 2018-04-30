@@ -21,9 +21,9 @@ under the License.
 <entity-engine-xml>
 
     <!-- An order that needs stock from two inventory items -->
-    <OrderHeader createdBy="admin" currencyUom="USD" entryDate="2011-08-12 23:17:11.507" grandTotal="105.14" orderId="DEMO81015" orderName="" orderTypeId="SALES_ORDER" priority="2" productStoreId="9000" remainingSubTotal="79.56" salesChannelEnumId="WEB_SALES_CHANNEL" statusId="ORDER_APPROVED" visitId="10043"/>
+    <OrderHeader createdBy="admin" currencyUom="USD" entryDate="2011-08-12 23:17:11.507" grandTotal="105.14" orderId="DEMO81015" orderTypeId="SALES_ORDER" priority="2" productStoreId="9000" remainingSubTotal="79.56" salesChannelEnumId="WEB_SALES_CHANNEL" statusId="ORDER_APPROVED" visitId="10043"/>
     
-    <OrderItem changeByUserLoginId="admin" correspondingPoId="" isModifiedPrice="N" isPromo="N" itemDescription="Round Gizmo" orderId="DEMO81015" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" prodCatalogId="DemoCatalog" productId="GZ-2644" quantity="6.000000" selectedAmount="0.000000" statusId="ITEM_APPROVED" unitListPrice="48.000" unitPrice="38.400"/>
+    <OrderItem changeByUserLoginId="admin" isModifiedPrice="N" isPromo="N" itemDescription="Round Gizmo" orderId="DEMO81015" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" prodCatalogId="DemoCatalog" productId="GZ-2644" quantity="6.000000" selectedAmount="0.000000" statusId="ITEM_APPROVED" unitListPrice="48.000" unitPrice="38.400"/>
     
     <OrderContactMech contactMechId="9021" contactMechPurposeTypeId="ORDER_EMAIL" orderId="DEMO81015"/>
     <OrderContactMech contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" orderId="DEMO81015"/>
@@ -36,7 +36,7 @@ under the License.
 
     <OrderPaymentPreference createdByUserLogin="admin" createdDate="2011-08-12 23:17:11.789" maxAmount="105.14" orderId="DEMO81015" orderPaymentPreferenceId="10020" overflowFlag="N" paymentMethodTypeId="EXT_OFFLINE" presentFlag="N" statusId="PAYMENT_NOT_RECEIVED" swipedFlag="N"/>
 
-    <OrderItemShipGroup carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9010" giftMessage="" isGift="N" maySplit="N" orderId="DEMO81015" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" shippingInstructions=""/>
+    <OrderItemShipGroup carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9010" isGift="N" maySplit="N" orderId="DEMO81015" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY"/>
 
     <OrderItemShipGroupAssoc orderId="DEMO81015" orderItemSeqId="00001" quantity="6.000000" shipGroupSeqId="00001"/>
 

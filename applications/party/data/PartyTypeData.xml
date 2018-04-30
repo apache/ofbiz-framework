@@ -19,21 +19,21 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <AgreementItemType agreementItemTypeId="SUBAGREEMENT" description="Sub-Agreement" hasTable="N" parentTypeId=""/>
-    <AgreementItemType agreementItemTypeId="AGREEMENT_EXHIBIT" description="Exhibit" hasTable="N" parentTypeId=""/>
-    <AgreementItemType agreementItemTypeId="AGREEMENT_PRICING_PR" description="Pricing" hasTable="N" parentTypeId=""/>
-    <AgreementItemType agreementItemTypeId="AGREEMENT_SECTION" description="Section" hasTable="N" parentTypeId=""/>
-    <AgreementItemType agreementItemTypeId="AGREEMENT_COMMISSION" description="Commission Rate" hasTable="N" parentTypeId=""/>
+    <AgreementItemType agreementItemTypeId="SUBAGREEMENT" description="Sub-Agreement" hasTable="N"/>
+    <AgreementItemType agreementItemTypeId="AGREEMENT_EXHIBIT" description="Exhibit" hasTable="N"/>
+    <AgreementItemType agreementItemTypeId="AGREEMENT_PRICING_PR" description="Pricing" hasTable="N"/>
+    <AgreementItemType agreementItemTypeId="AGREEMENT_SECTION" description="Section" hasTable="N"/>
+    <AgreementItemType agreementItemTypeId="AGREEMENT_COMMISSION" description="Commission Rate" hasTable="N"/>
 
-    <AgreementType agreementTypeId="PRODUCT_AGREEMENT" description="Product" hasTable="N" parentTypeId=""/>
+    <AgreementType agreementTypeId="PRODUCT_AGREEMENT" description="Product" hasTable="N"/>
     <AgreementType agreementTypeId="PURCHASE_AGREEMENT" description="Purchase" hasTable="N" parentTypeId="PRODUCT_AGREEMENT"/>
     <AgreementType agreementTypeId="SALES_AGREEMENT" description="Sales" hasTable="N" parentTypeId="PRODUCT_AGREEMENT"/>
-    <AgreementType agreementTypeId="EMPLOYMENT_AGREEMENT" description="Employment" hasTable="N" parentTypeId=""/>
-    <AgreementType agreementTypeId="OTHER_AGREEMENT" description="Other" hasTable="N" parentTypeId=""/>
-    <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N" parentTypeId=""/>
-    <AgreementType agreementTypeId="EULA" description="End User License Agreement" hasTable="N" parentTypeId=""/>
+    <AgreementType agreementTypeId="EMPLOYMENT_AGREEMENT" description="Employment" hasTable="N"/>
+    <AgreementType agreementTypeId="OTHER_AGREEMENT" description="Other" hasTable="N"/>
+    <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N"/>
+    <AgreementType agreementTypeId="EULA" description="End User License Agreement" hasTable="N"/>
 
     <!-- Agreement content type-->
-    <AgreementContentType agreementContentTypeId="CONTRACT" description="Contract" hasTable="N" parentTypeId=""/>
+    <AgreementContentType agreementContentTypeId="CONTRACT" description="Contract" hasTable="N"/>
 
 </entity-engine-xml>

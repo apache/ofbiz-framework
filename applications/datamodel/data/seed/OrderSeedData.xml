@@ -19,14 +19,14 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <CustRequestType custRequestTypeId="RF_BUGFIX" description="Request For Bug Fix" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_CATALOG" description="Request For Catalog" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_FEATURE" description="Request For Feature" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_INFO" description="Request For Information" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_PROPOSAL" description="Request For Proposal" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_QUOTE" description="Request For Quote" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_SUPPORT" description="Request For Support" hasTable="N" parentTypeId=""/>
-    <CustRequestType custRequestTypeId="RF_PUR_QUOTE" description="Request For Purchase Quote" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_BUGFIX" description="Request For Bug Fix" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_CATALOG" description="Request For Catalog" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_FEATURE" description="Request For Feature" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_INFO" description="Request For Information" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_PROPOSAL" description="Request For Proposal" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_QUOTE" description="Request For Quote" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_SUPPORT" description="Request For Support" hasTable="N"/>
+    <CustRequestType custRequestTypeId="RF_PUR_QUOTE" description="Request For Purchase Quote" hasTable="N"/>
 
     <CustRequestResolution custRequestResolutionId="FIXED" custRequestTypeId="RF_BUGFIX" description="Fixed"/>
     <CustRequestResolution custRequestResolutionId="WORKS" custRequestTypeId="RF_BUGFIX" description="Works For Me"/>
@@ -35,45 +35,45 @@ under the License.
     <CustRequestResolution custRequestResolutionId="REJECTED" custRequestTypeId="RF_FEATURE" description="Rejected"/>
     <CustRequestResolution custRequestResolutionId="IMPLEMENTED" custRequestTypeId="RF_FEATURE" description="Implemented"/>
 
-    <OrderAdjustmentType description="Promotion" hasTable="N" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Replacement" hasTable="N" orderAdjustmentTypeId="REPLACE_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Discount" hasTable="N" orderAdjustmentTypeId="DISCOUNT_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Donation" hasTable="N" orderAdjustmentTypeId="DONATION_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Fee" hasTable="N" orderAdjustmentTypeId="FEE" parentTypeId=""/>
-    <OrderAdjustmentType description="Miscellaneous Charges" hasTable="N" orderAdjustmentTypeId="MISCELLANEOUS_CHARGE" parentTypeId=""/>
-    <OrderAdjustmentType description="Sales Tax" hasTable="N" orderAdjustmentTypeId="SALES_TAX" parentTypeId=""/>
-    <OrderAdjustmentType description="VAT Tax (not added to totals)" hasTable="N" orderAdjustmentTypeId="VAT_TAX" parentTypeId=""/>
-    <OrderAdjustmentType description="VAT Price Correction" hasTable="N" orderAdjustmentTypeId="VAT_PRICE_CORRECT" parentTypeId=""/>
-    <OrderAdjustmentType description="Shipping and Handling" hasTable="N" orderAdjustmentTypeId="SHIPPING_CHARGES" parentTypeId=""/>
-    <OrderAdjustmentType description="Surcharge" hasTable="N" orderAdjustmentTypeId="SURCHARGE_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Additional Feature" hasTable="N" orderAdjustmentTypeId="ADDITIONAL_FEATURE" parentTypeId=""/>
-    <OrderAdjustmentType description="Warranty" hasTable="N" orderAdjustmentTypeId="WARRANTY_ADJUSTMENT" parentTypeId=""/>
-    <OrderAdjustmentType description="Marketing Package Adjustment" hasTable="N" orderAdjustmentTypeId="MKTG_PKG_AUTO_ADJUST" parentTypeId=""/>
+    <OrderAdjustmentType description="Promotion" hasTable="N" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Replacement" hasTable="N" orderAdjustmentTypeId="REPLACE_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Discount" hasTable="N" orderAdjustmentTypeId="DISCOUNT_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Donation" hasTable="N" orderAdjustmentTypeId="DONATION_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Fee" hasTable="N" orderAdjustmentTypeId="FEE"/>
+    <OrderAdjustmentType description="Miscellaneous Charges" hasTable="N" orderAdjustmentTypeId="MISCELLANEOUS_CHARGE"/>
+    <OrderAdjustmentType description="Sales Tax" hasTable="N" orderAdjustmentTypeId="SALES_TAX"/>
+    <OrderAdjustmentType description="VAT Tax (not added to totals)" hasTable="N" orderAdjustmentTypeId="VAT_TAX"/>
+    <OrderAdjustmentType description="VAT Price Correction" hasTable="N" orderAdjustmentTypeId="VAT_PRICE_CORRECT"/>
+    <OrderAdjustmentType description="Shipping and Handling" hasTable="N" orderAdjustmentTypeId="SHIPPING_CHARGES"/>
+    <OrderAdjustmentType description="Surcharge" hasTable="N" orderAdjustmentTypeId="SURCHARGE_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Additional Feature" hasTable="N" orderAdjustmentTypeId="ADDITIONAL_FEATURE"/>
+    <OrderAdjustmentType description="Warranty" hasTable="N" orderAdjustmentTypeId="WARRANTY_ADJUSTMENT"/>
+    <OrderAdjustmentType description="Marketing Package Adjustment" hasTable="N" orderAdjustmentTypeId="MKTG_PKG_AUTO_ADJUST"/>
 
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_ADDRESS" description="Addresss"/>
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_CREDITCARD" description="Credit Card"/>
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_EMAIL" description="E-Mail"/>
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_PHONE" description="Phone Number"/>
 
-    <OrderItemType description="Purchase Order Specific" hasTable="N" orderItemTypeId="PURCHASE_SPECIFIC" parentTypeId=""/>
+    <OrderItemType description="Purchase Order Specific" hasTable="N" orderItemTypeId="PURCHASE_SPECIFIC"/>
     <OrderItemType description="PO: Inventory" hasTable="N" orderItemTypeId="INVENTORY_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
     <OrderItemType description="PO: Supplies (to Expense)" hasTable="N" orderItemTypeId="SUPPLIES_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
     <OrderItemType description="PO: Fixed Asset" hasTable="N" orderItemTypeId="ASSET_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
-    <OrderItemType description="Product Item" hasTable="N" orderItemTypeId="PRODUCT_ORDER_ITEM" parentTypeId=""/>
-    <OrderItemType description="Work Item" hasTable="N" orderItemTypeId="WORK_ORDER_ITEM" parentTypeId=""/>
-    <OrderItemType description="Rental Item" hasTable="N" orderItemTypeId="RENTAL_ORDER_ITEM" parentTypeId=""/>
-    <OrderItemType description="Bulk Item" hasTable="N" orderItemTypeId="BULK_ORDER_ITEM" parentTypeId=""/>
+    <OrderItemType description="Product Item" hasTable="N" orderItemTypeId="PRODUCT_ORDER_ITEM"/>
+    <OrderItemType description="Work Item" hasTable="N" orderItemTypeId="WORK_ORDER_ITEM"/>
+    <OrderItemType description="Rental Item" hasTable="N" orderItemTypeId="RENTAL_ORDER_ITEM"/>
+    <OrderItemType description="Bulk Item" hasTable="N" orderItemTypeId="BULK_ORDER_ITEM"/>
 
-    <OrderType description="Purchase" hasTable="N" orderTypeId="PURCHASE_ORDER" parentTypeId=""/>
-    <OrderType description="Sales" hasTable="N" orderTypeId="SALES_ORDER" parentTypeId=""/>
+    <OrderType description="Purchase" hasTable="N" orderTypeId="PURCHASE_ORDER"/>
+    <OrderType description="Sales" hasTable="N" orderTypeId="SALES_ORDER"/>
 
-    <OrderItemAssocType description="Purchase Order" hasTable="N" orderItemAssocTypeId="PURCHASE_ORDER" parentTypeId=""/>
-    <OrderItemAssocType description="Drop Shipment" hasTable="N" orderItemAssocTypeId="DROP_SHIPMENT" parentTypeId=""/>
-    <OrderItemAssocType description="Return Replacement" hasTable="N" orderItemAssocTypeId="REPLACEMENT" parentTypeId=""/>
-    <OrderItemAssocType description="New Version" hasTable="N" orderItemAssocTypeId="NEW_VERSION" parentTypeId=""/>
-    <OrderItemAssocType description="Exchange Order" hasTable="N" orderItemAssocTypeId="EXCHANGE" parentTypeId=""/>
+    <OrderItemAssocType description="Purchase Order" hasTable="N" orderItemAssocTypeId="PURCHASE_ORDER"/>
+    <OrderItemAssocType description="Drop Shipment" hasTable="N" orderItemAssocTypeId="DROP_SHIPMENT"/>
+    <OrderItemAssocType description="Return Replacement" hasTable="N" orderItemAssocTypeId="REPLACEMENT"/>
+    <OrderItemAssocType description="New Version" hasTable="N" orderItemAssocTypeId="NEW_VERSION"/>
+    <OrderItemAssocType description="Exchange Order" hasTable="N" orderItemAssocTypeId="EXCHANGE"/>
 
-    <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N"/>
     <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Fax Channel" enumCode="FAX_CHANNEL" enumId="FAX_SALES_CHANNEL" sequenceId="03" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Phone Channel" enumCode="PHONE_CHANNEL" enumId="PHONE_SALES_CHANNEL" sequenceId="04" enumTypeId="ORDER_SALES_CHANNEL"/>
@@ -82,23 +82,23 @@ under the License.
     <Enumeration description="Affiliate Channel" enumCode="AFFIL_CHANNEL" enumId="AFFIL_SALES_CHANNEL" sequenceId="07" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="eBay Channel" enumCode="EBAY_CHANNEL" enumId="EBAY_SALES_CHANNEL" sequenceId="08" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Unknown Channel" enumCode="UNKOWN_CHANNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N"/>
     <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <Enumeration description="Order Item Cancel" enumCode="ITM_CANCEL" enumId="ODR_ITM_CANCEL" sequenceId="02" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <Enumeration description="Order Item Append" enumCode="ITM_APPEND" enumId="ODR_ITM_APPEND" sequenceId="03" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
-    <EnumerationType description="Order Item Change Reason" enumTypeId="ODR_ITM_CH_REASON" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Order Item Change Reason" enumTypeId="ODR_ITM_CH_REASON" hasTable="N"/>
     <Enumeration description="Mis-Ordered Item" enumCode="MISORDER" enumId="OICR_MISORDER_ITEM" sequenceId="01" enumTypeId="ODR_ITM_CH_REASON"/>
     <Enumeration description="Changed Mind" enumCode="CHANGE_MIND" enumId="OICR_CHANGE_MIND" sequenceId="02" enumTypeId="ODR_ITM_CH_REASON"/>
 
-    <QuoteType description="Other" hasTable="N" parentTypeId="" quoteTypeId="OTHER_QUOTE"/>
-    <QuoteType description="Product" hasTable="N" parentTypeId="" quoteTypeId="PRODUCT_QUOTE"/>
-    <QuoteType description="Proposal" hasTable="N" parentTypeId="" quoteTypeId="PROPOSAL"/>
-    <QuoteType description="Product Purchase" hasTable="N" parentTypeId="" quoteTypeId="PURCHASE_QUOTE"/>
+    <QuoteType description="Other" hasTable="N" quoteTypeId="OTHER_QUOTE"/>
+    <QuoteType description="Product" hasTable="N" quoteTypeId="PRODUCT_QUOTE"/>
+    <QuoteType description="Proposal" hasTable="N" quoteTypeId="PROPOSAL"/>
+    <QuoteType description="Product Purchase" hasTable="N" quoteTypeId="PURCHASE_QUOTE"/>
 
-    <RequirementType description="Customer Requirement" hasTable="N" parentTypeId="" requirementTypeId="CUSTOMER_REQUIREMENT"/>
-    <RequirementType description="Internal Requirement" hasTable="N" parentTypeId="" requirementTypeId="INTERNAL_REQUIREMENT"/>
-    <RequirementType description="Product Requirement" hasTable="N" parentTypeId="" requirementTypeId="PRODUCT_REQUIREMENT"/>
-    <RequirementType description="Work Requirement" hasTable="N" parentTypeId="" requirementTypeId="WORK_REQUIREMENT"/>
+    <RequirementType description="Customer Requirement" hasTable="N" requirementTypeId="CUSTOMER_REQUIREMENT"/>
+    <RequirementType description="Internal Requirement" hasTable="N" requirementTypeId="INTERNAL_REQUIREMENT"/>
+    <RequirementType description="Product Requirement" hasTable="N" requirementTypeId="PRODUCT_REQUIREMENT"/>
+    <RequirementType description="Work Requirement" hasTable="N" requirementTypeId="WORK_REQUIREMENT"/>
 
     <ShoppingListType description="Wish List" shoppingListTypeId="SLT_WISH_LIST"/>
     <ShoppingListType description="Gift Registry" shoppingListTypeId="SLT_GIFT_REG"/>
@@ -107,7 +107,7 @@ under the License.
     <ShoppingListType description="Special Purpose" shoppingListTypeId="SLT_SPEC_PURP"/>
 
     <!-- order and order item status -->
-    <StatusType description="Order" hasTable="N" parentTypeId="" statusTypeId="ORDER_STATUS"/>
+    <StatusType description="Order" hasTable="N" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ORDER_CREATED" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Processing" sequenceId="04" statusCode="PROCESSING" statusId="ORDER_PROCESSING" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Approved" sequenceId="05" statusCode="APPROVED" statusId="ORDER_APPROVED" statusTypeId="ORDER_STATUS"/>
@@ -152,7 +152,7 @@ under the License.
     <StatusValidChange statusId="ITEM_COMPLETED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
 
     <!-- order payment pref status -->
-    <StatusType description="Payment Preference" hasTable="N" parentTypeId="" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusType description="Payment Preference" hasTable="N" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Not-Received" sequenceId="01" statusCode="NOT_RECEIVED" statusId="PAYMENT_NOT_RECEIVED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Received" sequenceId="02" statusCode="RECEIVED" statusId="PAYMENT_RECEIVED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Not-Authorized" sequenceId="01" statusCode="NOT_AUTHORIZED" statusId="PAYMENT_NOT_AUTH" statusTypeId="PAYMENT_PREF_STATUS"/>
@@ -170,7 +170,7 @@ under the License.
     <StatusValidChange statusId="PAYMENT_SETTLED" statusIdTo="PAYMENT_REFUNDED" transitionName="Payment Refunded"/>
 
     <!-- order delivery schedule status -->
-    <StatusType description="Order Delivery Schedule" hasTable="N" parentTypeId="" statusTypeId="ORDER_DEL_SCH"/>
+    <StatusType description="Order Delivery Schedule" hasTable="N" statusTypeId="ORDER_DEL_SCH"/>
     <StatusItem description="Supplier Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="ODS_SUBMITTED" statusTypeId="ORDER_DEL_SCH"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="ODS_ACCEPTED" statusTypeId="ORDER_DEL_SCH"/>
     <StatusItem description="Schedule Approved" sequenceId="03" statusCode="APPROVED" statusId="ODS_APPROVED" statusTypeId="ORDER_DEL_SCH"/>
@@ -185,7 +185,7 @@ under the License.
     <StatusValidChange statusId="ODS_ARRANGED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
 
     <!-- order return status for returns to customers -->
-    <StatusType description="Order Return Status For Customer Returns" hasTable="N" parentTypeId="" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusType description="Order Return Status For Customer Returns" hasTable="N" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="RETURN_REQUESTED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="RETURN_ACCEPTED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="RETURN_RECEIVED" statusTypeId="ORDER_RETURN_STTS"/>
@@ -200,7 +200,7 @@ under the License.
     <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
     <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
     <!-- order return status for returns to suppliers -->
-    <StatusType description="Order Return Status For Supplier Returns" hasTable="N" parentTypeId="" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusType description="Order Return Status For Supplier Returns" hasTable="N" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="SUP_RETURN_REQUESTED" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="SUP_RETURN_ACCEPTED" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Shipped" sequenceId="03" statusCode="SHIPPED" statusId="SUP_RETURN_SHIPPED" statusTypeId="PORDER_RETURN_STTS"/>
@@ -214,7 +214,7 @@ under the License.
     <StatusValidChange statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Shipped Return Cancelled"/>
 
     <!-- CustRequest statuses -->
-    <StatusType description="Custom Request Status" hasTable="N" parentTypeId="" statusTypeId="CUSTREQ_STTS"/>
+    <StatusType description="Custom Request Status" hasTable="N" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Draft" sequenceId="00" statusCode="DRAFT" statusId="CRQ_DRAFT" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="CRQ_SUBMITTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="CRQ_ACCEPTED" statusTypeId="CUSTREQ_STTS"/>
@@ -245,7 +245,7 @@ under the License.
     <StatusValidChange statusId="CRQ_COMPLETED" statusIdTo="CRQ_REVIEWED" transitionName="Re-open Request"/>
 
     <!-- Requirement statuses -->
-    <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusType description="Requirement Status" hasTable="N" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Proposed" sequenceId="01" statusCode="PROPOSED" statusId="REQ_PROPOSED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="REQ_CREATED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="REQ_APPROVED" statusTypeId="REQUIREMENT_STATUS"/>
@@ -259,7 +259,7 @@ under the License.
     <StatusValidChange statusId="REQ_APPROVED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
 
     <!-- Quote statuses -->
-    <StatusType description="Quote Status" hasTable="N" parentTypeId="" statusTypeId="QUOTE_STATUS"/>
+    <StatusType description="Quote Status" hasTable="N" statusTypeId="QUOTE_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="QUO_CREATED" statusTypeId="QUOTE_STATUS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="QUO_APPROVED" statusTypeId="QUOTE_STATUS"/>
     <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="QUO_ORDERED" statusTypeId="QUOTE_STATUS"/>
@@ -270,28 +270,28 @@ under the License.
     <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
 
     <!-- Return Adjustment Types-->
-    <ReturnAdjustmentType description="Return Promotion" hasTable="N" returnAdjustmentTypeId="RET_PROMOTION_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Replacement" hasTable="N" returnAdjustmentTypeId="RET_REPLACE_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Discount" hasTable="N" returnAdjustmentTypeId="RET_DISCOUNT_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Fee" hasTable="N" returnAdjustmentTypeId="RET_FEE_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Miscellaneous Charges" hasTable="N" returnAdjustmentTypeId="RET_MISC_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Sales Tax" hasTable="N" returnAdjustmentTypeId="RET_SALES_TAX_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return VAT Tax" hasTable="N" returnAdjustmentTypeId="RET_VAT_TAX_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return VAT Price Correction" hasTable="N" returnAdjustmentTypeId="RET_VAT_PC_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Shipping and Handling" hasTable="N" returnAdjustmentTypeId="RET_SHIPPING_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Surcharge" hasTable="N" returnAdjustmentTypeId="RET_SURCHARGE_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Additional Feature" hasTable="N" returnAdjustmentTypeId="RET_ADD_FEATURE_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Warranty" hasTable="N" returnAdjustmentTypeId="RET_WARRANTY_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Marketing Package Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MKTG_PKG_ADJ" parentTypeId=""/>
-    <ReturnAdjustmentType description="Return Manual Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MAN_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return Promotion" hasTable="N" returnAdjustmentTypeId="RET_PROMOTION_ADJ"/>
+    <ReturnAdjustmentType description="Return Replacement" hasTable="N" returnAdjustmentTypeId="RET_REPLACE_ADJ"/>
+    <ReturnAdjustmentType description="Return Discount" hasTable="N" returnAdjustmentTypeId="RET_DISCOUNT_ADJ"/>
+    <ReturnAdjustmentType description="Return Fee" hasTable="N" returnAdjustmentTypeId="RET_FEE_ADJ"/>
+    <ReturnAdjustmentType description="Return Miscellaneous Charges" hasTable="N" returnAdjustmentTypeId="RET_MISC_ADJ"/>
+    <ReturnAdjustmentType description="Return Sales Tax" hasTable="N" returnAdjustmentTypeId="RET_SALES_TAX_ADJ"/>
+    <ReturnAdjustmentType description="Return VAT Tax" hasTable="N" returnAdjustmentTypeId="RET_VAT_TAX_ADJ"/>
+    <ReturnAdjustmentType description="Return VAT Price Correction" hasTable="N" returnAdjustmentTypeId="RET_VAT_PC_ADJ"/>
+    <ReturnAdjustmentType description="Return Shipping and Handling" hasTable="N" returnAdjustmentTypeId="RET_SHIPPING_ADJ"/>
+    <ReturnAdjustmentType description="Return Surcharge" hasTable="N" returnAdjustmentTypeId="RET_SURCHARGE_ADJ"/>
+    <ReturnAdjustmentType description="Return Additional Feature" hasTable="N" returnAdjustmentTypeId="RET_ADD_FEATURE_ADJ"/>
+    <ReturnAdjustmentType description="Return Warranty" hasTable="N" returnAdjustmentTypeId="RET_WARRANTY_ADJ"/>
+    <ReturnAdjustmentType description="Return Marketing Package Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MKTG_PKG_ADJ"/>
+    <ReturnAdjustmentType description="Return Manual Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MAN_ADJ"/>
 
     <!-- Return Header Types -->
     <ReturnHeaderType description="Return from Customer" returnHeaderTypeId="CUSTOMER_RETURN"/>
     <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>
 
     <!-- return item types for returns -->
-    <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
-    <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM" parentTypeId=""/>
+    <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM"/>
+    <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Finished Good Item" returnItemTypeId="RET_FPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Digital Good Item" returnItemTypeId="RET_DPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Finished/Digital Good Item" returnItemTypeId="RET_FDPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
