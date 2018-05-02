@@ -1836,7 +1836,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}" required-field="true">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text></text></field>
         <field name="price" title="Price" ><text></text></field>
