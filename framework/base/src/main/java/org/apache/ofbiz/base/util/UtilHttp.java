@@ -1229,7 +1229,7 @@ public final class UtilHttp {
 
     /**
      * Utility to make a composite parameter from the given prefix and suffix.
-     * The prefix should be a regular paramter name such as meetingDate. The
+     * The prefix should be a regular parameter name such as meetingDate. The
      * suffix is the composite field, such as the hour of the meeting. The
      * result would be meetingDate_${COMPOSITE_DELIMITER}_hour.
      *
