@@ -27,9 +27,9 @@ endif::[]
 
 == Intro
 
-This guideline serves as a general styleguide and collection of examples of how we are documenting the project.
-This intentionally is not a complete user manual but lists the subset of functionality and formatting options we
-want to use.
+These guidelines serve as a general style guide and collection of examples of how we are documenting the project.
+This is intentionally not a complete user manual, but lists the subset of functionality and formatting options we
+would like to use.
 
 For further reference and more examples see
 
@@ -42,7 +42,7 @@ footnote:[https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/]
 * Asciidoc Recommended Practices
 footnote:[https://asciidoctor.org/docs/asciidoc-recommended-practices/]
 
-If you want to help with the documentation of the project, see wiki page
+If you would like to help out with the documentation of the project, please see the following wiki page
 footnote:[https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Documentation+Team] for further information and
 how we are organised.
 
@@ -50,14 +50,14 @@ how we are organised.
 
 === Document configuration
 
-Documents who will be published standalone (e.g. developer manual, user manual) should contain a common configuration
-so that the output ist generated in the same way for all documents.
+Documents that will be published as standalone guides (e.g. developer manual, user manual) should contain common configuration
+so that the output will be generated in exactly the same way for all documents.
 
 [NOTE]
-This is not necessary for documents which will only be included in parent documents. These documents will inherit the
+This is not necessary for documents that will only be included as part of parent documents. In this case the documents will inherit the
 configuration from the parent.
 
-This ist the proposed configuration:
+Please see below for details of the proposed configuration:
 
 ----
 The Apache OFBiz Project // <1>
@@ -69,7 +69,7 @@ ifdef::backend-pdf[] // <4>
 endif::[] // <7>
 ----
 <1> author
-<2> target release, indicates for which release this documentation is valid
+<2> target release, indicates the release for which this documentation is valid
 <3> global definition of the image directory
 <4> begin block of configurations only for pdf rendering
 <5> define the title logo image
@@ -124,8 +124,8 @@ under the License.
 
 === File name conventions
 
-We will be implementing a consistent naming standard for the documentation content files.
-Filenames will be in lower case and extension will be `.adoc`.
+We will be implementing a consistent naming convention for the documentation content files.
+Filenames should be in lower case with the extension `.adoc`.
 
 Each guide will be named after the component / module name (e.g. humanres.adoc, accounting.adoc, manufacturing.adoc,
 party.adoc etc).
@@ -160,7 +160,7 @@ so the naming format will be ([shortname]-intro, [shortname]-glossary, [shortnam
 
 === General formatting
 
-* It is recommended to write one sentence per line and/or manually break the line after approximately 80 to 120 lines.
+* It is recommended to write one sentence per line and/or manually break the line after approximately 80 to 120 characters.
 * Section titles will use asymmetric atx style +
   (e.g. `== This is an example of an Asymmetric Section Title`)
 * When including another file using the `include` directive, please ensure that there is a blank line between each
@@ -497,8 +497,8 @@ Use `:leveloffset: 0` to reset the offset.
 
 === Importing files partially
 
-It is also possible to include files partially.
-For this mark the part of the file to be included with a tag like the following:
+It is also possible to include partial files.
+For this, please mark the part of the file to be included with a tag similar to the following:
 
 .article.adoc
 ----
@@ -535,10 +535,10 @@ Result:
 image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=3.0in, align=left]
 
 Please notice that the images folder is specified in the document header configuration
-and hence not provided here again.
+and is therefore not provided here again.
 
 The import of an image with `image::` will add the image in a new line.
-If you want to add an image inline then use the macro `image:`
+If you want to add an image to be inline then use the macro `image:`
 
   This is just a text image:OFBiz-Logo.svg[Apache OFBiz Logo, width=40%] to show inline images.
 
