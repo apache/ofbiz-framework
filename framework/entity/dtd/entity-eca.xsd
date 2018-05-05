@@ -31,6 +31,7 @@ under the License.
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
                     <xs:element ref="condition"/>
                     <xs:element ref="condition-field"/>
+                    <xs:element ref="condition-service"/>
                 </xs:choice>
                 <xs:choice minOccurs="1" maxOccurs="unbounded">
                     <xs:element ref="set"/>
@@ -195,6 +196,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="condition-service">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-service">
+        <xs:attribute type="xs:string" name="service-name"/>
     </xs:attributeGroup>
     <xs:element name="action">
         <xs:complexType>
