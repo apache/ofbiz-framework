@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= What is Entity Synchronization (EntitySync) and how to use it?
+
+== Introduction to Entity Synchronization
+
+The general idea behind the Entity Sync stuff is to re-create transactions from a central database into one or
+more other databases, each represented by a set of record in the EntitySync and related entities.
+
+Though the Entity Sync mechanism can be used without the now deprecated POS, it was mostly destined to it. 
+It works well on a reliable network (LAN), it's a bit harder on Internet (WAN) but nothing impossible...
+
+The four fields (lastUpdatedStamp, lastUpdatedTxStamp, createdStamp, createdTxStamp) are added to each entity and 
+automatically populated so that queries can be done on each entity to get all records created, updated, 
+or removed in a certain transaction, and so that in time order those transactions can be reproduced remotely 
+to get the data into the remote database in the proper order.
+
+The no-auto-stamp attribute is used to tell the Entity Engine not to automatically add these stamp fields, 
+and not to automatically set the stamps when creating and updating the entities. It's false by default. 
+So by default these values will be automatically set, and when records are removed the primary key will be saved 
+in the EntitySyncRemove entity's table so that the record can be removed in the remote database. 
+
