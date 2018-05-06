@@ -18,11 +18,18 @@ under the License.
 ////
 
 = What is Entity Synchronization (EntitySync) and how to use it?
+The Apache OFBiz Project
+Release 17.12
+:imagesdir: ./images
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+:source-highlighter: rouge
+endif::[]
 
 == Introduction to Entity Synchronization
 
 The general idea behind the Entity Sync stuff is to re-create transactions from a central database into one or
-more other databases, each represented by a set of record in the EntitySync and related entities.
+more other databases, each represented by a set of records in the EntitySync and related entities.
 
 Though the Entity Sync mechanism can be used without the now deprecated POS, it was mostly destined to it. 
 It works well on a reliable network (LAN), it's a bit harder on Internet (WAN) but nothing impossible...
