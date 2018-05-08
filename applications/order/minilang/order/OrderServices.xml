@@ -1015,6 +1015,25 @@ under the License.
                     <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
                         <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                     </call-service>
+                    <set-service-fields service-name="createPartyContactMechPurpose" map="parameters" to-map="serviceContext"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
+                        <field-map field-name="partyId" from-field="billToAddressCtx.partyId"/>
+                        <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                    </entity-and>
+                    <if-not-empty field="pcmpList">
+                        <first-from-list list="pcmpList" entry="pcmp"/>
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                        <clear-field field="serviceInMap"/>
+                    </if-not-empty>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+                    <set field="serviceContext.contactMechId" from-field="parameters.billToContactMechId"/>
+                    <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                    <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
+                    <clear-field field="pcmpList"/>
+                    <clear-field field="serviceContext"/>
                     <log level="info" message="Billing address updated with contactMechId ${parameters.billToContactMechId}"/>
                 <else>
                     <if-compare field="keepAddressBook" operator="equals" value="N">
