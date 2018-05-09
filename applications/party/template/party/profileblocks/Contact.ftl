@@ -93,7 +93,7 @@ under the License.
                       <input name="my" value="My" type="hidden"/>
                       <input name="statusId" value="COM_PENDING" type="hidden"/>
                       <input name="communicationEventTypeId" value="EMAIL_COMMUNICATION" type="hidden"/>
-                    </form><a class="buttontext" href="javascript:document.createEmail${contactMech.infoString?replace("&#64;","")?replace("&#x40;","")?replace(".","")}.submit()">${uiLabelMap.CommonSendEmail}</a>
+                    </form><a class="buttontext" href="javascript:document.createEmail${contactMech.infoString?replace('&#64;','')?replace('&#x40;','')?replace('.','')}.submit()">${uiLabelMap.CommonSendEmail}</a>
                   </div>
                 <#elseif "WEB_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
