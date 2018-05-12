@@ -20,35 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createRequirement" short-description="Create a new requirement">
-        <make-value entity-name="Requirement" value-field="newEntity"/>
-        <sequenced-id sequence-name="Requirement" field="requirementId"/>
-        <set field="newEntity.requirementId" from-field="requirementId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="parameters.statusId">
-            <set value="REQ_CREATED" field="newEntity.statusId"/>
-        </if-empty>
-        <now-timestamp field="nowTimestamp"/>
-        <set field="newEntity.createdDate" from-field="nowTimestamp"/>
-        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
-        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="requirementId" result-name="requirementId"/>
-    </simple-method>
-
-    <simple-method method-name="updateRequirement" short-description="Update a requirement">
-        <make-value entity-name="Requirement" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="Requirement" map="lookupPKMap" value-field="lookedUpValue"/>
-        <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <now-timestamp field="nowTimestamp"/>
-        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
-        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="deleteRequirement" short-description="Delete a requirement">
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
         <check-errors/>
