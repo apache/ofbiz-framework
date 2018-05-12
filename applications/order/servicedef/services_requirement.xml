@@ -26,9 +26,11 @@ under the License.
 
     <service name="createRequirement" default-entity-name="Requirement" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new requirement</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT"/>
+        <auto-attributes include="nonpk" mode="IN"/>
         <override name="statusId" default-value="REQ_CREATED"/>
+        <override name="custRequestId"/>
+        <override name="custRequestItemSeqId"/>
     </service>
     <service name="updateRequirement" default-entity-name="Requirement" engine="entity-auto" invoke="update" auth="true">
         <description>Update an existing requirement</description>
