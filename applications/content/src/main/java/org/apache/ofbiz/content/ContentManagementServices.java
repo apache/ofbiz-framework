@@ -37,7 +37,6 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.content.content.ContentServices;
 import org.apache.ofbiz.content.content.ContentWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -328,7 +327,7 @@ public class ContentManagementServices {
                 map.put("dataResourceId", dataResourceId);
                 map.put("contentId", contentId);
                 if (Debug.infoOn()) Debug.logInfo("in persist... context:" + context, module);
-                Map<String, Object> r = ContentServices.updateContentMethod(dctx, map);
+                Map<String, Object> r = dispatcher.runSync("updateContent", map);
                 boolean isError = ModelService.RESPOND_ERROR.equals(r.get(ModelService.RESPONSE_MESSAGE));
                 if (isError)
                     return ServiceUtil.returnError((String)r.get(ModelService.ERROR_MESSAGE));
