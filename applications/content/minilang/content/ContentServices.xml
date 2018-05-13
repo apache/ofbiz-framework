@@ -22,35 +22,6 @@
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- base content CRUD services -->
-    <simple-method method-name="createContent" short-description="Create a Content Record">
-        <make-value entity-name="Content" value-field="content"/>
-        <set-nonpk-fields map="parameters" value-field="content"/>
-        <set-pk-fields value-field="content" map="parameters"/>
-
-        <if-empty field="parameters.contentId">
-            <sequenced-id sequence-name="Content" field="content.contentId"/>
-        </if-empty>
-
-        <if-empty field="content.statusId">
-            <!-- get the first status item -->
-            <entity-and entity-name="StatusItem" list="contentStatus">
-                <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
-                <order-by field-name="sequenceId"/>
-            </entity-and>
-            <first-from-list list="contentStatus" entry="statusItem"/>
-            <set field="content.statusId" from-field="statusItem.statusId"/>
-        </if-empty>
-
-        <now-timestamp field="nowTimestamp"/>
-        <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
-        <set field="content.createdDate" from-field="nowTimestamp"/>
-
-        <create-value value-field="content"/>
-
-        <field-to-result field="content.contentId" result-name="contentId"/>
-    </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
         <set-nonpk-fields map="parameters" value-field="content"/>
