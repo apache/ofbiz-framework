@@ -1200,7 +1200,7 @@ under the License.
     </request-map>
     <request-map uri="deleteRequirement">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteRequirement"/>
+        <event type="service" invoke="deleteRequirementAndRelated"/>
         <response name="success" type="view" value="FindRequirements"/>
     </request-map>
     <request-map uri="removeRequirementRole">
