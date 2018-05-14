@@ -38,9 +38,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteRequirement" engine="simple"
-            location="component://order/minilang/requirement/RequirementServices.xml" invoke="deleteRequirement">
+    <service name="deleteRequirement" engine="entity-auto" default-entity-name="Requirement" auth="true" invoke="delete">
         <description>Delete a requirement</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="deleteRequirementAndRelated" engine="simple"
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="deleteRequirementAndRelated">
+        <description>Delete a requirement after deleting related entity records.</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
