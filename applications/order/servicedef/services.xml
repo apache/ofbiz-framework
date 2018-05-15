@@ -653,14 +653,14 @@ under the License.
     <service name="createCommunicationEventOrder" default-entity-name="CommunicationEventOrder" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Communication Event Order</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="CREATE"/>
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
         </required-permissions>
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
     <service name="removeCommunicationEventOrder" default-entity-name="CommunicationEventOrder" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Communication Event Order</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="DELETE"/>
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
         </required-permissions>
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
@@ -669,7 +669,7 @@ under the License.
     <service name="createOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a new OrderItemShipGroup.</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="CREATE"/>
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
         </required-permissions>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -688,7 +688,7 @@ under the License.
     <service name="createOrderContactMech" default-entity-name="OrderContactMech" engine="entity-auto" invoke="create" auth="true">
         <description>Create Order Contact Mech</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="CREATE"/>
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -703,7 +703,7 @@ under the License.
     <service name="removeOrderContactMech" default-entity-name="OrderContactMech" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Order Contact Mech</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="DELETE"/>
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -712,7 +712,7 @@ under the License.
     <service name="createOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="create" auth="true">
         <description>Create an Order Term</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="CREATE"/>
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -721,7 +721,7 @@ under the License.
     <service name="updateOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="update" auth="true">
         <description>Update an Order Term</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="UPDATE"/>
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
         </required-permissions>
         <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderTerm" include="nonpk" mode="IN" optional="true"/>
@@ -729,7 +729,7 @@ under the License.
     <service name="removeOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove an Order Term</description>
         <required-permissions join-type="AND">
-            <check-permission permission="ORDERMGR" action="DELETE"/>
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
         </required-permissions>
         <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
     </service>
