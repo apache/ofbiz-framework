@@ -3480,6 +3480,7 @@ under the License.
       <field name="productPromoRuleId" type="id"></field>
       <field name="productPromoActionSeqId" type="id"></field>
       <field name="productPromoActionEnumId" type="id"></field>
+      <field name="customMethodId" type="id"/>
       <field name="orderAdjustmentTypeId" type="id"></field>
       <field name="serviceName" type="long-varchar"></field>
       <field name="quantity" type="fixed-point"></field>
@@ -3492,6 +3493,9 @@ under the License.
       <prim-key field="productPromoActionSeqId"/>
       <relation type="one" fk-name="PROD_PRACT_ENUM" title="Action" rel-entity-name="Enumeration">
         <key-map field-name="productPromoActionEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_PRACT_CMET" rel-entity-name="CustomMethod">
+        <key-map field-name="customMethodId"/>
       </relation>
       <relation type="one" fk-name="PROD_PRACT_PR" rel-entity-name="ProductPromo">
         <key-map field-name="productPromoId"/>
@@ -3616,6 +3620,7 @@ under the License.
       <field name="productPromoId" type="id"></field>
       <field name="productPromoRuleId" type="id"></field>
       <field name="productPromoCondSeqId" type="id"></field>
+      <field name="customMethodId" type="id"/>
       <field name="inputParamEnumId" type="id"></field>
       <field name="operatorEnumId" type="id"></field>
       <field name="condValue" type="long-varchar"></field>
@@ -3629,6 +3634,9 @@ under the License.
       <relation type="one" fk-name="PROD_PRCOND_RULE" rel-entity-name="ProductPromoRule">
         <key-map field-name="productPromoId"/>
         <key-map field-name="productPromoRuleId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_PRCOND_CMETH" rel-entity-name="CustomMethod">
+        <key-map field-name="customMethodId"/>
       </relation>
       <relation type="one" fk-name="PROD_PRCOND_INENUM" title="InputParam" rel-entity-name="Enumeration">
         <key-map field-name="inputParamEnumId" rel-field-name="enumId"/>
