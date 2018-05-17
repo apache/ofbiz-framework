@@ -80,15 +80,15 @@ under the License.
                   <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)!}"/>
                   <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)!}"/>
                   <select name="inputParamEnumId" size="1">
-      <#if (productPromoCond.inputParamEnumId)??>
-        <#assign inputParamEnum = productPromoCond.getRelatedOne("InputParamEnumeration", true)>
-                    <option value="${productPromoCond.inputParamEnumId}"><#if inputParamEnum??>${(inputParamEnum.get("description",locale))!}<#else>[${(productPromoCond.inputParamEnumId)!}]</#if></option>
-                    <option value="${(productPromoCond.inputParamEnumId)!}">&nbsp;</option>
+                  <#if (productPromoCond.customMethodId)??>
+                    <#assign customMethod = productPromoCond.getRelatedOne("CustomMethod", true)>
+                             <option value="${productPromoCond.customMethodId}"><#if customMethod??>${(customMethod.get("description",locale))!}<#else>[${(productPromoCond.customMethodId)!}]</#if></option>
+                             <option value="${(productPromoCond.customMethodId)!}">&nbsp;</option>
       <#else>
                     <option value="">&nbsp;</option>
       </#if>
-      <#list inputParamEnums as inputParamEnum>
-                    <option value="${(inputParamEnum.enumId)!}">${(inputParamEnum.get("description",locale))!}</option>
+      <#list inputParamCustomMethods as inputParamCustomMethod>
+                    <option value="${(inputParamCustomMethod.customMethodId)!}">${(inputParamCustomMethod.get("description",locale))!}</option>
       </#list>
                   </select>
                   <select name="operatorEnumId" size="1">
@@ -240,9 +240,9 @@ under the License.
                   <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)!}" />
                   <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)!}" />
                   <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
-                  <select name="inputParamEnumId" size="1">
-    <#list inputParamEnums as inputParamEnum>
-                    <option value="${(inputParamEnum.enumId)!}">${(inputParamEnum.get("description",locale))!}</option>
+                  <select name="customMethodId" size="1">
+    <#list inputParamCustomMethods as inputParamCustomMethod>
+                    <option value="${(inputParamCustomMethod.customMethodId)!}">${(inputParamCustomMethod.get("description",locale))!}</option>
     </#list>
                   </select>
                   <select name="operatorEnumId" size="1">
@@ -268,7 +268,7 @@ under the License.
           </table>
         </td>
       </tr>
-      <tr><td><hr /></td><td colspan="2"></td></tr>
+      <tr><td><hr/> </td><td colspan="2"></td></tr>
       <tr valign="top" class="row-level-one<#if "1" == ruleClass> alternate-row</#if>">
         <td align="right" class="label">${uiLabelMap.ProductActionForRule} ${(productPromoRule.productPromoRuleId)!} :</td>
         <td colspan="2">
@@ -284,16 +284,16 @@ under the License.
                     <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
-                    <select name="productPromoActionEnumId" size="1">
-      <#if (productPromoAction.productPromoActionEnumId)??>
+                    <select name="customMethodId" size="1">
+      <#if (productPromoAction.customMethodId)??>
         <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
-                      <option value="${(productPromoAction.productPromoActionEnumId)!}"><#if productPromoActionCurEnum??>${(productPromoActionCurEnum.get("description",locale))!}<#else>[${(productPromoAction.productPromoActionEnumId)!}]</#if></option>
-                      <option value="${(productPromoAction.productPromoActionEnumId)!}">&nbsp;</option>
+                      <option value="${(productPromoAction.customMethodId)!}"><#if productPromoActionCurEnum??>${(productPromoActionCurEnum.get("description",locale))!}<#else>[${(productPromoAction.customMethodId)!}]</#if></option>
+                      <option value="${(productPromoAction.customMethodId)!}">&nbsp;</option>
       <#else>
                       <option value="">&nbsp;</option>
       </#if>
-      <#list productPromoActionEnums as productPromoActionEnum>
-                      <option value="${(productPromoActionEnum.enumId)!}">${(productPromoActionEnum.get("description",locale))!}</option>
+      <#list PromoActionCustomMethods as PromoActionCustomMethod>
+                      <option value="${(PromoActionCustomMethod.customMethodId)!}">${(PromoActionCustomMethod.get("description",locale))!}</option>
       </#list>
                     </select>
                     <input type="hidden" name="orderAdjustmentTypeId" value="${(productPromoAction.orderAdjustmentTypeId)!}" />
@@ -400,7 +400,6 @@ under the License.
                   <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>" name="createProductPromoProductActions">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
                     <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}" />
-                    <input type="hidden" name="productPromoActionSeqId" value="${productPromoAction.productPromoActionSeqId}" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
                     <@htmlTemplate.lookupField formName="createProductPromoProductActions" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <select name="productPromoApplEnumId">
@@ -427,10 +426,11 @@ under the License.
                   <form method="post" action="<@ofbizUrl>createProductPromoAction</@ofbizUrl>" name="createProductPromoAction">
                     <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)!}" />
+                    <input type="hidden" name="customMethodId" value="${(productPromoAction.customMethodId)!}" />
                     <span class="label"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
-                    <select name="productPromoActionEnumId" size="1">
-    <#list productPromoActionEnums as productPromoActionEnum>
-                      <option value="${(productPromoActionEnum.enumId)!}">${(productPromoActionEnum.get("description",locale))!}</option>
+                    <select name="customMethodId" size="1">
+    <#list PromoActionCustomMethods as PromoActionCustomMethod>
+                      <option value="${(PromoActionCustomMethod.customMethodId)!}">${(PromoActionCustomMethod.get("description",locale))!}</option>
     </#list>
                     </select>
                     <input type="hidden" name="orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT" />

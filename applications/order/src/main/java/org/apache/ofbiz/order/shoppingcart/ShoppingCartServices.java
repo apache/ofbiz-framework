@@ -562,11 +562,11 @@ public class ShoppingCartServices {
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
-                // get all item adjustments EXCEPT tax adjustments
+                // get all item adjustments EXCEPT tax and promo adjustments that will be recalculate
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for (GenericValue itemAdjustment : itemAdjustments) {
-                        if (!isTaxAdjustment(itemAdjustment)) {
+                        if (!isTaxAdjustment(itemAdjustment) && !isPromoAdjustment(itemAdjustment)) {
                             cartItem.addAdjustment(itemAdjustment);
                         }
                     }
@@ -969,8 +969,11 @@ public class ShoppingCartServices {
 
     private static boolean isTaxAdjustment(GenericValue cartAdj) {
         String adjType = cartAdj.getString("orderAdjustmentTypeId");
-
         return "SALES_TAX".equals(adjType) || "VAT_TAX".equals(adjType) || "VAT_PRICE_CORRECT".equals(adjType);
+    }
+    private static boolean isPromoAdjustment(GenericValue cartAdj) {
+        String adjType = cartAdj.getString("orderAdjustmentTypeId");
+        return "PROMOTION_ADJUSTMENT".equals(adjType);
     }
 
     public static Map<String, Object>loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {

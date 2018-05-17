@@ -160,9 +160,9 @@ under the License.
                 </entity-condition>
 
                 <!-- General Data for Drop-downs, etc -->
-                <entity-condition entity-name="Enumeration" list="inputParamEnums" use-cache="true">
-                    <condition-expr field-name="enumTypeId" value="PROD_PROMO_IN_PARAM"/>
-                    <order-by field-name="sequenceId"/>
+                <entity-condition entity-name="CustomMethod" list="inputParamCustomMethods" use-cache="true">
+                    <condition-expr field-name="customMethodTypeId" value="PRODUCT_PROMO_COND"/>
+                    <order-by field-name="customMethodName"/>
                 </entity-condition>
                 <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods" use-cache="true">
                     <order-by field-name="shipmentMethodTypeId"/>
@@ -171,9 +171,9 @@ under the License.
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_COND"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
-                <entity-condition entity-name="Enumeration" list="productPromoActionEnums" use-cache="true">
-                    <condition-expr field-name="enumTypeId" value="PROD_PROMO_ACTION"/>
-                    <order-by field-name="sequenceId"/>
+                <entity-condition entity-name="CustomMethod" list="PromoActionCustomMethods" use-cache="true">
+                    <condition-expr field-name="customMethodTypeId" value="PRODUCT_PROMO_ACTION"/>
+                    <order-by field-name="customMethodName"/>
                 </entity-condition>
                 <entity-condition entity-name="Enumeration" list="productPromoApplEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_PCAPPL"/>
