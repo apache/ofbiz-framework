@@ -478,6 +478,7 @@ under the License.
             <then>
                 <log level="verbose" message="Permission check failed, user does not have permission"/>
                 <set field="checkActionLabel" value="${groovy: 'ProductCatalog' + checkAction.charAt(0) + checkAction.substring(1).toLowerCase() + 'PermissionError'}"/>
+                <set field="resourceDescription" from-field="callingMethodName"/>
                 <add-error>
                     <fail-property resource="ProductUiLabels" property="${checkActionLabel}"/>
                 </add-error>
