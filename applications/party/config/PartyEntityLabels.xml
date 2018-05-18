@@ -1078,6 +1078,11 @@
         <value xml:lang="zh">电子邮件地址</value>
         <value xml:lang="zh-TW">電子郵件位址</value>
     </property>
+    <property key="ContactMechType.description.FTP_ADDRESS">
+        <value xml:lang="de">Fileserver</value>
+        <value xml:lang="en">File server</value>
+        <value xml:lang="fr">Serveur de fichier</value>
+    </property>
     <property key="ContactMechType.description.INTERNAL_PARTYID">
         <value xml:lang="ar">ملاحظة طرف داخلية</value>
         <value xml:lang="cs">Interní poznámka</value>

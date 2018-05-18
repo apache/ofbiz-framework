@@ -303,6 +303,10 @@
         <value xml:lang="zh">没有上传文件</value>
         <value xml:lang="zh-TW">沒有上傳檔案</value>
     </property>
+    <property key="ftpservices.contact_mech_must_be_ftp">
+        <value xml:lang="en">ERROR: Contact mech must be an ftp server</value>
+        <value xml:lang="fr">ERREUR: La coordonnée destinataire doit être un serveur ftp</value>
+    </property>
     <property key="layoutEvents.content_empty">
         <value xml:lang="da">indhold er tomt</value>
         <value xml:lang="de">Inhalt ist leer</value>

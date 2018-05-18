@@ -131,6 +131,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-api:2.10.0' // the API of log4j 2
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.shiro:shiro-core:1.4.0'
+    compile 'org.apache.sshd:sshd-core:1.7.0'
     compile 'org.apache.tika:tika-core:1.16'
     compile 'org.apache.tika:tika-parsers:1.16'
     compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.7'

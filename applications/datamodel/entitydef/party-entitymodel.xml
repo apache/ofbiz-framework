@@ -1304,6 +1304,24 @@ under the License.
         <index-field name="contactNumber"/>
       </index>
     </entity>
+    <entity entity-name="FtpAddress"
+            package-name="org.ofbiz.party.contact"
+            title="Ftp server Entity">
+      <field name="contactMechId" type="id"/>
+      <field name="hostname" type="long-varchar"/>
+      <field name="port" type="numeric"/>
+      <field name="username" type="long-varchar"/>
+      <field name="password" type="long-varchar" encrypt="true"/>
+      <field name="binaryTransfer" type="indicator"/>
+      <field name="path" type="long-varchar"/>
+      <field name="zipFile" type="indicator"/>
+      <field name="passiveMode" type="indicator"/>
+      <field name="defaultTimeout" type="numeric"/>
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="FTP_SRV_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
     <entity entity-name="ValidContactMechRole"
             package-name="org.apache.ofbiz.party.contact"
             title="Valid Contact Mechanism Role Entity">
