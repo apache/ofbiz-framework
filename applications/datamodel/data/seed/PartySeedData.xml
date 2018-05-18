@@ -63,6 +63,7 @@ under the License.
     <ContactMechType contactMechTypeId="DOMAIN_NAME" description="Internet Domain Name" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
     <ContactMechType contactMechTypeId="WEB_ADDRESS" description="Web URL/Address" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
     <ContactMechType contactMechTypeId="INTERNAL_PARTYID" description="Internal Note via partyId" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
+    <ContactMechType contactMechTypeId="FTP_ADDRESS" description="Ftp server connection" hasTable="Y" parentTypeId="ELECTRONIC_ADDRESS"/>
 
     <ContactMechTypePurpose contactMechPurposeTypeId="BILLING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="MARKETING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
@@ -117,7 +118,8 @@ under the License.
     <CommunicationEventType communicationEventTypeId="WEB_SITE_COMMUNICATI" description="Web Site" hasTable="N" contactMechTypeId="WEB_ADDRESS"/>
     <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" contactMechTypeId="INTERNAL_PARTYID"/>
     <CommunicationEventType communicationEventTypeId="AUTO_EMAIL_COMM" description="Auto Email" hasTable="N" contactMechTypeId="EMAIL_ADDRESS"/>
-    
+    <CommunicationEventType communicationEventTypeId="FILE_TRANSFER_COMM" description="File transfer" hasTable="N" parentTypeId="" contactMechTypeId="FTP_ADDRESS"/>
+
     <!-- party content types -->
     <PartyContentType description="Internal Content" partyContentTypeId="INTERNAL"/>
     <PartyContentType description="User Defined Content"  partyContentTypeId="USERDEF"/>

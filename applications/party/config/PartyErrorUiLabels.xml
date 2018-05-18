@@ -52,6 +52,18 @@
         <value xml:lang="zh">错误：沟通事件不是电子邮件沟通，所以不能发邮件，沟通事件标识 </value>
         <value xml:lang="zh-TW">錯誤:通訊事件不是電子郵件通訊,所以不能發郵件,通訊事件識別 </value>
     </property>
+    <property key="commeventservices.communication_event_from_contact_mech_must_be_ftp">
+        <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein ftp server als Kommunikationereignis ID ist</value>
+        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an ftp server for communication event Id</value>
+        <value xml:lang="es">Error: Los eventos de comunicación deben tener un servidor ftp asociado</value>
+        <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un serveur ftp pour évènement de communication</value>
+    </property>
+    <property key="commeventservices.communication_event_must_be_ftp_for_ftp">
+        <value xml:lang="de">FEHLER: Kommunikationsereignis ist keine Ftp Kommunikation und kann nicht als Ftp versendet werden für Kommunikationsereignis ID</value>
+        <value xml:lang="en">ERROR: Communication event is not an Ftp communication and cannot be transfered for communication event Id </value>
+        <value xml:lang="es">ERROR: La comunicación no es un transferencia ftp y no puede se enviado</value>
+        <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas un transfert ftp et ne peut être envoyé comme réf. d'évènement de communication </value>
+    </property>
     <property key="commeventservices.communication_event_not_found_failure">
         <value xml:lang="de">FEHLER: Kommunikationsereignis nicht gefunden mit der Kommunikationsereignis ID</value>
         <value xml:lang="en">ERROR: Communication Event not found for communication event ID</value>
