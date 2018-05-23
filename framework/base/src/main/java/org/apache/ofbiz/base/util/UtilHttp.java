@@ -977,8 +977,7 @@ public final class UtilHttp {
         long nowMillis = System.currentTimeMillis();
         response.setDateHeader("Expires", nowMillis);
         response.setDateHeader("Last-Modified", nowMillis); // always modified
-        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate"); // HTTP/1.1
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0, false");
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private"); // HTTP/1.1
         response.setHeader("Pragma", "no-cache"); // HTTP/1.0
     }
 
