@@ -47,7 +47,7 @@ under the License.
 
     <entity entity-name="Budget"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Entity">
+            title="Budget">
       <field name="budgetId" type="id"></field>
       <field name="budgetTypeId" type="id"></field>
       <field name="customTimePeriodId" type="id"></field>
@@ -65,7 +65,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetAttribute"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Attribute Entity">
+            title="Budget Attribute">
       <field name="budgetId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -81,7 +81,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetItem"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Item Entity">
+            title="Budget Item">
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="budgetItemTypeId" type="id"></field>
@@ -102,7 +102,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetItemAttribute"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Item Attribute Entity">
+            title="Budget Item Attribute">
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -121,7 +121,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetItemType"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Item Type Entity">
+            title="Budget Item Type">
       <field name="budgetItemTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -133,7 +133,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetItemTypeAttr"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Item Type Attribute Entity">
+            title="Budget Item Type Attribute">
       <field name="budgetItemTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -151,7 +151,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetReview"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Review Entity">
+            title="Budget Review">
       <field name="budgetId" type="id"></field>
       <field name="budgetReviewId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -173,7 +173,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetReviewResultType"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Review Result Type Entity">
+            title="Budget Review Result Type">
       <field name="budgetReviewResultTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="comments" type="comment"></field>
@@ -181,7 +181,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetRevision"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Revision Entity">
+            title="Budget Revision">
       <field name="budgetId" type="id"></field>
       <field name="revisionSeqId" type="id"></field>
       <field name="dateRevised" type="date-time"></field>
@@ -193,7 +193,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetRevisionImpact"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Revision Impact Entity">
+            title="Budget Revision Impact">
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="revisionSeqId" type="id"></field>
@@ -217,7 +217,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetRole"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Role Entity">
+            title="Budget Role">
       <field name="budgetId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -237,14 +237,14 @@ under the License.
     </entity>
     <entity entity-name="BudgetScenario"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Scenario Entity">
+            title="Budget Scenario">
       <field name="budgetScenarioId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="budgetScenarioId"/>
     </entity>
     <entity entity-name="BudgetScenarioApplication"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Scenario Application Entity">
+            title="Budget Scenario Application">
       <field name="budgetScenarioApplicId" type="id"></field>
       <field name="budgetScenarioId" type="id"></field>
       <field name="budgetId" type="id"></field>
@@ -266,7 +266,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetScenarioRule"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Scenario Rule Entity">
+            title="Budget Scenario Rule">
       <field name="budgetScenarioId" type="id"></field>
       <field name="budgetItemTypeId" type="id"></field>
       <field name="amountChange" type="currency-amount"></field>
@@ -282,7 +282,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetStatus"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Status Entity">
+            title="Budget Status">
       <field name="budgetId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="statusDate" type="date-time"></field>
@@ -302,7 +302,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetType"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Type Entity">
+            title="Budget Type">
       <field name="budgetTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -314,7 +314,7 @@ under the License.
     </entity>
     <entity entity-name="BudgetTypeAttr"
             package-name="org.apache.ofbiz.accounting.budget"
-            title="Budget Type Attribute Entity">
+            title="Budget Type Attribute">
       <field name="budgetTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -336,7 +336,7 @@ under the License.
     <!-- financial account entities for gift certificates, calling cards, or customer accounts -->
     <!-- ========================================================= -->
 
-    <entity entity-name="FinAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Entity">
+    <entity entity-name="FinAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account">
         <field name="finAccountId" type="id"></field>
         <field name="finAccountTypeId" type="id"></field>
         <field name="statusId" type="id"></field>
@@ -377,7 +377,7 @@ under the License.
             <key-map field-name="finAccountTypeId"/>
         </relation>
     </entity>
-    <view-entity entity-name="FinAccountAndRole" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account and Role View Entity">
+    <view-entity entity-name="FinAccountAndRole" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account and Role View">
       <member-entity entity-alias="FA" entity-name="FinAccount"/>
       <member-entity entity-alias="FR" entity-name="FinAccountRole"/>
       <alias-all entity-alias="FA"/>
@@ -389,7 +389,7 @@ under the License.
         <key-map field-name="finAccountId"/>
       </view-link>
     </view-entity>
-    <entity entity-name="FinAccountAttribute" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Attribute Entity">
+    <entity entity-name="FinAccountAttribute" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Attribute">
         <field name="finAccountId" type="id"></field>
         <field name="attrName" type="id-long"></field>
         <field name="attrValue" type="value"></field>
@@ -416,7 +416,7 @@ under the License.
             <key-map field-name="finAccountId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountRole" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Role Entity">
+    <entity entity-name="FinAccountRole" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Role">
         <field name="finAccountId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -440,7 +440,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountStatus" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Status Entity">
+    <entity entity-name="FinAccountStatus" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Status">
         <field name="finAccountId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="statusDate" type="date-time"></field>
@@ -459,7 +459,7 @@ under the License.
             <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTrans" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Entity">
+    <entity entity-name="FinAccountTrans" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction">
         <field name="finAccountTransId" type="id"></field>
         <field name="finAccountTransTypeId" type="id"></field>
         <field name="finAccountId" type="id"></field>
@@ -508,7 +508,7 @@ under the License.
             <key-map field-name="glReconciliationId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTransAttribute" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">
+    <entity entity-name="FinAccountTransAttribute" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute">
         <field name="finAccountTransId" type="id"></field>
         <field name="attrName" type="id-long"></field>
         <field name="attrValue" type="value"></field>
@@ -525,7 +525,7 @@ under the License.
     <entity entity-name="FinAccountTransType"
             package-name="org.apache.ofbiz.accounting.finaccount"
             default-resource-name="AccountingEntityLabels"
-            title="Financial Account Transaction Type Entity">
+            title="Financial Account Transaction Type">
         <field name="finAccountTransTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
@@ -535,7 +535,7 @@ under the License.
             <key-map field-name="parentTypeId" rel-field-name="finAccountTransTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTransTypeAttr" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Type Attribute Entity">
+    <entity entity-name="FinAccountTransTypeAttr" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Transaction Type Attribute">
         <field name="finAccountTransTypeId" type="id"></field>
         <field name="attrName" type="id-long"></field>
         <field name="description" type="description"></field>
@@ -554,7 +554,7 @@ under the License.
     <entity entity-name="FinAccountType"
             package-name="org.apache.ofbiz.accounting.finaccount"
             default-resource-name="AccountingEntityLabels"
-            title="Financial Account Type Entity">
+            title="Financial Account Type">
         <field name="finAccountTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="replenishEnumId" type="id"></field>
@@ -569,7 +569,7 @@ under the License.
             <key-map field-name="replenishEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTypeAttr" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Type Attribute Entity">
+    <entity entity-name="FinAccountTypeAttr" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Type Attribute">
         <field name="finAccountTypeId" type="id"></field>
         <field name="attrName" type="id-long"></field>
         <field name="attrValue" type="long-varchar"></field>
@@ -586,7 +586,7 @@ under the License.
             <key-map field-name="finAccountTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTypeGlAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Type GL Account Entity">
+    <entity entity-name="FinAccountTypeGlAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Type GL Account">
         <field name="finAccountTypeId" type="id"></field>
         <field name="organizationPartyId" type="id"></field>
         <field name="glAccountId" type="id"></field>
@@ -627,7 +627,7 @@ under the License.
     <!-- org.apache.ofbiz.accounting.fixedasset -->
     <!-- ========================================================= -->
 
-    <entity entity-name="FixedAsset" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Entity">
+    <entity entity-name="FixedAsset" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset">
         <field name="fixedAssetId" type="id"></field>
         <field name="fixedAssetTypeId" type="id"></field>
         <field name="parentFixedAssetId" type="id"></field>
@@ -702,7 +702,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetAttribute"
             package-name="org.apache.ofbiz.accounting.fixedasset"
-            title="Fixed Asset Attribute Entity">
+            title="Fixed Asset Attribute">
       <field name="fixedAssetId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -718,7 +718,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetDepMethod"
             package-name="org.apache.ofbiz.accounting.fixedasset"
-            title="Fixed Asset Depreciation Method Entity">
+            title="Fixed Asset Depreciation Method">
       <field name="depreciationCustomMethodId" type="id"></field>
       <field name="fixedAssetId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -748,7 +748,7 @@ under the License.
       </relation>
     </entity>
 
-    <view-entity entity-name="FixedAssetAndGeoPoint" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset and Geo Point View Entity">
+    <view-entity entity-name="FixedAssetAndGeoPoint" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset and Geo Point View">
       <member-entity entity-alias="FA" entity-name="FixedAsset"/>
       <member-entity entity-alias="FAGPT" entity-name="FixedAssetGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
@@ -776,7 +776,7 @@ under the License.
 
     <entity entity-name="FixedAssetIdent"
         package-name="org.apache.ofbiz.accounting.fixedasset"
-        title="Fixed Asset Identification Entity">
+        title="Fixed Asset Identification">
         <field name="fixedAssetId" type="id"></field>
         <field name="fixedAssetIdentTypeId" type="id"></field>
         <field name="idValue" type="long-varchar"></field>
@@ -792,14 +792,14 @@ under the License.
     <entity entity-name="FixedAssetIdentType"
         package-name="org.apache.ofbiz.accounting.fixedasset"
         default-resource-name="AccountingEntityLabels"
-        title="Fixed Asset Identification Type Entity">
+        title="Fixed Asset Identification Type">
         <field name="fixedAssetIdentTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="fixedAssetIdentTypeId"/>
     </entity>
     <entity entity-name="FixedAssetMaint"
         package-name="org.apache.ofbiz.accounting.fixedasset"
-        title="Fixed Asset Maintenance Entity">
+        title="Fixed Asset Maintenance">
         <field name="fixedAssetId" type="id"></field>
         <field name="maintHistSeqId" type="id"></field>
         <field name="statusId" type="id"></field>
@@ -837,7 +837,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetMeter"
         package-name="org.apache.ofbiz.accounting.fixedasset"
-        title="Fixed Asset Meter Entity">
+        title="Fixed Asset Meter">
         <field name="fixedAssetId" type="id"></field>
         <field name="productMeterTypeId" type="id"></field>
         <field name="readingDate" type="date-time"></field>
@@ -858,7 +858,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetProduct"
             package-name="org.apache.ofbiz.accounting.fixedasset"
-            title="Fixed Asset Product Representation Entity">
+            title="Fixed Asset Product Representation">
       <field name="fixedAssetId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="fixedAssetProductTypeId" type="id"></field>
@@ -888,7 +888,7 @@ under the License.
     <entity entity-name="FixedAssetProductType"
             package-name="org.apache.ofbiz.accounting.fixedasset"
             default-resource-name="AccountingEntityLabels"
-            title="Fixed Asset Product Type Entity">
+            title="Fixed Asset Product Type">
       <field name="fixedAssetProductTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="fixedAssetProductTypeId"/>
@@ -933,7 +933,7 @@ under the License.
       </relation>
     </entity>
 
-    <entity entity-name="FixedAssetRegistration" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Registration Entity">
+    <entity entity-name="FixedAssetRegistration" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Registration">
         <field name="fixedAssetId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
@@ -950,7 +950,7 @@ under the License.
             <key-map field-name="govAgencyPartyId" rel-field-name="partyId"/>
         </relation>
     </entity>
-    <entity entity-name="FixedAssetStdCost" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Standard Cost Entity">
+    <entity entity-name="FixedAssetStdCost" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Standard Cost">
         <field name="fixedAssetId" type="id"></field>
         <field name="fixedAssetStdCostTypeId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
@@ -973,7 +973,7 @@ under the License.
     <entity entity-name="FixedAssetStdCostType"
         package-name="org.apache.ofbiz.accounting.fixedasset"
         default-resource-name="AccountingEntityLabels"
-        title="Fixed Asset Standard Cost Type Entity">
+        title="Fixed Asset Standard Cost Type">
         <field name="fixedAssetStdCostTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
@@ -986,7 +986,7 @@ under the License.
     <entity entity-name="FixedAssetType"
             package-name="org.apache.ofbiz.accounting.fixedasset"
             default-resource-name="AccountingEntityLabels"
-            title="Fixed Asset Type Entity">
+            title="Fixed Asset Type">
       <field name="fixedAssetTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -998,7 +998,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetTypeAttr"
             package-name="org.apache.ofbiz.accounting.fixedasset"
-            title="Fixed Asset Type Attribute Entity">
+            title="Fixed Asset Type Attribute">
       <field name="fixedAssetTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1016,7 +1016,7 @@ under the License.
     </entity>
     <entity entity-name="PartyFixedAssetAssignment"
             package-name="org.apache.ofbiz.accounting.fixedasset"
-            title="Party Fixed Asset Assignment Entity">
+            title="Party Fixed Asset Assignment">
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
       <field name="fixedAssetId" type="id"></field>
@@ -1048,7 +1048,7 @@ under the License.
     </entity>
 
     <view-entity entity-name="PartyFixedAssetAssignAndRole" package-name="org.apache.ofbiz.accounting.fixedasset"
-        title="PartyFixedAssetAssignment and RoleType View Entity">
+        title="PartyFixedAssetAssignment and RoleType View">
         <member-entity entity-alias="PFA" entity-name="PartyFixedAssetAssignment"/>
         <member-entity entity-alias="RT" entity-name="RoleType"/>
         <alias-all entity-alias="PFA"/>
@@ -1058,7 +1058,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <entity entity-name="FixedAssetMaintOrder" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Maintance And Order Entity">
+    <entity entity-name="FixedAssetMaintOrder" package-name="org.apache.ofbiz.accounting.fixedasset" title="Fixed Asset Maintance And Order">
         <field name="fixedAssetId" type="id"></field>
         <field name="maintHistSeqId" type="id"></field>
         <field name="orderId" type="id"></field>
@@ -1135,7 +1135,7 @@ under the License.
     <prim-key field="accommodationMapTypeId"/>
   </entity>
     <view-entity entity-name="FixedAssetMaintWorkEffort" package-name="org.apache.ofbiz.accounting.fixedasset"
-        title="FixedAssetMaint and WorkEffort View Entity">
+        title="FixedAssetMaint and WorkEffort View">
         <member-entity entity-alias="FA" entity-name="FixedAsset"/>
         <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -1158,7 +1158,7 @@ under the License.
 
     <entity entity-name="Invoice"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Entity">
+            title="Invoice">
       <field name="invoiceId" type="id"></field>
       <field name="invoiceTypeId" type="id"></field>
       <field name="partyIdFrom" type="id"></field>
@@ -1213,7 +1213,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceAttribute"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Attribute Entity">
+            title="Invoice Attribute">
       <field name="invoiceId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1229,7 +1229,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceContent" 
             package-name="org.apache.ofbiz.accounting.invoice" 
-            title="Invoice Content Entity">
+            title="Invoice Content">
         <field name="invoiceId" type="id"></field>
         <field name="invoiceContentTypeId" type="id"></field>
         <field name="contentId" type="id"></field>
@@ -1251,7 +1251,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceContentType" 
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Content Type Entity">
+            title="Invoice Content Type">
         <field name="invoiceContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
@@ -1264,7 +1264,7 @@ under the License.
     <entity entity-name="InvoiceContactMech"
             package-name="org.apache.ofbiz.accounting.invoice"
             never-cache="true"
-            title="Invoice Contact Mechanism Entity">
+            title="Invoice Contact Mechanism">
       <field name="invoiceId" type="id"></field>
       <field name="contactMechPurposeTypeId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -1283,7 +1283,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceItem"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Entity">
+            title="Invoice Item">
       <field name="invoiceId" type="id"></field>
       <field name="invoiceItemSeqId" type="id"></field>
       <field name="invoiceItemTypeId" type="id"></field>
@@ -1356,7 +1356,7 @@ under the License.
     
     <entity entity-name="InvoiceItemAssoc"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Association Entity">
+            title="Invoice Item Association">
       <field name="invoiceIdFrom" type="id"></field>
       <field name="invoiceItemSeqIdFrom" type="id"></field>
       <field name="invoiceIdTo" type="id"></field>
@@ -1395,7 +1395,7 @@ under the License.
     
     <entity entity-name="InvoiceItemAssocType"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Assoc Type Entity">
+            title="Invoice Item Assoc Type">
       <field name="invoiceItemAssocTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1408,7 +1408,7 @@ under the License.
     
     <entity entity-name="InvoiceItemAttribute"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Attribute Entity">
+            title="Invoice Item Attribute">
       <field name="invoiceId" type="id"></field>
       <field name="invoiceItemSeqId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -1427,7 +1427,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceItemType"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Type Entity" default-resource-name="AccountingEntityLabels">
+            title="Invoice Item Type" default-resource-name="AccountingEntityLabels">
       <field name="invoiceItemTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1443,7 +1443,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceItemTypeAttr"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Type Attribute Entity">
+            title="Invoice Item Type Attribute">
       <field name="invoiceItemTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1461,7 +1461,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceItemTypeGlAccount"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Type GL Account Entity">
+            title="Invoice Item Type GL Account">
       <field name="invoiceItemTypeId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="glAccountId" type="id"></field>
@@ -1479,7 +1479,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceItemTypeMap"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Item Type Map Entity">
+            title="Invoice Item Type Map">
       <field name="invoiceItemMapKey" type="id"></field>
       <field name="invoiceTypeId" type="id"></field>
       <field name="invoiceItemTypeId" type="id"></field>
@@ -1497,7 +1497,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceRole"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Role Entity">
+            title="Invoice Role">
       <field name="invoiceId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -1522,7 +1522,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceStatus"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Status Entity">
+            title="Invoice Status">
       <field name="statusId" type="id"></field>
       <field name="invoiceId" type="id"></field>
       <field name="statusDate" type="date-time"></field>
@@ -1542,7 +1542,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceTerm"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Term Entity">
+            title="Invoice Term">
       <field name="invoiceTermId" type="id"></field>
       <field name="termTypeId" type="id"></field>
       <field name="invoiceId" type="id"></field>
@@ -1566,7 +1566,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceTermAttribute"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Term Attribute Entity">
+            title="Invoice Term Attribute">
       <field name="invoiceTermId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1582,7 +1582,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceType"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Type Entity" default-resource-name="AccountingEntityLabels">
+            title="Invoice Type" default-resource-name="AccountingEntityLabels">
       <field name="invoiceTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1594,7 +1594,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceTypeAttr"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Type Attribute Entity">
+            title="Invoice Type Attribute">
       <field name="invoiceTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1612,7 +1612,7 @@ under the License.
     </entity>
     <entity entity-name="InvoiceNote"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="Invoice Note Entity">
+            title="Invoice Note">
       <field name="invoiceId" type="id"></field>
       <field name="noteId" type="id"></field>
       <prim-key field="invoiceId"/>
@@ -1710,7 +1710,7 @@ under the License.
 
     <view-entity entity-name="InvoiceContentAndInfo"
             package-name="org.apache.ofbiz.accounting.invoice"
-            title="InvoiceContent Content and DataResource View Entity">
+            title="InvoiceContent Content and DataResource View">
       <member-entity entity-alias="INVC" entity-name="InvoiceContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -1745,7 +1745,7 @@ under the License.
 
     <entity entity-name="AcctgTrans"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Accounting Transaction Entity">
+            title="Accounting Transaction">
       <field name="acctgTransId" type="id"></field>
       <field name="acctgTransTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -1834,7 +1834,7 @@ under the License.
     </entity>
     <entity entity-name="AcctgTransAttribute"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Accounting Transaction Attribute Entity">
+            title="Accounting Transaction Attribute">
       <field name="acctgTransId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1850,7 +1850,7 @@ under the License.
     </entity>
     <entity entity-name="AcctgTransEntry"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Transaction Entry Entity">
+            title="Transaction Entry">
       <field name="acctgTransId" type="id"></field>
       <field name="acctgTransEntrySeqId" type="id"></field>
       <field name="acctgTransEntryTypeId" type="id"></field>
@@ -2020,7 +2020,7 @@ under the License.
     </view-entity>
     <entity entity-name="AcctgTransEntryType"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Accounting Transaction Entry Type Entity">
+            title="Accounting Transaction Entry Type">
       <field name="acctgTransEntryTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2033,7 +2033,7 @@ under the License.
     <entity entity-name="AcctgTransType"
             package-name="org.apache.ofbiz.accounting.ledger"
             default-resource-name="AccountingEntityLabels"
-            title="Accounting Transaction Type Entity">
+            title="Accounting Transaction Type">
       <field name="acctgTransTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2045,7 +2045,7 @@ under the License.
     </entity>
     <entity entity-name="AcctgTransTypeAttr"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Accounting Transaction Type Attribute Entity">
+            title="Accounting Transaction Type Attribute">
       <field name="acctgTransTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -2063,7 +2063,7 @@ under the License.
     </entity>
     <entity entity-name="GlAccount"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Entity">
+            title="General Ledger Account">
       <!-- default-resource-name="ChartOfAccountsEntityLabels"   <= this does not exist yet and his blocking LookupGlAccount   -->
       <field name="glAccountId" type="id"></field>
       <field name="glAccountTypeId" type="id"></field>
@@ -2099,7 +2099,7 @@ under the License.
     <entity entity-name="GlAccountClass"
             package-name="org.apache.ofbiz.accounting.ledger"
             default-resource-name="AccountingEntityLabels"
-            title="General Ledger Account Class Entity">
+            title="General Ledger Account Class">
       <field name="glAccountClassId" type="id"></field>
       <field name="parentClassId" type="id"></field>
       <field name="description" type="description"></field>
@@ -2112,7 +2112,7 @@ under the License.
     </entity>
     <entity entity-name="GlAccountGroup"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Group Entity">
+            title="General Ledger Account Group">
       <field name="glAccountGroupId" type="id"></field>
       <field name="glAccountGroupTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -2123,7 +2123,7 @@ under the License.
     </entity>
     <entity entity-name="GlAccountGroupMember"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Group Member Entity">
+            title="General Ledger Account Group Member">
       <field name="glAccountId" type="id"></field>
       <field name="glAccountGroupTypeId" type="id"></field>
       <field name="glAccountGroupId" type="id"></field>
@@ -2141,14 +2141,14 @@ under the License.
     </entity>
     <entity entity-name="GlAccountGroupType"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Group Type Entity">
+            title="General Ledger Account Group Type">
       <field name="glAccountGroupTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glAccountGroupTypeId"/>
     </entity>
     <entity entity-name="GlAccountHistory"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="GL Account History Entity">
+            title="GL Account History">
       <field name="glAccountId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="customTimePeriodId" type="id"></field>
@@ -2220,7 +2220,7 @@ under the License.
     </view-entity>
     <entity entity-name="GlAccountOrganization"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="GL Account Organization Entity">
+            title="GL Account Organization">
       <field name="glAccountId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -2262,7 +2262,7 @@ under the License.
     </view-entity>
     <entity entity-name="GlAccountRole"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="GL Account Role Entity">
+            title="GL Account Role">
       <field name="glAccountId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -2289,7 +2289,7 @@ under the License.
     <entity entity-name="GlAccountType"
             package-name="org.apache.ofbiz.accounting.ledger"
             default-resource-name="AccountingEntityLabels"
-            title="General Ledger Account Type Entity">
+            title="General Ledger Account Type">
       <field name="glAccountTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2301,7 +2301,7 @@ under the License.
     </entity>
     <entity entity-name="GlAccountTypeDefault"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="GL Account Organization Entity">
+            title="GL Account Organization">
       <field name="glAccountTypeId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="glAccountId" type="id"></field>
@@ -2319,7 +2319,7 @@ under the License.
     </entity>
     <entity entity-name="GlBudgetXref"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Budget Cross Reference Entity">
+            title="General Ledger Budget Cross Reference">
       <field name="glAccountId" type="id"></field>
       <field name="budgetItemTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -2338,14 +2338,14 @@ under the License.
     <entity entity-name="GlFiscalType"
             package-name="org.apache.ofbiz.accounting.ledger"
             default-resource-name="AccountingEntityLabels"
-            title="General Ledger Fiscal Entity">
+            title="General Ledger Fiscal">
       <field name="glFiscalTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glFiscalTypeId"/>
     </entity>
     <entity entity-name="GlJournal"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Journal Entity">
+            title="General Ledger Journal">
       <field name="glJournalId" type="id"></field>
       <field name="glJournalName" type="name"></field>
       <field name="organizationPartyId" type="id"></field>
@@ -2358,7 +2358,7 @@ under the License.
     </entity>
     <entity entity-name="GlReconciliation"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Reconciliation Entity">
+            title="General Ledger Reconciliation">
       <field name="glReconciliationId" type="id"></field>
       <field name="glReconciliationName" type="name"></field>
       <field name="description" type="description"></field>
@@ -2385,7 +2385,7 @@ under the License.
     </entity>
     <entity entity-name="GlReconciliationEntry"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Reconciliation Entry Entity">
+            title="General Ledger Reconciliation Entry">
       <field name="glReconciliationId" type="id"></field>
       <field name="acctgTransId" type="id"></field>
       <field name="acctgTransEntrySeqId" type="id"></field>
@@ -2407,14 +2407,14 @@ under the License.
     <entity entity-name="GlResourceType"
             package-name="org.apache.ofbiz.accounting.ledger"
             default-resource-name="AccountingEntityLabels"
-            title="General Ledger Resource Entity">
+            title="General Ledger Resource">
       <field name="glResourceTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glResourceTypeId"/>
     </entity>
     <entity entity-name="GlXbrlClass"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger XBRL Class Entity">
+            title="General Ledger XBRL Class">
       <field name="glXbrlClassId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glXbrlClassId"/>
@@ -2571,7 +2571,7 @@ under the License.
     </entity>
     <entity entity-name="SettlementTerm"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="Settlement Term Entity">
+            title="Settlement Term">
       <field name="settlementTermId" type="id"></field>
       <field name="termName" type="name"></field>
       <field name="termValue" type="numeric"></field>
@@ -2603,7 +2603,7 @@ under the License.
 
     <entity entity-name="BillingAccount"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Billing Account Entity">
+            title="Billing Account">
       <description>A BillingAccount Payment Method</description>
       <field name="billingAccountId" type="id"></field>
       <field name="accountLimit" type="currency-amount"></field>
@@ -2626,7 +2626,7 @@ under the License.
     </entity>
     <view-entity entity-name="BillingAccountAndRole"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Billing Account and Role Entity"
+            title="Billing Account and Role"
             never-cache="true">
       <member-entity entity-alias="BA" entity-name="BillingAccount"/>
       <member-entity entity-alias="BR" entity-name="BillingAccountRole"/>
@@ -2672,7 +2672,7 @@ under the License.
     </view-entity>
     <entity entity-name="BillingAccountRole"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Billing Account Role Entity">
+            title="Billing Account Role">
       <field name="billingAccountId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -2698,7 +2698,7 @@ under the License.
     </entity>
     <view-entity entity-name="BillingAccountRoleAndAddress"
         package-name="org.apache.ofbiz.accounting.payment"
-        title="Billing Account Role and Address Entity">
+        title="Billing Account Role and Address">
         <description>Note that the ContactMech is not linked into this view and the PADDR is not optional, this way we naturally only get postal address entries</description>
         <member-entity entity-alias="BAR" entity-name="BillingAccountRole"/>
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
@@ -2716,7 +2716,7 @@ under the License.
     </view-entity>
     <entity entity-name="BillingAccountTerm"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Billing Account Term Entity">
+            title="Billing Account Term">
       <field name="billingAccountTermId" type="id"></field>
       <field name="billingAccountId" type="id"></field>
       <field name="termTypeId" type="id"></field>
@@ -2736,7 +2736,7 @@ under the License.
     </entity>
     <entity entity-name="BillingAccountTermAttr"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Billing Account Term Attribute Entity">
+            title="Billing Account Term Attribute">
       <field name="billingAccountTermId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -2751,7 +2751,7 @@ under the License.
     </entity>
     <entity entity-name="CreditCard"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Credit Card Information Entity">
+            title="Credit Card Information">
       <field name="paymentMethodId" type="id"></field>
       <field name="cardType" type="short-varchar"></field>
       <field name="cardNumber" type="credit-card-number" encrypt="true"></field>
@@ -2782,7 +2782,7 @@ under the License.
     </entity>
     <entity entity-name="CreditCardTypeGlAccount"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Credit Card Type GL Account Entity">
+            title="Credit Card Type GL Account">
       <field name="cardType" type="short-varchar"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="glAccountId" type="id"></field>
@@ -2791,7 +2791,7 @@ under the License.
     </entity>
     <entity entity-name="Deduction"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Deduction Entity">
+            title="Deduction">
       <field name="deductionId" type="id"></field>
       <field name="deductionTypeId" type="id"></field>
       <field name="paymentId" type="id"></field>
@@ -2806,7 +2806,7 @@ under the License.
     </entity>
     <entity entity-name="DeductionType"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Deduction Type Entity">
+            title="Deduction Type">
       <field name="deductionTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2818,7 +2818,7 @@ under the License.
     </entity>
     <entity entity-name="EftAccount"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="EFT Account Information Entity">
+            title="EFT Account Information">
       <field name="paymentMethodId" type="id"></field>
       <field name="bankName" type="name"></field>
       <field name="routingNumber" type="short-varchar"><description>See https://en.wikipedia.org/wiki/Bank_code </description></field>
@@ -2842,7 +2842,7 @@ under the License.
 
     <entity entity-name="CheckAccount"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Check Information Entity">
+            title="Check Information">
       <field name="paymentMethodId" type="id"></field>
       <field name="bankName" type="name"></field>
       <field name="routingNumber" type="short-varchar"><description>See https://en.wikipedia.org/wiki/Bank_code </description></field>
@@ -2866,7 +2866,7 @@ under the License.
 
     <entity entity-name="GiftCard"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Gift Card Information Entity">
+            title="Gift Card Information">
       <field name="paymentMethodId" type="id"></field>
       <field name="cardNumber" type="long-varchar" encrypt="true"></field>
       <field name="pinNumber" type="long-varchar" encrypt="true"></field>
@@ -2921,7 +2921,7 @@ under the License.
 
     <entity entity-name="Payment"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Entity">
+            title="Payment">
       <field name="paymentId" type="id"></field>
       <field name="paymentTypeId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
@@ -3000,7 +3000,7 @@ under the License.
     </entity>
     <view-entity entity-name="PaymentAndTypePartyNameView"
       package-name="org.apache.ofbiz.accounting.payment"
-      title="Payment PaymentType PaymentMethodType StatusItem and Party Name View Entity">
+      title="Payment PaymentType PaymentMethodType StatusItem and Party Name View">
       <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="FPNV" entity-name="PartyNameView"/>
       <member-entity entity-alias="TPNV" entity-name="PartyNameView"/>
@@ -3043,7 +3043,7 @@ under the License.
     <view-entity entity-name="PaymentAndType"
       package-name="org.apache.ofbiz.accounting.payment"
       never-cache="true"
-      title="Payment and Payment type View Entity">
+      title="Payment and Payment type View">
       <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="TY" entity-name="PaymentType"/>
       <alias-all entity-alias="PY"/>
@@ -3063,7 +3063,7 @@ under the License.
     <view-entity entity-name="PaymentAndTypeAndCreditCard"
             package-name="org.apache.ofbiz.accounting.payment"
             never-cache="true"
-            title="Payment, Payment type and CreadiCard View Entity">
+            title="Payment, Payment type and CreadiCard View">
         <member-entity entity-alias="PAT" entity-name="PaymentAndType"/>
         <member-entity entity-alias="CC" entity-name="CreditCard"/>
         <alias-all entity-alias="PAT"/>
@@ -3075,7 +3075,7 @@ under the License.
     <view-entity entity-name="PaymentAndApplication"
             package-name="org.apache.ofbiz.accounting.payment"
             never-cache="true"
-            title="Payment and Application View Entity">
+            title="Payment and Application View">
       <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="PA" entity-name="PaymentApplication"/>
       <alias-all entity-alias="PY">
@@ -3109,7 +3109,7 @@ under the License.
     </view-entity>
     <entity entity-name="PaymentApplication"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Application Entity">
+            title="Payment Application">
       <field name="paymentApplicationId" type="id"></field>
       <field name="paymentId" type="id"></field>
       <field name="invoiceId" type="id"></field>
@@ -3145,7 +3145,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentAttribute"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Attribute Entity">
+            title="Payment Attribute">
       <field name="paymentId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -3161,7 +3161,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentBudgetAllocation"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Budget Allocation Entity">
+            title="Payment Budget Allocation">
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="paymentId" type="id"></field>
@@ -3182,7 +3182,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentContent" 
             package-name="org.apache.ofbiz.accounting.payment" 
-            title="Payment Content Entity">
+            title="Payment Content">
         <field name="paymentId" type="id"></field>
         <field name="paymentContentTypeId" type="id"></field>
         <field name="contentId" type="id"></field>
@@ -3204,7 +3204,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentContentType" 
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Content Type Entity">
+            title="Payment Content Type">
         <field name="paymentContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
@@ -3216,7 +3216,7 @@ under the License.
     </entity>
     <view-entity entity-name="PaymentContentAndInfo"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="PaymentContent Content and DataResource View Entity">
+            title="PaymentContent Content and DataResource View">
       <member-entity entity-alias="PAYC" entity-name="PaymentContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -3248,7 +3248,7 @@ under the License.
 
     <entity entity-name="PaymentMethod"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Method Entity">
+            title="Payment Method">
       <field name="paymentMethodId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -3274,7 +3274,7 @@ under the License.
   <view-entity entity-name="PaymentMethodAndCreditCard"
     package-name="org.apache.ofbiz.accounting.payment"
     never-cache="true"
-    title="PaymentMethod and CreditCard View Entity">
+    title="PaymentMethod and CreditCard View">
     <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
     <member-entity entity-alias="CC" entity-name="CreditCard"/>
     <alias entity-alias="PM" name="paymentMethodId"/>
@@ -3312,7 +3312,7 @@ under the License.
   <view-entity entity-name="PaymentMethodAndEftAccount"
     package-name="org.apache.ofbiz.accounting.payment"
     never-cache="true"
-    title="PaymentMethod and EftAccount View Entity">
+    title="PaymentMethod and EftAccount View">
     <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
     <member-entity entity-alias="EA" entity-name="EftAccount"/>
     <alias entity-alias="PM" name="paymentMethodId"/>
@@ -3349,7 +3349,7 @@ under the License.
   <view-entity entity-name="PaymentMethodAndGiftCard"
             package-name="org.apache.ofbiz.accounting.payment"
             never-cache="true"
-            title="PaymentMethod and GiftCard View Entity">
+            title="PaymentMethod and GiftCard View">
       <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
       <member-entity entity-alias="GC" entity-name="GiftCard"/>
       <alias entity-alias="PM" name="paymentMethodId"/>
@@ -3380,7 +3380,7 @@ under the License.
     </view-entity>
     <entity entity-name="PaymentMethodType"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="PaymentMethodType Entity" default-resource-name="AccountingEntityLabels">
+            title="PaymentMethodType" default-resource-name="AccountingEntityLabels">
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="defaultGlAccountId" type="id"></field>
@@ -3391,7 +3391,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentMethodTypeGlAccount"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Method Type GL Account Entity">
+            title="Payment Method Type GL Account">
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="organizationPartyId" type="id"></field>
       <field name="glAccountId" type="id"></field>
@@ -3409,7 +3409,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentType"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Type Entity" default-resource-name="AccountingEntityLabels">
+            title="Payment Type" default-resource-name="AccountingEntityLabels">
       <field name="paymentTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -3421,7 +3421,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentTypeAttr"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Type Attribute Entity">
+            title="Payment Type Attribute">
       <field name="paymentTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -3780,7 +3780,7 @@ under the License.
 
     <entity entity-name="PaymentGroup"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Group Entity">
+            title="Payment Group">
       <description>Payment Group</description>
       <field name="paymentGroupId" type="id"></field>
       <field name="paymentGroupTypeId" type="id"></field>
@@ -3792,7 +3792,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGroupType"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Group Type Entity">
+            title="Payment Group Type">
       <description>Payment Group Type</description>
       <field name="paymentGroupTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -3805,7 +3805,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGroupMember"
             package-name="org.apache.ofbiz.accounting.payment"
-            title="Payment Group Member Entity">
+            title="Payment Group Member">
       <description>Payment Group Member</description>
       <field name="paymentGroupId" type="id"></field>
       <field name="paymentId" type="id"></field>
@@ -3869,7 +3869,7 @@ under the License.
     <!-- org.apache.ofbiz.accounting.tax -->
     <!-- ========================================================= -->
 
-    <entity entity-name="PartyTaxAuthInfo" package-name="org.apache.ofbiz.accounting.tax" title="Party Tax Information Entity">
+    <entity entity-name="PartyTaxAuthInfo" package-name="org.apache.ofbiz.accounting.tax" title="Party Tax Information">
         <description></description>
         <field name="partyId" type="id"></field>
         <field name="taxAuthGeoId" type="id"></field>
@@ -3905,7 +3905,7 @@ under the License.
             <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="TaxAuthority" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Entity">
+    <entity entity-name="TaxAuthority" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority">
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
         <field name="requireTaxIdForExemption" type="indicator"></field>
@@ -3934,7 +3934,7 @@ under the License.
             <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="TaxAuthorityAssoc" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Association Entity">
+    <entity entity-name="TaxAuthorityAssoc" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Association">
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
         <field name="toTaxAuthGeoId" type="id"></field>
@@ -3962,12 +3962,12 @@ under the License.
     <entity entity-name="TaxAuthorityAssocType"
         package-name="org.apache.ofbiz.accounting.tax"
         default-resource-name="AccountingEntityLabels"
-        title="Tax Authority Assoc Type Entity">
+        title="Tax Authority Assoc Type">
         <field name="taxAuthorityAssocTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="taxAuthorityAssocTypeId"/>
     </entity>
-    <entity entity-name="TaxAuthorityCategory" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Product Category Entity">
+    <entity entity-name="TaxAuthorityCategory" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Product Category">
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
         <field name="productCategoryId" type="id"></field>
@@ -3991,7 +3991,7 @@ under the License.
             <key-map field-name="productCategoryId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="TaxAuthorityGlAccount" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority GL Account Entity">
+    <entity entity-name="TaxAuthorityGlAccount" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority GL Account">
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
         <field name="organizationPartyId" type="id"></field>
@@ -4027,7 +4027,7 @@ under the License.
         <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
       </view-link>
     </view-entity>
-    <entity entity-name="TaxAuthorityRateProduct" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Rate Entity">
+    <entity entity-name="TaxAuthorityRateProduct" package-name="org.apache.ofbiz.accounting.tax" title="Tax Authority Rate">
         <field name="taxAuthorityRateSeqId" type="id"></field>
         <field name="taxAuthGeoId" type="id"></field>
         <field name="taxAuthPartyId" type="id"></field>
@@ -4062,12 +4062,12 @@ under the License.
     <entity entity-name="TaxAuthorityRateType"
         package-name="org.apache.ofbiz.accounting.tax"
         default-resource-name="AccountingEntityLabels"
-        title="Tax Authority Rate Type Entity">
+        title="Tax Authority Rate Type">
         <field name="taxAuthorityRateTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="taxAuthorityRateTypeId"/>
     </entity>
-    <entity entity-name="ZipSalesRuleLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup Entity">
+    <entity entity-name="ZipSalesRuleLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup">
         <field name="stateCode" type="short-varchar"></field>
         <field name="city" type="short-varchar"></field>
         <field name="county" type="short-varchar"></field>
@@ -4080,7 +4080,7 @@ under the License.
         <prim-key field="county"/>
         <prim-key field="fromDate"/>
     </entity>
-    <entity entity-name="ZipSalesTaxLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup Entity">
+    <entity entity-name="ZipSalesTaxLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup">
         <field name="zipCode" type="short-varchar"></field>
         <field name="stateCode" type="short-varchar"></field>
         <field name="city" type="short-varchar"></field>
@@ -4110,7 +4110,7 @@ under the License.
         <prim-key field="fromDate"/>
     </entity>
 
-    <entity entity-name="PartyGlAccount" package-name="org.apache.ofbiz.accounting.ledger" title="Party Gl Account Entity">
+    <entity entity-name="PartyGlAccount" package-name="org.apache.ofbiz.accounting.ledger" title="Party Gl Account">
         <field name="organizationPartyId" type="id"/>
         <field name="partyId" type="id"/>
         <field name="roleTypeId" type="id"/>
@@ -4166,7 +4166,7 @@ under the License.
     </view-entity>
 
   <entity entity-name="RateType" package-name="org.apache.ofbiz.accounting.rate"
-    title="Rate Type Entity" default-resource-name="AccountingEntityLabels">
+    title="Rate Type" default-resource-name="AccountingEntityLabels">
     <field name="rateTypeId" type="id"></field>
     <field name="description" type="description"></field>
     <prim-key field="rateTypeId"/>
@@ -4243,7 +4243,7 @@ under the License.
   </view-entity>
 
   <entity entity-name="PartyRate" package-name="org.apache.ofbiz.accounting.rate"
-    title="Party Rate Entity" table-name="PARTY_RATE_NEW">
+    title="Party Rate" table-name="PARTY_RATE_NEW">
     <field name="partyId" type="id"/>
     <field name="rateTypeId" type="id"/>
     <field name="defaultRate" type="indicator"/>
@@ -4263,7 +4263,7 @@ under the License.
 
   <entity entity-name="GlAccountCategory"
           package-name="org.apache.ofbiz.accounting.ledger"
-          title="General Ledger Account Category Entity">
+          title="General Ledger Account Category">
       <field name="glAccountCategoryId" type="id"></field>
       <field name="glAccountCategoryTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -4275,7 +4275,7 @@ under the License.
 
   <entity entity-name="GlAccountCategoryMember"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Category Member Entity">
+            title="General Ledger Account Category Member">
       <field name="glAccountId" type="id"></field>
       <field name="glAccountCategoryId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -4294,13 +4294,13 @@ under the License.
 
   <entity entity-name="GlAccountCategoryType"
             package-name="org.apache.ofbiz.accounting.ledger"
-            title="General Ledger Account Category Type Entity">
+            title="General Ledger Account Category Type">
       <field name="glAccountCategoryTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="glAccountCategoryTypeId"/>
   </entity>
 
-  <view-entity entity-name="PmtGrpMembrPaymentAndFinAcctTrans" package-name="org.apache.ofbiz.accounting.finaccount" title="Payment Group Member, Payment and FinAccountTrans view entity">
+  <view-entity entity-name="PmtGrpMembrPaymentAndFinAcctTrans" package-name="org.apache.ofbiz.accounting.finaccount" title="Payment Group Member, Payment and FinAccountTrans view">
       <member-entity entity-alias="PGM" entity-name="PaymentGroupMember"/>
       <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
@@ -4318,7 +4318,7 @@ under the License.
         <key-map field-name="finAccountTransId"/>
       </view-link>
     </view-entity>  
-    <view-entity entity-name="PaymentMethodAndFinAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="PaymentMethod and FinAccount view entity">
+    <view-entity entity-name="PaymentMethodAndFinAccount" package-name="org.apache.ofbiz.accounting.finaccount" title="PaymentMethod and FinAccount view">
         <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
         <member-entity entity-alias="FA" entity-name="FinAccount"/>
         <alias-all entity-alias="FA"/>
