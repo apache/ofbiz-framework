@@ -39,7 +39,7 @@ under the License.
   <!-- org.apache.ofbiz.service.schedule -->
   <!-- ========================================================= -->
 
-    <entity entity-name="JobSandbox" package-name="org.apache.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
+    <entity entity-name="JobSandbox" package-name="org.apache.ofbiz.service.schedule" title="Job Scheduler Sandbox"
             sequence-bank-size="100" never-cache="true">
         <field name="jobId" type="id"></field>
         <field name="jobName" type="name"></field>
@@ -90,7 +90,7 @@ under the License.
     </entity>
     <entity entity-name="RecurrenceInfo"
             package-name="org.apache.ofbiz.service.schedule"
-            title="Recurrence Info Entity">
+            title="Recurrence Info">
       <field name="recurrenceInfoId" type="id"></field>
       <field name="startDateTime" type="date-time"></field>
       <field name="exceptionDateTimes" type="very-long"></field>
@@ -108,7 +108,7 @@ under the License.
     </entity>
     <entity entity-name="RecurrenceRule"
             package-name="org.apache.ofbiz.service.schedule"
-            title="Recurrence Rule Entity">
+            title="Recurrence Rule">
       <field name="recurrenceRuleId" type="id"></field>
       <field name="frequency" type="short-varchar"></field>
       <field name="untilDateTime" type="date-time"></field>
@@ -127,7 +127,7 @@ under the License.
       <field name="xName" type="very-long"></field>
       <prim-key field="recurrenceRuleId"/>
     </entity>
-    <entity entity-name="RuntimeData" package-name="org.apache.ofbiz.service.schedule" title="Runtime Data Entity"
+    <entity entity-name="RuntimeData" package-name="org.apache.ofbiz.service.schedule" title="Runtime Data"
             sequence-bank-size="100">
         <field name="runtimeDataId" type="id"></field>
         <field name="runtimeInfo" type="very-long"></field>
@@ -174,7 +174,7 @@ under the License.
 
     <view-entity entity-name="TemporalExpressionChild"
             package-name="org.apache.ofbiz.service.schedule"
-            title="Temporal Expression Children View Entity">
+            title="Temporal Expression Children View">
       <member-entity entity-alias="TEA" entity-name="TemporalExpressionAssoc"/>
       <member-entity entity-alias="TE" entity-name="TemporalExpression"/>
       <alias-all entity-alias="TEA">
@@ -206,7 +206,7 @@ under the License.
   <!-- ========================================================= -->
   <!-- org.apache.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
-    <entity entity-name="ServiceSemaphore" package-name="org.apache.ofbiz.service.semaphore" title="Semaphore Lock Entity"
+    <entity entity-name="ServiceSemaphore" package-name="org.apache.ofbiz.service.semaphore" title="Semaphore Lock"
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
         <field name="lockedByInstanceId" type="id"></field>

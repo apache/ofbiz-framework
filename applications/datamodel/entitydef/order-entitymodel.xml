@@ -48,7 +48,7 @@ under the License.
     <entity entity-name="OrderAdjustment"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Adjustment Entity">
+            title="Order Adjustment">
       <description>Note that both includeInTax and includeInShipping should default to true, except in the case where this adjustment is a tax or shipping adjustment then should be ignored.</description>
       <field name="orderAdjustmentId" type="id"></field>
       <field name="orderAdjustmentTypeId" type="id"></field>
@@ -162,7 +162,7 @@ under the License.
     </entity>
     <entity entity-name="OrderAdjustmentAttribute"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Adjustment Attribute Entity">
+            title="Order Adjustment Attribute">
       <field name="orderAdjustmentId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -179,7 +179,7 @@ under the License.
     <entity entity-name="OrderAdjustmentType"
             package-name="org.apache.ofbiz.order.order"
             default-resource-name="OrderEntityLabels"
-            title="Order Adjustment Type Entity">
+            title="Order Adjustment Type">
       <field name="orderAdjustmentTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -192,7 +192,7 @@ under the License.
     <entity entity-name="OrderAdjustmentBilling"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Adjustment Billing Entity">
+            title="Order Adjustment Billing">
       <field name="orderAdjustmentId" type="id"></field>
       <field name="invoiceId" type="id"></field>
       <field name="invoiceItemSeqId" type="id"></field>
@@ -213,7 +213,7 @@ under the License.
     </entity>
     <entity entity-name="OrderAdjustmentTypeAttr"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Adjustment Type Attribute Entity">
+            title="Order Adjustment Type Attribute">
       <field name="orderAdjustmentTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -231,7 +231,7 @@ under the License.
     </entity>
     <entity entity-name="OrderAttribute"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Attribute Entity">
+            title="Order Attribute">
       <field name="orderId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -247,7 +247,7 @@ under the License.
     </entity>
     <entity entity-name="OrderBlacklist"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Blacklist Entity">
+            title="Order Blacklist">
       <field name="blacklistString" type="long-varchar"></field>
       <field name="orderBlacklistTypeId" type="id"></field>
       <prim-key field="blacklistString"/>
@@ -259,14 +259,14 @@ under the License.
     <entity entity-name="OrderBlacklistType"
             package-name="org.apache.ofbiz.order.order"
             default-resource-name="OrderEntityLabels"
-            title="Order Blacklist Type Entity">
+            title="Order Blacklist Type">
       <field name="orderBlacklistTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="orderBlacklistTypeId"/>
     </entity>
      <entity entity-name="CommunicationEventOrder"
             package-name="org.apache.ofbiz.order.order"
-            title="Communication Event Order Entity">
+            title="Communication Event Order">
       <field name="orderId" type="id"></field>
       <field name="communicationEventId" type="id"></field>
       <prim-key field="orderId"/>
@@ -281,7 +281,7 @@ under the License.
     <entity entity-name="OrderContactMech"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Contact Mechanism Entity">
+            title="Order Contact Mechanism">
       <field name="orderId" type="id"></field>
       <field name="contactMechPurposeTypeId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -298,7 +298,7 @@ under the License.
         <key-map field-name="contactMechPurposeTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="OrderContent" package-name="org.apache.ofbiz.order.order" title="Order Data Object Entity">
+    <entity entity-name="OrderContent" package-name="org.apache.ofbiz.order.order" title="Order Data Object">
         <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"></field>
         <field name="contentId" type="id"></field>
@@ -321,7 +321,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="OrderContentType" package-name="org.apache.ofbiz.order.order" default-resource-name="OrderEntityLabels"
-        title="Order Content Type Entity">
+        title="Order Content Type">
         <field name="orderContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>
@@ -334,7 +334,7 @@ under the License.
     <entity entity-name="OrderDeliverySchedule"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="The Order Delivery Schedule Entity">
+            title="The Order Delivery Schedule">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="estimatedReadyDate" type="date-time"></field>
@@ -368,7 +368,7 @@ under the License.
     <entity entity-name="OrderHeader"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Header Entity">
+            title="Order Header">
       <field name="orderId" type="id"></field>
       <field name="orderTypeId" type="id"></field>
       <field name="orderName" type="name"></field>
@@ -443,7 +443,7 @@ under the License.
     <entity entity-name="OrderHeaderNote"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Header Note Entity">
+            title="Order Header Note">
       <field name="orderId" type="id"></field>
       <field name="noteId" type="id"></field>
       <field name="internalNote" type="indicator"></field>
@@ -458,7 +458,7 @@ under the License.
     </entity>
     <entity entity-name="OrderHeaderWorkEffort"
             package-name="org.apache.ofbiz.order.order"
-            title="OrderHeader WorkEffort Entity">
+            title="OrderHeader WorkEffort">
         <field name="orderId" type="id"></field>
         <field name="workEffortId" type="id"></field>
         <prim-key field="orderId"/>
@@ -473,7 +473,7 @@ under the License.
     <entity entity-name="OrderItem"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Entity">
+            title="Order Item">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="externalId" type="id"></field>
@@ -583,7 +583,7 @@ under the License.
     <entity entity-name="OrderItemAssoc"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Assoc Entity">
+            title="Order Item Assoc">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
@@ -637,7 +637,7 @@ under the License.
     </entity>
     <entity entity-name="OrderItemAssocType"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Item Assoc Type Entity">
+            title="Order Item Assoc Type">
       <field name="orderItemAssocTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -650,7 +650,7 @@ under the License.
 
     <entity entity-name="OrderItemAttribute"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Item Attribute Entity">
+            title="Order Item Attribute">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -670,7 +670,7 @@ under the License.
     <entity entity-name="OrderItemBilling"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Billing Entity">
+            title="Order Item Billing">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="invoiceId" type="id"></field>
@@ -707,7 +707,7 @@ under the License.
     <entity entity-name="OrderItemChange"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Change Entity">
+            title="Order Item Change">
       <field name="orderItemChangeId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -741,7 +741,7 @@ under the License.
     <entity entity-name="OrderItemContactMech"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Contact Mechanism Entity">
+            title="Order Item Contact Mechanism">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="contactMechPurposeTypeId" type="id"></field>
@@ -763,7 +763,7 @@ under the License.
         <key-map field-name="contactMechPurposeTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="OrderItemGroup" package-name="org.apache.ofbiz.order.order" title="Order Item Group Entity">
+    <entity entity-name="OrderItemGroup" package-name="org.apache.ofbiz.order.order" title="Order Item Group">
         <field name="orderId" type="id"></field>
         <field name="orderItemGroupSeqId" type="id"></field>
         <field name="parentGroupSeqId" type="id"></field>
@@ -780,7 +780,7 @@ under the License.
     </entity>
     <entity entity-name="OrderItemGroupOrder"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Item Group Order Entity">
+            title="Order Item Group Order">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="groupOrderId" type="id"></field>
@@ -798,7 +798,7 @@ under the License.
     <entity entity-name="OrderItemPriceInfo"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Price Info Entity">
+            title="Order Item Price Info">
       <field name="orderItemPriceInfoId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -826,7 +826,7 @@ under the License.
     <entity entity-name="OrderItemRole"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Role Entity">
+            title="Order Item Role">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -947,7 +947,7 @@ under the License.
     <entity entity-name="OrderItemShipGrpInvRes"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Inventory Reservation Entity">
+            title="Order Item Inventory Reservation">
       <field name="orderId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -989,7 +989,7 @@ under the License.
     <entity entity-name="OrderItemType"
             package-name="org.apache.ofbiz.order.order"
             default-resource-name="OrderEntityLabels"
-            title="Order Item Type Entity">
+            title="Order Item Type">
       <field name="orderItemTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1001,7 +1001,7 @@ under the License.
     </entity>
     <entity entity-name="OrderItemTypeAttr"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Item Type Attribute Entity">
+            title="Order Item Type Attribute">
       <field name="orderItemTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1020,7 +1020,7 @@ under the License.
     <entity entity-name="OrderNotification"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Notification Entity">
+            title="Order Notification">
       <field name="orderNotificationId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="emailType" type="id"></field>
@@ -1040,7 +1040,7 @@ under the License.
     <entity entity-name="OrderPaymentPreference"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="The Order Payment Preference Entity">
+            title="The Order Payment Preference">
       <field name="orderPaymentPreferenceId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -1120,7 +1120,7 @@ under the License.
         <index-field name="needsNsfRetry"/>
       </index>
     </entity>
-    <entity entity-name="OrderProductPromoCode" package-name="org.apache.ofbiz.order.order" title="Order Product Promo Code Entity">
+    <entity entity-name="OrderProductPromoCode" package-name="org.apache.ofbiz.order.order" title="Order Product Promo Code">
         <field name="orderId" type="id"></field>
         <field name="productPromoCodeId" type="id"></field>
         <prim-key field="orderId"/>
@@ -1135,7 +1135,7 @@ under the License.
     <entity entity-name="OrderRole"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Role Entity">
+            title="Order Role">
       <field name="orderId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -1162,7 +1162,7 @@ under the License.
     <entity entity-name="OrderShipment"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Shipment Entity">
+            title="Order Shipment">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
@@ -1197,7 +1197,7 @@ under the License.
     <entity entity-name="OrderStatus"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
-            title="Order Status Entity">
+            title="Order Status">
       <field name="orderStatusId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="orderId" type="id"></field>
@@ -1226,7 +1226,7 @@ under the License.
     </entity>
     <entity entity-name="OrderSummaryEntry"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Summary Entry Entity">
+            title="Order Summary Entry">
       <field name="entryDate" type="date"></field>
       <field name="productId" type="id"></field>
       <field name="facilityId" type="id"></field>
@@ -1245,7 +1245,7 @@ under the License.
     </entity>
     <entity entity-name="OrderTerm"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Term Entity">
+            title="Order Term">
       <field name="termTypeId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -1273,7 +1273,7 @@ under the License.
     </entity>
     <entity entity-name="OrderTermAttribute"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Term Attribute Entity">
+            title="Order Term Attribute">
       <field name="termTypeId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -1293,7 +1293,7 @@ under the License.
     <entity entity-name="OrderType"
             package-name="org.apache.ofbiz.order.order"
             default-resource-name="OrderEntityLabels"
-            title="Order Type Entity">
+            title="Order Type">
       <field name="orderTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1305,7 +1305,7 @@ under the License.
     </entity>
     <entity entity-name="OrderTypeAttr"
             package-name="org.apache.ofbiz.order.order"
-            title="Order Type Attribute Entity">
+            title="Order Type Attribute">
       <field name="orderTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1323,7 +1323,7 @@ under the License.
     </entity>
     <entity entity-name="ProductOrderItem"
             package-name="org.apache.ofbiz.order.order"
-            title="Product Order Item Entity">
+            title="Product Order Item">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="engagementId" type="id"></field>
@@ -1353,7 +1353,7 @@ under the License.
     </entity>
     <entity entity-name="WorkOrderItemFulfillment"
             package-name="org.apache.ofbiz.order.order"
-            title="Work Order Item Fulfillment Entity">
+            title="Work Order Item Fulfillment">
       <field name="workEffortId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -1384,7 +1384,7 @@ under the License.
 
     <entity entity-name="Quote"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Entity">
+            title="Quote">
       <field name="quoteId" type="id"></field>
       <field name="quoteTypeId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -1425,7 +1425,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteAttribute"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Attribute Entity">
+            title="Quote Attribute">
       <field name="quoteId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1441,7 +1441,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteCoefficient"
         package-name="org.apache.ofbiz.order.quote"
-        title="Quote Coefficient Entity">
+        title="Quote Coefficient">
         <field name="quoteId" type="id"></field>
         <field name="coeffName" type="id-long"></field>
         <field name="coeffValue" type="fixed-point"></field>
@@ -1453,7 +1453,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteItem"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Item Entity">
+            title="Quote Item">
       <field name="quoteId" type="id"></field>
       <field name="quoteItemSeqId" type="id"></field>
       <field name="productId" type="id"></field>
@@ -1509,7 +1509,7 @@ under the License.
     <entity entity-name="QuoteNote"
             package-name="org.apache.ofbiz.order.quote"
             never-cache="true"
-            title="Quote Note Entity">
+            title="Quote Note">
       <field name="quoteId" type="id"></field>
       <field name="noteId" type="id"></field>
       <prim-key field="quoteId"/>
@@ -1523,7 +1523,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteRole"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Role Entity">
+            title="Quote Role">
       <field name="quoteId" type="id"/>
       <field name="partyId" type="id"/>
       <field name="roleTypeId" type="id"/>
@@ -1548,7 +1548,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteTerm"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Term Entity">
+            title="Quote Term">
       <field name="termTypeId" type="id"></field>
       <field name="quoteId" type="id"></field>
       <field name="quoteItemSeqId" type="id"></field>
@@ -1573,7 +1573,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteTermAttribute"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Term Attribute Entity">
+            title="Quote Term Attribute">
       <field name="termTypeId" type="id"></field>
       <field name="quoteId" type="id"></field>
       <field name="quoteItemSeqId" type="id"></field>
@@ -1593,7 +1593,7 @@ under the License.
     <entity entity-name="QuoteType"
             package-name="org.apache.ofbiz.order.quote"
             default-resource-name="OrderEntityLabels"
-            title="Quote Type Entity">
+            title="Quote Type">
       <field name="quoteTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1605,7 +1605,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteTypeAttr"
             package-name="org.apache.ofbiz.order.quote"
-            title="Quote Type Attribute Entity">
+            title="Quote Type Attribute">
       <field name="quoteTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1623,7 +1623,7 @@ under the License.
     </entity>
     <entity entity-name="QuoteWorkEffort"
         package-name="org.apache.ofbiz.order.quote"
-        title="Quote Work Effort Entity">
+        title="Quote Work Effort">
         <field name="quoteId" type="id"></field>
         <field name="workEffortId" type="id"></field>
         <prim-key field="quoteId"/>
@@ -1638,7 +1638,7 @@ under the License.
     <entity entity-name="QuoteAdjustment"
             package-name="org.apache.ofbiz.order.quote"
             never-cache="true"
-            title="Quote Adjustment Entity">
+            title="Quote Adjustment">
       <description>Note that both includeInTax and includeInShipping should default to true, except in the case where this adjustment is a tax or shipping adjustment then should be ignored.</description>
       <field name="quoteAdjustmentId" type="id"></field>
       <field name="quoteAdjustmentTypeId" type="id"></field>
@@ -1714,7 +1714,7 @@ under the License.
 
     <entity entity-name="CustRequest"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Entity">
+            title="Customer Request">
       <field name="custRequestId" type="id"></field>
       <field name="custRequestTypeId" type="id"></field>
       <field name="custRequestCategoryId" type="id"></field>
@@ -1803,7 +1803,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestAttribute"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Attribute Entity">
+            title="Customer Request Attribute">
       <field name="custRequestId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1819,7 +1819,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestCategory"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Category Type Entity">
+            title="Customer Category Type">
       <field name="custRequestCategoryId" type="id"></field>
       <field name="custRequestTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -1830,7 +1830,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestCommEvent"
         package-name="org.apache.ofbiz.order.request"
-        title="Customer Request Communication Event Entity">
+        title="Customer Request Communication Event">
         <field name="custRequestId" type="id"></field>
         <field name="communicationEventId" type="id"></field>
         <prim-key field="custRequestId"/>
@@ -1842,7 +1842,7 @@ under the License.
             <key-map field-name="communicationEventId"/>
         </relation>
     </entity>
-    <entity entity-name="CustRequestContent" package-name="org.apache.ofbiz.order.request" title="Customer Request Content Entity">
+    <entity entity-name="CustRequestContent" package-name="org.apache.ofbiz.order.request" title="Customer Request Content">
       <field name="custRequestId" type="id"></field>
       <field name="contentId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -1859,7 +1859,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestItem"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Item Entity">
+            title="Customer Request Item">
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
       <field name="custRequestResolutionId" type="id"></field>
@@ -1894,7 +1894,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestNote"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Note Entity">
+            title="Customer Request Note">
       <field name="custRequestId" type="id"></field>
       <field name="noteId" type="id"></field>
       <prim-key field="custRequestId"/>
@@ -1908,7 +1908,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestItemNote"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Item Note Entity">
+            title="Customer Request Item Note">
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
       <field name="noteId" type="id"></field>
@@ -1925,7 +1925,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestItemWorkEffort"
             package-name="org.apache.ofbiz.order.request"
-            title="Cust Request Item Work Effort Entity">
+            title="Cust Request Item Work Effort">
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
       <field name="workEffortId" type="id"></field>
@@ -1946,7 +1946,7 @@ under the License.
     <entity entity-name="CustRequestResolution"
             package-name="org.apache.ofbiz.order.request"
             default-resource-name="OrderEntityLabels"
-            title="Customer Request Resolution Entity">
+            title="Customer Request Resolution">
       <field name="custRequestResolutionId" type="id"></field>
       <field name="custRequestTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -1957,7 +1957,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestParty"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Role Entity">
+            title="Customer Request Role">
       <field name="custRequestId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -1983,7 +1983,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestStatus"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Status Entity">
+            title="Customer Request Status">
       <field name="custRequestStatusId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="custRequestId" type="id"></field>
@@ -2008,7 +2008,7 @@ under the License.
     <entity entity-name="CustRequestType"
             package-name="org.apache.ofbiz.order.request"
             default-resource-name="OrderEntityLabels"
-            title="Customer Request Type Entity">
+            title="Customer Request Type">
       <field name="custRequestTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2027,7 +2027,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestTypeAttr"
             package-name="org.apache.ofbiz.order.request"
-            title="Customer Request Type Attribute Entity">
+            title="Customer Request Type Attribute">
       <field name="custRequestTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -2045,7 +2045,7 @@ under the License.
     </entity>
     <entity entity-name="CustRequestWorkEffort"
         package-name="org.apache.ofbiz.order.request"
-        title="Cust Request Work Effort Entity">
+        title="Cust Request Work Effort">
         <field name="custRequestId" type="id"></field>
         <field name="workEffortId" type="id"></field>
         <prim-key field="custRequestId"/>
@@ -2059,7 +2059,7 @@ under the License.
     </entity>
     <entity entity-name="RespondingParty"
             package-name="org.apache.ofbiz.order.request"
-            title="Responding Party Entity">
+            title="Responding Party">
       <field name="respondingPartySeqId" type="id"></field>
       <field name="custRequestId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -2085,7 +2085,7 @@ under the License.
 
     <entity entity-name="DesiredFeature"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Desired Feature Entity">
+            title="Desired Feature">
       <field name="desiredFeatureId" type="id"></field>
       <field name="requirementId" type="id"></field>
       <field name="productFeatureId" type="id"></field>
@@ -2101,7 +2101,7 @@ under the License.
     </entity>
     <entity entity-name="OrderRequirementCommitment"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Order Requirement Commitment Entity">
+            title="Order Requirement Commitment">
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="requirementId" type="id"></field>
@@ -2122,7 +2122,7 @@ under the License.
     </entity>
     <entity entity-name="Requirement"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Entity">
+            title="Requirement">
       <field name="requirementId" type="id"></field>
       <field name="requirementTypeId" type="id"></field>
       <field name="facilityId" type="id"></field>
@@ -2166,7 +2166,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementAttribute"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Attribute Entity">
+            title="Requirement Attribute">
       <field name="requirementId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -2182,7 +2182,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementBudgetAllocation"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Budget Allocation Entity">
+            title="Requirement Budget Allocation">
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="requirementId" type="id"></field>
@@ -2203,7 +2203,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementCustRequest"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Customer Request Entity">
+            title="Requirement Customer Request">
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
       <field name="requirementId" type="id"></field>
@@ -2223,7 +2223,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementRole"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Role Entity">
+            title="Requirement Role">
       <field name="requirementId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -2246,7 +2246,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementStatus"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Status Entity">
+            title="Requirement Status">
       <field name="requirementId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="statusDate" type="date-time"></field>
@@ -2266,7 +2266,7 @@ under the License.
     <entity entity-name="RequirementType"
             package-name="org.apache.ofbiz.order.requirement"
             default-resource-name="OrderEntityLabels"
-            title="Requirement Type Entity">
+            title="Requirement Type">
       <field name="requirementTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2278,7 +2278,7 @@ under the License.
     </entity>
     <entity entity-name="RequirementTypeAttr"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Requirement Type Attribute Entity">
+            title="Requirement Type Attribute">
       <field name="requirementTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -2297,14 +2297,14 @@ under the License.
     <entity entity-name="WorkReqFulfType"
             package-name="org.apache.ofbiz.order.requirement"
             default-resource-name="OrderEntityLabels"
-            title="Work Requirement Fulfillment Type Entity">
+            title="Work Requirement Fulfillment Type">
       <field name="workReqFulfTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="workReqFulfTypeId"/>
     </entity>
     <entity entity-name="WorkRequirementFulfillment"
             package-name="org.apache.ofbiz.order.requirement"
-            title="Work Requirement Fulfillment Entity">
+            title="Work Requirement Fulfillment">
       <field name="requirementId" type="id"></field>
       <field name="workEffortId" type="id"></field>
       <field name="workReqFulfTypeId" type="id"></field>
@@ -2327,7 +2327,7 @@ under the License.
     <entity entity-name="ReturnAdjustment"
             package-name="org.apache.ofbiz.order.return"
             never-cache="true"
-            title="Return Adjustment Entity">
+            title="Return Adjustment">
       <description>Tax, shipping, and promotional adjustments which are carried over from the order to the return.
         Note that both includeInTax and includeInShipping should default to true, except in the case where this adjustment is a tax or shipping adjustment
         then should be ignored.</description>
@@ -2430,7 +2430,7 @@ under the License.
     <entity entity-name="ReturnAdjustmentType"
             package-name="org.apache.ofbiz.order.return"
             default-resource-name="OrderEntityLabels"
-            title="Return Adjustment Type Entity">
+            title="Return Adjustment Type">
       <field name="returnAdjustmentTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2442,7 +2442,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnHeader"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Entity">
+            title="Return">
         <field name="returnId" type="id"></field>
         <field name="returnHeaderTypeId" type="id"></field>
         <field name="statusId" type="id"></field>
@@ -2498,7 +2498,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnHeaderType"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Header Type Entity">
+            title="Return Header Type">
         <field name="returnHeaderTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
@@ -2509,7 +2509,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnItem"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Item Entity">
+            title="Return Item">
         <field name="returnId" type="id"></field>
         <field name="returnItemSeqId" type="id"></field>
         <field name="returnReasonId" type="id" enable-audit-log="true">
@@ -2578,7 +2578,7 @@ under the License.
     <entity entity-name="ReturnItemResponse"
             package-name="org.apache.ofbiz.order.return"
             never-cache="true"
-            title="The Return Item Response Entity">
+            title="The Return Item Response">
         <description>Records what was done with a return: whether a replacement order, a payment, or a billing account credit was issued</description>
         <field name="returnItemResponseId" type="id"></field>
         <field name="orderPaymentPreferenceId" type="id"></field>
@@ -2607,7 +2607,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnItemType"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Item Type Entity">
+            title="Return Item Type">
         <description>ReturnItemType records the type of a ReturnItem</description>
         <field name="returnItemTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
@@ -2619,7 +2619,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnItemTypeMap"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Item Type Map Entity">
+            title="Return Item Type Map">
         <description>Mapping between productTypeId and returnItemTypeId for product order items, orderItemTypeId and returnItemTypeId for other
           order items, or orderAdjustmentTypeId and returnAdjustmentTypeId.  Separate mappings for different types of returns (customer vs. vendor)</description>
       <field name="returnItemMapKey" type="id"></field>
@@ -2640,7 +2640,7 @@ under the License.
     <entity entity-name="ReturnReason"
             package-name="org.apache.ofbiz.order.return"
             default-resource-name="OrderEntityLabels"
-            title="Return Reason Entity">
+            title="Return Reason">
         <field name="returnReasonId" type="id"></field>
         <field name="description" type="description"></field>
         <field name="sequenceId" type="id"></field>
@@ -2648,7 +2648,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnStatus"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Status History Entity">
+            title="Return Status History">
         <field name="returnStatusId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="returnId" type="id"></field>
@@ -2673,7 +2673,7 @@ under the License.
     <entity entity-name="ReturnType"
             package-name="org.apache.ofbiz.order.return"
             default-resource-name="OrderEntityLabels"
-            title="Return Type Entity">
+            title="Return Type">
         <field name="returnTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <field name="sequenceId" type="id"></field>
@@ -2714,7 +2714,7 @@ under the License.
     </entity>
     <entity entity-name="ReturnItemShipment"
             package-name="org.apache.ofbiz.order.return"
-            title="Return Item And Shipment Association Entity">
+            title="Return Item And Shipment Association">
       <field name="returnId" type="id"></field>
       <field name="returnItemSeqId" type="id"></field>
       <field name="shipmentId" type="id"></field>
@@ -2743,7 +2743,7 @@ under the License.
     <entity entity-name="ReturnContactMech"
             package-name="org.apache.ofbiz.order.return"
             never-cache="true"
-            title="Retrun Contact Mechanism Entity">
+            title="Retrun Contact Mechanism">
         <field name="returnId" type="id"></field>
         <field name="contactMechPurposeTypeId" type="id"></field>
         <field name="contactMechId" type="id"></field>
@@ -2763,7 +2763,7 @@ under the License.
     
     <entity entity-name="CommunicationEventReturn"
             package-name="org.apache.ofbiz.order.return"
-            title="Communication Event Return Entity">
+            title="Communication Event Return">
       <field name="returnId" type="id"></field>
       <field name="communicationEventId" type="id"></field>
       <prim-key field="returnId"/>
@@ -2783,7 +2783,7 @@ under the License.
     <entity entity-name="CartAbandonedLine"
             package-name="org.apache.ofbiz.order.shoppingcart"
             never-cache="true"
-            title="Order Abandoned Line Entity">
+            title="Order Abandoned Line">
       <field name="visitId" type="id"></field>
       <field name="cartAbandonedLineSeqId" type="id"></field>
       <field name="productId" type="id"></field>
@@ -2814,7 +2814,7 @@ under the License.
 
     <entity entity-name="ShoppingList"
             package-name="org.apache.ofbiz.order.shoppinglist"
-            title="Shopping List Entity">
+            title="Shopping List">
       <field name="shoppingListId" type="id"></field>
       <field name="shoppingListTypeId" type="id"></field>
       <field name="parentShoppingListId" type="id"></field>
@@ -2880,7 +2880,7 @@ under the License.
     </entity>
     <entity entity-name="ShoppingListItem"
             package-name="org.apache.ofbiz.order.shoppinglist"
-            title="Shopping List Item Entity">
+            title="Shopping List Item">
       <field name="shoppingListId" type="id"></field>
       <field name="shoppingListItemSeqId" type="id"></field>
       <field name="productId" type="id"></field>
@@ -2902,7 +2902,7 @@ under the License.
     </entity>
     <entity entity-name="ShoppingListItemSurvey"
             package-name="org.apache.ofbiz.order.shoppinglist"
-            title="Shopping List Item Entity">
+            title="Shopping List Item">
       <field name="shoppingListId" type="id"></field>
       <field name="shoppingListItemSeqId" type="id"></field>
       <field name="surveyResponseId" type="id"></field>
@@ -2923,14 +2923,14 @@ under the License.
     <entity entity-name="ShoppingListType"
             package-name="org.apache.ofbiz.order.shoppinglist"
             default-resource-name="OrderEntityLabels"
-            title="Shopping List Type Entity">
+            title="Shopping List Type">
       <field name="shoppingListTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="shoppingListTypeId"/>
     </entity>
     <entity entity-name="ShoppingListWorkEffort"
         package-name="org.apache.ofbiz.order.shoppinglist"
-        title="ShoppingList WorkEffort Entity">
+        title="ShoppingList WorkEffort">
         <field name="shoppingListId" type="id"></field>
         <field name="workEffortId" type="id"></field>
         <prim-key field="shoppingListId"/>

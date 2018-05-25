@@ -47,7 +47,7 @@ under the License.
   ========================================================= -->
     <entity entity-name="Testing"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing Entity">
+        title="Testing">
         <field name="testingId" type="id"/>
         <field name="testingTypeId" type="id"/>
         <field name="testingName" type="name" enable-audit-log="true"/>
@@ -74,7 +74,7 @@ under the License.
     Used for testing views with pks.
     This simulates the Party->PartyGroup and Party->Person entity relationships.
   ========================================================= -->
-    <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype Entity">
+    <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype">
         <field name="testingTypeId" type="id" />
         <field name="subtypeDescription" type="description" />
         <prim-key field="testingTypeId" />
@@ -218,7 +218,7 @@ under the License.
     ========================================================= -->
     <entity entity-name="TestingCrypto"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing Crypto Entity">
+        title="Testing Crypto">
         <field name="testingCryptoId" type="id"/>
         <field name="testingCryptoTypeId" type="id"/>
         <field name="unencryptedValue" type="description"/>
@@ -244,7 +244,7 @@ under the License.
     </view-entity>
     <entity entity-name="TestingRemoveAll"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing Entity">
+        title="Testing">
         <field name="testingRemoveAllId" type="id"/>
         <field name="description" type="description"/>
         <prim-key field="testingRemoveAllId"/>
