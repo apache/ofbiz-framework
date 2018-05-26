@@ -105,6 +105,7 @@ function bindObservers(bind_element) {
                     data: params,
                     success: function(data) {
                         dialogContainer.html(data);
+                        bindObservers(dialogContainer);
                     }
                 });
             }
@@ -212,6 +213,15 @@ function bindObservers(bind_element) {
         if (ajaxEnabled && presentation && presentation == "window"){
             ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, defaultDelay);
         }
+    });
+    jQuery(bind_element).find("[data-focus-field]").each(function() {
+        var element = jQuery(this);
+        var focusField = element.data("focus-field");
+        element.find("[name=" + focusField + "]").focus();
+    });
+    jQuery(bind_element).find(".requireValidation").each(function(){
+        var element = jQuery(this);
+        element.validate();
     });
 }
 

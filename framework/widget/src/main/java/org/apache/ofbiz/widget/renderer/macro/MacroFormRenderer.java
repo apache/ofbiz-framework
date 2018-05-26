@@ -1398,6 +1398,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (!modelForm.getClientAutocompleteFields()) {
             autocomplete = "off";
         }
+        String hasRequiredField = "";
+        for (ModelFormField formField : modelForm.getFieldList()) {
+            if (formField.getRequiredField()) {
+                hasRequiredField = "Y";
+                break;
+            }
+        }
+        String focusFieldName = modelForm.getFocusFieldName();
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormOpen ");
         sr.append(" linkUrl=\"");
@@ -1414,6 +1422,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" name=\"");
         sr.append(name);
+        sr.append("\" focusFieldName=\"");
+        sr.append(focusFieldName);
+        sr.append("\" hasRequiredField=\"");
+        sr.append(hasRequiredField);
         sr.append("\" viewIndexField=\"");
         sr.append(viewIndexField);
         sr.append("\" viewSizeField=\"");
@@ -1429,27 +1441,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String focusFieldName = modelForm.getFocusFieldName();
-        String formName = FormRenderer.getCurrentFormName(modelForm, context);
-        String containerId = FormRenderer.getCurrentContainerId(modelForm, context);
-        String hasRequiredField = "";
-        for (ModelFormField formField : modelForm.getFieldList()) {
-            if (formField.getRequiredField()) {
-                hasRequiredField = "Y";
-                break;
-            }
-        }
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormClose ");
-        sr.append(" focusFieldName=\"");
-        sr.append(focusFieldName);
-        sr.append("\" formName=\"");
-        sr.append(formName);
-        sr.append("\" containerId=\"");
-        sr.append(containerId);
-        sr.append("\" hasRequiredField=\"");
-        sr.append(hasRequiredField);
-        sr.append("\" />");
+        sr.append("<@renderFormClose />");
         executeMacro(writer, sr.toString());
         if (modelForm instanceof ModelSingleForm) {
             renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);

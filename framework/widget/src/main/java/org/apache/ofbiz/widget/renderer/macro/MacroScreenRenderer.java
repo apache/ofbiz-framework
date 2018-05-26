@@ -302,10 +302,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(style);
         sr.append("\" name=\"");
         sr.append(name);
-        sr.append("\" width=\"");
-        sr.append(width);
-        sr.append("\" height=\"");
-        sr.append(height);
+        if (UtilValidate.isNotEmpty(width)) {
+            sr.append("\" width=\"");
+            sr.append(width);
+        }
+        if (UtilValidate.isNotEmpty(height)) {
+            sr.append("\" height=\"");
+            sr.append(height);
+        }
         sr.append("\" linkUrl=\"");
         sr.append(linkUrl);
         sr.append("\" text=\"");
