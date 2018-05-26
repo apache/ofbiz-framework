@@ -90,7 +90,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderLink parameterList target uniqueItemName linkType actionUrl height width linkUrl targetWindow="" id="" style="" name="" text="" imgStr="">
+<#macro renderLink parameterList target uniqueItemName linkType actionUrl linkUrl targetWindow="" id="" style="" name="" text="" imgStr="" height="600" width="800">
     <#if "layered-modal" != linkType>
         <#if "hidden-form" == linkType>
             <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
@@ -108,41 +108,21 @@ under the License.
             <#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if>
         </a>
     <#else>
-        <div id="${uniqueItemName}"></div>
-        <a href="javascript:void(0);" id="${uniqueItemName}_link" 
-        <#if style?has_content>class="${style}"</#if>>
-        <#if text?has_content>${text}</#if></a>
-        <script type="text/javascript">
-            function ${uniqueItemName}_data() {
-                var data =  {
-                    <#list parameterList as parameter>
-                        "${parameter.name}": "${parameter.value}",
-                    </#list>
-                    "presentation": "layer"
-                };
-        
-                return data;
-            }
-            jQuery("#${uniqueItemName}_link").click( function () {
-                jQuery("#${uniqueItemName}").dialog("open");
-            });
-            jQuery("#${uniqueItemName}").dialog({
-                 autoOpen: false,
-                 <#if text?has_content>title: "${text}",</#if>
-                 height: ${height},
-                 width: ${width},
-                 modal: true,
-                 closeOnEscape: true,
-                 open: function() {
-                         jQuery.ajax({
-                             url: "${target}",
-                             type: "POST",
-                             data: ${uniqueItemName}_data(),
-                             success: function(data) {jQuery("#${uniqueItemName}").html(data);}
-                         });
-                 }
-            });
-        </script>
+        <#local params = "{ 'presentation': 'layer'">
+        <#if parameterList?has_content>
+          <#list parameterList as parameter>
+            <#local params += ",'${parameter.name}': '${parameter.value}'">
+          </#list>
+        </#if>
+        <#local params += " }">
+        <a href="javascript:void(0);" id="${uniqueItemName}_link"
+           data-dialog-params="${params}"
+           data-dialog-width="${width}"
+           data-dialog-height="${height}"
+           data-dialog-url="${target}"
+           <#if text?has_content>data-dialog-title="${text}"</#if>
+           <#if style?has_content>class="${style}"</#if>>
+           <#if text?has_content>${text}</#if></a>
     </#if>
 </#macro>
 
