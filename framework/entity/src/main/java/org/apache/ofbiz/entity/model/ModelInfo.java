@@ -45,7 +45,7 @@ public final class ModelInfo {
     public static ModelInfo createFromAttributes(ModelInfo defaultInfo, Element element) {
         String title = element.getAttribute("title").intern();
         if (title.isEmpty()) {
-            title = defaultInfo.getTitle();
+            title = element.getAttribute("entity-name").intern();
         }
         String description = StringUtil.internString(UtilXml.childElementValue(element, "description"));
         if (description == null || description.isEmpty()) {
