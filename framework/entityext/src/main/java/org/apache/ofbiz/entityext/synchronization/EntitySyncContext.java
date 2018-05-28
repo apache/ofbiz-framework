@@ -653,19 +653,7 @@ public class EntitySyncContext {
                 GenericEntity pkToRemove = null;
                 try {
                     pkToRemove = (GenericEntity) XmlSerializer.deserialize(primaryKeyRemoved, delegator);
-                } catch (IOException e) {
-                    String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
-                    Debug.logError(e, errorMsg, module);
-                    throw new SyncDataErrorException(errorMsg, e);
-                } catch (SAXException e) {
-                    String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
-                    Debug.logError(e, errorMsg, module);
-                    throw new SyncDataErrorException(errorMsg, e);
-                } catch (ParserConfigurationException e) {
-                    String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
-                    Debug.logError(e, errorMsg, module);
-                    throw new SyncDataErrorException(errorMsg, e);
-                } catch (SerializeException e) {
+                } catch (IOException | SAXException | ParserConfigurationException | SerializeException e) {
                     String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
                     Debug.logError(e, errorMsg, module);
                     throw new SyncDataErrorException(errorMsg, e);
@@ -865,7 +853,7 @@ public class EntitySyncContext {
             }
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Finished saveFinalSyncResults [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, module);
+        if (Debug.infoOn()) Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, module);
     }
 
     public Set<String> makeEntityNameToUseSet() {
