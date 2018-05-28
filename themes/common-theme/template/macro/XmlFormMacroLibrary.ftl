@@ -61,8 +61,8 @@ under the License.
 <#macro renderFieldTitle style title id fieldHelpText="" for=""></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>
+<#macro renderFormClose></#macro>
 <#macro renderMultiFormClose></#macro>
 
 <#macro renderFormatHeaderOpen></#macro>
