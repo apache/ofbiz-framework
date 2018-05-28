@@ -79,8 +79,8 @@ under the License.
 <#macro renderFieldTitle style title id fieldHelpText="" for=""><fo:block <@getFoStyle style/>>${title?default("")?replace("&nbsp;", " ")}</fo:block></#macro>
 <#macro renderSingleFormFieldTitle><!--title form--></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>
+<#macro renderFormClose></#macro>
 <#macro renderMultiFormClose></#macro>
 
 <#macro renderFormatListWrapperOpen formName style columnStyles><fo:table table-layout="fixed" border="solid black" <@getFoStyle style/>><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
