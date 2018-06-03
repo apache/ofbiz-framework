@@ -327,13 +327,11 @@ public class LoginWorker {
      *         JSP should generate its own content. This allows an event to override the default content.
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();  
         
         // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
         if (!session.isNew()) {  // Only do when really signing in. 
-            session.invalidate(); // If the client has disabled the use of cookies, then a session will be new on each request, not a good choice on client side!
-            session = request.getSession(true);
-            UtilHttp.setInitialRequestInfo(request); // We need to put that in place again 
+            request.changeSessionId();
         }
         
         Delegator delegator = (Delegator) request.getAttribute("delegator");
