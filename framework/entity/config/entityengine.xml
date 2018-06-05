@@ -114,7 +114,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     For DAO/JDBC Helper: Tries:
       1. JNDI Datasource IF jdbc.jndi.name, context.provider, etc are specified
       2. Embedded (JOTM) if available (uses jdbc.driver, jdbc.uri, jdbc.username, jdbc.password, isolation.level)
-      3. Direct to manually laoded JDBC driver (uses jdbc.driver, jdbc.uri, jdbc.username, jdbc.password)
+      3. Direct to manually loaded JDBC driver (uses jdbc.driver, jdbc.uri, jdbc.username, jdbc.password)
 
     Transaction Isolation Levels - (<helperName>.isolation.level) can be as follows:
      * None
