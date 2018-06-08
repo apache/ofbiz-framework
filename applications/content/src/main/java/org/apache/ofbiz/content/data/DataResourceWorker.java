@@ -1132,7 +1132,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
     public static ByteBuffer getContentAsByteBuffer(Delegator delegator, String dataResourceId, String https, String webSiteId, Locale locale, String rootDir) throws IOException, GeneralException {
         GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, rootDir, false);
-        ByteArrayInputStream stream = (ByteArrayInputStream) resourceData.get("stream");
+        InputStream stream = (InputStream) resourceData.get("stream");
         ByteBuffer byteBuffer = ByteBuffer.wrap(IOUtils.toByteArray(stream));
         return byteBuffer;
     }
