@@ -23,7 +23,8 @@ under the License.
   <ul>
     <li>
       ${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" target="_blank">www.apache.org</a><br/>
-      ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> 
+      ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a>  ${uiLabelMap.CommonRelease}
+       <#include "ofbizhome://VERSION" ignore_missing=true/>
        <#include "ofbizhome://runtime/SvnInfo.ftl" ignore_missing=true/>
        <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
     </li>
