@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.order;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -80,7 +80,7 @@ public class OrderEvents {
             OutputStream os = response.getOutputStream();
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
-            os.write(IOUtils.toByteArray((ByteArrayInputStream) resourceData.get("stream")));
+            os.write(IOUtils.toByteArray((InputStream) resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
@@ -106,9 +106,9 @@ public class OrderEvents {
 
         if (selectedItems != null) {
             for (String selectedItem : selectedItems) {
-            	String [] orderItemSeqIdAndOrderItemShipGrpId = selectedItem.split(":");
-            	String orderItemSeqId = orderItemSeqIdAndOrderItemShipGrpId[0];
-            	String shipGroupSeqId = orderItemSeqIdAndOrderItemShipGrpId[1];
+                String [] orderItemSeqIdAndOrderItemShipGrpId = selectedItem.split(":");
+                String orderItemSeqId = orderItemSeqIdAndOrderItemShipGrpId[0];
+                String shipGroupSeqId = orderItemSeqIdAndOrderItemShipGrpId[1];
                         BigDecimal cancelQuantity = new BigDecimal(request.getParameter("iqm_"+orderItemSeqId+":"+shipGroupSeqId));
                         Map<String, Object> contextMap = new HashMap<>();
                         contextMap.put("orderId", orderId);
