@@ -102,34 +102,32 @@ public class OrderEvents {
         String  orderId = request.getParameter("orderId");
         String[] selectedItems = request.getParameterValues("selectedItem");
 
-
-
         if (selectedItems != null) {
             for (String selectedItem : selectedItems) {
                 String [] orderItemSeqIdAndOrderItemShipGrpId = selectedItem.split(":");
                 String orderItemSeqId = orderItemSeqIdAndOrderItemShipGrpId[0];
                 String shipGroupSeqId = orderItemSeqIdAndOrderItemShipGrpId[1];
-                        BigDecimal cancelQuantity = new BigDecimal(request.getParameter("iqm_"+orderItemSeqId+":"+shipGroupSeqId));
-                        Map<String, Object> contextMap = new HashMap<>();
-                        contextMap.put("orderId", orderId);
-                        contextMap.put("orderItemSeqId", orderItemSeqId);
-                        contextMap.put("shipGroupSeqId", shipGroupSeqId);
-                        contextMap.put("cancelQuantity", cancelQuantity);
-                        contextMap.put("userLogin", userLogin);
-                        contextMap.put("locale", locale);
-                        try {
-                            resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
-                            if (ServiceUtil.isError(resultMap)) {
-                                String errorMessage = ServiceUtil.getErrorMessage(resultMap);
-                                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                                Debug.logError(errorMessage, module);
-                                return "error";
-                            }
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
-                            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                            return "error";
-                        }
+                BigDecimal cancelQuantity = new BigDecimal(request.getParameter("iqm_"+orderItemSeqId+":"+shipGroupSeqId));
+                Map<String, Object> contextMap = new HashMap<>();
+                contextMap.put("orderId", orderId);
+                contextMap.put("orderItemSeqId", orderItemSeqId);
+                contextMap.put("shipGroupSeqId", shipGroupSeqId);
+                contextMap.put("cancelQuantity", cancelQuantity);
+                contextMap.put("userLogin", userLogin);
+                contextMap.put("locale", locale);
+                try {
+                    resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
+                    if (ServiceUtil.isError(resultMap)) {
+                        String errorMessage = ServiceUtil.getErrorMessage(resultMap);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                        Debug.logError(errorMessage, module);
+                        return "error";
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                    return "error";
+                }
             }
             return "success";
         }
