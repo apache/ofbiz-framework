@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.data;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -287,7 +286,7 @@ public class DataEvents {
             }
             OutputStream os = response.getOutputStream();
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
-            os.write(IOUtils.toByteArray((ByteArrayInputStream)resourceData.get("stream")));
+            os.write(IOUtils.toByteArray((InputStream)resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
