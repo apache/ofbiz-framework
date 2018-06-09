@@ -1019,6 +1019,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
         Boolean allChecked = checkField.isAllChecked(context);
+        boolean disabled = checkField.getDisabled();
         String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
@@ -1073,7 +1074,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }

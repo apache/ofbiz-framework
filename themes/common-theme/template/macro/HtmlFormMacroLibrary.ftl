@@ -252,13 +252,14 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="">
+<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="" disabled="">
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+        <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
           <#elseif currentValue?has_content && currentValue==item.value> checked="checked"</#if> 
           name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>

@@ -42,7 +42,7 @@ under the License.
 
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex><@renderItemField explicitDescription "txf" className/></#macro>
 
-<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex><@renderItemField currentValue "txf" className/></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled><@renderItemField currentValue "txf" className/></#macro>
 
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex><@renderItemField currentValue "txf" className/></#macro>
 
