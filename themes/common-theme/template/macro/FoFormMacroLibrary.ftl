@@ -67,7 +67,7 @@ under the License.
 </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex><@makeBlock "" "" /></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled><@makeBlock "" "" /></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex><@makeBlock "" "" /></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex><@makeBlock "" "" /></#macro>
