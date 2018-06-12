@@ -42,7 +42,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
     }
 
     /*
-     * Prepare the http client to call the demo layou screen
+     * Prepare the http client to call the demo layout screen
      */
     public HttpClient initHttpClient() throws HttpClientException {
         HttpClient http = new HttpClient();
