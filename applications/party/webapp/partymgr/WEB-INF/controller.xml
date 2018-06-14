@@ -633,12 +633,6 @@ under the License.
     <request-map uri="visitdetail"><security https="true" auth="true"/><response name="success" type="view" value="visitdetail"/></request-map>
     <request-map uri="listLoggedInUsers"><security https="true" auth="true"/><response name="success" type="view" value="listLoggedInUsers"/></request-map>
     
-    <request-map uri="pushPage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setFollowerPage"/>
-        <response name="success" type="view" value="visitdetail"/>
-    </request-map>
-
     <!-- communication event requests -->
     <request-map uri="setCommunicationEventRoleStatus">
         <security https="true" auth="true"/>
