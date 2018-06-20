@@ -21,8 +21,13 @@ apply from: 'common.gradle'
 rootProject.name = 'ofbiz'
 
 def fileSep = System.getProperty("file.separator")
+def isWindows = System.getProperty('os.name').toLowerCase().contains("windows")
 
 iterateOverActiveComponents { File component ->
     def subProject = (component.toString() - rootDir)
-    include subProject.replaceAll(fileSep, ':')
+    if (isWindows) 
+        include subProject.replaceAll('\\' + fileSep, ':') 
+    else 
+        include subProject.replaceAll(fileSep, ':')
+    
 }
