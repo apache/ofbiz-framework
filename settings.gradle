@@ -20,9 +20,9 @@
 apply from: 'common.gradle'
 rootProject.name = 'ofbiz'
 
+def fileSep = System.getProperty("file.separator")
+
 iterateOverActiveComponents { File component ->
-    def osName = System.getProperty('os.name').toLowerCase()
-    def osDirSeparator = osName.contains('windows') ? "\\\\" : "/"
     def subProject = (component.toString() - rootDir)
-    include subProject.replaceAll(osDirSeparator, ':')
+    include subProject.replaceAll(fileSep, ':')
 }
