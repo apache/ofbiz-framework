@@ -907,7 +907,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
  * declaration is important because it means that it will automatically
  * run whenever the task cleanAll executes (dependency matched by regex)
  */
-def cleanTasks = getTasksMatchingRegex(/^clean.+/)
+def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
 }
@@ -1004,16 +1004,6 @@ def deleteAllInDirWithExclusions(dirName, exclusions) {
     }
 }
 
-def getTasksMatchingRegex(theRegex) {
-    def filteredTasks = []
-    tasks.each { task ->
-        if (task.name ==~ theRegex) {
-            filteredTasks.add(task)
-        }
-    }
-    return filteredTasks
-}
-
 def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterTokens, newFileName) {
     copy {
         from (templateFileInFullPath) {
@@ -1037,27 +1027,17 @@ def getJarManifestClasspathForCurrentOs() {
 }
 
 def subprojectExists(fullyQualifiedProject) {
-    def projectFound = false
-    subprojects.each { subproject ->
-        if (subproject.getPath().equals(fullyQualifiedProject.toString())) {
-            projectFound = true
-        }
-    }
-    return projectFound
+    subprojects.stream()
+        .filter { it.path == fullyQualifiedProject.toString() }
+        .findAny()
+        .isPresent()
 }
 
 def taskExistsInproject(fullyQualifiedProject, taskName) {
-    def taskExists = false
-    subprojects.each { subProject ->
-        if (subProject.getPath().equals(fullyQualifiedProject.toString())) {
-            subProject.tasks.each { projTask ->
-                if (taskName.equals(projTask.name)) {
-                    taskExists = true
-                }
-            }
-        }
-    }
-    return taskExists
+    subprojects.stream()
+        .filter { it.path == fullyQualifiedProject.toString() }
+        .flatMap { it.tasks.stream() }
+        .anyMatch taskName.&equals
 }
 
 def gradlewSubprocess(commandList) {
