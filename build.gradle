@@ -265,16 +265,16 @@ eclipse.classpath.file.whenMerged { classpath ->
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def osDirSeparator = os.contains('windows') ? '\\' : '/'
+    def fileSep = System.getProperty("file.separator")
 
     iterateOverActiveComponents { component ->
-        def componentName = component.toString() - rootDir.toString() - osDirSeparator
+        def componentName = component.toString() - rootDir.toString() - fileSep
         def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
             entry.kind == 'src' &&
-            entry.path ==~ '.*/+(' + componentName.tokenize(osDirSeparator).last() + ')$' ||
+            entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
