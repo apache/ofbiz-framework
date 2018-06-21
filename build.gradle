@@ -1041,8 +1041,6 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 }
 
 def gradlewSubprocess(commandList) {
-    def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
-    def fullCommand = [gradleRunner, "--no-daemon"]
-    fullCommand.addAll(commandList)
-    exec { commandLine fullCommand }
+    def gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
+    exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }
