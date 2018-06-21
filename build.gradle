@@ -186,33 +186,33 @@ dependencies {
     compile fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
 }
 
-def excludedJavaSources = []
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
+def excludedJavaSources = [
+    'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java',
+    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java',
+    'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java',
+    'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
+]
 
-
-// These files and directories present in config directories should not be included in ofbiz.jar see OFBIZ-8321
-def excludedConfigFiles = []
-excludedConfigFiles.add 'README'
-excludedConfigFiles.add 'APACHE2_HEADER_FOR_XML'
-excludedConfigFiles.add '*.txt'
-excludedConfigFiles.add '*.jks'
-excludedConfigFiles.add 'fop.xconf'
-excludedConfigFiles.add 'GroovyInit.groovy'
-excludedConfigFiles.add 'MiniLang.xslt'
-excludedConfigFiles.add 'AutoImportTemplate.ftl'
-excludedConfigFiles.add 'axis2'
-excludedConfigFiles.add 'barcode'
-
+// Files and directories present in config directories that should not be included in ofbiz.jar (see OFBIZ-8321).
+def excludedConfigFiles = [
+    'README',
+    'APACHE2_HEADER_FOR_XML',
+    '*.txt',
+    '*.jks',
+    'fop.xconf',
+    'GroovyInit.groovy',
+    'MiniLang.xslt',
+    'AutoImportTemplate.ftl',
+    'axis2',
+    'barcode'
+]
 
 sourceSets {
     main {
