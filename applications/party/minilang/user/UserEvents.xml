@@ -28,6 +28,8 @@ under the License.
         <set field="create_allow_password" value="true"/>
         <set field="parameters.roleTypeId" value="CUSTOMER"/>
         <call-simple-method method-name="createUser"/>
+        <property-to-field field="successMessage" resource="PartyUiLabels" property="CustomerCreatedSuccessfully"/>
+        <set field="_event_message_" value="${successMessage}" />
     </simple-method>
     <simple-method method-name="createProspect" short-description="Create Prospect" login-required="false">
         <set field="require_email" value="true"/>
@@ -41,6 +43,8 @@ under the License.
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="PROSPECT"/>
         <call-simple-method method-name="createUser"/>
+        <property-to-field field="newProspectMessage" resource="PartyUiLabels" property="NewProspect"/>
+        <set field="_event_message_" value="${newProspectMessage}" />
     </simple-method>
 
     <simple-method method-name="createEmployee" short-description="Create Employee" login-required="false">
@@ -434,8 +438,6 @@ under the License.
         <set field="emailContext.productStoreId" from-field="parameters.PRODUCT_STORE_ID"/>
         <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailContext" to-map="serviceInMap"/>
         <call-service-asynch service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
-        <property-to-field field="newProspectMessage" resource="PartyUiLabels" property="NewProspect"/>
-        <set field="_event_message_" value="${newProspectMessage}" />
     </simple-method>
 
 </simple-methods>
