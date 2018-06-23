@@ -2010,6 +2010,9 @@
         <value xml:lang="th">โอกาสใหม่ที่สร้างเสร็จเรียบร้อยแล้ว</value>
         <value xml:lang="vi">Triển vọng Mới được tạo thành công.</value>
     </property>
+    <property key="CustomerCreatedSuccessfully">
+        <value xml:lang="en">Customer created successfully.</value>
+    </property>
     <property key="PageTitleAddPartyContent">
         <value xml:lang="ar">إضافة محتوى للطرف</value>
         <value xml:lang="de">Akteur Inhalt hinzufügen</value>
