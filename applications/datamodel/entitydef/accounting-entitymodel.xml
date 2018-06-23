@@ -2488,6 +2488,7 @@ under the License.
         <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
             <key-map field-name="oldOrderSequenceEnumId" rel-field-name="enumId"/>
         </relation>
+        <field name="enableAccounting" type="indicator"/>
     </entity>
     <entity entity-name="PartyPrefDocTypeTpl"
             package-name="org.apache.ofbiz.accounting.ledger"
