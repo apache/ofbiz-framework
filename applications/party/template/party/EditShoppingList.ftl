@@ -219,11 +219,11 @@ under the License.
                   </#if> />
               </td>
             </form>
-            <td class="align-float"><@ofbizCurrency amount=unitPrice isoCode=currencyUomId/></td>
-            <td class="align-float"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></td>
-            <td class="button-col align-float">
-              <a href="javascript:document.listform_${shoppingListItem.shoppingListItemSeqId}.submit();">${uiLabelMap.CommonUpdate}</a>
-              <a href="javascript:document.removeform_${shoppingListItem.shoppingListItemSeqId}.submit();">${uiLabelMap.CommonRemove}</a>
+            <td><@ofbizCurrency amount=unitPrice isoCode=currencyUomId/></td>
+            <td><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></td>
+            <td>
+              <a href="javascript:document.listform_${shoppingListItem.shoppingListItemSeqId}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+              <a href="javascript:document.removeform_${shoppingListItem.shoppingListItemSeqId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
           <#-- toggle the row color -->
