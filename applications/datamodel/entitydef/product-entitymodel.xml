@@ -1414,6 +1414,7 @@ under the License.
         <field name="reorderQuantity" type="fixed-point"></field>
         <field name="daysToShip" type="numeric"></field>
         <field name="lastInventoryCount" type="fixed-point"><description>This field represents availableToPromiseTotal of a product at a certain point of time and is being updated regularly by a schedule service every hour</description></field>
+        <field name="requirementMethodEnumId" type="id"></field>
         <prim-key field="productId"/>
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="PROD_FAC_PROD" rel-entity-name="Product">
@@ -1421,6 +1422,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="PROD_FAC_FAC" rel-entity-name="Facility">
             <key-map field-name="facilityId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_FAC_ENUM" title="RequirementMethod" rel-entity-name="Enumeration">
+            <key-map field-name="requirementMethodEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
   <view-entity entity-name="ProductFacilityAndPostalAddress"
