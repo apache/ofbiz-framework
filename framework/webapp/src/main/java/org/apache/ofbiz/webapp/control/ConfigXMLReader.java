@@ -23,15 +23,20 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -48,6 +53,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapContext;
+import org.apache.ofbiz.base.util.collections.MultiValuedMapContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -191,7 +197,7 @@ public class ConfigXMLReader {
         private Map<String, Event> beforeLogoutEventList = new LinkedHashMap<String, Event>();
         private Map<String, String> eventHandlerMap = new HashMap<String, String>();
         private Map<String, String> viewHandlerMap = new HashMap<String, String>();
-        private Map<String, RequestMap> requestMapMap = new HashMap<String, RequestMap>();
+        private MultivaluedMap<String, RequestMap> requestMapMap = new MultivaluedHashMap<>();
         private Map<String, ViewMap> viewMapMap = new HashMap<String, ViewMap>();
 
         public ControllerConfig(URL url) throws WebAppConfigurationException {
@@ -328,11 +334,57 @@ public class ConfigXMLReader {
             return null;
         }
 
+        // XXX: Temporary wrapper to handle conversion from Map to MultiMap.
         public Map<String, RequestMap> getRequestMapMap() throws WebAppConfigurationException {
-            MapContext<String, RequestMap> result = MapContext.getMapContext();
+            return new Map<String, RequestMap> () {
+                private MultivaluedMap<String, RequestMap> deleg = getRequestMapMultiMap();
+                @Override public int size() { return deleg.size(); }
+                @Override public boolean isEmpty() { return deleg.isEmpty(); }
+                @Override public boolean containsKey(Object key) {
+                    return deleg.containsKey(key);
+                }
+                @Override public boolean containsValue(Object value) {
+                    return deleg.containsValue(value);
+                }
+                @Override public RequestMap get(Object key) {
+                    return deleg.getFirst((String) key);
+                }
+                @Override public RequestMap put(String key, RequestMap value) {
+                    RequestMap res = get(key);
+                    deleg.putSingle(key, value);
+                    return res;
+                }
+                @Override public RequestMap remove(Object key) {
+                    RequestMap res = get(key);
+                    deleg.remove(key);
+                    return res;
+                }
+                @Override public void putAll(Map<? extends String, ? extends RequestMap> m) {
+                    m.forEach(deleg::add);
+                }
+                @Override public void clear() { deleg.clear(); }
+                @Override public Set<String> keySet() { return deleg.keySet(); }
+                @Override public Collection<RequestMap> values() {
+                    return deleg.values()
+                                .stream()
+                                .map(m -> m.stream().findFirst().orElse(null))
+                                .filter(Objects::nonNull)
+                                .collect(Collectors.toList());
+                }
+                @Override public Set<Entry<String, RequestMap>> entrySet() {
+                    return deleg.keySet()
+                                .stream()
+                                .collect(Collectors.toMap(k -> k, k -> get(k)))
+                                .entrySet();
+                }
+            };
+        }
+
+        public MultivaluedMap<String, RequestMap> getRequestMapMultiMap() throws WebAppConfigurationException {
+            MultiValuedMapContext<String, RequestMap> result = MultiValuedMapContext.getMapContext();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
-                result.push(controllerConfig.getRequestMapMap());
+                result.push(controllerConfig.getRequestMapMultiMap());
             }
             result.push(requestMapMap);
             return result;
@@ -487,7 +539,7 @@ public class ConfigXMLReader {
         private void loadRequestMap(Element root) {
             for (Element requestMapElement : UtilXml.childElementList(root, "request-map")) {
                 RequestMap requestMap = new RequestMap(requestMapElement);
-                this.requestMapMap.put(requestMap.uri, requestMap);
+                this.requestMapMap.putSingle(requestMap.uri, requestMap);
             }
         }
 
@@ -534,6 +586,7 @@ public class ConfigXMLReader {
 
     public static class RequestMap {
         public String uri;
+        public String method;
         public boolean edit = true;
         public boolean trackVisit = true;
         public boolean trackServerHit = true;
@@ -550,6 +603,7 @@ public class ConfigXMLReader {
         public RequestMap(Element requestMapElement) {
             // Get the URI info
             this.uri = requestMapElement.getAttribute("uri");
+            this.method = requestMapElement.getAttribute("method");
             this.edit = !"false".equals(requestMapElement.getAttribute("edit"));
             this.trackServerHit = !"false".equals(requestMapElement.getAttribute("track-serverhit"));
             this.trackVisit = !"false".equals(requestMapElement.getAttribute("track-visit"));
