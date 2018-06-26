@@ -24,16 +24,21 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
@@ -51,6 +56,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.event.EventFactory;
 import org.apache.ofbiz.webapp.event.EventHandler;
 import org.apache.ofbiz.webapp.event.EventHandlerException;
@@ -110,6 +116,29 @@ public class RequestHandler {
         return null;
     }
 
+    /**
+     * Find a request map in {@code reqMaps} matching {@code req}.
+     * Otherwise fall back to the one matching {@code defaultReq}.
+     *
+     * @param reqMaps The dictionary associating URI to request maps
+     * @param req The HTTP request to match
+     * @param defaultReq the default request which serves as a fallback.
+     * @return an request map {@code Optional}
+     */
+    static Optional<RequestMap> resolveURI(MultivaluedMap<String, RequestMap> reqMaps,
+            HttpServletRequest req, String defaultReq) {
+        String path = getRequestUri(req.getPathInfo());
+        List<RequestMap> rmaps = reqMaps.get(path);
+        if (rmaps == null && defaultReq != null) {
+            rmaps = reqMaps.get(defaultReq);
+        }
+        List<RequestMap> frmaps = (rmaps != null) ? rmaps : Collections.emptyList();
+        return Stream.of(req.getMethod(), "all", "")
+                .map(verb -> (Predicate<String>) verb::equalsIgnoreCase)
+                .flatMap(p -> frmaps.stream().filter(m -> p.test(m.method)))
+                .findFirst();
+    }
+
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -127,10 +156,10 @@ public class RequestHandler {
 
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
-        Map<String, ConfigXMLReader.RequestMap> requestMapMap = null;
+        MultivaluedMap<String, ConfigXMLReader.RequestMap> requestMapMap = null;
         String statusCodeString = null;
         try {
-            requestMapMap = controllerConfig.getRequestMapMap();
+            requestMapMap = controllerConfig.getRequestMapMultiMap();
             statusCodeString = controllerConfig.getStatusCode();
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
@@ -142,6 +171,15 @@ public class RequestHandler {
 
         // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
+
+        // Set the fallback default request.
+        String defaultRequest = null;
+        try {
+            defaultRequest = controllerConfig.getDefaultRequest();
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+            throw new RequestHandlerException(e);
+        }
 
         // Grab data from request object to process
         String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
@@ -156,34 +194,16 @@ public class RequestHandler {
         String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
 
         String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
-        ConfigXMLReader.RequestMap requestMap = null;
-        if (defaultRequestUri != null) {
-            requestMap = requestMapMap.get(defaultRequestUri);
-        }
-        // check for default request
-        if (requestMap == null) {
-            String defaultRequest;
-            try {
-                defaultRequest = controllerConfig.getDefaultRequest();
-            } catch (WebAppConfigurationException e) {
-                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-                throw new RequestHandlerException(e);
-            }
-            if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
-                requestMap = requestMapMap.get(defaultRequest);
-            }
-        }
+        RequestMap requestMap =
+                resolveURI(requestMapMap, request, defaultRequest).orElse(null);
 
         // check for override view
         if (overrideViewUri != null) {
-            ConfigXMLReader.ViewMap viewMap;
             try {
-                viewMap = getControllerConfig().getViewMapMap().get(overrideViewUri);
-                if (viewMap == null) {
-                    String defaultRequest = controllerConfig.getDefaultRequest();
-                    if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
-                        requestMap = requestMapMap.get(defaultRequest);
-                    }
+                ConfigXMLReader.ViewMap viewMap =
+                        controllerConfig.getViewMapMap().get(overrideViewUri);
+                if (viewMap == null && defaultRequest != null) {
+                    requestMap = requestMapMap.getFirst(defaultRequest);
                 }
             } catch (WebAppConfigurationException e) {
                 Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
@@ -196,7 +216,7 @@ public class RequestHandler {
         if (requestMap == null) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) throw new RequestHandlerException(requestMissingErrorMessage);
             else throw new RequestHandlerExceptionAllowExternalRequests();
-         }
+        }
 
         String eventReturn = null;
         if (requestMap.metrics != null && requestMap.metrics.getThreshold() != 0.0 && requestMap.metrics.getTotalEvents() > 3 && requestMap.metrics.getThreshold() < requestMap.metrics.getServiceRate()) {
@@ -204,13 +224,11 @@ public class RequestHandler {
         }
         ConfigXMLReader.RequestMap originalRequestMap = requestMap; // Save this so we can update the correct performance metrics.
 
-
         boolean interruptRequest = false;
-
         // Check for chained request.
         if (chain != null) {
             String chainRequestUri = RequestHandler.getRequestUri(chain);
-            requestMap = requestMapMap.get(chainRequestUri);
+            requestMap = requestMapMap.getFirst(chainRequestUri);
             if (requestMap == null) {
                 throw new RequestHandlerException("Unknown chained request [" + chainRequestUri + "]; this request does not exist");
             }
@@ -234,18 +252,11 @@ public class RequestHandler {
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we can process
             if (!requestMap.securityDirectRequest) {
-                String defaultRequest;
-                try {
-                    defaultRequest = controllerConfig.getDefaultRequest();
-                } catch (WebAppConfigurationException e) {
-                    Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-                    throw new RequestHandlerException(e);
-                }
-                if (defaultRequest == null || !requestMapMap.get(defaultRequest).securityDirectRequest) {
+                if (defaultRequest == null || !requestMapMap.getFirst(defaultRequest).securityDirectRequest) {
                     // use the same message as if it was missing for security reasons, ie so can't tell if it is missing or direct request is not allowed
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
-                    requestMap = requestMapMap.get(defaultRequest);
+                    requestMap = requestMapMap.getFirst(defaultRequest);
                 }
             }
             // Check if we SHOULD be secure and are not.
@@ -409,7 +420,8 @@ public class RequestHandler {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler]: AuthRequired. Running security check. " + showSessionId(request), module);
-            ConfigXMLReader.Event checkLoginEvent = requestMapMap.get("checkLogin").event;
+            ConfigXMLReader.Event checkLoginEvent =
+                    requestMapMap.getFirst("checkLogin").event;
             String checkLoginReturnString = null;
 
             try {
@@ -422,9 +434,9 @@ public class RequestHandler {
                 eventReturn = checkLoginReturnString;
                 // if the request is an ajax request we don't want to return the default login check
                 if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-                    requestMap = requestMapMap.get("checkLogin");
+                    requestMap = requestMapMap.getFirst("checkLogin");
                 } else {
-                    requestMap = requestMapMap.get("ajaxCheckLogin");
+                    requestMap = requestMapMap.getFirst("ajaxCheckLogin");
                 }
             }
         }
