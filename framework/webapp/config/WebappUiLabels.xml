@@ -340,7 +340,7 @@
         <value xml:lang="zh-TW">沒有完成事件</value>
     </property>
     <property key="RequestMethodNotMatchConfig">
-        <value xml:lang="en">[{0}] is restricted to be a [{1}] request, cannot be called by [{2}] method.</value>
-        <value xml:lang="zh">[{0}]必须使用[{1}]方法请求，不能用[{2}]方法请求。</value>
+        <value xml:lang="en">[{0}] cannot be called by [{1}] method.</value>
+        <value xml:lang="zh">[{0}]不能用[{1}]方法请求。</value>
     </property>
 </resource>

@@ -19,7 +19,6 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
@@ -30,14 +29,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -49,7 +45,6 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.stats.ServerHitBin;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -63,9 +58,6 @@ import freemarker.ext.servlet.ServletContextHashModel;
 public class ControlServlet extends HttpServlet {
 
     public static final String module = ControlServlet.class.getName();
-    private static final String METHOD_GET = "GET";
-    private static final String METHOD_POST = "POST";
-    private static final String REQUEST_METHOD_ALL = "all";
 
     public ControlServlet() {
         super();
@@ -88,20 +80,20 @@ public class ControlServlet extends HttpServlet {
     }
 
     /**
-     * Handle every HTTP methods.
-     * @see javax.servlet.http.HttpServlet#service
+     * @see javax.servlet.http.HttpServlet#doPost
      */
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String method = request.getMethod();
-        if (!matchRequestMethod(request, response, method)) {
-            return;
-        }
-        if (!method.equals(METHOD_GET) && !method.equals(METHOD_POST)) {
-            super.service(request, response);
-            return;
-        }
+        doGet(request, response);
+    }
+
+    /**
+     * @see javax.servlet.http.HttpServlet#doGet
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         long requestStartTime = System.currentTimeMillis();
         RequestHandler requestHandler = this.getRequestHandler();
         HttpSession session = request.getSession();
@@ -221,6 +213,12 @@ public class ControlServlet extends HttpServlet {
         try {
             // the ServerHitBin call for the event is done inside the doRequest method
             requestHandler.doRequest(request, response, null, userLogin, delegator);
+        } catch (MethodNotAllowedException e) {
+            response.setContentType("text/plain");
+            response.setCharacterEncoding(request.getCharacterEncoding());
+            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            response.getWriter().print(e.getMessage());
+            Debug.logError(e.getMessage(), module);
         } catch (RequestHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             if (throwable instanceof IOException) {
@@ -387,30 +385,5 @@ public class ControlServlet extends HttpServlet {
             Debug.logVerbose(attName + ":" + servletContext.getAttribute(attName), module);
         }
         if (Debug.verboseOn()) Debug.logVerbose("--- End ServletContext Attributes ---", module);
-    }
-
-    private boolean matchRequestMethod(HttpServletRequest request, HttpServletResponse response, String method) {
-        URL controllerConfigUrl = ConfigXMLReader.getControllerConfigURL(request.getServletContext());
-        try {
-            ConfigXMLReader.ControllerConfig controllerConfig = ConfigXMLReader.getControllerConfig(controllerConfigUrl);
-            MultivaluedMap<String, RequestMap> requestMapMap = controllerConfig.getRequestMapMultiMap();
-            if (UtilValidate.isEmpty(requestMapMap)) {
-                return true;
-            }
-            String uri = RequestHandler.getRequestUri(request.getPathInfo());
-            RequestMap requestMap = requestMapMap.getFirst(uri);
-            if (UtilValidate.isEmpty(requestMap) || UtilValidate.isEmpty(requestMap.method) || REQUEST_METHOD_ALL.equalsIgnoreCase(requestMap.method) || method.equalsIgnoreCase(requestMap.method)) {
-                return true;
-            }
-            String errMsg = UtilProperties.getMessage("WebappUiLabels", "RequestMethodNotMatchConfig", UtilMisc.toList(uri, requestMap.method, method), UtilHttp.getLocale(request));
-            response.setContentType("text/plain");
-            response.setCharacterEncoding(request.getCharacterEncoding());
-            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-            response.getWriter().print(errMsg);
-            Debug.logError(errMsg, module);
-        } catch (WebAppConfigurationException | IOException e) {
-            Debug.logError("Error while loading " + controllerConfigUrl, module);
-        }
-        return false;
     }
 }

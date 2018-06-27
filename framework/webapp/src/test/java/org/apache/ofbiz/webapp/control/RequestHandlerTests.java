@@ -20,15 +20,22 @@ package org.apache.ofbiz.webapp.control;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.ViewMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
@@ -36,12 +43,19 @@ import org.w3c.dom.Element;
 public class RequestHandlerTests {
     public static class ResolveURITests {
         private MultivaluedMap<String,RequestMap> reqMaps;
+        private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
         private Element dummyElement;
+        private RequestHandler.Controller ctrl;
 
         @Before
         public void setUp() {
+            ctrl = mock(RequestHandler.Controller.class);
             reqMaps = new MultivaluedHashMap<>();
+            viewMaps = new HashMap<>();
+            when(ctrl.getDefaultRequest()).thenReturn(null);
+            when(ctrl.getRequestMapMap()).thenReturn(reqMaps);
+            when(ctrl.getViewMapMap()).thenReturn(viewMaps);
             req = mock(HttpServletRequest.class);
             dummyElement = mock(Element.class);
             when(dummyElement.getAttribute("method")).thenReturn("all");
@@ -55,7 +69,9 @@ public class RequestHandlerTests {
             reqMaps.putSingle("foo", foo);
             reqMaps.putSingle("bar", bar);
             when(req.getPathInfo()).thenReturn("/foo");
-            assertSame(foo, RequestHandler.resolveURI(reqMaps, req, null).get());
+            assertThat(RequestHandler.resolveURI(ctrl, req),
+                    both(hasItem(foo)).and(not(hasItem(bar))));
+            assertThat(RequestHandler.resolveURI(ctrl, req).size(), is(1));
         }
 
         @Test
@@ -66,9 +82,9 @@ public class RequestHandlerTests {
 
             RequestMap foo = new RequestMap(dummyElement);
 
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
+            assertTrue(RequestHandler.resolveURI(ctrl, req).isEmpty());
             reqMaps.putSingle("foo", foo);
-            assertTrue(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
+            assertFalse(RequestHandler.resolveURI(ctrl, req).isEmpty());
         }
 
         @Test
@@ -82,52 +98,13 @@ public class RequestHandlerTests {
 
             when(req.getPathInfo()).thenReturn("/foo");
             when(req.getMethod()).thenReturn("GET");
-            assertSame(foo, RequestHandler.resolveURI(reqMaps, req, null).get());
+            assertThat(RequestHandler.resolveURI(ctrl, req), hasItem(foo));
 
             when(req.getPathInfo()).thenReturn("/bar");
             when(req.getMethod()).thenReturn("PUT");
-            assertSame(bar, RequestHandler.resolveURI(reqMaps, req, null).get());
+            assertThat(RequestHandler.resolveURI(ctrl, req), hasItem(bar));
         }
 
-        @Test
-        public void resolveURICatchAll() throws RequestHandlerException {
-            when(req.getPathInfo()).thenReturn("/foo");
-            RequestMap foo = new RequestMap(dummyElement);
-            when(req.getMethod()).thenReturn("get");
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("post");
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("put");
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("delete");
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-
-            reqMaps.putSingle("foo", foo);
-            when(req.getMethod()).thenReturn("get");
-            assertTrue(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("post");
-            assertTrue(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("put");
-            assertTrue(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-            when(req.getMethod()).thenReturn("delete");
-            assertTrue(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
-        }
-
-        @Test
-        public void resolveURISegregate() throws RequestHandlerException {
-            when(dummyElement.getAttribute("method")).thenReturn("put");
-            RequestMap fooPut = new RequestMap(dummyElement);
-            when(dummyElement.getAttribute("method")).thenReturn("all");
-            RequestMap fooAll = new RequestMap(dummyElement);
-            reqMaps.putSingle("foo", fooAll);
-            reqMaps.add("foo", fooPut);
-
-            when(req.getPathInfo()).thenReturn("/foo");
-            when(req.getMethod()).thenReturn("put");
-            assertSame(fooPut, RequestHandler.resolveURI(reqMaps, req, null).get());
-            when(req.getMethod()).thenReturn("get");
-            assertSame(fooAll, RequestHandler.resolveURI(reqMaps, req, null).get());
-        }
 
         @Test
         public void resolveURIDefault() throws Exception {
@@ -136,9 +113,23 @@ public class RequestHandlerTests {
             reqMaps.putSingle("foo", foo);
             reqMaps.putSingle("bar", bar);
 
-            when(req.getPathInfo()).thenReturn("/bar");
-            when(req.getMethod()).thenReturn("get");
-            assertSame(bar, RequestHandler.resolveURI(reqMaps, req, "bar").get());
+            when(req.getPathInfo()).thenReturn("/baz");
+            when(ctrl.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ctrl, req), hasItem(bar));
+        }
+
+        @Test
+        public void resolveURIOverrideView() throws Exception {
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo", foo);
+            reqMaps.putSingle("bar", bar);
+
+            viewMaps.put("baz", new ViewMap(dummyElement));
+
+            when(req.getPathInfo()).thenReturn("/foo/baz");
+            when(ctrl.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ctrl, req), hasItem(bar));
         }
 
         @Test
@@ -149,8 +140,41 @@ public class RequestHandlerTests {
             reqMaps.putSingle("bar", bar);
 
             when(req.getPathInfo()).thenReturn("/baz");
-            when(req.getMethod()).thenReturn("get");
-            assertFalse(RequestHandler.resolveURI(reqMaps, req, null).isPresent());
+            assertTrue(RequestHandler.resolveURI(ctrl, req).isEmpty());
+        }
+
+        @Test
+        public void resolveMethodCatchAll() throws RequestHandlerException {
+            when(req.getPathInfo()).thenReturn("/foo");
+            RequestMap foo = new RequestMap(dummyElement);
+            Collection<RequestMap> rmaps = RequestHandler.resolveURI(ctrl, req);
+            assertFalse(RequestHandler.resolveMethod("get", rmaps).isPresent());
+            assertFalse(RequestHandler.resolveMethod("post", rmaps).isPresent());
+            assertFalse(RequestHandler.resolveMethod("put", rmaps).isPresent());
+            assertFalse(RequestHandler.resolveMethod("delete", rmaps).isPresent());
+
+            reqMaps.putSingle("foo", foo);
+            Collection<RequestMap> rmaps2 = RequestHandler.resolveURI(ctrl, req);
+            assertTrue(RequestHandler.resolveMethod("get", rmaps2).isPresent());
+            assertTrue(RequestHandler.resolveMethod("post", rmaps2).isPresent());
+            assertTrue(RequestHandler.resolveMethod("put", rmaps2).isPresent());
+            assertTrue(RequestHandler.resolveMethod("delete", rmaps2).isPresent());
+        }
+
+        @Test
+        public void resolveMethodBasic() throws RequestHandlerException {
+            when(dummyElement.getAttribute("method")).thenReturn("put");
+            RequestMap fooPut = new RequestMap(dummyElement);
+            when(dummyElement.getAttribute("method")).thenReturn("all");
+            RequestMap fooAll = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo", fooAll);
+            reqMaps.add("foo", fooPut);
+
+            when(req.getPathInfo()).thenReturn("/foo");
+            Collection<RequestMap> rmaps = RequestHandler.resolveURI(ctrl, req);
+            assertThat(rmaps, hasItems(fooPut, fooAll));
+            assertThat(RequestHandler.resolveMethod("put", rmaps).get(), is(fooPut));
+            assertThat(RequestHandler.resolveMethod("get", rmaps).get(), is(fooAll));
         }
     }
 }
