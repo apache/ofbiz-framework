@@ -103,7 +103,7 @@ dependencies {
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20170515.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:8.8.7'
     compile 'com.ibm.icu:icu4j:60.2'
-    compile 'com.lowagie:itext:4.2.0'
+    compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     compile 'com.sun.mail:javax.mail:1.6.0'
     compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
