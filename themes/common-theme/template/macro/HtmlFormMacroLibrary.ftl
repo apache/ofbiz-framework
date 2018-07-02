@@ -323,7 +323,7 @@ under the License.
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="" focusFieldName="" hasRequiredField="">
-  <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if> <#if focusFieldName?has_content> data-focus-field="${focusFieldName}"</#if> class="<#if containerStyle?has_content>${containerStyle}<#else>basic-form</#if><#if hasRequiredField?has_content> requireValidation</#if>" onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if>><#lt/>
+  <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> <#if focusFieldName?has_content> data-focus-field="${focusFieldName}"</#if> class="<#if containerStyle?has_content>${containerStyle}<#else>basic-form</#if><#if hasRequiredField?has_content> requireValidation</#if>" onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
     <#if useRowSubmit?has_content && useRowSubmit>
       <input type="hidden" name="_useRowSubmit" value="Y"/>
       <#if linkUrl?index_of("VIEW_INDEX") &lt;= 0 && linkUrl?index_of(viewIndexField) &lt;= 0>
