@@ -80,20 +80,18 @@ public class ControlServlet extends HttpServlet {
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet#doPost
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet#doGet
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long requestStartTime = System.currentTimeMillis();
         RequestHandler requestHandler = this.getRequestHandler();
         HttpSession session = request.getSession();
@@ -213,12 +211,6 @@ public class ControlServlet extends HttpServlet {
         try {
             // the ServerHitBin call for the event is done inside the doRequest method
             requestHandler.doRequest(request, response, null, userLogin, delegator);
-        } catch (MethodNotAllowedException e) {
-            response.setContentType("text/plain");
-            response.setCharacterEncoding(request.getCharacterEncoding());
-            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-            response.getWriter().print(e.getMessage());
-            Debug.logError(e.getMessage(), module);
         } catch (RequestHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             if (throwable instanceof IOException) {
