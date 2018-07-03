@@ -1707,6 +1707,24 @@ under the License.
             <key-map field-name="invoiceItemSeqId"/>
         </view-link>
     </view-entity>
+    <view-entity entity-name="InvoiceItemAndShipmentView" package-name="org.apache.ofbiz.accounting.invoice">
+        <member-entity entity-alias="INVITM" entity-name="InvoiceItem"/>
+        <member-entity entity-alias="ORDBIL" entity-name="OrderItemBilling"/>
+        <member-entity entity-alias="ITMISS" entity-name="ItemIssuance"/>
+        <member-entity entity-alias="SHIP" entity-name="Shipment"/>
+        <alias-all entity-alias="INVITM"/>
+        <alias-all entity-alias="SHIP"/>
+        <view-link entity-alias="INVITM" rel-entity-alias="ORDBIL">
+            <key-map field-name="invoiceId"/>
+            <key-map field-name="invoiceItemSeqId"/>
+        </view-link>
+        <view-link entity-alias="ORDBIL" rel-entity-alias="ITMISS">
+            <key-map field-name="itemIssuanceId"/>
+        </view-link>
+        <view-link entity-alias="ITMISS" rel-entity-alias="SHIP">
+            <key-map field-name="shipmentId"/>
+        </view-link>
+    </view-entity>
 
     <view-entity entity-name="InvoiceContentAndInfo"
             package-name="org.apache.ofbiz.accounting.invoice"
