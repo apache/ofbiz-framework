@@ -317,9 +317,7 @@ under the License.
     ${title}<#t/>
   </label><#t/>
 </#macro>
-<#macro renderEmptyFormDataMessage message>
-  <h3><#if message?has_content>${message}</#if></h3>
-</#macro>
+
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="" focusFieldName="" hasRequiredField="">
