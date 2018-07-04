@@ -1546,14 +1546,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
 
     }
-    public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderEmptyFormDataMessage");
-        sr.append(" message=\"");
-        sr.append(modelForm.getEmptyFormDataMessage());
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
-    }
 
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
