@@ -17,35 +17,22 @@
  * under the License.
  */
 
-import java.util.List
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.string.*
-import org.apache.ofbiz.base.util.UtilMisc
+import static java.util.stream.Collectors.toList
+import static org.apache.ofbiz.base.util.UtilMisc.availableLocales
 
-locales = [] as LinkedList
-availableLocales = UtilMisc.availableLocales()
-
-// Debug.logInfo(parameters.localeString + "==" +  parameters.localeName)
-
-if (availableLocales) {
-    availableLocales.each { availableLocale ->
-        locale = [:]
-        locale.localeName = availableLocale.getDisplayName(availableLocale)
-        locale.localeString = availableLocale.toString()
-        if (UtilValidate.isNotEmpty(parameters.localeString)) {
-            if (locale.localeString.toUpperCase().contains(parameters.localeString.toUpperCase())) {
-                locales.add(locale)
-            }
-        }
-        if (UtilValidate.isNotEmpty(parameters.localeName)) {
-            if (locale.localeName.toUpperCase().contains(parameters.localeName.toUpperCase())) {
-                locales.add(locale)
-            }
-        }
-        if (UtilValidate.isEmpty(parameters.localeString) && UtilValidate.isEmpty(parameters.localeName)) {
-            locales.add(locale)
-        }
-    }
+// Check that `a` contains `b` when ignoring case.
+boolean contains(String a, String b) {
+    b && a.toUpperCase().contains(b.toUpperCase())
 }
 
-context.locales = locales
+hasNoFilters = !parameters.localeString && !parameters.localeName
+
+context.locales = availableLocales()
+    .stream()
+    .map { [localeName: it.getDisplayName(it), localeString: it.toString()] }
+    .filter {
+        hasNoFilters ||
+        contains(it.localeString, parameters.localeString) ||
+        contains(it.localeName, parameters.localeName)
+    }
+    .collect toList()
