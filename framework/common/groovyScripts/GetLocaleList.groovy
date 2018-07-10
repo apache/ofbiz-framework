@@ -25,13 +25,13 @@ boolean contains(String a, String b) {
     b && a.toUpperCase().contains(b.toUpperCase())
 }
 
-hasNoFilters = !parameters.localeString && !parameters.localeName
+hasFilter = parameters.with { localeString || localeName }
 
 context.locales = availableLocales()
     .stream()
     .map { [localeName: it.getDisplayName(it), localeString: it.toString()] }
     .filter {
-        hasNoFilters ||
+        !hasFilter ||
         contains(it.localeString, parameters.localeString) ||
         contains(it.localeName, parameters.localeName)
     }
