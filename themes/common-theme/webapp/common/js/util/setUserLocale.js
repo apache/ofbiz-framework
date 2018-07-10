@@ -17,15 +17,19 @@ specific language governing permissions and limitations
 under the License.
 */
 
-var timezone = moment.tz.guess();
-$.ajax({
-    url: "setLocaleFromBrowser",
-    type: "POST",
-    async: false,
-    data: "localeName=" + timezone,
-    error: function(error) {
-        if (error != "") {
-            console.error("Error while setting user locale: ", error);
+// Only once by session
+if (sessionStorage.getItem("setLocaleFromBrowser") === null || sessionStorage.getItem("setLocaleFromBrowser") !== "done") {
+    sessionStorage.setItem("setLocaleFromBrowser", "done");
+    var timezone = moment.tz.guess();
+    $.ajax({
+        url: "setLocaleFromBrowser",
+        type: "POST",
+        async: false,
+        data: "localeName=" + timezone,
+        error: function(error) {
+            if (error != "") {
+                console.error("Error while setting user locale: ", error);
+            }
         }
-    }
-});
+    });
+}
