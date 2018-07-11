@@ -19,7 +19,7 @@
 
 import org.apache.ofbiz.service.ServiceUtil
 
-public Map setLocaleFromBrowser() {
+public Map SetTimeZoneFromBrowser() {
     Map results = ServiceUtil.returnSuccess()
     userLogin = from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
     if (userLogin) {

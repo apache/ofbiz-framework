@@ -18,11 +18,11 @@ under the License.
 */
 
 // Only once by session
-if (sessionStorage.getItem("setLocaleFromBrowser") === null || sessionStorage.getItem("setLocaleFromBrowser") !== "done") {
-    sessionStorage.setItem("setLocaleFromBrowser", "done");
+if (sessionStorage.getItem("SetTimeZoneFromBrowser") === null || sessionStorage.getItem("SetTimeZoneFromBrowser") !== "done") {
+    sessionStorage.setItem("SetTimeZoneFromBrowser", "done");
     var timezone = moment.tz.guess();
     $.ajax({
-        url: "setLocaleFromBrowser",
+        url: "SetTimeZoneFromBrowser",
         type: "POST",
         async: false,
         data: "localeName=" + timezone,
