@@ -302,7 +302,7 @@ under the License.
 
     <!-- Set local from user's browser -->
     <request-map uri="setLocaleFromBrowser">
-        <security https="false" auth="true"/>
+        <security https="false" auth="false"/>
         <event type="service" invoke="setLocaleFromBrowser"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
