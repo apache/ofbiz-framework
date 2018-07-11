@@ -359,7 +359,7 @@ under the License.
       <div class="button-bar">
         <#assign isfirst=true>
         <#list serviceNamesAlphaList as alpha>
-          <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>'>${alpha}</a>
+          <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>' class="buttontext">${alpha}</a>
           <#assign isfirst=false>
         </#list>
       </div>
