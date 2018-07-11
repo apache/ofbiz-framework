@@ -943,7 +943,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="setLocaleFromBrowser" engine="groovy" location="component://common/groovyScripts/SetLocaleFromBrowser.groovy" invoke="setLocaleFromBrowser" auth="true">
+    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="SetTimeZoneFromBrowser" auth="true">
         <description>Set locale from browser.</description>
         <attribute name="localeName" type="String" mode="IN" optional="true"/>
     </service>

@@ -132,7 +132,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.css" global="true" />
                 <!-- Set default user locale from browser -->
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/util/setUserLocale.js"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/util/setUserTimeZone.js"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/plugins/moment-timezone/moment-timezone-with-data.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/plugins/moment-timezone/moment-with-locales.min.js" global="true"/>
             </actions>

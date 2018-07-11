@@ -300,10 +300,11 @@ under the License.
         <response name="error" type="none" />
     </request-map>
 
-    <!-- Set local from user's browser -->
-    <request-map uri="setLocaleFromBrowser">
+    <!-- Set TimeZone from user's browser -->
+    <!-- the auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
+    <request-map uri="SetTimeZoneFromBrowser">
         <security https="false" auth="false"/>
-        <event type="service" invoke="setLocaleFromBrowser"/>
+        <event type="service" invoke="SetTimeZoneFromBrowser"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
