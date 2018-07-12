@@ -36,11 +36,9 @@ Human Resources Management can be divided into several distinct processes.
 * Job Planning and Definition
 * Recruitment
 * Candidate Selection and Hiring 
-* Employee Evaluation
 * Employee Training and Development
-* Promotion
+* Employee Evaluation and Performance Management
 * Employee Salary and Benefits 
-* Performance Management
 
 == Job Planning and Definition 
 
@@ -85,14 +83,48 @@ In the OFBiz Human Resouces application you can:
 * Review Resumes / CVs
 * Arrange and Grade Interviews
 
-== Employee Evaluation
-
 == Employee Training and Development
 
-== Promotion
+Training and professional development is important for an organisation because it
+ensures that your employees have the knowledge they need to perform their work. 
+It can also help to fill any gaps in skills and improve their proficiency. 
+
+In the OFBiz Human Resources application you can:
+
+* Define and create training courses
+* Schedule courses on a global training calendar
+* Make course available (or unavailable) for enrollment
+* Review and approve requests from employees to attend
+
+== Performance Management and Employee Evaluation
+
+Evaluating and managing the performance of employees is another main Human Resources
+function. Performance reviews can be created for an employee and used to evaluate
+the work that they have done in a particular job position. Comments and ratings 
+can also be added.
+
+In the OFBiz Human Resources application you can:
+
+* Create a new Performance Review for an employee
+* Add individual review items such as Attitude, Communication or Technical Skills
+* Add ratings or comments to each item
+
+If an evaluation has gone well then the employee can be considered for promotion
+to another job position, or can be given other benefits such as a salary increase.
 
 == Employee Salary and Benefits Administration
 
-== Performance Management
+Being able to manage employee salaries and associated benefits is a key part of 
+any Human Resources system. 
+
+In the OFBiz Human Resources application you can:
+
+* Create Pay Grades
+* Link Salary Steps within each Pay Grade
+* Assign a Pay Grade and Salary Step to a Job Position filled by an Employee
+* Manage employee holidays (leave)
+* Manage associated benefits
+* Calculate salaries and Generate Payslips
+
 
 
