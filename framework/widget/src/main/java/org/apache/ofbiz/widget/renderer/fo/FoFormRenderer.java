@@ -438,4 +438,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
 
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
     }
+    public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        // TODO
+    }
 }
