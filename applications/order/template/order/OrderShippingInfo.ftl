@@ -202,7 +202,7 @@ under the License.
         <br class="clear"/>
      </div>
      <div class="screenlet-body">
-      <table width="100%" cellspacing="0" cellpadding="2" border="1" class="basic-table">
+      <table width="100%" cellspacing="0" cellpadding="2" border="1" class="basic-table form-table">
           <tr class="header-row">
               <td width="10%">${uiLabelMap.OrderItemId}</td>
               <td width="25%">${uiLabelMap.ProductProduct}</td>
@@ -283,7 +283,7 @@ under the License.
                       </#if>
               </td>
           </tr>
-                      <#assign rowCount = rowCount + 1> 
+                      <#assign rowCount = rowCount + 1>
                   </#list>
               <input type="hidden" name="_rowCount" value="${rowCount}"/>
               </form>
@@ -357,13 +357,12 @@ under the License.
         <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
         <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
         <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId!}"/>
-          <table class="basic-table" cellspacing='0'>
+          <table class="basic-table form-table" cellspacing='0'>
                   <tr>
-                      <td align="right" valign="top" width="15%">
+                      <td class="label">
                           <span class="label">&nbsp;${uiLabelMap.OrderAddress}</span>
                       </td>
-                      <td width="5">&nbsp;</td>
-                      <td valign="top" width="80%">
+                      <td>
                           <div>
                               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                               <select name="contactMechId">
@@ -384,15 +383,14 @@ under the License.
                           </div>
                       </td>
                   </tr>
-  
+
                   <#-- the setting of shipping method is only supported for sales orders at this time -->
                   <#if "SALES_ORDER" == orderHeader.orderTypeId>
                     <tr>
-                      <td align="right" valign="top" width="15%">
+                      <td class="label">
                           <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</b></span>
                       </td>
-                      <td width="5">&nbsp;</td>
-                      <td valign="top" width="80%">
+                      <td>
                           <div>
                               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                               <#-- passing the shipmentMethod value as the combination of three fields value
@@ -424,9 +422,8 @@ under the License.
                   </#if>
                   <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                   <tr>
-                      <td align="right" valign="top" width="15%">&nbsp;</td>
-                      <td width="5">&nbsp;</td>
-                      <td valign="top" width="80%">
+                      <td class="label">&nbsp;</td>
+                      <td>
                           <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                           <a class="buttontext" id="newShippingAddress" href="javascript:void(0);">${uiLabelMap.OrderNewShippingAddress}</a>
                           <script type="text/javascript">
@@ -513,7 +510,7 @@ under the License.
                   });
          });
         </script>
-        <table width="100%" border="0" cellpadding="1" cellspacing="0">
+        <table class="basic-table form-table" width="100%" border="0" cellpadding="1" cellspacing="0">
           <#if shipGroup.supplierPartyId?has_content>
             <tr><td colspan="3"><hr /></td></tr>
            <#assign OISGAContent = shipGroup.getRelated("OrderItemShipGroupAssoc", null, null, false)>
@@ -529,27 +526,25 @@ under the License.
            </tr>
            </#if>
             <tr>
-              <td align="right" valign="top" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.ProductDropShipment} - ${uiLabelMap.PartySupplier}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                 ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, shipGroup.supplierPartyId, false)!shipGroup.supplierPartyId}
               </td>
             </tr>
             <#if shipGroup.supplierAgreementId??>
             <tr>
-              <td align="right" valign="top" width="15%">
+              <td class="label">
                   <span class="label">&nbsp;${uiLabelMap.AccountingAgreement}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                   ${shipGroup.supplierAgreementId}
               </td>
             </tr>
             </#if>
           </#if>
-  
+
           <#-- This section appears when Shipment of order is in picked status and its items are packed,this case comes when new shipping estimates based on weight of packages are more than or less than default percentage (defined in shipment.properties) of original shipping estimate-->
           <#-- getShipGroupEstimate method of ShippingEvents class can be used for get shipping estimate from system, on the basis of new package's weight -->
           <#if shippingRateList?has_content>
@@ -559,7 +554,7 @@ under the License.
                 <td colspan="3">
                   <table>
                     <tr>
-                      <td>
+                      <td class="label">
                         <span class="label">&nbsp;${uiLabelMap.OrderOnlineUPSShippingEstimates}</span>
                       </td>
                     </tr>
@@ -599,16 +594,15 @@ under the License.
               </tr>
             </#if>
           </#if>
-  
+
           <#-- tracking number -->
           <#if shipGroup.trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.OrderTrackingNumber}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                 <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                 <#if shipGroup.trackingNumber?has_content>
                   ${shipGroup.trackingNumber}
@@ -631,11 +625,10 @@ under the License.
           <#if shipGroup.maySplit?has_content && noShipment?default("false") != "true">
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.OrderSplittingPreference}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                 <div>
                   <#if "N" == shipGroup.maySplit?upper_case>
                       ${uiLabelMap.FacilityWaitEntireOrderReady}
@@ -655,14 +648,13 @@ under the License.
               </td>
             </tr>
           </#if>
-  
+
           <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           <tr>
-            <td align="right" valign="top" width="15%">
+            <td class="label">
               <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
             </td>
-            <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td>
               <#if ("ORDER_COMPLETED" != orderHeader.statusId) && ("ORDER_REJECTED" != orderHeader.statusId) && ("ORDER_CANCELLED" != orderHeader.statusId)>
                 <form id="updateShippingInstructionsForm_${shipGroup.shipGroupSeqId}" name="updateShippingInstructionsForm" method="post" action="<@ofbizUrl>setShippingInstructions</@ofbizUrl>">
                   <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
@@ -693,14 +685,13 @@ under the License.
               </#if>
             </td>
           </tr>
-  
+
           <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
-            <td align="right" valign="top" width="15%">
+            <td class="label">
               <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
             </td>
-            <td width="5">&nbsp;</td>
             <td>
               <form id="setGiftMessageForm_${shipGroup.shipGroupSeqId}" name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
                 <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
@@ -719,12 +710,11 @@ under the License.
               </#if>
            <tr><td colspan="3"><hr /></td></tr>
            <tr>
-              <td align="right" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}</span><br/><br/>
                 <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}</span><br/>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                 <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
                   <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
                   <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
@@ -735,21 +725,19 @@ under the License.
                   </form>
               </td>
            <tr>
-              <td align="right" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.ProductEstimatedShipDate}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td width="80%">
+              <td>
                   <#if shipGroup.estimatedShipDate?has_content><#assign estimatedShipDate=shipGroup.estimatedShipDate?date><#else><#assign estimatedShipDate="-"/></#if>
                 <@htmlTemplate.renderDisplayField type="date" imageLocation="" idName="" description="${estimatedShipDate}" title="" class="" alert=""/>
               </td>
             </tr>
            <tr>
-              <td align="right" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                   <#if shipGroup.estimatedDeliveryDate?has_content><#assign estimatedDeliveryDate=shipGroup.estimatedDeliveryDate?date><#else><#assign estimatedDeliveryDate="-"/></#if>
                 <@htmlTemplate.renderDisplayField type="date" imageLocation="" idName="" description="${estimatedDeliveryDate}" title="" class="" alert=""/>
               </td>
@@ -758,11 +746,10 @@ under the License.
          <#if shipGroupShipments?has_content>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
+              <td class="label">
                 <span class="label">&nbsp;${uiLabelMap.FacilityShipments}</span>
               </td>
-              <td width="5">&nbsp;</td>
-              <td valign="top" width="80%">
+              <td>
                   <#list shipGroupShipments as shipment>
                       <div>
                         ${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
@@ -786,11 +773,11 @@ under the License.
               </td>
             </tr>
          </#if>
-  
+
          <#-- shipment actions -->
          <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && (("ORDER_CREATED" == orderHeader.statusId) || ("ORDER_APPROVED" == orderHeader.statusId) || ("ORDER_SENT" == orderHeader.statusId))>
-  
-  
+
+
            <#-- Manual shipment options -->
            <tr><td colspan="3"><hr /></td></tr>
            <tr>
@@ -848,8 +835,8 @@ under the License.
                  </#if>
                </#if>
               </td>
-           </tr>  
-         </#if>  
+           </tr>
+         </#if>
         </table>
       </div>
     </div>

@@ -216,7 +216,7 @@ under the License.
                                     </#if>
                                 </td>
                                 <#-- QUANTITY -->
-                                <td align="right" valign="top" nowrap="nowrap">
+                                <td valign="top" nowrap="nowrap">
                                     <div class="screenlet order-item-quantity">
                                         <div class="screenlet-body">
                                             <table>

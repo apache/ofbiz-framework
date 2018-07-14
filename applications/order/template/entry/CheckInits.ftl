@@ -37,22 +37,24 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
-      <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-      <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
-    </ul>
+        <div class="basic-nav">
+          <ul>
+            <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
+            <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
+          </ul>
+        </div>
+      </ul>
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-      <form method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
+      <form class="basic-form" method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
       <input type="hidden" name="originOrderId" value="${parameters.originOrderId!}"/>
       <input type="hidden" name="finalizeMode" value="type"/>
       <input type="hidden" name="orderMode" value="SALES_ORDER"/>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td >&nbsp;</td>
-          <td width="300" align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
-          <td >&nbsp;</td>
-          <td valign='middle'>
+          <td class="label"><label>${uiLabelMap.ProductProductStore}</label></td>
+          <td>
             <div class='tabletext'>
               <select name="productStoreId"<#if sessionAttributes.orderMode??> disabled</#if>>
                 <#assign currentStore = shoppingCartProductStore>
@@ -68,11 +70,8 @@ under the License.
             </div>
           </td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderSalesChannel}</div></td>
-          <td>&nbsp;</td>
+          <td class="label"><label>${uiLabelMap.OrderSalesChannel}</label></td>
           <td valign='middle'>
             <div class='tabletext'>
               <select name="salesChannelEnumId">
@@ -89,26 +88,21 @@ under the License.
             </div>
           </td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
         <#if partyId??>
           <#assign thisPartyId = partyId>
         <#else>
           <#assign thisPartyId = requestParameters.partyId!>
         </#if>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.CommonUserLoginId}</div></td>
-          <td>&nbsp;</td>
-          <td valign='middle'>
+          <td class="label"><label>${uiLabelMap.CommonUserLoginId}</label></td>
+          <td>
             <div class='tabletext'>
               <@htmlTemplate.lookupField value="${parameters.userLogin.userLoginId}" formName="salesentryform" name="userLoginId" id="userLoginId_sales" fieldFormName="LookupUserLoginAndPartyDetails"/>
             </div>
           </td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderCustomer}</div></td>
-          <td>&nbsp;</td>
+          <td class="label"><label>${uiLabelMap.OrderCustomer}</label></td>
           <td valign='middle'>
             <div class='tabletext'>
               <@htmlTemplate.lookupField value='${thisPartyId!}' formName="salesentryform" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
@@ -129,13 +123,17 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
-        <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-        <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
+        <div class="basic-nav">
+          <ul>
+            <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
+            <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
+          </ul>
+        </div>
       </ul>
       <br class="clear"/>
     </div>
     <div class="screenlet-body">
-      <form method="post" name="poentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
+      <form method="post" class="basic-form" name="poentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
       <input type='hidden' name='finalizeMode' value='type'/>
       <input type='hidden' name='orderMode' value='PURCHASE_ORDER'/>
       <table width="100%" border='0' cellspacing='0' cellpadding='0'>
@@ -145,9 +143,7 @@ under the License.
           <#assign thisPartyId = requestParameters.partyId!>
         </#if>
         <tr>
-          <td>&nbsp;</td>
-          <td width="300" align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
-          <td>&nbsp;</td>
+          <td class="label"><label>${uiLabelMap.OrderOrderEntryInternalOrganization}</label></td>
           <td valign='middle'>
             <div class='tabletext'>
               <select name="billToCustomerPartyId"<#if "SALES_ORDER" == sessionAttributes.orderMode?default("")> disabled</#if>>
@@ -161,11 +157,8 @@ under the License.
             </div>
           </td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.CommonUserLoginId}</div></td>
-          <td>&nbsp;</td>
+          <td class="label"><label>${uiLabelMap.CommonUserLoginId}</label></td>
           <td valign='middle'>
             <div class='tabletext'>
               <@htmlTemplate.lookupField value='${parameters.userLogin.userLoginId}'formName="poentryform" name="userLoginId" id="userLoginId_purchase" fieldFormName="LookupUserLoginAndPartyDetails"/>
@@ -173,10 +166,8 @@ under the License.
           </td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartySupplier}</div></td>
-          <td>&nbsp;</td>
-          <td valign='middle'>
+          <td class="label"><label>${uiLabelMap.PartySupplier}</label></td>
+          <td>
             <div class='tabletext'>
               <select name="supplierPartyId"<#if "SALES_ORDER" == sessionAttributes.orderMode?default("")> disabled</#if>>
                 <option value="">${uiLabelMap.OrderSelectSupplier}</option>
