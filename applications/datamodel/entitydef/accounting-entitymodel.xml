@@ -2464,6 +2464,7 @@ under the License.
                 If the error journal is set, if the GL posting fails for some reason the triggering operation (finalizing an invoice or payment or whatever) would NOT roll back, instead the partial GL post would be placed into the error journal.
             </description>
         </field>
+        <field name="enableAccounting" type="indicator"/>
         <!-- Deprecated Field-->
         <field name="oldInvoiceSequenceEnumId" col-name="INVOICE_SEQUENCE_ENUM_ID" type="id"/>
         <field name="oldOrderSequenceEnumId" col-name="ORDER_SEQUENCE_ENUM_ID" type="id"/>
@@ -2506,7 +2507,6 @@ under the License.
         <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
             <key-map field-name="oldOrderSequenceEnumId" rel-field-name="enumId"/>
         </relation>
-        <field name="enableAccounting" type="indicator"/>
     </entity>
     <entity entity-name="PartyPrefDocTypeTpl"
             package-name="org.apache.ofbiz.accounting.ledger"
