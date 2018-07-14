@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.KeywordSearchUtil;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericDelegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
@@ -58,6 +59,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.party.party.PartyHelper;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
+import org.apache.ofbiz.service.LocalDispatcher;
 
 
 /**
@@ -827,6 +829,7 @@ public class ProductSearch {
         public abstract void addConstraint(ProductSearchContext productSearchContext);
         /** pretty print for log messages and even UI stuff */
         public abstract String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale);
+        public abstract String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale);
     }
 
 
@@ -921,6 +924,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -967,6 +978,7 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
+        // TODO This is not used OOTB since OFBIZ-9164 and could simply return null, kept for custom projects
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productCategory = null;
@@ -981,6 +993,36 @@ public class ProductSearch {
                 String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, null, "html");
                 if (UtilValidate.isEmpty(catInfo)) {
                     catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "DESCRIPTION", locale, null, "html");
+                }
+                ppBuf.append(catInfo);
+            }
+            if (productCategory == null || detailed) {
+                ppBuf.append(" [");
+                ppBuf.append(productCategoryId);
+                ppBuf.append("]");
+            }
+            if (includeSubCategories) {
+                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "ProductIncludeAllSubCategories", locale)).append(")");
+            }
+            return ppBuf.toString();
+        }
+
+        /** pretty print for log messages and even UI stuff */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            GenericValue productCategory = null;
+            GenericDelegator delegator = (GenericDelegator) dispatcher.getDelegator();
+            try {
+                productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
+            }
+            StringBuilder ppBuf = new StringBuilder();
+            ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
+            if (productCategory != null) {
+                String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher, "html");
+                if (UtilValidate.isEmpty(catInfo)) {
+                    catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "DESCRIPTION", locale, dispatcher, "html");
                 }
                 ppBuf.append(catInfo);
             }
@@ -1138,6 +1180,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
 
@@ -1239,6 +1289,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -1336,6 +1394,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
 
     }
@@ -1450,6 +1516,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
 
     }
@@ -1588,6 +1662,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -1649,6 +1731,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
 
     }
@@ -1743,6 +1833,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
 
     }
@@ -1870,6 +1968,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -1932,6 +2038,14 @@ public class ProductSearch {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("serial")
@@ -1976,6 +2090,14 @@ public class ProductSearch {
             }
             return true;
         }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
     }
 
     @SuppressWarnings("serial")
@@ -2019,6 +2141,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
     }
 
@@ -2126,6 +2256,14 @@ public class ProductSearch {
             }
             return true;
         }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
+        }
     }
 
     @SuppressWarnings("serial")
@@ -2187,6 +2325,14 @@ public class ProductSearch {
                 return false;
             }
             return true;
+        }
+
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
+        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
+            return null;
         }
 
     }
