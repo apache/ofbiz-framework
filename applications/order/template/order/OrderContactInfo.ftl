@@ -73,11 +73,10 @@ under the License.
       <br class="clear"/>
     </div>
     <div class="screenlet-body">
-      <table class="basic-table" cellspacing='0'>
+      <table class="basic-table form-table" cellspacing='0'>
         <tr>
-          <td align="right" valign="top" width="19%"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
-          <td width="1%">&nbsp;</td>
-          <td valign="top" width="80%">
+          <td class="label"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
+          <td>
             <div>
               <#if displayParty?has_content>
                 <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
@@ -108,11 +107,10 @@ under the License.
           <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
-            <td align="right" valign="top" width="19%">
+            <td class="label">
               <span class="label">&nbsp;${contactMechPurpose.get("description",locale)}</span>
             </td>
-            <td width="1%">&nbsp;</td>
-            <td valign="top" width="80%">
+            <td>
               <#if "POSTAL_ADDRESS" == contactMech.contactMechTypeId>
                 <#assign postalAddress = orderContactMechValueMap.postalAddress>
                 <#if postalAddress?has_content>

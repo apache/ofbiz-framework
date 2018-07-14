@@ -18,29 +18,33 @@ under the License.
 -->
 
 
-<form method="post" name="agreementForm" action="<@ofbizUrl>setOrderCurrencyAgreementShipDates</@ofbizUrl>">
 <div class="screenlet">
   <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}</li>
-        <li><a href="javascript:document.agreementForm.submit()">${uiLabelMap.CommonContinue}</a></li>
+        <div class="basic-nav">
+          <ul>
+            <li><a href="javascript:document.agreementForm.submit()">${uiLabelMap.CommonContinue}</a></li>
+          </ul>
+        </div>
       </ul>
       <br class="clear" />
   </div>
   <div class="screenlet-body">
-    <table>
+<form class="basic-form" method="post" name="agreementForm" action="<@ofbizUrl>setOrderCurrencyAgreementShipDates</@ofbizUrl>">
+    <table class="basic-table">
 
       <#if agreements??>
-      <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='Y'/></td></tr>
-      
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap="nowrap">
-          <div class='tableheadtext'>
-            ${uiLabelMap.OrderSelectAgreement}
-          </div>
+        <td class="label"/>
+        <td>&nbsp;
+          <input type='hidden' name='hasAgreements' value='Y'/>
         </td>
-        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="label">
+            <label>${uiLabelMap.OrderSelectAgreement}</label>
+        </td>
         <td valign='middle'>
           <div class='tabletext' valign='top'>
             <select name="agreementId">
@@ -57,13 +61,11 @@ under the License.
       </#if>
       <#if agreementRoles??>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='top' nowrap="nowrap">
-            <div class='tableheadtext'>
+          <td class="label">
+            <label>
               ${uiLabelMap.OrderSelectAgreementRoles}
-            </div>
+            </label>
           </td>
-          <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
               <select name="agreementId">
@@ -79,51 +81,43 @@ under the License.
 
       <#if "PURCHASE_ORDER" == cart.getOrderType()>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='middle' class='tableheadtext'>
-            ${uiLabelMap.OrderOrderId}
+          <td class="label">
+            <label>${uiLabelMap.OrderOrderId}</label>
           </td>
-          <td>&nbsp;</td>
-          <td align='left'>
+          <td>
             <input type='text' size='15' maxlength='100' name='orderId' value=""/>
           </td>
         </tr>
       </#if>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='middle' class='tableheadtext' nowrap="nowrap">
-           ${uiLabelMap.OrderOrderName}
+        <td class="label">
+           <label>${uiLabelMap.OrderOrderName}</label>
         </td>
-        <td>&nbsp;</td>
-        <td align='left'>
+        <td>
           <input type='text' size='60' maxlength='100' name='orderName'/>
         </td>
       </tr>
 
       <#if cart.getOrderType() != "PURCHASE_ORDER">
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='middle' class='tableheadtext' nowrap="nowrap">
-          ${uiLabelMap.OrderPONumber}
+        <td class="label">
+          <label>${uiLabelMap.OrderPONumber}</label>
         </td>
-        <td>&nbsp;</td>
-        <td align='left'>
+        <td>
           <input type="text" class='inputBox' name="correspondingPoId" size="15" />
         </td>
       </tr>
       </#if>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='middle' nowrap="nowrap">
-          <div class='tableheadtext'>
+        <td class="label">
+          <label>
             <#if agreements??>${uiLabelMap.OrderSelectCurrencyOr}
             <#else>${uiLabelMap.OrderSelectCurrency}
             </#if>
-          </div>
+          </label>
         </td>
-        <td>&nbsp;</td>
         <td valign='middle'>
           <div class='tabletext'>
             <select name="currencyUomId">
@@ -137,11 +131,9 @@ under the License.
       </tr>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align="right">
-          ${uiLabelMap.ProductChooseCatalog}
+        <td class="label">
+          <label>${uiLabelMap.ProductChooseCatalog}</label>
         </td>
-        <td>&nbsp;</td>
         <td>
            <#if catalogCol?has_content>
            <select name='CURRENT_CATALOG_ID'>
@@ -151,43 +143,33 @@ under the License.
             </#list>
           </select>
           <#else>
-             <input type="hidden" name='CURRENT_CATALOG_ID' value=""/> 
+             <input type="hidden" name='CURRENT_CATALOG_ID' value=""/>
           </#if>
         </td>
       </tr>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align="right">
-          ${uiLabelMap.WorkEffortWorkEffortId}
+        <td class="label">
+          <label>${uiLabelMap.WorkEffortWorkEffortId}</label>
         </td>
-        <td>&nbsp;</td>
         <td>
           <@htmlTemplate.lookupField formName="agreementForm" name="workEffortId" id="workEffortId" fieldFormName="LookupWorkEffort"/>
         </td>
       </tr>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap="nowrap">
-          <div class='tableheadtext'>
-            ${uiLabelMap.OrderShipAfterDateDefault}
-          </div>
+        <td class="label">
+            <label>${uiLabelMap.OrderShipAfterDateDefault}</label>
         </td>
-        <td>&nbsp;</td>
         <td>
             <@htmlTemplate.renderDateTimeField name="shipAfterDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipAfterDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
         </td>
       </tr>
 
       <tr>
-        <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap="nowrap">
-          <div class='tableheadtext'>
-            ${uiLabelMap.OrderShipBeforeDateDefault}
-          </div>
+        <td class="label">
+            <label>${uiLabelMap.OrderShipBeforeDateDefault}</label>
         </td>
-        <td>&nbsp;</td>
         <td>
             <@htmlTemplate.renderDateTimeField name="shipBeforeDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipBeforeDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
         </td>
@@ -195,13 +177,11 @@ under the License.
 
       <#if "PURCHASE_ORDER" == cart.getOrderType()>
         <tr>
-          <td>&nbsp;</td>
-          <td align='right' valign='top'>
-            <div class='tableheadtext'>
+          <td class="label">
+            <label>
               ${uiLabelMap.FormFieldTitle_cancelBackOrderDate}
-            </div>
+            </label>
           </td>
-          <td>&nbsp;</td>
           <td>
               <@htmlTemplate.renderDateTimeField name="cancelBackOrderDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="cancelBackOrderDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
           </td>

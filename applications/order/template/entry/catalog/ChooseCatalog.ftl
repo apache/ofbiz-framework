@@ -19,22 +19,32 @@ under the License.
 
 <#-- Only show if there is more than 1 (one) catalog, no sense selecting when there is only one option... -->
 <#if (catalogCol?size > 1)>
-<div class="screenlet">
+  <div class="screenlet">
     <div class="screenlet-title-bar">
-        <div class="h3">${uiLabelMap.ProductChooseCatalog}</div>
+      <div class="h3">${uiLabelMap.ProductChooseCatalog}</div>
     </div>
-    <div class="screenlet-body" style="text-align: center;">
-        <form name="choosecatalogform" method="post" action="<@ofbizUrl>choosecatalog</@ofbizUrl>" style='margin: 0;'>
-          <select name='CURRENT_CATALOG_ID'>
-            <option value='${currentCatalogId}'>${currentCatalogName}</option>
-            <option value='${currentCatalogId}'></option>
-            <#list catalogCol as catalogId>
-              <#assign thisCatalogName = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
-              <option value='${catalogId}'>${thisCatalogName}</option>
-            </#list>
-          </select>
-          <div><a href="javascript:document.choosecatalogform.submit()" class="buttontext">${uiLabelMap.CommonChange}</a></div>
-        </form>
+    <div class="screenlet-body">
+      <form class="basic-form" name="choosecatalogform" method="post" action="<@ofbizUrl>choosecatalog</@ofbizUrl>" style='margin: 0;'>
+        <table class="basic-table">
+          <tr>
+            <td class="label"/>
+            <td>
+              <select name='CURRENT_CATALOG_ID'>
+                <option value='${currentCatalogId}'>${currentCatalogName}</option>
+                <option value='${currentCatalogId}'></option>
+                <#list catalogCol as catalogId>
+                  <#assign thisCatalogName = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+                  <option value='${catalogId}'>${thisCatalogName}</option>
+                </#list>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label"/>
+            <td><input type="submit" value="${uiLabelMap.CommonChange}" /></td>
+          </tr>
+        </table>
+      </form>
     </div>
-</div>
+  </div>
 </#if>

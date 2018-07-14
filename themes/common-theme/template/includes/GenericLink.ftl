@@ -18,6 +18,7 @@ under the License.
 -->
 
 <#if requestParameters?? && genericLinkName?? && genericLinkTarget?? && genericLinkText??>
+<div class="button-bar">
   <form name="${genericLinkName}" <#if genericLinkWindow??>target="${genericLinkWindow}"</#if>
       action="<@ofbizUrl>${genericLinkTarget}</@ofbizUrl>" method="post">
     <#if (!excludeParameters?? || excludeParameters != "N") && requestParameters??>
@@ -32,4 +33,5 @@ under the License.
     <a href="javascript:document.${genericLinkName}.submit();"
         <#if genericLinkStyle??>class="${genericLinkStyle}"</#if>>${genericLinkText}</a>
   </form>
+</div>
 </#if>
