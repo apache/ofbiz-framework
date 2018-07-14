@@ -178,7 +178,7 @@ under the License.
     </request-map>
     <request-map uri="deleteWorkEffortRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteRateAmount"/>
+        <event type="service" invoke="expireRateAmount"/>
         <response name="success" type="view" value="EditWorkEffortRates"/>
         <response name="error" type="view" value="EditWorkEffortRates"/>
     </request-map>
