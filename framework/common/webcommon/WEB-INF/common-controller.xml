@@ -31,7 +31,6 @@ under the License.
         <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
         <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
-        <event name="checkExternalServerLogin" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalServerLogin"/>
         <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
         <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
@@ -258,22 +257,6 @@ under the License.
         <response name="error" type="none" />
     </request-map>
 
-    <!-- Common JavaScript getJwtToken Request, to receive JwtToken within regular JS Code -->
-    <request-map uri="getJwtToken">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJwtToken"/> <!-- TODO use later Deepak's createJwt in OFBIZ-9833-JWTManager.patch after complete patch review and test-->
-        <response name="success" type="none" />
-        <response name="error" type="none" />
-    </request-map>
-
-    <!-- Common JavaScript getAutoUserLoginId Request, to receive autoUserLoginId within regular JS Code -->
-    <request-map uri="getAutoUserLoginId">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getAutoUserLoginId"/>
-        <response name="success" type="none" />
-        <response name="error" type="none" />
-    </request-map>
-
     <!-- Check if an UomConversion exists -->
     <request-map uri="checkUomConversion">
         <security https="true" auth="false"/>
@@ -318,7 +301,7 @@ under the License.
     </request-map>
 
     <!-- Set TimeZone from user's browser -->
-    <!-- the auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
+    <!-- XXX The auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
     <request-map uri="SetTimeZoneFromBrowser">
         <security https="false" auth="false"/>
         <event type="service" invoke="SetTimeZoneFromBrowser"/>
