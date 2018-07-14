@@ -318,7 +318,7 @@ under the License.
     </request-map>
 
     <!-- Set TimeZone from user's browser -->
-    <!-- XXX The auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
+    <!-- the auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
     <request-map uri="SetTimeZoneFromBrowser">
         <security https="false" auth="false"/>
         <event type="service" invoke="SetTimeZoneFromBrowser"/>
