@@ -229,7 +229,7 @@ under the License.
       <tr>
           <td class="label">${uiLabelMap.CommonPassword}</td>
           <td>
-              <input type="text" size="60" maxlength="255" name="password" value="${(mechMap.ftpAddress.password)!request.getParameter('password')!''}" />
+              <input type="text" size="60" maxlength="255" name="ftpPassword" value="${(mechMap.ftpAddress.ftpPassword)!request.getParameter('ftpPassword')!''}" />
           </td>
       </tr>
       <tr>
@@ -247,7 +247,7 @@ under the License.
       <tr>
           <td class="label">${uiLabelMap.FormFieldTitle_path}</td>
           <td>
-              <input type="text" size="60" maxlength="255" name="path" value="${(mechMap.ftpAddress.path)!request.getParameter('path')!''}" />
+              <input type="text" size="60" maxlength="255" name="filePath" value="${(mechMap.ftpAddress.filePath)!request.getParameter('filePath')!''}" />
           </td>
       </tr>
       <tr>
