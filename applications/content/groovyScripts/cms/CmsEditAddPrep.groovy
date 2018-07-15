@@ -19,6 +19,7 @@
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
