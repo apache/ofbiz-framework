@@ -103,10 +103,10 @@ public class FtpServices {
                 ftpAddress = delegator.makeValue("FtpAddress");
                 ftpAddress.put("defaultTimeout", UtilProperties.getPropertyAsLong("ftp", "ftp.notifications.redirectTo.defaultTimeout", 30000));
                 ftpAddress.put("hostname", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.hostname"));
-                ftpAddress.put("path", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.path"));
+                ftpAddress.put("filePath", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.filePath"));
                 ftpAddress.put("port", UtilProperties.getPropertyAsLong("ftp", "ftp.notifications.redirectTo.port", 65535));
                 ftpAddress.put("username", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.username"));
-                ftpAddress.put("password", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.password"));
+                ftpAddress.put("ftpPassword", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.ftpPassword"));
                 ftpAddress.put("binaryTransfer", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.binaryTransfer"));
                 ftpAddress.put("passiveMode", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.passiveMode"));
                 ftpAddress.put("zipFile", UtilProperties.getPropertyValue("ftp", "ftp.notifications.redirectTo.zipFile"));
@@ -130,7 +130,7 @@ public class FtpServices {
             Long defaultTimeout = ftpAddress.getLong("defaultTimeout");
             Long port = ftpAddress.getLong("port");
             String username = ftpAddress.getString("username");
-            String password = ftpAddress.getString("password");
+            String password = ftpAddress.getString("ftpPassword");
 
             if (Debug.infoOn())
                 Debug.logInfo("connecting to: " + username + "@" + ftpAddress.getString("hostname") + ":" + port, module);
@@ -147,7 +147,7 @@ public class FtpServices {
                 return ServiceUtil.returnError("DataResource " + content.getString("dataResourceId") + " return an empty stream");
             }
 
-            String path = ftpAddress.getString("path");
+            String path = ftpAddress.getString("filePath");
             if (Debug.infoOn())
                 Debug.logInfo("storing local file remotely as: " + (UtilValidate.isNotEmpty(path) ? path + "/" : "") + content.getString("contentName"), module);
 

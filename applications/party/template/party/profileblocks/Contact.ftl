@@ -99,9 +99,9 @@ under the License.
                     <#if contactMechMap.ftpAddress?has_content>
                     <#assign ftpAddress = contactMechMap.ftpAddress>
                     <div>
-                        <b><#if ftpAddress.hostname?has_content>${ftpAddress.hostname!}</#if><#if ftpAddress.port?has_content>:${ftpAddress.port!}</#if><#if ftpAddress.path?has_content>:${ftpAddress.path!}</#if></b>
+                        <b><#if ftpAddress.hostname?has_content>${ftpAddress.hostname!}</#if><#if ftpAddress.port?has_content>:${ftpAddress.port!}</#if><#if ftpAddress.filePath?has_content>:${ftpAddress.filePath!}</#if></b>
                         <br/>${uiLabelMap.CommonUsername} : ${ftpAddress.username!}
-                        <br/>${uiLabelMap.CommonPassword} : ${ftpAddress.password!}
+                        <br/>${uiLabelMap.CommonPassword} : ${ftpAddress.ftpPassword!}
                         <br/>${uiLabelMap.FormFieldTitle_binaryTransfer} : ${ftpAddress.binaryTransfer!}
                         <br/>${uiLabelMap.FormFieldTitle_zipFile} : ${ftpAddress.zipFile!}
                         <br/>${uiLabelMap.FormFieldTitle_passiveMode} : ${ftpAddress.passiveMode!}
