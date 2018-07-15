@@ -1295,7 +1295,7 @@ under the License.
 
     <!-- For an unknown reason yet grid can't be used here see OFBIZ-9405 -->
     <form name="ListPartyIdentification" list-name="listIt" type="list"
-                 default-table-style="basic-table hover-bar" target="EditPartyIdentification">
+                 default-table-style="basic-table" target="EditPartyIdentification">
         <actions>
             <entity-and entity-name="PartyIdentificationAndParty" >
                 <field-map field-name="partyId" from-field="partyId"/>
@@ -1315,7 +1315,7 @@ under the License.
     </form>
     
     <form name="EditPartyIdentification" type="single" list-name="partyIdents"
-                 default-table-style="basic-table hover-bar" target="createPartyIdentification" focus-field-name="idValue">
+                 default-table-style="basic-table" target="createPartyIdentification" focus-field-name="idValue">
         <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
         <field name="partyIdentificationTypeId" use-when="partyIdentification == null">
             <drop-down>
