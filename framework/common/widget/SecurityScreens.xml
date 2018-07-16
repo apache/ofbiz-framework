@@ -79,7 +79,9 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.PageTitleEditSecurityGroup} - ${groupId}"/>
                         </container>
-                        <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                          <screenlet>
+                            <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                          </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -135,7 +137,9 @@ under the License.
                         <screenlet id="AddSecurityGroupProtectedViewsPanel" title="${uiLabelMap.AddProtectedViewToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupProtectedView" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                          <include-form name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -159,7 +163,9 @@ under the License.
                         <screenlet id="AddSecurityGroupUserLoginsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupUserLogin" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                            <include-form name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -213,7 +219,9 @@ under the License.
                         <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet>
+                          <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

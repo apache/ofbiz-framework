@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- FreeMarker template for DHL ShipIT Services. If the DHL ShipIt API ever changes its schema, we only need to change this file. -->
+
+<entity-engine-xml>
+
+    <CustomMethodType customMethodTypeId="PRODUCT_PROMO" description=""/>
+    <CustomMethodType customMethodTypeId="PRODUCT_PROMO_COND" parentTypeId="PRODUCT_PROMO" description=""/>
+    <CustomMethodType customMethodTypeId="PRODUCT_PROMO_ACTION" parentTypeId="PRODUCT_PROMO" description=""/>
+
+    <!-- CustomMethods type Condition -->
+    <CustomMethod customMethodId="PPC_PRODUCT_AMOUNT" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondProductAmount" description="Product amount"/>
+    <Enumeration enumId="PPIP_PRODUCT_AMOUNT" enumCode="PPC_PRODUCT_AMOUNT"/><!--link enumeration with customMethod for backware compatibility-->
+    <CustomMethod customMethodId="PPC_PRODUCT_TOTAL" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondProductTotal" description="Product Total"/>
+    <Enumeration enumId="PPIP_PRODUCT_TOTAL" enumCode="PPC_PRODUCT_TOTAL"/>
+    <CustomMethod customMethodId="PPC_PRODUCT_QUANT" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondProductQuant" description="X Quantity of Product"/>
+    <Enumeration enumId="PPIP_PRODUCT_QUANT" enumCode="PPC_PRODUCT_QUANT"/>
+    <CustomMethod customMethodId="PPC_NEW_ACCT" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondNewACCT" description="Account Days Since Created"/>
+    <Enumeration enumId="PPIP_NEW_ACCT" enumCode="PPC_NEW_ACCT"/>
+    <CustomMethod customMethodId="PPC_PARTY_ID" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondPartyID" description="Party"/>
+    <Enumeration enumId="PPIP_PARTY_ID" enumCode="PPC_PARTY_ID"/>
+    <CustomMethod customMethodId="PPC_PARTY_GRP_MEM" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondPartyGM" description="Party group member"/>
+    <Enumeration enumId="PPIP_PARTY_GRP_MEM" enumCode="PPC_PARTY_GRP_MEM"/>
+    <CustomMethod customMethodId="PPC_PARTY_CLASS" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondPartyClass" description="Party classification"/>
+    <Enumeration enumId="PPIP_PARTY_CLASS" enumCode="PPC_PARTY_CLASS"/>
+    <CustomMethod customMethodId="PPC_ROLE_TYPE" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondRoleType" description="Role type"/>
+    <Enumeration enumId="PPIP_ROLE_TYPE" enumCode="PPC_ROLE_TYPE"/>
+    <CustomMethod customMethodId="PPC_GEO_ID" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondGeoID" description="Shipping destination"/>
+    <Enumeration enumId="PPIP_GEO_ID" enumCode="PPC_GEO_ID"/>
+    <CustomMethod customMethodId="PPC_ORDER_TOTAL" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondOrderTotal" description="Cart sub-total"/>
+    <Enumeration enumId="PPIP_ORDER_TOTAL" enumCode="PPC_ORDER_TOTAL"/>
+    <CustomMethod customMethodId="PPC_ORST_HIST" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondOrderHist" description="Order sub-total X in last Y Months"/>
+    <Enumeration enumId="PPIP_ORST_HIST" enumCode="PPC_ORST_HIST"/>
+    <CustomMethod customMethodId="PPC_ORST_YEAR" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondOrderYear" description="Order sub-total X since beginning of current year"/>
+    <Enumeration enumId="PPIP_ORST_YEAR" enumCode="PPC_ORST_YEAR"/>
+    <CustomMethod customMethodId="PPC_ORST_LAST_YEAR" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondOrderLastYear" description="Order sub-total X last year"/>
+    <Enumeration enumId="PPIP_ORST_LAST_YEAR" enumCode="PPC_ORST_LAST_YEAR"/>
+    <CustomMethod customMethodId="PPC_RECURRENCE" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondPromoRecurrence" description="Promotion Recurrence"/>
+    <Enumeration enumId="PPIP_RECURRENCE" enumCode="PPC_RECURRENCE"/>
+    <CustomMethod customMethodId="PPC_ORDER_SHIPTOTAL" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondOrderShipTotal" description="Shipping total"/>
+    <Enumeration enumId="PPIP_ORDER_SHIPTOTAL" enumCode="PPC_ORDER_SHIPTOTAL"/>
+    <CustomMethod customMethodId="PPC_LPMUP_AMT" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondListPriceMinAmount" description="List Price minus Unit Price (Amount)"/>
+    <Enumeration enumId="PPIP_LPMUP_AMT" enumCode="PPC_LPMUP_AMT"/>
+    <CustomMethod customMethodId="PPC_LPMUP_PER" customMethodTypeId="PRODUCT_PROMO_COND" customMethodName="productPromoCondListPriceMinPercent" description="List Price minus Unit Price (Percent)"/>
+    <Enumeration enumId="PPIP_LPMUP_PER" enumCode="PPC_LPMUP_PER"/>
+
+    <!-- CustomMethods type Action -->
+    <CustomMethod customMethodId="PPA_GWP" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActGiftGWP" description="gift with purchase"/>
+    <Enumeration enumId="PROMO_GWP" enumCode="PPA_GWP"/>
+    <CustomMethod customMethodId="PPA_FREE_SHIPPING" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActFreeShip" description="free shipping"/>
+    <Enumeration enumId="PROMO_FREE_SHIPPING" enumCode="PPA_FREE_SHIPPING"/>
+    <CustomMethod customMethodId="PPA_PROD_DISC" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActProdDISC" description="X Product for Y% Discount"/>
+    <Enumeration enumId="PROMO_PROD_DISC" enumCode="PPA_PROD_DISC"/>
+    <CustomMethod customMethodId="PPA_PROD_AMDISC" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActProdAMDISC" description="X Product for Y Discount"/>
+    <Enumeration enumId="PROMO_PROD_AMDISC" enumCode="PPA_PROD_AMDISC"/>
+    <CustomMethod customMethodId="PPA_PROD_PRICE" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActProdPrice" description="X Product for Y Price"/>
+    <Enumeration enumId="PROMO_PROD_PRICE" enumCode="PPA_PROD_PRICE"/>
+    <CustomMethod customMethodId="PPA_ORDER_PERCENT" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActOrderPercent" description="Order Percent Discount"/>
+    <Enumeration enumId="PROMO_ORDER_PERCENT" enumCode="PPA_ORDER_PERCENT"/>
+    <CustomMethod customMethodId="PPA_ORDER_AMOUNT" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActOrderAmount" description="Order Amount Flat"/>
+    <Enumeration enumId="PROMO_ORDER_AMOUNT" enumCode="PPA_ORDER_AMOUNT"/>
+    <CustomMethod customMethodId="PPA_PROD_SPPRC" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActProdSpecialPrice" description="Product for [Special Promo] Price"/>
+    <Enumeration enumId="PROMO_PROD_SPPRC" enumCode="PPA_PROD_SPPRC"/>
+    <CustomMethod customMethodId="PPA_TAX_PERCENT" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActTaxPercent" description="Tax % Discount"/>
+    <Enumeration enumId="PROMO_TAX_PERCENT" enumCode="PPA_TAX_PERCENT"/>
+    <CustomMethod customMethodId="PPA_SHIP_CHARGE" customMethodTypeId="PRODUCT_PROMO_ACTION" customMethodName="productPromoActShipCharge" description="shipping charge"/>
+    <Enumeration enumId="PROMO_SHIP_CHARGE" enumCode="PPA_SHIP_CHARGE"/>
+
+</entity-engine-xml>
+
+

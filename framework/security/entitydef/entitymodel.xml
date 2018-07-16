@@ -60,7 +60,7 @@ under the License.
 
     <entity entity-name="UserLogin"
             package-name="org.apache.ofbiz.security.login"
-            title="User Login Entity">
+            title="User Login">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="currentPassword" type="long-varchar"></field>
       <field name="passwordHint" type="description"></field>
@@ -85,7 +85,7 @@ under the License.
     <entity entity-name="UserLoginPasswordHistory"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login Password History Entity">
+            title="User Login Password History">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -99,7 +99,7 @@ under the License.
     <entity entity-name="UserLoginHistory"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login History Entity">
+            title="User Login History">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="visitId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -115,7 +115,7 @@ under the License.
     <entity entity-name="UserLoginSession"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login History Entity">
+            title="User Login History">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="savedDate" type="date-time"></field>
       <field name="sessionData" type="very-long"></field>
@@ -132,7 +132,7 @@ under the License.
     <entity entity-name="SecurityGroup"
             package-name="org.apache.ofbiz.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
-            title="Security Component - Security Group Entity">
+            title="Security Component - Security Group">
       <field name="groupId" type="id"></field>
       <field name="groupName" type="value"></field>
       <field name="description" type="description"></field>
@@ -140,7 +140,7 @@ under the License.
     </entity>
     <entity entity-name="SecurityGroupPermission"
             package-name="org.apache.ofbiz.security.securitygroup"
-            title="Security Component - Security Group Permission Entity">
+            title="Security Component - Security Group Permission">
       <description>Defines a permission available to a security group; there is no FK to SecurityPermission because we want to leave open the possibility of ad-hoc permissions, especially for the Entity Data Maintenance pages which have TONS of permissions</description>
       <field name="groupId" type="id"></field>
       <field name="permissionId" type="id-long"></field>
@@ -159,7 +159,7 @@ under the License.
     <entity entity-name="SecurityPermission"
             package-name="org.apache.ofbiz.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
-            title="Security Component - Security Permission Entity">
+            title="Security Component - Security Permission">
       <field name="permissionId" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="permissionId"/>
@@ -167,7 +167,7 @@ under the License.
     <view-entity entity-name="UserLoginAndSecurityGroup"
           package-name="org.apache.ofbiz.security.securitygroup"
           never-cache="true"
-          title="UserLogin And SecurityGroup View Entity">
+          title="UserLogin And SecurityGroup View">
       <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="UL" entity-name="UserLogin"/>
       <alias-all entity-alias="ULSG"/>
@@ -178,7 +178,7 @@ under the License.
     </view-entity>
     <entity entity-name="UserLoginSecurityGroup"
             package-name="org.apache.ofbiz.security.securitygroup"
-            title="Security Component - User Login Security Group Entity">
+            title="Security Component - User Login Security Group">
       <description>Maps a UserLogin to a security group</description>
       <field name="userLoginId" type="id-vlong"></field>
       <field name="groupId" type="id"></field>
@@ -199,7 +199,7 @@ under the License.
     </entity>
     <entity entity-name="ProtectedView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="Security Component - Protected View Entity">
+          title="Security Component - Protected View">
       <description>Defines views protected from data leakage</description>
       <field name="groupId" type="id"></field>
       <field name="viewNameId" type="id-long"><description>name of view to protect from data theft</description></field>
@@ -217,7 +217,7 @@ under the License.
     </entity>
     <view-entity entity-name="UserLoginAndProtectedView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="UserLogin And ProtectedView View Entity">
+          title="UserLogin And ProtectedView View">
       <member-entity entity-alias="ULSGPV" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="PV" entity-name="ProtectedView"/>
       <alias-all entity-alias="ULSGPV"/>
@@ -228,7 +228,7 @@ under the License.
     </view-entity>
     <entity entity-name="TarpittedLoginView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="Security Component - Protected View Entity">
+          title="Security Component - Protected View">
       <description>Login View couple currently tarpitted : any access to the view for the login is denied</description>
       <field name="viewNameId" type="id-long"><description>name of view protected from data theft</description></field>
       <field name="userLoginId" type="id-vlong"/>

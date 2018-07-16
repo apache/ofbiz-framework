@@ -112,18 +112,18 @@ public final class UtilMisc {
      * @return The resulting Map
      */
     @SuppressWarnings("unchecked")
-    public static <K, V> Map<String, V> toMap(Object... data) {
+    public static <K, V> Map<K, V> toMap(Object... data) {
         if (data.length == 1 && data[0] instanceof Map) {
-            return UtilGenerics.<String, V>checkMap(data[0]);
+            return UtilGenerics.<K, V>checkMap(data[0]);
         }
         if (data.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException("You must pass an even sized array to the toMap method (size = " + data.length + ")");
             Debug.logInfo(e, module);
             throw e;
         }
-        Map<String, V> map = new HashMap<>();
+        Map<K, V> map = new HashMap<>();
         for (int i = 0; i < data.length;) {
-            map.put((String) data[i++], (V) data[i++]);
+            map.put((K) data[i++], (V) data[i++]);
         }
         return map;
     }

@@ -16,17 +16,46 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
+package org.apache.ofbiz.content.ftp;
 
-import org.apache.ofbiz.service.ServiceUtil
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
-public Map setLocaleFromBrowser() {
-    Map results = ServiceUtil.returnSuccess()
-    userLogin = from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
-    if (userLogin) {
-        if (!userLogin.lastTimeZone || "null".equals(userLogin.lastTimeZone)) {
-            userLogin.lastTimeZone = parameters.localeName
-            userLogin.store()
-        }
+public class SecureFtpClient implements FtpClientInterface {
+
+    public static final String module = SecureFtpClient.class.getName();
+
+    /**
+     * TODO : to implements
+     */
+    @Override
+    public void connect(String hostname, String username, String password, Long port, Long timeout) throws IOException {
+
     }
-    return results
+
+    @Override
+    public void copy(String path, String fileName, InputStream file) throws IOException {
+
+    }
+
+    @Override
+    public List<String> list(String path) throws IOException {
+        return null;
+    }
+
+    @Override
+    public void setBinaryTransfer(boolean isBinary) throws IOException {
+
+    }
+
+    @Override
+    public void setPassiveMode(boolean isPassive) throws IOException {
+
+    }
+
+    @Override
+    public void closeConnection() {
+
+    }
 }

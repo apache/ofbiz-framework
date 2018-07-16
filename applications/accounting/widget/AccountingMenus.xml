@@ -326,6 +326,7 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
                 </and>
             </condition>

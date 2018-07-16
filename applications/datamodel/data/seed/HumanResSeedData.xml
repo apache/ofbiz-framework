@@ -19,25 +19,25 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <StatusType description="Employment Application" hasTable="N" parentTypeId="" statusTypeId="EMPLOYMENT_APP_STTS"/>
-    <StatusType description="Employee Position Status" hasTable="N" parentTypeId="" statusTypeId="EMPL_POSITION_STATUS"/>
+    <StatusType description="Employment Application" hasTable="N" statusTypeId="EMPLOYMENT_APP_STTS"/>
+    <StatusType description="Employee Position Status" hasTable="N" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Planned For" sequenceId="01" statusCode="PLANNED_FOR" statusId="EMPL_POS_PLANNEDFOR" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Active/Open" sequenceId="02" statusCode="ACTIVE" statusId="EMPL_POS_ACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Inactive/Closed" sequenceId="03" statusCode="INACTIVE" statusId="EMPL_POS_INACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
 
-    <StatusType description="Unemployment Claim" hasTable="N" parentTypeId="" statusTypeId="UNEMPL_CLAIM_STATUS"/>
+    <StatusType description="Unemployment Claim" hasTable="N" statusTypeId="UNEMPL_CLAIM_STATUS"/>
 
-    <StatusType description="Degree status" hasTable="N" parentTypeId="" statusTypeId="HR_DEGREE_STATUS"/>
+    <StatusType description="Degree status" hasTable="N" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Completed" sequenceId="01" statusCode="COMPLETE" statusId="HR_DS_COMPLETE" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Incomplete" sequenceId="02" statusCode="INCOMPLETE" statusId="HR_DS_INCOMPLETE" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Deferred" sequenceId="03" statusCode="DEFERRED" statusId="HR_DS_DEFERRED" statusTypeId="HR_DEGREE_STATUS"/>
 
-    <StatusType description="Job status" hasTable="N" parentTypeId="" statusTypeId="HR_JOB_STATUS"/>
+    <StatusType description="Job status" hasTable="N" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Full time" sequenceId="01" statusCode="FULLTIME" statusId="HR_JS_FULLTIME" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Part time" sequenceId="02" statusCode="PARTTIME" statusId="HR_JS_PARTTIME" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Contractor" sequenceId="03" statusCode="CONTRACTOR" statusId="HR_JS_CONTRACTOR" statusTypeId="HR_JOB_STATUS"/>
 
-    <StatusType description="PartyQual verification status" hasTable="N" parentTypeId="" statusTypeId="PARTYQUAL_VERIFY"/>
+    <StatusType description="PartyQual verification status" hasTable="N" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Not verified" sequenceId="01" statusCode="NOT_VERIFIED" statusId="PQV_NOT_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Verified" sequenceId="02" statusCode="VERIFIED" statusId="PQV_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
 
@@ -61,71 +61,71 @@ under the License.
     <StatusItem statusId="LEAVE_CREATED" statusTypeId="LEAVE_STATUS"  description="Created"/>
     <StatusItem statusId="LEAVE_REJECTED" statusTypeId="LEAVE_STATUS"  description="Rejected"/>
 
-    <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
-    <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
-    <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
-    <EmplPositionType description="Chief Executive Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CEO"/>
-    <EmplPositionType description="Chief Financial Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CFO"/>
-    <EmplPositionType description="Chief Information Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CIO"/>
-    <EmplPositionType description="Chief Marketing Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CMO"/>
-    <EmplPositionType description="Chief Compliance Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CCO"/>
-    <EmplPositionType description="Chief Security Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CSO"/>
+    <EmplPositionType description="Programmer" hasTable="N" emplPositionTypeId="PROGRAMMER"/>
+    <EmplPositionType description="System Administrator" hasTable="N" emplPositionTypeId="SYS_ADMIN"/>
+    <EmplPositionType description="Business Analyst" hasTable="N" emplPositionTypeId="BIZ_ANALYST"/>
+    <EmplPositionType description="Chief Executive Officer" hasTable="N" emplPositionTypeId="CEO"/>
+    <EmplPositionType description="Chief Financial Officer" hasTable="N" emplPositionTypeId="CFO"/>
+    <EmplPositionType description="Chief Information Officer" hasTable="N" emplPositionTypeId="CIO"/>
+    <EmplPositionType description="Chief Marketing Officer" hasTable="N" emplPositionTypeId="CMO"/>
+    <EmplPositionType description="Chief Compliance Officer" hasTable="N" emplPositionTypeId="CCO"/>
+    <EmplPositionType description="Chief Security Officer" hasTable="N" emplPositionTypeId="CSO"/>
 
-    <ResponsibilityType description="Finance Management" hasTable="N" parentTypeId="" responsibilityTypeId="FIN_MGMT"/>
-    <ResponsibilityType description="Inventory Management" hasTable="N" parentTypeId="" responsibilityTypeId="INV_MGMT"/>
-    <ResponsibilityType description="Purchase Management" hasTable="N" parentTypeId="" responsibilityTypeId="PUR_MGMT"/>
-    <ResponsibilityType description="Resource Management" hasTable="N" parentTypeId="" responsibilityTypeId="RES_MGMT"/>
-    <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" responsibilityTypeId="PROD_MGMT"/>
-    <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" responsibilityTypeId="SALES_MGMT"/>
-    <ResponsibilityType description="General Management" hasTable="N" parentTypeId="" responsibilityTypeId="GENERAL_MGMT"/>
-    <ResponsibilityType description="Information Management" hasTable="N" parentTypeId="" responsibilityTypeId="INFO_MGMT"/>
-    <ResponsibilityType description="Marketing Management" hasTable="N" parentTypeId="" responsibilityTypeId="MKTG_MGMT"/>
-    <ResponsibilityType description="Compliance Management" hasTable="N" parentTypeId="" responsibilityTypeId="COMPLI_MGMT"/>
-    <ResponsibilityType description="Security Management" hasTable="N" parentTypeId="" responsibilityTypeId="SECUR_MGMT"/>
+    <ResponsibilityType description="Finance Management" hasTable="N" responsibilityTypeId="FIN_MGMT"/>
+    <ResponsibilityType description="Inventory Management" hasTable="N" responsibilityTypeId="INV_MGMT"/>
+    <ResponsibilityType description="Purchase Management" hasTable="N" responsibilityTypeId="PUR_MGMT"/>
+    <ResponsibilityType description="Resource Management" hasTable="N" responsibilityTypeId="RES_MGMT"/>
+    <ResponsibilityType description="Production Management" hasTable="N" responsibilityTypeId="PROD_MGMT"/>
+    <ResponsibilityType description="Sales Management" hasTable="N" responsibilityTypeId="SALES_MGMT"/>
+    <ResponsibilityType description="General Management" hasTable="N" responsibilityTypeId="GENERAL_MGMT"/>
+    <ResponsibilityType description="Information Management" hasTable="N" responsibilityTypeId="INFO_MGMT"/>
+    <ResponsibilityType description="Marketing Management" hasTable="N" responsibilityTypeId="MKTG_MGMT"/>
+    <ResponsibilityType description="Compliance Management" hasTable="N" responsibilityTypeId="COMPLI_MGMT"/>
+    <ResponsibilityType description="Security Management" hasTable="N" responsibilityTypeId="SECUR_MGMT"/>
 
-    <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
-    <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
-    <BenefitType description="Sick Leave" hasTable="N" parentTypeId="" benefitTypeId="SICK_LEAVE"/>
+    <BenefitType description="Health" hasTable="N" benefitTypeId="HEALTH"/>
+    <BenefitType description="Vacation" hasTable="N" benefitTypeId="VACATION"/>
+    <BenefitType description="Sick Leave" hasTable="N" benefitTypeId="SICK_LEAVE"/>
 
     <TrainingClassType trainingClassTypeId="BASIC_TRAINING" description="Basic Training"/>
     <TrainingClassType trainingClassTypeId="ONJOB_TRAINING" description="On Job Training"/>
     <TrainingClassType trainingClassTypeId="ADVAN_TRAINING" description="Advance Training"/>
     <TrainingClassType trainingClassTypeId="IMPRO_TRAINING" description="Improvement Training"/>
 
-    <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
-    <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
+    <PartyQualType description="Degree" hasTable="N" partyQualTypeId="DEGREE"/>
+    <PartyQualType description="Certification" hasTable="N" partyQualTypeId="CERTIFICATION"/>
 
     <PartyQualType partyQualTypeId="B.Tech" parentTypeId="DEGREE" description="Bachelor of Technology"/>
     <PartyQualType partyQualTypeId="MBA" parentTypeId="DEGREE" description="Masters of business administration"/>
     <PartyQualType partyQualTypeId="MSC" parentTypeId="DEGREE" description="Masters of Science"/>
     <PartyQualType partyQualTypeId="BSC" parentTypeId="DEGREE" description="Bachelor of Science"/>
         
-    <EnumerationType description="Interview Rating" enumTypeId="INTR_RATNG" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Interview Rating" enumTypeId="INTR_RATNG" hasTable="N"/>
     <Enumeration description="A (above 75%)" enumCode="RATING_A" enumId="INTR_RATNG_A" sequenceId="01" enumTypeId="INTR_RATNG"/>
     <Enumeration description="B (60-75%)" enumCode="RATING_B" enumId="INTR_RATNG_B" sequenceId="02" enumTypeId="INTR_RATNG"/>
     <Enumeration description="C (45-60%)" enumCode="RATING_C" enumId="INTR_RATNG_C" sequenceId="03" enumTypeId="INTR_RATNG"/>
     <Enumeration description="D (below 40%)" enumCode="RATING_D" enumId="INTR_RATNG_D" sequenceId="04" enumTypeId="INTR_RATNG"/>
 
-    <EmploymentAppSourceType description="NewsPaper" hasTable="N" parentTypeId="" employmentAppSourceTypeId="NEWS_PAPER"/>
-    <EmploymentAppSourceType description="PersonalReferal" hasTable="N" parentTypeId="" employmentAppSourceTypeId="PER_REF"/>
-    <EmploymentAppSourceType description="Internet" hasTable="N" parentTypeId="" employmentAppSourceTypeId="INTERNET"/>
-    <EmploymentAppSourceType description="Advertisement" hasTable="N" parentTypeId="" employmentAppSourceTypeId="ADV"/>
+    <EmploymentAppSourceType description="NewsPaper" hasTable="N" employmentAppSourceTypeId="NEWS_PAPER"/>
+    <EmploymentAppSourceType description="PersonalReferal" hasTable="N" employmentAppSourceTypeId="PER_REF"/>
+    <EmploymentAppSourceType description="Internet" hasTable="N" employmentAppSourceTypeId="INTERNET"/>
+    <EmploymentAppSourceType description="Advertisement" hasTable="N" employmentAppSourceTypeId="ADV"/>
 
-    <DeductionType description="Federal Tax" parentTypeId="" deductionTypeId="FED_TAX"/>
-    <DeductionType description="State Tax" parentTypeId="" deductionTypeId="STATE_TAX"/>
-    <DeductionType description="Insurance" parentTypeId="" deductionTypeId="INSURANCE"/>
-    <DeductionType description="Cafeteria Plan" parentTypeId="" deductionTypeId="CAFE_PLAN"/>
+    <DeductionType description="Federal Tax" deductionTypeId="FED_TAX"/>
+    <DeductionType description="State Tax" deductionTypeId="STATE_TAX"/>
+    <DeductionType description="Insurance" deductionTypeId="INSURANCE"/>
+    <DeductionType description="Cafeteria Plan" deductionTypeId="CAFE_PLAN"/>
 
-    <TerminationType description="Resignation" hasTable="N" parentTypeId="" terminationTypeId="RESIGN"/>
-    <TerminationType description="Fired" hasTable="N" parentTypeId="" terminationTypeId="FIRE"/>
-    <TerminationType description="Retirement" hasTable="N" parentTypeId="" terminationTypeId="RETIRE"/>
+    <TerminationType description="Resignation" hasTable="N" terminationTypeId="RESIGN"/>
+    <TerminationType description="Fired" hasTable="N" terminationTypeId="FIRE"/>
+    <TerminationType description="Retirement" hasTable="N" terminationTypeId="RETIRE"/>
 
-    <EmplLeaveType description="Inland Earned Leave" hasTable="N" parentTypeId="" leaveTypeId="INLAND_EARNED"/>
-    <EmplLeaveType description="Inland Loss of Pay" hasTable="N" parentTypeId="" leaveTypeId="LOSS_OF_PAY"/>
-    <EmplLeaveType description="Inland Restricted Holiday" hasTable="N" parentTypeId="" leaveTypeId="RESTRICTED_HOLIDAY"/>
-    <EmplLeaveType description="Inland Special Day Off" hasTable="N" parentTypeId="" leaveTypeId="SPECIAL_DAY_OFF"/>
+    <EmplLeaveType description="Inland Earned Leave" hasTable="N" leaveTypeId="INLAND_EARNED"/>
+    <EmplLeaveType description="Inland Loss of Pay" hasTable="N" leaveTypeId="LOSS_OF_PAY"/>
+    <EmplLeaveType description="Inland Restricted Holiday" hasTable="N" leaveTypeId="RESTRICTED_HOLIDAY"/>
+    <EmplLeaveType description="Inland Special Day Off" hasTable="N" leaveTypeId="SPECIAL_DAY_OFF"/>
 
-    <EnumerationType description="Job Posting Types" enumTypeId="JOB_POSTING" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Job Posting Types" enumTypeId="JOB_POSTING" hasTable="N"/>
     <Enumeration description="Internal Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_INTR" sequenceId="01" enumTypeId="JOB_POSTING"/>
     <Enumeration description="External Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_EXTR" sequenceId="02" enumTypeId="JOB_POSTING"/>
 
@@ -139,7 +139,7 @@ under the License.
     <JobInterviewType jobInterviewTypeId="INFORMAL_INTERVW" description="It is a meeting in which a job seeker asks for advice rather than employment"/>
     <JobInterviewType jobInterviewTypeId="CASE_INTERVW" description="It is an interview in which the applicant is given a question/situation and asked to resolve it"/>
     
-    <EnumerationType description="Exam Type" enumTypeId="EXAM_TYPE" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Exam Type" enumTypeId="EXAM_TYPE" hasTable="N"/>
     <Enumeration description="Written Aptitude Exam" enumCode="WRITTEN_APT" enumId="EXAM_WRITTEN_APT" sequenceId="01" enumTypeId="EXAM_TYPE"/>
     <Enumeration description="Technical Exam" enumCode="TECHNICAL" enumId="EXAM_TECHNICAL" sequenceId="02" enumTypeId="EXAM_TYPE"/>
     <Enumeration description="Group Discussion" enumCode="GROUP_DISCN" enumId="EXAM_GROUP_DISCN" sequenceId="03" enumTypeId="EXAM_TYPE"/>

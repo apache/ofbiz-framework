@@ -64,6 +64,7 @@ import org.apache.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.apache.ofbiz.product.product.ProductSearch.ResultSortOrder;
 import org.apache.ofbiz.product.product.ProductSearch.SortKeywordRelevancy;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
 
@@ -297,6 +298,25 @@ public class ProductSearchSession {
             }
             return constraintStrings;
         }
+        public List<String> searchGetConstraintStrings(boolean detailed, LocalDispatcher dispatcher, Locale locale) {
+            List<ProductSearchConstraint> productSearchConstraintList = this.getConstraintList();
+            List<String> constraintStrings = new LinkedList<>();
+            if (productSearchConstraintList == null) {
+                return constraintStrings;
+            }
+            for (ProductSearchConstraint productSearchConstraint: productSearchConstraintList) {
+                if (productSearchConstraint == null) {
+                    continue;
+                }                
+                String constraintString = productSearchConstraint.prettyPrintConstraint(dispatcher, detailed, locale);
+                if (UtilValidate.isNotEmpty(constraintString)) {
+                    constraintStrings.add(constraintString);
+                } else {
+                    constraintStrings.add("Description not available");
+                }
+            }
+            return constraintStrings;
+        }
     }
 
     public static ProductSearchOptions getProductSearchOptions(HttpSession session) {
@@ -379,7 +399,6 @@ public class ProductSearchSession {
     public static final String checkDoKeywordOverride(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
 
         // get the current productStoreId
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
@@ -470,7 +489,8 @@ public class ProductSearchSession {
     public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, Delegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
-        return productSearchOptions.searchGetConstraintStrings(detailed, delegator, locale);
+        LocalDispatcher dispatcher = (LocalDispatcher) session.getAttribute("dispatcher");
+        return productSearchOptions.searchGetConstraintStrings(detailed, dispatcher, locale);
     }
 
     public static String searchGetSortOrderString(boolean detailed, HttpServletRequest request) {

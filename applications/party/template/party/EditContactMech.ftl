@@ -200,12 +200,86 @@ under the License.
       <td>[${uiLabelMap.CommonCountryCode}] [${uiLabelMap.PartyAreaCode}] [${uiLabelMap.PartyContactNumber}] [${uiLabelMap.PartyContactExt}]</td>
     </tr>
   <#elseif "EMAIL_ADDRESS" = mechMap.contactMechTypeId!>
-    <tr>
-      <td class="label">${mechMap.contactMechType.get("description",locale)}</td>
-      <td>
-        <input type="text" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
-      </td>
-    </tr>
+      <tr>
+          <td class="label">${mechMap.contactMechType.get("description",locale)}</td>
+          <td>
+              <input type="text" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
+          </td>
+      </tr>
+  <#elseif "FTP_ADDRESS" = mechMap.contactMechTypeId!>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_hostname}</td>
+          <td>
+              <input type="text" size="60" maxlength="255" name="hostname" value="${(mechMap.ftpAddress.hostname)!request.getParameter('hostname')!}" />
+              <span class="tooltip">${uiLabelMap.PartyHostnameMustContainProtocol} (ftp://, sftp://, ftps://...)</span>
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_port}</td>
+          <td>
+              <input type="text" size="6" maxlength="6" name="port" value="${(mechMap.ftpAddress.port)!request.getParameter('port')!}" />
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.CommonUsername}</td>
+          <td>
+              <input type="text" size="60" maxlength="255" name="username" value="${(mechMap.ftpAddress.username)!request.getParameter('username')!''}" />
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.CommonPassword}</td>
+          <td>
+              <input type="text" size="60" maxlength="255" name="ftpPassword" value="${(mechMap.ftpAddress.ftpPassword)!request.getParameter('ftpPassword')!''}" />
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_binaryTransfer}</td>
+          <td>
+              <select name="binaryTransfer">
+                  <#if "Y" == (mechMap.ftpAddress.binaryTransfer)!""><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                  <#if "N" == (mechMap.ftpAddress.binaryTransfer)!""><option value="N">${uiLabelMap.CommonN}</option></#if>
+                  <option></option>
+                  <option value="Y">${uiLabelMap.CommonY}</option>
+                  <option value="N">${uiLabelMap.CommonN}</option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_path}</td>
+          <td>
+              <input type="text" size="60" maxlength="255" name="filePath" value="${(mechMap.ftpAddress.filePath)!request.getParameter('filePath')!''}" />
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_zipFile}</td>
+          <td>
+              <select name="zipFile">
+                  <#if "Y" == (mechMap.ftpAddress.zipFile)!""><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                  <#if "N" == (mechMap.ftpAddress.zipFile)!""><option value="N">${uiLabelMap.CommonN}</option></#if>
+                  <option></option>
+                  <option value="Y">${uiLabelMap.CommonY}</option>
+                  <option value="N">${uiLabelMap.CommonN}</option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_passiveMode}</td>
+          <td>
+              <select name="passiveMode">
+                  <#if "Y" == (mechMap.ftpAddress.passiveMode)!""><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                  <#if "N" == (mechMap.ftpAddress.passiveMode)!""><option value="N">${uiLabelMap.CommonN}</option></#if>
+                  <option></option>
+                  <option value="Y">${uiLabelMap.CommonY}</option>
+                  <option value="N">${uiLabelMap.CommonN}</option>
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td class="label">${uiLabelMap.FormFieldTitle_defaultTimeout}</td>
+          <td>
+              <input type="text" size="10" maxlength="10" name="defaultTimeout" value="${(mechMap.ftpAddress.defaultTimeout)!request.getParameter('defaultTimeout')!''}" />
+          </td>
+      </tr>
   <#else>
     <tr>
       <td class="label">${mechMap.contactMechType.get("description",locale)}</td>

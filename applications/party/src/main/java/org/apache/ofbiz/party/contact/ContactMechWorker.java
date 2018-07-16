@@ -123,6 +123,8 @@ public class ContactMechWorker {
                         partyContactMechValueMap.put("postalAddress", contactMech.getRelatedOne("PostalAddress", false));
                     } else if ("TELECOM_NUMBER".equals(contactMech.getString("contactMechTypeId"))) {
                         partyContactMechValueMap.put("telecomNumber", contactMech.getRelatedOne("TelecomNumber", false));
+                    } else if ("FTP_ADDRESS".equals(contactMech.getString("contactMechTypeId"))) {
+                        partyContactMechValueMap.put("ftpAddress", contactMech.getRelatedOne("FtpAddress", false));
                     }
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
@@ -463,6 +465,8 @@ public class ContactMechWorker {
                 requestName = "createTelecomNumber";
             } else if ("EMAIL_ADDRESS".equals(contactMechTypeId)) {
                 requestName = "createEmailAddress";
+            } else if ("FTP_ADDRESS".equals(contactMechTypeId)) {
+                requestName = "createFtpAddress";
             } else {
                 requestName = "createContactMech";
             }
@@ -474,6 +478,8 @@ public class ContactMechWorker {
                 requestName = "updateTelecomNumber";
             } else if ("EMAIL_ADDRESS".equals(contactMechTypeId)) {
                 requestName = "updateEmailAddress";
+            } else if ("FTP_ADDRESS".equals(contactMechTypeId)) {
+                requestName = "updateFtpAddress";
             } else {
                 requestName = "updateContactMech";
             }
@@ -505,6 +511,19 @@ public class ContactMechWorker {
             }
             if (telecomNumber != null) {
                 target.put("telecomNumber", telecomNumber);
+            }
+        } else if ("FTP_ADDRESS".equals(contactMechTypeId)) {
+            GenericValue ftpAddress = null;
+
+            try {
+                if (contactMech != null) {
+                    ftpAddress = contactMech.getRelatedOne("FtpAddress", false);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }
+            if (ftpAddress != null) {
+                target.put("ftpAddress", ftpAddress);
             }
         }
 

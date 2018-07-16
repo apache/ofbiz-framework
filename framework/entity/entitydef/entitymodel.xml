@@ -48,12 +48,12 @@ under the License.
         <field name="changedSessionInfo" type="long-varchar"><description>This should contain whatever information is available about the session during which the value was changed. This could be a visitId, but could be something else too, so there is no foreign key.</description></field>
         <prim-key field="auditHistorySeqId"/>
     </entity>
-    <entity entity-name="EntityKeyStore" package-name="org.apache.ofbiz.entity.crypto" title="Entity Key Store Entity">
+    <entity entity-name="EntityKeyStore" package-name="org.apache.ofbiz.entity.crypto" title="Entity Key Store">
         <field name="keyName" type="id-vlong"></field>
         <field name="keyText" type="long-varchar"></field>
         <prim-key field="keyName"/>
     </entity>
-    <entity entity-name="SequenceValueItem" package-name="org.apache.ofbiz.entity.sequence" title="Sequence Value Item Entity">
+    <entity entity-name="SequenceValueItem" package-name="org.apache.ofbiz.entity.sequence" title="Sequence Value Item">
       <field name="seqName" type="id-long"></field>
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>

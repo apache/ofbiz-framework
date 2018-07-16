@@ -51,7 +51,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -75,16 +74,6 @@ public class CommonEvents {
         "_CONTROL_PATH_",
         "thisRequestUri"
     };
-
-    public static String setFollowerPage(HttpServletRequest request, HttpServletResponse response) {
-        Security security = (Security) request.getAttribute("security");
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        String visitId = request.getParameter("visitId");
-        if (visitId != null) {
-            request.setAttribute("visitId", visitId);
-        }
-        return "success";
-    }
 
     /** Simple event to set the users per-session locale setting. The user's locale
      * setting should be passed as a "newLocale" request parameter. */
@@ -204,7 +193,7 @@ public class CommonEvents {
         // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
         // Though normally you simply have to access the data you want, so should not be annoyed by the "//" prefix
         if ("GET".equalsIgnoreCase(httpMethod)) {
-            Debug.logWarning("for security reason (OFBIZ-5409) the the '//' prefix was added handling the JSON response.  "
+            Debug.logWarning("for security reason (OFBIZ-5409) the '//' prefix was added handling the JSON response.  "
                     + "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix."
                     + "You might need to remove it if you use Ajax GET responses (not recommended)."
                     + "In case, the util.js scrpt is there to help you."

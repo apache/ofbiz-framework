@@ -92,7 +92,16 @@ under the License.
         <condition field-name="communicationEventId" operator="is-not-empty"/>
         <action service="updateCommEventAfterEmail" mode="sync" run-as-user="system"/>
     </eca>
-    
+
+    <eca service="sendContentToFtp" event="in-validate">
+        <condition field-name="communicationEventId" operator="is-empty"/>
+        <action service="createCommEventFromFtpTransfer" mode="sync" run-as-user="system"/>
+    </eca>
+    <eca service="sendContentToFtp" event="commit">
+        <condition field-name="communicationEventId" operator="is-not-empty"/>
+        <action service="setCommEventComplete" mode="sync" run-as-user="system"/>
+    </eca>
+
     <!-- all these secas are now replaced by a sheduled job (sendEmailDated) which runs every 5 minutes -->
 
     <!-- After all the emails have been sent to a contact list, mark it as complete. -->

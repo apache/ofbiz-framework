@@ -79,12 +79,11 @@ under the License.
       <br class="clear"/>
     </div>
     <div class="screenlet-body">
-      <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
+      <form class="basic-form" method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
         <input type="hidden" name="changeStatusAndTypeState" value="Y" />
         <table class="basic-table" cellspacing='0'>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonStatus}</td>
-            <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
                     <label><input type="checkbox" name="viewall" value="Y" id="allcheck" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
@@ -100,7 +99,6 @@ under the License.
           </tr>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonType}</td>
-            <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
                     <label><input type="checkbox" name="view_SALES_ORDER" value="Y" <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>
@@ -112,7 +110,6 @@ under the License.
           </tr>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonFilter}</td>
-            <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
                     <label>
@@ -128,7 +125,6 @@ under the License.
           </tr>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs})</td>
-            <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
                     <label>

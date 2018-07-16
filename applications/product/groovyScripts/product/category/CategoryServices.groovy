@@ -643,12 +643,12 @@ def deleteProductCategoryAttribute() {
  * create a ProductCategoryLink
  */
 def createProductCategoryLink() {
-    GenericValue newEntity = makeValue("ProductCategoryLink", parameters)
+    GenericValue newEntity = makeValue("ProductCategoryLink")
     newEntity.productCategoryId = parameters.productCategoryId
 
     // don't set the fromDate yet; let's get the seq ID first
     if(!parameters.linkSeqId) {
-        newEntity.linkSeqId = delegator.getNextSeqId("newEntity")
+        delegator.setNextSubSeqId(newEntity, "linkSeqId", 5, 1)
     }
 
     // now set the rest of the PK fields (should just be fromDate now; unless linkSeqId is not empty)

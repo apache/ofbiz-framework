@@ -328,6 +328,12 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
+        
+        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
+        if (!session.isNew()) {  // Only do when really signing in. 
+            request.changeSessionId();
+        }
+        
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");

@@ -457,12 +457,11 @@ under the License.
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
-                    <if-not-empty field="pcmpList">
-                        <first-from-list list="pcmpList" entry="pcmp"/>
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
 
@@ -476,11 +475,10 @@ under the License.
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <if-not-empty field="pcmpList">
-                        <first-from-list list="pcmpList" entry="pcmp"/>
+                    <iterate list="pcmpList" entry="pcmp">
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                    </if-not-empty>
+                    </iterate>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
 
@@ -562,12 +560,11 @@ under the License.
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
-                        <if-not-empty field="pcmpList">
-                            <first-from-list list="pcmpList" entry="pcmp"/>
+                        <iterate list="pcmpList" entry="pcmp">
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                             <clear-field field="serviceInMap"/>
-                        </if-not-empty>
+                        </iterate>
                         <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
                         <clear-field field="pcmpList"/>
@@ -594,11 +591,10 @@ under the License.
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>
-                        <if-not-empty field="pcmpList">
-                            <first-from-list list="pcmpList" entry="pcmp"/>
+                        <iterate list="pcmpList" entry="pcmp">
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                        </if-not-empty>
+                        </iterate>
                         <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
                     </if-empty>

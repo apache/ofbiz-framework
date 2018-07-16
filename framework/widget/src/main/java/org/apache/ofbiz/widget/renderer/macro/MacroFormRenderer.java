@@ -1019,6 +1019,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
         Boolean allChecked = checkField.isAllChecked(context);
+        boolean disabled = checkField.getDisabled();
         String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
@@ -1073,7 +1074,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1398,6 +1401,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (!modelForm.getClientAutocompleteFields()) {
             autocomplete = "off";
         }
+        String hasRequiredField = "";
+        for (ModelFormField formField : modelForm.getFieldList()) {
+            if (formField.getRequiredField()) {
+                hasRequiredField = "Y";
+                break;
+            }
+        }
+        String focusFieldName = modelForm.getFocusFieldName();
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormOpen ");
         sr.append(" linkUrl=\"");
@@ -1414,6 +1425,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" name=\"");
         sr.append(name);
+        sr.append("\" focusFieldName=\"");
+        sr.append(focusFieldName);
+        sr.append("\" hasRequiredField=\"");
+        sr.append(hasRequiredField);
         sr.append("\" viewIndexField=\"");
         sr.append(viewIndexField);
         sr.append("\" viewSizeField=\"");
@@ -1429,27 +1444,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String focusFieldName = modelForm.getFocusFieldName();
-        String formName = FormRenderer.getCurrentFormName(modelForm, context);
-        String containerId = FormRenderer.getCurrentContainerId(modelForm, context);
-        String hasRequiredField = "";
-        for (ModelFormField formField : modelForm.getFieldList()) {
-            if (formField.getRequiredField()) {
-                hasRequiredField = "Y";
-                break;
-            }
-        }
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormClose ");
-        sr.append(" focusFieldName=\"");
-        sr.append(focusFieldName);
-        sr.append("\" formName=\"");
-        sr.append(formName);
-        sr.append("\" containerId=\"");
-        sr.append(containerId);
-        sr.append("\" hasRequiredField=\"");
-        sr.append(hasRequiredField);
-        sr.append("\" />");
+        sr.append("<@renderFormClose />");
         executeMacro(writer, sr.toString());
         if (modelForm instanceof ModelSingleForm) {
             renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
@@ -1550,7 +1546,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
 
     }
-
+    public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderEmptyFormDataMessage");
+        sr.append(" message=\"");
+        sr.append(modelForm.getEmptyFormDataMessage());
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
+    }
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatListWrapperClose");

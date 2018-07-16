@@ -36,7 +36,7 @@ under the License.
     <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="ltdadmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person firstName="Limited" lastName="Administrator" middleName="" partyId="ltdadmin" personalTitle="Mr."/>
+    <Person firstName="Limited" lastName="Administrator" partyId="ltdadmin" personalTitle="Mr."/>
     <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK"/>
     <PartyRole partyId="ltdadmin" roleTypeId="LTD_ADMIN"/>
     <PartyRole partyId="ltdadmin" roleTypeId="_NA_"/>
@@ -46,7 +46,7 @@ under the License.
     <!-- Adding another limited admin record(i.e with partyId ltdadmin1) to test role based security -->
 
     <Party partyId="ltdadmin1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person firstName="Limited" lastName="Administrator1" middleName="" partyId="ltdadmin1" personalTitle="Mr."/>
+    <Person firstName="Limited" lastName="Administrator1" partyId="ltdadmin1" personalTitle="Mr."/>
     <PartyRole partyId="ltdadmin1" roleTypeId="ORDER_CLERK"/>
     <PartyRole partyId="ltdadmin1" roleTypeId="LTD_ADMIN"/>
     <PartyRole partyId="ltdadmin1" roleTypeId="_NA_"/>
@@ -54,7 +54,7 @@ under the License.
     <PartyContactMech partyId="ltdadmin1" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
     <Party partyId="externaluser" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person firstName="External" lastName="User" middleName="" partyId="externaluser" personalTitle="Mr."/>
+    <Person firstName="External" lastName="User" partyId="externaluser" personalTitle="Mr."/>
     <PartyRole partyId="externaluser" roleTypeId="SUPPLIER"/>
     <PartyStatus partyId="externaluser" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="externaluser" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>

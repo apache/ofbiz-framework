@@ -980,25 +980,30 @@ public class ModelFormField {
     public static class CheckField extends FieldInfoWithOptions {
         public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
         private final FlexibleStringExpander allChecked;
+        private final boolean disabled;
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
             super(original, modelFormField);
             this.allChecked = original.allChecked;
+            this.disabled = original.disabled;
         }
 
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
+            this.disabled = "true".equals(element.getAttribute("disabled"));
         }
 
         public CheckField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
+            this.disabled = false;
         }
 
         public CheckField(ModelFormField modelFormField) {
             super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
+            this.disabled = false;
         }
 
         @Override
@@ -1021,6 +1026,10 @@ public class ModelFormField {
                 return Boolean.valueOf("true".equals(allCheckedStr));
             }
             return null;
+        }
+
+        public boolean getDisabled() {
+            return this.disabled;
         }
 
         @Override

@@ -19,11 +19,8 @@
 
 import org.apache.ofbiz.base.util.Debug
 
-Debug.logInfo("In getMenuContext.", "")
-
 session = context.session
 menuContext = session.getAttribute("menuContext")
-Debug.logInfo("menuContext(0):" + menuContext, "")
 
 if (!menuContext) {
     menuContext = [:]

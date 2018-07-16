@@ -39,6 +39,9 @@ under the License.
         </tr>
       </table>
     </form>
+    <hr>
+  </div>
+  <div class="form-container">
   <form class="basic-form" method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
     <table class="basic-table">
       <tr>
@@ -54,6 +57,9 @@ under the License.
       </tr>
     </table>
   </form>
+  <hr>
+  </div>
+  <div class="form-container">
   <form class="basic-form" method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
     <table class="basic-table form-table">
       <tr>
@@ -65,6 +71,9 @@ under the License.
       </tr>
     </table>
   </form>
+  <hr>
+  </div>
+  <div class="form-container">
     <form class="basic-form" method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">
       <table class="basic-table form-table">
         <tr>

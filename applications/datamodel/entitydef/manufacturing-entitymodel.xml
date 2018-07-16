@@ -42,7 +42,7 @@ under the License.
 
     <entity entity-name="ProductManufacturingRule"
             package-name="org.apache.ofbiz.manufacturing.bom"
-            title="Product To Part Rule Entity">
+            title="Product To Part Rule">
       <field name="ruleId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="productIdFor" type="id"></field>
@@ -80,7 +80,7 @@ under the License.
     <entity entity-name="TechDataCalendar"
             package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Calendar entity">
+            title="Calendar">
       <description>Used to defined the availability of the machines, this entity define the Id and the week definition.
       The Id is used in the exception calendar table as reference
       </description>
@@ -94,7 +94,7 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcDay"
             package-name="org.apache.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Day entity">
+            title="Calendar Exception Day">
       <description>Used to defined some days which differ from the normal day definition in the weekId associated in the calendar.
       </description>
       <field name="calendarId" type="id"></field>
@@ -110,7 +110,7 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcWeek"
             package-name="org.apache.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Week entity">
+            title="Calendar Exception Week">
       <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
       <field name="calendarId" type="id"></field>
       <field name="exceptionDateStart" type="date"></field>
@@ -128,7 +128,7 @@ under the License.
     <entity entity-name="TechDataCalendarWeek"
             package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Week definition entity">
+            title="Week definition">
       <description>Used to defined the week definition disponibility for machine</description>
       <field name="calendarWeekId" type="id"></field>
       <field name="description" type="description"></field>

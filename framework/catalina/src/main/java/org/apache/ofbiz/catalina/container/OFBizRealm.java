@@ -36,11 +36,6 @@ public class OFBizRealm extends RealmBase
     public static final String module = OFBizRealm.class.getName();
 
     @Override
-    protected String getName() {
-        return "OFBizRealm";
-    }
-
-    @Override
     protected String getPassword(String username) {
         Delegator delegator = DelegatorFactory.getDelegator(null);
         try {

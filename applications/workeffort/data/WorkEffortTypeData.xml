@@ -39,7 +39,7 @@ under the License.
     <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
 
     <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
-    <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
+    <StatusType description="Work Effort Party Availability" hasTable="N" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEPA_AV_AVAILABLE" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
@@ -55,23 +55,23 @@ under the License.
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEFA_AVAILABLE" statusTypeId="WEFA_AVAILABILITY"/>
     <StatusItem description="In Use" sequenceId="02" statusCode="BUSY" statusId="WEFA_IN_USE" statusTypeId="WEFA_AVAILABILITY"/>
 
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update" parentTypeId=""/>
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion"/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update"/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification"/>
 
     <WorkEffortPurposeType description="Project" workEffortPurposeTypeId="WEPT_PROJECT"/>
     <WorkEffortPurposeType description="Phase" workEffortPurposeTypeId="WEPT_PHASE"/>
 
-    <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
-    <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
-    <WorkEffortType description="Task" hasTable="N" parentTypeId="" workEffortTypeId="TASK"/>
-    <WorkEffortType description="Milestone" hasTable="N" parentTypeId="" workEffortTypeId="MILESTONE"/>
-    <WorkEffortType description="Available" hasTable="N" parentTypeId="" workEffortTypeId="AVAILABLE"/>
-    <WorkEffortType description="Program" hasTable="N" parentTypeId="" workEffortTypeId="PROGRAM"/>
-    <WorkEffortType description="Project" hasTable="N" parentTypeId="" workEffortTypeId="PROJECT"/>
-    <WorkEffortType description="Project Phase" hasTable="N" parentTypeId="" workEffortTypeId="PHASE"/>
+    <WorkEffortType description="Workflow Process" hasTable="N" workEffortTypeId="WORK_FLOW"/>
+    <WorkEffortType description="Workflow Activity" hasTable="N" workEffortTypeId="ACTIVITY"/>
+    <WorkEffortType description="Task" hasTable="N" workEffortTypeId="TASK"/>
+    <WorkEffortType description="Milestone" hasTable="N" workEffortTypeId="MILESTONE"/>
+    <WorkEffortType description="Available" hasTable="N" workEffortTypeId="AVAILABLE"/>
+    <WorkEffortType description="Program" hasTable="N" workEffortTypeId="PROGRAM"/>
+    <WorkEffortType description="Project" hasTable="N" workEffortTypeId="PROJECT"/>
+    <WorkEffortType description="Project Phase" hasTable="N" workEffortTypeId="PHASE"/>
 
     <!-- WorkEffort Email Template Settings -->
-    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" description="" fromAddress="ofbiztest@example.com" subject="Event Reminder"
+    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" fromAddress="ofbiztest@example.com" subject="Event Reminder"
             bodyScreenLocation="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortEventReminderEmail"/>
 </entity-engine-xml>

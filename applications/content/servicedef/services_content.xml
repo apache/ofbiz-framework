@@ -23,11 +23,11 @@
     <vendor>OFBiz</vendor>
 
     <!-- create content services -->
-    <service name="createContent" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="createContent">
+    <service name="createContent" default-entity-name="Content" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Content</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <!-- TODO: the following fields are deprecated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
@@ -37,17 +37,8 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <!-- end of deprecated fields -->
-        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="contentIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="mapKey" type="String" mode="IN" optional="true"/>
-        <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
+        <override name="statusId" default-value="CTNT_IN_PROGRESS"/>
         <override name="contentName" allow-html="any"/>
         <override name="description" allow-html="any"/>
     </service>

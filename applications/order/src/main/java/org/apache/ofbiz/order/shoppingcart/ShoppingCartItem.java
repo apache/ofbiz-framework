@@ -2034,7 +2034,10 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Returns the total line price. */
     public BigDecimal getItemSubTotal(BigDecimal quantity) {
-          return getBasePrice().multiply(quantity).multiply(getRentalAdjustment()).add(getOtherAdjustments());
+        BigDecimal basePrice = getBasePrice();
+        BigDecimal rentalAdj = getRentalAdjustment();
+        BigDecimal otherAdj = getOtherAdjustments();
+        return basePrice.multiply(quantity).multiply(rentalAdj).add(otherAdj);
     }
 
     public BigDecimal getItemSubTotal() {

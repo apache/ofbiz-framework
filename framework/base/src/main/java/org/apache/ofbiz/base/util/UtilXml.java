@@ -431,6 +431,12 @@ public final class UtilXml {
         factory.setAttribute("http://xml.org/sax/features/validation", validate);
         factory.setAttribute("http://apache.org/xml/features/validation/schema", validate);
 
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
+
         // with a SchemaUrl, a URL object
         DocumentBuilder builder = factory.newDocumentBuilder();
         if (validate) {

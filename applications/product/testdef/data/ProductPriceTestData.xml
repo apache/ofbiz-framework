@@ -25,9 +25,9 @@ under the License.
     <Product productId="DemoProduct-2" productTypeId="FINISHED_GOOD" productName="Demo Product 2" isVirtual="N" isVariant="Y" createdDate="2006-03-23 23:05:32.915" salesDiscontinuationDate="2007-03-23 23:05:32.915"/>
     <Product productId="DemoProduct-3" productTypeId="FINISHED_GOOD" productName="Demo Product 3" isVirtual="N" isVariant="Y" createdDate="2006-03-23 23:05:32.915" />
 
-    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0" reason=""/>
-    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0" reason=""/>
-    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-3" quantity="1.0" reason=""/>
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0"/>
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0"/>
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-3" quantity="1.0"/>
 
     <ProductPrice productId="DemoProduct-1" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2006-05-13 12:00:00.0" price="15.00" createdDate="2006-05-13 12:00:00.0"  lastModifiedDate="2006-05-13 12:00:00.0"/>
     <ProductPrice productId="DemoProduct-2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2006-05-13 12:00:00.0" price="5.00" createdDate="2006-05-13 12:00:00.0"  lastModifiedDate="2006-05-13 12:00:00.0"/>

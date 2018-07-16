@@ -181,11 +181,6 @@ public final class UtilValidate {
         return o != null && !o.isEmpty();
     }
 
-    /** Check whether string s is empty. */
-    public static boolean isEmpty(String s) {
-        return (s == null) || s.length() == 0;
-    }
-
     /** Check whether collection c is empty. */
     public static <E> boolean isEmpty(Collection<E> c) {
         return (c == null) || c.isEmpty();
@@ -197,13 +192,8 @@ public final class UtilValidate {
     }
 
     /** Check whether charsequence c is empty. */
-    public static <E> boolean isEmpty(CharSequence c) {
+    public static boolean isEmpty(CharSequence c) {
         return (c == null) || c.length() == 0;
-    }
-
-    /** Check whether string s is NOT empty. */
-    public static boolean isNotEmpty(String s) {
-        return (s != null) && s.length() > 0;
     }
 
     /** Check whether collection c is NOT empty. */
@@ -212,7 +202,7 @@ public final class UtilValidate {
     }
 
     /** Check whether charsequence c is NOT empty. */
-    public static <E> boolean isNotEmpty(CharSequence c) {
+    public static boolean isNotEmpty(CharSequence c) {
         return ((c != null) && (c.length() > 0));
     }
 

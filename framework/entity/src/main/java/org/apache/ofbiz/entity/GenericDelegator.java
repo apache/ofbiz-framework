@@ -47,6 +47,7 @@ import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilObject;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.cache.Cache;
@@ -96,6 +97,8 @@ public class GenericDelegator implements Delegator {
     protected ModelGroupReader modelGroupReader = null;
     /** This flag is only here for lower level technical testing, it shouldn't be user configurable (or at least I don't think so yet); when true all operations without a transaction will be wrapped in one; seems to be necessary for some (all?) XA aware connection pools, and should improve overall stability and consistency */
     public static final boolean alwaysUseTransaction = true;
+    // TODO should this is be handled by tenant?
+    public static final boolean saveEntitySyncRemoveInfo = UtilProperties.getPropertyAsBoolean("general", "saveEntitySyncRemove", false);
 
     protected String delegatorBaseName = null;
     protected String delegatorFullName = null;
@@ -1053,7 +1056,9 @@ public class GenericDelegator implements Delegator {
                 }
             }
 
-            this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
+            if (saveEntitySyncRemoveInfo) {
+                this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
+            }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
             TransactionUtil.commit(beganTransaction);

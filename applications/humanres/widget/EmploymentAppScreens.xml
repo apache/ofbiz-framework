@@ -65,7 +65,9 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
+                        <screenlet>
+                          <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
+                        </screenlet>
                         <screenlet id="AddEmploymentAppPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmploymentApp}" collapsible="true">
                             <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
                         </screenlet>

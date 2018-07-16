@@ -24,6 +24,7 @@ under the License.
         <div class="h3">${uiLabelMap.OrderOrderShortcuts}</div>
     </div>
     <div class="screenlet-body">
+      <div class="button-bar">
         <ul>
             <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
               <li><a href="<@ofbizUrl>RequirementsForSupplier</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderRequirements}</a></li>
@@ -48,6 +49,7 @@ under the License.
               <li><a href="<@ofbizUrl>viewPartyShoppingLists?partyId=${partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PageTitleShoppingList}</a></li>
             </#if>
         </ul>
+      </div>
     </div>
 </div>
 <br />

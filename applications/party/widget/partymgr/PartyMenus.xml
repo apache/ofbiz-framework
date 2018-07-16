@@ -272,7 +272,7 @@
         </menu-item>
     </menu>
 
-    <menu name="PersonUpdate">
+    <menu name="PersonUpdate" menu-container-style="basic-nav">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editperson">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
@@ -317,7 +317,7 @@
         </menu-item>
     </menu>
 
-    <menu name="GroupUpdate">
+    <menu name="GroupUpdate" menu-container-style="basic-nav">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editpartygroup">
                 <parameter param-name="partyId" from-field="party.partyId"/>
@@ -326,7 +326,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddShipper">
+    <menu name="AddShipper" menu-container-style="basic-nav">
         <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
             <condition>
                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
@@ -732,7 +732,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddRelContactAccounts">
+    <menu name="AddRelContactAccounts" menu-container-style="basic-nav">
         <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
             <link target="AddPartyRelatedAccount">
                 <parameter param-name="partyId"/>
@@ -742,7 +742,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddRelAccountContacts">
+    <menu name="AddRelAccountContacts" menu-container-style="basic-nav">
         <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
             <link target="AddAccountRelatedContact">
                 <parameter param-name="partyId"/>
@@ -752,7 +752,7 @@
         </menu-item>
     </menu>
 
-    <menu name="NewPartyIdentification">
+    <menu name="NewPartyIdentification" menu-container-style="basic-nav">
         <menu-item name="new" title="${uiLabelMap.CommonNew}">
             <link target="viewidentifications">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>

@@ -58,23 +58,23 @@ under the License.
     <MetaDataPredicate metaDataPredicateId="event-location" description="The location where subject event took place."/>
     <MetaDataPredicate metaDataPredicateId="event-person-name" description="The name of a person involved in the subject event."/>
 
-    <ContentType contentTypeId="DOCUMENT" description="Document" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="DOCUMENT" description="Document" hasTable="N"/>
+    <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N"/>
     <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId="TEMPLATE"/>
-    <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N"/>
+    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N"/>
     <!-- NOTE DEJ20080809 The following 3 ContentTypes may not be needed, and the current practice is to just use DOCUMENT instead -->
     <ContentType contentTypeId="OUTLINE_NODE" description="Outline Node" hasTable="N" parentTypeId="DOCUMENT"/>
     <ContentType contentTypeId="PAGE_NODE" description="Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
     <ContentType contentTypeId="SUBPAGE_NODE" description="Sub Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
     <!-- These ContentTypes are primarily for structuring knowledge -->
-    <ContentType contentTypeId="CONTENT_LIST" description="Content List" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="TREE_ROOT" description="Tree Root" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="GRAPH_ROOT" description="Graph Root" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="STRUCTURE_NODE" description="Structure Node" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="STRUCTURE_LEAF" description="Structure Leaf" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="STRUCTURE_DEF" description="Structure Definition (like DTD)" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="TXFORM_DEF" description="Transformation Definition (like XSLT)" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="CONTENT_LIST" description="Content List" hasTable="N"/>
+    <ContentType contentTypeId="TREE_ROOT" description="Tree Root" hasTable="N"/>
+    <ContentType contentTypeId="GRAPH_ROOT" description="Graph Root" hasTable="N"/>
+    <ContentType contentTypeId="STRUCTURE_NODE" description="Structure Node" hasTable="N"/>
+    <ContentType contentTypeId="STRUCTURE_LEAF" description="Structure Leaf" hasTable="N"/>
+    <ContentType contentTypeId="STRUCTURE_DEF" description="Structure Definition (like DTD)" hasTable="N"/>
+    <ContentType contentTypeId="TXFORM_DEF" description="Transformation Definition (like XSLT)" hasTable="N"/>
 
     <ContentType contentTypeId="PLACEHOLDER" description="Place Holder"/>
     <ContentType contentTypeId="WEB_SITE_PUB_PT" parentTypeId="PLACEHOLDER" hasTable="Y" description="Web Site Publish Point"/>
@@ -89,30 +89,30 @@ under the License.
     <ContentType contentTypeId="COMPDOC_TEMPLATE" description="Composite Document Template"/>
     <ContentType contentTypeId="COMPDOC_INSTANCE" description="Composite Document Instance"/>
 
-    <DataResourceType dataResourceTypeId="LOCAL_FILE" description="Local File" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="OFBIZ_FILE" description="File (rel to OFBIZ_HOME)" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="CONTEXT_FILE" description="File (rel to webapp root)" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="LOCAL_FILE_BIN" description="Local Binary File" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="OFBIZ_FILE_BIN" description="Binary File (rel to OFBIZ_HOME)" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="CONTEXT_FILE_BIN" description="Binary File (rel to webapp root)" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="LINK" description="HyperLink" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="URL_RESOURCE" description="URL Resource" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="SHORT_TEXT" description="Short Text" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="ELECTRONIC_TEXT" description="Long Text" hasTable="Y" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="AUDIO_OBJECT" description="Audio" hasTable="Y" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="IMAGE_OBJECT" description="Image" hasTable="Y" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="OTHER_OBJECT" description="Other" hasTable="Y" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="VIDEO_OBJECT" description="Video" hasTable="Y" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="SURVEY" description="Survey" hasTable="N" parentTypeId=""/>
-    <DataResourceType dataResourceTypeId="SURVEY_RESPONSE" description="Survey Response" hasTable="N" parentTypeId=""/>
+    <DataResourceType dataResourceTypeId="LOCAL_FILE" description="Local File" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="OFBIZ_FILE" description="File (rel to OFBIZ_HOME)" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="CONTEXT_FILE" description="File (rel to webapp root)" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="LOCAL_FILE_BIN" description="Local Binary File" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="OFBIZ_FILE_BIN" description="Binary File (rel to OFBIZ_HOME)" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="CONTEXT_FILE_BIN" description="Binary File (rel to webapp root)" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="LINK" description="HyperLink" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="URL_RESOURCE" description="URL Resource" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="SHORT_TEXT" description="Short Text" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="ELECTRONIC_TEXT" description="Long Text" hasTable="Y"/>
+    <DataResourceType dataResourceTypeId="AUDIO_OBJECT" description="Audio" hasTable="Y"/>
+    <DataResourceType dataResourceTypeId="IMAGE_OBJECT" description="Image" hasTable="Y"/>
+    <DataResourceType dataResourceTypeId="OTHER_OBJECT" description="Other" hasTable="Y"/>
+    <DataResourceType dataResourceTypeId="VIDEO_OBJECT" description="Video" hasTable="Y"/>
+    <DataResourceType dataResourceTypeId="SURVEY" description="Survey" hasTable="N"/>
+    <DataResourceType dataResourceTypeId="SURVEY_RESPONSE" description="Survey Response" hasTable="N"/>
 
-    <DataTemplateType dataTemplateTypeId="NONE" description="No Template" extension=""/>
+    <DataTemplateType dataTemplateTypeId="NONE" description="No Template"/>
     <DataTemplateType dataTemplateTypeId="FTL" description="FreeMarker" extension="ftl"/>
     <DataTemplateType dataTemplateTypeId="WM" description="WebMacro" extension="wm"/>
     <DataTemplateType dataTemplateTypeId="XSLT" description="XSLT" extension="xsl"/>
     <DataTemplateType dataTemplateTypeId="SCREEN_COMBINED" description="Screen widget" extension="xml"/>
 
-    <DocumentType description="Shipping" documentTypeId="SHIPPING_DOCUMENT" hasTable="Y" parentTypeId=""/>
+    <DocumentType description="Shipping" documentTypeId="SHIPPING_DOCUMENT" hasTable="Y"/>
     <DocumentType description="Bill Of Lading" documentTypeId="BILL_OF_LADING" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
     <DocumentType description="Export" documentTypeId="EXPORT_DOCUMENTATION" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
     <DocumentType description="Haz Mat" documentTypeId="HAZ_MAT_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
@@ -123,17 +123,17 @@ under the License.
     <DocumentType description="Tax Tariff" documentTypeId="TAX_TARIFF_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
 
     <!-- website data -->
-    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="DEFAULT_PAGE" description="Default Page" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="FORUM_ROOT" description="Forum Root" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="ERROR_ROOT" description="Error Page Containers" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="WEB_PAGE" description="Web Page" hasTable="N" parentTypeId="" />
-    <WebSiteContentType webSiteContentTypeId="MAINTENANCE_PAGE" description="Maintenance Page" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="DEFAULT_PAGE" description="Default Page" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="FORUM_ROOT" description="Forum Root" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="ERROR_ROOT" description="Error Page Containers" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N"/>
+    <WebSiteContentType webSiteContentTypeId="WEB_PAGE" description="Web Page" hasTable="N" />
+    <WebSiteContentType webSiteContentTypeId="MAINTENANCE_PAGE" description="Maintenance Page" hasTable="N"/>
 
     <!-- content related seed data -->
-    <RoleType description="Logged In" hasTable="N"  parentTypeId="" roleTypeId="LOGGEDIN"/>
+    <RoleType description="Logged In" hasTable="N"  roleTypeId="LOGGEDIN"/>
     <RoleType roleTypeId="CONTENT" hasTable="N" description="Content Member"/>
     <RoleType roleTypeId="CONTENT_ADMIN" parentTypeId="CONTENT" hasTable="N" description="Content Administrator"/>
     <RoleType roleTypeId="CONTENT_PUBLISHER" parentTypeId="CONTENT" hasTable="N" description="Content Publisher"/>
@@ -142,7 +142,7 @@ under the License.
     <RoleType roleTypeId="CONTENT_USER" parentTypeId="CONTENT" hasTable="N" description="Content User"/>
     <RoleType roleTypeId="CONTENT_GUEST" parentTypeId="CONTENT" hasTable="N" description="Content Guest"/>
 
-    <StatusType description="Content Approval Status" hasTable="N" parentTypeId="" statusTypeId="CNTNTAPPR_STATUS"/>
+    <StatusType description="Content Approval Status" hasTable="N" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Not Ready for Approval" sequenceId="01" statusCode="NOT_READY" statusId="CNTAP_NOT_READY" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Ready for Approval" sequenceId="02" statusCode="READY" statusId="CNTAP_READY" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Approval In Process" sequenceId="03" statusCode="IN_PROCESS" statusId="CNTAP_IN_PROCESS" statusTypeId="CNTNTAPPR_STATUS"/>
@@ -163,10 +163,10 @@ under the License.
     <Enumeration enumId="SUBSCRIBE_GOLD" enumTypeId="SUBSCRIPTION_TYPE" enumCode="GOLD" sequenceId="30" description="Gold Level"/>
     <Enumeration enumId="SUBSCRIBE_SILVER" enumTypeId="SUBSCRIPTION_TYPE" enumCode="SILVER" sequenceId="20" description="Silver Level"/>
 
-    <StatusType description="Server Hit" hasTable="N" parentTypeId="" statusTypeId="SERVER_HIT_STATUS"/>
-    <StatusType description="Web Content" hasTable="N" parentTypeId="" statusTypeId="WEB_CONTENT_STATUS"/>
+    <StatusType description="Server Hit" hasTable="N" statusTypeId="SERVER_HIT_STATUS"/>
+    <StatusType description="Web Content" hasTable="N" statusTypeId="WEB_CONTENT_STATUS"/>
 
-    <StatusType description="Content" hasTable="N" parentTypeId="" statusTypeId="CONTENT_STATUS"/>
+    <StatusType description="Content" hasTable="N" statusTypeId="CONTENT_STATUS"/>
     <StatusItem description="In Progress" sequenceId="01" statusCode="IN_PROGRESS" statusId="CTNT_IN_PROGRESS" statusTypeId="CONTENT_STATUS"/>
     <StatusItem description="Initial Draft" sequenceId="02" statusCode="INITIAL_DRAFT" statusId="CTNT_INITIAL_DRAFT" statusTypeId="CONTENT_STATUS"/>
     <StatusItem description="Revised Draft" sequenceId="03" statusCode="REVISED_DRAFT" statusId="CTNT_REVISED_DRAFT" statusTypeId="CONTENT_STATUS"/>
@@ -186,9 +186,9 @@ under the License.
     <StatusValidChange statusId="CTNT_PUBLISHED" statusIdTo="CTNT_DEACTIVATED" transitionName="Deactivated"/>
     <StatusValidChange statusId="CTNT_AVAILABLE" statusIdTo="CTNT_DEACTIVATED" transitionName="Available to Deactivated"/>
 
-    <SubscriptionType description="Newsgroup" hasTable="N" parentTypeId="" subscriptionTypeId="NEWSGROUP_SUBSCR"/>
-    <SubscriptionType description="Other" hasTable="N" parentTypeId="" subscriptionTypeId="OTHER_SUBSCR"/>
-    <SubscriptionType description="Product Info" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
+    <SubscriptionType description="Newsgroup" hasTable="N" subscriptionTypeId="NEWSGROUP_SUBSCR"/>
+    <SubscriptionType description="Other" hasTable="N" subscriptionTypeId="OTHER_SUBSCR"/>
+    <SubscriptionType description="Product Info" hasTable="N" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
 
     <!-- survey data -->
     <SurveyApplType surveyApplTypeId="CART_ADD" description="Add-To Cart"/>
@@ -257,7 +257,7 @@ under the License.
     </ElectronicText>
     <Content contentId="STDWRAP001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html"/>
 
-    <WebAnalyticsType description="Web Analytics" hasTable="N" parentTypeId="" webAnalyticsTypeId="WEB_ANALYTICS"/>
+    <WebAnalyticsType description="Web Analytics" hasTable="N" webAnalyticsTypeId="WEB_ANALYTICS"/>
     <WebAnalyticsType webAnalyticsTypeId="GOOGLE_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Google Analytics"/>
     <WebAnalyticsType webAnalyticsTypeId="BING_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Bing Analytics"/>
     <WebAnalyticsType webAnalyticsTypeId="BACKEND_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Backend Analytics"/>
@@ -1631,7 +1631,7 @@ under the License.
     <MimeTypeHtmlTemplate mimeTypeId="video/x-flv" templateLocation="component://content/template/mime-type/Flash-flv.ftl"/>
 
    <!-- data category -->
-    <DataCategory dataCategoryId="ROOT" parentCategoryId="" categoryName=""/>
+    <DataCategory dataCategoryId="ROOT"/>
     <DataCategory dataCategoryId="BUSINESS" parentCategoryId="ROOT" categoryName="Business"/>
     <DataCategory dataCategoryId="TECHNOLOGY" parentCategoryId="ROOT" categoryName="Technology"/>
     <DataCategory dataCategoryId="PERSONAL" parentCategoryId="ROOT" categoryName="Personal"/>
@@ -1651,7 +1651,6 @@ under the License.
 
     <!-- blog seed data -->
     <Content contentId="BLOGROOT" contentTypeId="WEB_SITE_PUB_PT"
-        ownerContentId=""
         contentName="Blog Root"
         description="Blog Root"
         childBranchCount="1"
@@ -1693,7 +1692,7 @@ under the License.
     <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl"/>
 
-    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
+    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
     <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner"/>
     <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="IMAGE_CENTERED" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html"/>
     <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="IMAGE_LEFT" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html"/>
@@ -2094,11 +2093,11 @@ ${txt}
 
     <DataResource dataResourceId="NOCONTENTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/nocontentfound.png"
 mimeTypeId="image/png" createdDate="2004-08-06 11:40:15.818"/>
-    <Content contentId="NOCONTENTFOUND" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="NOCONTENTFOUND" contentName="No Content Found" description="No Content Found"
+    <Content contentId="NOCONTENTFOUND" contentTypeId="DOCUMENT" dataResourceId="NOCONTENTFOUND" contentName="No Content Found" description="No Content Found"
 createdDate="2004-08-06 11:40:15.818"/>
     <DataResource dataResourceId="NOTEXTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/notextfound.html"
 mimeTypeId="text/html" createdDate="2004-08-06 11:40:15.818"/>
-    <Content contentId="NOTEXTFOUND" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="NOTEXTFOUND" contentName="No Text Found" description="No Text Found"
+    <Content contentId="NOTEXTFOUND" contentTypeId="DOCUMENT" dataResourceId="NOTEXTFOUND" contentName="No Text Found" description="No Text Found"
 createdDate="2004-08-06 11:40:15.818"/>
 
 </entity-engine-xml>

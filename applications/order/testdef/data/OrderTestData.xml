@@ -30,8 +30,8 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
 
     <!--Demo data for a sales order -->
-    <OrderHeader orderId="TEST_DEMO10090" orderTypeId="SALES_ORDER" orderName="" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
-    <OrderItem orderId="TEST_DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" correspondingPoId="" statusId="ITEM_APPROVED"/>
+    <OrderHeader orderId="TEST_DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
+    <OrderItem orderId="TEST_DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
 
     <Party partyId="TestDemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestDemoCustomer" firstName="Test" lastName="Customer"/>

@@ -31,8 +31,6 @@ buildscript {
         classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.7'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
-        // asciidoctorj-pdf bug workaround - override jruby. See OFBIZ-9873
-        classpath 'org.jruby:jruby-complete:9.1.13.0'
     }
 }
 apply plugin: 'java'
@@ -109,7 +107,7 @@ dependencies {
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20170515.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:8.8.7'
     compile 'com.ibm.icu:icu4j:60.2'
-    compile 'com.lowagie:itext:4.2.0'
+    compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     compile 'com.sun.mail:javax.mail:1.6.0'
     compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
@@ -126,19 +124,20 @@ dependencies {
     compile 'org.apache.axis2:axis2-kernel:1.7.7'
     compile 'org.apache.commons:commons-collections4:4.1'
     compile 'org.apache.commons:commons-csv:1.5'
-    compile 'org.apache.commons:commons-dbcp2:2.2.0'
+    compile 'org.apache.commons:commons-dbcp2:2.3.0'
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.4'
     compile 'org.apache.logging.log4j:log4j-api:2.10.0' // the API of log4j 2
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.shiro:shiro-core:1.4.0'
+    compile 'org.apache.sshd:sshd-core:1.7.0'
     compile 'org.apache.tika:tika-core:1.16'
     compile 'org.apache.tika:tika-parsers:1.16'
-    compile 'org.apache.tomcat:tomcat-catalina-ha:8.5.24'
-    compile 'org.apache.tomcat:tomcat-catalina:8.5.24'
-    compile 'org.apache.tomcat:tomcat-jasper:8.5.24'
-    compile 'org.apache.tomcat:tomcat-tribes:8.5.24'
+    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.7'
+    compile 'org.apache.tomcat:tomcat-catalina:9.0.7'
+    compile 'org.apache.tomcat:tomcat-jasper:9.0.7'
+    compile 'org.apache.tomcat:tomcat-tribes:9.0.7'
     compile 'org.apache.xmlgraphics:fop:2.2'
     compile 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     compile 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
@@ -150,7 +149,6 @@ dependencies {
     compile 'org.zapodot:jackson-databind-java-optional:2.6.1'
     compile 'oro:oro:2.0.8'
     compile 'wsdl4j:wsdl4j:1.6.3'
-    compile 'io.jsonwebtoken:jjwt:0.9.0'
     compile 'org.jsoup:jsoup:1.11.2'
 
     // ofbiz unit-test compile libs
@@ -188,33 +186,33 @@ dependencies {
     compile fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
 }
 
-def excludedJavaSources = []
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java'
-excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
-excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
+def excludedJavaSources = [
+    'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java',
+    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java',
+    'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
+    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java',
+    'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java',
+    'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
+]
 
-
-// These files and directories present in config directories should not be included in ofbiz.jar see OFBIZ-8321
-def excludedConfigFiles = []
-excludedConfigFiles.add 'README'
-excludedConfigFiles.add 'APACHE2_HEADER_FOR_XML'
-excludedConfigFiles.add '*.txt'
-excludedConfigFiles.add '*.jks'
-excludedConfigFiles.add 'fop.xconf'
-excludedConfigFiles.add 'GroovyInit.groovy'
-excludedConfigFiles.add 'MiniLang.xslt'
-excludedConfigFiles.add 'AutoImportTemplate.ftl'
-excludedConfigFiles.add 'axis2'
-excludedConfigFiles.add 'barcode'
-
+// Files and directories present in config directories that should not be included in ofbiz.jar (see OFBIZ-8321).
+def excludedConfigFiles = [
+    'README',
+    'APACHE2_HEADER_FOR_XML',
+    '*.txt',
+    '*.jks',
+    'fop.xconf',
+    'GroovyInit.groovy',
+    'MiniLang.xslt',
+    'AutoImportTemplate.ftl',
+    'axis2',
+    'barcode'
+]
 
 sourceSets {
     main {
@@ -267,16 +265,16 @@ eclipse.classpath.file.whenMerged { classpath ->
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def osDirSeparator = os.contains('windows') ? '\\' : '/'
+    def fileSep = System.getProperty("file.separator")
 
     iterateOverActiveComponents { component ->
-        def componentName = component.toString() - rootDir.toString() - osDirSeparator
+        def componentName = component.toString() - rootDir.toString() - fileSep
         def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
             entry.kind == 'src' &&
-            entry.path ==~ '.*/+(' + componentName.tokenize(osDirSeparator).last() + ')$' ||
+            entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
@@ -487,7 +485,12 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    backends 'html5', 'pdf'
+    // bug workaround - see OFBIZ-9873
+    if (os.contains('windows')) {
+        backends 'html5'
+    } else {
+        backends 'html5', 'pdf'
+    }
     attributes \
         'doctype': 'book',
         'experimental': '',
@@ -904,7 +907,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
  * declaration is important because it means that it will automatically
  * run whenever the task cleanAll executes (dependency matched by regex)
  */
-def cleanTasks = getTasksMatchingRegex(/^clean.+/)
+def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
 }
@@ -1001,16 +1004,6 @@ def deleteAllInDirWithExclusions(dirName, exclusions) {
     }
 }
 
-def getTasksMatchingRegex(theRegex) {
-    def filteredTasks = []
-    tasks.each { task ->
-        if (task.name ==~ theRegex) {
-            filteredTasks.add(task)
-        }
-    }
-    return filteredTasks
-}
-
 def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterTokens, newFileName) {
     copy {
         from (templateFileInFullPath) {
@@ -1034,32 +1027,20 @@ def getJarManifestClasspathForCurrentOs() {
 }
 
 def subprojectExists(fullyQualifiedProject) {
-    def projectFound = false
-    subprojects.each { subproject ->
-        if (subproject.getPath().equals(fullyQualifiedProject.toString())) {
-            projectFound = true
-        }
-    }
-    return projectFound
+    subprojects.stream()
+        .filter { it.path == fullyQualifiedProject.toString() }
+        .findAny()
+        .isPresent()
 }
 
 def taskExistsInproject(fullyQualifiedProject, taskName) {
-    def taskExists = false
-    subprojects.each { subProject ->
-        if (subProject.getPath().equals(fullyQualifiedProject.toString())) {
-            subProject.tasks.each { projTask ->
-                if (taskName.equals(projTask.name)) {
-                    taskExists = true
-                }
-            }
-        }
-    }
-    return taskExists
+    subprojects.stream()
+        .filter { it.path == fullyQualifiedProject.toString() }
+        .flatMap { it.tasks.stream() }
+        .anyMatch taskName.&equals
 }
 
 def gradlewSubprocess(commandList) {
-    def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
-    def fullCommand = [gradleRunner, "--no-daemon"]
-    fullCommand.addAll(commandList)
-    exec { commandLine fullCommand }
+    def gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
+    exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }

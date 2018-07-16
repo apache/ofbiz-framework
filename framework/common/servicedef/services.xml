@@ -379,7 +379,7 @@ under the License.
     <service name="userLogin" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLogin">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
-        <attribute name="request" mode="IN" type="org.apache.catalina.connector.RequestFacade" optional="true"/>
+        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest" optional="true"/>
     </service>
     <service name="createUserLogin" engine="java" auth="false"
         location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
@@ -943,7 +943,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="setLocaleFromBrowser" engine="groovy" location="component://common/groovyScripts/SetLocaleFromBrowser.groovy" invoke="setLocaleFromBrowser" auth="true">
+    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="SetTimeZoneFromBrowser" auth="true">
         <description>Set locale from browser.</description>
         <attribute name="localeName" type="String" mode="IN" optional="true"/>
     </service>

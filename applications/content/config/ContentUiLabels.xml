@@ -3966,7 +3966,7 @@
         <value xml:lang="da">Indholds ID</value>
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content ID</value>
-        <value xml:lang="fr">Contenu</value>
+        <value xml:lang="fr">Réf de contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="ja">コンテンツID</value>
         <value xml:lang="nl">Content ID</value>
@@ -5292,7 +5292,7 @@
         <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content ID</value>
         <value xml:lang="es">Código del propietario</value>
-        <value xml:lang="fr">Contenu propriétaire</value>
+        <value xml:lang="fr">Propriétaire du contenu </value>
         <value xml:lang="it">Proprietario Contenuto</value>
         <value xml:lang="ja">所有者コンテンツID</value>
         <value xml:lang="nl">Eigenaar content ID</value>

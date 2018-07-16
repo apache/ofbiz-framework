@@ -355,7 +355,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
         newEntity.create();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         result.put("crudValue", newEntity);
         return result;
     }
@@ -468,7 +468,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         lookedUpValue.store();
         result.put("crudValue", lookedUpValue);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 
@@ -499,7 +499,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFoundForRemove", locale));
         }
         lookedUpValue.remove();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 
@@ -573,7 +573,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (Debug.infoOn()) {
             Debug.logInfo(" parameters OUT  : " + parameters, module);
         }
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 }

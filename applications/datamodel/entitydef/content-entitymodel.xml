@@ -149,7 +149,7 @@ under the License.
     <entity entity-name="Content"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Entity">
+            title="Content">
       <field name="contentId" type="id"></field>
       <field name="contentTypeId" type="id"></field>
       <field name="ownerContentId" type="id"><description>Used for permissions checking</description></field>
@@ -232,7 +232,7 @@ under the License.
         <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
     </entity>
-    <view-entity entity-name="ContentAndRole" package-name="org.apache.ofbiz.content.content" title="Content And Role View Entity">
+    <view-entity entity-name="ContentAndRole" package-name="org.apache.ofbiz.content.content" title="Content And Role View">
         <member-entity entity-alias="CNT" entity-name="Content"/>
         <member-entity entity-alias="CRLE" entity-name="ContentRole"/>
         <alias-all entity-alias="CNT"/>
@@ -249,7 +249,7 @@ under the License.
     </view-entity>
     <entity entity-name="ContentApproval"
         package-name="org.apache.ofbiz.content.content"
-        title="Content Approval Entity">
+        title="Content Approval">
         <field name="contentApprovalId" type="id"></field>
         <field name="contentId" type="id"></field>
         <field name="contentRevisionSeqId" type="id"></field>
@@ -279,7 +279,7 @@ under the License.
     </entity>
     <entity entity-name="ContentAssoc"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Association Entity">
+            title="Content Association">
       <field name="contentId" type="id"><description>"parent" content</description></field>
       <field name="contentIdTo" type="id"><description>"child" or "sub" content</description></field>
       <field name="contentAssocTypeId" type="id"></field>
@@ -328,7 +328,7 @@ under the License.
     </entity>
     <view-entity entity-name="ContentAssocDataResourceViewFrom"
                 package-name="org.apache.ofbiz.content.content"
-                title="Main Assoc From and DataResource View Entity">
+                title="Main Assoc From and DataResource View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -371,7 +371,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="ContentAssocDataResourceViewTo"
                 package-name="org.apache.ofbiz.content.content"
-                title="Main Assoc To and DataResource View Entity">
+                title="Main Assoc To and DataResource View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -416,7 +416,7 @@ under the License.
     <entity entity-name="ContentAssocPredicate"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Association Predicate Entity">
+            title="Content Association Predicate">
       <field name="contentAssocPredicateId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="contentAssocPredicateId"/>
@@ -424,14 +424,14 @@ under the License.
     <entity entity-name="ContentAssocType"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Association Type Entity">
+            title="Content Association Type">
       <field name="contentAssocTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="contentAssocTypeId"/>
     </entity>
    <view-entity entity-name="ContentAssocViewFrom"
                 package-name="org.apache.ofbiz.content.content"
-                title="Main Assoc From View Entity">
+                title="Main Assoc From View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <alias-all entity-alias="CO"/>
@@ -445,7 +445,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="ContentAssocViewTo"
                 package-name="org.apache.ofbiz.content.content"
-                title="Main Assoc To View Entity">
+                title="Main Assoc To View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <alias-all entity-alias="CO"/>
@@ -459,7 +459,7 @@ under the License.
     </view-entity>
     <entity entity-name="ContentAttribute"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Attribute Entity">
+            title="Content Attribute">
       <field name="contentId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -475,7 +475,7 @@ under the License.
     </entity>
     <view-entity entity-name="ContentDataResourceView"
                 package-name="org.apache.ofbiz.content.content"
-                title="Content and DataResource View Entity">
+                title="Content and DataResource View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
       <alias-all entity-alias="CO"/>
@@ -513,7 +513,7 @@ under the License.
     </view-entity>
     <entity entity-name="ContentMetaData"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Meta-Data Predicate Entity">
+            title="Content Meta-Data Predicate">
       <field name="contentId" type="id"></field>
       <field name="metaDataPredicateId" type="id"></field>
       <field name="metaDataValue" type="value"></field>
@@ -533,14 +533,14 @@ under the License.
     <entity entity-name="ContentOperation"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Operation Entity">
+            title="Content Operation">
       <field name="contentOperationId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="contentOperationId"/>
     </entity>
     <entity entity-name="ContentPurpose"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Purpose Entity">
+            title="Content Purpose">
       <field name="contentId" type="id"></field>
       <field name="contentPurposeTypeId" type="id"></field>
       <field name="sequenceNum" type="numeric"></field>
@@ -555,7 +555,7 @@ under the License.
     </entity>
     <entity entity-name="ContentPurposeOperation"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Purpose Entity">
+            title="Content Purpose">
       <field name="contentPurposeTypeId" type="id"></field>
       <field name="contentOperationId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -585,14 +585,14 @@ under the License.
     <entity entity-name="ContentPurposeType"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Purpose Type Entity">
+            title="Content Purpose Type">
       <field name="contentPurposeTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="contentPurposeTypeId"/>
     </entity>
     <entity entity-name="ContentRevision"
         package-name="org.apache.ofbiz.content.content"
-        title="Content Revision Entity">
+        title="Content Revision">
         <field name="contentId" type="id"></field>
         <field name="contentRevisionSeqId" type="id"></field>
         <field name="committedByPartyId" type="id"></field>
@@ -608,7 +608,7 @@ under the License.
     </entity>
     <entity entity-name="ContentRevisionItem"
         package-name="org.apache.ofbiz.content.content"
-        title="Content Revision Entity">
+        title="Content Revision">
         <field name="contentId" type="id"></field>
         <field name="contentRevisionSeqId" type="id"></field>
         <field name="itemContentId" type="id"></field>
@@ -630,7 +630,7 @@ under the License.
     </entity>
     <entity entity-name="ContentRole"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Role Entity">
+            title="Content Role">
       <field name="contentId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -654,7 +654,7 @@ under the License.
     <entity entity-name="ContentType"
             package-name="org.apache.ofbiz.content.content"
             default-resource-name="ContentEntityLabels"
-            title="Content Type Entity">
+            title="Content Type">
       <field name="contentTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -666,7 +666,7 @@ under the License.
     </entity>
     <entity entity-name="ContentTypeAttr"
             package-name="org.apache.ofbiz.content.content"
-            title="Content Type Attribute Entity">
+            title="Content Type Attribute">
       <field name="contentTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -684,7 +684,7 @@ under the License.
     </entity>
     <view-entity entity-name="SubContentDataResourceView"
                 package-name="org.apache.ofbiz.content.content"
-                title="Content and DataResource for SubContent View Entity">
+                title="Content and DataResource for SubContent View">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
       <alias-all entity-alias="CO"/>
@@ -727,7 +727,7 @@ under the License.
 
     <entity entity-name="AudioDataResource"
             package-name="org.apache.ofbiz.content.data"
-            title="Audio Data Object Entity">
+            title="Audio Data Object">
       <field name="dataResourceId" type="id"></field>
       <field name="audioData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
@@ -738,7 +738,7 @@ under the License.
     <entity entity-name="CharacterSet"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Character Set Entity">
+            title="Character Set">
       <field name="characterSetId" type="id-long"></field>
       <field name="description" type="description"></field>
       <prim-key field="characterSetId"/>
@@ -746,7 +746,7 @@ under the License.
     <entity entity-name="DataCategory"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Data Category Entity">
+            title="Data Category">
       <field name="dataCategoryId" type="id"></field>
       <field name="parentCategoryId" type="id"></field>
       <field name="categoryName" type="name"></field>
@@ -760,7 +760,7 @@ under the License.
     </entity>
     <entity entity-name="DataResource"
             package-name="org.apache.ofbiz.content.data"
-            title="Data Object Entity">
+            title="Data Object">
       <field name="dataResourceId" type="id"></field>
       <field name="dataResourceTypeId" type="id"></field>
       <field name="dataTemplateTypeId" type="id"></field>
@@ -821,7 +821,7 @@ under the License.
     </entity>
     <entity entity-name="DataResourceAttribute"
             package-name="org.apache.ofbiz.content.data"
-            title="Data Object Attribute Entity">
+            title="Data Object Attribute">
       <field name="dataResourceId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -887,7 +887,7 @@ under the License.
     </view-entity>
     <entity entity-name="DataResourceMetaData"
             package-name="org.apache.ofbiz.content.data"
-            title="Data Resource Meta-Data Predicate Entity">
+            title="Data Resource Meta-Data Predicate">
       <field name="dataResourceId" type="id"></field>
       <field name="metaDataPredicateId" type="id"></field>
       <field name="metaDataValue" type="value"></field>
@@ -906,7 +906,7 @@ under the License.
     </entity>
     <entity entity-name="DataResourcePurpose"
             package-name="org.apache.ofbiz.content.data"
-            title="Data Object Purpose Entity">
+            title="Data Object Purpose">
       <field name="dataResourceId" type="id"></field>
       <field name="contentPurposeTypeId" type="id"></field>
       <prim-key field="dataResourceId"/>
@@ -920,7 +920,7 @@ under the License.
     </entity>
     <entity entity-name="DataResourceRole"
             package-name="org.apache.ofbiz.content.data"
-            title="DataResource Role Entity">
+            title="DataResource Role">
       <field name="dataResourceId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -944,7 +944,7 @@ under the License.
     <entity entity-name="DataResourceType"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Data Object Type Entity">
+            title="Data Object Type">
       <field name="dataResourceTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -956,7 +956,7 @@ under the License.
     </entity>
     <entity entity-name="DataResourceTypeAttr"
             package-name="org.apache.ofbiz.content.data"
-            title="Data Object Type Attribute Entity">
+            title="Data Object Type Attribute">
       <field name="dataResourceTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -975,7 +975,7 @@ under the License.
     <entity entity-name="DataTemplateType"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Data Template Type Entity">
+            title="Data Template Type">
       <field name="dataTemplateTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="extension" type="short-varchar"></field>
@@ -983,7 +983,7 @@ under the License.
     </entity>
     <entity entity-name="ElectronicText"
             package-name="org.apache.ofbiz.content.data"
-            title="Electronic Text Entity">
+            title="Electronic Text">
       <field name="dataResourceId" type="id"></field>
       <field name="textData" type="very-long"></field>
       <prim-key field="dataResourceId"/>
@@ -993,7 +993,7 @@ under the License.
     </entity>
     <entity entity-name="FileExtension"
             package-name="org.apache.ofbiz.content.data"
-            title="File Extension Entity">
+            title="File Extension">
       <field name="fileExtensionId" type="id-long"></field>
       <field name="mimeTypeId" type="id-vlong"></field>
       <prim-key field="fileExtensionId"/>
@@ -1003,7 +1003,7 @@ under the License.
     </entity>
     <entity entity-name="ImageDataResource"
             package-name="org.apache.ofbiz.content.data"
-            title="Image Data Object Entity">
+            title="Image Data Object">
       <field name="dataResourceId" type="id"></field>
       <field name="imageData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
@@ -1014,7 +1014,7 @@ under the License.
     <entity entity-name="MetaDataPredicate"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Data Meta-Data Predicate Entity">
+            title="Data Meta-Data Predicate">
       <field name="metaDataPredicateId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="metaDataPredicateId"/>
@@ -1022,7 +1022,7 @@ under the License.
     <entity entity-name="MimeType"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Mime Type Entity">
+            title="Mime Type">
       <field name="mimeTypeId" type="id-vlong"></field>
       <field name="description" type="description"></field>
       <prim-key field="mimeTypeId"/>
@@ -1030,7 +1030,7 @@ under the License.
     <entity entity-name="MimeTypeHtmlTemplate"
             package-name="org.apache.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
-            title="Mime Text Template Entity">
+            title="Mime Text Template">
       <field name="mimeTypeId" type="id-vlong"></field>
       <field name="templateLocation" type="long-varchar"></field>
       <prim-key field="mimeTypeId"/>
@@ -1040,7 +1040,7 @@ under the License.
     </entity>
     <entity entity-name="OtherDataResource"
             package-name="org.apache.ofbiz.content.data"
-            title="Other Data Object Entity">
+            title="Other Data Object">
       <field name="dataResourceId" type="id"></field>
       <field name="dataResourceContent" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
@@ -1050,7 +1050,7 @@ under the License.
     </entity>
     <entity entity-name="VideoDataResource"
             package-name="org.apache.ofbiz.content.data"
-            title="Video Data Object Entity">
+            title="Video Data Object">
       <field name="dataResourceId" type="id"></field>
       <field name="videoData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
@@ -1065,7 +1065,7 @@ under the License.
 
     <entity entity-name="Document"
             package-name="org.apache.ofbiz.content.document"
-            title="Document Entity">
+            title="Document">
       <field name="documentId" type="id"></field>
       <field name="documentTypeId" type="id"></field>
       <field name="dateCreated" type="date-time"></field>
@@ -1083,7 +1083,7 @@ under the License.
     </entity>
     <entity entity-name="DocumentAttribute"
             package-name="org.apache.ofbiz.content.document"
-            title="Document Attribute Entity">
+            title="Document Attribute">
       <field name="documentId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="attrValue" type="value"></field>
@@ -1100,7 +1100,7 @@ under the License.
     <entity entity-name="DocumentType"
             package-name="org.apache.ofbiz.content.document"
             default-resource-name="ContentEntityLabels"
-            title="Document Type Entity">
+            title="Document Type">
       <field name="documentTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -1112,7 +1112,7 @@ under the License.
     </entity>
     <entity entity-name="DocumentTypeAttr"
             package-name="org.apache.ofbiz.content.document"
-            title="Document Type Attribute Entity">
+            title="Document Type Attribute">
       <field name="documentTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
       <field name="description" type="description"></field>
@@ -1135,14 +1135,14 @@ under the License.
 
     <entity entity-name="WebPreferenceType"
             package-name="org.apache.ofbiz.content.preference"
-            title="Web Preference Type Entity">
+            title="Web Preference Type">
       <field name="webPreferenceTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="webPreferenceTypeId"/>
     </entity>
     <entity entity-name="WebUserPreference"
             package-name="org.apache.ofbiz.content.preference"
-            title="Web User Preference Entity">
+            title="Web User Preference">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="partyId" type="id"></field>
       <field name="visitId" type="id"><description>To be able to keep preferences for a non loggin in user for the current session</description></field>
@@ -1169,7 +1169,7 @@ under the License.
 
     <entity entity-name="Survey"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Entity">
+            title="Survey">
       <field name="surveyId" type="id"/>
       <field name="surveyName" type="name"/>
       <field name="description" type="description"/>
@@ -1185,14 +1185,14 @@ under the License.
     <entity entity-name="SurveyApplType"
             package-name="org.apache.ofbiz.content.survey"
             default-resource-name="ContentEntityLabels"
-            title="Survey Application Type Entity">
+            title="Survey Application Type">
       <field name="surveyApplTypeId" type="id"/>
       <field name="description" type="description"/>
       <prim-key field="surveyApplTypeId"/>
     </entity>
     <entity entity-name="SurveyMultiResp"
         package-name="org.apache.ofbiz.content.survey"
-        title="Survey Multi-Response Group Entity">
+        title="Survey Multi-Response Group">
         <field name="surveyId" type="id"/>
         <field name="surveyMultiRespId" type="id"/>
         <field name="multiRespTitle" type="name"/>
@@ -1204,7 +1204,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyMultiRespColumn"
         package-name="org.apache.ofbiz.content.survey"
-        title="Survey Multi-Response Group Column/Category Entity">
+        title="Survey Multi-Response Group Column/Category">
         <field name="surveyId" type="id"/>
         <field name="surveyMultiRespId" type="id"/>
         <field name="surveyMultiRespColId" type="id"/>
@@ -1220,7 +1220,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyPage"
         package-name="org.apache.ofbiz.content.survey"
-        title="Survey Page Type Entity">
+        title="Survey Page Type">
         <field name="surveyId" type="id"/>
         <field name="surveyPageSeqId" type="id"/>
         <field name="pageName" type="name"/>
@@ -1233,7 +1233,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyQuestion"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Question Entity">
+            title="Survey Question">
       <field name="surveyQuestionId" type="id"/>
       <field name="surveyQuestionCategoryId" type="id"/>
       <field name="surveyQuestionTypeId" type="id"/>
@@ -1260,7 +1260,7 @@ under the License.
     </entity>
     <view-entity entity-name="SurveyQuestionAndAppl"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Question And Application View Entity">
+            title="Survey Question And Application View">
       <member-entity entity-alias="SQ" entity-name="SurveyQuestion"/>
       <member-entity entity-alias="SA" entity-name="SurveyQuestionAppl"/>
       <alias-all entity-alias="SQ"/>
@@ -1302,7 +1302,7 @@ under the License.
     </view-entity>
     <entity entity-name="SurveyQuestionAppl"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Question Application Entity">
+            title="Survey Question Application">
       <field name="surveyId" type="id"/>
       <field name="surveyQuestionId" type="id"/>
       <field name="fromDate" type="date-time"/>
@@ -1346,7 +1346,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyQuestionCategory"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Question Category Entity">
+            title="Survey Question Category">
       <field name="surveyQuestionCategoryId" type="id"/>
       <field name="parentCategoryId" type="id"/>
       <field name="description" type="description"/>
@@ -1357,7 +1357,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyQuestionOption"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Question Option Entity">
+            title="Survey Question Option">
       <field name="surveyQuestionId" type="id"/>
       <field name="surveyOptionSeqId" type="id"/>
       <field name="description" type="description"/>
@@ -1376,14 +1376,14 @@ under the License.
     <entity entity-name="SurveyQuestionType"
             package-name="org.apache.ofbiz.content.survey"
             default-resource-name="ContentEntityLabels"
-            title="Survey Question Type Entity">
+            title="Survey Question Type">
       <field name="surveyQuestionTypeId" type="id"/>
       <field name="description" type="description"/>
       <prim-key field="surveyQuestionTypeId"/>
     </entity>
     <entity entity-name="SurveyResponse"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Response Entity">
+            title="Survey Response">
       <field name="surveyResponseId" type="id"></field>
       <field name="surveyId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -1414,7 +1414,7 @@ under the License.
     </entity>
     <view-entity entity-name="SurveyResponseAndAnswer"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Response And Answer View Entity">
+            title="Survey Response And Answer View">
       <member-entity entity-alias="SR" entity-name="SurveyResponse"/>
       <member-entity entity-alias="SRA" entity-name="SurveyResponseAnswer"/>
       <alias-all entity-alias="SR"/>
@@ -1446,7 +1446,7 @@ under the License.
     </view-entity>
     <entity entity-name="SurveyResponseAnswer"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Response Answer Entity">
+            title="Survey Response Answer">
       <field name="surveyResponseId" type="id"></field>
       <field name="surveyQuestionId" type="id"></field>
       <field name="surveyMultiRespColId" type="id"><description>This is needed to support multiple responses for different MultiResp Columns; if not part of a MultiResp will be _NA_</description></field>
@@ -1484,7 +1484,7 @@ under the License.
     </entity>
     <entity entity-name="SurveyTrigger"
             package-name="org.apache.ofbiz.content.survey"
-            title="Survey Trigger Entity">
+            title="Survey Trigger">
       <field name="surveyId" type="id"/>
       <field name="surveyApplTypeId" type="id"/>
       <field name="fromDate" type="date-time"/>
@@ -1596,7 +1596,7 @@ under the License.
             <key-map field-name="contentId"/>
         </relation>
     </entity>
-    <entity entity-name="WebSiteRole" package-name="org.apache.ofbiz.party.party" title="WebSite Role Association Entity">
+    <entity entity-name="WebSiteRole" package-name="org.apache.ofbiz.party.party" title="WebSite Role Association">
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
         <field name="webSiteId" type="id"></field>
@@ -1629,7 +1629,7 @@ under the License.
     </entity>
     <view-entity entity-name="ContentAssocAndContentPurpose"
             package-name="org.apache.ofbiz.content.compdoc"
-            title="ContentAssoc and ContentPurpose View Entity">
+            title="ContentAssoc and ContentPurpose View">
         <member-entity entity-alias="CNTA" entity-name="ContentAssoc"/>
         <member-entity entity-alias="CNTP" entity-name="ContentPurpose"/>
         <alias entity-alias="CNTA" name="contentId"/>
@@ -1654,7 +1654,7 @@ under the License.
         </relation>
     </extend-entity>
     
-    <entity entity-name="ContentKeyword" package-name="org.apache.ofbiz.content.content" title="Content Keyword Entity" never-cache="true">
+    <entity entity-name="ContentKeyword" package-name="org.apache.ofbiz.content.content" title="Content Keyword" never-cache="true">
       <field name="contentId" type="id"></field>
       <field name="keyword" type="short-varchar"></field>
       <field name="relevancyWeight" type="numeric"></field>
@@ -1667,7 +1667,7 @@ under the License.
         <index-field name="keyword"/>
       </index>
     </entity>
-    <entity entity-name="ContentSearchConstraint" package-name="org.apache.ofbiz.content.content" never-cache="true" title="Content Search Result Constraint Entity">
+    <entity entity-name="ContentSearchConstraint" package-name="org.apache.ofbiz.content.content" never-cache="true" title="Content Search Result Constraint">
       <field name="contentSearchResultId" type="id"></field>
       <field name="constraintSeqId" type="id"></field>
       <field name="constraintName" type="long-varchar"></field>
@@ -1688,7 +1688,7 @@ under the License.
     <entity entity-name="ContentSearchResult"
             package-name="org.apache.ofbiz.content.content"
             never-cache="true"
-            title="Content Search Result Entity">
+            title="Content Search Result">
       <field name="contentSearchResultId" type="id"></field>
       <field name="visitId" type="id"></field>
       <field name="orderByName" type="long-varchar"></field>
@@ -1716,7 +1716,7 @@ under the License.
     </entity>
 
     <entity entity-name="WebAnalyticsType" package-name="org.apache.ofbiz.content.website"
-        title="Web Analytics Type Entity">
+        title="Web Analytics Type">
         <field name="webAnalyticsTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>

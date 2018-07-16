@@ -49,7 +49,7 @@ under the License.
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex>
 </#macro>
 
-<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex></#macro>
@@ -61,8 +61,8 @@ under the License.
 <#macro renderFieldTitle style title id fieldHelpText="" for=""></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>
+<#macro renderFormClose></#macro>
 <#macro renderMultiFormClose></#macro>
 
 <#macro renderFormatHeaderOpen></#macro>

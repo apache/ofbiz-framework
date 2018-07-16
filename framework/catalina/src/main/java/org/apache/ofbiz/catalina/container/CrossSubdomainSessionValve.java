@@ -63,7 +63,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
 
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
 
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         // copy the existing session cookie, but use a different domain (only if domain is valid)
         String cookieDomain = null;
         cookieDomain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", "", delegator);
@@ -102,6 +102,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 newCookie.setComment(cookie.getComment());
             }
             newCookie.setSecure(cookie.getSecure());
+            newCookie.setHttpOnly(cookie.isHttpOnly());
 
             // if the response has already been committed, our replacement strategy will have no effect
             if (response.isCommitted()) {

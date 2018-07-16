@@ -252,13 +252,14 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="">
+<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="" disabled="">
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+        <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
           <#elseif currentValue?has_content && currentValue==item.value> checked="checked"</#if> 
           name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
@@ -316,11 +317,13 @@ under the License.
     ${title}<#t/>
   </label><#t/>
 </#macro>
-
+<#macro renderEmptyFormDataMessage message>
+  <h3><#if message?has_content>${message}</#if></h3>
+</#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="">
-  <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> class=<#if containerStyle?has_content>"${containerStyle}"<#else>"basic-form"</#if> onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
+<#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="" focusFieldName="" hasRequiredField="">
+  <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> <#if focusFieldName?has_content> data-focus-field="${focusFieldName}"</#if> class="<#if containerStyle?has_content>${containerStyle}<#else>basic-form</#if><#if hasRequiredField?has_content> requireValidation</#if>" onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
     <#if useRowSubmit?has_content && useRowSubmit>
       <input type="hidden" name="_useRowSubmit" value="Y"/>
       <#if linkUrl?index_of("VIEW_INDEX") &lt;= 0 && linkUrl?index_of(viewIndexField) &lt;= 0>
@@ -331,29 +334,8 @@ under the License.
       </#if>
     </#if>
 </#macro>
-<#macro renderFormClose formName hasRequiredField focusFieldName="" containerId="">
+<#macro renderFormClose>
   </form><#lt/>
-  <#if focusFieldName?has_content>
-    <script language="JavaScript" type="text/javascript">
-      var form = document.${formName};
-      form.${focusFieldName}.focus();
-      <#-- enable the validation plugin for all generated forms
-      only enable the validation if min one field is marked as 'required' -->
-      if (jQuery(form).find(".required").size() > 0) {
-        jQuery(form).validate();
-      }
-    </script><#lt/>
-  </#if>
-  <#if containerId?has_content && hasRequiredField?has_content>
-    <script type="text/javascript">
-      jQuery("#${containerId}").validate({
-        submitHandler:
-          function(form) {
-            form.submit();
-          }
-      });
-    </script>
-  </#if>
 </#macro>
 <#macro renderMultiFormClose>
   </form><#lt/>

@@ -52,6 +52,18 @@
         <value xml:lang="zh">错误：沟通事件不是电子邮件沟通，所以不能发邮件，沟通事件标识 </value>
         <value xml:lang="zh-TW">錯誤:通訊事件不是電子郵件通訊,所以不能發郵件,通訊事件識別 </value>
     </property>
+    <property key="commeventservices.communication_event_from_contact_mech_must_be_ftp">
+        <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein ftp server als Kommunikationereignis ID ist</value>
+        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an ftp server for communication event Id</value>
+        <value xml:lang="es">Error: Los eventos de comunicación deben tener un servidor ftp asociado</value>
+        <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un serveur ftp pour évènement de communication</value>
+    </property>
+    <property key="commeventservices.communication_event_must_be_ftp_for_ftp">
+        <value xml:lang="de">FEHLER: Kommunikationsereignis ist keine Ftp Kommunikation und kann nicht als Ftp versendet werden für Kommunikationsereignis ID</value>
+        <value xml:lang="en">ERROR: Communication event is not an Ftp communication and cannot be transfered for communication event Id </value>
+        <value xml:lang="es">ERROR: La comunicación no es un transferencia ftp y no puede se enviado</value>
+        <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas un transfert ftp et ne peut être envoyé comme réf. d'évènement de communication </value>
+    </property>
     <property key="commeventservices.communication_event_not_found_failure">
         <value xml:lang="de">FEHLER: Kommunikationsereignis nicht gefunden mit der Kommunikationsereignis ID</value>
         <value xml:lang="en">ERROR: Communication Event not found for communication event ID</value>
@@ -324,7 +336,7 @@
         <value xml:lang="en">Could not delete contact info (read failure): ${errMessage}.</value>
         <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
-        <value xml:lang="hi-IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">連絡情報を削除できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Contactinformatie kan niet worden verwijderd (leesfout): ${errMessage}.</value>
@@ -369,7 +381,7 @@
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Lesefehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
         <value xml:lang="fr">Impossible de supprimer le but de la coordonnée (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">連絡方法から目的を削除できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Doel kan niet van contactinformatie worden verwijderd (leesfout): ${errMessage}.</value>
@@ -400,7 +412,7 @@
         <value xml:lang="en">ERROR: Could not find specified contact info (read error).</value>
         <value xml:lang="es">ERROR: No se encontró la información del contacto (error de lectura).</value>
         <value xml:lang="fr">ERREUR: Ne peut pas trouver l'information de contact spécifiée (erreur de lecture).</value>
-        <value xml:lang="hi-IN">त्रुटि: निर्दिष्ट संपर्क जानकारी नहीं मिली(पड़ने में त्रुटि)|</value>
+        <value xml:lang="hi-IN">त्रुटि: निर्दिष्ट संपर्क जानकारी नहीं मिली(पढ़ने में त्रुटि)|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (errore di lettura).</value>
         <value xml:lang="ja">エラー: 指定した連絡方法が見つかりません (読み込み失敗)。</value>
         <value xml:lang="nl">Fout: Kan opgegeven contactinformatie niet vinden (leesfout).</value>
@@ -642,7 +654,7 @@
         <value xml:lang="en">Could not create party role (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede crear la relación(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी की भूमिका तैयार नहीं कर पाएँ (पड़ने में असफल): ${errMessage}.</value>
+        <value xml:lang="hi-IN">पार्टी की भूमिका तैयार नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}.</value>
         <value xml:lang="it">Non è possibile creare ruolo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先の関係を作成できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatierol kan niet worden aangemaakt (leesfout): ${errMessage}.</value>
@@ -690,7 +702,7 @@
         <value xml:lang="en">Could not update party relation (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede actualizar las relaciones(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour la relation de l'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare il rapporto soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先の関係を更新できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatie kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -937,7 +949,7 @@
         <value xml:lang="en">Cannot get party entities (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo obtener la entidad participante: ${errMessage}</value>
         <value xml:lang="fr">Impossible d'obtenir des entités d'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी इकाईयाँ नहीं मिली (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी इकाईयाँ नहीं मिली (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non possibile leggere l'entità Party (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先エンティティを取得できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatie entiteiten kunnen niet worden opgehaald (leesfout: ${errMessage}.</value>
@@ -1017,7 +1029,7 @@
         <value xml:lang="en">Could not update affiliate information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione affiliato (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">アフェリエイト情報を更新できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De affiliate informatie kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -1065,7 +1077,7 @@
         <value xml:lang="en">Could not update party or party group information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del participante(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information d'acteur ou de groupe d'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione gruppo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先または取引先グループ情報を更新できません (読み込み失敗): ${errMessage}。</value>
         <value xml:lang="nl">De relatie of relatiegroep kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -1258,7 +1270,7 @@
         <value xml:lang="en">Could not update person information (read failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): ${0}</value>
         <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value> <!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
-        <value xml:lang="hi-IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${0}</value>
+        <value xml:lang="hi-IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (読み込み失敗): ${0}</value>
         <value xml:lang="nl">De persoonsgegevens kunnen niet worden aangepast (read failure): ${0}</value>

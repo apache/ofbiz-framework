@@ -2874,11 +2874,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public int getAdjustmentPromoIndex(String productPromoId) {
+        if (UtilValidate.isEmpty(productPromoId)) {
+            return -1;
+        }
         int index = adjustments.size();
         while (index > 0) {
             index--;
-            if (adjustments.get(index).getString("productPromoId").equals(productPromoId)) {
-                return(index);
+            if (productPromoId.equals(adjustments.get(index).getString("productPromoId"))) {
+                return (index);
             }
         }
         return -1;
@@ -4202,10 +4205,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // Retrieve the facilityId from the cart's productStoreId because ShoppingCart.setFacilityId() doesn't seem to be used anywhere
         String facilityId = null;
+        String requirementMethodEnumId = null;
         if (UtilValidate.isNotEmpty(this.getProductStoreId())) {
             try {
                 GenericValue productStore = this.getDelegator().findOne("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()), true);
                 facilityId = productStore.getString("inventoryFacilityId");
+                requirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
                 Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), module);
                 return;
@@ -4245,7 +4250,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     continue;
                 }
                 String productId = product.getString("productId");
-                String requirementMethodEnumId = product.getString("requirementMethodEnumId");
+
+                GenericValue productFacility = null;
+                try {
+                    productFacility = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId, "facilityId", shipInfo.getFacilityId()).queryOne();
+                } catch(GenericEntityException e) {
+                    Debug.logError("Error :" +e.getMessage(), module);
+                    e.printStackTrace();
+                }
+                
+                if (productFacility != null && UtilValidate.isNotEmpty(productFacility.getString("requirementMethodEnumId"))){
+                    requirementMethodEnumId = productFacility.getString("requirementMethodEnumId");
+                }
+
+                if (UtilValidate.isNotEmpty(product.getString("requirementMethodEnumId"))) {
+                    requirementMethodEnumId = product.getString("requirementMethodEnumId");
+                }
 
                 if ("PRODRQM_DS".equals(requirementMethodEnumId)) {
 

@@ -34,7 +34,7 @@ def updateRateAmount() {
     if (!newEntity.rateCurrencyUomId) {
         newEntity.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     }
-    if (!newEntity.fromDate) newEntity.fromDate = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp())
+    if (!newEntity.fromDate) newEntity.fromDate = UtilDateTime.nowTimestamp()
     newEntity.thruDate = null
 
     //Check if the entry is already exist with a different rate else expire the older to create the new one
@@ -48,7 +48,7 @@ def updateRateAmount() {
     if (rateAmountLookedUpValue) {
         updating = (rateAmountLookedUpValue.fromDate.compareTo(newEntity.fromDate) == 0)
         if (rateAmountLookedUpValue.rateAmount != rateAmount) {
-            result = run service: 'expireRateAmount', with: rateAmountLookedUpValue
+            result = run service: 'expireRateAmount', with: rateAmountLookedUpValue.getAllFields()
             if (ServiceUtil.isError(result)) return result
         } else {
             return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
@@ -119,9 +119,11 @@ def expirePartyRate() {
         lookedUpValue.store()
 
         //expire related rate amount
+        if (parameters.rateAmountFromDate) {
         parameters.fromDate = parameters.rateAmountFromDate;
         result = run service: 'expireRateAmount', with: parameters
         if (ServiceUtil.isError(result)) return result
+        }
     }
     return success()
 }

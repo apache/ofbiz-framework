@@ -41,7 +41,7 @@ under the License.
 </#macro>
 
 <#macro renderTooltip tooltip tooltipStyle></#macro>
-<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex></#macro>
@@ -53,8 +53,8 @@ under the License.
 <#macro renderFieldTitle style title id="" fieldHelpText="" for=""><@renderField title />,</#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>
+<#macro renderFormClose></#macro>
 <#macro renderMultiFormClose></#macro>
 
 <#macro renderFormatListWrapperOpen formName style columnStyles></#macro>

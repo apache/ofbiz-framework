@@ -2458,7 +2458,7 @@
         <value xml:lang="fr">Annuler le service en tâche de fond de paiement</value>
         <value xml:lang="hi-IN">भुगतान का  बैच रद्द करे</value>
         <value xml:lang="ja">バッチ支払を取消</value>
-        <value xml:lang="nl">Annuleer bath-betaling</value>
+        <value xml:lang="nl">Annuleer batch-betaling</value>
         <value xml:lang="pt">Cancelar Lote de Pagamentos</value>
         <value xml:lang="vi">Hủy lô thanh toán</value>
         <value xml:lang="zh">取消批量支付</value>
@@ -3449,6 +3449,7 @@
         <value xml:lang="en">Create New Financial Account Reconciliations</value>
         <value xml:lang="fr">Créer un nouveau compte financier de rapprochement</value>
         <value xml:lang="ja">新規金融アカウント照合表を作成</value>
+        <value xml:lang="nl">Maak nieuwe afstemming fin.rekening</value>
         <value xml:lang="pt">Criar nova reconciliações de conta Financeira</value>
         <value xml:lang="vi">Tạo mới tài khoản tài chính Đối ứng</value>
         <value xml:lang="zh">新建财务账目对账</value>
@@ -4022,6 +4023,7 @@
         <value xml:lang="fr">Rapprochement bancaire courant</value>
         <value xml:lang="hi-IN">वर्तमान बैन्क मिलाप</value>
         <value xml:lang="ja">現在の銀行アカウント照合</value>
+        <value xml:lang="nl">Actuele afstemming bank</value>
         <value xml:lang="pt">Reconciliação bancária atual</value>
         <value xml:lang="vi">Đối ứng ngân hàng hiện tại</value>
         <value xml:lang="zh">当前银行对账</value>
@@ -4035,6 +4037,7 @@
         <value xml:lang="hi-IN">वर्तमान अनुकूलित समय अवधि</value>
         <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
         <value xml:lang="ja">現在のカスタム期間</value>
+        <value xml:lang="nl">Actuele periode</value>
         <value xml:lang="pt">Período Personalizada Atual</value>
         <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
         <value xml:lang="vi">Khoảng thời gian tùy chỉnh hiện tại</value>
@@ -4761,6 +4764,7 @@
         <value xml:lang="fr">Éditer l'autorité sur le compte financier ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi-IN">वित्तीय खाता प्राधिकरण ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
         <value xml:lang="ja">${finAccount.finAccountName} [${finAccountId}] に対する金融アカウント機関を編集</value>
+        <value xml:lang="nl">Aanpassen machtigingen financiele rekening ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="pt">Editar Autoridade da Conta Financeira para ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="vi">Cập nhật xác thực tài khoản tài chính cho ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">编辑财务账目 ${finAccount.finAccountName} [${finAccountId}] 的授权</value>

@@ -56,7 +56,7 @@ public class ProductStoreEvents {
                 if (UtilValidate.isNotEmpty(children)) {
                     for (GenericValue child : children ) {
                         String productStoreGroupId = child.getString("productStoreGroupId");
-                        Map josonMap = new HashMap();
+                        Map<String, Object> josonMap = new HashMap<>();
                         List<GenericValue> childList = null;
                         // Get the child list of chosen category
                         childList = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", productStoreGroupId).cache(true).filterByDate().queryList();
@@ -64,8 +64,8 @@ public class ProductStoreEvents {
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");
                         }
-                        Map dataMap = new HashMap();
-                        Map dataAttrMap = new HashMap();
+                        Map<String, Object> dataMap = new HashMap<>();
+                        Map<String, String> dataAttrMap = new HashMap<>();
 
                         dataAttrMap.put("onClick", onclickFunction + "('" + productStoreGroupId + "')");
                         String hrefStr = "EditProductStoreGroupAndAssoc"; 
@@ -74,7 +74,7 @@ public class ProductStoreEvents {
                         dataMap.put("attr", dataAttrMap);
                         dataMap.put("title", child.get("productStoreGroupName") + " [" + child.get("productStoreGroupId") + "]");
                         josonMap.put("data", dataMap);
-                        Map attrMap = new HashMap();
+                        Map<String, String> attrMap = new HashMap<>();
                         attrMap.put("parentGroupId", productStoreGroupId);
                         josonMap.put("attr",attrMap);
                         josonMap.put("sequenceNum",child.get("sequenceNum"));

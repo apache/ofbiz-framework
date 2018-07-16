@@ -86,6 +86,7 @@ under the License.
             <xs:attribute name="style" type="xs:string" />
             <xs:attribute name="focus-field-name" type="xs:string" />
             <xs:attribute name="title" type="xs:string" />
+            <xs:attribute name="empty-form-data-message" type="xs:string" />
             <xs:attribute name="tooltip" type="xs:string" />
             <xs:attribute name="list-name" type="xs:string">
                 <xs:annotation>
@@ -327,6 +328,7 @@ under the License.
             <xs:attribute name="style" type="xs:string" />
             <xs:attribute name="focus-field-name" type="xs:string" />
             <xs:attribute name="title" type="xs:string" />
+            <xs:attribute name="empty-form-data-message" type="xs:string" />
             <xs:attribute name="tooltip" type="xs:string" />
             <xs:attribute name="list-name" type="xs:string">
                 <xs:annotation>
@@ -947,6 +949,14 @@ under the License.
                 <xs:element ref="option" />
             </xs:choice>
             <xs:attribute name="all-checked">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="disabled" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="true" />

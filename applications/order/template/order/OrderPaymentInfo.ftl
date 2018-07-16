@@ -39,7 +39,7 @@ under the License.
       <br class="clear"/>
   </div>
   <div class="screenlet-body">
-     <table class="basic-table" cellspacing='0'>
+     <table class="basic-table form-table" cellspacing='0'>
      <#assign orderTypeId = orderReadHelper.getOrderTypeId()>
      <#if "PURCHASE_ORDER" == orderTypeId>
        <tr>
@@ -55,9 +55,9 @@ under the License.
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
            <tr>
              <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
-               <td><a href="/accounting/control/paymentOverview?paymentId=${payment.paymentId}">${payment.paymentId}</a></td>
+               <td class="label"><a href="/accounting/control/paymentOverview?paymentId=${payment.paymentId}">${payment.paymentId}</a></td>
              <#else>
-               <td>${payment.paymentId}</td>
+               <td class="label">${payment.paymentId}</td>
              </#if>
              <td>${partyName.groupName!}${partyName.lastName!} ${partyName.firstName!} ${partyName.middleName!}
              <#if security.hasPermission("PARTYMGR_VIEW", session) || security.hasPermission("PARTYMGR_ADMIN", session)>
@@ -75,24 +75,21 @@ under the License.
        <#if invoices?has_content>
          <tr><td colspan="4"><hr /></td></tr>
          <tr>
-           <td align="right" valign="top" width="29%">&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
-           <td width="1%">&nbsp;</td>
-           <td valign="top" width="60%">
+           <td class="label"><label>${uiLabelMap.OrderInvoices}</label></td>
+           <td>
              <#list invoices as invoice>
                <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${invoice}</a>
                (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">PDF</a>)</div>
              </#list>
            </td>
-           <td width="10%">&nbsp;</td>
          </tr>
        </#if>
      <#else>
 
      <#-- order payment status -->
      <tr>
-       <td align="center" valign="top" width="29%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
-       <td width="1%">&nbsp;</td>
-       <td width="60%">
+       <td class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
+       <td>
          <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
          <#if orderPaymentStatuses?has_content>
            <#list orderPaymentStatuses as orderPaymentStatus>
@@ -107,7 +104,7 @@ under the License.
            </#list>
          </#if>
        </td>
-       <td width="10%">&nbsp;</td>
+       <td>&nbsp;</td>
      </tr>
      <tr><td colspan="4"><hr /></td></tr>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
@@ -131,7 +128,7 @@ under the License.
                     <tr><td colspan="4"><hr /></td></tr>
                   </#if>
                   <tr>
-                    <td align="right" valign="top" width="29%">
+                    <td class="label">
                       <#-- billing accounts require a special OrderPaymentPreference because it is skipped from above section of OPPs -->
                       <div>&nbsp;<span class="label">${uiLabelMap.AccountingBillingAccount}</span>&nbsp;
                           <#if billingAccountMaxAmount?has_content>
@@ -139,14 +136,13 @@ under the License.
                           </#if>
                           </div>
                     </td>
-                    <td width="1%">&nbsp;</td>
-                    <td valign="top" width="60%">
+                    <td>
                         <table class="basic-table" cellspacing='0'>
                             <tr>
-                                <td valign="top">
+                                <td>
                                     ${uiLabelMap.CommonNbr}<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description!}
                                 </td>
-                                <td valign="top" align="right">
+                                <td>
                                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED" && orderPaymentPreference.statusId != "PAYMENT_RECEIVED">
                                         <a href="<@ofbizUrl>receivepayment?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingReceivePayment}</a>
                                     </#if>
@@ -154,7 +150,7 @@ under the License.
                             </tr>
                         </table>
                     </td>
-                    <td width="10%">
+                    <td>
                         <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                             <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                               <div>
@@ -177,7 +173,7 @@ under the License.
                 <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
                 <#assign finAccountType = finAccount.getRelatedOne("FinAccountType", false)!/>
                 <tr>
-                  <td align="right" valign="top" width="29%">
+                  <td>
                     <div>
                     <span class="label">&nbsp;${uiLabelMap.AccountingFinAccount}</span>
                     <#if orderPaymentPreference.maxAmount?has_content>
@@ -185,8 +181,7 @@ under the License.
                     </#if>
                     </div>
                   </td>
-                  <td width="1%">&nbsp;</td>
-                  <td valign="top" width="60%">
+                  <td>
                     <div>
                       <#if (finAccountType?has_content)>
                         ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;
@@ -223,7 +218,7 @@ under the License.
                       </div>
                     </#if>
                   </td>
-                  <td width="10%">
+                  <td>
                     <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                      <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                         <div>
@@ -241,11 +236,10 @@ under the License.
                 </tr>
                 <#if paymentList?has_content>
                     <tr>
-                    <td align="right" valign="top" width="29%">
+                    <td>
                       <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
                     </td>
-                    <td width="1%">&nbsp;</td>
-                      <td width="60%">
+                      <td>
                         <div>
                             <#list paymentList as paymentMap>
                                 <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
@@ -257,16 +251,15 @@ under the License.
               </#if>
             <#else>
               <tr>
-                <td align="right" valign="top" width="29%">
+                <td>
                   <div>&nbsp;<span class="label">${paymentMethodType.get("description",locale)!}</span>&nbsp;
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
                   </div>
                 </td>
-                <td width="1%">&nbsp;</td>
                 <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE" && paymentMethodType.paymentMethodTypeId != "EXT_PAYPAL" && paymentMethodType.paymentMethodTypeId != "EXT_COD">
-                  <td width="60%">
+                  <td>
                     <div>
                       <#if orderPaymentPreference.maxAmount?has_content>
                          <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
@@ -275,11 +268,11 @@ under the License.
                     </div>
                   </td>
                 <#else>
-                  <td align="right" width="60%">
+                  <td>
                     <a href="<@ofbizUrl>receivepayment?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingReceivePayment}</a>
                   </td>
                 </#if>
-                  <td width="10%">
+                  <td>
                    <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <div>
@@ -297,11 +290,10 @@ under the License.
                 </tr>
                 <#if paymentList?has_content>
                     <tr>
-                    <td align="right" valign="top" width="29%">
+                    <td>
                       <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
                     </td>
-                    <td width="1%">&nbsp;</td>
-                      <td width="60%">
+                      <td>
                         <div>
                             <#list paymentList as paymentMap>
                                 <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
@@ -319,15 +311,14 @@ under the License.
                 <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
-                <td align="right" valign="top" width="29%">
-                  <div>&nbsp;<span class="label">${uiLabelMap.AccountingCreditCard}</span>
+                <td class="label">
+                  <div><label>${uiLabelMap.AccountingCreditCard}</label>
                   <#if orderPaymentPreference.maxAmount?has_content>
-                     <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                     <br /><p>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/></p>
                   </#if>
                   </div>
                 </td>
-                <td width="1%">&nbsp;</td>
-                <td valign="top" width="60%">
+                <td>
                   <div>
                     <#if creditCard?has_content>
                       <#if creditCard.companyNameOnCard??>${creditCard.companyNameOnCard}<br /></#if>
@@ -379,7 +370,7 @@ under the License.
                     </div>
                   </#if>
                 </td>
-                <td width="10%">
+                <td>
                   <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -399,15 +390,14 @@ under the License.
                 <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
-                <td align="right" valign="top" width="29%">
+                <td>
                   <div>&nbsp;<span class="label">${uiLabelMap.AccountingEFTAccount}</span>
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
                   </div>
                 </td>
-                <td width="1%">&nbsp;</td>
-                <td valign="top" width="60%">
+                <td>
                   <div>
                     <#if eftAccount?has_content>
                       ${eftAccount.nameOnAccount!}<br />
@@ -419,7 +409,7 @@ under the License.
                     </#if>
                   </div>
                 </td>
-                <td width="10%">
+                <td>
                   <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -435,11 +425,10 @@ under the License.
               </tr>
               <#if paymentList?has_content>
                 <tr>
-                <td align="right" valign="top" width="29%">
+                <td>
                   <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
                 </td>
-                <td width="1%">&nbsp;</td>
-                  <td width="60%">
+                  <td>
                     <div>
                         <#list paymentList as paymentMap>
                             <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
@@ -454,15 +443,14 @@ under the License.
                 <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
-                <td align="right" valign="top" width="29%">
+                <td>
                   <div>&nbsp;<span class="label">${uiLabelMap.OrderGiftCard}</span>
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
                   </div>
                 </td>
-                <td width="1%">&nbsp;</td>
-                <td valign="top" width="60%">
+                <td>
                   <div>
                     <#if giftCard?has_content>
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
@@ -478,7 +466,7 @@ under the License.
                     </#if>
                   </div>
                 </td>
-                <td width="10%">
+                <td>
                   <#if ("ORDER_COMPLETED" != orderHeader.statusId) && "ORDER_REJECTED" != orderHeader.statusId && "ORDER_CANCELLED" != orderHeader.statusId>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
@@ -494,11 +482,10 @@ under the License.
               </tr>
               <#if paymentList?has_content>
                 <tr>
-                <td align="right" valign="top" width="29%">
+                <td>
                   <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
                 </td>
-                <td width="1%">&nbsp;</td>
-                  <td width="60%">
+                  <td>
                     <div>
                         <#list paymentList as paymentMap>
                             <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
@@ -510,13 +497,12 @@ under the License.
             </#if>
           </#if>
           <#if pmBillingAddress?has_content>
-            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="3"><hr /></td></tr>
+            <tr><td>&nbsp;</td><td colspan="1"><hr /></td><td></td></tr>
             <tr>
-              <td align="right" valign="top" width="29%">&nbsp;</td>
-              <td width="1%">&nbsp;</td>
-              <td valign="top" width="60%">
+              <td>&nbsp;</td>
+              <td>
                 <div>
-                  <#if pmBillingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${pmBillingAddress.toName}<br /></#if>
+                  <#if pmBillingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${pmBillingAddress.toName}<br /></#if>
                   <#if pmBillingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${pmBillingAddress.attnName}<br /></#if>
                   ${pmBillingAddress.address1}<br />
                   <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}<br /></#if>
@@ -525,15 +511,14 @@ under the License.
                   ${pmBillingAddress.countryGeoId!}
                 </div>
               </td>
-              <td width="10%">&nbsp;</td>
+              <td>&nbsp;</td>
             </tr>
             <#if paymentList?has_content>
             <tr>
-            <td align="right" valign="top" width="29%">
+            <td>
               <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
             </td>
-            <td width="1%">&nbsp;</td>
-              <td width="60%">
+              <td>
                 <div>
                     <#list paymentList as paymentMap>
                         <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
@@ -548,10 +533,9 @@ under the License.
         <#if customerPoNumber?has_content>
           <tr><td colspan="4"><hr /></td></tr>
           <tr>
-            <td align="right" valign="top" width="29%"><span class="label">${uiLabelMap.OrderPONumber}</span></td>
-            <td width="1%">&nbsp;</td>
-            <td valign="top" width="60%">${customerPoNumber!}</td>
-            <td width="10%">&nbsp;</td>
+            <td><span class="label">${uiLabelMap.OrderPONumber}</span></td>
+            <td>${customerPoNumber!}</td>
+            <td>&nbsp;</td>
           </tr>
         </#if>
 
@@ -559,15 +543,14 @@ under the License.
         <#if invoices?has_content>
           <tr><td colspan="4"><hr /></td></tr>
           <tr>
-            <td align="right" valign="top" width="29%">&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
-            <td width="1%">&nbsp;</td>
-            <td valign="top" width="60%">
+            <td>&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
+            <td>
               <#list invoices as invoice>
                 <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${invoice}</a>
                 (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">PDF</a>)</div>
               </#list>
             </td>
-            <td width="10%">&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
         </#if>
    <#else>
@@ -580,11 +563,10 @@ under the License.
    <tr><td colspan="4">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">
    <input type="hidden" name="orderId" value="${orderId!}"/>
-   <table class="basic-table" cellspacing='0'>
+   <table class="basic-table form-table" cellspacing='0'>
    <tr>
-      <td width="29%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.AccountingPaymentMethod}</span></td>
-      <td width="1%">&nbsp;</td>
-      <td width="60%" nowrap="nowrap">
+      <td class="label"><span class="label">${uiLabelMap.AccountingPaymentMethod}</span></td>
+      <td>
          <select name="paymentMethodId">
            <#list paymentMethodValueMaps as paymentMethodValueMap>
              <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
@@ -607,24 +589,22 @@ under the License.
            </#list>
          </select>
       </td>
-      <td width="10%">&nbsp;</td>
+      <td>&nbsp;</td>
    </tr>
    <#assign openAmount = orderReadHelper.getOrderOpenAmount()>
    <tr>
-      <td width="29%" align="right"><span class="label">${uiLabelMap.AccountingAmount}</span></td>
-      <td width="1%">&nbsp;</td>
-      <td width="60%" nowrap="nowrap">
+      <td class="label"><span class="label">${uiLabelMap.AccountingAmount}</span></td>
+      <td>
          <input type="text" name="maxAmount" value="${openAmount}"/>
       </td>
-      <td width="10%">&nbsp;</td>
+      <td>&nbsp;</td>
    </tr>
    <tr>
-      <td align="right" valign="top" width="29%">&nbsp;</td>
-      <td width="1%">&nbsp;</td>
-      <td valign="top" width="60%">
+      <td>&nbsp;</td>
+      <td>
         <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
       </td>
-      <td width="10%">&nbsp;</td>
+      <td>&nbsp;</td>
    </tr>
    </table>
    </form>

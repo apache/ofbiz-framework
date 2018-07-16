@@ -34,6 +34,11 @@
         <value xml:lang="zh">年收入</value>
         <value xml:lang="zh-TW">年收入</value>
     </property>
+    <property key="FormFieldTitle_binaryTransfer">
+        <value xml:lang="de">Binären transfer</value>
+        <value xml:lang="en">Binary transfer</value>
+        <value xml:lang="fr">Transfert binaire</value>
+    </property>
     <property key="FormFieldTitle_birthDate">
         <value xml:lang="ar">تاريخ الميلاد</value>
         <value xml:lang="cs">Datum narození</value>
@@ -339,6 +344,11 @@
         <value xml:lang="zh">默认费率</value>
         <value xml:lang="zh-TW">預設費率</value>
     </property>
+    <property key="FormFieldTitle_defaultTimeout">
+        <value xml:lang="de">Voreinstellung timeout</value>
+        <value xml:lang="en">Default timeout</value>
+        <value xml:lang="fr">Expiration par défaut</value>
+    </property>
     <property key="FormFieldTitle_deleteEmail">
         <value xml:lang="ar">حذف البريد الالكتروني</value>
         <value xml:lang="cs">Smazat e-mail</value>
@@ -604,6 +614,11 @@
         <value xml:lang="vi">Cao</value>
         <value xml:lang="zh">高度</value>
         <value xml:lang="zh-TW">身高</value>
+    </property>
+    <property key="FormFieldTitle_hostname">
+        <value xml:lang="de">Hostname</value>
+        <value xml:lang="en">Host name</value>
+        <value xml:lang="fr">Nom d'hôte</value>
     </property>
     <property key="FormFieldTitle_infoString">
         <value xml:lang="ar">سلسلة المعلومات</value>
@@ -1392,6 +1407,11 @@
         <value xml:lang="zh">会员类型标识</value>
         <value xml:lang="zh-TW">團體類型識別</value>
     </property>
+    <property key="FormFieldTitle_passiveMode">
+        <value xml:lang="de">Passiv modus</value>
+        <value xml:lang="en">Passive mode</value>
+        <value xml:lang="fr">Mode passif</value>
+    </property>
     <property key="FormFieldTitle_passportExpireDate">
         <value xml:lang="ar">تاريخ إنتهاء صلاحية جواز السفر</value>
         <value xml:lang="de">Ablaufdatum Pass</value>
@@ -1446,6 +1466,18 @@
         <value xml:lang="vi">Gợi nhớ mật khẩu</value>
         <value xml:lang="zh">密码提示</value>
         <value xml:lang="zh-TW">密碼提示</value>
+    </property>
+    <property key="FormFieldTitle_path">
+        <value xml:lang="de">Pfad</value>
+        <value xml:lang="en">Path</value>
+        <value xml:lang="fr">Chemin</value>
+        <value xml:lang="it">Percorso</value>
+        <value xml:lang="ja">パス</value>
+        <value xml:lang="pt">Caminho</value>
+        <value xml:lang="th">Path</value>
+        <value xml:lang="vi">Đường dẫn</value>
+        <value xml:lang="zh">路径</value>
+        <value xml:lang="zh-TW">路徑</value>
     </property>
     <property key="FormFieldTitle_percentComplete">
         <value xml:lang="ar">نسبة الإتمام</value>
@@ -1506,6 +1538,11 @@
         <value xml:lang="vi">Ảnh đại diện</value>
         <value xml:lang="zh">个人图片</value>
         <value xml:lang="zh-TW">個人圖片</value>
+    </property>
+    <property key="FormFieldTitle_port">
+        <value xml:lang="de">Port</value>
+        <value xml:lang="en">Port</value>
+        <value xml:lang="fr">Port</value>
     </property>
     <property key="FormFieldTitle_preferredContactMechId">
         <value xml:lang="ar">دليل وسيلة الإتصال المفضلة</value>
@@ -1995,6 +2032,11 @@
         <value xml:lang="zh">年为雇主</value>
         <value xml:lang="zh-TW">受雇年數</value>
     </property>
+    <property key="FormFieldTitle_zipFile">
+        <value xml:lang="de">Zipdatei</value>
+        <value xml:lang="en">File compression</value>
+        <value xml:lang="fr">Compression de fichier</value>
+    </property>
     <property key="NewProspect">
         <value xml:lang="ar">تم إنشاء بروسبكت جديد بنجاح.</value>
         <value xml:lang="de">Neuer Prospect wurde erfolgreich erstellt.</value>
@@ -2009,6 +2051,9 @@
         <value xml:lang="ru">Новый проспект создан успешно.</value>
         <value xml:lang="th">โอกาสใหม่ที่สร้างเสร็จเรียบร้อยแล้ว</value>
         <value xml:lang="vi">Triển vọng Mới được tạo thành công.</value>
+    </property>
+    <property key="CustomerCreatedSuccessfully">
+        <value xml:lang="en">Customer created successfully.</value>
     </property>
     <property key="PageTitleAddPartyContent">
         <value xml:lang="ar">إضافة محتوى للطرف</value>
@@ -7378,6 +7423,11 @@
         <value xml:lang="vi">Số điện thoại nhà chưa được nhập</value>
         <value xml:lang="zh">找不到家庭电话号码。</value>
         <value xml:lang="zh-TW">沒有家裡電話號碼.</value>
+    </property>
+    <property key="PartyHostnameMustContainProtocol">
+        <value xml:lang="de">Der Hostname muss das Protokoll enthalten</value>
+        <value xml:lang="en">Hostname must contain the protocol</value>
+        <value xml:lang="fr">Le nom d'hôte doit contenir le protocole</value>
     </property>
     <property key="PartyImportInvalidCsvFile">
         <value xml:lang="ar">نمط ملف الCSV غير صالح (المفتاح, القيمة, التسلسل)</value>
