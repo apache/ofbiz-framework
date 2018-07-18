@@ -22,6 +22,7 @@ package org.apache.ofbiz.webapp.event;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -54,6 +55,7 @@ import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.common.ServerStreamConnection;
 import org.apache.xmlrpc.common.XmlRpcHttpRequestConfig;
 import org.apache.xmlrpc.common.XmlRpcHttpRequestConfigImpl;
+import org.apache.xmlrpc.common.XmlRpcStreamRequestConfig;
 import org.apache.xmlrpc.server.AbstractReflectiveHandlerMapping;
 import org.apache.xmlrpc.server.XmlRpcHttpServer;
 import org.apache.xmlrpc.server.XmlRpcHttpServerConfig;
@@ -206,6 +208,60 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             return true;
+        }
+    }
+
+    @Override
+    public void execute(XmlRpcStreamRequestConfig pConfig,
+            ServerStreamConnection pConnection) throws XmlRpcException {
+        try {
+            Object result = null;
+            boolean foundError = false;
+
+            try (InputStream istream = getInputStream(pConfig, pConnection)) {
+                XmlRpcRequest request = getRequest(pConfig, istream);
+                result = execute(request);
+            } catch (Exception e) {
+                Debug.logError(e, module);
+                foundError = true;
+            }
+
+            ByteArrayOutputStream baos;
+            OutputStream initialStream;
+            if (isContentLengthRequired(pConfig)) {
+                baos = new ByteArrayOutputStream();
+                initialStream = baos;
+            } else {
+                baos = null;
+                initialStream = pConnection.newOutputStream();
+            }
+
+            try (OutputStream ostream = getOutputStream(pConnection, pConfig, initialStream)) {
+                if (!foundError) {
+                    writeResponse(pConfig, ostream, result);
+                } else {
+                    writeError(pConfig, ostream, new Exception("Failed to read XML-RPC request. Please check logs for more information"));
+                }
+            }
+
+            if (baos != null) {
+                try (OutputStream dest = getOutputStream(pConfig, pConnection, baos.size())) {
+                    baos.writeTo(dest);
+                }
+            }
+
+            pConnection.close();
+            pConnection = null;
+        } catch (IOException e) {
+            throw new XmlRpcException("I/O error while processing request: " + e.getMessage(), e);
+        } finally {
+            if (pConnection != null) {
+                try {
+                    pConnection.close();
+                } catch (IOException e) {
+                    Debug.logError(e, "Unable to close stream connection");
+                }
+            }
         }
     }
 
