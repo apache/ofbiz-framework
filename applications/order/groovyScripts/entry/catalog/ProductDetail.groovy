@@ -310,7 +310,7 @@ if (product) {
 
                 if (variantTree && imageMap) {
                     jsBuf = new StringBuffer()
-                    jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">")
+                    jsBuf.append("<script type=\"text/javascript\">")
                     jsBuf.append("var DET = new Array(" + variantTree.size() + ");")
                     jsBuf.append("var IMG = new Array(" + variantTree.size() + ");")
                     jsBuf.append("var OPT = new Array(" + featureOrder.size() + ");")
@@ -506,7 +506,7 @@ if (product) {
         if(isAlternativePacking){
             // get alternative product price when product doesn't have any feature 
             jsBuf = new StringBuffer()
-            jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">")
+            jsBuf.append("<script type=\"text/javascript\">")
             
             // make a list of variant sku with requireAmount
             virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId])
