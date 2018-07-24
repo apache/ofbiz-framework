@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 <!-- //
     function viewOrder(form) {
         if (form.taskStatus.value == "WF_NOT_STARTED") {

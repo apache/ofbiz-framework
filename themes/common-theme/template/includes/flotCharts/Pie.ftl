@@ -16,9 +16,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/excanvas.min.js</@ofbizContentUrl>"></script>
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.js</@ofbizContentUrl>"></script>
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.pie.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/excanvas.min.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.pie.js</@ofbizContentUrl>"></script>
 
 
 <div id="${chartId}Div" style="width:800px;height:300px;"></div>

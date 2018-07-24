@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 <!-- //
 function copyAndAddRoutingTask() {
     document.addtaskassocform.copyTask.value = "Y";

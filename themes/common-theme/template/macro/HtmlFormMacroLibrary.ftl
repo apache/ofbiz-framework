@@ -62,7 +62,7 @@ under the License.
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
     <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
-    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
+    <script type="text/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
 
@@ -232,7 +232,7 @@ under the License.
   </span>
   <#if otherFieldName?has_content>
     <noscript><input type='text' name='${otherFieldName}' /></noscript>
-    <script type='text/javascript' language='JavaScript'><!--
+    <script type='text/javascript'><!--
       disa = ' disabled';
       if(other_choice(document.${formName}.${fieldName}))
         disa = '';
@@ -243,7 +243,7 @@ under the License.
   </#if>
 
   <#if ajaxEnabled>
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
       ajaxAutoCompleteDropDown();
       jQuery(function() {
         jQuery("#${id}").combobox();

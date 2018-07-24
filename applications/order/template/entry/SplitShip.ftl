@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {

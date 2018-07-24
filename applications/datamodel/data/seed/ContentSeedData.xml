@@ -1790,7 +1790,7 @@ under the License.
   </tr>
 </table>
 
-<script language="JavaScript">
+<script>
   <#if autoUserLogin?has_content>document.loginform.PASSWORD.focus();</#if>
   <#if !autoUserLogin?has_content>document.loginform.USERNAME.focus();</#if>
    function requery() {

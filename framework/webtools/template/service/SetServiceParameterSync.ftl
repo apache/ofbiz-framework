@@ -31,7 +31,7 @@ under the License.
           <#if "N" == serviceParameter.optional><span class="tooltip">${uiLabelMap.CommonRequired}</span></#if>
           <#if serviceParameter.defaultValue?has_content>${uiLabelMap.WebtoolsServiceDefault} ${serviceParameter.defaultValue?string}</#if>
           <#if serviceParameter_index == 0>
-            <script language="JavaScript" type="text/javascript">
+            <script type="text/javascript">
               document.scheduleForm.${serviceParameter.name}.focus();
             </script>
           </#if>

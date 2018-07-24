@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
     function clearLine(facilityId, orderId, orderItemSeqId, productId, shipGroupSeqId, inventoryItemId, packageSeqId) {
         document.clearPackLineForm.facilityId.value = facilityId;
         document.clearPackLineForm.orderId.value = orderId;
@@ -518,11 +518,11 @@ under the License.
   </#if>
 
   <#if orderId?has_content>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
       document.singlePackForm.productId.focus();
     </script>
   <#else>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>

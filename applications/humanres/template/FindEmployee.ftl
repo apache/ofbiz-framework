@@ -123,7 +123,7 @@ under the License.
     </#if>
 </div>
     <#if parameters.hideFields?default("N") != "Y">
-        <script language="JavaScript" type="text/javascript">
+        <script type="text/javascript">
     <!--//
       document.lookupparty.partyId.focus();
     //-->

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 function togglePaymentId(master) {
     var form = document.depositWithdrawPaymentsForm;
     var payments = form.elements.length;
