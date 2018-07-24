@@ -34,7 +34,7 @@ under the License.
     <#if layoutSettings.javaScripts?has_content>
       <#--layoutSettings.javaScripts is a list of java scripts. -->
       <#list layoutSettings.javaScripts as javaScript>
-        <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+        <script src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
       </#list>
     </#if>
     <#if layoutSettings.styleSheets?has_content>

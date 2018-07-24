@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
     function paginateOrderList(viewSize, viewIndex) {
         document.paginationForm.viewSize.value = viewSize;
         document.paginationForm.viewIndex.value = viewIndex;

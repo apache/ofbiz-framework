@@ -32,7 +32,7 @@ under the License.
     </#if>
 
     <#if productIds?has_content>
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         function checkProductToBagTextArea(field, idValue) {
             fullValue = idValue + "\n";
             tempStr = document.forms["quickCreateVirtualWithVariants"].elements["variantProductIdsBag"].value;

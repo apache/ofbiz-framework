@@ -17,7 +17,7 @@
   under the License.
   -->
 
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
     function editInstruction(shipGroupSeqId) {
         jQuery('#shippingInstructions_' + shipGroupSeqId).css({display:'block'});
         jQuery('#saveInstruction_' + shipGroupSeqId).css({display:'inline'});
@@ -494,7 +494,7 @@ under the License.
             </div>
           </form>
         </div>
-        <script language="JavaScript" type="text/javascript">
+        <script type="text/javascript">
          jQuery(document).ready( function() {
           jQuery("#newShippingAddressForm").dialog({autoOpen: false, modal: true,
                   buttons: {

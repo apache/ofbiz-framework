@@ -79,7 +79,7 @@ under the License.
     </#if>
     <#if lastParameters??><#assign parametersURL = "&amp;" + lastParameters></#if>
     <#if layoutSettings.WEB_ANALYTICS?has_content>
-      <script language="JavaScript" type="text/javascript">
+      <script type="text/javascript">
         <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
           ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
         </#list>

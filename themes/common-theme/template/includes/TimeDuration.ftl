@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
     function setTimeDuration() {
         var years = window.document.getElementsByName("years")[0].value;
         var weeks = window.document.getElementsByName("weeks")[0].value;
