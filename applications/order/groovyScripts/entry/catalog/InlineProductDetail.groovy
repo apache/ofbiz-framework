@@ -181,7 +181,7 @@ if (inlineProduct) {
 
                 if (variantTree && imageMap) {
                     jsBuf = new StringBuffer()
-                    jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">")
+                    jsBuf.append("<script type=\"text/javascript\">")
                     jsBuf.append("var DET" + inlineCounter + "= new Array(" + variantTree.size() + ");")
                     jsBuf.append("var IMG" + inlineCounter + " = new Array(" + variantTree.size() + ");")
                     jsBuf.append("var OPT" + inlineCounter + " = new Array(" + featureOrder.size() + ");")
