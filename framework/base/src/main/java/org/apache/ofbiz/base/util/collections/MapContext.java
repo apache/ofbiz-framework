@@ -86,6 +86,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#size()
      */
+    @Override
     public int size() {
         // a little bit tricky; to represent the apparent size we need to aggregate all keys and get a count of unique keys
         // this is a bit of a slow way, but gets the best number possible
@@ -96,6 +97,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#isEmpty()
      */
+    @Override
     public boolean isEmpty() {
         // walk the stackList and if any is not empty, return false; otherwise return true
         for (Map<K, V> curMap: this.stackList) {
@@ -109,6 +111,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#containsKey(java.lang.Object)
      */
+    @Override
     public boolean containsKey(Object key) {
         // walk the stackList and for the first place it is found return true; otherwise refurn false
         for (Map<K, V> curMap: this.stackList) {
@@ -122,6 +125,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#containsValue(java.lang.Object)
      */
+    @Override
     public boolean containsValue(Object value) {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, consider it an option, otherwise ignore
         Set<K> resultKeySet = new HashSet<>();
@@ -147,6 +151,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#get(java.lang.Object)
      */
+    @Override
     public V get(Object key) {
         // walk the stackList and for the first place it is found return true; otherwise refurn false
         for (Map<K, V> curMap: this.stackList) {
@@ -161,6 +166,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see org.apache.ofbiz.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
      */
+    @Override
     public V get(String name, Locale locale) {
         // walk the stackList and for the first place it is found return true; otherwise refurn false
         for (Map<K, V> curMap: this.stackList) {
@@ -179,6 +185,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
+    @Override
     public V put(K key, V value) {
         // all write operations are local: only put in the Map on the top of the stack
         Map<K, V> currentMap = this.stackList.get(0);
@@ -188,6 +195,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#remove(java.lang.Object)
      */
+    @Override
     public V remove(Object key) {
         // all write operations are local: only remove from the Map on the top of the stack
         Map<K, V> currentMap = this.stackList.get(0);
@@ -197,6 +205,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#putAll(java.util.Map)
      */
+    @Override
     public void putAll(Map<? extends K, ? extends V> arg0) {
         // all write operations are local: only put in the Map on the top of the stack
         Map<K, V> currentMap = this.stackList.get(0);
@@ -206,6 +215,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#clear()
      */
+    @Override
     public void clear() {
         // all write operations are local: only clear the Map on the top of the stack
         this.stackList.get(0).clear();
@@ -214,6 +224,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#keySet()
      */
+    @Override
     public Set<K> keySet() {
         // walk the stackList and aggregate all keys
         Set<K> resultSet = new HashSet<>();
@@ -226,6 +237,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#values()
      */
+    @Override
     public Collection<V> values() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
         Set<K> resultKeySet = new HashSet<>();
@@ -244,6 +256,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     /* (non-Javadoc)
      * @see java.util.Map#entrySet()
      */
+    @Override
     public Set<Map.Entry<K, V>> entrySet() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
         Set<K> resultKeySet = new HashSet<>();
