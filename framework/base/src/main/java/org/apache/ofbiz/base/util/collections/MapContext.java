@@ -46,39 +46,11 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         return new MapContext<>();
     }
 
-    public static <K, V> MapContext<K, V> createMapContext() {
-        MapContext<K, V> newValue = MapContext.getMapContext();
-        // initialize with a single entry
-        newValue.push();
-        return newValue;
-    }
-
-    public static <K, V> MapContext<K, V> createMapContext(Map<K, V> baseMap) {
-        MapContext<K, V> newValue = MapContext.getMapContext();
-        if (baseMap instanceof MapContext) {
-            newValue.stackList.addAll(((MapContext<K, V>) baseMap).stackList);
-        } else {
-            newValue.stackList.add(0, baseMap);
-        }
-        return newValue;
-    }
-
-    /** Does a shallow copy of the internal stack of the passed MapContext; enables simultaneous stacks that share common parent Maps */
-    public static <K, V> MapContext<K, V> createMapContext(MapContext<K, V> source) {
-        MapContext<K, V> newValue = MapContext.getMapContext();
-        newValue.stackList.addAll(source.stackList);
-        return newValue;
-    }
-
     protected MapContext() {
         super();
     }
 
     protected List<Map<K, V>> stackList = new LinkedList<>();
-
-    public void reset() {
-        stackList = new LinkedList<>();
-    }
 
     /** Puts a new Map on the top of the stack */
     public void push() {
@@ -109,29 +81,6 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
             return stackList.remove(0);
         }
         return null;
-    }
-
-    /**
-     * Creates a MapContext object that has the same Map objects on its stack;
-     * meant to be used to enable a
-     * situation where a parent and child context are operating simultaneously
-     * using two different MapContext objects, but sharing the Maps in common
-     */
-    public MapContext<K, V> standAloneStack() {
-        MapContext<K, V> standAlone = MapContext.createMapContext(this);
-        return standAlone;
-    }
-
-    /**
-     * Creates a MapContext object that has the same Map objects on its stack,
-     * but with a new Map pushed on the top; meant to be used to enable a
-     * situation where a parent and child context are operating simultaneously
-     * using two different MapContext objects, but sharing the Maps in common
-     */
-    public MapContext<K, V> standAloneChildStack() {
-        MapContext<K, V> standAloneChild = MapContext.createMapContext(this);
-        standAloneChild.push();
-        return standAloneChild;
     }
 
     /* (non-Javadoc)
