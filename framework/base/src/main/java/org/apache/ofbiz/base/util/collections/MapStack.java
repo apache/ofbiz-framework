@@ -38,7 +38,6 @@ public class MapStack<K> extends MapContext<K, Object> {
         return newValue;
     }
 
-    @SuppressWarnings("unchecked")
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
         MapStack<K> newValue = new MapStack<>();
         if (baseMap instanceof MapStack) {
@@ -66,7 +65,6 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
-    @Override
     public MapStack<K> standAloneStack() {
         MapStack<K> standAlone = MapStack.create(this);
         return standAlone;
@@ -78,7 +76,6 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
-    @Override
     public MapStack<K> standAloneChildStack() {
         MapStack<K> standAloneChild = MapStack.create(this);
         standAloneChild.push();
