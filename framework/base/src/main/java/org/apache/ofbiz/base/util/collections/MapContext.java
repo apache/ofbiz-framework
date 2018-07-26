@@ -22,6 +22,7 @@ import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,12 +51,11 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         super();
     }
 
-    protected List<Map<K, V>> stackList = new LinkedList<>();
+    protected Deque<Map<K, V>> stackList = new LinkedList<>();
 
     /** Puts a new Map on the top of the stack */
     public void push() {
-        Map<K, V> newMap = new HashMap<>();
-        this.stackList.add(0,newMap);
+        stackList.addFirst(new HashMap<K, V>());
     }
 
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */
@@ -63,7 +63,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot push null existing Map onto a MapContext");
         }
-        this.stackList.add(0, existingMap);
+        stackList.addFirst(existingMap);
     }
 
     /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack, ie everything else already there) */
@@ -71,16 +71,13 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot add null existing Map to bottom of a MapContext");
         }
-        this.stackList.add(existingMap);
+        stackList.addLast(existingMap);
     }
 
     /** Remove and returns the Map from the top of the stack; if there is only one Map on the stack it returns null and does not remove it */
     public Map<K, V> pop() {
         // always leave at least one Map in the List, ie never pop off the last Map
-        if (this.stackList.size() > 1) {
-            return stackList.remove(0);
-        }
-        return null;
+        return stackList.size() > 1 ? stackList.removeFirst() : null;
     }
 
     /* (non-Javadoc)
@@ -188,8 +185,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     @Override
     public V put(K key, V value) {
         // all write operations are local: only put in the Map on the top of the stack
-        Map<K, V> currentMap = this.stackList.get(0);
-        return currentMap.put(key, value);
+        return stackList.getFirst().put(key, value);
     }
 
     /* (non-Javadoc)
@@ -198,8 +194,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     @Override
     public V remove(Object key) {
         // all write operations are local: only remove from the Map on the top of the stack
-        Map<K, V> currentMap = this.stackList.get(0);
-        return currentMap.remove(key);
+        return stackList.getFirst().remove(key);
     }
 
     /* (non-Javadoc)
@@ -208,8 +203,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     @Override
     public void putAll(Map<? extends K, ? extends V> arg0) {
         // all write operations are local: only put in the Map on the top of the stack
-        Map<K, V> currentMap = this.stackList.get(0);
-        currentMap.putAll(arg0);
+        stackList.getFirst().putAll(arg0);
     }
 
     /* (non-Javadoc)
@@ -218,7 +212,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     @Override
     public void clear() {
         // all write operations are local: only clear the Map on the top of the stack
-        this.stackList.get(0).clear();
+        stackList.getFirst().clear();
     }
 
     /* (non-Javadoc)
