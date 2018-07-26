@@ -43,7 +43,7 @@ public class MapStack<K> extends MapContext<K, Object> {
         if (baseMap instanceof MapStack) {
             newValue.stackList.addAll(((MapStack<K>) baseMap).stackList);
         } else {
-            newValue.stackList.add(0, baseMap);
+            newValue.stackList.addFirst(baseMap);
         }
         return newValue;
     }
