@@ -458,7 +458,6 @@ function toggleOrderIdList() {
     </div>
       </#if>
 </div>
-<input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:lookupOrders(true);"/>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
 <script type="application/javascript">

@@ -98,7 +98,6 @@ under the License.
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
-                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.routeForm.submit();" />
                   </td>
                 </tr>
               </table>
@@ -140,7 +139,6 @@ under the License.
               <tr>
                 <td colspan="2">&nbsp;</td>
                 <td width="80%">
-                  <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.weightForm.submit();"/>
                   <a href="javascript:document.weightForm.submit();" class="buttontext">${uiLabelMap.ProductSetWeight}</a>
                 </td>
               </tr>
@@ -178,7 +176,6 @@ under the License.
         <tr>
           <td colspan="2">&nbsp;</td>
           <td colspan="2">
-            <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.selectOrderForm.submit();" />
             <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductShipOrder}</a>
           </td>
         </tr>
