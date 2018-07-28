@@ -232,7 +232,7 @@ under the License.
   </span>
   <#if otherFieldName?has_content>
     <noscript><input type='text' name='${otherFieldName}' /></noscript>
-    <script type='text/javascript'><!--
+    <script type='application/javascript'><!--
       disa = ' disabled';
       if(other_choice(document.${formName}.${fieldName}))
         disa = '';
