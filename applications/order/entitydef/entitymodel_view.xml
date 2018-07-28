@@ -1775,4 +1775,26 @@ under the License.
         <key-map field-name="workEffortId"/>
       </view-link>
   </view-entity>
+  <view-entity entity-name="OrderAndPartyContactMech"
+           package-name="org.apache.ofbiz.party.party"
+           title="Order contact mech and purpose view">
+    <member-entity entity-alias="OCM" entity-name="OrderContactMech"/>
+    <member-entity entity-alias="CM" entity-name="ContactMech"/>
+    <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+    <alias-all entity-alias="OCM"/>
+    <alias entity-alias="PCM" name="partyId"/>
+    <alias entity-alias="PCM" name="contactFromDate" field="fromDate"/>
+    <alias entity-alias="PCM" name="contactThruDate" field="thruDate"/>
+    <alias entity-alias="CM" name="contactMechTypeId"/>
+    <alias entity-alias="CM" name="infoString"/>
+    <alias entity-alias="PCM" name="comments"/>
+    <alias entity-alias="PCM" name="extension"/>
+    <alias entity-alias="PCM" name="allowSolicitation"/>
+    <view-link entity-alias="OCM" rel-entity-alias="CM">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+    <view-link entity-alias="CM" rel-entity-alias="PCM">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+  </view-entity>
 </entitymodel>
