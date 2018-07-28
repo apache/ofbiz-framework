@@ -632,7 +632,7 @@ under the License.
     </form>
 
     <!-- FacilityParty -->
-    <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties"
+    <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties" target="updateFacilityParty"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
@@ -641,9 +641,12 @@ under the License.
         <field name="roleTypeId">
             <display-entity entity-name="RoleType"/>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removePartyFromFacility" also-hidden="false">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="partyId"/>

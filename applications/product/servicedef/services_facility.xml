@@ -1128,6 +1128,12 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
+    <service name="updateFacilityParty" default-entity-name="FacilityParty" engine="entity-auto" invoke="update" auth="true">
+        <description>Update Party From Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="removePartyFromFacility" default-entity-name="FacilityParty" engine="entity-auto" invoke="expire" auth="true">
         <description>Remove Party From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
