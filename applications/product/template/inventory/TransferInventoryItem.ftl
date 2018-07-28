@@ -45,7 +45,7 @@ under the License.
                 <input type="hidden" name="inventoryTransferId" value="${inventoryTransferId!}" />
             </#if>
 
-            <script type="text/javascript">
+            <script type="application/javascript">
                 function setNow(field) { eval('document.transferform.' + field + '.value="${nowTimestamp}"'); }
             </script>
 

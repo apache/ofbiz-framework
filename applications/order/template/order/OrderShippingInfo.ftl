@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
     function editInstruction(shipGroupSeqId) {
         jQuery('#shippingInstructions_' + shipGroupSeqId).css({display:'block'});
         jQuery('#saveInstruction_' + shipGroupSeqId).css({display:'inline'});
@@ -426,7 +426,7 @@ under the License.
                       <td>
                           <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                           <a class="buttontext" id="newShippingAddress" href="javascript:void(0);">${uiLabelMap.OrderNewShippingAddress}</a>
-                          <script type="text/javascript">
+                          <script type="application/javascript">
                               jQuery("#newShippingAddress").click(function(){jQuery("#newShippingAddressForm").dialog("open")});
                           </script>
                       </td>
@@ -494,7 +494,7 @@ under the License.
             </div>
           </form>
         </div>
-        <script type="text/javascript">
+        <script type="application/javascript">
          jQuery(document).ready( function() {
           jQuery("#newShippingAddressForm").dialog({autoOpen: false, modal: true,
                   buttons: {

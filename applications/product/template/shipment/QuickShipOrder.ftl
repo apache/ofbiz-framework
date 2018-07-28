@@ -103,7 +103,7 @@ under the License.
                 </tr>
               </table>
             </form>
-            <script type="text/javascript">
+            <script type="application/javascript">
               document.routeForm.carrierPartyId.focus();
             </script>
           <#else>
@@ -146,7 +146,7 @@ under the License.
               </tr>
             </table>
           </form>
-          <script type="text/javascript">
+          <script type="application/javascript">
             document.weightForm.weight.focus();
           </script>
         </#if>
@@ -184,7 +184,7 @@ under the License.
         </tr>
       </table>
     </form>
-    <script type="text/javascript">
+    <script type="application/javascript">
         document.selectOrderForm.orderId.focus();
     </script>
   </#if>

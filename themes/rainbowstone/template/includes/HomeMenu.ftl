@@ -29,7 +29,7 @@ under the License.
     <#assign avatarDetail = EntityQuery.use(delegator).from("PartyContentDetail").where("partyId", person.partyId!, "contentId", avatar.contentId!).queryFirst()!>
 </#if>
 <body onpageshow="showHideFavorites()">
-<script type="text/javascript">
+<script type="application/javascript">
     function showHideFavorites() {
         var showHideStatus = document.getElementById("showHideBtn");
         var normalItems = document.getElementsByClassName("normalItem");

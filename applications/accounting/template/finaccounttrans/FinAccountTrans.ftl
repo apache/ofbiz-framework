@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
 function togglefinAccountTransId(master) {
     var form = document.selectAllForm;
     var finAccountTransList = form.elements.length;
@@ -218,7 +218,7 @@ function getFinAccountTransRunningTotalAndBalances() {
                     </#list>
                   </table>
                 </div>
-                <script type="text/javascript">
+                <script type="application/javascript">
                    jQuery(document).ready( function() {
                         jQuery("#displayPayments_${finAccountTrans.finAccountTransId}").dialog({autoOpen: false, modal: true,
                                 buttons: {

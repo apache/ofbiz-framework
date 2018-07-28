@@ -32,7 +32,7 @@ under the License.
     </#list>
   </#if>
 <#else>
-<script type="text/javascript">
+<script type="application/javascript">
     var autocomp = [
         <#if autocompleteOptions?has_content>
           <#list autocompleteOptions as autocompleteOption>

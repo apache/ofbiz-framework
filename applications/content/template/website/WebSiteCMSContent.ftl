@@ -17,7 +17,7 @@
   under the License.
   -->
 
-<script type="text/javascript">
+<script type="application/javascript">
     // save new content id to JS scope so it can be used by the jstree in
     // the WebSiteCmsNav view where the newContentId is not available
     var newContentId = "${contentId?default("'a'")}";

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
     function showQohAtp() {
         document.qohAtpForm.productId.value = document.quickaddform.add_product_id.value;
         document.qohAtpForm.submit();
@@ -194,7 +194,7 @@ under the License.
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="application/javascript">
   document.quickaddform.add_product_id.focus();
 </script>
 

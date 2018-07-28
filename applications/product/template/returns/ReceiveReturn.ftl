@@ -268,7 +268,7 @@ under the License.
         </#if>
     </div>
 </div>
-<script type="text/javascript">
+<script type="application/javascript">
     function setInventoryItemStatus(selection,index) {
         var statusId = "statusId_o_" + index;
         jObjectStatusId = jQuery("#" + statusId);

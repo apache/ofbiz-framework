@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
     function paginateOrderList(viewSize, viewIndex) {
         document.paginationForm.viewSize.value = viewSize;
         document.paginationForm.viewIndex.value = viewIndex;

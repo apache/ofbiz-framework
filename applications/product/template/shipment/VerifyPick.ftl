@@ -360,16 +360,16 @@ under the License.
     </form>
   </#if>
   <#if orderId?has_content>
-    <script type="text/javascript">
+    <script type="application/javascript">
       document.singlePickForm.productId.focus();
     </script>
   <#else>
-    <script type="text/javascript">
+    <script type="application/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>
   <#if shipmentId?has_content>
-    <script type="text/javascript">
+    <script type="application/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>

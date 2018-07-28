@@ -16,12 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/excanvas.min.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/excanvas.min.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/flot/jquery.flot.js</@ofbizContentUrl>"></script>
 
 <div id="${chartId}Div" style="width:600px;height:300px;"></div>
 
-<script type="text/javascript">
+<script type="application/javascript">
   jQuery(document).ready( function() {
      /* Code Example: How should a chart Data Object look like */
     /*var d1 = [[0, Math.ceil(Math.random()*40)]];

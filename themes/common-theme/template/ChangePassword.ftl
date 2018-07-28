@@ -82,6 +82,6 @@ under the License.
 </div>
 </center>
 
-<script type="text/javascript">
+<script type="application/javascript">
   document.loginform.PASSWORD.focus();
 </script>

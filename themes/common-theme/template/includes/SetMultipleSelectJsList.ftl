@@ -19,7 +19,7 @@ under the License.
 <#if asm_listField??> <#-- we check only this var and suppose the others are also present -->
   <#list asm_listField as row>
     <#if row.asm_multipleSelect??>
-      <script type="text/javascript">
+      <script type="application/javascript">
           jQuery(document).ready(function () {
               multiple = jQuery("#${row.asm_multipleSelect!}");
 

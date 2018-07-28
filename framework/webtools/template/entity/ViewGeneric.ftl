@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign enableEdit = parameters.enableEdit?default("false")>
-<script type="text/javascript">
+<script type="application/javascript">
 var numTabs=${(entity.getRelationsSize()+1)};
 function ShowTab(lname) {
   for(inc=1; inc <= numTabs; inc++) {

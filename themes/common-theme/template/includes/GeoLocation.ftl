@@ -41,12 +41,12 @@ under the License.
          style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;">
         <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="application/javascript"></script>
     </#if>
 
   <#-- ========================== Here we go with different types of maps renderer ===========================-->
     <#if "GEOPT_GOOGLE" == geoChart.dataSourceId>
-    <script type="text/javascript">
+    <script type="application/javascript">
         function showAllMarkers(map, points) {
             if (points.length > 1) {
                 var latlngbounds = new google.maps.LatLngBounds();
@@ -90,7 +90,7 @@ under the License.
     <#elseif  "GEOPT_MICROSOFT" == geoChart.dataSourceId>
     <#elseif  "GEOPT_MAPTP" == geoChart.dataSourceId>
     <#elseif  "GEOPT_ADDRESS_GOOGLE" == geoChart.dataSourceId>
-    <script type="text/javascript">
+    <script type="application/javascript">
         var geocoder = new google.maps.Geocoder();
         var map = new google.maps.Map(document.getElementById("${id}"),
                 {
@@ -118,7 +118,7 @@ under the License.
     due to https://github.com/openlayers/openlayers/issues/1025
     rather use a local version loaded by framework/common/widget/CommonScreens.xml -->
     <#-- script src="//www.openlayers.org/api/OpenLayers.js"></script-->
-    <script type="text/javascript">
+    <script type="application/javascript">
         map = new OpenLayers.Map("${id}");
         map.addLayer(new OpenLayers.Layer.OSM());
         var zoom = ${zoom};

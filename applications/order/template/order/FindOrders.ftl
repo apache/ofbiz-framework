@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
 <!-- //
 function lookupOrders(click) {
     orderIdValue = document.lookuporder.orderId.value;
@@ -461,7 +461,7 @@ function toggleOrderIdList() {
 <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:lookupOrders(true);"/>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
-<script type="text/javascript">
+<script type="application/javascript">
 <!--//
 document.lookuporder.orderId.focus();
 //-->

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
 //<![CDATA[
 function shipBillAddr() {
     if (document.checkoutsetupform.useShipAddr.checked) {
@@ -452,7 +452,7 @@ function makeExpDate() {
         <#else>
           <#-- initial screen show a list of options -->
 
-          <script type="text/javascript">
+          <script type="application/javascript">
 
               function setCheckoutPaymentId( selectedValue ) {
                   checkoutForm = document.getElementById('checkoutsetupform');

@@ -19,7 +19,7 @@ under the License.
 <#if shipment??>
 
     <#-- JS to populate the quantity_o_# field required by the chained issueOrderItemToShipment service -->
-    <script type="text/javascript">
+    <script type="application/javascript">
       function populateQuantities(rowCount) {
         for (var x = 0; x <= rowCount; x++) {
           var quantityAcceptedInput = document.getElementById('quantityAccepted_o_' + x);
@@ -56,18 +56,18 @@ under the License.
     <#elseif ProductReceiveInventoryAgainstPurchaseOrderProductNotFound??>
         <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
+            <script type="application/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     <#elseif ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive??>
         <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
+            <script type="application/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     </#if>
     <#if ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder??>
         <div class="errorMessage" style="color:green">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
+            <script type="application/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     </#if>
 </#if>
@@ -243,7 +243,7 @@ under the License.
                     <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
                 </div>
             </form>
-            <script type="text/javascript">
+            <script type="application/javascript">
                 document.getElementById('productId').focus();
             </script>
         </#if>

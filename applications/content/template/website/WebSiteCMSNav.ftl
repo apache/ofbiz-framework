@@ -16,15 +16,15 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js</@ofbizContentUrl>"></script>
 <#if language?has_content && language != "en">
-<script src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js</@ofbizContentUrl>" type="text/javascript"></script><#rt/>
+<script src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js</@ofbizContentUrl>" type="application/javascript"></script><#rt/>
 </#if>
 <link href="/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
+<script type="application/javascript">
     function modifyJstreeCookieToSelectNewPage() {
         // core.initally_load and ui.initially_select don't work with the cookies plugin,
         // so we have to modify the cookie to achieve the same.
