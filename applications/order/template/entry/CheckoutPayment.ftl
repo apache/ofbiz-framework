@@ -19,7 +19,7 @@ under the License.
 
 
 <!-- TODO : Need formatting -->
-<script type="text/javascript">
+<script type="application/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {

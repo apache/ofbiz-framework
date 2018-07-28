@@ -18,7 +18,7 @@ under the License.
 -->
 <#if (requestAttributes.uiLabelMap)??><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
-<script type="text/javascript">
+<script type="application/javascript">
 //<![CDATA[
      function changeCategory() {
          document.forms["keywordsearchform"].elements["SEARCH_CATEGORY_ID"].value=document.forms["advancedsearchform"].elements["DUMMYCAT"].value;

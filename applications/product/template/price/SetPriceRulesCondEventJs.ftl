@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="text/javascript">
+<script type="application/javascript">
 jQuery(document).ready( function() {
 <#if 0 < productPriceConds.size()>
   <#list 0..productPriceConds.size()-1 as i>

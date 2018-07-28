@@ -55,7 +55,7 @@ under the License.
    </table>
 </form>
 <p>${uiLabelMap.WebtoolsNoteUseAtYourOwnRisk}</p>
-<script type="text/javascript">
+<script type="application/javascript">
    function enableTablesRemove() {
        document.forms["TablesRemoveForm"].elements["TablesRemoveButton"].disabled=false;
    }

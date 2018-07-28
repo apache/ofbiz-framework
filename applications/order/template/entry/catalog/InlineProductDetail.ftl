@@ -21,7 +21,7 @@ ${virtualJavaScript!}
 <#assign addedJavaScript = requestAttributes.addedJavaScript?default("N")/>
 <#if ("N" == addedJavaScript)>
   ${setRequestAttribute("addedJavaScript", "Y")}
-  <script type="text/javascript">
+  <script type="application/javascript">
 
      function popupDetailInline(inlineCounter) {
         var imageField = 'detailImage' + inlineCounter;
@@ -231,7 +231,7 @@ ${virtualJavaScript!}
 </#if>
 
 <#if "VV_FEATURETREE" == product.virtualVariantMethodEnum! && featureLists?has_content>
-  <script type="text/javascript">
+  <script type="application/javascript">
         function checkRadioButtoninline${inlineCounter}(inlineCounter, productId) {
         var add_product_id = 'add_product_id' + inlineCounter;
             <#list featureLists as featureList>
@@ -349,7 +349,7 @@ ${virtualJavaScript!}
 
       <tr><td COLSPAN="2" align="right">
       <#if variantTree?? && 0 < variantTree.size()>
-        <script type="text/javascript">eval("list"+ "${inlineCounter}" + "${featureOrderFirst}" + "()");</script>
+        <script type="application/javascript">eval("list"+ "${inlineCounter}" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
     </td>

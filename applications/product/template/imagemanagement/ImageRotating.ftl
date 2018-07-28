@@ -16,8 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/jQueryRotateCompressed.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/jQueryRotateCompressed.js</@ofbizContentUrl>"></script>
 <style type="text/css">
     td.cropbox span { 
         width: auto !important; 
@@ -28,7 +28,7 @@ under the License.
         left : 10px !important;
     }
 </style>
-<script type="text/javascript">
+<script type="application/javascript">
 jQuery.noConflict();
 jQuery(document).ready(function(){
     var angleHold = 0;

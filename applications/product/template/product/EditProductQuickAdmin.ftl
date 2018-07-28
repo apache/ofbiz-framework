@@ -32,7 +32,7 @@ under the License.
     <input type="hidden" name="productId" value="${product.productId!}"/>
     <input type="hidden" name="productFeatureTypeId" value=""/>
 </form>
-<script type="text/javascript">
+<script type="application/javascript">
 
 function removeAssoc(productIdTo, fromDate) {
     if (confirm("Are you sure you want to remove the association of " + productIdTo + "?")) {

@@ -34,7 +34,7 @@ under the License.
 -->
 
 
-<script type="text/javascript">
+<script type="application/javascript">
 <!--
   function markAsAccepted() {
     document.Labels.action = "<@ofbizUrl>BatchUpdateShipmentRouteSegments?facilityId=${parameters.facilityId}</@ofbizUrl>";

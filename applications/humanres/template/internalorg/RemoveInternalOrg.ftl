@@ -20,7 +20,7 @@ under the License.
 <#if partyGroup?has_content>
     <#assign partyname = partyGroup.groupName!/>
 </#if>
-<script type="text/javascript">
+<script type="application/javascript">
     <!--
     var answer = confirm ("Are you sure you want to remove '<#if partyname??>${partyname}<#else>${parameters.partyId!}</#if>'?")
     if (answer)

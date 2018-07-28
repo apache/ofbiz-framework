@@ -659,7 +659,7 @@ function setLookDescription(textFieldId, description, params, formName, showDesc
         if (lookupWrapperEl.length) {
             if (start == -1 && showDescription) {
                 var start = description.indexOf(' ');
-                if (start != -1 && description.indexOf('<script type="text/javascript">') == -1) {
+                if (start != -1 && description.indexOf('<script type="application/javascript">') == -1) {
                     description = description.substring(start);
                 }
             }

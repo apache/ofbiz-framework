@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
 <!-- //
 function lookupInventory() {
     document.lookupinventory.submit();
@@ -93,7 +93,7 @@ function lookupInventory() {
 </div>
 
 <#if requestParameters.hideFields?default("N") != "Y">
-<script type="text/javascript">
+<script type="application/javascript">
 <!--//
 document.lookupinventory.productId.focus();
 //-->

@@ -31,7 +31,7 @@ under the License.
 </div>
 
 <#if userLogin??>
-<script type="text/javascript">
+<script type="application/javascript">
   var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
   var appmenu = new DropDownMenu(jQuery('#app-navigation'));
 </script>

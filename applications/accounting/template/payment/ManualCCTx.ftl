@@ -44,7 +44,7 @@ under the License.
     <#if "PRDS_PAY_RELEASE" == txType?default("")>
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
-      <script type="text/javascript">
+      <script type="application/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processReleaseTransaction</@ofbizUrl>";
       // -->
@@ -54,7 +54,7 @@ under the License.
     <#if "PRDS_PAY_REFUND" == txType?default("")>
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
-      <script type="text/javascript">
+      <script type="application/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processRefundTransaction</@ofbizUrl>";
       // -->
@@ -64,7 +64,7 @@ under the License.
     <#if "PRDS_PAY_CREDIT" == txType?default("") || "PRDS_PAY_AUTH" == txType?default("")>
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
-      <script type="text/javascript">
+      <script type="application/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processManualCcTx</@ofbizUrl>";
       // -->

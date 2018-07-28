@@ -23,7 +23,7 @@ under the License.
 
 <#-- virtual product javascript -->
 ${virtualJavaScript!}
-<script type="text/javascript">
+<script type="application/javascript">
 <!--
     var detailImageUrl = null;
      function setAddProductId(name) {
@@ -135,7 +135,7 @@ ${virtualJavaScript!}
  //-->
  </script>
 
-<script type="text/javascript">
+<script type="application/javascript">
 <!--
 
 jQuery(document).ready( function() {
@@ -379,7 +379,7 @@ function getConfigDetails() {
       </div>
       <#-- Prefill first select box (virtual products only) -->
       <#if variantTree?? && 0 < variantTree.size()>
-        <script type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
+        <script type="application/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) -->

@@ -28,7 +28,7 @@ under the License.
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>${title!}</title>
   <#-- the trick "<scr" + "ipt below is because browsers should not parse the contents of CDATA elements, but apparently they do. -->
-  <script type="text/javascript">//<![CDATA[
+  <script type="application/javascript">//<![CDATA[
       var jQueryLibLoaded = false;
       function initJQuery() {
           if (typeof(jQuery) == 'undefined') {
@@ -45,7 +45,7 @@ under the License.
       //]]>
   </script>
   <script src="<@ofbizContentUrl>/common/js/util/OfbizUtil.js</@ofbizContentUrl>"
-          type="text/javascript"></script>
+          type="application/javascript"></script>
   <#if layoutSettings.javaScripts?has_content>
     <#--layoutSettings.javaScripts is a list of java scripts. -->
     <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
@@ -54,7 +54,7 @@ under the License.
       <#if javaScriptsSet.contains(javaScript)>
         <#assign nothing = javaScriptsSet.remove(javaScript)/>
           <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"
-                  type="text/javascript"></script>
+                  type="application/javascript"></script>
       </#if>
     </#list>
   </#if>
@@ -84,7 +84,7 @@ under the License.
     </#list>
   </#if>
 
-  <script type="text/javascript">
+  <script type="application/javascript">
       // This code inserts the value lookedup by a popup window back into the associated form element
       var re_id = new RegExp('id=(\\d+)');
       var num_id = (re_id.exec(String(window.location))

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="text/javascript">
+<script type="application/javascript">
     function callDocumentByPaginate(info) {
         var str = info.split('~');
         var checkUrl = '<@ofbizUrl>categoryAjaxFired</@ofbizUrl>';

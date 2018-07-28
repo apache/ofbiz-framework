@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if product??>
-<script type="text/javascript">
+<script type="application/javascript">
     function insertNowTimestamp(field) {
         eval('document.productForm.' + field + '.value="${nowTimestampString}";');
     };
@@ -177,7 +177,7 @@ under the License.
             </tr>
         </table>
     </form>
-    <script type="text/javascript">
+    <script type="application/javascript">
         function setUploadUrl(newUrl) {
             var toExec = 'document.imageUploadForm.action="' + newUrl + '";';
             eval(toExec);

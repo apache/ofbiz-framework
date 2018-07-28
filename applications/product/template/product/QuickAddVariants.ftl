@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="text/javascript">
+<script type="application/javascript">
 function setProductVariantId(e, value, fieldname) {
     var cform = document.selectAllForm;
     var len = cform.elements.length;

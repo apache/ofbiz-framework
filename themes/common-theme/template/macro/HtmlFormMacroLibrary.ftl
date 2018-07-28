@@ -62,7 +62,7 @@ under the License.
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
     <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
-    <script type="text/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
+    <script type="application/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
 
@@ -102,7 +102,7 @@ under the License.
       <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
       <#if id?has_content> id="${id}"</#if>/><#rt/>
     <#if dateType!="time" >
-      <script type="text/javascript">
+      <script type="application/javascript">
         <#-- If language specific lib is found, use date / time converter else just copy the value fields -->
         if (Date.CultureInfo != undefined) {
           var initDate = <#if value?has_content>jQuery("#${id}").val()<#else>""</#if>;
@@ -243,7 +243,7 @@ under the License.
   </#if>
 
   <#if ajaxEnabled>
-    <script type="text/javascript">
+    <script type="application/javascript">
       ajaxAutoCompleteDropDown();
       jQuery(function() {
         jQuery("#${id}").combobox();
@@ -476,7 +476,7 @@ under the License.
   <span class="view-calendar">
     <input id="${name?html}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if dateType != "time">
-      <script type="text/javascript">
+      <script type="application/javascript">
         <#if "date" == dateType>
           jQuery("#${name?html}_fld0_value").datepicker({
         <#else>
@@ -513,7 +513,7 @@ under the License.
     <#rt/>
     <input id="${name?html}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
     <#if dateType != "time">
-      <script type="text/javascript">
+      <script type="application/javascript">
         <#if "date" == dateType>
           jQuery("#${name?html}_fld1_value").datepicker({
         <#else>

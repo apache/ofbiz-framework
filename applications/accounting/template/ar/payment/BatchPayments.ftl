@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="text/javascript">
+<script type="application/javascript">
 //<![CDATA[
 function togglePaymentId(master) {
     var payments = jQuery("#paymentBatchForm :checkbox[name='paymentIds']");
