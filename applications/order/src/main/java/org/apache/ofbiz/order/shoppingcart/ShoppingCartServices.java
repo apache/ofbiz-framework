@@ -184,7 +184,6 @@ public class ShoppingCartServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
-            orderContactMechs = orderHeader.getRelated("OrderContactMech", null, null, false);
             orderContactMechs = EntityQuery.use(delegator).select("orderId", "contactMechId", "contactMechPurposeTypeId").from("OrderAndPartyContactMech").where("orderId", orderId).filterByDate("contactFromDate", "contactThruDate").distinct().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
