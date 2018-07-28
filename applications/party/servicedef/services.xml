@@ -626,20 +626,15 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
-    <service name="deletePartyContactMechPurpose" engine="java"
-            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
-        <description>Delete a Party ContactMech Purpose</description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    <service name="deletePartyContactMechPurpose" default-entity-name="PartyContactMechPurpose" engine="entity-auto" invoke="delete">
+        <description>Delete a Party Contact Mech Purpose</description>
+        <permission-service service-name="partyIdPermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="deletePartyContactMechPurposeIfExists" engine="java"
-            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurposeIfExists" auth="true">
-        <description>Delete a Party ContactMech Purpose</description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+    <service name="expirePartyContactMechPurpose" default-entity-name="PartyContactMechPurpose" engine="entity-auto" invoke="expire">
+        <description>Expires a Party Contact Mech Purpose</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
     <!-- ContactMechLink services -->

@@ -59,7 +59,7 @@ under the License.
         <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
         <process field="contactMechPurposeTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPurposeTypeMissingCannotAdd"/></not-empty></process>
     </simple-map-processor>
-    <simple-map-processor name="deletePartyContactMechPurpose">
+    <simple-map-processor name="expirePartyContactMechPurpose">
         <process field="partyId"><copy/></process>
         <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
         <process field="contactMechPurposeTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPurposeTypeMissingCannotRemove"/></not-empty></process>
