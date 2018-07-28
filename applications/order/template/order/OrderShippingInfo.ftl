@@ -517,10 +517,10 @@ under the License.
            <#if OISGAContent.size() == 0>
            <tr>
               <td colspan="3" valign="top" width="100%" align="center">
-                   <a href="javascript:document.deleteOISG_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.DeleteOrderItemShipGroup}</a>
                    <form name="deleteOISG_${shipGroup.shipGroupSeqId}" method="post" action="/ordermgr/control/DeleteOrderItemShipGroup">
                      <input type="hidden" name="orderId" value="${orderId}"/>
                      <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                     <input type="submit" value="${uiLabelMap.DeleteOrderItemShipGroup}"/>
                    </form>
               </td>
            </tr>

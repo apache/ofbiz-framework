@@ -37,11 +37,11 @@ under the License.
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
                   <td align="center">
-                    <a href="javascript:document.storeUpdateWebSite_${webSite_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     <form name="storeUpdateWebSite_${webSite_index}" method="post" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>">
                         <input type="hidden" name="viewProductStoreId" value="${productStoreId}"/>
                         <input type="hidden" name="productStoreId" value=""/>
                         <input type="hidden" name="webSiteId" value="${webSite.webSiteId}"/>
+                        <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                     </form>                      
                   </td>
                 </tr>
