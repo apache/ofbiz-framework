@@ -371,8 +371,12 @@ under the License.
     <request-map uri="updateFacilityParty">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateFacilityParty"/>
-        <response name="success" type="view" value="EditFacilityParties"/>
-        <response name="error" type="view" value="EditFacilityParties"/>
+        <response name="success" type="request-redirect" value="EditFacilityParties">
+            <redirect-parameter name="facilityId"/>
+        </response>
+        <response name="error" type="request-redirect" value="EditFacilityParties">
+            <redirect-parameter name="facilityId"/>
+        </response>
     </request-map>
     <request-map uri="removePartyFromFacility">
         <security https="true" auth="true"/>
