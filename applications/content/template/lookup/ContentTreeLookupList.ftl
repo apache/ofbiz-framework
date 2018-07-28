@@ -85,14 +85,16 @@
              <#assign caFromDate = Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(contentData.caFromDate, "dd/MM/yyyy")/>
             </#if> 
               <td>${caFromDate!}</td>
-              <td><a href="javascript:document.listDocumentForm_${listcount}.submit()" >${uiLabelMap.CommonDelete}</a></td>
+              <td>
+                <form action="<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>" name="listDocumentForm_${listcount}" method="post">
+                  <input type="hidden" name="contentId" value="${contentData.contentIdStart!}"/>
+                  <input type="hidden" name="contentIdTo" value="${contentData.contentId!}"/>
+                  <input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId!}"/>
+                  <input type="hidden" name="fromDate" value="${contentData.fromDate!}"/>
+                  <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                </form>
+              </td>
           </tr>
-          <form action="<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>" name="listDocumentForm_${listcount}" method="post">
-            <input type="hidden" name="contentId" value="${contentData.contentIdStart!}"/>
-            <input type="hidden" name="contentIdTo" value="${contentData.contentId!}"/>
-            <input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId!}"/>
-            <input type="hidden" name="fromDate" value="${contentData.fromDate!}"/>
-          </form>
      </#if>
          <#assign alt_row = !alt_row/>
          <#assign listcount=listcount+1>

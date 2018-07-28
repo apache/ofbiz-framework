@@ -124,11 +124,13 @@ under the License.
               <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
               <#if picklistBinInfo.primaryOrderHeader??><span class="label">${uiLabelMap.ProductPrimaryOrderId}</span> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
               <#if picklistBinInfo.primaryOrderItemShipGroup??><span class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</span> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
-              <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="javascript:document.DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
+              <#if !picklistBinInfo.picklistItemInfoList?has_content>
               <form name="DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}" method="post" action="<@ofbizUrl>deletePicklistBin</@ofbizUrl>">
                 <input type="hidden" name="picklistBinId" value="${picklistBinInfo.picklistBin.picklistBinId}"/>
                 <input type="hidden" name="facilityId" value="${facilityId!}"/>
+                <input type="submit" value="${uiLabelMap.CommonDelete}"/>
               </form>
+              </#if>
             </div>
             <div style="margin-left: 30px;">
               <span class="label">${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}</span>
@@ -181,7 +183,7 @@ under the License.
                             <input type="hidden" name="shipGroupSeqId" value="${picklistItemInfo.picklistItem.shipGroupSeqId}"/>
                             <input type="hidden" name="inventoryItemId" value="${picklistItemInfo.picklistItem.inventoryItemId}"/>
                             <input type="hidden" name="facilityId" value="${facilityId!}"/>
-                            <a href='javascript:document.deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
+                            <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                           </form>
                         </td>
                       </#if>

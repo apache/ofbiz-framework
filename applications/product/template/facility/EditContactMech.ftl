@@ -102,19 +102,19 @@ under the License.
                       </#if>
                       (${uiLabelMap.CommonSince}: ${facilityContactMechPurpose.fromDate})
                       <#if facilityContactMechPurpose.thruDate?has_content>(${uiLabelMap.CommonExpires}: ${facilityContactMechPurpose.thruDate.toString()}</#if>
-                      <a href="javascript:document.getElementById('deleteFacilityContactMechPurpose_${facilityContactMechPurpose_index}').submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      <form id="deleteFacilityContactMechPurpose_${facilityContactMechPurpose_index}" method="post" action="<@ofbizUrl>deleteFacilityContactMechPurpose</@ofbizUrl>">
+                        <input type="hidden" name="facilityId" value="${facilityId!}"/>
+                        <input type="hidden" name="contactMechId" value="${contactMechId!}"/>
+                        <input type="hidden" name="contactMechPurposeTypeId" value="${(facilityContactMechPurpose.contactMechPurposeTypeId)!}"/>
+                        <input type="hidden" name="fromDate" value="${(facilityContactMechPurpose.fromDate)!}"/>
+                        <input type="hidden" name="DONE_PAGE" value="${donePage!}"/>
+                        <input type="hidden" name="useValues" value="true"/>
+                        <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                      </form>
                   </td>
                 </tr>
                 <#-- toggle the row color -->
                 <#assign alt_row = !alt_row>
-                <form id="deleteFacilityContactMechPurpose_${facilityContactMechPurpose_index}" method="post" action="<@ofbizUrl>deleteFacilityContactMechPurpose</@ofbizUrl>">
-                  <input type="hidden" name="facilityId" value="${facilityId!}" />
-                  <input type="hidden" name="contactMechId" value="${contactMechId!}" />
-                  <input type="hidden" name="contactMechPurposeTypeId" value="${(facilityContactMechPurpose.contactMechPurposeTypeId)!}" />
-                  <input type="hidden" name="fromDate" value="${(facilityContactMechPurpose.fromDate)!}" />
-                  <input type="hidden" name="DONE_PAGE" value="${donePage!}" />
-                  <input type="hidden" name="useValues" value="true" />
-                </form>
               </#list>
               </#if>
               <tr>
@@ -128,7 +128,7 @@ under the License.
                         <option value='${contactMechPurposeType.contactMechPurposeTypeId}'>${contactMechPurposeType.get("description",locale)}</option>
                       </#list>
                     </select>
-                    &nbsp;<a href='javascript:document.newpurposeform.submit()' class='buttontext'>${uiLabelMap.PartyAddPurpose}</a>
+                    <input type="submit" value="${uiLabelMap.PartyAddPurpose}"/>
                   </form>
                 </td>
               </tr>

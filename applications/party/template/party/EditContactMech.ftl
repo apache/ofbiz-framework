@@ -84,7 +84,7 @@ under the License.
                          <input type="hidden" name="fromDate" value="${partyContactMechPurpose.fromDate.toString()}" />
                          <input type="hidden" name="DONE_PAGE" value="${donePage?replace("=","%3d")}" />
                          <input type="hidden" name="useValues" value="true" />
-                         <a href="javascript:document.expirePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                         <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                        </form>
                     </td>
                   </tr>

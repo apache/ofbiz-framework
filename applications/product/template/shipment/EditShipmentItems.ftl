@@ -50,12 +50,14 @@ under the License.
                 <td colspan="2">${(product.internalName)!} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId!}" class="buttontext">${shipmentItem.productId!}</a></td>
                 <td>${shipmentItem.quantity?default("&nbsp;")}</td>
                 <td colspan="2">${shipmentItem.shipmentContentDescription?default("&nbsp;")}</td>
-                <td><a href="javascript:document.deleteShipmentItem${shipmentItemData_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                <td>
+                  <form name="deleteShipmentItem${shipmentItemData_index}" method="post" action="<@ofbizUrl>deleteShipmentItem</@ofbizUrl>">
+                    <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                    <input type="hidden" name="shipmentItemSeqId" value="${shipmentItem.shipmentItemSeqId}"/>
+                    <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                  </form>
+                </td>
             </tr>
-            <form name="deleteShipmentItem${shipmentItemData_index}" method="post" action="<@ofbizUrl>deleteShipmentItem</@ofbizUrl>">
-                <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                <input type="hidden" name="shipmentItemSeqId" value="${shipmentItem.shipmentItemSeqId}"/>
-            </form>
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
@@ -89,13 +91,15 @@ under the License.
                     <#else>
                     <td colspan="2">&nbsp;</td>
                     </#if>
-                    <td><a href="javascript:document.deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                    <td>
+                      <form name="deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}" method="post"
+                            action="<@ofbizUrl>deleteShipmentItemPackageContent</@ofbizUrl>">
+                        <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                        <input type="hidden" name="shipmentItemSeqId" value="${shipmentPackageContent.shipmentItemSeqId}"/>
+                        <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
+                        <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                      </form>
                 </tr>
-                <form name="deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}" method="post" action="<@ofbizUrl>deleteShipmentItemPackageContent</@ofbizUrl>">
-                    <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                    <input type="hidden" name="shipmentItemSeqId" value="${shipmentPackageContent.shipmentItemSeqId}"/>
-                    <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
-                </form>
             </#list>
             <#if (totalQuantityToPackage > 0)>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>

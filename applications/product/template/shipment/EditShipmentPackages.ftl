@@ -90,17 +90,17 @@ under the License.
                     <div>
                         <span class="label">${uiLabelMap.ProductQuantity}</span>
                         ${shipmentPackageContent.quantity!}
-                        <a href="javascript:document.deleteShipmentPackageContent${shipmentPackageData_index}${shipmentPackageContent_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                        <form name="deleteShipmentPackageContent${shipmentPackageData_index}${shipmentPackageContent_index}" method="post" action="<@ofbizUrl>deleteShipmentPackageContent</@ofbizUrl>">
+                          <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                          <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
+                          <input type="hidden" name="shipmentItemSeqId" value="${shipmentPackageContent.shipmentItemSeqId}"/>
+                          <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                        </form>
                     </div>
                 </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
-            <form name="deleteShipmentPackageContent${shipmentPackageData_index}${shipmentPackageContent_index}" method="post" action="<@ofbizUrl>deleteShipmentPackageContent</@ofbizUrl>">
-                <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
-                <input type="hidden" name="shipmentItemSeqId" value="${shipmentPackageContent.shipmentItemSeqId}"/>
-            </form>
         </#list>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <form name="createShipmentPackageContentForm${shipmentPackageData_index}" method="post" action="<@ofbizUrl>createShipmentPackageContent</@ofbizUrl>">
