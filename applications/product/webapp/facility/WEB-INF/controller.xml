@@ -374,9 +374,7 @@ under the License.
         <response name="success" type="request-redirect" value="EditFacilityParties">
             <redirect-parameter name="facilityId"/>
         </response>
-        <response name="error" type="request-redirect" value="EditFacilityParties">
-            <redirect-parameter name="facilityId"/>
-        </response>
+        <response name="error" type="view" value="EditFacilityParties"/>
     </request-map>
     <request-map uri="removePartyFromFacility">
         <security https="true" auth="true"/>
