@@ -23264,7 +23264,7 @@
     </property>
     <property key="ProductOnlyOneFacility">
         <value xml:lang="en">If there is only one facility, you need to select it to continue, no search available</value>
-        <value xml:lang="fr">S'il n' y a qu'un seul Lieu de stockage, vous devez le sélectionner pour continuer, aucune recherche n'est disponible.</value>
+        <value xml:lang="fr">S'il n'y a qu'un seul lieu de stockage, vous devez le sélectionner pour continuer, aucune recherche n'est disponible.</value>
     </property>
     <property key="ProductOnlyShowingFirstN">
         <value xml:lang="de">ANMERKUNG: Es werden nur die ersten ${viewSize} von ${listSize} Produkten angezeigt. Um die restlichen Anzuzeigen verwenden Sie den Produkt-Bereich dieser Kategorie.</value>
