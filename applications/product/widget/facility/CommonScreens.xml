@@ -79,11 +79,6 @@ under the License.
                                         <label style="h3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
                                     </fail-widgets>
                                 </section>
-                                <section>
-                                   <condition>
-                                      <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
-                                   </condition>
-                                </section>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
@@ -92,15 +87,11 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <widgets>
-                                <container style="button-bar"><link target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}" style="buttontext"/></container>
-                            </widgets>
-                        </section>
-                        <section>
                             <condition>
                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
+                                <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                 <section>
                                     <condition>
                                         <or>
