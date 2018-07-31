@@ -51,17 +51,12 @@ under the License.
                                             </condition>
                                             <widgets>
                                                 <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                                <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                                 <section>
                                                     <condition>
                                                         <not><if-empty field="facilityId"/></not>
                                                     </condition>
                                                     <widgets>
-                                                        <container style="button-bar">
-                                                            <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
-                                                                <parameter param-name="facilityId"/>
-                                                                <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
-                                                            </link>
-                                                        </container>
                                                         <label style="h1">${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
                                                         <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                                     </widgets>
@@ -82,6 +77,7 @@ under the License.
                                         <if-compare field="showScreen" value="ten" operator="equals"/>
                                     </condition>
                                     <widgets>
+                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                         <label text="${uiLabelMap.FacilitySelection}" style="h1"/>
                                         <screenlet>
                                             <include-form name="FindFacility10" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -93,6 +89,7 @@ under the License.
                                         <if-compare field="showScreen" value="more" operator="equals"/>
                                     </condition>
                                     <widgets>
+                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                             <decorator-section name="search-options">
                                                 <include-form name="FindFacilityOptions" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -160,12 +157,6 @@ under the License.
                                             <widgets>
                                                 <container style="page-title">
                                                     <label>${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
-                                                </container>
-                                                <container style="button-bar button-style-1">
-                                                    <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" url-mode="inter-app">
-                                                        <parameter param-name="facilityId"/>
-                                                        <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
-                                                    </link>
                                                 </container>
                                                 <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                             </widgets>
