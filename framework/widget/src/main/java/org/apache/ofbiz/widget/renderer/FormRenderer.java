@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -679,6 +680,25 @@ public class FormRenderer {
         formStringRenderer.renderFormatItemRowClose(writer, localContext, modelForm);
     }
 
+    // Filter the field lists by removing the ones with both the same names and "use-when" values.
+    // Keep all fields without a "use-when" attribute.
+    List<ModelFormField> getUsedFields(Map<String, Object> context) {
+        HashMap<String, Boolean> seenUseWhen = new HashMap<>();
+        return modelForm.getFieldList().stream()
+                .filter(field -> {
+                    if (!field.isUseWhenEmpty()) {
+                        String name = field.getName();
+                        boolean shouldUse = field.shouldUse(context);
+                        if (seenUseWhen.containsKey(name)) {
+                            return shouldUse != seenUseWhen.get(name);
+                        }
+                        seenUseWhen.put(name, shouldUse);
+                    }
+                    return true;
+                })
+                .collect(Collectors.toList());
+    }
+
     private void renderItemRows(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer,
             boolean formPerItem, int numOfColumns) throws IOException {
         String lookupName = modelForm.getListName();
@@ -769,26 +789,7 @@ public class FormRenderer {
                      Debug.logVerbose("In form got another row, context is: " + localContext, module);
                 }
 
-                // Check to see if there is a field, same name and same use-when (could come from extended form)
-                List<ModelFormField> tempFieldList = new LinkedList<>();
-                tempFieldList.addAll(modelForm.getFieldList());
-                for (int j = 0; j < tempFieldList.size(); j++) {
-                    ModelFormField modelFormField = tempFieldList.get(j);
-                    if (!modelFormField.isUseWhenEmpty()) {
-                        boolean shouldUse1 = modelFormField.shouldUse(localContext);
-                        for (int i = j + 1; i < tempFieldList.size(); i++) {
-                            ModelFormField curField = tempFieldList.get(i);
-                            if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
-                                boolean shouldUse2 = curField.shouldUse(localContext);
-                                if (shouldUse1 == shouldUse2) {
-                                    tempFieldList.remove(i--);
-                                }
-                            } else {
-                                continue;
-                            }
-                        }
-                    }
-                }
+                List<ModelFormField> tempFieldList = getUsedFields(localContext);
 
                 // Each single item is rendered in one or more rows if its fields have
                 // different "position" attributes. All the fields with the same position
@@ -1014,30 +1015,10 @@ public class FormRenderer {
             modelForm.setHideHeader(true);
         }
     }
+
     private void renderSingleFormString(Appendable writer, Map<String, Object> context,
             int positions) throws IOException {
-        List<ModelFormField> tempFieldList = new LinkedList<>();
-        tempFieldList.addAll(modelForm.getFieldList());
-
-        // Check to see if there is a field, same name and same use-when (could come from extended form)
-        for (int j = 0; j < tempFieldList.size(); j++) {
-            ModelFormField modelFormField = tempFieldList.get(j);
-            if (modelForm.getUseWhenFields().contains(modelFormField.getName())) {
-                boolean shouldUse1 = modelFormField.shouldUse(context);
-                for (int i = j + 1; i < tempFieldList.size(); i++) {
-                    ModelFormField curField = tempFieldList.get(i);
-                    if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
-                        boolean shouldUse2 = curField.shouldUse(context);
-                        if (shouldUse1 == shouldUse2) {
-                            tempFieldList.remove(i--);
-                        }
-                    } else {
-                        continue;
-                    }
-                }
-            }
-        }
-
+        List<ModelFormField> tempFieldList = getUsedFields(context);
         Set<String> alreadyRendered = new TreeSet<>();
         FieldGroup lastFieldGroup = null;
         // render form open
