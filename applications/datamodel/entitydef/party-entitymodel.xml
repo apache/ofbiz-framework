@@ -1305,7 +1305,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="FtpAddress"
-            package-name="org.ofbiz.party.contact"
+            package-name="org.apache.ofbiz.party.contact"
             title="Ftp server">
       <field name="contactMechId" type="id"/>
       <field name="hostname" type="long-varchar"/>
