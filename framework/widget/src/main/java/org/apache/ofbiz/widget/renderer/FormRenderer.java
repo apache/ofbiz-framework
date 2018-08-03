@@ -116,18 +116,13 @@ public class FormRenderer {
         this.focusFieldName = modelForm.getFocusFieldName();
     }
 
+    // Return a sorted collection of lists ordered by ascending position;
+    // each list contains all the fields with that position.
     private Collection<List<ModelFormField>> getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
-        Map<Integer, List<ModelFormField>> fieldsByPosition = new TreeMap<>();
-        for (ModelFormField modelFormField : modelFormFieldList) {
-            Integer position = Integer.valueOf(modelFormField.getPosition());
-            List<ModelFormField> fieldListByPosition = fieldsByPosition.get(position);
-            if (fieldListByPosition == null) {
-                fieldListByPosition = new LinkedList<>();
-                fieldsByPosition.put(position, fieldListByPosition);
-            }
-            fieldListByPosition.add(modelFormField);
-        }
-        return fieldsByPosition.values();
+        // The ordering of the returned collection is guaranteed by using `TreeMap`.
+        return modelFormFieldList.stream()
+                .collect(Collectors.groupingBy(ModelFormField::getPosition, TreeMap::new, Collectors.toList()))
+                .values();
     }
 
     public String getFocusFieldName() {
@@ -307,11 +302,9 @@ public class FormRenderer {
         // ===========================
         // Preprocessing
         // ===========================
-        // We get a sorted (by position, ascending) set of lists;
-        // each list contains all the fields with that position.
-        Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<>(); // this list will contain maps, each one containing the list of fields for a position
-        for (List<ModelFormField> mainFieldList : fieldListsByPosition) {
+        // `fieldRowsByPosition` will contain maps containing the list of fields for a position
+        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<>();
+        for (List<ModelFormField> mainFieldList : getFieldListsByPosition(tempFieldList)) {
             int numOfColumns = 0;
 
             List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<>();
@@ -798,12 +791,7 @@ public class FormRenderer {
                 // it contains the fields that are in the list header (columns).
                 // The positions lower than 1 are rendered in rows before the main one;
                 // positions higher than 1 are rendered after the main one.
-
-                // We get a sorted (by position, ascending) set of lists;
-                // each list contains all the fields with that position.
-                Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-                //List hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null, tempFieldList);
-                for (List<ModelFormField> fieldListByPosition : fieldListsByPosition) {
+                for (List<ModelFormField> fieldListByPosition : getFieldListsByPosition(tempFieldList)) {
                     // For each position (the subset of fields with the same position attribute)
                     // we have two phases: preprocessing and rendering
 
