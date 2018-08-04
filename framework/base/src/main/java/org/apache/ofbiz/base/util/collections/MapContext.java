@@ -18,19 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.collections;
 
-import java.util.AbstractSet;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 
@@ -42,14 +40,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
     public static final String module = MapContext.class.getName();
-
-    public static final <K, V> MapContext<K, V> getMapContext() {
-        return new MapContext<>();
-    }
-
-    protected MapContext() {
-        super();
-    }
 
     protected Deque<Map<K, V>> stackList = new LinkedList<>();
 
@@ -96,13 +86,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public boolean isEmpty() {
-        // walk the stackList and if any is not empty, return false; otherwise return true
-        for (Map<K, V> curMap: this.stackList) {
-            if (!curMap.isEmpty()) {
-                return false;
-            }
-        }
-        return true;
+        return stackList.stream().allMatch(Map::isEmpty);
     }
 
     /* (non-Javadoc)
@@ -110,13 +94,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public boolean containsKey(Object key) {
-        // walk the stackList and for the first place it is found return true; otherwise refurn false
-        for (Map<K, V> curMap: this.stackList) {
-            if (curMap.containsKey(key)) {
-                return true;
-            }
-        }
-        return false;
+        return stackList.stream().anyMatch(m -> m.containsKey(key));
     }
 
     /* (non-Javadoc)
@@ -220,12 +198,10 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public Set<K> keySet() {
-        // walk the stackList and aggregate all keys
-        Set<K> resultSet = new HashSet<>();
-        for (Map<K, V> curMap: this.stackList) {
-            resultSet.addAll(curMap.keySet());
-        }
-        return Collections.unmodifiableSet(resultSet);
+        Set<K> keys = stackList.stream()
+                .flatMap(m -> m.keySet().stream())
+                .collect(Collectors.toSet());
+        return Collections.unmodifiableSet(keys);
     }
 
     /* (non-Javadoc)
@@ -254,7 +230,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     public Set<Map.Entry<K, V>> entrySet() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
         Set<K> resultKeySet = new HashSet<>();
-        Set<Map.Entry<K, V>> resultEntrySet = new ListSet<>();
+        Set<Map.Entry<K, V>> resultEntrySet = new HashSet<>();
         for (Map<K, V> curMap: this.stackList) {
             for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
@@ -290,49 +266,4 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         }
         return fullMapString.toString();
     }
-
-    private static final class ListSet<E> extends AbstractSet<E> {
-
-        private final List<E> listImpl;
-
-        public ListSet() {
-            this.listImpl = new ArrayList<>();
-        }
-
-        public int size() {
-            return this.listImpl.size();
-        }
-
-        public Iterator<E> iterator() {
-            return this.listImpl.iterator();
-        }
-
-        public boolean add(final E obj) {
-            boolean added = false;
-
-            if (!this.listImpl.contains(obj)) {
-                added = this.listImpl.add(obj);
-            }
-
-            return added;
-        }
-
-        public boolean isEmpty() {
-            return this.listImpl.isEmpty();
-        }
-
-        public boolean contains(final Object obj) {
-            return this.listImpl.contains(obj);
-        }
-
-        public boolean remove(final Object obj) {
-            return this.listImpl.remove(obj);
-        }
-
-        public void clear() {
-            this.listImpl.clear();
-        }
-
-    }
-
 }

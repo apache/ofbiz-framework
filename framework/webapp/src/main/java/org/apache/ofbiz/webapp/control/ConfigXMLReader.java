@@ -214,7 +214,7 @@ public class ConfigXMLReader {
         }
 
         private <K, V> Map<K, V> pushIncludes(Function<ControllerConfig, Map<K, V>> f) throws WebAppConfigurationException {
-            MapContext<K, V> res = MapContext.getMapContext();
+            MapContext<K, V> res = new MapContext<>();
             for (URL include : includes) {
                 res.push(getControllerConfig(include).pushIncludes(f));
             }
@@ -277,7 +277,7 @@ public class ConfigXMLReader {
         }
 
         public Map<String, RequestMap> getRequestMapMap() throws WebAppConfigurationException {
-            MapContext<String, RequestMap> result = MapContext.getMapContext();
+            MapContext<String, RequestMap> result = new MapContext<>();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
                 result.push(controllerConfig.getRequestMapMap());
