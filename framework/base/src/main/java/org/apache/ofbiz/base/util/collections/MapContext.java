@@ -18,34 +18,41 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.collections;
 
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 
-
 /**
- * Map Stack
+ * Map Context
  *
+ * Provide a combined view for a collection of maps which are organized in a deque.
+ * All write operations affect only the head of the deque.
  */
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
     public static final String module = MapContext.class.getName();
 
-    protected Deque<Map<K, V>> stackList = new LinkedList<>();
+    protected Deque<Map<K, V>> contexts = new LinkedList<>();
 
     /** Puts a new Map on the top of the stack */
     public void push() {
-        stackList.addFirst(new HashMap<K, V>());
+        contexts.addFirst(new HashMap<K, V>());
     }
 
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */
@@ -53,7 +60,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot push null existing Map onto a MapContext");
         }
-        stackList.addFirst(existingMap);
+        contexts.addFirst(existingMap);
     }
 
     /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack, ie everything else already there) */
@@ -61,13 +68,13 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot add null existing Map to bottom of a MapContext");
         }
-        stackList.addLast(existingMap);
+        contexts.addLast(existingMap);
     }
 
     /** Remove and returns the Map from the top of the stack; if there is only one Map on the stack it returns null and does not remove it */
     public Map<K, V> pop() {
         // always leave at least one Map in the List, ie never pop off the last Map
-        return stackList.size() > 1 ? stackList.removeFirst() : null;
+        return contexts.size() > 1 ? contexts.removeFirst() : null;
     }
 
     /* (non-Javadoc)
@@ -75,10 +82,11 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public int size() {
-        // a little bit tricky; to represent the apparent size we need to aggregate all keys and get a count of unique keys
-        // this is a bit of a slow way, but gets the best number possible
-        Set<K> keys = this.keySet();
-        return keys.size();
+        return contexts.stream()
+                .flatMap(ctx -> ctx.keySet().stream())
+                .distinct()
+                .mapToInt(k -> 1)
+                .sum();
     }
 
     /* (non-Javadoc)
@@ -86,7 +94,16 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public boolean isEmpty() {
-        return stackList.stream().allMatch(Map::isEmpty);
+        return contexts.stream().allMatch(Map::isEmpty);
+    }
+
+    // Return a sequential stream of actual entries.
+    private Stream<Map.Entry<K, V>> entryStream() {
+        Set<K> seenKeys = new HashSet<>();
+        return contexts.stream()
+                .flatMap(ctx -> ctx.entrySet().stream())
+                .sequential()
+                .filter(e -> seenKeys.add(e.getKey()));
     }
 
     /* (non-Javadoc)
@@ -94,7 +111,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public boolean containsKey(Object key) {
-        return stackList.stream().anyMatch(m -> m.containsKey(key));
+        return contexts.stream().anyMatch(ctx -> ctx.containsKey(key));
     }
 
     /* (non-Javadoc)
@@ -102,25 +119,18 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public boolean containsValue(Object value) {
-        // walk the stackList and the entries for each Map and if nothing is in for the current key, consider it an option, otherwise ignore
-        Set<K> resultKeySet = new HashSet<>();
-        for (Map<K, V> curMap: this.stackList) {
-            for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
-                if (!resultKeySet.contains(curEntry.getKey())) {
-                    resultKeySet.add(curEntry.getKey());
-                    if (value == null) {
-                        if (curEntry.getValue() == null) {
-                            return true;
-                        }
-                    } else {
-                        if (value.equals(curEntry.getValue())) {
-                            return true;
-                        }
-                    }
-                }
+        return entryStream().anyMatch(e -> Objects.equals(value, e.getValue()));
+    }
+
+    private V withContextContainingKey(Object key, Function<Map<K, V>, V> f) {
+        for (Map<K, V> ctx: contexts) {
+            /* Use `containsKey` rather than checking for null.
+               This allows a null value at the head of the deque to override the followings. */
+            if (ctx.containsKey(key)) {
+                return f.apply(ctx);
             }
         }
-        return false;
+        return null;
     }
 
     /* (non-Javadoc)
@@ -128,14 +138,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public V get(Object key) {
-        // walk the stackList and for the first place it is found return true; otherwise refurn false
-        for (Map<K, V> curMap: this.stackList) {
-            // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
-            if (curMap.containsKey(key)) {
-                return curMap.get(key);
-            }
-        }
-        return null;
+        return withContextContainingKey(key, ctx -> ctx.get(key));
     }
 
     /* (non-Javadoc)
@@ -143,18 +146,13 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public V get(String name, Locale locale) {
-        // walk the stackList and for the first place it is found return true; otherwise refurn false
-        for (Map<K, V> curMap: this.stackList) {
-            // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
-            if (curMap.containsKey(name)) {
-                if (curMap instanceof LocalizedMap<?>) {
-                    LocalizedMap<V> lmap = UtilGenerics.cast(curMap);
-                    return lmap.get(name, locale);
-                }
-                return curMap.get(name);
+        return withContextContainingKey(name, ctx -> {
+            if (ctx instanceof LocalizedMap<?>) {
+                LocalizedMap<V> lmap = UtilGenerics.cast(ctx);
+                return lmap.get(name, locale);
             }
-        }
-        return null;
+            return ctx.get(name);
+        });
     }
 
     /* (non-Javadoc)
@@ -162,8 +160,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public V put(K key, V value) {
-        // all write operations are local: only put in the Map on the top of the stack
-        return stackList.getFirst().put(key, value);
+        return contexts.getFirst().put(key, value);
     }
 
     /* (non-Javadoc)
@@ -171,8 +168,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public V remove(Object key) {
-        // all write operations are local: only remove from the Map on the top of the stack
-        return stackList.getFirst().remove(key);
+        return contexts.getFirst().remove(key);
     }
 
     /* (non-Javadoc)
@@ -180,8 +176,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public void putAll(Map<? extends K, ? extends V> arg0) {
-        // all write operations are local: only put in the Map on the top of the stack
-        stackList.getFirst().putAll(arg0);
+        contexts.getFirst().putAll(arg0);
     }
 
     /* (non-Javadoc)
@@ -189,8 +184,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public void clear() {
-        // all write operations are local: only clear the Map on the top of the stack
-        stackList.getFirst().clear();
+        contexts.getFirst().clear();
     }
 
     /* (non-Javadoc)
@@ -198,10 +192,9 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public Set<K> keySet() {
-        Set<K> keys = stackList.stream()
-                .flatMap(m -> m.keySet().stream())
-                .collect(Collectors.toSet());
-        return Collections.unmodifiableSet(keys);
+        return contexts.stream()
+                .flatMap(ctx -> ctx.keySet().stream())
+                .collect(collectingAndThen(toSet(), Collections::unmodifiableSet));
     }
 
     /* (non-Javadoc)
@@ -209,18 +202,9 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public Collection<V> values() {
-        // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set<K> resultKeySet = new HashSet<>();
-        List<V> resultValues = new LinkedList<>();
-        for (Map<K, V> curMap: this.stackList) {
-            for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
-                if (!resultKeySet.contains(curEntry.getKey())) {
-                    resultKeySet.add(curEntry.getKey());
-                    resultValues.add(curEntry.getValue());
-                }
-            }
-        }
-        return Collections.unmodifiableCollection(resultValues);
+        return entryStream()
+                .map(Map.Entry::getValue)
+                .collect(collectingAndThen(toList(), Collections::unmodifiableCollection));
     }
 
     /* (non-Javadoc)
@@ -228,27 +212,18 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
      */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
-        // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set<K> resultKeySet = new HashSet<>();
-        Set<Map.Entry<K, V>> resultEntrySet = new HashSet<>();
-        for (Map<K, V> curMap: this.stackList) {
-            for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
-                if (!resultKeySet.contains(curEntry.getKey())) {
-                    resultKeySet.add(curEntry.getKey());
-                    resultEntrySet.add(curEntry);
-                }
-            }
-        }
-        return Collections.unmodifiableSet(resultEntrySet);
+        return entryStream()
+                // Don't use Collectors#toSet() which does not use encounter order.
+                .collect(collectingAndThen(toCollection(HashSet::new), Collections::unmodifiableSet));
     }
 
     @Override
     public String toString() {
         StringBuilder fullMapString = new StringBuilder();
         int curLevel = 0;
-        for (Map<K, V> curMap: this.stackList) {
+        for (Map<K, V> ctx: contexts) {
             fullMapString.append("============================== Start stack level " + curLevel + "\n");
-            for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
+            for (Map.Entry<K, V> curEntry: ctx.entrySet()) {
 
                 fullMapString.append("==>[");
                 fullMapString.append(curEntry.getKey());

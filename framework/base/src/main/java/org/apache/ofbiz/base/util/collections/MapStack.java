@@ -41,9 +41,9 @@ public class MapStack<K> extends MapContext<K, Object> {
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
         MapStack<K> newValue = new MapStack<>();
         if (baseMap instanceof MapStack) {
-            newValue.stackList.addAll(((MapStack<K>) baseMap).stackList);
+            newValue.contexts.addAll(((MapStack<K>) baseMap).contexts);
         } else {
-            newValue.stackList.addFirst(baseMap);
+            newValue.contexts.addFirst(baseMap);
         }
         return newValue;
     }
@@ -51,7 +51,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
     public static <K> MapStack<K> create(MapStack<K> source) {
         MapStack<K> newValue = new MapStack<>();
-        newValue.stackList.addAll(source.stackList);
+        newValue.contexts.addAll(source.contexts);
         return newValue;
     }
 
