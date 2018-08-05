@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +32,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -116,30 +119,16 @@ public class FormRenderer {
         this.focusFieldName = modelForm.getFocusFieldName();
     }
 
-    // Return a sorted collection of lists ordered by ascending position;
-    // each list contains all the fields with that position.
-    private Collection<List<ModelFormField>> getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
-        // The ordering of the returned collection is guaranteed by using `TreeMap`.
-        return modelFormFieldList.stream()
-                .collect(Collectors.groupingBy(ModelFormField::getPosition, TreeMap::new, Collectors.toList()))
-                .values();
-    }
+    // The ordering of the returned collection is guaranteed by using `TreeMap`.
+    private static Collector<ModelFormField, ?, Map<Integer, List<ModelFormField>>> groupingByPosition =
+            Collectors.groupingBy(ModelFormField::getPosition, TreeMap::new, Collectors.toList());
 
     public String getFocusFieldName() {
         return focusFieldName;
     }
 
-    private List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered,
-            List<ModelFormField> fieldList, int position) {
-        /*
-         * Method does not reference internal state - should be moved to another class.
-         */
-        List<ModelFormField> hiddenIgnoredFieldList = new LinkedList<>();
-        for (ModelFormField modelFormField : fieldList) {
-            // with position == -1 then gets all the hidden fields
-            if (position != -1 && modelFormField.getPosition() != position) {
-                continue;
-            }
+    private static Predicate<ModelFormField> filteringIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered) {
+       return  modelFormField -> {
             FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget
@@ -147,10 +136,10 @@ public class FormRenderer {
             case FieldInfo.HIDDEN:
             case FieldInfo.IGNORED:
                 if (modelFormField.shouldUse(context)) {
-                    hiddenIgnoredFieldList.add(modelFormField);
                     if (alreadyRendered != null) {
                         alreadyRendered.add(modelFormField.getName());
                     }
+                    return true;
                 }
                 break;
 
@@ -158,24 +147,33 @@ public class FormRenderer {
             case FieldInfo.DISPLAY_ENTITY:
                 ModelFormField.DisplayField displayField = (ModelFormField.DisplayField) fieldInfo;
                 if (displayField.getAlsoHidden() && modelFormField.shouldUse(context)) {
-                    hiddenIgnoredFieldList.add(modelFormField);
-                    // don't add to already rendered here, or the display won't ger rendered: if (alreadyRendered != null) alreadyRendered.add(modelFormField.getName());
+                    // don't add to already rendered here, or the display won't get rendered.
+                    return true;
                 }
                 break;
 
             case FieldInfo.HYPERLINK:
                 ModelFormField.HyperlinkField hyperlinkField = (ModelFormField.HyperlinkField) fieldInfo;
                 if (hyperlinkField.getAlsoHidden() && modelFormField.shouldUse(context)) {
-                    hiddenIgnoredFieldList.add(modelFormField);
-                    // don't add to already rendered here, or the hyperlink won't ger rendered: if (alreadyRendered != null) alreadyRendered.add(modelFormField.getName());
+                    // don't add to already rendered here, or the hyperlink won't get rendered.
+                    return true;
                 }
                 break;
 
             default:
                 break;
             }
-        }
-        return hiddenIgnoredFieldList;
+            return false;
+        };
+    }
+
+    private static List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered,
+            List<ModelFormField> fields, int position) {
+        return fields.stream()
+                // with position == -1 then gets all the hidden fields
+                .filter(modelFormField -> position == -1 || modelFormField.getPosition() == position)
+                .filter(filteringIgnoredFields(context, alreadyRendered))
+                .collect(Collectors.toList());
     }
 
     private List<FieldGroupBase> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
@@ -279,6 +277,12 @@ public class FormRenderer {
         }
     }
 
+    // Return a stateful predicate that satisfies only the first time a field name is encountered.
+    static private Predicate<ModelFormField> filteringDuplicateNames() {
+        Set<String> seenFieldNames = new HashSet<>();
+        return field -> seenFieldNames.add(field.getName());
+    }
+
     private int renderHeaderRow(Appendable writer, Map<String, Object> context)
             throws IOException {
         int maxNumOfColumns = 0;
@@ -287,24 +291,17 @@ public class FormRenderer {
         // in this model: we can have more fields with the same name when use-when
         // conditions are used or when a form is extended or when the fields are
         // automatically retrieved by a service or entity definition.
-        List<ModelFormField> tempFieldList = new LinkedList<>();
-        tempFieldList.addAll(modelForm.getFieldList());
-        for (int j = 0; j < tempFieldList.size(); j++) {
-            ModelFormField modelFormField = tempFieldList.get(j);
-            for (int i = j + 1; i < tempFieldList.size(); i++) {
-                ModelFormField curField = tempFieldList.get(i);
-                if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
-                    tempFieldList.remove(i--);
-                }
-            }
-        }
+        Collection<List<ModelFormField>> fieldListsByPosition = modelForm.getFieldList().stream()
+                .filter(filteringDuplicateNames())
+                .collect(groupingByPosition)
+                .values();
 
         // ===========================
         // Preprocessing
         // ===========================
         // `fieldRowsByPosition` will contain maps containing the list of fields for a position
         List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<>();
-        for (List<ModelFormField> mainFieldList : getFieldListsByPosition(tempFieldList)) {
+        for (List<ModelFormField> mainFieldList : fieldListsByPosition) {
             int numOfColumns = 0;
 
             List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<>();
@@ -791,7 +788,11 @@ public class FormRenderer {
                 // it contains the fields that are in the list header (columns).
                 // The positions lower than 1 are rendered in rows before the main one;
                 // positions higher than 1 are rendered after the main one.
-                for (List<ModelFormField> fieldListByPosition : getFieldListsByPosition(tempFieldList)) {
+                Collection<List<ModelFormField>> fieldListsByPosition = tempFieldList.stream()
+                        .collect(groupingByPosition)
+                        .values();
+
+                for (List<ModelFormField> fieldListByPosition : fieldListsByPosition) {
                     // For each position (the subset of fields with the same position attribute)
                     // we have two phases: preprocessing and rendering
 
@@ -1015,7 +1016,8 @@ public class FormRenderer {
         }
 
         // render all hidden & ignored fields
-        List<ModelFormField> hiddenIgnoredFieldList = this.getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
+        List<ModelFormField> hiddenIgnoredFieldList =
+        getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
         this.renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
 
         // render formatting wrapper open
