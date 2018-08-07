@@ -189,8 +189,7 @@ public class LoginServices {
                             "Y".equalsIgnoreCase(userLogin.getString("isSystem")) : false;
 
                     // grab the hasLoggedOut flag
-                    boolean hasLoggedOut = userLogin.get("hasLoggedOut") != null ?
-                            "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false;
+                    Boolean hasLoggedOut = userLogin.getBoolean("hasLoggedOut");
 
                     if ((UtilValidate.isEmpty(userLogin.getString("enabled")) || "Y".equals(userLogin.getString("enabled")) ||
                             (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem)) && UtilValidate.isEmpty(userLogin.getString("disabledBy"))) {
@@ -228,7 +227,7 @@ public class LoginServices {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched", module);
 
                             // update the hasLoggedOut flag
-                            if (hasLoggedOut) {
+                            if (hasLoggedOut == null || hasLoggedOut) {
                                 userLogin.set("hasLoggedOut", "N");
                             }
 
@@ -236,7 +235,7 @@ public class LoginServices {
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
                             if (currentFailedLogins != null && currentFailedLogins.longValue() > 0) {
                                 userLogin.set("successiveFailedLogins", Long.valueOf(0));
-                            } else if (!hasLoggedOut) {
+                            } else if (hasLoggedOut != null && !hasLoggedOut) {
                                 // successful login & no loggout flag, no need to change anything, so don't do the store
                                 doStore = false;
                             }
