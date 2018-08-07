@@ -243,7 +243,7 @@ public class ContentSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                contentSearchOptions.setViewIndex(Integer.valueOf(0));
+                contentSearchOptions.setViewIndex(0);
             }
         }
 
@@ -253,7 +253,7 @@ public class ContentSearchSession {
                 contentSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                contentSearchOptions.setViewSize(Integer.valueOf(20));
+                contentSearchOptions.setViewSize(20);
             }
         }
     }

@@ -126,13 +126,13 @@ public class CoreEvents {
         // the frequency map
         Map<String, Integer> freqMap = new HashMap<String, Integer>();
 
-        freqMap.put("SECONDLY", Integer.valueOf(1));
-        freqMap.put("MINUTELY", Integer.valueOf(2));
-        freqMap.put("HOURLY", Integer.valueOf(3));
-        freqMap.put("DAILY", Integer.valueOf(4));
-        freqMap.put("WEEKLY", Integer.valueOf(5));
-        freqMap.put("MONTHLY", Integer.valueOf(6));
-        freqMap.put("YEARLY", Integer.valueOf(7));
+        freqMap.put("SECONDLY", 1);
+        freqMap.put("MINUTELY", 2);
+        freqMap.put("HOURLY", 3);
+        freqMap.put("DAILY", 4);
+        freqMap.put("WEEKLY", 5);
+        freqMap.put("MONTHLY", 6);
+        freqMap.put("YEARLY", 7);
 
         // some defaults
         long startTime = (new Date()).getTime();
@@ -282,7 +282,7 @@ public class CoreEvents {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_frequency", locale);
                     errorBuf.append(errMsg);
                 } else {
-                    frequency = freqMap.get(serviceFreq.toUpperCase()).intValue();
+                    frequency = freqMap.get(serviceFreq.toUpperCase());
                 }
             }
         }
@@ -479,7 +479,7 @@ public class CoreEvents {
         // load the file
         File file = new File(filePath);
         if (file.exists()) {
-            Long longLen = Long.valueOf(file.length());
+            Long longLen = file.length();
             int length = longLen.intValue();
             try {
                 FileInputStream fis = new FileInputStream(file);

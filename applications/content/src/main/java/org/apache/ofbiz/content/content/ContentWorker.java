@@ -572,7 +572,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         Map<String, Object> currentNode = nodeTrail.get(sz - 1);
         Boolean isReturnAfter = (Boolean)currentNode.get("isReturnAfter");
-        if (isReturnAfter != null && isReturnAfter.booleanValue()) {
+        if (isReturnAfter != null && isReturnAfter) {
             return false;
         }
 
@@ -584,7 +584,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 ContentWorker.traceNodeTrail("12",nodeTrail);
                 Boolean isPick = (Boolean)currentNode.get("isPick");
 
-                if (isPick != null && isPick.booleanValue()) {
+                if (isPick != null && isPick) {
                     nodeTrail.add(currentNode);
                     inProgress = true;
                     selectKids(currentNode, ctx);
@@ -592,7 +592,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     break;
                 } else {
                     Boolean isFollow = (Boolean)currentNode.get("isFollow");
-                    if (isFollow != null && isFollow.booleanValue()) {
+                    if (isFollow != null && isFollow) {
                         nodeTrail.add(currentNode);
                         boolean foundPick = traverseSubContent(ctx);
                         if (foundPick) {
@@ -620,14 +620,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 while (idx < (kids.size() - 1)) {
                     currentNode = kids.get(idx + 1);
                     Boolean isFollow = (Boolean)currentNode.get("isFollow");
-                    if (isFollow == null || !isFollow.booleanValue()) {
+                    if (isFollow == null || !isFollow) {
                         idx++;
                         continue;
                     }
                     nodeTrail.add(currentNode);
                     ContentWorker.traceNodeTrail("16",nodeTrail);
                     Boolean isPick = (Boolean)currentNode.get("isPick");
-                    if (isPick == null || !isPick.booleanValue()) {
+                    if (isPick == null || !isPick) {
                         // If not a "pick" node, look at kids
                         inProgress = traverseSubContent(ctx);
                         ContentWorker.traceNodeTrail("17",nodeTrail);
@@ -731,9 +731,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             if (isPick) {
                     Integer count = (Integer) currentNode.get("count");
                     if (count == null) {
-                        count = Integer.valueOf(1);
+                        count = 1;
                     } else {
-                        count = Integer.valueOf(count.intValue() + 1);
+                        count = count + 1;
                     }
                     currentNode.put("count", count);
             }
@@ -757,7 +757,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
-                    isWhen = boolVal.booleanValue();
+                    isWhen = boolVal;
                 } else {
                     throw new IllegalArgumentException("Return value from use-when condition eval was not a Boolean: "
                             + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "]");
@@ -1185,7 +1185,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             }
         }
         ctx.put("globalNodeTrail", passedGlobalNodeTrail);
-        ctx.put("indent", Integer.valueOf(sz));
+        ctx.put("indent", sz);
         return currentContent;
     }
 
@@ -1271,19 +1271,19 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             }
         }
         boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
-        trailNode.put("isReturnBefore", Boolean.valueOf(isReturnBefore));
+        trailNode.put("isReturnBefore", isReturnBefore);
         boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"), true);
-        trailNode.put("isPick", Boolean.valueOf(isPick));
+        trailNode.put("isPick", isPick);
         boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"), true);
-        trailNode.put("isFollow", Boolean.valueOf(isFollow));
+        trailNode.put("isFollow", isFollow);
         boolean isReturnAfter = checkWhen(context, (String)whenMap.get("returnAfterPickWhen"), false);
-        trailNode.put("isReturnAfter", Boolean.valueOf(isReturnAfter));
+        trailNode.put("isReturnAfter", isReturnAfter);
         trailNode.put("checked", Boolean.TRUE);
     }
 
     public static boolean booleanDataType(Object boolObj) {
         boolean bool = false;
-        if (boolObj != null && ((Boolean)boolObj).booleanValue()) {
+        if (boolObj != null && (Boolean) boolObj) {
             bool = true;
         }
         return bool;

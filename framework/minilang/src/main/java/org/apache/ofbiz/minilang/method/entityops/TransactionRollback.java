@@ -55,7 +55,7 @@ public final class TransactionRollback extends MethodOperation {
         boolean beganTransaction = false;
         Boolean beganTransactionBoolean = beganTransactionFma.get(methodContext.getEnvMap());
         if (beganTransactionBoolean != null) {
-            beganTransaction = beganTransactionBoolean.booleanValue();
+            beganTransaction = beganTransactionBoolean;
         }
         try {
             TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);

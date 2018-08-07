@@ -99,7 +99,7 @@ public class LoginServices {
         boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
 
         // if isServiceAuth is not specified, default to not a service auth
-        boolean isServiceAuth = context.get("isServiceAuth") != null && ((Boolean) context.get("isServiceAuth")).booleanValue();
+        boolean isServiceAuth = context.get("isServiceAuth") != null && (Boolean) context.get("isServiceAuth");
 
         String username = (String) context.get("login.username");
         if (username == null) {
@@ -234,8 +234,8 @@ public class LoginServices {
 
                             // reset failed login count if necessary
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
-                            if (currentFailedLogins != null && currentFailedLogins.longValue() > 0) {
-                                userLogin.set("successiveFailedLogins", Long.valueOf(0));
+                            if (currentFailedLogins != null && currentFailedLogins > 0) {
+                                userLogin.set("successiveFailedLogins", 0L);
                             } else if (!hasLoggedOut) {
                                 // successful login & no logout flag, no need to change anything, so don't do the store
                                 doStore = false;
@@ -273,9 +273,9 @@ public class LoginServices {
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
 
                             if (currentFailedLogins == null) {
-                                currentFailedLogins = Long.valueOf(1);
+                                currentFailedLogins = 1L;
                             } else {
-                                currentFailedLogins = Long.valueOf(currentFailedLogins.longValue() + 1);
+                                currentFailedLogins = currentFailedLogins + 1;
                             }
                             userLogin.set("successiveFailedLogins", currentFailedLogins);
 
@@ -289,7 +289,7 @@ public class LoginServices {
                                 Debug.logWarning("Could not parse max.failed.logins from security.properties, using default of 3", module);
                             }
 
-                            if (maxFailedLogins > 0 && currentFailedLogins.longValue() >= maxFailedLogins) {
+                            if (maxFailedLogins > 0 && currentFailedLogins >= maxFailedLogins) {
                                 userLogin.set("enabled", "N");
                                 userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
                             }
@@ -439,7 +439,7 @@ public class LoginServices {
     public static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
         try {
-            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
+            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0);
         } catch (NumberFormatException nfe) {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
@@ -946,7 +946,7 @@ public class LoginServices {
 
         int passwordChangeHistoryLimit = 0;
         try {
-            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
+            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0);
         } catch (NumberFormatException nfe) {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
@@ -979,7 +979,7 @@ public class LoginServices {
         int minPasswordLength = 0;
 
         try {
-            minPasswordLength = EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 0).intValue();
+            minPasswordLength = EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 0);
         } catch (NumberFormatException nfe) {
             minPasswordLength = 0;
         }

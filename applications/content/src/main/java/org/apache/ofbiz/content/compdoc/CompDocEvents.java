@@ -140,7 +140,7 @@ public class CompDocEvents {
     }
 
     public static String padNumberWithLeadingZeros(Long num, Integer padLen) {
-        String s = UtilFormatOut.formatPaddedNumber(num.longValue(), padLen.intValue());
+        String s = UtilFormatOut.formatPaddedNumber(num, padLen);
         return s;
     }
 

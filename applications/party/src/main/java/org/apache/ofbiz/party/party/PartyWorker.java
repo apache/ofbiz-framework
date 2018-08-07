@@ -102,7 +102,7 @@ public class PartyWorker {
 
         // generate the sequenced number and pad
         Long seq = delegator.getNextSeqIdLong(clubSeqName);
-        clubId = clubId + UtilFormatOut.formatPaddedNumber(seq.longValue(), (length - clubId.length() - 1));
+        clubId = clubId + UtilFormatOut.formatPaddedNumber(seq, (length - clubId.length() - 1));
 
         // get the check digit
         int check = UtilValidate.getLuhnCheckDigit(clubId);

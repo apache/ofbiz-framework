@@ -908,8 +908,8 @@ public class PayflowPro {
         Integer maxLogFileSize = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "maxLogFileSize", resource, "payment.verisign.maxLogFileSize", "1000000"));
         boolean stackTraceOn = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "stackTraceOn", resource, "payment.verisign.stackTraceOn", "N"));
 
-        PayflowAPI pfp = new PayflowAPI(hostAddress, hostPort.intValue(), timeout.intValue(), proxyAddress,
-                proxyPort.intValue(), proxyLogon, proxyPassword);
+        PayflowAPI pfp = new PayflowAPI(hostAddress, hostPort, timeout, proxyAddress,
+                proxyPort, proxyLogon, proxyPassword);
         SDKProperties.setLogFileName(logFileName);
         SDKProperties.setLoggingLevel(loggingLevel);
         SDKProperties.setMaxLogFileSize(maxLogFileSize);

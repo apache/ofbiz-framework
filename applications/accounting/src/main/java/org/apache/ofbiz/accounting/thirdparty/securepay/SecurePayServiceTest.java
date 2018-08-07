@@ -135,7 +135,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
-            if (((Boolean) result.get("authResult")).equals(new Boolean(false))) {          // returnCode ok?
+            if (((Boolean) result.get("authResult")).equals(Boolean.FALSE)) {          // returnCode ok?
                 Debug.logInfo("[testAuth] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
@@ -180,7 +180,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             Debug.logInfo("[testdoCapture] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
-            if (((Boolean) result.get("captureResult")).equals(new Boolean(false))) {          // returnCode ok?
+            if (((Boolean) result.get("captureResult")).equals(Boolean.FALSE)) {          // returnCode ok?
                 Debug.logInfo("[testdoCapture] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
@@ -212,7 +212,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             Debug.logInfo("[testdoRefund] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
-            if (((Boolean) result.get("refundResult")).equals(new Boolean(false))) {          // returnCode ok?
+            if (((Boolean) result.get("refundResult")).equals(Boolean.FALSE)) {          // returnCode ok?
                 Debug.logInfo("[testdoRefund] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
@@ -245,7 +245,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
 
-            if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
+            if (((Boolean) result.get("creditResult")).equals(Boolean.FALSE)) {          // returnCode ok?
                 Debug.logInfo("[testdoCredit] Error Messages from SecurePay: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {

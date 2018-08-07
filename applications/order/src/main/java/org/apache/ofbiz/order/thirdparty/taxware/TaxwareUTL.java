@@ -99,7 +99,7 @@ public class TaxwareUTL {
         // make the header file
         Record header = outHead.makeRecord("outHead");
 
-        header.set("NUMBER_RECORDS", Long.valueOf(outItem.getRecords().size()));
+        header.set("NUMBER_RECORDS", (long) outItem.getRecords().size());
         header.set("PROCESS_INDICATOR", "1");
         outHead.addRecord(header);
 

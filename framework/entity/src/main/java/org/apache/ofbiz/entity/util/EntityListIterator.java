@@ -487,7 +487,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
             if (resultSize == null) {
                 resultSize = (int) getResultSize();
             }
-            return resultSize.intValue();
+            return resultSize;
         }
         return this.last() ? this.currentIndex() : 0;
     }

@@ -266,7 +266,7 @@ public class EntitySyncContext {
         long splitMillis = defaultSyncSplitMillis;
         Long syncSplitMillis = entitySync.getLong("syncSplitMillis");
         if (syncSplitMillis != null) {
-            splitMillis = syncSplitMillis.longValue();
+            splitMillis = syncSplitMillis;
         }
         return splitMillis;
     }
@@ -275,7 +275,7 @@ public class EntitySyncContext {
         long splitMillis = defaultOfflineSyncSplitMillis;
         Long syncSplitMillis = entitySync.getLong("offlineSyncSplitMillis");
         if (syncSplitMillis != null) {
-            splitMillis = syncSplitMillis.longValue();
+            splitMillis = syncSplitMillis;
         }
         return splitMillis;
     }
@@ -284,7 +284,7 @@ public class EntitySyncContext {
         long syncEndBufferMillis = defaultSyncEndBufferMillis;
         Long syncEndBufferMillisLong = entitySync.getLong("syncEndBufferMillis");
         if (syncEndBufferMillisLong != null) {
-            syncEndBufferMillis = syncEndBufferMillisLong.longValue();
+            syncEndBufferMillis = syncEndBufferMillisLong;
         }
         return syncEndBufferMillis;
     }
@@ -293,7 +293,7 @@ public class EntitySyncContext {
         long maxRunningNoUpdateMillis = defaultMaxRunningNoUpdateMillis;
         Long maxRunningNoUpdateMillisLong = entitySync.getLong("maxRunningNoUpdateMillis");
         if (maxRunningNoUpdateMillisLong != null) {
-            maxRunningNoUpdateMillis = maxRunningNoUpdateMillisLong.longValue();
+            maxRunningNoUpdateMillis = maxRunningNoUpdateMillisLong;
         }
         return maxRunningNoUpdateMillis;
     }
@@ -771,26 +771,26 @@ public class EntitySyncContext {
             // store result of service call on history with results so far, should run in own tx
             Map<String, Object> updateHistoryMap = UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate,
                     "lastSuccessfulSynchTime", this.currentRunEndTime, "lastCandidateEndTime", this.getNextRunEndTime(),
-                    "lastSplitStartTime", Long.valueOf(this.splitStartTime));
-            updateHistoryMap.put("toCreateInserted", Long.valueOf(toCreateInserted));
-            updateHistoryMap.put("toCreateUpdated", Long.valueOf(toCreateUpdated));
-            updateHistoryMap.put("toCreateNotUpdated", Long.valueOf(toCreateNotUpdated));
-            updateHistoryMap.put("toStoreInserted", Long.valueOf(toStoreInserted));
-            updateHistoryMap.put("toStoreUpdated", Long.valueOf(toStoreUpdated));
-            updateHistoryMap.put("toStoreNotUpdated", Long.valueOf(toStoreNotUpdated));
-            updateHistoryMap.put("toRemoveDeleted", Long.valueOf(toRemoveDeleted));
-            updateHistoryMap.put("toRemoveAlreadyDeleted", Long.valueOf(toRemoveAlreadyDeleted));
-            updateHistoryMap.put("runningTimeMillis", Long.valueOf(runningTimeMillis));
-            updateHistoryMap.put("totalStoreCalls", Long.valueOf(totalStoreCalls));
-            updateHistoryMap.put("totalSplits", Long.valueOf(totalSplits));
-            updateHistoryMap.put("totalRowsExported", Long.valueOf(totalRowsExported));
-            updateHistoryMap.put("totalRowsToCreate", Long.valueOf(totalRowsToCreate));
-            updateHistoryMap.put("totalRowsToStore", Long.valueOf(totalRowsToStore));
-            updateHistoryMap.put("totalRowsToRemove", Long.valueOf(totalRowsToRemove));
-            updateHistoryMap.put("perSplitMinMillis", Long.valueOf(perSplitMinMillis));
-            updateHistoryMap.put("perSplitMaxMillis", Long.valueOf(perSplitMaxMillis));
-            updateHistoryMap.put("perSplitMinItems", Long.valueOf(perSplitMinItems));
-            updateHistoryMap.put("perSplitMaxItems", Long.valueOf(perSplitMaxItems));
+                    "lastSplitStartTime", this.splitStartTime);
+            updateHistoryMap.put("toCreateInserted", toCreateInserted);
+            updateHistoryMap.put("toCreateUpdated", toCreateUpdated);
+            updateHistoryMap.put("toCreateNotUpdated", toCreateNotUpdated);
+            updateHistoryMap.put("toStoreInserted", toStoreInserted);
+            updateHistoryMap.put("toStoreUpdated", toStoreUpdated);
+            updateHistoryMap.put("toStoreNotUpdated", toStoreNotUpdated);
+            updateHistoryMap.put("toRemoveDeleted", toRemoveDeleted);
+            updateHistoryMap.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
+            updateHistoryMap.put("runningTimeMillis", runningTimeMillis);
+            updateHistoryMap.put("totalStoreCalls", totalStoreCalls);
+            updateHistoryMap.put("totalSplits", totalSplits);
+            updateHistoryMap.put("totalRowsExported", totalRowsExported);
+            updateHistoryMap.put("totalRowsToCreate", totalRowsToCreate);
+            updateHistoryMap.put("totalRowsToStore", totalRowsToStore);
+            updateHistoryMap.put("totalRowsToRemove", totalRowsToRemove);
+            updateHistoryMap.put("perSplitMinMillis", perSplitMinMillis);
+            updateHistoryMap.put("perSplitMaxMillis", perSplitMaxMillis);
+            updateHistoryMap.put("perSplitMinItems", perSplitMinItems);
+            updateHistoryMap.put("perSplitMaxItems", perSplitMaxItems);
             updateHistoryMap.put("userLogin", userLogin);
             Map<String, Object> updateEsHistRunResult = dispatcher.runSync("updateEntitySyncHistory", updateHistoryMap);
 
@@ -984,14 +984,14 @@ public class EntitySyncContext {
 
                 this.totalStoreCalls++;
 
-                long toCreateInsertedCur = remoteStoreResult.get("toCreateInserted") == null ? 0 : ((Long) remoteStoreResult.get("toCreateInserted")).longValue();
-                long toCreateUpdatedCur = remoteStoreResult.get("toCreateUpdated") == null ? 0 : ((Long) remoteStoreResult.get("toCreateUpdated")).longValue();
-                long toCreateNotUpdatedCur = remoteStoreResult.get("toCreateNotUpdated") == null ? 0 : ((Long) remoteStoreResult.get("toCreateNotUpdated")).longValue();
-                long toStoreInsertedCur = remoteStoreResult.get("toStoreInserted") == null ? 0 : ((Long) remoteStoreResult.get("toStoreInserted")).longValue();
-                long toStoreUpdatedCur = remoteStoreResult.get("toStoreUpdated") == null ? 0 : ((Long) remoteStoreResult.get("toStoreUpdated")).longValue();
-                long toStoreNotUpdatedCur = remoteStoreResult.get("toStoreNotUpdated") == null ? 0 : ((Long) remoteStoreResult.get("toStoreNotUpdated")).longValue();
-                long toRemoveDeletedCur = remoteStoreResult.get("toRemoveDeleted") == null ? 0 : ((Long) remoteStoreResult.get("toRemoveDeleted")).longValue();
-                long toRemoveAlreadyDeletedCur = remoteStoreResult.get("toRemoveAlreadyDeleted") == null ? 0 : ((Long) remoteStoreResult.get("toRemoveAlreadyDeleted")).longValue();
+                long toCreateInsertedCur = remoteStoreResult.get("toCreateInserted") == null ? 0 : (Long) remoteStoreResult.get("toCreateInserted");
+                long toCreateUpdatedCur = remoteStoreResult.get("toCreateUpdated") == null ? 0 : (Long) remoteStoreResult.get("toCreateUpdated");
+                long toCreateNotUpdatedCur = remoteStoreResult.get("toCreateNotUpdated") == null ? 0 : (Long) remoteStoreResult.get("toCreateNotUpdated");
+                long toStoreInsertedCur = remoteStoreResult.get("toStoreInserted") == null ? 0 : (Long) remoteStoreResult.get("toStoreInserted");
+                long toStoreUpdatedCur = remoteStoreResult.get("toStoreUpdated") == null ? 0 : (Long) remoteStoreResult.get("toStoreUpdated");
+                long toStoreNotUpdatedCur = remoteStoreResult.get("toStoreNotUpdated") == null ? 0 : (Long) remoteStoreResult.get("toStoreNotUpdated");
+                long toRemoveDeletedCur = remoteStoreResult.get("toRemoveDeleted") == null ? 0 : (Long) remoteStoreResult.get("toRemoveDeleted");
+                long toRemoveAlreadyDeletedCur = remoteStoreResult.get("toRemoveAlreadyDeleted") == null ? 0 : (Long) remoteStoreResult.get("toRemoveAlreadyDeleted");
 
                 this.toCreateInserted += toCreateInsertedCur;
                 this.toCreateUpdated += toCreateUpdatedCur;

@@ -163,7 +163,7 @@ public class Record implements Serializable {
         }
         if (value != null || setIfNull) {
             if (value instanceof Boolean) {
-                value = ((Boolean) value).booleanValue() ? "Y" : "N";
+                value = (Boolean) value ? "Y" : "N";
             }
             fields.put(name, value);
         }
@@ -256,7 +256,7 @@ public class Record implements Serializable {
             double divisor = Math.pow(10.0, decimalPlaces);
 
             number = number / divisor;
-            set(name, Double.valueOf(number));
+            set(name, number);
         } // standard types
         else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
             if (field.format.equals("EncryptedString")) {
@@ -283,11 +283,11 @@ public class Record implements Serializable {
         } else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double")) {
             set(name, Double.valueOf(value));
         } else if (fieldType.equals("LEShort")) {
-            set(name, Short.valueOf(readLEShort(value.getBytes(UtilIO.getUtf8()))));
+            set(name, readLEShort(value.getBytes(UtilIO.getUtf8())));
         } else if (fieldType.equals("LEInteger")) {
-            set(name, Integer.valueOf(readLEInt(value.getBytes(UtilIO.getUtf8()))));
+            set(name, readLEInt(value.getBytes(UtilIO.getUtf8())));
         } else if (fieldType.equals("LELong")) {
-            set(name, Long.valueOf(readLELong(value.getBytes(UtilIO.getUtf8()))));
+            set(name, readLELong(value.getBytes(UtilIO.getUtf8())));
         } else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }
@@ -336,7 +336,7 @@ public class Record implements Serializable {
             // of decimal places in the formatting string then place it in a Double
             double decimalPlaces = Double.parseDouble(field.format);
             double multiplier = Math.pow(10.0, decimalPlaces);
-            double dnum = multiplier * ((Double) value).doubleValue();
+            double dnum = multiplier * (Double) value;
             long number = Math.round(dnum);
 
             str = padFrontZeros(Long.toString(number), field.length);

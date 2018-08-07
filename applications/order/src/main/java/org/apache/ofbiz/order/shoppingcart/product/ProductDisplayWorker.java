@@ -204,9 +204,9 @@ public final class ProductDisplayWorker {
                             Integer curOcc = productOccurances.get(product.get("productId"));
 
                             if (curOcc == null) {
-                                curOcc = Integer.valueOf(0);
+                                curOcc = 0;
                             }
-                            productOccurances.put(product.getString("productId"), Integer.valueOf(curOcc.intValue() + 1));
+                            productOccurances.put(product.getString("productId"), curOcc + 1);
                         }
                     }
                 }

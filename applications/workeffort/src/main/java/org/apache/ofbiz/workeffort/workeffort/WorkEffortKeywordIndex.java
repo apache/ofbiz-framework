@@ -62,11 +62,11 @@ public class WorkEffortKeywordIndex {
         List<String> strings = new LinkedList<>();
         int widWeight = 1;
         try {
-            widWeight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffort.workEffortId", 1).intValue();
+            widWeight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffort.workEffortId", 1);
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(workEffort.getString("workEffortId").toLowerCase(Locale.getDefault()), Long.valueOf(widWeight));
+        keywords.put(workEffort.getString("workEffortId").toLowerCase(Locale.getDefault()), (long) widWeight);
 
         addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
         addWeightedKeywordSourceString(workEffort, "workEffortTypeId", strings);
@@ -92,7 +92,7 @@ public class WorkEffortKeywordIndex {
         for (String workEffortContentTypeId: workEffortContentTypes.split(",")) {
             int weight = 1;
             try {
-                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffortContent." + workEffortContentTypeId, 1).intValue();
+                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffortContent." + workEffortContentTypeId, 1);
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
@@ -144,7 +144,7 @@ public class WorkEffortKeywordIndex {
             int weight = 1;
 
             try {
-                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight." + value.getEntityName() + "." + fieldName, 1).intValue();
+                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight." + value.getEntityName() + "." + fieldName, 1);
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }

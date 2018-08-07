@@ -81,10 +81,9 @@ public class FormRenderer {
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null/* && "list".equals(modelForm.getType()) */) {
             if (UtilValidate.isNotEmpty(context.get("parentItemIndex"))) {
-                return retVal + context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + itemIndex
-                        .intValue();
+                return retVal + context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + itemIndex;
             }
-            return retVal + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+            return retVal + modelForm.getItemIndexSeparator() + itemIndex;
         }
         return retVal;
     }
@@ -96,7 +95,7 @@ public class FormRenderer {
             formName = modelForm.getName();
         }
         if (itemIndex != null && "list".equals(modelForm.getType())) {
-            return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+            return formName + modelForm.getItemIndexSeparator() + itemIndex;
         }
         return formName;
     }
@@ -714,14 +713,14 @@ public class FormRenderer {
         // set low and high index
         Paginator.getListLimits(modelForm, context, obj);
 
-        int listSize = ((Integer) context.get("listSize")).intValue();
-        int lowIndex = ((Integer) context.get("lowIndex")).intValue();
-        int highIndex = ((Integer) context.get("highIndex")).intValue();
+        int listSize = (Integer) context.get("listSize");
+        int lowIndex = (Integer) context.get("lowIndex");
+        int highIndex = (Integer) context.get("highIndex");
 
         // we're passed a subset of the list, so use (0, viewSize) range
         if (modelForm.isOverridenListSize()) {
             lowIndex = 0;
-            highIndex = ((Integer) context.get("viewSize")).intValue();
+            highIndex = (Integer) context.get("viewSize");
         }
 
         if (iter != null) {
@@ -770,7 +769,7 @@ public class FormRenderer {
 
                 AbstractModelAction.runSubActions(modelForm.getRowActions(), localContext);
 
-                localContext.put("itemIndex", Integer.valueOf(itemIndex - lowIndex));
+                localContext.put("itemIndex", itemIndex - lowIndex);
                 if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {
                     localContext.put("formUniqueId", "_" + context.get("renderFormSeqNumber"));
                 }
@@ -898,9 +897,9 @@ public class FormRenderer {
             if ((itemIndex + 1) < highIndex) {
                 highIndex = itemIndex + 1;
                 // if list size is overridden, use full listSize
-                context.put("highIndex", Integer.valueOf(modelForm.isOverridenListSize() ? listSize : highIndex));
+                context.put("highIndex", modelForm.isOverridenListSize() ? listSize : highIndex);
             }
-            context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
+            context.put("actualPageSize", highIndex - lowIndex);
 
             if (iter instanceof EntityListIterator) {
                 try {
@@ -1157,7 +1156,7 @@ public class FormRenderer {
             if (nextFormField != null) {
                 if (nextFormField.getPosition() > currentFormField.getPosition()) {
                     positionSpan = nextFormField.getPosition() - currentFormField.getPosition() - 1;
-                    nextPositionInRow = Integer.valueOf(nextFormField.getPosition());
+                    nextPositionInRow = nextFormField.getPosition();
                 } else {
                     positionSpan = positions - currentFormField.getPosition();
                 }

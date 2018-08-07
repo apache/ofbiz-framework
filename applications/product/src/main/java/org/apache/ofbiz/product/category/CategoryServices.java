@@ -85,7 +85,7 @@ public class CategoryServices {
         Delegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         String productId = (String) context.get("productId");
-        boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
+        boolean activeOnly = (context.get("activeOnly") != null ? (Boolean) context.get("activeOnly") : true);
         Integer index = (Integer) context.get("index");
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
@@ -127,7 +127,7 @@ public class CategoryServices {
         if (productId != null && index == null) {
             for (GenericValue v: productCategoryMembers) {
                 if (v.getString("productId").equals(productId)) {
-                    index = Integer.valueOf(productCategoryMembers.indexOf(v));
+                    index = productCategoryMembers.indexOf(v);
                 }
             }
         }
@@ -143,16 +143,16 @@ public class CategoryServices {
         String previous = null;
         String next = null;
 
-        if (index.intValue() - 1 >= 0 && index.intValue() - 1 < productCategoryMembers.size()) {
-            previous = productCategoryMembers.get(index.intValue() - 1).getString("productId");
+        if (index - 1 >= 0 && index - 1 < productCategoryMembers.size()) {
+            previous = productCategoryMembers.get(index - 1).getString("productId");
             result.put("previousProductId", previous);
         } else {
             previous = productCategoryMembers.get(productCategoryMembers.size() - 1).getString("productId");
             result.put("previousProductId", previous);
         }
 
-        if (index.intValue() + 1 < productCategoryMembers.size()) {
-            next = productCategoryMembers.get(index.intValue() + 1).getString("productId");
+        if (index + 1 < productCategoryMembers.size()) {
+            next = productCategoryMembers.get(index + 1).getString("productId");
             result.put("nextProductId", next);
         } else {
             next = productCategoryMembers.get(0).getString("productId");
@@ -211,8 +211,8 @@ public class CategoryServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productCategoryId = (String) context.get("productCategoryId");
-        boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
-        int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
+        boolean limitView = (Boolean) context.get("limitView");
+        int defaultViewSize = (Integer) context.get("defaultViewSize");
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
@@ -222,12 +222,12 @@ public class CategoryServices {
 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
-        boolean useCacheForMembers = (context.get("useCacheForMembers") == null || ((Boolean) context.get("useCacheForMembers")).booleanValue());
-        boolean activeOnly = (context.get("activeOnly") == null || ((Boolean) context.get("activeOnly")).booleanValue());
+        boolean useCacheForMembers = (context.get("useCacheForMembers") == null || (Boolean) context.get("useCacheForMembers"));
+        boolean activeOnly = (context.get("activeOnly") == null || (Boolean) context.get("activeOnly"));
 
         // checkViewAllow defaults to false, must be set to true and pass the prodCatalogId to enable
         boolean checkViewAllow = (prodCatalogId != null && context.get("checkViewAllow") != null &&
-                ((Boolean) context.get("checkViewAllow")).booleanValue());
+                (Boolean) context.get("checkViewAllow"));
 
         String viewProductCategoryId = null;
         if (checkViewAllow) {
@@ -422,11 +422,11 @@ public class CategoryServices {
         }
 
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("viewIndex", Integer.valueOf(viewIndex));
-        result.put("viewSize", Integer.valueOf(viewSize));
-        result.put("lowIndex", Integer.valueOf(lowIndex));
-        result.put("highIndex", Integer.valueOf(highIndex));
-        result.put("listSize", Integer.valueOf(listSize));
+        result.put("viewIndex", viewIndex);
+        result.put("viewSize", viewSize);
+        result.put("lowIndex", lowIndex);
+        result.put("highIndex", highIndex);
+        result.put("listSize", listSize);
         if (productCategory != null) result.put("productCategory", productCategory);
         if (productCategoryMembers != null) result.put("productCategoryMembers", productCategoryMembers);
         return result;

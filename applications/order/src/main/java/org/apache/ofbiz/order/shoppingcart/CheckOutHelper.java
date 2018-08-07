@@ -807,7 +807,7 @@ public class CheckOutHelper {
             if (itemAdj != null) {
                 for (int x = 0; x < itemAdj.size(); x++) {
                     List<GenericValue> adjs = itemAdj.get(x);
-                    ShoppingCartItem item = shoppingCartItemIndexMap.get(Integer.valueOf(x));
+                    ShoppingCartItem item = shoppingCartItemIndexMap.get(x);
                     if (adjs == null) {
                         adjs = new LinkedList<>();
                     }
@@ -843,7 +843,7 @@ public class CheckOutHelper {
             price.add(i, cartItem.getBasePrice());
             quantity.add(i, cartItem.getQuantity());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
-            shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
+            shoppingCartItemIndexMap.put(i, cartItem);
         }
 
         //add promotion adjustments

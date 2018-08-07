@@ -93,7 +93,7 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
             Class<?> valClass = methodContext.getLoader().loadClass(className);
             Method valMethod = valClass.getMethod(methodName, paramTypes);
             Boolean resultBool = (Boolean) valMethod.invoke(null, params);
-            return resultBool.booleanValue();
+            return resultBool;
         } catch (Exception e) {
             throw new MiniLangRuntimeException(e, this);
         }

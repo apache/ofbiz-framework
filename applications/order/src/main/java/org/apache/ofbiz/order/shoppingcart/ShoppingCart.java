@@ -582,7 +582,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if ("PURCHASE_ORDER".equals(getOrderType())) {
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
-                 item = ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
+                 item = ShoppingCartItem.makePurchaseOrderItem(0, productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
             } else {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
@@ -595,7 +595,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            item = ShoppingCartItem.makeItem(Integer.valueOf(0), productId, selectedAmount, quantity, null,
+            item = ShoppingCartItem.makeItem(0, productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE);
@@ -618,7 +618,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public int addNonProductItem(String itemType, String description, String categoryId, BigDecimal price, BigDecimal quantity,
             Map<String, Object> attributes, String prodCatalogId, String itemGroupNumber, LocalDispatcher dispatcher) throws CartItemModifyException {
         ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
-        return this.addItem(0, ShoppingCartItem.makeItem(Integer.valueOf(0), itemType, description, categoryId, price, null, quantity, attributes, prodCatalogId, itemGroup, dispatcher, this, Boolean.TRUE));
+        return this.addItem(0, ShoppingCartItem.makeItem(0, itemType, description, categoryId, price, null, quantity, attributes, prodCatalogId, itemGroup, dispatcher, this, Boolean.TRUE));
     }
 
     /** Add an item to the shopping cart. */
@@ -2099,7 +2099,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         if (shipGroups.keySet() != null) {
             for (Integer shipGroup : shipGroups.keySet()) {
-                CartShipInfo cartShipInfo = this.getShipInfo(shipGroup.intValue());
+                CartShipInfo cartShipInfo = this.getShipInfo(shipGroup);
 
                 cartShipInfo.resetShipAfterDateIfBefore(item.getShipAfterDate());
                 cartShipInfo.resetShipBeforeDateIfAfter(item.getShipBeforeDate());
@@ -2470,7 +2470,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void setIsGift(int idx, Boolean isGift) {
         CartShipInfo csi = this.getShipInfo(idx);
         if (UtilValidate.isNotEmpty(isGift)) {
-            csi.isGift = isGift.booleanValue() ? "Y" : "N";
+            csi.isGift = isGift ? "Y" : "N";
         }
     }
 
@@ -4190,7 +4190,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             CartShipInfo csi = shipInfo.get(i);
             if ((csi.supplierPartyId == null && supplierPartyId == null) ||
                 (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
-                    shipGroups.put(Integer.valueOf(i), csi);
+                    shipGroups.put(i, csi);
             }
         }
         return shipGroups;
@@ -4341,7 +4341,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
                 Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.checkMap(supplierCartItems.get(cartItem));
 
-                cartItemGroupQuantities.put(Integer.valueOf(shipGroupIndex), dropShipQuantity);
+                cartItemGroupQuantities.put(shipGroupIndex, dropShipQuantity);
             }
         }
 
@@ -4354,7 +4354,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // Attempt to get the first ship group for the supplierPartyId
             TreeMap<Integer, CartShipInfo> supplierShipGroups = this.getShipGroupsBySupplier(supplierPartyId);
             if (! UtilValidate.isEmpty(supplierShipGroups)) {
-                newShipGroupIndex = (supplierShipGroups.firstKey()).intValue();
+                newShipGroupIndex = supplierShipGroups.firstKey();
                 shipInfo = supplierShipGroups.get(supplierShipGroups.firstKey());
             }
             if (newShipGroupIndex == -1) {
@@ -4669,7 +4669,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         public void setMaySplit(Boolean maySplit) {
             if (UtilValidate.isNotEmpty(maySplit)) {
-                this.maySplit = maySplit.booleanValue() ? "Y" : "N";
+                this.maySplit = maySplit ? "Y" : "N";
             }
         }
 

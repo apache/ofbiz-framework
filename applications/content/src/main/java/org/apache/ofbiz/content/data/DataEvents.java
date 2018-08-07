@@ -154,7 +154,7 @@ public class DataEvents {
 
             // no service errors; now check the actual response
             Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
-            if (!hasPermission.booleanValue()) {
+            if (!hasPermission) {
                 String errorMsg = (String) permSvcResp.get("failMessage");
                 Debug.logError(errorMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);

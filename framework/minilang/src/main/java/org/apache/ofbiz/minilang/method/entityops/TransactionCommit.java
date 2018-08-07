@@ -55,7 +55,7 @@ public final class TransactionCommit extends MethodOperation {
         boolean beganTransaction = false;
         Boolean beganTransactionBoolean = beganTransactionFma.get(methodContext.getEnvMap());
         if (beganTransactionBoolean != null) {
-            beganTransaction = beganTransactionBoolean.booleanValue();
+            beganTransaction = beganTransactionBoolean;
         }
         try {
             TransactionUtil.commit(beganTransaction);

@@ -410,7 +410,7 @@ public class ModelMenuItem extends ModelWidget {
         if (this.position == null) {
             return 1;
         }
-        return position.intValue();
+        return position;
     }
 
     public String getSelectedStyle() {

@@ -266,7 +266,7 @@ public class GenericWebEvent {
                     resultBool = Boolean.TRUE;
                 }
 
-                if (!resultBool.booleanValue()) {
+                if (!resultBool) {
                     Field msgField;
                     String message;
 

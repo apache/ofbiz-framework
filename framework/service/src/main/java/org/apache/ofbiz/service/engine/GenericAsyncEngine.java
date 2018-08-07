@@ -110,7 +110,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("statusId", "SERVICE_PENDING");
                 jFields.put("serviceName", modelService.name);
                 jFields.put("loaderName", localName);
-                jFields.put("maxRetry", Long.valueOf(modelService.maxRetry));
+                jFields.put("maxRetry", (long) modelService.maxRetry);
                 jFields.put("runtimeDataId", dataId);
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);

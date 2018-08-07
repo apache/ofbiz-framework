@@ -464,18 +464,18 @@ public class FindServices {
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, Object> context) {
         Integer viewSize = (Integer) context.get("viewSize");
         if (viewSize == null) {
-            viewSize = Integer.valueOf(20);       // default
+            viewSize = 20;       // default
         }
         context.put("viewSize", viewSize);
         Integer viewIndex = (Integer) context.get("viewIndex");
         if (viewIndex == null) {
-            viewIndex = Integer.valueOf(0);  // default
+            viewIndex = 0;  // default
         }
         context.put("viewIndex", viewIndex);
 
         Map<String, Object> result = performFind(dctx,context);
 
-        int start = viewIndex.intValue() * viewSize.intValue();
+        int start = viewIndex * viewSize;
         List<GenericValue> list = null;
         Integer listSize = 0;
         try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {

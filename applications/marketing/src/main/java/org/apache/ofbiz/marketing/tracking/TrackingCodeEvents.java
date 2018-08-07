@@ -148,9 +148,9 @@ public class TrackingCodeEvents {
                     trackingCode.set("lastModifiedDate", UtilDateTime.nowTimestamp());
 
                     //use nearly unlimited trackable lifetime: 10 billion seconds, 310 years
-                    trackingCode.set("trackableLifetime", Long.valueOf(10000000000L));
+                    trackingCode.set("trackableLifetime", 10000000000L);
                     //use 2592000 seconds as billable lifetime: equals 1 month
-                    trackingCode.set("billableLifetime", Long.valueOf(2592000));
+                    trackingCode.set("billableLifetime", 2592000L);
 
                     trackingCode.set("comments", "This TrackingCode has default values because no default TrackingCode could be found.");
 
@@ -224,9 +224,9 @@ public class TrackingCodeEvents {
 
         // if trackingCode.trackableLifetime not null and is > 0 write a trackable cookie with name in the form: TKCDT_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.trackableLifetime
         Long trackableLifetime = trackingCode.getLong("trackableLifetime");
-        if (trackableLifetime != null && (trackableLifetime.longValue() > 0 || trackableLifetime.longValue() == -1)) {
+        if (trackableLifetime != null && (trackableLifetime > 0 || trackableLifetime == -1)) {
             Cookie trackableCookie = new Cookie("TKCDT_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            if (trackableLifetime.longValue() > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
+            if (trackableLifetime > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
             trackableCookie.setSecure(true);
@@ -236,9 +236,9 @@ public class TrackingCodeEvents {
 
         // if trackingCode.billableLifetime not null and is > 0 write a billable cookie with name in the form: TKCDB_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.billableLifetime
         Long billableLifetime = trackingCode.getLong("billableLifetime");
-        if (billableLifetime != null && (billableLifetime.longValue() > 0 || billableLifetime.longValue() == -1)) {
+        if (billableLifetime != null && (billableLifetime > 0 || billableLifetime == -1)) {
             Cookie billableCookie = new Cookie("TKCDB_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            if (billableLifetime.longValue() > 0) billableCookie.setMaxAge(billableLifetime.intValue());
+            if (billableLifetime > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
             billableCookie.setSecure(true);

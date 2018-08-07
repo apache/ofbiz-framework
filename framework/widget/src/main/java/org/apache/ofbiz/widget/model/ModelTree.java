@@ -488,7 +488,7 @@ public class ModelTree extends ModelWidget {
             }
             if (nodeCount == null && modelField != null || this.modelTree.forceChildCheck) {
                 getChildren(context);
-                nodeCount = Long.valueOf(subNodeValues.size());
+                nodeCount = (long) subNodeValues.size();
                 String pkName = this.getPkName(context);
                 String id = null;
                 if (!this.entryName.isEmpty()) {
@@ -510,7 +510,7 @@ public class ModelTree extends ModelWidget {
                 }
             } else if (nodeCount == null) {
                 getChildren(context);
-                nodeCount = Long.valueOf(subNodeValues.size());
+                nodeCount = (long) subNodeValues.size();
             }
             if (nodeCount != null && nodeCount.intValue() > 0) {
                 hasChildren = true;
@@ -584,7 +584,7 @@ public class ModelTree extends ModelWidget {
                     }
                     treeStringRenderer.renderLastElement(writer, context, this);
                     Boolean processChildren = (Boolean) context.get("processChildren");
-                    if (processChildren.booleanValue()) {
+                    if (processChildren) {
                         List<Object[]> subNodeValues = getChildren(context);
                         int newDepth = depth + 1;
                         for (Object[] arr : subNodeValues) {

@@ -184,11 +184,11 @@ public class PermissionRecorder {
 
     public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
         Map<String, Object> map = UtilMisc.makeMapWritable(purposeOp);
-        map.put("contentOperationIdCond", Boolean.valueOf(targetOpCond));
-        map.put("contentPurposeTypeIdCond", Boolean.valueOf(purposeCond));
-        map.put("statusIdCond", Boolean.valueOf(statusCond));
-        map.put("privilegeEnumIdCond", Boolean.valueOf(privilegeCond));
-        map.put("roleTypeIdCond", Boolean.valueOf(roleCond));
+        map.put("contentOperationIdCond", targetOpCond);
+        map.put("contentPurposeTypeIdCond", purposeCond);
+        map.put("statusIdCond", statusCond);
+        map.put("privilegeEnumIdCond", privilegeCond);
+        map.put("roleTypeIdCond", roleCond);
         map.put("contentId", currentContentId);
         List<Map<String, Object>> checkResultList = UtilGenerics.checkList(currentContentMap.get("checkResultList"));
         checkResultList.add(map);
@@ -276,8 +276,8 @@ public class PermissionRecorder {
         for (int i=0; i < opFields.length; i++) {
             String opField = opFields[i];
             Boolean bool = (Boolean)rMap.get(opField + "Cond");
-            String cls = (bool.booleanValue()) ? "pass" : "fail";
-            if (!bool.booleanValue())
+            String cls = (bool) ? "pass" : "fail";
+            if (!bool)
                 isPass = false;
             sb.append("<td class=\"" + cls + "\">");
             s = (String)rMap.get(opField);

@@ -154,12 +154,12 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 locViewSize = Integer.parseInt(viewSizeString);
             } catch (NumberFormatException e) {
                 try {
-                    viewIndex = ((Integer) context.get("viewIndex")).intValue();
+                    viewIndex = (Integer) context.get("viewIndex");
                 } catch (Exception e2) {
                     viewIndex = 0;
                 }
             }
-            context.put("viewIndex", Integer.valueOf(viewIndex));
+            context.put("viewIndex", viewIndex);
             lowIndex = viewIndex * locViewSize;
             highIndex = (viewIndex + 1) * locViewSize;
         } else {
@@ -187,7 +187,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             } else {
                 contextMs.put(entryName, item);
             }
-            contextMs.put("itemIndex", Integer.valueOf(itemIndex));
+            contextMs.put("itemIndex", itemIndex);
 
             if (iterateIndex < listSize) {
                 contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
@@ -208,7 +208,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     lastPageNumber = (Integer)globalCtx.get("PAGINATOR_NUMBER");
-                    globalCtx.put("PAGINATOR_NUMBER", Integer.valueOf(startPageNumber));
+                    globalCtx.put("PAGINATOR_NUMBER", startPageNumber);
                 }
                 renderNextPrev(writer, context, listSize, actualPageSize);
                 if (globalCtx != null) {
@@ -230,7 +230,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     public boolean getPaginate(Map<String, Object> context) {
         if (!this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
-            return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
+            return Boolean.valueOf(this.paginate.expandString(context));
         }
         return true;
     }
@@ -265,14 +265,14 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
         int viewIndex = -1;
         try {
-            viewIndex = ((Integer) context.get("viewIndex")).intValue();
+            viewIndex = (Integer) context.get("viewIndex");
         } catch (Exception e) {
             viewIndex = 0;
         }
 
         int viewSize = -1;
         try {
-            viewSize = ((Integer) context.get("viewSize")).intValue();
+            viewSize = (Integer) context.get("viewSize");
         } catch (Exception e) {
             viewSize = this.getViewSize();
         }
@@ -314,7 +314,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
         }
         if (listSize > 0) {
-            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize));
+            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", lowIndex + 1, "highCount", lowIndex + actualPageSize, "total", listSize);
             String commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
             writer.append(" <span class=\"tabletext\">").append(commonDisplaying).append("</span> \n");
         }

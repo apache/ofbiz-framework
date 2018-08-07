@@ -179,7 +179,7 @@ public class ContentSearch {
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo(Long.valueOf(contentIds.size()), Double.valueOf(totalSeconds));
+            this.saveSearchResultInfo((long) contentIds.size(), totalSeconds);
 
             return contentIds;
         }
@@ -284,7 +284,7 @@ public class ContentSearch {
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
             }
-            dynamicViewEntity.addAlias("CNT", "contentId", null, null, null, Boolean.valueOf(contentIdGroupBy), null);
+            dynamicViewEntity.addAlias("CNT", "contentId", null, null, null, contentIdGroupBy, null);
             EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
 
             EntityListIterator eli = null;
@@ -305,7 +305,7 @@ public class ContentSearch {
         }
 
         public ArrayList<String> makeContentIdList(EntityListIterator eli) {
-            ArrayList<String> contentIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
+            ArrayList<String> contentIds = new ArrayList<String>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return contentIds;
@@ -318,9 +318,9 @@ public class ContentSearch {
                 if (initialResult != null) {
                     hasResults = true;
                 }
-                if (resultOffset != null && resultOffset.intValue() > 1) {
+                if (resultOffset != null && resultOffset > 1) {
                     if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    hasResults = eli.relative(resultOffset.intValue() - 1);
+                    hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }
 
@@ -338,9 +338,9 @@ public class ContentSearch {
                     // nothing to get...
                     int failTotal = 0;
                     if (this.resultOffset != null) {
-                        failTotal = this.resultOffset.intValue() - 1;
+                        failTotal = this.resultOffset - 1;
                     }
-                    this.totalResults = Integer.valueOf(failTotal);
+                    this.totalResults = failTotal;
                     return contentIds;
                 }
 
@@ -354,7 +354,7 @@ public class ContentSearch {
                 contentIds.add(searchResult.getString("contentId"));
                 contentIdSet.add(searchResult.getString("contentId"));
 
-                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults.intValue())) {
+                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults)) {
                     String contentId = searchResult.getString("contentId");
                     if (!contentIdSet.contains(contentId)) {
                         contentIds.add(contentId);
@@ -368,12 +368,12 @@ public class ContentSearch {
                 if (searchResult != null) {
                     this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
-                if (this.totalResults == null || this.totalResults.intValue() == 0) {
+                if (this.totalResults == null || this.totalResults == 0) {
                     int total = numRetreived;
                     if (this.resultOffset != null) {
-                        total += (this.resultOffset.intValue() - 1);
+                        total += (this.resultOffset - 1);
                     }
-                    this.totalResults = Integer.valueOf(total);
+                    this.totalResults = total;
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -618,7 +618,7 @@ public class ContentSearch {
             this.anySuffix = anySuffix;
             this.isAnd = isAnd;
             if (removeStems != null) {
-                this.removeStems = removeStems.booleanValue();
+                this.removeStems = removeStems;
             } else {
                 this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }

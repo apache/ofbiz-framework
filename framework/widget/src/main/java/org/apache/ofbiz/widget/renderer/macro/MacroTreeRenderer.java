@@ -206,7 +206,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderNodeEnd ");
         sr.append(" processChildren=");
-        sr.append(Boolean.toString(processChildren.booleanValue()));
+        sr.append(Boolean.toString(processChildren));
         sr.append(" isRootNode=");
         sr.append(Boolean.toString(node.isRootNode()));
         sr.append(" />");
@@ -220,7 +220,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        if (processChildren.booleanValue()) {
+        if (processChildren) {
             StringWriter sr = new StringWriter();
             sr.append("<@renderLastElement ");
             sr.append("style=\"");

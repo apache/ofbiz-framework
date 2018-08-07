@@ -93,11 +93,11 @@ public class KeywordIndex {
 
         int pidWeight = 1;
         try {
-            pidWeight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Product.productId", 0).intValue();
+            pidWeight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Product.productId", 0);
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(product.getString("productId").toLowerCase(Locale.getDefault()), Long.valueOf(pidWeight));
+        keywords.put(product.getString("productId").toLowerCase(Locale.getDefault()), (long) pidWeight);
 
         // Product fields - default is 0 if not found in the properties file
         if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0", delegator))) {
@@ -154,7 +154,7 @@ public class KeywordIndex {
                 for (GenericValue variantProductAssoc: variantProductAssocs) {
                     int weight = 1;
                     try {
-                        weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Variant.Product.productId", 0).intValue();
+                        weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.Variant.Product.productId", 0);
                     } catch (Exception e) {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }
@@ -170,7 +170,7 @@ public class KeywordIndex {
             int weight = 1;
             try {
                 // this is defaulting to a weight of 1 because you specified you wanted to index this type
-                weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.ProductContent." + productContentTypeId, 1).intValue();
+                weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.ProductContent." + productContentTypeId, 1);
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
@@ -194,7 +194,7 @@ public class KeywordIndex {
         }
 
         List<GenericValue> toBeStored = new LinkedList<>();
-        int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("prodsearch", "product.keyword.max.length", 0).intValue();
+        int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("prodsearch", "product.keyword.max.length", 0);
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
                 GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "keywordTypeId", "KWT_KEYWORD", "relevancyWeight", entry.getValue()));
@@ -232,7 +232,7 @@ public class KeywordIndex {
             int weight = 1;
 
             try {
-                weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, 1).intValue();
+                weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, 1);
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }

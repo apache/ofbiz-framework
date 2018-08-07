@@ -1107,7 +1107,7 @@ public abstract class ModelForm extends ModelWidget {
     public boolean getPaginate(Map<String, Object> context) {
         String paginate = this.paginate.expandString(context);
         if (!paginate.isEmpty()) {
-            return Boolean.valueOf(paginate).booleanValue();
+            return Boolean.valueOf(paginate);
         }
         return true;
     }
@@ -1314,7 +1314,7 @@ public abstract class ModelForm extends ModelWidget {
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
-                    if (boolVal.booleanValue()) {
+                    if (boolVal) {
                         styles += altRowStyle.style;
                     }
                 } else {
@@ -1351,7 +1351,7 @@ public abstract class ModelForm extends ModelWidget {
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
-                    condTrue = boolVal.booleanValue();
+                    condTrue = boolVal;
                 } else {
                     throw new IllegalArgumentException("Return value from target condition eval was not a Boolean: "
                             + retVal.getClass().getName() + " [" + retVal + "] of form " + getName());

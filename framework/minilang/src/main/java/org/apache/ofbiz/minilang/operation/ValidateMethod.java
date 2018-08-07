@@ -88,7 +88,7 @@ public class ValidateMethod extends SimpleMapOperation {
             Debug.logError("[ValidateMethod.exec] " + msg, module);
             return;
         }
-        if (!resultBool.booleanValue()) {
+        if (!resultBool) {
             addMessage(messages, loader, locale);
         }
     }

@@ -243,9 +243,9 @@ public final class UtilMisc {
         } else if (currentNumberObj instanceof BigDecimal) {
             currentNumber = (BigDecimal) currentNumberObj;
         } else if (currentNumberObj instanceof Double) {
-            currentNumber = new BigDecimal(((Double) currentNumberObj).doubleValue());
+            currentNumber = new BigDecimal((Double) currentNumberObj);
         } else if (currentNumberObj instanceof Long) {
-            currentNumber = new BigDecimal(((Long) currentNumberObj).longValue());
+            currentNumber = new BigDecimal((Long) currentNumberObj);
         } else {
             throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
         }
@@ -416,7 +416,7 @@ public final class UtilMisc {
      */
     public static double toDouble(Object obj) {
         Double result = toDoubleObject(obj);
-        return result == null ? 0.0 : result.doubleValue();
+        return result == null ? 0.0 : result;
     }
 
     /** Converts an <code>Object</code> to a <code>Double</code>. Returns
@@ -432,7 +432,7 @@ public final class UtilMisc {
             return (Double) obj;
         }
         if (obj instanceof Number) {
-            return Double.valueOf(((Number) obj).doubleValue());
+            return ((Number) obj).doubleValue();
         }
         Double result = null;
         try {
@@ -448,7 +448,7 @@ public final class UtilMisc {
      */
     public static int toInteger(Object obj) {
         Integer result = toIntegerObject(obj);
-        return result == null ? 0 : result.intValue();
+        return result == null ? 0 : result;
     }
 
     /** Converts an <code>Object</code> to an <code>Integer</code>. Returns
@@ -480,7 +480,7 @@ public final class UtilMisc {
      */
     public static long toLong(Object obj) {
         Long result = toLongObject(obj);
-        return result == null ? 0 : result.longValue();
+        return result == null ? 0 : result;
     }
 
     /** Converts an <code>Object</code> to a <code>Long</code>. Returns
@@ -496,7 +496,7 @@ public final class UtilMisc {
             return (Long) obj;
         }
         if (obj instanceof Number) {
-            return Long.valueOf(((Number) obj).longValue());
+            return ((Number) obj).longValue();
         }
         Long result = null;
         try {

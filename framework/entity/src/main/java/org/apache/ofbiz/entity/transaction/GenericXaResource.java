@@ -159,7 +159,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * @see javax.transaction.xa.XAResource#getTransactionTimeout()
      */
     public int getTransactionTimeout() throws XAException {
-        return this.timeout == null ? 0 : this.timeout.intValue();
+        return this.timeout == null ? 0 : this.timeout;
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * Note: the valus is saved but in the current implementation this is not used.
      */
     public boolean setTransactionTimeout(int seconds) throws XAException {
-        this.timeout = (seconds == 0 ? null : Integer.valueOf(seconds));
+        this.timeout = (seconds == 0 ? null : seconds);
         return true;
     }
 
@@ -205,7 +205,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         try {
             if (timeout != null) {
                 // sleep until the transaction times out
-                sleep(timeout.intValue() * 1000L);
+                sleep(timeout * 1000L);
 
                 if (active) {
                     // get the current status

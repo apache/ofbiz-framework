@@ -304,7 +304,7 @@ public class CommonServices {
 
     public static Map<String, Object> makeALotOfVisits(DispatchContext dctx, Map<String, ?> context) {
         Delegator delegator = dctx.getDelegator();
-        int count = ((Integer) context.get("count")).intValue();
+        int count = (Integer) context.get("count");
 
         for (int i = 0; i < count; i++) {
             GenericValue v = delegator.makeValue("Visit");

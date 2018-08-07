@@ -282,7 +282,7 @@ public class ProductionRun {
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
-        return recalculateEstimatedCompletionDate(Long.valueOf(0), estimatedStartDate);
+        return recalculateEstimatedCompletionDate(0L, estimatedStartDate);
     }
     /**
      * get the productionRunName property.
@@ -408,10 +408,10 @@ public class ProductionRun {
         double taskTime = 1;
         double totalTaskTime = 0;
         if (task.get("estimatedSetupMillis") != null) {
-            setupTime = task.getDouble("estimatedSetupMillis").doubleValue();
+            setupTime = task.getDouble("estimatedSetupMillis");
         }
         if (task.get("estimatedMilliSeconds") != null) {
-            taskTime = task.getDouble("estimatedMilliSeconds").doubleValue();
+            taskTime = task.getDouble("estimatedMilliSeconds");
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
         

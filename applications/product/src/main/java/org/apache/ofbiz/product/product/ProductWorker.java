@@ -74,7 +74,7 @@ public final class ProductWorker {
             if (chargeShipping == null) {
                 return true;
             }
-            return chargeShipping.booleanValue();
+            return chargeShipping;
         }
         throw new IllegalArgumentException(errMsg);
     }
@@ -148,7 +148,7 @@ public final class ProductWorker {
             if (taxable == null) {
                 return true;
             }
-            return taxable.booleanValue();
+            return taxable;
         }
         throw new IllegalArgumentException(errMsg);
     }

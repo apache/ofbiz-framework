@@ -268,7 +268,7 @@ public class WorkEffortSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                workEffortSearchOptions.setViewIndex(Integer.valueOf(0));
+                workEffortSearchOptions.setViewIndex(0);
             }
         }
 
@@ -278,7 +278,7 @@ public class WorkEffortSearchSession {
                 workEffortSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                workEffortSearchOptions.setViewSize(Integer.valueOf(20));
+                workEffortSearchOptions.setViewSize(20);
             }
         }
     }

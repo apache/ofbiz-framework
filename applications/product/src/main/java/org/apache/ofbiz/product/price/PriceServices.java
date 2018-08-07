@@ -402,7 +402,7 @@ public class PriceServices {
             result.put("averageCost", averageCostValue != null ? averageCostValue.getBigDecimal("price") : null);
             result.put("promoPrice", promoPriceValue != null ? promoPriceValue.getBigDecimal("price") : null);
             result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getBigDecimal("price") : null);
-            result.put("validPriceFound", Boolean.valueOf(validPriceFound));
+            result.put("validPriceFound", validPriceFound);
             result.put("isSale", Boolean.FALSE);
             result.put("orderItemPriceInfos", orderItemPriceInfos);
 
@@ -544,7 +544,7 @@ public class PriceServices {
                             Map<String, Object> priceResults = new HashMap<String, Object>();
                             try {
                                 priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object> toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo,
-                                        "originalValue", tempPrice, "defaultDecimalScale", Long.valueOf(2), "defaultRoundingMode", "HalfUp"));
+                                        "originalValue", tempPrice, "defaultDecimalScale", 2L, "defaultRoundingMode", "HalfUp"));
                                 if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
                                     Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId, module);
                                 }
@@ -1021,8 +1021,8 @@ public class PriceServices {
         calcResults.put("defaultPrice", defaultPrice);
         calcResults.put("averageCost", averageCost);
         calcResults.put("orderItemPriceInfos", orderItemPriceInfos);
-        calcResults.put("isSale", Boolean.valueOf(isSale));
-        calcResults.put("validPriceFound", Boolean.valueOf(validPriceFound));
+        calcResults.put("isSale", isSale);
+        calcResults.put("validPriceFound", validPriceFound);
 
         return calcResults;
     }
@@ -1251,7 +1251,7 @@ public class PriceServices {
                         priceFound = EntityUtil.getFirst(agreementPrices);
                         try {
                             Map<String, Object> priceConvertMap = UtilMisc.toMap("uomId", priceFound.getString("currencyUomId"), "uomIdTo", currencyUomId,
-                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , Long.valueOf(2) , "defaultRoundingMode" , "HalfUp");
+                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , 2L, "defaultRoundingMode" , "HalfUp");
                             Map<String, Object> priceResults = dispatcher.runSync("convertUom", priceConvertMap);
                             if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , module);
@@ -1375,7 +1375,7 @@ public class PriceServices {
         }
 
         result.put("price", price);
-        result.put("validPriceFound", Boolean.valueOf(validPriceFound));
+        result.put("validPriceFound", validPriceFound);
         result.put("orderItemPriceInfos", orderItemPriceInfos);
         return result;
     }

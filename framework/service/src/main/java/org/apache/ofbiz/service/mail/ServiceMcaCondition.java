@@ -100,7 +100,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
             if (reply == null) {
                 reply = Boolean.FALSE;
             }
-            return reply.booleanValue();
+            return reply;
         } else if (headerName != null) {
             // compare the header field
             MimeMessage message = messageWrapper.getMessage();

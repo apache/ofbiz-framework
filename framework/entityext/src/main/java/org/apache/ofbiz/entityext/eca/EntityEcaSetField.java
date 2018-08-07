@@ -78,7 +78,7 @@ public final class EntityEcaSetField {
             return s.toLowerCase();
         }
         if ("hash-code".equalsIgnoreCase(format)) {
-            return Integer.valueOf(s.hashCode());
+            return s.hashCode();
         }
         if ("long".equalsIgnoreCase(format)) {
             return Long.valueOf(s);

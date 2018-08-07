@@ -147,7 +147,7 @@ public class RecurrenceInfo {
     /** Returns the current count of this recurrence. */
     public long getCurrentCount() {
         if (info.get("recurrenceCount") != null) {
-            return info.getLong("recurrenceCount").longValue();
+            return info.getLong("recurrenceCount");
         }
         return 0;
     }

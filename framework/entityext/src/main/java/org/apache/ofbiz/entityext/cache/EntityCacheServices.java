@@ -174,7 +174,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
-        if (distributeBool != null) distribute = distributeBool.booleanValue();
+        if (distributeBool != null) distribute = distributeBool;
 
         delegator.clearAllCaches(distribute);
 
@@ -191,7 +191,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
-        if (distributeBool != null) distribute = distributeBool.booleanValue();
+        if (distributeBool != null) distribute = distributeBool;
 
         if (context.containsKey("value")) {
             GenericValue value = (GenericValue) context.get("value");

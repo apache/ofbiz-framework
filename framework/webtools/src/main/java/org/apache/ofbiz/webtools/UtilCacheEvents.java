@@ -212,9 +212,9 @@ public final class UtilCacheEvents {
 
         if (utilCache != null) {
             if (maxInMemory != null)
-                utilCache.setMaxInMemory(maxInMemory.intValue());
+                utilCache.setMaxInMemory(maxInMemory);
             if (expireTime != null)
-                utilCache.setExpireTime(expireTime.longValue());
+                utilCache.setExpireTime(expireTime);
             if (useSoftReferenceStr != null) {
                 utilCache.setUseSoftReference("true".equals(useSoftReferenceStr));
             }

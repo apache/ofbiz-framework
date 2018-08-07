@@ -53,7 +53,7 @@ public final class Trace extends MethodOperation {
             MiniLangValidate.handleError("Invalid level attribute", simpleMethod, element);
             this.level = Debug.INFO;
         } else {
-            this.level = levelInt.intValue();
+            this.level = levelInt;
         }
         methodOperations = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }

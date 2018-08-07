@@ -140,9 +140,9 @@ public class AgreementServices {
                             // if days is greater than zero, then it has been set with another value, so we use the lowest term days
                             // if days is less than zero, then it has not been set yet.
                             if (days > 0) {
-                                days = Math.min(days, termDays.longValue());
+                                days = Math.min(days, termDays);
                             } else {
-                                days = termDays.longValue();
+                                days = termDays;
                             }
                         }
                     }
@@ -163,7 +163,7 @@ public class AgreementServices {
                             "currencyUomId", agreementItem.getString("currencyUomId"),
                             "productId", productId);
                     if (days >= 0) {
-                        partyCommissionResult.put("days", Long.valueOf(days));
+                        partyCommissionResult.put("days", days);
                     }
                     if (!commissions.contains(partyCommissionResult)) {
                         commissions.add(partyCommissionResult);

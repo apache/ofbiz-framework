@@ -560,8 +560,8 @@ public final class JobManager {
         // set the loader name
         jFields.put("loaderName", delegator.getDelegatorName());
         // set the max retry
-        jFields.put("maxRetry", Long.valueOf(maxRetry));
-        jFields.put("currentRetryCount", Long.valueOf(0));
+        jFields.put("maxRetry", (long) maxRetry);
+        jFields.put("currentRetryCount", 0L);
         // create the value and store
         GenericValue jobV;
         try {

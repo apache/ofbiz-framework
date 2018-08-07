@@ -127,7 +127,7 @@ public final class UtilDateTime {
         StringBuilder sb = new StringBuilder();
         for (int i = parts.size() - 1; i >= 0 && count > 0; i--) {
             Double D = parts.get(i);
-            double d = D.doubleValue();
+            double d = D;
             if (d < 1) {
                 continue;
             }
@@ -225,7 +225,7 @@ public final class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp) {
-        return getDayEnd(stamp, Long.valueOf(0));
+        return getDayEnd(stamp, 0L);
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, Long daysLater) {
@@ -821,7 +821,7 @@ public final class UtilDateTime {
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        return getDayEnd(stamp, Long.valueOf(0), timeZone, locale);
+        return getDayEnd(stamp, 0L, timeZone, locale);
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, Long daysLater, TimeZone timeZone, Locale locale) {

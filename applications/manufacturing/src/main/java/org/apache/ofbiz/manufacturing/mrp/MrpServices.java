@@ -138,7 +138,7 @@ public class MrpServices {
             notAssignedDate = now;
         } else {
             Calendar calendar = UtilDateTime.toCalendar(now);
-            calendar.add(Calendar.YEAR, defaultYearsOffset.intValue());
+            calendar.add(Calendar.YEAR, defaultYearsOffset);
             notAssignedDate = new Timestamp(calendar.getTimeInMillis());
         }
         resultList = null;
@@ -679,9 +679,9 @@ public class MrpServices {
             if (bomLevel == 0) {
                 filterByConditions = EntityCondition.makeCondition(EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, null),
                                             EntityOperator.OR,
-                                            EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, Long.valueOf(bomLevel)));
+                                            EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel));
             } else {
-                filterByConditions = EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, Long.valueOf(bomLevel));
+                filterByConditions = EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel);
             }
             try {
                 listInventoryEventForMRP = EntityQuery.use(delegator).from("MrpEventView")
@@ -689,7 +689,7 @@ public class MrpServices {
                         .orderBy("productId", "eventDate")
                         .queryList();
             } catch (GenericEntityException e) {
-                Long bomLevelToString = new Long(bomLevel);
+                Long bomLevelToString = bomLevel;
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorForBomLevel", UtilMisc.toMap("bomLevel", bomLevelToString.toString(), "errorString", e.getMessage()), locale));
             }
 

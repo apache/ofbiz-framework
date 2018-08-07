@@ -123,7 +123,7 @@ public class RecurrenceRule {
         if (!checkFreq(freq)) {
             throw new RecurrenceRuleException("Recurrence FREQUENCY is a required parameter.");
         }
-        if (rule.getLong("intervalNumber").longValue() < 1) {
+        if (rule.getLong("intervalNumber") < 1) {
             throw new RecurrenceRuleException("Recurrence INTERVAL must be a positive integer.");
         }
 
@@ -198,7 +198,7 @@ public class RecurrenceRule {
      */
     public long getCount() {
         if (rule.get("countNumber") != null) {
-            return rule.getLong("countNumber").longValue();
+            return rule.getLong("countNumber");
         }
         return 0;
     }
@@ -253,7 +253,7 @@ public class RecurrenceRule {
         if (rule.get("intervalNumber") == null) {
             return 1;
         }
-        return rule.getLong("intervalNumber").longValue();
+        return rule.getLong("intervalNumber");
     }
 
     /**
@@ -823,8 +823,8 @@ public class RecurrenceRule {
             GenericValue value = delegator.makeValue("RecurrenceRule");
 
             value.set("frequency", freqStr);
-            value.set("intervalNumber", Long.valueOf(interval));
-            value.set("countNumber", Long.valueOf(count));
+            value.set("intervalNumber", (long) interval);
+            value.set("countNumber", (long) count);
             if (endTime > 0) {
                 value.set("untilDateTime", new java.sql.Timestamp(endTime));
             }

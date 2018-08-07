@@ -187,7 +187,7 @@ public class AIMPaymentServices {
         }
         Map<String, Object> reply = processCard(request, props, locale);
         results.putAll(processRefundTransResult(request, reply));
-        boolean refundResult = ((Boolean)results.get("refundResult")).booleanValue();
+        boolean refundResult = (Boolean) results.get("refundResult");
         String refundFlag = (String)results.get("refundFlag");
         // Since the refund failed, we are going to void the previous authorization against
         // which ccRefunds attempted to issue the refund.  This happens because Authorize.NET requires
@@ -645,10 +645,10 @@ public class AIMPaymentServices {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
             Boolean authResult = (Boolean) reply.get("authResult");
-            results.put("authResult", new Boolean(authResult.booleanValue()));
+            results.put("authResult", authResult);
             results.put("authFlag", ar.getReasonCode());
             results.put("authMessage", ar.getReasonText());
-            if (authResult.booleanValue()) { //passed
+            if (authResult) { //passed
                 results.put("authCode", ar.getAuthorizationCode());
                 results.put("authRefNum", ar.getTransactionId());
                 results.put("cvCode", ar.getCvResult());
@@ -676,11 +676,11 @@ public class AIMPaymentServices {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
             Boolean captureResult = (Boolean) reply.get("authResult");
-            results.put("captureResult", new Boolean(captureResult.booleanValue()));
+            results.put("captureResult", captureResult);
             results.put("captureFlag", ar.getReasonCode());
             results.put("captureMessage", ar.getReasonText());
             results.put("captureRefNum", ar.getTransactionId());
-            if (captureResult.booleanValue()) { //passed
+            if (captureResult) { //passed
                 results.put("captureCode", ar.getAuthorizationCode());
                 if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
                     results.put("captureAmount", getXAmount(request));
@@ -702,11 +702,11 @@ public class AIMPaymentServices {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
             Boolean captureResult = (Boolean) reply.get("authResult");
-            results.put("refundResult", new Boolean(captureResult.booleanValue()));
+            results.put("refundResult", captureResult);
             results.put("refundFlag", ar.getReasonCode());
             results.put("refundMessage", ar.getReasonText());
             results.put("refundRefNum", ar.getTransactionId());
-            if (captureResult.booleanValue()) { //passed
+            if (captureResult) { //passed
                 results.put("refundCode", ar.getAuthorizationCode());
                 if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
                     results.put("refundAmount", getXAmount(request));
@@ -729,11 +729,11 @@ public class AIMPaymentServices {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
             Boolean captureResult = (Boolean) reply.get("authResult");
-            results.put("releaseResult", new Boolean(captureResult.booleanValue()));
+            results.put("releaseResult", captureResult);
             results.put("releaseFlag", ar.getReasonCode());
             results.put("releaseMessage", ar.getReasonText());
             results.put("releaseRefNum", ar.getTransactionId());
-            if (captureResult.booleanValue()) { //passed
+            if (captureResult) { //passed
                 results.put("releaseCode", ar.getAuthorizationCode());
                 if (BigDecimal.ZERO.compareTo(ar.getAmount()) == 0) {
                     results.put("releaseAmount", getXAmount(request));
@@ -755,14 +755,14 @@ public class AIMPaymentServices {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         try {
         Boolean authResult = (Boolean) reply.get("authResult");
-        results.put("authResult", new Boolean(authResult.booleanValue()));
+        results.put("authResult", authResult);
         results.put("authFlag", ar.getReasonCode());
         results.put("authMessage", ar.getReasonText());
-        results.put("captureResult", new Boolean(authResult.booleanValue()));
+        results.put("captureResult", authResult);
         results.put("captureFlag", ar.getReasonCode());
         results.put("captureMessage", ar.getReasonText());
         results.put("captureRefNum", ar.getTransactionId());
-        if (authResult.booleanValue()) { //passed
+        if (authResult) { //passed
             results.put("authCode", ar.getAuthorizationCode());
             results.put("authRefNum", ar.getTransactionId());
             results.put("cvCode", ar.getCvResult());

@@ -595,7 +595,7 @@ public class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error getting user preference", module);
         }
-        session.setAttribute("javaScriptEnabled", Boolean.valueOf("Y".equals(javaScriptEnabled)));
+        session.setAttribute("javaScriptEnabled", "Y".equals(javaScriptEnabled));
 
         //init theme from user preference, clean the current visualTheme value in session and restart the resolution
         UtilHttp.setVisualTheme(session, null);
