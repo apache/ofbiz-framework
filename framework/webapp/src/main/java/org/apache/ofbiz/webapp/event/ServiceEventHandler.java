@@ -222,7 +222,7 @@ public class ServiceEventHandler implements EventHandler {
                             }
                         }
                         multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
-                        multiPartMap.put("_" + fieldName + "_size", Long.valueOf(item.getSize()));
+                        multiPartMap.put("_" + fieldName + "_size", item.getSize());
                         multiPartMap.put("_" + fieldName + "_fileName", fileName);
                         multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());
                     }

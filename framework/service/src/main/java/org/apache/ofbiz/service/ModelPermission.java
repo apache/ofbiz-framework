@@ -122,6 +122,6 @@ public class ModelPermission implements Serializable {
             Debug.logError(failMessage, module);
             return false;
         }
-        return ((Boolean) resp.get("hasPermission")).booleanValue();
+        return (Boolean) resp.get("hasPermission");
     }
 }

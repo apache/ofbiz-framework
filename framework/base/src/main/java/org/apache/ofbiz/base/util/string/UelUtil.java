@@ -543,11 +543,11 @@ public final class UelUtil {
             } else if ("boolean".equals(createObjectType)) {
                 return Boolean.FALSE;
             } else if ("integer".equals(createObjectType)) {
-                return Integer.valueOf(0);
+                return 0;
             } else if ("long".equals(createObjectType)) {
-                return Long.valueOf(0);
+                return 0L;
             } else if ("double".equals(createObjectType)) {
-                return Double.valueOf(0);
+                return (double) 0;
             } else if ("bigDecimal".equals(createObjectType)) {
                 return BigDecimal.ZERO;
             }

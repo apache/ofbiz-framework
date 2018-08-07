@@ -247,7 +247,7 @@ public class ScreenRenderer {
                 context.put("https", https);
             }
         }
-        context.put("javaScriptEnabled", Boolean.valueOf(UtilHttp.isJavaScriptEnabled(request)));
+        context.put("javaScriptEnabled", UtilHttp.isJavaScriptEnabled(request));
 
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
         context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));

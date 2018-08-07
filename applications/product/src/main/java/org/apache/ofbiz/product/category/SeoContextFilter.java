@@ -246,7 +246,7 @@ public class SeoContextFilter implements Filter {
             if (responseCodeInt == null) {
                 response.setStatus(SeoConfigUtil.getDefaultResponseCode());
             } else {
-                response.setStatus(responseCodeInt.intValue());
+                response.setStatus(responseCodeInt);
             }
             response.setHeader("Location", uri);
         } else {

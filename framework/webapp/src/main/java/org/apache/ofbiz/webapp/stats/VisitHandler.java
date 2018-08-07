@@ -81,7 +81,7 @@ public class VisitHandler {
             if (modelUserLogin.isField("partyId")) {
                 visit.set("partyId", userLogin.get("partyId"));
             }
-            visit.set("userCreated", Boolean.valueOf(userCreated));
+            visit.set("userCreated", userCreated);
 
             // make sure the visitorId is still in place
             if (visitor != null) {

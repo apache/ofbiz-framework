@@ -521,29 +521,29 @@ public class ModelFormFieldBuilder {
         if ("find".equals(defaultFieldType)) {
             if ("id".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        Integer.valueOf(20), null);
+                        20, null);
                 this.setFieldInfo(textField);
             } else if ("id-long".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        Integer.valueOf(60), null);
+                        60, null);
                 this.setFieldInfo(textField);
             } else if ("id-vlong".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        Integer.valueOf(250), null);
+                        250, null);
                 this.setFieldInfo(textField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        Integer.valueOf(10), null);
+                        10, null);
                 this.setFieldInfo(textField);
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        Integer.valueOf(60), null);
+                        60, null);
                 this.setFieldInfo(textField);
             } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
                     || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
                     || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        Integer.valueOf(250), null);
+                        250, null);
                 this.setFieldInfo(textField);
             } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
                     || "numeric".equals(modelField.getType()) || "fixed-point".equals(modelField.getType()) || "currency-precise".equals(modelField.getType())) {
@@ -570,15 +570,15 @@ public class ModelFormFieldBuilder {
         } else {
             if ("id".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        Integer.valueOf(20), null);
+                        20, null);
                 this.setFieldInfo(textField);
             } else if ("id-long".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        Integer.valueOf(60), null);
+                        60, null);
                 this.setFieldInfo(textField);
             } else if ("id-vlong".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        Integer.valueOf(250), null);
+                        250, null);
                 this.setFieldInfo(textField);
             } else if ("indicator".equals(modelField.getType())) {
                 List<OptionSource> optionSources = new ArrayList<>();
@@ -589,20 +589,20 @@ public class ModelFormFieldBuilder {
                 this.setFieldInfo(dropDownField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        Integer.valueOf(10), null);
+                        10, null);
                 this.setFieldInfo(textField);
             } else if ("very-long".equals(modelField.getType())) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textareaField);
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        Integer.valueOf(60), null);
+                        60, null);
                 this.setFieldInfo(textField);
             } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
                     || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
                     || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        Integer.valueOf(250), null);
+                        250, null);
                 this.setFieldInfo(textField);
             } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
                     || "numeric".equals(modelField.getType())) {

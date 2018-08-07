@@ -241,7 +241,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Debug.logWarning(fullString.toString(), module);
                 throw new IllegalArgumentException(fullString.toString());
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
     }
 
@@ -298,7 +298,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Debug.logWarning(fullString.toString(), module);
                 throw new IllegalArgumentException(fullString.toString());
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
     }
 
@@ -506,7 +506,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 }
                 Boolean hasPermission = (Boolean) resp.get("hasPermission");
                 if (hasPermission != null) {
-                    return hasPermission.booleanValue();
+                    return hasPermission;
                 }
             }
             return false;
@@ -575,7 +575,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className
                         + ", defaulting to false ", module);
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
     }
 

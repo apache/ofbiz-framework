@@ -271,7 +271,7 @@ public class ShoppingCartHelper {
         // Indicate there were no critical errors
         result = ServiceUtil.returnSuccess();
         if (itemId != -1) {
-            result.put("itemId", Integer.valueOf(itemId));
+            result.put("itemId", itemId);
         }
         return result;
     }

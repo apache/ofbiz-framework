@@ -191,7 +191,7 @@ public final class ProductUtilServices {
                 EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, nowTimestamp),
                 EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
                ), EntityOperator.AND);
-        EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, Long.valueOf(1));
+        EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, 1L);
 
         try (EntityListIterator eli = EntityQuery.use(delegator).select("productId", "productCategoryId", "productIdCount").from(dve).where(condition).having(havingCond).queryIterator()) {
             GenericValue pcm = null;
@@ -247,7 +247,7 @@ public final class ProductUtilServices {
                         EntityOperator.OR,
                         EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))
                ), EntityOperator.AND);
-        EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, Long.valueOf(1));
+        EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, 1L);
         EntityQuery eq = EntityQuery.use(delegator)
                 .select("productId", "productIdToCount")
                 .from(dve)
@@ -335,14 +335,14 @@ public final class ProductUtilServices {
 
         String productId = (String) context.get("productId");
         Boolean removeOldBool = (Boolean) context.get("removeOld");
-        boolean removeOld = removeOldBool.booleanValue();
+        boolean removeOld = removeOldBool;
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
         Boolean testBool = (Boolean) context.get("test");
         boolean test = false;
         if (testBool != null) {
-            test = testBool.booleanValue();
+            test = testBool;
         }
 
         try {

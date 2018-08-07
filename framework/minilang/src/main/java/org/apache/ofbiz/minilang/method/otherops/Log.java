@@ -60,7 +60,7 @@ public final class Log extends MethodOperation {
             MiniLangValidate.handleError("Invalid level attribute", simpleMethod, element);
             this.level = Debug.INFO;
         } else {
-            this.level = levelInt.intValue();
+            this.level = levelInt;
         }
     }
 

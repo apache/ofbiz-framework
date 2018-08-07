@@ -152,7 +152,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(Double obj) throws ConversionException {
-            return BigDecimal.valueOf(obj.doubleValue());
+            return BigDecimal.valueOf(obj);
         }
     }
 
@@ -231,7 +231,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(Integer obj) throws ConversionException {
-            return BigDecimal.valueOf(obj.intValue());
+            return BigDecimal.valueOf(obj);
         }
     }
 
@@ -262,7 +262,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(Long obj) throws ConversionException {
-            return BigDecimal.valueOf(obj.longValue());
+            return BigDecimal.valueOf(obj);
         }
     }
 

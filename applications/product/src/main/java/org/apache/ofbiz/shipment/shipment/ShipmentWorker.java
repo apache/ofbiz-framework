@@ -114,7 +114,7 @@ public final class ShipmentWorker {
 
         if (UtilValidate.isNotEmpty(shippableItemInfo)) {
             for (Map<String, Object> itemInfo: shippableItemInfo) {
-                long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
+                long pieces = (Long) itemInfo.get("piecesIncluded");
                 BigDecimal totalQuantity = (BigDecimal) itemInfo.get("quantity");
                 BigDecimal totalWeight = (BigDecimal) itemInfo.get("weight");
                 String productId = (String) itemInfo.get("productId");

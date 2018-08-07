@@ -779,7 +779,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
-        Integer textSize = Integer.valueOf(0);
+        Integer textSize = 0;
         if (UtilValidate.isNotEmpty(dropDownField.getTextSize())) {
             try {
                 textSize = Integer.parseInt(dropDownField.getTextSize());
@@ -1654,7 +1654,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String oddRowStyle = "";
         if (itemIndex != null) {
             altRowStyles = modelForm.getStyleAltRowStyle(context);
-            if (itemIndex.intValue() % 2 == 0) {
+            if (itemIndex % 2 == 0) {
                 evenRowStyle = modelForm.getEvenRowStyle();
             } else {
                 oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
@@ -2347,7 +2347,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
             pageLabel = uiLabelMap.get("CommonPage");
-            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize));
+            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", lowIndex + 1, "highCount", lowIndex + actualPageSize, "total", listSize);
             commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
         }
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"

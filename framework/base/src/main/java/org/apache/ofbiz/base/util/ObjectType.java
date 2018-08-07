@@ -753,13 +753,13 @@ public class ObjectType {
             Boolean value1Boolean = (Boolean) convertedValue1;
             Boolean value2Boolean = (Boolean) convertedValue2;
             if ("equals".equals(operator)) {
-                if ((value1Boolean.booleanValue() && value2Boolean.booleanValue()) || (!value1Boolean.booleanValue() && !value2Boolean.booleanValue())) {
+                if ((value1Boolean && value2Boolean) || (!value1Boolean && !value2Boolean)) {
                     result = 0;
                 } else {
                     result = 1;
                 }
             } else if ("not-equals".equals(operator)) {
-                if ((!value1Boolean.booleanValue() && value2Boolean.booleanValue()) || (value1Boolean.booleanValue() && !value2Boolean.booleanValue())) {
+                if ((!value1Boolean && value2Boolean) || (value1Boolean && !value2Boolean)) {
                     result = 0;
                 } else {
                     result = 1;

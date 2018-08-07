@@ -827,9 +827,9 @@ public class ContentManagementServices {
         String contentIdTo = (String)context.get("contentIdTo");
         Integer seqInc = (Integer)context.get("seqInc");
         if (seqInc == null) {
-            seqInc = Integer.valueOf(100);
+            seqInc = 100;
         }
-        int seqIncrement = seqInc.intValue();
+        int seqIncrement = seqInc;
         List<String> typeList = UtilGenerics.checkList(context.get("typeList"));
         if (typeList == null) {
             typeList = new LinkedList<String>();
@@ -864,7 +864,7 @@ public class ContentManagementServices {
                                 try {
                                     GenericValue prevValue = listAll.get(i-1);
                                     Long prevSeqNum = (Long)prevValue.get("sequenceNum");
-                                    prevValue.put("sequenceNum", Long.valueOf(seqNum));
+                                    prevValue.put("sequenceNum", (long) seqNum);
                                     prevValue.store();
                                     contentAssoc.put("sequenceNum", prevSeqNum);
                                     contentAssoc.store();
@@ -876,20 +876,20 @@ public class ContentManagementServices {
                             if (i < listAll.size()) {
                                 // Swap with next entry
                                 GenericValue nextValue = listAll.get(i+1);
-                                nextValue.put("sequenceNum", Long.valueOf(seqNum));
+                                nextValue.put("sequenceNum", (long) seqNum);
                                 nextValue.store();
                                 seqNum += seqIncrement;
-                                contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
+                                contentAssoc.put("sequenceNum", (long) seqNum);
                                 contentAssoc.store();
                                 i++; // skip next one
                             }
                         }
                     } else {
-                        contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
+                        contentAssoc.put("sequenceNum", (long) seqNum);
                         contentAssoc.store();
                     }
                 } else {
-                    contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
+                    contentAssoc.put("sequenceNum", (long) seqNum);
                     contentAssoc.store();
                 }
                 seqNum += seqIncrement;
@@ -938,7 +938,7 @@ public class ContentManagementServices {
                 serviceIn.put("userLogin", userLogin);
                 serviceIn.put("contentIdTo", contentId);
                 serviceIn.put("contentAssocTypeId", "SUB_CONTENT");
-                serviceIn.put("sequenceNum", Long.valueOf(50));
+                serviceIn.put("sequenceNum", 50L);
                 try {
                     thisResult = dispatcher.runSync("persistContentAndAssoc", serviceIn);
                     if (ServiceUtil.isError(thisResult)) {
@@ -969,7 +969,7 @@ public class ContentManagementServices {
         String startContentId = (String)context.get("contentId");
         try {
             int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, startContentId, typeList);
-            result.put("leafCount", Integer.valueOf(leafCount));
+            result.put("leafCount", leafCount);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());
@@ -1210,11 +1210,11 @@ public class ContentManagementServices {
         }
         Long leafCount = (Long)content.get("childLeafCount");
         if (leafCount == null) {
-            content.set("childLeafCount", Long.valueOf(0));
+            content.set("childLeafCount", 0L);
         }
         Long branchCount = (Long)content.get("childBranchCount");
         if (branchCount == null) {
-            content.set("childBranchCount", Long.valueOf(0));
+            content.set("childBranchCount", 0L);
         }
 
         return result;
@@ -1234,7 +1234,7 @@ public class ContentManagementServices {
             }
             Long leafCount = (Long)content.get("childLeafCount");
             if (leafCount == null) {
-                leafCount = Long.valueOf(0);
+                leafCount = 0L;
             }
             int changeLeafCount = leafCount.intValue() + 1;
             int changeBranchCount = 1;
@@ -1260,7 +1260,7 @@ public class ContentManagementServices {
             }
             Long leafCount = (Long)content.get("childLeafCount");
             if (leafCount == null) {
-                leafCount = Long.valueOf(0);
+                leafCount = 0L;
             }
             int changeLeafCount = -1 * leafCount.intValue() - 1;
             int changeBranchCount = -1;
@@ -1353,7 +1353,7 @@ public class ContentManagementServices {
         } else {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
         }
-        calendar.add(field, useTime.intValue());
+        calendar.add(field, useTime);
         thruDate = new Timestamp(calendar.getTimeInMillis());
         contentRole.set("thruDate", thruDate);
         try {
@@ -1385,7 +1385,7 @@ public class ContentManagementServices {
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
         if (qty == null) {
-            qty = Integer.valueOf(1);
+            qty = 1;
         }
 
         GenericValue productContent = null;
@@ -1413,7 +1413,7 @@ public class ContentManagementServices {
         Long useTime = (Long) productContent.get("useTime");
         Integer newUseTime = null;
         if (UtilValidate.isNotEmpty(useTime)) {
-            newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
+            newUseTime = useTime.intValue() * qty;
         }
         context.put("useTime", newUseTime);
         context.put("useTimeUomId", productContent.get("useTimeUomId"));
@@ -1468,7 +1468,7 @@ public class ContentManagementServices {
                         .filterByDate().queryCount();
                 if (productContentCount > 0) {
                     context.put("productId", productId);
-                    context.put("quantity", Integer.valueOf(qty.intValue()));
+                    context.put("quantity", qty.intValue());
                     Map<String, Object> ctx = subscriptionModel.makeValid(context, ModelService.IN_PARAM);
                     result = dispatcher.runSync("updateContentSubscriptionByProduct", ctx);
                     if (ServiceUtil.isError(result)) {

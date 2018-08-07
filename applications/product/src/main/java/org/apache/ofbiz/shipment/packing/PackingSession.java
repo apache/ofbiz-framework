@@ -973,7 +973,7 @@ public class PackingSession implements java.io.Serializable {
         Set<Integer> packageSeqIds = new TreeSet<Integer>();
         if (! UtilValidate.isEmpty(this.getLines())) {
             for (PackingSessionLine line: this.getLines()) {
-                packageSeqIds.add(Integer.valueOf(line.getPackageSeq()));
+                packageSeqIds.add(line.getPackageSeq());
             }
         }
         return UtilMisc.makeListWritable(packageSeqIds);
@@ -981,9 +981,9 @@ public class PackingSession implements java.io.Serializable {
 
     public void setPackageWeight(int packageSeqId, BigDecimal packageWeight) {
         if (UtilValidate.isEmpty(packageWeight)) {
-            packageWeights.remove(Integer.valueOf(packageSeqId));
+            packageWeights.remove(packageSeqId);
         } else {
-            packageWeights.put(Integer.valueOf(packageSeqId), packageWeight);
+            packageWeights.put(packageSeqId, packageWeight);
         }
     }
 
@@ -1007,9 +1007,9 @@ public class PackingSession implements java.io.Serializable {
     // These methods (setShipmentBoxType and getShipmentBoxType) are added so that each package will have different box type.
     public void setShipmentBoxType(int packageSeqId, String shipmentBoxType) {
         if (UtilValidate.isEmpty(shipmentBoxType)) {
-            shipmentBoxTypes.remove(Integer.valueOf(packageSeqId));
+            shipmentBoxTypes.remove(packageSeqId);
         } else {
-            shipmentBoxTypes.put(Integer.valueOf(packageSeqId), shipmentBoxType);
+            shipmentBoxTypes.put(packageSeqId, shipmentBoxType);
         }
     }
 

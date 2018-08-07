@@ -408,17 +408,17 @@ public class TaxAuthorityServices {
                 BigDecimal taxable = ZERO_BASE;
 
                 if (product != null && (product.get("taxable") == null || (product.get("taxable") != null && product
-                        .getBoolean("taxable").booleanValue()))) {
+                        .getBoolean("taxable")))) {
                     taxable = taxable.add(itemAmount);
                 }
                 if (shippingAmount != null && (taxAuthorityRateProduct.get("taxShipping") == null
                         || (taxAuthorityRateProduct.get("taxShipping") != null && taxAuthorityRateProduct.getBoolean(
-                                "taxShipping").booleanValue()))) {
+                        "taxShipping")))) {
                     taxable = taxable.add(shippingAmount);
                 }
                 if (orderPromotionsAmount != null && (taxAuthorityRateProduct.get("taxPromotions") == null
                         || (taxAuthorityRateProduct.get("taxPromotions") != null && taxAuthorityRateProduct.getBoolean(
-                                "taxPromotions").booleanValue()))) {
+                        "taxPromotions")))) {
                     taxable = taxable.add(orderPromotionsAmount);
                 }
 

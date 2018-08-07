@@ -125,7 +125,7 @@ public final class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
-        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
+        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip;
         Map<String, Object> paramMap = new HashMap<>();
 
         // add all the actual HTTP request parameters
@@ -191,7 +191,7 @@ public final class UtilHttp {
     }
 
     public static Map<String, Object> getPathInfoOnlyParameterMap(String pathInfoStr, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
-        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
+        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip;
         Map<String, Object> paramMap = new HashMap<>();
 
         // now add in all path info parameters /~name1=value1/~name2=value2/
@@ -1389,7 +1389,7 @@ public final class UtilHttp {
         HttpSession session = request.getSession();
         Boolean javaScriptEnabled = (Boolean) session.getAttribute("javaScriptEnabled");
         if (javaScriptEnabled != null) {
-            return javaScriptEnabled.booleanValue();
+            return javaScriptEnabled;
         }
         return false;
     }
@@ -1470,10 +1470,10 @@ public final class UtilHttp {
     public static String getNextUniqueId(HttpServletRequest request) {
         Integer uniqueIdNumber= (Integer)request.getAttribute("UNIQUE_ID");
         if (uniqueIdNumber == null) {
-            uniqueIdNumber = Integer.valueOf(1);
+            uniqueIdNumber = 1;
         }
 
-        request.setAttribute("UNIQUE_ID", Integer.valueOf(uniqueIdNumber.intValue() + 1));
+        request.setAttribute("UNIQUE_ID", uniqueIdNumber + 1);
         return "autoId_" + uniqueIdNumber;
     }
 

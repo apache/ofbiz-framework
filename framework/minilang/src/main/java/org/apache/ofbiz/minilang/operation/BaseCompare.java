@@ -47,7 +47,7 @@ public abstract class BaseCompare extends SimpleMapOperation {
 
     public void doCompare(Object value1, Object value2, List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         Boolean success = BaseCompare.doRealCompare(value1, value2, this.operator, this.type, this.format, messages, locale, loader, value2InlineConstant);
-        if (success != null && success.booleanValue() == false) {
+        if (success != null && success == false) {
             addMessage(messages, loader, locale);
         }
     }

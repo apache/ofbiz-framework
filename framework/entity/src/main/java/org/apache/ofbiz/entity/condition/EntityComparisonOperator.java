@@ -137,7 +137,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     public abstract boolean compare(L lhs, R rhs);
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs) {
-        return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
+        return mapMatches(delegator, map, lhs, rhs);
     }
 
     @Override

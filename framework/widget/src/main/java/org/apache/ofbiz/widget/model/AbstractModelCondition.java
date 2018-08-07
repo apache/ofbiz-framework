@@ -262,7 +262,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 Debug.logWarning(fullString.toString(), module);
                 throw new IllegalArgumentException(fullString.toString());
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
 
         public FlexibleMapAccessor<Object> getFieldAcsr() {
@@ -344,7 +344,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 Debug.logWarning(fullString.toString(), module);
                 throw new IllegalArgumentException(fullString.toString());
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
 
         public FlexibleMapAccessor<Object> getFieldAcsr() {
@@ -622,7 +622,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 }
                 Boolean hasPermission = (Boolean) resp.get("hasPermission");
                 if (hasPermission != null) {
-                    return hasPermission.booleanValue();
+                    return hasPermission;
                 }
             }
             return false;
@@ -712,7 +712,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className
                         + ", defaulting to false ", module);
             }
-            return resultBool.booleanValue();
+            return resultBool;
         }
 
         public FlexibleStringExpander getClassExdr() {

@@ -194,7 +194,7 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public Double convert(TimeDuration obj) throws ConversionException {
-             return Double.valueOf(TimeDuration.toLong(obj));
+             return (double) TimeDuration.toLong(obj);
         }
     }
 
@@ -204,7 +204,7 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public Float convert(TimeDuration obj) throws ConversionException {
-             return Float.valueOf(TimeDuration.toLong(obj));
+             return (float) TimeDuration.toLong(obj);
         }
     }
 
@@ -264,7 +264,7 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public Calendar convert(Long obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return UtilDateTime.toCalendar(new java.util.Date(obj.longValue()), timeZone, locale);
+            return UtilDateTime.toCalendar(new java.util.Date(obj), timeZone, locale);
         }
 
         public Calendar convert(Long obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {

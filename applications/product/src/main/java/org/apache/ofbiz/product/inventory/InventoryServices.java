@@ -604,7 +604,7 @@ public class InventoryServices {
                 /* Check the split preference. */
                 boolean maySplit = false;
                 if (orderItemShipGroup.get("maySplit") != null) {
-                    maySplit = orderItemShipGroup.getBoolean("maySplit").booleanValue();
+                    maySplit = orderItemShipGroup.getBoolean("maySplit");
                 }
 
                 /* Figure out if we must cancel all items. */
@@ -937,9 +937,9 @@ public class InventoryServices {
             salesUsageViewEntity.addMemberEntity("OH", "OrderHeader");
             salesUsageViewEntity.addMemberEntity("ItIss", "ItemIssuance");
             salesUsageViewEntity.addMemberEntity("InvIt", "InventoryItem");
-            salesUsageViewEntity.addViewLink("OI", "OH", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("orderId"));
-            salesUsageViewEntity.addViewLink("OI", "ItIss", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
-            salesUsageViewEntity.addViewLink("ItIss", "InvIt", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            salesUsageViewEntity.addViewLink("OI", "OH", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId"));
+            salesUsageViewEntity.addViewLink("OI", "ItIss", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
+            salesUsageViewEntity.addViewLink("ItIss", "InvIt", Boolean.FALSE, ModelKeyMap.makeKeyMapList("inventoryItemId"));
             salesUsageViewEntity.addAlias("OI", "productId");
             salesUsageViewEntity.addAlias("OH", "statusId");
             salesUsageViewEntity.addAlias("OH", "orderTypeId");
@@ -952,8 +952,8 @@ public class InventoryServices {
             productionUsageViewEntity.addMemberEntity("WEIA", "WorkEffortInventoryAssign");
             productionUsageViewEntity.addMemberEntity("WE", "WorkEffort");
             productionUsageViewEntity.addMemberEntity("II", "InventoryItem");
-            productionUsageViewEntity.addViewLink("WEIA", "WE", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("workEffortId"));
-            productionUsageViewEntity.addViewLink("WEIA", "II", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            productionUsageViewEntity.addViewLink("WEIA", "WE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
+            productionUsageViewEntity.addViewLink("WEIA", "II", Boolean.FALSE, ModelKeyMap.makeKeyMapList("inventoryItemId"));
             productionUsageViewEntity.addAlias("WEIA", "quantity");
             productionUsageViewEntity.addAlias("WE", "actualCompletionDate");
             productionUsageViewEntity.addAlias("WE", "workEffortTypeId");

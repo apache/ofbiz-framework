@@ -129,7 +129,7 @@ public final class Calculate extends MethodOperation {
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
         if (!decimalScaleString.isEmpty()) {
-            decimalScale = Integer.valueOf(decimalScaleString).intValue();
+            decimalScale = Integer.valueOf(decimalScaleString);
         }
         BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {
@@ -139,18 +139,18 @@ public final class Calculate extends MethodOperation {
         Object resultObj = null;
         switch (type) {
             case TYPE_DOUBLE:
-                resultObj = Double.valueOf(resultValue.doubleValue());
+                resultObj = resultValue.doubleValue();
                 break;
             case TYPE_FLOAT:
-                resultObj = Float.valueOf(resultValue.floatValue());
+                resultObj = resultValue.floatValue();
                 break;
             case TYPE_LONG:
                 resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = Long.valueOf(resultValue.longValue());
+                resultObj = resultValue.longValue();
                 break;
             case TYPE_INTEGER:
                 resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = Integer.valueOf(resultValue.intValue());
+                resultObj = resultValue.intValue();
                 break;
             case TYPE_STRING:
                 // run the decimal-formatting
@@ -260,11 +260,11 @@ public final class Calculate extends MethodOperation {
             Object fieldObj = fieldFma.get(methodContext.getEnvMap());
             if (fieldObj != null) {
                 if (fieldObj instanceof Double) {
-                    resultValue = new BigDecimal(((Double) fieldObj).doubleValue());
+                    resultValue = new BigDecimal((Double) fieldObj);
                 } else if (fieldObj instanceof Long) {
-                    resultValue = BigDecimal.valueOf(((Long) fieldObj).longValue());
+                    resultValue = BigDecimal.valueOf((Long) fieldObj);
                 } else if (fieldObj instanceof Float) {
-                    resultValue = new BigDecimal(((Float) fieldObj).floatValue());
+                    resultValue = new BigDecimal((Float) fieldObj);
                 } else if (fieldObj instanceof Integer) {
                     resultValue = BigDecimal.valueOf(((Integer) fieldObj).longValue());
                 } else if (fieldObj instanceof String) {

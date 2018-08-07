@@ -469,7 +469,7 @@ public class SurveyWrapper {
             Map<String, Object> thisResult = getOptionResult(question);
                 Long questionTotal = (Long) thisResult.remove("_total");
                 if (questionTotal == null) {
-                    questionTotal = Long.valueOf(0);
+                    questionTotal = 0L;
                 }
                 // set the total responses
                 resultMap.put("_total", questionTotal);
@@ -480,9 +480,9 @@ public class SurveyWrapper {
                     Long optTotal = (Long) entry.getValue();
                     String optId = entry.getKey();
                     if (optTotal == null) {
-                        optTotal = Long.valueOf(0);
+                        optTotal = 0L;
                     }
-                    Long percent = Long.valueOf((long)(((double)optTotal.longValue() / (double)questionTotal.longValue()) * 100));
+                    Long percent = (long) (((double) optTotal / (double) questionTotal) * 100);
                     optMap.put("_total", optTotal);
                     optMap.put("_percent", percent);
                     resultMap.put(optId, optMap);
@@ -493,36 +493,36 @@ public class SurveyWrapper {
             long yesPercent = thisResult[1] > 0 ? (long)(((double)thisResult[1] / (double)thisResult[0]) * 100) : 0;
             long noPercent = thisResult[2] > 0 ? (long)(((double)thisResult[2] / (double)thisResult[0]) * 100) : 0;
 
-            resultMap.put("_total", Long.valueOf(thisResult[0]));
-            resultMap.put("_yes_total", Long.valueOf(thisResult[1]));
-            resultMap.put("_no_total", Long.valueOf(thisResult[2]));
-            resultMap.put("_yes_percent", Long.valueOf(yesPercent));
-            resultMap.put("_no_percent", Long.valueOf(noPercent));
+            resultMap.put("_total", thisResult[0]);
+            resultMap.put("_yes_total", thisResult[1]);
+            resultMap.put("_no_total", thisResult[2]);
+            resultMap.put("_yes_percent", yesPercent);
+            resultMap.put("_no_percent", noPercent);
             resultMap.put("_a_type", "boolean");
         } else if ("NUMBER_LONG".equals(questionType)) {
             double[] thisResult = getNumberResult(question, 1);
-            resultMap.put("_total", Long.valueOf((long)thisResult[0]));
-            resultMap.put("_tally", Long.valueOf((long)thisResult[1]));
-            resultMap.put("_average", Long.valueOf((long)thisResult[2]));
+            resultMap.put("_total", (long) thisResult[0]);
+            resultMap.put("_tally", (long) thisResult[1]);
+            resultMap.put("_average", (long) thisResult[2]);
             resultMap.put("_a_type", "long");
         } else if ("NUMBER_CURRENCY".equals(questionType)) {
             double[] thisResult = getNumberResult(question, 2);
-            resultMap.put("_total", Long.valueOf((long)thisResult[0]));
-            resultMap.put("_tally", Double.valueOf(thisResult[1]));
-            resultMap.put("_average", Double.valueOf(thisResult[2]));
+            resultMap.put("_total", (long) thisResult[0]);
+            resultMap.put("_tally", thisResult[1]);
+            resultMap.put("_average", thisResult[2]);
             resultMap.put("_a_type", "double");
         } else if ("NUMBER_FLOAT".equals(questionType)) {
             double[] thisResult = getNumberResult(question, 3);
-            resultMap.put("_total", Long.valueOf((long)thisResult[0]));
-            resultMap.put("_tally", Double.valueOf(thisResult[1]));
-            resultMap.put("_average", Double.valueOf(thisResult[2]));
+            resultMap.put("_total", (long) thisResult[0]);
+            resultMap.put("_tally", thisResult[1]);
+            resultMap.put("_average", thisResult[2]);
             resultMap.put("_a_type", "double");
         } else if ("SEPERATOR_LINE".equals(questionType) || "SEPERATOR_TEXT".equals(questionType)) {
             // not really a question; ingore completely
             return null;
         } else {
             // default is text
-            resultMap.put("_total", Long.valueOf(getTextResult(question)));
+            resultMap.put("_total", getTextResult(question));
             resultMap.put("_a_type", "text");
         }
 
@@ -593,19 +593,19 @@ public class SurveyWrapper {
                         case 1:
                             Long n = value.getLong("numericResponse");
                             if (UtilValidate.isNotEmpty(n)) {
-                                result[1] += n.longValue();
+                                result[1] += n;
                             }
                             break;
                         case 2:
                             Double c = value.getDouble("currencyResponse");
                             if (UtilValidate.isNotEmpty(c)) {
-                                result[1] += (((double) Math.round((c.doubleValue() - c.doubleValue()) * 100)) / 100);
+                                result[1] += (((double) Math.round((c - c) * 100)) / 100);
                             }
                             break;
                         case 3:
                             Double f = value.getDouble("floatResponse");
                             if (UtilValidate.isNotEmpty(f)) {
-                                result[1] += f.doubleValue();
+                                result[1] += f;
                             }
                             break;
                     }
@@ -686,9 +686,9 @@ public class SurveyWrapper {
                     if (UtilValidate.isNotEmpty(optionId)) {
                         Long optCount = (Long) result.remove(optionId);
                         if (optCount == null) {
-                            optCount = Long.valueOf(1);
+                            optCount = 1L;
                         } else {
-                            optCount = Long.valueOf(1 + optCount.longValue());
+                            optCount = 1 + optCount;
                         }
                         result.put(optionId, optCount);
                         total++; // increment the count
@@ -713,7 +713,7 @@ public class SurveyWrapper {
             }
         }
 
-        result.put("_total", Long.valueOf(total));
+        result.put("_total", total);
         return result;
     }
 

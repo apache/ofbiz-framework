@@ -78,7 +78,7 @@ public final class ToString extends MethodOperation {
                 throw new MiniLangRuntimeException("Exception thrown while converting field to a string: " + e.getMessage(), this);
             }
             if (this.numericPadding != null) {
-                value = StringUtil.padNumberString(value.toString(), this.numericPadding.intValue());
+                value = StringUtil.padNumberString(value.toString(), this.numericPadding);
             }
             fieldFma.put(methodContext.getEnvMap(), value);
         }

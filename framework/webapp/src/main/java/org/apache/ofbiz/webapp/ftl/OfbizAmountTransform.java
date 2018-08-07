@@ -71,16 +71,16 @@ public class OfbizAmountTransform implements TemplateTransformModel {
 
             // handle nulls better
             if (o == null) {
-                o = Double.valueOf(0.00);
+                o = 0.00;
             }
 
             if (o instanceof NumberModel) {
                 NumberModel s = (NumberModel) o;
-                return Double.valueOf(s.getAsNumber().doubleValue());
+                return s.getAsNumber().doubleValue();
             }
             if (o instanceof SimpleNumber) {
                 SimpleNumber s = (SimpleNumber) o;
-                return Double.valueOf(s.getAsNumber().doubleValue());
+                return s.getAsNumber().doubleValue();
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
@@ -88,7 +88,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
             }
             return Double.valueOf(o.toString());
         }
-        return Double.valueOf(0.00);
+        return 0.00;
     }
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
@@ -129,7 +129,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
                     if (format.equals(OfbizAmountTransform.SPELLED_OUT_FORMAT)) {
                         out.write(UtilFormatOut.formatSpelledOutAmount(amount.doubleValue(), localeObj));
                     } else {
-                        out.write(UtilFormatOut.formatAmount(amount.doubleValue(), localeObj));
+                        out.write(UtilFormatOut.formatAmount(amount, localeObj));
                     }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());

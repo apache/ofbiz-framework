@@ -250,11 +250,11 @@ public class LoginEvents {
             }
             if (useEncryption) {
                 // password encrypted, can't send, generate new password and email to user
-                passwordToSend = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
+                passwordToSend = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5));
                 if ("true".equals(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator))){
                     passwordToSend=passwordToSend.toLowerCase(Locale.getDefault());
                 }
-                autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
+                autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5));
                 EntityCrypto entityCrypto = new EntityCrypto(delegator,null);
                 try {
                     passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, autoPassword);
@@ -323,7 +323,7 @@ public class LoginEvents {
 
         // set the needed variables in new context
         Map<String, Object> bodyParameters = new HashMap<>();
-        bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
+        bodyParameters.put("useEncryption", useEncryption);
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);

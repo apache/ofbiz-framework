@@ -194,7 +194,7 @@ public class WorkEffortSearch {
                 double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
                 // store info about results in the database, attached to the user's visitId, if specified
-                this.saveSearchResultInfo(Long.valueOf(workEffortIds.size()), Double.valueOf(totalSeconds));
+                this.saveSearchResultInfo((long) workEffortIds.size(), totalSeconds);
                 return workEffortIds;
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -302,7 +302,7 @@ public class WorkEffortSearch {
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
             }
-            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, Boolean.valueOf(workEffortIdGroupBy), null);
+            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, workEffortIdGroupBy, null);
 
             EntityListIterator eli = null;
             try {
@@ -327,7 +327,7 @@ public class WorkEffortSearch {
         }
 
         public ArrayList<String> makeWorkEffortIdList(EntityListIterator eli) {
-            ArrayList<String> workEffortIds = new ArrayList<>(maxResults == null ? 100 : maxResults.intValue());
+            ArrayList<String> workEffortIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return workEffortIds;
@@ -341,11 +341,11 @@ public class WorkEffortSearch {
                 if (initialResult != null) {
                     hasResults = true;
                 }
-                if (resultOffset != null && resultOffset.intValue() > 1) {
+                if (resultOffset != null && resultOffset > 1) {
                     if (Debug.infoOn()) {
                         Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
                     }
-                    hasResults = eli.relative(resultOffset.intValue() - 1);
+                    hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }
 
@@ -363,9 +363,9 @@ public class WorkEffortSearch {
                     // nothing to get...
                     int failTotal = 0;
                     if (this.resultOffset != null) {
-                        failTotal = this.resultOffset.intValue() - 1;
+                        failTotal = this.resultOffset - 1;
                     }
-                    this.totalResults = Integer.valueOf(failTotal);
+                    this.totalResults = failTotal;
                     return workEffortIds;
                 }
 
@@ -379,7 +379,7 @@ public class WorkEffortSearch {
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
 
-                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults.intValue())) {
+                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults)) {
                     String workEffortId = searchResult.getString("workEffortId");
                     if (!workEffortIdSet.contains(workEffortId)) {
                         workEffortIds.add(workEffortId);
@@ -393,12 +393,12 @@ public class WorkEffortSearch {
                 if (searchResult != null) {
                     this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
-                if (this.totalResults == null || this.totalResults.intValue() == 0) {
+                if (this.totalResults == null || this.totalResults == 0) {
                     int total = numRetreived;
                     if (this.resultOffset != null) {
-                        total += (this.resultOffset.intValue() - 1);
+                        total += (this.resultOffset - 1);
                     }
-                    this.totalResults = Integer.valueOf(total);
+                    this.totalResults = total;
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -924,7 +924,7 @@ public class WorkEffortSearch {
             this.anySuffix = anySuffix;
             this.isAnd = isAnd;
             if (removeStems != null) {
-                this.removeStems = removeStems.booleanValue();
+                this.removeStems = removeStems;
             } else {
                 this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }

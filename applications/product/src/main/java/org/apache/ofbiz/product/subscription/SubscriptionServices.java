@@ -127,7 +127,7 @@ public class SubscriptionServices {
         calendar.setTime(thruDate);
         int[] times = UomWorker.uomTimeToCalTime(useTimeUomId);
         if (times != null) {
-            calendar.add(times[0], (useTime.intValue() * times[1]));
+            calendar.add(times[0], (useTime * times[1]));
         } else {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
             calendar.add(Calendar.MONTH, useTime);
@@ -189,7 +189,7 @@ public class SubscriptionServices {
         Integer qty = (Integer) context.get("quantity");
         Locale locale = (Locale) context.get("locale");
         if (qty == null) {
-            qty = Integer.valueOf(1);
+            qty = 1;
         }
 
         Timestamp orderCreatedDate = (Timestamp) context.get("orderCreatedDate");
@@ -212,9 +212,9 @@ public class SubscriptionServices {
 
             for (GenericValue productSubscriptionResource: productSubscriptionResourceList) {
                 Long useTime = productSubscriptionResource.getLong("useTime");
-                Integer newUseTime = Integer.valueOf(0);
+                Integer newUseTime = 0;
                 if (useTime != null) {
-                    newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
+                    newUseTime = useTime.intValue() * qty;
                 }
                 Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
                 subContext.put("useTime", newUseTime);
@@ -287,7 +287,7 @@ public class SubscriptionServices {
                     subContext.put("orderId", orderId);
                     subContext.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
                     subContext.put("inventoryItemId", orderItem.get("fromInventoryItemId"));
-                    subContext.put("quantity", Integer.valueOf(qty.intValue()));
+                    subContext.put("quantity", qty.intValue());
                     Map<String, Object> ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(subContext, ModelService.IN_PARAM);
                     Map<String, Object> thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
                     if (ServiceUtil.isError(thisResult)) {

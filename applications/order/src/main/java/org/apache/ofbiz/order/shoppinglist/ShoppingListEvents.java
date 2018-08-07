@@ -142,7 +142,7 @@ public class ShoppingListEvents {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderIllegalCharacterInSelectedItemField", cart.getLocale()), module);
             }
             if (cartIdInt != null) {
-                ShoppingCartItem item = cart.findCartItem(cartIdInt.intValue());
+                ShoppingCartItem item = cart.findCartItem(cartIdInt);
                 if (allowPromo || !item.getIsPromo()) {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()=" + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(), module);
                     Map<String, Object> serviceResult = null;

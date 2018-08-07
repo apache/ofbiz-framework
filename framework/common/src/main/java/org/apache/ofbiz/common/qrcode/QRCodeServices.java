@@ -124,13 +124,13 @@ public class QRCodeServices {
         if (width == null) {
             width = Integer.parseInt(QRCODE_DEFAULT_WIDTH);
         }
-        if (width.intValue() < MIN_SIZE || width.intValue() > MAX_SIZE) {
+        if (width < MIN_SIZE || width > MAX_SIZE) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", new Object[] {"width", String.valueOf(width), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE)}, locale));
         }
         if (height == null) {
             height = Integer.parseInt(QRCODE_DEFAULT_HEIGHT);
         }
-        if (height.intValue() < MIN_SIZE || height.intValue() > MAX_SIZE) {
+        if (height < MIN_SIZE || height > MAX_SIZE) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", 
                     new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
@@ -165,7 +165,7 @@ public class QRCodeServices {
             
             BufferedImage newBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoBufferedImage)) {
-                if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth.intValue() || logoBufferedImage.getHeight() > logoImageMaxHeight.intValue())) {
+                if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth || logoBufferedImage.getHeight() > logoImageMaxHeight)) {
                     Map<String, String> typeMap = new HashMap<>();
                     typeMap.put("width", logoImageMaxWidth.toString());
                     typeMap.put("height", logoImageMaxHeight.toString());
@@ -181,7 +181,7 @@ public class QRCodeServices {
                 graphics.dispose();
             }
             
-            if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput.booleanValue()) {
+            if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput) {
                 Decoder decoder = new Decoder();
                 Map<DecodeHintType, Object> decodeHints = new EnumMap<>(DecodeHintType.class);
                 decodeHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);

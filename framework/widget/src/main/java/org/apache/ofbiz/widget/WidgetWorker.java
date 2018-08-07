@@ -308,7 +308,7 @@ public final class WidgetWorker {
             formUniqueId = (String) context.get("formUniqueId");
         }
         if (itemIndex != null) {
-            return formName + modelForm.getItemIndexSeparator() + itemIndex.intValue() + iterateId + formUniqueId + modelForm.getItemIndexSeparator() + modelFormField.getName();
+            return formName + modelForm.getItemIndexSeparator() + itemIndex + iterateId + formUniqueId + modelForm.getItemIndexSeparator() + modelFormField.getName();
         }
         return formName + modelForm.getItemIndexSeparator() + modelFormField.getName();
     }
@@ -367,14 +367,14 @@ public final class WidgetWorker {
         if (context != null) {
             Integer paginateNumberInt= (Integer)context.get("PAGINATOR_NUMBER");
             if (paginateNumberInt == null) {
-                paginateNumberInt = Integer.valueOf(0);
+                paginateNumberInt = 0;
                 context.put("PAGINATOR_NUMBER", paginateNumberInt);
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
                 }
             }
-            paginator_number = paginateNumberInt.intValue();
+            paginator_number = paginateNumberInt;
         }
         return paginator_number;
     }
@@ -388,9 +388,9 @@ public final class WidgetWorker {
             } else {
                 Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
                 if (paginateNumberInt == null) {
-                    paginateNumberInt = Integer.valueOf(0);
+                    paginateNumberInt = 0;
                 }
-                paginateNumberInt = Integer.valueOf(paginateNumberInt.intValue() + 1);
+                paginateNumberInt = paginateNumberInt + 1;
                 globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
                 context.put("PAGINATOR_NUMBER", paginateNumberInt);
             }

@@ -111,7 +111,7 @@ public class OrderReturnServices {
         if (countNewReturnItems == null) {
             countNewReturnItems = Boolean.FALSE;
         }
-        BigDecimal returnTotal = orh.getOrderReturnedTotal(countNewReturnItems.booleanValue());
+        BigDecimal returnTotal = orh.getOrderReturnedTotal(countNewReturnItems);
         BigDecimal orderTotal = orh.getOrderGrandTotal();
         BigDecimal available = orderTotal.subtract(returnTotal).subtract(adj);
 

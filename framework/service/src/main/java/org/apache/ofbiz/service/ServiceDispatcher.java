@@ -936,7 +936,7 @@ public class ServiceDispatcher {
             if (hasPermission == null) {
                 throw new ServiceAuthException("ERROR: the permission-service [" + origService.permissionServiceName + "] did not return a result. Not running the service [" + origService.name + "]");
             }
-            if (hasPermission.booleanValue()) {
+            if (hasPermission) {
                 context.putAll(permResp);
                 context = origService.makeValid(context, ModelService.IN_PARAM);
             } else {

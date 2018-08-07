@@ -713,7 +713,7 @@ public final class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, Integer.valueOf(intValue));
+                        entity.dangerousSetNoCheckButFast(curField, intValue);
                     }
                     break;
 
@@ -722,7 +722,7 @@ public final class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, Long.valueOf(longValue));
+                        entity.dangerousSetNoCheckButFast(curField, longValue);
                     }
                     break;
 
@@ -731,7 +731,7 @@ public final class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, Float.valueOf(floatValue));
+                        entity.dangerousSetNoCheckButFast(curField, floatValue);
                     }
                     break;
 
@@ -740,7 +740,7 @@ public final class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, Double.valueOf(doubleValue));
+                        entity.dangerousSetNoCheckButFast(curField, doubleValue);
                     }
                     break;
 
@@ -758,7 +758,7 @@ public final class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, Boolean.valueOf(booleanValue));
+                        entity.dangerousSetNoCheckButFast(curField, booleanValue);
                     }
                     break;
                 }
@@ -961,7 +961,7 @@ public final class SqlJdbcUtil {
         if (val == null) {
             throw new GenericNotImplementedException("Java type " + fieldType + " not currently supported. Sorry.");
         }
-        return val.intValue();
+        return val;
     }
 
     public static void addValueSingle(StringBuffer buffer, ModelField field, Object value, List<EntityConditionParam> params) {

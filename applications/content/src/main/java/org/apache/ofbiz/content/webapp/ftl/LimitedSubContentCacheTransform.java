@@ -225,8 +225,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 Boolean isReturnBeforeObj = (Boolean) trailNode.get("isReturnBefore");
                 Boolean isPickObj = (Boolean) trailNode.get("isPick");
                 Boolean isFollowObj = (Boolean) trailNode.get("isFollow");
-                if ((isReturnBeforeObj == null || !isReturnBeforeObj.booleanValue()) && ((isPickObj != null &&
-                        isPickObj.booleanValue()) || (isFollowObj != null && isFollowObj.booleanValue()))) {
+                if ((isReturnBeforeObj == null || !isReturnBeforeObj) && ((isPickObj != null &&
+                        isPickObj) || (isFollowObj != null && isFollowObj))) {
                     List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(ctx.get("globalNodeTrail"));
                     if (globalNodeTrail == null) {
                         globalNodeTrail = new LinkedList<>();
@@ -236,7 +236,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     String csvTrail = ContentWorker.nodeTrailToCsv(globalNodeTrail);
                     ctx.put("nodeTrailCsv", csvTrail);
                     int indentSz = globalNodeTrail.size();
-                    ctx.put("indent", Integer.valueOf(indentSz));
+                    ctx.put("indent", indentSz);
 
                     ctx.put("subDataResourceTypeId", subDataResourceTypeId);
                     ctx.put("mimeTypeId", mimeTypeId);
@@ -244,7 +244,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     ctx.put("content", view);
 
                     env.setVariable("subDataResourceTypeId", FreeMarkerWorker.autoWrap(subDataResourceTypeId, env));
-                    env.setVariable("indent", FreeMarkerWorker.autoWrap(Integer.valueOf(indentSz), env));
+                    env.setVariable("indent", FreeMarkerWorker.autoWrap(indentSz, env));
                     env.setVariable("nodeTrailCsv", FreeMarkerWorker.autoWrap(csvTrail, env));
                     env.setVariable("globalNodeTrail", FreeMarkerWorker.autoWrap(globalNodeTrail, env));
                     env.setVariable("content", FreeMarkerWorker.autoWrap(view, env));

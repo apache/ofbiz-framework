@@ -593,7 +593,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult.compareTo(BigDecimal.ZERO) == 0) {
                     mult = BigDecimal.ONE;
                 }
-                if (validPriceFound.booleanValue()) {
+                if (validPriceFound) {
                     if (componentListPrice != null) {
                         listPrice = componentListPrice;
                     }
@@ -668,7 +668,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult.compareTo(BigDecimal.ZERO) == 0) {
                     mult = BigDecimal.ONE;
                 }
-                if (validPriceFound.booleanValue()) {
+                if (validPriceFound) {
                     if (componentListPrice != null) {
                         listPrice = componentListPrice;
                     }

@@ -91,7 +91,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
                 } else {
                     conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
                 }
-                return conditionReply.booleanValue();
+                return conditionReply;
             } catch (GenericServiceException gse) {
                 throw new GenericEntityException("Error in calling condition service "+conditionService+". "+gse.getMessage());
             }
@@ -119,7 +119,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
             }
         }
         if (cond != null) {
-            return cond.booleanValue();
+            return cond;
         } else {
             return false;
         }

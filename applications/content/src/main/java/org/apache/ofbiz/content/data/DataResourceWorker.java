@@ -130,7 +130,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         List<GenericValue> categoryValues = EntityQuery.use(delegator).from("DataCategory")
                 .where("parentCategoryId", parentCategoryId)
                 .cache().queryList();
-        categoryNode.put("count", Integer.valueOf(categoryValues.size()));
+        categoryNode.put("count", categoryValues.size());
         List<Map<String, Object>> subCategoryIds = new LinkedList<>();
         for (GenericValue category : categoryValues) {
             String id = (String) category.get("dataCategoryId");
@@ -534,9 +534,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         Comparator<Object> desc = new Comparator<Object>() {
             @Override
             public int compare(Object o1, Object o2) {
-                if (((Long) o1).longValue() > ((Long) o2).longValue()) {
+                if ((Long) o1 > (Long) o2) {
                     return -1;
-                } else if (((Long) o1).longValue() < ((Long) o2).longValue()) {
+                } else if ((Long) o1 < (Long) o2) {
                     return 1;
                 }
                 return 0;
@@ -553,7 +553,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 int length = subs.length;
                 for (int i = 0; i < length; i++) {
                     if (subs[i].isDirectory()) {
-                        dirMap.put(Long.valueOf(subs[i].lastModified()), subs[i]);
+                        dirMap.put(subs[i].lastModified(), subs[i]);
                     }
                 }
             }
@@ -1066,7 +1066,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             }
 
             byte[] bytes = text.getBytes(UtilIO.getUtf8());
-            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Long.valueOf(bytes.length));
+            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", (long) bytes.length);
 
         // object (binary) data
         }
@@ -1098,14 +1098,14 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 throw new GeneralException("Unsupported OBJECT type [" + dataResourceTypeId + "]; cannot stream");
             }
 
-            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Long.valueOf(bytes.length));
+            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", (long) bytes.length);
 
         // file data
         } else if (dataResourceTypeId.endsWith("_FILE") || dataResourceTypeId.endsWith("_FILE_BIN")) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
-                return UtilMisc.toMap("stream", Files.newInputStream(file.toPath(), StandardOpenOption.READ), "length", Long.valueOf(file.length()));
+                return UtilMisc.toMap("stream", Files.newInputStream(file.toPath(), StandardOpenOption.READ), "length", file.length());
             }
             throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
 
@@ -1124,7 +1124,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 }
 
                 URLConnection con = url.openConnection();
-                return UtilMisc.toMap("stream", con.getInputStream(), "length", Long.valueOf(con.getContentLength()));
+                return UtilMisc.toMap("stream", con.getInputStream(), "length", (long) con.getContentLength());
             }
             throw new GeneralException("No objectInfo found for URL_RESOURCE type; cannot stream");
         }

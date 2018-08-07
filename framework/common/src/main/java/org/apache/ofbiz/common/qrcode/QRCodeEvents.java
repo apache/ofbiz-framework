@@ -111,7 +111,7 @@ public class QRCodeEvents {
             if (UtilValidate.isNotEmpty(encoding)) {
                 context.put("encoding", encoding);
             }
-            if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput.booleanValue()) {
+            if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput) {
                 context.put("verifyOutput", verifyOutput);
             }
             if (UtilValidate.isNotEmpty(logoImageMaxWidth)) {

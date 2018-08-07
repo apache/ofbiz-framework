@@ -195,7 +195,7 @@ public class RequirementServices {
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("requirementsForSupplier", requirements);
-            results.put("distinctProductCount", Integer.valueOf(products.size()));
+            results.put("distinctProductCount", products.size());
             results.put("quantityTotal", quantity);
             results.put("amountTotal", amountTotal);
             return results;

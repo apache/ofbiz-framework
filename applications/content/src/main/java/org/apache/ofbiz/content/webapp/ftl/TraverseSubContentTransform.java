@@ -162,7 +162,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 ContentWorker.traceNodeTrail("2", nodeTrail);
                 nodeTrail.add(rootNode);
                 boolean isPick = checkWhen(subContentDataResourceView, (String)traverseContext.get("contentAssocTypeId"));
-                rootNode.put("isPick", Boolean.valueOf(isPick));
+                rootNode.put("isPick", isPick);
                 if (!isPick) {
                     ContentWorker.traceNodeTrail("3", nodeTrail);
                     isPick = ContentWorker.traverseSubContent(traverseContext);
@@ -249,8 +249,8 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 assocContext.put("typeAncestry", contentTypeAncestry);
                 Map<String, Object> whenMap = UtilGenerics.checkMap(traverseContext.get("whenMap"));
                 List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
-                int indentSz = indent.intValue() + nodeTrail.size();
-                assocContext.put("indentObj", Integer.valueOf(indentSz));
+                int indentSz = indent + nodeTrail.size();
+                assocContext.put("indentObj", indentSz);
                 isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"), true);
                 return isPick;
             }
@@ -262,8 +262,8 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 String contentId = (String)node.get("contentId");
                 templateContext.put("subContentId", contentId);
                 templateContext.put("subContentDataResourceView", null);
-                int indentSz = indent.intValue() + nodeTrail.size();
-                templateContext.put("indent", Integer.valueOf(indentSz));
+                int indentSz = indent + nodeTrail.size();
+                templateContext.put("indent", indentSz);
                 if (sz >= 2) {
                     Map<String, Object> parentNode = nodeTrail.get(sz - 2);
                     GenericValue parentContent = (GenericValue)parentNode.get("value");

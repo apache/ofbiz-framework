@@ -464,7 +464,7 @@ public class ModelViewEntity extends ModelEntity {
                     continue;
                 }
                 if (alias.isPk != null) {
-                    isPk = alias.isPk.booleanValue();
+                    isPk = alias.isPk;
                 } else {
                     isPk = aliasedField.getIsPk();
                 }
@@ -871,7 +871,7 @@ public class ModelViewEntity extends ModelEntity {
             String primKeyValue = UtilXml.checkEmpty(aliasElement.getAttribute("prim-key"));
 
             if (UtilValidate.isNotEmpty(primKeyValue)) {
-                this.isPk = Boolean.valueOf("true".equals(primKeyValue));
+                this.isPk = "true".equals(primKeyValue);
             } else {
                 this.isPk = null;
             }
@@ -903,7 +903,7 @@ public class ModelViewEntity extends ModelEntity {
             this.colAlias = UtilXml.checkEmpty(colAlias, ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name)));
             this.isPk = isPk;
             if (groupBy != null) {
-                this.groupBy = groupBy.booleanValue();
+                this.groupBy = groupBy;
             } else {
                 this.groupBy = false;
             }
@@ -1141,7 +1141,7 @@ public class ModelViewEntity extends ModelEntity {
             this.entityAlias = entityAlias;
             this.relEntityAlias = relEntityAlias;
             if (relOptional != null) {
-                this.relOptional = relOptional.booleanValue();
+                this.relOptional = relOptional;
             } else {
                 this.relOptional = false;
             }

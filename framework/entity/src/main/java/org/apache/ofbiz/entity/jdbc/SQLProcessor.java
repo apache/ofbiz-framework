@@ -631,7 +631,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Integer field) throws SQLException {
         if (field != null) {
-            _ps.setInt(_ind, field.intValue());
+            _ps.setInt(_ind, field);
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -647,7 +647,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Long field) throws SQLException {
         if (field != null) {
-            _ps.setLong(_ind, field.longValue());
+            _ps.setLong(_ind, field);
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -663,7 +663,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Float field) throws SQLException {
         if (field != null) {
-            _ps.setFloat(_ind, field.floatValue());
+            _ps.setFloat(_ind, field);
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -679,7 +679,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Double field) throws SQLException {
         if (field != null) {
-            _ps.setDouble(_ind, field.doubleValue());
+            _ps.setDouble(_ind, field);
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -711,7 +711,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Boolean field) throws SQLException {
         if (field != null) {
-            _ps.setBoolean(_ind, field.booleanValue());
+            _ps.setBoolean(_ind, field);
         } else {
             _ps.setNull(_ind, Types.BOOLEAN);
         }

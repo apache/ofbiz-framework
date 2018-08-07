@@ -65,7 +65,7 @@ public class PackingServices {
         }
 
         try {
-            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
+            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq, weight, false);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -194,7 +194,7 @@ public class PackingServices {
                             }
                         }
                         for (int numPackage=0; numPackage<numPackages; numPackage++) {
-                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity.booleanValue());
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {
                         Debug.logError(e, module);
@@ -211,7 +211,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.nextPackageSeq();
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
+        result.put("nextPackageSeq", nextSeq);
         return result;
     }
 
@@ -219,7 +219,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.clearLastPackage();
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
+        result.put("nextPackageSeq", nextSeq);
         return result;
     }
 
@@ -234,7 +234,7 @@ public class PackingServices {
         Locale locale = (Locale) context.get("locale");
 
         PackingSessionLine line = session.findLine(orderId, orderItemSeqId, shipGroupSeqId,
-                productId, inventoryItemId, packageSeqId.intValue());
+                productId, inventoryItemId, packageSeqId);
 
         // remove the line
         if (line != null) {

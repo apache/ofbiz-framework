@@ -236,7 +236,7 @@ public class ProductSearch {
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo(Long.valueOf(productIds.size()), Double.valueOf(totalSeconds));
+            this.saveSearchResultInfo((long) productIds.size(), totalSeconds);
 
             return productIds;
         }
@@ -667,7 +667,7 @@ public class ProductSearch {
                 resultSortOrder.setSortOrder(this);
             }
 
-            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, Boolean.valueOf(productIdGroupBy), null);
+            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, productIdGroupBy, null);
 
             EntityListIterator eli = null;
             try {
@@ -694,7 +694,7 @@ public class ProductSearch {
         }
 
         public ArrayList<String> makeProductIdList(EntityListIterator eli) {
-            ArrayList<String> productIds = new ArrayList<>(maxResults == null ? 100 : maxResults.intValue());
+            ArrayList<String> productIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return productIds;
@@ -707,11 +707,11 @@ public class ProductSearch {
                 if (initialResult != null) {
                     hasResults = true;
                 }
-                if (resultOffset != null && resultOffset.intValue() > 1) {
+                if (resultOffset != null && resultOffset > 1) {
                     if (Debug.infoOn()) {
                         Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
                     }
-                    hasResults = eli.relative(resultOffset.intValue() - 1);
+                    hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }
 
@@ -729,9 +729,9 @@ public class ProductSearch {
                     // nothing to get...
                     int failTotal = 0;
                     if (this.resultOffset != null) {
-                        failTotal = this.resultOffset.intValue() - 1;
+                        failTotal = this.resultOffset - 1;
                     }
-                    this.totalResults = Integer.valueOf(failTotal);
+                    this.totalResults = failTotal;
                     return productIds;
                 }
 
@@ -745,7 +745,7 @@ public class ProductSearch {
                 productIds.add(searchResult.getString("mainProductId"));
                 productIdSet.add(searchResult.getString("mainProductId"));
 
-                while ((maxResults == null || numRetreived < maxResults.intValue()) && ((searchResult = eli.next()) != null)) {
+                while ((maxResults == null || numRetreived < maxResults) && ((searchResult = eli.next()) != null)) {
                     String productId = searchResult.getString("mainProductId");
                     if (!productIdSet.contains(productId)) {
                         productIds.add(productId);
@@ -759,12 +759,12 @@ public class ProductSearch {
                 if (searchResult != null) {
                     this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
-                if (this.totalResults == null || this.totalResults.intValue() == 0) {
+                if (this.totalResults == null || this.totalResults == 0) {
                     int total = numRetreived;
                     if (this.resultOffset != null) {
-                        total += (this.resultOffset.intValue() - 1);
+                        total += (this.resultOffset - 1);
                     }
-                    this.totalResults = Integer.valueOf(total);
+                    this.totalResults = total;
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -1543,7 +1543,7 @@ public class ProductSearch {
             this.anySuffix = anySuffix;
             this.isAnd = isAnd;
             if (removeStems != null) {
-                this.removeStems = removeStems.booleanValue();
+                this.removeStems = removeStems;
             } else {
                 this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }

@@ -44,12 +44,12 @@ public final class Paginator {
 
     public static int getActualPageSize(Map<String, Object> context) {
         Integer value = (Integer) context.get("actualPageSize");
-        return value != null ? value.intValue() : (getHighIndex(context) - getLowIndex(context));
+        return value != null ? value : (getHighIndex(context) - getLowIndex(context));
     }
 
     public static int getHighIndex(Map<String, Object> context) {
         Integer value = (Integer) context.get("highIndex");
-        return value != null ? value.intValue() : 0;
+        return value != null ? value : 0;
     }
 
     // entryList might be an  EntityListIterator. It will then be closed at the end of FormRenderer.renderItemRows()
@@ -92,21 +92,21 @@ public final class Paginator {
             lowIndex = 0;
             highIndex = ModelForm.MAX_PAGE_SIZE;
         }
-        context.put("listSize", Integer.valueOf(listSize));
-        context.put("viewIndex", Integer.valueOf(viewIndex));
-        context.put("viewSize", Integer.valueOf(viewSize));
-        context.put("lowIndex", Integer.valueOf(lowIndex));
-        context.put("highIndex", Integer.valueOf(highIndex));
+        context.put("listSize", listSize);
+        context.put("viewIndex", viewIndex);
+        context.put("viewSize", viewSize);
+        context.put("lowIndex", lowIndex);
+        context.put("highIndex", highIndex);
     }
 
     public static int getListSize(Map<String, Object> context) {
         Integer value = (Integer) context.get("listSize");
-        return value != null ? value.intValue() : 0;
+        return value != null ? value : 0;
     }
 
     public static int getLowIndex(Map<String, Object> context) {
         Integer value = (Integer) context.get("lowIndex");
-        return value != null ? value.intValue() : 0;
+        return value != null ? value : 0;
     }
 
     public static int getViewIndex(ModelForm modelForm, Map<String, Object> context) {
@@ -131,7 +131,7 @@ public final class Paginator {
                 value = context.get(field);
             }
             if (value instanceof Integer) {
-                viewIndex = ((Integer) value).intValue();
+                viewIndex = (Integer) value;
             } else if (value instanceof String) {
                 viewIndex = Integer.parseInt((String) value);
             }
@@ -163,7 +163,7 @@ public final class Paginator {
                 value = context.get(field);
             }
             if (value instanceof Integer) {
-                viewSize = ((Integer) value).intValue();
+                viewSize = (Integer) value;
             } else if (value instanceof String && UtilValidate.isNotEmpty(value)) {
                 viewSize = Integer.parseInt((String) value);
             }
@@ -200,14 +200,14 @@ public final class Paginator {
         // set low and high index
         getListLimits(modelForm, context, obj);
 
-        int listSize = ((Integer) context.get("listSize")).intValue();
-        int lowIndex = ((Integer) context.get("lowIndex")).intValue();
-        int highIndex = ((Integer) context.get("highIndex")).intValue();
+        int listSize = (Integer) context.get("listSize");
+        int lowIndex = (Integer) context.get("lowIndex");
+        int highIndex = (Integer) context.get("highIndex");
 
         // we're passed a subset of the list, so use (0, viewSize) range
         if (modelForm.isOverridenListSize()) {
             lowIndex = 0;
-            highIndex = ((Integer) context.get("viewSize")).intValue();
+            highIndex = (Integer) context.get("viewSize");
         }
 
         if (iter == null) {
@@ -226,9 +226,9 @@ public final class Paginator {
         if ((itemIndex + 1) < highIndex) {
             highIndex = itemIndex + 1;
             // if list size is overridden, use full listSize
-            context.put("highIndex", Integer.valueOf(modelForm.isOverridenListSize() ? listSize : highIndex));
+            context.put("highIndex", modelForm.isOverridenListSize() ? listSize : highIndex);
         }
-        context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
+        context.put("actualPageSize", highIndex - lowIndex);
 
         if (iter instanceof EntityListIterator) {
             // The EntityListIterator will be closed at the end of FormRenderer.renderItemRows()

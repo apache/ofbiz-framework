@@ -156,7 +156,7 @@ public class FedexServices {
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
 
-        if (! replaceMeterNumber.booleanValue()) {
+        if (!replaceMeterNumber) {
             String meterNumber = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessMeterNumber", resource, "shipment.fedex.access.meterNumber");
             if (UtilValidate.isNotEmpty(meterNumber)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 

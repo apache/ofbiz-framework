@@ -1520,7 +1520,7 @@ public class InvoiceServices {
                         // total ordered
                         orderedQty = orderItem.getBigDecimal("quantity");
 
-                        if (dropShipmentFound && createSalesInvoicesForDropShipments.booleanValue()) {
+                        if (dropShipmentFound && createSalesInvoicesForDropShipments) {
 
                             // Override the issueQty with the quantity from the purchase order item
                             GenericValue orderItemAssoc = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItemAssocs, UtilMisc.toMap("orderId", issue.getString("orderId"), "orderItemSeqId", issue.getString("orderItemSeqId"))));
@@ -1822,8 +1822,8 @@ public class InvoiceServices {
                             }
 
                             // If the authorization fails, create the invoice anyway, but make a note of it
-                            boolean authFinished = ((Boolean) authResult.get("finished")).booleanValue();
-                            boolean authErrors = ((Boolean) authResult.get("errors")).booleanValue();
+                            boolean authFinished = (Boolean) authResult.get("finished");
+                            boolean authErrors = (Boolean) authResult.get("errors");
                             if (authErrors || ! authFinished) {
                                 String errMsg = UtilProperties.getMessage(resource, "AccountingUnableToAuthAdditionalShipCharges", UtilMisc.toMap("shipmentId", shipmentId, "paymentMethodId", paymentMethodId, "orderPaymentPreferenceId", orderPaymentPreferenceId), locale);
                                 Debug.logError(errMsg, module);

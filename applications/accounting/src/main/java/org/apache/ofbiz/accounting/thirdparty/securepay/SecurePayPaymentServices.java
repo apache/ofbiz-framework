@@ -113,12 +113,12 @@ public class SecurePayPaymentServices {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
                 if (approved == false){
-                    result.put("authResult", new Boolean(false));
+                    result.put("authResult", Boolean.FALSE);
                     result.put("authRefNum", "N/A");
                     result.put("processAmount", BigDecimal.ZERO);
                 } else {
                     result.put("authRefNum", resp.getTxnId());
-                    result.put("authResult", new Boolean(true));
+                    result.put("authResult", Boolean.TRUE);
                     result.put("processAmount", processAmount);
                 }
                 result.put("authCode", resp.getResponseCode());

@@ -804,7 +804,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             throw new GeneralException("Unable to run validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "]");
         }
 
-        return resultBool.booleanValue();
+        return resultBool;
     }
 
     /**

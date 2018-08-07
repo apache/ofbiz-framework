@@ -162,7 +162,7 @@ public class EntityDataServices {
 
         Debug.logInfo("Imported/Updated [" + records + "] from : " + file.getAbsolutePath() + " [" + runTime + "ms]", module);
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("records", Integer.valueOf(records));
+        result.put("records", records);
         return result;
     }
 
@@ -374,7 +374,7 @@ public class EntityDataServices {
         }
 
         // step 5 - repair field sizes
-        if (fixSizes.booleanValue()) {
+        if (fixSizes) {
             Debug.logImportant("Updating column field size changes", module);
             List<String> fieldsWrongSize = new LinkedList<String>();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);

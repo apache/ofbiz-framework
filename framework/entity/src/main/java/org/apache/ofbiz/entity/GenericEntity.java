@@ -478,7 +478,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 try {
                     int fieldType = SqlJdbcUtil.getType(type.getJavaType());
                     if (fieldType != 10) {
-                        value = ((Boolean) value).booleanValue() ? "Y" : "N";
+                        value = (Boolean) value ? "Y" : "N";
                     }
                 } catch (GenericNotImplementedException e) {
                     throw new IllegalArgumentException(e.getMessage());
@@ -738,7 +738,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         // this "hack" is needed for now until the Double/BigDecimal issues are all resolved
         Object value = get(name);
         if (value instanceof BigDecimal) {
-            return Double.valueOf(((BigDecimal) value).doubleValue());
+            return ((BigDecimal) value).doubleValue();
         }
         return (Double) value;
     }
@@ -748,7 +748,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         // NOTE: for things to generally work properly BigDecimal should really be used as the java-type in the field type def XML files
         Object value = get(name);
         if (value instanceof Double) {
-            return new BigDecimal(((Double) value).doubleValue());
+            return new BigDecimal((Double) value);
         }
         return (BigDecimal) value;
     }
@@ -967,7 +967,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         }
         Iterator<ModelField> iter = null;
         if (pks != null) {
-            if (pks.booleanValue()) {
+            if (pks) {
                 iter = this.getModelEntity().getPksIterator();
             } else {
                 iter = this.getModelEntity().getNopksIterator();

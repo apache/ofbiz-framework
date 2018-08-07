@@ -84,10 +84,10 @@ public final class UtilFormatOut {
 
     public static Double formatPriceNumber(double price) {
         try {
-            return Double.valueOf(priceDecimalFormat.parse(formatPrice(price)).doubleValue());
+            return priceDecimalFormat.parse(formatPrice(price)).doubleValue();
         } catch (ParseException e) {
             Debug.logError(e, module);
-            return Double.valueOf(price);
+            return price;
         }
     }
 

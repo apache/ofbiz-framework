@@ -1054,7 +1054,7 @@ public class EntityPermissionChecker {
 
         public String dumpAsText() {
              List<String> fieldNames = UtilMisc.toList("roleFieldName",  "auxiliaryFieldName",  "statusFieldName");
-             Map<String, Integer> widths = UtilMisc.toMap("roleFieldName", Integer.valueOf(24), "auxiliaryFieldName", Integer.valueOf(24), "statusFieldName", Integer.valueOf(24));
+             Map<String, Integer> widths = UtilMisc.toMap("roleFieldName", 24, "auxiliaryFieldName", 24, "statusFieldName", 24);
              StringBuilder buf = new StringBuilder();
              Integer wid = null;
 
@@ -1066,13 +1066,13 @@ public class EntityPermissionChecker {
              for (String fld: fieldNames) {
                  wid = widths.get(fld);
                  buf.append(fld);
-                 for (int i=0; i < (wid.intValue() - fld.length()); i++) buf.append("^");
+                 for (int i = 0; i < (wid - fld.length()); i++) buf.append("^");
                  buf.append("  ");
              }
                      buf.append("\n");
              for (String fld: fieldNames) {
                  wid = widths.get(fld);
-                 for (int i=0; i < wid.intValue(); i++) buf.append("-");
+                 for (int i = 0; i < wid; i++) buf.append("-");
                  buf.append("  ");
              }
                      buf.append("\n");
@@ -1095,7 +1095,7 @@ public class EntityPermissionChecker {
                      }
                      wid = widths.get("roleFieldName");
                      buf.append(roleTypeId);
-                     for (int i=0; i < (wid.intValue() - roleTypeId.length()); i++) buf.append("^");
+                     for (int i = 0; i < (wid - roleTypeId.length()); i++) buf.append("^");
                      buf.append("  ");
 
                      String  auxiliaryFieldValue = contentPurposeOperation.getString(this.auxiliaryFieldName);
@@ -1104,7 +1104,7 @@ public class EntityPermissionChecker {
                      }
                      wid = widths.get("auxiliaryFieldName");
                      buf.append(auxiliaryFieldValue);
-                     for (int i=0; i < (wid.intValue() - auxiliaryFieldValue.length()); i++) buf.append("^");
+                     for (int i = 0; i < (wid - auxiliaryFieldValue.length()); i++) buf.append("^");
                      buf.append("  ");
 
                      String statusId = contentPurposeOperation.getString(this.statusFieldName);

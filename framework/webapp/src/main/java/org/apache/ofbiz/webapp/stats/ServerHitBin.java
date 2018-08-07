@@ -219,10 +219,10 @@ public class ServerHitBin {
                     serverHitBin.set("hitTypeId", ServerHitBin.typeIds[bin.type]);
                     serverHitBin.set("binStartDateTime", new java.sql.Timestamp(bin.startTime));
                     serverHitBin.set("binEndDateTime", new java.sql.Timestamp(bin.endTime));
-                    serverHitBin.set("numberHits", Long.valueOf(bin.getNumberHits()));
-                    serverHitBin.set("totalTimeMillis", Long.valueOf(bin.getTotalRunningTime()));
-                    serverHitBin.set("minTimeMillis", Long.valueOf(bin.getMinTime()));
-                    serverHitBin.set("maxTimeMillis", Long.valueOf(bin.getMaxTime()));
+                    serverHitBin.set("numberHits", bin.getNumberHits());
+                    serverHitBin.set("totalTimeMillis", bin.getTotalRunningTime());
+                    serverHitBin.set("minTimeMillis", bin.getMinTime());
+                    serverHitBin.set("maxTimeMillis", bin.getMaxTime());
                     // get localhost ip address and hostname to store
                     if (VisitHandler.address != null) {
                         serverHitBin.set("serverIpAddress", VisitHandler.address.getHostAddress());
@@ -512,7 +512,7 @@ public class ServerHitBin {
                 }
             }
             serverHit.set("contentId", this.id);
-            serverHit.set("runningTimeMillis", Long.valueOf(runningTime));
+            serverHit.set("runningTimeMillis", runningTime);
 
             String fullRequestUrl = UtilHttp.getFullRequestUrl(request);
 

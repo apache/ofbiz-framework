@@ -432,7 +432,7 @@ public class WorldPayEvents {
         List<GenericValue> toStore = new LinkedList<>();
         java.sql.Timestamp authDate = null;
         try {
-            authDate = new java.sql.Timestamp(paymentDate.longValue());
+            authDate = new java.sql.Timestamp(paymentDate);
         } catch (Exception e) {
             Debug.logError(e, "Cannot create date from long: " + paymentDate, module);
             authDate = UtilDateTime.nowTimestamp();

@@ -234,7 +234,7 @@ public class ModelFormField {
             Integer itemIndex = (Integer) context.get("itemIndex");
             if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType())) {
                 if (itemIndex != null) {
-                    return idName + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+                    return idName + modelForm.getItemIndexSeparator() + itemIndex;
                 }
             }
         }
@@ -526,7 +526,7 @@ public class ModelFormField {
 
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "multi".equals(this.modelForm.getType())) {
-            return baseName + this.modelForm.getItemIndexSeparator() + itemIndex.intValue();
+            return baseName + this.modelForm.getItemIndexSeparator() + itemIndex;
         }
         return baseName;
     }
@@ -535,7 +535,7 @@ public class ModelFormField {
         if (this.position == null) {
             return 1;
         }
-        return position.intValue();
+        return position;
     }
 
     public String getRedWhen() {
@@ -753,7 +753,7 @@ public class ModelFormField {
     }
 
     public boolean isSortField() {
-        return this.sortField != null && this.sortField.booleanValue();
+        return this.sortField != null && this.sortField;
     }
 
     public boolean isUseWhenEmpty() {
@@ -897,7 +897,7 @@ public class ModelFormField {
             // retVal should be a Boolean, if not something weird is up...
             if (retVal instanceof Boolean) {
                 Boolean boolVal = (Boolean) retVal;
-                condTrue = boolVal.booleanValue();
+                condTrue = boolVal;
             } else {
                 throw new IllegalArgumentException("Return value from use-when condition eval was not a Boolean: "
                         + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name
@@ -1023,7 +1023,7 @@ public class ModelFormField {
         public Boolean isAllChecked(Map<String, Object> context) {
             String allCheckedStr = this.allChecked.expandString(context);
             if (!allCheckedStr.isEmpty()) {
-                return Boolean.valueOf("true".equals(allCheckedStr));
+                return "true".equals(allCheckedStr);
             }
             return null;
         }
@@ -1629,7 +1629,7 @@ public class ModelFormField {
                     Double parsedRetVal = (Double) ObjectType.simpleTypeConvert(retVal, "Double", null, locale, false);
                     String template = UtilProperties.getPropertyValue("arithmetic", "accounting-number.format",
                             "#,##0.00;(#,##0.00)");
-                    retVal = UtilFormatOut.formatDecimalNumber(parsedRetVal.doubleValue(), template, locale);
+                    retVal = UtilFormatOut.formatDecimalNumber(parsedRetVal, template, locale);
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting number [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -1845,7 +1845,7 @@ public class ModelFormField {
             baseName += "_OTHER";
             Integer itemIndex = (Integer) context.get("itemIndex");
             if (itemIndex != null && "multi".equals(getModelFormField().modelForm.getType())) {
-                return baseName + getModelFormField().modelForm.getItemIndexSeparator() + itemIndex.intValue();
+                return baseName + getModelFormField().modelForm.getItemIndexSeparator() + itemIndex;
             }
             return baseName;
         }
@@ -3774,7 +3774,7 @@ public class ModelFormField {
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
                         Boolean boolVal = (Boolean) retVal;
-                        shouldUse = boolVal.booleanValue();
+                        shouldUse = boolVal;
                     } else {
                         throw new IllegalArgumentException("Return value from target condition eval was not a Boolean: "
                                 + retVal.getClass().getName() + " [" + retVal + "]");

@@ -127,7 +127,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             } else {
                 conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
             }
-            return conditionReply.booleanValue();
+            return conditionReply;
         }
 
         Object lhsValue = null;
@@ -185,7 +185,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             }
         }
         if (cond != null) {
-            return cond.booleanValue();
+            return cond;
         } else {
             Debug.logWarning("doRealCompare returned null, returning false", module);
             return false;

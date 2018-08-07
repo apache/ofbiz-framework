@@ -612,7 +612,7 @@ public final class ServiceUtil {
         try {
             job = EntityQuery.use(delegator).from("JobSandbox").where("jobId", jobId).queryOne();
             if (job != null) {
-                job.set("maxRetry", Long.valueOf(0));
+                job.set("maxRetry", 0L);
                 job.store();
             }
         } catch (GenericEntityException e) {

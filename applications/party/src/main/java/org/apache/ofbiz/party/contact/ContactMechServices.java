@@ -897,7 +897,7 @@ public class ContactMechServices {
             }
         }
         Boolean bShowOld = (Boolean)context.get("showOld");
-        boolean showOld = (bShowOld != null && bShowOld.booleanValue()) ? true : false;
+        boolean showOld = (bShowOld != null && bShowOld) ? true : false;
         String contactMechTypeId = (String)context.get("contactMechTypeId");
         List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld, contactMechTypeId);
         result.put("valueMaps", valueMaps);
@@ -967,7 +967,7 @@ public class ContactMechServices {
         String expireTime = EntityUtilProperties.getPropertyValue("security", "email_verification.expire.hours", delegator);
         Integer expTime = Integer.valueOf(expireTime);
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, expTime.intValue());
+        calendar.add(Calendar.HOUR, expTime);
         Date date = calendar.getTime();
         Timestamp expireDate = UtilDateTime.toTimestamp(date);
 
