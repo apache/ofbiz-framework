@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -52,15 +53,21 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcHandler;
 import org.apache.xmlrpc.XmlRpcRequest;
+import org.apache.xmlrpc.XmlRpcRequestConfig;
 import org.apache.xmlrpc.common.ServerStreamConnection;
 import org.apache.xmlrpc.common.XmlRpcHttpRequestConfig;
 import org.apache.xmlrpc.common.XmlRpcHttpRequestConfigImpl;
 import org.apache.xmlrpc.common.XmlRpcStreamRequestConfig;
+import org.apache.xmlrpc.parser.XmlRpcRequestParser;
 import org.apache.xmlrpc.server.AbstractReflectiveHandlerMapping;
 import org.apache.xmlrpc.server.XmlRpcHttpServer;
 import org.apache.xmlrpc.server.XmlRpcHttpServerConfig;
 import org.apache.xmlrpc.server.XmlRpcNoSuchHandlerException;
 import org.apache.xmlrpc.util.HttpUtil;
+import org.apache.xmlrpc.util.SAXParsers;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  * XmlRpcEventHandler
@@ -263,6 +270,37 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 }
             }
         }
+    }
+
+    protected XmlRpcRequest getRequest(final XmlRpcStreamRequestConfig pConfig, InputStream pStream)
+            throws XmlRpcException {
+        final XmlRpcRequestParser parser = new XmlRpcRequestParser(pConfig, getTypeFactory());
+        final XMLReader xr = SAXParsers.newXMLReader();
+        xr.setContentHandler(parser);
+        try {
+            xr.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            xr.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            xr.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            xr.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            xr.parse(new InputSource(pStream));
+        } catch (SAXException | IOException e) {
+            throw new XmlRpcException("Failed to parse / read XML-RPC request: " + e.getMessage(), e);
+        }
+        final List<?> params = parser.getParams();
+        return new XmlRpcRequest() {
+            public XmlRpcRequestConfig getConfig() {
+                return pConfig;
+            }
+            public String getMethodName() {
+                return parser.getMethodName();
+            }
+            public int getParameterCount() {
+                return params == null ? 0 : params.size();
+            }
+            public Object getParameter(int pIndex) {
+                return params.get(pIndex);
+            }
+        };
     }
 
     class ServiceRpcHandler extends AbstractReflectiveHandlerMapping implements XmlRpcHandler {
