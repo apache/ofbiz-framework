@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#macro renderScreenBegin>
 <!DOCTYPE html>
 </#macro>
@@ -108,15 +107,15 @@ under the License.
             <#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if>
         </a>
     <#else>
-        <#local params = "{ 'presentation': 'layer'">
+        <#local params = "{\"presentation\":\"layer\" ">
         <#if parameterList?has_content>
           <#list parameterList as parameter>
-            <#local params += ",'${parameter.name}': '${parameter.value}'">
+            <#local params += ",\"${parameter.name}\": \"${parameter.value}\"">
           </#list>
         </#if>
-        <#local params += " }">
+        <#local params += "}">
         <a href="javascript:void(0);" id="${uniqueItemName}_link"
-           data-dialog-params="${params}"
+           data-dialog-params='${params}'
            data-dialog-width="${width}"
            data-dialog-height="${height}"
            data-dialog-url="${target}"
