@@ -41,7 +41,7 @@ under the License.
 </script>
 
 <#macro paginationControls>
-    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
+    <#local viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
       <#if (viewIndexMax?int > 0)>
         <div class="product-prevnext">
             <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">

@@ -73,9 +73,9 @@ under the License.
       </#if>
 
     <#macro displayrecords records>
-        <#assign lastRecordName = null>
+        <#local lastRecordName = null>
         <#list records as record>
-          <#assign modelRecord = record.getModelRecord()>
+          <#local modelRecord = record.getModelRecord()>
           <#-- if record is different than the last displayed, make a new table and header row -->
           <#if !(modelRecord.name == lastRecordName)>
             <#if lastRecordName??>
@@ -101,7 +101,7 @@ under the License.
 
           <tr>
             <#list modelRecord.fields as modelField>
-              <#assign value = record.get(modelField.name)>
+              <#local value = record.get(modelField.name)>
               <#if value?has_content>
                 <td>${value}</td>
               <#else>
