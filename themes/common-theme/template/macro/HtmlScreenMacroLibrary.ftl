@@ -35,13 +35,14 @@ under the License.
 </#if>
 </#macro>
 
-<#macro renderContainerBegin id autoUpdateInterval style="" autoUpdateLink="">
+<#macro renderContainerBegin id autoUpdateInterval type="" style="" autoUpdateLink="">
 <#if autoUpdateLink?has_content>
 <script type="application/javascript">ajaxUpdateAreaPeriodic('${id}', '${autoUpdateLink}', '', '${autoUpdateInterval}');</script>
 </#if>
-<div<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
+<#if !type?has_content><#local type="div"/> </#if>
+<${type}<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
 </#macro>
-<#macro renderContainerEnd></div></#macro>
+<#macro renderContainerEnd type=""><#if !type?has_content><#local type="div"/> </#if></${type}></#macro>
 <#macro renderContentBegin enableEditValue editContainerStyle  editRequest=""><#if editRequest?has_content && "true" == enableEditValue><div class=${editContainerStyle}></#if></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd editMode editContainerStyle  enableEditValue editRequest="" urlString="" >

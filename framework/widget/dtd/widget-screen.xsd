@@ -263,6 +263,13 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="type">
+                <xs:annotation>
+                    <xs:documentation>With the type it is possible to render different containers
+                        than div like section.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="auto-update-interval">
                 <xs:annotation>
                     <xs:documentation>The auto-update interval, in seconds.</xs:documentation>
