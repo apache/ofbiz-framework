@@ -60,8 +60,8 @@ under the License.
     require
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
-    <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
+    <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
+    <#local defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
     <script type="application/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
@@ -178,18 +178,18 @@ under the License.
     <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
       <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
         <#if isTwelveHour>
-          <#assign x=11>
+          <#local x=11>
           <#list 0..x as i>
             <option value="${i}"<#if hour1?has_content><#if i=hour1> selected="selected"</#if></#if>>${i}</option><#rt/>
           </#list>
         <#else>
-          <#assign x=23>
+          <#local x=23>
           <#list 0..x as i>
             <option value="${i}"<#if hour2?has_content><#if i=hour2> selected="selected"</#if></#if>>${i}</option><#rt/>
           </#list>
         </#if>
         </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
-          <#assign values = Static["org.apache.ofbiz.base.util.StringUtil"].toList(timeValues)>
+          <#local values = Static["org.apache.ofbiz.base.util.StringUtil"].toList(timeValues)>
           <#list values as i>
             <option value="${i}"<#if minutes?has_content><#if i?number== minutes ||((i?number==(60 -step?number)) && (minutes &gt; 60 - (step?number/2))) || ((minutes &gt; i?number )&& (minutes &lt; i?number+(step?number/2))) || ((minutes &lt; i?number )&& (minutes &gt; i?number-(step?number/2)))> selected="selected"</#if></#if>>${i}</option><#rt/>
           </#list>
@@ -649,19 +649,19 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if presentation?has_content && descriptionFieldName?has_content && "window" == presentation>
       data-lookup-field-formname="${fieldFormName}" data-lookup-form-name="${formName?html}" <#if descriptionFieldName?has_content>data-lookup-description-field="${descriptionFieldName}"</#if> <#rt>
       <#if targetParameterIter?has_content>
-        <#assign args = "${targetParameterIter?join(', ')}">
+        <#local args = "${targetParameterIter?join(', ')}">
       </#if>
       data-lookup-args="${args!}" <#rt>
     <#elseif presentation?has_content && "window" == presentation>
       data-lookup-field-formname="${fieldFormName}" <#rt>
       <#if targetParameterIter?has_content>
-        <#assign args = "${targetParameterIter?join(', ')}">
+        <#local args = "${targetParameterIter?join(', ')}">
       </#if>
       data-lookup-args="${args!}" <#rt>
     <#else>
       <#if ajaxEnabled?has_content && ajaxEnabled>
-        <#assign defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
-        <#assign defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
+        <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
+        <#local defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
         <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && "true" == showDescription>
             <#local ajaxUrl = ajaxUrl + "&amp;searchValueFieldName=" + descriptionFieldName />
@@ -678,7 +678,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       data-lookup-default-minlength="${defaultMinLength!2}" <#rt>
       data-lookup-default-delay="${defaultDelay!300}" <#rt>
       <#if targetParameterIter?has_content>
-        <#assign args = "${targetParameterIter?join(', ')}">
+        <#local args = "${targetParameterIter?join(', ')}">
       </#if>
       data-lookup-args="${args!}"
     </#if>
@@ -701,7 +701,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
         <li class="${paginateFirstStyle}<#if viewIndex gt 0>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxFirstUrl}')<#else>submitPagination(this, '${firstUrl}')</#if>">${paginateFirstLabel}</a><#else>-disabled"><span>${paginateFirstLabel}</span></#if></li>
         <li class="${paginatePreviousStyle}<#if viewIndex gt 0>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxPreviousUrl}')<#else>submitPagination(this, '${previousUrl}')</#if>">${paginatePreviousLabel}</a><#else>-disabled"><span>${paginatePreviousLabel}</span></#if></li>
         <#if listSize gt 0 && javaScriptEnabled><li class="nav-page-select">${pageLabel} <select name="page" size="1" onchange="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxSelectUrl}')<#else>submitPagination(this, '${selectUrl}'+this.value)</#if>"><#rt/>
-          <#assign x=(listSize/viewSize)?ceiling>
+          <#local x=(listSize/viewSize)?ceiling>
             <#list 1..x as i>
               <#if i == (viewIndex+1)><option selected="selected" value="<#else><option value="</#if>${i-1}">${i}</option>
             </#list>
@@ -710,7 +710,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
         <li class="${paginateNextStyle}<#if highIndex lt listSize>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxNextUrl}')<#else>submitPagination(this, '${nextUrl}')</#if>">${paginateNextLabel}</a><#else>-disabled"><span>${paginateNextLabel}</span></#if></li>
         <li class="${paginateLastStyle}<#if highIndex lt listSize>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxLastUrl}')<#else>submitPagination(this, '${lastUrl}')</#if>">${paginateLastLabel}</a><#else>-disabled"><span>${paginateLastLabel}</span></#if></li>
         <#if javaScriptEnabled><li class="nav-pagesize"><select name="pageSize" size="1" onchange="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxSelectSizeUrl}')<#else>submitPagination(this, '${selectSizeUrl}')</#if>"><#rt/>
-            <#assign availPageSizes = [20, 30, 50, 100, 200]>
+            <#local availPageSizes = [20, 30, 50, 100, 200]>
           <#list availPageSizes as ps>
             <option <#if viewSize == ps> selected="selected" </#if> value="${ps}">${ps}</option>
           </#list>
@@ -805,8 +805,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if uniqueItemName?has_content>
         <#local params = "{\"presentation\": \"layer\"">
         <#if targetParameters?has_content>
-          <#assign parameterMap = targetParameters?eval>
-          <#assign parameterKeys = parameterMap?keys>
+          <#local parameterMap = targetParameters?eval>
+          <#local parameterKeys = parameterMap?keys>
           <#list parameterKeys as key>
             <#local params += ",\"${key}\": \"${parameterMap[key]}\"">
           </#list>

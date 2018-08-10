@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#macro getFoStyle style>
-    <#assign foStyles = {
+    <#local foStyles = {
         "listtitlestyle":"font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\"",
         "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
         "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
@@ -35,7 +35,7 @@ under the License.
         "alternate-row" : "background-color=\"lightgray\"",
         "error":"color=\"red\""}/>
     <#list style?split(' ') as styleItem>
-        <#assign foStyle = foStyles[styleItem]?default("")/>
+        <#local foStyle = foStyles[styleItem]?default("")/>
         ${foStyle?default("")}
     </#list>
 </#macro>

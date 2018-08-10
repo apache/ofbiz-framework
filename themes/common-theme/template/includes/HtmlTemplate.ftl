@@ -36,10 +36,10 @@ under the License.
 </#macro>
 
 <#macro nextPrev commonUrl="" ajaxEnabled=false javaScriptEnabled=false paginateStyle="nav-pager" paginateFirstStyle="nav-first" viewIndex=0 highIndex=0 listSize=0 viewSize=1 ajaxFirstUrl="" firstUrl="" paginateFirstLabel="" paginatePreviousStyle="nav-previous" ajaxPreviousUrl="" previousUrl="" paginatePreviousLabel="" pageLabel="" ajaxSelectUrl="" selectUrl="" ajaxSelectSizeUrl="" selectSizeUrl="" commonDisplaying="" paginateNextStyle="nav-next" ajaxNextUrl="" nextUrl="" paginateNextLabel="" paginateLastStyle="nav-last" ajaxLastUrl="" lastUrl="" paginateLastLabel="" paginateViewSizeLabel="" >
-  <#assign viewIndexFirst = 0/>
-  <#assign viewIndexPrevious = viewIndex - 1/>
-  <#assign viewIndexNext = viewIndex + 1/>
-  <#assign viewIndexLast = Static["org.apache.ofbiz.base.util.UtilMisc"].getViewLastIndex(listSize, viewSize) />
+  <#local viewIndexFirst = 0/>
+  <#local viewIndexPrevious = viewIndex - 1/>
+  <#local viewIndexNext = viewIndex + 1/>
+  <#local viewIndexLast = Static["org.apache.ofbiz.base.util.UtilMisc"].getViewLastIndex(listSize, viewSize) />
   <#local javaScriptEnabled = javaScriptEnabled />
   <#if (!javaScriptEnabled)>
     <#local javaScriptEnabled = Static["org.apache.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />

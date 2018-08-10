@@ -22,7 +22,7 @@ under the License.
 <#macro renderItemField value cellType cellStyle=""><td class="${cellType!}" <#if cellStyle?has_content>${cellStyle!}</#if>>${value!}</td></#macro>
 
 <#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorUrl="" inPlaceEditorParams="">
-<#if type=="currency"><#assign value = StringUtil.makeStringWrapper(description!)><@renderItemField value "cf" class/>
+<#if type=="currency"><#local value = StringUtil.makeStringWrapper(description!)><@renderItemField value "cf" class/>
 <#elseif type=="date"><@renderItemField description "dt" class/>
 <#elseif type=="date-time"><@renderItemField description "dtf" class/>
 <#elseif type=="accounting-number"><@renderItemField description "nf" class/>

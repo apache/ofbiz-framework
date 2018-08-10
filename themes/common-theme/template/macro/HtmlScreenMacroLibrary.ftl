@@ -66,8 +66,8 @@ under the License.
   <#if text?has_content>
     <#-- If a label widget has one of the h1-h6 styles, then it is considered block level element.
          Otherwise it is considered an inline element. -->
-    <#assign idText = ""/>
-    <#if id?has_content><#assign idText = " id=\"${id}\""/></#if>
+    <#local idText = ""/>
+    <#if id?has_content><#local idText = " id=\"${id}\""/></#if>
     <#if style?has_content>
       <#if style=="h1">
         <h1${idText}>${text}</h1>
@@ -183,8 +183,8 @@ ${menuString}
 </#macro>
 
 <#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId confMode="false" width="auto" delColumnLabel="Delete column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" colWidthLabel="Col. width:" setColumnSizeHint="Set column size">
-  <#assign columnKey = portalPageId+columnSeqId>
-  <#assign columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
+  <#local columnKey = portalPageId+columnSeqId>
+  <#local columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
   <script type="application/javascript">
     if (typeof SORTABLE_COLUMN_LIST != "undefined") {
       if (SORTABLE_COLUMN_LIST == null) {
@@ -227,8 +227,8 @@ ${menuString}
 </#macro>
 
 <#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId prevPortletId="" prevPortletSeqId="" nextPortletId="" nextPortletSeqId="" columnSeqId="" prevColumnSeqId="" nextColumnSeqId="" confMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
-  <#assign portletKey = portalPageId+portalPortletId+portletSeqId>
-  <#assign portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
+  <#local portletKey = portalPageId+portalPortletId+portletSeqId>
+  <#local portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
   <div id="PP_${portletKey}" name="portalPortlet" class="noClass" portalPageId="${portalPageId}" portalPortletId="${portalPortletId}" columnSeqId="${columnSeqId}" portletSeqId="${portletSeqId}">
     <#if "true" == confMode>
       <div class="portlet-config" id="PPCFG_${portletKey}">

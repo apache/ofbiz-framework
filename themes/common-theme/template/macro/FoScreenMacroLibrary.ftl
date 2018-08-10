@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#macro getFoStyle style>
-    <#assign foStyles = {
+    <#local foStyles = {
         "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
         "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
         "tableheadverysmall":"column-width=\"0.3in\"",
@@ -32,7 +32,7 @@ under the License.
         "h3":"font-weight=\"bold\" font-style=\"italic\"",
         "error":"color=\"red\""}/>
     <#list style?split(' ') as styleItem>
-        <#assign foStyle = foStyles[styleItem]?default("")/>
+        <#local foStyle = foStyles[styleItem]?default("")/>
         ${foStyle?default("")}
     </#list>
 </#macro>
