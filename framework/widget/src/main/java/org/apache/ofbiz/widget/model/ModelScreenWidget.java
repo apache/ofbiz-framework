@@ -433,6 +433,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     public static final class Container extends ModelScreenWidget {
         public static final String TAG_NAME = "container";
         private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander typeExdr;
         private final FlexibleStringExpander styleExdr;
         private final FlexibleStringExpander autoUpdateTargetExdr;
         private final FlexibleStringExpander autoUpdateInterval;
@@ -441,6 +442,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public Container(ModelScreen modelScreen, Element containerElement) {
             super(modelScreen, containerElement);
             this.idExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("id"));
+            this.typeExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("type"));
             this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
             this.autoUpdateTargetExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("auto-update-target"));
             String autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
@@ -473,6 +475,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.idExdr.expandString(context);
         }
 
+        public String getType(Map<String, Object> context) {
+            return this.typeExdr.expandString(context);
+        }
+
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
         }
@@ -496,6 +502,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public FlexibleStringExpander getIdExdr() {
             return idExdr;
+        }
+
+        public FlexibleStringExpander getTypeExdr() {
+            return typeExdr;
         }
 
         public FlexibleStringExpander getStyleExdr() {

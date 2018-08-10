@@ -51,8 +51,8 @@ under the License.
 
 <#macro renderSectionEnd boundaryComment>
 </#macro>
-<#macro renderContainerBegin id autoUpdateLink autoUpdateInterval style=""><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
-<#macro renderContainerEnd></fo:block></#macro>
+<#macro renderContainerBegin id autoUpdateLink type autoUpdateInterval style=""><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
+<#macro renderContainerEnd type></fo:block></#macro>
 <#macro renderContentBegin editRequest enableEditValue editContainerStyle></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd></#macro>

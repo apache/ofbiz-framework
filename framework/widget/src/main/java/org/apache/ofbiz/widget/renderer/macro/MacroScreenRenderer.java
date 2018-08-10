@@ -183,6 +183,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
         String containerId = container.getId(context);
+        String containerType = container.getType(context);
         String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         String autoUpdateLink = "";
@@ -197,6 +198,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", containerId);
+        parameters.put("type", containerType);
         parameters.put("style", container.getStyle(context));
         parameters.put("autoUpdateLink", autoUpdateLink);
         parameters.put("autoUpdateInterval", container.getAutoUpdateInterval(context));
@@ -204,7 +206,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderContainerEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
-        executeMacro(writer, "renderContainerEnd", null);
+        String containerType = container.getType(context);
+        executeMacro(writer, "renderContainerEnd", UtilMisc.toMap("type", containerType));
     }
 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {

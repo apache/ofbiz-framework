@@ -25,8 +25,8 @@ under the License.
 
 <#macro renderSectionEnd boundaryComment></#macro>
 
-<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval></#macro>
-<#macro renderContainerEnd></#macro>
+<#macro renderContainerBegin id style autoUpdateLink type autoUpdateInterval></#macro>
+<#macro renderContainerEnd type></#macro>
 <#macro renderContentBegin editRequest enableEditValue editContainerStyle></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
