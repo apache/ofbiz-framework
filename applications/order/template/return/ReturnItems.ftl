@@ -18,8 +18,8 @@ under the License.
 -->
 
 <#macro displayReturnAdjustment returnAdjustment adjEditable>
-    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
-    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)!>
+    <#local returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
+    <#local adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)!>
     <#if (adjEditable)>
         <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
         <input type="hidden" name="returnAdjustmentId_o_${rowCount}" value="${returnAdjustment.returnAdjustmentId}" />
@@ -61,10 +61,10 @@ under the License.
        <td>&nbsp;</td>
        </#if>
         <#if (adjEditable)>
-          <#assign rowCount = rowCount + 1>
-          <#assign rowCountForAdjRemove = rowCountForAdjRemove + 1>
+          <#local rowCount = rowCount + 1>
+          <#local rowCountForAdjRemove = rowCountForAdjRemove + 1>
        </#if>
-       <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
+       <#local returnTotal = returnTotal + returnAdjustment.amount?default(0)>
     </tr>
 </#macro>
 

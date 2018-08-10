@@ -646,9 +646,9 @@ ${virtualJavaScript!}
 
   <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
-  <#assign targetRequest = "product">
+  <#local targetRequest = "product">
   <#if targetRequestName?has_content>
-    <#assign targetRequest = targetRequestName>
+    <#local targetRequest = targetRequestName>
   </#if>
   <#if assocProducts?has_content>
     <h2>${beforeName!}<#if "Y" == showName>${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2>

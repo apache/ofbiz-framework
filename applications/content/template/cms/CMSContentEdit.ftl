@@ -151,7 +151,7 @@ under the License.
 </table>
 
 <#macro renderTextData content textData >
-    <#assign contentId=content.contentId!/>
+    <#local contentId=content.contentId!/>
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr>
     <td width='100%'>

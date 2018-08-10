@@ -18,17 +18,17 @@ under the License.
 -->
 
 <#macro maskSensitiveNumber cardNumber>
-  <#assign cardNumberDisplay = "">
+  <#local cardNumberDisplay = "">
   <#if cardNumber?has_content>
-    <#assign size = cardNumber?length - 4>
+    <#local size = cardNumber?length - 4>
     <#if (size > 0)>
       <#list 0 .. size-1 as foo>
-        <#assign cardNumberDisplay = cardNumberDisplay + "*">
+        <#local cardNumberDisplay = cardNumberDisplay + "*">
       </#list>
-      <#assign cardNumberDisplay = cardNumberDisplay + cardNumber[size .. size + 3]>
+      <#local cardNumberDisplay = cardNumberDisplay + cardNumber[size .. size + 3]>
     <#else>
       <#-- but if the card number has less than four digits (ie, it was entered incorrectly), display it in full -->
-      <#assign cardNumberDisplay = cardNumber>
+      <#local cardNumberDisplay = cardNumber>
     </#if>
   </#if>
   ${cardNumberDisplay!}
