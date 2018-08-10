@@ -28,10 +28,15 @@ under the License.
     </form><#rt/>
     </#if>
     <#if uniqueItemName?has_content && "layered-modal" == linkType>
-        <#local params = "{ 'presentation': 'layer'">
-        <#local params += " }">
+      <#local params = "{\"presentation\":\"layer\" ">
+      <#if parameterList?has_content>
+        <#list parameterList as parameter>
+          <#local params += ",\"${parameter.name}\": \"${parameter.value}\"">
+        </#list>
+      </#if>
+      <#local params += "}">
     <a href="javascript:void(0);" id="${uniqueItemName}_link"
-       data-dialog-params="${params}"
+       data-dialog-params='${params}'
        data-dialog-width="${width}"
        data-dialog-height="${height}"
        data-dialog-url="${linkUrl}"
