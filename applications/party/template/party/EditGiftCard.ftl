@@ -94,11 +94,11 @@ under the License.
           </td>
         </tr>
         </table>
+        <div class="button-bar">
+          <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+          <input type="submit" value="${uiLabelMap.CommonSave}"/>
+        </div>
       </form>
-      <div class="button-bar">
-        <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
-        <a href="javascript:document.editgiftcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
-      </div>
   </div>
 </div>
 <!-- end EditGiftCard.ftl -->

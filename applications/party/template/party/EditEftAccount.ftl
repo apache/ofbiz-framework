@@ -159,11 +159,11 @@ under the License.
           </td>
         </tr>
         </table>
+        <div class="button-bar">
+          <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+          <input type="submit" value="${uiLabelMap.CommonSave}"/>
+        </div>
       </form>
-      <div class="button-bar">
-        <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
-        <a href="javascript:document.editeftaccountform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
-      </div>
   </div>
 </div>
 <!-- end EditEftAccount.ftl -->

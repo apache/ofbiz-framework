@@ -48,7 +48,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             </div>
           </td>
           <td valign="middle" align="right">
-            <a href="javascript:document.userform.submit()" class="submenutextright">Refresh</a>
+            <input type="submit" value="Refresh"/>
           </td>
         </tr>
       </table>

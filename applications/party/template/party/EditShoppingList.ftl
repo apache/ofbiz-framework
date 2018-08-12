@@ -25,7 +25,7 @@ under the License.
       <li>
         <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
           <input type="hidden" name="partyId" value="${partyId!}" />
-          <a href="javascript:document.getElementById('createEmptyShoppingList').submit();" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+          <input type="submit" value="${uiLabelMap.CommonCreateNew}"/>
         </form>
       </li>
     </ul>
@@ -44,7 +44,7 @@ under the License.
           </#list>
         </select>
         <input type="hidden" name="partyId" value="${partyId!}" />
-        <a href="javascript:document.selectShoppingList.submit();" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
+        <input type="submit" value="${uiLabelMap.CommonEdit}"/>
       </form>
     <#else>
       ${uiLabelMap.PartyNoShoppingListsParty}.
@@ -62,8 +62,8 @@ under the License.
       <form method="post" name="createQuoteFromShoppingListForm" action="/ordermgr/control/createQuoteFromShoppingList">
         <input type= "hidden" name= "applyStorePromotions" value= "N"/>
         <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId!}"/>
+        <input type="submit" value="${uiLabelMap.PartyCreateNewQuote}"/>
       </form>
-      <a href="javascript:document.createQuoteFromShoppingListForm.submit()">${uiLabelMap.PartyCreateNewQuote}</a>
       </li>
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
       <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.OrderNewOrder}</a></li>

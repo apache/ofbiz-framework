@@ -22,12 +22,12 @@
         <div class="h3">${uiLabelMap.ContentRenameFolder}</div>
         ${uiLabelMap.ContentRenameFolder} : ${content.contentName}<br />
         <input type="text" name="contentName" value="${content.contentName}" />
-        <br/ <a class="buttontext" href="javascript:document.editContentTree.submit();">${uiLabelMap.ContentRenameFolder}</a><a class="buttontext" href="<@ofbizUrl>navigateContent</@ofbizUrl>">${uiLabelMap.CommonCancel}</a>
+        <br/> <input type="submit" value="${uiLabelMap.ContentRenameFolder}" /><a class="buttontext" href="<@ofbizUrl>navigateContent</@ofbizUrl>">${uiLabelMap.CommonCancel}</a>
     <#else>
         <div class="h3">${uiLabelMap.ContentNewFolder}</div>
         ${uiLabelMap.ContentRoot} : ${content.contentName}
         <input type="text" name="contentName" />
-        <br /><a class="buttontext" href="javascript:document.editContentTree.submit();">${uiLabelMap.CommonCreate}</a><a class="buttontext" href="<@ofbizUrl>navigateContent</@ofbizUrl>">${uiLabelMap.CommonCancel}</a>
+        <br /><input type="submit" value="${uiLabelMap.CommonCreate}"/><a class="buttontext" href="<@ofbizUrl>navigateContent</@ofbizUrl>">${uiLabelMap.CommonCancel}</a>
     </#if>
     <input type="hidden" name="contentId" value="${parameters.contentId}"/>
     <input type="hidden" name="contentAssocTypeId" value="TREE_CHILD"/>

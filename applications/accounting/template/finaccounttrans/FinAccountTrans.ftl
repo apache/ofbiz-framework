@@ -106,12 +106,12 @@ function getFinAccountTransRunningTotalAndBalances() {
                   <option value="${glReconciliation.glReconciliationId}">${glReconciliation.glReconciliationName!}[[${glReconciliation.glReconciliationId}] [${glReconciliation.reconciledDate!}] [${glReconciliation.reconciledBalance!}]]</option>
                 </#list>
               </select>
-              <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingAssignToReconciliation}" disabled="disabled" />
+              <input id="submitButton" type="submit" value="${uiLabelMap.AccountingAssignToReconciliation}" disabled="disabled" />
             <#else>
               <span class="tooltip">${uiLabelMap.AccountingNoGlReconciliationExists} <a href="<@ofbizUrl>EditFinAccountReconciliations?finAccountId=${parameters.finAccountId!}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a></span>
             </#if>
           <#else>
-            <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled="disabled" />
+            <input id="submitButton" type="submit" value="${uiLabelMap.AccountingReconcile}" disabled="disabled" />
           </#if>
         </div>
       </#if>

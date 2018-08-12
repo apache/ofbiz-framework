@@ -64,7 +64,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <@htmlTemplate.lookupField value="${productId!}" formName="searchform" name="productId" id="productId" fieldFormName="LookupProduct"/>
-                <span><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
+                <span><input type="submit" value="${uiLabelMap.ManufacturingShowBOMAssocs}"/></span>
             </td>
         </tr>
         <tr>
