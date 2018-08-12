@@ -42,7 +42,7 @@ under the License.
         </tr>
         <tr>
           <td></td>
-          <td><a href="javascript:document.addaddrmap.submit()" class="smallSubmit">${uiLabelMap.CommonCreate}</a></td>
+          <td><input type="submit" value="${uiLabelMap.CommonCreate}"/></td>
         </tr>
     </table>
     </form>

@@ -31,7 +31,7 @@ under the License.
                 <option value="${contactMechType.contactMechTypeId}">${contactMechType.get("description",locale)}</option>
               </#list>
             </select>
-            <a href="javascript:document.createcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonCreate}</a>
+            <input type="submit" value="${uiLabelMap.CommonCreate}"/>
           </td>
         </tr>
       </table>

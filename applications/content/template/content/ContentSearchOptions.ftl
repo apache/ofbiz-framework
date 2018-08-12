@@ -129,7 +129,7 @@ under the License.
         <tr>
           <td colspan="2" align="center">
             <div>
-              <a href="javascript:document.advToKeyWordSearchForm.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
+              <input type="submit" value="${uiLabelMap.CommonFind}"/>
             </div>
           </td>
         </tr>

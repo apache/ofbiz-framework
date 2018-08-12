@@ -130,7 +130,7 @@ function setServiceName(selection) {
                 </div>
                 <div class="align-float">
                     <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
-                        <option value="">${uiLabelMap.AccountingSelectAction}</options>
+                        <option value="">${uiLabelMap.AccountingSelectAction}</option>
                         <option value="<@ofbizUrl>createPaymentBatch</@ofbizUrl>" id="processBatchPayment">${uiLabelMap.AccountingCreateBatch}</option>
                         <option value="massPaymentsToNotPaid">${uiLabelMap.AccountingPaymentStatusToNotPaid}</option>
                         <option value="massPaymentsToReceived">${uiLabelMap.AccountingInvoiceStatusToReceived}</option>

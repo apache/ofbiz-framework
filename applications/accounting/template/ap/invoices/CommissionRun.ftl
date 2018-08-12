@@ -82,7 +82,7 @@ function enableSubmitButton() {
     </#if>
     <div align="right">
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
-        <option value="">${uiLabelMap.AccountingSelectAction}</options>
+        <option value="">${uiLabelMap.AccountingSelectAction}</option>
         <option value="processCommissionRun">${uiLabelMap.AccountingCommissionRun}</option>
       </select>
       <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.CommonRun}" disabled="disabled" />

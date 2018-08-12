@@ -121,7 +121,7 @@ under the License.
                   <input type="hidden" name="surveyId" value="${surveyQuestionAndAppl.surveyId}" />
                   <input type="hidden" name="surveyQuestionId" value="${surveyQuestionAndAppl.surveyQuestionId}" />
                   <input type="hidden" name="fromDate" value="${surveyQuestionAndAppl.fromDate}" />
-                  <a href="javascript:document.getElementById('removeSurveyQuestion_${surveyQuestionAndAppl.surveyQuestionId}').submit();"" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                  <input type="submit" value="${uiLabelMap.CommonRemove}"/>
                 </form>
               </td>
             </tr>

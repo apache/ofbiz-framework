@@ -408,7 +408,7 @@ under the License.
                           <#if "true" == forceComplete?default("false")>
                             <#assign buttonName = "${uiLabelMap.ProductCompleteForce}">
                           </#if>
-                          <input type="button" value="${buttonName}" onclick="javascript:document.completePackForm.submit();"/>
+                          <input type="submit" value="${buttonName}"/>
                         </div>
                       </td>
                     </tr>

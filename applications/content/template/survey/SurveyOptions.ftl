@@ -43,7 +43,7 @@ under the License.
               <input type="hidden" name="surveyId" value="${requestParameters.surveyId}" />
               <input type="hidden" name="surveyQuestionId" value="${option.surveyQuestionId}" />
               <input type="hidden" name="surveyOptionSeqId" value="${option.surveyOptionSeqId}" />
-              <a href="javascript:document.getElementById('deleteSurveyQuestionOption_${option_index}').submit();"" class="buttontext">${uiLabelMap.CommonRemove}</a>
+              <input type="submit" value="${uiLabelMap.CommonRemove}" />
             </form>
           </td>
         </tr>
