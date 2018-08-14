@@ -83,7 +83,7 @@ under the License.
         <field use-when="paymentGroup==null @and paymentGroupId==null" name="paymentGroupId"><ignored/></field>
         <field use-when="paymentGroup==null @and paymentGroupId!=null" name="paymentGroupId"><display description="${uiLabelMap.CommonCannotBeFound}: [${paymentGroupId}]" also-hidden="false"/></field>
         <field name="paymentGroupId" use-when="display==true"><display/></field>
-        <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}">
+        <field name="paymentGroupTypeId" use-when="display==true" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="PaymentGroupType"/>
         </field>
         <field name="paymentGroupTypeId" use-when="paymentGroup==null" title="${uiLabelMap.CommonType}">
