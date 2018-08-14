@@ -46,471 +46,470 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortAndFulfillment"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkEffort Requirement View Entity">
-      <member-entity entity-alias="WEF" entity-name="WorkEffort"/>
-      <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
-      <member-entity entity-alias="REQ" entity-name="Requirement"/>
-      <alias-all entity-alias="WEF">
-        <exclude field="description"/>
-        <exclude field="fixedAssetId"/>
-        <exclude field="facilityId"/>
-      </alias-all>
-      <alias-all entity-alias="WRF"/>
-      <alias-all entity-alias="REQ">
-        <exclude field="facilityId"/>
-        <exclude field="fixedAssetId"/>
-        <exclude field="description"/>
-        <exclude field="createdDate"/>
-        <exclude field="createdByUserLogin"/>
-        <exclude field="lastModifiedDate"/>
-        <exclude field="lastModifiedByUserLogin"/>
-      </alias-all>
-      <alias entity-alias="WEF" name="workEffortDescription" field="description"/>
-      <alias entity-alias="WEF" name="workEffortFixedAssetId" field="fixedAssetId"/>
-      <alias entity-alias="WEF" name="workEffortFacilityId" field="facilityId"/>
-      <alias entity-alias="REQ" name="requirementFacilityId" field="facilityId"/>
-      <alias entity-alias="REQ" name="requirementFixedAssetId" field="fixedAssetId"/>
-      <alias entity-alias="REQ" name="requirementDescription" field="description"/>
-      <alias entity-alias="REQ" name="requirementCreationDate" field="createdDate"/>
-      <view-link entity-alias="WEF" rel-entity-alias="WRF">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="WRF" rel-entity-alias="REQ">
-        <key-map field-name="requirementId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="Requirement">
-        <key-map field-name="requirementId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortType">
-        <key-map field-name="workEffortTypeId"/>
-      </relation>
-      <relation type="one-nofk" title="Parent" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortTypeAttr">
-        <key-map field-name="workEffortTypeId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortAttribute">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkOrderItemFulfillment">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" title="Current" rel-entity-name="StatusItem">
-        <key-map field-name="currentStatusId" rel-field-name="statusId"/>
-      </relation>
-      <relation type="one-nofk" title="Scope" rel-entity-name="Enumeration">
-        <key-map field-name="scopeEnumId" rel-field-name="enumId"/>
-      </relation>
-      <relation type="one-nofk" title="Money" rel-entity-name="Uom">
-        <key-map field-name="moneyUomId" rel-field-name="uomId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RecurrenceInfo">
-        <key-map field-name="recurrenceInfoId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RuntimeData">
-        <key-map field-name="runtimeDataId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="NoteData">
-        <key-map field-name="noteId"/>
-      </relation>
-      <relation type="many" title="From" rel-entity-name="WorkEffortAssoc">
-        <key-map field-name="workEffortId" rel-field-name="workEffortIdFrom"/>
-      </relation>
-      <relation type="many" title="To" rel-entity-name="WorkEffortAssoc">
-        <key-map field-name="workEffortId" rel-field-name="workEffortIdTo"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortStatus">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="QuoteItem">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkRequirementFulfillment">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="TimeEntry">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortDeliverableProd">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortBilling">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="RateAmount">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="CommunicationEventWorkEff">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortGoodStandard">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortFixedAssetStd">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortFixedAssetAssign">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortInventoryProduced">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortInventoryAssign">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="many" rel-entity-name="WorkEffortSkillStandard">
-        <key-map field-name="workEffortId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="WorkEffort Requirement View Entity">
+        <member-entity entity-alias="WEF" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
+        <member-entity entity-alias="REQ" entity-name="Requirement"/>
+        <alias-all entity-alias="WEF">
+            <exclude field="description"/>
+            <exclude field="fixedAssetId"/>
+            <exclude field="facilityId"/>
+        </alias-all>
+        <alias-all entity-alias="WRF"/>
+        <alias-all entity-alias="REQ">
+            <exclude field="facilityId"/>
+            <exclude field="fixedAssetId"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+        </alias-all>
+        <alias entity-alias="WEF" name="workEffortDescription" field="description"/>
+        <alias entity-alias="WEF" name="workEffortFixedAssetId" field="fixedAssetId"/>
+        <alias entity-alias="WEF" name="workEffortFacilityId" field="facilityId"/>
+        <alias entity-alias="REQ" name="requirementFacilityId" field="facilityId"/>
+        <alias entity-alias="REQ" name="requirementFixedAssetId" field="fixedAssetId"/>
+        <alias entity-alias="REQ" name="requirementDescription" field="description"/>
+        <alias entity-alias="REQ" name="requirementCreationDate" field="createdDate"/>
+        <view-link entity-alias="WEF" rel-entity-alias="WRF">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WRF" rel-entity-alias="REQ">
+            <key-map field-name="requirementId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="Requirement">
+            <key-map field-name="requirementId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortType">
+            <key-map field-name="workEffortTypeId"/>
+        </relation>
+        <relation type="one-nofk" title="Parent" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortTypeAttr">
+            <key-map field-name="workEffortTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortAttribute">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkOrderItemFulfillment">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" title="Current" rel-entity-name="StatusItem">
+            <key-map field-name="currentStatusId" rel-field-name="statusId"/>
+        </relation>
+        <relation type="one-nofk" title="Scope" rel-entity-name="Enumeration">
+            <key-map field-name="scopeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one-nofk" title="Money" rel-entity-name="Uom">
+            <key-map field-name="moneyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RecurrenceInfo">
+            <key-map field-name="recurrenceInfoId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RuntimeData">
+            <key-map field-name="runtimeDataId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="NoteData">
+            <key-map field-name="noteId"/>
+        </relation>
+        <relation type="many" title="From" rel-entity-name="WorkEffortAssoc">
+            <key-map field-name="workEffortId" rel-field-name="workEffortIdFrom"/>
+        </relation>
+        <relation type="many" title="To" rel-entity-name="WorkEffortAssoc">
+            <key-map field-name="workEffortId" rel-field-name="workEffortIdTo"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortStatus">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="QuoteItem">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkRequirementFulfillment">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="TimeEntry">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortDeliverableProd">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortBilling">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="RateAmount">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="CommunicationEventWorkEff">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortGoodStandard">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortFixedAssetStd">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortFixedAssetAssign">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortInventoryProduced">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortInventoryAssign">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+            <key-map field-name="workEffortId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndFixedAssetAssign"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Fixed Asset Assignment View Entity">
-      <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <member-entity entity-alias="FA" entity-name="FixedAsset"/>
-      <alias-all entity-alias="WEFAA"/>
-      <alias-all entity-alias="WE">
-        <exclude field="fixedAssetId"/>
-      </alias-all>
-      <alias-all entity-alias="FA"/>
-      <view-link entity-alias="WEFAA" rel-entity-alias="WE">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="WEFAA" rel-entity-alias="FA">
-        <key-map field-name="fixedAssetId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="FixedAsset">
-        <key-map field-name="fixedAssetId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="StatusItem" title="Availability">
-        <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Fixed Asset Assignment View Entity">
+        <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="FA" entity-name="FixedAsset"/>
+        <alias-all entity-alias="WEFAA"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias-all entity-alias="FA"/>
+        <view-link entity-alias="WEFAA" rel-entity-alias="WE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WEFAA" rel-entity-alias="FA">
+            <key-map field-name="fixedAssetId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="StatusItem" title="Availability">
+            <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndPartyAssign"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Party Assignment Entity">
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <alias-all entity-alias="WE"/>
-      <alias-all entity-alias="WEPA">
-        <exclude field="facilityId"/>
-      </alias-all>
-      <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
-      <view-link entity-alias="WE" rel-entity-alias="WEPA">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
-        <key-map field-name="workEffortId"/>
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortType">
-        <key-map field-name="workEffortTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Party Assignment Entity">
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WEPA">
+            <exclude field="facilityId"/>
+        </alias-all>
+        <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortType">
+            <key-map field-name="workEffortTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
     </view-entity>
-  <view-entity entity-name="WorkEffortAndPartyAssignAndType"
-    package-name="org.apache.ofbiz.workeffort.workeffort"
-    title="Work Effort And Party Assignment Entity">
-    <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-    <member-entity entity-alias="WETY" entity-name="WorkEffortType"/>
-    <alias-all entity-alias="WE"/>
-    <alias-all entity-alias="WEPA">
-      <exclude field="facilityId"/>
-    </alias-all>
-    <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
-    <alias entity-alias="WETY" name="parentTypeId"/>
-    <view-link entity-alias="WE" rel-entity-alias="WEPA">
-      <key-map field-name="workEffortId"/>
-    </view-link>
-    <view-link entity-alias="WE" rel-entity-alias="WETY">
-      <key-map field-name="workEffortTypeId"/>
-    </view-link>
-    <relation type="one-nofk" rel-entity-name="WorkEffort">
-      <key-map field-name="workEffortId"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
-      <key-map field-name="workEffortId"/>
-      <key-map field-name="partyId"/>
-      <key-map field-name="roleTypeId"/>
-      <key-map field-name="fromDate"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="WorkEffortType">
-      <key-map field-name="workEffortTypeId"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="Party">
-      <key-map field-name="partyId"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="Person">
-      <key-map field-name="partyId"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="PartyRole">
-      <key-map field-name="partyId"/>
-      <key-map field-name="roleTypeId"/>
-    </relation>
-    <relation type="one-nofk" rel-entity-name="RoleType">
-      <key-map field-name="roleTypeId"/>
-    </relation>
-  </view-entity>
-  <view-entity entity-name="WorkEffortPartyAssignAndRoleType"
-    package-name="org.apache.ofbiz.workeffort.workeffort"
-      title="Work Effort Party Assignment And Roletype">
-      <description>To be able to have a dropdown listing with all roles a party has on this workeffort.</description>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <member-entity entity-alias="RT" entity-name="RoleType"/>
-      <alias-all entity-alias="WEPA"/>
-      <alias-all entity-alias="RT">
-        <exclude field="roleTypeId"/>
-      </alias-all>
-      <view-link entity-alias="WEPA" rel-entity-alias="RT">
-        <key-map field-name="roleTypeId"/>
-      </view-link>
+    <view-entity entity-name="WorkEffortAndPartyAssignAndType"
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Party Assignment Entity">
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="WETY" entity-name="WorkEffortType"/>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WEPA">
+            <exclude field="facilityId"/>
+        </alias-all>
+        <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+        <alias entity-alias="WETY" name="parentTypeId"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE" rel-entity-alias="WETY">
+            <key-map field-name="workEffortTypeId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortType">
+            <key-map field-name="workEffortTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="WorkEffortPartyAssignAndRoleType"
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Party Assignment And Roletype">
+        <description>To be able to have a dropdown listing with all roles a party has on this workeffort.</description>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="RT" entity-name="RoleType"/>
+        <alias-all entity-alias="WEPA"/>
+        <alias-all entity-alias="RT">
+            <exclude field="roleTypeId"/>
+        </alias-all>
+        <view-link entity-alias="WEPA" rel-entity-alias="RT">
+            <key-map field-name="roleTypeId"/>
+        </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Association Entity with Name">
-      <member-entity entity-alias="WA" entity-name="WorkEffortAssoc"/>
-      <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
-      <alias-all entity-alias="WA"/>
-      <alias entity-alias="WETO" name="workEffortToName" field="workEffortName"/>
-      <alias entity-alias="WETO" name="workEffortToSetup" field="estimatedSetupMillis"/>
-      <alias entity-alias="WETO" name="workEffortToRun" field="estimatedMilliSeconds"/>
-      <alias entity-alias="WETO" name="workEffortToParentId" field="workEffortParentId"/>
-      <alias entity-alias="WETO" name="workEffortToCurrentStatusId" field="currentStatusId"/>
-      <alias entity-alias="WETO" name="workEffortToWorkEffortPurposeTypeId" field="workEffortPurposeTypeId"/>
-      <alias entity-alias="WETO" name="workEffortToEstimatedStartDate" field="estimatedStartDate"/>
-      <alias entity-alias="WETO" name="workEffortToEstimatedCompletionDate" field="estimatedCompletionDate"/>
-      <alias entity-alias="WETO" name="workEffortToActualStartDate" field="actualStartDate"/>
-      <alias entity-alias="WETO" name="workEffortToActualCompletionDate" field="actualCompletionDate"/>
-      <view-link entity-alias="WA" rel-entity-alias="WETO">
-        <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
-      </view-link>
-      <relation type="one-nofk" fk-name="WK_EFFRTASSV_FWE" title="From" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Association Entity with Name">
+        <member-entity entity-alias="WA" entity-name="WorkEffortAssoc"/>
+        <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
+        <alias-all entity-alias="WA"/>
+        <alias entity-alias="WETO" name="workEffortToName" field="workEffortName"/>
+        <alias entity-alias="WETO" name="workEffortToSetup" field="estimatedSetupMillis"/>
+        <alias entity-alias="WETO" name="workEffortToRun" field="estimatedMilliSeconds"/>
+        <alias entity-alias="WETO" name="workEffortToParentId" field="workEffortParentId"/>
+        <alias entity-alias="WETO" name="workEffortToCurrentStatusId" field="currentStatusId"/>
+        <alias entity-alias="WETO" name="workEffortToWorkEffortPurposeTypeId" field="workEffortPurposeTypeId"/>
+        <alias entity-alias="WETO" name="workEffortToEstimatedStartDate" field="estimatedStartDate"/>
+        <alias entity-alias="WETO" name="workEffortToEstimatedCompletionDate" field="estimatedCompletionDate"/>
+        <alias entity-alias="WETO" name="workEffortToActualStartDate" field="actualStartDate"/>
+        <alias entity-alias="WETO" name="workEffortToActualCompletionDate" field="actualCompletionDate"/>
+        <view-link entity-alias="WA" rel-entity-alias="WETO">
+            <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
+        </view-link>
+        <relation type="one-nofk" fk-name="WK_EFFRTASSV_FWE" title="From" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocFromView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Association From (Parent) View">
-      <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
-      <member-entity entity-alias="WEFROM" entity-name="WorkEffort"/>
-      <alias-all entity-alias="WEA"/>
-      <alias-all entity-alias="WEFROM">
-        <exclude field="sequenceNum"/>
-      </alias-all>
-      <view-link entity-alias="WEA" rel-entity-alias="WEFROM">
-        <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
-      </view-link>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Association From (Parent) View">
+        <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
+        <member-entity entity-alias="WEFROM" entity-name="WorkEffort"/>
+        <alias-all entity-alias="WEA"/>
+        <alias-all entity-alias="WEFROM">
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <view-link entity-alias="WEA" rel-entity-alias="WEFROM">
+            <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
+        </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocToView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Association To (Child) View">
-      <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
-      <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
-      <alias-all entity-alias="WEA"/>
-      <alias-all entity-alias="WETO">
-        <exclude field="sequenceNum"/>
-      </alias-all>
-      <view-link entity-alias="WEA" rel-entity-alias="WETO">
-        <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
-      </view-link>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Association To (Child) View">
+        <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
+        <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
+        <alias-all entity-alias="WEA"/>
+        <alias-all entity-alias="WETO">
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <view-link entity-alias="WEA" rel-entity-alias="WETO">
+            <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
+        </view-link>
     </view-entity>
 
     <view-entity entity-name="WorkEffortFindView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Find Work Efforts View">
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
-      <alias-all entity-alias="WE">
-          <exclude field="workEffortParentId"/>
-          <exclude field="fixedAssetId"/>
-      </alias-all>
-      <alias name="workEffortParentId" entity-alias="WEA" field="workEffortIdFrom"/>
-      <alias name="partyId" entity-alias="WEPA" field="partyId"/>
-      <alias name="fixedAssetId" entity-alias="WEFAA" field="fixedAssetId"/>
-      <view-link entity-alias="WE" rel-entity-alias="WEA" rel-optional="true">
-        <key-map field-name="workEffortId" rel-field-name="workEffortIdTo"/>
-      </view-link>
-      <view-link entity-alias="WE" rel-entity-alias="WEPA" rel-optional="true">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="WE" rel-entity-alias="WEFAA" rel-optional="true">
-        <key-map field-name="workEffortId"/>
-      </view-link>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Find Work Efforts View">
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
+        <alias-all entity-alias="WE">
+            <exclude field="workEffortParentId"/>
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias name="workEffortParentId" entity-alias="WEA" field="workEffortIdFrom"/>
+        <alias name="partyId" entity-alias="WEPA" field="partyId"/>
+        <alias name="fixedAssetId" entity-alias="WEFAA" field="fixedAssetId"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEA" rel-optional="true">
+            <key-map field-name="workEffortId" rel-field-name="workEffortIdTo"/>
+        </view-link>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE" rel-entity-alias="WEFAA" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
     </view-entity>
 
     <view-entity entity-name="WorkEffortNoteAndData"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Note And Note Data Entity">
-      <member-entity entity-alias="WEN" entity-name="WorkEffortNote"/>
-      <member-entity entity-alias="ND" entity-name="NoteData"/>
-      <alias entity-alias="WEN" name="workEffortId"/>
-      <alias entity-alias="WEN" name="internalNote"/>
-      <alias entity-alias="WEN" name="noteId"/>
-      <alias entity-alias="ND" name="noteName"/>
-      <alias entity-alias="ND" name="noteInfo"/>
-      <alias entity-alias="ND" name="noteParty"/>
-      <alias entity-alias="ND" name="noteDateTime"/>
-      <view-link entity-alias="WEN" rel-entity-alias="ND">
-        <key-map field-name="noteId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="NoteData">
-        <key-map field-name="noteId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="noteParty" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="noteParty" rel-field-name="partyId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Note And Note Data Entity">
+        <member-entity entity-alias="WEN" entity-name="WorkEffortNote"/>
+        <member-entity entity-alias="ND" entity-name="NoteData"/>
+        <alias entity-alias="WEN" name="workEffortId"/>
+        <alias entity-alias="WEN" name="internalNote"/>
+        <alias entity-alias="WEN" name="noteId"/>
+        <alias entity-alias="ND" name="noteName"/>
+        <alias entity-alias="ND" name="noteInfo"/>
+        <alias entity-alias="ND" name="noteParty"/>
+        <alias entity-alias="ND" name="noteDateTime"/>
+        <view-link entity-alias="WEN" rel-entity-alias="ND">
+            <key-map field-name="noteId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="NoteData">
+            <key-map field-name="noteId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="noteParty" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="noteParty" rel-field-name="partyId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignByGroup"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Party Assignment By Group Entity">
-      <description>Includes PartyRelationship Link so that a partyId can be specified to find all PartyAssignments for all groups the party is in.</description>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <member-entity entity-alias="PREL" entity-name="PartyRelationship"/>
-      <alias-all entity-alias="WE"/>
-      <alias-all entity-alias="WEPA">
-        <exclude field="facilityId"/>
-      </alias-all>
-      <alias-all entity-alias="PREL">
-        <exclude field="partyIdTo"/>
-        <exclude field="partyIdFrom"/>
-        <exclude field="fromDate"/>
-        <exclude field="thruDate"/>
-        <exclude field="statusId"/>
-        <exclude field="comments"/>
-      </alias-all>
-      <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
-      <alias entity-alias="PREL" name="partyId" field="partyIdTo"/>
-      <alias entity-alias="PREL" name="groupPartyId" field="partyIdFrom"/>
-      <alias entity-alias="PREL" name="prelFromDate" field="fromDate"/>
-      <alias entity-alias="PREL" name="prelThruDate" field="thruDate"/>
-      <alias entity-alias="PREL" name="prelStatusId" field="statusId"/>
-      <alias entity-alias="PREL" name="prelComments" field="comments"/>
-      <view-link entity-alias="WE" rel-entity-alias="WEPA">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="WEPA" rel-entity-alias="PREL">
-        <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
-        <key-map field-name="workEffortId"/>
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Party Assignment By Group Entity">
+        <description>Includes PartyRelationship Link so that a partyId can be specified to find all PartyAssignments for all groups the party is in.</description>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="PREL" entity-name="PartyRelationship"/>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WEPA">
+            <exclude field="facilityId"/>
+        </alias-all>
+        <alias-all entity-alias="PREL">
+            <exclude field="partyIdTo"/>
+            <exclude field="partyIdFrom"/>
+            <exclude field="fromDate"/>
+            <exclude field="thruDate"/>
+            <exclude field="statusId"/>
+            <exclude field="comments"/>
+        </alias-all>
+        <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+        <alias entity-alias="PREL" name="partyId" field="partyIdTo"/>
+        <alias entity-alias="PREL" name="groupPartyId" field="partyIdFrom"/>
+        <alias entity-alias="PREL" name="prelFromDate" field="fromDate"/>
+        <alias entity-alias="PREL" name="prelThruDate" field="thruDate"/>
+        <alias entity-alias="PREL" name="prelStatusId" field="statusId"/>
+        <alias entity-alias="PREL" name="prelComments" field="comments"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WEPA" rel-entity-alias="PREL">
+            <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignByRole"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Party Assignment By Role Entity">
-      <description>Also includes PartyRole Link so that if a partyId is specified it will find all PartyAssignments for all roles a party is in; does not link on the partyId of the PartyAssignment</description>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <member-entity entity-alias="PR" entity-name="PartyRole"/>
-      <alias-all entity-alias="WE"/>
-      <alias-all entity-alias="WEPA">
-        <exclude field="partyId"/>
-        <exclude field="facilityId"/>
-      </alias-all>
-      <alias-all entity-alias="PR"/>
-      <alias entity-alias="WEPA" name="wepaPartyId" field="partyId"/>
-      <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
-      <view-link entity-alias="WE" rel-entity-alias="WEPA">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="WEPA" rel-entity-alias="PR">
-        <key-map field-name="roleTypeId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
-        <key-map field-name="workEffortId"/>
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Party Assignment By Role Entity">
+        <description>Also includes PartyRole Link so that if a partyId is specified it will find all PartyAssignments for all roles a party is in; does not link on the partyId of the PartyAssignment</description>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WEPA">
+            <exclude field="partyId"/>
+            <exclude field="facilityId"/>
+        </alias-all>
+        <alias-all entity-alias="PR"/>
+        <alias entity-alias="WEPA" name="wepaPartyId" field="partyId"/>
+        <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WEPA" rel-entity-alias="PR">
+            <key-map field-name="roleTypeId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
     </view-entity>
 
-  <view-entity entity-name="WorkEffortAndGoods" package-name="org.apache.ofbiz.workeffort.workeffort"
-        title="WorkEffort and related WorkEffortGoodStandard">
-      <description>WorkEffort and its WorkEffortGoodStandard</description>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
-      <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"></member-entity>
-      <alias-all entity-alias="WE"></alias-all>
-      <alias entity-alias="WEGS" name="productId"></alias>
-      <alias entity-alias="WEGS" name="workEffortGoodStdTypeId"></alias>
-      <alias entity-alias="WEGS" name="statusId"></alias>
-      <alias entity-alias="WEGS" name="estimatedQuantity"></alias>
-      <view-link entity-alias="WE" rel-entity-alias="WEGS">
-        <key-map field-name="workEffortId"></key-map>
-      </view-link>
+    <view-entity entity-name="WorkEffortAndGoods" package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="WorkEffort and related WorkEffortGoodStandard">
+        <description>WorkEffort and its WorkEffortGoodStandard</description>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"/>
+        <alias-all entity-alias="WE"/>
+        <alias entity-alias="WEGS" name="productId"/>
+        <alias entity-alias="WEGS" name="workEffortGoodStdTypeId"/>
+        <alias entity-alias="WEGS" name="statusId"/>
+        <alias entity-alias="WEGS" name="estimatedQuantity"/>
+        <view-link entity-alias="WE" rel-entity-alias="WEGS">
+            <key-map field-name="workEffortId"/>
+        </view-link>
     </view-entity>
-
     <view-entity entity-name="WorkEffortProductGoods" package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkEffort and related WorkEffortGoodStandard with Product">
+                 title="WorkEffort and related WorkEffortGoodStandard with Product">
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"/>
         <member-entity entity-alias="PROD" entity-name="Product"/>
@@ -533,9 +532,9 @@ under the License.
             <key-map field-name="productId"/>
         </view-link>
     </view-entity>
-    
+
     <view-entity entity-name="WorkEffortAndContentDataResource" package-name="org.apache.ofbiz.workeffort.workeffort"
-         title="WorkEffort and Content and DataResource View Entity">
+                 title="WorkEffort and Content and DataResource View Entity">
         <member-entity entity-alias="WECO" entity-name="WorkEffortContent"/>
         <member-entity entity-alias="CO" entity-name="Content"/>
         <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -580,370 +579,370 @@ under the License.
         </relation>
     </view-entity>
 
-  <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.apache.ofbiz.workeffort.workeffort"
-        title="Inventory Item and Product assigned for WorkEffort">
-      <description>Inventory Item and Product assigned for WorkEffort</description>
-      <member-entity entity-alias="WEIA" entity-name="WorkEffortInventoryAssign"></member-entity>
-      <member-entity entity-alias="II" entity-name="InventoryItem"></member-entity>
-      <alias-all entity-alias="WEIA"></alias-all>
-      <alias entity-alias="II" name="productId"></alias>
-      <alias entity-alias="II" name="currencyUomId"></alias>
-      <alias entity-alias="II" name="unitCost"></alias>
-      <alias entity-alias="II" name="uomId"></alias>
-      <view-link entity-alias="WEIA" rel-entity-alias="II">
-        <key-map field-name="inventoryItemId"></key-map>
-      </view-link>
+    <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Inventory Item and Product assigned for WorkEffort">
+        <description>Inventory Item and Product assigned for WorkEffort</description>
+        <member-entity entity-alias="WEIA" entity-name="WorkEffortInventoryAssign"/>
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
+        <alias-all entity-alias="WEIA"/>
+        <alias entity-alias="II" name="productId"/>
+        <alias entity-alias="II" name="currencyUomId"/>
+        <alias entity-alias="II" name="unitCost"/>
+        <alias entity-alias="II" name="uomId"/>
+        <view-link entity-alias="WEIA" rel-entity-alias="II">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortAndInventoryProduced" package-name="org.apache.ofbiz.workeffort.workeffort"
-        title="Inventory Item and Product produced by WorkEffort">
-      <description>Inventory Item and Product produced by WorkEffort</description>
-      <member-entity entity-alias="WEIP" entity-name="WorkEffortInventoryProduced"></member-entity>
-      <member-entity entity-alias="II" entity-name="InventoryItem"></member-entity>
-      <alias-all entity-alias="WEIP"></alias-all>
-      <alias entity-alias="II" name="productId"></alias>
-      <alias entity-alias="II" name="currencyUomId"></alias>
-      <alias entity-alias="II" name="unitCost"></alias>
-      <alias entity-alias="II" name="lotId"></alias>
-      <alias entity-alias="II" name="quantityOnHandTotal"></alias>
-      <view-link entity-alias="WEIP" rel-entity-alias="II">
-        <key-map field-name="inventoryItemId"></key-map>
-      </view-link>
+                 title="Inventory Item and Product produced by WorkEffort">
+        <description>Inventory Item and Product produced by WorkEffort</description>
+        <member-entity entity-alias="WEIP" entity-name="WorkEffortInventoryProduced"/>
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
+        <alias-all entity-alias="WEIP"/>
+        <alias entity-alias="II" name="productId"/>
+        <alias entity-alias="II" name="currencyUomId"/>
+        <alias entity-alias="II" name="unitCost"/>
+        <alias entity-alias="II" name="lotId"/>
+        <alias entity-alias="II" name="quantityOnHandTotal"/>
+        <view-link entity-alias="WEIP" rel-entity-alias="II">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Party Assignment and PartyNameView">
-      <description>Ties WEPA to the party info.</description>
-      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
-      <member-entity entity-alias="PNV" entity-name="PartyNameView"/>
-      <alias-all entity-alias="PNV"/>
-      <alias-all entity-alias="WEPA">
-          <exclude field="statusId"/>
-      </alias-all>
-      <alias name="assignmentStatusId" entity-alias="WEPA" field="statusId"/>
-      <view-link entity-alias="WEPA" rel-entity-alias="PNV">
-        <key-map field-name="partyId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
-        <key-map field-name="workEffortId"/>
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyNameView">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="StatusItem" title="Assignment">
-        <key-map field-name="assignmentStatusId" rel-field-name="statusId"/>
-      </relation>
-      <relation type="one-nofk" title="Expectation" rel-entity-name="Enumeration">
-        <key-map field-name="expectationEnumId" rel-field-name="enumId"/>
-      </relation>
-      <relation type="one-nofk" title="DelegateReason" rel-entity-name="Enumeration">
-        <key-map field-name="delegateReasonEnumId" rel-field-name="enumId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Party Assignment and PartyNameView">
+        <description>Ties WEPA to the party info.</description>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="PNV" entity-name="PartyNameView"/>
+        <alias-all entity-alias="PNV"/>
+        <alias-all entity-alias="WEPA">
+            <exclude field="statusId"/>
+        </alias-all>
+        <alias name="assignmentStatusId" entity-alias="WEPA" field="statusId"/>
+        <view-link entity-alias="WEPA" rel-entity-alias="PNV">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyNameView">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="StatusItem" title="Assignment">
+            <key-map field-name="assignmentStatusId" rel-field-name="statusId"/>
+        </relation>
+        <relation type="one-nofk" title="Expectation" rel-entity-name="Enumeration">
+            <key-map field-name="expectationEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one-nofk" title="DelegateReason" rel-entity-name="Enumeration">
+            <key-map field-name="delegateReasonEnumId" rel-field-name="enumId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCommunicationEventView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And CommunicationEvent">
-      <description>Ties WECommEvent to CommunicationEvent.</description>
-      <member-entity entity-alias="CEWE" entity-name="CommunicationEventWorkEff"/>
-      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
-      <alias-all entity-alias="CEWE"/>
-      <alias-all entity-alias="CE"/>
-      <view-link entity-alias="CEWE" rel-entity-alias="CE">
-        <key-map field-name="communicationEventId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="CommunicationEvent">
-        <key-map field-name="communicationEventId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And CommunicationEvent">
+        <description>Ties WECommEvent to CommunicationEvent.</description>
+        <member-entity entity-alias="CEWE" entity-name="CommunicationEventWorkEff"/>
+        <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+        <alias-all entity-alias="CEWE"/>
+        <alias-all entity-alias="CE"/>
+        <view-link entity-alias="CEWE" rel-entity-alias="CE">
+            <key-map field-name="communicationEventId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="CommunicationEvent">
+            <key-map field-name="communicationEventId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortShoppingListView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And ShoppingList">
-      <description>Ties ShoppingListWE to ShoppingList.</description>
-      <member-entity entity-alias="SLWE" entity-name="ShoppingListWorkEffort"/>
-      <member-entity entity-alias="SL" entity-name="ShoppingList"/>
-      <member-entity entity-alias="SLT" entity-name="ShoppingListType"/>
-      <alias-all entity-alias="SLWE"/>
-      <alias-all entity-alias="SL"/>
-      <alias name="shoppingListTypeDescription" field="description" entity-alias="SLT"/>
-      <view-link entity-alias="SLWE" rel-entity-alias="SL">
-        <key-map field-name="shoppingListId"/>
-      </view-link>
-      <view-link entity-alias="SL" rel-entity-alias="SLT" rel-optional="true">
-        <key-map field-name="shoppingListTypeId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="ShoppingList">
-        <key-map field-name="shoppingListId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And ShoppingList">
+        <description>Ties ShoppingListWE to ShoppingList.</description>
+        <member-entity entity-alias="SLWE" entity-name="ShoppingListWorkEffort"/>
+        <member-entity entity-alias="SL" entity-name="ShoppingList"/>
+        <member-entity entity-alias="SLT" entity-name="ShoppingListType"/>
+        <alias-all entity-alias="SLWE"/>
+        <alias-all entity-alias="SL"/>
+        <alias name="shoppingListTypeDescription" field="description" entity-alias="SLT"/>
+        <view-link entity-alias="SLWE" rel-entity-alias="SL">
+            <key-map field-name="shoppingListId"/>
+        </view-link>
+        <view-link entity-alias="SL" rel-entity-alias="SLT" rel-optional="true">
+            <key-map field-name="shoppingListTypeId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ShoppingList">
+            <key-map field-name="shoppingListId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortQuoteView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And Quote">
-      <description>Ties QuoteWE to Quote.</description>
-      <member-entity entity-alias="QWE" entity-name="QuoteWorkEffort"/>
-      <member-entity entity-alias="Q" entity-name="Quote"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <alias-all entity-alias="QWE"/>
-      <alias-all entity-alias="Q"/>
-      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
-      <view-link entity-alias="QWE" rel-entity-alias="Q">
-        <key-map field-name="quoteId"/>
-      </view-link>
-      <view-link entity-alias="Q" rel-entity-alias="SI" rel-optional="true">
-        <key-map field-name="statusId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Quote">
-        <key-map field-name="quoteId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And Quote">
+        <description>Ties QuoteWE to Quote.</description>
+        <member-entity entity-alias="QWE" entity-name="QuoteWorkEffort"/>
+        <member-entity entity-alias="Q" entity-name="Quote"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="QWE"/>
+        <alias-all entity-alias="Q"/>
+        <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+        <view-link entity-alias="QWE" rel-entity-alias="Q">
+            <key-map field-name="quoteId"/>
+        </view-link>
+        <view-link entity-alias="Q" rel-entity-alias="SI" rel-optional="true">
+            <key-map field-name="statusId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Quote">
+            <key-map field-name="quoteId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortOrderHeaderView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And OrderHeader">
-      <description>Ties OrderHeaderWE to OrderHeader.</description>
-      <member-entity entity-alias="OHWE" entity-name="OrderHeaderWorkEffort"/>
-      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
-      <member-entity entity-alias="OT" entity-name="OrderType"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <alias-all entity-alias="OHWE"/>
-      <alias-all entity-alias="OH"/>
-      <alias name="orderTypeDescription" field="description" entity-alias="OT"/>
-      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
-      <view-link entity-alias="OHWE" rel-entity-alias="OH">
-        <key-map field-name="orderId"/>
-      </view-link>
-      <view-link entity-alias="OH" rel-entity-alias="OT" rel-optional="true" >
-        <key-map field-name="orderTypeId"/>
-      </view-link>
-      <view-link entity-alias="OH" rel-entity-alias="SI" rel-optional="true">
-        <key-map field-name="statusId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="OrderHeader">
-        <key-map field-name="orderId"/>
-      </relation>
-      <relation type="one" rel-entity-name="OrderType">
-        <key-map field-name="orderTypeId"/>
-      </relation>
-      <relation type="one" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And OrderHeader">
+        <description>Ties OrderHeaderWE to OrderHeader.</description>
+        <member-entity entity-alias="OHWE" entity-name="OrderHeaderWorkEffort"/>
+        <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+        <member-entity entity-alias="OT" entity-name="OrderType"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="OHWE"/>
+        <alias-all entity-alias="OH"/>
+        <alias name="orderTypeDescription" field="description" entity-alias="OT"/>
+        <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+        <view-link entity-alias="OHWE" rel-entity-alias="OH">
+            <key-map field-name="orderId"/>
+        </view-link>
+        <view-link entity-alias="OH" rel-entity-alias="OT" rel-optional="true" >
+            <key-map field-name="orderTypeId"/>
+        </view-link>
+        <view-link entity-alias="OH" rel-entity-alias="SI" rel-optional="true">
+            <key-map field-name="statusId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one" rel-entity-name="OrderType">
+            <key-map field-name="orderTypeId"/>
+        </relation>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCustRequestView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And CustRequest">
-      <description>Ties CustRequestWE to CustRequest and WorkEffort.</description>
-      <member-entity entity-alias="CRWE" entity-name="CustRequestWorkEffort"/>
-      <member-entity entity-alias="CR" entity-name="CustRequest"/>
-      <member-entity entity-alias="CRT" entity-name="CustRequestType"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <alias-all entity-alias="CRWE"/>
-      <alias-all entity-alias="CR"/>
-      <alias-all entity-alias="WE">
-        <exclude field="priority"/>
-        <exclude field="description"/>
-        <exclude field="createdDate"/>
-        <exclude field="createdByUserLogin"/>
-        <exclude field="lastModifiedDate"/>
-        <exclude field="lastModifiedByUserLogin"/>
-      </alias-all>
-      <alias name="custRequestTypeDescription" field="description" entity-alias="CRT"/>
-      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
-      <alias name="workEffortPriority" field="priority" entity-alias="WE"/>
-      <alias name="workEffortDescription" field="description" entity-alias="WE"/>
-      <alias name="workEffortCreatedDate" field="createdDate" entity-alias="WE"/>
-      <alias name="workEffortCreatedByUserLogin" field="createdByUserLogin" entity-alias="WE"/>
-      <alias name="workEffortLastModifiedDate" field="lastModifiedDate" entity-alias="WE"/>
-      <alias name="workEffortLastModByUserLogin" field="lastModifiedByUserLogin" entity-alias="WE"/>
-      <view-link entity-alias="CRWE" rel-entity-alias="CR">
-        <key-map field-name="custRequestId"/>
-      </view-link>
-      <view-link entity-alias="CRWE" rel-entity-alias="WE">
-        <key-map field-name="workEffortId"/>
-      </view-link>
-      <view-link entity-alias="CR" rel-entity-alias="CRT" rel-optional="true">
-        <key-map field-name="custRequestTypeId"/>
-      </view-link>
-      <view-link entity-alias="CR" rel-entity-alias="SI" rel-optional="true">
-        <key-map field-name="statusId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="CustRequest">
-        <key-map field-name="custRequestId"/>
-      </relation>
-      <relation type="one" rel-entity-name="CustRequestType">
-        <key-map field-name="custRequestTypeId"/>
-      </relation>
-      <relation type="one" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And CustRequest">
+        <description>Ties CustRequestWE to CustRequest and WorkEffort.</description>
+        <member-entity entity-alias="CRWE" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRT" entity-name="CustRequestType"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <alias-all entity-alias="CRWE"/>
+        <alias-all entity-alias="CR"/>
+        <alias-all entity-alias="WE">
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+        </alias-all>
+        <alias name="custRequestTypeDescription" field="description" entity-alias="CRT"/>
+        <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+        <alias name="workEffortPriority" field="priority" entity-alias="WE"/>
+        <alias name="workEffortDescription" field="description" entity-alias="WE"/>
+        <alias name="workEffortCreatedDate" field="createdDate" entity-alias="WE"/>
+        <alias name="workEffortCreatedByUserLogin" field="createdByUserLogin" entity-alias="WE"/>
+        <alias name="workEffortLastModifiedDate" field="lastModifiedDate" entity-alias="WE"/>
+        <alias name="workEffortLastModByUserLogin" field="lastModifiedByUserLogin" entity-alias="WE"/>
+        <view-link entity-alias="CRWE" rel-entity-alias="CR">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CRWE" rel-entity-alias="WE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CRT" rel-optional="true">
+            <key-map field-name="custRequestTypeId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="SI" rel-optional="true">
+            <key-map field-name="statusId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="CustRequest">
+            <key-map field-name="custRequestId"/>
+        </relation>
+        <relation type="one" rel-entity-name="CustRequestType">
+            <key-map field-name="custRequestTypeId"/>
+        </relation>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCustRequestItemView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort And CustRequest">
-      <description>Ties CustRequestWE to CustRequest.</description>
-      <member-entity entity-alias="CRIWE" entity-name="CustRequestItemWorkEffort"/>
-      <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <alias-all entity-alias="CRIWE"/>
-      <alias-all entity-alias="CRI"/>
-      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
-      <view-link entity-alias="CRIWE" rel-entity-alias="CRI">
-        <key-map field-name="custRequestId"/>
-        <key-map field-name="custRequestItemSeqId"/>
-      </view-link>
-      <view-link entity-alias="CRI" rel-entity-alias="SI" rel-optional="true">
-        <key-map field-name="statusId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="CustRequestItem">
-        <key-map field-name="custRequestId"/>
-        <key-map field-name="custRequestItemSeqId"/>
-      </relation>
-      <relation type="one" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort And CustRequest">
+        <description>Ties CustRequestWE to CustRequest.</description>
+        <member-entity entity-alias="CRIWE" entity-name="CustRequestItemWorkEffort"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="CRIWE"/>
+        <alias-all entity-alias="CRI"/>
+        <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+        <view-link entity-alias="CRIWE" rel-entity-alias="CRI">
+            <key-map field-name="custRequestId"/>
+            <key-map field-name="custRequestItemSeqId"/>
+        </view-link>
+        <view-link entity-alias="CRI" rel-entity-alias="SI" rel-optional="true">
+            <key-map field-name="statusId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="CustRequestItem">
+            <key-map field-name="custRequestId"/>
+            <key-map field-name="custRequestItemSeqId"/>
+        </relation>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortRequirementView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkRequirementFulfillment And Requirement">
-      <description>Ties WorkRequirementFulfillment to Requirement.</description>
-      <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
-      <member-entity entity-alias="REQ" entity-name="Requirement"/>
-      <member-entity entity-alias="SI" entity-name="StatusItem"/>
-      <member-entity entity-alias="WRFT" entity-name="WorkReqFulfType"/>
-      <alias-all entity-alias="WRF"/>
-      <alias-all entity-alias="REQ"/>
-      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
-      <alias name="workReqFulfTypeDescription" field="description" entity-alias="WRFT"/>
-      <alias name="requirementDescription" field="description" entity-alias="REQ"/>
-      <view-link entity-alias="WRF" rel-entity-alias="REQ">
-        <key-map field-name="requirementId"/>
-      </view-link>
-      <view-link entity-alias="REQ" rel-entity-alias="SI" rel-optional="true">
-        <key-map field-name="statusId"/>
-      </view-link>
-      <view-link entity-alias="WRF" rel-entity-alias="WRFT" rel-optional="true">
-        <key-map field-name="workReqFulfTypeId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Requirement">
-        <key-map field-name="requirementId"/>
-      </relation>
-      <relation type="one" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <relation type="one" rel-entity-name="WorkReqFulfType">
-        <key-map field-name="workReqFulfTypeId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="WorkRequirementFulfillment And Requirement">
+        <description>Ties WorkRequirementFulfillment to Requirement.</description>
+        <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
+        <member-entity entity-alias="REQ" entity-name="Requirement"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <member-entity entity-alias="WRFT" entity-name="WorkReqFulfType"/>
+        <alias-all entity-alias="WRF"/>
+        <alias-all entity-alias="REQ"/>
+        <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+        <alias name="workReqFulfTypeDescription" field="description" entity-alias="WRFT"/>
+        <alias name="requirementDescription" field="description" entity-alias="REQ"/>
+        <view-link entity-alias="WRF" rel-entity-alias="REQ">
+            <key-map field-name="requirementId"/>
+        </view-link>
+        <view-link entity-alias="REQ" rel-entity-alias="SI" rel-optional="true">
+            <key-map field-name="statusId"/>
+        </view-link>
+        <view-link entity-alias="WRF" rel-entity-alias="WRFT" rel-optional="true">
+            <key-map field-name="workReqFulfTypeId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Requirement">
+            <key-map field-name="requirementId"/>
+        </relation>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" rel-entity-name="WorkReqFulfType">
+            <key-map field-name="workReqFulfTypeId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndSalesOpportunity"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Sales opportunity and associated work effort">
-      <member-entity entity-alias="SOWE" entity-name="SalesOpportunityWorkEffort"/>
-      <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-      <alias-all entity-alias="SO"/>
-      <alias-all entity-alias="WE">
-        <exclude field="description"/>
-        <exclude field="createdByUserLogin"/>
-      </alias-all>
-      <alias name="workEffortDescription" field="description" entity-alias="WE"/>
-      <alias name="workEffortCreatedByUserLogin" field="createdByUserLogin" entity-alias="WE"/>
-      <view-link entity-alias="SOWE" rel-entity-alias="SO">
-          <key-map field-name="salesOpportunityId"/>
-      </view-link>
-      <view-link entity-alias="SOWE" rel-entity-alias="WE">
-          <key-map field-name="workEffortId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="WorkEffort">
-          <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="SalesOpportunity">
-          <key-map field-name="salesOpportunityId"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Sales opportunity and associated work effort">
+        <member-entity entity-alias="SOWE" entity-name="SalesOpportunityWorkEffort"/>
+        <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <alias-all entity-alias="SO"/>
+        <alias-all entity-alias="WE">
+            <exclude field="description"/>
+            <exclude field="createdByUserLogin"/>
+        </alias-all>
+        <alias name="workEffortDescription" field="description" entity-alias="WE"/>
+        <alias name="workEffortCreatedByUserLogin" field="createdByUserLogin" entity-alias="WE"/>
+        <view-link entity-alias="SOWE" rel-entity-alias="SO">
+            <key-map field-name="salesOpportunityId"/>
+        </view-link>
+        <view-link entity-alias="SOWE" rel-entity-alias="WE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
     </view-entity>
 
     <view-entity entity-name="WorkEffortContentAndInfo"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkEffortContent, Content and DataResource View Entity">
-      <member-entity entity-alias="WC" entity-name="WorkEffortContent"/>
-      <member-entity entity-alias="CO" entity-name="Content"/>
-      <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="WC"/>
-      <alias-all entity-alias="CO"/>
-      <alias-all entity-alias="DR" prefix="dr"/>
-      <view-link entity-alias="WC" rel-entity-alias="CO">
-        <key-map field-name="contentId"/>
-      </view-link>
-      <view-link entity-alias="CO" rel-entity-alias="DR">
-        <key-map field-name="dataResourceId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="dataResourceId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="dataResourceId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="dataResourceId"/>
-      </relation>
-      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
-      </relation>
-      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
-      </relation>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="WorkEffortContent, Content and DataResource View Entity">
+        <member-entity entity-alias="WC" entity-name="WorkEffortContent"/>
+        <member-entity entity-alias="CO" entity-name="Content"/>
+        <member-entity entity-alias="DR" entity-name="DataResource"/>
+        <alias-all entity-alias="WC"/>
+        <alias-all entity-alias="CO"/>
+        <alias-all entity-alias="DR" prefix="dr"/>
+        <view-link entity-alias="WC" rel-entity-alias="CO">
+            <key-map field-name="contentId"/>
+        </view-link>
+        <view-link entity-alias="CO" rel-entity-alias="DR">
+            <key-map field-name="dataResourceId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="ElectronicText">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ImageDataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OtherDataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+        </relation>
+        <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+        </relation>
     </view-entity>
 
     <view-entity entity-name="WorkEffortContactMechView"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Contact Mech View Entity">
-      <member-entity entity-alias="WECM" entity-name="WorkEffortContactMech"/>
-      <member-entity entity-alias="CM" entity-name="ContactMech"/>
-      <alias-all entity-alias="WECM"/>
-      <alias-all entity-alias="CM"/>
-      <view-link entity-alias="WECM" rel-entity-alias="CM">
-          <key-map field-name="contactMechId"/>
-      </view-link>
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Work Effort Contact Mech View Entity">
+        <member-entity entity-alias="WECM" entity-name="WorkEffortContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <alias-all entity-alias="WECM"/>
+        <alias-all entity-alias="CM"/>
+        <view-link entity-alias="WECM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
     </view-entity>
-    
+
     <view-entity entity-name="WorkEffortAndTimeEntry" package-name="org.apache.ofbiz.workeffort.workeffort"
-        title="WorkEffort and TimeEntry View Entity">
+                 title="WorkEffort and TimeEntry View Entity">
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="TE" entity-name="TimeEntry"/>
         <alias-all entity-alias="WE"/>
