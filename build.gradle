@@ -1037,7 +1037,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
     subprojects.stream()
         .filter { it.path == fullyQualifiedProject.toString() }
         .flatMap { it.tasks.stream() }
-        .anyMatch taskName.&equals
+        .anyMatch { it.name == taskName }
 }
 
 def gradlewSubprocess(commandList) {
