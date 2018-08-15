@@ -449,7 +449,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
-                <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
+                <set field="layoutSettings.shortcutIcon" value="/images/favicon" global="true"/>
                 <!-- The settings below are used for xsl-fo screens -->
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${userPreferences.ORGANIZATION_PARTY}" global="true" to-scope="user"/>
