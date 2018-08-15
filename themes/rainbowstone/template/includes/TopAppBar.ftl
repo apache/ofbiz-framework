@@ -166,6 +166,9 @@ under the License.
                         </#if>
                         <li class="app-btn-sup<#if selected> selected</#if>">
                             <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
+                            <#if selected>
+                                <#assign currentMoreApp = display>
+                            </#if>
                         </li>
                     </#if>
                     <#assign appCount = appCount + 1>
@@ -201,6 +204,9 @@ under the License.
                     </#if>
                     <li class="app-btn-sup<#if selected> selected</#if>">
                         <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
+                        <#if selected>
+                            <#assign currentMoreApp = display>
+                        </#if>
                     </li>
                 </#if>
                 <#assign appCount = appCount + 1>
@@ -209,6 +215,23 @@ under the License.
         <#if moreApp>
         </ul> <!-- more-app-list -->
         </div> <!-- more-app -->
+        </#if>
+
+        <#if currentMoreApp?exists>
+        <ul class="app-bar-list more-current-app">
+            <#assign thisApp = currentMoreApp.getContextRoot()>
+            <#assign thisApp = StringUtil.wrapString(thisApp)>
+            <#assign thisURL = thisApp>
+            <#if thisApp != "/">
+                <#assign thisURL = thisURL + "/control/main">
+            </#if>
+            <li class="app-btn selected">
+                <div id="app-selected">
+                    <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap??> title="${uiLabelMap[currentMoreApp.description]}">${uiLabelMap[currentMoreApp.title]}<#else> title="${currentMoreApp.description}">${currentMoreApp.title}</#if></a>
+                    <div id="color-add"></div>
+                </div>
+            </li>
+        </ul>
         </#if>
     </div>
         <div id="main-nav-bar-right">
