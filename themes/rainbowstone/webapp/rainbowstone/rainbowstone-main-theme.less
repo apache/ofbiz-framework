@@ -577,6 +577,10 @@ li.line-odd {
   text-decoration: none;
 }
 
+.more-current-app {
+  margin-left: 10px;
+}
+
 #app-bar-line {
   position: relative;
   width: 100%;
@@ -630,6 +634,7 @@ li.line-odd {
   li {
     padding-left : 4px;
     padding-right: 4px;
+    padding-top: 2px;
   }
 
   a {
@@ -647,6 +652,7 @@ li.line-odd {
       box-shadow: none;
       text-decoration: none;
       border-radius: 0;
+      padding-top:4px;
     }
   }
 
@@ -660,28 +666,6 @@ li.line-odd {
       background-color: @main-color-theme;
     }
   }
-}
-
-#homeButton {
-  display: flex;
-  //visibility: hidden;
-  align-items: center;
-  justify-content: center;
-  background-color:@grey;
-  border: none;
-  border-radius : 0;
-
-  height: @app-bar-height;
-  width : @home-btn-width;
-  text-decoration: none;
-  img {
-    height: 25px;
-    transition: all .2s ease-in-out;
-  }
-}
-
-#homeButton:hover img {
-  transform: scale(1.1);
 }
 
 #app-bar-list {
@@ -872,7 +856,7 @@ a.user-pref-btn {
     content: '';
     position: absolute;
     top: -2px;
-    left: 5px;
+    left: calc(50% - 10px);
     width: 0;
     height: 0;
     border-right: 10px solid transparent;
@@ -1002,23 +986,6 @@ a.user-pref-btn {
   height: @app-bar-height ;
 }
 
-#homeGlyph {
-  margin-left: 20px;
-  height: 20px;
-}
-
-#homePageTitle {
-  color: @white;
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-.home-menu-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .hp-applist {
   display: flex;
   flex-direction: row;
