@@ -49,6 +49,8 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapContext;
+import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
+import org.apache.ofbiz.base.util.collections.MultivaluedMapContextAdapter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -192,7 +194,7 @@ public class ConfigXMLReader {
         private Map<String, Event> beforeLogoutEventList = new LinkedHashMap<String, Event>();
         private Map<String, String> eventHandlerMap = new HashMap<String, String>();
         private Map<String, String> viewHandlerMap = new HashMap<String, String>();
-        private Map<String, RequestMap> requestMapMap = new HashMap<String, RequestMap>();
+        private MultivaluedMapContext<String, RequestMap> requestMapMap = new MultivaluedMapContext<>();
         private Map<String, ViewMap> viewMapMap = new HashMap<String, ViewMap>();
 
         public ControllerConfig(URL url) throws WebAppConfigurationException {
@@ -276,11 +278,16 @@ public class ConfigXMLReader {
             return getIncludes(ccfg -> ccfg.protectView);
         }
 
+        // XXX: Keep it for backward compatibility until moving everything to 鈥榞etRequestMapMultiMap鈥�.
         public Map<String, RequestMap> getRequestMapMap() throws WebAppConfigurationException {
-            MapContext<String, RequestMap> result = new MapContext<>();
+            return new MultivaluedMapContextAdapter<>(getRequestMapMultiMap());
+        }
+
+        public MultivaluedMapContext<String, RequestMap> getRequestMapMultiMap() throws WebAppConfigurationException {
+            MultivaluedMapContext<String, RequestMap> result = new MultivaluedMapContext<>();
             for (URL includeLocation : includes) {
                 ControllerConfig controllerConfig = getControllerConfig(includeLocation);
-                result.push(controllerConfig.getRequestMapMap());
+                result.push(controllerConfig.getRequestMapMultiMap());
             }
             result.push(requestMapMap);
             return result;
@@ -403,7 +410,7 @@ public class ConfigXMLReader {
         private void loadRequestMap(Element root) {
             for (Element requestMapElement : UtilXml.childElementList(root, "request-map")) {
                 RequestMap requestMap = new RequestMap(requestMapElement);
-                this.requestMapMap.put(requestMap.uri, requestMap);
+                this.requestMapMap.add(requestMap.uri, requestMap);
             }
         }
 
@@ -450,6 +457,7 @@ public class ConfigXMLReader {
 
     public static class RequestMap {
         public String uri;
+        public String method;
         public boolean edit = true;
         public boolean trackVisit = true;
         public boolean trackServerHit = true;
@@ -466,6 +474,7 @@ public class ConfigXMLReader {
         public RequestMap(Element requestMapElement) {
             // Get the URI info
             this.uri = requestMapElement.getAttribute("uri");
+            this.method = requestMapElement.getAttribute("method");
             this.edit = !"false".equals(requestMapElement.getAttribute("edit"));
             this.trackServerHit = !"false".equals(requestMapElement.getAttribute("track-serverhit"));
             this.trackVisit = !"false".equals(requestMapElement.getAttribute("track-visit"));

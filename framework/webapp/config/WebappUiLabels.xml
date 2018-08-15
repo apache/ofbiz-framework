@@ -339,4 +339,8 @@
         <value xml:lang="zh">没有完成事件</value>
         <value xml:lang="zh-TW">沒有完成事件</value>
     </property>
+    <property key="RequestMethodNotMatchConfig">
+        <value xml:lang="en">[{0}] cannot be called by [{1}] method.</value>
+        <value xml:lang="zh">[{0}]不能用[{1}]方法请求。</value>
+    </property>
 </resource>
