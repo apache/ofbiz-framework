@@ -72,7 +72,8 @@ public class CommonEvents {
         "targetRequestUri",
         "_SERVER_ROOT_URL_",
         "_CONTROL_PATH_",
-        "thisRequestUri"
+        "thisRequestUri",
+        "org.apache.tomcat.util.net.secure_protocol_version"
     };
 
     /** Simple event to set the users per-session locale setting. The user's locale
