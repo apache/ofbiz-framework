@@ -40,16 +40,10 @@
 @box-border-color: #d7d7d7;
 
 @font-face {
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
-  src: url('fonts/quicksand/quicksandbold.otf');
+  font-family: 'quicksandregular';
+  src: url('fonts/quicksand/quicksand-regular.woff2') format('woff2'),
+       url('fonts/quicksand/quicksand-regular.woff') format('woff');
   font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
-  src: url('fonts/quicksand/quicksandbold.otf');
-  font-weight: bold;
   font-style: normal;
 }
 
@@ -116,7 +110,7 @@
   padding-left: 35px;
   position: relative;
   cursor: pointer;
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   font-size: 12px;
 
 }
@@ -503,7 +497,7 @@ li.line-odd {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-family: Quicksand,sans-serif;
+  font-family: quicksandregular,sans-serif;
   background-color: @dark-color-theme;
   z-index: 5;
   height: @app-bar-height;
@@ -822,7 +816,7 @@ a.user-pref-btn {
     min-width: 75px;
     padding-left: 6px;
     padding-right: 6px;
-    font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+    font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
     border-bottom: solid 1px @black;
     font-size: 12px;
     @media screen and (max-width: 1500px) {
@@ -1039,7 +1033,7 @@ a.user-pref-btn {
     padding: 5px 10px 5px 10px;
     border-bottom: solid 1px @black;
     span {
-      font-family: "Quicksand", Arial, "Lucida Grande", sans-serif !important;
+      font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif !important;
       font-size: 15px;
       font-weight: bold;
       width: 110px;
@@ -1485,7 +1479,7 @@ form .basic-table,
 .info-message-title {
   min-width:150px;
   margin: 5px;
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   font-size: 16px;
   font-weight: bold;
 }
@@ -1528,7 +1522,7 @@ form .basic-table,
 table.msg-list {
   width: 100%;
   font-size: 16px;
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   padding: 0;
   thead {
     height: 100%;
@@ -1599,7 +1593,7 @@ table.msg-list {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+        font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
         color: @dark-color-theme;
         height: 100%;
         width: 100%;
@@ -1643,14 +1637,14 @@ select.paginate-select {
 }
 
 .paginate-select-label {
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   font-size: 16px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
 .paginate-information {
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   font-size: 16px;
   padding-left: 15px;
   padding-right: 15px;
@@ -1674,7 +1668,7 @@ ul.paginate-pg-list li:hover{
 .nav-pager {
   background-color: @greydark;
   color: @white;
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif;
   font-size: 9px;
   font-weight: bold;
   line-height: 3.5em;
@@ -1883,7 +1877,7 @@ input[type="button"] {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-family: "Quicksand", Arial, "Lucida Grande", sans-serif !important;
+  font-family: "quicksandregular", Arial, "Lucida Grande", sans-serif !important;
   z-index: 10;
 
   span {
