@@ -211,6 +211,12 @@ public class ControlServlet extends HttpServlet {
         try {
             // the ServerHitBin call for the event is done inside the doRequest method
             requestHandler.doRequest(request, response, null, userLogin, delegator);
+        } catch (MethodNotAllowedException e) {
+            response.setContentType("text/plain");
+            response.setCharacterEncoding(request.getCharacterEncoding());
+            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            response.getWriter().print(e.getMessage());
+            Debug.logError(e.getMessage(), module);
         } catch (RequestHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             if (throwable instanceof IOException) {

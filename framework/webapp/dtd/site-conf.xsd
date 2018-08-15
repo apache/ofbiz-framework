@@ -216,6 +216,24 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="method" use="optional" default="all">
+            <xs:annotation>
+                <xs:documentation>
+                    The HTTP of this request. This will be the HTTP method used to access the request.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="get"/>
+                    <xs:enumeration value="post"/>
+                    <xs:enumeration value="put"/>
+                    <xs:enumeration value="delete"/>
+                    <xs:enumeration value="patch"/>
+                    <xs:enumeration value="options"/>
+                    <xs:enumeration value="all"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute type="xs:boolean" name="edit" default="true">
             <xs:annotation>
                 <xs:documentation>
