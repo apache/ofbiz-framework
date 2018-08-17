@@ -516,10 +516,10 @@ public class ServerHitBin {
 
             String fullRequestUrl = UtilHttp.getFullRequestUrl(request);
 
-            serverHit.set("requestUrl", fullRequestUrl.length() > 250 ? fullRequestUrl.substring(0, 250) : fullRequestUrl);
+            serverHit.set("requestUrl", fullRequestUrl);
             String referrerUrl = request.getHeader("Referer") != null ? request.getHeader("Referer") : "";
 
-            serverHit.set("referrerUrl", referrerUrl.length() > 250 ? referrerUrl.substring(0, 250) : referrerUrl);
+            serverHit.set("referrerUrl", referrerUrl);
 
             // get localhost ip address and hostname to store
             if (VisitHandler.address != null) {
