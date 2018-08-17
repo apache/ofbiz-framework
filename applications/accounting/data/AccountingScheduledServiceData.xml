@@ -20,8 +20,8 @@ under the License.
 
 <entity-engine-xml>
     <RecurrenceRule recurrenceRuleId="400" untilDateTime="" frequency="MONTHLY" intervalNumber="1" countNumber="-1"/>
-    <RecurrenceInfo recurrenceInfoId="400" startDateTime="2008-05-14 22:00:00.000" recurrenceRuleId="400" recurrenceCount="0"/>
     <RuntimeData runtimeDataId="8501">
+        <RecurrenceInfo recurrenceInfoId="400" startDateTime="2008-05-14 22:00:00.000" recurrenceRuleId="400" recurrenceCount="0"/>
         <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
             <ofbiz-ser>
                 <map-HashMap>
