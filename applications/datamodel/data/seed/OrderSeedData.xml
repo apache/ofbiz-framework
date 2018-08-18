@@ -49,6 +49,7 @@ under the License.
     <OrderAdjustmentType description="Additional Feature" hasTable="N" orderAdjustmentTypeId="ADDITIONAL_FEATURE"/>
     <OrderAdjustmentType description="Warranty" hasTable="N" orderAdjustmentTypeId="WARRANTY_ADJUSTMENT"/>
     <OrderAdjustmentType description="Marketing Package Adjustment" hasTable="N" orderAdjustmentTypeId="MKTG_PKG_AUTO_ADJUST"/>
+    <OrderAdjustmentType description="Deposit" hasTable="N" orderAdjustmentTypeId="DEPOSIT_ADJUSTMENT"/>
 
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_ADDRESS" description="Addresss"/>
     <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_CREDITCARD" description="Credit Card"/>

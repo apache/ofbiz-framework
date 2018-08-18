@@ -1038,6 +1038,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             ProductPromoWorker.doPromotions(cart, dispatcher);
         }
 
+        calcDepositAdjustments();
         if (!"PURCHASE_ORDER".equals(cart.getOrderType())) {
             // store the auto-save cart
             if (triggerExternalOps && ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
@@ -1058,6 +1059,33 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
             cart.clearItemShipInfo(this);
             cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
+        }
+    }
+
+    public void calcDepositAdjustments() {
+        List<GenericValue>itemAdjustments = this.getAdjustments();
+        try {
+            GenericValue depositAmount = EntityQuery.use(delegator).from("ProductPrice").where("productId", this.getProductId(), "productPricePurposeId", "DEPOSIT", "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+            if (UtilValidate.isNotEmpty(depositAmount)) {
+                Boolean updatedDepositAmount = false;
+                BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), generalRounding);
+                // itemAdjustments is a reference so directly setting updated amount to the same.
+                    for(GenericValue itemAdjustment : itemAdjustments) {
+                    if("DEPOSIT_ADJUSTMENT".equals(itemAdjustment.getString("orderAdjustmentTypeId"))) {
+                            itemAdjustment.set("amount", adjustmentAmount);
+                            updatedDepositAmount = true;
+                        }
+                }
+                if (!updatedDepositAmount) {
+                    GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment");
+                    orderAdjustment.set("orderAdjustmentTypeId", "DEPOSIT_ADJUSTMENT");
+                    orderAdjustment.set("description", "Surcharge Adjustment");
+                    orderAdjustment.set("amount", adjustmentAmount);
+                    this.addAdjustment(orderAdjustment);
+                }
+            }
+        } catch (GenericEntityException e){
+            Debug.logError("Error in fetching deposite price details!!", module);
         }
     }
 
