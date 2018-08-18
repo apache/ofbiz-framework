@@ -281,6 +281,7 @@ under the License.
     <ProductPriceType description="Minimum Order Price" productPriceTypeId="MINIMUM_ORDER_PRICE"/>
     <ProductPriceType description="Shipping Allowance Price" productPriceTypeId="SHIPPING_ALLOWANCE"/>
 
+    <ProductPricePurpose description="Deposit price" productPricePurposeId="DEPOSIT"/>
     <ProductPricePurpose description="Purchase/Initial" productPricePurposeId="PURCHASE"/>
     <ProductPricePurpose description="Recurring Charge" productPricePurposeId="RECURRING_CHARGE"/>
     <ProductPricePurpose description="Usage Charge" productPricePurposeId="USAGE_CHARGE"/>
