@@ -24,9 +24,12 @@
     <test-case case-name="loadPartyContactMechTestData">
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyContactMechTestData.xml"/>
     </test-case>
-
+    <test-case case-name="ContactMechWorker-tests">
+        <groovy-test-suite name="contactMechWorker" location="component://party/groovyScripts/test/ContactMechWorkerTests.groovy"/>
+    </test-case>
     <test-case case-name="partyContactMech-tests">
         <simple-method-test location="component://party/minilang/test/PartyContactMechTests.xml"/>
     </test-case>
+
 
 </test-suite>

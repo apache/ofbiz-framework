@@ -1342,11 +1342,15 @@ under the License.
         <member-entity entity-alias="CM" entity-name="ContactMech"/>
         <member-entity entity-alias="PA" entity-name="PostalAddress"/>
         <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <member-entity entity-alias="FA" entity-name="FtpAddress"/>
         <alias-all entity-alias="CM"/>
         <alias-all entity-alias="PA" prefix="pa">
             <exclude field="contactMechId"/>
         </alias-all>
         <alias-all entity-alias="TN" prefix="tn">
+            <exclude field="contactMechId"/>
+        </alias-all>
+        <alias-all entity-alias="FA" prefix="fa">
             <exclude field="contactMechId"/>
         </alias-all>
         <view-link entity-alias="CM" rel-entity-alias="PA" rel-optional="true">
@@ -1355,30 +1359,23 @@ under the License.
         <view-link entity-alias="CM" rel-entity-alias="TN" rel-optional="true">
             <key-map field-name="contactMechId"/>
         </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="FA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
     </view-entity>
     <view-entity entity-name="PartyAndContactMech"
         package-name="org.apache.ofbiz.party.contact"
         title="Party and Contact Mech View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
-        <member-entity entity-alias="CM" entity-name="ContactMech"/>
-        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
-        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <member-entity entity-alias="CMD" entity-name="ContactMechDetail"/>
         <alias-all entity-alias="PTY"/>
         <alias-all entity-alias="PCM"/>
-        <alias-all entity-alias="CM"/>
-        <alias-all entity-alias="PA" prefix="pa"/>
-        <alias-all entity-alias="TN" prefix="tn"/>
+        <alias-all entity-alias="CMD"/>
         <view-link entity-alias="PTY" rel-entity-alias="PCM">
             <key-map field-name="partyId"/>
         </view-link>
-        <view-link entity-alias="PCM" rel-entity-alias="CM">
-            <key-map field-name="contactMechId"/>
-        </view-link>
-        <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
-            <key-map field-name="contactMechId"/>
-        </view-link>
-        <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
+        <view-link entity-alias="PCM" rel-entity-alias="CMD">
             <key-map field-name="contactMechId"/>
         </view-link>
         <relation type="many" rel-entity-name="PartyContactMech">
@@ -1395,6 +1392,9 @@ under the License.
             <key-map field-name="contactMechId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="FtpAddress">
             <key-map field-name="contactMechId"/>
         </relation>
     </view-entity>

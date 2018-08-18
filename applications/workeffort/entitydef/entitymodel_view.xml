@@ -940,6 +940,37 @@ under the License.
             <key-map field-name="contactMechId"/>
         </view-link>
     </view-entity>
+    <view-entity entity-name="WorkEffortAndContactMech"
+                                   package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Order Contact Detail View">
+        <member-entity entity-alias="WCM" entity-name="WorkEffortContactMech"/>
+        <member-entity entity-alias="CMD" entity-name="ContactMechDetail"/>
+        <alias-all entity-alias="WCM"/>
+        <alias-all entity-alias="CMD"/>
+        <view-link entity-alias="WCM" rel-entity-alias="CMD">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="WorkEffortContactMech">
+            <key-map field-name="workEffortId"/>
+            <key-map field-name="contactMechPurposeTypeId"/>
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMechPurposeType">
+            <key-map field-name="contactMechPurposeTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="FtpAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+    </view-entity>
 
     <view-entity entity-name="WorkEffortAndTimeEntry" package-name="org.apache.ofbiz.workeffort.workeffort"
                  title="WorkEffort and TimeEntry View Entity">
