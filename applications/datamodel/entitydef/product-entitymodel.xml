@@ -1048,17 +1048,36 @@ under the License.
     </entity>
     <view-entity entity-name="FacilityAndContactMech" package-name="org.apache.ofbiz.product.facility" title="Facility and Contact Mech View">
         <member-entity entity-alias="FA" entity-name="Facility"/>
-        <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
-        <member-entity entity-alias="MC" entity-name="ContactMech"/>
+        <member-entity entity-alias="FCM" entity-name="FacilityContactMech"/>
+        <member-entity entity-alias="CMD" entity-name="ContactMechDetail"/>
         <alias-all entity-alias="FA"/>
-        <alias-all entity-alias="CM"/>
-        <alias-all entity-alias="MC"/>
-        <view-link entity-alias="FA" rel-entity-alias="CM">
+        <alias-all entity-alias="FCM"/>
+        <alias-all entity-alias="CMD"/>
+        <view-link entity-alias="FA" rel-entity-alias="FCM">
             <key-map field-name="facilityId"/>
         </view-link>
-        <view-link entity-alias="CM" rel-entity-alias="MC">
+        <view-link entity-alias="FCM" rel-entity-alias="CMD">
             <key-map field-name="contactMechId"/>
         </view-link>
+        <relation type="many" rel-entity-name="FacilityContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Facility">
+            <key-map field-name="facilityId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="FtpAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
     </view-entity>
     <entity entity-name="FacilityAttribute" package-name="org.apache.ofbiz.product.facility" title="Facility Attribute">
         <field name="facilityId" type="id"></field>
