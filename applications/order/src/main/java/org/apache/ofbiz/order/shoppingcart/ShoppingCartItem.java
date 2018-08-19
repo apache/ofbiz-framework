@@ -65,7 +65,6 @@ import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -1065,7 +1064,9 @@ public class ShoppingCartItem implements java.io.Serializable {
     public void calcDepositAdjustments() {
         List<GenericValue>itemAdjustments = this.getAdjustments();
         try {
-            GenericValue depositAmount = EntityQuery.use(delegator).from("ProductPrice").where("productId", this.getProductId(), "productPricePurposeId", "DEPOSIT", "productPriceTypeId", "DEFAULT_PRICE").filterByDate().queryFirst();
+            GenericValue depositAmount = EntityQuery.use(delegator).from("ProductPrice")
+                    .where("productId", this.getProductId(), "productPricePurposeId", "DEPOSIT", "productPriceTypeId", "DEFAULT_PRICE")
+                    .filterByDate().queryFirst();
             if (UtilValidate.isNotEmpty(depositAmount)) {
                 Boolean updatedDepositAmount = false;
                 BigDecimal adjustmentAmount = depositAmount.getBigDecimal("price").multiply(this.getQuantity(), generalRounding);
