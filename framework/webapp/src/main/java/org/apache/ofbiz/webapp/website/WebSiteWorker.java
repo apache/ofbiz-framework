@@ -58,6 +58,7 @@ public final class WebSiteWorker {
      * @param delegator
      * @param webSiteId
      * @param useCache
+     * @return GenericValue
      */
     public static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
         GenericValue result = null;
