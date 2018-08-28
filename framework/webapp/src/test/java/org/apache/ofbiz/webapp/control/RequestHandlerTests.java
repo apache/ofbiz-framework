@@ -120,13 +120,25 @@ public class RequestHandlerTests {
         }
 
         @Test
-        public void resolveURIOverrideView() throws Exception {
+        public void resolveURIBasicOverrideView() throws Exception {
             RequestMap foo = new RequestMap(dummyElement);
             RequestMap bar = new RequestMap(dummyElement);
             reqMaps.putSingle("foo", foo);
             reqMaps.putSingle("bar", bar);
 
             viewMaps.put("baz", new ViewMap(dummyElement));
+
+            when(req.getPathInfo()).thenReturn("/foo/baz");
+            when(ccfg.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
+        }
+
+        @Test
+        public void resolveURIMissingOverrideView() throws Exception {
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo", foo);
+            reqMaps.putSingle("bar", bar);
 
             when(req.getPathInfo()).thenReturn("/foo/baz");
             when(ccfg.getDefaultRequest()).thenReturn("bar");

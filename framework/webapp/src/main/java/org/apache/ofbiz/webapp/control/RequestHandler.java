@@ -194,7 +194,9 @@ public class RequestHandler {
         String requestUri = getRequestUri(path);
         String viewUri = getOverrideViewUri(path);
         Collection<RequestMap> rmaps;
-        if (requestMapMap.containsKey(requestUri) && !viewMapMap.containsKey(viewUri)) {
+        if (requestMapMap.containsKey(requestUri)
+                // Ensure that overridden view exists.
+                && (viewUri == null || viewMapMap.containsKey(viewUri))) {
             rmaps = requestMapMap.get(requestUri);
         } else if (defaultRequest != null) {
             rmaps = requestMapMap.get(defaultRequest);
