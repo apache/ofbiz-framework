@@ -527,22 +527,6 @@ public class ServerHitBin {
                 serverHit.set("serverHostName", VisitHandler.address.getHostName());
             }
 
-            // The problem with
-            //
-            //     serverHit.create();
-            //
-            // is that if there are two requests with the same startTime (this should only happen with MySQL see https://issues.apache.org/jira/browse/OFBIZ-2208)
-            // then this will go wrong and abort the actual
-            // transaction we are interested in.
-            // Another way instead of using create is to store or update,
-            // that is overwrite in case there already was an entry, thus
-            // avoiding the transaction being aborted which is not
-            // less desirable than having multiple requests with the
-            // same startTime overwriting each other.
-            // This may not satisfy those who want to record each and
-            // every server hit even with equal startTimes but that could be
-            // solved adding a counter to the ServerHit's PK (a counter
-            // counting multiple hits at the same startTime).
             serverHit.create();
         }
     }
