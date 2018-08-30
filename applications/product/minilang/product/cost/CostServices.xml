@@ -559,16 +559,8 @@ under the License.
             <calculate field="productAverageCostMap.averageCost" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="get" field="productAverageCostMap.averageCost"/>
             </calculate>
-            
-            <!-- ensure that the new ProductAverageCost record has a different PK than the previous one by setting the fromDate to now, plus an offset if needed -->
-            <now-timestamp field="nowTimestamp"/>
-            <set field="timeDiff" value="${groovy: return nowTimestamp.getTime() - productAverageCost.fromDate.getTime()}" type="Long"/>
-            <if-compare field="timeDiff" operator="less-equals" value="1000" type="Long">
-                <set-calendar field="productAverageCostMap.fromDate" from-field="nowTimestamp" seconds="+1"/>
-                <else>
-                    <set field="productAverageCostMap.fromDate" from-field="nowTimestamp"/>
-                </else>
-            </if-compare>
+
+            <now-timestamp field="productAverageCostMap.fromDate"/>
         </else>
         </if-empty>
         
