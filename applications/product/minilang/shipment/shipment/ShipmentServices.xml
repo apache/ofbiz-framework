@@ -1364,7 +1364,8 @@ under the License.
         <entity-one entity-name="Facility" value-field="facility"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
         <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
-        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId}"/>
+        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId} shipment created ${shipmentIds}"/>
+        <field-to-result field="shipmentIds" result-name="shipmentIds"/>
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupLists"
@@ -1545,9 +1546,11 @@ under the License.
                 <set field="argListNames[]" from-field="shipmentShipGroupFacility.facilityId"/>
                 <property-to-field property="FacilityShipmentIdCreated" resource="ProductUiLabels" field="successMessage" arg-list-name="argListNames"/>
                 <clear-field field="shipmentShipGroupFacility"/>
+                <set field="shipmentIds[]" from-field="shipment.shipmentId"/>
             </else>
             </if-empty>
         </iterate>
+        <field-to-result field="shipmentIds" result-name="shipmentIds"/>
     </simple-method>
 
     <simple-method method-name="createOrderShipmentPlan" short-description="Create Shipment, ShipmentItems and OrderShipment">
