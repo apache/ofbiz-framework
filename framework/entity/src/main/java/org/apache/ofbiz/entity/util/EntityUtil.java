@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -48,6 +49,8 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.OrderByList;
 import org.apache.ofbiz.entity.model.ModelField;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Helper methods when dealing with Entities, especially ones that follow certain conventions
@@ -265,21 +268,10 @@ public final class EntityUtil {
      *@return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByAnd(List<T> values, Map<String, ? extends Object> fields) {
-        if (values == null) return null;
-
-        List<T> result = null;
-        if (UtilValidate.isEmpty(fields)) {
-            result = new LinkedList<T>();
-            result.addAll(values);
-        } else {
-            result = new LinkedList<T>();
-            for (T value: values) {
-                if (value.matchesFields(fields)) {
-                    result.add(value);
-                }// else did not match
-            }
+        if (values == null || UtilValidate.isEmpty(fields)) {
+            return values;
         }
-        return result;
+        return values.stream().filter(value -> value.matchesFields(fields)).collect(toList());
     }
 
     /**
@@ -290,25 +282,13 @@ public final class EntityUtil {
      *@return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByAnd(List<T> values, List<? extends EntityCondition> exprs) {
-        if (values == null) return null;
-        if (UtilValidate.isEmpty(exprs)) {
-            // no constraints... oh well
+        if (values == null || UtilValidate.isEmpty(exprs)) {
             return values;
         }
 
-        List<T> result = new LinkedList<T>();
-        for (T value: values) {
-            boolean include = true;
-
-            for (EntityCondition condition: exprs) {
-                include = condition.entityMatches(value);
-                if (!include) break;
-            }
-            if (include) {
-                result.add(value);
-            }
-        }
-        return result;
+        return values.stream()
+                .filter(value -> exprs.stream().allMatch(condition -> condition.entityMatches(value)))
+                .collect(toList());
     }
 
     /**
@@ -319,24 +299,13 @@ public final class EntityUtil {
      *@return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByOr(List<T> values, List<? extends EntityCondition> exprs) {
-        if (values == null) return null;
-        if (UtilValidate.isEmpty(exprs)) {
+        if (values == null || UtilValidate.isEmpty(exprs)) {
             return values;
         }
 
-        List<T> result = new LinkedList<T>();
-        for (T value: values) {
-            boolean include = false;
-
-            for (EntityCondition condition: exprs) {
-                include = condition.entityMatches(value);
-                if (include) break;
-            }
-            if (include) {
-                result.add(value);
-            }
-        }
-        return result;
+        return values.stream()
+                .filter(value -> exprs.stream().anyMatch(condition -> condition.entityMatches(value)))
+                .collect(toList());
     }
     
     /**
@@ -415,27 +384,17 @@ public final class EntityUtil {
     }
 
     public static <T extends GenericEntity> List<T> filterByCondition(List<T> values, EntityCondition condition) {
-        if (values == null) return null;
-
-        List<T> result = new LinkedList<T>();
-        for (T value: values) {
-            if (condition.entityMatches(value)) {
-                result.add(value);
-            }
+        if (values == null || UtilValidate.isEmpty(condition)) {
+            return values;
         }
-        return result;
+        return values.stream().filter(value -> condition.entityMatches(value)).collect(toList());
     }
 
     public static <T extends GenericEntity> List<T> filterOutByCondition(List<T> values, EntityCondition condition) {
-        if (values == null) return null;
-
-        List<T> result = new LinkedList<T>();
-        for (T value: values) {
-            if (!condition.entityMatches(value)) {
-                result.add(value);
-            }
+        if (values == null || UtilValidate.isEmpty(condition)) {
+            return values;
         }
-        return result;
+        return values.stream().filter(value -> !condition.entityMatches(value)).collect(toList());
     }
 
     public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
@@ -505,27 +464,13 @@ public final class EntityUtil {
         if (genericValueList == null || fieldName == null) {
             return null;
         }
-        List<T> fieldList = new LinkedList<T>();
-        Set<T> distinctSet = null;
+
+        Stream<T> tStream = genericValueList.stream().map(genericValue -> UtilGenerics.cast(genericValue.get(fieldName)));
         if (distinct) {
-            distinctSet = new HashSet<T>();
+            return tStream.distinct().collect(toList());
+        } else {
+            return tStream.collect(toList());
         }
-
-        for (GenericValue value: genericValueList) {
-            T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
-            if (fieldValue != null) {
-                if (distinct) {
-                    if (!distinctSet.contains(fieldValue)) {
-                        fieldList.add(fieldValue);
-                        distinctSet.add(fieldValue);
-                    }
-                } else {
-                    fieldList.add(fieldValue);
-                }
-            }
-        }
-
-        return fieldList;
     }
 
     public static <T> List<T> getFieldListFromEntityListIterator(EntityListIterator genericValueEli, String fieldName, boolean distinct) {
