@@ -73,6 +73,7 @@ under the License.
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="true"/>
         <!-- A List of Maps, each with a shipmentId,a facilityId, and a shipGroupSeqId for each shipment created -->
         <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false"/>
+        <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="quickShipOrderByItem" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickShipOrderByItem" auth="true">
@@ -93,6 +94,7 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentIds" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="createShipmentForReturn">
