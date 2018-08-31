@@ -86,6 +86,7 @@ under the License.
             <xs:attribute name="style" type="xs:string" />
             <xs:attribute name="focus-field-name" type="xs:string" />
             <xs:attribute name="title" type="xs:string" />
+            <xs:attribute name="empty-form-data-message" type="xs:string" default="${uiLabelMap.CommonNoRecordFound}"/>
             <xs:attribute name="tooltip" type="xs:string" />
             <xs:attribute name="list-name" type="xs:string">
                 <xs:annotation>
@@ -327,6 +328,7 @@ under the License.
             <xs:attribute name="style" type="xs:string" />
             <xs:attribute name="focus-field-name" type="xs:string" />
             <xs:attribute name="title" type="xs:string" />
+            <xs:attribute name="empty-form-data-message" type="xs:string" default="${uiLabelMap.CommonNoRecordFound}"/>
             <xs:attribute name="tooltip" type="xs:string" />
             <xs:attribute name="list-name" type="xs:string">
                 <xs:annotation>

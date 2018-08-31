@@ -77,6 +77,7 @@ under the License.
 <#macro renderIgnoredField><!--ignore--></#macro>
 
 <#macro renderFieldTitle style title id fieldHelpText="" for=""><fo:block <@getFoStyle style/>>${title?default("")?replace("&nbsp;", " ")}</fo:block></#macro>
+<#macro renderEmptyFormDataMessage message></#macro>
 <#macro renderSingleFormFieldTitle><!--title form--></#macro>
 
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>

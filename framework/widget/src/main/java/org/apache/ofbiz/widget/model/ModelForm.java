@@ -184,6 +184,7 @@ public abstract class ModelForm extends ModelWidget {
     private final String targetType;
     private final FlexibleStringExpander targetWindowExdr;
     private final String title;
+    private final FlexibleStringExpander emptyFormDataMessage;
     private final String tooltip;
     private final String type;
     private final boolean useRowSubmit;
@@ -241,6 +242,11 @@ public abstract class ModelForm extends ModelWidget {
             title = parentModel.title;
         }
         this.title = title;
+        FlexibleStringExpander emptyFormDataMessage = FlexibleStringExpander.getInstance(formElement.getAttribute("empty-form-data-message"));
+        if (emptyFormDataMessage.isEmpty() && parentModel != null) {
+            emptyFormDataMessage = parentModel.emptyFormDataMessage;
+        }
+        this.emptyFormDataMessage = emptyFormDataMessage;
         String tooltip = formElement.getAttribute("tooltip");
         if (tooltip.isEmpty() && parentModel != null) {
             tooltip = parentModel.tooltip;
@@ -1372,6 +1378,10 @@ public abstract class ModelForm extends ModelWidget {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public String getEmptyFormDataMessage(Map<String, Object> context) {
+        return this.emptyFormDataMessage.expandString(context);
     }
 
     public String getTooltip() {
