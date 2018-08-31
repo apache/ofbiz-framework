@@ -51,6 +51,7 @@ under the License.
 <#macro renderIgnoredField></#macro>
 
 <#macro renderFieldTitle style title id="" fieldHelpText="" for=""><@renderField title />,</#macro>
+<#macro renderEmptyFormDataMessage message></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit focusFieldName hasRequiredField></#macro>

@@ -51,6 +51,7 @@ import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
+import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelGrid;
 
@@ -921,11 +922,14 @@ public class FormRenderer {
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
         int numOfColumns = 0;
+        boolean containsData = this.checkFormData(context);
         // ===== render header row =====
-        if (!modelForm.getHideHeader()) {
+        if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-
+        if (!containsData){
+            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
+        }
         // ===== render the item rows =====
         this.renderItemRows(writer, context, formStringRenderer, true, numOfColumns);
 
@@ -947,11 +951,14 @@ public class FormRenderer {
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
         int numOfColumns = 0;
+        boolean containsData = this.checkFormData(context);
         // ===== render header row =====
-        if (!modelForm.getHideHeader()) {
+        if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-
+        if (!containsData){
+            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
+        }
         // ===== render the item rows =====
         this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
 
@@ -1191,6 +1198,42 @@ public class FormRenderer {
             formStringRenderer.renderFormClose(writer, context, modelForm);
         }
 
+    }
+    private boolean checkFormData(Map<String, Object> context) {
+        String lookupName = modelForm.getListName();
+        Object obj = context.get(lookupName);
+        if (obj == null) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
+            return true;
+        }
+        // if list is empty, do not render rows
+        Iterator<?> iter = null;
+        if (obj instanceof Iterator<?>) {
+            iter = (Iterator<?>) obj;
+        } else if (obj instanceof List<?>) {
+            iter = ((List<?>) obj).listIterator();
+        }
+        int itemIndex = -1;
+        if (iter instanceof EntityListIterator) {
+            EntityListIterator eli = (EntityListIterator) iter;
+            try {
+                if(eli.getResultsSizeAfterPartialList() > 0){
+                    itemIndex++;
+                }
+            } catch (GenericEntityException gee) {
+                Debug.logError(gee,module);
+            }
+        } else {
+            while (iter.hasNext()) {
+                itemIndex++;
+                break;
+            }
+        }
+        if (itemIndex < 0) {
+            return false;
+        }
+        return true;
     }
 
     private static <X> X safeNext(Iterator<X> iterator) {

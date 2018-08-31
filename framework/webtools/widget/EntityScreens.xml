@@ -199,9 +199,9 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WebtoolsErrorUiLabels" map-name="uiLabelMap"/>
-                <script location="component://webtools/groovyScripts/entity/FindGeneric.groovy"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
+                <script location="component://webtools/groovyScripts/entity/FindGeneric.groovy"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
                 <set field="commonDisplaying" from-field="uiLabelMap.CommonDisplaying"/>
                 <set field="tabButtonItem" value="entitymaint"/>
