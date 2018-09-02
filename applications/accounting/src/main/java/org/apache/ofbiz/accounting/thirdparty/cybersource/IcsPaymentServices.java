@@ -42,9 +42,9 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
-import com.cybersource.ws.client.Client;
-import com.cybersource.ws.client.ClientException;
-import com.cybersource.ws.client.FaultException;
+import com.cybersource.ws.client.Client; //error
+import com.cybersource.ws.client.ClientException;  //error
+import com.cybersource.ws.client.FaultException;  //error
 
 /**
  * CyberSource WS Integration Services
